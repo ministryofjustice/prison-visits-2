@@ -11,4 +11,6 @@ group :development, :test do
   gem 'brakeman'
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0'
+  gem 'rubocop'
+  gem 'rubocop-rspec'
 end
