@@ -35,4 +35,6 @@ Rails.application.configure do
   config.logstasher.logger_path = "#{Rails.root}/log/logstash_#{Rails.env}.json"
 
   config.mx_checker = MxChecker.new
+
+  config.active_job.queue_adapter = :sidekiq
 end
