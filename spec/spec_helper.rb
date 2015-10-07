@@ -1,9 +1,6 @@
 require 'simplecov'
 require 'simplecov-rcov'
 SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-SimpleCov.start 'rails' do
-  add_filter '/gem/'
-end
 SimpleCov.minimum_coverage 100
 
 # Minimal auto-load for quicker specs. This avoids loading the whole of Rails
@@ -34,6 +31,10 @@ RSpec.configure do |config|
 
   if config.files_to_run.one?
     config.default_formatter = 'doc'
+  else
+    SimpleCov.start 'rails' do
+      add_filter '/gem/'
+    end
   end
 
   config.profile_examples = 10
