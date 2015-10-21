@@ -1,6 +1,10 @@
 class DayOfWeek
-  def self.find(name)
+  def self.by_name(name)
     ALL.find { |d| d.name == name }
+  end
+
+  def self.by_index(index)
+    ALL.fetch(index)
   end
 
   def initialize(name, index)
@@ -19,4 +23,9 @@ class DayOfWeek
     FRI = new('fri', 5),
     SAT = new('sat', 6)
   ]
+
+  # These should be singletons, so ensure that no more can be created
+  def self.new(*)
+    fail ArgumentError
+  end
 end
