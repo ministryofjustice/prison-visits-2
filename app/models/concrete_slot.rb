@@ -1,3 +1,3 @@
 ConcreteSlot = Struct.new(
-  :year, :month, :day, :start_hour, :start_minute, :end_hour, :end_minute
+  :year, :month, :day, :begin_hour, :begin_minute, :end_hour, :end_minute
 )

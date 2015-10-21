@@ -1,5 +1,5 @@
 RecurringSlot = Struct.new(
-  :start_hour, :start_minute, :end_hour, :end_minute
+  :begin_hour, :begin_minute, :end_hour, :end_minute
 ) do
   def self.parse(text_range)
     matches = text_range.match(/\A(\d\d)(\d\d)-(\d\d)(\d\d)\z/)
@@ -9,7 +9,7 @@ RecurringSlot = Struct.new(
   def on(date)
     ConcreteSlot.new(
       date.year, date.month, date.day,
-      start_hour, start_minute, end_hour, end_minute
+      begin_hour, begin_minute, end_hour, end_minute
     )
   end
 end

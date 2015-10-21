@@ -1,8 +1,8 @@
 RSpec.describe AvailableSlotEnumerator do
   subject {
-    described_class.new(start_date, regular_slots, unbookable_dates, 5)
+    described_class.new(begin_date, regular_slots, unbookable_dates, 5)
   }
-  let(:start_date) { Date.new(2015, 10, 1) } # Thursday
+  let(:begin_date) { Date.new(2015, 10, 1) } # Thursday
 
   context 'with no unbookable dates' do
     let(:unbookable_dates) { [] }
