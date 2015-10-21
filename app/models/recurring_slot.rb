@@ -1,4 +1,4 @@
-class Slot
+class RecurringSlot
   def self.parse(text_range)
     matches = text_range.match(/\A(\d\d)(\d\d)-(\d\d)(\d\d)\z/)
     new(*matches[1, 4].map { |v| v.to_i(10) })

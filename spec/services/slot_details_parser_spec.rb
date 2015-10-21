@@ -31,8 +31,13 @@ RSpec.describe SlotDetailsParser do
     describe 'regular_slots' do
       it 'lists slots for each available day' do
         expect(subject.regular_slots).to eq(
-          DayOfWeek::MON => [Slot.new(14, 0, 16, 10)],
-          DayOfWeek::TUE => [Slot.new(9, 0, 10, 0), Slot.new(14, 0, 16, 10)]
+          DayOfWeek::MON => [
+            RecurringSlot.new(14, 0, 16, 10)
+          ],
+          DayOfWeek::TUE => [
+            RecurringSlot.new(9, 0, 10, 0),
+            RecurringSlot.new(14, 0, 16, 10)
+          ]
         )
       end
     end
