@@ -24,6 +24,10 @@ RSpec.describe SlotDetailsParser do
           'mon' => ['1400-1610'],
           'tue' => ['0900-1000', '1400-1610']
         },
+        'anomalous' => {
+          '2014-12-24' => ['1400-1600'],
+          '2014-12-31' => ['1400-1600']
+        },
         'unbookable' => ['2014-12-25', '2014-12-26']
       }
     }
@@ -37,6 +41,19 @@ RSpec.describe SlotDetailsParser do
           DayOfWeek::TUE => [
             RecurringSlot.new(9, 0, 10, 0),
             RecurringSlot.new(14, 0, 16, 10)
+          ]
+        )
+      end
+    end
+
+    describe 'anomalous_slots' do
+      it 'lists slots for each anomalous date' do
+        expect(subject.anomalous_slots).to eq(
+          Date.new(2014, 12, 24) => [
+            RecurringSlot.new(14, 0, 16, 00)
+          ],
+          Date.new(2014, 12, 31) => [
+            RecurringSlot.new(14, 0, 16, 00)
           ]
         )
       end
