@@ -1,13 +1,48 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Prison Visits</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<% content_for :page_title do %>
+  <%= page_title(yield(:header)) %>
+<% end %>
 
-<%= yield %>
+<% content_for :head do %>
+  <%= csrf_meta_tag %>
+<% end %>
 
-</body>
-</html>
+<% content_for :javascripts do %>
+  <%= javascript_include_tag "application" %>
+  <% if Rails.env == 'test' %>
+    <script>
+      moj.log = function(){}; // Silence hiring banner
+    </script>
+  <% end %>
+<% end %>
+
+<% content_for :cookie_message do %>
+  <%= t('layout.cookies.intro') %>
+  <%= link_to(t('layout.cookies.find_out_more'), '/') %>
+<% end %>
+
+<% content_for :content_override do %>
+  <main id="wrapper" role="main">
+    <div class="container">
+      <section class="content inner cf" id="content">
+        <header>
+          <h1>
+            <%= yield :header %>
+          </h1>
+        </header>
+
+        <% if notice.present? %>
+          <p class="validation-summary">
+            <%= notice %>
+          </p>
+        <% end %>
+
+        <%= yield %>
+      </section>
+    </div>
+  </main>
+<% end %>
+
+<% content_for :footer_support_links do %>
+<% end %>
+
+<%= render template: "layouts/moj_template" %>
