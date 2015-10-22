@@ -1,0 +1,47 @@
+/* Select box to text autocomplete styles */
+.moj-autocomplete {
+  position: relative;
+
+  input.ui-autocomplete-input {
+    width: 250px;
+  }
+
+  .dd-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+    height: 21px;
+    width: 35px;
+    background: image-url("down-arrow.png") right center no-repeat;
+  }
+}
+
+.ui-autocomplete {
+  padding: 0;
+  width: 218px;
+  max-height: 208px;
+  overflow-y: scroll;
+  list-style: none;
+  background-color: $white;
+  border: 1px solid $grey-2;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+
+  .ui-menu-item {
+    a {
+      display: block;
+      padding: 4px 6px;
+      color: $black;
+      cursor: pointer;
+
+      &.ui-state-hover,
+      &.ui-state-focus {
+        background-color: $light-blue-25;
+        color: $black;
+        &.ui-menu-noresults {
+          background-color: $white;
+        }
+      }
+    }
+  }
+}

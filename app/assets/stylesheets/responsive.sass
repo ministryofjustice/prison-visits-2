@@ -1,0 +1,29 @@
+.hidden--desktop
+  @include media(desktop)
+    display: none
+
+.hidden--mobile
+  @include media(mobile)
+    display: none
+
+.visible--mobile
+  display: none
+  @include media(mobile)
+    display: block
+
+.js-enabled .hidden--js-enabled
+  display: none
+
+.visible--js-enabled
+  display: none
+  .js-enabled &
+    display: block
+
+@media print
+  .hidden--print
+    display: none
+
+.visible--print
+  display: none
+  @media print
+    display: inherit

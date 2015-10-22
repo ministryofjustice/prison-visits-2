@@ -1,0 +1,42 @@
+{
+  "name": "MOJ Timeout Prompt",
+  "version": "0.2.2",
+  "homepage": "https://github.com/ministryofjustice/moj-timeoutprompt",
+  "authors": [
+    "Mat Harden <matharden@gmail.com>"
+  ],
+  "description": "A JavaScript trigger an alert and then redirect after a set time",
+  "main": "src/moj.TimeoutPrompt.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "moj",
+    "govuk",
+    "mojds",
+    "javascript",
+    "js"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "spec",
+    "Gruntfile.js"
+  ],
+  "dependencies": {
+    "lodash": "~3.0.0"
+  },
+  "_release": "0.2.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.2",
+    "commit": "6e55d35e12dd64b5d825b74b4786baeeb62c8700"
+  },
+  "_source": "git://github.com/ministryofjustice/moj-timeoutprompt.git",
+  "_target": "~0.2.0",
+  "_originalSource": "moj-timeoutprompt"
+}
