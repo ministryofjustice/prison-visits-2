@@ -7,7 +7,11 @@
 <% end %>
 
 <% content_for :javascripts do %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag('application', media: 'all') %>
+<% end %>
+
+<% content_for :javascripts do %>
+  <%= javascript_include_tag('application') %>
   <% if Rails.env == 'test' %>
     <script>
       moj.log = function(){}; // Silence hiring banner
@@ -45,4 +49,4 @@
 <% content_for :footer_support_links do %>
 <% end %>
 
-<%= render template: "layouts/moj_template" %>
+<%= render(template: 'layouts/moj_template') %>

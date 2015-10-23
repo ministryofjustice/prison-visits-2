@@ -1,0 +1,47 @@
+en:
+  layout:
+    cookies:
+      intro: GOV.UK uses cookies to make the site simpler.
+      find_out_more: Find out more about cookies.
+  steps:
+    prisoner:
+      title: Who are you visiting?
+      information_html: |
+        <ul>
+          <li>
+            you don’t need a Visiting Order (VO) number to request a visit
+          </li>
+          <li>
+            you need the dates of birth for all visitors coming with you
+          </li>
+          <li>
+            your visit will be confirmed by email within 3 working days of
+            making your request
+          </li>
+        </ul>
+      prisoner_details: Prisoner details
+      first_name: Prisoner first name
+      last_name: Prisoner last name
+      date_of_birth: Prisoner date of birth
+      date_of_birth_hint: eg 28 04 1996
+      number: Prisoner number
+      number_hint: eg a1234bc
+      prison_id: Name of the prison
+      prison_id_hint: eg Cardiff
+      prison_id_prompt: select a prison
+      continue: Continue
+    visitors:
+      title: Visitor 1
+      your_details: Your details
+      first_name: Your first name
+      last_name: Your last name
+      date_of_birth: Your date of birth
+      date_of_birth_hint: You must be over 18 to book a visit
+      email_address: Email address
+      email_address_hint: You’ll receive confirmation by email
+      phone_no: Phone number
+      continue: Continue
+  shared:
+    validation:
+      heading: You need to fix the errors on this page before continuing.
+      see_below: See highlighted errors below.
