@@ -3,3 +3,4 @@ en:
     errors:
       messages:
         name: is not a valid name
+        blank: is required

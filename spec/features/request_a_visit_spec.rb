@@ -39,4 +39,10 @@ RSpec.feature 'Booking a visit', js: true do
     fill_in 'Email address', with: 'ada@test.example.com'
     fill_in 'Phone number', with: '01154960222'
   end
+
+  scenario 'validation errors' do
+    visit steps_path
+    click_button 'Continue'
+    expect(page).to have_text('Prisoner first name is required')
+  end
 end
