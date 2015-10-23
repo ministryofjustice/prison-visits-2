@@ -32,6 +32,11 @@ private
     needed
   end
 
+  def slots_step_needed?
+    @slots_step, needed = load_step(SlotsStep, :slots_step)
+    needed
+  end
+
   def load_step(klass, name)
     if params.key?(name)
       step = klass.new(params[name])
