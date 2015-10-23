@@ -15,7 +15,6 @@ module Person
       inclusion: {
         in: ->(p) { p.minimum_date_of_birth..p.maximum_date_of_birth }
       }
-    validate :validate_four_digit_year
   end
 
   def full_name(glue = ' ')
@@ -41,13 +40,5 @@ module Person
 
   def date_of_birth
     super.is_a?(Date) ? super : nil
-  end
-
-private
-
-  def validate_four_digit_year
-    if date_of_birth.respond_to?(:year) && date_of_birth.year < 100
-      errors.add :date_of_birth, :four_digit_year
-    end
   end
 end

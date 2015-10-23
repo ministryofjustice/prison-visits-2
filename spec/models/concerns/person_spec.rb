@@ -1,14 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Person do
-  let(:klass) {
-    Class.new.tap { |c|
-      c.send :include, NonPersistedModel
-      c.send :include, described_class
-    }
-  }
+  subject {
+    Class.new {
+      include NonPersistedModel
 
-  subject { klass.new }
+      def self.model_name
+        ActiveModel::Name.new(self, nil, 'thing')
+      end
+
+    }.tap { |c| c.send :include, described_class }.new
+  }
 
   around do |example|
     Timecop.travel Date.new(2015, 10, 8) do
@@ -41,6 +43,32 @@ RSpec.describe Person do
 
     it 'gives a year of this year' do
       expect(subject.maximum_date_of_birth.year).to eq(2015)
+    end
+  end
+
+  describe 'age' do
+    it 'is nil when date of birth is nil' do
+      expect(subject.age).to be_nil
+    end
+
+    it 'calculates age' do
+      subject.date_of_birth = Date.new(1995, 10, 8)
+      expect(subject.age).to eq(20)
+    end
+  end
+
+  describe 'full_name' do
+    it 'joins first and last name' do
+      subject.first_name = 'Oscar'
+      subject.last_name = 'Wilde'
+      expect(subject.full_name).to eq('Oscar Wilde')
+    end
+  end
+
+  describe 'last_initial' do
+    it 'is the first letter of the last name' do
+      subject.last_name = 'Wilde'
+      expect(subject.last_initial).to eq('W')
     end
   end
 end
