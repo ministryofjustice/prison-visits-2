@@ -1,4 +1,6 @@
 class StepsController < ApplicationController
+  helper FormElementsHelper
+
   def index
     @prisoner_step = PrisonerStep.new
     render :prisoner
