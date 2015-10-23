@@ -1,0 +1,32 @@
+---
+name: Wealstun
+nomis_id: WEI
+address:
+- Church Causeway
+- LS23 7AZ
+canned_responses: true
+email: socialvisits.wealstun@hmps.gsi.gov.uk
+enabled: true
+phone: 01937 444599
+slots:
+  mon:
+  - 0930-1130
+  - 1330-1530
+  tue:
+  - 0930-1130
+  - 1330-1530
+  wed:
+  - 0930-1130
+  - 1330-1530
+  thu:
+  - 0930-1130
+  - 1330-1530
+  sat:
+  - 0930-1130
+  - 1345-1600
+  sun:
+  - 0930-1130
+  - 1345-1600
+unbookable:
+- 2014-12-25
+- 2015-01-01

@@ -1,0 +1,25 @@
+---
+name: Stocken
+nomis_id: SKI
+address:
+- Stocken Hall Road
+- LE15 7RD
+canned_responses: true
+email: socialvisits.stocken@hmps.gsi.gov.uk
+enabled: true
+phone: 01780 795156
+slots:
+  fri:
+  - 1345-1545
+  sat:
+  - 0915-1115
+  - 1345-1545
+  sun:
+  - 0915-1115
+  - 1345-1545
+  wed:
+  - 1345-1545
+unbookable:
+- 2014-12-25
+- 2014-12-26
+- 2015-01-01

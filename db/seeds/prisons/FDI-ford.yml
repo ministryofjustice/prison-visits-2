@@ -1,0 +1,22 @@
+---
+name: Ford
+nomis_id: FDI
+address:
+- Arundel
+- BN18 0BX
+canned_responses: true
+email: socialvisits.ford@hmps.gsi.gov.uk
+enabled: true
+phone: 
+slots:
+  wed:
+  - 1800-2000
+  fri:
+  - 1400-1600
+  sat:
+  - 1400-1600
+  sun:
+  - 1400-1600
+unbookable:
+- 2014-12-25
+- 2014-12-31

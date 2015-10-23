@@ -1,0 +1,21 @@
+---
+name: North Sea Camp
+nomis_id: NSI
+address:
+- Freiston
+- PE22 0QX
+canned_responses: true
+email: socialvisits.northseacamp@hmps.gsi.gov.uk
+enabled: true
+phone: 01205 769 368
+slots:
+  sat:
+  - 0900-1130
+  - 1330-1545
+  sun:
+  - 0900-1130
+  - 1330-1545
+  wed:
+  - 1330-1545
+unbookable:
+- 2014-12-25

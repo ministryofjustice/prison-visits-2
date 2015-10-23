@@ -1,0 +1,22 @@
+---
+name: Hollesley Bay Open
+nomis_id: HBI
+address:
+- WOODBRIDGE
+- 'IP12 3JW '
+canned_responses: true
+email: socialvisits.hollesleybay@hmps.gsi.gov.uk
+enabled: true
+phone: ''
+slots:
+  sat:
+  - 1400-1545
+  sun:
+  - 1400-1545
+unbookable:
+- 2014-12-25
+- 2014-12-26
+- 2014-12-27
+- 2014-12-28
+- 2014-12-31
+- 2015-01-01

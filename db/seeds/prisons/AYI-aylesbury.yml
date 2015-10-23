@@ -1,0 +1,33 @@
+---
+name: Aylesbury
+nomis_id: AYI
+address:
+- Bierton Road
+- HP20 1EH
+canned_responses: true
+email: socialvisits.aylesbury@hmps.gsi.gov.uk
+enabled: true
+phone: 01296 444099
+slots:
+  mon:
+  - 1415-1615
+  sat:
+  - 1400-1535
+  sun:
+  - 1400-1535
+  thu:
+  - 1415-1615
+  wed:
+  - 1415-1615
+unbookable:
+- 2014-12-25
+- 2014-12-26
+- 2015-01-01
+- 2015-01-19
+- 2015-01-21
+- 2015-01-22
+- 2015-01-24
+- 2015-01-25
+- 2015-01-26
+- 2015-01-28
+- 2015-01-29

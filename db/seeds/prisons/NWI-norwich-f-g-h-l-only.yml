@@ -1,0 +1,23 @@
+---
+name: Norwich (F, G, H, L only)
+nomis_id: NWI
+address:
+- Knox Road
+- 'NR1 4LU '
+canned_responses: true
+email: socialvisits.norwich@hmps.gsi.gov.uk
+enabled: true
+finder_slug: norwich
+phone: 01603 708795
+slots:
+  tue:
+  - 1415-1615
+  thu:
+  - 1415-1615
+  sat:
+  - 0930-1130
+  sun:
+  - 1415-1615
+unbookable:
+- 2014-12-25
+- 2014-12-26

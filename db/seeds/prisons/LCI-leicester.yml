@@ -1,0 +1,35 @@
+---
+name: Leicester
+nomis_id: LCI
+address:
+- 116 Welford Road
+- LE2 7AJ
+canned_responses: true
+email: socialvisitsleiceste@hmps.gsi.gov.uk
+enabled: true
+phone: 0116 228 3128
+slot_anomalies:
+  2014-12-24:
+  - 0900-1100
+  - 1415-1615
+  2014-12-31:
+  - 0900-1100
+  - 1415-1615
+slots:
+  mon:
+  - 1415-1615
+  tue:
+  - 1415-1615
+  wed:
+  - 1600-1800
+  thu:
+  - 1415-1615
+  sat:
+  - 1415-1615
+  sun:
+  - 1415-1615
+unbookable:
+- 2014-12-25
+- 2014-12-26
+- 2014-12-31
+- 2015-01-01

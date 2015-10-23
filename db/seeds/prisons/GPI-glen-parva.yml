@@ -1,0 +1,31 @@
+---
+name: Glen Parva
+nomis_id: GPI
+address:
+- Tigers Road
+- 'LE8 4TN '
+canned_responses: true
+email: socialvisits.glenparva@hmps.gsi.gov.uk
+enabled: true
+phone: 0116 228 4366
+slot_anomalies:
+  2014-12-24:
+  - 1345-1545
+  2014-12-26:
+  - 0930-1130
+slots:
+  mon:
+  - 1400-1545
+  sat:
+  - 1400-1545
+  sun:
+  - 1400-1545
+  thu:
+  - 1400-1545
+  tue:
+  - 1400-1545
+  wed:
+  - 1400-1545
+unbookable:
+- 2014-12-25
+- 2015-01-01

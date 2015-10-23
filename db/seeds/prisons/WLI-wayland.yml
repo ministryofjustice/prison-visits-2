@@ -1,0 +1,27 @@
+---
+name: Wayland
+nomis_id: WLI
+address:
+- Griston
+- IP25 6RL
+canned_responses: true
+email: socialvisits.wayland@hmps.gsi.gov.uk
+enabled: true
+phone: 001953 804152
+slots:
+  tue:
+  - 1400-1600
+  wed:
+  - 1400-1600
+  - 1700-1900
+  thu:
+  - 1400-1600
+  fri:
+  - 1400-1600
+  sat:
+  - 1400-1600
+  sun:
+  - 1400-1600
+unbookable:
+- 2014-12-25
+- 2015-01-01

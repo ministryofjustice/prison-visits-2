@@ -1,0 +1,17 @@
+---
+name: Askham Grange
+nomis_id: AGI
+address:
+- Askham Richard
+- YO23 3FT
+canned_responses: true
+email: socialvisits.askhamgrange@hmps.gsi.gov.uk
+enabled: true
+phone: 
+slots:
+  sat:
+  - 1345-1545
+  sun:
+  - 1345-1545
+unbookable:
+- 2014-12-25

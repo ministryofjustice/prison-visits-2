@@ -1,0 +1,28 @@
+---
+name: Chelmsford
+nomis_id: CDI
+address:
+- 200 Springfield Road
+- 'CM2 6LQ '
+canned_responses: true
+email: socialvisits.chelmsford@hmps.gsi.gov.uk
+enabled: true
+phone: 01245 552265
+slots:
+  mon:
+  - 1415-1600
+  sat:
+  - 0900-1100
+  - 1415-1600
+  sun:
+  - 0900-1100
+  - 1415-1600
+  thu:
+  - 1415-1600
+  tue:
+  - 1415-1600
+  wed:
+  - 1415-1600
+unbookable:
+- 2014-12-25
+- 2014-12-26

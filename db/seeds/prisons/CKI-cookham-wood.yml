@@ -1,0 +1,28 @@
+---
+name: Cookham Wood
+nomis_id: CKI
+address:
+- Sir Evelyn Road
+- ME1 3LU
+canned_responses: true
+email: socialvisits.cookhamwood@hmps.gsi.gov.uk
+enabled: true
+phone: 01634 202557
+slot_anomalies:
+  2014-12-24:
+  - 1430-1630
+  2014-12-31:
+  - 1430-1630
+slots:
+  wed:
+  - 1345-1615
+  sat:
+  - 0930-1130
+  - 1430-1630
+  sun:
+  - 0930-1130
+  - 1430-1630
+unbookable:
+- 2014-12-25
+- 2014-12-26
+- 2015-01-01

@@ -1,0 +1,25 @@
+---
+name: Erlestoke
+nomis_id: EEI
+address:
+- DEVIZES
+- SN10 5TU
+canned_responses: true
+email: eecmbookavisit@hmps.gsi.gov.uk
+enabled: true
+phone: 01380 814264
+slot_anomalies:
+  2015-04-01:
+  - 1315-1600
+slots:
+  sat:
+  - 0900-1130
+  - 1315-1600
+  thu:
+  - 1315-1600
+  fri:
+  - 1315-1600
+unbookable:
+- 2014-12-25
+- 2014-12-26
+- 2015-04-03

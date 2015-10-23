@@ -1,0 +1,22 @@
+---
+name: Bullingdon (Remand Only)
+nomis_id: BNI
+address:
+- Bicester
+- OX25 1PZ
+canned_responses: true
+email: socialvisits.bullingdon@hmps.gsi.gov.uk
+enabled: true
+finder_slug: bullingdon
+phone: 01869 353176
+slots:
+  mon:
+  - 1400-1610
+  sat:
+  - 1400-1610
+  thu:
+  - 1400-1610
+  tue:
+  - 1400-1610
+unbookable:
+- 2014-12-25

@@ -1,0 +1,26 @@
+---
+name: Stafford
+nomis_id: SFI
+address:
+- 54 Gaol Road
+- Stafford
+- ST16 3AW
+canned_responses: true
+email: visitsbooking.westmidlands@noms.gsi.gov.uk
+enabled: true
+phone: 0300 060 6505
+slot_anomalies:
+  2015-10-13:
+  - 1400-1600
+slots:
+  wed:
+  - 1400-1600
+  thu:
+  - 1400-1600
+  sat:
+  - 1400-1600
+  sun:
+  - 1400-1600
+unbookable:
+- 2015-10-14
+- 2015-12-25

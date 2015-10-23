@@ -1,0 +1,29 @@
+---
+name: Werrington
+nomis_id: WNI
+address:
+- Werrington
+- Stoke-On-Trent
+- ST9 0DX
+adult_age: 10
+canned_responses: true
+email: visitsbooking.westmidlands@noms.gsi.gov.uk
+enabled: true
+phone: 0300 060 6508
+slots:
+  wed:
+  - 1400-1600
+  fri:
+  - 1400-1600
+  sat:
+  - 1430-1630
+  sun:
+  - 1430-1630
+unbookable:
+- 2014-04-18
+- 2014-04-21
+- 2014-05-05
+- 2014-05-26
+- 2014-12-25
+- 2014-12-26
+- 2015-01-01

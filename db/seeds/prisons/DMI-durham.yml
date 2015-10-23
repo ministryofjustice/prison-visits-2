@@ -1,0 +1,35 @@
+---
+name: Durham
+nomis_id: DMI
+address:
+- Old Elvet
+- Durham
+- DH1 3HU
+canned_responses: true
+email: socialvisits.durham@hmps.gsi.gov.uk
+enabled: true
+phone: 0191 3323417
+slots:
+  mon:
+  - 1345-1545
+  tue:
+  - 1345-1545
+  - 1715-1900
+  wed:
+  - 1345-1545
+  - 1715-1900
+  thu:
+  - 1345-1545
+  fri:
+  - 1345-1545
+  sat:
+  - 0930-1130
+  - 1345-1645
+  sun:
+  - 0930-1130
+  - 1345-1645
+unbookable:
+- 2014-04-18
+- 2014-12-25
+- 2014-12-26
+- 2015-01-01

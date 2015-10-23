@@ -1,0 +1,27 @@
+---
+name: High Down
+nomis_id: HOI
+address:
+- Sutton Lane
+- SM2 5PJ
+canned_responses: true
+email: socialvisits.highdown@hmps.gsi.gov.uk
+enabled: true
+phone: 020 7147 6570
+slots:
+  sat:
+  - 1400-1600
+  sun:
+  - 1400-1600
+  thu:
+  - 1400-1600
+  tue:
+  - 1400-1600
+  wed:
+  - 1400-1600
+unbookable:
+- 2015-10-14
+- 2015-11-11
+- 2015-11-18
+- 2015-12-09
+- 2015-12-16

@@ -1,0 +1,27 @@
+---
+name: Gartree
+nomis_id: GTI
+address:
+- Gallow Field Rd
+- Market Harborough
+- Leicestershire
+- LE16 7RP
+canned_responses: true
+email: socialvisits.gartree@hmps.gsi.gov.uk
+enabled: true
+phone: 01858 426 727
+slots:
+  tue:
+  - 1400-1600
+  thu:
+  - 1400-1600
+  sat:
+  - 1400-1600
+  sun:
+  - 1400-1600
+unbookable:
+- 2014-04-18
+- 2014-04-21
+- 2014-12-25
+- 2014-12-26
+- 2015-01-01

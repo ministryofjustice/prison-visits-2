@@ -1,0 +1,26 @@
+---
+name: Maidstone
+nomis_id: MSI
+address:
+- 36 County Road
+- 'ME14 1UZ '
+canned_responses: true
+email: socialvisits.maidstone@hmps.gsi.gov.uk
+enabled: true
+phone: 01622 775619
+slots:
+  tue:
+  - 1345-1545
+  mon:
+  - 1345-1545
+  sat:
+  - 1345-1620
+  sun:
+  - 1345-1620
+  thu:
+  - 1345-1545
+  wed:
+  - 1345-1545
+unbookable:
+- 2014-12-25
+- 2014-12-26

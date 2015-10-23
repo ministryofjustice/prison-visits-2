@@ -1,0 +1,29 @@
+---
+name: Holme House
+nomis_id: HHI
+address:
+- Holme House Road
+- S18 2QU
+canned_responses: true
+email: socialvisits.holmehouse@hmps.gsi.gov.uk
+enabled: true
+phone: 03000 606602
+slots:
+  fri:
+  - 1345-1545
+  sat:
+  - 0845-1130
+  - 1345-1530
+  sun:
+  - 0845-1130
+  - 1345-1530
+  thu:
+  - 1345-1545
+  tue:
+  - 1340-1545
+  wed:
+  - 1345-1545
+  mon:
+  - 1345-1545
+unbookable:
+- 2014-12-25

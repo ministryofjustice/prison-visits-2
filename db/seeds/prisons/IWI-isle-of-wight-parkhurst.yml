@@ -1,0 +1,21 @@
+---
+name: Isle of Wight - Parkhurst
+nomis_id: IWI
+address:
+- 'Clissold Road '
+- 'PO30 5RS '
+canned_responses: true
+email: socialvisitsisleofwight@hmps.gsi.gov.uk
+enabled: true
+phone: 01983 634218
+slots:
+  fri:
+  - 1400-1600
+  mon:
+  - 1400-1600
+  sat:
+  - 1400-1600
+  sun:
+  - 1400-1600
+unbookable:
+- 2014-12-25

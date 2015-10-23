@@ -1,0 +1,20 @@
+---
+name: Kirkham
+nomis_id: KMI
+address:
+- Freckleton Road
+- ' Kirkham'
+- PR4 2RN
+canned_responses: true
+email: socialvisits.kirkham@hmps.gsi.gov.uk
+enabled: true
+phone: 
+slots:
+  fri:
+  - 1300-1530
+  sat:
+  - 1300-1530
+  sun:
+  - 1300-1530
+unbookable:
+- 2014-12-25

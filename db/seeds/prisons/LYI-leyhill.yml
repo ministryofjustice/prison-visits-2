@@ -1,0 +1,21 @@
+---
+name: Leyhill
+nomis_id: LYI
+address:
+- Wotton-under-edge
+- GL12 8BT
+canned_responses: true
+email: socialvisits.leyhill@hmps.gsi.gov.uk
+enabled: true
+phone: 01454 264211
+slots:
+  tue:
+  - 1330-1530
+  thu:
+  - 1330-1530
+  sat:
+  - 1330-1530
+  sun:
+  - 1330-1530
+unbookable:
+- 2014-12-25

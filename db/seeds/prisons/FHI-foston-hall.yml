@@ -1,0 +1,27 @@
+---
+name: Foston Hall
+nomis_id: FHI
+address:
+- Foston Hall
+- Derby
+- Foston
+- DE65 5DN
+email: socialvisits.fostonhall@hmps.gsi.gov.uk
+enabled: true
+phone: 01283 584357
+slots:
+  mon:
+  - 1400-1600
+  wed:
+  - 1400-1600
+  fri:
+  - 1400-1600
+  sat:
+  - 0930-1130
+  - 1400-1600
+  sun:
+  - 0930-1130
+  - 1400-1600
+unbookable:
+- 2014-12-25
+- 2015-04-03

@@ -1,0 +1,35 @@
+---
+name: Lewes
+nomis_id: LWI
+address:
+- 1 Brighton Road
+- BN7 1EA
+canned_responses: true
+email: socialvisits.lewes@hmps.gsi.gov.uk
+enabled: true
+phone: 01273785277
+slots:
+  mon:
+  - 0930-1100
+  - 1410-1535
+  tue:
+  - 1410-1535
+  wed:
+  - 0930-1100
+  - 1410-1535
+  thu:
+  - 1410-1535
+  fri:
+  - 0930-1100
+  - 1410-1535
+  sat:
+  - 1410-1535
+  sun:
+  - 1410-1535
+unbookable:
+- 2014-12-25
+- 2014-12-26
+- 2015-01-01
+- 2015-01-27
+- 2015-04-03
+works_weekends: true

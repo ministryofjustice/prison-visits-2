@@ -1,0 +1,26 @@
+---
+name: Highpoint North
+nomis_id: HPI
+address:
+- Stradishall
+- 'CB8 9YG '
+canned_responses: true
+email: socialvisits.highpoint@hmps.gsi.gov.uk
+enabled: true
+phone: 01440 743134
+slot_anomalies:
+  2014-12-22:
+  - 1400-1600
+slots:
+  fri:
+  - 1430-1630
+  sat:
+  - 1400-1600
+  sun:
+  - 1400-1600
+unbookable:
+- 2014-12-25
+- 2014-12-26
+- 2015-04-03
+- 2015-11-18
+- 2015-12-16

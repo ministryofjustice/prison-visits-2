@@ -1,0 +1,19 @@
+---
+name: Blantyre House
+nomis_id: BHI
+address:
+- Goudhurst
+- TN17 2NH
+email: socialvisits.blantyrehouse@hmps.gsi.gov.uk
+enabled: false
+phone: ''
+reason: it_issues
+slots:
+  sat:
+  - 1345-1600
+  sun:
+  - 1345-1600
+  wed:
+  - 1345-1600
+unbookable:
+- 2014-12-25

@@ -1,0 +1,33 @@
+---
+name: Exeter
+nomis_id: EXI
+address:
+- New North Road
+- EX4 4EX
+canned_responses: true
+email: socialvisits.exeter@hmps.gsi.gov.uk
+enabled: true
+phone: 01392 41 5833
+slot_anomalies:
+  2014-12-24:
+  - 1415-1615
+  2015-08-31:
+  - 1415-1615
+slots:
+  mon:
+  - 1415-1615
+  tue:
+  - 1415-1615
+  thu:
+  - 1415-1615
+  fri:
+  - 1415-1615
+  sat:
+  - 1415-1615
+  sun:
+  - 1415-1615
+unbookable:
+- 2014-12-22
+- 2014-12-25
+- 2014-12-26
+- 2015-04-03

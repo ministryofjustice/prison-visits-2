@@ -1,0 +1,28 @@
+---
+name: Haverigg
+nomis_id: HVI
+address:
+- MILLOM
+- 'LA18 4NA '
+adult_age: 10
+canned_responses: true
+email: socialvisits.haverigg@hmps.gsi.gov.uk
+enabled: true
+phone: 01229713016
+slots:
+  fri:
+  - 1400-1545
+  mon:
+  - 1400-1545
+  sat:
+  - 1400-1545
+  sun:
+  - 1400-1545
+  thu:
+  - 1400-1545
+  wed:
+  - 1400-1545
+unbookable:
+- 2014-12-25
+- 2014-12-26
+- 2015-04-03

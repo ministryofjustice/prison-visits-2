@@ -1,0 +1,21 @@
+---
+name: Wetherby
+nomis_id: WYI
+address:
+- York Road
+- 'LS22 5ED '
+canned_responses: true
+email: socialvisits.wetherby@hmps.gsi.gov.uk
+enabled: true
+phone: 01937 544207
+slots:
+  wed:
+  - 1830-2000
+  sat:
+  - 0930-1130
+  - 1430-1630
+  sun:
+  - 0930-1130
+  - 1430-1630
+unbookable:
+- 2014-12-25

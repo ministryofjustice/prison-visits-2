@@ -1,0 +1,32 @@
+---
+name: Huntercombe
+nomis_id: HCI
+address:
+- Huntercombe Place
+- 'RG9 5SB '
+canned_responses: true
+email: socialvisits.huntercombe@hmps.gsi.gov.uk
+enabled: true
+phone: 01491 643151
+slot_anomalies:
+  2014-12-22:
+  - 1345-1600
+  2014-12-24:
+  - 1345-1600
+  2014-12-29:
+  - 1345-1600
+  2015-01-02:
+  - 1345-1600
+slots:
+  mon:
+  - 1345-1615
+  sat:
+  - 1345-1615
+  sun:
+  - 1345-1615
+  thu:
+  - 1345-1615
+unbookable:
+- 2014-12-25
+- 2014-12-26
+- 2014-12-31

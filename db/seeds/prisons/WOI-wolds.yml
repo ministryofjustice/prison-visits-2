@@ -1,0 +1,23 @@
+---
+name: Wolds
+nomis_id: WOI
+address:
+- Everthorpe
+- HU15 2JZ
+canned_responses: true
+email: socialvisits.everthorpe@hmps.gsi.gov.uk
+enabled: true
+phone: 01430 426505
+slots:
+  fri:
+  - 1415-1615
+  sun:
+  - 1400-1600
+  wed:
+  - 1415-1615
+  thu:
+  - 1415-1615
+  sat:
+  - 1400-1600
+unbookable:
+- 2014-12-25

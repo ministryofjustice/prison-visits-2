@@ -1,0 +1,26 @@
+---
+name: Guys Marsh
+nomis_id: GMI
+address:
+- SHAFTESBURY
+- 'SP7 0AH '
+canned_responses: true
+email: socialvisitsguysmarsh@hmps.gsi.gov.uk
+enabled: true
+phone: 01747 856586
+slot_anomalies:
+  2014-12-29:
+  - 1330-1545
+slots:
+  fri:
+  - 1400-1600
+  sat:
+  - 1400-1600
+  sun:
+  - 1400-1600
+unbookable:
+- 2014-12-24
+- 2014-12-25
+- 2014-12-26
+- 2014-12-31
+- 2015-01-01

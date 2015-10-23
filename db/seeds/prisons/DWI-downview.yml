@@ -1,0 +1,19 @@
+---
+name: Downview
+nomis_id: DWI
+address:
+- Sutton Lane
+- SM2 5PD
+email: socialvisits.downview@hmps.gsi.gov.uk
+enabled: false
+phone: 0208 196 6359
+reason: coming_soon
+slots:
+  sat:
+  - 1330-1530
+  sun:
+  - 1330-1530
+  thu:
+  - 1400-1600
+unbookable:
+- 2014-12-25
