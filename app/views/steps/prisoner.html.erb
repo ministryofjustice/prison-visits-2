@@ -9,9 +9,7 @@
         <%= t('.prisoner_details') %>
       </h2>
 
-      <% if f.object.errors.any? %>
-        <%= render(partial: 'shared/validation') %>
-      <% end %>
+      <%= render(partial: 'shared/validation', object: f.object) %>
 
       <fieldset>
         <legend class="visuallyhidden">
