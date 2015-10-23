@@ -5,25 +5,31 @@ module ApplicationHelper
 
   def single_field(form, name, field_method, *options)
     error_container(form, name, class: 'group') {
-      form.label(name) {
-        ActiveSupport::SafeBuffer.new('') +
-        t(".#{name}") +
-        field_hint(name) +
-        field_error(form, name)
-      } +
-      form.public_send(field_method, name, *options)
+      join(
+        form.label(name) {
+          join(
+            t(".#{name}"),
+            field_hint(name),
+            field_error(form, name)
+          )
+        },
+        form.public_send(field_method, name, *options)
+      )
     }
   end
 
   def composite_field(form, name, &blk)
     error_container(form, name, class: 'group') {
       content_tag(:fieldset) {
-        content_tag(:legend) { t(".#{name}") } +
-        content_tag(:div) {
-          ActiveSupport::SafeBuffer.new('') +
-          field_hint(name) +
-          capture(&blk)
-        }
+        join(
+          content_tag(:legend) { t(".#{name}") },
+          content_tag(:div) {
+            join(
+              field_hint(name),
+              capture(&blk)
+            )
+          }
+        )
       }
     }
   end
@@ -50,5 +56,11 @@ module ApplicationHelper
       klass = options[:class]
     end
     content_tag(:div, options.merge(class: klass), &blk)
+  end
+
+private
+
+  def join(*strings)
+    strings.inject(ActiveSupport::SafeBuffer.new(''), &:<<)
   end
 end
