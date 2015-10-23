@@ -3,7 +3,7 @@ class NameValidator < ActiveModel::EachValidator
     return unless value
 
     if value.length > 30 || value.include?('<') || value.include?('>')
-      record.errors.add(attribute, "is not a valid name")
+      record.errors.add attribute, :name
     end
   end
 end
