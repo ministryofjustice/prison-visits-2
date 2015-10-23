@@ -2,10 +2,10 @@ class AvailableSlotEnumerator
   include Enumerable
 
   def initialize(
-    begin_date, regular_slots, anomalous_slots, unbookable_dates, horizon = 28
+    begin_date, recurring_slots, anomalous_slots, unbookable_dates, horizon = 28
   )
     @begin_date = begin_date
-    @regular_slots = regular_slots
+    @recurring_slots = recurring_slots
     @anomalous_slots = anomalous_slots
     @unbookable_dates = unbookable_dates
     @horizon = horizon
@@ -32,7 +32,7 @@ private
       @anomalous_slots.fetch(date)
     else
       dow = DayOfWeek.by_index(date.wday)
-      @regular_slots.fetch(dow, [])
+      @recurring_slots.fetch(dow, [])
     end
   end
 end

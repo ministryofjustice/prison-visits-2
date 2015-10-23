@@ -1,7 +1,7 @@
 RSpec.describe AvailableSlotEnumerator do
   subject {
     described_class.new(
-      begin_date, regular_slots, anomalous_slots, unbookable_dates, 5
+      begin_date, recurring_slots, anomalous_slots, unbookable_dates, 5
     )
   }
   let(:begin_date) { Date.new(2015, 10, 1) } # Thursday
@@ -9,7 +9,7 @@ RSpec.describe AvailableSlotEnumerator do
   let(:anomalous_slots) { {} }
 
   context 'with no unbookable dates' do
-    let(:regular_slots) {
+    let(:recurring_slots) {
       {
         DayOfWeek::MON => [
           RecurringSlot.new(14, 0, 16, 10)
@@ -36,7 +36,7 @@ RSpec.describe AvailableSlotEnumerator do
 
   context 'with unbookable dates' do
     let(:unbookable_dates) { [Date.new(2015, 10, 2)] }
-    let(:regular_slots) {
+    let(:recurring_slots) {
       {
         DayOfWeek::MON => [
           RecurringSlot.new(14, 0, 16, 10)
@@ -59,7 +59,7 @@ RSpec.describe AvailableSlotEnumerator do
   end
 
   context 'with anomalous dates' do
-    let(:regular_slots) {
+    let(:recurring_slots) {
       {
         DayOfWeek::MON => [
           RecurringSlot.new(14, 0, 16, 10)
@@ -77,7 +77,7 @@ RSpec.describe AvailableSlotEnumerator do
       }
     }
 
-    it 'overrides regular slots with anomalous dates' do
+    it 'overrides recurring slots with anomalous dates' do
       expect(subject.to_a).to eq(
         [
           ConcreteSlot.new(2015, 10, 2, 9, 30, 10, 30),

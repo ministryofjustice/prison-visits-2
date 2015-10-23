@@ -4,9 +4,9 @@ RSpec.describe SlotDetailsParser do
   context 'when source is empty' do
     let(:raw) { {} }
 
-    describe 'regular_slots' do
+    describe 'recurring_slots' do
       it 'is empty' do
-        expect(subject.regular_slots).to be_empty
+        expect(subject.recurring_slots).to be_empty
       end
     end
 
@@ -20,7 +20,7 @@ RSpec.describe SlotDetailsParser do
   context 'when there are slot details' do
     let(:raw) {
       {
-        'regular' => {
+        'recurring' => {
           'mon' => ['1400-1610'],
           'tue' => ['0900-1000', '1400-1610']
         },
@@ -32,9 +32,9 @@ RSpec.describe SlotDetailsParser do
       }
     }
 
-    describe 'regular_slots' do
+    describe 'recurring_slots' do
       it 'lists slots for each available day' do
-        expect(subject.regular_slots).to eq(
+        expect(subject.recurring_slots).to eq(
           DayOfWeek::MON => [
             RecurringSlot.new(14, 0, 16, 10)
           ],

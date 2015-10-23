@@ -3,8 +3,8 @@ class SlotDetailsParser
     @raw = raw
   end
 
-  def regular_slots
-    @raw.fetch('regular', {}).map { |day, slots|
+  def recurring_slots
+    @raw.fetch('recurring', {}).map { |day, slots|
       [DayOfWeek.by_name(day), slots.map { |s| RecurringSlot.parse(s) }]
     }.to_h
   end
