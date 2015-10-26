@@ -50,7 +50,10 @@ en:
       option_3: Option 3
       continue: Continue
     confirmation:
-      title: TODO Confirmation page
+      title: Check your request
+      continue: Send request
+    completed:
+      title: Your request is being processed
   shared:
     validation:
       heading: You need to fix the errors on this page before continuing.

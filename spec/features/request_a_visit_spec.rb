@@ -48,7 +48,11 @@ RSpec.feature 'Booking a visit', js: true do
 
     click_button 'Continue'
 
-    expect(page).to have_text('TODO Confirmation page')
+    expect(page).to have_text('Check your request')
+
+    click_button 'Send request'
+
+    expect(page).to have_text('Your request is being processed')
   end
 
   scenario 'validation errors' do

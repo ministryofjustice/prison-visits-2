@@ -21,6 +21,8 @@ private
       render :slots
     elsif confirmation_step_needed?
       render :confirmation
+    else
+      render :completed
     end
   end
 

@@ -37,6 +37,10 @@ RSpec.describe StepsController do
     }
   }
 
+  let(:confirmation_details) {
+    { confirmed: 'true' }
+  }
+
   let(:prison) {
     double(
       Prison,
@@ -216,8 +220,54 @@ RSpec.describe StepsController do
           to have_attributes(option_1: '2015-01-02T09:00/10:00')
       end
     end
+
+    context 'with no slots selected' do
+      before do
+        post :create,
+          prisoner_step: prisoner_details,
+          visitors_step: visitors_details,
+          slots_step: { option_1: '' }
+      end
+
+      it 'renders the slots template' do
+        expect(response).to render_template('slots')
+      end
+
+      it 'assigns a PrisonerStep' do
+        expect(assigns(:prisoner_step)).to be_a(PrisonerStep)
+      end
+
+      it 'initialises the PrisonerStep with the supplied attributes' do
+        expect(assigns(:prisoner_step)).
+          to have_attributes(first_name: 'Oscar')
+      end
+
+      it 'assigns a VisitorsStep' do
+        expect(assigns(:visitors_step)).to be_a(VisitorsStep)
+      end
+
+      it 'initialises the VisitorsStep with the supplied attributes' do
+        expect(assigns(:visitors_step)).
+          to have_attributes(first_name: 'Ada')
+      end
+
+      it 'assigns a slots step' do
+        expect(assigns(:slots_step)).to be_a(SlotsStep)
+      end
+    end
   end
 
   context 'after confirming' do
+    before do
+      post :create,
+        prisoner_step: prisoner_details,
+        visitors_step: visitors_details,
+        slots_step: slots_details,
+        confirmation_step: confirmation_details
+    end
+
+    it 'renders the completed template' do
+      expect(response).to render_template('completed')
+    end
   end
 end
