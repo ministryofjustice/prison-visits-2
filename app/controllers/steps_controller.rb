@@ -33,35 +33,36 @@ private
   end
 
   def prisoner_step
-    @prisoner_step, needed = load_step(PrisonerStep)
-    needed
+    @prisoner_step, incomplete = load_step(PrisonerStep)
+    incomplete
   end
 
   def visitors_step
-    @visitors_step, needed = load_step(VisitorsStep)
-    needed
+    @visitors_step, incomplete = load_step(VisitorsStep)
+    incomplete
   end
 
   def slots_step
-    @slots_step, needed = load_step(SlotsStep, prison: @prisoner_step.prison)
-    needed
+    @slots_step, incomplete =
+      load_step(SlotsStep, prison: @prisoner_step.prison)
+    incomplete
   end
 
   def confirmation_step
-    @confirmation_step, needed = load_step(ConfirmationStep)
-    needed
+    @confirmation_step, incomplete = load_step(ConfirmationStep)
+    incomplete
   end
 
   def load_step(klass, additional_params = {})
     name = klass.model_name.param_key
     if params.key?(name)
       step = klass.new(params[name].merge(additional_params))
-      needed = !step.valid?
+      incomplete = step.invalid?
     else
       step = klass.new(additional_params)
-      needed = true
+      incomplete = true
     end
 
-    [step, needed]
+    [step, incomplete]
   end
 end
