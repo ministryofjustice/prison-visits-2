@@ -5,3 +5,24 @@ en:
       day: Day
       month: Month
       year: Year
+    formats:
+      date_of_birth: "%-d %B %Y" # 24 July 2014
+      date_of_visit: "%A %-d %B" # Thursday 24 July
+  time:
+    formats:
+      twelve_hour: "%-l:%M%P"   # 1:30pm
+      twenty_four_hour: "%H:%M" # 13:30
+  formats:
+    slot:
+      public:
+        full: "%{date} %{time} for %{duration}"
+        begin_only: "%{date} %{time}"
+      staff: "%{date} %{begin} - %{end}"
+    duration:
+      glue: " "
+      hours:
+        one: "%{count} hr"
+        other: "%{count} hrs"
+      minutes:
+        one: "%{count} min"
+        other: "%{count} mins"
