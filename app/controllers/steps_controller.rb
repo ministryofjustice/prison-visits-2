@@ -43,8 +43,7 @@ private
   end
 
   def slots_step
-    @slots_step, incomplete =
-      load_step(SlotsStep, prison: @prisoner_step.prison)
+    @slots_step, incomplete = load_step(SlotsStep, prison: prison)
     incomplete
   end
 
@@ -64,5 +63,9 @@ private
     end
 
     [step, incomplete]
+  end
+
+  def prison
+    Prison.find(params.fetch(:prisoner_step).fetch(:prison_id))
   end
 end

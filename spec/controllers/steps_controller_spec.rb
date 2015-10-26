@@ -53,7 +53,7 @@ RSpec.describe StepsController do
   }
 
   before do
-    allow(Prison).to receive(:find).with(1).and_return(prison)
+    allow(Prison).to receive(:find).with('1').and_return(prison)
   end
 
   context 'on the first prisoner details page' do
