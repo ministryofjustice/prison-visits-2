@@ -38,6 +38,8 @@ RSpec.feature 'Booking a visit', js: true do
     fill_in 'Year', with: '1970'
     fill_in 'Email address', with: 'ada@test.example.com'
     fill_in 'Phone number', with: '01154960222'
+
+    click_button 'Continue'
   end
 
   scenario 'validation errors' do

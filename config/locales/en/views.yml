@@ -41,6 +41,14 @@ en:
       email_address_hint: You’ll receive confirmation by email
       phone_no: Phone number
       continue: Continue
+    slots:
+      title: When do you want to visit?
+      choose_alternatives: >
+        Choose two alternative dates in case your first choice isn’t available.
+      option_1: Option 1
+      option_2: Option 2
+      option_3: Option 3
+      continue: Continue
   shared:
     validation:
       heading: You need to fix the errors on this page before continuing.
