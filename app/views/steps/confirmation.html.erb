@@ -1,0 +1,18 @@
+<% content_for :header, t('.title') %>
+
+<div class="Grid">
+  <div class="Grid-2-3">
+    <%= form_for(@slots_step, url: steps_path) do |f| %>
+      <%= render(partial: 'hidden_prisoner_step') %>
+      <%= render(partial: 'hidden_visitor_step') %>
+      <%= render(partial: 'hidden_slots_step') %>
+      <fieldset>
+        <div class="actions">
+          <div class="primary-actions">
+            <%= f.submit(t('.continue'), :class => 'button button-primary') %>
+          </div>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

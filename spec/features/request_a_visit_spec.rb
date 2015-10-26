@@ -40,6 +40,15 @@ RSpec.feature 'Booking a visit', js: true do
     fill_in 'Phone number', with: '01154960222'
 
     click_button 'Continue'
+
+    available_slots = all('#slots_step_option_1 option').map(&:text)
+    select available_slots[1], from: 'Option 1'
+    select available_slots[2], from: 'Option 1'
+    select available_slots[3], from: 'Option 1'
+
+    click_button 'Continue'
+
+    expect(page).to have_text('TODO Confirmation page')
   end
 
   scenario 'validation errors' do

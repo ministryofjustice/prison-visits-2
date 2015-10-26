@@ -19,6 +19,8 @@ private
       render :visitors
     elsif slots_step_needed?
       render :slots
+    elsif confirmation_step_needed?
+      render :confirmation
     end
   end
 
@@ -33,17 +35,21 @@ private
   end
 
   def slots_step_needed?
-    @slots_step, needed = load_step(SlotsStep, :slots_step)
-    @slots_step.prison = @prisoner_step.prison
+    @slots_step, needed =
+      load_step(SlotsStep, :slots_step, prison: @prisoner_step.prison)
     needed
   end
 
-  def load_step(klass, name)
+  def confirmation_step_needed?
+    true
+  end
+
+  def load_step(klass, name, additional_params = {})
     if params.key?(name)
-      step = klass.new(params[name])
+      step = klass.new(params[name].merge(additional_params))
       needed = !step.valid?
     else
-      step = klass.new
+      step = klass.new(additional_params)
       needed = true
     end
 
