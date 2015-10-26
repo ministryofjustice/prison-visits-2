@@ -4,7 +4,7 @@ en:
       intro: GOV.UK uses cookies to make the site simpler.
       find_out_more: Find out more about cookies.
   steps:
-    prisoner:
+    prisoner_step:
       title: Who are you visiting?
       information_html: |
         <ul>
@@ -30,7 +30,7 @@ en:
       prison_id_hint: eg Cardiff
       prison_id_prompt: select a prison
       continue: Continue
-    visitors:
+    visitors_step:
       title: Visitor 1
       your_details: Your details
       first_name: Your first name
@@ -41,7 +41,7 @@ en:
       email_address_hint: You’ll receive confirmation by email
       phone_no: Phone number
       continue: Continue
-    slots:
+    slots_step:
       title: When do you want to visit?
       choose_alternatives: >
         Choose two alternative dates in case your first choice isn’t available.
@@ -49,7 +49,7 @@ en:
       option_2: Option 2
       option_3: Option 3
       continue: Continue
-    confirmation:
+    confirmation_step:
       title: Check your request
       continue: Send request
     completed:

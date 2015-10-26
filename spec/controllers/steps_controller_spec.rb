@@ -66,7 +66,7 @@ RSpec.describe StepsController do
     end
 
     it 'renders the prisoner template' do
-      expect(response).to render_template('prisoner')
+      expect(response).to render_template('prisoner_step')
     end
   end
 
@@ -77,7 +77,7 @@ RSpec.describe StepsController do
       end
 
       it 'renders the prisoner template' do
-        expect(response).to render_template('prisoner')
+        expect(response).to render_template('prisoner_step')
       end
 
       it 'assigns a PrisonerStep' do
@@ -96,7 +96,7 @@ RSpec.describe StepsController do
       end
 
       it 'renders the visitors template' do
-        expect(response).to render_template('visitors')
+        expect(response).to render_template('visitors_step')
       end
 
       it 'assigns a PrisonerStep' do
@@ -123,7 +123,7 @@ RSpec.describe StepsController do
       end
 
       it 'renders the visitors template' do
-        expect(response).to render_template('visitors')
+        expect(response).to render_template('visitors_step')
       end
 
       it 'assigns a PrisonerStep' do
@@ -153,7 +153,7 @@ RSpec.describe StepsController do
       end
 
       it 'renders the slots template' do
-        expect(response).to render_template('slots')
+        expect(response).to render_template('slots_step')
       end
 
       it 'assigns a PrisonerStep' do
@@ -190,7 +190,7 @@ RSpec.describe StepsController do
       end
 
       it 'renders the confirmation template' do
-        expect(response).to render_template('confirmation')
+        expect(response).to render_template('confirmation_step')
       end
 
       it 'assigns a PrisonerStep' do
@@ -230,7 +230,7 @@ RSpec.describe StepsController do
       end
 
       it 'renders the slots template' do
-        expect(response).to render_template('slots')
+        expect(response).to render_template('slots_step')
       end
 
       it 'assigns a PrisonerStep' do
