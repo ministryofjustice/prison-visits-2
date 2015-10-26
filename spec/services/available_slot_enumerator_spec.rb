@@ -24,7 +24,7 @@ RSpec.describe AvailableSlotEnumerator do
       }
     }
 
-    it 'enumerates slots in five-day horizon' do
+    it 'enumerates slots in five-day booking window' do
       expect(subject.to_a).to eq(
         [
           ConcreteSlot.new(2015, 10, 2, 10, 0, 11, 30),
