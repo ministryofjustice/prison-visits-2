@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Booking a visit', js: true do
-  before :all do
+  before do
     Prison.create!(
       name: 'Reading Gaol',
       nomis_id: 'XYZ',
