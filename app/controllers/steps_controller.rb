@@ -19,8 +19,6 @@ private
       render :visitors
     elsif slots_step_needed?
       render :slots
-    elsif confirm_step_needed?
-      render :confirm
     end
   end
 
