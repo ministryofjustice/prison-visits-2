@@ -8,8 +8,15 @@
 
       <fieldset>
         <% 3.times do |i| %>
-          <%= single_field(f, :"option_#{i.succ}", :select,
-                available_slots.map { |s| [s.iso8601, s.iso8601] }) %>
+          <%=
+            single_field(
+              f, :"option_#{i.succ}", :select,
+              available_slots.map { |s|
+                [format_slot_begin_time_for_public(s), s.iso8601]
+              },
+              include_blank: true
+            )
+          %>
         <% end %>
 
         <div class="actions">
