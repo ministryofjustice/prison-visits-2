@@ -20,7 +20,16 @@ private
   ]
 
   def select_step
-    STEPS.find { |s| send(s) } || :completed
+    STEPS.find { |s| send(s) } || complete
+  end
+
+  def complete
+    BookingRequestCreator.new.create!(
+      @prisoner_step,
+      @visitors_step,
+      @slots_step
+    )
+    :completed
   end
 
   def prisoner_step

@@ -258,16 +258,40 @@ RSpec.describe StepsController do
   end
 
   context 'after confirming' do
-    before do
-      post :create,
+    let(:params) {
+      {
         prisoner_step: prisoner_details,
         visitors_step: visitors_details,
         slots_step: slots_details,
         confirmation_step: confirmation_details
-    end
+      }
+    }
 
     it 'renders the completed template' do
+      allow(Visit).to receive(:create!)
+      post :create, params
       expect(response).to render_template('completed')
+    end
+
+    it 'creates a Visit record' do
+      expect(Visit).
+        to receive(:create!).
+        with(
+          prison_id: 1,
+          prisoner_first_name: 'Oscar',
+          prisoner_last_name: 'Wilde',
+          prisoner_date_of_birth: Date.new(1980, 12, 31),
+          prisoner_number: 'a1234bc',
+          visitor_first_name: 'Ada',
+          visitor_last_name: 'Lovelace',
+          visitor_date_of_birth: Date.new(1970, 11, 30),
+          visitor_email_address: 'ada@test.example.com',
+          visitor_phone_no: '01154960222',
+          slot_option_1: '2015-01-02T09:00/10:00',
+          slot_option_2: '2015-01-03T09:00/10:00',
+          slot_option_3: '2015-01-04T09:00/10:00'
+        )
+      post :create, params
     end
   end
 end
