@@ -7,4 +7,15 @@ class Prison < ActiveRecord::Base
   def self.enabled
     where(enabled: true).order(name: :asc)
   end
+
+  def available_slots(today = Time.zone.today)
+    parser = SlotDetailsParser.new(slot_details)
+    AvailableSlotEnumerator.new(
+      today + 1,
+      parser.recurring_slots,
+      parser.anomalous_slots,
+      parser.unbookable_dates,
+      booking_window
+    )
+  end
 end
