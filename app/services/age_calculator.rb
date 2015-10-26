@@ -6,7 +6,7 @@ class AgeCalculator
     today.year - date_of_birth.year - adjustment
   end
 
-  private
+private
 
   def had_birthday_this_year?(date_of_birth, today)
     today.month > date_of_birth.month ||

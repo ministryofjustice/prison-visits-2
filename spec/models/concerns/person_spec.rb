@@ -2,14 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Person do
   subject {
+    described_module = described_class
     Class.new {
       include NonPersistedModel
+      include described_module
 
       def self.model_name
         ActiveModel::Name.new(self, nil, 'thing')
       end
-
-    }.tap { |c| c.send :include, described_class }.new
+    }.new
   }
 
   around do |example|

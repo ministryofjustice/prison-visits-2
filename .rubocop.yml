@@ -93,6 +93,7 @@ Style/PercentLiteralDelimiters:
     '%i': '[]'
     '%w': '[]'
     '%W': '[]'
+    '%': '{}'
 
 ClassAndModuleChildren:
   Enabled: false
