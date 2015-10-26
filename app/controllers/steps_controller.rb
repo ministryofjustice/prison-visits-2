@@ -25,12 +25,14 @@ private
   end
 
   def prisoner_step_needed?
-    @prisoner_step, needed = load_step(PrisonerStep, :prisoner_step)
+    @prisoner_step, needed =
+      load_step(PrisonerStep, :prisoner_step)
     needed
   end
 
   def visitors_step_needed?
-    @visitors_step, needed = load_step(VisitorsStep, :visitors_step)
+    @visitors_step, needed =
+      load_step(VisitorsStep, :visitors_step)
     needed
   end
 
@@ -41,7 +43,9 @@ private
   end
 
   def confirmation_step_needed?
-    true
+    @confirmation_step, needed =
+      load_step(ConfirmationStep, :confirmation_step)
+    needed
   end
 
   def load_step(klass, name, additional_params = {})
