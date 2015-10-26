@@ -29,7 +29,7 @@ en:
       prison_id: Name of the prison
       prison_id_hint: eg Cardiff
       prison_id_prompt: select a prison
-      continue: Continue
+      next_step: Continue
     visitors_step:
       title: Visitor 1
       your_details: Your details
@@ -40,7 +40,7 @@ en:
       email_address: Email address
       email_address_hint: You’ll receive confirmation by email
       phone_no: Phone number
-      continue: Continue
+      next_step: Continue
     slots_step:
       title: When do you want to visit?
       choose_alternatives: >
@@ -48,10 +48,10 @@ en:
       option_1: Option 1
       option_2: Option 2
       option_3: Option 3
-      continue: Continue
+      next_step: Continue
     confirmation_step:
       title: Check your request
-      continue: Send request
+      next_step: Send request
     completed:
       title: Your request is being processed
   shared:
