@@ -12,11 +12,6 @@ class StepsController < ApplicationController
 
 private
 
-  def available_slots
-    @prisoner_step.prison.available_slots
-  end
-  helper_method :available_slots
-
   def select_step
     if prisoner_step_needed?
       render :prisoner
@@ -39,6 +34,7 @@ private
 
   def slots_step_needed?
     @slots_step, needed = load_step(SlotsStep, :slots_step)
+    @slots_step.prison = @prisoner_step.prison
     needed
   end
 

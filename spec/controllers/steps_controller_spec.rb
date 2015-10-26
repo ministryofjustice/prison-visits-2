@@ -29,6 +29,12 @@ RSpec.describe StepsController do
     }
   }
 
+  let(:prison) { double(Prison) }
+
+  before do
+    allow(Prison).to receive(:find).with(1).and_return(prison)
+  end
+
   context 'on the first prisoner details page' do
     before do
       get :index
