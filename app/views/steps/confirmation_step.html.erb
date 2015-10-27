@@ -1,19 +1,106 @@
 <% content_for :header, t('.title') %>
 
-<div class="Grid">
-  <div class="Grid-2-3">
-    <%= form_for(@steps.fetch(:confirmation_step), url: steps_path) do |f| %>
+<%
+  prisoner_step = @steps.fetch(:prisoner_step)
+  visitors_step = @steps.fetch(:visitors_step)
+  slots_step = @steps.fetch(:slots_step)
+  confirmation_step = @steps.fetch(:confirmation_step)
+%>
+
+<div class="divider compact">
+  <h2><%= t('.prisoner_details') %></h2>
+
+  <p>
+    <big>
+      <strong><%= prisoner_step.full_name %></strong>
+    </big>
+  </p>
+
+  <p>
+    <%= t('.date_of_birth') %>
+    <strong>
+      <%= format_date_of_birth(prisoner_step.date_of_birth) %>
+    </strong>
+  </p>
+
+  <p>
+    <%= t('.prisoner_number') %>
+    <strong><%= prisoner_step.number %></strong>
+  </p>
+
+  <p>
+    <%= t('.prison') %>
+    <strong><%= prisoner_step.prison_name %></strong>
+  </p>
+
+  <p class="edit-link">
+    <%= link_to(t('.change_prisoner_details'), '/TODO') %>
+  </p>
+</div>
+
+<div class="divider compact">
+  <h2><%= t('.visitor_details') %></h2>
+
+  <p>
+    <%= t('.confirmation_email_address') %>
+    <strong>
+      <%= visitors_step.email_address %>
+    </strong>
+  </p>
+
+  <p class="edit-link">
+    <%= link_to(t('.change_visitor_details'), '/TODO') %>
+  </p>
+</div>
+
+<div class="divider compact visit-details">
+  <h2><%= t('.your_visit') %></h2>
+
+  <% if slots_step.options_available? %>
+    <p><%= t('.options_available') %></p>
+  <% end %>
+
+  <p><%= t('.first_choice') %></p>
+
+  <p>
+    <strong>
+      <%= format_slot_for_public(slots_step.slots.first) %>
+    </strong>
+  </p>
+
+  <% if slots_step.additional_options? %>
+    <p class="alt"><%= t('.alternatives') %></p>
+
+    <ol class="unstyled-list">
+      <% slots_step.slots.drop(1).each do |slot| %>
+        <li>
+          <strong>
+            <%= format_slot_for_public(slot) %>
+          </strong>
+        </li>
+      <% end %>
+    </ol>
+  <% end %>
+
+  <p class="edit-link">
+    <%= link_to(t('.change_visit_details'), '/TODO') %>
+  </p>
+</div>
+
+<div class="divider">
+  <%= link_to(t('.ts_and_cs'), '/TODO') %>
+
+    <%= form_for(confirmation_step, url: steps_path) do |f| %>
       <%= render(partial: 'hidden_prisoner_step') %>
       <%= render(partial: 'hidden_visitors_step') %>
       <%= render(partial: 'hidden_slots_step') %>
       <%= hidden_field_tag('confirmation_step[confirmed]', true) %>
-      <fieldset>
-        <div class="actions">
-          <div class="primary-actions">
-            <%= f.submit(t('.next_step'), class: 'button button-primary') %>
-          </div>
+
+      <div class="actions">
+        <div class="primary-actions">
+          <%= f.submit(t('.next_step'), class: 'button button-primary') %>
         </div>
-      </fieldset>
+      </div>
     <% end %>
   </div>
 </div>

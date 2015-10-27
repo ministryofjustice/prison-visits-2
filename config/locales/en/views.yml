@@ -51,6 +51,22 @@ en:
       next_step: Continue
     confirmation_step:
       title: Check your request
+      prisoner_details: Prisoner details
+      date_of_birth: 'Date of birth:'
+      prisoner_number: 'Prisoner number:'
+      prison: 'Prison:'
+      change_prisoner_details: Change prisoner details
+      visitor_details: Visitor details
+      confirmation_email_address: 'Confirmation email:'
+      change_visitor_details: Change visitor details
+      your_visit: Your visit
+      options_available: >
+        You can choose up to 2 alternative dates if your first choice isn’t
+        available.
+      first_choice: 'First choice:'
+      alternatives: 'Alternatives:'
+      change_visit_details: Change visit details
+      ts_and_cs: Terms & conditions
       next_step: Send request
     completed:
       title: Your request is being processed
