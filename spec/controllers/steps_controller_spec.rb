@@ -53,7 +53,7 @@ RSpec.describe StepsController do
   }
 
   before do
-    allow(Prison).to receive(:find).with('1').and_return(prison)
+    allow(Prison).to receive(:find_by).with(id: '1').and_return(prison)
   end
 
   context 'on the first prisoner details page' do
@@ -62,7 +62,7 @@ RSpec.describe StepsController do
     end
 
     it 'assigns a new PrisonerStep' do
-      expect(assigns(:prisoner_step)).to be_a(PrisonerStep)
+      expect(assigns(:steps)[:prisoner_step]).to be_a(PrisonerStep)
     end
 
     it 'renders the prisoner template' do
@@ -81,11 +81,11 @@ RSpec.describe StepsController do
       end
 
       it 'assigns a PrisonerStep' do
-        expect(assigns(:prisoner_step)).to be_a(PrisonerStep)
+        expect(assigns(:steps)[:prisoner_step]).to be_a(PrisonerStep)
       end
 
       it 'initialises the PrisonerStep with the supplied attributes' do
-        expect(assigns(:prisoner_step)).
+        expect(assigns(:steps)[:prisoner_step]).
           to have_attributes(first_name: 'Oscar')
       end
     end
@@ -100,16 +100,16 @@ RSpec.describe StepsController do
       end
 
       it 'assigns a PrisonerStep' do
-        expect(assigns(:prisoner_step)).to be_a(PrisonerStep)
+        expect(assigns(:steps)[:prisoner_step]).to be_a(PrisonerStep)
       end
 
       it 'initialises the PrisonerStep with the supplied attributes' do
-        expect(assigns(:prisoner_step)).
+        expect(assigns(:steps)[:prisoner_step]).
           to have_attributes(first_name: 'Oscar')
       end
 
       it 'assigns a new VisitorsStep' do
-        expect(assigns(:visitors_step)).to be_a(VisitorsStep)
+        expect(assigns(:steps)[:visitors_step]).to be_a(VisitorsStep)
       end
     end
   end
@@ -127,20 +127,20 @@ RSpec.describe StepsController do
       end
 
       it 'assigns a PrisonerStep' do
-        expect(assigns(:prisoner_step)).to be_a(PrisonerStep)
+        expect(assigns(:steps)[:prisoner_step]).to be_a(PrisonerStep)
       end
 
       it 'initialises the PrisonerStep with the supplied attributes' do
-        expect(assigns(:prisoner_step)).
+        expect(assigns(:steps)[:prisoner_step]).
           to have_attributes(first_name: 'Oscar')
       end
 
       it 'assigns a VisitorsStep' do
-        expect(assigns(:visitors_step)).to be_a(VisitorsStep)
+        expect(assigns(:steps)[:visitors_step]).to be_a(VisitorsStep)
       end
 
       it 'initialises the VisitorsStep with the supplied attributes' do
-        expect(assigns(:visitors_step)).
+        expect(assigns(:steps)[:visitors_step]).
           to have_attributes(first_name: 'Ada')
       end
     end
@@ -157,25 +157,25 @@ RSpec.describe StepsController do
       end
 
       it 'assigns a PrisonerStep' do
-        expect(assigns(:prisoner_step)).to be_a(PrisonerStep)
+        expect(assigns(:steps)[:prisoner_step]).to be_a(PrisonerStep)
       end
 
       it 'initialises the PrisonerStep with the supplied attributes' do
-        expect(assigns(:prisoner_step)).
+        expect(assigns(:steps)[:prisoner_step]).
           to have_attributes(first_name: 'Oscar')
       end
 
       it 'assigns a VisitorsStep' do
-        expect(assigns(:visitors_step)).to be_a(VisitorsStep)
+        expect(assigns(:steps)[:visitors_step]).to be_a(VisitorsStep)
       end
 
       it 'initialises the VisitorsStep with the supplied attributes' do
-        expect(assigns(:visitors_step)).
+        expect(assigns(:steps)[:visitors_step]).
           to have_attributes(first_name: 'Ada')
       end
 
       it 'assigns a slots step' do
-        expect(assigns(:slots_step)).to be_a(SlotsStep)
+        expect(assigns(:steps)[:slots_step]).to be_a(SlotsStep)
       end
     end
   end
@@ -194,29 +194,29 @@ RSpec.describe StepsController do
       end
 
       it 'assigns a PrisonerStep' do
-        expect(assigns(:prisoner_step)).to be_a(PrisonerStep)
+        expect(assigns(:steps)[:prisoner_step]).to be_a(PrisonerStep)
       end
 
       it 'initialises the PrisonerStep with the supplied attributes' do
-        expect(assigns(:prisoner_step)).
+        expect(assigns(:steps)[:prisoner_step]).
           to have_attributes(first_name: 'Oscar')
       end
 
       it 'assigns a VisitorsStep' do
-        expect(assigns(:visitors_step)).to be_a(VisitorsStep)
+        expect(assigns(:steps)[:visitors_step]).to be_a(VisitorsStep)
       end
 
       it 'initialises the VisitorsStep with the supplied attributes' do
-        expect(assigns(:visitors_step)).
+        expect(assigns(:steps)[:visitors_step]).
           to have_attributes(first_name: 'Ada')
       end
 
       it 'assigns a slots step' do
-        expect(assigns(:slots_step)).to be_a(SlotsStep)
+        expect(assigns(:steps)[:slots_step]).to be_a(SlotsStep)
       end
 
       it 'initialises the SlotsStep with the supplied attributes' do
-        expect(assigns(:slots_step)).
+        expect(assigns(:steps)[:slots_step]).
           to have_attributes(option_1: '2015-01-02T09:00/10:00')
       end
     end
@@ -234,25 +234,25 @@ RSpec.describe StepsController do
       end
 
       it 'assigns a PrisonerStep' do
-        expect(assigns(:prisoner_step)).to be_a(PrisonerStep)
+        expect(assigns(:steps)[:prisoner_step]).to be_a(PrisonerStep)
       end
 
       it 'initialises the PrisonerStep with the supplied attributes' do
-        expect(assigns(:prisoner_step)).
+        expect(assigns(:steps)[:prisoner_step]).
           to have_attributes(first_name: 'Oscar')
       end
 
       it 'assigns a VisitorsStep' do
-        expect(assigns(:visitors_step)).to be_a(VisitorsStep)
+        expect(assigns(:steps)[:visitors_step]).to be_a(VisitorsStep)
       end
 
       it 'initialises the VisitorsStep with the supplied attributes' do
-        expect(assigns(:visitors_step)).
+        expect(assigns(:steps)[:visitors_step]).
           to have_attributes(first_name: 'Ada')
       end
 
       it 'assigns a slots step' do
-        expect(assigns(:slots_step)).to be_a(SlotsStep)
+        expect(assigns(:steps)[:slots_step]).to be_a(SlotsStep)
       end
     end
   end
