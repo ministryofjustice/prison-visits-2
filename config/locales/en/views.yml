@@ -29,6 +29,10 @@ en:
       prison_id: Name of the prison
       prison_id_hint: eg Cardiff
       prison_id_prompt: select a prison
+      note_header: Please note
+      note: >
+        If you don't enter any information for more than 20 minutes, then your
+        session will time out and you'll need to start again.
       next_step: Continue
     visitors_step:
       title: Visitor 1
@@ -75,6 +79,11 @@ en:
       confirmation: |
         Are you sure you wish to cancel this visit request?
         This will delete all the information you have entered
+    contact_prison:
+      help_html: >
+        <a href="http://www.justice.gov.uk/contacts/prison-finder"
+        rel="external">Contact the prison</a> if you can’t request a visit
+        using this service.
   shared:
     validation:
       heading: You need to fix the errors on this page before continuing.
