@@ -1,0 +1,91 @@
+en:
+  layout:
+    cookies:
+      intro: GOV.UK uses cookies to make the site simpler.
+      find_out_more: Find out more about cookies.
+  steps:
+    prisoner_step:
+      title: Who are you visiting?
+      information_html: |
+        <ul>
+          <li>
+            you don’t need a Visiting Order (VO) number to request a visit
+          </li>
+          <li>
+            you need the dates of birth for all visitors coming with you
+          </li>
+          <li>
+            your visit will be confirmed by email within 3 working days of
+            making your request
+          </li>
+        </ul>
+      prisoner_details: Prisoner details
+      first_name: Prisoner first name
+      last_name: Prisoner last name
+      date_of_birth: Prisoner date of birth
+      date_of_birth_hint: eg 28 04 1996
+      number: Prisoner number
+      number_hint: eg a1234bc
+      prison_id: Name of the prison
+      prison_id_hint: eg Cardiff
+      prison_id_prompt: select a prison
+      note_header: Please note
+      note: >
+        If you don't enter any information for more than 20 minutes, then your
+        session will time out and you'll need to start again.
+      next_step: Continue
+    visitors_step:
+      title: Visitor 1
+      your_details: Your details
+      first_name: Your first name
+      last_name: Your last name
+      date_of_birth: Your date of birth
+      date_of_birth_hint: You must be over 18 to book a visit
+      email_address: Email address
+      email_address_hint: You’ll receive confirmation by email
+      phone_no: Phone number
+      next_step: Continue
+    slots_step:
+      title: When do you want to visit?
+      choose_alternatives: >
+        Choose two alternative dates in case your first choice isn’t available.
+      option_1: Option 1
+      option_2: Option 2
+      option_3: Option 3
+      next_step: Continue
+    confirmation_step:
+      title: Check your request
+      prisoner_details: Prisoner details
+      date_of_birth: 'Date of birth:'
+      prisoner_number: 'Prisoner number:'
+      prison: 'Prison:'
+      change_prisoner_details: Change prisoner details
+      visitor_details: Visitor details
+      confirmation_email_address: 'Confirmation email:'
+      visitor_n: 'Visitor %{n}:'
+      change_visitor_details: Change visitor details
+      your_visit: Your visit
+      options_available: >
+        You can choose up to 2 alternative dates if your first choice isn’t
+        available.
+      first_choice: 'First choice:'
+      alternatives: 'Alternatives:'
+      change_visit_details: Change visit details
+      ts_and_cs: Terms & conditions
+      next_step: Send request
+    completed:
+      title: Your request is being processed
+    cancel:
+      link_text: Cancel and delete all details
+      confirmation: |
+        Are you sure you wish to cancel this visit request?
+        This will delete all the information you have entered
+    contact_prison:
+      help_html: >
+        <a href="http://www.justice.gov.uk/contacts/prison-finder"
+        rel="external">Contact the prison</a> if you can’t request a visit
+        using this service.
+  shared:
+    validation:
+      heading: You need to fix the errors on this page before continuing.
+      see_below: See highlighted errors below.

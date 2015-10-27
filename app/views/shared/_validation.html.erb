@@ -1,0 +1,11 @@
+<% if validation.errors.any? %>
+  <div id="error-summary" class="validation-summary group" role="alert"
+    tabindex="-1" aria-labelledby="error-heading">
+    <h2 id="error-heading">
+      <%= t('.heading') %>
+    </h2>
+    <p>
+      <%= t('.see_below') %>
+    </p>
+  </div>
+<% end %>
