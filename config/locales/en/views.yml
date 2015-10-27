@@ -70,6 +70,11 @@ en:
       next_step: Send request
     completed:
       title: Your request is being processed
+    cancel:
+      link_text: Cancel and delete all details
+      confirmation: |
+        Are you sure you wish to cancel this visit request?
+        This will delete all the information you have entered
   shared:
     validation:
       heading: You need to fix the errors on this page before continuing.
