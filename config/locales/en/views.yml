@@ -62,6 +62,7 @@ en:
       change_prisoner_details: Change prisoner details
       visitor_details: Visitor details
       confirmation_email_address: 'Confirmation email:'
+      visitor_n: 'Visitor %{n}:'
       change_visitor_details: Change visitor details
       your_visit: Your visit
       options_available: >
