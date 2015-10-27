@@ -7,7 +7,9 @@ address:
 canned_responses: true
 email: socialvisitshatfield@hmps.gsi.gov.uk
 enabled: true
+estate: Hatfield Open
 finder_slug: hatfield
+id: 52
 phone: 01405 746611
 slot_anomalies:
   2014-12-24:

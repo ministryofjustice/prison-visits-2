@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: eecmbookavisit@hmps.gsi.gov.uk
 enabled: true
+estate: Erlestoke
+id: 30
 phone: 01380 814264
 slot_anomalies:
   2015-04-01:

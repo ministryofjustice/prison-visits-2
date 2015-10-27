@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.pentonville@hmps.gsi.gov.uk
 enabled: true
+estate: Pentonville
+id: 98
 phone: 020 70237251
 slots:
   mon:

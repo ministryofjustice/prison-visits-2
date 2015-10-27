@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.wetherby@hmps.gsi.gov.uk
 enabled: true
+estate: Wetherby
+id: 130
 phone: 01937 544207
 slots:
   wed:

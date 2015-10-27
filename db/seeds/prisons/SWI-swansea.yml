@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.swansea@hmps.gsi.gov.uk
 enabled: true
+estate: Swansea
+id: 112
 phone: 01792 48 5322
 slot_anomalies:
   2015-01-01:

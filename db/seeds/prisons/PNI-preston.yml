@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.preston@hmps.gsi.gov.uk
 enabled: true
+estate: Preston
+id: 96
 phone: 01772 444666
 slots:
   fri:

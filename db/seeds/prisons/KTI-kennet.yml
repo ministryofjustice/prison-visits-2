@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.kennet@hmps.gsi.gov.uk
 enabled: true
+estate: Kennet
+id: 65
 phone: 0151 213 3179
 slot_anomalies:
   2014-12-24:

@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.leeds@hmps.gsi.gov.uk
 enabled: true
+estate: Leeds
+id: 68
 phone: 0113 203 2995
 slots:
   fri:

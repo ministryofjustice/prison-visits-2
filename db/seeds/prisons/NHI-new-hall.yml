@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.newhall@hmps.gsi.gov.uk
 enabled: true
+estate: New Hall
+id: 85
 phone: 01924 803219
 slots:
   sat:

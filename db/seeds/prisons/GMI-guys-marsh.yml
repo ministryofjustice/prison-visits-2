@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisitsguysmarsh@hmps.gsi.gov.uk
 enabled: true
+estate: Guys Marsh
+id: 46
 phone: 01747 856586
 slot_anomalies:
   2014-12-29:

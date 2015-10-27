@@ -8,6 +8,8 @@ address:
 canned_responses: true
 email: socialvisits.holloway@hmps.gsi.gov.uk
 enabled: true
+estate: Holloway
+id: 61
 phone: 020 7979 4751
 slot_anomalies:
   2014-05-21:

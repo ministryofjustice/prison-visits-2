@@ -9,6 +9,8 @@ booking_window: 14
 canned_responses: true
 email: socialvisits.cardiff@hmps.gsi.gov.uk
 enabled: true
+estate: Cardiff
+id: 20
 phone: 029 20923327
 slot_anomalies:
   2014-04-21:

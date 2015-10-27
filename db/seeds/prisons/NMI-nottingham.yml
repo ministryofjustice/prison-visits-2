@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.nottingham@hmps.gsi.gov.uk
 enabled: true
+estate: Nottingham
+id: 87
 phone: 0115 962 8980
 slots:
   fri:

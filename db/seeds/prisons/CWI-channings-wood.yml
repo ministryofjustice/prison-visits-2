@@ -8,6 +8,8 @@ address:
 canned_responses: true
 email: socialvisits.channingswood@hmps.gsi.gov.uk
 enabled: true
+estate: Channings Wood
+id: 23
 phone: 01803 812060
 slots:
   wed:

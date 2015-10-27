@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.maidstone@hmps.gsi.gov.uk
 enabled: true
+estate: Maidstone
+id: 83
 phone: 01622 775619
 slots:
   tue:

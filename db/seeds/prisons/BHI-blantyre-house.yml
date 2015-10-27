@@ -6,6 +6,8 @@ address:
 - TN17 2NH
 email: socialvisits.blantyrehouse@hmps.gsi.gov.uk
 enabled: false
+estate: Blantyre House
+id: 10
 phone: ''
 reason: it_issues
 slots:

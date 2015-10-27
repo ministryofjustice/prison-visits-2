@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.lewes@hmps.gsi.gov.uk
 enabled: true
+estate: Lewes
+id: 78
 phone: 01273785277
 slots:
   mon:

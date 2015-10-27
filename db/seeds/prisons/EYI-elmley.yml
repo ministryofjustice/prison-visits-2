@@ -7,7 +7,9 @@ address:
 canned_responses: true
 email: socialvisits.elmley@hmps.gsi.gov.uk
 enabled: true
+estate: Elmley
 finder_slug: sheppey-cluster-elmley
+id: 36
 phone: 0300 060 6605
 slots:
   mon:

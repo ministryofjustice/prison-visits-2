@@ -7,7 +7,9 @@ address:
 canned_responses: true
 email: socialvisits.usk@hmps.gsi.gov.uk
 enabled: true
+estate: Usk
 finder_slug: usk-prescoed-usk
+id: 114
 phone: 01291 671730
 slots:
   mon:

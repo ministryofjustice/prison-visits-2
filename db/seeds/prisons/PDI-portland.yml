@@ -8,6 +8,8 @@ adult_age: 11
 canned_responses: true
 email: socialvisits.portland@hmps.gsi.gov.uk
 enabled: true
+estate: Portland
+id: 95
 phone: 01305 715775
 slot_anomalies:
   2014-12-24:

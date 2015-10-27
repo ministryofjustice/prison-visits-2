@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.everthorpe@hmps.gsi.gov.uk
 enabled: true
+estate: Wolds
+id: 125
 phone: 01430 426505
 slots:
   fri:

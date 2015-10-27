@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.glenparva@hmps.gsi.gov.uk
 enabled: true
+estate: Glen Parva
+id: 48
 phone: 0116 228 4366
 slot_anomalies:
   2014-12-24:

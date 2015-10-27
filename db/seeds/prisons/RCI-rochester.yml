@@ -9,6 +9,8 @@ address:
 canned_responses: true
 email: socialvisits.rochester@hmps.gsi.gov.uk
 enabled: true
+estate: Rochester
+id: 99
 phone: 01634 803100
 slots:
   mon:

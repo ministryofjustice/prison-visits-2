@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.ford@hmps.gsi.gov.uk
 enabled: true
+estate: Ford
+id: 38
 phone: 
 slots:
   wed:

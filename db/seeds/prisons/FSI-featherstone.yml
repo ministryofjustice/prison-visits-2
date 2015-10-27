@@ -9,6 +9,8 @@ address:
 canned_responses: true
 email: visitsbooking.westmidlands@noms.gsi.gov.uk
 enabled: true
+estate: Featherstone
+id: 44
 phone: 0300 060 6502
 slots:
   mon:

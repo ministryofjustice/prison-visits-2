@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.coldingley@hmps.gsi.gov.uk
 enabled: true
+estate: Coldingley
+id: 22
 phone: 01483 344418
 slot_anomalies:
   2014-12-23:

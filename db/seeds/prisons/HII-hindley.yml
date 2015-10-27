@@ -7,7 +7,9 @@ address:
 canned_responses: true
 email: socialvisits.hindley@hmps.gsi.gov.uk
 enabled: true
+estate: Hindley
 finder_slug: hindley
+id: 55
 phone: 01942 663492
 slots:
   mon:

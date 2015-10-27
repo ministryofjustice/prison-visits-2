@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.send@hmps.gsi.gov.uk
 enabled: true
+estate: Send
+id: 103
 phone: 01483 471033
 slot_anomalies:
   2014-12-22:

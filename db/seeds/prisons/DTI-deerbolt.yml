@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.deerbolt@hmps.gsi.gov.uk
 enabled: true
+estate: Deerbolt
+id: 28
 phone: 01833 633349
 slot_anomalies:
   2014-12-23:

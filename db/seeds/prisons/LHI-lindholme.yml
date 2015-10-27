@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.lindholme@hmps.gsi.gov.uk
 enabled: true
+estate: Lindholme
+id: 71
 phone: 01302 524980
 slot_anomalies:
   2014-12-24:

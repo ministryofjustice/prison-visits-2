@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.risley@hmps.gsi.gov.uk
 enabled: true
+estate: Risley
+id: 102
 phone: 01925 733284
 slot_anomalies:
   2014-07-25:

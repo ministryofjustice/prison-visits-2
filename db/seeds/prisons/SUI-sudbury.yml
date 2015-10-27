@@ -8,6 +8,8 @@ address:
 canned_responses: true
 email: socialvisitssudbury@hmps.gsi.gov.uk
 enabled: true
+estate: Sudbury
+id: 111
 phone: 01283 584066
 slot_anomalies:
   2014-12-22:

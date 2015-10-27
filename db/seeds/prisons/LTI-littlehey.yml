@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.littlehey@hmps.gsi.gov.uk
 enabled: true
+estate: Littlehey
+id: 77
 lead_days: 2
 phone: 01480 335650
 slots:

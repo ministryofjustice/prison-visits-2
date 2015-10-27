@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.brixton@hmps.gsi.gov.uk
 enabled: true
+estate: Brixton
+id: 17
 phone: 0208 678 1433
 slot_anomalies:
   2014-08-12:

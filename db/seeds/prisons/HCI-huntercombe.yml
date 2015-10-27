@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.huntercombe@hmps.gsi.gov.uk
 enabled: true
+estate: Huntercombe
+id: 51
 phone: 01491 643151
 slot_anomalies:
   2014-12-22:

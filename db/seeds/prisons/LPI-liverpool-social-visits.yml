@@ -7,7 +7,9 @@ address:
 canned_responses: true
 email: socialvisits.liverpool@hmps.gsi.gov.uk
 enabled: true
+estate: Liverpool
 finder_slug: liverpool
+id: 76
 phone: 0151 530 4050
 slots:
   fri:

@@ -3,11 +3,13 @@ name: Kirkham
 nomis_id: KMI
 address:
 - Freckleton Road
-- ' Kirkham'
+- " Kirkham"
 - PR4 2RN
 canned_responses: true
 email: socialvisits.kirkham@hmps.gsi.gov.uk
 enabled: true
+estate: Kirkham
+id: 64
 phone: 
 slots:
   fri:

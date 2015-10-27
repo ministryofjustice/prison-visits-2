@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.warrenhill@hmps.gsi.gov.uk
 enabled: true
+estate: Warren Hill
+id: 121
 phone: 020 8588 4002
 slot_anomalies:
   2014-12-24:

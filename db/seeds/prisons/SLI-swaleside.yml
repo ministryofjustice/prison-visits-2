@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.swaleside@hmps.gsi.gov.uk
 enabled: true
+estate: Swaleside
+id: 107
 phone: 0300 060 6604
 slots:
   mon:

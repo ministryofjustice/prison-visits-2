@@ -7,7 +7,9 @@ address:
 canned_responses: true
 email: socialvisits.norwich@hmps.gsi.gov.uk
 enabled: true
+estate: Norwich
 finder_slug: norwich
+id: 90
 phone: 01603 708795
 slots:
   mon:

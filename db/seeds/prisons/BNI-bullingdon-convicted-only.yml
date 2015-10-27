@@ -7,7 +7,9 @@ address:
 canned_responses: true
 email: socialvisits.bullingdon@hmps.gsi.gov.uk
 enabled: true
+estate: Bullingdon
 finder_slug: bullingdon
+id: 13
 phone: 01869 353176
 slots:
   mon:

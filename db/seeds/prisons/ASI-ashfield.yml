@@ -2,3 +2,5 @@
 name: Ashfield
 nomis_id: ASI
 enabled: false
+estate: Ashfield
+id: 5

@@ -8,6 +8,8 @@ address:
 canned_responses: true
 email: socialvisits.bristol@hmps.gsi.gov.uk
 enabled: true
+estate: Bristol
+id: 11
 phone: 0117 372 3213
 slots:
   mon:

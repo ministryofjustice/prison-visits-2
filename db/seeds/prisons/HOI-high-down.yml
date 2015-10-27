@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.highdown@hmps.gsi.gov.uk
 enabled: true
+estate: High Down
+id: 57
 phone: 020 7147 6570
 slots:
   sat:

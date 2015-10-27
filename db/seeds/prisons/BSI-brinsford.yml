@@ -10,6 +10,8 @@ adult_age: 10
 canned_responses: true
 email: visitsbooking.westmidlands@noms.gsi.gov.uk
 enabled: true
+estate: Brinsford
+id: 16
 phone: 0300 060 6500
 slot_anomalies:
   2015-02-23:

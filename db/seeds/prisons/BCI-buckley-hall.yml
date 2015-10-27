@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.buckleyhall@hmps.gsi.gov.uk
 enabled: true
+estate: Buckley Hall
+id: 8
 phone: 01706 514350
 slot_anomalies:
   2014-12-24:

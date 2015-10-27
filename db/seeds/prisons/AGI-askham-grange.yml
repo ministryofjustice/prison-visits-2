@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.askhamgrange@hmps.gsi.gov.uk
 enabled: true
+estate: Askham Grange
+id: 2
 phone: 
 slots:
   sat:

@@ -7,7 +7,9 @@ address:
 canned_responses: true
 email: socialvisits.feltham@hmps.gsi.gov.uk
 enabled: true
+estate: Feltham
 finder_slug: feltham
+id: 41
 phone: 0208 844 5400
 slots:
   mon:

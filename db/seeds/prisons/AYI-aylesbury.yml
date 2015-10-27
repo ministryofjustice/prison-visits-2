@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.aylesbury@hmps.gsi.gov.uk
 enabled: true
+estate: Aylesbury
+id: 6
 phone: 01296 444099
 slots:
   mon:

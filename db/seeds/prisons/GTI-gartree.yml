@@ -9,6 +9,8 @@ address:
 canned_responses: true
 email: socialvisits.gartree@hmps.gsi.gov.uk
 enabled: true
+estate: Gartree
+id: 49
 phone: 01858 426 727
 slots:
   tue:

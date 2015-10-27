@@ -8,6 +8,8 @@ address:
 canned_responses: true
 email: socialvisits.durham@hmps.gsi.gov.uk
 enabled: true
+estate: Durham
+id: 26
 phone: 0191 3323417
 slots:
   mon:

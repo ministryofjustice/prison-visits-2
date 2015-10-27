@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.styal@hmps.gsi.gov.uk
 enabled: true
+estate: Styal
+id: 110
 phone: 01625553195
 slots:
   mon:

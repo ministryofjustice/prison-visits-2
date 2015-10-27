@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.exeter@hmps.gsi.gov.uk
 enabled: true
+estate: Exeter
+id: 35
 phone: 01392 41 5833
 slot_anomalies:
   2014-12-24:

@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisitsleiceste@hmps.gsi.gov.uk
 enabled: true
+estate: Leicester
+id: 67
 phone: 0116 228 3128
 slot_anomalies:
   2014-12-24:

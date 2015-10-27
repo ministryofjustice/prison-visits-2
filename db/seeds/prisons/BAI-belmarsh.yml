@@ -10,6 +10,8 @@ booking_window: 21
 canned_responses: true
 email: belmarsh.visits@hmps.gsi.gov.uk
 enabled: true
+estate: Belmarsh
+id: 7
 lead_days: 3
 phone: 0208 3314768
 slots:

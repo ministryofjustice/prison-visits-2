@@ -7,6 +7,8 @@ address:
 canned_responses: true
 email: socialvisits.wymott@hmps.gsi.gov.uk
 enabled: true
+estate: Wymott
+id: 123
 phone: 01772 442234
 slot_anomalies:
   2015-08-31:
