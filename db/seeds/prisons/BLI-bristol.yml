@@ -1,17 +1,16 @@
 ---
-name: Rochester
-nomis_id: RCI
+name: Bristol
+nomis_id: BLI
 address:
-- 1 Fort Road
-- Rochester
-- Kent
-- ME1 3QS
+- 19 Cambridge Road
+- Bristol
+- BS7 8PS
 canned_responses: true
-email: socialvisits.rochester@hmps.gsi.gov.uk
+email: socialvisits.bristol@hmps.gsi.gov.uk
 enabled: true
-estate: Rochester
-id: 99
-phone: 01634 803100
+estate: Bristol
+id: 11
+phone: 0117 372 3213
 slots:
   mon:
   - 1400-1600
@@ -24,12 +23,11 @@ slots:
   fri:
   - 1400-1600
   sat:
-  - 0930-1130
   - 1400-1600
   sun:
   - 1400-1600
 unbookable:
-- 2013-12-25
-- 2013-12-26
 - 2014-12-25
 - 2014-12-26
+- 2015-01-01
+- 2015-04-03

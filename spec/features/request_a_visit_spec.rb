@@ -6,6 +6,7 @@ RSpec.feature 'Booking a visit', js: true do
       name: 'Reading Gaol',
       nomis_id: 'XYZ',
       enabled: true,
+      estate: 'Reading',
       address: '1 High Street',
       email_address: 'reading.gaol@test.example.com',
       phone_no: '01154960123',
