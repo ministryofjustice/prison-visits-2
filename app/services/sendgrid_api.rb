@@ -53,6 +53,6 @@ private
   end
 
   def smtp_settings
-    Rails.configuration.action_mailer.smtp_settings || {}
+    Rails.configuration.action_mailer.smtp_settings
   end
 end
