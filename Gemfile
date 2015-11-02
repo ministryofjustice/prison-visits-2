@@ -11,6 +11,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'virtus'
 gem 'logstasher'
+gem 'string_scrubber'
 
 group :development, :test do
   gem 'brakeman'
