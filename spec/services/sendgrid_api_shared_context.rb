@@ -1,21 +1,30 @@
-RSpec.shared_context 'sendgrid is configured' do
-  around do |example|
-    smtp_settings = Rails.configuration.action_mailer.smtp_settings
-    Rails.configuration.action_mailer.smtp_settings = {
-      user_name: 'test_smtp_username',
-      password: 'test_smtp_password'
-    }
-    example.run
-    Rails.configuration.action_mailer.smtp_settings = smtp_settings
+RSpec.shared_context 'sendgrid shared tools' do
+  let(:logger) { Rails.logger }
+  let(:body) { '[]' }
+
+  def check_error_log_message_contains(regexp)
+    expect(logger).to receive(:error).
+      with(regexp)
   end
 end
 
-RSpec.shared_context 'sendgrid is not configured' do
-  around do |example|
-    smtp_settings = Rails.configuration.action_mailer.smtp_settings
-    Rails.configuration.action_mailer.smtp_settings = {}
-    example.run
-    Rails.configuration.action_mailer.smtp_settings = smtp_settings
+RSpec.shared_context 'sendgrid credentials are set' do
+  before do
+    allow(ENV).to receive(:[]).
+      with('SMTP_USERNAME').and_return('test_smtp_username')
+
+    allow(ENV).to receive(:[]).
+      with('SMTP_PASSWORD').and_return('test_smtp_password')
+  end
+end
+
+RSpec.shared_context 'sendgrid credentials are not set' do
+  before do
+    allow(ENV).to receive(:[]).
+      with('SMTP_USERNAME').and_return(nil)
+
+    allow(ENV).to receive(:[]).
+      with('SMTP_PASSWORD').and_return(nil)
   end
 end
 

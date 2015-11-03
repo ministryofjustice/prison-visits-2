@@ -1,8 +1,5 @@
 Rails.application.configure do
-  config.action_mailer.smtp_settings = {
-    user_name: ENV['SMTP_USERNAME'],
-    password: ENV['SMTP_PASSWORD']
-  }
+  config.action_mailer.smtp_settings = {}
   config.cache_classes = false
   config.eager_load = false
   config.consider_all_requests_local       = true
