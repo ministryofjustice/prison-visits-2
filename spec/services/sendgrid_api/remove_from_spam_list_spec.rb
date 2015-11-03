@@ -4,7 +4,6 @@ require_relative './shared_examples'
 
 RSpec.describe SendgridApi, '.remove_from_spam_list' do
   subject {
-  subject { described_class.new }
     described_class.remove_from_spam_list('test@example.com')
   }
 
