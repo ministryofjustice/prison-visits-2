@@ -7,50 +7,51 @@ module DateHelper
     I18n.l(date.to_date, format: :date_of_visit)
   end
 
+  alias_method :format_date_of_visit, :format_date
+  alias_method :format_date_of_reply, :format_date
+
   def format_time_12hr(time)
-    I18n.l(time, format: :twelve_hour)
+    I18n.l(time_from_string(time), format: :twelve_hour)
   end
 
   def format_time_24hr(time)
-    I18n.l(time, format: :twenty_four_hour)
+    I18n.l(time_from_string(time), format: :twenty_four_hour)
   end
 
-  def format_slot_begin_time_for_public(slot)
-    I18n.t(
-      'formats.slot.public.begin_only',
-      date: format_date_of_visit(slot.begin_at.to_date),
-      time: format_time_12hr(slot.begin_at)
-    )
+  def date_and_duration_of_slot(slot)
+    "#{format_date(slot.date)} #{slot_and_duration(slot.times)}"
   end
 
-  def format_slot_for_public(slot)
-    I18n.t(
-      'formats.slot.public.full',
-      date: format_date_of_visit(slot.begin_at.to_date),
-      time: format_time_12hr(slot.begin_at),
-      duration: format_duration(slot.duration)
-    )
+  def date_and_times_of_slot(slot)
+    "#{format_date(slot.date)} #{start_and_end_time(slot.times)}"
   end
 
-  def format_slot_for_staff(slot)
-    I18n.t(
-      'formats.slot.staff',
-      date: format_date_of_visit(slot.begin_at.to_date),
-      begin: format_time_24hr(slot.begin_at),
-      end: format_time_24hr(slot.end_at)
-    )
+  private
+
+  def date_from_string_or_date(obj)
+    if obj.is_a?(String)
+      Date.parse(obj)
+    else
+      obj
+    end
   end
 
-private
+  def time_from_string(obj)
+    Time.strptime(obj, '%H%M')
+  end
 
-  def format_duration(secs)
-    hours = secs.to_i / 3600
-    minutes = (secs.to_i / 60) % 60
+  def slot_and_duration(times)
+    from, to = split_times(times)
+    duration = (time_from_string(to) - time_from_string(from)).duration
 
-    parts = []
-    parts << I18n.t('formats.duration.hours', count: hours) if hours > 0
-    parts << I18n.t('formats.duration.minutes', count: minutes) if minutes > 0
+    "#{format_time_12hr(from)} for #{duration}"
+  end
 
-    parts.join(I18n.t('formats.duration.glue'))
+  def start_and_end_time(times)
+    split_times(times).map(&method(:format_time_24hr)).join(' - ')
+  end
+
+  def split_times(times)
+    times.split('-')
   end
 end

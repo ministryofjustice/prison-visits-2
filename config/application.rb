@@ -29,5 +29,7 @@ module PrisonVisits
     config.time_zone = 'London'
 
     config.active_record.raise_in_transactional_callbacks = true
+    config.unsubscribe_url =
+      '<https://www.prisonvisits.service.gov.uk/unsubscribe>'
   end
 end
