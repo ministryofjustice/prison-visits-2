@@ -1,21 +1,21 @@
-# -*- coding: utf-8 -*-
 class VisitorMailer < ActionMailer::Base
+  include LogoAttachment
+  include NoReply
+  include DateHelper
+  add_template_helper DateHelper
+
   layout 'email'
 
   attr_reader :visit
-  helper_method :visit
 
-  default('List-Unsubscribe' => Rails.configuration.unsubscribe_url)
-
-  def booking_receipt_email(visit, token)
+  def request_acknowledged(visit)
     @visit = visit
-    @token = token
 
-    SpamAndBounceResets.new(@visit.visitors.first).perform_resets
+    # SpamAndBounceResets.new(@visit.visitors.first).perform_resets
 
     mail(
-      from: sender,
-      reply_to: prison_mailbox_email,
+      from: noreply_address,
+      reply_to: prison_email,
       to: recipient,
       subject: default_i18n_subject(
         receipt_date: format_date_of_visit(first_date)
@@ -23,19 +23,5 @@ class VisitorMailer < ActionMailer::Base
     )
   end
 
-  def sender
-    noreply_address
-  end
-
-  def recipient
-    first_visitor_email
-  end
-
-  def first_date
-    @visit.slots.first.date
-  end
-
-  def slot_date
-    @slot.date
-  end
+  delegate :recipient, :prison_email, :first_date, to: :visit
 end

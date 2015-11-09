@@ -6,7 +6,7 @@ Rails.application.configure do
     port:                  ENV['SMTP_PORT'],
     domain:                ENV['SMTP_DOMAIN'],
     authentication:        :login,
-    enable_starttls_auto:  true,
+    enable_starttls_auto:  true
   }
   config.action_mailer.default_url_options =
     { host: ENV.fetch('SERVICE_URL'), protocol: 'https' }
