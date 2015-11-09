@@ -7,6 +7,10 @@ require 'rspec/rails'
 
 require 'capybara/rspec'
 require 'capybara/poltergeist'
+require 'webmock/rspec'
+
+WebMock.disable_net_connect!(allow: 'codeclimate.com', allow_localhost: true)
+
 Capybara.javascript_driver = :poltergeist
 Capybara.default_max_wait_time = 3
 Capybara.asset_host = 'http://localhost:3000'
