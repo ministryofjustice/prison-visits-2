@@ -1,7 +1,9 @@
 class BookingRequestCreator
   def create!(prisoner_step, visitors_step, slots_step)
     params = build_params(prisoner_step, visitors_step, slots_step)
-    Visit.create!(params)
+    Visit.create!(params).tap { |visit|
+      PrisonMailer.request_received(visit).deliver_now
+    }
   end
 
 private

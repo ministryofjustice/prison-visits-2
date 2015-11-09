@@ -10,7 +10,7 @@ RSpec.describe BookingRequestCreator do
       number: 'a1234bc'
     )
   }
-    
+
   let(:visitors_step) {
     VisitorsStep.new(
       first_name: 'Ada',
@@ -20,7 +20,7 @@ RSpec.describe BookingRequestCreator do
       phone_no: '01154960222'
     )
   }
-    
+
   let(:slots_step) {
     SlotsStep.new(
       option_1: '2015-01-02T09:00/10:00',
@@ -28,6 +28,14 @@ RSpec.describe BookingRequestCreator do
       option_3: '2015-01-04T09:00/10:00'
     )
   }
+
+  let(:mailing) {
+    double(Mail::Message, deliver_now: nil)
+  }
+
+  before do
+    allow(PrisonMailer).to receive(:request_received).and_return(mailing)
+  end
 
   it 'creates a Visit record' do
     expect(Visit).
@@ -47,6 +55,16 @@ RSpec.describe BookingRequestCreator do
         slot_option_2: '2015-01-03T09:00/10:00',
         slot_option_3: '2015-01-04T09:00/10:00'
       )
+
+    described_class.new.create! prisoner_step, visitors_step, slots_step
+  end
+
+  it 'emails the prison' do
+    visit = double(Visit)
+    allow(Visit).to receive(:create!).and_return(visit)
+    expect(PrisonMailer).to receive(:request_received).with(visit).
+      and_return(mailing)
+    expect(mailing).to receive(:deliver_now)
 
     described_class.new.create! prisoner_step, visitors_step, slots_step
   end
