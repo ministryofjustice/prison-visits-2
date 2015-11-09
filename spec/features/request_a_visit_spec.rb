@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.feature 'Booking a visit', js: true do
+  include ActiveJobHelper
+
   before do
     create(:prison, name: 'Reading Gaol')
   end

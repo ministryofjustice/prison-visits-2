@@ -30,7 +30,7 @@ RSpec.describe BookingRequestCreator do
   }
 
   let(:mailing) {
-    double(Mail::Message, deliver_now: nil)
+    double(Mail::Message, deliver_later: nil)
   }
 
   before do
@@ -64,7 +64,7 @@ RSpec.describe BookingRequestCreator do
     allow(Visit).to receive(:create!).and_return(visit)
     expect(PrisonMailer).to receive(:request_received).with(visit).
       and_return(mailing)
-    expect(mailing).to receive(:deliver_now)
+    expect(mailing).to receive(:deliver_later)
 
     described_class.new.create! prisoner_step, visitors_step, slots_step
   end

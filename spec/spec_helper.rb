@@ -8,9 +8,18 @@ SimpleCov.minimum_coverage 100
 autoload :ActiveModel, 'active_model'
 autoload :Virtus, 'virtus'
 require 'active_support/dependencies'
-Dir[File.expand_path('../../{lib,app/**/*}', __FILE__)].each do |path|
-  next unless File.directory?(path)
-  ActiveSupport::Dependencies.autoload_paths << path
+
+locations = %w[
+  ../../lib/**/*
+  ../../app/**/*
+  ../support
+]
+
+locations.each do |location|
+  Dir[File.expand_path(location, __FILE__)].each do |path|
+    next unless File.directory?(path)
+    ActiveSupport::Dependencies.autoload_paths << path
+  end
 end
 
 RSpec.configure do |config|
