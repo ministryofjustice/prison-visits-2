@@ -12,8 +12,6 @@ RSpec.describe SendgridApi, '.remove_from_bounce_list' do
 
     context 'when there is no bounce' do
       include_examples 'API reports email does not exist'
-        it 'removes it' do
-          expect(subject.remove_from_bounce_list('test@example.com')).to be_truthy
     end
 
     context 'when there is a bounce' do
