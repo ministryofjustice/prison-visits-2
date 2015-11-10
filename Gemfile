@@ -29,6 +29,7 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  gem 'ffaker'
   gem 'fuubar'
   gem 'launchy'
   gem 'phantomjs', require: 'phantomjs/poltergeist'
