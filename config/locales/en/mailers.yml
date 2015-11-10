@@ -1,4 +1,6 @@
 en:
+  mailer:
+    noreply: 'Prison Visits Booking (Unattended) <noreply@%{domain}>'
   prison_mailer:
     request_received:
       subject: 'Visit request for %{full_name} on %{request_date}'

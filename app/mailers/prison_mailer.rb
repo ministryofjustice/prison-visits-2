@@ -1,10 +1,10 @@
 class PrisonMailer < ActionMailer::Base
   include LogoAttachment
+  include NoReply
   include DateHelper
   add_template_helper DateHelper
 
   layout 'email'
-  default from: 'TODO'
 
   def request_received(visit)
     @visit = visit

@@ -7,7 +7,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options =
     { host: 'localhost', protocol: 'https', port: '3000' }
   config.action_mailer.smtp_settings =
-    { address: 'localhost', port: 1025 }
+    { address: 'localhost', port: 1025, domain: 'localhost' }
   config.active_support.deprecation = :log
   config.active_record.migration_error = :page_load
   config.assets.debug = true
