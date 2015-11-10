@@ -1,157 +1,68 @@
 <p>
-Dear #{@visit.visitors.first.first_name},
+  <%= t('.salutation', visitor_full_name: @visit.visitor_first_name) %>,
 </p>
 <h1>
-  Your visit is not booked yet
+  <%= t('.status') %>
 </h1>
 <p>
-You can check whether your visit has been booked on the #{link_to('visit status page', visit_status_url(@visit.visit_id, state: @token))}.
+  <%= t('.where_to_check_status') %>
+  <%= link_to('TODO show booking', '#') %>
 </p>
 <p>
-We'll email you by #{when_to_expect_reply} to confirm the date and time of your visit. Please don't contact us any sooner than that, as we won't be able to comment on booking requests that are being processed.
+  <%= t('.when_to_expect_response', when: 'TODO') %>
 </p>
 <p>
-If you don’t receive a confirmation email by #{when_to_expect_reply}, please check your spam or junk folder for it. You need to do this on a computer or tablet (rather than a smart phone).
+  <%= t('.when_to_check_spam', when: 'TODO') %>
 </p>
 <h1>
-  Add this email to your address book
+  <%= t('.add_to_address_book') %>
 </h1>
 <p>
-To stop visit confirmation emails going to your spam or junk folder please add no-reply@email.prisonvisits.service.gov.uk to your address book or safe senders list.
+  <%= t('.add_address', email: 'no-reply@email.prisonvisits.service.gov.uk') %>
 </p>
 <h1>
-  Visit request details
+  <%= t('.details') %>
 </h1>
 <p>
-You have requested a visit to #{@visit.prison_name} for #{@visit.visitors.size} #{@visit.visitors.size > 1 ? 'people' : 'person'}:
+  <%= t('.request',
+        prison: @visit.prison_name,
+        count: @visit.total_number_of_visitors
+       )
+  %>
 </p>
 <p>
-<% @visit.slots.each_with_index do |slot, index| %>
-  <% unless index == 0 %>
+  <% @visit.slots.each_with_index do |slot, index| %>
+    <%= t('.choice', n: index + 1) %>
+
+    <strong><%= format_slot_for_public(slot) %></strong>
     <br/>
   <% end %>
-  <% if slot.date.present? %>
-    <% if index == 0 %>
-      First choice:
-    <% else %>
-      Alternative #{index}:
-    <% end %>
-    <strong>#{date_and_duration_of_slot(slot)}</strong>
-  <% end %>
-<% end %>
 </p>
 <p>
-Prisoner:
-<strong>#{@visit.prisoner.first_name} #{@visit.prisoner.last_initial}.</strong>
-<br/>
-Prisoner number:
-<strong>#{@visit.prisoner.number.upcase}</strong>
+  <%= t('.prisoner') %>
+  <strong><%= @visit.anonymized_prisoner_name %>.</strong>
+  <br/>
+  <%= t('.prisoner_number') %>
+  <strong><%= @visit.prisoner_number.upcase %></strong>
 </p>
 <h1>
-  Cancel this visit request
+  <%= t('.cancellation_title') %>
 </h1>
 <p>
-If you no longer want to visit on this date, #{link_to('you can cancel this visit', visit_status_url(@visit.visit_id, state: @token))}.
+  <%= t('.cancel') %>
+  <%= link_to('TODO cancellation', '#') %>
 </p>
 <ul>
   <li>
-  telephone:
-  <strong>#{prison_phone}</strong>
+  <%= t('.telephone') %>
+  <strong><%= @visit.prison_phone_no %></strong>
   </li>
   <li>
-  email:
-  <strong>#{prison_email}</strong>
+  <%= t('email') %>
+  <strong><%= @visit.prison_email_address %></strong>
   </li>
 </ul>
 <p>
-Need help or want to make a complaint? If you have a question or need any help with the online visits service, please
-<%= succeed '.' do %>
-  <a href="<%= new_feedback_url %>">contact us</a>
-<% end %>
+  <%= t('.feedback') %>
+  <%= link_to('TODO feedback', '#') %>
 </p>
-<p>
-<small>Visit ID: #{@visit.visit_id}</small>
-Dear <%= @visit.visitor_full_name %>
-</p>
-</p>
-<p>gg
-<p>Your visit to #{@visit.prison_name} is now successfully confirmed.</p>
-<h2>#{date_and_duration_of_slot(@slot)}</h2>
-<p>Please arrive 45 minutes before your visit starts.</p>
-<p>
-Prisoner:
-<strong>#{@visit.prisoner.first_name} #{initial ? @visit.prisoner.last_initial : @visit.prisoner.last_name}</strong>
-<br/>
-Prisoner number:
-<strong>#{@visit.prisoner.number.upcase}</strong>
-</p>
-<p>
-<% visitors.each_with_index do |visitor, index| %>
-  <% unless index == 0 %>
-    <br/>
-  <% end %>
-  Visitor #{index + 1}:
-  <strong>#{first_name(visitor)} #{initial ? last_initial(visitor) : last_name(visitor)}</strong>
-<% end %>
-</p>
-<% if @confirmation.vo_number != 'none' %>
-  <p >Your reference number is: #{@confirmation.vo_number}</p>
-<% end %>
-<% if @confirmation.visitor_not_listed or @confirmation.visitor_banned %>
-  <h2 >Visitors unable to attend this visit</h2>
-  <ul>
-    <% if @confirmation.visitor_not_listed %>
-      <li >#{@confirmation.unlisted_visitors.inject([]){ |array, (visitor)| array << first_name(visitor) + ' ' + (initial ? last_initial(visitor) : last_name(visitor)) }.join(', ')} cannot attend as they’re not on the prisoner’s contact list</li>
-    <% end %>
-    <% if @confirmation.visitor_banned %>
-      <li >#{@confirmation.banned_visitors.inject([]){ |array, (visitor)| array << first_name(visitor) + ' ' + (initial ? last_initial(visitor) : last_name(visitor)) }.join(', ')} cannot attend as they’re currently banned</li>
-    <% end %>
-  </ul>
-  <% if @confirmation.visitor_not_listed %>
-    <p >Visitors not on contact lists need to ask prisoners to update their lists with correct details, making sure that names appear exactly the same as on ID documents.</p>
-  <% end %>
-  <% if @confirmation.visitor_banned %>
-    <p >Banned visitors should have received a letter to say that they’re banned from visiting the prison at the moment. Get in touch with the prison for more information.</p>
-  <% end %>
-<% end %>
-<% if @confirmation.closed_visit %>
-  <p>
-  <strong>This is a closed visit:</strong>
-  the prisoner will be behind a glass screen in a separate area rather than in the visiting hall.
-  </p>
-<% end %>
-<h1>Cancel or change this visit</h1>
-<p>If you no longer want to visit on this date, #{link_to('you can cancel this visit', visit_status_url(@visit.visit_id, state: @token))}.</p>
-<p>If you want to change anything about your visit, like dates or visitors coming, contact the prison.</p>
-<h1>Questions about your visit</h1>
-<p>Please don't reply to this email if you have any other questions about your visit. Instead you must contact us directly.</p>
-<ul>
-  <li>
-  telephone:
-  <strong>#{prison_phone}</strong>
-  </li>
-  <li>
-  email:
-  <strong>#{prison_email}</strong>
-  </li>
-</ul>
-<h1>Add this email to your address book</h1>
-<p>To stop visit confirmation emails going to your spam or junk folder please add no-reply@email.prisonvisits.service.gov.uk to your address book or safe senders list.</p>
-<h1>What to bring when you visit</h1>
-<div>
-  <%= render partial: 'content/id_requirements' %>
-</div>
-<p>If you have any questions about ID requirements, please contact the prison.</p>
-<h1>If you’re bringing someone else’s child</h1>
-<p>You’ll need a letter from that child’s parents giving you permission to accompany their child.</p>
-<h1>What to expect when visiting prison</h1>
-<p>You will be searched before entering the prison visiting room. Prison staff may check  your pockets, pat you down and ask you to go through a metal detector. Dogs may also be used to detect illegal substances.</p>
-<h1>What not to bring</h1>
-<p>Please don’t bring anything restricted or illegal to the prison. The #{link_to(@visit.prison_name + ' prison page', prison_url(@visit))} has more information about what you can bring.</p>
-<h1>Your data</h1>
-<p>The Ministry of Justice (HM Prison Service) uses and retains the personal data of visitors for the purposes of the safe and secure provision of Prison Services, including those related to the management and rehabilitation of offenders. Access to the establishment can only be granted by supplying the prescribed information in order to ensure and maintain a safe and secure environment for all. You have the right to request details as to the personal information we hold for you; and subsequently request that we correct any personal information if it is found to be inaccurate or out of date. We will not share your information with other organisations unless it is required for the purposes of prevention, detection of crime, apprehension, prosecution, and management of offenders; prevention of terrorism; National  Security; or required to do by law.</p>
-<h1>Need help or have a question?</h1>
-<p>If you have a question or need any help with the online visits service, please #{link_to('contact us', new_feedback_url)}.</p>
-<p>
-<small>Visit ID: #{@visit.visit_id}</small>
-<p/>

@@ -11,11 +11,10 @@ class VisitorMailer < ActionMailer::Base
   def request_acknowledged(visit)
     @visit = visit
 
-    # SpamAndBounceResets.new(@visit.visitors.first).perform_resets
+    SpamAndBounceResets.new(@visit).perform_resets
 
     mail(
-      from: noreply_address,
-      reply_to: prison_email,
+      reply_to: prison_email_address,
       to: recipient,
       subject: default_i18n_subject(
         receipt_date: format_date_of_visit(first_date)
@@ -23,5 +22,5 @@ class VisitorMailer < ActionMailer::Base
     )
   end
 
-  delegate :recipient, :prison_email, :first_date, to: :visit
+  delegate :recipient, :prison_email_address, :first_date, to: :visit
 end

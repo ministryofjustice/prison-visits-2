@@ -4,6 +4,7 @@ RSpec.feature 'Booking a visit', js: true do
   include ActiveJobHelper
 
   let!(:prison) { create(:prison, name: 'Reading Gaol') }
+  let(:visitor_email) { 'ado@test.example.com' }
 
   scenario 'happy path' do
     visit steps_path
@@ -23,7 +24,7 @@ RSpec.feature 'Booking a visit', js: true do
     fill_in 'Day', with: '30'
     fill_in 'Month', with: '11'
     fill_in 'Year', with: '1970'
-    fill_in 'Email address', with: 'ada@test.example.com'
+    fill_in 'Email address', with: visitor_email
     fill_in 'Phone number', with: '01154960222'
 
     click_button 'Continue'
@@ -45,6 +46,10 @@ RSpec.feature 'Booking a visit', js: true do
       to receive_email.
       with_subject(/\AVisit request for Oscar Wilde on \w+ \d+ \w+\z/).
       and_body(/Prisoner:\s*Oscar Wilde/)
+    expect(visitor_email).
+      to receive_email.
+      with_subject(/we’ve received your visit request for \w+ \d+ \w+\z/).
+      and_body(/Prisoner:\s*Oscar W/)
   end
 
   scenario 'validation errors' do

@@ -17,3 +17,37 @@ en:
         If you cannot click on the link above, copy the entire link and paste
         it into the address bar of your browser.
       visit_id: 'Visit ID:'
+  visitor_mailer:
+    request_acknowledged:
+      add_address: >
+        To stop visit confirmation emails going to your spam or junk folder
+        please add %{email} to your address book or safe senders list.
+      add_to_address_book: 'Add this email to your address book'
+      cancel: 'If you no longer want to visit on this date'
+      cancellation_title: 'Cancel this visit request'
+      choice: 'Choice %{n}'
+      details: 'Visit request details'
+      email: 'email:'
+      feedback: >
+        Need help or want to make a complaint? If you have a question or need
+        any help with the online visits service, please
+      prisoner: 'Prisoner:'
+      prisoner_number: 'Prisoner number:'
+      request:
+        one: You have requested a visit to %{prison} for %{count} person
+        other: You have requested a visit to %{prison} for %{count} people
+      salutation: 'Dear %{visitor_full_name}'
+      status: 'Your visit is not booked yet'
+      subject: 'Not booked yet: we’ve received your visit request for %{receipt_date}'
+      telephone: 'telephone:'
+      when_to_check_spam: >
+        If you don’t receive a confirmation email by %{when}, please check
+        your spam or junk folder for it. You need to do this on a computer or
+        tablet (rather than a smart phone).
+      when_to_expect_response: >
+        We’ll email you by %{when} to confirm the date and time of your visit.
+        Please don’t contact us any sooner than that, as we won’t be able to
+        comment on booking requests that are being processed.
+      where_to_check_status: >
+       You can check whether your visit has been booked on the
+

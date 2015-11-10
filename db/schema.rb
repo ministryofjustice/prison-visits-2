@@ -69,11 +69,15 @@ ActiveRecord::Schema.define(version: 20151118121002) do
     t.string   "processing_state",       default: "requested", null: false
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
+    t.boolean  "override_email_checks",  default: false
+    t.string   "email_override"
     t.string   "reference_no"
     t.boolean  "closed"
   end
 
   add_index "visits", ["prison_id"], name: "index_visits_on_prison_id", using: :btree
 
+  add_foreign_key "additional_visitors", "visits"
   add_foreign_key "rejections", "visits"
+  add_foreign_key "visits", "prisons"
 end

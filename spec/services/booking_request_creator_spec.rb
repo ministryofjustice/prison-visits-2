@@ -35,6 +35,7 @@ RSpec.describe BookingRequestCreator do
 
   before do
     allow(PrisonMailer).to receive(:request_received).and_return(mailing)
+    allow(VisitorMailer).to receive(:request_acknowledged).and_return(mailing)
   end
 
   it 'creates a Visit record' do
