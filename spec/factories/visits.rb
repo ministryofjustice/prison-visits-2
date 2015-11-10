@@ -10,7 +10,8 @@ FactoryGirl.define do
     end
 
     prisoner_date_of_birth '1970-01-01'
-    prisoner_number do |n|
+
+    sequence(:prisoner_number) do |n|
       'ABC%04d' % n
     end
 
@@ -35,6 +36,9 @@ FactoryGirl.define do
     slot_option_1 do |v|
       v.prison.available_slots.first.iso8601
     end
+
     processing_state 'start'
+
+    reference_number { SecureRandom.uuid }
   end
 end

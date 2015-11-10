@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151027171043) do
+ActiveRecord::Schema.define(version: 20151110102448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20151027171043) do
     t.string   "processing_state",       default: "requested", null: false
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
+    t.string   "reference_number",                             null: false
   end
 
   add_index "visits", ["prison_id"], name: "index_visits_on_prison_id", using: :btree
