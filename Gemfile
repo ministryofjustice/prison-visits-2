@@ -19,6 +19,7 @@ gem 'virtus'
 group :development, :test do
   gem 'brakeman'
   gem 'byebug'
+  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.0'
   gem 'rubocop'
