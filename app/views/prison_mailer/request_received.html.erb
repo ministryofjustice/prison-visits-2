@@ -1,0 +1,73 @@
+<p>
+  <%= t('.prisoner') %>
+  <strong><%= @visit.prisoner_full_name %></strong>
+  <br/>
+  <%= t('.number') %>
+  <strong><%= @visit.prisoner_number %></strong>
+  <br/>
+  <%= t('.date_of_birth') %>
+  <strong><%= format_date_of_birth(@visit.prisoner_date_of_birth) %></strong>
+</p>
+
+<p>
+  <% @visit.slots.each_with_index do |slot, index| %>
+    <%= t('.choice', n: index + 1) %>
+
+    <strong><%= format_slot_for_staff(slot) %></strong>
+    <br/>
+  <% end %>
+</p>
+
+<p>
+  <%= t('.visitor', n: 1) %>
+
+  <strong><%= @visit.visitor_full_name %></strong>
+  <br/>
+
+  <%= t('.age') %>
+  <strong><%= @visit.visitor_age %></strong>
+  <br/>
+
+  <%= t('.date_of_birth') %>
+  <strong><%= format_date_of_birth(@visit.visitor_date_of_birth) %></strong>
+  <br/>
+
+  <%= t('.email_address') %>
+  <strong><%= @visit.visitor_email_address %></strong>
+  <br/>
+
+  <%= t('.phone_no') %>
+  <strong><%= @visit.visitor_phone_no %></strong>
+</p>
+
+<% @visit.additional_visitors.each_with_index do |visitor, index| %>
+  <p>
+    <%= t('.visitor', n: index + 2) %>
+
+    <strong><%= visitor.full_name %></strong>
+    <br/>
+
+    <%= t('.age') %>
+    <strong><%= visitor.age %></strong>
+    <br/>
+
+    <%= t('.date_of_birth') %>
+    <strong><%= format_date_of_birth(visitor.date_of_birth) %></strong>
+  </p>
+<% end %>
+
+<p class="cta">
+  <%= link_to(t('.process_booking'), '/TODO') %>
+</p>
+
+<p>
+  <%= t('.copy_paste_explanation') %>
+</p>
+
+<div>
+  <%= '/TODO' %>
+</div>
+
+<p>
+  <small><%= t('.visit_id') %> <%= @visit.id %></small>
+</p>

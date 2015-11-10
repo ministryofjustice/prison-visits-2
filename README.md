@@ -109,3 +109,10 @@ rendered.
 
 Finally, if all steps are complete, a `Visit` is created by
 `BookingRequestCreator` and the `completed` template is rendered.
+
+## Configuration
+
+### Development
+
+Emails will be sent to [MailCatcher](http://mailcatcher.me/), if it's running.
+See its website for instructions.

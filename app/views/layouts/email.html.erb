@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <%= stylesheet_link_tag 'email' %>
+  </head>
+  <body>
+    <div class="container">
+      <div class="banner">
+        <%= image_tag(attachments['govuk-header-logo.png'].url) %>
+      </div>
+      <div class="content">
+        <% if content_for? :copy_notice %>
+          <p class="copy-notice">
+            <strong>
+              <%= yield :copy_notice %>
+            </strong>
+          </p>
+        <% end %>
+
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

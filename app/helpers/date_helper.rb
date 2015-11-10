@@ -1,10 +1,10 @@
 module DateHelper
   def format_date_of_birth(date)
-    I18n.l(date, format: :date_of_birth)
+    I18n.l(date.to_date, format: :date_of_birth)
   end
 
   def format_date_of_visit(date)
-    I18n.l(date, format: :date_of_visit)
+    I18n.l(date.to_date, format: :date_of_visit)
   end
 
   def format_time_12hr(time)

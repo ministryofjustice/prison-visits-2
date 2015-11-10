@@ -6,6 +6,8 @@ Rails.application.configure do
     authentication: :login,
     enable_starttls_auto: true
   }
+  config.action_mailer.default_url_options =
+    { host: ENV.fetch('SERVICE_URL'), protocol: 'https' }
   config.cache_classes = true
   config.eager_load = true
   config.consider_all_requests_local       = false

@@ -1,0 +1,51 @@
+.container {
+  margin: auto;
+  max-width: 600px;
+}
+
+.banner {
+  background: #0b0c0c;
+}
+
+.banner img {
+  vertical-align: bottom;
+}
+
+.content {
+  padding: 16px 30px 0;
+}
+
+.copy-notice {
+  background: #dee0e2;
+  padding: 8px 16px;
+}
+
+.cta a {
+  background: #00823b;
+  border-bottom: 2px solid #003518;
+  color: white;
+  display: inline-block;
+  font-weight: bold;
+  letter-spacing: 0.03em;
+  margin-top: 1em;
+  padding: 7px 12px 5px;
+  text-decoration: none;
+}
+
+.copy-link {
+  word-wrap: break-word;
+  border: thin solid gray;
+  padding: 5px;
+}
+
+p, h1, h2 {
+  margin: 1em 0;
+}
+
+p, li {
+  font: 16px Helvetica, Arial, sans-serif
+}
+
+h1, h2 {
+  font: bold 24px Helvetica, Arial, sans-serif;
+}
