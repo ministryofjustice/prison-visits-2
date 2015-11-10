@@ -1,4 +1,5 @@
 class PrisonMailer < ActionMailer::Base
+  include LogoAttachment
   include DateHelper
   add_template_helper DateHelper
 
