@@ -54,13 +54,13 @@ RSpec.describe BookingRequestCreator do
         slot_option_1: '2015-01-02T09:00/10:00',
         slot_option_2: '2015-01-03T09:00/10:00',
         slot_option_3: '2015-01-04T09:00/10:00'
-      )
+      ).and_return double(Visit, id: 2)
 
     described_class.new.create! prisoner_step, visitors_step, slots_step
   end
 
   it 'emails the prison' do
-    visit = double(Visit)
+    visit = double(Visit, id: 2)
     allow(Visit).to receive(:create!).and_return(visit)
     expect(PrisonMailer).to receive(:request_received).with(visit).
       and_return(mailing)
