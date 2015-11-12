@@ -11,8 +11,6 @@ class Visit < ActiveRecord::Base
 
   delegate :email_address, to: :prison, prefix: true
 
-  before_create :set_reference_number
-
   def prisoner_full_name
     [prisoner_first_name, prisoner_last_name].join(' ')
   end
@@ -32,11 +30,5 @@ class Visit < ActiveRecord::Base
   def slots
     [slot_option_1, slot_option_2, slot_option_3].
       select(&:present?).map { |s| ConcreteSlot.parse(s) }
-  end
-
-private
-
-  def set_reference_number
-    self.reference_number = SecureRandom.uuid
   end
 end
