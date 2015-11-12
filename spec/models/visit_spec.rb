@@ -3,21 +3,6 @@ require 'rails_helper'
 RSpec.describe Visit, type: :model do
   subject { build(:visit) }
 
-  specify do
-    expect(subject.valid?).to be_truthy
-  end
-
-  describe '.reference_number' do
-    before do
-      subject.reference_number = nil
-      allow(SecureRandom).to receive(:uuid).and_return('some-uuid')
-    end
-
-    it 'is generated automatically when visit is created' do
-      expect { subject.save }.to change { subject.reference_number }.from(nil).to('some-uuid')
-    end
-  end
-
   describe 'prisoner_age' do
     it 'calculates age' do
       subject.prisoner_date_of_birth = Date.new(1995, 10, 8)

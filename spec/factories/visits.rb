@@ -38,7 +38,5 @@ FactoryGirl.define do
     end
 
     processing_state 'start'
-
-    reference_number { SecureRandom.uuid }
   end
 end
