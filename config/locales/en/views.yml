@@ -85,6 +85,71 @@ en:
         <a href="http://www.justice.gov.uk/contacts/prison-finder"
         rel="external">Contact the prison</a> if you can’t request a visit
         using this service.
+  prison:
+    visits:
+      edit:
+        title: Process a visit request
+        introduction_html: >
+          <ul>
+            <li>
+              book the visit in NOMIS first
+            </li>
+            <li>
+              use this form to send a visit confirmation or visit rejection
+              email to the visitor
+            </li>
+            <li>
+              make sure you select visitors who can’t attend under ‘Issue
+              with visitors’
+            </li>
+          </ul>
+        submit: Send email
+      people_box:
+        prisoner: 'Prisoner:'
+        number: 'Number:'
+        date_of_birth: 'Date of birth:'
+        visitor: 'Visitor %{n}:'
+        age: 'Age:'
+        email_address: 'Email:'
+        phone_no: 'Phone:'
+      shared:
+        what_we_will_tell: What we’ll tell the visitor
+      visit_date_section:
+        title: Visit date
+        choice_html: 'Choice %{n}: <strong>%{date}</strong>'
+        reference_no: Reference number
+        reference_no_hint: eg Last 8 digits of VO number or “none” for remand
+        closed_visit: This is a closed visit
+        closed_visit_wording_html: >
+          <p>
+            <strong>This is a closed visit:</strong> the prisoner will be
+            behind a glass screen in a separate area rather than in the
+            visiting hall.
+          </p>
+        none_available: None of the chosen times are available
+        none_available_explanation_html: >
+          <p>
+            Choose this option if:
+          </p>
+
+          <ul>
+            <li>
+              the prisoner has restrictions on their visits
+            </li>
+            <li>
+              the prisoner is due to be elsewhere, eg at court
+            </li>
+            <li>
+              the visit can’t take place because another prisoner is having a
+              visit at the same time and they are incompatible
+            </li>
+          </ul>
+        none_available_wording_html: >
+          <p>
+            We’re sorry but none of the dates and times you chose to visit
+            %{prisoner} at %{prison} were available. Please visit
+            www.gov.uk/prison-visits to choose some alternative dates.
+          </p>
   shared:
     validation:
       heading: You need to fix the errors on this page before continuing.

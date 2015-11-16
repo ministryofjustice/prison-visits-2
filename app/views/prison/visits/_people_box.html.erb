@@ -1,0 +1,44 @@
+<div class="people">
+  <dl class="labels">
+    <dt><%= t('.prisoner') %></dt>
+    <dd><%= @booking_response.prisoner_full_name %></dd>
+
+    <dt><%= t('.number') %></dt>
+    <dd><%= @booking_response.prisoner_number %></dd>
+
+    <dt><%= t('.date_of_birth') %></dt>
+    <dd><%= format_date_of_birth(@booking_response.prisoner_date_of_birth) %></dd>
+  </dl>
+
+  <hr/>
+
+  <dl class="labels">
+    <dt><%= t('.visitor', n: 1) %></dt>
+    <dd><%= @booking_response.visitor_full_name %></dd>
+
+    <dt><%= t('.age') %></dt>
+    <dd><%= @booking_response.visitor_age %></dd>
+
+    <dt><%= t('.date_of_birth') %></dt>
+    <dd><%= format_date_of_birth(@booking_response.visitor_date_of_birth) %></dd>
+
+    <dt><%= t('.email_address') %></dt>
+    <dd><%= @booking_response.visitor_email_address %></dd>
+
+    <dt><%= t('.phone_no') %></dt>
+    <dd><%= @booking_response.visitor_phone_no %></dd>
+  </dl>
+
+  <% @booking_response.additional_visitors.each_with_index do |visitor, index| %>
+    <dl class="labels">
+      <dt><%= t('.visitor', n: index + 2) %></dt>
+      <dd><%= visitor.full_name %></dd>
+
+      <dt><%= t('.age') %></dt>
+      <dd><%= visitor.age %></dd>
+
+      <dt><%= t('.date_of_birth') %></dt>
+      <dd><%= format_date_of_birth(visitor.date_of_birth) %></dd>
+    </dl>
+  <% end %>
+</div>
