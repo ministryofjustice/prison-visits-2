@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151027171043) do
+ActiveRecord::Schema.define(version: 20151112112210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
-  create_table "additional_visitors", force: :cascade do |t|
-    t.integer  "visit_id",      null: false
+  create_table "additional_visitors", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "visit_id",      null: false
     t.string   "first_name",    null: false
     t.string   "last_name",     null: false
     t.date     "date_of_birth", null: false
@@ -27,22 +28,22 @@ ActiveRecord::Schema.define(version: 20151027171043) do
 
   add_index "additional_visitors", ["visit_id"], name: "index_additional_visitors_on_visit_id", using: :btree
 
-  create_table "prisons", force: :cascade do |t|
+  create_table "prisons", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",                                    null: false
     t.string   "nomis_id",       limit: 3,                null: false
     t.boolean  "enabled",                  default: true, null: false
     t.integer  "booking_window",           default: 28,   null: false
     t.text     "address"
+    t.string   "estate"
     t.string   "email_address"
     t.string   "phone_no"
     t.json     "slot_details",             default: {},   null: false
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
-    t.string   "estate",                                  null: false
   end
 
-  create_table "visits", force: :cascade do |t|
-    t.integer  "prison_id",                                    null: false
+  create_table "visits", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "prison_id",                                    null: false
     t.string   "prisoner_first_name",                          null: false
     t.string   "prisoner_last_name",                           null: false
     t.date     "prisoner_date_of_birth",                       null: false
@@ -63,6 +64,4 @@ ActiveRecord::Schema.define(version: 20151027171043) do
 
   add_index "visits", ["prison_id"], name: "index_visits_on_prison_id", using: :btree
 
-  add_foreign_key "additional_visitors", "visits"
-  add_foreign_key "visits", "prisons"
 end

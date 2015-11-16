@@ -1,6 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Visit do
+RSpec.describe Visit, type: :model do
+  subject { build(:visit) }
+
   describe 'prisoner_age' do
     it 'calculates age' do
       subject.prisoner_date_of_birth = Date.new(1995, 10, 8)
