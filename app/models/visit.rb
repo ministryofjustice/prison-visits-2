@@ -11,6 +11,16 @@ class Visit < ActiveRecord::Base
 
   delegate :email_address, to: :prison, prefix: true
 
+  state_machine :processing_state, initial: :requested do
+    event :accept do
+      transition requested: :booked
+    end
+
+    event :reject do
+      transition requested: :rejected
+    end
+  end
+
   def prisoner_full_name
     [prisoner_first_name, prisoner_last_name].join(' ')
   end

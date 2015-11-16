@@ -3,6 +3,22 @@ require 'rails_helper'
 RSpec.describe Visit, type: :model do
   subject { build(:visit) }
 
+  describe 'states' do
+    it 'is requested initially' do
+      expect(subject).to be_requested
+    end
+
+    it 'is booked after accepting' do
+      subject.accept!
+      expect(subject).to be_booked
+    end
+
+    it 'is rejected after rejecting' do
+      subject.reject!
+      expect(subject).to be_rejected
+    end
+  end
+
   describe 'prisoner_age' do
     it 'calculates age' do
       subject.prisoner_date_of_birth = Date.new(1995, 10, 8)
