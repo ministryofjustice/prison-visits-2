@@ -68,4 +68,13 @@ RSpec.describe BookingRequestCreator do
 
     described_class.new.create! prisoner_step, visitors_step, slots_step
   end
+
+  it 'logs the visit id' do
+    visit = double(Visit, id: 2)
+    allow(Visit).to receive(:create!).and_return(visit)
+
+    expect(LogStasher.request_context).to match(visit_id: 2)
+
+    described_class.new.create! prisoner_step, visitors_step, slots_step
+  end
 end
