@@ -4,9 +4,10 @@ class BookingResponder
   end
 
   def respond!
-    case booking_response.selection
-    when /\Aslot_(\d+)\z/
+    if booking_response.slot_selected?
       accept!
+    else
+      reject!
     end
   end
 
@@ -17,5 +18,9 @@ private
 
   def accept!
     visit.accept!
+  end
+
+  def reject!
+    visit.reject!
   end
 end
