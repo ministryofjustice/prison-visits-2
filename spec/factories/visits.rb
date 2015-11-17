@@ -33,7 +33,17 @@ FactoryGirl.define do
     end
 
     slot_option_0 do |v|
-      v.prison.available_slots.first.iso8601
+      v.prison.available_slots.first
+    end
+
+    factory :visit_with_three_slots do
+      slot_option_1 do |v|
+        v.prison.available_slots.to_a[1]
+      end
+
+      slot_option_2 do |v|
+        v.prison.available_slots.to_a[2]
+      end
     end
   end
 end
