@@ -35,6 +35,16 @@ RSpec.describe BookingResponder do
         expect(visit_after_responding.slot_granted).
           to eq(visit_after_responding.slots[0])
       end
+
+      it 'marks the visit as closed' do
+        booking_response.closed_visit = true
+        expect(visit_after_responding).to be_closed
+      end
+
+      it 'marks the visit as not closed' do
+        booking_response.closed_visit = false
+        expect(visit_after_responding).not_to be_closed
+      end
     end
 
     context 'with the second slot' do

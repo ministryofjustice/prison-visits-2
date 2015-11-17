@@ -18,10 +18,12 @@ private
   private :visit
 
   def accept!
-    visit.slot_granted = visit.slots.fetch(booking_response.slot_index)
-    visit.reference_no = booking_response.reference_no
     visit.accept
-    visit.save!
+    visit.update!(
+      slot_granted: visit.slots.fetch(booking_response.slot_index),
+      reference_no: booking_response.reference_no,
+      closed: booking_response.closed_visit
+    )
   end
 
   def reject!

@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20151117162316) do
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.string   "reference_no"
+    t.boolean  "closed"
   end
 
   add_index "visits", ["prison_id"], name: "index_visits_on_prison_id", using: :btree
