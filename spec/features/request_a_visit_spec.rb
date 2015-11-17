@@ -3,9 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Booking a visit', js: true do
   include ActiveJobHelper
 
-  before do
-    create(:prison, name: 'Reading Gaol')
-  end
+  let!(:prison) { create(:prison, name: 'Reading Gaol') }
 
   scenario 'happy path' do
     visit steps_path
@@ -43,8 +41,10 @@ RSpec.feature 'Booking a visit', js: true do
 
     expect(page).to have_text('Your request is being processed')
 
-    expect(ActionMailer::Base.deliveries[0].subject).
-      to match(/\AVisit request for Oscar Wilde on \w+ \d+ \w+\z/)
+    expect(prison.email_address).
+      to receive_email.
+      with_subject(/\AVisit request for Oscar Wilde on \w+ \d+ \w+\z/).
+      and_body(/Prisoner:\s*Oscar Wilde/)
   end
 
   scenario 'validation errors' do

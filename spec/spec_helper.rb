@@ -12,7 +12,7 @@ require 'active_support/dependencies'
 locations = %w[
   ../../lib/**/*
   ../../app/**/*
-  ../support
+  ../support/helpers
 ]
 
 locations.each do |location|
@@ -20,6 +20,10 @@ locations.each do |location|
     next unless File.directory?(path)
     ActiveSupport::Dependencies.autoload_paths << path
   end
+end
+
+Dir[File.expand_path("../support/matchers/*.rb", __FILE__)].each do |path|
+  require path
 end
 
 RSpec.configure do |config|
