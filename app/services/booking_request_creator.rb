@@ -3,10 +3,15 @@ class BookingRequestCreator
     params = build_params(prisoner_step, visitors_step, slots_step)
     Visit.create!(params).tap { |visit|
       PrisonMailer.request_received(visit).deliver_later
+      add_log_metadata visit_id: visit.id
     }
   end
 
 private
+
+  def add_log_metadata(hash)
+    LogStasher.request_context.merge!(hash)
+  end
 
   def build_params(prisoner_step, visitors_step, slots_step)
     [
