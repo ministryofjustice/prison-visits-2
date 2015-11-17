@@ -32,7 +32,7 @@ FactoryGirl.define do
       FFaker::PhoneNumber.short_phone_number
     end
 
-    slot_option_1 do |v|
+    slot_option_0 do |v|
       v.prison.available_slots.first.iso8601
     end
   end

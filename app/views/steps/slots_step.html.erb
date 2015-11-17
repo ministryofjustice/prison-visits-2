@@ -10,7 +10,7 @@
         <% 3.times do |i| %>
           <%=
             single_field(
-              f, :"option_#{i.succ}", :select,
+              f, :"option_#{i}", :select,
               f.object.available_slots.map { |s|
                 [format_slot_begin_time_for_public(s), s.iso8601]
               },

@@ -5,7 +5,7 @@ class Visit < ActiveRecord::Base
   validates :prison_id, :prisoner_first_name, :prisoner_last_name,
     :prisoner_date_of_birth, :prisoner_number,
     :visitor_first_name, :visitor_last_name, :visitor_date_of_birth,
-    :visitor_email_address, :visitor_phone_no, :slot_option_1,
+    :visitor_email_address, :visitor_phone_no, :slot_option_0,
     :processing_state,
     presence: true
 
@@ -38,7 +38,7 @@ class Visit < ActiveRecord::Base
   end
 
   def slots
-    [slot_option_1, slot_option_2, slot_option_3].
+    [slot_option_0, slot_option_1, slot_option_2].
       select(&:present?).map { |s| ConcreteSlot.parse(s) }
   end
 

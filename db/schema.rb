@@ -53,9 +53,9 @@ ActiveRecord::Schema.define(version: 20151117162316) do
     t.date     "visitor_date_of_birth",                        null: false
     t.string   "visitor_email_address",                        null: false
     t.string   "visitor_phone_no",                             null: false
-    t.string   "slot_option_1",                                null: false
+    t.string   "slot_option_0",                                null: false
+    t.string   "slot_option_1"
     t.string   "slot_option_2"
-    t.string   "slot_option_3"
     t.string   "slot_granted"
     t.string   "processing_state",       default: "requested", null: false
     t.datetime "created_at",                                   null: false
