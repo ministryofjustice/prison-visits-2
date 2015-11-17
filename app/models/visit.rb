@@ -41,4 +41,8 @@ class Visit < ActiveRecord::Base
     [slot_option_1, slot_option_2, slot_option_3].
       select(&:present?).map { |s| ConcreteSlot.parse(s) }
   end
+
+  def slot_granted
+    super ? ConcreteSlot.parse(super) : nil
+  end
 end

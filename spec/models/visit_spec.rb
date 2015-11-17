@@ -70,4 +70,30 @@ RSpec.describe Visit, type: :model do
       )
     end
   end
+
+  describe 'slot_granted' do
+    it 'returns a ConcreteSlot when set' do
+      subject.slot_granted = '2015-11-06T16:00/17:00'
+      expect(subject.slot_granted).
+        to eq(ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0))
+    end
+
+    it 'returns nil when unset' do
+      expect(subject.slot_granted).to be_nil
+    end
+  end
+
+  describe 'slot_granted=' do
+    it 'accepts a string' do
+      subject.slot_granted = '2015-11-06T16:00/17:00'
+      expect(subject.slot_granted).
+        to eq(ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0))
+    end
+
+    it 'accepts a ConcreteSlot instance' do
+      subject.slot_granted = ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0)
+      expect(subject.slot_granted).
+        to eq(ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0))
+    end
+  end
 end
