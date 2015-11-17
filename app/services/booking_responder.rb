@@ -15,9 +15,13 @@ private
 
   attr_reader :booking_response
   delegate :visit, to: :booking_response
+  private :visit
 
   def accept!
-    visit.accept!
+    visit.slot_granted = visit.slots.fetch(booking_response.slot_index)
+    visit.reference_no = booking_response.reference_no
+    visit.accept
+    visit.save!
   end
 
   def reject!

@@ -18,6 +18,7 @@ RSpec.feature 'Processing a request', js: true do
     vst.reload
 
     expect(vst).to be_booked
+    expect(vst.reference_no).to eq('12345678')
   end
 
   scenario 'rejecting the booking with no available slot' do

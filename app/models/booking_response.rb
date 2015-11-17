@@ -24,7 +24,13 @@ class BookingResponse
     to: :visit
   delegate :name, to: :prison, prefix: true
 
+  SLOTS = %w[ slot_0 slot_1 slot_2 ]
+
   def slot_selected?
-    %w[ slot_0 slot_1 slot_2 ].include?(selection)
+    SLOTS.include?(selection)
+  end
+
+  def slot_index
+    SLOTS.index(selection)
   end
 end
