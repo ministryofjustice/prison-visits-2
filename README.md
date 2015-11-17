@@ -116,3 +116,13 @@ Finally, if all steps are complete, a `Visit` is created by
 
 Emails will be sent to [MailCatcher](http://mailcatcher.me/), if it's running.
 See its website for instructions.
+
+## Environment variables used by the application
+
+### Start Page
+
+On production, we set this to [https://www.gov.uk/prison-visits](https://www.gov.uk/prison-visits) because that's the official start page for the service, but you can configure a different one.
+
+Source: `config/routes.rb`
+
+- `GOVUK_START_PAGE`
