@@ -2,6 +2,7 @@ class BookingRequestCreator
   def create!(prisoner_step, visitors_step, slots_step)
     params = build_params(prisoner_step, visitors_step, slots_step)
     Visit.create!(params).tap { |visit|
+      VisitorMailer.request_acknowledged(visit).deliver_later
       PrisonMailer.request_received(visit).deliver_later
       add_log_metadata visit_id: visit.id
     }

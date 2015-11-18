@@ -10,7 +10,17 @@ class Visit < ActiveRecord::Base
     :processing_state,
     presence: true
 
-  delegate :email_address, to: :prison, prefix: true
+  validates :email_override,
+    inclusion: { in: %w[ bounced spam_reported ] },
+    allow_nil: true
+
+  delegate :email_address, :phone_no, :name, to: :prison, prefix: true
+  alias_attribute :recipient, :visitor_email_address
+  alias_attribute :first_date, :slot_option_0
+
+  def total_number_of_visitors
+    additional_visitors.count + 1
+  end
 
   delegate :reason, to: :rejection, prefix: true
 
@@ -26,6 +36,10 @@ class Visit < ActiveRecord::Base
 
   def prisoner_full_name
     [prisoner_first_name, prisoner_last_name].join(' ')
+  end
+
+  def anonymized_prisoner_name
+    [prisoner_first_name, prisoner_last_name_initial].join(' ')
   end
 
   def visitor_full_name
@@ -47,5 +61,11 @@ class Visit < ActiveRecord::Base
 
   def slot_granted
     super ? ConcreteSlot.parse(super) : nil
+  end
+
+private
+
+  def prisoner_last_name_initial
+    prisoner_last_name[0]
   end
 end

@@ -1,0 +1,68 @@
+<p>
+  <%= t('.salutation', visitor_full_name: @visit.visitor_first_name) %>,
+</p>
+<h1>
+  <%= t('.status') %>
+</h1>
+<p>
+  <%= t('.where_to_check_status') %>
+  <%= link_to('TODO show booking', '#') %>
+</p>
+<p>
+  <%= t('.when_to_expect_response', when: 'TODO') %>
+</p>
+<p>
+  <%= t('.when_to_check_spam', when: 'TODO') %>
+</p>
+<h1>
+  <%= t('.add_to_address_book') %>
+</h1>
+<p>
+  <%= t('.add_address', email: 'no-reply@email.prisonvisits.service.gov.uk') %>
+</p>
+<h1>
+  <%= t('.details') %>
+</h1>
+<p>
+  <%= t('.request',
+        prison: @visit.prison_name,
+        count: @visit.total_number_of_visitors
+       )
+  %>
+</p>
+<p>
+  <% @visit.slots.each_with_index do |slot, index| %>
+    <%= t('.choice', n: index + 1) %>
+
+    <strong><%= format_slot_for_public(slot) %></strong>
+    <br/>
+  <% end %>
+</p>
+<p>
+  <%= t('.prisoner') %>
+  <strong><%= @visit.anonymized_prisoner_name %>.</strong>
+  <br/>
+  <%= t('.prisoner_number') %>
+  <strong><%= @visit.prisoner_number.upcase %></strong>
+</p>
+<h1>
+  <%= t('.cancellation_title') %>
+</h1>
+<p>
+  <%= t('.cancel') %>
+  <%= link_to('TODO cancellation', '#') %>
+</p>
+<ul>
+  <li>
+  <%= t('.telephone') %>
+  <strong><%= @visit.prison_phone_no %></strong>
+  </li>
+  <li>
+  <%= t('email') %>
+  <strong><%= @visit.prison_email_address %></strong>
+  </li>
+</ul>
+<p>
+  <%= t('.feedback') %>
+  <%= link_to('TODO feedback', '#') %>
+</p>
