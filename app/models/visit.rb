@@ -12,6 +12,8 @@ class Visit < ActiveRecord::Base
 
   delegate :email_address, to: :prison, prefix: true
 
+  delegate :reason, to: :rejection, prefix: true
+
   state_machine :processing_state, initial: :requested do
     event :accept do
       transition requested: :booked

@@ -28,7 +28,7 @@ private
 
   def reject!
     visit.reject!
-    rejection = Rejection.new(visit: visit)
+    rejection = Rejection.new(visit: visit, reason: booking_response.selection)
     copy_no_allowance_parameters rejection if booking_response.no_allowance?
     rejection.save!
   end

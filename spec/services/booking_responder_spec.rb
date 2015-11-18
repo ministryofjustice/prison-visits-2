@@ -83,6 +83,11 @@ RSpec.describe BookingResponder do
       it 'creates a rejection record' do
         expect(visit_after_responding.rejection).to be_a(Rejection)
       end
+
+      it 'records the rejection reason' do
+        expect(visit_after_responding.rejection.reason).
+          to eq('slot_unavailable')
+      end
     end
 
     context 'because the visitor has no more allowance' do
@@ -96,6 +101,11 @@ RSpec.describe BookingResponder do
 
       it 'creates a rejection record' do
         expect(visit_after_responding.rejection).to be_a(Rejection)
+      end
+
+      it 'records the rejection reason' do
+        expect(visit_after_responding.rejection.reason).
+          to eq('no_allowance')
       end
 
       context 'when VO will be renewed' do

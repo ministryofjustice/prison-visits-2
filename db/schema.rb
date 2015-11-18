@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117162316) do
+ActiveRecord::Schema.define(version: 20151118121002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,9 +43,10 @@ ActiveRecord::Schema.define(version: 20151117162316) do
   end
 
   create_table "rejections", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid "visit_id",       null: false
-    t.date "vo_renewed_on"
-    t.date "pvo_expires_on"
+    t.uuid   "visit_id",       null: false
+    t.date   "vo_renewed_on"
+    t.date   "pvo_expires_on"
+    t.string "reason",         null: false
   end
 
   add_index "rejections", ["visit_id"], name: "index_rejections_on_visit_id", unique: true, using: :btree
@@ -74,7 +75,5 @@ ActiveRecord::Schema.define(version: 20151117162316) do
 
   add_index "visits", ["prison_id"], name: "index_visits_on_prison_id", using: :btree
 
-  add_foreign_key "additional_visitors", "visits"
-  add_foreign_key "visits", "prisons"
   add_foreign_key "rejections", "visits"
 end

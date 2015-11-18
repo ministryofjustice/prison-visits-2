@@ -1,17 +1,16 @@
 class BookingResponse
   include NonPersistedModel
 
+  SLOTS = %w[ slot_0 slot_1 slot_2 ]
+  REJECTION_REASONS = %w[
+    slot_unavailable
+    no_allowance
+  ]
+
   attribute :visit
 
   attribute :selection, Integer
-  validates :selection,
-    inclusion: {
-      in: %w[
-        slot_0 slot_1 slot_2
-        slot_unavailable
-        no_allowance
-      ]
-    }
+  validates :selection, inclusion: { in: SLOTS + REJECTION_REASONS }
 
   attribute :reference_no, String
   validates :reference_no, presence: true, if: :slot_selected?
@@ -31,8 +30,6 @@ class BookingResponse
     :additional_visitors,
     to: :visit
   delegate :name, to: :prison, prefix: true
-
-  SLOTS = %w[ slot_0 slot_1 slot_2 ]
 
   def slot_selected?
     SLOTS.include?(selection)
