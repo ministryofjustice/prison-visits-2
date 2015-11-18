@@ -95,7 +95,7 @@ a.DateSlider-buttonRight {
   margin: 0;
   padding: 0;
   list-style: none;
-  background: url("images/unavailable_tile.png"); }
+  background: url("unavailable_tile.png"); }
   .DateSlider-touch .DateSlider-days {
     background: none; }
   .DateSlider-largeDates .DateSlider-days {
