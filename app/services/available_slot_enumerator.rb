@@ -2,14 +2,13 @@ class AvailableSlotEnumerator
   include Enumerable
 
   def initialize(
-    begin_date, recurring_slots, anomalous_slots, unbookable_dates,
-    booking_window = 28
+    begin_on, end_on, recurring_slots, anomalous_slots, unbookable_dates
   )
-    @begin_date = begin_date
+    @begin_on = begin_on
+    @end_on = end_on
     @recurring_slots = recurring_slots
     @anomalous_slots = anomalous_slots
     @unbookable_dates = unbookable_dates
-    @booking_window = booking_window
   end
 
   def each
@@ -23,7 +22,7 @@ class AvailableSlotEnumerator
 private
 
   def each_bookable_date
-    (@begin_date...(@begin_date + @booking_window)).each do |date|
+    (@begin_on..@end_on).each do |date|
       yield date unless @unbookable_dates.include?(date)
     end
   end

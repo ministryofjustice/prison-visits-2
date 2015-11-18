@@ -25,4 +25,17 @@ RSpec.describe Prison, type: :model do
       ]
     )
   end
+
+  it 'starts bookings tomorrow' do
+    # Bookable days are 2, 3, ...
+    today = Date.new(2015, 10, 1)
+    expect(subject.first_bookable_date(today)).to eq(Date.new(2015, 10, 2))
+  end
+
+  it 'ends bookings at the end of the booking window, starting tomorrow' do
+    # Bookable days are 2, 3, 4, 5, 6
+    subject.booking_window = 5
+    today = Date.new(2015, 10, 1)
+    expect(subject.last_bookable_date(today)).to eq(Date.new(2015, 10, 6))
+  end
 end
