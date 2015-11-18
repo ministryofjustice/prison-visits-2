@@ -1,6 +1,7 @@
 class Visit < ActiveRecord::Base
   belongs_to :prison
   has_many :additional_visitors
+  has_one :rejection
 
   validates :prison_id, :prisoner_first_name, :prisoner_last_name,
     :prisoner_date_of_birth, :prisoner_number,
