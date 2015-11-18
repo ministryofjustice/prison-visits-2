@@ -1,4 +1,6 @@
 class Prison::VisitsController < ApplicationController
+  helper CalendarHelper
+
   def edit
     @booking_response = BookingResponse.new(visit: visit)
   end
@@ -23,7 +25,8 @@ private
       require(:booking_response).
       permit(
         :selection, :reference_no, :closed_visit, :vo_will_be_renewed,
-        :pvo_possible, :visitor_not_on_list, :visitor_banned
+        :vo_renewed_on, :pvo_possible, :pvo_expires_on,
+        :visitor_not_on_list, :visitor_banned
       ).
       merge(visit: visit)
   end

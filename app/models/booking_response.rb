@@ -9,12 +9,20 @@ class BookingResponse
       in: %w[
         slot_0 slot_1 slot_2
         slot_unavailable
+        no_allowance
       ]
     }
 
   attribute :reference_no, String
   validates :reference_no, presence: true, if: :slot_selected?
   attribute :closed_visit, Virtus::Attribute::Boolean
+
+  attribute :vo_will_be_renewed, Virtus::Attribute::Boolean
+  attribute :vo_renewed_on, Date
+  validates :vo_renewed_on, presence: true, if: :vo_will_be_renewed
+  attribute :pvo_possible, Virtus::Attribute::Boolean
+  attribute :pvo_expires_on, Date
+  validates :pvo_expires_on, presence: true, if: :pvo_possible
 
   delegate :slots, :prison, :to_param,
     :prisoner_full_name, :prisoner_number, :prisoner_date_of_birth,
@@ -28,6 +36,10 @@ class BookingResponse
 
   def slot_selected?
     SLOTS.include?(selection)
+  end
+
+  def no_allowance?
+    selection == 'no_allowance'
   end
 
   def slot_index

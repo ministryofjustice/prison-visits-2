@@ -72,9 +72,58 @@ RSpec.describe BookingResponder do
 
   context 'rejecting a request' do
     context 'because no slot is available' do
-      it 'changes the status of the visit to rejected' do
+      before do
         booking_response.selection = 'slot_unavailable'
+      end
+
+      it 'changes the status of the visit to rejected' do
         expect(visit_after_responding).to be_rejected
+      end
+
+      it 'creates a rejection record' do
+        expect(visit_after_responding.rejection).to be_a(Rejection)
+      end
+    end
+
+    context 'because the visitor has no more allowance' do
+      before do
+        booking_response.selection = 'no_allowance'
+      end
+
+      it 'changes the status of the visit to rejected' do
+        expect(visit_after_responding).to be_rejected
+      end
+
+      it 'creates a rejection record' do
+        expect(visit_after_responding.rejection).to be_a(Rejection)
+      end
+
+      context 'when VO will be renewed' do
+        let(:vo_date) { Time.zone.today + 7 }
+
+        before do
+          booking_response.vo_will_be_renewed = true
+          booking_response.vo_renewed_on = vo_date
+        end
+
+        it 'sets the rejection VO renewal date' do
+          expect(visit_after_responding.rejection.vo_renewed_on).
+            to eq(vo_date)
+        end
+
+        context 'and PVO is possible' do
+          let(:pvo_date) { Time.zone.today + 7 }
+
+          before do
+            booking_response.pvo_possible = true
+            booking_response.pvo_expires_on = pvo_date
+          end
+
+          it 'sets the rejection PVO expiry date' do
+            expect(visit_after_responding.rejection.pvo_expires_on).
+              to eq(pvo_date)
+          end
+        end
       end
     end
   end

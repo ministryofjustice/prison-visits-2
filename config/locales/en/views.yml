@@ -87,6 +87,8 @@ en:
         using this service.
   prison:
     visits:
+      calendar:
+        today: Today
       edit:
         title: Process a visit request
         introduction_html: >
@@ -149,6 +151,33 @@ en:
             We’re sorry but none of the dates and times you chose to visit
             %{prisoner} at %{prison} were available. Please visit
             www.gov.uk/prison-visits to choose some alternative dates.
+          </p>
+      visiting_allowance_section:
+        title: Visiting allowance
+        no_allowance: The prisoner does not have any visiting allowance (VO)
+        no_vo_wording_html: >
+          <p>
+            We’re sorry, but the prisoner you want to visit has not got any
+            visiting allowance left for the dates you’ve chosen.
+          </p>
+        no_vo_tell_more: >
+          You can also tell the visitor more about the VO and PVO status:
+        vo_will_be_renewed: >
+          Visiting allowance (weekends and weekday visits) (VO) will
+          be renewed:
+        vo_will_be_renewed_wording_html: >
+          <p>
+            %{prisoner} will have their full visiting allowance (VO) renewed on
+            <span class="date">[DATE NOT CHOSEN]</span>.
+          </p>
+        pvo_possible: >
+          If weekday visit (PVO) is possible instead, choose the date
+          PVO expires:
+        pvo_possible_wording_html: >
+          <p>
+            However, you can book a weekday visit with visiting allowance valid
+            until <span class="date">[DATE NOT CHOSEN]</date>.
+            The visit must be taken before the allowance expires.
           </p>
   shared:
     validation:
