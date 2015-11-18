@@ -4,6 +4,8 @@ class Rejection < ActiveRecord::Base
     no_allowance
     prisoner_details_incorrect
     prisoner_moved
+    visitor_banned
+    visitor_not_on_list
   ]
 
   belongs_to :visit

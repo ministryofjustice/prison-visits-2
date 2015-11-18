@@ -174,5 +174,43 @@ RSpec.describe BookingResponder do
           to eq('prisoner_moved')
       end
     end
+
+    context 'because the visitor is not on the list' do
+      before do
+        booking_response.selection = 'visitor_not_on_list'
+      end
+
+      it 'changes the status of the visit to rejected' do
+        expect(visit_after_responding).to be_rejected
+      end
+
+      it 'creates a rejection record' do
+        expect(visit_after_responding.rejection).to be_a(Rejection)
+      end
+
+      it 'records the rejection reason' do
+        expect(visit_after_responding.rejection.reason).
+          to eq('visitor_not_on_list')
+      end
+    end
+
+    context 'because the visitor is banned' do
+      before do
+        booking_response.selection = 'visitor_banned'
+      end
+
+      it 'changes the status of the visit to rejected' do
+        expect(visit_after_responding).to be_rejected
+      end
+
+      it 'creates a rejection record' do
+        expect(visit_after_responding.rejection).to be_a(Rejection)
+      end
+
+      it 'records the rejection reason' do
+        expect(visit_after_responding.rejection.reason).
+          to eq('visitor_banned')
+      end
+    end
   end
 end

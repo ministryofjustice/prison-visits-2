@@ -65,4 +65,24 @@ RSpec.feature 'Processing a request', js: true do
     expect(vst.rejection_reason).to eq('prisoner_moved')
     expect(vst).to be_rejected
   end
+
+  scenario 'rejecting a booking when the visitor is not on the contact list' do
+    choose 'Visitor isn’t on the contact list'
+
+    click_button 'Send email'
+
+    vst.reload
+    expect(vst.rejection_reason).to eq('visitor_not_on_list')
+    expect(vst).to be_rejected
+  end
+
+  scenario 'rejecting a booking when the visitor is banned' do
+    choose 'Visitor is banned'
+
+    click_button 'Send email'
+
+    vst.reload
+    expect(vst.rejection_reason).to eq('visitor_banned')
+    expect(vst).to be_rejected
+  end
 end

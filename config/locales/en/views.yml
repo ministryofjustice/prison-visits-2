@@ -197,6 +197,32 @@ en:
             can also use the find a prisoner service
             (www.gov.uk/find-prisoner).
           </p>
+      issue_with_visitors_section:
+        title: Issue with visitors
+        visitor_not_on_list: Visitor isn’t on the contact list
+        visitor_not_on_list_wording_html: >
+          <p>
+            Your visit cannot take place as details for
+            <span class="name">[VISITOR NAME]</span> don’t match our records or
+            they aren’t on the prisoner’s contact list.
+          </p>
+          <p>
+            Please contact the prisoner and ask them to update their contact
+            list with correct details, making sure that names appear exactly
+            the same as on ID documents.
+          </p>
+          <p>
+            If this is the prisoner’s first visit (reception visit), then you
+            need to contact the prison to book.
+          </p>
+        visitor_banned: Visitor is banned
+        visitor_banned_wording_html: >
+          <p>
+            Your visit cannot take place.
+            <span class="name">[VISITOR NAME]</span> should have received a
+            letter to say that they’re banned from visiting the prison at the
+            moment. Get in touch with the prison for more information.
+          </p>
   shared:
     validation:
       heading: You need to fix the errors on this page before continuing.
