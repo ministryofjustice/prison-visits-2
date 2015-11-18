@@ -13,11 +13,19 @@ class Prison < ActiveRecord::Base
   def available_slots(today = Time.zone.today)
     parser = SlotDetailsParser.new(slot_details)
     AvailableSlotEnumerator.new(
-      today + 1,
+      first_bookable_date(today),
+      last_bookable_date(today),
       parser.recurring_slots,
       parser.anomalous_slots,
-      parser.unbookable_dates,
-      booking_window
+      parser.unbookable_dates
     )
+  end
+
+  def first_bookable_date(today = Time.zone.today)
+    today + 1
+  end
+
+  def last_bookable_date(today = Time.zone.today)
+    first_bookable_date(today) + booking_window - 1
   end
 end

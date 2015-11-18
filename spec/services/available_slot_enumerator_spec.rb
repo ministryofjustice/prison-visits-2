@@ -1,10 +1,11 @@
 RSpec.describe AvailableSlotEnumerator do
   subject {
     described_class.new(
-      begin_date, recurring_slots, anomalous_slots, unbookable_dates, 5
+      begin_on, end_on, recurring_slots, anomalous_slots, unbookable_dates
     )
   }
-  let(:begin_date) { Date.new(2015, 10, 1) } # Thursday
+  let(:begin_on) { Date.new(2015, 10, 1) } # Thursday
+  let(:end_on) { Date.new(2015, 10, 5) } # Monday
   let(:unbookable_dates) { [] }
   let(:anomalous_slots) { {} }
 

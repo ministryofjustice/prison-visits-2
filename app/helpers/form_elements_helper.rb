@@ -1,21 +1,15 @@
 module FormElementsHelper
   def single_field(form, name, field_method, *options)
-    error_container(form, name, class: 'group') {
-      join(
-        form.label(name) {
-          join(
-            t(".#{name}"),
-            field_hint(name),
-            field_error(form, name)
-          )
-        },
-        form.public_send(field_method, name, *options)
-      )
-    }
+    case field_method
+    when :radio_button, :check_box
+      label_wrapped_single_field(form, name, field_method, *options)
+    else
+      label_first_single_field(form, name, field_method, *options)
+    end
   end
 
   def composite_field(form, name, &blk)
-    error_container(form, name, class: 'group') {
+    error_container(form, name) {
       content_tag(:fieldset) {
         join(
           content_tag(:legend) { t(".#{name}") },
@@ -45,7 +39,7 @@ module FormElementsHelper
     end
   end
 
-  def error_container(form, name, options = {}, &blk)
+  def error_container(form, name, options = { class: 'group' }, &blk)
     if form.object.errors.include?(name)
       klass = [options[:class], 'validation-error'].compact.join(' ')
     else
@@ -55,6 +49,36 @@ module FormElementsHelper
   end
 
 private
+
+  def label_first_single_field(form, name, field_method, *options)
+    error_container(form, name) {
+      join(
+        form.label(name) {
+          join(
+            t(".#{name}"),
+            field_hint(name),
+            field_error(form, name)
+          )
+        },
+        form.public_send(field_method, name, *options)
+      )
+    }
+  end
+
+  def label_wrapped_single_field(form, name, field_method, *options)
+    error_container(form, name) {
+      join(
+        form.label(name, class: 'block-label') {
+          join(
+            form.public_send(field_method, name, *options),
+            t(".#{name}"),
+            field_hint(name),
+            field_error(form, name)
+          )
+        }
+      )
+    }
+  end
 
   def join(*strings)
     strings.inject(ActiveSupport::SafeBuffer.new(''), &:<<)

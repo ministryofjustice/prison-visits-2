@@ -43,9 +43,9 @@ private
 
   def slots_step_params(step)
     {
+      slot_option_0: step.option_0,
       slot_option_1: step.option_1,
-      slot_option_2: step.option_2,
-      slot_option_3: step.option_3
+      slot_option_2: step.option_2
     }
   end
 end

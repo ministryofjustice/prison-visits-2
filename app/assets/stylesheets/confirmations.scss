@@ -8,14 +8,17 @@
     border-bottom: 1px solid $black;
 
   }
-  
+
   form .validation-summary h2 {
     border: none;
   }
 }
 
-.email {
+blockquote {
   color: $secondary-text-colour;
+  border: none;
+  font-style: italic;
+  padding: 0;
 }
 
 // Amends for BookingCalendar with radio buttons

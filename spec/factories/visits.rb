@@ -10,7 +10,6 @@ FactoryGirl.define do
     end
 
     prisoner_date_of_birth '1970-01-01'
-
     sequence(:prisoner_number) do |n|
       'ABC%04d' % n
     end
@@ -33,10 +32,18 @@ FactoryGirl.define do
       FFaker::PhoneNumber.short_phone_number
     end
 
-    slot_option_1 do |v|
-      v.prison.available_slots.first.iso8601
+    slot_option_0 do |v|
+      v.prison.available_slots.first
     end
 
-    processing_state 'start'
+    factory :visit_with_three_slots do
+      slot_option_1 do |v|
+        v.prison.available_slots.to_a[1]
+      end
+
+      slot_option_2 do |v|
+        v.prison.available_slots.to_a[2]
+      end
+    end
   end
 end

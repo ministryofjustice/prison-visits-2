@@ -23,9 +23,9 @@ RSpec.describe BookingRequestCreator do
 
   let(:slots_step) {
     SlotsStep.new(
-      option_1: '2015-01-02T09:00/10:00',
-      option_2: '2015-01-03T09:00/10:00',
-      option_3: '2015-01-04T09:00/10:00'
+      option_0: '2015-01-02T09:00/10:00',
+      option_1: '2015-01-03T09:00/10:00',
+      option_2: '2015-01-04T09:00/10:00'
     )
   }
 
@@ -51,9 +51,9 @@ RSpec.describe BookingRequestCreator do
         visitor_date_of_birth: Date.new(1970, 11, 30),
         visitor_email_address: 'ada@test.example.com',
         visitor_phone_no: '01154960222',
-        slot_option_1: '2015-01-02T09:00/10:00',
-        slot_option_2: '2015-01-03T09:00/10:00',
-        slot_option_3: '2015-01-04T09:00/10:00'
+        slot_option_0: '2015-01-02T09:00/10:00',
+        slot_option_1: '2015-01-03T09:00/10:00',
+        slot_option_2: '2015-01-04T09:00/10:00'
       ).and_return instance_double(Visit, id: 2)
 
     subject.create! prisoner_step, visitors_step, slots_step

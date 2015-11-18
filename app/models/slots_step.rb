@@ -2,16 +2,16 @@ class SlotsStep
   include NonPersistedModel
 
   attribute :prison, Prison
+  attribute :option_0, String
   attribute :option_1, String
   attribute :option_2, String
-  attribute :option_3, String
 
   delegate :available_slots, to: :prison
 
-  validates :option_1, :option_2, :option_3,
+  validates :option_0, :option_1, :option_2,
     inclusion: { in: ->(o) { o.available_slots.map(&:iso8601) } },
     allow_blank: true
-  validates :option_1, presence: true
+  validates :option_0, presence: true
 
   def options_available?
     options.length < 3
@@ -26,6 +26,6 @@ class SlotsStep
   end
 
   def options
-    [option_1, option_2, option_3].select(&:present?)
+    [option_0, option_1, option_2].select(&:present?)
   end
 end

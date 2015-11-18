@@ -28,7 +28,7 @@ table.BookingCalendar-dates {
   border-style: solid;
   border-color: #dee0e2;
   border-collapse: collapse;
-  background: #dee0e2 url("images/unavailable_tile.png"); }
+  background: #dee0e2 image-url("unavailable_tile.png"); }
   table.BookingCalendar-dates th,
   table.BookingCalendar-dates td {
     width: 14.28571%; }
@@ -153,7 +153,7 @@ ul.BookingCalendar-legend {
       line-height: 1.14286; } }
 
 .BookingCalendar-legendBox--unavailable {
-  background: #dee0e2 url("images/unavailable_tile.png"); }
+  background: #dee0e2 image-url("unavailable_tile.png"); }
 
 .BookingCalendar-header {
   position: relative;

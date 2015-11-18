@@ -18,6 +18,8 @@ ConcreteSlot = Struct.new(
     ]
   end
 
+  alias_method :to_s, :iso8601
+
   # We are explicitly parsing these as UTC, but this Rubocop cop isn't clever
   # enough to realise. We use UTC because we don't actually care about time
   # zone offsets: booking times are always given in terms of wall time, and

@@ -1,0 +1,60 @@
+<h2><%= t('.title') %></h2>
+
+<% f.object.slots.each_with_index do |slot, index| %>
+  <%= error_container(f, :selection) do %>
+    <label class="block-label">
+      <%=
+        f.radio_button(
+          :selection, "slot_#{index}",
+          class: 'js-Conditional',
+          data: {
+            'conditional-el': 'selected_slot_details',
+            'conditional-val': 'slot_0,slot_1,slot_2'
+          }
+        )
+      %>
+      <%= t('.choice_html', n: index + 1, date: format_slot_for_staff(slot)) %>
+    </label>
+  <% end %>
+<% end %>
+
+<div id="selected_slot_details" class="panel-indent">
+  <%= single_field(f, :reference_no, :text_field) %>
+
+  <%= single_field(f, :closed_visit, :check_box) %>
+
+  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+  <blockquote>
+    <%= t('.closed_visit_wording_html') %>
+  </blockquote>
+</div>
+
+<%= error_container(f, :selection) do %>
+  <label class="block-label">
+    <%=
+      f.radio_button(
+        :selection, :slot_unavailable,
+        class: 'js-Conditional',
+        data: { 'conditional-el': 'none_available_details' }
+      )
+    %>
+    <%= t('.none_available') %>
+  </label>
+<% end %>
+
+<div id="none_available_details" class="panel-indent">
+  <%= t('.none_available_explanation_html') %>
+
+  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+  <blockquote>
+    <%=
+      t(
+        '.none_available_wording_html',
+        prisoner: f.object.prisoner_full_name,
+        prison: f.object.prison_name
+      )
+    %>
+  </blockquote>
+</div>

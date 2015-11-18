@@ -1,0 +1,81 @@
+<h2><%= t('.title') %></h2>
+
+<%= error_container(f, :selection) do %>
+  <label class="block-label">
+    <%=
+      f.radio_button(
+        :selection, :no_allowance,
+        class: 'js-Conditional',
+        data: { 'conditional-el': 'no_allowance_details' }
+      )
+    %>
+    <%= t('.no_allowance') %>
+  </label>
+<% end %>
+
+<div id="no_allowance_details" class="panel-indent">
+  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+  <blockquote>
+    <%= t('.no_vo_wording_html') %>
+  </blockquote>
+
+  <p><%= t('.no_vo_tell_more') %></p>
+
+  <%=
+    single_field(
+      f, :vo_will_be_renewed, :check_box,
+      class: 'js-Conditional',
+      data: { 'conditional-el': 'vo_will_be_renewed_details' }
+    )
+  %>
+
+  <div id="vo_will_be_renewed_details">
+    <%= error_container(f, :vo_renewed_on) do %>
+      <%=
+        render(
+          'calendar',
+          prison: f.object.prison,
+          name: 'booking_response[vo_renewed_on]'
+        )
+      %>
+    <% end %>
+
+    <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+    <blockquote>
+      <%=
+        t(
+          '.vo_will_be_renewed_wording_html',
+          prisoner: f.object.prisoner_full_name
+        )
+      %>
+    </blockquote>
+  </div>
+
+  <%=
+    single_field(
+      f, :pvo_possible, :check_box,
+      class: 'js-Conditional',
+      data: { 'conditional-el': 'pvo_possible_details' }
+    )
+  %>
+
+  <div id="pvo_possible_details">
+    <%= error_container(f, :pvo_expires_on) do %>
+      <%=
+        render(
+          'calendar',
+          prison: f.object.prison,
+          name: 'booking_response[pvo_expires_on]'
+        )
+      %>
+    <% end %>
+
+    <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+    <blockquote>
+      <%= t('.pvo_possible_wording_html') %>
+    </blockquote>
+  </div>
+</div>

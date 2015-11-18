@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117162316) do
+ActiveRecord::Schema.define(version: 20151118121002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,15 @@ ActiveRecord::Schema.define(version: 20151117162316) do
     t.datetime "updated_at",                              null: false
   end
 
+  create_table "rejections", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid   "visit_id",       null: false
+    t.date   "vo_renewed_on"
+    t.date   "pvo_expires_on"
+    t.string "reason",         null: false
+  end
+
+  add_index "rejections", ["visit_id"], name: "index_rejections_on_visit_id", unique: true, using: :btree
+
   create_table "visits", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "prison_id",                                    null: false
     t.string   "prisoner_first_name",                          null: false
@@ -53,17 +62,18 @@ ActiveRecord::Schema.define(version: 20151117162316) do
     t.date     "visitor_date_of_birth",                        null: false
     t.string   "visitor_email_address",                        null: false
     t.string   "visitor_phone_no",                             null: false
-    t.string   "slot_option_1",                                null: false
+    t.string   "slot_option_0",                                null: false
+    t.string   "slot_option_1"
     t.string   "slot_option_2"
-    t.string   "slot_option_3"
     t.string   "slot_granted"
     t.string   "processing_state",       default: "requested", null: false
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
+    t.string   "reference_no"
+    t.boolean  "closed"
   end
 
   add_index "visits", ["prison_id"], name: "index_visits_on_prison_id", using: :btree
 
-  add_foreign_key "additional_visitors", "visits"
-  add_foreign_key "visits", "prisons"
+  add_foreign_key "rejections", "visits"
 end

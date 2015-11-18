@@ -31,9 +31,9 @@ RSpec.describe StepsController do
 
   let(:slots_details) {
     {
-      option_1: '2015-01-02T09:00/10:00',
-      option_2: '2015-01-03T09:00/10:00',
-      option_3: '2015-01-04T09:00/10:00'
+      option_0: '2015-01-02T09:00/10:00',
+      option_1: '2015-01-03T09:00/10:00',
+      option_2: '2015-01-04T09:00/10:00'
     }
   }
 
@@ -217,7 +217,7 @@ RSpec.describe StepsController do
 
       it 'initialises the SlotsStep with the supplied attributes' do
         expect(assigns(:steps)[:slots_step]).
-          to have_attributes(option_1: '2015-01-02T09:00/10:00')
+          to have_attributes(option_0: '2015-01-02T09:00/10:00')
       end
     end
 
@@ -226,7 +226,7 @@ RSpec.describe StepsController do
         post :create,
           prisoner_step: prisoner_details,
           visitors_step: visitors_details,
-          slots_step: { option_1: '' }
+          slots_step: { option_0: '' }
       end
 
       it 'renders the slots template' do
@@ -301,9 +301,9 @@ RSpec.describe StepsController do
             phone_no: '01154960222'
           ),
           an_object_having_attributes(
-            option_1: '2015-01-02T09:00/10:00',
-            option_2: '2015-01-03T09:00/10:00',
-            option_3: '2015-01-04T09:00/10:00'
+            option_0: '2015-01-02T09:00/10:00',
+            option_1: '2015-01-03T09:00/10:00',
+            option_2: '2015-01-04T09:00/10:00'
           )
         )
       post :create, params
