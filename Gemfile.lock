@@ -101,6 +101,7 @@ GEM
     haml (4.0.6)
       tilt
     hashdiff (0.2.2)
+    high_voltage (2.4.0)
     highline (1.6.21)
     htmlentities (4.3.4)
     httparty (0.13.7)
@@ -296,6 +297,7 @@ DEPENDENCIES
   ffaker
   fuubar
   govuk_frontend_toolkit (= 2.0.1)
+  high_voltage
   launchy
   logstasher
   moj_template (= 0.21.0)

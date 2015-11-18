@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   namespace :prison do
     resources :visits, only: %i[ edit update ]
   end
+
+  get 'unsubscribe' => 'high_voltage/pages#show', id: 'unsubscribe'
 end

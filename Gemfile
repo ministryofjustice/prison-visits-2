@@ -4,6 +4,7 @@ ruby '2.2.3'
 gem 'rails', '~> 4.2.3'
 
 gem 'govuk_frontend_toolkit', '2.0.1'
+gem 'high_voltage'
 gem 'logstasher'
 gem 'moj_template', '0.21.0'
 gem 'pg'
