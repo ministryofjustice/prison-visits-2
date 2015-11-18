@@ -45,4 +45,24 @@ RSpec.feature 'Processing a request', js: true do
     expect(vst.rejection.vo_renewed_on).to eq(Time.zone.today + 1)
     expect(vst.rejection.vo_renewed_on).to eq(Time.zone.today + 1)
   end
+
+  scenario 'rejecting a booking with incorrect prisoner details' do
+    choose 'Prisoner details are incorrect'
+
+    click_button 'Send email'
+
+    vst.reload
+    expect(vst.rejection_reason).to eq('prisoner_details_incorrect')
+    expect(vst).to be_rejected
+  end
+
+  scenario 'rejecting a booking when the prisoner has moved' do
+    choose 'Prisoner no longer at the prison'
+
+    click_button 'Send email'
+
+    vst.reload
+    expect(vst.rejection_reason).to eq('prisoner_moved')
+    expect(vst).to be_rejected
+  end
 end

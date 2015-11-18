@@ -179,6 +179,24 @@ en:
             until <span class="date">[DATE NOT CHOSEN]</date>.
             The visit must be taken before the allowance expires.
           </p>
+      issue_with_prisoner_section:
+        title: Issue with the prisoner
+        prisoner_details_incorrect: Prisoner details are incorrect
+        prisoner_details_incorrect_wording_html: >
+          <p>
+            Your visit cannot take place as you haven’t given correct
+            information for the prisoner. Eg, the prisoner’s name, number or
+            date of birth is incorrect. Contact the prisoner to get up-to-date
+            information.
+          </p>
+        prisoner_moved: Prisoner no longer at the prison
+        prisoner_moved_wording_html: >
+          <p>
+            Your visit cannot take place as the prisoner you want to visit has
+            moved prison. They should contact you about where they are now. You
+            can also use the find a prisoner service
+            (www.gov.uk/find-prisoner).
+          </p>
   shared:
     validation:
       heading: You need to fix the errors on this page before continuing.

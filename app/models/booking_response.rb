@@ -2,15 +2,11 @@ class BookingResponse
   include NonPersistedModel
 
   SLOTS = %w[ slot_0 slot_1 slot_2 ]
-  REJECTION_REASONS = %w[
-    slot_unavailable
-    no_allowance
-  ]
 
   attribute :visit
 
   attribute :selection, Integer
-  validates :selection, inclusion: { in: SLOTS + REJECTION_REASONS }
+  validates :selection, inclusion: { in: SLOTS + Rejection::REASONS }
 
   attribute :reference_no, String
   validates :reference_no, presence: true, if: :slot_selected?

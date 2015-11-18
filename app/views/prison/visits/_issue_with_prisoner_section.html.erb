@@ -1,0 +1,43 @@
+<h2><%= t('.title') %></h2>
+
+<%= error_container(f, :selection) do %>
+  <label class="block-label">
+    <%=
+      f.radio_button(
+        :selection, :prisoner_details_incorrect,
+        class: 'js-Conditional',
+        data: { 'conditional-el': 'prisoner_details_incorrect_details' }
+      )
+    %>
+    <%= t('.prisoner_details_incorrect') %>
+  </label>
+<% end %>
+
+<div id="prisoner_details_incorrect_details" class="panel-indent">
+  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+  <blockquote>
+    <%= t('.prisoner_details_incorrect_wording_html') %>
+  </blockquote>
+</div>
+
+<%= error_container(f, :selection) do %>
+  <label class="block-label">
+    <%=
+      f.radio_button(
+        :selection, :prisoner_moved,
+        class: 'js-Conditional',
+        data: { 'conditional-el': 'prisoner_moved_details' }
+      )
+    %>
+    <%= t('.prisoner_moved') %>
+  </label>
+<% end %>
+
+<div id="prisoner_moved_details" class="panel-indent">
+  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+  <blockquote>
+    <%= t('.prisoner_moved_wording_html') %>
+  </blockquote>
+</div>

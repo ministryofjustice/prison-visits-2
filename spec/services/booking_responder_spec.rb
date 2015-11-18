@@ -136,5 +136,43 @@ RSpec.describe BookingResponder do
         end
       end
     end
+
+    context 'because the prisoner details are incorrect' do
+      before do
+        booking_response.selection = 'prisoner_details_incorrect'
+      end
+
+      it 'changes the status of the visit to rejected' do
+        expect(visit_after_responding).to be_rejected
+      end
+
+      it 'creates a rejection record' do
+        expect(visit_after_responding.rejection).to be_a(Rejection)
+      end
+
+      it 'records the rejection reason' do
+        expect(visit_after_responding.rejection.reason).
+          to eq('prisoner_details_incorrect')
+      end
+    end
+
+    context 'because the prisoner has moved' do
+      before do
+        booking_response.selection = 'prisoner_moved'
+      end
+
+      it 'changes the status of the visit to rejected' do
+        expect(visit_after_responding).to be_rejected
+      end
+
+      it 'creates a rejection record' do
+        expect(visit_after_responding.rejection).to be_a(Rejection)
+      end
+
+      it 'records the rejection reason' do
+        expect(visit_after_responding.rejection.reason).
+          to eq('prisoner_moved')
+      end
+    end
   end
 end
