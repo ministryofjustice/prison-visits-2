@@ -70,6 +70,11 @@ RSpec.describe BookingResponder do
         expect(visit_after_responding.slot_granted).
           to eq(visit_after_responding.slots[0])
       end
+
+      it 'logs the booking_response' do
+        subject.respond!
+        expect(LogStasher.request_context).to match(booking_response: 'booked')
+      end
     end
 
     context 'with the second slot' do
@@ -81,6 +86,11 @@ RSpec.describe BookingResponder do
         expect(visit_after_responding.slot_granted).
           to eq(visit_after_responding.slots[1])
       end
+
+      it 'logs the booking_response' do
+        subject.respond!
+        expect(LogStasher.request_context).to match(booking_response: 'booked')
+      end
     end
 
     context 'with the third slot' do
@@ -91,6 +101,11 @@ RSpec.describe BookingResponder do
       it 'assigns the selected slot' do
         expect(visit_after_responding.slot_granted).
           to eq(visit_after_responding.slots[2])
+      end
+
+      it 'logs the booking_response' do
+        subject.respond!
+        expect(LogStasher.request_context).to match(booking_response: 'booked')
       end
     end
   end
@@ -131,6 +146,11 @@ RSpec.describe BookingResponder do
         expect(visit_after_responding.rejection.reason).
           to eq('slot_unavailable')
       end
+
+      it 'logs the booking_response' do
+        subject.respond!
+        expect(LogStasher.request_context).to match(booking_response: 'rejected')
+      end
     end
 
     context 'because the visitor has no more allowance' do
@@ -149,6 +169,11 @@ RSpec.describe BookingResponder do
       it 'records the rejection reason' do
         expect(visit_after_responding.rejection.reason).
           to eq('no_allowance')
+      end
+
+      it 'logs the booking_response' do
+        subject.respond!
+        expect(LogStasher.request_context).to match(booking_response: 'rejected')
       end
 
       context 'when VO will be renewed' do
@@ -176,6 +201,11 @@ RSpec.describe BookingResponder do
             expect(visit_after_responding.rejection.privileged_allowance_expires_on).
               to eq(privileged_allowance_date)
           end
+
+          it 'logs the booking_response' do
+            subject.respond!
+            expect(LogStasher.request_context).to match(booking_response: 'rejected')
+          end
         end
       end
     end
@@ -197,6 +227,11 @@ RSpec.describe BookingResponder do
         expect(visit_after_responding.rejection.reason).
           to eq('prisoner_details_incorrect')
       end
+
+      it 'logs the booking_response' do
+        subject.respond!
+        expect(LogStasher.request_context).to match(booking_response: 'rejected')
+      end
     end
 
     context 'because the prisoner has moved' do
@@ -215,6 +250,11 @@ RSpec.describe BookingResponder do
       it 'records the rejection reason' do
         expect(visit_after_responding.rejection.reason).
           to eq('prisoner_moved')
+      end
+
+      it 'logs the booking_response' do
+        subject.respond!
+        expect(LogStasher.request_context).to match(booking_response: 'rejected')
       end
     end
 
@@ -235,6 +275,11 @@ RSpec.describe BookingResponder do
         expect(visit_after_responding.rejection.reason).
           to eq('visitor_not_on_list')
       end
+
+      it 'logs the booking_response' do
+        subject.respond!
+        expect(LogStasher.request_context).to match(booking_response: 'rejected')
+      end
     end
 
     context 'because the visitor is banned' do
@@ -253,6 +298,11 @@ RSpec.describe BookingResponder do
       it 'records the rejection reason' do
         expect(visit_after_responding.rejection.reason).
           to eq('visitor_banned')
+      end
+
+      it 'logs the booking_response' do
+        subject.respond!
+        expect(LogStasher.request_context).to match(booking_response: 'rejected')
       end
     end
   end
