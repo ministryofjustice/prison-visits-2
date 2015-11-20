@@ -26,3 +26,5 @@ en:
       minutes:
         one: "%{count} min"
         other: "%{count} mins"
+    name:
+      full: "%{first} %{last}"

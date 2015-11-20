@@ -17,13 +17,8 @@ module Person
       }
   end
 
-  def full_name(glue = ' ')
-    [first_name, last_name].join(glue)
-  end
-
-  def last_initial
-    last_name.chars.first.upcase
-  end
+  extend Names
+  enhance_names
 
   def age
     return nil unless date_of_birth
