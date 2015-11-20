@@ -1,0 +1,5 @@
+en:
+  steps:
+    visitors_step:
+      override_spam_or_bounce: >
+        Tick this box to confirm you’d like us to try sending messages to you again.

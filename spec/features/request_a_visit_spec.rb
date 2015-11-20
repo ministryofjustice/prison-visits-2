@@ -1,6 +1,8 @@
 require 'rails_helper'
+require 'shared_sendgrid_context'
 
 RSpec.feature 'Booking a visit', js: true do
+  include_context 'disable resolv for domain', 'test.example.com'
   include ActiveJobHelper
 
   let!(:prison) { create(:prison, name: 'Reading Gaol') }

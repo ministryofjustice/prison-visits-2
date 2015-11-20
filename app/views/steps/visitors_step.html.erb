@@ -26,6 +26,12 @@
         <% end %>
 
         <%= single_field(f, :email_address, :text_field) %>
+        <% if f.object.spam_or_bounce_has_occurred? %>
+          <label class="validation-message">
+            <%= single_field(f, :override_spam_or_bounce, :check_box) %>
+            <%= single_field(f, :spam_or_bounce, :hidden_field) %>
+          </label>
+        <% end %>
 
         <%= single_field(f, :phone_no, :text_field) %>
 

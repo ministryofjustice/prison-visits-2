@@ -7,12 +7,12 @@ RSpec.describe SpamAndBounceResets do
   describe '.perform_resets' do
     context 'when override_email_check is true' do
       before do
-        visit.override_email_checks = true
+        visit.override_spam_or_bounce = true
       end
 
       context 'when reset.bounced? is true' do
         before do
-          visit.email_override = 'bounced'
+          visit.spam_or_bounce = 'bounced'
         end
 
         it 'calls SendgridApi#remove_from_bounce_list' do
@@ -23,7 +23,7 @@ RSpec.describe SpamAndBounceResets do
 
       context 'when reset.bounced? is false' do
         before do
-          visit.email_override = nil
+          visit.spam_or_bounce = nil
         end
 
         it 'does not call SendgridApi#remove_from_bounce_list' do
@@ -34,7 +34,7 @@ RSpec.describe SpamAndBounceResets do
 
       context 'when reset.spam_reported? is true' do
         before do
-          visit.email_override = 'spam_reported'
+          visit.spam_or_bounce = 'spam_reported'
         end
 
         it 'calls SendgriApi#remove_from_spam_list' do
@@ -45,7 +45,7 @@ RSpec.describe SpamAndBounceResets do
 
       context 'when reset.spam_reported? is false' do
         before do
-          visit.email_override = nil
+          visit.spam_or_bounce = nil
         end
 
         it 'does not call SendgriApi#remove_from_spam_list' do
@@ -57,12 +57,12 @@ RSpec.describe SpamAndBounceResets do
 
     context 'when override_email_check is false' do
       before do
-        visit.override_email_checks = false
+        visit.override_spam_or_bounce = false
       end
 
       context 'when reset.bounced? is true' do
         before do
-          visit.email_override = 'bounced'
+          visit.spam_or_bounce = 'bounced'
         end
 
         it 'does not call SendgriApi#remove_from_bounce_list' do
@@ -73,7 +73,7 @@ RSpec.describe SpamAndBounceResets do
 
       context 'when reset.bounced? is false' do
         before do
-          visit.email_override = nil
+          visit.spam_or_bounce = nil
         end
 
         it 'does not call SendgriApi#remove_from_bounce_list' do
