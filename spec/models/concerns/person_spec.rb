@@ -65,11 +65,4 @@ RSpec.describe Person do
       expect(subject.full_name).to eq('Oscar Wilde')
     end
   end
-
-  describe 'last_initial' do
-    it 'is the first letter of the last name' do
-      subject.last_name = 'Wilde'
-      expect(subject.last_initial).to eq('W')
-    end
-  end
 end

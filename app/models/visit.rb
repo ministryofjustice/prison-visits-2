@@ -34,17 +34,9 @@ class Visit < ActiveRecord::Base
     end
   end
 
-  def prisoner_full_name
-    [prisoner_first_name, prisoner_last_name].join(' ')
-  end
-
-  def anonymized_prisoner_name
-    [prisoner_first_name, prisoner_last_name_initial].join(' ')
-  end
-
-  def visitor_full_name
-    [visitor_first_name, visitor_last_name].join(' ')
-  end
+  extend Names
+  enhance_names prefix: :prisoner
+  enhance_names prefix: :visitor
 
   def prisoner_age
     AgeCalculator.new.age(prisoner_date_of_birth)
@@ -61,11 +53,5 @@ class Visit < ActiveRecord::Base
 
   def slot_granted
     super ? ConcreteSlot.parse(super) : nil
-  end
-
-private
-
-  def prisoner_last_name_initial
-    prisoner_last_name[0]
   end
 end
