@@ -46,7 +46,7 @@ RSpec.configure do |config|
     config.default_formatter = 'doc'
   else
     SimpleCov.start 'rails' do
-      add_filter '/gem/'
+      add_filter '/gems/'
     end
   end
 
