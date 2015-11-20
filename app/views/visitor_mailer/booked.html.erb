@@ -1,0 +1,96 @@
+<p><%= t(".salutation", name: (@visit.visitor_full_name)) %></p>
+
+<p><%= t(".visit_confirmed", prison: (@visit.prison_name)) %></p>
+
+<h2><%= format_slot_for_public(@visit.slot_granted) %></h2>
+
+<p><%= t(".please_arrive") %></p>
+
+<p>
+  <%= t('.prisoner') %>
+  <strong><%= @visit.prisoner_anonymized_name %></strong>
+</p>
+
+<p>
+  <%= t('.number') %>
+  <strong><%= @visit.prisoner_number %></strong>
+</p>
+
+<p>
+  <%= t('.visitor', n: 1) %>
+  <strong><%= @visit.visitor_anonymized_name %></strong>
+</p>
+
+<% @visit.additional_visitors.each_with_index do |visitor, index| %>
+  <p>
+    <%= t('.visitor', n: index + 2) %>
+    <strong><%= visitor.anonymized_name %></strong>
+  </p>
+<% end %>
+
+<p>
+  <%= t(".reference_no") %>
+  <strong><%= @visit.reference_no %></strong>
+</p>
+
+<% if @visit.closed? %>
+  <p><%= t(".this_is_a_closed_visit_html") %></p>
+<% end %>
+
+<p><%= t(".want_to_change") %></p>
+
+<h1><%= t(".questions_about_your_visit") %></h1>
+
+<p><%= t(".dont_reply") %></p>
+
+<ul>
+  <li>
+    <%= t(".phone_no") %>
+    <strong><%= @visit.prison_phone_no %></strong>
+  </li>
+  <li>
+    <%= t(".email_address") %>
+    <strong><%= @visit.prison_email_address %></strong>
+  </li>
+</ul>
+
+<h1><%= t(".add_to_address_book_title") %></h1>
+
+<p><%= t(".add_to_address_book_body") %></p>
+
+<h1><%= t(".what_to_bring") %></h1>
+
+<div>
+  <%= t('.id_requirements_html') %>
+</div>
+
+<p><%= t(".any_questions") %></p>
+
+<h1><%= t(".bringing_child_title") %></h1>
+
+<p><%= t(".bringing_child_body") %></p>
+
+<h1><%= t(".what_to_expect_title") %></h1>
+
+<p><%= t(".what_to_expect_body") %></p>
+
+<h1><%= t(".what_not_to_bring_title") %></h1>
+
+<p>
+  <%=
+    t(".what_not_to_bring_body_html",
+      url: '/TODO-prison-finder-url', prison: @visit.prison_name)
+  %>
+</p>
+
+<h1><%= t(".your_data_title") %></h1>
+
+<p><%= t(".your_data_body") %></p>
+
+<h1><%= t(".need_help_title") %></h1>
+
+<p><%= t(".need_help_body_html", url: '/TODO-feedback-url') %></p>
+
+<p>
+  <small><%= t(".visit_id") %> <%= @visit.id %></small>
+</p>

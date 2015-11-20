@@ -54,4 +54,8 @@ class Visit < ActiveRecord::Base
   def slot_granted
     super ? ConcreteSlot.parse(super) : nil
   end
+
+  def date
+    slot_granted.begin_at
+  end
 end

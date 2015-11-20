@@ -3,7 +3,15 @@ require 'rails_helper'
 RSpec.feature 'Processing a request', js: true do
   include ActiveJobHelper
 
-  let(:vst) { create(:visit) }
+  let(:prison) { create(:prison, name: 'Reading Gaol') }
+  let(:email_address) { 'visitor@test.example.com' }
+  let(:vst) {
+    create(
+      :visit,
+      prison: prison,
+      visitor_email_address: email_address
+    )
+  }
 
   before do
     visit edit_prison_visit_path(vst)
@@ -18,6 +26,11 @@ RSpec.feature 'Processing a request', js: true do
     vst.reload
     expect(vst).to be_booked
     expect(vst.reference_no).to eq('12345678')
+
+    expect(email_address).
+      to receive_email.
+      with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
+      and_body(/Your visit to Reading Gaol is now successfully confirmed/)
   end
 
   scenario 'rejecting a booking with no available slot' do
