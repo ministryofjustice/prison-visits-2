@@ -153,9 +153,10 @@ en:
       choice: 'Choice %{n}'
       details: 'Visit request details'
       email: 'email:'
-      feedback: >
+      feedback_html: >
         Need help or want to make a complaint? If you have a question or need
         any help with the online visits service, please
+        <a href="%{url}">contact us</a>.
       prisoner: 'Prisoner:'
       prisoner_number: 'Prisoner number:'
       request:
@@ -173,5 +174,6 @@ en:
         We’ll email you by %{when} to confirm the date and time of your visit.
         Please don’t contact us any sooner than that, as we won’t be able to
         comment on booking requests that are being processed.
-      where_to_check_status: >
+      where_to_check_status_html: >
        You can check whether your visit has been booked on the
+       <a href="%{url}">visit status page</a>.

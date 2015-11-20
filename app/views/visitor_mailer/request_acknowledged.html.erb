@@ -5,8 +5,7 @@
   <%= t('.status') %>
 </h1>
 <p>
-  <%= t('.where_to_check_status') %>
-  <%= link_to('TODO show booking', '#') %>
+  <%= t('.where_to_check_status_html', url: '/TODO-visit-status-url') %>
 </p>
 <p>
   <%= t('.when_to_expect_response', when: 'TODO') %>
@@ -63,6 +62,5 @@
   </li>
 </ul>
 <p>
-  <%= t('.feedback') %>
-  <%= link_to('TODO feedback', '#') %>
+  <%= t('.feedback_html', url: '/TODO-feedback-url') %>
 </p>
