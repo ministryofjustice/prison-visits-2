@@ -12,6 +12,14 @@ RSpec.describe BookingResponder do
     visit.reload
   }
 
+  let(:mailing) {
+    double(Mail::Message, deliver_later: nil)
+  }
+
+  before do
+    allow(VisitorMailer).to receive(:booked).and_return(mailing)
+  end
+
   context 'accepting a request' do
     before do
       booking_response.selection = 'slot_0'
@@ -44,6 +52,13 @@ RSpec.describe BookingResponder do
       it 'marks the visit as not closed' do
         booking_response.closed_visit = false
         expect(visit_after_responding).not_to be_closed
+      end
+
+      it 'emails the prison' do
+        expect(VisitorMailer).to receive(:booked).with(visit).
+          and_return(mailing)
+        expect(mailing).to receive(:deliver_later)
+        visit_after_responding
       end
     end
 

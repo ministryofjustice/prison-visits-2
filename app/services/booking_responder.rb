@@ -24,6 +24,7 @@ private
       reference_no: booking_response.reference_no,
       closed: booking_response.closed_visit
     )
+    notify_accepted visit
   end
 
   def reject!
@@ -41,5 +42,9 @@ private
     if booking_response.pvo_possible?
       rejection.pvo_expires_on = booking_response.pvo_expires_on
     end
+  end
+
+  def notify_accepted(visit)
+    VisitorMailer.booked(visit).deliver_later
   end
 end
