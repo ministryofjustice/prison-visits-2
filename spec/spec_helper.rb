@@ -2,9 +2,6 @@ require 'simplecov'
 require 'simplecov-rcov'
 SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
 SimpleCov.minimum_coverage 100
-SimpleCov.start do
-  add_filter '/.bundle/'
-end
 
 # Minimal auto-load for quicker specs. This avoids loading the whole of Rails
 # solely for dependency resolution.
