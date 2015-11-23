@@ -3,13 +3,22 @@ require 'rails_helper'
 RSpec.feature 'Processing a request', js: true do
   include ActiveJobHelper
 
-  let(:prison) { create(:prison, name: 'Reading Gaol') }
-  let(:email_address) { 'visitor@test.example.com' }
+  let(:visitor_email_address) { 'visitor@test.example.com' }
+  let(:prison_email_address) { 'prison@test.example.com' }
+  let(:prison) {
+    create(
+      :prison,
+      name: 'Reading Gaol',
+      email_address: prison_email_address
+    )
+  }
   let(:vst) {
     create(
       :visit,
       prison: prison,
-      visitor_email_address: email_address
+      visitor_email_address: visitor_email_address,
+      prisoner_first_name: 'Oscar',
+      prisoner_last_name: 'Wilde'
     )
   }
 
@@ -27,10 +36,14 @@ RSpec.feature 'Processing a request', js: true do
     expect(vst).to be_booked
     expect(vst.reference_no).to eq('12345678')
 
-    expect(email_address).
+    expect(visitor_email_address).
       to receive_email.
       with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
       and_body(/Your visit to Reading Gaol is now successfully confirmed/)
+    expect(prison_email_address).
+      to receive_email.
+      with_subject(/COPY of booking confirmation for Oscar Wilde/).
+      and_body(/This is a copy of the booking confirmation email sent to the visitor/)
   end
 
   scenario 'rejecting a booking with no available slot' do

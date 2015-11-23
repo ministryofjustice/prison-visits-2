@@ -9,14 +9,6 @@
         <%= image_tag(attachments['govuk-header-logo.png'].url) %>
       </div>
       <div class="content">
-        <% if content_for? :copy_notice %>
-          <p class="copy-notice">
-            <strong>
-              <%= yield :copy_notice %>
-            </strong>
-          </p>
-        <% end %>
-
         <%= yield %>
       </div>
     </div>

@@ -18,6 +18,7 @@ RSpec.describe BookingResponder do
 
   before do
     allow(VisitorMailer).to receive(:booked).and_return(mailing)
+    allow(PrisonMailer).to receive(:booked).and_return(mailing)
   end
 
   context 'accepting a request' do
@@ -54,11 +55,18 @@ RSpec.describe BookingResponder do
         expect(visit_after_responding).not_to be_closed
       end
 
-      it 'emails the prison' do
+      it 'emails the visitor' do
         expect(VisitorMailer).to receive(:booked).with(visit).
           and_return(mailing)
         expect(mailing).to receive(:deliver_later)
-        visit_after_responding
+        subject.respond!
+      end
+
+      it 'emails the prison' do
+        expect(PrisonMailer).to receive(:booked).with(visit).
+          and_return(mailing)
+        expect(mailing).to receive(:deliver_later)
+        subject.respond!
       end
     end
 
