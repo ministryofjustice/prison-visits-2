@@ -22,6 +22,11 @@ en:
         COPY of booking confirmation for %{prisoner}
       copy_of_booking: >
         This is a copy of the booking confirmation email sent to the visitor
+    rejected:
+      subject: >
+        COPY of booking rejection for %{prisoner}
+      copy_of_rejection: >
+        This is a copy of the booking rejection email sent to the visitor
   visitor_mailer:
     booked:
       subject: >

@@ -52,5 +52,6 @@ private
 
   def notify_rejected(visit)
     VisitorMailer.rejected(visit).deliver_later
+    PrisonMailer.rejected(visit).deliver_later
   end
 end

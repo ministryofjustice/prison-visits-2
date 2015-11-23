@@ -24,4 +24,13 @@ class PrisonMailer < ActionMailer::Base
            prisoner: visit.prisoner_full_name
          )
   end
+
+  def rejected(visit)
+    @visit = visit
+
+    mail to: visit.prison_email_address,
+         subject: default_i18n_subject(
+           prisoner: visit.prisoner_full_name
+         )
+  end
 end
