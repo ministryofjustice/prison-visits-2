@@ -1,22 +1,22 @@
 en:
   mailer:
-    noreply: 'Prison Visits Booking (Unattended) <noreply@%{domain}>'
+    noreply: "Prison Visits Booking (Unattended) <noreply@%{domain}>"
   prison_mailer:
     request_received:
-      subject: 'Visit request for %{full_name} on %{request_date}'
-      prisoner: 'Prisoner:'
-      number: 'Number:'
-      date_of_birth: 'Date of birth:'
-      choice: 'Choice %{n}'
-      visitor: 'Visitor %{n}'
-      age: 'Age:'
-      email_address: 'Email:'
-      phone_no: 'Phone:'
-      process_booking: 'Process the booking'
+      subject: "Visit request for %{full_name} on %{request_date}"
+      prisoner: "Prisoner:"
+      number: "Number:"
+      date_of_birth: "Date of birth:"
+      choice: "Choice %{n}"
+      visitor: "Visitor %{n}"
+      age: "Age:"
+      email_address: "Email:"
+      phone_no: "Phone:"
+      process_booking: "Process the booking"
       copy_paste_explanation: >
         If you cannot click on the link above, copy the entire link and paste
         it into the address bar of your browser.
-      visit_id: 'Visit ID:'
+      visit_id: "Visit ID:"
     booked:
       subject: >
         COPY of booking confirmation for %{prisoner}
@@ -29,10 +29,10 @@ en:
       salutation: Dear %{name},
       visit_confirmed: Your visit to %{prison} is now successfully confirmed.
       please_arrive: Please arrive 45 minutes before your visit starts.
-      prisoner: 'Prisoner:'
-      number: 'Number:'
-      visitor: 'Visitor %{n}:'
-      reference_no: 'Your reference number is:'
+      prisoner: "Prisoner:"
+      number: "Number:"
+      visitor: "Visitor %{n}:"
+      reference_no: "Your reference number is:"
       this_is_a_closed_visit_html: >
         <strong>This is a closed visit:</strong>
         the prisoner will be behind a glass screen in a separate area rather
@@ -42,10 +42,10 @@ en:
         coming, contact the prison.
       questions_about_your_visit: Questions about your visit
       dont_reply: >
-        Please don't reply to this email if you have any other questions about
+        Please don’t reply to this email if you have any other questions about
         your visit. Instead you must contact us directly.
-      phone_no: 'Phone:'
-      email_address: 'Email:'
+      phone_no: "Phone:"
+      email_address: "Email:"
       add_to_address_book_title: Add this email to your address book
       add_to_address_book_body: >
         To stop visit confirmation emails going to your spam or junk folder
@@ -73,18 +73,18 @@ en:
             benefits book
           </li>
           <li>
-            senior citizen's public transport photo pass issued by a local
+            senior citizen’s public transport photo pass issued by a local
             authority
           </li>
           <li>
-            employer's or student ID card but only if this has a photo and
+            employer’s or student ID card but only if this has a photo and
             clearly shows your name and the issuing employer or educational
             establishment
           </li>
         </ul>
 
         <p>
-          If you don't have one of these forms of ID, you can bring TWO of
+          If you don’t have one of these forms of ID, you can bring TWO of
           the following:
         </p>
 
@@ -96,19 +96,19 @@ en:
             cheque book or credit or debit card
           </li>
           <li>
-            employer's pass or ID or student ID card without photo
+            employer’s pass or ID or student ID card without photo
           </li>
           <li>
-            young person's 'proof of age' card
+            young person’s ‘proof of age’ card
           </li>
           <li>
-            trade union or National Students' Union membership card
+            trade union or National Students’ Union membership card
           </li>
           <li>
             rent book
           </li>
           <li>
-            foreign identity or residents' card
+            foreign identity or residents’ card
           </li>
         </ul>
       any_questions: >
@@ -147,31 +147,31 @@ en:
       need_help_body_html: >
         If you have a question or need any help with the online visits service,
         please <a href="%{url}">contact us</a>.
-      visit_id: 'Visit ID:'
+      visit_id: "Visit ID:"
     request_acknowledged:
       add_address: >
         To stop visit confirmation emails going to your spam or junk folder
         please add %{email} to your address book or safe senders list.
-      add_to_address_book: 'Add this email to your address book'
-      cancel: 'If you no longer want to visit on this date'
-      cancellation_title: 'Cancel this visit request'
-      choice: 'Choice %{n}'
-      details: 'Visit request details'
-      email: 'email:'
+      add_to_address_book: "Add this email to your address book"
+      cancel: "If you no longer want to visit on this date"
+      cancellation_title: "Cancel this visit request"
+      choice: "Choice %{n}"
+      details: "Visit request details"
+      email: "email:"
       feedback_html: >
         Need help or want to make a complaint? If you have a question or need
         any help with the online visits service, please
         <a href="%{url}">contact us</a>.
-      prisoner: 'Prisoner:'
-      prisoner_number: 'Prisoner number:'
+      prisoner: "Prisoner:"
+      prisoner_number: "Prisoner number:"
       request:
         one: You have requested a visit to %{prison} for %{count} person
         other: You have requested a visit to %{prison} for %{count} people
-      salutation: 'Dear %{visitor_full_name}'
-      status: 'Your visit is not booked yet'
-      subject: 'Not booked yet: we’ve received your visit request for %{receipt_date}'
-      phone_no: 'Phone:'
-      email_address: 'Email:'
+      salutation: "Dear %{visitor_full_name}"
+      status: "Your visit is not booked yet"
+      subject: "Not booked yet: we’ve received your visit request for %{receipt_date}"
+      phone_no: "Phone:"
+      email_address: "Email:"
       when_to_check_spam: >
         If you don’t receive a confirmation email by %{when}, please check
         your spam or junk folder for it. You need to do this on a computer or
