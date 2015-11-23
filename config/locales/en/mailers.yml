@@ -149,6 +149,7 @@ en:
         please <a href="%{url}">contact us</a>.
       visit_id: "Visit ID:"
     request_acknowledged:
+      subject: "Not booked yet: we’ve received your visit request for %{receipt_date}"
       add_address: >
         To stop visit confirmation emails going to your spam or junk folder
         please add %{email} to your address book or safe senders list.
@@ -169,7 +170,6 @@ en:
         other: You have requested a visit to %{prison} for %{count} people
       salutation: "Dear %{visitor_full_name}"
       status: "Your visit is not booked yet"
-      subject: "Not booked yet: we’ve received your visit request for %{receipt_date}"
       phone_no: "Phone:"
       email_address: "Email:"
       when_to_check_spam: >
