@@ -15,4 +15,13 @@ class PrisonMailer < ActionMailer::Base
            request_date: format_date_of_visit(visit.slots.first.begin_at)
          )
   end
+
+  def booked(visit)
+    @visit = visit
+
+    mail to: visit.prison_email_address,
+         subject: default_i18n_subject(
+           prisoner: visit.prisoner_full_name
+         )
+  end
 end

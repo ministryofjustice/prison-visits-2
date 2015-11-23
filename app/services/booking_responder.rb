@@ -46,5 +46,6 @@ private
 
   def notify_accepted(visit)
     VisitorMailer.booked(visit).deliver_later
+    PrisonMailer.booked(visit).deliver_later
   end
 end

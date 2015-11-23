@@ -17,6 +17,11 @@ en:
         If you cannot click on the link above, copy the entire link and paste
         it into the address bar of your browser.
       visit_id: 'Visit ID:'
+    booked:
+      subject: >
+        COPY of booking confirmation for %{prisoner}
+      copy_of_booking: >
+        This is a copy of the booking confirmation email sent to the visitor
   visitor_mailer:
     booked:
       subject: >
