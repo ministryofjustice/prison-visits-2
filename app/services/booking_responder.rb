@@ -32,6 +32,7 @@ private
     rejection = Rejection.new(visit: visit, reason: booking_response.selection)
     copy_no_allowance_parameters rejection if booking_response.no_allowance?
     rejection.save!
+    notify_rejected visit
   end
 
   def copy_no_allowance_parameters(rejection)
@@ -47,5 +48,9 @@ private
   def notify_accepted(visit)
     VisitorMailer.booked(visit).deliver_later
     PrisonMailer.booked(visit).deliver_later
+  end
+
+  def notify_rejected(visit)
+    VisitorMailer.rejected(visit).deliver_later
   end
 end

@@ -19,6 +19,7 @@ RSpec.describe BookingResponder do
   before do
     allow(VisitorMailer).to receive(:booked).and_return(mailing)
     allow(PrisonMailer).to receive(:booked).and_return(mailing)
+    allow(VisitorMailer).to receive(:rejected).and_return(mailing)
   end
 
   context 'accepting a request' do
@@ -94,6 +95,17 @@ RSpec.describe BookingResponder do
   end
 
   context 'rejecting a request' do
+    before do
+      booking_response.selection = 'slot_unavailable'
+    end
+
+    it 'emails the visitor' do
+      expect(VisitorMailer).to receive(:rejected).with(visit).
+        and_return(mailing)
+      expect(mailing).to receive(:deliver_later)
+      subject.respond!
+    end
+
     context 'because no slot is available' do
       before do
         booking_response.selection = 'slot_unavailable'

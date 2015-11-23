@@ -54,6 +54,11 @@ RSpec.feature 'Processing a request', js: true do
     vst.reload
     expect(vst).to be_rejected
     expect(vst.rejection_reason).to eq('slot_unavailable')
+
+    expect(visitor_email_address).
+      to receive_email.
+      with_subject(/Visit cannot take place: your visit for \w+ \d+ \w+ could not be booked/).
+      and_body(/none of the dates and times/)
   end
 
   scenario 'rejecting a booking when the prisoner has no visiting allowance' do
@@ -70,6 +75,11 @@ RSpec.feature 'Processing a request', js: true do
     expect(vst.rejection_reason).to eq('no_allowance')
     expect(vst.rejection.vo_renewed_on).to eq(Time.zone.today + 1)
     expect(vst.rejection.vo_renewed_on).to eq(Time.zone.today + 1)
+
+    expect(visitor_email_address).
+      to receive_email.
+      with_subject(/Visit cannot take place: your visit for \w+ \d+ \w+ could not be booked/).
+      and_body(/not got any visiting allowance/)
   end
 
   scenario 'rejecting a booking with incorrect prisoner details' do
@@ -80,6 +90,11 @@ RSpec.feature 'Processing a request', js: true do
     vst.reload
     expect(vst.rejection_reason).to eq('prisoner_details_incorrect')
     expect(vst).to be_rejected
+
+    expect(visitor_email_address).
+      to receive_email.
+      with_subject(/Visit cannot take place: your visit for \w+ \d+ \w+ could not be booked/).
+      and_body(/correct information for the prisoner/)
   end
 
   scenario 'rejecting a booking when the prisoner has moved' do
@@ -90,6 +105,11 @@ RSpec.feature 'Processing a request', js: true do
     vst.reload
     expect(vst.rejection_reason).to eq('prisoner_moved')
     expect(vst).to be_rejected
+
+    expect(visitor_email_address).
+      to receive_email.
+      with_subject(/Visit cannot take place: your visit for \w+ \d+ \w+ could not be booked/).
+      and_body(/has moved prison/)
   end
 
   scenario 'rejecting a booking when the visitor is not on the contact list' do
@@ -100,6 +120,11 @@ RSpec.feature 'Processing a request', js: true do
     vst.reload
     expect(vst.rejection_reason).to eq('visitor_not_on_list')
     expect(vst).to be_rejected
+
+    expect(visitor_email_address).
+      to receive_email.
+      with_subject(/Visit cannot take place: your visit for \w+ \d+ \w+ could not be booked/).
+      and_body(/prisoner’s contact list/)
   end
 
   scenario 'rejecting a booking when the visitor is banned' do
@@ -110,5 +135,10 @@ RSpec.feature 'Processing a request', js: true do
     vst.reload
     expect(vst.rejection_reason).to eq('visitor_banned')
     expect(vst).to be_rejected
+
+    expect(visitor_email_address).
+      to receive_email.
+      with_subject(/Visit cannot take place: your visit for \w+ \d+ \w+ could not be booked/).
+      and_body(/banned from visiting/)
   end
 end

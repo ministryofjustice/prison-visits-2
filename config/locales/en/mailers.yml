@@ -148,6 +148,55 @@ en:
         If you have a question or need any help with the online visits service,
         please <a href="%{url}">contact us</a>.
       visit_id: "Visit ID:"
+    rejected:
+      subject: >
+        Visit cannot take place: your visit for %{date} could not be booked
+      salutation: Dear %{name}
+      slot_unavailable_html: >
+        We’re sorry but none of the dates and times you chose to visit
+        <strong>%{prisoner}</strong> at <strong>%{prison}</strong>
+        were available.
+      alternatives_html: >
+        Please visit
+        <a href="https://www.gov.uk/prison-visits">www.gov.uk/prison-visits</a>
+        to choose some alternative dates.
+      no_allowance: >
+        We’re sorry, but the prisoner you want to visit has not got any
+        visiting allowance left for the dates you’ve chosen.
+      pvo_possible: >
+        However, you can book a weekday visit with visiting allowance valid
+        until %{date}. The visit must be taken before the allowance expires.
+      vo_renewal: >
+        %{prisoner} will have their full visiting allowance (VO) renewed on
+        %{date}.
+      prisoner_details_incorrect: >
+        Your visit cannot take place as you haven’t given correct information
+        for the prisoner. Eg, the prisoner’s name, number or date of birth is
+        incorrect. Contact the prisoner to get up-to-date information.
+      prisoner_moved_html: >
+        Your visit cannot take place as the prisoner you want to visit has
+        moved prison. They should contact you about where they are now. You can
+        also use the
+        <a href="http://www.gov.uk/find-prisoner">find a prisoner service</a>.
+      visitor_banned:
+        Your visit cannot take place. %{visitor} should have received a letter
+        to say that they’re banned from visiting the prison at the moment. Get
+        in touch with the prison for more information.
+      visitor_not_on_list:
+        Your visit cannot take place as details for %{visitor} don’t match our
+        records or they aren’t on the prisoner’s contact list.
+      update_list:
+        Please contact the prisoner and ask them to update their contact list
+        with correct details, making sure that names appear exactly the same as
+        on ID documents.
+      first_visit:
+        If this is the prisoner’s first visit (reception visit), then you need
+        to contact the prison to book.
+      any_questions_html:
+        If you have any questions, visit the
+        <a href="%{url}">prison website</a> or call the prison on
+        <strong>%{phone_no}</strong>.
+      visit_id: "Visit ID:"
     request_acknowledged:
       subject: "Not booked yet: we’ve received your visit request for %{receipt_date}"
       add_address: >
