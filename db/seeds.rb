@@ -20,6 +20,8 @@ Prison.transaction do
     Prison.create!(
       address: hash.fetch('address', []).join("\n"),
       booking_window: hash.fetch('booking_window', 28),
+      lead_days: hash.fetch('lead_days', 3),
+      weekend_processing: hash.fetch('works_weekends', false),
       email_address: hash.fetch('email', nil),
       enabled: hash.fetch('enabled', true),
       estate: hash.fetch('estate'),
