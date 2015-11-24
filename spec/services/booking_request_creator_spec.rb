@@ -66,7 +66,6 @@ RSpec.describe BookingRequestCreator do
     let(:visit) { instance_double(Visit, id: 2) }
 
     before do
-      LogStasher.request_context.replace({})
       allow(Visit).to receive(:create!).and_return(visit)
     end
 
