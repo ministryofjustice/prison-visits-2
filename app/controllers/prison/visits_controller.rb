@@ -24,8 +24,9 @@ private
     params.
       require(:booking_response).
       permit(
-        :selection, :reference_no, :closed_visit, :vo_will_be_renewed,
-        :vo_renewed_on, :pvo_possible, :pvo_expires_on,
+        :selection, :reference_no, :closed_visit,
+        :allowance_will_renew, :allowance_renews_on,
+        :privileged_allowance_available, :privileged_allowance_expires_on,
         :visitor_not_on_list, :visitor_banned
       ).
       merge(visit: visit)

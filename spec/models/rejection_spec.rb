@@ -17,27 +17,27 @@ RSpec.describe Rejection, model: true do
     end
   end
 
-  describe 'pvo_possible?' do
-    it 'is true if there is a pvo_expires_on date' do
-      subject.pvo_expires_on = Time.zone.today + 1
-      expect(subject).to be_pvo_possible
+  describe 'privileged_allowance_available?' do
+    it 'is true if there is a privileged_allowance_expires_on date' do
+      subject.privileged_allowance_expires_on = Time.zone.today + 1
+      expect(subject).to be_privileged_allowance_available
     end
 
-    it 'is false if these is no pvo_expires_on date' do
-      subject.pvo_expires_on = ''
-      expect(subject).not_to be_pvo_possible
+    it 'is false if these is no privileged_allowance_expires_on date' do
+      subject.privileged_allowance_expires_on = ''
+      expect(subject).not_to be_privileged_allowance_available
     end
   end
 
-  describe 'vo_will_be_renewed?' do
-    it 'is true if there is a vo_renewed_on date' do
-      subject.vo_renewed_on = Time.zone.today + 1
-      expect(subject).to be_vo_will_be_renewed
+  describe 'allowance_will_renew?' do
+    it 'is true if there is an allowance_renews_on date' do
+      subject.allowance_renews_on = Time.zone.today + 1
+      expect(subject).to be_allowance_will_renew
     end
 
-    it 'is false if these is no vo_renewed_on date' do
-      subject.vo_renewed_on = ''
-      expect(subject).not_to be_vo_will_be_renewed
+    it 'is false if these is no allowance_renews_on date' do
+      subject.allowance_renews_on = ''
+      expect(subject).not_to be_allowance_will_renew
     end
   end
 end

@@ -36,12 +36,13 @@ private
   end
 
   def copy_no_allowance_parameters(rejection)
-    if booking_response.vo_will_be_renewed?
-      rejection.vo_renewed_on = booking_response.vo_renewed_on
+    if booking_response.allowance_will_renew?
+      rejection.allowance_renews_on = booking_response.allowance_renews_on
     end
 
-    if booking_response.pvo_possible?
-      rejection.pvo_expires_on = booking_response.pvo_expires_on
+    if booking_response.privileged_allowance_available?
+      rejection.privileged_allowance_expires_on =
+        booking_response.privileged_allowance_expires_on
     end
   end
 

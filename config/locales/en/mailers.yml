@@ -168,10 +168,10 @@ en:
       no_allowance: >
         We’re sorry, but the prisoner you want to visit has not got any
         visiting allowance left for the dates you’ve chosen.
-      pvo_possible: >
+      privileged_allowance_available: >
         However, you can book a weekday visit with visiting allowance valid
         until %{date}. The visit must be taken before the allowance expires.
-      vo_renewal: >
+      allowance_will_renew: >
         %{prisoner} will have their full visiting allowance (VO) renewed on
         %{date}.
       prisoner_details_incorrect: >

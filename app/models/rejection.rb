@@ -12,11 +12,11 @@ class Rejection < ActiveRecord::Base
 
   validates :reason, inclusion: { in: REASONS }
 
-  def pvo_possible?
-    pvo_expires_on.present?
+  def privileged_allowance_available?
+    privileged_allowance_expires_on.present?
   end
 
-  def vo_will_be_renewed?
-    vo_renewed_on.present?
+  def allowance_will_renew?
+    allowance_renews_on.present?
   end
 end

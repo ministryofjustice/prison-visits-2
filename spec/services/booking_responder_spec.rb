@@ -152,29 +152,29 @@ RSpec.describe BookingResponder do
       end
 
       context 'when VO will be renewed' do
-        let(:vo_date) { Time.zone.today + 7 }
+        let(:allowance_date) { Time.zone.today + 7 }
 
         before do
-          booking_response.vo_will_be_renewed = true
-          booking_response.vo_renewed_on = vo_date
+          booking_response.allowance_will_renew = true
+          booking_response.allowance_renews_on = allowance_date
         end
 
         it 'sets the rejection VO renewal date' do
-          expect(visit_after_responding.rejection.vo_renewed_on).
-            to eq(vo_date)
+          expect(visit_after_responding.rejection.allowance_renews_on).
+            to eq(allowance_date)
         end
 
         context 'and PVO is possible' do
-          let(:pvo_date) { Time.zone.today + 7 }
+          let(:privileged_allowance_date) { Time.zone.today + 7 }
 
           before do
-            booking_response.pvo_possible = true
-            booking_response.pvo_expires_on = pvo_date
+            booking_response.privileged_allowance_available = true
+            booking_response.privileged_allowance_expires_on = privileged_allowance_date
           end
 
           it 'sets the rejection PVO expiry date' do
-            expect(visit_after_responding.rejection.pvo_expires_on).
-              to eq(pvo_date)
+            expect(visit_after_responding.rejection.privileged_allowance_expires_on).
+              to eq(privileged_allowance_date)
           end
         end
       end

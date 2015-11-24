@@ -12,15 +12,15 @@
 
   <p><%= t('.no_allowance') %></p>
 
-  <% if @visit.pvo_possible? %>
-    <p><%= t('.pvo_possible',
-             date: format_date_of_visit(@visit.pvo_expires_on)) %></p>
+  <% if @visit.privileged_allowance_available? %>
+    <p><%= t('.privileged_allowance_available',
+             date: format_date_of_visit(@visit.privileged_allowance_expires_on)) %></p>
   <% end %>
 
-  <% if @visit.vo_will_be_renewed? %>
-    <p><%= t('.vo_renewal',
+  <% if @visit.allowance_will_renew? %>
+    <p><%= t('.allowance_will_renew',
              prisoner: @visit.prisoner_anonymized_name,
-             date: format_date_of_visit(@visit.vo_renewed_on)) %></p>
+             date: format_date_of_visit(@visit.allowance_renews_on)) %></p>
   <% end %>
 
 <% when 'prisoner_details_incorrect' %>
