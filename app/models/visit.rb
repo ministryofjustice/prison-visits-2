@@ -58,4 +58,8 @@ class Visit < ActiveRecord::Base
   def date
     slot_granted.begin_at
   end
+
+  def confirm_by
+    prison.confirm_by(created_at.to_date)
+  end
 end

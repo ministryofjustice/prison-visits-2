@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe VisitorMailer, '.request_acknowledged' do
-  let(:visit) { build(:visit) }
+  let(:visit) { create(:visit) }
   subject { described_class.request_acknowledged(visit) }
 
   before do
