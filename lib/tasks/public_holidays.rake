@@ -1,9 +1,10 @@
 require 'open-uri'
 
-task :update_holidays => :environment do
+task update_holidays: :environment do
   hash = JSON.parse(open('https://www.gov.uk/bank-holidays.json').read)
 
-  events = hash.
+  events =
+    hash.
     fetch('england-and-wales').
     fetch('events').
     map { |event| [Date.parse(event.fetch('date')), event.fetch('title')] }.
