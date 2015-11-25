@@ -17,26 +17,26 @@
   <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
 
   <blockquote>
-    <%= t('.no_vo_wording_html') %>
+    <%= t('.no_allowance_wording_html') %>
   </blockquote>
 
-  <p><%= t('.no_vo_tell_more') %></p>
+  <p><%= t('.no_allowance_tell_more') %></p>
 
   <%=
     single_field(
-      f, :vo_will_be_renewed, :check_box,
+      f, :allowance_will_renew, :check_box,
       class: 'js-Conditional',
-      data: { 'conditional-el': 'vo_will_be_renewed_details' }
+      data: { 'conditional-el': 'allowance_will_renew_details' }
     )
   %>
 
-  <div id="vo_will_be_renewed_details">
-    <%= error_container(f, :vo_renewed_on) do %>
+  <div id="allowance_will_renew_details">
+    <%= error_container(f, :allowance_renews_on) do %>
       <%=
         render(
           'calendar',
           prison: f.object.prison,
-          name: 'booking_response[vo_renewed_on]'
+          name: 'booking_response[allowance_renews_on]'
         )
       %>
     <% end %>
@@ -46,7 +46,7 @@
     <blockquote>
       <%=
         t(
-          '.vo_will_be_renewed_wording_html',
+          '.allowance_will_renew_wording_html',
           prisoner: f.object.prisoner_full_name
         )
       %>
@@ -55,19 +55,19 @@
 
   <%=
     single_field(
-      f, :pvo_possible, :check_box,
+      f, :privileged_allowance_available, :check_box,
       class: 'js-Conditional',
-      data: { 'conditional-el': 'pvo_possible_details' }
+      data: { 'conditional-el': 'privileged_allowance_available_details' }
     )
   %>
 
-  <div id="pvo_possible_details">
-    <%= error_container(f, :pvo_expires_on) do %>
+  <div id="privileged_allowance_available_details">
+    <%= error_container(f, :privileged_allowance_expires_on) do %>
       <%=
         render(
           'calendar',
           prison: f.object.prison,
-          name: 'booking_response[pvo_expires_on]'
+          name: 'booking_response[privileged_allowance_expires_on]'
         )
       %>
     <% end %>
@@ -75,7 +75,7 @@
     <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
 
     <blockquote>
-      <%= t('.pvo_possible_wording_html') %>
+      <%= t('.privileged_allowance_available_wording_html') %>
     </blockquote>
   </div>
 </div>

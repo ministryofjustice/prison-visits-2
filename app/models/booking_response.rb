@@ -12,12 +12,17 @@ class BookingResponse
   validates :reference_no, presence: true, if: :slot_selected?
   attribute :closed_visit, Virtus::Attribute::Boolean
 
-  attribute :vo_will_be_renewed, Virtus::Attribute::Boolean
-  attribute :vo_renewed_on, Date
-  validates :vo_renewed_on, presence: true, if: :vo_will_be_renewed
-  attribute :pvo_possible, Virtus::Attribute::Boolean
-  attribute :pvo_expires_on, Date
-  validates :pvo_expires_on, presence: true, if: :pvo_possible
+  attribute :allowance_will_renew, Virtus::Attribute::Boolean
+  attribute :allowance_renews_on, Date
+  validates :allowance_renews_on,
+    presence: true,
+    if: :allowance_will_renew
+
+  attribute :privileged_allowance_available, Virtus::Attribute::Boolean
+  attribute :privileged_allowance_expires_on, Date
+  validates :privileged_allowance_expires_on,
+    presence: true,
+    if: :privileged_allowance_available
 
   delegate :slots, :prison, :to_param,
     :prisoner_full_name, :prisoner_number, :prisoner_date_of_birth,

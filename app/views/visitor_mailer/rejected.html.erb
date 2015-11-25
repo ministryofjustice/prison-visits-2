@@ -1,0 +1,53 @@
+<p><%= t('.salutation', name: @visit.visitor_first_name) %></p>
+
+<% case @visit.rejection_reason %>
+<% when 'slot_unavailable' %>
+
+  <p><%= t('.slot_unavailable_html',
+           prisoner: @visit.prisoner_anonymized_name,
+           prison: @visit.prison_name) %>
+  <p><%= t('.alternatives_html') %></p>
+
+<% when 'no_allowance' %>
+
+  <p><%= t('.no_allowance') %></p>
+
+  <% if @visit.privileged_allowance_available? %>
+    <p><%= t('.privileged_allowance_available',
+             date: format_date_of_visit(@visit.privileged_allowance_expires_on)) %></p>
+  <% end %>
+
+  <% if @visit.allowance_will_renew? %>
+    <p><%= t('.allowance_will_renew',
+             prisoner: @visit.prisoner_anonymized_name,
+             date: format_date_of_visit(@visit.allowance_renews_on)) %></p>
+  <% end %>
+
+<% when 'prisoner_details_incorrect' %>
+
+  <p><%= t('.prisoner_details_incorrect') %></p>
+
+<% when 'prisoner_moved' %>
+
+  <p><%= t('.prisoner_moved_html') %></p>
+
+<% when 'visitor_banned' %>
+
+  <p><%= t('.visitor_banned',
+           visitor: @visit.visitor_anonymized_name) %></p>
+
+<% when 'visitor_not_on_list' %>
+
+  <p><%= t('.visitor_not_on_list',
+           visitor: @visit.visitor_anonymized_name) %></p>
+
+  <p><%= t('.update_list') %></p>
+
+  <p><%= t('.first_visit') %></p>
+
+<% end %>
+
+<p><%= t('.any_questions_html',
+         url: '/TODO-prison-finder-url',
+         phone_no: @visit.prison_phone_no) %></p>
+<p><%= t('.visit_id') %></p>

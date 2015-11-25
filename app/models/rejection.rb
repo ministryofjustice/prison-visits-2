@@ -11,4 +11,12 @@ class Rejection < ActiveRecord::Base
   belongs_to :visit
 
   validates :reason, inclusion: { in: REASONS }
+
+  def privileged_allowance_available?
+    privileged_allowance_expires_on.present?
+  end
+
+  def allowance_will_renew?
+    allowance_renews_on.present?
+  end
 end

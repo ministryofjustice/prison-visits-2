@@ -19,6 +19,8 @@ RSpec.describe BookingResponder do
   before do
     allow(VisitorMailer).to receive(:booked).and_return(mailing)
     allow(PrisonMailer).to receive(:booked).and_return(mailing)
+    allow(VisitorMailer).to receive(:rejected).and_return(mailing)
+    allow(PrisonMailer).to receive(:rejected).and_return(mailing)
   end
 
   context 'accepting a request' do
@@ -27,46 +29,46 @@ RSpec.describe BookingResponder do
       booking_response.reference_no = '1337807'
     end
 
+    it 'changes the status of the visit to booked' do
+      expect(visit_after_responding).to be_booked
+    end
+
+    it 'sets the reference number of the visit' do
+      expect(visit_after_responding.reference_no).to eq('1337807')
+    end
+
+    it 'marks the visit as closed' do
+      booking_response.closed_visit = true
+      expect(visit_after_responding).to be_closed
+    end
+
+    it 'marks the visit as not closed' do
+      booking_response.closed_visit = false
+      expect(visit_after_responding).not_to be_closed
+    end
+
+    it 'emails the visitor' do
+      expect(VisitorMailer).to receive(:booked).with(visit).
+        and_return(mailing)
+      expect(mailing).to receive(:deliver_later)
+      subject.respond!
+    end
+
+    it 'emails the prison' do
+      expect(PrisonMailer).to receive(:booked).with(visit).
+        and_return(mailing)
+      expect(mailing).to receive(:deliver_later)
+      subject.respond!
+    end
+
     context 'with the first slot' do
       before do
         booking_response.selection = 'slot_0'
       end
 
-      it 'changes the status of the visit.reload to booked' do
-        expect(visit_after_responding).to be_booked
-      end
-
-      it 'sets the reference number of the visit' do
-        expect(visit_after_responding.reference_no).to eq('1337807')
-      end
-
       it 'assigns the selected slot' do
         expect(visit_after_responding.slot_granted).
           to eq(visit_after_responding.slots[0])
-      end
-
-      it 'marks the visit as closed' do
-        booking_response.closed_visit = true
-        expect(visit_after_responding).to be_closed
-      end
-
-      it 'marks the visit as not closed' do
-        booking_response.closed_visit = false
-        expect(visit_after_responding).not_to be_closed
-      end
-
-      it 'emails the visitor' do
-        expect(VisitorMailer).to receive(:booked).with(visit).
-          and_return(mailing)
-        expect(mailing).to receive(:deliver_later)
-        subject.respond!
-      end
-
-      it 'emails the prison' do
-        expect(PrisonMailer).to receive(:booked).with(visit).
-          and_return(mailing)
-        expect(mailing).to receive(:deliver_later)
-        subject.respond!
       end
     end
 
@@ -94,6 +96,24 @@ RSpec.describe BookingResponder do
   end
 
   context 'rejecting a request' do
+    before do
+      booking_response.selection = 'slot_unavailable'
+    end
+
+    it 'emails the visitor' do
+      expect(VisitorMailer).to receive(:rejected).with(visit).
+        and_return(mailing)
+      expect(mailing).to receive(:deliver_later)
+      subject.respond!
+    end
+
+    it 'emails the prison' do
+      expect(PrisonMailer).to receive(:rejected).with(visit).
+        and_return(mailing)
+      expect(mailing).to receive(:deliver_later)
+      subject.respond!
+    end
+
     context 'because no slot is available' do
       before do
         booking_response.selection = 'slot_unavailable'
@@ -132,29 +152,29 @@ RSpec.describe BookingResponder do
       end
 
       context 'when VO will be renewed' do
-        let(:vo_date) { Time.zone.today + 7 }
+        let(:allowance_date) { Time.zone.today + 7 }
 
         before do
-          booking_response.vo_will_be_renewed = true
-          booking_response.vo_renewed_on = vo_date
+          booking_response.allowance_will_renew = true
+          booking_response.allowance_renews_on = allowance_date
         end
 
         it 'sets the rejection VO renewal date' do
-          expect(visit_after_responding.rejection.vo_renewed_on).
-            to eq(vo_date)
+          expect(visit_after_responding.rejection.allowance_renews_on).
+            to eq(allowance_date)
         end
 
         context 'and PVO is possible' do
-          let(:pvo_date) { Time.zone.today + 7 }
+          let(:privileged_allowance_date) { Time.zone.today + 7 }
 
           before do
-            booking_response.pvo_possible = true
-            booking_response.pvo_expires_on = pvo_date
+            booking_response.privileged_allowance_available = true
+            booking_response.privileged_allowance_expires_on = privileged_allowance_date
           end
 
           it 'sets the rejection PVO expiry date' do
-            expect(visit_after_responding.rejection.pvo_expires_on).
-              to eq(pvo_date)
+            expect(visit_after_responding.rejection.privileged_allowance_expires_on).
+              to eq(privileged_allowance_date)
           end
         end
       end

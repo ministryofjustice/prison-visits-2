@@ -31,4 +31,16 @@ class VisitorMailer < ActionMailer::Base
       )
     )
   end
+
+  def rejected(visit)
+    @visit = visit
+
+    mail(
+      reply_to: visit.prison_email_address,
+      to: visit.recipient,
+      subject: default_i18n_subject(
+        date: format_date_of_visit(visit.first_date)
+      )
+    )
+  end
 end
