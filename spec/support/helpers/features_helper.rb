@@ -6,7 +6,7 @@ module FeaturesHelper
     fill_in 'Month', with: '12'
     fill_in 'Year', with: '1980'
     fill_in 'Prisoner number', with: 'a1234bc'
-    select 'Reading Gaol', from: 'Name of the prison'
+    select_prison 'Reading Gaol'
   end
 
   def enter_visitor_information(expected_email_address)
@@ -24,5 +24,10 @@ module FeaturesHelper
     select available_slots[1], from: 'Option 1'
     select available_slots[2], from: 'Option 1'
     select available_slots[3], from: 'Option 1'
+  end
+
+  def select_prison(name)
+    find('input[data-input-name="prisoner_step[prison_id]"]').
+      set(name)
   end
 end
