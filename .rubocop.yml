@@ -26,6 +26,9 @@ Style/AccessModifierIndentation:
 Style/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 
+Style/AsciiComments:
+  Enabled: false
+
 # Use Weirich style
 Style/BlockDelimiters:
   EnforcedStyle: semantic

@@ -8,7 +8,8 @@
   <%= t('.where_to_check_status_html', url: '/TODO-visit-status-url') %>
 </p>
 <p>
-  <%= t('.when_to_expect_response', when: 'TODO') %>
+  <%= t('.when_to_expect_response',
+        when: format_date_of_visit(@visit.confirm_by)) %>
 </p>
 <p>
   <%= t('.when_to_check_spam', when: 'TODO') %>
@@ -53,11 +54,11 @@
 </p>
 <ul>
   <li>
-  <%= t('.telephone') %>
+  <%= t('.phone_no') %>
   <strong><%= @visit.prison_phone_no %></strong>
   </li>
   <li>
-  <%= t('email') %>
+  <%= t('.email_address') %>
   <strong><%= @visit.prison_email_address %></strong>
   </li>
 </ul>

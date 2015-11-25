@@ -23,7 +23,7 @@ module CalendarHelper
   end
 
   def weeks(prison)
-    begin_on = prison.first_bookable_date.beginning_of_week
+    begin_on = Time.zone.today.beginning_of_week
     end_on = prison.last_bookable_date.end_of_month.end_of_week
     (begin_on..end_on).group_by(&:beginning_of_week).values
   end

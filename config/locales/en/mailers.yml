@@ -44,8 +44,8 @@ en:
       dont_reply: >
         Please don't reply to this email if you have any other questions about
         your visit. Instead you must contact us directly.
-      phone_no: 'Phone number:'
-      email_address: 'Email address:'
+      phone_no: 'Phone:'
+      email_address: 'Email:'
       add_to_address_book_title: Add this email to your address book
       add_to_address_book_body: >
         To stop visit confirmation emails going to your spam or junk folder
@@ -170,7 +170,8 @@ en:
       salutation: 'Dear %{visitor_full_name}'
       status: 'Your visit is not booked yet'
       subject: 'Not booked yet: we’ve received your visit request for %{receipt_date}'
-      telephone: 'telephone:'
+      phone_no: 'Phone:'
+      email_address: 'Email:'
       when_to_check_spam: >
         If you don’t receive a confirmation email by %{when}, please check
         your spam or junk folder for it. You need to do this on a computer or
