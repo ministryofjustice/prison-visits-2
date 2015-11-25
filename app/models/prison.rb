@@ -1,4 +1,6 @@
 class Prison < ActiveRecord::Base
+  using Calendar
+
   MissingUuidMapping = Class.new(StandardError)
 
   has_many :visits
@@ -22,10 +24,24 @@ class Prison < ActiveRecord::Base
   end
 
   def first_bookable_date(today = Time.zone.today)
-    today + 1
+    confirm_by(today) + 1
   end
 
   def last_bookable_date(today = Time.zone.today)
-    first_bookable_date(today) + booking_window - 1
+    today + booking_window
+  end
+
+  def confirm_by(today = Time.zone.today)
+    ((today + 1)..last_bookable_date(today)).
+      select { |d| processing_day?(d) }.
+      take(lead_days).
+      last
+  end
+
+private
+
+  def processing_day?(date)
+    return false if date.holiday?
+    weekend_processing? || date.weekday?
   end
 end
