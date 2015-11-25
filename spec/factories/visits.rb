@@ -58,5 +58,9 @@ FactoryGirl.define do
 
       processing_state 'booked'
     end
+
+    factory :rejected_visit do
+      processing_state 'rejected'
+    end
   end
 end
