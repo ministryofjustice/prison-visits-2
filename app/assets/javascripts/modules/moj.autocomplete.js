@@ -46,9 +46,11 @@
           val = selected.val() ? selected.text() : '',
           key, value, i, attrs, raw_attrs;
 
-      this.$text = $( '<input>' ).attr('type', 'text') // give it a field type
-                                  .val(val) // set value if already selected
-                                  .data('select', this.$select); // assoc select with this input
+      this.$text = $( '<input>' )
+        .attr('type', 'text') // give it a field type
+        .attr('data-input-name', this.$select.attr('name'))
+        .val(val) // set value if already selected
+        .data('select', this.$select); // assoc select with this input
 
       // if required, copy across attributes - useful for using [placeholder]
       if (this.settings.copyAttr) {
