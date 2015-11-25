@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'mailers/shared_mailer_examples'
 
 RSpec.describe VisitorMailer, '.request_acknowledged' do
   let(:visit) { create(:visit) }
@@ -7,6 +8,8 @@ RSpec.describe VisitorMailer, '.request_acknowledged' do
   before do
     ActionMailer::Base.deliveries.clear
   end
+
+  include_examples 'template checks'
 
   it 'sends an email acknowleging the request' do
     expect(subject.subject).
