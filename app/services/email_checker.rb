@@ -1,6 +1,7 @@
 class EmailChecker
   extend Forwardable
   def_delegators :SendgridApi, :bounced?, :spam_reported?
+  def_delegator :error, :valid?
 
   def initialize(original_address, override_sendgrid = false)
     @original_address = original_address
@@ -9,23 +10,15 @@ class EmailChecker
   end
 
   def error
-    unless @error_checked
-      @error = compute_error
-      @error_checked = true
-    end
-    @error
+    @error ||= compute_error.to_s.inquiry
   end
 
   def message
     I18n.t(error, scope: 'email_checker.errors')
   end
 
-  def valid?
-    error.nil?
-  end
-
-  def spam_or_bounce_occurred?
-    [:spam_reported, :bounced].include?(error)
+  def delivery_error_occurred?
+    error.spam_reported? || error.bounced?
   end
 
   def reset_bounce?
@@ -53,7 +46,7 @@ private
       return :spam_reported if spam_reported?(parsed.address)
       return :bounced if bounced?(parsed.address)
     end
-    nil
+    :valid
   end
 
   def override_sendgrid?
