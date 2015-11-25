@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :visit do
     prison
+
     prisoner_first_name do
       FFaker::Name.first_name
     end
@@ -44,6 +45,18 @@ FactoryGirl.define do
       slot_option_2 do |v|
         v.prison.available_slots.to_a[2]
       end
+    end
+
+    factory :booked_visit do
+      slot_granted do |v|
+        v.slot_option_0
+      end
+
+      sequence :reference_no do |n|
+        '%08d' % n
+      end
+
+      processing_state 'booked'
     end
   end
 end

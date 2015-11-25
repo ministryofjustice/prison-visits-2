@@ -3,17 +3,23 @@ require 'mailers/shared_mailer_examples'
 
 RSpec.describe VisitorMailer, '.request_acknowledged' do
   let(:visit) { create(:visit) }
-  subject { described_class.request_acknowledged(visit) }
+  let(:mail) { described_class.request_acknowledged(visit) }
 
   before do
     ActionMailer::Base.deliveries.clear
   end
 
+  around do |example|
+    Timecop.travel(Date.new(2015, 10, 1)) do
+      example.call
+    end
+  end
+
   include_examples 'template checks'
 
-  it 'sends an email acknowleging the request' do
-    expect(subject.subject).
-      to match(/received your visit request for \w+ \d+ \w+\z/)
+  it 'acknowledges the request' do
+    expect(mail.subject).
+      to match(/received your visit request for Monday 12 October/)
   end
 
   context 'spam and bounce handling' do
@@ -25,7 +31,7 @@ RSpec.describe VisitorMailer, '.request_acknowledged' do
 
     it 'resets sendgrid spam and bounce settings before sending' do
       expect(SpamAndBounceResets).to receive(:new).and_return(reset_call)
-      subject.deliver_now
+      mail.deliver_now
     end
   end
 end
