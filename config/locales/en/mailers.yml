@@ -212,7 +212,6 @@ en:
       cancellation_title: "Cancel this visit request"
       choice: "Choice %{n}"
       details: "Visit request details"
-      email: "email:"
       feedback_html: >
         Need help or want to make a complaint? If you have a question or need
         any help with the online visits service, please
