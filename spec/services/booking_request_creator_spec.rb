@@ -52,6 +52,8 @@ RSpec.describe BookingRequestCreator do
         visitor_date_of_birth: Date.new(1970, 11, 30),
         visitor_email_address: 'ada@test.example.com',
         visitor_phone_no: '01154960222',
+        override_delivery_error: nil,
+        delivery_error_type: nil,
         slot_option_0: '2015-01-02T09:00/10:00',
         slot_option_1: '2015-01-03T09:00/10:00',
         slot_option_2: '2015-01-04T09:00/10:00'

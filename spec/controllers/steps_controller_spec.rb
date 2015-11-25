@@ -1,6 +1,8 @@
 require 'rails_helper'
+require 'shared_sendgrid_context'
 
 RSpec.describe StepsController do
+  include_context 'disable resolv for domain', 'test.example.com'
   let(:prisoner_details) {
     {
       first_name: 'Oscar',

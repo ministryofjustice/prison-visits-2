@@ -3,14 +3,15 @@ require 'rails_helper'
 RSpec.describe Visit, type: :model do
   subject { build(:visit) }
 
-  describe '.email_override' do
+  describe '.delivery_error_type' do
     specify do
       is_expected.
-        to validate_inclusion_of(:email_override).
+        to validate_inclusion_of(:delivery_error_type).
         in_array(%w[ bounced spam_reported ])
     end
 
-    it { is_expected.to allow_value(nil).for(:email_override) }
+    it { is_expected.to allow_value(nil).for(:delivery_error_type) }
+    it { is_expected.to allow_value('').for(:delivery_error_type) }
   end
 
   describe 'states' do

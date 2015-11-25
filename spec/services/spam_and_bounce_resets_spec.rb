@@ -5,14 +5,14 @@ RSpec.describe SpamAndBounceResets do
   subject { described_class.new(visit) }
 
   describe '.perform_resets' do
-    context 'when override_email_check is true' do
+    context 'when override_delivery_error is true' do
       before do
-        visit.override_email_checks = true
+        visit.override_delivery_error = true
       end
 
       context 'when reset.bounced? is true' do
         before do
-          visit.email_override = 'bounced'
+          visit.delivery_error_type = 'bounced'
         end
 
         it 'calls SendgridApi#remove_from_bounce_list' do
@@ -23,7 +23,7 @@ RSpec.describe SpamAndBounceResets do
 
       context 'when reset.bounced? is false' do
         before do
-          visit.email_override = nil
+          visit.delivery_error_type = nil
         end
 
         it 'does not call SendgridApi#remove_from_bounce_list' do
@@ -34,7 +34,7 @@ RSpec.describe SpamAndBounceResets do
 
       context 'when reset.spam_reported? is true' do
         before do
-          visit.email_override = 'spam_reported'
+          visit.delivery_error_type = 'spam_reported'
         end
 
         it 'calls SendgriApi#remove_from_spam_list' do
@@ -45,7 +45,7 @@ RSpec.describe SpamAndBounceResets do
 
       context 'when reset.spam_reported? is false' do
         before do
-          visit.email_override = nil
+          visit.delivery_error_type = nil
         end
 
         it 'does not call SendgriApi#remove_from_spam_list' do
@@ -55,14 +55,14 @@ RSpec.describe SpamAndBounceResets do
       end
     end
 
-    context 'when override_email_check is false' do
+    context 'when override_delivery_error is false' do
       before do
-        visit.override_email_checks = false
+        visit.override_delivery_error = false
       end
 
       context 'when reset.bounced? is true' do
         before do
-          visit.email_override = 'bounced'
+          visit.delivery_error_type = 'bounced'
         end
 
         it 'does not call SendgriApi#remove_from_bounce_list' do
@@ -73,7 +73,7 @@ RSpec.describe SpamAndBounceResets do
 
       context 'when reset.bounced? is false' do
         before do
-          visit.email_override = nil
+          visit.delivery_error_type = nil
         end
 
         it 'does not call SendgriApi#remove_from_bounce_list' do

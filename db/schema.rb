@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124154246) do
+ActiveRecord::Schema.define(version: 20151125144622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,25 +54,25 @@ ActiveRecord::Schema.define(version: 20151124154246) do
   add_index "rejections", ["visit_id"], name: "index_rejections_on_visit_id", unique: true, using: :btree
 
   create_table "visits", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "prison_id",                                    null: false
-    t.string   "prisoner_first_name",                          null: false
-    t.string   "prisoner_last_name",                           null: false
-    t.date     "prisoner_date_of_birth",                       null: false
-    t.string   "prisoner_number",                              null: false
-    t.string   "visitor_first_name",                           null: false
-    t.string   "visitor_last_name",                            null: false
-    t.date     "visitor_date_of_birth",                        null: false
-    t.string   "visitor_email_address",                        null: false
-    t.string   "visitor_phone_no",                             null: false
-    t.string   "slot_option_0",                                null: false
+    t.uuid     "prison_id",                                     null: false
+    t.string   "prisoner_first_name",                           null: false
+    t.string   "prisoner_last_name",                            null: false
+    t.date     "prisoner_date_of_birth",                        null: false
+    t.string   "prisoner_number",                               null: false
+    t.string   "visitor_first_name",                            null: false
+    t.string   "visitor_last_name",                             null: false
+    t.date     "visitor_date_of_birth",                         null: false
+    t.string   "visitor_email_address",                         null: false
+    t.string   "visitor_phone_no",                              null: false
+    t.string   "slot_option_0",                                 null: false
     t.string   "slot_option_1"
     t.string   "slot_option_2"
     t.string   "slot_granted"
-    t.string   "processing_state",       default: "requested", null: false
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.boolean  "override_email_checks",  default: false
-    t.string   "email_override"
+    t.string   "processing_state",        default: "requested", null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.boolean  "override_delivery_error", default: false
+    t.string   "delivery_error_type"
     t.string   "reference_no"
     t.boolean  "closed"
   end

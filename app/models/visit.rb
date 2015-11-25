@@ -10,9 +10,9 @@ class Visit < ActiveRecord::Base
     :processing_state,
     presence: true
 
-  validates :email_override,
+  validates :delivery_error_type,
     inclusion: { in: %w[ bounced spam_reported ] },
-    allow_nil: true
+    allow_nil: true, allow_blank: true
 
   delegate :email_address, :phone_no, :name, to: :prison, prefix: true
   alias_attribute :recipient, :visitor_email_address
