@@ -3,15 +3,15 @@ require 'rails_helper'
 RSpec.describe Visit, type: :model do
   subject { build(:visit) }
 
-  describe '.spam_or_bounce' do
+  describe '.delivery_error_type' do
     specify do
       is_expected.
-        to validate_inclusion_of(:spam_or_bounce).
+        to validate_inclusion_of(:delivery_error_type).
         in_array(%w[ bounced spam_reported ])
     end
 
-    it { is_expected.to allow_value(nil).for(:spam_or_bounce) }
-    it { is_expected.to allow_value('').for(:spam_or_bounce) }
+    it { is_expected.to allow_value(nil).for(:delivery_error_type) }
+    it { is_expected.to allow_value('').for(:delivery_error_type) }
   end
 
   describe 'states' do

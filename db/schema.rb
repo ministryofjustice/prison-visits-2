@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125122313) do
+ActiveRecord::Schema.define(version: 20151125144622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,8 +71,8 @@ ActiveRecord::Schema.define(version: 20151125122313) do
     t.string   "processing_state",        default: "requested", null: false
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false
-    t.boolean  "override_spam_or_bounce", default: false
-    t.string   "spam_or_bounce"
+    t.boolean  "override_delivery_error", default: false
+    t.string   "delivery_error_type"
     t.string   "reference_no"
     t.boolean  "closed"
   end

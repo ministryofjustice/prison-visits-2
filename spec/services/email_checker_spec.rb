@@ -10,7 +10,7 @@ RSpec.describe EmailChecker do
     it { is_expected.to be_valid }
 
     it 'has no error' do
-      expect(subject.error).to be_nil
+      expect(subject.error).to be_valid
     end
   end
 
@@ -25,34 +25,34 @@ RSpec.describe EmailChecker do
   context 'with invalid address' do
     context 'with empty string' do
       let(:address) { '' }
-      it_behaves_like 'an invalid address', :malformed
-      it { is_expected.not_to be_spam_or_bounce_occurred }
+      it_behaves_like 'an invalid address', 'malformed'
+      it { is_expected.not_to be_delivery_error_occurred }
       it { is_expected.not_to be_reset_spam_report }
       it { is_expected.not_to be_reset_bounce }
     end
 
     context 'with domain only' do
       let(:address) { '@test.example.com' }
-      it_behaves_like 'an invalid address', :unparseable
-      it { is_expected.not_to be_spam_or_bounce_occurred }
+      it_behaves_like 'an invalid address', 'unparseable'
+      it { is_expected.not_to be_delivery_error_occurred }
     end
 
     context 'with local part only' do
       let(:address) { 'jimmy.harris' }
-      it_behaves_like 'an invalid address', :malformed
-      it { is_expected.not_to be_spam_or_bounce_occurred }
+      it_behaves_like 'an invalid address', 'malformed'
+      it { is_expected.not_to be_delivery_error_occurred }
     end
 
     context 'with dot at start of domain' do
       let(:address) { 'user@.test.example.com' }
-      it_behaves_like 'an invalid address', :domain_dot
-      it { is_expected.not_to be_spam_or_bounce_occurred }
+      it_behaves_like 'an invalid address', 'domain_dot'
+      it { is_expected.not_to be_delivery_error_occurred }
     end
 
     context 'with dot at end of domain' do
       let(:address) { 'user@test.example.com.' }
-      it_behaves_like 'an invalid address', :unparseable
-      it { is_expected.not_to be_spam_or_bounce_occurred }
+      it_behaves_like 'an invalid address', 'unparseable'
+      it { is_expected.not_to be_delivery_error_occurred }
     end
   end
 
@@ -82,8 +82,8 @@ RSpec.describe EmailChecker do
     context 'with no MX record' do
       include_context 'resolv raises an error'
 
-      it_behaves_like 'an invalid address', :no_mx_record
-      it { is_expected.not_to be_spam_or_bounce_occurred }
+      it_behaves_like 'an invalid address', 'no_mx_record'
+      it { is_expected.not_to be_delivery_error_occurred }
     end
 
     context 'when MX lookup times out' do
@@ -95,10 +95,10 @@ RSpec.describe EmailChecker do
     context 'when spam is reported' do
       include_context 'sendgrid reports spam'
 
-      it { is_expected.to be_spam_or_bounce_occurred }
+      it { is_expected.to be_delivery_error_occurred }
 
       context 'and override is not set' do
-        it_behaves_like 'an invalid address', :spam_reported
+        it_behaves_like 'an invalid address', 'spam_reported'
         it { is_expected.not_to be_reset_spam_report }
       end
 
@@ -112,10 +112,10 @@ RSpec.describe EmailChecker do
     context 'when bounce is reported' do
       include_context 'sendgrid reports a bounce'
 
-      it { is_expected.to be_spam_or_bounce_occurred }
+      it { is_expected.to be_delivery_error_occurred }
 
       context 'and override is not set' do
-        it_behaves_like 'an invalid address', :bounced
+        it_behaves_like 'an invalid address', 'bounced'
         it { is_expected.not_to be_reset_bounce }
       end
 

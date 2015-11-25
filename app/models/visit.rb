@@ -10,7 +10,7 @@ class Visit < ActiveRecord::Base
     :processing_state,
     presence: true
 
-  validates :spam_or_bounce,
+  validates :delivery_error_type,
     inclusion: { in: %w[ bounced spam_reported ] },
     allow_nil: true, allow_blank: true
 

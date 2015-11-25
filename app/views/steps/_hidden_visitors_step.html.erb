@@ -8,7 +8,7 @@
                      @steps.fetch(:visitors_step).email_address) %>
 <%= hidden_field_tag('visitors_step[phone_no]',
                      @steps.fetch(:visitors_step).phone_no) %>
-<%= hidden_field_tag('visitors_step[override_spam_or_bounce]',
-                     @steps.fetch(:visitors_step).override_spam_or_bounce) %>
-<%= hidden_field_tag('visitors_step[spam_or_bounce]',
-                     @steps.fetch(:visitors_step).spam_or_bounce) %>
+<%= hidden_field_tag('visitors_step[override_delivery_error]',
+                     @steps.fetch(:visitors_step).override_delivery_error) %>
+<%= hidden_field_tag('visitors_step[delivery_error_type]',
+                     @steps.fetch(:visitors_step).delivery_error_type) %>

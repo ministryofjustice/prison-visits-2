@@ -3,20 +3,21 @@ class SpamAndBounceResets
     @visit = visit
   end
 
-  delegate :visitor_email_address, :override_spam_or_bounce?, :spam_or_bounce,
-    to: :@visit
+  delegate :visitor_email_address, :override_delivery_error?,
+    :delivery_error_type, to: :@visit
 
   delegate :remove_from_bounce_list, :remove_from_spam_list, to: :SendgridApi
 
   def perform_resets
-    return unless override_spam_or_bounce?
-    remove_from_bounce_list(visitor_email_address) if reset.bounced?
-    remove_from_spam_list(visitor_email_address) if reset.spam_reported?
+    return unless override_delivery_error?
+    remove_from_bounce_list(visitor_email_address) if delivery_error.bounced?
+    remove_from_spam_list(visitor_email_address) if
+      delivery_error.spam_reported?
   end
 
 private
 
-  def reset
-    spam_or_bounce.to_s.inquiry
+  def delivery_error
+    delivery_error_type.to_s.inquiry
   end
 end

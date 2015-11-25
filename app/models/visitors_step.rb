@@ -3,9 +3,9 @@ class VisitorsStep
   include Person
 
   attribute :email_address, String
-  attribute :override_spam_or_bounce, Boolean
-  attribute :spam_or_bounce, String
-  attribute :spam_or_bounce_has_occurred, Boolean
+  attribute :override_delivery_error, Boolean
+  attribute :delivery_error_type, String
+  attribute :delivery_error_occurred, Boolean
   attribute :phone_no, String
 
   validates :email_address, presence: true
@@ -16,11 +16,11 @@ class VisitorsStep
 private
 
   def validate_email
-    checker = EmailChecker.new(email_address, override_spam_or_bounce)
+    checker = EmailChecker.new(email_address, override_delivery_error)
     unless checker.valid?
       errors.add :email_address, checker.message
-      @spam_or_bounce_has_occurred = checker.spam_or_bounce_occurred?
-      @spam_or_bounce = checker.error
+      @delivery_error_occurred = checker.delivery_error_occurred?
+      @delivery_error_type = checker.error.to_sym
     end
   end
 end
