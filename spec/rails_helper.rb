@@ -29,6 +29,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
+    LogStasher.clear_request_context
     DatabaseCleaner.strategy = :transaction
   end
 
