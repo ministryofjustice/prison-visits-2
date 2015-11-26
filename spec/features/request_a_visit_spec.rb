@@ -4,6 +4,7 @@ require 'shared_sendgrid_context'
 RSpec.feature 'Booking a visit', js: true do
   include_context 'disable resolv for domain', 'test.example.com'
   include ActiveJobHelper
+  include FeaturesHelper
 
   let!(:prison) { create(:prison, name: 'Reading Gaol') }
   let(:visitor_email) { 'ado@test.example.com' }
@@ -17,7 +18,7 @@ RSpec.feature 'Booking a visit', js: true do
     fill_in 'Month', with: '12'
     fill_in 'Year', with: '1980'
     fill_in 'Prisoner number', with: 'a1234bc'
-    select 'Reading Gaol', from: 'Name of the prison'
+    select_prison 'Reading Gaol'
 
     click_button 'Continue'
 
