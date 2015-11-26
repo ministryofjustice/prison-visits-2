@@ -55,6 +55,10 @@ Style/FormatString:
 Style/GuardClause:
   Enabled: false
 
+Style/SymbolProc:
+  Exclude:
+    - 'spec/factories/**/*'
+
 Metrics/LineLength:
   Max: 80
   Exclude:
