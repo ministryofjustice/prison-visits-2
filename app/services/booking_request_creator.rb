@@ -33,8 +33,8 @@ private
       visitor_first_name: step.first_name,
       visitor_last_name: step.last_name,
       visitor_date_of_birth: step.date_of_birth,
-      visitor_email_address: step.email_address,
-      visitor_phone_no: step.phone_no,
+      contact_email_address: step.email_address,
+      contact_phone_no: step.phone_no,
       override_delivery_error: step.override_delivery_error,
       delivery_error_type: step.delivery_error_type
     }

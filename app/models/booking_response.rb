@@ -27,7 +27,7 @@ class BookingResponse
   delegate :slots, :prison, :to_param,
     :prisoner_full_name, :prisoner_number, :prisoner_date_of_birth,
     :visitor_full_name, :visitor_age, :visitor_date_of_birth,
-    :visitor_email_address, :visitor_phone_no,
+    :contact_email_address, :contact_phone_no,
     :additional_visitors,
     to: :visit
   delegate :name, to: :prison, prefix: true

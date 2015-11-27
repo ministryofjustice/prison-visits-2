@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Processing a request', js: true do
   include ActiveJobHelper
 
-  let(:visitor_email_address) { 'visitor@test.example.com' }
+  let(:contact_email_address) { 'visitor@test.example.com' }
   let(:prison_email_address) { 'prison@test.example.com' }
   let(:prison) {
     create(
@@ -16,7 +16,7 @@ RSpec.feature 'Processing a request', js: true do
     create(
       :visit,
       prison: prison,
-      visitor_email_address: visitor_email_address,
+      contact_email_address: contact_email_address,
       prisoner_first_name: 'Oscar',
       prisoner_last_name: 'Wilde'
     )
@@ -36,7 +36,7 @@ RSpec.feature 'Processing a request', js: true do
     expect(vst).to be_booked
     expect(vst.reference_no).to eq('12345678')
 
-    expect(visitor_email_address).
+    expect(contact_email_address).
       to receive_email.
       with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
       and_body(/Your visit to Reading Gaol is now successfully confirmed/)
@@ -55,7 +55,7 @@ RSpec.feature 'Processing a request', js: true do
     expect(vst).to be_rejected
     expect(vst.rejection_reason).to eq('slot_unavailable')
 
-    expect(visitor_email_address).
+    expect(contact_email_address).
       to receive_email.
       with_subject(/Visit cannot take place: your visit for \w+ \d+ \w+ could not be booked/).
       and_body(/none of the dates and times/)
@@ -80,7 +80,7 @@ RSpec.feature 'Processing a request', js: true do
     expect(vst.rejection.allowance_renews_on).to eq(Time.zone.today + 1)
     expect(vst.rejection.allowance_renews_on).to eq(Time.zone.today + 1)
 
-    expect(visitor_email_address).
+    expect(contact_email_address).
       to receive_email.
       with_subject(/Visit cannot take place: your visit for \w+ \d+ \w+ could not be booked/).
       and_body(/not got any visiting allowance/)
@@ -99,7 +99,7 @@ RSpec.feature 'Processing a request', js: true do
     expect(vst.rejection_reason).to eq('prisoner_details_incorrect')
     expect(vst).to be_rejected
 
-    expect(visitor_email_address).
+    expect(contact_email_address).
       to receive_email.
       with_subject(/Visit cannot take place: your visit for \w+ \d+ \w+ could not be booked/).
       and_body(/correct information for the prisoner/)
@@ -118,7 +118,7 @@ RSpec.feature 'Processing a request', js: true do
     expect(vst.rejection_reason).to eq('prisoner_moved')
     expect(vst).to be_rejected
 
-    expect(visitor_email_address).
+    expect(contact_email_address).
       to receive_email.
       with_subject(/Visit cannot take place: your visit for \w+ \d+ \w+ could not be booked/).
       and_body(/has moved prison/)
@@ -137,7 +137,7 @@ RSpec.feature 'Processing a request', js: true do
     expect(vst.rejection_reason).to eq('visitor_not_on_list')
     expect(vst).to be_rejected
 
-    expect(visitor_email_address).
+    expect(contact_email_address).
       to receive_email.
       with_subject(/Visit cannot take place: your visit for \w+ \d+ \w+ could not be booked/).
       and_body(/prisoner’s contact list/)
@@ -156,7 +156,7 @@ RSpec.feature 'Processing a request', js: true do
     expect(vst.rejection_reason).to eq('visitor_banned')
     expect(vst).to be_rejected
 
-    expect(visitor_email_address).
+    expect(contact_email_address).
       to receive_email.
       with_subject(/Visit cannot take place: your visit for \w+ \d+ \w+ could not be booked/).
       and_body(/banned from visiting/)

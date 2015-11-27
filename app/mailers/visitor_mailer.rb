@@ -13,7 +13,7 @@ class VisitorMailer < ActionMailer::Base
 
     mail(
       reply_to: visit.prison_email_address,
-      to: visit.recipient,
+      to: visit.contact_email_address,
       subject: default_i18n_subject(
         receipt_date: format_date_of_visit(visit.first_date)
       )
@@ -25,7 +25,7 @@ class VisitorMailer < ActionMailer::Base
 
     mail(
       reply_to: visit.prison_email_address,
-      to: visit.recipient,
+      to: visit.contact_email_address,
       subject: default_i18n_subject(
         date: format_date_of_visit(visit.date)
       )
@@ -37,7 +37,7 @@ class VisitorMailer < ActionMailer::Base
 
     mail(
       reply_to: visit.prison_email_address,
-      to: visit.recipient,
+      to: visit.contact_email_address,
       subject: default_i18n_subject(
         date: format_date_of_visit(visit.first_date)
       )

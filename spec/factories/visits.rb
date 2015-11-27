@@ -25,11 +25,11 @@ FactoryGirl.define do
 
     visitor_date_of_birth '1980-01-10'
 
-    visitor_email_address do
+    contact_email_address do
       FFaker::Internet.disposable_email
     end
 
-    visitor_phone_no do
+    contact_phone_no do
       FFaker::PhoneNumber.short_phone_number
     end
 

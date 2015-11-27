@@ -6,7 +6,7 @@ class Visit < ActiveRecord::Base
   validates :prison_id, :prisoner_first_name, :prisoner_last_name,
     :prisoner_date_of_birth, :prisoner_number,
     :visitor_first_name, :visitor_last_name, :visitor_date_of_birth,
-    :visitor_email_address, :visitor_phone_no, :slot_option_0,
+    :contact_email_address, :contact_phone_no, :slot_option_0,
     :processing_state,
     presence: true
 
@@ -15,7 +15,6 @@ class Visit < ActiveRecord::Base
     allow_nil: true, allow_blank: true
 
   delegate :email_address, :phone_no, :name, to: :prison, prefix: true
-  alias_attribute :recipient, :visitor_email_address
   alias_attribute :first_date, :slot_option_0
 
   def total_number_of_visitors
