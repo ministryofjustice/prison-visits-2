@@ -1,10 +1,10 @@
 class Visit < ActiveRecord::Base
   belongs_to :prison
+  belongs_to :prisoner
   has_many :additional_visitors
   has_one :rejection
 
-  validates :prison_id, :prisoner_first_name, :prisoner_last_name,
-    :prisoner_date_of_birth, :prisoner_number,
+  validates :prison_id, :prisoner_id,
     :visitor_first_name, :visitor_last_name, :visitor_date_of_birth,
     :contact_email_address, :contact_phone_no, :slot_option_0,
     :processing_state,
@@ -37,12 +37,10 @@ class Visit < ActiveRecord::Base
   end
 
   extend Names
-  enhance_names prefix: :prisoner
   enhance_names prefix: :visitor
 
-  def prisoner_age
-    AgeCalculator.new.age(prisoner_date_of_birth)
-  end
+  delegate :age, :full_name, :anonymized_name, :number, :date_of_birth,
+    to: :prisoner, prefix: true
 
   def visitor_age
     AgeCalculator.new.age(visitor_date_of_birth)

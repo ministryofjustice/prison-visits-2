@@ -17,8 +17,11 @@ RSpec.feature 'Processing a request', js: true do
       :visit,
       prison: prison,
       contact_email_address: contact_email_address,
-      prisoner_first_name: 'Oscar',
-      prisoner_last_name: 'Wilde'
+      prisoner: create(
+        :prisoner,
+        first_name: 'Oscar',
+        last_name: 'Wilde'
+      )
     )
   }
 

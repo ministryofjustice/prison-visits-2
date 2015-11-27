@@ -1,19 +1,7 @@
 FactoryGirl.define do
   factory :visit do
     prison
-
-    prisoner_first_name do
-      FFaker::Name.first_name
-    end
-
-    prisoner_last_name do
-      FFaker::Name.last_name
-    end
-
-    prisoner_date_of_birth '1970-01-01'
-    sequence(:prisoner_number) do |n|
-      'ABC%04d' % n
-    end
+    prisoner
 
     visitor_first_name do
       FFaker::Name.first_name

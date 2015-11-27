@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe BookingRequestCreator do
   let(:prisoner_step) {
     PrisonerStep.new(
-      prison_id: 1,
+      prison_id: 'PRISONID',
       first_name: 'Oscar',
       last_name: 'Wilde',
       date_of_birth: Date.new(1980, 12, 31),
@@ -38,15 +38,20 @@ RSpec.describe BookingRequestCreator do
     allow(VisitorMailer).to receive(:request_acknowledged).and_return(mailing)
   end
 
-  it 'creates a Visit record' do
+  it 'creates Visit and Prisoner records' do
+    expect(Prisoner).
+      to receive(:create!).
+      with(
+        first_name: 'Oscar',
+        last_name: 'Wilde',
+        date_of_birth: Date.new(1980, 12, 31),
+        number: 'a1234bc'
+      ).and_return instance_double(Prisoner, id: 'PRISONERID')
     expect(Visit).
       to receive(:create!).
       with(
-        prison_id: 1,
-        prisoner_first_name: 'Oscar',
-        prisoner_last_name: 'Wilde',
-        prisoner_date_of_birth: Date.new(1980, 12, 31),
-        prisoner_number: 'a1234bc',
+        prison_id: 'PRISONID',
+        prisoner_id: 'PRISONERID',
         visitor_first_name: 'Ada',
         visitor_last_name: 'Lovelace',
         visitor_date_of_birth: Date.new(1970, 11, 30),

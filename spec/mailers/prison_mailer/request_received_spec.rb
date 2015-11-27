@@ -5,8 +5,11 @@ RSpec.describe PrisonMailer, '.request_received' do
   let(:visit) {
     create(
       :visit,
-      prisoner_first_name: 'Arthur',
-      prisoner_last_name: 'Raffles'
+      prisoner: create(
+        :prisoner,
+        first_name: 'Arthur',
+        last_name: 'Raffles'
+      )
     )
   }
   let(:mail) { described_class.request_received(visit) }
