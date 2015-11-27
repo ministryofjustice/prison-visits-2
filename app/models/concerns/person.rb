@@ -4,10 +4,6 @@ module Person
   MAX_AGE = 120
 
   included do
-    attribute :first_name, String
-    attribute :last_name, String
-    attribute :date_of_birth, Date
-
     validates :first_name, presence: true, name: true
     validates :last_name, presence: true, name: true
     validates :date_of_birth,

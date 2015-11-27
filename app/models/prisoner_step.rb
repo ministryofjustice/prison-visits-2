@@ -2,6 +2,9 @@ class PrisonerStep
   include NonPersistedModel
   include Person
 
+  attribute :first_name, String
+  attribute :last_name, String
+  attribute :date_of_birth, Date
   attribute :number, String
   attribute :prison_id, Integer
 

@@ -2,6 +2,9 @@ class VisitorsStep
   include NonPersistedModel
   include Person
 
+  attribute :first_name, String
+  attribute :last_name, String
+  attribute :date_of_birth, Date
   attribute :email_address, String
   attribute :override_delivery_error, Boolean
   attribute :delivery_error_type, String
