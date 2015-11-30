@@ -3,16 +3,6 @@ FactoryGirl.define do
     prison
     prisoner
 
-    visitor_first_name do
-      FFaker::Name.first_name
-    end
-
-    visitor_last_name do
-      FFaker::Name.last_name
-    end
-
-    visitor_date_of_birth '1980-01-10'
-
     contact_email_address do
       FFaker::Internet.disposable_email
     end
@@ -49,6 +39,10 @@ FactoryGirl.define do
 
     factory :rejected_visit do
       processing_state 'rejected'
+    end
+
+    after(:create) do |v|
+      create :visitor, visit: v
     end
   end
 end

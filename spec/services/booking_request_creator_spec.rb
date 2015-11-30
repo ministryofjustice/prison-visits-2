@@ -47,14 +47,12 @@ RSpec.describe BookingRequestCreator do
         date_of_birth: Date.new(1980, 12, 31),
         number: 'a1234bc'
       ).and_return instance_double(Prisoner, id: 'PRISONERID')
+    visitors = double
     expect(Visit).
       to receive(:create!).
       with(
         prison_id: 'PRISONID',
         prisoner_id: 'PRISONERID',
-        visitor_first_name: 'Ada',
-        visitor_last_name: 'Lovelace',
-        visitor_date_of_birth: Date.new(1970, 11, 30),
         contact_email_address: 'ada@test.example.com',
         contact_phone_no: '01154960222',
         override_delivery_error: nil,
@@ -62,13 +60,20 @@ RSpec.describe BookingRequestCreator do
         slot_option_0: '2015-01-02T09:00/10:00',
         slot_option_1: '2015-01-03T09:00/10:00',
         slot_option_2: '2015-01-04T09:00/10:00'
-      ).and_return instance_double(Visit, id: 2)
-
+      ).and_return instance_double(Visit, id: 2, visitors: visitors)
+    expect(visitors).
+      to receive(:create!).
+      with(
+        first_name: 'Ada',
+        last_name: 'Lovelace',
+        date_of_birth: Date.new(1970, 11, 30),
+        sort_index: 0
+      )
     subject.create! prisoner_step, visitors_step, slots_step
   end
 
   context 'emailing and logging' do
-    let(:visit) { instance_double(Visit, id: 2) }
+    let(:visit) { instance_double(Visit, id: 2, visitors: double(create!: nil)) }
 
     before do
       allow(Visit).to receive(:create!).and_return(visit)

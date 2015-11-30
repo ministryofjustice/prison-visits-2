@@ -14,9 +14,6 @@ private
     Visit.create!(
       prisoner_id: create_prisoner(prisoner_step).id,
       prison_id: prisoner_step.prison_id,
-      visitor_first_name: visitors_step.first_name,
-      visitor_last_name: visitors_step.last_name,
-      visitor_date_of_birth: visitors_step.date_of_birth,
       contact_email_address: visitors_step.email_address,
       contact_phone_no: visitors_step.phone_no,
       override_delivery_error: visitors_step.override_delivery_error,
@@ -24,9 +21,18 @@ private
       slot_option_0: slots_step.option_0,
       slot_option_1: slots_step.option_1,
       slot_option_2: slots_step.option_2
-    )
+    ).tap { |v| create_visitor visitors_step, v }
   end
   # rubocop:enable Metrics/MethodLength
+
+  def create_visitor(visitors_step, visit)
+    visit.visitors.create!(
+      first_name: visitors_step.first_name,
+      last_name: visitors_step.last_name,
+      date_of_birth: visitors_step.date_of_birth,
+      sort_index: 0
+    )
+  end
 
   def create_prisoner(prisoner_step)
     Prisoner.create!(

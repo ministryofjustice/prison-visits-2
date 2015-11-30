@@ -21,9 +21,9 @@
   <strong><%= @visit.visitor_anonymized_name %></strong>
 </p>
 
-<% @visit.additional_visitors.each_with_index do |visitor, index| %>
+<% @visit.visitors.each_with_index do |visitor, index| %>
   <p>
-    <%= t('.visitor', n: index + 2) %>
+    <%= t('.visitor', n: index + 1) %>
     <strong><%= visitor.anonymized_name %></strong>
   </p>
 <% end %>

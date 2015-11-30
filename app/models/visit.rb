@@ -1,11 +1,10 @@
 class Visit < ActiveRecord::Base
   belongs_to :prison
   belongs_to :prisoner
-  has_many :additional_visitors
+  has_many :visitors
   has_one :rejection
 
-  validates :prison_id, :prisoner_id,
-    :visitor_first_name, :visitor_last_name, :visitor_date_of_birth,
+  validates :prison, :prisoner,
     :contact_email_address, :contact_phone_no, :slot_option_0,
     :processing_state,
     presence: true
@@ -18,7 +17,7 @@ class Visit < ActiveRecord::Base
   alias_attribute :first_date, :slot_option_0
 
   def total_number_of_visitors
-    additional_visitors.count + 1
+    visitors.count
   end
 
   delegate :reason, to: :rejection, prefix: true
@@ -36,14 +35,14 @@ class Visit < ActiveRecord::Base
     end
   end
 
-  extend Names
-  enhance_names prefix: :visitor
-
   delegate :age, :full_name, :anonymized_name, :number, :date_of_birth,
     to: :prisoner, prefix: true
 
-  def visitor_age
-    AgeCalculator.new.age(visitor_date_of_birth)
+  delegate :first_name, :last_name, :full_name, :anonymized_name,
+    to: :principal_visitor, prefix: :visitor
+
+  def principal_visitor
+    visitors.first
   end
 
   def slots

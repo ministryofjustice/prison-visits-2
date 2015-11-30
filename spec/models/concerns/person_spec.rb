@@ -69,4 +69,12 @@ RSpec.describe Person do
       expect(subject.full_name).to eq('Oscar Wilde')
     end
   end
+
+  describe 'anonymized_name' do
+    it 'uses only the first letter of the last name' do
+      subject.first_name = 'Oscar'
+      subject.last_name = 'Wilde'
+      expect(subject.anonymized_name).to eq('Oscar W')
+    end
+  end
 end
