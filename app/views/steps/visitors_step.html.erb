@@ -21,8 +21,7 @@
         <%= single_field(f, :last_name, :text_field) %>
 
         <%= composite_field(f, :date_of_birth) do %>
-          <%= render(partial: 'dob',
-                locals: { object: f.object, prefix: 'visitors_step' }) %>
+          <%= render(partial: 'dob', locals: { form: f }) %>
         <% end %>
 
         <%= single_field(f, :email_address, :text_field) %>
