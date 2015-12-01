@@ -16,23 +16,9 @@
           <%= t('.your_details') %>
         </legend>
 
-        <%= single_field(f, :first_name, :text_field) %>
+        <%= render('principal_visitor', f: f) %>
 
-        <%= single_field(f, :last_name, :text_field) %>
-
-        <%= composite_field(f, :date_of_birth) do %>
-          <%= render(partial: 'dob', locals: { form: f }) %>
-        <% end %>
-
-        <%= single_field(f, :email_address, :text_field) %>
-        <% if f.object.delivery_error_occurred? %>
-          <label class="validation-message">
-            <%= single_field(f, :override_delivery_error, :check_box) %>
-            <%= single_field(f, :delivery_error_type, :hidden_field) %>
-          </label>
-        <% end %>
-
-        <%= single_field(f, :phone_no, :text_field) %>
+        <%= render('additional_visitors', f: f) %>
 
         <div class="actions">
           <div class="primary-actions">

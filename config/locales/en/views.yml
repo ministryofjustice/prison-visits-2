@@ -37,6 +37,8 @@ en:
     visitors_step:
       title: Visitor 1
       your_details: Your details
+      next_step: Continue
+    principal_visitor:
       first_name: Your first name
       last_name: Your last name
       date_of_birth: Your date of birth
@@ -44,7 +46,13 @@ en:
       email_address: Email address
       email_address_hint: You’ll receive confirmation by email
       phone_no: Phone number
-      next_step: Continue
+      override_delivery_error: >
+        Tick this box to confirm you’d like us to try sending messages to you again.
+    additional_visitors:
+      visitor: 'Visitor %{n}'
+      first_name: First name
+      last_name: Last name
+      date_of_birth: Date of birth
     slots_step:
       title: When do you want to visit?
       choose_alternatives: >

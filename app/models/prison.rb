@@ -3,6 +3,8 @@ class Prison < ActiveRecord::Base
 
   MissingUuidMapping = Class.new(StandardError)
 
+  MAX_VISITORS = 6
+
   has_many :visits
 
   validates :estate, :name, :nomis_id, :slot_details, presence: true

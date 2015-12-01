@@ -21,17 +21,19 @@ private
       slot_option_0: slots_step.option_0,
       slot_option_1: slots_step.option_1,
       slot_option_2: slots_step.option_2
-    ).tap { |v| create_visitor visitors_step, v }
+    ).tap { |v| create_visitors visitors_step, v }
   end
   # rubocop:enable Metrics/MethodLength
 
-  def create_visitor(visitors_step, visit)
-    visit.visitors.create!(
-      first_name: visitors_step.first_name,
-      last_name: visitors_step.last_name,
-      date_of_birth: visitors_step.date_of_birth,
-      sort_index: 0
-    )
+  def create_visitors(visitors_step, visit)
+    visitors_step.visitors.each_with_index do |visitor, sort_index|
+      visit.visitors.create!(
+        first_name: visitor.first_name,
+        last_name: visitor.last_name,
+        date_of_birth: visitor.date_of_birth,
+        sort_index: sort_index
+      )
+    end
   end
 
   def create_prisoner(prisoner_step)

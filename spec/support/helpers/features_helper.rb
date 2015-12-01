@@ -10,13 +10,15 @@ module FeaturesHelper
   end
 
   def enter_visitor_information(expected_email_address)
-    fill_in 'Your first name', with: 'Ada'
-    fill_in 'Your last name', with: 'Lovelace'
-    fill_in 'Day', with: '30'
-    fill_in 'Month', with: '11'
-    fill_in 'Year', with: '1970'
-    fill_in 'Email address', with: expected_email_address
-    fill_in 'Phone number', with: '01154960222'
+    within '#visitor-0' do
+      fill_in 'Your first name', with: 'Ada'
+      fill_in 'Your last name', with: 'Lovelace'
+      fill_in 'Day', with: '30'
+      fill_in 'Month', with: '11'
+      fill_in 'Year', with: '1970'
+      fill_in 'Email address', with: expected_email_address
+      fill_in 'Phone number', with: '01154960222'
+    end
   end
 
   def select_a_slot

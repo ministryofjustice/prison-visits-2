@@ -48,12 +48,14 @@
     </strong>
   </p>
 
-  <p>
-    <%= t('.visitor_n', n: 1) %>
-    <strong><%= visitors_step.full_name %></strong>
-    –
-    <%= format_date_of_birth(visitors_step.date_of_birth) %>
-  </p>
+  <% visitors_step.visitors.each_with_index do |visitor, index| %>
+    <p>
+      <%= t('.visitor_n', n: index + 1) %>
+      <strong><%= visitor.full_name %></strong>
+      –
+      <%= format_date_of_birth(visitor.date_of_birth) %>
+    </p>
+  <% end %>
 
   <p class="edit-link">
     <%= link_to(t('.change_visitor_details'), '/TODO') %>

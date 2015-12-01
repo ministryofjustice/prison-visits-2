@@ -20,13 +20,23 @@ RSpec.feature 'Booking a visit', js: true do
 
     click_button 'Continue'
 
-    fill_in 'Your first name', with: 'Ada'
-    fill_in 'Your last name', with: 'Lovelace'
-    fill_in 'Day', with: '30'
-    fill_in 'Month', with: '11'
-    fill_in 'Year', with: '1970'
-    fill_in 'Email address', with: visitor_email
-    fill_in 'Phone number', with: '01154960222'
+    within '#visitor-0' do
+      fill_in 'Your first name', with: 'Ada'
+      fill_in 'Your last name', with: 'Lovelace'
+      fill_in 'Day', with: '30'
+      fill_in 'Month', with: '11'
+      fill_in 'Year', with: '1970'
+      fill_in 'Email address', with: visitor_email
+      fill_in 'Phone number', with: '01154960222'
+    end
+
+    within '#visitor-1' do
+      fill_in 'First name', with: 'Charlie'
+      fill_in 'Last name', with: 'Chaplin'
+      fill_in 'Day', with: '1'
+      fill_in 'Month', with: '2'
+      fill_in 'Year', with: '2005'
+    end
 
     click_button 'Continue'
 
@@ -51,6 +61,9 @@ RSpec.feature 'Booking a visit', js: true do
       to receive_email.
       with_subject(/we’ve received your visit request for \w+ \d+ \w+\z/).
       and_body(/Prisoner:\s*Oscar W/)
+
+    visit = Visit.last
+    expect(visit.visitors.length).to eq(2)
   end
 
   scenario 'validation errors' do

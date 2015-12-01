@@ -13,11 +13,20 @@ RSpec.describe BookingRequestCreator do
 
   let(:visitors_step) {
     VisitorsStep.new(
-      first_name: 'Ada',
-      last_name: 'Lovelace',
-      date_of_birth: Date.new(1970, 11, 30),
       email_address: 'ada@test.example.com',
-      phone_no: '01154960222'
+      phone_no: '01154960222',
+      visitors: [
+        {
+          first_name: 'Ada',
+          last_name: 'Lovelace',
+          date_of_birth: Date.new(1970, 11, 30)
+        },
+        {
+          first_name: 'Charlie',
+          last_name: 'Chaplin',
+          date_of_birth: Date.new(2005, 1, 2)
+        }
+      ]
     )
   }
 
@@ -38,7 +47,7 @@ RSpec.describe BookingRequestCreator do
     allow(VisitorMailer).to receive(:request_acknowledged).and_return(mailing)
   end
 
-  it 'creates Visit and Prisoner records' do
+  it 'creates Visit, Visitor, and Prisoner records' do
     expect(Prisoner).
       to receive(:create!).
       with(
@@ -68,6 +77,14 @@ RSpec.describe BookingRequestCreator do
         last_name: 'Lovelace',
         date_of_birth: Date.new(1970, 11, 30),
         sort_index: 0
+      )
+    expect(visitors).
+      to receive(:create!).
+      with(
+        first_name: 'Charlie',
+        last_name: 'Chaplin',
+        date_of_birth: Date.new(2005, 1, 2),
+        sort_index: 1
       )
     subject.create! prisoner_step, visitors_step, slots_step
   end

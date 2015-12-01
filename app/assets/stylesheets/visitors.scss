@@ -42,12 +42,7 @@
   }
 }
 
-#visitor-0,
-#visitor-1 {
-  border: none;
-}
-
-.js-enabled #visitor-1, {
+.additional-visitor {
   border-top: 1px dotted $grey-2;
 }
 
