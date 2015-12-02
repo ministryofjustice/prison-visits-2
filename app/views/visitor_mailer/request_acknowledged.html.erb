@@ -9,7 +9,7 @@
 </p>
 <p>
   <%= t('.when_to_expect_response',
-        when: format_date_of_visit(@visit.confirm_by)) %>
+        when: format_date_without_year(@visit.confirm_by)) %>
 </p>
 <p>
   <%= t('.when_to_check_spam', when: 'TODO') %>

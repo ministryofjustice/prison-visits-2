@@ -12,7 +12,7 @@ class PrisonMailer < ActionMailer::Base
     mail to: visit.prison_email_address,
          subject: default_i18n_subject(
            full_name: visit.prisoner_full_name,
-           request_date: format_date_of_visit(visit.slots.first.begin_at)
+           request_date: format_date_without_year(visit.slots.first.begin_at)
          )
   end
 

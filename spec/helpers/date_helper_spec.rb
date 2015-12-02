@@ -8,9 +8,9 @@ RSpec.describe DateHelper do
     end
   end
 
-  describe 'format_date_of_visit' do
+  describe 'format_date_without_year' do
     it 'formats a day from a date' do
-      expect(helper.format_date_of_visit(Date.parse('2014-07-24'))).
+      expect(helper.format_date_without_year(Date.parse('2014-07-24'))).
         to eq('Thursday 24 July')
     end
   end
