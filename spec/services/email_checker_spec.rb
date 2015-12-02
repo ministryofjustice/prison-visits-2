@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'shared_sendgrid_context'
 
 RSpec.describe EmailChecker do
-  include_context 'disable resolv'
   subject { described_class.new(address, override) }
   let(:override) { false }
 
@@ -62,8 +61,8 @@ RSpec.describe EmailChecker do
     it_behaves_like 'a valid address'
 
     it 'checks MX record only once' do
-      expect_any_instance_of(Resolv::DNS).
-        to receive(:getresource).once.and_return(true)
+      expect(Rails.configuration.mx_checker).
+        to receive(:records?).once.and_return(true)
 
       2.times do
         subject.valid?
@@ -79,17 +78,14 @@ RSpec.describe EmailChecker do
       end
     end
 
-    context 'with no MX record' do
-      include_context 'resolv raises an error'
+    context 'when MX check fails' do
+      before do
+        allow(Rails.configuration.mx_checker).
+          to receive(:records?).and_return(false)
+      end
 
       it_behaves_like 'an invalid address', 'no_mx_record'
       it { is_expected.not_to be_delivery_error_occurred }
-    end
-
-    context 'when MX lookup times out' do
-      include_context 'resolv times out'
-
-      it_behaves_like 'a valid address'
     end
 
     context 'when spam is reported' do

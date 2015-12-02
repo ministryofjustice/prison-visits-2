@@ -14,4 +14,6 @@ Rails.application.configure do
     { host: 'localhost', protocol: 'https', port: '3000' }
   config.active_support.test_order = :random
   config.active_support.deprecation = :stderr
+
+  config.mx_checker = MxChecker::Dummy.new
 end
