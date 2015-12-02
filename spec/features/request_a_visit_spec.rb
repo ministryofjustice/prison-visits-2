@@ -30,6 +30,8 @@ RSpec.feature 'Booking a visit', js: true do
       fill_in 'Phone number', with: '01154960222'
     end
 
+    select '1', from: 'How many other visitors?'
+
     within '#visitor-1' do
       fill_in 'First name', with: 'Charlie'
       fill_in 'Last name', with: 'Chaplin'

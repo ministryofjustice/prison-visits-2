@@ -60,6 +60,29 @@ RSpec.describe VisitorsStep do
     end
   end
 
+  describe 'additional_visitor_count' do
+    it 'is one less than the number of visitors supplied' do
+      subject.visitors_attributes = {
+        '0' => {
+          'first_name' => 'Bob',
+          'last_name' => 'Roberts',
+          'date_of_birth' => { 'day' => '1', 'month' => '2', 'year' => '1980' }
+        },
+        '1' => {
+          'first_name' => 'John',
+          'last_name' => 'Johnson',
+          'date_of_birth' => { 'day' => '3', 'month' => '4', 'year' => '1990' }
+        },
+        '2' => {
+          'first_name' => '',
+          'last_name' => '',
+          'date_of_birth' => { 'day' => '', 'month' => '', 'year' => '' }
+        }
+      }
+      expect(subject.additional_visitor_count).to eq(1)
+    end
+  end
+
   describe 'visitors' do
     it 'returns only visitors assigned with at least one field' do
       subject.visitors_attributes = {

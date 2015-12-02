@@ -52,6 +52,10 @@ class VisitorsStep
 
   alias_method :validate, :valid?
 
+  def additional_visitor_count
+    visitors.count - 1
+  end
+
 private
 
   def validate_email

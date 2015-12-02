@@ -18,6 +18,33 @@
 
         <%= render('principal_visitor', f: f) %>
 
+        <div id="other-visitors">
+          <h2><%= t('.other_visitors') %></h2>
+
+          <p><%= t('.seating_arrangements') %></p>
+
+          <script type="text/html" id="additional-visitor-selector">
+            <fieldset>
+              <legend class="visuallyhidden">
+                <%= t('.other_visitors') %>
+              </legend>
+
+              <div class="group group--inline">
+                <%= single_field(f, :additional_visitor_count, :select,
+                                 additional_visitor_selections,
+                                 {},
+                                 class: 'js-RevealAdditional',
+                                 data: { target_els: '.additional-visitor' }) %>
+              </div>
+            </fieldset>
+          </script>
+          <script>
+            document.write(
+              document.getElementById('additional-visitor-selector').innerHTML
+            );
+          </script>
+        </div>
+
         <%= render('additional_visitors', f: f) %>
 
         <div class="actions">
