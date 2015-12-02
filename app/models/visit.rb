@@ -61,4 +61,12 @@ class Visit < ActiveRecord::Base
   def confirm_by
     prison.confirm_by(created_at.to_date)
   end
+
+  def banned_visitors
+    visitors.banned
+  end
+
+  def unlisted_visitors
+    visitors.unlisted
+  end
 end

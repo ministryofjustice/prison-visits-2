@@ -32,6 +32,7 @@ private
     visit.reject!
     rejection = Rejection.new(visit: visit, reason: booking_response.selection)
     copy_no_allowance_parameters rejection if booking_response.no_allowance?
+    mark_disallowed_visitors
     rejection.save!
     notify_rejected visit
   end
@@ -55,5 +56,22 @@ private
   def notify_rejected(visit)
     VisitorMailer.rejected(visit).deliver_later
     PrisonMailer.rejected(visit).deliver_later
+  end
+
+  def mark_disallowed_visitors
+    mark_unlisted_visitors if booking_response.visitor_not_on_list?
+    mark_banned_visitors if booking_response.visitor_banned?
+  end
+
+  def mark_unlisted_visitors
+    booking_response.unlisted_visitors.each do |visitor|
+      visitor.update! not_on_list: true
+    end
+  end
+
+  def mark_banned_visitors
+    booking_response.banned_visitors.each do |visitor|
+      visitor.update! banned: true
+    end
   end
 end

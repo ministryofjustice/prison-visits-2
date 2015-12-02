@@ -34,12 +34,12 @@
 <% when 'visitor_banned' %>
 
   <p><%= t('.visitor_banned',
-           visitor: @visit.visitor_anonymized_name) %></p>
+           visitors: @visit.banned_visitors.map(&:anonymized_name).to_sentence) %></p>
 
 <% when 'visitor_not_on_list' %>
 
   <p><%= t('.visitor_not_on_list',
-           visitor: @visit.visitor_anonymized_name) %></p>
+           visitors: @visit.unlisted_visitors.map(&:anonymized_name).to_sentence) %></p>
 
   <p><%= t('.update_list') %></p>
 

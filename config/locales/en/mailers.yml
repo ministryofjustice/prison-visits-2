@@ -184,11 +184,11 @@ en:
         also use the
         <a href="http://www.gov.uk/find-prisoner">find a prisoner service</a>.
       visitor_banned:
-        Your visit cannot take place. %{visitor} should have received a letter
+        Your visit cannot take place. %{visitors} should have received a letter
         to say that they’re banned from visiting the prison at the moment. Get
         in touch with the prison for more information.
       visitor_not_on_list:
-        Your visit cannot take place as details for %{visitor} don’t match our
+        Your visit cannot take place as details for %{visitors} don’t match our
         records or they aren’t on the prisoner’s contact list.
       update_list:
         Please contact the prisoner and ask them to update their contact list

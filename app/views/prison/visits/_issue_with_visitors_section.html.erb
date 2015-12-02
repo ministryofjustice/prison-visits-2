@@ -19,6 +19,19 @@
   <blockquote>
     <%= t('.visitor_not_on_list_wording_html') %>
   </blockquote>
+
+  <% f.object.visitors.each do |visitor| %>
+    <label class="block-label">
+      <%=
+        check_box_tag(
+          'booking_response[unlisted_visitor_ids][]',
+          visitor.id,
+          f.object.unlisted_visitor_ids.include?(visitor.id)
+        )
+      %>
+      <%= visitor.full_name %>
+    </label>
+  <% end %>
 </div>
 
 <%= error_container(f, :selection) do %>
@@ -40,4 +53,17 @@
   <blockquote>
     <%= t('.visitor_banned_wording_html') %>
   </blockquote>
+
+  <% f.object.visitors.each do |visitor| %>
+    <label class="block-label">
+      <%=
+        check_box_tag(
+          'booking_response[banned_visitor_ids][]',
+          visitor.id,
+          f.object.banned_visitor_ids.include?(visitor.id)
+        )
+      %>
+      <%= visitor.full_name %>
+    </label>
+  <% end %>
 </div>

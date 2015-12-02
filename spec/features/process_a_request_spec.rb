@@ -133,12 +133,16 @@ RSpec.feature 'Processing a request', js: true do
 
   scenario 'rejecting a booking when the visitor is not on the contact list' do
     choose 'Visitor isn’t on the contact list'
+    within '#visitor_not_on_list_details' do
+      check vst.visitors.first.full_name
+    end
 
     click_button 'Send email'
 
     vst.reload
     expect(vst.rejection_reason).to eq('visitor_not_on_list')
     expect(vst).to be_rejected
+    expect(vst.visitors.first).to be_not_on_list
 
     expect(contact_email_address).
       to receive_email.
@@ -152,12 +156,16 @@ RSpec.feature 'Processing a request', js: true do
 
   scenario 'rejecting a booking when the visitor is banned' do
     choose 'Visitor is banned'
+    within '#visitor_banned_details' do
+      check vst.visitors.first.full_name
+    end
 
     click_button 'Send email'
 
     vst.reload
     expect(vst.rejection_reason).to eq('visitor_banned')
     expect(vst).to be_rejected
+    expect(vst.visitors.first).to be_banned
 
     expect(contact_email_address).
       to receive_email.
