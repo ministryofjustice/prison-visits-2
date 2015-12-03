@@ -13,7 +13,7 @@
   </label>
 <% end %>
 
-<div id="visitor_not_on_list_details" class="panel-indent">
+<div id="visitor_not_on_list_details" class="panel-indent CheckboxSummary">
   <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
 
   <blockquote>
@@ -26,10 +26,17 @@
         check_box_tag(
           'booking_response[unlisted_visitor_ids][]',
           visitor.id,
-          f.object.unlisted_visitor_ids.include?(visitor.id)
+          f.object.unlisted_visitor_ids.include?(visitor.id),
+          data: { checkbox_summary_text: visitor.anonymized_name }
         )
       %>
-      <%= visitor.full_name %>
+      <%=
+        t(
+          '.visitor_not_on_list_label',
+          name: visitor.full_name,
+          date: format_date_of_birth(visitor.date_of_birth)
+        )
+      %>
     </label>
   <% end %>
 </div>
@@ -47,7 +54,7 @@
   </label>
 <% end %>
 
-<div id="visitor_banned_details" class="panel-indent">
+<div id="visitor_banned_details" class="panel-indent CheckboxSummary">
   <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
 
   <blockquote>
@@ -60,10 +67,17 @@
         check_box_tag(
           'booking_response[banned_visitor_ids][]',
           visitor.id,
-          f.object.banned_visitor_ids.include?(visitor.id)
+          f.object.banned_visitor_ids.include?(visitor.id),
+          data: { checkbox_summary_text: visitor.anonymized_name }
         )
       %>
-      <%= visitor.full_name %>
+      <%=
+        t(
+          '.visitor_banned_label',
+          name: visitor.full_name,
+          date: format_date_of_birth(visitor.date_of_birth)
+        )
+      %>
     </label>
   <% end %>
 </div>
