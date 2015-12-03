@@ -29,4 +29,6 @@ Rails.application.configure do
   config.logstasher.source = 'logstasher'
   config.logstasher.backtrace = true
   config.logstasher.logger_path = "#{Rails.root}/log/logstash_#{Rails.env}.json"
+
+  config.mx_checker = MxChecker.new
 end

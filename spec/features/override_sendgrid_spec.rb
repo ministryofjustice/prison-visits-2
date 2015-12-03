@@ -4,7 +4,6 @@ require 'shared_sendgrid_context'
 RSpec.feature "overriding Sendgrid", js: true do
   include ActiveJobHelper
   include FeaturesHelper
-  include_context 'disable resolv for domain', 'maildrop.dsd.io'
 
   let(:expected_email_address) { 'test@maildrop.dsd.io' }
   let(:irrelevant_response) { { 'message' => 'success' } }

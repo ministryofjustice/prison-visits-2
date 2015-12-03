@@ -73,10 +73,6 @@ private
   end
 
   def mx_records?
-    Resolv::DNS.new.getresource(domain, Resolv::DNS::Resource::IN::MX)
-  rescue Resolv::ResolvError
-    false
-  rescue Resolv::ResolvTimeout
-    true
+    Rails.configuration.mx_checker.records?(domain)
   end
 end
