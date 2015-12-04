@@ -33,22 +33,22 @@ private
     {
       prisoner_step: load_step(PrisonerStep),
       visitors_step: load_step(VisitorsStep),
-      slots_step: load_step(SlotsStep, prison: prison),
+      slots_step: load_step(SlotsStep),
       confirmation_step: load_step(ConfirmationStep)
     }
   end
 
-  def load_step(klass, additional_params = {})
+  def load_step(klass)
     name = klass.model_name.param_key
-    klass.new(params.fetch(name, {}).merge(additional_params))
+    klass.new(params.fetch(name, {}).merge(prison_attributes))
   end
 
   def incomplete_step?(name)
     params.key?(name) ? steps[name].invalid? : true
   end
 
-  def prison
+  def prison_attributes
     prison_id = params.fetch(:prisoner_step, {}).fetch(:prison_id, nil)
-    prison_id ? Prison.find_by(id: prison_id) : nil
+    prison_id ? { prison: Prison.find_by(id: prison_id) } : {}
   end
 end

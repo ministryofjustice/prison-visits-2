@@ -10,6 +10,7 @@ class VisitorsStep
     attribute :date_of_birth, Date
   end
 
+  attribute :prison, Prison
   attribute :email_address, String
   attribute :phone_no, String
   attribute :override_delivery_error, Boolean
