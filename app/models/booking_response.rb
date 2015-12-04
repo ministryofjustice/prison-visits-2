@@ -5,7 +5,7 @@ class BookingResponse
 
   attribute :visit
 
-  attribute :selection, Integer
+  attribute :selection, String
   validates :selection, inclusion: { in: SLOTS + Rejection::REASONS }
 
   attribute :reference_no, String

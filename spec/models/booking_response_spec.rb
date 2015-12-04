@@ -50,4 +50,12 @@ RSpec.describe BookingResponse, type: :model do
       end
     end
   end
+
+  describe 'selection=' do
+    it 'is coerced to a string' do
+      subject.selection = :slot_0
+      expect(subject.selection).to eq('slot_0')
+      expect(subject.selection).to be_a(String)
+    end
+  end
 end
