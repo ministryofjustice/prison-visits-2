@@ -4,6 +4,8 @@ class Prison < ActiveRecord::Base
   MissingUuidMapping = Class.new(StandardError)
 
   MAX_VISITORS = 6
+  MAX_ADULTS = 3
+  MIN_ADULTS = 1
 
   has_many :visits
 
@@ -40,7 +42,20 @@ class Prison < ActiveRecord::Base
       last
   end
 
+  def validate_visitor_ages_on(target, field, ages)
+    adults, _children = ages.partition { |a| adult?(a) }.map(&:length)
+    if adults > MAX_ADULTS
+      target.errors.add field, :too_many_adults, max: MAX_ADULTS, age: adult_age
+    elsif adults < MIN_ADULTS
+      target.errors.add field, :too_few_adults, min: MIN_ADULTS, age: adult_age
+    end
+  end
+
 private
+
+  def adult?(age)
+    age >= adult_age
+  end
 
   def processing_day?(date)
     return false if date.holiday?

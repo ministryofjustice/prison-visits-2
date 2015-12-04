@@ -21,7 +21,9 @@ class VisitorsStep
   validates :email_address, presence: true
   validates :phone_no, presence: true, length: { minimum: 9 }
 
-  validate :validate_email
+  validate :validate_email, :validate_ages
+
+  attr_reader :general # Required in order to assign errors to 'general'
 
   # Return at least Prison::MAX_VISITORS visitors, filling with new instances
   # as needed. The regular #visitors method will return only those visitors
@@ -66,5 +68,10 @@ private
       @delivery_error_occurred = checker.delivery_error_occurred?
       @delivery_error_type = checker.error.to_sym
     end
+  end
+
+  def validate_ages
+    ages = visitors.map(&:age).compact
+    prison.validate_visitor_ages_on self, :general, ages
   end
 end

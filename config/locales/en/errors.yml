@@ -4,3 +4,12 @@ en:
       messages:
         name: is not a valid name
         blank: is required
+      models:
+        visitors_step:
+          attributes:
+            general:
+              too_few_adults:
+                There must be at least one adult visitor
+              too_many_adults:
+                You can book a maximum of %{max} visitors over the age of
+                %{age} on this visit
