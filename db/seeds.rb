@@ -29,6 +29,7 @@ Prison.transaction do
       name: hash.fetch('name'),
       nomis_id: hash.fetch('nomis_id'),
       phone_no: hash.fetch('phone', nil),
+      adult_age: hash.fetch('adult_age', 18),
       slot_details: {
         'recurring' => hash.fetch('slots', {}),
         'anomalous' => hash.fetch('slot_anomalies', {}),

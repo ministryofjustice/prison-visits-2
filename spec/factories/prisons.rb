@@ -26,6 +26,10 @@ FactoryGirl.define do
       '01154960%03d' % n
     end
 
+    adult_age do
+      10 + rand(9)
+    end
+
     slot_details recurring: {
       mon: ['1400-1610'],
       tue: ['0900-1000', '1400-1610']
