@@ -31,6 +31,20 @@ RSpec.describe VisitorsStep do
       )
     end
 
+    it 'ignores more than Prison::MAX_VISITORS visitors' do
+      subject.visitors_attributes = 7.times.map { |n|
+        [
+          n.to_s,
+          {
+            'first_name' => 'John',
+            'last_name' => 'Johnson',
+            'date_of_birth' => { 'day' => '3', 'month' => '4', 'year' => '1990' }
+          }
+        ]
+      }.to_h
+      expect(subject.backfilled_visitors.length).to eq(6)
+    end
+
     it 'returns blank visitors to make up 6' do
       subject.visitors_attributes = {}
       expect(subject.backfilled_visitors.length).to eq(6)
@@ -109,6 +123,20 @@ RSpec.describe VisitorsStep do
     it 'always returns at least one visitor' do
       subject.visitors_attributes = {}
       expect(subject.visitors.length).to eq(1)
+    end
+
+    it 'ignores more than Prison::MAX_VISITORS visitors' do
+      subject.visitors_attributes = 7.times.map { |n|
+        [
+          n.to_s,
+          {
+            'first_name' => 'John',
+            'last_name' => 'Johnson',
+            'date_of_birth' => { 'day' => '3', 'month' => '4', 'year' => '1990' }
+          }
+        ]
+      }.to_h
+      expect(subject.visitors.length).to eq(6)
     end
   end
 

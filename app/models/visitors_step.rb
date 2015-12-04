@@ -42,7 +42,7 @@ class VisitorsStep
 
     # We always want at least one visitor. Leaving the rest blank is fine, but
     # the first one must both exist and be valid.
-    self.visitors = pruned.empty? ? [{}] : pruned
+    self.visitors = pruned.empty? ? [{}] : pruned.take(Prison::MAX_VISITORS)
   end
 
   def valid?(*)
