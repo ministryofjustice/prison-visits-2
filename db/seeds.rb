@@ -8,8 +8,6 @@ Prison.transaction do
     hash = YAML.load(File.read(path))
     filename = Pathname.new(path).basename.to_s
 
-    next if Prison.find_by(id: prison_uuid_mappings[filename])
-
     if prison_uuid_mappings[filename].blank?
       fail Prison::MissingUuidMapping, <<-EOF.strip_heredoc
         #{filename} is missing a UUID mapping. Rerun `rake maintenance:prison_uuids`,
@@ -17,7 +15,9 @@ Prison.transaction do
       EOF
     end
 
-    Prison.create!(
+    prison = Prison.find_or_initialize_by(id: prison_uuid_mappings[filename])
+
+    prison.update!(
       address: hash.fetch('address', []).join("\n"),
       booking_window: hash.fetch('booking_window', 28),
       lead_days: hash.fetch('lead_days', 3),
