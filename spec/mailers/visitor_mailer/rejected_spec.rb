@@ -8,7 +8,7 @@ RSpec.describe VisitorMailer, '.rejected' do
   let(:body) { mail.html_part.body }
 
   around do |example|
-    Timecop.travel(Date.new(2015, 10, 1)) do
+    travel_to Date.new(2015, 10, 1) do
       example.call
     end
   end
