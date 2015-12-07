@@ -10,7 +10,7 @@ RSpec.describe VisitorMailer, '.booked' do
   end
 
   around do |example|
-    Timecop.travel(Date.new(2015, 10, 1)) do
+    travel_to Date.new(2015, 10, 1) do
       example.call
     end
   end

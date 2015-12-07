@@ -16,7 +16,7 @@ RSpec.describe CalendarHelper do
       #    c = end of month concluding window; d = end of week
       #
       prison = build(:prison, lead_days: 3, booking_window: 28)
-      Timecop.travel Date.new(2015, 11, 26) do # Thursday
+      travel_to Date.new(2015, 11, 26) do # Thursday
         weeks = helper.weeks(prison)
         expect(weeks.length).to eq(6)
         expect(weeks.first.first).to eq(Date.new(2015, 11, 23))

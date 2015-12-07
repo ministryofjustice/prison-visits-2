@@ -14,7 +14,7 @@ RSpec.describe Person do
   }
 
   around do |example|
-    Timecop.travel Date.new(2015, 10, 8) do
+    travel_to Date.new(2015, 10, 8) do
       example.run
     end
   end

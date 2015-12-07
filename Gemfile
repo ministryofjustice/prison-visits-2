@@ -39,6 +39,5 @@ group :test do
   gem 'poltergeist'
   gem 'simplecov'
   gem 'simplecov-rcov'
-  gem 'timecop'
   gem 'webmock'
 end
