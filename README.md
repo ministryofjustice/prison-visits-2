@@ -76,16 +76,25 @@ slots are determined by the recurring weekly pattern.
 
 #### `Visit`
 
-This is the main table in the application, and contains all the essential data
-for a visit: the prison, prisoner details, and primary visitor's details and
-contact information.
+This is the main table in the application, and contains the essential data for
+a visit: the prison, visit state, and primary visitor's contact information,
+and a reference to a prisoner.
 
-#### `AdditionalVisitor`
+#### `Prisoner`
 
-These reference a `Visit` and are separated because:
+At present, there is always a one-to-one correspondance between `Prison` and
+`Prisoner`. We envisage that in the future a prisoner will have many visits.
 
-* There may be zero or many of them.
-* They have different (i.e. less) information than the primary visitor.
+`Prisoner` mixes in `Person` for name and age validations and calculations.
+
+#### `Visitor`
+
+These reference a `Visit`. There will always be at least one `Visitor` per
+`Visit`: although this is not (and cannot be) enforced at the database level,
+visitors are always created from a `VisitorsStep` (which validates this) by
+the `BookingRequestCreator`.
+
+`Visitor` mixes in `Person` for name and age validations and calculations.
 
 ## The visit request process
 

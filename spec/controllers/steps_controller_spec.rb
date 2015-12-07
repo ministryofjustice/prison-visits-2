@@ -17,15 +17,19 @@ RSpec.describe StepsController do
 
   let(:visitors_details) {
     {
-      first_name: 'Ada',
-      last_name: 'Lovelace',
-      date_of_birth: {
-        day: '30',
-        month: '11',
-        year: '1970'
-      },
       email_address: 'ada@test.example.com',
-      phone_no: '01154960222'
+      phone_no: '01154960222',
+      visitors_attributes: {
+        0 => {
+          first_name: 'Ada',
+          last_name: 'Lovelace',
+          date_of_birth: {
+            day: '30',
+            month: '11',
+            year: '1970'
+          }
+        }
+      }
     }
   }
 
@@ -119,7 +123,7 @@ RSpec.describe StepsController do
       before do
         post :create,
           prisoner_step: prisoner_details,
-          visitors_step: { first_name: 'Ada' }
+          visitors_step: { phone_no: '01154960222' }
       end
 
       it 'renders the visitors template' do
@@ -141,7 +145,7 @@ RSpec.describe StepsController do
 
       it 'initialises the VisitorsStep with the supplied attributes' do
         expect(assigns(:steps)[:visitors_step]).
-          to have_attributes(first_name: 'Ada')
+          to have_attributes(phone_no: '01154960222')
       end
     end
 
@@ -171,7 +175,7 @@ RSpec.describe StepsController do
 
       it 'initialises the VisitorsStep with the supplied attributes' do
         expect(assigns(:steps)[:visitors_step]).
-          to have_attributes(first_name: 'Ada')
+          to have_attributes(phone_no: '01154960222')
       end
 
       it 'assigns a slots step' do
@@ -208,7 +212,7 @@ RSpec.describe StepsController do
 
       it 'initialises the VisitorsStep with the supplied attributes' do
         expect(assigns(:steps)[:visitors_step]).
-          to have_attributes(first_name: 'Ada')
+          to have_attributes(phone_no: '01154960222')
       end
 
       it 'assigns a slots step' do
@@ -248,7 +252,7 @@ RSpec.describe StepsController do
 
       it 'initialises the VisitorsStep with the supplied attributes' do
         expect(assigns(:steps)[:visitors_step]).
-          to have_attributes(first_name: 'Ada')
+          to have_attributes(phone_no: '01154960222')
       end
 
       it 'assigns a slots step' do
@@ -294,11 +298,15 @@ RSpec.describe StepsController do
             number: 'a1234bc'
           ),
           an_object_having_attributes(
-            first_name: 'Ada',
-            last_name: 'Lovelace',
-            date_of_birth: Date.new(1970, 11, 30),
             email_address: 'ada@test.example.com',
-            phone_no: '01154960222'
+            phone_no: '01154960222',
+            visitors: [
+              an_object_having_attributes(
+                first_name: 'Ada',
+                last_name: 'Lovelace',
+                date_of_birth: Date.new(1970, 11, 30)
+              )
+            ]
           ),
           an_object_having_attributes(
             option_0: '2015-01-02T09:00/10:00',

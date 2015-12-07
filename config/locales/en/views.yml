@@ -37,6 +37,13 @@ en:
     visitors_step:
       title: Visitor 1
       your_details: Your details
+      other_visitors: Other visitors
+      seating_arrangements: >
+        Seating arrangements at this prison allow 3 visitors over the age of 18
+        plus 3 children under that age. Children may have to sit on your lap.
+      additional_visitor_count: How many other visitors?
+      next_step: Continue
+    principal_visitor:
       first_name: Your first name
       last_name: Your last name
       date_of_birth: Your date of birth
@@ -44,7 +51,13 @@ en:
       email_address: Email address
       email_address_hint: You’ll receive confirmation by email
       phone_no: Phone number
-      next_step: Continue
+      override_delivery_error: >
+        Tick this box to confirm you’d like us to try sending messages to you again.
+    additional_visitors:
+      visitor: 'Visitor %{n}'
+      first_name: First name
+      last_name: Last name
+      date_of_birth: Date of birth
     slots_step:
       title: When do you want to visit?
       choose_alternatives: >
@@ -203,8 +216,8 @@ en:
         visitor_not_on_list_wording_html: >
           <p>
             Your visit cannot take place as details for
-            <span class="name">[VISITOR NAME]</span> don’t match our records or
-            they aren’t on the prisoner’s contact list.
+            <span class="CheckboxSummary-summary">[VISITOR NAME]</span> don’t
+            match our records or they aren’t on the prisoner’s contact list.
           </p>
           <p>
             Please contact the prisoner and ask them to update their contact
@@ -215,14 +228,17 @@ en:
             If this is the prisoner’s first visit (reception visit), then you
             need to contact the prison to book.
           </p>
+        visitor_not_on_list_label: "%{name} (%{date}) is not on the list"
         visitor_banned: Visitor is banned
         visitor_banned_wording_html: >
           <p>
             Your visit cannot take place.
-            <span class="name">[VISITOR NAME]</span> should have received a
-            letter to say that they’re banned from visiting the prison at the
-            moment. Get in touch with the prison for more information.
+            <span class="CheckboxSummary-summary">[VISITOR NAME]</span> should
+            have received a letter to say that they’re banned from visiting the
+            prison at the moment. Get in touch with the prison for more
+            information.
           </p>
+        visitor_banned_label: "%{name} (%{date}) is banned"
   shared:
     validation:
       heading: You need to fix the errors on this page before continuing.

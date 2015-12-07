@@ -4,10 +4,6 @@ module Person
   MAX_AGE = 120
 
   included do
-    attribute :first_name, String
-    attribute :last_name, String
-    attribute :date_of_birth, Date
-
     validates :first_name, presence: true, name: true
     validates :last_name, presence: true, name: true
     validates :date_of_birth,
@@ -17,8 +13,13 @@ module Person
       }
   end
 
-  extend Names
-  enhance_names
+  def full_name
+    I18n.t('formats.name.full', first: first_name, last: last_name)
+  end
+
+  def anonymized_name
+    I18n.t('formats.name.full', first: first_name, last: last_name[0])
+  end
 
   def age
     return nil unless date_of_birth

@@ -5,8 +5,8 @@ Rails.application.config.filter_parameters += [
   :visitor_first_name,
   :visitor_last_name,
   :visitor_date_of_birth,
-  :visitor_email_address,
-  :visitor_phone_no,
+  :contact_email_address,
+  :contact_phone_no,
 
   # Fields for the additional visitor
   :first_name,

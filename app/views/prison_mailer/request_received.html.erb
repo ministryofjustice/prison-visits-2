@@ -18,31 +18,9 @@
   <% end %>
 </p>
 
-<p>
-  <%= t('.visitor', n: 1) %>
-
-  <strong><%= @visit.visitor_full_name %></strong>
-  <br/>
-
-  <%= t('.age') %>
-  <strong><%= @visit.visitor_age %></strong>
-  <br/>
-
-  <%= t('.date_of_birth') %>
-  <strong><%= format_date_of_birth(@visit.visitor_date_of_birth) %></strong>
-  <br/>
-
-  <%= t('.email_address') %>
-  <strong><%= @visit.visitor_email_address %></strong>
-  <br/>
-
-  <%= t('.phone_no') %>
-  <strong><%= @visit.visitor_phone_no %></strong>
-</p>
-
-<% @visit.additional_visitors.each_with_index do |visitor, index| %>
+<% @visit.visitors.each_with_index do |visitor, index| %>
   <p>
-    <%= t('.visitor', n: index + 2) %>
+    <%= t('.visitor', n: index + 1) %>
 
     <strong><%= visitor.full_name %></strong>
     <br/>
@@ -53,6 +31,15 @@
 
     <%= t('.date_of_birth') %>
     <strong><%= format_date_of_birth(visitor.date_of_birth) %></strong>
+
+    <% if index.zero? %>
+      <%= t('.email_address') %>
+      <strong><%= @visit.contact_email_address %></strong>
+      <br/>
+
+      <%= t('.phone_no') %>
+      <strong><%= @visit.contact_phone_no %></strong>
+    <% end %>
   </p>
 <% end %>
 

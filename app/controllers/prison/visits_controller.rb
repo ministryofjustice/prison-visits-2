@@ -27,7 +27,7 @@ private
         :selection, :reference_no, :closed_visit,
         :allowance_will_renew, :allowance_renews_on,
         :privileged_allowance_available, :privileged_allowance_expires_on,
-        :visitor_not_on_list, :visitor_banned
+        unlisted_visitor_ids: [], banned_visitor_ids: []
       ).
       merge(visit: visit)
   end

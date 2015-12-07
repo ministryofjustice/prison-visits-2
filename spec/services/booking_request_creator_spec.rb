@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe BookingRequestCreator do
   let(:prisoner_step) {
     PrisonerStep.new(
-      prison_id: 1,
+      prison_id: 'PRISONID',
       first_name: 'Oscar',
       last_name: 'Wilde',
       date_of_birth: Date.new(1980, 12, 31),
@@ -13,11 +13,20 @@ RSpec.describe BookingRequestCreator do
 
   let(:visitors_step) {
     VisitorsStep.new(
-      first_name: 'Ada',
-      last_name: 'Lovelace',
-      date_of_birth: Date.new(1970, 11, 30),
       email_address: 'ada@test.example.com',
-      phone_no: '01154960222'
+      phone_no: '01154960222',
+      visitors: [
+        {
+          first_name: 'Ada',
+          last_name: 'Lovelace',
+          date_of_birth: Date.new(1970, 11, 30)
+        },
+        {
+          first_name: 'Charlie',
+          last_name: 'Chaplin',
+          date_of_birth: Date.new(2005, 1, 2)
+        }
+      ]
     )
   }
 
@@ -38,32 +47,50 @@ RSpec.describe BookingRequestCreator do
     allow(VisitorMailer).to receive(:request_acknowledged).and_return(mailing)
   end
 
-  it 'creates a Visit record' do
+  it 'creates Visit, Visitor, and Prisoner records' do
+    expect(Prisoner).
+      to receive(:create!).
+      with(
+        first_name: 'Oscar',
+        last_name: 'Wilde',
+        date_of_birth: Date.new(1980, 12, 31),
+        number: 'a1234bc'
+      ).and_return instance_double(Prisoner, id: 'PRISONERID')
+    visitors = double
     expect(Visit).
       to receive(:create!).
       with(
-        prison_id: 1,
-        prisoner_first_name: 'Oscar',
-        prisoner_last_name: 'Wilde',
-        prisoner_date_of_birth: Date.new(1980, 12, 31),
-        prisoner_number: 'a1234bc',
-        visitor_first_name: 'Ada',
-        visitor_last_name: 'Lovelace',
-        visitor_date_of_birth: Date.new(1970, 11, 30),
-        visitor_email_address: 'ada@test.example.com',
-        visitor_phone_no: '01154960222',
+        prison_id: 'PRISONID',
+        prisoner_id: 'PRISONERID',
+        contact_email_address: 'ada@test.example.com',
+        contact_phone_no: '01154960222',
         override_delivery_error: nil,
         delivery_error_type: nil,
         slot_option_0: '2015-01-02T09:00/10:00',
         slot_option_1: '2015-01-03T09:00/10:00',
         slot_option_2: '2015-01-04T09:00/10:00'
-      ).and_return instance_double(Visit, id: 2)
-
+      ).and_return instance_double(Visit, id: 2, visitors: visitors)
+    expect(visitors).
+      to receive(:create!).
+      with(
+        first_name: 'Ada',
+        last_name: 'Lovelace',
+        date_of_birth: Date.new(1970, 11, 30),
+        sort_index: 0
+      )
+    expect(visitors).
+      to receive(:create!).
+      with(
+        first_name: 'Charlie',
+        last_name: 'Chaplin',
+        date_of_birth: Date.new(2005, 1, 2),
+        sort_index: 1
+      )
     subject.create! prisoner_step, visitors_step, slots_step
   end
 
   context 'emailing and logging' do
-    let(:visit) { instance_double(Visit, id: 2) }
+    let(:visit) { instance_double(Visit, id: 2, visitors: double(create!: nil)) }
 
     before do
       allow(Visit).to receive(:create!).and_return(visit)

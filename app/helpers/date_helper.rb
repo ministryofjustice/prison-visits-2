@@ -3,8 +3,8 @@ module DateHelper
     I18n.l(date.to_date, format: :date_of_birth)
   end
 
-  def format_date_of_visit(date)
-    I18n.l(date.to_date, format: :date_of_visit)
+  def format_date_without_year(date)
+    I18n.l(date.to_date, format: :date_without_year)
   end
 
   def format_time_12hr(time)
@@ -18,7 +18,7 @@ module DateHelper
   def format_slot_begin_time_for_public(slot)
     I18n.t(
       'formats.slot.public.begin_only',
-      date: format_date_of_visit(slot.begin_at.to_date),
+      date: format_date_without_year(slot.begin_at.to_date),
       time: format_time_12hr(slot.begin_at)
     )
   end
@@ -26,7 +26,7 @@ module DateHelper
   def format_slot_for_public(slot)
     I18n.t(
       'formats.slot.public.full',
-      date: format_date_of_visit(slot.begin_at.to_date),
+      date: format_date_without_year(slot.begin_at.to_date),
       time: format_time_12hr(slot.begin_at),
       duration: format_duration(slot.duration)
     )
@@ -35,7 +35,7 @@ module DateHelper
   def format_slot_for_staff(slot)
     I18n.t(
       'formats.slot.staff',
-      date: format_date_of_visit(slot.begin_at.to_date),
+      date: format_date_without_year(slot.begin_at.to_date),
       begin: format_time_24hr(slot.begin_at),
       end: format_time_24hr(slot.end_at)
     )

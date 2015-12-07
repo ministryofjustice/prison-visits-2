@@ -14,13 +14,13 @@
 
   <% if @visit.privileged_allowance_available? %>
     <p><%= t('.privileged_allowance_available',
-             date: format_date_of_visit(@visit.privileged_allowance_expires_on)) %></p>
+             date: format_date_without_year(@visit.privileged_allowance_expires_on)) %></p>
   <% end %>
 
   <% if @visit.allowance_will_renew? %>
     <p><%= t('.allowance_will_renew',
              prisoner: @visit.prisoner_anonymized_name,
-             date: format_date_of_visit(@visit.allowance_renews_on)) %></p>
+             date: format_date_without_year(@visit.allowance_renews_on)) %></p>
   <% end %>
 
 <% when 'prisoner_details_incorrect' %>
@@ -34,12 +34,12 @@
 <% when 'visitor_banned' %>
 
   <p><%= t('.visitor_banned',
-           visitor: @visit.visitor_anonymized_name) %></p>
+           visitors: @visit.banned_visitors.map(&:anonymized_name).to_sentence) %></p>
 
 <% when 'visitor_not_on_list' %>
 
   <p><%= t('.visitor_not_on_list',
-           visitor: @visit.visitor_anonymized_name) %></p>
+           visitors: @visit.unlisted_visitors.map(&:anonymized_name).to_sentence) %></p>
 
   <p><%= t('.update_list') %></p>
 

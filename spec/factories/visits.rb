@@ -1,35 +1,13 @@
 FactoryGirl.define do
   factory :visit do
     prison
+    prisoner
 
-    prisoner_first_name do
-      FFaker::Name.first_name
-    end
-
-    prisoner_last_name do
-      FFaker::Name.last_name
-    end
-
-    prisoner_date_of_birth '1970-01-01'
-    sequence(:prisoner_number) do |n|
-      'ABC%04d' % n
-    end
-
-    visitor_first_name do
-      FFaker::Name.first_name
-    end
-
-    visitor_last_name do
-      FFaker::Name.last_name
-    end
-
-    visitor_date_of_birth '1980-01-10'
-
-    visitor_email_address do
+    contact_email_address do
       FFaker::Internet.disposable_email
     end
 
-    visitor_phone_no do
+    contact_phone_no do
       FFaker::PhoneNumber.short_phone_number
     end
 
@@ -61,6 +39,10 @@ FactoryGirl.define do
 
     factory :rejected_visit do
       processing_state 'rejected'
+    end
+
+    after(:create) do |v|
+      create :visitor, visit: v
     end
   end
 end

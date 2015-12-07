@@ -1,14 +1,13 @@
 module NonPersistedModel
-  module InstanceMethods
+  extend ActiveSupport::Concern
+
+  included do
+    include Virtus.model
+    include ActiveModel::Conversion
+    include ActiveModel::Validations
+
     def persisted?
       false
     end
-  end
-
-  def self.included(receiver)
-    receiver.send :include, Virtus.model
-    receiver.send :include, ActiveModel::Conversion
-    receiver.send :include, ActiveModel::Validations
-    receiver.send :include, InstanceMethods
   end
 end

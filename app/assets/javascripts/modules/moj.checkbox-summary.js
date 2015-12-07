@@ -54,7 +54,7 @@
 
     summary: function($el) {
       return $.makeArray($el.map(function() {
-        return $(this).val();
+        return $(this).data('checkbox-summary-text');
       }));
     },
 

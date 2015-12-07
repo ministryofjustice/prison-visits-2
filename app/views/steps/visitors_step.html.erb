@@ -16,24 +16,36 @@
           <%= t('.your_details') %>
         </legend>
 
-        <%= single_field(f, :first_name, :text_field) %>
+        <%= render('principal_visitor', f: f) %>
 
-        <%= single_field(f, :last_name, :text_field) %>
+        <div id="other-visitors">
+          <h2><%= t('.other_visitors') %></h2>
 
-        <%= composite_field(f, :date_of_birth) do %>
-          <%= render(partial: 'dob',
-                locals: { object: f.object, prefix: 'visitors_step' }) %>
-        <% end %>
+          <p><%= t('.seating_arrangements') %></p>
 
-        <%= single_field(f, :email_address, :text_field) %>
-        <% if f.object.delivery_error_occurred? %>
-          <label class="validation-message">
-            <%= single_field(f, :override_delivery_error, :check_box) %>
-            <%= single_field(f, :delivery_error_type, :hidden_field) %>
-          </label>
-        <% end %>
+          <script type="text/html" id="additional-visitor-selector">
+            <fieldset>
+              <legend class="visuallyhidden">
+                <%= t('.other_visitors') %>
+              </legend>
 
-        <%= single_field(f, :phone_no, :text_field) %>
+              <div class="group group--inline">
+                <%= single_field(f, :additional_visitor_count, :select,
+                                 additional_visitor_selections,
+                                 {},
+                                 class: 'js-RevealAdditional',
+                                 data: { target_els: '.additional-visitor' }) %>
+              </div>
+            </fieldset>
+          </script>
+          <script>
+            document.write(
+              document.getElementById('additional-visitor-selector').innerHTML
+            );
+          </script>
+        </div>
+
+        <%= render('additional_visitors', f: f) %>
 
         <div class="actions">
           <div class="primary-actions">

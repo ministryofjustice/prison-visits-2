@@ -17,6 +17,7 @@
 //= require modules/moj.hijacks
 //= require modules/moj.submit-once
 //= require modules/moj.Conditional
+//= require modules/moj.RevealAdditional
 //= require modules/moj.checkbox-summary
 //= require modules/moj.AgeLabel.js
 //= require modules/moj.form-errors

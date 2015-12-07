@@ -261,6 +261,8 @@ RSpec.describe BookingResponder do
     context 'because the visitor is not on the list' do
       before do
         booking_response.selection = 'visitor_not_on_list'
+        visit.visitors << build(:visitor)
+        booking_response.unlisted_visitor_ids = [visit.visitors.first.id]
       end
 
       it 'changes the status of the visit to rejected' do
@@ -276,6 +278,12 @@ RSpec.describe BookingResponder do
           to eq('visitor_not_on_list')
       end
 
+      it 'marks each unlisted visitor as not_on_list' do
+        subject.respond!
+        expect(visit.visitors[0]).to be_not_on_list
+        expect(visit.visitors[1]).not_to be_not_on_list
+      end
+
       it 'logs the booking_response' do
         subject.respond!
         expect(LogStasher.request_context).to match(booking_response: 'rejected')
@@ -285,6 +293,8 @@ RSpec.describe BookingResponder do
     context 'because the visitor is banned' do
       before do
         booking_response.selection = 'visitor_banned'
+        visit.visitors << build(:visitor)
+        booking_response.banned_visitor_ids = [visit.visitors.first.id]
       end
 
       it 'changes the status of the visit to rejected' do
@@ -298,6 +308,12 @@ RSpec.describe BookingResponder do
       it 'records the rejection reason' do
         expect(visit_after_responding.rejection.reason).
           to eq('visitor_banned')
+      end
+
+      it 'marks each unlisted visitor as not_on_list' do
+        subject.respond!
+        expect(visit.visitors[0]).to be_banned
+        expect(visit.visitors[1]).not_to be_banned
       end
 
       it 'logs the booking_response' do

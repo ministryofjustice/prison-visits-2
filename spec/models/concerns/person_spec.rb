@@ -7,6 +7,10 @@ RSpec.describe Person do
       include NonPersistedModel
       include described_module
 
+      attribute :first_name, String
+      attribute :last_name, String
+      attribute :date_of_birth, Date
+
       def self.model_name
         ActiveModel::Name.new(self, nil, 'thing')
       end
@@ -63,6 +67,14 @@ RSpec.describe Person do
       subject.first_name = 'Oscar'
       subject.last_name = 'Wilde'
       expect(subject.full_name).to eq('Oscar Wilde')
+    end
+  end
+
+  describe 'anonymized_name' do
+    it 'uses only the first letter of the last name' do
+      subject.first_name = 'Oscar'
+      subject.last_name = 'Wilde'
+      expect(subject.anonymized_name).to eq('Oscar W')
     end
   end
 end
