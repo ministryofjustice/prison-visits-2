@@ -72,5 +72,29 @@ RSpec.feature 'Booking a visit', js: true do
     visit steps_path
     click_button 'Continue'
     expect(page).to have_text('Prisoner first name is required')
+
+    fill_in 'Prisoner first name', with: 'Oscar'
+    fill_in 'Prisoner last name', with: 'Wilde'
+    fill_in 'Day', with: '31'
+    fill_in 'Month', with: '12'
+    fill_in 'Year', with: '1980'
+    fill_in 'Prisoner number', with: 'a1234bc'
+    select_prison 'Reading Gaol'
+
+    click_button 'Continue'
+
+    within '#visitor-0' do
+      fill_in 'Your first name', with: 'Ada'
+      fill_in 'Your last name', with: 'Lovelace'
+      fill_in 'Day', with: '30'
+      fill_in 'Month', with: '11'
+      fill_in 'Year', with: '2014'
+      fill_in 'Email address', with: visitor_email
+      fill_in 'Phone number', with: '01154960222'
+    end
+
+    click_button 'Continue'
+
+    expect(page).to have_text('There must be at least one adult visitor')
   end
 end
