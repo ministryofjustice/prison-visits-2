@@ -21,6 +21,22 @@ RSpec.describe ConcreteSlot do
     end
   end
 
+  describe 'to_date' do
+    it 'generates a date object' do
+      expect(subject.to_date).to eq(Date.new(2015, 10, 23))
+    end
+  end
+
+  describe 'on?' do
+    it 'returns true if slots can be booked on requested date' do
+      expect(subject.on?(Date.new(2015, 10, 23))).to be_truthy
+    end
+
+    it 'returns false if slots cannot be booked on requested date' do
+      expect(subject.on?(Date.new(2015, 10, 24))).to be_falsey
+    end
+  end
+
   describe 'begin_at' do
     subject {
       super().begin_at
