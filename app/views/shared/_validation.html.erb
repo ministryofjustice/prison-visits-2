@@ -4,6 +4,17 @@
     <h2 id="error-heading">
       <%= t('.heading') %>
     </h2>
+
+    <% general_errors = validation.errors[:general] %>
+
+    <% if general_errors.any? %>
+      <ul class="error-messages">
+        <% general_errors.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
     <p>
       <%= t('.see_below') %>
     </p>

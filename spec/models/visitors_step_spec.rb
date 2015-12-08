@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe VisitorsStep do
+  let(:prison) { build(:prison) }
+  subject { described_class.new(prison: prison) }
+
   describe 'backfilled_visitors' do
     it 'includes supplied visitors' do
       subject.visitors_attributes = {
@@ -203,6 +206,151 @@ RSpec.describe VisitorsStep do
       expect(subject.backfilled_visitors[0].errors).not_to be_empty
       expect(subject.backfilled_visitors[1].errors).not_to be_empty
       expect(subject.errors).not_to be_empty
+    end
+  end
+
+  context 'age-related validations' do
+    let(:prison) { build(:prison, adult_age: 13) }
+
+    around do |example|
+      travel_to Date.new(2015, 12, 1) do
+        example.call
+      end
+    end
+
+    it 'is valid if there is one adult visitor' do
+      subject.visitors = [
+        {
+          first_name:  'John',
+          last_name:  'Johnson',
+          date_of_birth:  { day:  '1', month:  '12', year:  '2002' }
+        }
+      ]
+      subject.validate
+      expect(subject.errors).not_to have_key(:general)
+    end
+
+    it 'is valid if there are 3 adult and 3 child visitors' do
+      subject.visitors = [
+        {
+          first_name:  'John',
+          last_name:  'Johnson',
+          date_of_birth:  {
+            day:  '1', month:  '12', year:  '2002' # 13 today
+          }
+        },
+        {
+          first_name:  'Jane',
+          last_name:  'Johnson',
+          date_of_birth:  {
+            day:  '1', month:  '12', year:  '2002' # 13 today
+          }
+        },
+        {
+          first_name:  'Jim',
+          last_name:  'Johnson',
+          date_of_birth:  {
+            day:  '1', month:  '12', year:  '2002' # 13 today
+          }
+        },
+        {
+          first_name:  'Joe',
+          last_name:  'Johnson',
+          date_of_birth:  {
+            day:  '2', month:  '12', year:  '2002' # 13 tomorrow
+          }
+        },
+        {
+          first_name:  'Jessica',
+          last_name:  'Johnson',
+          date_of_birth:  {
+            day:  '2', month:  '12', year:  '2002' # 13 tomorrow
+          }
+        },
+        {
+          first_name:  'Jerry',
+          last_name:  'Johnson',
+          date_of_birth:  {
+            day:  '2', month:  '12', year:  '2002' # 13 tomorrow
+          }
+        }
+      ]
+      subject.validate
+      expect(subject.errors).not_to have_key(:general)
+    end
+
+    it 'is invalid if there are too many adult visitors' do
+      subject.visitors = [
+        {
+          first_name:  'John',
+          last_name:  'Johnson',
+          date_of_birth:  {
+            day:  '1', month:  '12', year:  '2002' # 13 today
+          }
+        },
+        {
+          first_name:  'Jane',
+          last_name:  'Johnson',
+          date_of_birth:  {
+            day:  '1', month:  '12', year:  '2002' # 13 today
+          }
+        },
+        {
+          first_name:  'Jim',
+          last_name:  'Johnson',
+          date_of_birth:  {
+            day:  '1', month:  '12', year:  '2002' # 13 today
+          }
+        },
+        {
+          first_name:  'Joe',
+          last_name:  'Johnson',
+          date_of_birth:  {
+            day:  '1', month:  '12', year:  '2002' # 13 today
+          }
+        },
+        {
+          first_name:  'Jessica',
+          last_name:  'Johnson',
+          date_of_birth:  {
+            day:  '1', month:  '12', year:  '2002' # 13 today
+          }
+        },
+        {
+          first_name:  'Jerry',
+          last_name:  'Johnson',
+          date_of_birth:  {
+            day:  '1', month:  '12', year:  '2002' # 13 today
+          }
+        }
+      ]
+      subject.validate
+      expect(subject.errors[:general]).to include(
+        'You can book a maximum of 3 visitors over the age of 13 on this visit'
+      )
+    end
+
+    it 'is invalid if there is no adult visitor' do
+      subject.visitors = [
+        {
+          first_name:  'Joe',
+          last_name:  'Johnson',
+          date_of_birth:  {
+            day:  '2', month:  '12', year:  '2002' # 13 tomorrow
+          }
+        },
+        {
+          first_name:  'Jessica',
+          last_name:  'Johnson',
+          date_of_birth:  {
+            day:  '2', month:  '12', year:  '2002' # 13 tomorrow
+          }
+        }
+      ]
+      subject.validate
+      expect(subject.errors[:general]).to include(
+        'There must be at least one adult visitor'
+      )
     end
   end
 end

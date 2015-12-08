@@ -71,6 +71,11 @@ Metrics/MethodLength:
     - 'spec/**/*'
     - 'app/helpers/form_elements_helper.rb'
 
+# Don't worry about the complexity of spec methods
+Metrics/AbcSize:
+  Exclude:
+    - 'spec/**/*'
+
 # Enforce single quotes everywhere except in specs (because there's a lot of
 # human text with apostrophes in spec names, and using double quotes for all
 # of those is more consistent. There shouldn't be much human-readable text in
