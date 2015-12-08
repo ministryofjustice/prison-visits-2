@@ -20,7 +20,7 @@ RSpec.feature "overriding Sendgrid", js: true do
       visit steps_path
       enter_prisoner_information
       click_button 'Continue'
-      enter_visitor_information(expected_email_address)
+      enter_visitor_information email_address: expected_email_address
       click_button 'Continue'
 
       expect(page).to have_text('marked as spam')
@@ -28,7 +28,7 @@ RSpec.feature "overriding Sendgrid", js: true do
       click_button 'Continue'
 
       expect(page).to have_content('When do you want to visit?')
-      select_a_slot
+      select_slots
       click_button 'Continue'
 
       expect(page).to have_content('Check your request')
@@ -52,7 +52,7 @@ RSpec.feature "overriding Sendgrid", js: true do
       visit steps_path
       enter_prisoner_information
       click_button 'Continue'
-      enter_visitor_information(expected_email_address)
+      enter_visitor_information email_address: expected_email_address
       click_button 'Continue'
 
       expect(page).to have_text('returned in the past')
@@ -60,7 +60,7 @@ RSpec.feature "overriding Sendgrid", js: true do
       click_button 'Continue'
 
       expect(page).to have_content('When do you want to visit?')
-      select_a_slot
+      select_slots
       click_button 'Continue'
 
       expect(page).to have_content('Check your request')
@@ -81,11 +81,11 @@ RSpec.feature "overriding Sendgrid", js: true do
     visit steps_path
     enter_prisoner_information
     click_button 'Continue'
-    enter_visitor_information(expected_email_address)
+    enter_visitor_information email_address: expected_email_address
     click_button 'Continue'
 
     expect(page).to have_content('When do you want to visit?')
-    select_a_slot
+    select_slots
     click_button 'Continue'
 
     expect(page).to have_content('Check your request')
