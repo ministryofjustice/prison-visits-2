@@ -157,3 +157,17 @@ environment to `https://www.prisonvisits.service.gov.uk/`.
 ### SMTP_USERNAME, SMTP_PASSWORD, SMTP_HOSTNAME, SMTP_PORT, SMTP_DOMAIN
 
 These configure email delivery in the production environment.
+
+## Files to be created on deployment
+
+### META
+
+This file, located in the root directory, should be a JSON document containing
+build information to be returned by `/ping.json`. e.g.:
+
+```json
+{
+  "build_date": "2015-12-08T10:18:04.357122",
+  "commit_id": "a444e4b05276ae7dc2b1d4224e551dfcbf768795"
+}
+```
