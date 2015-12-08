@@ -1,0 +1,38 @@
+<div class="BookingCalendar hidden--mobile">
+  <div class="BookingCalendar-header">
+    <a class="BookingCalendar-nav BookingCalendar-nav--prev" href="#"></a>
+    <strong class="BookingCalendar-currentMonth"></strong>
+    <a class="BookingCalendar-nav BookingCalendar-nav--next" href="#"></a>
+  </div>
+  <table class="BookingCalendar-dates">
+    <thead>
+      <tr>
+        <% each_day_of_week do |day| %>
+          <th><%= day.strftime('%a') %></th>
+        <% end %>
+      </tr>
+    </thead>
+  </table>
+
+  <div class="BookingCalendar-mask">
+    <table class="BookingCalendar-dates">
+      <tbody class=BookingCalendar-datesBody">
+        <% weeks(prison).each do |days| %>
+          <tr>
+            <% days.each do |day| %>
+              <td class="BookingCalendar-date--<%= bookable(prison, day) %>">
+                <div class="BookingCalendar-content <%= (tagged?(day)) ? 'has-tag' : '' %>">
+                  <%= calendar_day(day, prison.bookable_date?(day)) %>
+                  <% if today?(day) %>
+                    <span class="BookingCalendar-tag BookingCalendar-tag--today"
+                      ><%= t('.today') %></span>
+                  <% end %>
+                </div>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</div>

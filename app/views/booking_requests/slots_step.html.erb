@@ -1,33 +1,33 @@
 <% content_for :header, t('.title') %>
+<%= render('shared/slotpicker_templates') %>
 
-<div class="Grid">
-  <div class="Grid-2-3">
     <%= form_for(@steps.fetch(:slots_step), url: booking_requests_path) do |f| %>
       <%= render(partial: 'hidden_prisoner_step') %>
       <%= render(partial: 'hidden_visitors_step') %>
 
-      <fieldset>
-        <% 3.times do |i| %>
-          <%=
-            single_field(
-              f, :"option_#{i}", :select,
-              f.object.available_slots.map { |s|
-                [format_slot_begin_time_for_public(s), s.iso8601]
-              },
-              include_blank: true
-            )
-          %>
-        <% end %>
+  <div class="SlotPicker" data-today="<%= Time.zone.today %>">
+    <div class="Grid visible--js-enabled">
+      <div class="Grid-1-2">
+        <fieldset>
+          <%= render('booking_calendar', prison: f.object.prison) %>
+          <%= render('date_slider') %>
+          <%= render('booking_calendar_legend') %>
+          <%= render('slot_picker_time_slots') %>
 
-        <div class="actions">
-          <div class="primary-actions">
-            <%= f.submit(t('.next_step'), class: 'button button-primary') %>
+          <div class="actions">
+            <div class="primary-actions">
+              <%= f.submit(t('.next_step'), class: 'button button-primary') %>
+            </div>
+            <%= render(partial: 'cancel') %>
           </div>
-          <%= render(partial: 'cancel') %>
-        </div>
-      </fieldset>
-    <% end %>
+        </fieldset>
+      </div>
 
-    <%= render(partial: 'contact_prison') %>
+      <div class="Grid-1-2">
+        <%= render(partial: 'slot_picker') %>
+      </div>
+      <%= render('hidden_inputs_for_calendars', f: f) %>
+    </div>
   </div>
-</div>
+<% end %>
+<%= render(partial: 'contact_prison') %>

@@ -25,7 +25,7 @@ ConcreteSlot = Struct.new(
   end
 
   def on?(date)
-    self.to_date == date
+    to_date == date
   end
 
   # We are explicitly parsing these as UTC, but this Rubocop cop isn't clever

@@ -24,7 +24,7 @@
   };
 
   SlotPicker.prototype = {
-    
+
     defaults: {
       optionLimit: 3,
       singleUnavailableMsg: true,
@@ -42,7 +42,7 @@
 
     cacheEls: function($el) {
       this.$_el = $el;
-      
+
       this.$slotInputs = $('.SlotPicker-input', $el);
       this.$promoteHelp = $('.SlotPicker-promoteHelp', $el);
       this.$timeSlots = $('.SlotPicker-timeSlots', $el);
@@ -117,7 +117,7 @@
           demoted = $('.SlotPicker-choice:eq(' + (index - 1) + ')'),
           h = promoted.find('.SlotPicker-choiceInner').height() + parseInt(promoted.find('.SlotPicker-choiceInner').css('padding-top')),
           self = this;
-      
+
       var promote = function() {
         self.shiftSlot(index);
         self.processSlots();
@@ -126,7 +126,7 @@
       var transition = function() {
         return Modernizr.csstransitions ? 300 : 0;
       };
-      
+
       promoted.find('.SlotPicker-choiceContent').css('top', -h + 'px');
       demoted.find('.SlotPicker-choiceContent').css('top', h + 'px');
 
@@ -150,7 +150,7 @@
 
     getMonthPositions: function(dates) {
       var months = [], lastMonth, day, month;
-      
+
       for (day in dates) {
         month = moj.Helpers.dateFromIso(day).getMonth();
         if (month !== lastMonth) {
@@ -223,7 +223,7 @@
       this.settings.bookableDates = $.map(slots, function(s) {
         return s.substr(0, 10);
       });
-      
+
       for (i = 0; i < slots.length; i++) {
         day = this.splitDateAndSlot(slots[i])[0];
 
@@ -240,7 +240,7 @@
 
         previous = day;
       }
-      
+
       this.settings.bookableTimes = days;
     },
 
@@ -257,7 +257,7 @@
 
     chosenDaySelector: function(dateStr) {
       var bookingFrom, bookingTo, date;
-      
+
       if (moj.Helpers.dateBookable(dateStr, this.settings.bookableDates)) {
         return '#date-' + dateStr;
       }
@@ -265,7 +265,7 @@
       date = moj.Helpers.dateFromIso(dateStr);
       bookingFrom = moj.Helpers.dateFromIso(this.settings.bookableDates[0]);
       bookingTo = moj.Helpers.dateFromIso(this.settings.bookableDates[this.settings.bookableDates.length-1]);
-      
+
       if (date < this.settings.today) {
         return '.SlotPicker-day--past';
       } else {
@@ -324,7 +324,7 @@
           time = label.find('.SlotPicker-time').text(),
           duration = label.find('.SlotPicker-duration').text(),
           $slot = this.$choice.eq(index);
-      
+
       $slot.addClass('is-chosen');
       $slot.find('.SlotPicker-date').text(day);
       $slot.find('.SlotPicker-time').text(time + ', ' + duration);
@@ -335,13 +335,13 @@
     populateSlotInputs: function(index, chosen) {
       $('.SlotPicker-input', this.$_el).eq(index).val(chosen);
     },
-    
+
     processSlots: function() {
       var slots = this.settings.currentSlots,
           i, $slotEl;
 
       for (i = 0; i < slots.length; i++) {
-        $slotEl = $('.SlotPicker-slot[value=' + slots[i] + ']', this.$_el);
+        $slotEl = $('.SlotPicker-slot[value="' + slots[i] + '"]', this.$_el);
 
         this.highlightSlot($slotEl.closest('label'));
         this.populateSlotInputs(i, $slotEl.val());
@@ -363,10 +363,8 @@
     },
 
     splitDateAndSlot: function(str) {
-      var bits = str.split('-'),
-          time = bits.splice(-2, 2).join('-');
-      
-      return [bits.join('-'), time];
+
+      return str.split('T');
     },
 
     activateNextOption: function() {
@@ -390,7 +388,7 @@
 
     removeSlot: function(slot) {
       var pos = moj.Helpers.indexOf(this.settings.currentSlots, slot);
-      
+
       this.settings.currentSlots.splice(pos, 1);
       this.markDate(slot);
     },
@@ -401,7 +399,7 @@
 
     markDate: function(slot) {
       var day = this.splitDateAndSlot(slot)[0];
-      
+
       $('[data-date=' + day + ']', this.$_el)[~this.settings.currentSlots.join('-').indexOf(day) ? 'addClass' : 'removeClass']('is-chosen');
     },
 
@@ -422,9 +420,9 @@
 
       for (i = 0; i < slots.length; i++) {
         out+= template({
-          time: this.displayTime(slots[i].split('-')[0]),
-          duration: this.duration( this.timeFromSlot(slots[i].split('-')[0]), this.timeFromSlot(slots[i].split('-')[1]) ),
-          slot: [date,slots[i]].join('-')
+          time: this.displayTime(slots[i].split('/')[0]),
+          duration: this.duration( this.timeFromSlot(slots[i].split('/')[0]), this.timeFromSlot(slots[i].split('/')[1]) ),
+          slot: [date,slots[i]].join('T')
         });
       }
 
@@ -471,7 +469,7 @@
           todayIso = moj.Helpers.formatIso(this.settings.today),
           end = moj.Helpers.dateFromIso(to),
           count = 1;
-      
+
       curDate = this.firstDayOfWeek(moj.Helpers.dateFromIso(from));
       end = this.lastDayOfWeek(this.lastDayOfMonth(end));
 
@@ -503,13 +501,13 @@
         curDate.setDate(curDate.getDate() + 1);
         count++;
       }
-      
+
       return out;
     },
 
     displayTime: function(time) {
-      var hrs = parseInt(time.substr(0, 2), 10),
-          mins = time.substr(2),
+      var hrs = time.split(':')[0],
+          mins = time.split(':')[1],
           out = hrs;
 
       if (hrs > 12) {
@@ -531,14 +529,14 @@
       var out = '',
           diff = end.getTime() - start.getTime(),
           duration = new Date(diff);
-      
+
       if (duration.getUTCHours()) {
         out+= duration.getUTCHours() + ' hr';
         if (duration.getUTCHours() > 1) {
           out+= 's';
         }
       }
-      
+
       if (duration.getMinutes()) {
         out+= ' ' + duration.getMinutes() + ' min';
         if (duration.getMinutes() > 1) {
@@ -552,8 +550,8 @@
     timeFromSlot: function(slot) {
       var time = new Date();
 
-      time.setHours(slot.substr(0, 2));
-      time.setMinutes(slot.substr(2));
+      time.setHours(slot.split(':')[0]);
+      time.setMinutes(slot.split(':')[1]);
 
       return time;
     },

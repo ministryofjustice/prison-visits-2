@@ -48,9 +48,10 @@ module FeaturesHelper
   end
 
   def select_slots(how_many = 3)
-    available_slots = all('#slots_step_option_0 option').map(&:text)
-    (1..how_many).each do |n|
-      select available_slots[n], from: "Option #{n}"
+    how_many.times do |n|
+      all(".BookingCalendar-date--bookable .BookingCalendar-dateLink")[n].
+        trigger('click')
+      first('.SlotPicker-slot').trigger('click')
     end
   end
 

@@ -36,7 +36,7 @@ class Prison < ActiveRecord::Base
   end
 
   def bookable_date?(requested_date = Time.zone.today)
-    available_slots.any? { |slot| slot.on? requested_date }
+    available_slots.any? { |slot| slot.on?(requested_date) }
   end
 
   def confirm_by(today = Time.zone.today)

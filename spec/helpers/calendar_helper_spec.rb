@@ -24,4 +24,35 @@ RSpec.describe CalendarHelper do
       end
     end
   end
+
+  describe 'calendar_day' do
+    let(:day) { Date.new(2015, 01, 01) }
+    let(:bookable_day) {
+      '<a class="BookingCalendar-dateLink" data-date="2015-01-01" ' \
+        'href="#date-2015-01-01"><span class="BookingCalendar-day">1</span></a>'
+    }
+
+    let(:non_bookable_day) { '<span class="BookingCalendar-day">1</span>' }
+
+    it 'builds the html for a bookable day' do
+      expect(calendar_day(day, true)).to eq(bookable_day)
+    end
+
+    it 'builds the html for a non-bookable day' do
+      expect(calendar_day(day, false)).to eq(non_bookable_day)
+    end
+  end
+
+  describe 'bookable' do
+    let(:prison) { double('prison', bookable_date?: [true, false]) }
+    let(:day) { double('day').as_null_object }
+
+    it 'returns "bookable" if a prison is bookable for a date' do
+      expect(bookable(prison, day)).to eq('bookable')
+    end
+
+    it 'returns "unavailable" if a prison is not bookable for a date' do
+      expect(bookable(prison, day)).to eq('bookable')
+    end
+  end
 end
