@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   end
 
   get 'unsubscribe' => 'high_voltage/pages#show', id: 'unsubscribe'
+
+  get 'ping' => 'ping#index'
 end

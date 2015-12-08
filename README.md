@@ -128,19 +128,19 @@ See its website for instructions.
 
 ## Environment variables used by the application
 
-### DATABASE_URL
+### `DATABASE_URL`
 
 This will override any settings in `config/database.yml`, and should be of the
 form `postgres://myuser:mypass@localhost/somedatabase`.
 
-### GOVUK_START_PAGE
+### `GOVUK_START_PAGE`
 
 Visiting `/` will redirect to this URL, if supplied, or the new booking page
 otherwise. On production, this must be set to
 [https://www.gov.uk/prison-visits](https://www.gov.uk/prison-visits), the
 official start page for the service.
 
-### SECRET_KEY_BASE
+### `SECRET_KEY_BASE`
 
 This key is used to verify the integrity of signed cookies. If it is changed,
 all old signed cookies will become invalid.
@@ -149,11 +149,25 @@ Make sure the secret is at least 30 characters and all random, no regular words
 or you'll be exposed to dictionary attacks. You can use `rake secret` to
 generate a secure secret key.
 
-### SERVICE_URL
+### `SERVICE_URL`
 
 This is used to build links in emails. It must be set in the production
 environment to `https://www.prisonvisits.service.gov.uk/`.
 
-### SMTP_USERNAME, SMTP_PASSWORD, SMTP_HOSTNAME, SMTP_PORT, SMTP_DOMAIN
+### `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_HOSTNAME`, `SMTP_PORT`, `SMTP_DOMAIN`
 
 These configure email delivery in the production environment.
+
+## Files to be created on deployment
+
+### `META`
+
+This file, located in the root directory, should be a JSON document containing
+build information to be returned by `/ping.json`. e.g.:
+
+```json
+{
+  "build_date": "2015-12-08T10:18:04.357122",
+  "commit_id": "a444e4b05276ae7dc2b1d4224e551dfcbf768795"
+}
+```
