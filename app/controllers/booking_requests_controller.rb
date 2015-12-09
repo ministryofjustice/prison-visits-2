@@ -1,4 +1,4 @@
-class StepsController < ApplicationController
+class BookingRequestsController < ApplicationController
   helper FormElementsHelper
 
   def index

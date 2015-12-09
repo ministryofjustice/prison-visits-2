@@ -4,7 +4,7 @@
   <div class="Grid-2-3">
     <%= t('.information_html') %>
 
-    <%= form_for(@steps.fetch(:prisoner_step), url: steps_path) do |f| %>
+    <%= form_for(@steps.fetch(:prisoner_step), url: booking_requests_path) do |f| %>
       <h2>
         <%= t('.prisoner_details') %>
       </h2>

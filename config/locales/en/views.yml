@@ -3,7 +3,7 @@ en:
     cookies:
       intro: GOV.UK uses cookies to make the site simpler.
       find_out_more: Find out more about cookies.
-  steps:
+  booking_requests:
     prisoner_step:
       title: Who are you visiting?
       information_html: |

@@ -2,7 +2,7 @@
 
 <div class="Grid">
   <div class="Grid-2-3">
-    <%= form_for(@steps.fetch(:visitors_step), url: steps_path) do |f| %>
+    <%= form_for(@steps.fetch(:visitors_step), url: booking_requests_path) do |f| %>
       <%= render(partial: 'hidden_prisoner_step') %>
 
       <h2>
