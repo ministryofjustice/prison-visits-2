@@ -5,8 +5,8 @@ en:
       domain_dot: "is not a valid address because it ends with a dot or starts with a dot"
       malformed: "is not a valid address"
       no_mx_record: "does not appear to be valid"
-      spam_reported: >
+      spam_reported: >-
         needs to be checked as past messages were marked as spam.
         Check your spam folder too
-      bounced: >
+      bounced: >-
         needs to be checked as messages have been returned in the past

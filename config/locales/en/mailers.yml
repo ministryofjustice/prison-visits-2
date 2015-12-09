@@ -13,23 +13,23 @@ en:
       email_address: "Email:"
       phone_no: "Phone:"
       process_booking: "Process the booking"
-      copy_paste_explanation: >
+      copy_paste_explanation: >-
         If you cannot click on the link above, copy the entire link and paste
         it into the address bar of your browser.
       visit_id: "Visit ID:"
     booked:
-      subject: >
+      subject: >-
         COPY of booking confirmation for %{prisoner}
-      copy_of_booking: >
+      copy_of_booking: >-
         This is a copy of the booking confirmation email sent to the visitor
     rejected:
-      subject: >
+      subject: >-
         COPY of booking rejection for %{prisoner}
-      copy_of_rejection: >
+      copy_of_rejection: >-
         This is a copy of the booking rejection email sent to the visitor
   visitor_mailer:
     booked:
-      subject: >
+      subject: >-
         Visit confirmed: your visit for %{date} has been confirmed
       salutation: Dear %{name},
       visit_confirmed: Your visit to %{prison} is now successfully confirmed.
@@ -38,26 +38,26 @@ en:
       number: "Number:"
       visitor: "Visitor %{n}:"
       reference_no: "Your reference number is:"
-      this_is_a_closed_visit_html: >
+      this_is_a_closed_visit_html: >-
         <strong>This is a closed visit:</strong>
         the prisoner will be behind a glass screen in a separate area rather
         than in the visiting hall.
-      want_to_change: >
+      want_to_change: >-
         If you want to change anything about your visit, like dates or visitors
         coming, contact the prison.
       questions_about_your_visit: Questions about your visit
-      dont_reply: >
+      dont_reply: >-
         Please don’t reply to this email if you have any other questions about
         your visit. Instead you must contact us directly.
       phone_no: "Phone:"
       email_address: "Email:"
       add_to_address_book_title: Add this email to your address book
-      add_to_address_book_body: >
+      add_to_address_book_body: >-
         To stop visit confirmation emails going to your spam or junk folder
         please add no-reply@email.prisonvisits.service.gov.uk to your address
         book or safe senders list.
       what_to_bring: What to bring when you visit
-      id_requirements_html: >
+      id_requirements_html: |
         <p>
           Please make sure you bring ID with you. This can be ONE of
           the following:
@@ -116,25 +116,25 @@ en:
             foreign identity or residents’ card
           </li>
         </ul>
-      any_questions: >
+      any_questions: >-
         If you have any questions about ID requirements, please contact the
         prison.
       bringing_child_title: If you’re bringing someone else’s child
-      bringing_child_body: >
+      bringing_child_body: >-
         You’ll need a letter from that child’s parents giving you permission to
         accompany their child.
       what_to_expect_title: What to expect when visiting prison
-      what_to_expect_body: >
+      what_to_expect_body: >-
         You will be searched before entering the prison visiting room. Prison
         staff may check  your pockets, pat you down and ask you to go through a
         metal detector. Dogs may also be used to detect illegal substances.
       what_not_to_bring_title: What not to bring
-      what_not_to_bring_body_html: >
+      what_not_to_bring_body_html: >-
         Please don’t bring anything restricted or illegal to the prison. The
         <a href="%{url}">%{prison} prison page</a> has more information about
         what you can bring.
       your_data_title: Your data
-      your_data_body: >
+      your_data_body: >-
         The Ministry of Justice (HM Prison Service) uses and retains the
         personal data of visitors for the purposes of the safe and secure
         provision of Prison Services, including those related to the management
@@ -149,36 +149,36 @@ en:
         and management of offenders; prevention of terrorism; National
         Security; or required to do by law.
       need_help_title: Need help or have a question?
-      need_help_body_html: >
+      need_help_body_html: >-
         If you have a question or need any help with the online visits service,
         please <a href="%{url}">contact us</a>.
       visit_id: "Visit ID:"
     rejected:
-      subject: >
+      subject: >-
         Visit cannot take place: your visit for %{date} could not be booked
       salutation: Dear %{name}
-      slot_unavailable_html: >
+      slot_unavailable_html: >-
         We’re sorry but none of the dates and times you chose to visit
         <strong>%{prisoner}</strong> at <strong>%{prison}</strong>
         were available.
-      alternatives_html: >
+      alternatives_html: >-
         Please visit
         <a href="https://www.gov.uk/prison-visits">www.gov.uk/prison-visits</a>
         to choose some alternative dates.
-      no_allowance: >
+      no_allowance: >-
         We’re sorry, but the prisoner you want to visit has not got any
         visiting allowance left for the dates you’ve chosen.
-      privileged_allowance_available: >
+      privileged_allowance_available: >-
         However, you can book a weekday visit with visiting allowance valid
         until %{date}. The visit must be taken before the allowance expires.
-      allowance_will_renew: >
+      allowance_will_renew: >-
         %{prisoner} will have their full visiting allowance (VO) renewed on
         %{date}.
-      prisoner_details_incorrect: >
+      prisoner_details_incorrect: >-
         Your visit cannot take place as you haven’t given correct information
         for the prisoner. Eg, the prisoner’s name, number or date of birth is
         incorrect. Contact the prisoner to get up-to-date information.
-      prisoner_moved_html: >
+      prisoner_moved_html: >-
         Your visit cannot take place as the prisoner you want to visit has
         moved prison. They should contact you about where they are now. You can
         also use the
@@ -204,7 +204,7 @@ en:
       visit_id: "Visit ID:"
     request_acknowledged:
       subject: "Not booked yet: we’ve received your visit request for %{receipt_date}"
-      add_address: >
+      add_address: >-
         To stop visit confirmation emails going to your spam or junk folder
         please add %{email} to your address book or safe senders list.
       add_to_address_book: "Add this email to your address book"
@@ -212,7 +212,7 @@ en:
       cancellation_title: "Cancel this visit request"
       choice: "Choice %{n}"
       details: "Visit request details"
-      feedback_html: >
+      feedback_html: >-
         Need help or want to make a complaint? If you have a question or need
         any help with the online visits service, please
         <a href="%{url}">contact us</a>.
@@ -225,14 +225,14 @@ en:
       status: "Your visit is not booked yet"
       phone_no: "Phone:"
       email_address: "Email:"
-      when_to_check_spam: >
+      when_to_check_spam: >-
         If you don’t receive a confirmation email by %{when}, please check
         your spam or junk folder for it. You need to do this on a computer or
         tablet (rather than a smart phone).
-      when_to_expect_response: >
+      when_to_expect_response: >-
         We’ll email you by %{when} to confirm the date and time of your visit.
         Please don’t contact us any sooner than that, as we won’t be able to
         comment on booking requests that are being processed.
-      where_to_check_status_html: >
+      where_to_check_status_html: >-
        You can check whether your visit has been booked on the
        <a href="%{url}">visit status page</a>.
