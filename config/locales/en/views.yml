@@ -30,7 +30,7 @@ en:
       prison_id_hint: eg Cardiff
       prison_id_prompt: select a prison
       note_header: Please note
-      note: >
+      note:
         If you don’t enter any information for more than 20 minutes, then your
         session will time out and you’ll need to start again.
       next_step: Continue
@@ -38,7 +38,7 @@ en:
       title: Visitor 1
       your_details: Your details
       other_visitors: Other visitors
-      seating_arrangements: >
+      seating_arrangements:
         Seating arrangements at this prison allow 3 visitors over the age of 18
         plus 3 children under that age. Children may have to sit on your lap.
       additional_visitor_count: How many other visitors?
@@ -51,7 +51,7 @@ en:
       email_address: Email address
       email_address_hint: You’ll receive confirmation by email
       phone_no: Phone number
-      override_delivery_error: >
+      override_delivery_error:
         Tick this box to confirm you’d like us to try sending messages to you again.
     additional_visitors:
       visitor: 'Visitor %{n}'
@@ -60,7 +60,7 @@ en:
       date_of_birth: Date of birth
     slots_step:
       title: When do you want to visit?
-      choose_alternatives: >
+      choose_alternatives:
         Choose two alternative dates in case your first choice isn’t available.
       option_0: Option 1
       option_1: Option 2
@@ -78,7 +78,7 @@ en:
       visitor_n: "Visitor %{n}:"
       change_visitor_details: Change visitor details
       your_visit: Your visit
-      options_available: >
+      options_available:
         You can choose up to 2 alternative dates if your first choice isn’t
         available.
       first_choice: "First choice:"
@@ -94,7 +94,7 @@ en:
         Are you sure you wish to cancel this visit request?
         This will delete all the information you have entered
     contact_prison:
-      help_html: >
+      help_html:
         <a href="http://www.justice.gov.uk/contacts/prison-finder"
         rel="external">Contact the prison</a> if you can’t request a visit
         using this service.
@@ -104,7 +104,7 @@ en:
         today: Today
       edit:
         title: Process a visit request
-        introduction_html: >
+        introduction_html: |
           <ul>
             <li>
               book the visit in NOMIS first
@@ -135,14 +135,14 @@ en:
         reference_no: Reference number
         reference_no_hint: eg Last 8 digits of VO number or “none” for remand
         closed_visit: This is a closed visit
-        closed_visit_wording_html: >
+        closed_visit_wording_html: |
           <p>
             <strong>This is a closed visit:</strong> the prisoner will be
             behind a glass screen in a separate area rather than in the
             visiting hall.
           </p>
         none_available: None of the chosen times are available
-        none_available_explanation_html: >
+        none_available_explanation_html: |
           <p>
             Choose this option if:
           </p>
@@ -159,7 +159,7 @@ en:
               visit at the same time and they are incompatible
             </li>
           </ul>
-        none_available_wording_html: >
+        none_available_wording_html: |
           <p>
             We’re sorry but none of the dates and times you chose to visit
             %{prisoner} at %{prison} were available. Please visit
@@ -168,25 +168,25 @@ en:
       visiting_allowance_section:
         title: Visiting allowance
         no_allowance: The prisoner does not have any visiting allowance (VO)
-        no_allowance_wording_html: >
+        no_allowance_wording_html: |
           <p>
             We’re sorry, but the prisoner you want to visit has not got any
             visiting allowance left for the dates you’ve chosen.
           </p>
-        no_allowance_tell_more: >
+        no_allowance_tell_more:
           You can also tell the visitor more about the VO and PVO status:
-        allowance_will_renew: >
+        allowance_will_renew:
           Visiting allowance (weekends and weekday visits) (VO) will
           be renewed:
-        allowance_will_renew_wording_html: >
+        allowance_will_renew_wording_html: |
           <p>
             %{prisoner} will have their full visiting allowance (VO) renewed on
             <span class="date">[DATE NOT CHOSEN]</span>.
           </p>
-        privileged_allowance_available: >
+        privileged_allowance_available:
           If weekday visit (PVO) is possible instead, choose the date
           PVO expires:
-        privileged_allowance_available_wording_html: >
+        privileged_allowance_available_wording_html: |
           <p>
             However, you can book a weekday visit with visiting allowance valid
             until <span class="date">[DATE NOT CHOSEN]</date>.
@@ -195,7 +195,7 @@ en:
       issue_with_prisoner_section:
         title: Issue with the prisoner
         prisoner_details_incorrect: Prisoner details are incorrect
-        prisoner_details_incorrect_wording_html: >
+        prisoner_details_incorrect_wording_html: |
           <p>
             Your visit cannot take place as you haven’t given correct
             information for the prisoner. Eg, the prisoner’s name, number or
@@ -203,7 +203,7 @@ en:
             information.
           </p>
         prisoner_moved: Prisoner no longer at the prison
-        prisoner_moved_wording_html: >
+        prisoner_moved_wording_html: |
           <p>
             Your visit cannot take place as the prisoner you want to visit has
             moved prison. They should contact you about where they are now. You
@@ -213,7 +213,7 @@ en:
       issue_with_visitors_section:
         title: Issue with visitors
         visitor_not_on_list: Visitor isn’t on the contact list
-        visitor_not_on_list_wording_html: >
+        visitor_not_on_list_wording_html: |
           <p>
             Your visit cannot take place as details for
             <span class="CheckboxSummary-summary">[VISITOR NAME]</span> don’t
@@ -230,7 +230,7 @@ en:
           </p>
         visitor_not_on_list_label: "%{name} (%{date}) is not on the list"
         visitor_banned: Visitor is banned
-        visitor_banned_wording_html: >
+        visitor_banned_wording_html: |
           <p>
             Your visit cannot take place.
             <span class="CheckboxSummary-summary">[VISITOR NAME]</span> should
