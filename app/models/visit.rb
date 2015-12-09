@@ -33,6 +33,14 @@ class Visit < ActiveRecord::Base
     event :reject do
       transition requested: :rejected
     end
+
+    event :withdraw do
+      transition requested: :withdrawn
+    end
+
+    event :cancel do
+      transition booked: :canceled
+    end
   end
 
   delegate :age, :full_name, :anonymized_name, :number, :date_of_birth,
