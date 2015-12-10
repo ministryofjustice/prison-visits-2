@@ -96,7 +96,7 @@ the `BookingRequestCreator`.
 
 `Visitor` mixes in `Person` for name and age validations and calculations.
 
-## The visit request process
+## Requesting a visit
 
 The `StepsController` has only two actions, `index` and `create`, which means
 only one path, differentiated by `GET` or `POST`. It is completely stateless:
@@ -118,6 +118,18 @@ rendered.
 
 Finally, if all steps are complete, a `Visit` is created by
 `BookingRequestCreator` and the `completed` template is rendered.
+
+## Processing a request
+
+The `Prison::VisitsController` is used by prison staff to accept or reject a
+visit request. It instantiates a `BookingResponse` object which is responsible
+for validating the response. This ensures that a slot or rejection reason is
+selected, and that other essential details are present, such as which visitors
+are banned when that is the reason for rejection.
+
+When the `BookingResponse` is valid, it is handed to the `BookingResponder`,
+which updates the `Visit` record with the new `processing_state` and saves any
+other information required.
 
 ## Configuration
 
