@@ -37,6 +37,12 @@
   <p><%= t(".this_is_a_closed_visit_html") %></p>
 <% end %>
 
+<h1><%= t('.cancel_change_title') %></h1>
+
+<p>
+  <%= t('.cancel_html', url: visit_url(@visit)) %>
+</p>
+
 <p><%= t(".want_to_change") %></p>
 
 <h1><%= t(".questions_about_your_visit") %></h1>
