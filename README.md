@@ -198,3 +198,8 @@ build information to be returned by `/ping.json`. e.g.:
   "commit_id": "a444e4b05276ae7dc2b1d4224e551dfcbf768795"
 }
 ```
+### `ZENDESK_USERNAME`, `ZENDESK_TOKEN`, `ZENDESK_URL`
+
+These are required in order to submit user feedback to Zendesk.
+
+`ZENDESK_URL` defaults to `https://ministryofjustice.zendesk.com/api/v2`.

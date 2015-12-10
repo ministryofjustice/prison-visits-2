@@ -1,8 +1,11 @@
 en:
-  layout:
-    cookies:
-      intro: GOV.UK uses cookies to make the site simpler.
-      find_out_more: Find out more about cookies.
+  layouts:
+    application:
+      cookies_intro: GOV.UK uses cookies to make the site simpler.
+      cookies_find_out_more: Find out more about cookies.
+      cookies: Cookies
+      ts_and_cs: Terms and conditions
+      contact_us: Contact us
   booking_requests:
     hidden_inputs_for_calendars:
       option: Option %{n}
@@ -115,6 +118,38 @@ en:
     slot_picker:
       slot_picker_help: >-
         Use the arrows to put your visit choices in the order that suits you best.
+  feedback_submissions:
+    new:
+      title: Contact us
+      intro_html: >-
+        You can use this form to tell us about a problem you’re having with the
+        website. You must
+        <a href="http://www.justice.gov.uk/contacts/prison-finder">contact the
+        prison</a> if your question is about:
+      whether_booked: >-
+        whether your visit has been booked
+      cancelling_changing: >-
+        cancelling or changing visit details eg names of visitors, dates or
+        times
+      what_can_bring: >-
+        what you can bring when you visit, eg clothes or money
+      contact_lists: >-
+        prisoner’s contact lists or visiting allowance
+      not_able_to_help: >-
+        We’re not able to help with questions about the above.
+      no_sensitive_info: >-
+        Please don’t include any sensitive personal information (eg. prisoner
+        numbers).
+      feedback_form: Feedback form
+      body: Your question
+      want_reply_title: Do you want a reply?
+      want_reply_text: >-
+        If you’d like us to get back to you, please leave your details below.
+      email_address: Your email address
+      email_address_hint: We’ll only use this to reply to your message.
+      send: Send
+    create:
+      title: Thank you for your feedback
   prison:
     visits:
       calendar:
