@@ -1,0 +1,28 @@
+<h2><%= t('.title') %></h2>
+
+<p><%= t('.intro') %></p>
+
+<p><%= t('.not_received') %></p>
+
+<p><%= t('visits.shared.add_to_address_book_html') %></p>
+
+<h2><%= t('.cancel_title') %></h2>
+
+<p><%= t('.cancel_intro') %></p>
+
+<%= form_tag(cancellations_path) do %>
+  <%= hidden_field_tag(:id, @visit.id) %>
+
+  <div class="group">
+    <label class="block-label">
+      <%= check_box_tag(:confirmed) %>
+      <%= t('.cancel_confirm') %>
+    </label>
+  </div>
+
+  <div class='actions'>
+    <div class="primary-actions">
+      <%= submit_tag(t('.cancel_cta'), class: 'button button-primary') %>
+    </div>
+  </div>
+<% end %>

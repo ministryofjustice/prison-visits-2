@@ -15,6 +15,10 @@ FactoryGirl.define do
       v.prison.available_slots.first
     end
 
+    after(:create) do |v|
+      create :visitor, visit: v
+    end
+
     factory :visit_with_three_slots do
       slot_option_1 do |v|
         v.prison.available_slots.to_a[1]
@@ -26,6 +30,8 @@ FactoryGirl.define do
     end
 
     factory :booked_visit do
+      processing_state 'booked'
+
       slot_granted do |v|
         v.slot_option_0
       end
@@ -33,16 +39,18 @@ FactoryGirl.define do
       sequence :reference_no do |n|
         '%08d' % n
       end
+    end
 
-      processing_state 'booked'
+    factory :canceled_visit do
+      processing_state 'canceled'
     end
 
     factory :rejected_visit do
       processing_state 'rejected'
     end
 
-    after(:create) do |v|
-      create :visitor, visit: v
+    factory :withdrawn_visit do
+      processing_state 'withdrawn'
     end
   end
 end

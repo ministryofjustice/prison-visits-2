@@ -34,12 +34,11 @@ class Visit < ActiveRecord::Base
       transition requested: :rejected
     end
 
-    event :withdraw do
-      transition requested: :withdrawn
-    end
-
     event :cancel do
+      transition requested: :withdrawn
+      transition withdrawn: :withdrawn
       transition booked: :canceled
+      transition canceled: :canceled
     end
   end
 
