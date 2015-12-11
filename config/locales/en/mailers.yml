@@ -42,6 +42,10 @@ en:
         <strong>This is a closed visit:</strong>
         the prisoner will be behind a glass screen in a separate area rather
         than in the visiting hall.
+      cancel_change_title: Cancel or change this visit
+      cancel_html: >-
+        If you no longer want to visit on this date,
+        <a href="%{url}">you can cancel this visit</a>.
       want_to_change: >-
         If you want to change anything about your visit, like dates or visitors
         coming, contact the prison.
@@ -208,8 +212,10 @@ en:
         To stop visit confirmation emails going to your spam or junk folder
         please add %{email} to your address book or safe senders list.
       add_to_address_book: "Add this email to your address book"
-      cancel: "If you no longer want to visit on this date"
-      cancellation_title: "Cancel this visit request"
+      cancel_title: Cancel this visit request
+      cancel_html: >-
+        If you no longer want to visit on this date,
+        <a href="%{url}">you can cancel this visit</a>.
       choice: "Choice %{n}"
       details: "Visit request details"
       feedback_html: >-

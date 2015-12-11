@@ -17,7 +17,7 @@ RSpec.feature "overriding Sendgrid", js: true do
     include_context 'sendgrid reports spam'
 
     scenario 'overriding spam report' do
-      visit steps_path
+      visit booking_requests_path
       enter_prisoner_information
       click_button 'Continue'
       enter_visitor_information email_address: expected_email_address
@@ -49,7 +49,7 @@ RSpec.feature "overriding Sendgrid", js: true do
     include_context 'sendgrid reports a bounce'
 
     scenario 'overriding bounce' do
-      visit steps_path
+      visit booking_requests_path
       enter_prisoner_information
       click_button 'Continue'
       enter_visitor_information email_address: expected_email_address
@@ -78,7 +78,7 @@ RSpec.feature "overriding Sendgrid", js: true do
   end
 
   scenario 'when no overrides are present' do
-    visit steps_path
+    visit booking_requests_path
     enter_prisoner_information
     click_button 'Continue'
     enter_visitor_information email_address: expected_email_address

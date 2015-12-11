@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe StepsController do
+RSpec.describe BookingRequestsController do
   let(:prisoner_details) {
     {
       first_name: 'Oscar',

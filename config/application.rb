@@ -29,5 +29,9 @@ module PrisonVisits
     config.time_zone = 'London'
 
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.action_dispatch.rescue_responses.merge!(
+      'StateMachines::InvalidTransition' => :unprocessable_entity
+    )
   end
 end

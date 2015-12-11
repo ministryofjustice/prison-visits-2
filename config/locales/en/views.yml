@@ -3,7 +3,7 @@ en:
     cookies:
       intro: GOV.UK uses cookies to make the site simpler.
       find_out_more: Find out more about cookies.
-  steps:
+  booking_requests:
     prisoner_step:
       title: Who are you visiting?
       information_html: |
@@ -54,7 +54,7 @@ en:
       override_delivery_error: >-
         Tick this box to confirm you’d like us to try sending messages to you again.
     additional_visitors:
-      visitor: 'Visitor %{n}'
+      visitor: "Visitor %{n}"
       first_name: First name
       last_name: Last name
       date_of_birth: Date of birth
@@ -243,3 +243,59 @@ en:
     validation:
       heading: You need to fix the errors on this page before continuing.
       see_below: See highlighted errors below.
+  visits:
+    show:
+      title: Visit status
+    shared:
+      add_to_address_book_html: >-
+        To stop visit confirmation emails going to your spam or junk folder
+        please add
+        <span class="no-wrap">no-reply@email.prisonvisits.service.gov.uk</span>
+        to your address book or safe senders list.
+      request_new_visit_html: >-
+        Request a <a href="%{url}">new visit</a>
+      yes_cancel: Yes, I want to cancel this visit
+    booked:
+      title: Your visit has been confirmed
+      intro: >-
+        You should have received an email confirming the exact date and time of
+        your visit.
+      not_received: >-
+        If you haven’t received a confirmation email, please check your spam or
+        junk folder. You need to do this on a computer or tablet (rather than a
+        smart phone).
+      cancel_title: Cancel this visit
+      cancel_intro: >-
+        If you no longer want to visit on this date, you can cancel this visit.
+      cancel_confirm: Yes, I want to cancel this visit
+      cancel_cta: Cancel visit
+    rejected:
+      title: Your visit request cannot take place on the dates you’ve chosen
+      intro: >-
+        There are a couple of possible reasons for this, for example there may
+        be no space in the visiting hall, or the prisoner may not have any
+        visiting allowance left.
+      not_received: >-
+        If you haven’t received an email to say that your visit can’t take
+        place as planned, please check your spam or junk folder. You need to do
+        this on a computer or tablet (rather than a smart phone).
+    requested:
+      title: Your visit is not booked yet
+      intro: >-
+        Your visit request hasn’t yet been processed by visit booking staff.
+        You should get a visit confirmation email within 3 working days of
+        making your request.
+      not_received: >-
+        If you don’t receive an email within 3 working days, please check your
+        spam or junk folder. You need to do this on a computer or tablet
+        (rather than a smart phone).
+      cancel_title: Cancel this visit request
+      cancel_intro: >-
+        If you no longer want to visit on this date, you can cancel this
+        request.
+      cancel_confirm: Yes, I want to cancel this visit
+      cancel_cta: Cancel request
+    canceled:
+      title: You cancelled this visit
+    withdrawn:
+      title: You cancelled this visit request

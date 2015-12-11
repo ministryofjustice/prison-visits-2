@@ -80,6 +80,21 @@ This is the main table in the application, and contains the essential data for
 a visit: the prison, visit state, and primary visitor's contact information,
 and a reference to a prisoner.
 
+The `processing_state` of a visit is governed by a state machine, with the
+following states and transitions (note that for consistency with the rest of
+Ruby and Rails, US spelling conventions are used internally):
+
+
+     .---------.  withdraw  .---------.  reject  .--------.
+    ( withdrawn ) <------- ( requested ) -----> ( rejected )
+     '---------'            '---------'          '--------'
+                                 |
+                                 | accept
+                                 v
+                              .------.          .--------.
+                             ( booked ) -----> ( canceled )
+                              '------'  cancel  '--------'
+
 #### `Prisoner`
 
 At present, there is always a one-to-one correspondance between `Prison` and
@@ -98,11 +113,11 @@ the `BookingRequestCreator`.
 
 ## Requesting a visit
 
-The `StepsController` has only two actions, `index` and `create`, which means
-only one path, differentiated by `GET` or `POST`. It is completely stateless:
-progression through the steps is determined by the availability of complete
-information in the preceding steps, passed either as user-completed form fields
-or (in the case of preceding steps) as hidden fields.
+The `BookingRequestsController` has only two actions, `index` and `create`,
+which means only one path, differentiated by `GET` or `POST`. It is completely
+stateless: progression through the steps is determined by the availability of
+complete information in the preceding steps, passed either as user-completed
+form fields or (in the case of preceding steps) as hidden fields.
 
 The logic of processing steps and determining which step has been reached is
 handled by the `StepsProcessor` class.

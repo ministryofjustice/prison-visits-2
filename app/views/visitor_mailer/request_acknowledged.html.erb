@@ -46,11 +46,10 @@
   <strong><%= @visit.prisoner_number.upcase %></strong>
 </p>
 <h1>
-  <%= t('.cancellation_title') %>
+  <%= t('.cancel_title') %>
 </h1>
 <p>
-  <%= t('.cancel') %>
-  <%= link_to('TODO cancellation', '#') %>
+  <%= t('.cancel_html', url: visit_url(@visit)) %>
 </p>
 <ul>
   <li>
