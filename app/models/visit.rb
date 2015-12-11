@@ -22,7 +22,7 @@ class Visit < ActiveRecord::Base
 
   delegate :reason, to: :rejection, prefix: true
   delegate :privileged_allowance_available?, :privileged_allowance_expires_on,
-    :allowance_will_renew?,  :allowance_renews_on,
+    :allowance_will_renew?, :allowance_renews_on,
     to: :rejection
 
   state_machine :processing_state, initial: :requested do
