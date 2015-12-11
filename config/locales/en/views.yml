@@ -4,6 +4,20 @@ en:
       intro: GOV.UK uses cookies to make the site simpler.
       find_out_more: Find out more about cookies.
   booking_requests:
+    hidden_inputs_for_calendars:
+      option: Option %{n}
+      none: None
+    booking_calendar:
+      today: Today
+    booking_calendar_legend:
+      visit_days: Visit Days
+      non_visit_days: Non-visit Days
+    slot_picker_time_slots:
+      visit_in_the_past: It is not possible to book a visit in the past.
+      visit_today: It is not possible to book a visit on this day.
+      bookability_window: >-
+        You can only book a visit in the next %{days} days.
+      required_notice: You can only book a visit 3 working days in advance.
     prisoner_step:
       title: Who are you visiting?
       information_html: |
@@ -90,7 +104,7 @@ en:
       title: Your request is being processed
     cancel:
       link_text: Cancel and delete all details
-      confirmation: |
+      confirmation: >-
         Are you sure you wish to cancel this visit request?
         This will delete all the information you have entered
     contact_prison:
@@ -98,6 +112,9 @@ en:
         <a href="http://www.justice.gov.uk/contacts/prison-finder"
         rel="external">Contact the prison</a> if you can’t request a visit
         using this service.
+    slot_picker:
+      slot_picker_help: >-
+        Use the arrows to put your visit choices in the order that suits you best.
   prison:
     visits:
       calendar:
@@ -240,6 +257,15 @@ en:
           </p>
         visitor_banned_label: "%{name} (%{date}) is banned"
   shared:
+    slotpicker_templates:
+      one_slot_available: >-
+        Only one time is available on this day, select it to continue
+      choose_date_and_time: Choose a date and time from the calendar
+      promote: Promote
+      remove: Remove
+      today: Today
+      choose_two_alternatives: >-
+        Choose two alternative dates in case your first choice isn‘t available.
     validation:
       heading: You need to fix the errors on this page before continuing.
       see_below: See highlighted errors below.

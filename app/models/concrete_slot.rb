@@ -20,6 +20,15 @@ ConcreteSlot = Struct.new(
 
   alias_method :to_s, :iso8601
 
+  def to_date
+    Date.new(year, month, day)
+  end
+
+  def on?(date)
+    to_date == date
+  end
+
+  # We are explicitly parsing these as UTC, but this Rubocop cop isn't clever
   # We use UTC because we don't actually care about time zone offsets: booking
   # times are always given in terms of wall time, and we only use Time to give
   # us a convenient way to perform maths and to format dates and times for

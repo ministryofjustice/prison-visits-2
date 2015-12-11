@@ -35,6 +35,10 @@ class Prison < ActiveRecord::Base
     today + booking_window
   end
 
+  def bookable_date?(requested_date = Time.zone.today)
+    available_slots.any? { |slot| slot.on?(requested_date) }
+  end
+
   def confirm_by(today = Time.zone.today)
     ((today + 1)..last_bookable_date(today)).
       select { |d| processing_day?(d) }.
