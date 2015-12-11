@@ -1,8 +1,8 @@
 class Visit < ActiveRecord::Base
   belongs_to :prison
   belongs_to :prisoner
-  has_many :visitors
-  has_one :rejection
+  has_many :visitors, dependent: :destroy
+  has_one :rejection, dependent: :destroy
 
   validates :prison, :prisoner,
     :contact_email_address, :contact_phone_no, :slot_option_0,

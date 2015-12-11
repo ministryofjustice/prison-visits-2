@@ -7,7 +7,7 @@ class Prison < ActiveRecord::Base
   MAX_ADULTS = 3
   MIN_ADULTS = 1
 
-  has_many :visits
+  has_many :visits, dependent: :destroy
 
   validates :estate, :name, :nomis_id, :slot_details, presence: true
   validates :enabled, inclusion: { in: [true, false] }
