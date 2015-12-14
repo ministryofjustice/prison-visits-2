@@ -1,7 +1,7 @@
 <% content_for :header, "Why did I receive this email?" %>
 <p>
 <%= t('.you_received_an_email',
-      email: 'no-reply@email.prisonvisits.service.gov.uk') %>
+      email: Rails.configuration.address_book.no_reply) %>
 </p>
 <p>
   <%= t('.why') %>

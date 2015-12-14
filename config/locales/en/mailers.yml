@@ -58,8 +58,7 @@ en:
       add_to_address_book_title: Add this email to your address book
       add_to_address_book_body: >-
         To stop visit confirmation emails going to your spam or junk folder
-        please add no-reply@email.prisonvisits.service.gov.uk to your address
-        book or safe senders list.
+        please add %{email} to your address book or safe senders list.
       what_to_bring: What to bring when you visit
       id_requirements_html: |
         <p>

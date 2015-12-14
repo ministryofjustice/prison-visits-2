@@ -3,7 +3,7 @@ class FeedbackSubmission < ActiveRecord::Base
   validate :validate_email
 
   def email_address
-    super.present? ? super : 'feedback@email.prisonvisits.service.gov.uk'
+    super.present? ? super : Rails.configuration.address_book.feedback
   end
 
 private

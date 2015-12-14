@@ -25,14 +25,12 @@ RSpec.describe FeedbackSubmission do
 
   describe 'email_address' do
     it 'returns default when not set' do
-      expect(subject.email_address).
-        to eq('feedback@email.prisonvisits.service.gov.uk')
+      expect(subject.email_address).to eq('feedback@email.test.host')
     end
 
     it 'returns default when blank' do
       subject.email_address = ''
-      expect(subject.email_address).
-        to eq('feedback@email.prisonvisits.service.gov.uk')
+      expect(subject.email_address).to eq('feedback@email.test.host')
     end
 
     it 'returns explicitly assigned value' do

@@ -18,7 +18,7 @@
   <%= t('.add_to_address_book') %>
 </h1>
 <p>
-  <%= t('.add_address', email: 'no-reply@email.prisonvisits.service.gov.uk') %>
+  <%= t('.add_address', email: Rails.configuration.address_book.no_reply) %>
 </p>
 <h1>
   <%= t('.details') %>

@@ -183,7 +183,9 @@ environment to `https://www.prisonvisits.service.gov.uk/`.
 
 ### `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_HOSTNAME`, `SMTP_PORT`, `SMTP_DOMAIN`
 
-These configure email delivery in the production environment.
+These configure email delivery in the production environment. `SMTP_DOMAIN` is
+also used when generating the `no-reply@` address and the `feedback@` stand-in
+address used when submitting feedback without an email address to Zendesk.
 
 ## Files to be created on deployment
 

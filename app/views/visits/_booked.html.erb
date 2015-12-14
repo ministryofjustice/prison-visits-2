@@ -4,7 +4,8 @@
 
 <p><%= t('.not_received') %></p>
 
-<p><%= t('visits.shared.add_to_address_book_html') %></p>
+<p><%= t('visits.shared.add_to_address_book_html',
+         email: Rails.configuration.address_book.no_reply) %></p>
 
 <h2><%= t('.cancel_title') %></h2>
 

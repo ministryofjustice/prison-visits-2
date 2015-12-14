@@ -310,9 +310,8 @@ en:
     shared:
       add_to_address_book_html: >-
         To stop visit confirmation emails going to your spam or junk folder
-        please add
-        <span class="no-wrap">no-reply@email.prisonvisits.service.gov.uk</span>
-        to your address book or safe senders list.
+        please add <span class="no-wrap">%{email}</span> to your address book
+        or safe senders list.
       request_new_visit_html: >-
         Request a <a href="%{url}">new visit</a>
       yes_cancel: Yes, I want to cancel this visit
