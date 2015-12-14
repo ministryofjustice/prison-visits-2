@@ -183,7 +183,9 @@ environment to `https://www.prisonvisits.service.gov.uk/`.
 
 ### `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_HOSTNAME`, `SMTP_PORT`, `SMTP_DOMAIN`
 
-These configure email delivery in the production environment.
+These configure email delivery in the production environment. `SMTP_DOMAIN` is
+also used when generating the `no-reply@` address and the `feedback@` stand-in
+address used when submitting feedback without an email address to Zendesk.
 
 ## Files to be created on deployment
 
@@ -198,3 +200,8 @@ build information to be returned by `/ping.json`. e.g.:
   "commit_id": "a444e4b05276ae7dc2b1d4224e551dfcbf768795"
 }
 ```
+### `ZENDESK_USERNAME`, `ZENDESK_TOKEN`, `ZENDESK_URL`
+
+These are required in order to submit user feedback to Zendesk.
+
+`ZENDESK_URL` defaults to `https://ministryofjustice.zendesk.com/api/v2`.

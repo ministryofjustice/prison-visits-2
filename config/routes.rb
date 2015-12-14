@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :booking_requests, path: 'request', only: %i[ index create ]
   resources :visits, only: %i[ show ]
   resources :cancellations, path: 'cancel', only: %i[ create ]
+  resources :feedback_submissions, path: 'feedback', only: %i[ new create ]
 
   namespace :prison do
     resources :visits, only: %i[ edit update ]

@@ -21,8 +21,8 @@
 <% end %>
 
 <% content_for :cookie_message do %>
-  <%= t('layout.cookies.intro') %>
-  <%= link_to(t('layout.cookies.find_out_more'), '/') %>
+  <%= t('.cookies_intro') %>
+  <%= link_to(t('.cookies_find_out_more'), '/TODO-cookies') %>
 <% end %>
 
 <% content_for :content_override do %>
@@ -48,6 +48,15 @@
 <% end %>
 
 <% content_for :footer_support_links do %>
+  <li>
+    <%= link_to(t('.cookies'), '/TODO-cookies') %>
+  </li>
+  <li>
+    <%= link_to(t('.ts_and_cs'), '/TODO-terms-and-conditions') %>
+  </li>
+  <li>
+    <%= link_to(t('.contact_us'), new_feedback_submission_path) %>
+  </li>
 <% end %>
 
 <%= render(template: 'layouts/moj_template') %>
