@@ -11,7 +11,7 @@ Rails.application.configure do
 
   service_url = URI.parse(ENV.fetch('SERVICE_URL'))
   config.action_mailer.default_url_options = {
-    hostname: service_url.hostname, protocol: service_url.scheme
+    host: service_url.hostname, protocol: service_url.scheme
   }
 
   config.cache_classes = true
