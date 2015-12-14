@@ -83,5 +83,15 @@ RSpec.describe PrisonSeeder do
         "unbookable" => ["2015-11-04"]
       )
     end
+
+    it 'generates a default prison finder slug' do
+      subject.import filename, hash
+      expect(Prison.find(uuid).finder_slug).to eq('lunar-penal-colony')
+    end
+
+    it 'uses the supplied prison finder slug' do
+      subject.import filename, hash.merge('finder_slug' => 'luna')
+      expect(Prison.find(uuid).finder_slug).to eq('luna')
+    end
   end
 end
