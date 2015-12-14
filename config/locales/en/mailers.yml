@@ -55,8 +55,8 @@ en:
         your visit. Instead you must contact us directly.
       phone_no: "Phone:"
       email_address: "Email:"
-      add_to_address_book_title: Add this email to your address book
-      add_to_address_book_body: >-
+      avoid_spam_filtering_title: Add this email to your address book
+      avoid_spam_filtering_body: >-
         To stop visit confirmation emails going to your spam or junk folder
         please add %{email} to your address book or safe senders list.
       what_to_bring: What to bring when you visit
@@ -210,7 +210,7 @@ en:
       add_address: >-
         To stop visit confirmation emails going to your spam or junk folder
         please add %{email} to your address book or safe senders list.
-      add_to_address_book: "Add this email to your address book"
+      avoid_spam_filtering: "Add this email to your address book"
       cancel_title: Cancel this visit request
       cancel_html: >-
         If you no longer want to visit on this date,

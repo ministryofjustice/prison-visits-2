@@ -308,7 +308,7 @@ en:
     show:
       title: Visit status
     shared:
-      add_to_address_book_html: >-
+      avoid_spam_filtering_html: >-
         To stop visit confirmation emails going to your spam or junk folder
         please add <span class="no-wrap">%{email}</span> to your address book
         or safe senders list.
