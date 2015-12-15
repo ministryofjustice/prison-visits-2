@@ -15,4 +15,6 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 
   config.mx_checker = MxChecker::Dummy.new
+
+  config.active_job.queue_adapter = :sidekiq
 end
