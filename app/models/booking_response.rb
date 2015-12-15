@@ -31,6 +31,7 @@ class BookingResponse
     :prisoner_full_name, :prisoner_number, :prisoner_date_of_birth,
     :contact_email_address, :contact_phone_no,
     :visitors,
+    :processable?, :processing_state_name,
     to: :visit
   delegate :name, to: :prison, prefix: true
   delegate :visitors, to: :visit

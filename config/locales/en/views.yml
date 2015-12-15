@@ -169,6 +169,10 @@ en:
             </li>
           </ul>
         submit: Send email
+        booked: This request has already been accepted
+        cancelled: The visitor has cancelled this booking
+        rejected: This request has already been rejected
+        withdrawn: The visitor has withdrawn this request
       people_box:
         prisoner: "Prisoner:"
         number: "Number:"

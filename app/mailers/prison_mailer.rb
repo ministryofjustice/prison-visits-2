@@ -38,7 +38,7 @@ class PrisonMailer < ActionMailer::Base
   def canceled(visit)
     @visit = visit
 
-    headers('X-Priority' => '1 (Highest)', 'X-MSMail-Priority' => 'High')
+    mark_this_highest_priority
     mail(
       to: visit.prison_email_address,
       subject: default_i18n_subject(
@@ -47,5 +47,11 @@ class PrisonMailer < ActionMailer::Base
         status: visit.processing_state.upcase
       )
     )
+  end
+
+private
+
+  def mark_this_highest_priority
+    headers('X-Priority' => '1 (Highest)', 'X-MSMail-Priority' => 'High')
   end
 end
