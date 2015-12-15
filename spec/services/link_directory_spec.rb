@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe LinkDirectory do
   subject {
-    described_class.new(prison_finder: 'http://pf.example.com/find')
+    described_class.new(prison_finder: 'http://pf.example.com/find{/prison}')
   }
 
   describe 'prison_finder' do
