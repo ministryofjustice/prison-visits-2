@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.feature 'Maintaining a visit', js: true do
+  include ActiveJobHelper
+
   scenario 'viewing and withdrawing a visit request' do
     vst = create(:visit)
     visit visit_path(vst)
@@ -10,6 +12,9 @@ RSpec.feature 'Maintaining a visit', js: true do
     click_button 'Cancel request'
     expect(vst.reload).to be_withdrawn
     expect(page).to have_text('You cancelled this visit request')
+    expect(vst.prison_email_address).
+      to receive_email.
+      with_subject(/WITHDRAWN/)
   end
 
   scenario 'viewing and cancelling a booked visit' do
@@ -21,6 +26,9 @@ RSpec.feature 'Maintaining a visit', js: true do
     click_button 'Cancel visit'
     expect(vst.reload).to be_canceled
     expect(page).to have_text('You cancelled this visit')
+    expect(vst.prison_email_address).
+      to receive_email.
+      with_subject(/CANCELED/)
   end
 
   scenario 'viewing a rejected visit' do
