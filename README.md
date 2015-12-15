@@ -146,6 +146,26 @@ When the `BookingResponse` is valid, it is handed to the `BookingResponder`,
 which updates the `Visit` record with the new `processing_state` and saves any
 other information required.
 
+## Queues
+
+In the development and production environments, queues are backed by Redis via
+Sidekiq. To run the consumers:
+
+```
+$ bundle exec sidekiq
+```
+
+**NOTE**: The queue consumers **must** be restarted when the application is
+updated.
+
+An interface to the queues is available by running the Sidekiq web interface:
+
+```sh
+$ bundle exec rackup sidekiq-admin.ru
+```
+
+This requires the `SESSION_SECRET_KEY` environment variable (see below).
+
 ## Configuration
 
 ### Development
@@ -180,6 +200,10 @@ generate a secure secret key.
 
 This is used to build links in emails. It must be set in the production
 environment to `https://www.prisonvisits.service.gov.uk/`.
+
+### `SESSION_SECRET_KEY`
+
+This is used to sign the session used by the Sidekiq admin interface.
 
 ### `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_HOSTNAME`, `SMTP_PORT`, `SMTP_DOMAIN`
 
