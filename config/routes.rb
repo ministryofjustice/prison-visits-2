@@ -11,5 +11,9 @@ Rails.application.routes.draw do
   end
 
   get 'unsubscribe' => 'high_voltage/pages#show', id: 'unsubscribe'
-  get 'ping' => 'ping#index'
+
+  constraints format: 'json' do
+    get 'ping', to: 'ping#index'
+    get 'healthcheck', to: 'healthcheck#index'
+  end
 end
