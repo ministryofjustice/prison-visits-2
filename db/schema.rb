@@ -11,24 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211145100) do
+ActiveRecord::Schema.define(version: 20151215105705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
   create_table "feedback_submissions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.text   "body",          null: false
-    t.string "email_address"
-    t.string "referrer"
-    t.string "user_agent"
+    t.text     "body",          null: false
+    t.string   "email_address"
+    t.string   "referrer"
+    t.string   "user_agent"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "prisoners", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string "first_name",    null: false
-    t.string "last_name",     null: false
-    t.date   "date_of_birth", null: false
-    t.string "number",        null: false
+    t.string   "first_name",    null: false
+    t.string   "last_name",     null: false
+    t.date     "date_of_birth", null: false
+    t.string   "number",        null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "prisons", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
@@ -49,10 +53,12 @@ ActiveRecord::Schema.define(version: 20151211145100) do
   end
 
   create_table "rejections", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid   "visit_id",                        null: false
-    t.date   "allowance_renews_on"
-    t.date   "privileged_allowance_expires_on"
-    t.string "reason",                          null: false
+    t.uuid     "visit_id",                        null: false
+    t.date     "allowance_renews_on"
+    t.date     "privileged_allowance_expires_on"
+    t.string   "reason",                          null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   add_index "rejections", ["visit_id"], name: "index_rejections_on_visit_id", unique: true, using: :btree
