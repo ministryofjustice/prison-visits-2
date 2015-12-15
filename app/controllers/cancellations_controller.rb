@@ -1,7 +1,7 @@
 class CancellationsController < ApplicationController
   def create
     visit = Visit.find(params[:id])
-    if confirmed?
+    if cancellation_confirmed?
       visit.cancel!
       PrisonMailer.canceled(visit).deliver_later
     end
@@ -10,7 +10,7 @@ class CancellationsController < ApplicationController
 
 private
 
-  def confirmed?
+  def cancellation_confirmed?
     params[:confirmed].present?
   end
 end
