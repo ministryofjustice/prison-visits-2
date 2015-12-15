@@ -37,7 +37,7 @@ RSpec.describe Visit, type: :model do
     it 'is cancelled after cancellation if accepted' do
       subject.accept!
       subject.cancel!
-      expect(subject).to be_canceled
+      expect(subject).to be_cancelled
     end
 
     it 'is not processable after booking' do

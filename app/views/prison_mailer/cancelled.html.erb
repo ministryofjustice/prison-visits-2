@@ -1,13 +1,13 @@
 <p><%= t('.salutation') %></p>
 
 <p>
-<%= t('.details',
-      visitor: @visit.visitor_full_name,
-      prisoner: @visit.prisoner_full_name,
-      prisoner_number: @visit.prisoner_number,
-      date: format_slot_for_staff(@visit.slots.first)
-     )
- %>
+  <%= t('.details',
+          visitor: @visit.visitor_full_name,
+          prisoner: @visit.prisoner_full_name,
+          prisoner_number: @visit.prisoner_number,
+          date: format_slot_for_staff(@visit.slots.first)
+       )
+  %>
 </p>
 
 <% if @visit.reference_no %>

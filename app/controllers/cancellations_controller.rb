@@ -3,7 +3,7 @@ class CancellationsController < ApplicationController
     visit = Visit.find(params[:id])
     if cancellation_confirmed?
       visit.cancel!
-      PrisonMailer.canceled(visit).deliver_later
+      PrisonMailer.cancelled(visit).deliver_later
     end
     redirect_to visit_path(visit)
   end

@@ -24,11 +24,11 @@ RSpec.feature 'Maintaining a visit', js: true do
 
     check 'Yes, I want to cancel this visit'
     click_button 'Cancel visit'
-    expect(vst.reload).to be_canceled
+    expect(vst.reload).to be_cancelled
     expect(page).to have_text('You cancelled this visit')
     expect(vst.prison_email_address).
       to receive_email.
-      with_subject(/CANCELED/)
+      with_subject(/CANCELLED/)
   end
 
   scenario 'viewing a rejected visit' do
@@ -50,7 +50,7 @@ RSpec.feature 'Maintaining a visit', js: true do
   end
 
   scenario 'viewing a cancelled visit and trying again' do
-    vst = create(:canceled_visit)
+    vst = create(:cancelled_visit)
     visit visit_path(vst)
     expect(page).to have_text('You cancelled this visit')
 

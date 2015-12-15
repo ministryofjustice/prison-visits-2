@@ -38,8 +38,8 @@ RSpec.feature 'Processing a request', js: true do
     end
   end
 
-  context 'with a canceled visit' do
-    let(:vst) { create(:canceled_visit) }
+  context 'with a cancelled visit' do
+    let(:vst) { create(:cancelled_visit) }
 
     scenario 'is not allowed' do
       expect(page.body).to have_content('The visitor has cancelled this booking')

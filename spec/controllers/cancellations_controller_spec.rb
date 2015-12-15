@@ -38,7 +38,7 @@ RSpec.describe CancellationsController, type: :controller do
 
         it 'cancels the visit' do
           post :create, params
-          expect(visit.reload).to be_canceled
+          expect(visit.reload).to be_cancelled
         end
 
         it 'redirects to the visit page' do
@@ -57,11 +57,11 @@ RSpec.describe CancellationsController, type: :controller do
       end
 
       context 'when the booking has been cancelled' do
-        let(:visit) { create(:canceled_visit) }
+        let(:visit) { create(:cancelled_visit) }
 
         it 'does not change the visit' do
           post :create, params
-          expect(visit.reload).to be_canceled
+          expect(visit.reload).to be_cancelled
         end
 
         it 'redirects to the visit page' do

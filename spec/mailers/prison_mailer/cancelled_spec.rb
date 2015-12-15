@@ -1,16 +1,16 @@
 require 'rails_helper'
 require 'mailers/shared_mailer_examples'
 
-RSpec.describe PrisonMailer, '.canceled' do
+RSpec.describe PrisonMailer, '.cancelled' do
   let(:prisoner) {
-      create(
-        :prisoner,
-        first_name: 'Arthur',
-        last_name: 'Raffles'
-      )
+    create(
+      :prisoner,
+      first_name: 'Arthur',
+      last_name: 'Raffles'
+    )
   }
 
-  let(:mail) { described_class.canceled(visit) }
+  let(:mail) { described_class.cancelled(visit) }
 
   around do |example|
     ActionMailer::Base.deliveries.clear
@@ -20,7 +20,7 @@ RSpec.describe PrisonMailer, '.canceled' do
   end
 
   context 'cancelled visit' do
-    let(:visit) { create(:canceled_visit, prisoner: prisoner) }
+    let(:visit) { create(:cancelled_visit, prisoner: prisoner) }
     include_examples 'template checks'
 
     it 'sends an email notifyting the prison of the cancellation' do

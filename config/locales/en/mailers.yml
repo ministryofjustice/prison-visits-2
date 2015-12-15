@@ -27,7 +27,7 @@ en:
         COPY of booking rejection for %{prisoner}
       copy_of_rejection: >-
         This is a copy of the booking rejection email sent to the visitor
-    canceled:
+    cancelled:
       subject: "%{status}: %{prisoner} on %{date}"
       salutation: Dear staff,
       details: >-

@@ -81,9 +81,7 @@ a visit: the prison, visit state, and primary visitor's contact information,
 and a reference to a prisoner.
 
 The `processing_state` of a visit is governed by a state machine, with the
-following states and transitions (note that for consistency with the rest of
-Ruby and Rails, US spelling conventions are used internally):
-
+following states and transitions:
 
      .---------.  withdraw  .---------.  reject  .--------.
     ( withdrawn ) <------- ( requested ) -----> ( rejected )
@@ -92,7 +90,7 @@ Ruby and Rails, US spelling conventions are used internally):
                                  | accept
                                  v
                               .------.          .--------.
-                             ( booked ) -----> ( canceled )
+                             ( booked ) -----> ( cancelled )
                               '------'  cancel  '--------'
 
 #### `Prisoner`

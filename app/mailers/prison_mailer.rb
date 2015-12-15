@@ -35,7 +35,7 @@ class PrisonMailer < ActionMailer::Base
          )
   end
 
-  def canceled(visit)
+  def cancelled(visit)
     @visit = visit
 
     mark_this_highest_priority

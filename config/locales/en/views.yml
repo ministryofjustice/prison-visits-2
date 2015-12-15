@@ -357,7 +357,7 @@ en:
         request.
       cancel_confirm: Yes, I want to cancel this visit
       cancel_cta: Cancel request
-    canceled:
+    cancelled:
       title: You cancelled this visit
     withdrawn:
       title: You cancelled this visit request

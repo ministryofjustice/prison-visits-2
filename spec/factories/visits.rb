@@ -41,8 +41,8 @@ FactoryGirl.define do
       end
     end
 
-    factory :canceled_visit do
-      processing_state 'canceled'
+    factory :cancelled_visit do
+      processing_state 'cancelled'
     end
 
     factory :rejected_visit do
