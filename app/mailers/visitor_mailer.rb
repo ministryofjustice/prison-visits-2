@@ -3,6 +3,7 @@ class VisitorMailer < ActionMailer::Base
   include NoReply
   include DateHelper
   add_template_helper DateHelper
+  add_template_helper LinksHelper
 
   layout 'email'
 
