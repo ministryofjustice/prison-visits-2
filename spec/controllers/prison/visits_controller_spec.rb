@@ -5,8 +5,8 @@ RSpec.describe Prison::VisitsController, type: :controller do
     create(:visit)
   }
 
-  it 'renders the edit template when the submission is invalid' do
+  it 'renders the show template when the submission is invalid' do
     put :update, id: visit.id, booking_response: { selection: 'slot_0' }
-    expect(response).to render_template('edit')
+    expect(response).to render_template('show')
   end
 end

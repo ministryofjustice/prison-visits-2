@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :feedback_submissions, path: 'feedback', only: %i[ new create ]
 
   namespace :prison do
-    resources :visits, only: %i[ edit update ]
+    resources :visits, only: %i[ show update ]
   end
 
   get 'unsubscribe' => 'high_voltage/pages#show', id: 'unsubscribe'
