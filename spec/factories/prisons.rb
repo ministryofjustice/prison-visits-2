@@ -14,6 +14,10 @@ FactoryGirl.define do
       FFaker::AddressUK.city
     end
 
+    finder_slug do |p|
+      p.name.parameterize
+    end
+
     address do
       FFaker::AddressUK.street_address
     end

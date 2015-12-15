@@ -13,4 +13,11 @@ class BookingRequestsController < ApplicationController
     @steps = processor.steps
     render processor.template_name
   end
+
+private
+
+  def prison
+    @steps.fetch(:prisoner_step).prison
+  end
+  helper_method :prison
 end

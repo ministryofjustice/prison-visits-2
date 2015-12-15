@@ -112,9 +112,8 @@ en:
         This will delete all the information you have entered
     contact_prison:
       help_html: >-
-        <a href="http://www.justice.gov.uk/contacts/prison-finder"
-        rel="external">Contact the prison</a> if you can’t request a visit
-        using this service.
+        <a href="%{url}" rel="external">Contact the prison</a> if you can’t
+        request a visit using this service.
     slot_picker:
       slot_picker_help: >-
         Use the arrows to put your visit choices in the order that suits you best.
@@ -123,9 +122,8 @@ en:
       title: Contact us
       intro_html: >-
         You can use this form to tell us about a problem you’re having with the
-        website. You must
-        <a href="http://www.justice.gov.uk/contacts/prison-finder">contact the
-        prison</a> if your question is about:
+        website. You must <a href="%{url}">contact the prison</a> if your
+        question is about:
       whether_booked: >-
         whether your visit has been booked
       cancelling_changing: >-

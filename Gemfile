@@ -17,6 +17,7 @@ gem 'sinatra'
 gem 'state_machines-activerecord'
 gem 'string_scrubber'
 gem 'uglifier', '>= 1.3.0'
+gem 'uri_template'
 gem 'virtus'
 gem 'zendesk_api'
 

@@ -1,0 +1,24 @@
+name: Lunar Penal Colony
+nomis_id: LNX
+address:
+- Outer Rim
+- Eratosthenes
+- Mare Imbrium
+- Luna
+booking_window: 28
+email: luna@hmps.gsi.gov.uk
+enabled: true
+estate: Luna
+phone: 0115 4960123
+slot_anomalies:
+  2015-05-25:
+  - 1330-1430
+  2015-08-31:
+  - 1330-1430
+slots:
+  mon:
+  - 1330-1430
+  tue:
+  - 1330-1430
+unbookable:
+- 2015-11-04

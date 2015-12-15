@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20151215105705) do
     t.integer  "lead_days",                    default: 3,     null: false
     t.boolean  "weekend_processing",           default: false, null: false
     t.integer  "adult_age",                                    null: false
+    t.string   "finder_slug",                                  null: false
   end
 
   create_table "rejections", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
