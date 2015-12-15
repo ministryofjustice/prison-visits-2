@@ -1,7 +1,10 @@
 class CancellationsController < ApplicationController
   def create
     visit = Visit.find(params[:id])
-    visit.cancel! if confirmed?
+    if confirmed?
+      visit.cancel!
+      PrisonMailer.canceled(visit).deliver_later
+    end
     redirect_to visit_path(visit)
   end
 

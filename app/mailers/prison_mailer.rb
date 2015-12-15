@@ -34,4 +34,18 @@ class PrisonMailer < ActionMailer::Base
            prisoner: visit.prisoner_full_name
          )
   end
+
+  def canceled(visit)
+    @visit = visit
+
+    headers('X-Priority' => '1 (Highest)', 'X-MSMail-Priority' => 'High')
+    mail(
+      to: visit.prison_email_address,
+      subject: default_i18n_subject(
+        prisoner: visit.prisoner_full_name,
+        date: format_date_without_year(visit.slots.first.begin_at),
+        status: visit.processing_state.upcase
+      )
+    )
+  end
 end
