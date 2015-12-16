@@ -185,6 +185,11 @@ otherwise. On production, this must be set to
 [https://www.gov.uk/prison-visits](https://www.gov.uk/prison-visits), the
 official start page for the service.
 
+### `PRISON_ESTATE_IPS`
+
+A semicolon- or comma-separated list of IP addresses or CIDR ranges. Users on
+these addresses can access the prison booking admin pages.
+
 ### `SECRET_KEY_BASE`
 
 This key is used to verify the integrity of signed cookies. If it is changed,

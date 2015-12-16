@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  prison_ip_matcher =
+    IpAddressMatcher.new(Rails.configuration.prison_ip_ranges)
+
   get '/', to: redirect(ENV.fetch('GOVUK_START_PAGE', '/request'))
 
   resources :booking_requests, path: 'request', only: %i[ index create ]
@@ -6,8 +9,10 @@ Rails.application.routes.draw do
   resources :cancellations, path: 'cancel', only: %i[ create ]
   resources :feedback_submissions, path: 'feedback', only: %i[ new create ]
 
-  namespace :prison do
-    resources :visits, only: %i[ show update ]
+  constraints ip: prison_ip_matcher do
+    namespace :prison do
+      resources :visits, only: %i[ show update ]
+    end
   end
 
   get 'unsubscribe' => 'high_voltage/pages#show', id: 'unsubscribe'
