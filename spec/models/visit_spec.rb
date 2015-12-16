@@ -30,36 +30,6 @@ RSpec.describe Visit, type: :model do
     end
   end
 
-  describe 'prisoner_age' do
-    it 'calculates age' do
-      subject.prisoner_date_of_birth = Date.new(1995, 10, 8)
-      expect(subject.prisoner_age).to eq(20)
-    end
-  end
-
-  describe 'prisoner_full_name' do
-    it 'joins first and last name' do
-      subject.prisoner_first_name = 'Oscar'
-      subject.prisoner_last_name = 'Wilde'
-      expect(subject.prisoner_full_name).to eq('Oscar Wilde')
-    end
-  end
-
-  describe 'visitor_age' do
-    it 'calculates age' do
-      subject.visitor_date_of_birth = Date.new(1995, 10, 8)
-      expect(subject.visitor_age).to eq(20)
-    end
-  end
-
-  describe 'visitor_full_name' do
-    it 'joins first and last name' do
-      subject.visitor_first_name = 'Oscar'
-      subject.visitor_last_name = 'Wilde'
-      expect(subject.visitor_full_name).to eq('Oscar Wilde')
-    end
-  end
-
   describe 'slots' do
     it 'lists only slots that are present' do
       subject.slot_option_0 = '2015-11-06T16:00/17:00'

@@ -46,6 +46,11 @@ Style/CollectionMethods:
 Style/DotPosition:
   EnforcedStyle: trailing
 
+# The holidays file has extra spaces for ease of reading and comparison
+Style/ExtraSpacing:
+  Exclude:
+    - 'config/initializers/holidays.rb'
+
 # Percent-formatting and hash interpolation both have their place. Don't
 # enforce any particular one.
 Style/FormatString:
@@ -59,6 +64,10 @@ Style/SymbolProc:
   Exclude:
     - 'spec/factories/**/*'
 
+# You can't use attr_reader to define a foo? method from @foo.
+Style/TrivialAccessors:
+  AllowPredicates: true
+
 Metrics/LineLength:
   Max: 80
   Exclude:
@@ -70,6 +79,11 @@ Metrics/MethodLength:
   Exclude:
     - 'spec/**/*'
     - 'app/helpers/form_elements_helper.rb'
+
+# Don't worry about the complexity of spec methods
+Metrics/AbcSize:
+  Exclude:
+    - 'spec/**/*'
 
 # Enforce single quotes everywhere except in specs (because there's a lot of
 # human text with apostrophes in spec names, and using double quotes for all

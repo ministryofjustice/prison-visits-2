@@ -1,29 +1,58 @@
 module FeaturesHelper
-  def enter_prisoner_information
-    fill_in 'Prisoner first name', with: 'Oscar'
-    fill_in 'Prisoner last name', with: 'Wilde'
-    fill_in 'Day', with: '31'
-    fill_in 'Month', with: '12'
-    fill_in 'Year', with: '1980'
-    fill_in 'Prisoner number', with: 'a1234bc'
-    select_prison 'Reading Gaol'
+  def enter_prisoner_information(options = {})
+    options = {
+      first_name: 'Oscar',
+      last_name: 'Wilde',
+      date_of_birth: Date.new(1980, 12, 31),
+      number: 'a1234bc',
+      prison_name: 'Reading Gaol'
+    }.merge(options)
+
+    fill_in 'Prisoner first name', with: options.fetch(:first_name)
+    fill_in 'Prisoner last name', with: options.fetch(:last_name)
+    fill_in 'Day', with: options.fetch(:date_of_birth).mday
+    fill_in 'Month', with: options.fetch(:date_of_birth).month
+    fill_in 'Year', with: options.fetch(:date_of_birth).year
+    fill_in 'Prisoner number', with: options.fetch(:number)
+    select_prison options.fetch(:prison_name)
   end
 
-  def enter_visitor_information(expected_email_address)
-    fill_in 'Your first name', with: 'Ada'
-    fill_in 'Your last name', with: 'Lovelace'
-    fill_in 'Day', with: '30'
-    fill_in 'Month', with: '11'
-    fill_in 'Year', with: '1970'
-    fill_in 'Email address', with: expected_email_address
-    fill_in 'Phone number', with: '01154960222'
+  def enter_visitor_information(options = {})
+    options = {
+      first_name: 'Ada',
+      last_name: 'Lovelace',
+      date_of_birth: Date.new(1970, 11, 30),
+      prison_name: 'Reading Gaol',
+      email_address: 'user@test.example.com',
+      phone_no: '01154960222',
+      index: 0
+    }.merge(options)
+
+    index = options.fetch(:index)
+
+    within "#visitor-#{index}" do
+      if index.zero?
+        fill_in 'Your first name', with: options.fetch(:first_name)
+        fill_in 'Your last name', with: options.fetch(:last_name)
+        fill_in 'Email address', with: options.fetch(:email_address)
+        fill_in 'Phone number', with: options.fetch(:phone_no)
+      else
+        fill_in 'First name', with: options.fetch(:first_name)
+        fill_in 'Last name', with: options.fetch(:last_name)
+      end
+
+      fill_in 'Day', with: options.fetch(:date_of_birth).mday
+      fill_in 'Month', with: options.fetch(:date_of_birth).month
+      fill_in 'Year', with: options.fetch(:date_of_birth).year
+    end
   end
 
-  def select_a_slot
-    available_slots = all('#slots_step_option_0 option').map(&:text)
-    select available_slots[1], from: 'Option 1'
-    select available_slots[2], from: 'Option 1'
-    select available_slots[3], from: 'Option 1'
+  def select_slots(how_many = 3)
+    how_many.times do |n|
+      all(".BookingCalendar-date--bookable .BookingCalendar-dateLink")[n].
+        trigger('click')
+      first('.SlotPicker-slot').trigger('click')
+    end
   end
 
   def select_prison(name)

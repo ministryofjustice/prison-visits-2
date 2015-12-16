@@ -3,16 +3,16 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
-      "fingerprint": "00766078cf5ed006759a71b03f499e02551988ed509e1bfce45a837506b95c07",
+      "fingerprint": "c4314766d2ae3b02a73119cf21acd50b3fe491c556e3fcd8a18169c60232fb5d",
       "message": "Render path contains parameter value",
-      "file": "app/controllers/steps_controller.rb",
+      "file": "app/controllers/booking_requests_controller.rb",
       "line": 7,
       "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(action => StepsProcessor.new(params).template_name, {})",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "StepsController",
+        "class": "BookingRequestsController",
         "method": "index"
       },
       "user_input": "params",
@@ -22,16 +22,16 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
-      "fingerprint": "b9a8d16e81f54d9b65e6e28158e4ff45d0b68cab7bafd8aabf2daaa0198c2817",
+      "fingerprint": "ad3bc440f9388ccc87d460128867b7f34f9a5648a5e357b9d7c2d222e8555761",
       "message": "Render path contains parameter value",
-      "file": "app/controllers/steps_controller.rb",
+      "file": "app/controllers/booking_requests_controller.rb",
       "line": 14,
       "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(action => StepsProcessor.new(params).template_name, {})",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "StepsController",
+        "class": "BookingRequestsController",
         "method": "create"
       },
       "user_input": "params",
@@ -39,6 +39,6 @@
       "note": ""
     }
   ],
-  "updated": "2015-10-27 11:18:49 +0000",
+  "updated": "2015-12-09 08:48:29 +0000",
   "brakeman_version": "3.0.5"
 }

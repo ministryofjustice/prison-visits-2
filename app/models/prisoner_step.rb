@@ -2,6 +2,9 @@ class PrisonerStep
   include NonPersistedModel
   include Person
 
+  attribute :first_name, String
+  attribute :last_name, String
+  attribute :date_of_birth, Date
   attribute :number, String
   attribute :prison_id, Integer
 
@@ -13,6 +16,6 @@ class PrisonerStep
   delegate :name, to: :prison, prefix: true
 
   def prison
-    Prison.find(prison_id)
+    Prison.find_by(id: prison_id)
   end
 end

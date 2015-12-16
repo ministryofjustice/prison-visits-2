@@ -7,7 +7,7 @@ en:
       year: Year
     formats:
       date_of_birth: "%-d %B %Y" # 24 July 2014
-      date_of_visit: "%A %-d %B" # Thursday 24 July
+      date_without_year: "%A %-d %B" # Thursday 24 July
   time:
     formats:
       twelve_hour: "%-l:%M%P"   # 1:30pm

@@ -1,0 +1,9 @@
+<% content_for :header do %>
+  <%= t('.title') %>
+<% end %>
+
+<div class="Grid">
+  <div class="Grid-2-3">
+    <%= render(partial: @visit.processing_state) %>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.action_mailer.smtp_settings = {}
+  config.action_mailer.smtp_settings = { domain: 'email.test.host' }
   config.cache_classes = true
   config.eager_load = false
   config.serve_static_files   = true

@@ -5,7 +5,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options =
-    { host: 'localhost', protocol: 'https', port: '3000' }
+    { host: 'localhost', protocol: 'http', port: '3000' }
   config.action_mailer.smtp_settings =
     { address: 'localhost', port: 1025, domain: 'localhost' }
   config.active_support.deprecation = :log
@@ -15,4 +15,6 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 
   config.mx_checker = MxChecker::Dummy.new
+
+  config.active_job.queue_adapter = :sidekiq
 end

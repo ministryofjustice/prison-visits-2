@@ -7,8 +7,11 @@ RSpec.describe PrisonMailer, '.rejected' do
       :rejection,
       visit: create(
         :rejected_visit,
-        prisoner_first_name: 'Arthur',
-        prisoner_last_name: 'Raffles'
+        prisoner: create(
+          :prisoner,
+          first_name: 'Arthur',
+          last_name: 'Raffles'
+        )
       )
     )
   }

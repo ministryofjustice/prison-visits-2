@@ -14,6 +14,10 @@ FactoryGirl.define do
       FFaker::AddressUK.city
     end
 
+    finder_slug do |p|
+      p.name.parameterize
+    end
+
     address do
       FFaker::AddressUK.street_address
     end
@@ -24,6 +28,10 @@ FactoryGirl.define do
 
     sequence :phone_no do |n|
       '01154960%03d' % n
+    end
+
+    adult_age do
+      10 + rand(9)
     end
 
     slot_details recurring: {

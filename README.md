@@ -76,24 +76,48 @@ slots are determined by the recurring weekly pattern.
 
 #### `Visit`
 
-This is the main table in the application, and contains all the essential data
-for a visit: the prison, prisoner details, and primary visitor's details and
-contact information.
+This is the main table in the application, and contains the essential data for
+a visit: the prison, visit state, and primary visitor's contact information,
+and a reference to a prisoner.
 
-#### `AdditionalVisitor`
+The `processing_state` of a visit is governed by a state machine, with the
+following states and transitions (note that for consistency with the rest of
+Ruby and Rails, US spelling conventions are used internally):
 
-These reference a `Visit` and are separated because:
 
-* There may be zero or many of them.
-* They have different (i.e. less) information than the primary visitor.
+     .---------.  withdraw  .---------.  reject  .--------.
+    ( withdrawn ) <------- ( requested ) -----> ( rejected )
+     '---------'            '---------'          '--------'
+                                 |
+                                 | accept
+                                 v
+                              .------.          .--------.
+                             ( booked ) -----> ( canceled )
+                              '------'  cancel  '--------'
 
-## The visit request process
+#### `Prisoner`
 
-The `StepsController` has only two actions, `index` and `create`, which means
-only one path, differentiated by `GET` or `POST`. It is completely stateless:
-progression through the steps is determined by the availability of complete
-information in the preceding steps, passed either as user-completed form fields
-or (in the case of preceding steps) as hidden fields.
+At present, there is always a one-to-one correspondance between `Prison` and
+`Prisoner`. We envisage that in the future a prisoner will have many visits.
+
+`Prisoner` mixes in `Person` for name and age validations and calculations.
+
+#### `Visitor`
+
+These reference a `Visit`. There will always be at least one `Visitor` per
+`Visit`: although this is not (and cannot be) enforced at the database level,
+visitors are always created from a `VisitorsStep` (which validates this) by
+the `BookingRequestCreator`.
+
+`Visitor` mixes in `Person` for name and age validations and calculations.
+
+## Requesting a visit
+
+The `BookingRequestsController` has only two actions, `index` and `create`,
+which means only one path, differentiated by `GET` or `POST`. It is completely
+stateless: progression through the steps is determined by the availability of
+complete information in the preceding steps, passed either as user-completed
+form fields or (in the case of preceding steps) as hidden fields.
 
 The logic of processing steps and determining which step has been reached is
 handled by the `StepsProcessor` class.
@@ -110,6 +134,38 @@ rendered.
 Finally, if all steps are complete, a `Visit` is created by
 `BookingRequestCreator` and the `completed` template is rendered.
 
+## Processing a request
+
+The `Prison::VisitsController` is used by prison staff to accept or reject a
+visit request. It instantiates a `BookingResponse` object which is responsible
+for validating the response. This ensures that a slot or rejection reason is
+selected, and that other essential details are present, such as which visitors
+are banned when that is the reason for rejection.
+
+When the `BookingResponse` is valid, it is handed to the `BookingResponder`,
+which updates the `Visit` record with the new `processing_state` and saves any
+other information required.
+
+## Queues
+
+In the development and production environments, queues are backed by Redis via
+Sidekiq. To run the consumers:
+
+```
+$ bundle exec sidekiq
+```
+
+**NOTE**: The queue consumers **must** be restarted when the application is
+updated.
+
+An interface to the queues is available by running the Sidekiq web interface:
+
+```sh
+$ bundle exec rackup sidekiq-admin.ru
+```
+
+This requires the `SESSION_SECRET_KEY` environment variable (see below).
+
 ## Configuration
 
 ### Development
@@ -119,10 +175,57 @@ See its website for instructions.
 
 ## Environment variables used by the application
 
-### Start Page
+### `DATABASE_URL`
 
-On production, we set this to [https://www.gov.uk/prison-visits](https://www.gov.uk/prison-visits) because that's the official start page for the service, but you can configure a different one.
+This will override any settings in `config/database.yml`, and should be of the
+form `postgres://myuser:mypass@localhost/somedatabase`.
 
-Source: `config/routes.rb`
+### `GOVUK_START_PAGE`
 
-- `GOVUK_START_PAGE`
+Visiting `/` will redirect to this URL, if supplied, or the new booking page
+otherwise. On production, this must be set to
+[https://www.gov.uk/prison-visits](https://www.gov.uk/prison-visits), the
+official start page for the service.
+
+### `SECRET_KEY_BASE`
+
+This key is used to verify the integrity of signed cookies. If it is changed,
+all old signed cookies will become invalid.
+
+Make sure the secret is at least 30 characters and all random, no regular words
+or you'll be exposed to dictionary attacks. You can use `rake secret` to
+generate a secure secret key.
+
+### `SERVICE_URL`
+
+This is used to build links in emails. It must be set in the production
+environment to `https://www.prisonvisits.service.gov.uk/`.
+
+### `SESSION_SECRET_KEY`
+
+This is used to sign the session used by the Sidekiq admin interface.
+
+### `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_HOSTNAME`, `SMTP_PORT`, `SMTP_DOMAIN`
+
+These configure email delivery in the production environment. `SMTP_DOMAIN` is
+also used when generating the `no-reply@` address and the `feedback@` stand-in
+address used when submitting feedback without an email address to Zendesk.
+
+## Files to be created on deployment
+
+### `META`
+
+This file, located in the root directory, should be a JSON document containing
+build information to be returned by `/ping.json`. e.g.:
+
+```json
+{
+  "build_date": "2015-12-08T10:18:04.357122",
+  "commit_id": "a444e4b05276ae7dc2b1d4224e551dfcbf768795"
+}
+```
+### `ZENDESK_USERNAME`, `ZENDESK_TOKEN`, `ZENDESK_URL`
+
+These are required in order to submit user feedback to Zendesk.
+
+`ZENDESK_URL` defaults to `https://ministryofjustice.zendesk.com/api/v2`.

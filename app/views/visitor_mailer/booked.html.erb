@@ -21,9 +21,9 @@
   <strong><%= @visit.visitor_anonymized_name %></strong>
 </p>
 
-<% @visit.additional_visitors.each_with_index do |visitor, index| %>
+<% @visit.visitors.each_with_index do |visitor, index| %>
   <p>
-    <%= t('.visitor', n: index + 2) %>
+    <%= t('.visitor', n: index + 1) %>
     <strong><%= visitor.anonymized_name %></strong>
   </p>
 <% end %>
@@ -36,6 +36,12 @@
 <% if @visit.closed? %>
   <p><%= t(".this_is_a_closed_visit_html") %></p>
 <% end %>
+
+<h1><%= t('.cancel_change_title') %></h1>
+
+<p>
+  <%= t('.cancel_html', url: visit_url(@visit)) %>
+</p>
 
 <p><%= t(".want_to_change") %></p>
 
@@ -54,9 +60,10 @@
   </li>
 </ul>
 
-<h1><%= t(".add_to_address_book_title") %></h1>
+<h1><%= t(".avoid_spam_filtering_title") %></h1>
 
-<p><%= t(".add_to_address_book_body") %></p>
+<p><%= t(".avoid_spam_filtering_body",
+         email: address_book.no_reply) %>
 
 <h1><%= t(".what_to_bring") %></h1>
 
@@ -79,7 +86,8 @@
 <p>
   <%=
     t(".what_not_to_bring_body_html",
-      url: '/TODO-prison-finder-url', prison: @visit.prison_name)
+      url: link_directory.prison_finder(@visit.prison),
+      prison: @visit.prison_name)
   %>
 </p>
 

@@ -2,6 +2,7 @@
 //= require handlebars
 //= require lodash
 //= require jquery-ui-autocomplete
+//= require vendor/modernizr.custom.85598
 //= require dist/javascripts/moj.slot-picker
 //= require dist/javascripts/moj.date-slider
 //= require dest/respond.min
@@ -17,6 +18,7 @@
 //= require modules/moj.hijacks
 //= require modules/moj.submit-once
 //= require modules/moj.Conditional
+//= require modules/moj.RevealAdditional
 //= require modules/moj.checkbox-summary
 //= require modules/moj.AgeLabel.js
 //= require modules/moj.form-errors

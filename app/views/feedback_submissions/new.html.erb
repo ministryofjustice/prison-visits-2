@@ -1,0 +1,62 @@
+<% content_for :header do %>
+  <%= t('.title') %>
+<% end %>
+
+<p>
+  <%= t('.intro_html',
+        url: link_directory.prison_finder) %>
+</p>
+
+<ul>
+  <li>
+    <%= t('.whether_booked') %>
+  </li>
+  <li>
+    <%= t('.cancelling_changing') %>
+  </li>
+  <li>
+    <%= t('.what_can_bring') %>
+  </li>
+  <li>
+    <%= t('.contact_lists') %>
+  </li>
+</ul>
+
+<p>
+  <%= t('.not_able_to_help') %>
+</p>
+
+<%= form_for(@feedback,
+             url: feedback_submissions_path,
+             html: { novalidate: 'novalidate', class: 'js-SubmitOnce' }) do |f| %>
+
+  <%= render(partial: 'shared/validation', object: f.object) %>
+
+  <%= f.hidden_field :referrer %>
+
+  <p><strong><%= t('.no_sensitive_info') %></strong></p>
+
+  <fieldset>
+    <legend class="visuallyhidden">
+      <%= t('.feedback_form') %>
+    </legend>
+
+    <%= single_field(f, :body, :text_area, cols: 50, rows: 5) %>
+  </fieldset>
+
+  <fieldset>
+    <legend>
+      <%= t('.want_reply_title') %>
+    </legend>
+
+    <p>
+      <%= t('.want_reply_text') %>
+    </p>
+
+    <%= single_field(f, :email_address, :email_field) %>
+
+    <div class="actions">
+      <%= f.submit(t('.send'), class: 'button button-primary') %>
+    </div>
+  </fieldset>
+<% end %>

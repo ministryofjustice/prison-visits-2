@@ -9,16 +9,16 @@
 </p>
 <p>
   <%= t('.when_to_expect_response',
-        when: format_date_of_visit(@visit.confirm_by)) %>
+        when: format_date_without_year(@visit.confirm_by)) %>
 </p>
 <p>
   <%= t('.when_to_check_spam', when: 'TODO') %>
 </p>
 <h1>
-  <%= t('.add_to_address_book') %>
+  <%= t('.avoid_spam_filtering') %>
 </h1>
 <p>
-  <%= t('.add_address', email: 'no-reply@email.prisonvisits.service.gov.uk') %>
+  <%= t('.add_address', email: address_book.no_reply) %>
 </p>
 <h1>
   <%= t('.details') %>
@@ -46,11 +46,10 @@
   <strong><%= @visit.prisoner_number.upcase %></strong>
 </p>
 <h1>
-  <%= t('.cancellation_title') %>
+  <%= t('.cancel_title') %>
 </h1>
 <p>
-  <%= t('.cancel') %>
-  <%= link_to('TODO cancellation', '#') %>
+  <%= t('.cancel_html', url: visit_url(@visit)) %>
 </p>
 <ul>
   <li>

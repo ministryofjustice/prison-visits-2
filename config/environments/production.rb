@@ -8,8 +8,12 @@ Rails.application.configure do
     authentication: :login,
     enable_starttls_auto: true
   }
-  config.action_mailer.default_url_options =
-    { host: ENV.fetch('SERVICE_URL'), protocol: 'https' }
+
+  service_url = URI.parse(ENV.fetch('SERVICE_URL'))
+  config.action_mailer.default_url_options = {
+    host: service_url.hostname, protocol: service_url.scheme
+  }
+
   config.cache_classes = true
   config.eager_load = true
   config.consider_all_requests_local       = false
@@ -31,4 +35,6 @@ Rails.application.configure do
   config.logstasher.logger_path = "#{Rails.root}/log/logstash_#{Rails.env}.json"
 
   config.mx_checker = MxChecker.new
+
+  config.active_job.queue_adapter = :sidekiq
 end

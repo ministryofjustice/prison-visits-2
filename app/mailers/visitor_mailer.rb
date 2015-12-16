@@ -3,6 +3,7 @@ class VisitorMailer < ActionMailer::Base
   include NoReply
   include DateHelper
   add_template_helper DateHelper
+  add_template_helper LinksHelper
 
   layout 'email'
 
@@ -13,9 +14,9 @@ class VisitorMailer < ActionMailer::Base
 
     mail(
       reply_to: visit.prison_email_address,
-      to: visit.recipient,
+      to: visit.contact_email_address,
       subject: default_i18n_subject(
-        receipt_date: format_date_of_visit(visit.first_date)
+        receipt_date: format_date_without_year(visit.first_date)
       )
     )
   end
@@ -25,9 +26,9 @@ class VisitorMailer < ActionMailer::Base
 
     mail(
       reply_to: visit.prison_email_address,
-      to: visit.recipient,
+      to: visit.contact_email_address,
       subject: default_i18n_subject(
-        date: format_date_of_visit(visit.date)
+        date: format_date_without_year(visit.date)
       )
     )
   end
@@ -37,9 +38,9 @@ class VisitorMailer < ActionMailer::Base
 
     mail(
       reply_to: visit.prison_email_address,
-      to: visit.recipient,
+      to: visit.contact_email_address,
       subject: default_i18n_subject(
-        date: format_date_of_visit(visit.first_date)
+        date: format_date_without_year(visit.first_date)
       )
     )
   end

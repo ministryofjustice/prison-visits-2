@@ -1,0 +1,19 @@
+<% visitors_step = @steps.fetch(:visitors_step) %>
+
+<%= hidden_field_tag('visitors_step[email_address]',
+                     visitors_step.email_address) %>
+<%= hidden_field_tag('visitors_step[phone_no]',
+                     visitors_step.phone_no) %>
+<%= hidden_field_tag('visitors_step[override_delivery_error]',
+                     visitors_step.override_delivery_error) %>
+<%= hidden_field_tag('visitors_step[delivery_error_type]',
+                     visitors_step.delivery_error_type) %>
+
+<% visitors_step.visitors.each_with_index do |visitor, i| %>
+  <%= hidden_field_tag("visitors_step[visitors_attributes][#{i}][first_name]",
+                       visitor.first_name) %>
+  <%= hidden_field_tag("visitors_step[visitors_attributes][#{i}][last_name]",
+                       visitor.last_name) %>
+  <%= hidden_field_tag("visitors_step[visitors_attributes][#{i}][date_of_birth]",
+                       visitor.date_of_birth) %>
+<% end %>
