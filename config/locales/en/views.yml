@@ -152,7 +152,7 @@ en:
     visits:
       calendar:
         today: Today
-      edit:
+      show:
         title: Process a visit request
         introduction_html: |
           <ul>
@@ -169,6 +169,10 @@ en:
             </li>
           </ul>
         submit: Send email
+        booked: This request has already been accepted
+        cancelled: The visitor has cancelled this booking
+        rejected: This request has already been rejected
+        withdrawn: The visitor has withdrawn this request
       people_box:
         prisoner: "Prisoner:"
         number: "Number:"
@@ -353,7 +357,7 @@ en:
         request.
       cancel_confirm: Yes, I want to cancel this visit
       cancel_cta: Cancel request
-    canceled:
+    cancelled:
       title: You cancelled this visit
     withdrawn:
       title: You cancelled this visit request

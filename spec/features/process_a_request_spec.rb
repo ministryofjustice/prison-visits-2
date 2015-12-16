@@ -26,7 +26,43 @@ RSpec.feature 'Processing a request', js: true do
   }
 
   before do
-    visit edit_prison_visit_path(vst)
+    visit prison_visit_path(vst)
+  end
+
+  context 'with a withdrawn visit' do
+    let(:vst) { create(:withdrawn_visit) }
+
+    scenario 'is not allowed' do
+      expect(page.body).to have_content('The visitor has withdrawn this request')
+      expect(page.body).not_to have_content('Send email')
+    end
+  end
+
+  context 'with a cancelled visit' do
+    let(:vst) { create(:cancelled_visit) }
+
+    scenario 'is not allowed' do
+      expect(page.body).to have_content('The visitor has cancelled this booking')
+      expect(page.body).not_to have_content('Send email')
+    end
+  end
+
+  context 'with a booked visit' do
+    let(:vst) { create(:booked_visit) }
+
+    scenario 'is not allowed' do
+      expect(page.body).to have_content('This request has already been accepted')
+      expect(page.body).not_to have_content('Send email')
+    end
+  end
+
+  context 'with a rejected visit' do
+    let(:vst) { create(:rejected_visit) }
+
+    scenario 'is not allowed' do
+      expect(page.body).to have_content('This request has already been rejected')
+      expect(page.body).not_to have_content('Send email')
+    end
   end
 
   scenario 'accepting a booking' do

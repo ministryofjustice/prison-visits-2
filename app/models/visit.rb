@@ -37,8 +37,8 @@ class Visit < ActiveRecord::Base
     event :cancel do
       transition requested: :withdrawn
       transition withdrawn: :withdrawn
-      transition booked: :canceled
-      transition canceled: :canceled
+      transition booked: :cancelled
+      transition cancelled: :cancelled
     end
   end
 
@@ -47,6 +47,8 @@ class Visit < ActiveRecord::Base
 
   delegate :first_name, :last_name, :full_name, :anonymized_name,
     to: :principal_visitor, prefix: :visitor
+
+  alias_method :processable?, :requested?
 
   def principal_visitor
     visitors.first

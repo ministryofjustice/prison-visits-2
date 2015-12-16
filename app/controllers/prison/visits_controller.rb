@@ -1,7 +1,7 @@
 class Prison::VisitsController < ApplicationController
   helper CalendarHelper
 
-  def edit
+  def show
     @booking_response = BookingResponse.new(visit: visit)
   end
 
@@ -10,7 +10,7 @@ class Prison::VisitsController < ApplicationController
     if @booking_response.valid?
       BookingResponder.new(@booking_response).respond!
     else
-      render :edit
+      render :show
     end
   end
 

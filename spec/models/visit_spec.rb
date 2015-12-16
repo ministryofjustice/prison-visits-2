@@ -28,6 +28,38 @@ RSpec.describe Visit, type: :model do
       subject.reject!
       expect(subject).to be_rejected
     end
+
+    it 'is withdrawn after cancellation if not accpeted' do
+      subject.cancel!
+      expect(subject).to be_withdrawn
+    end
+
+    it 'is cancelled after cancellation if accepted' do
+      subject.accept!
+      subject.cancel!
+      expect(subject).to be_cancelled
+    end
+
+    it 'is not processable after booking' do
+      subject.accept!
+      expect(subject).not_to be_processable
+    end
+
+    it 'is not processable after rejection' do
+      subject.reject!
+      expect(subject).not_to be_processable
+    end
+
+    it 'is not processable after withdrawal' do
+      subject.cancel!
+      expect(subject).not_to be_processable
+    end
+
+    it 'is not processable after cancellation' do
+      subject.accept!
+      subject.cancel!
+      expect(subject).not_to be_processable
+    end
   end
 
   describe 'slots' do
