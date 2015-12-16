@@ -33,5 +33,7 @@ module PrisonVisits
     config.action_dispatch.rescue_responses.merge!(
       'StateMachines::InvalidTransition' => :unprocessable_entity
     )
+
+    config.prison_ip_ranges = ENV.fetch('PRISON_ESTATE_IPS', '127.0.0.1')
   end
 end
