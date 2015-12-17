@@ -20,4 +20,9 @@ private
     @steps.fetch(:prisoner_step).prison
   end
   helper_method :prison
+
+  def reviewing?
+    params.key?(:review_step)
+  end
+  helper_method :reviewing?
 end

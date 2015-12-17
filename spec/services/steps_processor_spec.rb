@@ -125,6 +125,14 @@ RSpec.describe StepsProcessor do
 
     it_behaves_like 'it has all steps'
     it_behaves_like 'it is incomplete'
+
+    context 'and the intention to go to the prisoner step' do
+      let(:params) { super().merge(review_step: :prisoner_step) }
+
+      it 'chooses the prisoner_step template' do
+        expect(subject.template_name).to eq(:prisoner_step)
+      end
+    end
   end
 
   context 'with incomplete visitor details' do
@@ -177,6 +185,14 @@ RSpec.describe StepsProcessor do
 
     it_behaves_like 'it has all steps'
     it_behaves_like 'it is incomplete'
+
+    context 'and the intention to go to the prisoner step' do
+      let(:params) { super().merge(review_step: :prisoner_step) }
+
+      it 'chooses the prisoner_step template' do
+        expect(subject.template_name).to eq(:prisoner_step)
+      end
+    end
   end
 
   context 'with at least one slot' do

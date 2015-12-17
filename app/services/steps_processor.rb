@@ -5,7 +5,7 @@ class StepsProcessor
   end
 
   def template_name
-    incomplete_step_name || :completed
+    review_step_name || incomplete_step_name || :completed
   end
 
   def execute!
@@ -22,6 +22,10 @@ class StepsProcessor
 private
 
   attr_reader :params
+
+  def review_step_name
+    steps.keys.find { |name| name.to_s == params[:review_step].to_s }
+  end
 
   def incomplete_step_name
     steps.keys.find { |name| incomplete_step?(name) }

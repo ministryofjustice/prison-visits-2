@@ -49,10 +49,14 @@ module FeaturesHelper
 
   def select_slots(how_many = 3)
     how_many.times do |n|
-      all(".BookingCalendar-date--bookable .BookingCalendar-dateLink")[n].
-        trigger('click')
-      first('.SlotPicker-slot').trigger('click')
+      select_nth_slot n
     end
+  end
+
+  def select_nth_slot(n)
+    all(".BookingCalendar-date--bookable .BookingCalendar-dateLink")[n].
+      trigger('click')
+    first('.SlotPicker-slot').trigger('click')
   end
 
   def select_prison(name)
