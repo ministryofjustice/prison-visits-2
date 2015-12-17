@@ -1,6 +1,7 @@
 en:
   pages:
     unsubscribe:
+      title: Why did I receive this email?
       you_received_an_email: You’ve received an email from %{email}
       why: This is probably because you requested a prison visit.
       confirmation: >-
