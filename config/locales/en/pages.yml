@@ -240,3 +240,138 @@ en:
         Digital Services, 11.51<br />
         102 Petty France<br />
         London SW1H 9AJ United Kingdom</p>
+    cookies:
+      title: Cookies
+      body_html: |
+        <p>Prison Visits Booking (PVB) puts small files (known as
+        ‘cookies’) onto your computer to collect information about how
+        you browse the site.</p>
+
+        <p>Cookies are used to:</p>
+
+        <ul>
+          <li>measure how you use the website so it can be updated and
+          improved based on your needs</li>
+
+          <li>remember the notifications you’ve seen so that we don’t
+          show them to you again</li>
+        </ul>
+
+        <p>PVB cookies aren’t used to identify you personally.</p>
+
+        <p>You’ll normally see a message on the site before we store a
+        cookie on your computer.</p>
+
+        <p>Find out more about
+        <a href="http://www.aboutcookies.org/" rel="external">how to manage
+        cookies.</a></p>
+
+        <h2>How cookies are used on PVB</h2>
+
+        <h3>Measuring website usage (Google Analytics)</h3>
+
+        <p>We use Google Analytics software to collect information about
+        how you use PVB. We do this to help make sure the site is meeting
+        the needs of its users and to help us make improvements.</p>
+
+        <p>Google Analytics stores information about:</p>
+
+        <ul>
+          <li>the pages you visit on PVB – how long you spend on each
+          PVB page</li>
+
+          <li>how you got to the site</li>
+
+          <li>what you click on while you’re visiting the site</li>
+        </ul>
+
+        <p>We don’t collect or store your personal information (eg your
+        name or address) so this information can’t be used to identify
+        who you are.</p>
+
+        <p>We don’t allow Google to use or share our analytics data.</p>
+
+        <p>Google Analytics sets the following cookies:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+
+              <th>Purpose</th>
+
+              <th>Expires</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>_ga</td>
+
+              <td>Determines the number of unique visitors to the
+              site</td>
+
+              <td>2 years</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>You can <a href="https://tools.google.com/dlpage/gaoptout"
+        rel="external">opt out of Google Analytics cookies.</a></p>
+
+        <h3>Our introductory message</h3>
+
+        <p>You may see a pop-up welcome message when you first visit PVB.
+        We’ll store a cookie so that your computer knows you’ve seen it
+        and knows not to show it again.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+
+              <th>Purpose</th>
+
+              <th>Expires</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>seen_cookie_message</td>
+
+              <td>Saves a message to let us know that you have seen our
+              cookie message</td>
+
+              <td>1 month</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Session</h3>
+
+        <p>The PVB service does not store your prisoner and visitor
+        information. The details you enter are encrypted and temporarily
+        stored on your computer until your booking request is sent.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+
+              <th>Purpose</th>
+
+              <th>Expires</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>pvbs</td>
+
+              <td>Store prisoner, visitor and visit details</td>
+
+              <td>20 minutes</td>
+            </tr>
+          </tbody>
+        </table>
