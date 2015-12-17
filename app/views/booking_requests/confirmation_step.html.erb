@@ -97,7 +97,7 @@
 </div>
 
 <div class="divider">
-  <%= link_to(t('.ts_and_cs'), '/TODO') %>
+  <%= link_to(t('.ts_and_cs'), terms_and_conditions_path) %>
 
     <%= form_for(confirmation_step, url: booking_requests_path) do |f| %>
       <%= render(partial: 'hidden_prisoner_step') %>

@@ -7,3 +7,236 @@ en:
       confirmation: >-
         We’ll confirm your visit by email, so make sure you add this email
         address to your address book or safe senders list.
+    terms_and_conditions:
+      title: Terms and conditions and privacy policy
+      body_html: |
+        <p>By using this digital prison visit request service you agree
+        to our privacy policy and to these terms and conditions. Please
+        read them carefully.</p>
+
+        <h2>Terms and conditions</h2>
+
+        <h3>General</h3>
+
+        <p>These terms and conditions affect your rights and liabilities
+        under the law. They govern your use of, and relationship with,
+        the digital prison visit request service. They don’t apply to
+        other services provided by the Ministry of Justice (HM Prison
+        Service), or to any other department or service which is linked
+        to in this service.</p>
+
+        <p>We may occasionally update these terms and conditions. This
+        might happen if there’s a change in the law or to the way this
+        service works. If there’s a change, you’ll be asked to agree to
+        the new terms and conditions the next time you sign in, so you
+        can continue to use this service.</p>
+
+        <p>If you don’t agree to the terms and conditions and privacy
+        policy set out in this document, you should not use this
+        service.</p>
+
+        <h3>Applicable law</h3>
+
+        <p>Your use of this service and any dispute arising from its use
+        will be governed by and construed in accordance with the laws of
+        England and Wales, including but not limited to the:</p>
+
+        <ul>
+          <li>Computer Misuse Act 1990</li>
+          <li>Data Protection Act 1998</li>
+          <li>Mental Capacity Act 2005</li>
+        </ul>
+
+        <h3>How to use this service responsibly</h3>
+
+        <p>There are risks in using a shared computer, such as in an
+        internet café, to use this service. It’s your responsibility to
+        be aware of these risks and to avoid using any computer which may
+        leave your personal information accessible to others. You are
+        responsible if you choose to leave a computer unprotected while
+        in the process of making a prison visit request.</p>
+
+        <p>We make every effort to check and test this service whenever
+        we amend or update it. However, you must take your own
+        precautions to ensure that the way you access this service does
+        not expose you to the risk of viruses, malicious computer code or
+        other forms of interference which may damage your own computer
+        system.</p>
+
+        <p>You must not misuse our service by knowingly introducing
+        viruses, trojans, worms, logic bombs or other material which is
+        malicious or technologically harmful. You must not attempt to
+        gain unauthorised access to our service, the system on which our
+        service is stored or any server, computer or database connected
+        to our service. You must not attack our site via a
+        denial-of-service attack or a distributed denial-of-service
+        attack.</p>
+
+        <h2>Privacy policy</h2>
+
+        <h3>Information provided by this service</h3>
+
+        <p>We work hard to ensure that information within this prison
+        visit request service is accurate. However, we can’t guarantee
+        the accuracy and completeness of any information at all
+        times.</p>
+
+        <p>While we make every effort to ensure this service is
+        accessible at all times, we are not liable if it is unavailable
+        for any period of time.</p>
+
+        <h3>How we use your information</h3>
+
+        <p>The Ministry of Justice (HM Prison Service) uses and retains
+        the personal data of visitors for the purposes of the safe and
+        secure provision of Prison Services, including those related to
+        the management and rehabilitation of offenders.</p>
+
+        <p>Access to the establishment can only be granted by supplying
+        the prescribed information in order to ensure and maintain a safe
+        and secure environment for all.</p>
+
+        <p>You have the right to request details as to the personal
+        information we hold for you; and subsequently request that we
+        correct any personal information if it is found to be inaccurate
+        or out of date. We will not share your information with other
+        organisations unless it is required for the purposes of
+        prevention, detection of crime, apprehension, prosecution, and
+        management of offenders; prevention of terrorism; national
+        security; or required to do by law.</p>
+
+        <p>Separately from the information entered by those using this
+        service, we also collect site-usage information which allows us
+        to see how the service is being used in order to allow us to
+        improve it. This information does not contain any personal
+        data.</p>
+
+        <p>It includes:</p>
+
+        <ul>
+          <li>questions, queries or feedback you leave, including your
+          email address if you send a message via feedback</li>
+
+          <li>your IP address, and details of which version of web
+          browser you used</li>
+
+          <li>information on how you use the site, using cookies and page
+          tagging techniques to help us improve the website</li>
+        </ul>
+
+        <p>This helps us to:</p>
+
+        <ul>
+          <li>improve the site by monitoring how you use it</li>
+
+          <li>respond to any feedback you send us, if you’ve asked us
+          to</li>
+
+          <li>provide you with information about local services if you
+          want it</li>
+        </ul>
+
+        <p>We can’t personally identify you using your data.</p>
+
+        <h3>Where your data is stored</h3>
+
+        <p>We store your data on our secure servers in the UK. However,
+        it may also be stored outside of Europe, where it could be viewed
+        by our staff or suppliers. By submitting your personal data, you
+        agree to this.</p>
+
+        <p>We also use other suppliers to provide this service:</p>
+
+        <ul>
+          <li><a href="http://sendgrid.com" rel="external">SendGrid</a> to
+          relay information to prisons. See the
+          <a href="http://sendgrid.com/tos" rel="external">terms &amp;
+          conditions</a> attached to this service.</li>
+
+          <li><a href="http://www.zendesk.com" rel="external">ZenDesk</a> to
+          handle any feedback that you leave. See the
+          <a href="http://www.zendesk.com/company/terms" rel="external">terms
+          &amp; conditions</a> attached to this service.</li>
+        </ul>
+
+        <h3>Keeping your data secure</h3>
+
+        <p>Transmitting information over the internet is generally not
+        completely secure, and we can’t guarantee the security of your
+        data. We do however use SSL in order to encrypt all data
+        transferred to and received from our server.</p>
+
+        <p>We take data security very seriously and we take every step to
+        ensure that your data remains private and secure.</p>
+
+        <h3>Any data you transmit is at your own risk.</h3>
+
+        <p>We have procedures and security features in place to try and
+        keep your data secure once we receive it.</p>
+
+        <p>We won’t share your information with any other organisations
+        for marketing, market research or commercial purposes, and we
+        don’t pass on your details to other websites.</p>
+
+        <h3>Disclosing your information</h3>
+
+        <p>We may pass on your personal information if we have a legal
+        obligation to do so.</p>
+
+        <h3>How we manage sessions</h3>
+
+        <p>This service can be used to make a prison visit request. Your
+        session is active for 20 minutes even if you close your browser,
+        or navigate away from this service. During this time, personal
+        information about you may be visible to anyone with access to
+        your computer.</p>
+
+        <p>Your data is held in memory during the duration of the
+        session; this is cleared after 20 minutes of inactivity.</p>
+
+        <h3>Data Protection Act 1998</h3>
+
+        <p>This service complies with all principles of the DPA 1998.</p>
+
+        <p>Ministry of Justice (MoJ) is the ‘data controller’ for the
+        purposes of the Act. However, the information you enter into this
+        service is not automatically transmitted to the Ministry of
+        Justice, but is stored in a secure database. No personal data
+        will be used in testing this service.</p>
+
+        <p>Our hosting provider, and MoJ staff responsible for supporting
+        this service, will have access to the server in which all
+        personal information entered into this service is momentarily
+        stored. All staff who have access to the secure data have MoJ
+        security clearance.</p>
+
+        <p>Anyone who believes their personal data is kept within this
+        service has the right to submit a subject access request to the
+        MoJ, who will give details of the information stored on the
+        server.</p>
+
+        <h3>Disclaimer</h3>
+
+        <p>We don’t accept liability for loss or damage incurred by users
+        of this service, whether direct, indirect or consequential,
+        whether caused by tort, breach of contract or otherwise. This
+        includes loss of income or revenue, business, profits or
+        contracts, anticipated savings, data, goodwill, tangible property
+        or wasted time in connection with this service or any websites
+        linked to it and any materials posted on it. This condition shall
+        not prevent claims for loss of or damage to your tangible
+        property or any other claims for direct financial loss that are
+        not excluded by any of the categories set out above.</p>
+
+        <p>This does not affect our liability for death or personal
+        injury arising from our negligence, nor our liability for
+        fraudulent misrepresentation or misrepresentation as to a
+        fundamental matter, nor any other liability which cannot be
+        excluded or limited under applicable law.</p>
+
+        <h3>Contact us</h3>
+
+        <p>Ministry of Justice<br />
+        Digital Services, 11.51<br />
+        102 Petty France<br />
+        London SW1H 9AJ United Kingdom</p>

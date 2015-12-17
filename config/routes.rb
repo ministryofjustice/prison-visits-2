@@ -15,7 +15,10 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'unsubscribe' => 'high_voltage/pages#show', id: 'unsubscribe'
+  controller 'high_voltage/pages' do
+    get 'terms-and-conditions', action: :show, id: 'terms_and_conditions'
+    get 'unsubscribe', action: :show, id: 'unsubscribe'
+  end
 
   constraints format: 'json' do
     get 'ping', to: 'ping#index'
