@@ -1,6 +1,8 @@
 module SmokeTest
   module Steps
     class PrisonBookingConfirmationCopy < BaseStep
+      include WithRetries
+
       def validate!
         unless email
           fail 'Could not find prison booking confirmation copy email'

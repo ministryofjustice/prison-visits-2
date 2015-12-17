@@ -1,6 +1,8 @@
 module SmokeTest
   module Steps
     class PrisonBookingRequest < BaseStep
+      include WithRetries
+
       def validate!
         fail 'Could not find prison booking request email' unless email
       end

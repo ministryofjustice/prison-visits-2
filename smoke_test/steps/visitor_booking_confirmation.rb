@@ -1,6 +1,8 @@
 module SmokeTest
   module Steps
     class VisitorBookingConfirmation < BaseStep
+      include WithRetries
+
       def validate!
         fail 'Could not find visitor booking confirmation email' unless email
       end
