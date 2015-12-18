@@ -233,3 +233,154 @@ build information to be returned by `/ping.json`. e.g.:
   "commit_id": "a444e4b05276ae7dc2b1d4224e551dfcbf768795"
 }
 ```
+
+### Prisons
+
+#### Editing prison data
+
+Prison details are stored in YAML files in the `db/seeds` directory, and are
+synchronised to the database on deployment (by running `rake db:seed`). This is
+an idempotent operation: running `rake db:seed` multiple times will have the
+same effect as running it once.
+
+The files can be edited by anyone with access to this repository. The
+[YAML](http://en.wikipedia.org/wiki/YAML) specification is complex and fraught
+with edge cases, so be careful.
+
+#### Prison visibility
+
+All known prisons should exist in the data files. If a prison is not in scope
+of the service, it should be disabled.
+
+To disable visit requests to a prison, set `enabled` to `false`.
+
+```yaml
+  nomis_id: SFI
+  enabled: false # this prison does not accept online visit request through this service
+  name: Stafford
+  ...
+
+```
+
+#### Weekly visiting slots
+
+Slots are defined per prison via a weekly schedule. Only days listed here with
+a list of slots will appear on the slot picker.
+
+Use 3 letter strings for days of the week. Times are entered in the 24 hour
+format.
+
+```yaml
+slots:
+  wed:
+  - 1350-1450 # creates a 1 hour slot every Wednesday from 1:50pm
+  sat:
+  - 0900-1100 # creates a 2 hour slot every Saturday from 9am
+  - 1330-1530 # creates a 2 hour slot every Saturday from 1:30pm
+```
+
+#### Slot anomalies
+
+Use this to make exceptions to the weekly schedule.
+
+When a day is found in `slot_anomalies` the whole day is replaced with this
+data. Therefore if the weekday usually contains multiple slots and only a
+single slot is to be edited, the rest of the slots need to be re-entered.
+
+```yaml
+slot_anomalies:
+  2015-01-10:
+  - 0930-1130 # replaces Saturday 10 January 2015 with only one slot at 9:30am
+```
+
+#### Non-bookable days
+
+Use this to remove specified dates, such as staff training days or Christmas
+Day from the schedule. Public holidays are already excluded by default:
+visiting can be enabled by adding them as anomalies, above.
+
+This overrides `slots`.
+
+```yaml
+unbookable:
+- 2015-12-25 # removes any slots from 25 December 2015
+```
+
+**Note** If an enabled prison does not have any unbookable dates, please
+make sure you represent this in the yaml as:
+
+```yaml
+unbookable: []
+```
+
+If you do not, the specs will fail.
+
+#### Response times
+
+Set the amount of full working days which booking staff have to respond to each
+request. The default is 3 days.
+
+For example, on a Monday, requests can be made for Friday. Set this value to
+`2` and it will be possible to make requests for Thursday.
+
+```yaml
+lead_days: 2 # two full working days after current day
+```
+
+#### Weekend processing
+
+Use this when a prison has booking staff who can respond to requests over
+weekends. This will allow visits to be requested 3 days ahead (or custom
+`lead_day`) regardless of whether they are weekdays.
+
+```yaml
+works_weekends: true
+```
+
+#### Prison finder links
+
+When the service links to [Prison
+Finder](https://www.justice.gov.uk/contacts/prison-finder), it turns the prison
+name into part of the URL. For example, 'Drake Hall' becomes
+[drake-hall](https://www.justice.gov.uk/contacts/prison-finder/drake-hall).
+
+When the Prison Finder link does not simply match the prison name in lower
+case with spaces replaced with hyphens, use this.
+
+```yaml
+finder_slug: sheppey-cluster-standford-hill
+```
+
+#### Adult age
+
+Visit requests must have a minimum of one and a maximum of 3 "adults" (18 years
+old and over, by default). The adult age can be reduced to restrict the amount
+of visitors over that age.
+
+**Note** visiting areas have 3 seats for visitors and one for the prisoner.
+Children are expect to sit on the laps of adults.
+
+```yaml
+adult_age: 15 # allow only 3 visitors over the age of 15
+```
+
+#### Adding a prison
+
+Prisons are identified by the filename-to-UUID mappings in
+`db/seeds/prison_uuid_mappings.yml`. (A UUID is a long, unique identifier that
+looks like `85c83a07-dd6a-43ea-ae41-af79e4a756d4`.)
+
+To add a prison, create a new YAML file in `db/seeds/prisons` and add a line to
+the mapping file. To generate a new UUID for the prison, you can type `uuidgen`
+on the command line in Linux or OS X.
+
+#### Renaming a prison
+
+The minimum necessary is to change the `name` field in the prison YAML file. If
+you want to change the file name, this must be updated in the mappings. Do not
+change the UUID.
+
+#### Deleting a prison
+
+You can't. This is because historical bookings still refer to that prison.
+Disable it instead (see above).
