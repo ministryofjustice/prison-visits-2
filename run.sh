@@ -1,4 +1,5 @@
 #!/bin/bash
+export RAILS_ENV=production
 cd /usr/src/app
 case ${DOCKER_STATE} in
 create)
