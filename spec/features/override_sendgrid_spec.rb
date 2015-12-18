@@ -27,11 +27,11 @@ RSpec.feature "overriding Sendgrid", js: true do
       check 'Tick this box to confirm you’d like us to try sending messages to you again'
       click_button 'Continue'
 
-      expect(page).to have_content('When do you want to visit?')
+      expect(page).to have_text('When do you want to visit?')
       select_slots
       click_button 'Continue'
 
-      expect(page).to have_content('Check your request')
+      expect(page).to have_text('Check your request')
 
       expect(SendgridApi).to receive(:remove_from_spam_list).
         with(expected_email_address).
@@ -41,7 +41,7 @@ RSpec.feature "overriding Sendgrid", js: true do
 
       click_button 'Send request'
 
-      expect(page).to have_content('Your request is being processed')
+      expect(page).to have_text('Your request is being processed')
     end
   end
 
@@ -59,11 +59,11 @@ RSpec.feature "overriding Sendgrid", js: true do
       check 'Tick this box to confirm you’d like us to try sending messages to you again'
       click_button 'Continue'
 
-      expect(page).to have_content('When do you want to visit?')
+      expect(page).to have_text('When do you want to visit?')
       select_slots
       click_button 'Continue'
 
-      expect(page).to have_content('Check your request')
+      expect(page).to have_text('Check your request')
 
       expect(SendgridApi).to receive(:remove_from_bounce_list).
         with(expected_email_address).
@@ -73,7 +73,7 @@ RSpec.feature "overriding Sendgrid", js: true do
 
       click_button 'Send request'
 
-      expect(page).to have_content('Your request is being processed')
+      expect(page).to have_text('Your request is being processed')
     end
   end
 
@@ -84,17 +84,17 @@ RSpec.feature "overriding Sendgrid", js: true do
     enter_visitor_information email_address: expected_email_address
     click_button 'Continue'
 
-    expect(page).to have_content('When do you want to visit?')
+    expect(page).to have_text('When do you want to visit?')
     select_slots
     click_button 'Continue'
 
-    expect(page).to have_content('Check your request')
+    expect(page).to have_text('Check your request')
 
     expect(SendgridApi).to_not receive(:remove_from_bounce_list)
     expect(SendgridApi).to_not receive(:remove_from_spam_list)
 
     click_button 'Send request'
 
-    expect(page).to have_content('Your request is being processed')
+    expect(page).to have_text('Your request is being processed')
   end
 end
