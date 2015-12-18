@@ -1,15 +1,14 @@
 <div class="hidden--js-enabled">
   <% 3.times do |i| %>
-    <div class="group">
-      <label for="slot_step_option_<%= i %>"><%= t('.option', n: i) %></label>
-      <select class="SlotPicker-input" name='slots_step[option_<%= i %>]' id="slots_step_<%= i %>">
-        <option value=''><%= t('.none') %></option>
-        <% f.object.available_slots.each do |slot| %>
-          <option value="<%= slot.iso8601 %>">
-            <%= format_slot_begin_time_for_public(slot) %>
-          </option>
-         <% end %>
-      </select>
-    </div>
+     <%=
+       single_field(
+         f, :"option_#{i}", :select,
+         f.object.available_slots.map { |s|
+           [format_slot_begin_time_for_public(s), s.iso8601]
+         },
+         { include_blank: true },
+         class: 'SlotPicker-input'
+       )
+     %>
   <% end %>
 </div>

@@ -54,4 +54,48 @@ RSpec.feature 'Booking a visit', js: true do
 
     expect(page).to have_text('There must be at least one adult visitor')
   end
+
+  scenario 'review and edit' do
+    visit booking_requests_path
+
+    enter_prisoner_information
+    click_button 'Continue'
+
+    enter_visitor_information
+    click_button 'Continue'
+
+    select_slots 1
+    click_button 'Continue'
+
+    expect(page).to have_text('Check your request')
+
+    click_button 'Change prisoner details'
+
+    fill_in 'Prisoner last name', with: 'Featherstone-Haugh'
+    click_button 'Continue'
+
+    expect(page).to have_text('Check your request')
+    expect(page).to have_text('Featherstone-Haugh')
+
+    click_button 'Change visitor details'
+
+    fill_in 'Your last name', with: 'Colquhoun'
+    click_button 'Continue'
+
+    expect(page).to have_text('Check your request')
+    expect(page).to have_text('Colquhoun')
+
+    click_button 'Change visit details'
+
+    select_nth_slot 2
+    click_button 'Continue'
+
+    expect(page).to have_text('Check your request')
+    expect(page).to have_text('First choice')
+    expect(page).to have_text('Alternatives')
+
+    click_button 'Send request'
+
+    expect(page).to have_text('Your request is being processed')
+  end
 end

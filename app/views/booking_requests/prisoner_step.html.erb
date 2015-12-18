@@ -5,6 +5,11 @@
     <%= t('.information_html') %>
 
     <%= form_for(@steps.fetch(:prisoner_step), url: booking_requests_path) do |f| %>
+      <% if reviewing? %>
+        <%= render(partial: 'hidden_visitors_step') %>
+        <%= render(partial: 'hidden_slots_step') %>
+      <% end %>
+
       <h2>
         <%= t('.prisoner_details') %>
       </h2>

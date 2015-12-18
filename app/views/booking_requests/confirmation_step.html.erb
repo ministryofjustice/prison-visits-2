@@ -33,9 +33,16 @@
     <strong><%= prisoner_step.prison_name %></strong>
   </p>
 
-  <p class="edit-link">
-    <%= link_to(t('.change_prisoner_details'), '/TODO') %>
-  </p>
+  <%= form_for(confirmation_step, url: booking_requests_path) do |f| %>
+    <%= render(partial: 'hidden_prisoner_step') %>
+    <%= render(partial: 'hidden_visitors_step') %>
+    <%= render(partial: 'hidden_slots_step') %>
+    <%= hidden_field_tag('review_step', 'prisoner_step') %>
+
+    <p class="edit-link">
+      <%= f.submit(t('.change_prisoner_details'), class: 'button') %>
+    </p>
+  <% end %>
 </div>
 
 <div class="divider compact">
@@ -57,9 +64,16 @@
     </p>
   <% end %>
 
-  <p class="edit-link">
-    <%= link_to(t('.change_visitor_details'), '/TODO') %>
-  </p>
+  <%= form_for(confirmation_step, url: booking_requests_path) do |f| %>
+    <%= render(partial: 'hidden_prisoner_step') %>
+    <%= render(partial: 'hidden_visitors_step') %>
+    <%= render(partial: 'hidden_slots_step') %>
+    <%= hidden_field_tag('review_step', 'visitors_step') %>
+
+    <p class="edit-link">
+      <%= f.submit(t('.change_visitor_details'), class: 'button') %>
+    </p>
+  <% end %>
 </div>
 
 <div class="divider compact visit-details">
@@ -91,9 +105,16 @@
     </ol>
   <% end %>
 
-  <p class="edit-link">
-    <%= link_to(t('.change_visit_details'), '/TODO') %>
-  </p>
+  <%= form_for(confirmation_step, url: booking_requests_path) do |f| %>
+    <%= render(partial: 'hidden_prisoner_step') %>
+    <%= render(partial: 'hidden_visitors_step') %>
+    <%= render(partial: 'hidden_slots_step') %>
+    <%= hidden_field_tag('review_step', 'slots_step') %>
+
+    <p class="edit-link">
+      <%= f.submit(t('.change_visit_details'), class: 'button') %>
+    </p>
+  <% end %>
 </div>
 
 <div class="divider">
