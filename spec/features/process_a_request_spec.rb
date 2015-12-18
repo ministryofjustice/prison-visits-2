@@ -71,6 +71,8 @@ RSpec.feature 'Processing a request', js: true do
 
     click_button 'Send email'
 
+    expect(page).to have_text('A confirmation email has been sent to the visitor')
+
     vst.reload
     expect(vst).to be_booked
     expect(vst.reference_no).to eq('12345678')
@@ -89,6 +91,8 @@ RSpec.feature 'Processing a request', js: true do
     choose 'None of the chosen times are available'
 
     click_button 'Send email'
+
+    expect(page).to have_text('A rejection email has been sent to the visitor')
 
     vst.reload
     expect(vst).to be_rejected
@@ -113,6 +117,8 @@ RSpec.feature 'Processing a request', js: true do
 
     click_button 'Send email'
 
+    expect(page).to have_text('A rejection email has been sent to the visitor')
+
     vst.reload
     expect(vst).to be_rejected
     expect(vst.rejection_reason).to eq('no_allowance')
@@ -134,6 +140,8 @@ RSpec.feature 'Processing a request', js: true do
 
     click_button 'Send email'
 
+    expect(page).to have_text('A rejection email has been sent to the visitor')
+
     vst.reload
     expect(vst.rejection_reason).to eq('prisoner_details_incorrect')
     expect(vst).to be_rejected
@@ -152,6 +160,8 @@ RSpec.feature 'Processing a request', js: true do
     choose 'Prisoner no longer at the prison'
 
     click_button 'Send email'
+
+    expect(page).to have_text('A rejection email has been sent to the visitor')
 
     vst.reload
     expect(vst.rejection_reason).to eq('prisoner_moved')
@@ -175,6 +185,8 @@ RSpec.feature 'Processing a request', js: true do
 
     click_button 'Send email'
 
+    expect(page).to have_text('A rejection email has been sent to the visitor')
+
     vst.reload
     expect(vst.rejection_reason).to eq('visitor_not_on_list')
     expect(vst).to be_rejected
@@ -197,6 +209,8 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     click_button 'Send email'
+
+    expect(page).to have_text('A rejection email has been sent to the visitor')
 
     vst.reload
     expect(vst.rejection_reason).to eq('visitor_banned')

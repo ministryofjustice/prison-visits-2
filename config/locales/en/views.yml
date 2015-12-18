@@ -152,6 +152,10 @@ en:
     visits:
       calendar:
         today: Today
+      update:
+        title: Thank you
+        booked: A confirmation email has been sent to the visitor.
+        rejected: A rejection email has been sent to the visitor.
       show:
         title: Process a visit request
         introduction_html: |
