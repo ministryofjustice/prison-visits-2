@@ -12,7 +12,8 @@
         when: format_date_without_year(@visit.confirm_by)) %>
 </p>
 <p>
-  <%= t('.when_to_check_spam', when: 'TODO') %>
+  <%= t('.when_to_check_spam',
+        when: format_date_without_year(@visit.confirm_by)) %>
 </p>
 <h1>
   <%= t('.avoid_spam_filtering') %>
