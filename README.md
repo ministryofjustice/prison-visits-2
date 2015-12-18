@@ -171,26 +171,26 @@ This requires the `SESSION_SECRET_KEY` environment variable (see below).
 Emails will be sent to [MailCatcher](http://mailcatcher.me/), if it's running.
 See its website for instructions.
 
-## Environment variables used by the application
+### Environment variables
 
-### `DATABASE_URL`
+#### `DATABASE_URL`
 
 This will override any settings in `config/database.yml`, and should be of the
 form `postgres://myuser:mypass@localhost/somedatabase`.
 
-### `GOVUK_START_PAGE`
+#### `GOVUK_START_PAGE`
 
 Visiting `/` will redirect to this URL, if supplied, or the new booking page
 otherwise. On production, this must be set to
 [https://www.gov.uk/prison-visits](https://www.gov.uk/prison-visits), the
 official start page for the service.
 
-### `PRISON_ESTATE_IPS`
+#### `PRISON_ESTATE_IPS`
 
 A semicolon- or comma-separated list of IP addresses or CIDR ranges. Users on
 these addresses can access the prison booking admin pages.
 
-### `SECRET_KEY_BASE`
+#### `SECRET_KEY_BASE`
 
 This key is used to verify the integrity of signed cookies. If it is changed,
 all old signed cookies will become invalid.
@@ -199,24 +199,30 @@ Make sure the secret is at least 30 characters and all random, no regular words
 or you'll be exposed to dictionary attacks. You can use `rake secret` to
 generate a secure secret key.
 
-### `SERVICE_URL`
+#### `SERVICE_URL`
 
 This is used to build links in emails. It must be set in the production
 environment to `https://www.prisonvisits.service.gov.uk/`.
 
-### `SESSION_SECRET_KEY`
+#### `SESSION_SECRET_KEY`
 
 This is used to sign the session used by the Sidekiq admin interface.
 
-### `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_HOSTNAME`, `SMTP_PORT`, `SMTP_DOMAIN`
+#### `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_HOSTNAME`, `SMTP_PORT`, `SMTP_DOMAIN`
 
 These configure email delivery in the production environment. `SMTP_DOMAIN` is
 also used when generating the `no-reply@` address and the `feedback@` stand-in
 address used when submitting feedback without an email address to Zendesk.
 
-## Files to be created on deployment
+#### `ZENDESK_USERNAME`, `ZENDESK_TOKEN`, `ZENDESK_URL`
 
-### `META`
+These are required in order to submit user feedback to Zendesk.
+
+`ZENDESK_URL` defaults to `https://ministryofjustice.zendesk.com/api/v2`.
+
+### Files to be created on deployment
+
+#### `META`
 
 This file, located in the root directory, should be a JSON document containing
 build information to be returned by `/ping.json`. e.g.:
@@ -227,8 +233,3 @@ build information to be returned by `/ping.json`. e.g.:
   "commit_id": "a444e4b05276ae7dc2b1d4224e551dfcbf768795"
 }
 ```
-### `ZENDESK_USERNAME`, `ZENDESK_TOKEN`, `ZENDESK_URL`
-
-These are required in order to submit user feedback to Zendesk.
-
-`ZENDESK_URL` defaults to `https://ministryofjustice.zendesk.com/api/v2`.
