@@ -1,5 +1,6 @@
 class Visitor < ActiveRecord::Base
   include Person
+  extend FreshnessCalculations
 
   belongs_to :visit
   validates :visit, :sort_index, presence: true

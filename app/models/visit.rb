@@ -1,4 +1,6 @@
 class Visit < ActiveRecord::Base
+  extend FreshnessCalculations
+
   belongs_to :prison
   belongs_to :prisoner
   has_many :visitors, dependent: :destroy
