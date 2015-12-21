@@ -6,7 +6,13 @@ class IpAddressMatcher
   end
 
   def include?(addr)
-    @cidrs.any? { |cidr| cidr.matches?(addr) }
+    @cidrs.any? do |cidr|
+      begin
+        cidr.matches?(addr)
+      rescue NetAddr::ValidationError
+        false
+      end
+    end
   end
 
   alias_method :===, :include?
