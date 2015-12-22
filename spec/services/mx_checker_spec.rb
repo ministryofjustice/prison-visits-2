@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe MxChecker do
   subject { described_class.new(resolver) }
   let(:resolver) { double('Resolv::DNS') }
