@@ -15,5 +15,5 @@ migrate)
     bundle exec rake db:schema:load
     ;;
 esac
-bundle exec import:all assets:precompile
+bundle exec rake assets:precompile
 bundle exec rails server --binding 0.0.0.0
