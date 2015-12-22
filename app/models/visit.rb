@@ -28,6 +28,22 @@ class Visit < ActiveRecord::Base
     to: :rejection
 
   state_machine :processing_state, initial: :requested do
+    after_transition on: :accept do |visit|
+      visit.update_column(:accepted_at, Time.zone.now)
+    end
+
+    after_transition on: :reject do |visit|
+      visit.update_column(:rejected_at, Time.zone.now)
+    end
+
+    after_transition booked: :cancelled do |visit|
+      visit.update_column(:cancelled_at, Time.zone.now)
+    end
+
+    after_transition requested: :withdrawn do |visit|
+      visit.update_column(:withdrawn_at, Time.zone.now)
+    end
+
     event :accept do
       transition requested: :booked
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215154514) do
+ActiveRecord::Schema.define(version: 20151222125110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,11 +90,15 @@ ActiveRecord::Schema.define(version: 20151215154514) do
     t.string   "processing_state",        default: "requested", null: false
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false
-    t.string   "reference_no"
-    t.boolean  "closed"
     t.boolean  "override_delivery_error", default: false
     t.string   "delivery_error_type"
+    t.string   "reference_no"
+    t.boolean  "closed"
     t.uuid     "prisoner_id",                                   null: false
+    t.datetime "accepted_at"
+    t.datetime "rejected_at"
+    t.datetime "withdrawn_at"
+    t.datetime "cancelled_at"
   end
 
   add_index "visits", ["prison_id"], name: "index_visits_on_prison_id", using: :btree
