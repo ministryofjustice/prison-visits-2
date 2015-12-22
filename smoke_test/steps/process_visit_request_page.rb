@@ -1,7 +1,6 @@
 module SmokeTest
   module Steps
     class ProcessVisitRequestPage < BaseStep
-
       PAGE_PATH = %r{/prison/visits/([0-9a-f-]){36}}
 
       def validate!
@@ -18,9 +17,7 @@ module SmokeTest
 
     private
 
-      def process_data
-        state.process_data
-      end
+      def_delegator :state, :process_data
     end
   end
 end

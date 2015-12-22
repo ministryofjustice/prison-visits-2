@@ -25,9 +25,7 @@ module SmokeTest
 
     private
 
-      def visitor
-        state.visitor
-      end
+      def_delegator :state, :visitor
     end
   end
 end

@@ -58,19 +58,26 @@ module SmokeTest
       puts 'Beginning Smoke Test..'
       Capybara.reset_sessions!
       visit '/request'
-      STEPS.map(&method(:complete))
+      STEPS.map do |step|
+        puts "Step: #{step_name(step)}"
+        complete(step)
+      end
       puts 'Smoke Test Completed'
     end
 
   private
 
+    def step_name(step)
+      step.name.split('::').last.gsub(/(?=[A-Z])/, ' ').strip
+    end
+
     def complete(step)
-      current_step = step.new state
+      current_step = step.new
       current_step.validate!
       current_step.complete_step
     end
 
-    def state
+    def self.state
       @state ||= State.new
     end
   end

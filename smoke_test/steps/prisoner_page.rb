@@ -30,9 +30,7 @@ module SmokeTest
           set(name)
       end
 
-      def prisoner
-        state.prisoner
-      end
+      def_delegator :state, :prisoner
     end
   end
 end
