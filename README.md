@@ -259,30 +259,14 @@ same effect as running it once.
 
 The files can be edited by anyone with access to this repository. The
 [YAML](http://en.wikipedia.org/wiki/YAML) specification is complex and fraught
-`SMOKE_TEST_EMAIL_LOCAL_PART`@`SMOKE_TEST_EMAIL_DOMAIN`, it will not
-send that email to the prison, but will direct all mail the
 with edge cases, so be careful.
 
 #### Prison visibility
-To start the smoke tests, set the environment variables and run
-`ruby ./smoke_test/smoke_test.rb`.
 
 All known prisons should exist in the data files. If a prison is not in scope
 of the service, it should be disabled.
 
-##### Smoke Test Steps:
-  1. Starts the form
-  2. Fills in prisoner details page
-  3. Fills in visitor details page for one visitor
-  4. Selects three available days on the slot page
-  5. Submits the booking on the check your request page
-  6. Checks that the user received a booking receipt email
-  7. Checks that the prison received a booking request email
-  8. Visits the process booking page and confirms the booking
 To disable visit requests to a prison, set `enabled` to `false`.
-  10. Checks that the visitor received a confirmation email
-  11. Checks the status of the visit and cancels it
-  12. Checks that the prison receives a booking cancellation email
 
 ```yaml
   nomis_id: SFI
@@ -291,7 +275,7 @@ To disable visit requests to a prison, set `enabled` to `false`.
   ...
 
 ```
-SMOKE_TEST_EMAIL_LOCAL_PART
+
 #### Weekly visiting slots
 
 Slots are defined per prison via a weekly schedule. Only days listed here with
@@ -306,12 +290,12 @@ slots:
   - 1350-1450 # creates a 1 hour slot every Wednesday from 1:50pm
   sat:
   - 0900-1100 # creates a 2 hour slot every Saturday from 9am
-SMOKE_TEST_EMAIL_DOMAIN
+  - 1330-1530 # creates a 2 hour slot every Saturday from 1:30pm
 ```
 
 #### Slot anomalies
 
-##### Required environment variables for the smoke test:
+Use this to make exceptions to the weekly schedule.
 
 When a day is found in `slot_anomalies` the whole day is replaced with this
 data. Therefore if the weekday usually contains multiple slots and only a
@@ -322,10 +306,10 @@ slot_anomalies:
   2015-01-10:
   - 0930-1130 # replaces Saturday 10 January 2015 with only one slot at 9:30am
 ```
-SMOKE_TEST_EMAIL_LOCAL_PART
-SMOKE_TEST_EMAIL_DOMAIN
-SMOKE_TEST_EMAIL_PASSWORD
-SMOKE_TEST_APP_HOST
+
+#### Non-bookable days
+
+Use this to remove specified dates, such as staff training days or Christmas
 Day from the schedule. Public holidays are already excluded by default:
 visiting can be enabled by adding them as anomalies, above.
 
@@ -333,21 +317,19 @@ This overrides `slots`.
 
 ```yaml
 unbookable:
-SMOKE_TEST_EMAIL_HOST
+- 2015-12-25 # removes any slots from 25 December 2015
 ```
-### `SMOKE_TEST_EMAIL_LOCAL_PART`, `SMOKE_TEST_EMAIL_DOMAIN`
 
-These determine the email address that will trigger the smoke tests on
-the application. See note above.
+**Note** If an enabled prison does not have any unbookable dates, please
+make sure you represent this in the yaml as:
 
 ```yaml
 unbookable: []
-### `SMOKE_TEST_EMAIL_HOST`, `SMOKE_TEST_EMAIL_PASSWORD`
+```
 
-These are the details for the IMAP host that allows the smoke test to
-check that the emails have been delivered.
+If you do not, the specs will fail.
 
-### `SMOKE_TEST_APP_HOST`
+#### Response times
 
 Set the amount of full working days which booking staff have to respond to each
 request. The default is 3 days.
@@ -373,7 +355,7 @@ works_weekends: true
 
 When the service links to [Prison
 Finder](https://www.justice.gov.uk/contacts/prison-finder), it turns the prison
-This is the url of the particular version of the application that the
+name into part of the URL. For example, 'Drake Hall' becomes
 [drake-hall](https://www.justice.gov.uk/contacts/prison-finder/drake-hall).
 
 When the Prison Finder link does not simply match the prison name in lower
@@ -415,4 +397,69 @@ change the UUID.
 #### Deleting a prison
 
 You can't. This is because historical bookings still refer to that prison.
+Disable it instead (see above).
+
+## Smoke Tests
+
+Runs the happy path to book, confirm and cancel a visit.  If the app
+receives a an email in the format of
+`SMOKE_TEST_EMAIL_LOCAL_PART`@`SMOKE_TEST_EMAIL_DOMAIN`, it will not
+send that email to the prison, but will direct all mail the
+`SMOKE_TEST_EMAIL_HOST`.
+
+By default, the trigger email is
+`prison-visits-smoke-test@digital.justice.gov.uk`.
+
+The specific emails that make up the test are outlined in the list
+below.  All are concerning visits to `Arnold Prisoner` in Cardiff and
+come from `Joe Visitor`.
+
+To start the smoke tests, set the environment variables and run
+`ruby ./smoke_test/smoke_test.rb`.
+
+The normal SMTP server details will need to be set and the app must be
+run in production mode for the smoke tests to work.
+
+##### Smoke Test Steps:
+  1. Starts the form
+  2. Fills in prisoner details page
+  3. Fills in visitor details page for one visitor
+  4. Selects three available days on the slot page
+  5. Submits the booking on the check your request page
+  6. Checks that the user received a booking receipt email
+  7. Checks that the prison received a booking request email
+  8. Visits the process booking page and confirms the booking
+  9. Checks that the prison received a copy of the confirmation email
+  10. Checks that the visitor received a confirmation email
+  11. Checks the status of the visit and cancels it
+  12. Checks that the prison receives a booking cancellation email
+
+##### Required environment variables for the rails app:
+```
+SMOKE_TEST_EMAIL_LOCAL_PART
+SMOKE_TEST_EMAIL_DOMAIN
+```
+
+##### Required environment variables for the smoke test:
+```
+SMOKE_TEST_EMAIL_LOCAL_PART
+SMOKE_TEST_EMAIL_DOMAIN
+SMOKE_TEST_EMAIL_PASSWORD
+SMOKE_TEST_APP_HOST
+SMOKE_TEST_EMAIL_HOST
+```
+### `SMOKE_TEST_EMAIL_LOCAL_PART`, `SMOKE_TEST_EMAIL_DOMAIN`
+
+These determine the email address that will trigger the smoke tests on
+the application. See note above.
+
+### `SMOKE_TEST_EMAIL_HOST`, `SMOKE_TEST_EMAIL_PASSWORD`
+
+These are the details for the IMAP host that allows the smoke test to
+check that the emails have been delivered.
+
+### `SMOKE_TEST_APP_HOST`
+
+This is the url of the particular version of the application that the
 smoke test will run against.
+
