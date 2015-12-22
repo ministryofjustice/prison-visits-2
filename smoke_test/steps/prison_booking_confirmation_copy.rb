@@ -1,7 +1,7 @@
 module SmokeTest
   module Steps
     class PrisonBookingConfirmationCopy < BaseStep
-      include WithRetries
+      include ImapProcessor
 
       def validate!
         unless email
@@ -14,12 +14,6 @@ module SmokeTest
       end
 
     private
-
-      def email
-        @email ||= with_retries {
-          MailBox.find_email state.unique_email_address, expected_email_subject
-        }
-      end
 
       def expected_email_subject
         'COPY of booking confirmation for %s' % [state.prisoner.full_name]
