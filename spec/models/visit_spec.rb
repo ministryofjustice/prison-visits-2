@@ -14,7 +14,7 @@ RSpec.describe Visit, type: :model do
     it { is_expected.to allow_value('').for(:delivery_error_type) }
   end
 
-  describe 'states' do
+  describe 'state' do
     it 'is requested initially' do
       expect(subject).to be_requested
     end
@@ -59,6 +59,38 @@ RSpec.describe Visit, type: :model do
       subject.accept!
       subject.cancel!
       expect(subject).not_to be_processable
+    end
+
+    context 'transition time' do
+      let(:time) { Time.new(2015, 12, 01, 12, 00, 00).utc }
+
+      around do |example|
+        travel_to(time) do
+          example.run
+        end
+      end
+
+      it 'is recorded after accepting' do
+        expect { subject.accept! }.to change { subject.accepted_at }.
+          from(nil).to(time)
+      end
+
+      it 'is recorded after rejection' do
+        expect { subject.reject! }.to change { subject.rejected_at }.
+          from(nil).to(time)
+      end
+
+      it 'is recorded after withdrawal' do
+        expect { subject.cancel! }.to change { subject.withdrawn_at }.
+          from(nil).to(time)
+      end
+
+      it 'is recorded after cancellation' do
+        subject.accept!
+        subject.reload
+        expect { subject.cancel! }.
+          to change { subject.cancelled_at }.from(nil).to(time)
+      end
     end
   end
 
