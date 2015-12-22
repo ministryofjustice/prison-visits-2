@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe SlotDetailsParser do
   subject { described_class.new(raw) }
 

@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe AvailableSlotEnumerator do
   subject {
     described_class.new(

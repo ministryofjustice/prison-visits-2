@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe IpAddressMatcher do
   it 'matches a single IP address' do

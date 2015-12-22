@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.shared_context 'sendgrid shared tools' do
   let(:logger) { Rails.logger }
   let(:body) { '[]' }
