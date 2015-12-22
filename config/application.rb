@@ -34,5 +34,17 @@ module PrisonVisits
       'StateMachines::InvalidTransition' => :unprocessable_entity
     )
     config.prison_ip_ranges = ENV.fetch('PRISON_ESTATE_IPS', '127.0.0.1,::1')
+
+    config.smoke_test =
+      OpenStruct.new(
+        local_part:
+          Regexp.escape(
+            ENV.fetch('SMOKE_TEST_EMAIL_LOCAL_PART', 'prison-visits-smoke-test')
+          ),
+        domain:
+          Regexp.escape(
+            ENV.fetch('SMOKE_TEST_EMAIL_DOMAIN', 'digital.justice.gov.uk')
+          )
+      )
   end
 end
