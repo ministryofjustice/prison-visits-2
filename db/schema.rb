@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151222125110) do
+ActiveRecord::Schema.define(version: 20151223124402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20151222125110) do
     t.datetime "rejected_at"
     t.datetime "withdrawn_at"
     t.datetime "cancelled_at"
+    t.float    "days_to_process"
   end
 
   add_index "visits", ["prison_id"], name: "index_visits_on_prison_id", using: :btree
