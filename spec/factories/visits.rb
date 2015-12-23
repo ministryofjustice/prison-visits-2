@@ -30,7 +30,9 @@ FactoryGirl.define do
     end
 
     factory :booked_visit do
-      processing_state 'booked'
+      after(:create) do |v|
+        v.accept!
+      end
 
       slot_granted do |v|
         v.slot_option_0
@@ -42,15 +44,22 @@ FactoryGirl.define do
     end
 
     factory :cancelled_visit do
-      processing_state 'cancelled'
+      after(:create) do |v|
+        v.accept!
+        v.cancel!
+      end
     end
 
     factory :rejected_visit do
-      processing_state 'rejected'
+      after(:create) do |v|
+        v.reject!
+      end
     end
 
     factory :withdrawn_visit do
-      processing_state 'withdrawn'
+      after(:create) do |v|
+        v.cancel!
+      end
     end
   end
 end
