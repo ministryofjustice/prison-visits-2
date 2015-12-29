@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(version: 20151223124402) do
     t.datetime "rejected_at"
     t.datetime "withdrawn_at"
     t.datetime "cancelled_at"
-    t.float    "days_to_process"
+    t.integer  "seconds_to_process"
   end
 
   add_index "visits", ["prison_id"], name: "index_visits_on_prison_id", using: :btree

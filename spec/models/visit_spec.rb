@@ -63,7 +63,7 @@ RSpec.describe Visit, type: :model do
 
     context 'transition time' do
       before do
-        allow(subject).to receive(:created_at).and_return(Time.new(2015, 11, 28).utc)
+        allow(subject).to receive(:created_at).and_return(Time.new(2015, 11, 28, 12, 00, 00).utc)
       end
       let(:time) { Time.new(2015, 12, 01, 12, 00, 00).utc }
 
@@ -78,9 +78,9 @@ RSpec.describe Visit, type: :model do
           from(nil).to(time)
       end
 
-      it 'memoizes the number of days it took to accept' do
-        expect { subject.accept! }.to change { subject.days_to_process }.
-          from(nil).to(3.0)
+      it 'memoizes the number of seconds it took to accept' do
+        expect { subject.accept! }.to change { subject.seconds_to_process }.
+          from(nil).to(259_200)
       end
 
       it 'is recorded after rejection' do
@@ -88,9 +88,9 @@ RSpec.describe Visit, type: :model do
           from(nil).to(time)
       end
 
-      it 'memoizes the number of days it took to reject' do
-        expect { subject.reject! }.to change { subject.days_to_process }.
-          from(nil).to(3.0)
+      it 'memoizes the number of seconds it took to reject' do
+        expect { subject.reject! }.to change { subject.seconds_to_process }.
+          from(nil).to(259_200)
       end
 
       it 'is recorded after withdrawal' do
@@ -98,9 +98,9 @@ RSpec.describe Visit, type: :model do
           from(nil).to(time)
       end
 
-      it 'memoizes the number of days it took to withdraw' do
-        expect { subject.cancel! }.to change { subject.days_to_process }.
-          from(nil).to(3.0)
+      it 'memoizes the number of seconds it took to withdraw' do
+        expect { subject.cancel! }.to change { subject.seconds_to_process }.
+          from(nil).to(259_200)
       end
 
       it 'is recorded after cancellation' do
@@ -110,14 +110,14 @@ RSpec.describe Visit, type: :model do
           to change { subject.cancelled_at }.from(nil).to(time)
       end
 
-      it 'memoizes the number of days it took to cancel' do
+      it 'memoizes the number of seconds it took to cancel' do
         subject.accept! # This sets days_to_process = 3.0
         subject.reload
         travel_to 3.days.from_now do # Assume they don't cancel straight away.
-          expect { subject.cancel! }.to change { subject.days_to_process }.
+          expect { subject.cancel! }.to change { subject.seconds_to_process }.
             # Can work out difference between acceptance and cancellation using
             # accepted_at and cancelled_at columns if we need it.
-            from(3.0).to(6.0)
+            from(259_200).to(518_400)
         end
       end
     end

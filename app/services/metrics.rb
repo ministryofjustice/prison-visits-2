@@ -7,6 +7,6 @@ class Metrics
   end
 
   def end_to_end_processing_time
-    visits.average(:days_to_process)
+    visits.average(:seconds_to_process).to_i
   end
 end
