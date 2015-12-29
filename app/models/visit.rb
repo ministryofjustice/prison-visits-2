@@ -29,19 +29,19 @@ class Visit < ActiveRecord::Base
 
   state_machine :processing_state, initial: :requested do
     after_transition on: :accept do |visit|
-      visit.update_column(:accepted_at, Time.zone.now)
+      visit.send(:details_for_metrics, :accepted_at)
     end
 
     after_transition on: :reject do |visit|
-      visit.update_column(:rejected_at, Time.zone.now)
+      visit.send(:details_for_metrics, :rejected_at)
     end
 
     after_transition booked: :cancelled do |visit|
-      visit.update_column(:cancelled_at, Time.zone.now)
+      visit.send(:details_for_metrics, :cancelled_at)
     end
 
     after_transition requested: :withdrawn do |visit|
-      visit.update_column(:withdrawn_at, Time.zone.now)
+      visit.send(:details_for_metrics, :withdrawn_at)
     end
 
     event :accept do
@@ -95,5 +95,13 @@ class Visit < ActiveRecord::Base
 
   def unlisted_visitors
     visitors.unlisted
+  end
+
+private
+
+  def details_for_metrics(col)
+    dt = Time.zone.now
+    update_column(col, dt)
+    update_column(:seconds_to_process, (dt.to_i - created_at.to_i))
   end
 end
