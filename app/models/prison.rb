@@ -9,6 +9,7 @@ class Prison < ActiveRecord::Base
 
   validates :estate, :name, :nomis_id, :slot_details, presence: true
   validates :enabled, inclusion: { in: [true, false] }
+  validates :email_address, presence: true, if: :enabled?
 
   def self.enabled
     where(enabled: true).order(name: :asc)
