@@ -1,4 +1,6 @@
 class PrisonSeeder
+  MissingUuidMapping = Class.new(StandardError)
+
   def self.seed!(base_path)
     filename_to_uuid_map_path =
       base_path.join('prison_uuid_mappings.yml')
@@ -17,7 +19,7 @@ class PrisonSeeder
 
   def import(path, hash)
     prison = Prison.find_or_initialize_by(id: uuid_for_path(path))
-    entry = SeedEntry.new(hash)
+    entry = PrisonSeeder::SeedEntry.new(hash)
     prison.update! entry.to_h
   end
 
@@ -27,7 +29,7 @@ private
     filename = File.basename(path)
 
     unless @filename_to_uuid_map.key?(filename)
-      fail Prison::MissingUuidMapping, <<-EOF.strip_heredoc
+      fail MissingUuidMapping, <<-EOF.strip_heredoc
         #{filename} is missing a UUID mapping.
         Rerun `rake maintenance:prison_uuids`, commit the result and rerun
         `rake db:seed`.

@@ -1,8 +1,6 @@
 class Prison < ActiveRecord::Base
   using Calendar
 
-  MissingUuidMapping = Class.new(StandardError)
-
   MAX_VISITORS = 6
   MAX_ADULTS = 3
   MIN_ADULTS = 1
