@@ -9,11 +9,6 @@ email: socialvisits.kirkham@hmps.gsi.gov.uk
 enabled: true
 estate: Kirkham
 phone: 
-slot_anomalies:
-  2015-12-23:
-  - 1315-1540
-  2015-12-30:
-  - 1315-1540
 slots:
   fri:
   - 1300-1530
@@ -21,9 +16,3 @@ slots:
   - 1300-1530
   sun:
   - 1300-1530
-unbookable:
-- 2014-12-25
-- 2015-12-24
-- 2015-12-25
-- 2015-12-31
-- 2016-01-01

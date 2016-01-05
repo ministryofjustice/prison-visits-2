@@ -8,13 +8,6 @@ email: socialvisits.glenparva@hmps.gsi.gov.uk
 enabled: true
 estate: Glen Parva
 phone: 0116 228 4366
-slot_anomalies:
-  2014-12-24:
-  - 1345-1545
-  2014-12-26:
-  - 0930-1130
-  2015-12-28:
-  - 1400-1545
 slots:
   mon:
   - 1400-1545
@@ -28,8 +21,3 @@ slots:
   - 1400-1545
   wed:
   - 1400-1545
-unbookable:
-- 2014-12-25
-- 2015-01-01
-- 2015-12-25
-- 2016-01-01

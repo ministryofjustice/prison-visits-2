@@ -9,9 +9,6 @@ enabled: true
 estate: Elmley
 finder_slug: sheppey-cluster-elmley
 phone: 0300 060 6605
-slot_anomalies:
-  2015-12-28:
-  - 1400-1530
 slots:
   mon:
   - 1400-1530
@@ -27,9 +24,3 @@ slots:
   - 1400-1530
   wed:
   - 1400-1530
-unbookable:
-- 2014-12-25
-- 2014-12-26
-- 2015-04-03
-- 2015-12-25
-- 2015-12-26

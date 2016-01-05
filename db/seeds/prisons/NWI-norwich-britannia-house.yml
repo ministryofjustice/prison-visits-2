@@ -9,10 +9,6 @@ enabled: true
 estate: Norwich
 finder_slug: norwich
 phone: 01603 708795
-slot_anomalies:
-  2015-12-28:
-  - 0930-1130
-  - 1400-1600
 slots:
   mon:
   - 0930-1130
@@ -35,9 +31,3 @@ slots:
   sun:
   - 0930-1130
   - 1400-1600
-unbookable:
-- 2014-12-25
-- 2014-12-26
-- 2015-12-25
-- 2015-12-26
-- 2016-01-01

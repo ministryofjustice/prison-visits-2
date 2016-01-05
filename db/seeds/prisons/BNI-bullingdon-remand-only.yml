@@ -9,9 +9,6 @@ enabled: true
 estate: Bullingdon
 finder_slug: bullingdon
 phone: 01869 353176
-slot_anomalies:
-  2015-12-28:
-  - 1400-1610
 slots:
   mon:
   - 1400-1610
@@ -21,7 +18,3 @@ slots:
   - 1400-1610
   tue:
   - 1400-1610
-unbookable:
-- 2014-12-25
-- 2015-12-25
-- 2016-01-01

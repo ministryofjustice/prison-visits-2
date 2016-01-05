@@ -9,15 +9,6 @@ email: visitsbooking.westmidlands@noms.gsi.gov.uk
 enabled: true
 estate: Stafford
 phone: 0300 060 6505
-slot_anomalies:
-  2015-10-13:
-  - 1400-1600
-  2015-12-21:
-  - 1400-1600
-  2015-12-22:
-  - 1400-1600
-  2015-12-29:
-  - 1400-1600
 slots:
   wed:
   - 1400-1600
@@ -27,9 +18,3 @@ slots:
   - 1400-1600
   sun:
   - 1400-1600
-unbookable:
-- 2015-10-14
-- 2015-12-25
-- 2015-12-26
-- 2015-12-31
-- 2016-01-01

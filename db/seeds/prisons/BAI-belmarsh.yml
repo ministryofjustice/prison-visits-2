@@ -12,9 +12,6 @@ enabled: true
 estate: Belmarsh
 lead_days: 3
 phone: 0208 3314768
-slot_anomalies:
-  2015-12-17:
-  - 1430-1600
 slots:
   tue:
   - 0930-1100
@@ -32,8 +29,3 @@ slots:
   - 1430-1600
   sun:
   - 1430-1600
-unbookable:
-- 2015-12-25
-- 2015-12-26
-- 2015-12-28
-- 2016-01-01

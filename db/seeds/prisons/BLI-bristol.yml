@@ -9,9 +9,6 @@ email: socialvisits.bristol@hmps.gsi.gov.uk
 enabled: true
 estate: Bristol
 phone: 0117 372 3213
-slot_anomalies:
-  2015-12-28:
-  - 1400-1600
 slots:
   mon:
   - 1400-1600
@@ -27,6 +24,3 @@ slots:
   - 1400-1600
   sun:
   - 1400-1600
-unbookable:
-- 2015-12-25
-- 2015-12-26

@@ -8,11 +8,6 @@ email: socialvisits.wymott@hmps.gsi.gov.uk
 enabled: true
 estate: Wymott
 phone: 01772 442234
-slot_anomalies:
-  2015-08-31:
-  - 1400-1550
-  2015-12-28:
-  - 1400-1550
 slots:
   mon:
   - 1400-1550
@@ -26,8 +21,3 @@ slots:
   - 1400-1550
   sun:
   - 1400-1550
-unbookable:
-- 2014-12-25
-- 2014-12-26
-- 2015-01-01
-- 2015-12-26

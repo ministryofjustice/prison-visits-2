@@ -8,9 +8,6 @@ email: socialvisits.wayland@hmps.gsi.gov.uk
 enabled: true
 estate: Wayland
 phone: 01953 804152
-slot_anomalies:
-  2015-12-24:
-  - 1400-1600
 slots:
   tue:
   - 1400-1600
@@ -22,10 +19,3 @@ slots:
   - 1400-1600
   sun:
   - 1400-1600
-unbookable:
-- 2014-12-25
-- 2015-01-01
-- 2015-12-25
-- 2015-12-26
-- 2015-12-31
-- 2016-01-01

@@ -8,12 +8,6 @@ email: socialvisits.brixton@hmps.gsi.gov.uk
 enabled: true
 estate: Brixton
 phone: 0208 678 1433
-slot_anomalies:
-  2015-12-28:
-  - 0900-1015
-  - 1045-1200
-  - 1345-1500
-  - 1530-1645
 slots:
   sat:
   - 0900-1015
@@ -32,7 +26,3 @@ slots:
   - 1030-1145
   - 1315-1430
   - 1500-1615
-unbookable:
-- 2015-12-25
-- 2015-12-26
-- 2016-01-01

@@ -8,9 +8,6 @@ email: socialvisits.lewes@hmps.gsi.gov.uk
 enabled: true
 estate: Lewes
 phone: 01273785277
-slot_anomalies:
-  2015-12-28:
-  - 1410-1535
 slots:
   mon:
   - 1410-1535
@@ -26,13 +23,4 @@ slots:
   - 1410-1535
   sun:
   - 1410-1535
-unbookable:
-- 2014-12-25
-- 2014-12-26
-- 2015-01-01
-- 2015-01-27
-- 2015-04-03
-- 2015-12-25
-- 2015-12-26
-- 2016-01-01
 works_weekends: true

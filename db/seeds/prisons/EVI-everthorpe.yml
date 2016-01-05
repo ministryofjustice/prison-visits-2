@@ -8,12 +8,6 @@ email: socialvisits.everthorpe@hmps.gsi.gov.uk
 enabled: true
 estate: Everthorpe
 phone: 01430 426505
-slot_anomalies:
-  2015-12-23:
-  - 0930-1130
-  - 1400-1600
-  2015-12-28:
-  - 1415-1615
 slots:
   fri:
   - 1415-1615
@@ -26,6 +20,3 @@ slots:
   - 1400-1600
   thu:
   - 1415-1615
-unbookable:
-- 2014-12-25
-- 2015-12-25

@@ -8,9 +8,6 @@ email: socialvisits.chelmsford@hmps.gsi.gov.uk
 enabled: true
 estate: Chelmsford
 phone: 01245 552265
-slot_anomalies:
-  2015-12-28:
-  - 1415-1600
 slots:
   mon:
   - 1415-1600
@@ -26,11 +23,3 @@ slots:
   - 1415-1600
   wed:
   - 1415-1600
-unbookable:
-- 2014-12-25
-- 2014-12-26
-- 2015-12-24
-- 2015-12-25
-- 2015-12-26
-- 2016-01-01
-- 2015-12-31

@@ -10,9 +10,6 @@ email: visitsbooking.westmidlands@noms.gsi.gov.uk
 enabled: true
 estate: Featherstone
 phone: 0300 060 6502
-slot_anomalies:
-  2015-12-28:
-  - 1400-1630
 slots:
   mon:
   - 1400-1630
@@ -26,15 +23,3 @@ slots:
   - 1400-1600
   sun:
   - 1400-1600
-unbookable:
-- 2014-04-18
-- 2014-04-21
-- 2014-05-05
-- 2014-05-26
-- 2014-12-25
-- 2014-12-26
-- 2015-01-01
-- 2015-12-25
-- 2015-12-26
-- 2015-12-31
-- 2016-01-01

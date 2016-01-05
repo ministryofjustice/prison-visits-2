@@ -9,9 +9,6 @@ email: socialvisits.haverigg@hmps.gsi.gov.uk
 enabled: true
 estate: Haverigg
 phone: 01229713016
-slot_anomalies:
-  2015-12-28:
-  - 1400-1545
 slots:
   mon:
   - 1400-1545
@@ -25,7 +22,3 @@ slots:
   - 1400-1545
   sun:
   - 1400-1545
-unbookable:
-- 2015-04-03
-- 2015-12-25
-- 2015-12-26

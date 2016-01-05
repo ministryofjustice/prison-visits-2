@@ -10,10 +10,6 @@ enabled: true
 estate: Full Sutton
 lead_days: 3
 phone: 01759 475355
-slot_anomalies:
-  2015-12-24:
-  - 0900-1100
-  - 1410-1615
 slots:
   thu:
   - 1410-1615
@@ -24,7 +20,3 @@ slots:
   - 1345-1615
   sun:
   - 1345-1615
-unbookable:
-- 2015-12-25
-- 2015-12-26
-- 2016-01-01

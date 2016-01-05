@@ -10,9 +10,6 @@ email: socialvisits.gartree@hmps.gsi.gov.uk
 enabled: true
 estate: Gartree
 phone: 01858 426 727
-slot_anomalies:
-  2015-12-28:
-  - 1400-1600
 slots:
   tue:
   - 1400-1600
@@ -22,12 +19,3 @@ slots:
   - 1400-1600
   sun:
   - 1400-1600
-unbookable:
-- 2014-04-18
-- 2014-04-21
-- 2014-12-25
-- 2014-12-26
-- 2015-01-01
-- 2015-12-25
-- 2015-12-26
-- 2016-01-01

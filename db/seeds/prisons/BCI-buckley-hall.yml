@@ -8,14 +8,6 @@ email: socialvisits.buckleyhall@hmps.gsi.gov.uk
 enabled: true
 estate: Buckley Hall
 phone: 01706 514350
-slot_anomalies:
-  2014-12-24:
-  - 1400-1600
-  2014-12-31:
-  - 1400-1600
-  2015-12-28:
-  - 0930-1130
-  - 1400-1600
 slots:
   mon:
   - 1400-1600
@@ -34,9 +26,3 @@ slots:
   sun:
   - 0930-1130
   - 1400-1600
-unbookable:
-- 2014-12-25
-- 2014-12-26
-- 2015-04-03
-- 2015-12-25
-- 2015-12-26
