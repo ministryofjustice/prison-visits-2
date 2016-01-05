@@ -24,7 +24,7 @@ RSpec.describe PrisonSeeder do
     it 'raises an exception on import' do
       expect {
         subject.import 'LNX-luna.yml', {}
-      }.to raise_exception(PrisonSeeder::MissingUuidMapping)
+      }.to raise_exception(PrisonSeeder::ImportFailure)
     end
   end
 

@@ -1,5 +1,6 @@
 class PrisonSeeder
   MissingUuidMapping = Class.new(StandardError)
+  ImportFailure = Class.new(StandardError)
 
   def self.seed!(base_path)
     filename_to_uuid_map_path =
@@ -21,6 +22,8 @@ class PrisonSeeder
     prison = Prison.find_or_initialize_by(id: uuid_for_path(path))
     entry = PrisonSeeder::SeedEntry.new(hash)
     prison.update! entry.to_h
+  rescue => err
+    raise ImportFailure, "#{err} in #{path}"
   end
 
 private
