@@ -61,35 +61,40 @@ RSpec.describe Visit, type: :model do
       expect(subject).not_to be_processable
     end
 
-    context 'transition time' do
-      let(:time) { Time.new(2015, 12, 01, 12, 00, 00).utc }
-
-      around do |example|
-        travel_to(time) do
-          example.run
-        end
-      end
+    context '.visit_state_changes' do
+      it { should have_many(:visit_state_changes) }
 
       it 'is recorded after accepting' do
-        expect { subject.accept! }.to change { subject.accepted_at }.
-          from(nil).to(time)
+        expect{
+          subject.accept!
+        }.to change {
+          subject.visit_state_changes.booked.count
+        }.by(1)
       end
 
       it 'is recorded after rejection' do
-        expect { subject.reject! }.to change { subject.rejected_at }.
-          from(nil).to(time)
+        expect{
+          subject.reject!
+        }.to change {
+          subject.visit_state_changes.rejected.count
+        }.by(1)
       end
 
       it 'is recorded after withdrawal' do
-        expect { subject.cancel! }.to change { subject.withdrawn_at }.
-          from(nil).to(time)
+        expect{
+          subject.cancel!
+        }.to change {
+          subject.visit_state_changes.withdrawn.count
+        }.by(1)
       end
 
       it 'is recorded after cancellation' do
         subject.accept!
-        subject.reload
-        expect { subject.cancel! }.
-          to change { subject.cancelled_at }.from(nil).to(time)
+        expect{
+          subject.cancel!
+        }.to change {
+          subject.visit_state_changes.cancelled.count
+        }.by(1)
       end
     end
   end

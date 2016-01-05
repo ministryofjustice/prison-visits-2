@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151222125110) do
+ActiveRecord::Schema.define(version: 20160105150712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,15 @@ ActiveRecord::Schema.define(version: 20151222125110) do
 
   add_index "rejections", ["visit_id"], name: "index_rejections_on_visit_id", unique: true, using: :btree
 
+  create_table "visit_state_changes", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "visit_state"
+    t.uuid     "visit_id",    null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "visit_state_changes", ["visit_id"], name: "index_visit_state_changes_on_visit_id", using: :btree
+
   create_table "visitors", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "visit_id",      null: false
     t.string   "first_name",    null: false
@@ -95,10 +104,6 @@ ActiveRecord::Schema.define(version: 20151222125110) do
     t.string   "reference_no"
     t.boolean  "closed"
     t.uuid     "prisoner_id",                                   null: false
-    t.datetime "accepted_at"
-    t.datetime "rejected_at"
-    t.datetime "withdrawn_at"
-    t.datetime "cancelled_at"
   end
 
   add_index "visits", ["prison_id"], name: "index_visits_on_prison_id", using: :btree
