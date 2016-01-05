@@ -7,7 +7,6 @@ address:
 email: socialvisits.hollesleybay@hmps.gsi.gov.uk
 enabled: true
 estate: Hollesley Bay Open
-phone: ''
 slots:
   sat:
   - 1400-1545

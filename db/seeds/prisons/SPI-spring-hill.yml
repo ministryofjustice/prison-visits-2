@@ -7,7 +7,6 @@ address:
 email: socialvisits.springhill@hmps.gsi.gov.uk
 enabled: true
 estate: Spring Hill
-phone: 
 slots:
   sat:
   - 1345-1600

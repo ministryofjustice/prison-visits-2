@@ -7,7 +7,6 @@ address:
 email: socialvisits.askhamgrange@hmps.gsi.gov.uk
 enabled: true
 estate: Askham Grange
-phone: 
 slots:
   sat:
   - 1345-1545

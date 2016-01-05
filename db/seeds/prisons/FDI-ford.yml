@@ -7,7 +7,6 @@ address:
 email: socialvisits.ford@hmps.gsi.gov.uk
 enabled: true
 estate: Ford
-phone: 
 slots:
   wed:
   - 1800-2000
