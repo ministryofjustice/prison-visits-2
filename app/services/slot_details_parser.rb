@@ -1,21 +1,34 @@
 class SlotDetailsParser
-  def initialize(raw)
-    @raw = raw
+  def parse(raw)
+    SlotDetails.new(
+      parse_recurring_slots(raw),
+      parse_anomalous_slots(raw),
+      parse_unbookable_dates(raw)
+    )
   end
 
-  def recurring_slots
-    @raw.fetch('recurring', {}).map { |day, slots|
+private
+
+  def parse_recurring_slots(raw)
+    raw.fetch('recurring', {}).map { |day, slots|
       [DayOfWeek.by_name(day), slots.map { |s| RecurringSlot.parse(s) }]
     }.to_h
   end
 
-  def anomalous_slots
-    @raw.fetch('anomalous', {}).map { |date, slots|
-      [Date.parse(date), slots.map { |s| RecurringSlot.parse(s) }]
+  def parse_anomalous_slots(raw)
+    raw.fetch('anomalous', {}).map { |date, slots|
+      [parse_date(date), slots.map { |s| RecurringSlot.parse(s) }]
     }.to_h
   end
 
-  def unbookable_dates
-    @raw.fetch('unbookable', {}).map { |date| Date.parse(date) }
+  def parse_unbookable_dates(raw)
+    raw.fetch('unbookable', {}).map { |date| parse_date(date) }
+  end
+
+  def parse_date(date)
+    # This is necessary because, whilst we initially obtain Date objects from
+    # parsing YAML, these are converted to strings when storing them in the
+    # JSON field in the database.
+    date.is_a?(Date) ? date : Date.parse(date)
   end
 end

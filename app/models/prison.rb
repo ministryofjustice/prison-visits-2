@@ -1,8 +1,6 @@
 class Prison < ActiveRecord::Base
   using Calendar
 
-  MissingUuidMapping = Class.new(StandardError)
-
   MAX_VISITORS = 6
   MAX_ADULTS = 3
   MIN_ADULTS = 1
@@ -11,19 +9,20 @@ class Prison < ActiveRecord::Base
 
   validates :estate, :name, :nomis_id, :slot_details, presence: true
   validates :enabled, inclusion: { in: [true, false] }
+  validates :email_address, presence: true, if: :enabled?
+  validate :validate_unbookable_dates
+
+  delegate :recurring_slots, :anomalous_slots, :unbookable_dates,
+    to: :parsed_slot_details
 
   def self.enabled
     where(enabled: true).order(name: :asc)
   end
 
   def available_slots(today = Time.zone.today)
-    parser = SlotDetailsParser.new(slot_details)
     AvailableSlotEnumerator.new(
-      first_bookable_date(today),
-      last_bookable_date(today),
-      parser.recurring_slots,
-      parser.anomalous_slots,
-      parser.unbookable_dates
+      first_bookable_date(today), last_bookable_date(today),
+      recurring_slots, anomalous_slots, unbookable_dates
     )
   end
 
@@ -55,7 +54,16 @@ class Prison < ActiveRecord::Base
     end
   end
 
+  def slot_details=(h)
+    super
+    @parsed_slot_details = SlotDetailsParser.new.parse(h)
+  end
+
 private
+
+  def parsed_slot_details
+    @parsed_slot_details ||= SlotDetailsParser.new.parse(slot_details)
+  end
 
   def adult?(age)
     age >= adult_age
@@ -64,5 +72,14 @@ private
   def processing_day?(date)
     return false if date.holiday?
     weekend_processing? || date.weekday?
+  end
+
+  def validate_unbookable_dates
+    if unbookable_dates.uniq.length != unbookable_dates.length
+      errors.add :slot_details, :duplicate_unbookable_date
+    end
+    if (unbookable_dates & anomalous_slots.keys).any?
+      errors.add :slot_details, :unbookable_and_anomalous_conflict
+    end
   end
 end

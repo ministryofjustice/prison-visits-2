@@ -1,7 +1,15 @@
 RSpec.describe DayOfWeek do
-  it 'finds a day by short name' do
-    expect(described_class.by_name('mon')).to eq(described_class::MON)
-    expect(described_class.by_name('sun')).to eq(described_class::SUN)
+  describe 'by_name' do
+    it 'finds a day by short name' do
+      expect(described_class.by_name('mon')).to eq(described_class::MON)
+      expect(described_class.by_name('sun')).to eq(described_class::SUN)
+    end
+
+    it 'raises an exception when the day does not exist' do
+      expect {
+        described_class.by_name('xxx')
+      }.to raise_exception(described_class::NoSuchDay)
+    end
   end
 
   it 'finds a day by index' do

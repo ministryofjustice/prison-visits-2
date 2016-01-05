@@ -1,6 +1,9 @@
 class DayOfWeek
+  NoSuchDay = Class.new(ArgumentError)
+
   def self.by_name(name)
-    ALL.find { |d| d.name == name }
+    ALL.find { |d| d.name == name } ||
+      (fail NoSuchDay, "no such day '#{name}'")
   end
 
   def self.by_index(index)
@@ -26,6 +29,6 @@ class DayOfWeek
 
   # These should be singletons, so ensure that no more can be created
   def self.new(*)
-    fail ArgumentError
+    fail ArgumentError, 'no more days can be created in the week'
   end
 end
