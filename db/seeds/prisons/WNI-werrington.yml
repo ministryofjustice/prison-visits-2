@@ -6,11 +6,9 @@ address:
 - Stoke-On-Trent
 - ST9 0DX
 adult_age: 10
-canned_responses: true
 email: visitsbooking.westmidlands@noms.gsi.gov.uk
 enabled: true
 estate: Werrington
-id: 124
 phone: 0300 060 6508
 slots:
   wed:
@@ -29,3 +27,7 @@ unbookable:
 - 2014-12-25
 - 2014-12-26
 - 2015-01-01
+- 2015-12-25
+- 2015-12-26
+- 2015-12-28
+- 2016-01-01

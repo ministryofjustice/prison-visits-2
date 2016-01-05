@@ -4,12 +4,19 @@ nomis_id: WYI
 address:
 - York Road
 - 'LS22 5ED '
-canned_responses: true
 email: socialvisits.wetherby@hmps.gsi.gov.uk
 enabled: true
 estate: Wetherby
-id: 130
 phone: 01937 544207
+slot_anomalies:
+  2015-12-24:
+  - 1430-1630
+  2015-12-28:
+  - 1430-1630
+  2015-12-31:
+  - 1430-1630
+  2016-01-01:
+  - 1430-1630
 slots:
   wed:
   - 1830-2000
@@ -21,3 +28,4 @@ slots:
   - 1430-1630
 unbookable:
 - 2014-12-25
+- 2015-12-25

@@ -4,12 +4,14 @@ nomis_id: WEI
 address:
 - Church Causeway
 - LS23 7AZ
-canned_responses: true
 email: socialvisits.wealstun@hmps.gsi.gov.uk
 enabled: true
 estate: Wealstun
-id: 119
 phone: 01937 444599
+slot_anomalies:
+  2015-12-28:
+  - 0930-1130
+  - 1330-1530
 slots:
   mon:
   - 0930-1130
@@ -32,3 +34,6 @@ slots:
 unbookable:
 - 2014-12-25
 - 2015-01-01
+- 2015-12-25
+- 2015-12-26
+- 2016-01-01

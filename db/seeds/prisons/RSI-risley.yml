@@ -4,11 +4,9 @@ nomis_id: RSI
 address:
 - Warrington Road
 - WA3 6BP
-canned_responses: true
 email: socialvisits.risley@hmps.gsi.gov.uk
 enabled: true
 estate: Risley
-id: 102
 phone: 01925 733284
 slot_anomalies:
   2014-07-25:
@@ -27,6 +25,12 @@ slot_anomalies:
   - 0900-1115
   - 1400-1600
   2014-11-28:
+  - 1400-1600
+  2015-12-24:
+  - 0900-1115
+  - 1400-1600
+  2015-12-31:
+  - 0900-1115
   - 1400-1600
 slots:
   sat:
@@ -57,3 +61,7 @@ unbookable:
 - 2015-02-11
 - 2015-04-03
 - 2015-04-15
+- 2015-12-25
+- 2015-12-26
+- 2015-12-28
+- 2016-01-01

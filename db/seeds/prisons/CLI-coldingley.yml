@@ -4,17 +4,30 @@ nomis_id: CLI
 address:
 - Shaftesbury Road
 - GU24 9EX
-canned_responses: true
 email: socialvisits.coldingley@hmps.gsi.gov.uk
 enabled: true
 estate: Coldingley
-id: 22
 phone: 01483 344418
 slot_anomalies:
   2014-12-23:
   - 1400-1545
   2014-12-24:
   - 0915-1100
+  2015-12-21:
+  - 0930-1100
+  - 1400-1545
+  2015-12-22:
+  - 0930-1100
+  - 1400-1545
+  2015-12-24:
+  - 0930-1100
+  - 1400-1545
+  2015-12-28:
+  - 0930-1100
+  - 1400-1545
+  2015-12-31:
+  - 0930-1100
+  - 1400-1530
 slots:
   mon:
   - 1400-1545
@@ -35,3 +48,6 @@ unbookable:
 - 2014-12-26
 - 2015-01-01
 - 2015-04-03
+- 2015-12-25
+- 2015-12-26
+- 2016-01-01

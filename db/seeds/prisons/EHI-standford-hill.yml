@@ -4,12 +4,10 @@ nomis_id: EHI
 address:
 - Church Road
 - 'ME12 4AA '
-canned_responses: true
 email: socialvisits.standfordhill@hmps.gsi.gov.uk
 enabled: true
 estate: Standford Hill
 finder_slug: sheppey-cluster-standford-hill
-id: 31
 phone: 0300 060 6603
 slots:
   wed:
@@ -20,3 +18,5 @@ slots:
   - 1345-1545
 unbookable:
 - 2014-12-25
+- 2015-12-25
+- 2015-12-26

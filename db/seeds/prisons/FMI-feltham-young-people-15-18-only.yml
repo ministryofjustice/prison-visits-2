@@ -4,12 +4,10 @@ nomis_id: FMI
 address:
 - Bedfont Road
 - TW13 4ND
-canned_responses: true
 email: socialvisits.feltham@hmps.gsi.gov.uk
 enabled: true
 estate: Feltham
 finder_slug: feltham
-id: 42
 phone: 0208 844 5400
 slots:
   tue:
@@ -55,3 +53,5 @@ unbookable:
 - 2015-06-07
 - 2015-06-21
 - 2015-07-05
+- 2015-12-25
+- 2015-12-26

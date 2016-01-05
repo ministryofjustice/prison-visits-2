@@ -7,11 +7,9 @@ address:
 - Staffordshire
 - WS14 9QS
 adult_age: 10
-canned_responses: true
 email: visitsbooking.westmidlands@noms.gsi.gov.uk
 enabled: true
 estate: Swinfen Hall
-id: 108
 phone: 0300 060 6507
 slots:
   tue:
@@ -30,3 +28,9 @@ unbookable:
 - 2014-12-25
 - 2014-12-26
 - 2015-01-01
+- 2015-12-21
+- 2015-12-24
+- 2015-12-25
+- 2015-12-28
+- 2015-12-31
+- 2016-01-01

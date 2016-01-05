@@ -4,12 +4,15 @@ nomis_id: LNI
 address:
 - Brasside
 - DH1 5YA
-canned_responses: true
 email: socialvisits.lownewton@hmps.gsi.gov.uk
 enabled: true
 estate: Low Newton
-id: 74
 phone: 0191 376 4147
+slot_anomalies:
+  2015-12-23:
+  - 1345-1545
+  2015-12-28:
+  - 1345-1545
 slots:
   fri:
   - 1415-1545
@@ -22,6 +25,6 @@ slots:
   tue:
   - 1415-1545
 unbookable:
-- 2014-12-25
-- 2014-12-26
-- 2015-01-01
+- 2015-12-25
+- 2015-12-26
+- 2016-01-01

@@ -4,11 +4,9 @@ nomis_id: LHI
 address:
 - Bawtry Road
 - 'DN7 6EE '
-canned_responses: true
 email: socialvisits.lindholme@hmps.gsi.gov.uk
 enabled: true
 estate: Lindholme
-id: 71
 phone: 01302 524980
 slot_anomalies:
   2014-12-24:
@@ -22,6 +20,14 @@ slot_anomalies:
   2015-05-25:
   - 1345-1600
   2015-08-31:
+  - 1345-1600
+  2015-12-24:
+  - 1345-1600
+  2015-12-28:
+  - 1345-1600
+  2015-12-31:
+  - 1345-1600
+  2016-01-01:
   - 1345-1600
 slots:
   mon:
@@ -43,3 +49,5 @@ unbookable:
 - 2014-12-26
 - 2015-01-01
 - 2015-04-03
+- 2015-12-25
+- 2015-12-26

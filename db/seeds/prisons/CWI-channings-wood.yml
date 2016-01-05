@@ -5,11 +5,9 @@ address:
 - Denbury
 - Newton Abbot
 - TQ12 6DW
-canned_responses: true
 email: socialvisits.channingswood@hmps.gsi.gov.uk
 enabled: true
 estate: Channings Wood
-id: 23
 phone: 01803 812060
 slots:
   wed:
@@ -80,3 +78,8 @@ unbookable:
 - 2015-09-06
 - 2015-09-20
 - 2015-10-04
+- 2015-12-23
+- 2015-12-24
+- 2015-12-25
+- 2015-12-26
+- 2015-12-31

@@ -5,11 +5,9 @@ address:
 - Old Elvet
 - Durham
 - DH1 3HU
-canned_responses: true
 email: socialvisits.durham@hmps.gsi.gov.uk
 enabled: true
 estate: Durham
-id: 26
 phone: 0191 3323417
 slots:
   mon:
@@ -35,3 +33,7 @@ unbookable:
 - 2014-12-25
 - 2014-12-26
 - 2015-01-01
+- 2015-12-25
+- 2015-12-26
+- 2015-12-28
+- 2016-01-01

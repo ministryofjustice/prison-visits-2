@@ -7,11 +7,9 @@ address:
 - Wolverhampton
 - WV10 7PY
 adult_age: 10
-canned_responses: true
 email: visitsbooking.westmidlands@noms.gsi.gov.uk
 enabled: true
 estate: Brinsford
-id: 16
 phone: 0300 060 6500
 slot_anomalies:
   2015-02-23:
@@ -34,17 +32,17 @@ slot_anomalies:
   - 1745-1900
   2015-11-30:
   - 1745-1900
-  2015-12-28:
-  - 1745-1900
+  2015-12-30:
+  - 1330-1615
 slots:
   tue:
-  - 1330-1600
+  - 1330-1615
   thu:
-  - 1330-1600
+  - 1330-1615
   sat:
-  - 1330-1600
+  - 1330-1615
   sun:
-  - 1330-1600
+  - 1330-1615
 unbookable:
 - 2014-04-18
 - 2014-04-21
@@ -53,3 +51,6 @@ unbookable:
 - 2014-12-25
 - 2014-12-26
 - 2015-01-01
+- 2015-12-25
+- 2015-12-26
+- 2015-12-28

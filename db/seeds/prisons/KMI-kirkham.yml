@@ -3,14 +3,17 @@ name: Kirkham
 nomis_id: KMI
 address:
 - Freckleton Road
-- " Kirkham"
+- ' Kirkham'
 - PR4 2RN
-canned_responses: true
 email: socialvisits.kirkham@hmps.gsi.gov.uk
 enabled: true
 estate: Kirkham
-id: 64
 phone: 
+slot_anomalies:
+  2015-12-23:
+  - 1315-1540
+  2015-12-30:
+  - 1315-1540
 slots:
   fri:
   - 1300-1530
@@ -20,3 +23,7 @@ slots:
   - 1300-1530
 unbookable:
 - 2014-12-25
+- 2015-12-24
+- 2015-12-25
+- 2015-12-31
+- 2016-01-01

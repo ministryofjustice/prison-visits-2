@@ -4,11 +4,9 @@ nomis_id: KTI
 address:
 - Parkbourn
 - 'L31 1HX '
-canned_responses: true
 email: socialvisits.kennet@hmps.gsi.gov.uk
 enabled: true
 estate: Kennet
-id: 65
 phone: 0151 213 3179
 slot_anomalies:
   2014-12-24:
@@ -17,6 +15,9 @@ slot_anomalies:
   2014-12-31:
   - 1400-1500
   - 1530-1630
+  2015-12-28:
+  - 1345-1445
+  - 1515-1615
 slots:
   sat:
   - 0900-1000
@@ -45,3 +46,6 @@ unbookable:
 - 2014-12-25
 - 2014-12-26
 - 2015-01-01
+- 2015-12-25
+- 2015-12-26
+- 2016-01-01

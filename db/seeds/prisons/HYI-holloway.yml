@@ -5,11 +5,9 @@ address:
 - Pankhurst Road
 - London
 - N7 0NU
-canned_responses: true
 email: socialvisits.holloway@hmps.gsi.gov.uk
 enabled: true
 estate: Holloway
-id: 61
 phone: 020 7979 4751
 slot_anomalies:
   2014-05-21:
@@ -36,6 +34,8 @@ slot_anomalies:
   - 0930-1030
   2014-12-18:
   - 0930-1030
+  2015-12-28:
+  - 1430-1530
 slots:
   mon:
   - 1430-1530
@@ -70,3 +70,4 @@ unbookable:
 - 2014-12-25
 - 2014-12-26
 - 2014-12-27
+- 2015-12-25

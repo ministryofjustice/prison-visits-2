@@ -4,13 +4,14 @@ nomis_id: HII
 address:
 - Gibson Street
 - WN2 5TH
-canned_responses: true
 email: socialvisits.hindley@hmps.gsi.gov.uk
 enabled: true
 estate: Hindley
 finder_slug: hindley
-id: 55
 phone: 01942 663492
+slot_anomalies:
+  2015-12-28:
+  - 1400-1600
 slots:
   mon:
   - 1400-1600
@@ -80,3 +81,5 @@ unbookable:
 - 2015-05-23
 - 2015-05-31
 - 2015-06-06
+- 2015-12-25
+- 2015-12-26

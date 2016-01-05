@@ -7,13 +7,14 @@ address:
 - London
 - SE28 0EB
 booking_window: 21
-canned_responses: true
 email: belmarsh.visits@hmps.gsi.gov.uk
 enabled: true
 estate: Belmarsh
-id: 7
 lead_days: 3
 phone: 0208 3314768
+slot_anomalies:
+  2015-12-17:
+  - 1430-1600
 slots:
   tue:
   - 0930-1100
@@ -34,5 +35,5 @@ slots:
 unbookable:
 - 2015-12-25
 - 2015-12-26
-- 2015-12-31
+- 2015-12-28
 - 2016-01-01

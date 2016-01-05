@@ -4,17 +4,19 @@ nomis_id: SDI
 address:
 - Ripley Road
 - 'GU23 7LJ '
-canned_responses: true
 email: socialvisits.send@hmps.gsi.gov.uk
 enabled: true
 estate: Send
-id: 103
 phone: 01483 471033
 slot_anomalies:
   2014-12-22:
   - 1415-1615
   2014-12-30:
   - 1415-1615
+  2015-12-23:
+  - 1415-1545
+  2015-12-30:
+  - 1415-1545
 slots:
   thu:
   - 1400-1545
@@ -27,3 +29,8 @@ unbookable:
 - 2014-12-26
 - 2014-12-31
 - 2015-01-01
+- 2015-12-24
+- 2015-12-25
+- 2015-12-26
+- 2015-12-31
+- 2016-01-01

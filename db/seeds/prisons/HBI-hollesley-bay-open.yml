@@ -4,11 +4,9 @@ nomis_id: HBI
 address:
 - WOODBRIDGE
 - 'IP12 3JW '
-canned_responses: true
 email: socialvisits.hollesleybay@hmps.gsi.gov.uk
 enabled: true
 estate: Hollesley Bay Open
-id: 50
 phone: ''
 slots:
   sat:
@@ -22,3 +20,5 @@ unbookable:
 - 2014-12-28
 - 2014-12-31
 - 2015-01-01
+- 2015-12-26
+- 2015-12-27

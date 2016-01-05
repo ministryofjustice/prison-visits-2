@@ -5,17 +5,19 @@ address:
 - 104 The Grove
 - DT5 1DL
 adult_age: 11
-canned_responses: true
 email: socialvisits.portland@hmps.gsi.gov.uk
 enabled: true
 estate: Portland
-id: 95
 phone: 01305 715775
 slot_anomalies:
   2014-12-24:
   - 1400-1600
   2014-12-31:
   - 1400-1600
+  2015-12-23:
+  - 1345-1600
+  2015-12-30:
+  - 1345-1600
 slots:
   sat:
   - 1345-1600
@@ -28,3 +30,6 @@ slots:
 unbookable:
 - 2014-12-25
 - 2015-01-01
+- 2015-12-25
+- 2015-12-26
+- 2016-01-01

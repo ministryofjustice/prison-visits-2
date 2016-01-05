@@ -5,14 +5,18 @@ address:
 - 54 Gaol Road
 - Stafford
 - ST16 3AW
-canned_responses: true
 email: visitsbooking.westmidlands@noms.gsi.gov.uk
 enabled: true
 estate: Stafford
-id: 104
 phone: 0300 060 6505
 slot_anomalies:
   2015-10-13:
+  - 1400-1600
+  2015-12-21:
+  - 1400-1600
+  2015-12-22:
+  - 1400-1600
+  2015-12-29:
   - 1400-1600
 slots:
   wed:
@@ -26,3 +30,6 @@ slots:
 unbookable:
 - 2015-10-14
 - 2015-12-25
+- 2015-12-26
+- 2015-12-31
+- 2016-01-01

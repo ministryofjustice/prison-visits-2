@@ -5,11 +5,9 @@ address:
 - Eccleshall
 - Staffordshire
 - ST21 6LQ
-canned_responses: true
 email: visitsbooking.westmidlands@noms.gsi.gov.uk
 enabled: true
 estate: Drake Hall
-id: 25
 phone: 0300 060 6501
 slots:
   tue:
@@ -26,3 +24,8 @@ unbookable:
 - 2014-12-25
 - 2014-12-26
 - 2015-01-01
+- 2015-12-24
+- 2015-12-25
+- 2015-12-26
+- 2015-12-31
+- 2016-01-01

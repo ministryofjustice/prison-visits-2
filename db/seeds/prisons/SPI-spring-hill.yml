@@ -4,11 +4,9 @@ nomis_id: SPI
 address:
 - Grendon Underwood
 - HP18 0TL
-canned_responses: true
 email: socialvisits.springhill@hmps.gsi.gov.uk
 enabled: true
 estate: Spring Hill
-id: 109
 phone: 
 slots:
   sat:
@@ -17,3 +15,25 @@ slots:
   - 1345-1600
 unbookable:
 - 2014-12-25
+- 2015-12-26
+slot_anomalies:
+  2015-11-27:
+  - 1345-1600
+  2015-12-04:
+  - 1345-1600
+  2015-12-11:
+  - 1345-1600
+  2015-12-16:
+  - 1345-1600
+  2015-12-23:
+  - 1345-1600
+  2015-12-30:
+  - 1345-1600
+  2016-01-08:
+  - 1345-1600
+  2016-01-15:
+  - 1345-1600
+  2016-01-22:
+  - 1345-1600
+  2016-01-29:
+  - 1345-1600

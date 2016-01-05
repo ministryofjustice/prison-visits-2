@@ -1,6 +1,26 @@
 ---
 name: Woodhill
 nomis_id: WHI
-enabled: false
+enabled: true
 estate: Woodhill
-id: 120
+address:
+- Tattenhoe Street
+- Milton Keynes
+- Buckinghamshire
+- MK4 4DA
+booking_window: 28
+email: socialvisits.woodhill@hmps.gsi.gov.uk
+lead_days: 3
+phone: 01908 722329
+slots:
+  tue:
+  - 1400-1600
+  wed:
+  - 1400-1600
+  thu:
+  - 1400-1600
+  sat:
+  - 0900-1100
+  - 1400-1600
+  sun:
+  - 1400-1600

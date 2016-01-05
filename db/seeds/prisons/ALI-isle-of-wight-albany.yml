@@ -4,12 +4,13 @@ nomis_id: ALI
 address:
 - 55 Parkhurst Road
 - PO30 5RS
-canned_responses: true
 email: socialvisitsisleofwight@hmps.gsi.gov.uk
 enabled: true
-estate: Isle of Wight
-id: 4
+estate: Isle of Wight - Albany
 phone: 01983 634218
+slot_anomalies:
+  2015-12-28:
+  - 1400-1600
 slots:
   fri:
   - 1400-1600
@@ -21,3 +22,6 @@ slots:
   - 1400-1600
 unbookable:
 - 2014-12-25
+- 2015-12-24
+- 2015-12-25
+- 2015-12-26

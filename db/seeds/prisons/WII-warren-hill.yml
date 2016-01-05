@@ -4,14 +4,16 @@ nomis_id: WII
 address:
 - Hollesley
 - 'IP12 3JW '
-canned_responses: true
 email: socialvisits.warrenhill@hmps.gsi.gov.uk
 enabled: true
 estate: Warren Hill
-id: 121
-phone: 020 8588 4002
+phone: 01394 633633
 slot_anomalies:
   2014-12-24:
+  - 1400-1600
+  2015-12-24:
+  - 1400-1600
+  2015-12-31:
   - 1400-1600
 slots:
   sat:
@@ -26,3 +28,6 @@ unbookable:
 - 2014-12-31
 - 2015-01-01
 - 2015-04-03
+- 2015-12-25
+- 2015-12-26
+- 2016-01-01

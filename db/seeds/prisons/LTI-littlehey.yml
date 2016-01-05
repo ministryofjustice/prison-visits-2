@@ -4,11 +4,9 @@ nomis_id: LTI
 address:
 - Perry
 - PE28 0SR
-canned_responses: true
 email: socialvisits.littlehey@hmps.gsi.gov.uk
 enabled: true
 estate: Littlehey
-id: 77
 lead_days: 2
 phone: 01480 335650
 slots:
@@ -34,3 +32,6 @@ unbookable:
 - 2014-12-25
 - 2014-12-26
 - 2015-01-01
+- 2015-12-25
+- 2015-12-26
+- 2016-01-01

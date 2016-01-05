@@ -4,13 +4,14 @@ nomis_id: LPI
 address:
 - 68 Hornby Road
 - L9 3DF
-canned_responses: true
 email: socialvisits.liverpool@hmps.gsi.gov.uk
 enabled: true
 estate: Liverpool
 finder_slug: liverpool
-id: 75
 phone: 0151 530 4050
+slot_anomalies:
+  2015-12-28:
+  - 1025-1125
 slots:
   mon:
   - 1025-1125
@@ -29,3 +30,5 @@ unbookable:
 - 2015-01-22
 - 2015-02-10
 - 2015-03-16
+- 2015-12-25
+- 2015-12-26

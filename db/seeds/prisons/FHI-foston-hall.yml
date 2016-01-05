@@ -9,8 +9,10 @@ address:
 email: socialvisits.fostonhall@hmps.gsi.gov.uk
 enabled: true
 estate: Foston Hall
-id: 39
 phone: 01283 584357
+slot_anomalies:
+  2015-12-28:
+  - 1400-1600
 slots:
   mon:
   - 1400-1600
@@ -27,3 +29,5 @@ slots:
 unbookable:
 - 2014-12-25
 - 2015-04-03
+- 2015-12-25
+- 2016-01-01
