@@ -13,3 +13,9 @@ en:
               too_many_adults:
                 You can book a maximum of %{max} visitors over the age of
                 %{age} on this visit
+  activerecord:
+    errors:
+      models:
+        prison:
+          duplicate_unbookable_date: An unbookable date may not be duplicated
+          unbookable_and_anomalous_conflict: An unbookable date may not also be anomalous

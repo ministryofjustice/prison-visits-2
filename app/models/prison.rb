@@ -10,6 +10,7 @@ class Prison < ActiveRecord::Base
   validates :estate, :name, :nomis_id, :slot_details, presence: true
   validates :enabled, inclusion: { in: [true, false] }
   validates :email_address, presence: true, if: :enabled?
+  validate :validate_unbookable_dates
 
   delegate :recurring_slots, :anomalous_slots, :unbookable_dates,
     to: :parsed_slot_details
@@ -71,5 +72,14 @@ private
   def processing_day?(date)
     return false if date.holiday?
     weekend_processing? || date.weekday?
+  end
+
+  def validate_unbookable_dates
+    if unbookable_dates.uniq.length != unbookable_dates.length
+      errors.add :slot_details, :duplicate_unbookable_date
+    end
+    if (unbookable_dates & anomalous_slots.keys).any?
+      errors.add :slot_details, :unbookable_and_anomalous_conflict
+    end
   end
 end

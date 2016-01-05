@@ -199,4 +199,29 @@ RSpec.describe Prison, type: :model do
       end
     end
   end
+
+  describe 'validation' do
+    context 'when there is a duplicate unbookable date' do
+      it 'does not have valid slot_details' do
+        subject.slot_details = {
+          'unbookable' => ['2020-01-02', '2020-01-02']
+        }
+
+        subject.validate
+        expect(subject.errors).to have_key(:slot_details)
+      end
+    end
+
+    context 'when an unbookable date conflicts with an anomalous date' do
+      it 'does not have valid slot_details' do
+        subject.slot_details = {
+          'unbookable' => ['2020-01-02'],
+          'anomalous' => { '2020-01-02' => ['0900-1000'] }
+        }
+
+        subject.validate
+        expect(subject.errors).to have_key(:slot_details)
+      end
+    end
+  end
 end
