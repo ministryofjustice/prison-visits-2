@@ -1,11 +1,11 @@
 class SlotDetailsParser
-  def initialize(raw)
-    @recurring_slots = parse_recurring_slots(raw)
-    @anomalous_slots = parse_anomalous_slots(raw)
-    @unbookable_dates = parse_unbookable_dates(raw)
+  def parse(raw)
+    SlotDetails.new(
+      parse_recurring_slots(raw),
+      parse_anomalous_slots(raw),
+      parse_unbookable_dates(raw)
+    )
   end
-
-  attr_reader :recurring_slots, :anomalous_slots, :unbookable_dates
 
 private
 

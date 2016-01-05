@@ -1,20 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe SlotDetailsParser do
-  subject { described_class.new(raw) }
+  let(:parsed) { subject.parse(raw) }
 
   context 'when source is empty' do
     let(:raw) { {} }
 
     describe 'recurring_slots' do
       it 'is empty' do
-        expect(subject.recurring_slots).to be_empty
+        expect(parsed.recurring_slots).to be_empty
       end
     end
 
     describe 'unbookable_dates' do
       it 'is empty' do
-        expect(subject.unbookable_dates).to be_empty
+        expect(parsed.unbookable_dates).to be_empty
       end
     end
   end
@@ -36,7 +36,7 @@ RSpec.describe SlotDetailsParser do
 
     describe 'recurring_slots' do
       it 'lists slots for each available day' do
-        expect(subject.recurring_slots).to eq(
+        expect(parsed.recurring_slots).to eq(
           DayOfWeek::MON => [
             RecurringSlot.new(14, 0, 16, 10)
           ],
@@ -50,7 +50,7 @@ RSpec.describe SlotDetailsParser do
 
     describe 'anomalous_slots' do
       it 'lists slots for each anomalous date' do
-        expect(subject.anomalous_slots).to eq(
+        expect(parsed.anomalous_slots).to eq(
           Date.new(2014, 12, 24) => [
             RecurringSlot.new(14, 0, 16, 00)
           ],
@@ -63,7 +63,7 @@ RSpec.describe SlotDetailsParser do
 
     describe 'unbookable_dates' do
       it 'lists dates' do
-        expect(subject.unbookable_dates).
+        expect(parsed.unbookable_dates).
           to eq([Date.new(2014, 12, 25), Date.new(2014, 12, 26)])
       end
     end

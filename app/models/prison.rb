@@ -56,13 +56,13 @@ class Prison < ActiveRecord::Base
 
   def slot_details=(h)
     super
-    @parsed_slot_details = SlotDetailsParser.new(h)
+    @parsed_slot_details = SlotDetailsParser.new.parse(h)
   end
 
 private
 
   def parsed_slot_details
-    @parsed_slot_details ||= SlotDetailsParser.new(slot_details)
+    @parsed_slot_details ||= SlotDetailsParser.new.parse(slot_details)
   end
 
   def adult?(age)
