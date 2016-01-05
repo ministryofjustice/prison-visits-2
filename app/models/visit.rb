@@ -4,6 +4,7 @@ class Visit < ActiveRecord::Base
   belongs_to :prison
   belongs_to :prisoner
   has_many :visitors, dependent: :destroy
+  has_many :visit_state_changes, dependent: :destroy
   has_one :rejection, dependent: :destroy
 
   validates :prison, :prisoner,
@@ -28,20 +29,9 @@ class Visit < ActiveRecord::Base
     to: :rejection
 
   state_machine :processing_state, initial: :requested do
-    after_transition on: :accept do |visit|
-      visit.update_column(:accepted_at, Time.zone.now)
-    end
-
-    after_transition on: :reject do |visit|
-      visit.update_column(:rejected_at, Time.zone.now)
-    end
-
-    after_transition booked: :cancelled do |visit|
-      visit.update_column(:cancelled_at, Time.zone.now)
-    end
-
-    after_transition requested: :withdrawn do |visit|
-      visit.update_column(:withdrawn_at, Time.zone.now)
+    after_transition do |visit|
+      visit.visit_state_changes <<
+        VisitStateChange.new(visit_state: visit.processing_state)
     end
 
     event :accept do
