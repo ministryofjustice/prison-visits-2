@@ -11,18 +11,17 @@ class Prison < ActiveRecord::Base
   validates :enabled, inclusion: { in: [true, false] }
   validates :email_address, presence: true, if: :enabled?
 
+  delegate :recurring_slots, :anomalous_slots, :unbookable_dates,
+    to: :parsed_slot_details
+
   def self.enabled
     where(enabled: true).order(name: :asc)
   end
 
   def available_slots(today = Time.zone.today)
-    parser = SlotDetailsParser.new(slot_details)
     AvailableSlotEnumerator.new(
-      first_bookable_date(today),
-      last_bookable_date(today),
-      parser.recurring_slots,
-      parser.anomalous_slots,
-      parser.unbookable_dates
+      first_bookable_date(today), last_bookable_date(today),
+      recurring_slots, anomalous_slots, unbookable_dates
     )
   end
 
@@ -54,7 +53,16 @@ class Prison < ActiveRecord::Base
     end
   end
 
+  def slot_details=(h)
+    super
+    @parsed_slot_details = SlotDetailsParser.new(h)
+  end
+
 private
+
+  def parsed_slot_details
+    @parsed_slot_details ||= SlotDetailsParser.new(slot_details)
+  end
 
   def adult?(age)
     age >= adult_age
