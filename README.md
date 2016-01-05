@@ -164,6 +164,9 @@ $ bundle exec rackup sidekiq-admin.ru
 
 This requires the `SESSION_SECRET_KEY` environment variable (see below).
 
+If Redis is running somewhere other than the default port on the local machine,
+`REDIS_URL` must be set (see below).
+
 ## Removing old personal information
 
 The agreed privacy impact assessment for this service states that personal
@@ -203,6 +206,15 @@ official start page for the service.
 
 A semicolon- or comma-separated list of IP addresses or CIDR ranges. Users on
 these addresses can access the prison booking admin pages.
+
+#### `REDIS_URL`
+
+Tells the application where to find a Redis server for use with queues. See
+[the redis gem documentation](https://github.com/redis/redis-rb) for more
+details.
+
+If not set, the application will attempt to connect to a Redis server on port
+6379 of the local host.
 
 #### `SECRET_KEY_BASE`
 
