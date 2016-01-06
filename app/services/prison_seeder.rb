@@ -19,9 +19,10 @@ class PrisonSeeder
   end
 
   def import(path, hash)
+    estate = Estate.find_or_create_by(name: hash.fetch('estate'))
     prison = Prison.find_or_initialize_by(id: uuid_for_path(path))
     entry = PrisonSeeder::SeedEntry.new(hash)
-    prison.update! entry.to_h
+    prison.update! entry.to_h.merge(estate: estate)
   rescue => err
     raise ImportFailure, "#{err} in #{path}"
   end
