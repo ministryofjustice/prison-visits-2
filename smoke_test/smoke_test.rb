@@ -4,6 +4,7 @@ require 'phantomjs/poltergeist'
 require 'capybara/poltergeist'
 
 require_relative 'helpers/imap_processor'
+require_relative 'helpers/http_status_validation'
 require_relative 'state'
 require_relative 'mail_box'
 require_relative 'steps/base_step'

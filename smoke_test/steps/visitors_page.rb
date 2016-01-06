@@ -1,9 +1,13 @@
 module SmokeTest
   module Steps
     class VisitorsPage < BaseStep
+      include HttpStatusValidation
+
       PAGE_PATH = '/request'
 
       def validate!
+        validate_response_status!
+
         if page.current_path != PAGE_PATH
           fail "expected #{PAGE_PATH}, got #{page.current_path}"
         end
