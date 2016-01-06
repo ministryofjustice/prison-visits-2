@@ -411,6 +411,25 @@ change the UUID.
 You can't. This is because historical bookings still refer to that prison.
 Disable it instead (see above).
 
+#### Merging two prisons
+
+If two formerly-separate parts of an estate now have the same booking team and
+visiting times, they can be combined into one so that visitors only have one
+relevant choice in the prison selection interface.
+
+This is the appropriate process:
+
+1. Disable the individual prisons (by setting `enabled: false`)
+2. Add a new prison (see above) with the same estate
+
+#### Splitting a prison
+
+Conversely, if different parts of an estate now have distinct booking teams or
+visiting times, they can be separated:
+
+1. Disable the prison
+2. Add two or more prisons with the same estate.
+
 ## Smoke Tests
 
 Runs the happy path to book, confirm and cancel a visit.  If the app
