@@ -74,6 +74,15 @@ No slots will be listed for `unbookable` days. For `anomalous` days, the slots
 are exactly those given in that section. For all other days, the available
 slots are determined by the recurring weekly pattern.
 
+Each prison belongs to an estate.
+
+#### `Estate`
+
+An estate groups prisons that share common characteristics but otherwise handle
+booking separately. This might be separate wings with different visiting hours,
+or the main and high-security parts of a prison that are handled by different
+booking teams.
+
 #### `Visit`
 
 This is the main table in the application, and contains the essential data for
@@ -273,6 +282,10 @@ The files can be edited by anyone with access to this repository. The
 [YAML](http://en.wikipedia.org/wiki/YAML) specification is complex and fraught
 with edge cases, so be careful.
 
+For the purposes of this application, a **prison** is a visitable location
+within an **estate**. There will be more than one prison if different parts of
+the estate have different visiting times or booking teams.
+
 #### Prison visibility
 
 All known prisons should exist in the data files. If a prison is not in scope
@@ -410,6 +423,25 @@ change the UUID.
 
 You can't. This is because historical bookings still refer to that prison.
 Disable it instead (see above).
+
+#### Merging two prisons
+
+If two formerly-separate parts of an estate now have the same booking team and
+visiting times, they can be combined into one so that visitors only have one
+relevant choice in the prison selection interface.
+
+This is the appropriate process:
+
+1. Disable the individual prisons (by setting `enabled: false`)
+2. Add a new prison (see above) with the same estate
+
+#### Splitting a prison
+
+Conversely, if different parts of an estate now have distinct booking teams or
+visiting times, they can be separated:
+
+1. Disable the prison
+2. Add two or more prisons with the same estate.
 
 ## Smoke Tests
 
