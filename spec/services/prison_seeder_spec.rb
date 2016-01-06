@@ -1,13 +1,43 @@
 require 'rails_helper'
 
 RSpec.describe PrisonSeeder do
+  let(:filename) { 'LNX-luna.yml' }
+  let(:uuid) { '0ff01907-42f6-4646-9bda-841ec27d4fc6' }
+  let(:hash) {
+    {
+      'name' => 'Lunar Penal Colony',
+      'nomis_id' => 'LNX',
+      'address' => ['Outer Rim', 'Eratosthenes', 'Mare Imbrium', 'Luna'],
+      'booking_window' => 28,
+      'email' => 'luna@hmps.gsi.gov.uk',
+      'enabled' => true,
+      'estate' => 'Luna',
+      'phone' => '0115 4960123',
+      'slot_anomalies' => {
+        Date.new(2015, 5, 25) => ['1330-1430'],
+        Date.new(2015, 8, 31) => ['1330-1430']
+      },
+      'slots' => {
+        'mon' => ['1330-1430'],
+        'tue' => ['1330-1430']
+      },
+      'unbookable' => [Date.new(2015, 11, 4)]
+    }
+  }
+
   context 'importing from disk' do
     let(:base_path) { Rails.root.join('spec', 'fixtures', 'seeds') }
 
-    it 'imports data from the YAML files' do
+    it 'imports prisons from the YAML files' do
       expect {
         described_class.seed!(base_path)
       }.to change(Prison, :count).by(2)
+    end
+
+    it 'creates estates' do
+      expect {
+        described_class.seed!(base_path)
+      }.to change(Estate, :count).by(2)
     end
 
     it 'imports using the UUID mapping' do
@@ -23,50 +53,41 @@ RSpec.describe PrisonSeeder do
 
     it 'raises an exception on import' do
       expect {
-        subject.import 'LNX-luna.yml', {}
+        subject.import 'LNX-luna.yml', hash
       }.to raise_exception(PrisonSeeder::ImportFailure)
     end
   end
 
-  context 'import' do
+  context 'successful import' do
     subject { described_class.new(filename_to_uuid_map) }
-    let(:filename) { 'LNX-luna.yml' }
-    let(:uuid) { '0ff01907-42f6-4646-9bda-841ec27d4fc6' }
     let(:filename_to_uuid_map) { { filename => uuid } }
-    let(:hash) {
-      {
-        'name' => 'Lunar Penal Colony',
-        'nomis_id' => 'LNX',
-        'address' => ['Outer Rim', 'Eratosthenes', 'Mare Imbrium', 'Luna'],
-        'booking_window' => 28,
-        'email' => 'luna@hmps.gsi.gov.uk',
-        'enabled' => true,
-        'estate' => 'Luna',
-        'phone' => '0115 4960123',
-        'slot_anomalies' => {
-          Date.new(2015, 5, 25) => ['1330-1430'],
-          Date.new(2015, 8, 31) => ['1330-1430']
-        },
-        'slots' => {
-          'mon' => ['1330-1430'],
-          'tue' => ['1330-1430']
-        },
-        'unbookable' => [Date.new(2015, 11, 4)]
-      }
-    }
 
-    it 'creates a new record' do
+    it 'creates a new prison record' do
       expect {
         subject.import filename, hash
       }.to change(Prison, :count).by(1)
     end
 
-    it 'updates an existing record' do
+    it 'updates an existing prison record' do
       create :prison, id: uuid
       expect {
         subject.import filename, hash
       }.not_to change(Prison, :count)
       expect(Prison.find(uuid).name).to eq('Lunar Penal Colony')
+    end
+
+    it 'creates a new estate record' do
+      expect {
+        subject.import filename, hash
+      }.to change(Estate, :count).by(1)
+    end
+
+    it 'updates an existing estate record' do
+      create :estate, name: 'Luna'
+      expect {
+        subject.import filename, hash
+      }.not_to change(Estate, :count)
+      expect(Prison.find(uuid).estate.name).to eq('Luna')
     end
 
     it 'transforms slot details' do

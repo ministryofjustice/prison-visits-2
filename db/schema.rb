@@ -11,11 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105150712) do
+ActiveRecord::Schema.define(version: 20160106102516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "estates", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "estates", ["name"], name: "index_estates_on_name", unique: true, using: :btree
 
   create_table "feedback_submissions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.text     "body",          null: false
@@ -41,7 +49,6 @@ ActiveRecord::Schema.define(version: 20160105150712) do
     t.boolean  "enabled",                      default: true,  null: false
     t.integer  "booking_window",               default: 28,    null: false
     t.text     "address"
-    t.string   "estate"
     t.string   "email_address"
     t.string   "phone_no"
     t.json     "slot_details",                 default: {},    null: false
@@ -51,7 +58,10 @@ ActiveRecord::Schema.define(version: 20160105150712) do
     t.boolean  "weekend_processing",           default: false, null: false
     t.integer  "adult_age",                                    null: false
     t.string   "finder_slug",                                  null: false
+    t.uuid     "estate_id",                                    null: false
   end
+
+  add_index "prisons", ["estate_id"], name: "index_prisons_on_estate_id", using: :btree
 
   create_table "rejections", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "visit_id",                        null: false
@@ -108,6 +118,7 @@ ActiveRecord::Schema.define(version: 20160105150712) do
 
   add_index "visits", ["prison_id"], name: "index_visits_on_prison_id", using: :btree
 
+  add_foreign_key "prisons", "estates"
   add_foreign_key "rejections", "visits"
   add_foreign_key "visitors", "visits"
   add_foreign_key "visits", "prisoners"

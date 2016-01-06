@@ -6,6 +6,7 @@ class Prison < ActiveRecord::Base
   MIN_ADULTS = 1
 
   has_many :visits, dependent: :destroy
+  belongs_to :estate
 
   validates :estate, :name, :nomis_id, :slot_details, presence: true
   validates :enabled, inclusion: { in: [true, false] }

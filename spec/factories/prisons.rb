@@ -1,7 +1,9 @@
 FactoryGirl.define do
   factory :prison do
+    estate
+
     name do |p|
-      "#{p.estate} Open Prison"
+      "#{p.estate.name} Open Prison"
     end
 
     sequence :nomis_id do |n|
@@ -9,10 +11,6 @@ FactoryGirl.define do
     end
 
     enabled true
-
-    estate do
-      FFaker::AddressUK.city
-    end
 
     finder_slug do |p|
       p.name.parameterize
