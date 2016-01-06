@@ -1,3 +1,5 @@
 Prison.transaction do
-  PrisonSeeder.seed! Rails.root.join('db', 'seeds')
+  path = Rails.root.join('db', 'seeds')
+  EstateSeeder.seed! path
+  PrisonSeeder.seed! path
 end

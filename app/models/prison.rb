@@ -8,13 +8,14 @@ class Prison < ActiveRecord::Base
   has_many :visits, dependent: :destroy
   belongs_to :estate
 
-  validates :estate, :name, :nomis_id, :slot_details, presence: true
+  validates :estate, :name, :slot_details, presence: true
   validates :enabled, inclusion: { in: [true, false] }
   validates :email_address, presence: true, if: :enabled?
   validate :validate_unbookable_dates
 
   delegate :recurring_slots, :anomalous_slots, :unbookable_dates,
     to: :parsed_slot_details
+  delegate :finder_slug, to: :estate
 
   def self.enabled
     where(enabled: true).order(name: :asc)

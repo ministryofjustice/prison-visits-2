@@ -4,8 +4,8 @@ class PrisonSeeder::SeedEntry
   DEFAULT_ADULT_AGE = 18
 
   KEYS = %i[
-    address adult_age booking_window email_address enabled estate finder_slug
-    lead_days name nomis_id phone_no slot_details weekend_processing
+    address adult_age booking_window email_address enabled lead_days name
+    phone_no slot_details weekend_processing
   ]
 
   def initialize(hash)
@@ -40,24 +40,12 @@ private
     hash.fetch('enabled', true)
   end
 
-  def estate
-    hash.fetch('estate')
-  end
-
-  def finder_slug
-    hash.fetch('finder_slug') { hash.fetch('name').parameterize }
-  end
-
   def lead_days
     hash.fetch('lead_days', DEFAULT_LEAD_DAYS)
   end
 
   def name
     hash.fetch('name')
-  end
-
-  def nomis_id
-    hash.fetch('nomis_id')
   end
 
   def phone_no
