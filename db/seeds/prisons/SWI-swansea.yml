@@ -4,16 +4,10 @@ nomis_id: SWI
 address:
 - 200 Oystermouth Road
 - SA1 3SR
-canned_responses: true
 email: socialvisits.swansea@hmps.gsi.gov.uk
 enabled: true
 estate: Swansea
-id: 112
 phone: 01792 48 5322
-slot_anomalies:
-  2015-01-01:
-  - 1345-1445
-  - 1515-1615
 slots:
   mon:
   - 1000-1100
@@ -37,6 +31,3 @@ slots:
   sun:
   - 1345-1445
   - 1515-1615
-unbookable:
-- 2014-12-25
-- 2014-12-26

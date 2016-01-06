@@ -4,11 +4,9 @@ nomis_id: BRI
 address:
 - Jaguar Drive
 - NR10 5GB
-canned_responses: true
 email: socialvisits.bure@hmps.gsi.gov.uk
 enabled: true
 estate: Bure
-id: 15
 phone: 01603 326252
 slots:
   fri:
@@ -19,7 +17,3 @@ slots:
   sun:
   - 0930-1130
   - 1400-1600
-unbookable:
-- 2014-12-25
-- 2015-01-01
-- 2015-04-03

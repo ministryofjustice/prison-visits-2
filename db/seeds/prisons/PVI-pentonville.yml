@@ -4,11 +4,9 @@ nomis_id: PVI
 address:
 - Caledonian Road
 - N7 8TT
-canned_responses: true
 email: socialvisits.pentonville@hmps.gsi.gov.uk
 enabled: true
 estate: Pentonville
-id: 98
 phone: 020 70237251
 slots:
   mon:
@@ -29,6 +27,3 @@ slots:
   - 1400-1600
   sun:
   - 1400-1600
-unbookable:
-- 2014-12-25
-- 2015-04-03

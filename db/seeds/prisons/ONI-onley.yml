@@ -5,11 +5,9 @@ address:
 - Willoughby
 - CV23 8AP
 adult_age: 10
-canned_responses: true
 email: socialvisits.onley@hmps.gsi.gov.uk
 enabled: true
 estate: Onley
-id: 92
 phone: 01788 523 402
 slots:
   mon:
@@ -32,8 +30,3 @@ slots:
   sun:
   - 1345-1500
   - 1515-1630
-unbookable:
-- 2012-12-22
-- 2014-12-25
-- 2014-12-26
-- 2015-01-01

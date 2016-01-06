@@ -1,6 +1,23 @@
 ---
 name: Whitemoor
 nomis_id: WRI
-enabled: false
+enabled: true
 estate: Whitemoor
-id: 126
+address:
+- Longhill Road
+- March
+- Cambridgeshire
+- PE15 0PR
+booking_window: 28
+email: socialvisits.whitemoor@hmps.gsi.gov.uk
+lead_days: 3
+phone: 01354 602800
+slots:
+  thu:
+  - 1400-1610
+  fri:
+  - 1400-1620
+  sat:
+  - 1400-1620
+  sun:
+  - 1400-1620

@@ -4,11 +4,9 @@ nomis_id: RNI
 address:
 - RETFORD
 - DN22 8EU
-canned_responses: true
 email: socialvisits.ranby@hmps.gsi.gov.uk
 enabled: true
 estate: Ranby
-id: 101
 phone: 01777 862107
 slots:
   fri:
@@ -21,7 +19,3 @@ slots:
   sun:
   - 0845-1100
   - 1345-1600
-unbookable:
-- 2014-12-25
-- 2014-12-26
-- 2015-01-01

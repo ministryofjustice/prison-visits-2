@@ -14,6 +14,8 @@ namespace :maintenance do
         prison_uuid_mappings[filename] = SecureRandom.uuid
       end
 
+      prison_uuid_mappings = prison_uuid_mappings.sort.to_h
+
       YAML.dump(
         prison_uuid_mappings,
         prison_uuid_mapping_path

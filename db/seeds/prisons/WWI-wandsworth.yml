@@ -5,12 +5,10 @@ address:
 - Heathfield Rd
 - PO Box 757
 - SW18 3HS
-canned_responses: true
 email: socialvisits.wandsworth@hmps.gsi.gov.uk
 enabled: true
 estate: Wandsworth
-id: 129
-phone: 0208 588 4002
+phone: 020 8588 4002
 slots:
   mon:
   - 1000-1100
@@ -43,10 +41,6 @@ slots:
   - 1345-1445
   - 1515-1615
 unbookable:
-- 2014-12-25
-- 2015-10-14
-- 2015-11-11
-- 2015-12-09
 - 2016-01-13
 - 2016-02-10
 - 2016-03-09

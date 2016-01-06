@@ -5,11 +5,9 @@ address:
 - 19 Cambridge Road
 - Bristol
 - BS7 8PS
-canned_responses: true
 email: socialvisits.bristol@hmps.gsi.gov.uk
 enabled: true
 estate: Bristol
-id: 11
 phone: 0117 372 3213
 slots:
   mon:
@@ -26,8 +24,3 @@ slots:
   - 1400-1600
   sun:
   - 1400-1600
-unbookable:
-- 2014-12-25
-- 2014-12-26
-- 2015-01-01
-- 2015-04-03

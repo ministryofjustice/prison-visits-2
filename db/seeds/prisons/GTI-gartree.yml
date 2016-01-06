@@ -6,11 +6,9 @@ address:
 - Market Harborough
 - Leicestershire
 - LE16 7RP
-canned_responses: true
 email: socialvisits.gartree@hmps.gsi.gov.uk
 enabled: true
 estate: Gartree
-id: 49
 phone: 01858 426 727
 slots:
   tue:
@@ -21,9 +19,3 @@ slots:
   - 1400-1600
   sun:
   - 1400-1600
-unbookable:
-- 2014-04-18
-- 2014-04-21
-- 2014-12-25
-- 2014-12-26
-- 2015-01-01

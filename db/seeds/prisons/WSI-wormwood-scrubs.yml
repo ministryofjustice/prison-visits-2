@@ -4,30 +4,26 @@ nomis_id: WSI
 address:
 - Du Cane Road
 - W12 0AE
-canned_responses: true
-email: socialvisits.wormwoodscrubs@hmps.gsi.gov.uk
+email: visitsbooking.westmidlands@noms.gsi.gov.uk
 enabled: true
 estate: Wormwood Scrubs
-id: 127
 phone: 020 8588 3564
 slots:
   mon:
-  - 0930-1100
+  - 1345-1545
   sat:
   - 0900-1000
   - 1030-1130
   - 1400-1500
-  - 1545-1645
+  - 1530-1630
   sun:
   - 1400-1500
-  - 1545-1645
+  - 1530-1630
   thu:
-  - 1400-1600
+  - 0900-1100
+  - 1345-1545
   tue:
-  - 0930-1100
-  - 1400-1600
+  - 0900-1100
   wed:
-  - 0930-1100
-  - 1400-1600
-unbookable:
-- 2014-12-25
+  - 0900-1100
+  - 1345-1545

@@ -4,12 +4,10 @@ nomis_id: NWI
 address:
 - Knox Road
 - NR1 4LU
-canned_responses: true
 email: socialvisits.norwich@hmps.gsi.gov.uk
 enabled: true
 estate: Norwich
 finder_slug: norwich
-id: 90
 phone: 01603 708795
 slots:
   mon:
@@ -33,6 +31,3 @@ slots:
   sun:
   - 0930-1130
   - 1400-1600
-unbookable:
-- 2014-12-25
-- 2014-12-26

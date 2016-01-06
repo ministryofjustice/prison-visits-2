@@ -4,11 +4,9 @@ nomis_id: PNI
 address:
 - 2 Ribbleton Lane
 - 'PR1 5AB '
-canned_responses: true
 email: socialvisits.preston@hmps.gsi.gov.uk
 enabled: true
 estate: Preston
-id: 96
 phone: 01772 444666
 slots:
   fri:
@@ -25,5 +23,3 @@ slots:
   - 1400-1600
   wed:
   - 1400-1600
-unbookable:
-- 2014-12-25

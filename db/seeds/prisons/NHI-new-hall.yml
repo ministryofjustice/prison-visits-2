@@ -4,11 +4,9 @@ nomis_id: NHI
 address:
 - Dial Wood
 - WF4 4XX
-canned_responses: true
 email: socialvisits.newhall@hmps.gsi.gov.uk
 enabled: true
 estate: New Hall
-id: 85
 phone: 01924 803219
 slots:
   sat:
@@ -21,7 +19,3 @@ slots:
   - 1400-1600
   wed:
   - 1400-1600
-unbookable:
-- 2014-12-25
-- 2014-12-26
-- 2015-01-01

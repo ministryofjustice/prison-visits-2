@@ -4,12 +4,10 @@ nomis_id: WCI
 address:
 - Romsey Road
 - SO22 5DF
-canned_responses: true
 email: socialvisits.winchester@hmps.gsi.gov.uk
 enabled: true
 estate: Winchester
 finder_slug: winchester
-id: 116
 phone: 0845 223 5514
 slots:
   fri:
@@ -26,7 +24,3 @@ slots:
   - 1400-1600
   wed:
   - 1400-1600
-unbookable:
-- 2014-12-25
-- 2014-12-26
-- 2015-04-03

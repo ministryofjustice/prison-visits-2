@@ -4,12 +4,10 @@ nomis_id: GNI
 address:
 - Grendon Underwood
 - HP18 0TL
-canned_responses: true
 email: socialvisits.grendon@hmps.gsi.gov.uk
 enabled: true
 estate: Grendon
-id: 47
-phone: ''
+phone: 01296 445000
 slots:
   sat:
   - 1345-1545
@@ -17,5 +15,3 @@ slots:
   - 1345-1545
   wed:
   - 1400-1600
-unbookable:
-- 2014-12-25

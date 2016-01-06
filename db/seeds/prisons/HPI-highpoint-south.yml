@@ -4,15 +4,10 @@ nomis_id: HPI
 address:
 - Stradishall
 - 'CB8 9YG '
-canned_responses: true
 email: socialvisits.highpoint@hmps.gsi.gov.uk
 enabled: true
 estate: Highpoint
-id: 59
 phone: 01440 743134
-slot_anomalies:
-  2015-08-31:
-  - 1400-1600
 slots:
   fri:
   - 1430-1630
@@ -23,7 +18,3 @@ slots:
   sun:
   - 0900-1100
   - 1400-1600
-unbookable:
-- 2014-12-25
-- 2014-12-26
-- 2015-04-03

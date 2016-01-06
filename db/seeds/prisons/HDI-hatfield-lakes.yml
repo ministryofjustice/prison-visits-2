@@ -1,5 +1,5 @@
 ---
-name: Hatfield Open
+name: Hatfield Lakes
 nomis_id: HDI
 address:
 - Thorne Road
@@ -10,7 +10,7 @@ estate: Hatfield Open
 finder_slug: hatfield
 phone: 01405 746611
 slots:
-  thu:
+  fri:
   - 1400-1600
   sat:
   - 1400-1600

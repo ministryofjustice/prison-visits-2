@@ -6,11 +6,9 @@ address:
 - Rochester
 - Kent
 - ME1 3QS
-canned_responses: true
 email: socialvisits.rochester@hmps.gsi.gov.uk
 enabled: true
 estate: Rochester
-id: 99
 phone: 01634 803100
 slots:
   mon:
@@ -28,8 +26,3 @@ slots:
   - 1400-1600
   sun:
   - 1400-1600
-unbookable:
-- 2013-12-25
-- 2013-12-26
-- 2014-12-25
-- 2014-12-26

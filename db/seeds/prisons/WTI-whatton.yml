@@ -4,11 +4,9 @@ nomis_id: WTI
 address:
 - New Lane
 - 'NG13 9FQ '
-canned_responses: true
 email: socialvisits.whatton@hmps.gsi.gov.uk
 enabled: true
 estate: Whatton
-id: 128
 phone: 01949 803564
 slots:
   fri:
@@ -23,8 +21,3 @@ slots:
   - 1400-1600
   thu:
   - 1415-1615
-unbookable:
-- 2014-12-25
-- 2014-12-26
-- 2014-12-31
-- 2015-01-01

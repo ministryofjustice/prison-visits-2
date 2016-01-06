@@ -1,6 +1,22 @@
 ---
 name: Full Sutton
 nomis_id: FNI
-enabled: false
+address:
+- York
+- YO41 1PS
+booking_window: 28
+email: socialvisits.fullsutton@hmps.gsi.gov.uk
+enabled: true
 estate: Full Sutton
-id: 43
+lead_days: 3
+phone: 01759 475355
+slots:
+  thu:
+  - 1410-1615
+  fri:
+  - 0910-1100
+  - 1320-1615
+  sat:
+  - 1345-1615
+  sun:
+  - 1345-1615

@@ -4,12 +4,10 @@ nomis_id: UKI
 address:
 - 47 Maryport Street
 - NP15 1XP
-canned_responses: true
 email: socialvisits.usk@hmps.gsi.gov.uk
 enabled: true
 estate: Usk
 finder_slug: usk-prescoed-usk
-id: 114
 phone: 01291 671730
 slots:
   mon:
@@ -28,5 +26,3 @@ slots:
   - 1400-1600
   sun:
   - 1400-1600
-unbookable:
-- 2014-12-25

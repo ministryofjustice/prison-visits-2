@@ -9,7 +9,6 @@ address:
 email: socialvisits.fostonhall@hmps.gsi.gov.uk
 enabled: true
 estate: Foston Hall
-id: 39
 phone: 01283 584357
 slots:
   mon:
@@ -24,6 +23,3 @@ slots:
   sun:
   - 0930-1130
   - 1400-1600
-unbookable:
-- 2014-12-25
-- 2015-04-03

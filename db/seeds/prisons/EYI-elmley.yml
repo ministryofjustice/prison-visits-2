@@ -4,12 +4,10 @@ nomis_id: EYI
 address:
 - Church Road
 - ME12 4DZ
-canned_responses: true
 email: socialvisits.elmley@hmps.gsi.gov.uk
 enabled: true
 estate: Elmley
 finder_slug: sheppey-cluster-elmley
-id: 36
 phone: 0300 060 6605
 slots:
   mon:
@@ -26,7 +24,3 @@ slots:
   - 1400-1530
   wed:
   - 1400-1530
-unbookable:
-- 2014-12-25
-- 2014-12-26
-- 2015-04-03

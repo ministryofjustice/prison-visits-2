@@ -7,7 +7,6 @@ address:
 email: socialvisits.hull@hmps.gsi.gov.uk
 enabled: false
 estate: Hull
-id: 56
 phone: 01482 282016
 reason: coming_soon
 slots:
@@ -23,5 +22,3 @@ slots:
   sun:
   - 0930-1130
   - 1345-1545
-unbookable:
-- 2014-12-25

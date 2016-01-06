@@ -7,8 +7,7 @@ address:
 email: socialvisits.downview@hmps.gsi.gov.uk
 enabled: false
 estate: Downview
-id: 29
-phone: 0208 196 6359
+phone: 020 8196 6359
 reason: coming_soon
 slots:
   sat:
@@ -17,5 +16,3 @@ slots:
   - 1330-1530
   thu:
   - 1400-1600
-unbookable:
-- 2014-12-25

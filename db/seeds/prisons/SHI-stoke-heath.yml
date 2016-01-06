@@ -6,11 +6,9 @@ address:
 - Shropshire
 - TF9 2JL
 adult_age: 10
-canned_responses: true
 email: visitsbooking.westmidlands@noms.gsi.gov.uk
 enabled: true
 estate: Stoke Heath
-id: 105
 phone: 0300 060 6506
 slots:
   mon:
@@ -25,10 +23,3 @@ slots:
   - 1400-1600
   sun:
   - 1400-1600
-unbookable:
-- 2014-04-18
-- 2014-04-21
-- 2014-05-05
-- 2014-12-25
-- 2014-12-26
-- 2015-01-01

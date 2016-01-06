@@ -7,8 +7,6 @@ address:
 email: socialvisits.blantyrehouse@hmps.gsi.gov.uk
 enabled: false
 estate: Blantyre House
-id: 10
-phone: ''
 reason: it_issues
 slots:
   sat:
@@ -17,5 +15,3 @@ slots:
   - 1345-1600
   wed:
   - 1345-1600
-unbookable:
-- 2014-12-25

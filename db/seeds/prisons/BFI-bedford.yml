@@ -5,11 +5,9 @@ address:
 - St. Loyes Street
 - MK40 1HG
 booking_window: 14
-canned_responses: true
 email: socialvisits.bedford@hmps.gsi.gov.uk
 enabled: true
 estate: Bedford
-id: 9
 phone: 01234 373196
 slots:
   mon:
@@ -30,6 +28,3 @@ slots:
   wed:
   - 1345-1445
   - 1515-1615
-unbookable:
-- 2014-12-25
-- 2014-12-26

@@ -7,13 +7,9 @@ address:
 email: socialvisits.eastsuttonpark@hmps.gsi.gov.uk
 enabled: false
 estate: East Sutton Park
-id: 32
-phone: ''
 reason: coming_soon
 slots:
   sat:
   - 1330-1530
   sun:
   - 1330-1530
-unbookable:
-- 2014-12-25
