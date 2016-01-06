@@ -1,9 +1,13 @@
 module SmokeTest
   module Steps
     class ProcessVisitRequestPage < BaseStep
+      include HttpStatusValidation
+
       PAGE_PATH = %r{/prison/visits/([0-9a-f-]){36}}
 
       def validate!
+        validate_response_status!
+
         unless page.current_path.match(PAGE_PATH)
           fail "expected #{PAGE_PATH} to match #{page.current_path}"
         end
