@@ -74,6 +74,15 @@ No slots will be listed for `unbookable` days. For `anomalous` days, the slots
 are exactly those given in that section. For all other days, the available
 slots are determined by the recurring weekly pattern.
 
+Each prison belongs to an estate.
+
+#### `Estate`
+
+An estate groups prisons that share common characteristics but otherwise handle
+booking separately. This might be separate wings with different visiting hours,
+or the main and high-security parts of a prison that are handled by different
+booking teams.
+
 #### `Visit`
 
 This is the main table in the application, and contains the essential data for
@@ -272,6 +281,10 @@ same effect as running it once.
 The files can be edited by anyone with access to this repository. The
 [YAML](http://en.wikipedia.org/wiki/YAML) specification is complex and fraught
 with edge cases, so be careful.
+
+For the purposes of this application, a **prison** is a visitable location
+within an **estate**. There will be more than one prison if different parts of
+the estate have different visiting times or booking teams.
 
 #### Prison visibility
 
