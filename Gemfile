@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.3'
+ruby '2.3.0'
 
 gem 'rails', '~> 4.2.3'
 
@@ -25,6 +25,7 @@ gem 'zendesk_api'
 group :development, :test do
   gem 'brakeman'
   gem 'byebug'
+  gem 'parser', '~> 2.3.0.pre.6'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.0'
