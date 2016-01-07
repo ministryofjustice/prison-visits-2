@@ -5,9 +5,11 @@ RSpec.describe StaticPageGenerator do
     expected_file_path = Rails.root.join('public', '404.html')
     File.delete(expected_file_path) if File.exist?(expected_file_path)
 
-    described_class.generate!('/pages/404' => '404.html',
-                              '/pages/500' => '500.html',
-                              '/pages/503' => '503.html')
+    described_class.generate!(
+      '/pages/404' => '404.html',
+      '/pages/500' => '500.html',
+      '/pages/503' => '503.html'
+    )
 
     expect(File.exist?(expected_file_path)).to be true
   end
