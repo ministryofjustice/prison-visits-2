@@ -83,6 +83,8 @@ booking separately. This might be separate wings with different visiting hours,
 or the main and high-security parts of a prison that are handled by different
 booking teams.
 
+The estate stores the NOMIS ID and Prison Finder link.
+
 #### `Visit`
 
 This is the main table in the application, and contains the essential data for
@@ -269,9 +271,7 @@ build information to be returned by `/ping.json`. e.g.:
 }
 ```
 
-### Prisons
-
-#### Editing prison data
+## Prison data
 
 Prison details are stored in YAML files in the `db/seeds` directory, and are
 synchronised to the database on deployment (by running `rake db:seed`). This is
@@ -285,6 +285,42 @@ with edge cases, so be careful.
 For the purposes of this application, a **prison** is a visitable location
 within an **estate**. There will be more than one prison if different parts of
 the estate have different visiting times or booking teams.
+
+Estates are seeded via the `estates.yml` file.
+
+### Estates
+
+`estates.yml` is formatted thus:
+
+```yaml
+LNX: # NOMIS ID
+  name: Lunar Penal Colony
+  finder_slug: moonbase
+MRX:
+  name: Martian Correctional Facility
+```
+
+An estate can be added by adding a new entry to the file. The name or finder
+slug can be changed as long as the NOMIS ID remains the same.
+
+It is not possible to delete an estate: removing it from the seed data will not
+remove it from the database.
+
+#### Prison finder links
+
+When the service links to [Prison
+Finder](https://www.justice.gov.uk/contacts/prison-finder), it turns the estate
+name into part of the URL. For example, 'Drake Hall' becomes
+[drake-hall](https://www.justice.gov.uk/contacts/prison-finder/drake-hall).
+
+When the Prison Finder link does not simply match the estate name in lower
+case with spaces replaced with hyphens, use the `finder_slug` field:
+
+```yaml
+finder_slug: sheppey-cluster-standford-hill
+```
+
+### Prisons
 
 #### Prison visibility
 
@@ -300,6 +336,9 @@ To disable visit requests to a prison, set `enabled` to `false`.
   ...
 
 ```
+
+Each prison **must** have a `nomis_id` field that corresponds to an entry in
+`estates.yml`.
 
 #### Weekly visiting slots
 
@@ -374,20 +413,6 @@ weekends. This will allow visits to be requested 3 days ahead (or custom
 
 ```yaml
 works_weekends: true
-```
-
-#### Prison finder links
-
-When the service links to [Prison
-Finder](https://www.justice.gov.uk/contacts/prison-finder), it turns the prison
-name into part of the URL. For example, 'Drake Hall' becomes
-[drake-hall](https://www.justice.gov.uk/contacts/prison-finder/drake-hall).
-
-When the Prison Finder link does not simply match the prison name in lower
-case with spaces replaced with hyphens, use this.
-
-```yaml
-finder_slug: sheppey-cluster-standford-hill
 ```
 
 #### Adult age
