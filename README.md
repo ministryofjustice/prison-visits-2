@@ -436,7 +436,11 @@ looks like `85c83a07-dd6a-43ea-ae41-af79e4a756d4`.)
 
 To add a prison, create a new YAML file in `db/seeds/prisons` and add a line to
 the mapping file. To generate a new UUID for the prison, you can type `uuidgen`
-on the command line in Linux or OS X.
+on the command line in Linux or OS X, or use a rake task:
+
+```sh
+$ rake maintenance:prison_uuids
+```
 
 #### Renaming a prison
 
