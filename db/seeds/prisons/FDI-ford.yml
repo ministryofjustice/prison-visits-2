@@ -6,7 +6,6 @@ address:
 - BN18 0BX
 email: socialvisits.ford@hmps.gsi.gov.uk
 enabled: true
-estate: Ford
 slots:
   wed:
   - 1800-2000

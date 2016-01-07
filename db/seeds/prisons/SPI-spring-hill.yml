@@ -6,7 +6,6 @@ address:
 - HP18 0TL
 email: socialvisits.springhill@hmps.gsi.gov.uk
 enabled: true
-estate: Spring Hill
 slots:
   sat:
   - 1345-1600

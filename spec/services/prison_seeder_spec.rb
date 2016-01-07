@@ -11,7 +11,6 @@ RSpec.describe PrisonSeeder do
       'booking_window' => 28,
       'email' => 'luna@hmps.gsi.gov.uk',
       'enabled' => true,
-      'estate' => 'Luna',
       'phone' => '0115 4960123',
       'slot_anomalies' => {
         Date.new(2015, 5, 25) => ['1330-1430'],
@@ -26,28 +25,31 @@ RSpec.describe PrisonSeeder do
   }
 
   context 'importing from disk' do
+    before do
+      create :estate, nomis_id: 'LNX'
+      create :estate, nomis_id: 'MRX'
+    end
+
     let(:base_path) { Rails.root.join('spec', 'fixtures', 'seeds') }
 
     it 'imports prisons from the YAML files' do
       expect {
-        described_class.seed!(base_path)
+        described_class.seed! base_path
       }.to change(Prison, :count).by(2)
     end
 
-    it 'creates estates' do
-      expect {
-        described_class.seed!(base_path)
-      }.to change(Estate, :count).by(2)
-    end
-
     it 'imports using the UUID mapping' do
-      described_class.seed!(base_path)
+      described_class.seed! base_path
       expect(Prison.find('67d22c66-41ac-431b-b24a-51bafb30ef8d')).
         to have_attributes(name: 'Lunar Penal Colony')
     end
   end
 
   context 'importing when the UUID is not mapped' do
+    before do
+      create :estate, nomis_id: 'LNX'
+    end
+
     let(:filename_to_uuid_map) { {} }
     subject { described_class.new(filename_to_uuid_map) }
 
@@ -59,6 +61,10 @@ RSpec.describe PrisonSeeder do
   end
 
   context 'successful import' do
+    before do
+      create :estate, nomis_id: 'LNX'
+    end
+
     subject { described_class.new(filename_to_uuid_map) }
     let(:filename_to_uuid_map) { { filename => uuid } }
 
@@ -76,18 +82,10 @@ RSpec.describe PrisonSeeder do
       expect(Prison.find(uuid).name).to eq('Lunar Penal Colony')
     end
 
-    it 'creates a new estate record' do
-      expect {
-        subject.import filename, hash
-      }.to change(Estate, :count).by(1)
-    end
-
-    it 'updates an existing estate record' do
+    it 'is associated with the estate record' do
       create :estate, name: 'Luna'
-      expect {
-        subject.import filename, hash
-      }.not_to change(Estate, :count)
-      expect(Prison.find(uuid).estate.name).to eq('Luna')
+      subject.import filename, hash
+      expect(Prison.find(uuid).estate.nomis_id).to eq('LNX')
     end
 
     it 'transforms slot details' do
@@ -103,16 +101,6 @@ RSpec.describe PrisonSeeder do
         },
         "unbookable" => ["2015-11-04"]
       )
-    end
-
-    it 'generates a default prison finder slug' do
-      subject.import filename, hash
-      expect(Prison.find(uuid).finder_slug).to eq('lunar-penal-colony')
-    end
-
-    it 'uses the supplied prison finder slug' do
-      subject.import filename, hash.merge('finder_slug' => 'luna')
-      expect(Prison.find(uuid).finder_slug).to eq('luna')
     end
   end
 end

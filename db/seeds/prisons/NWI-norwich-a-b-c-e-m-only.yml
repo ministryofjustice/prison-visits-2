@@ -6,8 +6,6 @@ address:
 - 'NR1 4LU '
 email: socialvisits.norwich@hmps.gsi.gov.uk
 enabled: true
-estate: Norwich
-finder_slug: norwich
 phone: 01603 708795
 slots:
   tue:
