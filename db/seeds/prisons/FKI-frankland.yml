@@ -2,7 +2,6 @@
 name: Frankland
 nomis_id: FKI
 enabled: true
-estate: Frankland
 address:
 - Brasside
 - Durham

@@ -6,7 +6,6 @@ address:
 - 'IP12 3JW '
 email: socialvisits.hollesleybay@hmps.gsi.gov.uk
 enabled: true
-estate: Hollesley Bay Open
 slots:
   sat:
   - 1400-1545
