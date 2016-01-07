@@ -2,11 +2,11 @@ en:
   pages:
     "404":
       title: This page cannot be found
-      body_html: |
-        <p>You can <a href="%{new_booking_url}">start a new prison visit
-        request</a> or book your visit by phone instead. See the
-        <a href="%{prison_finder_url}">prison finder</a> for contact
-        details.</p>
+      body_md: |
+        You can
+        [start a new prison visit request](%{new_booking_url})
+        or book your visit by phone instead. See the
+        [prison finder](%{prison_finder_url}) for contact details.
     "500":
       title: We are experiencing technical difficulties
       body_html: |
