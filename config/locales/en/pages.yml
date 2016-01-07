@@ -3,10 +3,10 @@ en:
     "404":
       title: This page cannot be found
       body_html: |
-        <p>You can <a href="/">start a new prison visit request</a> or book
-        your visit by phone instead. See the
-        <a href="http://www.justice.gov.uk/contacts/prison-finder">prison
-        finder</a> for contact details.</p>
+        <p>You can <a href="%{new_booking_url}">start a new prison visit
+        request</a> or book your visit by phone instead. See the
+        <a href="%{prison_finder_url}">prison finder</a> for contact
+        details.</p>
     "500":
       title: We are experiencing technical difficulties
       body_html: |
@@ -14,18 +14,17 @@ en:
         we're working hard to get things up and running again.</p>
 
         <p>You can try again later or book your visit by phone instead. See the
-        <a href="http://www.justice.gov.uk/contacts/prison-finder">prison
-        finder</a> for contact details.</p>
+        <a href="%{prison_finder_url}">prison finder</a> for contact
+        details.</p>
     "503":
       title: We are experiencing technical difficulties
       body_html: |
         <p>The prison visits booking system is not available as we're carrying
-        out some planned maintenance. You can try again later or book your
-        visit by phone instead.</p>
+        out some planned maintenance.</p>
 
         <p>You can try again later or book your visit by phone instead. See the
-        <a href="http://www.justice.gov.uk/contacts/prison-finder">prison
-        finder</a> for contact details.</p>
+        <a href="%{prison_finder_url}">prison finder</a> for contact
+        details.</p>
     unsubscribe:
       title: Why did I receive this email?
       you_received_an_email: You’ve received an email from %{email}
