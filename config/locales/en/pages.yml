@@ -277,28 +277,9 @@ en:
 
         Google Analytics sets the following cookies:
 
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-
-              <th>Purpose</th>
-
-              <th>Expires</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td>_ga</td>
-
-              <td>Determines the number of unique visitors to the
-              site</td>
-
-              <td>2 years</td>
-            </tr>
-          </tbody>
-        </table>
+        | Name | Purpose | Expires |
+        | ------------------------ |
+        | _ga | Determines the number of unique visitors to the site | 2 years |
 
         You can [opt out of Google Analytics
         cookies.](https://tools.google.com/dlpage/gaoptout)
@@ -309,28 +290,9 @@ en:
         store a cookie so that your computer knows you’ve seen it and knows not
         to show it again.
 
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-
-              <th>Purpose</th>
-
-              <th>Expires</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td>seen_cookie_message</td>
-
-              <td>Saves a message to let us know that you have seen our
-              cookie message</td>
-
-              <td>1 month</td>
-            </tr>
-          </tbody>
-        </table>
+        | Name | Purpose | Expires |
+        | ------------------------ |
+        | seen_cookie_message | Saves a message to let us know that you have seen our cookie message | 1 month |
 
         ### Session
 
@@ -338,24 +300,6 @@ en:
         The details you enter are encrypted and temporarily stored on your
         computer until your booking request is sent.
 
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-
-              <th>Purpose</th>
-
-              <th>Expires</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td>pvbs</td>
-
-              <td>Store prisoner, visitor and visit details</td>
-
-              <td>20 minutes</td>
-            </tr>
-          </tbody>
-        </table>
+        | Name | Purpose | Expires |
+        | ------------------------ |
+        | pvbs | Store prisoner, visitor and visit details | 20 minutes |
