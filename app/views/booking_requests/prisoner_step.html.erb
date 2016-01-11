@@ -4,7 +4,9 @@
   <div class="Grid-2-3">
     <%= t('.information_html') %>
 
-    <%= form_for(@steps.fetch(:prisoner_step), url: booking_requests_path) do |f| %>
+    <%= form_for(@steps.fetch(:prisoner_step),
+                 url: booking_requests_path,
+                 html: { class: 'js-SubmitOnce' }) do |f| %>
       <% if reviewing? %>
         <%= render(partial: 'hidden_visitors_step') %>
         <%= render(partial: 'hidden_slots_step') %>

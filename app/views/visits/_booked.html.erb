@@ -11,7 +11,7 @@
 
 <p><%= t('.cancel_intro') %></p>
 
-<%= form_tag(cancellations_path) do %>
+<%= form_tag(cancellations_path, html: { class: 'js-SubmitOnce' }) do %>
   <%= hidden_field_tag(:id, @visit.id) %>
 
   <div class="group">

@@ -11,7 +11,8 @@
       form_for(
         @booking_response,
         url: prison_visit_path(@booking_response),
-        method: :put
+        method: :put,
+        html: { class: 'js-SubmitOnce' }
       ) do |f|
     %>
       <%= render(partial: 'visit_date_section', locals: { f: f }) %>
