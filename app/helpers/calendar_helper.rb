@@ -29,13 +29,14 @@ module CalendarHelper
   end
 
   def calendar_day(date, bookable)
-    day = content_tag(:span, date.strftime('%-e'), class: 'BookingCalendar-day')
+    day = content_tag(
+      :span, I18n.l(date, format: :day_of_month),
+      class: 'BookingCalendar-day'
+    )
     return day if bookable == false
     content_tag(
-      :a,
-      day,
-      class: 'BookingCalendar-dateLink',
-      'data-date': date.iso8601,
+      :a, day,
+      class: 'BookingCalendar-dateLink', 'data-date': date.iso8601,
       href: "#date-#{date.iso8601}"
     )
   end
