@@ -6,15 +6,7 @@ FactoryGirl.define do
       "#{p.estate.name} Open Prison"
     end
 
-    sequence :nomis_id do |n|
-      ('%03d' % n).tr('0123456789', 'ABCDEFGHIJ')
-    end
-
     enabled true
-
-    finder_slug do |p|
-      p.name.parameterize
-    end
 
     address do
       FFaker::AddressUK.street_address

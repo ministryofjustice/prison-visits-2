@@ -9,7 +9,6 @@ address:
 booking_window: 21
 email: belmarsh.visits@hmps.gsi.gov.uk
 enabled: true
-estate: Belmarsh
 lead_days: 3
 phone: 020 8331 4768
 slots:

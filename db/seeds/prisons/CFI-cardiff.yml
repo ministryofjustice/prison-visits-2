@@ -8,7 +8,6 @@ address:
 booking_window: 14
 email: socialvisits.cardiff@hmps.gsi.gov.uk
 enabled: true
-estate: Cardiff
 phone: 029 20923327
 slots:
   mon:

@@ -7,7 +7,6 @@ address:
 booking_window: 14
 email: socialvisits.bedford@hmps.gsi.gov.uk
 enabled: true
-estate: Bedford
 phone: 01234 373196
 slots:
   mon:

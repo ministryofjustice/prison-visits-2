@@ -19,7 +19,7 @@ class PrisonSeeder
   end
 
   def import(path, hash)
-    estate = Estate.find_or_create_by(name: hash.fetch('estate'))
+    estate = Estate.find_by!(nomis_id: hash.fetch('nomis_id'))
     prison = Prison.find_or_initialize_by(id: uuid_for_path(path))
     entry = PrisonSeeder::SeedEntry.new(hash)
     prison.update! entry.to_h.merge(estate: estate)

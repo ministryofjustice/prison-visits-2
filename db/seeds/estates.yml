@@ -1,0 +1,261 @@
+ACI:
+  name: Altcourse
+AGI:
+  name: Askham Grange
+AKI:
+  name: Acklington
+  finder_slug: acklington2
+ALI:
+  name: Isle of Wight - Albany
+  finder_slug: isle-of-wight
+ASI:
+  name: Ashfield
+AYI:
+  name: Aylesbury
+BAI:
+  name: Belmarsh
+BCI:
+  name: Buckley Hall
+BFI:
+  name: Bedford
+BHI:
+  name: Blantyre House
+BLI:
+  name: Bristol
+BMI:
+  name: Birmingham
+BNI:
+  name: Bullingdon
+  finder_slug: bullingdon
+BRI:
+  name: Bure
+BSI:
+  name: Brinsford
+BXI:
+  name: Brixton
+BZI:
+  name: Bronzefield
+CDI:
+  name: Chelmsford
+CFI:
+  name: Cardiff
+CKI:
+  name: Cookham Wood
+CLI:
+  name: Coldingley
+CWI:
+  name: Channings Wood
+DAI:
+  name: Dartmoor
+DHI:
+  name: Drake Hall
+DMI:
+  name: Durham
+DNI:
+  name: Doncaster
+DTI:
+  name: Deerbolt
+DWI:
+  name: Downview
+EEI:
+  name: Erlestoke
+EHI:
+  name: Standford Hill
+  finder_slug: sheppey-cluster-standford-hill
+ESI:
+  name: East Sutton Park
+EVI:
+  name: Everthorpe
+EWI:
+  name: Eastwood Park
+EXI:
+  name: Exeter
+EYI:
+  name: Elmley
+  finder_slug: sheppey-cluster-elmley
+FBI:
+  name: Forest Bank
+FDI:
+  name: Ford
+FHI:
+  name: Foston Hall
+FKI:
+  name: Frankland
+FMI:
+  name: Feltham
+  finder_slug: feltham
+FNI:
+  name: Full Sutton
+FSI:
+  name: Featherstone
+GHI:
+  name: Garth
+GMI:
+  name: Guys Marsh
+GNI:
+  name: Grendon
+GPI:
+  name: Glen Parva
+GTI:
+  name: Gartree
+HBI:
+  name: Hollesley Bay Open
+HCI:
+  name: Huntercombe
+HDI:
+  name: Hatfield Open
+  finder_slug: hatfield
+HEI:
+  name: Hewell
+HHI:
+  name: Holme House
+HII:
+  name: Hindley
+HLI:
+  name: Hull
+HOI:
+  name: High Down
+HPI:
+  name: Highpoint
+  finder_slug: highpoint-south
+HVI:
+  name: Haverigg
+HYI:
+  name: Holloway
+ISI:
+  name: Isis
+IWI:
+  name: Isle of Wight - Parkhurst
+  finder_slug: isle-of-wight
+KMI:
+  name: Kirkham
+KTI:
+  name: Kennet
+KVI:
+  name: Kirklevington Grange
+LCI:
+  name: Leicester
+LEI:
+  name: Leeds
+LFI:
+  name: Lancaster Farms
+LGI:
+  name: Lowdham Grange
+LHI:
+  name: Lindholme
+LII:
+  name: Lincoln
+LLI:
+  name: Long Lartin
+LNI:
+  name: Low Newton
+LPI:
+  name: Liverpool
+  finder_slug: liverpool
+LTI:
+  name: Littlehey
+LWI:
+  name: Lewes
+LYI:
+  name: Leyhill
+MDI:
+  name: Moorland Closed
+  finder_slug: moorland
+MHI:
+  name: Morton Hall
+MRI:
+  name: Manchester
+MSI:
+  name: Maidstone
+MTI:
+  name: The Mount
+NHI:
+  name: New Hall
+NLI:
+  name: Northumberland
+NMI:
+  name: Nottingham
+NSI:
+  name: North Sea Camp
+NWI:
+  name: Norwich
+  finder_slug: norwich
+ONI:
+  name: Onley
+OWI:
+  name: Oakwood
+  finder_slug: hmp-oakwood
+PBI:
+  name: Peterborough
+PDI:
+  name: Portland
+PNI:
+  name: Preston
+PRI:
+  name: Parc
+PVI:
+  name: Pentonville
+RCI:
+  name: Rochester
+RHI:
+  name: Rye Hill
+RNI:
+  name: Ranby
+RSI:
+  name: Risley
+SDI:
+  name: Send
+SFI:
+  name: Stafford
+SHI:
+  name: Stoke Heath
+SKI:
+  name: Stocken
+SLI:
+  name: Swaleside
+SNI:
+  name: Swinfen Hall
+SPI:
+  name: Spring Hill
+STI:
+  name: Styal
+SUI:
+  name: Sudbury
+SWI:
+  name: Swansea
+TCI:
+  name: Thorn Cross
+UKI:
+  name: Usk
+  finder_slug: usk-prescoed-usk
+UPI:
+  name: Prescoed
+  finder_slug: usk-prescoed-prescoed
+WCI:
+  name: Winchester
+WDI:
+  name: Wakefield
+WEI:
+  name: Wealstun
+WHI:
+  name: Woodhill
+WII:
+  name: Warren Hill
+WLI:
+  name: Wayland
+WMI:
+  name: Wymott
+WNI:
+  name: Werrington
+WOI:
+  name: Wolds
+WRI:
+  name: Whitemoor
+WSI:
+  name: Wormwood Scrubs
+WTI:
+  name: Whatton
+WWI:
+  name: Wandsworth
+WYI:
+  name: Wetherby

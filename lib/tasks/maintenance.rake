@@ -1,4 +1,5 @@
 namespace :maintenance do
+  desc 'Generate UUID mapping entries for prisons that lack them'
   task prison_uuids: :environment do
     prison_uuid_mapping_path =
       Rails.root.join('db', 'seeds', 'prison_uuid_mappings.yml')
