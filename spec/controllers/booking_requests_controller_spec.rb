@@ -63,7 +63,7 @@ RSpec.describe BookingRequestsController do
 
   context 'on the first prisoner details page' do
     before do
-      get :index
+      get :index, locale: 'en'
     end
 
     it 'assigns a new PrisonerStep' do
@@ -78,7 +78,9 @@ RSpec.describe BookingRequestsController do
   context 'after submitting prisoner details' do
     context 'with missing prisoner details' do
       before do
-        post :create, prisoner_step: { first_name: 'Oscar' }
+        post :create,
+          prisoner_step: { first_name: 'Oscar' },
+          locale: 'en'
       end
 
       it 'renders the prisoner template' do
@@ -97,7 +99,9 @@ RSpec.describe BookingRequestsController do
 
     context 'with complete prisoner details' do
       before do
-        post :create, prisoner_step: prisoner_details
+        post :create,
+          prisoner_step: prisoner_details,
+          locale: 'en'
       end
 
       it 'renders the visitors template' do
@@ -124,7 +128,8 @@ RSpec.describe BookingRequestsController do
       before do
         post :create,
           prisoner_step: prisoner_details,
-          visitors_step: { phone_no: '01154960222' }
+          visitors_step: { phone_no: '01154960222' },
+          locale: 'en'
       end
 
       it 'renders the visitors template' do
@@ -154,7 +159,8 @@ RSpec.describe BookingRequestsController do
       before do
         post :create,
           prisoner_step: prisoner_details,
-          visitors_step: visitors_details
+          visitors_step: visitors_details,
+          locale: 'en'
       end
 
       it 'renders the slots template' do
@@ -191,7 +197,8 @@ RSpec.describe BookingRequestsController do
         post :create,
           prisoner_step: prisoner_details,
           visitors_step: visitors_details,
-          slots_step: slots_details
+          slots_step: slots_details,
+          locale: 'en'
       end
 
       it 'renders the confirmation template' do
@@ -231,7 +238,8 @@ RSpec.describe BookingRequestsController do
         post :create,
           prisoner_step: prisoner_details,
           visitors_step: visitors_details,
-          slots_step: { option_0: '' }
+          slots_step: { option_0: '' },
+          locale: 'en'
       end
 
       it 'renders the slots template' do
@@ -268,7 +276,8 @@ RSpec.describe BookingRequestsController do
         prisoner_step: prisoner_details,
         visitors_step: visitors_details,
         slots_step: slots_details,
-        confirmation_step: confirmation_details
+        confirmation_step: confirmation_details,
+        locale: 'en'
       }
     }
 

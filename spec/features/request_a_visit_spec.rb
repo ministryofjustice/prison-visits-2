@@ -8,7 +8,7 @@ RSpec.feature 'Booking a visit', js: true do
   let(:visitor_email) { 'ado@test.example.com' }
 
   scenario 'happy path' do
-    visit booking_requests_path
+    visit booking_requests_path(locale: 'en')
 
     enter_prisoner_information \
       prison_name: 'Reading Gaol', first_name: 'Oscar', last_name: 'Wilde'
@@ -42,7 +42,7 @@ RSpec.feature 'Booking a visit', js: true do
   end
 
   scenario 'validation errors' do
-    visit booking_requests_path
+    visit booking_requests_path(locale: 'en')
     click_button 'Continue'
     expect(page).to have_text('Prisoner first name is required')
 
@@ -56,7 +56,7 @@ RSpec.feature 'Booking a visit', js: true do
   end
 
   scenario 'review and edit' do
-    visit booking_requests_path
+    visit booking_requests_path(locale: 'en')
 
     enter_prisoner_information
     click_button 'Continue'

@@ -8,7 +8,7 @@ RSpec.feature 'Submit feedback', js: true do
     text = 'How many times did the Batmobile catch a flat?'
     email_address = 'user@test.example.com'
 
-    visit booking_requests_path
+    visit booking_requests_path(locale: 'en')
     click_link 'Contact us'
 
     fill_in 'Your question', with: text
@@ -18,7 +18,7 @@ RSpec.feature 'Submit feedback', js: true do
       expect(fb.body).to eq(text)
       expect(fb.email_address).to eq(email_address)
       expect(fb.user_agent).to match('Mozilla')
-      expect(fb.referrer).to match(booking_requests_path)
+      expect(fb.referrer).to match(booking_requests_path(locale: 'en'))
     end
 
     click_button 'Send'

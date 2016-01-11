@@ -5,7 +5,7 @@ RSpec.describe VisitsController, type: :controller do
     let(:visit) { create(:visit) }
 
     it 'assigns the visit to @visit' do
-      get :show, id: visit.id
+      get :show, id: visit.id, locale: 'en'
       expect(assigns(:visit)).to eq(visit)
     end
   end
