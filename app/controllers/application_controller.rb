@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :do_not_cache
+  before_action :set_locale
 
   helper LinksHelper
 
@@ -21,5 +22,13 @@ private
     response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
+  end
+
+  def default_url_options(*)
+    { locale: I18n.locale }
+  end
+
+  def set_locale
+    I18n.locale = params.fetch(:locale, I18n.default_locale)
   end
 end
