@@ -3,7 +3,7 @@ module SmokeTest
     class CheckYourRequestPage < BaseStep
       include HttpStatusValidation
 
-      PAGE_PATH = '/request'
+      PAGE_PATH = '/en/request'
 
       def validate!
         validate_response_status!
