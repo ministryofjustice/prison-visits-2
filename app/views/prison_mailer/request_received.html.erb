@@ -44,7 +44,8 @@
 <% end %>
 
 <p class="cta">
-  <%= link_to(t('.process_booking'), prison_visit_url(@visit)) %>
+  <%= link_to(t('.process_booking'),
+              prison_visit_url(@visit, locale: I18n.locale)) %>
 </p>
 
 <p>
@@ -52,7 +53,7 @@
 </p>
 
 <div>
-  <%= prison_visit_url(@visit) %>
+  <%= prison_visit_url(@visit, locale: I18n.locale) %>
 </div>
 
 <p>
