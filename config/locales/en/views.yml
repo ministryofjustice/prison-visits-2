@@ -306,7 +306,7 @@ en:
       remove: Remove
       today: Today
       choose_two_alternatives: >-
-        Choose two alternative dates in case your first choice isn‘t available.
+        Choose two alternative dates in case your first choice isn’t available.
     validation:
       heading: You need to fix the errors on this page before continuing.
       see_below: See highlighted errors below.

@@ -3,7 +3,7 @@ module SmokeTest
     class CancelBookingPage < BaseStep
       include HttpStatusValidation
 
-      PAGE_PATH = %r{\A/visits/([0-9a-f-]){36}}
+      PAGE_PATH = %r{\A/en/visits/([0-9a-f-]){36}}
 
       def validate!
         validate_response_status!

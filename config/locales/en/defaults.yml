@@ -8,10 +8,65 @@ en:
     formats:
       date_of_birth: "%-d %B %Y" # 24 July 2014
       date_without_year: "%A %-d %B" # Thursday 24 July
+      day_of_month: "%-e"
+      day_of_week: "%a"
+      short_month_name: "%b"
+      year_and_month_internal: "%Y-%m"
+      date_internal: "%Y-%m-%d"
+    day_names:
+      - Sunday
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+    abbr_day_names:
+      - Sun
+      - Mon
+      - Tue
+      - Wed
+      - Thu
+      - Fri
+      - Sat
+    month_names:
+      - ~
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
+    abbr_month_names:
+      - ~
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - May
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
+    order:
+      - day
+      - month
+      - year
   time:
     formats:
       twelve_hour: "%-l:%M%P"   # 1:30pm
       twenty_four_hour: "%H:%M" # 13:30
+    am: am
+    pm: pm
   formats:
     slot:
       public:

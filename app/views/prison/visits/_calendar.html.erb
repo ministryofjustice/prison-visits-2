@@ -3,7 +3,7 @@
     <thead>
       <tr>
         <% each_day_of_week do |day| %>
-          <th><%= day.strftime('%a') %></th>
+          <th><%= I18n.l(day, format: :day_of_week) %></th>
         <% end %>
       </tr>
     </thead>
@@ -14,7 +14,7 @@
             <td class="BookingCalendar-date--<%= (future?(day) ? 'bookable' : 'unbookable') %>">
               <div class="BookingCalendar-content <%= (tagged?(day)) ? 'has-tag' : '' %>">
                 <span class="BookingCalendar-day">
-                  <%= day.strftime('%e') %>
+                  <%= I18n.l(day, format: :day_of_month) %>
                 </span>
                 <% if today?(day) %>
                   <span class="BookingCalendar-tag BookingCalendar-tag--today"
@@ -23,15 +23,15 @@
                 <% if first_day_of_month?(day) %>
                   <span
                     class="BookingCalendar-tag"
-                    id="month-<%= day.strftime('%Y-%m') %>"
-                    ><%= day.strftime('%b') %></span>
+                    id="month-<%= I18n.l(day, format: :year_and_month_internal) %>"
+                    ><%= I18n.l(day, format: :short_month_name) %></span>
                 <% end %>
                 <% if future?(day) %>
                   <label
                     class="BookingCalendar-dateLink"
                     data-date="<%= day %>"
                     for="<%= sanitize_to_id(name) %>_<%= day.iso8601 %>"
-                    href="#date-<%= day.strftime('%Y-%m-%d') %>"
+                    href="#date-<%= I18n.l(day, format: :date_internal) %>"
                     >
                     <%= radio_button_tag(name, day.iso8601) %>
                   </label>

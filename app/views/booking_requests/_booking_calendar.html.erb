@@ -8,7 +8,7 @@
     <thead>
       <tr>
         <% each_day_of_week do |day| %>
-          <th><%= day.strftime('%a') %></th>
+          <th><%= I18n.l(day, format: :day_of_week) %></th>
         <% end %>
       </tr>
     </thead>

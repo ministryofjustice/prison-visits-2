@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe CancellationsController, type: :controller do
   describe 'create' do
     context 'when confirm is checked' do
-      let(:params) { { id: visit.id, confirmed: '1' } }
+      let(:params) { { id: visit.id, confirmed: '1', locale: 'en' } }
 
       context 'when the visit has been requested' do
         let(:visit) { create(:visit) }
@@ -15,7 +15,7 @@ RSpec.describe CancellationsController, type: :controller do
 
         it 'redirects to the visit page' do
           post :create, params
-          expect(response).to redirect_to(visit_path(visit))
+          expect(response).to redirect_to(visit_path(visit, locale: 'en'))
         end
       end
 
@@ -29,7 +29,7 @@ RSpec.describe CancellationsController, type: :controller do
 
         it 'redirects to the visit page' do
           post :create, params
-          expect(response).to redirect_to(visit_path(visit))
+          expect(response).to redirect_to(visit_path(visit, locale: 'en'))
         end
       end
 
@@ -43,7 +43,7 @@ RSpec.describe CancellationsController, type: :controller do
 
         it 'redirects to the visit page' do
           post :create, params
-          expect(response).to redirect_to(visit_path(visit))
+          expect(response).to redirect_to(visit_path(visit, locale: 'en'))
         end
       end
 
@@ -66,14 +66,14 @@ RSpec.describe CancellationsController, type: :controller do
 
         it 'redirects to the visit page' do
           post :create, params
-          expect(response).to redirect_to(visit_path(visit))
+          expect(response).to redirect_to(visit_path(visit, locale: 'en'))
         end
       end
     end
 
     context 'when confirm is not checked' do
       let(:visit) { create(:visit) }
-      let(:params) { { id: visit.id } }
+      let(:params) { { id: visit.id, locale: 'en' } }
 
       it 'does not change the visit' do
         post :create, params
@@ -82,7 +82,7 @@ RSpec.describe CancellationsController, type: :controller do
 
       it 'redirects to the visit page' do
         post :create, params
-        expect(response).to redirect_to(visit_path(visit))
+        expect(response).to redirect_to(visit_path(visit, locale: 'en'))
       end
     end
   end

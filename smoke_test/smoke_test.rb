@@ -58,7 +58,7 @@ module SmokeTest
     def run
       puts 'Beginning Smoke Test..'
       Capybara.reset_sessions!
-      visit '/request'
+      visit '/en/request'
       STEPS.map do |step|
         puts "Step: #{step_name(step)}"
         complete(step)

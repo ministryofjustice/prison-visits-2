@@ -5,7 +5,8 @@
   <%= t('.status') %>
 </h1>
 <p>
-  <%= t('.where_to_check_status_html', url: visit_url(@visit)) %>
+  <%= t('.where_to_check_status_html',
+        url: visit_url(@visit, locale: I18n.locale)) %>
 </p>
 <p>
   <%= t('.when_to_expect_response',
@@ -50,7 +51,7 @@
   <%= t('.cancel_title') %>
 </h1>
 <p>
-  <%= t('.cancel_html', url: visit_url(@visit)) %>
+  <%= t('.cancel_html', url: visit_url(@visit, locale: I18n.locale)) %>
 </p>
 <ul>
   <li>
@@ -63,5 +64,6 @@
   </li>
 </ul>
 <p>
-  <%= t('.feedback_html', url: new_feedback_submission_url) %>
+  <%= t('.feedback_html',
+        url: new_feedback_submission_url(locale: I18n.locale)) %>
 </p>
