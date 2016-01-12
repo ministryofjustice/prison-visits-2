@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     get 'unsubscribe', action: :show, id: 'unsubscribe'
   end
 
-  constraints format: 'json' do
+  constraints format: 'json', defaults: {disable_query_cache: true} do
     get 'ping', to: 'ping#index'
     get 'healthcheck', to: 'healthcheck#index'
   end
