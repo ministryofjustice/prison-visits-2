@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160106171414) do
+ActiveRecord::Schema.define(version: 20160112103846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,21 +99,22 @@ ActiveRecord::Schema.define(version: 20160106171414) do
   add_index "visitors", ["visit_id"], name: "index_visitors_on_visit_id", using: :btree
 
   create_table "visits", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "prison_id",                                     null: false
-    t.string   "contact_email_address",                         null: false
-    t.string   "contact_phone_no",                              null: false
-    t.string   "slot_option_0",                                 null: false
+    t.uuid     "prison_id",                                               null: false
+    t.string   "contact_email_address",                                   null: false
+    t.string   "contact_phone_no",                                        null: false
+    t.string   "slot_option_0",                                           null: false
     t.string   "slot_option_1"
     t.string   "slot_option_2"
     t.string   "slot_granted"
-    t.string   "processing_state",        default: "requested", null: false
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
-    t.boolean  "override_delivery_error", default: false
+    t.string   "processing_state",                  default: "requested", null: false
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
+    t.boolean  "override_delivery_error",           default: false
     t.string   "delivery_error_type"
     t.string   "reference_no"
     t.boolean  "closed"
-    t.uuid     "prisoner_id",                                   null: false
+    t.uuid     "prisoner_id",                                             null: false
+    t.string   "locale",                  limit: 2,                       null: false
   end
 
   add_index "visits", ["prison_id"], name: "index_visits_on_prison_id", using: :btree

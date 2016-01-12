@@ -61,7 +61,7 @@ RSpec.describe StepsProcessor do
     allow(Prison).to receive(:find_by).with(id: 1).and_return(prison)
   end
 
-  subject { described_class.new(HashWithIndifferentAccess.new(params)) }
+  subject { described_class.new(HashWithIndifferentAccess.new(params), :cy) }
 
   shared_examples 'it has all steps' do
     it 'has a PrisonerStep' do
@@ -301,7 +301,8 @@ RSpec.describe StepsProcessor do
             option_0: '2015-01-02T09:00/10:00',
             option_1: '2015-01-03T09:00/10:00',
             option_2: '2015-01-04T09:00/10:00'
-          )
+          ),
+          :cy
         )
       subject.execute!
     end

@@ -1,6 +1,6 @@
 class BookingRequestCreator
-  def create!(prisoner_step, visitors_step, slots_step)
-    create_visit(prisoner_step, visitors_step, slots_step).tap { |visit|
+  def create!(prisoner_step, visitors_step, slots_step, locale)
+    create_visit(prisoner_step, visitors_step, slots_step, locale).tap { |visit|
       VisitorMailer.request_acknowledged(visit).deliver_later
       PrisonMailer.request_received(visit).deliver_later
       LoggerMetadata.add visit_id: visit.id
@@ -10,7 +10,7 @@ class BookingRequestCreator
 private
 
   # rubocop:disable Metrics/MethodLength
-  def create_visit(prisoner_step, visitors_step, slots_step)
+  def create_visit(prisoner_step, visitors_step, slots_step, locale)
     Visit.create!(
       prisoner_id: create_prisoner(prisoner_step).id,
       prison_id: prisoner_step.prison_id,
@@ -20,7 +20,8 @@ private
       delivery_error_type: visitors_step.delivery_error_type,
       slot_option_0: slots_step.option_0,
       slot_option_1: slots_step.option_1,
-      slot_option_2: slots_step.option_2
+      slot_option_2: slots_step.option_2,
+      locale: locale
     ).tap { |v| create_visitors visitors_step, v }
   end
   # rubocop:enable Metrics/MethodLength
