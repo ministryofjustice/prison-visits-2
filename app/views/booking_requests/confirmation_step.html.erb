@@ -33,7 +33,9 @@
     <strong><%= prisoner_step.prison_name %></strong>
   </p>
 
-  <%= form_for(confirmation_step, url: booking_requests_path) do |f| %>
+  <%= form_for(confirmation_step,
+               url: booking_requests_path,
+               html: { class: 'js-SubmitOnce' }) do |f| %>
     <%= render(partial: 'hidden_prisoner_step') %>
     <%= render(partial: 'hidden_visitors_step') %>
     <%= render(partial: 'hidden_slots_step') %>
@@ -64,7 +66,9 @@
     </p>
   <% end %>
 
-  <%= form_for(confirmation_step, url: booking_requests_path) do |f| %>
+  <%= form_for(confirmation_step,
+               url: booking_requests_path,
+               html: { class: 'js-SubmitOnce' }) do |f| %>
     <%= render(partial: 'hidden_prisoner_step') %>
     <%= render(partial: 'hidden_visitors_step') %>
     <%= render(partial: 'hidden_slots_step') %>
@@ -105,7 +109,9 @@
     </ol>
   <% end %>
 
-  <%= form_for(confirmation_step, url: booking_requests_path) do |f| %>
+  <%= form_for(confirmation_step,
+               url: booking_requests_path,
+               html: { class: 'js-SubmitOnce' }) do |f| %>
     <%= render(partial: 'hidden_prisoner_step') %>
     <%= render(partial: 'hidden_visitors_step') %>
     <%= render(partial: 'hidden_slots_step') %>
@@ -120,7 +126,9 @@
 <div class="divider">
   <%= link_to(t('.ts_and_cs'), terms_and_conditions_path) %>
 
-    <%= form_for(confirmation_step, url: booking_requests_path) do |f| %>
+  <%= form_for(confirmation_step,
+               url: booking_requests_path,
+               html: { class: 'js-SubmitOnce' }) do |f| %>
       <%= render(partial: 'hidden_prisoner_step') %>
       <%= render(partial: 'hidden_visitors_step') %>
       <%= render(partial: 'hidden_slots_step') %>
