@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/ministryofjustice/rails-optional_query_cache.git
+  revision: e19e5b260934aa2d2089093dce97b91ff01eb71e
+  specs:
+    optional_query_cache (0.1.0)
+      activerecord (~> 4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -336,6 +343,7 @@ DEPENDENCIES
   logstasher
   moj_template (= 0.21.0)
   netaddr
+  optional_query_cache!
   parser (~> 2.3.0.pre.6)
   pg
   phantomjs

@@ -46,5 +46,7 @@ module PrisonVisits
             ENV.fetch('SMOKE_TEST_EMAIL_DOMAIN', 'digital.justice.gov.uk')
           )
       )
+
+      config.middleware.swap 'ActiveRecord::QueryCache', 'OptionalQueryCache::QueryCache'
   end
 end

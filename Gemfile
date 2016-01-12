@@ -22,6 +22,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'uri_template'
 gem 'virtus'
 gem 'zendesk_api'
+gem 'optional_query_cache', github: 'ministryofjustice/rails-optional_query_cache'
 
 group :development, :test do
   gem 'brakeman'
