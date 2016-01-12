@@ -6,4 +6,11 @@ module ApplicationHelper
   def markdown(source)
     Kramdown::Document.new(source).to_html.html_safe
   end
+
+  def javascript_i18n
+    {
+      days: I18n.t('date.day_names'),
+      months: I18n.t('date.month_names').drop(1)
+    }
+  end
 end

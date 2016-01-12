@@ -36,8 +36,8 @@
       navPointer: 0,
       today: new Date(),
       scrollToFocus: true,
-      days: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-      months: ['January','February','March','April','May','June','July','August','September','October','November','December']
+      days: moj.i18n.days,
+      months: moj.i18n.months
     },
 
     cacheEls: function($el) {
