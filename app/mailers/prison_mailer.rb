@@ -9,6 +9,7 @@ class PrisonMailer < ActionMailer::Base
 
   attr_accessor :visit
 
+  before_action :set_locale
   after_action :do_not_send_to_prison, if: :smoke_test?
 
   def request_received(visit)
@@ -67,5 +68,9 @@ private
 
   def mark_this_highest_priority
     headers('X-Priority' => '1 (Highest)', 'X-MSMail-Priority' => 'High')
+  end
+
+  def set_locale
+    I18n.locale = I18n.default_locale
   end
 end
