@@ -1,13 +1,13 @@
 ---
 name: Wealstun
 nomis_id: WEI
-address:
-- Church Causeway
-- LS23 7AZ
-email: socialvisits.wealstun@hmps.gsi.gov.uk
+address: |-
+  Church Causeway
+  LS23 7AZ
+email_address: socialvisits.wealstun@hmps.gsi.gov.uk
+phone_no: 01937 444599
 enabled: true
-phone: 01937 444599
-slots:
+recurring:
   mon:
   - 0930-1130
   - 1330-1530

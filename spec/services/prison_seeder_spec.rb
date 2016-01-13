@@ -7,16 +7,16 @@ RSpec.describe PrisonSeeder do
     {
       'name' => 'Lunar Penal Colony',
       'nomis_id' => 'LNX',
-      'address' => ['Outer Rim', 'Eratosthenes', 'Mare Imbrium', 'Luna'],
+      'address' => "Outer Rim\nEratosthenes\nMare Imbrium\nLuna",
       'booking_window' => 28,
-      'email' => 'luna@hmps.gsi.gov.uk',
+      'email_address' => 'luna@hmps.gsi.gov.uk',
       'enabled' => true,
-      'phone' => '0115 4960123',
-      'slot_anomalies' => {
+      'phone_no' => '0115 4960123',
+      'anomalous' => {
         Date.new(2015, 5, 25) => ['1330-1430'],
         Date.new(2015, 8, 31) => ['1330-1430']
       },
-      'slots' => {
+      'recurring' => {
         'mon' => ['1330-1430'],
         'tue' => ['1330-1430']
       },

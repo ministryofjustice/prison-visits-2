@@ -1,15 +1,15 @@
 ---
 name: Featherstone
 nomis_id: FSI
-address:
-- New Road
-- Featherstone
-- Wolverhampton
-- WV10 7PU
-email: visitsbooking.westmidlands@noms.gsi.gov.uk
+address: |-
+  New Road
+  Featherstone
+  Wolverhampton
+  WV10 7PU
+email_address: visitsbooking.westmidlands@noms.gsi.gov.uk
+phone_no: 0300 060 6502
 enabled: true
-phone: 0300 060 6502
-slots:
+recurring:
   mon:
   - 1400-1630
   tue:

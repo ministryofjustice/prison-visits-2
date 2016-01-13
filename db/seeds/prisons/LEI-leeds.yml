@@ -1,13 +1,13 @@
 ---
 name: Leeds
 nomis_id: LEI
-address:
-- Gloucester Terrace
-- 'LS12 2TJ '
-email: socialvisits.leeds@hmps.gsi.gov.uk
+address: |-
+  Gloucester Terrace
+  LS12 2TJ
+email_address: socialvisits.leeds@hmps.gsi.gov.uk
+phone_no: 0113 203 2995
 enabled: true
-phone: 0113 203 2995
-slots:
+recurring:
   fri:
   - 1030-1130
   - 1400-1500

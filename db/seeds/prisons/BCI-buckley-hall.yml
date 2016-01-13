@@ -1,13 +1,13 @@
 ---
 name: Buckley Hall
 nomis_id: BCI
-address:
-- Buckley Road
-- OL12 9DP
-email: socialvisits.buckleyhall@hmps.gsi.gov.uk
+address: |-
+  Buckley Road
+  OL12 9DP
+email_address: socialvisits.buckleyhall@hmps.gsi.gov.uk
+phone_no: 01706 514350
 enabled: true
-phone: 01706 514350
-slots:
+recurring:
   mon:
   - 1400-1600
   tue:

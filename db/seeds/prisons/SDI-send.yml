@@ -1,13 +1,13 @@
 ---
 name: Send
 nomis_id: SDI
-address:
-- Ripley Road
-- 'GU23 7LJ '
-email: socialvisits.send@hmps.gsi.gov.uk
+address: |-
+  Ripley Road
+  GU23 7LJ
+email_address: socialvisits.send@hmps.gsi.gov.uk
+phone_no: 01483 471033
 enabled: true
-phone: 01483 471033
-slots:
+recurring:
   thu:
   - 1400-1545
   sat:

@@ -1,17 +1,17 @@
 ---
 name: Wakefield
 nomis_id: WDI
-address:
-- 5 Love Lane
-- Wakefield
-- West Yorkshire
-- WF2 9AG
-booking_window: 28
-email: SocialVisits.Wakefield@hmps.gsi.gov.uk
+address: |-
+  5 Love Lane
+  Wakefield
+  West Yorkshire
+  WF2 9AG
+email_address: SocialVisits.Wakefield@hmps.gsi.gov.uk
+phone_no: 01924 612274
 enabled: true
+booking_window: 28
 lead_days: 3
-phone: 01924 612274
-slots:
+recurring:
   fri:
   - 1400-1600
   sat:

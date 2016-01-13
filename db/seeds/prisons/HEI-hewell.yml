@@ -1,16 +1,16 @@
 ---
 name: Hewell
 nomis_id: HEI
-address:
-- Hewell Lane
-- Redditch
-- Worcestershire
-- B97 6QS
-adult_age: 10
-email: visitsbooking.westmidlands@noms.gsi.gov.uk
+address: |-
+  Hewell Lane
+  Redditch
+  Worcestershire
+  B97 6QS
+email_address: visitsbooking.westmidlands@noms.gsi.gov.uk
+phone_no: 0300 060 6503
 enabled: true
-phone: 0300 060 6503
-slots:
+adult_age: 10
+recurring:
   mon:
   - 1400-1630
   tue:

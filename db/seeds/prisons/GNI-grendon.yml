@@ -1,13 +1,13 @@
 ---
 name: Grendon
 nomis_id: GNI
-address:
-- Grendon Underwood
-- HP18 0TL
-email: socialvisits.grendon@hmps.gsi.gov.uk
+address: |-
+  Grendon Underwood
+  HP18 0TL
+email_address: socialvisits.grendon@hmps.gsi.gov.uk
+phone_no: 01296 445000
 enabled: true
-phone: 01296 445000
-slots:
+recurring:
   sat:
   - 1345-1545
   sun:

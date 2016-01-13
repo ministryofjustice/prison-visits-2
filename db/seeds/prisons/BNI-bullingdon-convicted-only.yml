@@ -1,13 +1,13 @@
 ---
 name: Bullingdon (Convicted Only)
 nomis_id: BNI
-address:
-- Bicester
-- OX25 1PZ
-email: socialvisits.bullingdon@hmps.gsi.gov.uk
+address: |-
+  Bicester
+  OX25 1PZ
+email_address: socialvisits.bullingdon@hmps.gsi.gov.uk
+phone_no: 01869 353176
 enabled: true
-phone: 01869 353176
-slots:
+recurring:
   mon:
   - 1400-1610
   sat:

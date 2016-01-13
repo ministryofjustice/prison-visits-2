@@ -1,14 +1,14 @@
 ---
 name: Drake Hall
 nomis_id: DHI
-address:
-- Eccleshall
-- Staffordshire
-- ST21 6LQ
-email: visitsbooking.westmidlands@noms.gsi.gov.uk
+address: |-
+  Eccleshall
+  Staffordshire
+  ST21 6LQ
+email_address: visitsbooking.westmidlands@noms.gsi.gov.uk
+phone_no: 0300 060 6501
 enabled: true
-phone: 0300 060 6501
-slots:
+recurring:
   tue:
   - 1330-1545
   sat:

@@ -1,14 +1,14 @@
 ---
 name: Littlehey
 nomis_id: LTI
-address:
-- Perry
-- PE28 0SR
-email: socialvisits.littlehey@hmps.gsi.gov.uk
+address: |-
+  Perry
+  PE28 0SR
+email_address: socialvisits.littlehey@hmps.gsi.gov.uk
+phone_no: 01480 335650
 enabled: true
 lead_days: 2
-phone: 01480 335650
-slots:
+recurring:
   fri:
   - 0915-1115
   - 1400-1600

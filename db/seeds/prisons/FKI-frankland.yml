@@ -1,16 +1,16 @@
 ---
 name: Frankland
 nomis_id: FKI
+address: |-
+  Brasside
+  Durham
+  DH1 5YD
+email_address: SocialVisitsBooking.Frankland@hmps.gsi.gov.uk
+phone_no: 01913 765048
 enabled: true
-address:
-- Brasside
-- Durham
-- DH1 5YD
 booking_window: 28
-email: SocialVisitsBooking.Frankland@hmps.gsi.gov.uk
 lead_days: 3
-phone: 01913 765048
-slots:
+recurring:
   tue:
   - 1400-1600
   wed:

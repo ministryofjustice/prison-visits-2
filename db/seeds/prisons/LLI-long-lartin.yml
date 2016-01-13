@@ -1,17 +1,17 @@
 ---
 name: Long Lartin
 nomis_id: LLI
+address: |-
+  South Littleton
+  Evesham
+  Worcestershire
+  WR11 8TZ
+email_address: Socialvisits.longlartin@hmps.gsi.gov.uk
+phone_no: 01386 295188
 enabled: true
-address:
-- South Littleton
-- Evesham
-- Worcestershire
-- WR11 8TZ
 booking_window: 28
-email: Socialvisits.longlartin@hmps.gsi.gov.uk
 lead_days: 3
-phone: 01386 295188
-slots:
+recurring:
   tue:
   - 1400-1615
   thu:

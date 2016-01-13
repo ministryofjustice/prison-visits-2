@@ -1,13 +1,12 @@
 ---
 name: East Sutton Park
 nomis_id: ESI
-address:
-- Sutton Valence
-- ME17 3DF
-email: socialvisits.eastsuttonpark@hmps.gsi.gov.uk
+address: |-
+  Sutton Valence
+  ME17 3DF
+email_address: socialvisits.eastsuttonpark@hmps.gsi.gov.uk
 enabled: false
-reason: coming_soon
-slots:
+recurring:
   sat:
   - 1330-1530
   sun:

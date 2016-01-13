@@ -1,13 +1,13 @@
 ---
 name: Lincoln
 nomis_id: LII
-address:
-- Greetwell Road
-- 'LN2 4BD '
-email: lincolnsocialvisits@hmps.gsi.gov.uk
+address: |-
+  Greetwell Road
+  LN2 4BD
+email_address: lincolnsocialvisits@hmps.gsi.gov.uk
+phone_no: 01522 663172
 enabled: true
-phone: 01522 663172
-slots:
+recurring:
   sat:
   - 0900-1100
   - 1400-1600

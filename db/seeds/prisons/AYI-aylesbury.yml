@@ -1,13 +1,13 @@
 ---
 name: Aylesbury
 nomis_id: AYI
-address:
-- Bierton Road
-- HP20 1EH
-email: socialvisits.aylesbury@hmps.gsi.gov.uk
+address: |-
+  Bierton Road
+  HP20 1EH
+email_address: socialvisits.aylesbury@hmps.gsi.gov.uk
+phone_no: 01296 444099
 enabled: true
-phone: 01296 444099
-slots:
+recurring:
   mon:
   - 1415-1615
   sat:

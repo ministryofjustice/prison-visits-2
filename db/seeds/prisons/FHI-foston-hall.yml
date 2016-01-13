@@ -1,15 +1,15 @@
 ---
 name: Foston Hall
 nomis_id: FHI
-address:
-- Foston Hall
-- Derby
-- Foston
-- DE65 5DN
-email: socialvisits.fostonhall@hmps.gsi.gov.uk
+address: |-
+  Foston Hall
+  Derby
+  Foston
+  DE65 5DN
+email_address: socialvisits.fostonhall@hmps.gsi.gov.uk
+phone_no: 01283 584357
 enabled: true
-phone: 01283 584357
-slots:
+recurring:
   mon:
   - 1400-1600
   wed:

@@ -1,14 +1,14 @@
 ---
 name: Durham
 nomis_id: DMI
-address:
-- Old Elvet
-- Durham
-- DH1 3HU
-email: socialvisits.durham@hmps.gsi.gov.uk
+address: |-
+  Old Elvet
+  Durham
+  DH1 3HU
+email_address: socialvisits.durham@hmps.gsi.gov.uk
+phone_no: 0191 3323417
 enabled: true
-phone: 0191 3323417
-slots:
+recurring:
   mon:
   - 1345-1545
   tue:

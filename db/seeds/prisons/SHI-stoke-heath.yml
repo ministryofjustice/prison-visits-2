@@ -1,15 +1,15 @@
 ---
 name: Stoke Heath
 nomis_id: SHI
-address:
-- Market Drayton
-- Shropshire
-- TF9 2JL
-adult_age: 10
-email: visitsbooking.westmidlands@noms.gsi.gov.uk
+address: |-
+  Market Drayton
+  Shropshire
+  TF9 2JL
+email_address: visitsbooking.westmidlands@noms.gsi.gov.uk
+phone_no: 0300 060 6506
 enabled: true
-phone: 0300 060 6506
-slots:
+adult_age: 10
+recurring:
   mon:
   - 1400-1600
   tue:

@@ -1,14 +1,14 @@
 ---
 name: Sudbury
 nomis_id: SUI
-address:
-- Ashbourne
-- Derbyshire
-- DE6 5HW
-email: socialvisitssudbury@hmps.gsi.gov.uk
+address: |-
+  Ashbourne
+  Derbyshire
+  DE6 5HW
+email_address: socialvisitssudbury@hmps.gsi.gov.uk
+phone_no: 01283 584066
 enabled: true
-phone: 01283 584066
-slots:
+recurring:
   wed:
   - 1345-1545
   thu:

@@ -1,13 +1,13 @@
 ---
 name: Feltham (Young People 15-18 only)
 nomis_id: FMI
-address:
-- Bedfont Road
-- TW13 4ND
-email: socialvisits.feltham@hmps.gsi.gov.uk
+address: |-
+  Bedfont Road
+  TW13 4ND
+email_address: socialvisits.feltham@hmps.gsi.gov.uk
+phone_no: 020 8844 5400
 enabled: true
-phone: 020 8844 5400
-slots:
+recurring:
   tue:
   - 1330-1500
   - 1500-1630

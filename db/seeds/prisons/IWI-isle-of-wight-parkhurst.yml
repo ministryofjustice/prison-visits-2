@@ -1,13 +1,13 @@
 ---
 name: Isle of Wight - Parkhurst
 nomis_id: IWI
-address:
-- 'Clissold Road '
-- 'PO30 5RS '
-email: socialvisitsisleofwight@hmps.gsi.gov.uk
+address: |-
+  Clissold Road
+  PO30 5RS
+email_address: socialvisitsisleofwight@hmps.gsi.gov.uk
+phone_no: 01983 634218
 enabled: true
-phone: 01983 634218
-slots:
+recurring:
   fri:
   - 1400-1600
   mon:

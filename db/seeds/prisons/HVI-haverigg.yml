@@ -1,14 +1,14 @@
 ---
 name: Haverigg
 nomis_id: HVI
-address:
-- MILLOM
-- 'LA18 4NA '
-adult_age: 10
-email: socialvisits.haverigg@hmps.gsi.gov.uk
+address: |-
+  Millom
+  LA18 4NA
+email_address: socialvisits.haverigg@hmps.gsi.gov.uk
+phone_no: 01229713016
 enabled: true
-phone: 01229713016
-slots:
+adult_age: 10
+recurring:
   mon:
   - 1400-1545
   wed:

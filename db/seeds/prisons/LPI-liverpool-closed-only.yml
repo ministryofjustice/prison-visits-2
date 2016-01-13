@@ -1,13 +1,13 @@
 ---
 name: Liverpool (Closed only)
 nomis_id: LPI
-address:
-- 68 Hornby Road
-- L9 3DF
-email: socialvisits.liverpool@hmps.gsi.gov.uk
+address: |-
+  68 Hornby Road
+  L9 3DF
+email_address: socialvisits.liverpool@hmps.gsi.gov.uk
+phone_no: 0151 530 4050
 enabled: true
-phone: 0151 530 4050
-slots:
+recurring:
   mon:
   - 1025-1125
   tue:

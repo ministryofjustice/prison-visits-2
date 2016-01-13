@@ -1,16 +1,16 @@
 ---
 name: Brinsford
 nomis_id: BSI
-address:
-- New Road
-- Featherstone
-- Wolverhampton
-- WV10 7PY
-adult_age: 10
-email: visitsbooking.westmidlands@noms.gsi.gov.uk
+address: |-
+  New Road
+  Featherstone
+  Wolverhampton
+  WV10 7PY
+email_address: visitsbooking.westmidlands@noms.gsi.gov.uk
+phone_no: 0300 060 6500
 enabled: true
-phone: 0300 060 6500
-slots:
+adult_age: 10
+recurring:
   tue:
   - 1330-1615
   thu:

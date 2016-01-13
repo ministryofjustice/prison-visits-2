@@ -1,13 +1,13 @@
 ---
 name: Highpoint South
 nomis_id: HPI
-address:
-- Stradishall
-- 'CB8 9YG '
-email: socialvisits.highpoint@hmps.gsi.gov.uk
+address: |-
+  Stradishall
+  CB8 9YG
+email_address: socialvisits.highpoint@hmps.gsi.gov.uk
+phone_no: 01440 743134
 enabled: true
-phone: 01440 743134
-slots:
+recurring:
   fri:
   - 1430-1630
   mon:

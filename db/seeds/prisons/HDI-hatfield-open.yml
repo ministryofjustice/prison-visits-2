@@ -1,13 +1,13 @@
 ---
 name: Hatfield Open
 nomis_id: HDI
-address:
-- Thorne Road
-- DN7 6El
-email: socialvisitshatfield@hmps.gsi.gov.uk
+address: |-
+  Thorne Road
+  DN7 6El
+email_address: socialvisitshatfield@hmps.gsi.gov.uk
+phone_no: 01405 746611
 enabled: true
-phone: 01405 746611
-slots:
+recurring:
   thu:
   - 1400-1600
   sat:
