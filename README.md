@@ -88,7 +88,7 @@ The estate stores the NOMIS ID and Prison Finder link.
 #### `Visit`
 
 This is the main table in the application, and contains the essential data for
-a visit: the prison, visit state, and primary visitor's contact information,
+a visit: the prison, visit state, and primary visitor’s contact information,
 and a reference to a prisoner.
 
 The `processing_state` of a visit is governed by a state machine, with the
@@ -100,9 +100,9 @@ following states and transitions:
                                  |
                                  | accept
                                  v
-                              .------.          .--------.
+                              .------.          .---------.
                              ( booked ) -----> ( cancelled )
-                              '------'  cancel  '--------'
+                              '------'  cancel  '---------'
 
 #### `Prisoner`
 
@@ -196,7 +196,7 @@ year 1 CE.
 
 ### Development
 
-Emails will be sent to [MailCatcher](http://mailcatcher.me/), if it's running.
+Emails will be sent to [MailCatcher](http://mailcatcher.me/), if it’s running.
 See its website for instructions.
 
 ### Environment variables
@@ -233,7 +233,7 @@ This key is used to verify the integrity of signed cookies. If it is changed,
 all old signed cookies will become invalid.
 
 Make sure the secret is at least 30 characters and all random, no regular words
-or you'll be exposed to dictionary attacks. You can use `rake secret` to
+or you’ll be exposed to dictionary attacks. You can use `rake secret` to
 generate a secure secret key.
 
 #### `SERVICE_URL`
@@ -310,7 +310,7 @@ remove it from the database.
 
 When the service links to [Prison
 Finder](https://www.justice.gov.uk/contacts/prison-finder), it turns the estate
-name into part of the URL. For example, 'Drake Hall' becomes
+name into part of the URL. For example, ‘Drake Hall’ becomes
 [drake-hall](https://www.justice.gov.uk/contacts/prison-finder/drake-hall).
 
 When the Prison Finder link does not simply match the estate name in lower
@@ -473,7 +473,7 @@ change the UUID.
 
 #### Deleting a prison
 
-You can't. This is because historical bookings still refer to that prison.
+You can’t. This is because historical bookings still refer to that prison.
 Disable it instead (see above).
 
 #### Merging two prisons
