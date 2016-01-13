@@ -18,4 +18,8 @@ module ApplicationHelper
       minute: I18n.t('time.minute')
     }
   end
+
+  def alternative_locales
+    I18n.available_locales - [I18n.locale]
+  end
 end

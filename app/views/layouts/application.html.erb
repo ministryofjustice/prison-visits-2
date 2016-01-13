@@ -60,6 +60,11 @@
   <li>
     <%= link_to(t('.contact_us'), new_feedback_submission_path) %>
   </li>
+  <% alternative_locales.each do |locale| %>
+    <li>
+      <%= link_to(t('language', locale: locale), locale: locale) %>
+    </li>
+  <% end %>
 <% end %>
 
 <%= render(template: 'layouts/moj_template') %>
