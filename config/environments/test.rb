@@ -16,4 +16,7 @@ Rails.application.configure do
   config.active_support.deprecation = :stderr
 
   config.mx_checker = MxChecker::Dummy.new
+
+  config.i18n.load_path =
+    Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
 end
