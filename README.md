@@ -428,6 +428,29 @@ Children are expect to sit on the laps of adults.
 adult_age: 15 # allow only 3 visitors over the age of 15
 ```
 
+#### Translating prison names and addresses
+
+You can override the name and address for a given language. In practice, as the
+majority of prisons are in England, this is a mechanism for adding Welsh
+translations. This is achieved by adding the translated name and/or address
+to the `translations` field under the language identifier – this is `en` for
+English and `cy` for Welsh (from ‘Cymraeg’).
+
+```yaml
+name: Swansea
+address: |-
+  200 Oystermouth Road
+  Swansea
+  SA1 3SR
+translations:
+  cy:
+    name: Abertawe
+    address: |-
+      200 Heol Oystermouth
+      Abertawe
+      SA1 3SR
+```
+
 #### Adding a prison
 
 Prisons are identified by the filename-to-UUID mappings in
