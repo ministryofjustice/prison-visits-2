@@ -10,7 +10,12 @@ module ApplicationHelper
   def javascript_i18n
     {
       days: I18n.t('date.day_names'),
-      months: I18n.t('date.month_names').drop(1)
+      months: I18n.t('date.month_names').drop(1),
+      abbrMonths: I18n.t('date.abbr_month_names').drop(1),
+      am: I18n.t('time.am'),
+      pm: I18n.t('time.pm'),
+      hour: I18n.t('time.hour'),
+      minute: I18n.t('time.minute')
     }
   end
 end

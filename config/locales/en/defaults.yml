@@ -67,6 +67,12 @@ en:
       twenty_four_hour: "%H:%M" # 13:30
     am: am
     pm: pm
+    hour: # used by slot picker JavaScript
+      one: hr
+      other: hrs
+    minute: # used by slot picker JavaScript
+      one: min
+      other: mins
   formats:
     slot:
       public:

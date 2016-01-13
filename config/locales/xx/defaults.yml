@@ -68,6 +68,12 @@ xx:
       twenty_four_hour: "%H:%M"
     am: äm
     pm: pm
+    hour:
+      one: hr
+      other: hrs
+    minute:
+      one: mïn
+      other: mïns
   formats:
     slot:
       public:

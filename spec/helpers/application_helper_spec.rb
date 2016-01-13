@@ -23,5 +23,29 @@ RSpec.describe ApplicationHelper do
         ]
       )
     end
+
+    it 'includes abbreviated months of the year with January at index 0' do
+      # JavaScript follows the libc convention of 0 = January etc.
+      expect(javascript_i18n).to include(
+        abbrMonths: %w[ Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec ]
+      )
+    end
+
+    it 'includes am/pm' do
+      expect(javascript_i18n).to include(am: 'am', pm: 'pm')
+    end
+
+    it 'includes minutes and hours' do
+      expect(javascript_i18n).to include(
+        minute: {
+          one: 'min',
+          other: 'mins'
+        },
+        hour: {
+          one: 'hr',
+          other: 'hrs'
+        }
+      )
+    end
   end
 end
