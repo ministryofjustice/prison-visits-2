@@ -13,10 +13,6 @@ Bundler.require(*Rails.groups)
 
 module PrisonVisits
   class Application < Rails::Application
-    # TODO: The template needs these, but they are set before we know which
-    # locale to use, so we can't use I18n.t().
-    config.app_title = 'Visit someone in prison'
-    config.proposition_title = 'Visit someone in prison'
     config.phase = 'live'
     config.product_type = 'service'
 
