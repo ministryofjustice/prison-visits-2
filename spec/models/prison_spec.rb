@@ -224,4 +224,40 @@ RSpec.describe Prison, type: :model do
       end
     end
   end
+
+  describe 'translation' do
+    before do
+      I18n.locale = 'xx'
+    end
+
+    context 'when the prison has no translations for the current locale' do
+      it 'returns the name field' do
+        subject.name = 'NAME'
+        expect(subject.name).to eq('NAME')
+      end
+
+      it 'returns the address field' do
+        subject.address = 'ADDRESS'
+        expect(subject.address).to eq('ADDRESS')
+      end
+    end
+
+    context 'when the prison has translations for the current locale' do
+      it 'returns the localised name' do
+        subject.name = 'NAME'
+        subject.translations = {
+          'xx' => { 'name' => 'XXXX' }
+        }
+        expect(subject.name).to eq('XXXX')
+      end
+
+      it 'returns the localised address' do
+        subject.address = 'ADDRESS'
+        subject.translations = {
+          'xx' => { 'address' => 'XXXXXXX' }
+        }
+        expect(subject.address).to eq('XXXXXXX')
+      end
+    end
+  end
 end

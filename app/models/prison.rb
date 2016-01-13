@@ -61,7 +61,19 @@ class Prison < ActiveRecord::Base
     @parsed_slot_details = SlotDetailsParser.new.parse(h)
   end
 
+  def name
+    attempt_translation(:name, super)
+  end
+
+  def address
+    attempt_translation(:address, super)
+  end
+
 private
+
+  def attempt_translation(key, fallback)
+    translations.fetch(I18n.locale.to_s, {}).fetch(key.to_s, fallback)
+  end
 
   def parsed_slot_details
     @parsed_slot_details ||= SlotDetailsParser.new.parse(slot_details)

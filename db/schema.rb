@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112103846) do
+ActiveRecord::Schema.define(version: 20160113104354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20160112103846) do
     t.boolean  "weekend_processing", default: false, null: false
     t.integer  "adult_age",                          null: false
     t.uuid     "estate_id",                          null: false
+    t.json     "translations",       default: {},    null: false
   end
 
   add_index "prisons", ["estate_id"], name: "index_prisons_on_estate_id", using: :btree
