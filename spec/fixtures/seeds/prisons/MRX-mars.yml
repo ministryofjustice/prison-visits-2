@@ -1,14 +1,14 @@
+---
 name: Martian Correctional Facility
 nomis_id: MRX
-address:
-- Tharsis Tholus
-- Tharsis
-- Mars
-email: mars@hmps.gsi.gov.uk
+address: |-
+  Tharsis Tholus
+  Tharsis
+  Mars
+email_address: mars@hmps.gsi.gov.uk
+phone_no: 0115 4960111
 enabled: true
-id: 11
-phone: 0115 4960111
-slots:
+recurring:
   thu:
   - 1400-1600
   fri:

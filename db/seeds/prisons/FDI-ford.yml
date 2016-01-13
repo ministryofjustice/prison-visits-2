@@ -1,12 +1,12 @@
 ---
 name: Ford
 nomis_id: FDI
-address:
-- Arundel
-- BN18 0BX
-email: socialvisits.ford@hmps.gsi.gov.uk
+address: |-
+  Arundel
+  BN18 0BX
+email_address: socialvisits.ford@hmps.gsi.gov.uk
 enabled: true
-slots:
+recurring:
   wed:
   - 1800-2000
   fri:

@@ -1,13 +1,13 @@
 ---
 name: Kennet
 nomis_id: KTI
-address:
-- Parkbourn
-- 'L31 1HX '
-email: socialvisits.kennet@hmps.gsi.gov.uk
+address: |-
+  Parkbourn
+  L31 1HX
+email_address: socialvisits.kennet@hmps.gsi.gov.uk
+phone_no: 0151 213 3179
 enabled: true
-phone: 0151 213 3179
-slots:
+recurring:
   sat:
   - 0900-1000
   - 1030-1130

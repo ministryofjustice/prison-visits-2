@@ -1,13 +1,13 @@
 ---
 name: Preston
 nomis_id: PNI
-address:
-- 2 Ribbleton Lane
-- 'PR1 5AB '
-email: socialvisits.preston@hmps.gsi.gov.uk
+address: |-
+  2 Ribbleton Lane
+  PR1 5AB
+email_address: socialvisits.preston@hmps.gsi.gov.uk
+phone_no: 01772 444666
 enabled: true
-phone: 01772 444666
-slots:
+recurring:
   fri:
   - 1400-1600
   mon:

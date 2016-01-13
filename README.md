@@ -340,7 +340,7 @@ To disable visit requests to a prison, set `enabled` to `false`.
 Each prison **must** have a `nomis_id` field that corresponds to an entry in
 `estates.yml`.
 
-#### Weekly visiting slots
+#### Recurring weekly visiting slots
 
 Slots are defined per prison via a weekly schedule. Only days listed here with
 a list of slots will appear on the slot picker.
@@ -349,7 +349,7 @@ Use 3 letter strings for days of the week. Times are entered in the 24 hour
 format.
 
 ```yaml
-slots:
+recurring:
   wed:
   - 1350-1450 # creates a 1 hour slot every Wednesday from 1:50pm
   sat:
@@ -361,12 +361,12 @@ slots:
 
 Use this to make exceptions to the weekly schedule.
 
-When a day is found in `slot_anomalies` the whole day is replaced with this
+When a day is found in `anomalous` the whole day is replaced with this
 data. Therefore if the weekday usually contains multiple slots and only a
 single slot is to be edited, the rest of the slots need to be re-entered.
 
 ```yaml
-slot_anomalies:
+anomalous:
   2015-01-10:
   - 0930-1130 # replaces Saturday 10 January 2015 with only one slot at 9:30am
 ```

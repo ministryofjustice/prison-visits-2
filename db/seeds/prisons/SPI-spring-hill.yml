@@ -1,17 +1,17 @@
 ---
 name: Spring Hill
 nomis_id: SPI
-address:
-- Grendon Underwood
-- HP18 0TL
-email: socialvisits.springhill@hmps.gsi.gov.uk
+address: |-
+  Grendon Underwood
+  HP18 0TL
+email_address: socialvisits.springhill@hmps.gsi.gov.uk
 enabled: true
-slots:
+recurring:
   sat:
   - 1345-1600
   sun:
   - 1345-1600
-slot_anomalies:
+anomalous:
   2016-01-15:
   - 1345-1600
   2016-01-22:

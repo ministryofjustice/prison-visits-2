@@ -1,13 +1,13 @@
 ---
 name: Wayland
 nomis_id: WLI
-address:
-- Griston
-- IP25 6RL
-email: socialvisits.wayland@hmps.gsi.gov.uk
+address: |-
+  Griston
+  IP25 6RL
+email_address: socialvisits.wayland@hmps.gsi.gov.uk
+phone_no: 01953 804152
 enabled: true
-phone: 01953 804152
-slots:
+recurring:
   tue:
   - 1400-1600
   wed:

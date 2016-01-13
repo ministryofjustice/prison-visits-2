@@ -1,13 +1,13 @@
 ---
 name: Hindley
 nomis_id: HII
-address:
-- Gibson Street
-- WN2 5TH
-email: socialvisits.hindley@hmps.gsi.gov.uk
+address: |-
+  Gibson Street
+  WN2 5TH
+email_address: socialvisits.hindley@hmps.gsi.gov.uk
+phone_no: 01942 663492
 enabled: true
-phone: 01942 663492
-slots:
+recurring:
   mon:
   - 1400-1600
   tue:

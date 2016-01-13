@@ -1,13 +1,13 @@
 ---
 name: Thorn Cross
 nomis_id: TCI
-address:
-- Arley Road
-- NWA4 4RL
-email: socialvisits.thorncross@hmps.gsi.gov.uk
+address: |-
+  Arley Road
+  NWA4 4RL
+email_address: socialvisits.thorncross@hmps.gsi.gov.uk
+phone_no: 01925805018
 enabled: true
-phone: 01925805018
-slots:
+recurring:
   sat:
   - 0945-1145
   - 1345-1545

@@ -1,13 +1,13 @@
 ---
 name: Norwich (A, B, C, E, M only)
 nomis_id: NWI
-address:
-- Knox Road
-- 'NR1 4LU '
-email: socialvisits.norwich@hmps.gsi.gov.uk
+address: |-
+  Knox Road
+  NR1 4LU
+email_address: socialvisits.norwich@hmps.gsi.gov.uk
+phone_no: 01603 708795
 enabled: true
-phone: 01603 708795
-slots:
+recurring:
   tue:
   - 0930-1130
   wed:

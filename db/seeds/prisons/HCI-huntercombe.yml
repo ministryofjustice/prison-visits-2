@@ -1,13 +1,13 @@
 ---
 name: Huntercombe
 nomis_id: HCI
-address:
-- Huntercombe Place
-- 'RG9 5SB '
-email: socialvisits.huntercombe@hmps.gsi.gov.uk
+address: |-
+  Huntercombe Place
+  RG9 5SB
+email_address: socialvisits.huntercombe@hmps.gsi.gov.uk
+phone_no: 01491 643151
 enabled: true
-phone: 01491 643151
-slots:
+recurring:
   mon:
   - 1345-1615
   sat:

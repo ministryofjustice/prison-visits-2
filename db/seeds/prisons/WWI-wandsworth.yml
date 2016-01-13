@@ -1,14 +1,14 @@
 ---
 name: Wandsworth
 nomis_id: WWI
-address:
-- Heathfield Rd
-- PO Box 757
-- SW18 3HS
-email: socialvisits.wandsworth@hmps.gsi.gov.uk
+address: |-
+  Heathfield Rd
+  PO Box 757
+  SW18 3HS
+email_address: socialvisits.wandsworth@hmps.gsi.gov.uk
+phone_no: 020 8588 4002
 enabled: true
-phone: 020 8588 4002
-slots:
+recurring:
   mon:
   - 1000-1100
   - 1115-1215

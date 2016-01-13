@@ -1,13 +1,13 @@
 ---
 name: Ranby
 nomis_id: RNI
-address:
-- RETFORD
-- DN22 8EU
-email: socialvisits.ranby@hmps.gsi.gov.uk
+address: |-
+  RETFORD
+  DN22 8EU
+email_address: socialvisits.ranby@hmps.gsi.gov.uk
+phone_no: 01777 862107
 enabled: true
-phone: 01777 862107
-slots:
+recurring:
   fri:
   - 1345-1600
   mon:

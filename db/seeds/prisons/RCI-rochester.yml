@@ -1,15 +1,15 @@
 ---
 name: Rochester
 nomis_id: RCI
-address:
-- 1 Fort Road
-- Rochester
-- Kent
-- ME1 3QS
-email: socialvisits.rochester@hmps.gsi.gov.uk
+address: |-
+  1 Fort Road
+  Rochester
+  Kent
+  ME1 3QS
+email_address: socialvisits.rochester@hmps.gsi.gov.uk
+phone_no: 01634 803100
 enabled: true
-phone: 01634 803100
-slots:
+recurring:
   mon:
   - 1400-1600
   tue:

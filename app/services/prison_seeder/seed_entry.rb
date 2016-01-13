@@ -21,7 +21,7 @@ private
   attr_reader :hash
 
   def address
-    hash.fetch('address', []).join("\n")
+    hash.fetch('address', nil)
   end
 
   def adult_age
@@ -33,7 +33,7 @@ private
   end
 
   def email_address
-    hash.fetch('email', nil)
+    hash.fetch('email_address', nil)
   end
 
   def enabled
@@ -49,13 +49,13 @@ private
   end
 
   def phone_no
-    hash.fetch('phone', nil)
+    hash.fetch('phone_no', nil)
   end
 
   def slot_details
     {
-      'recurring' => hash.fetch('slots', {}),
-      'anomalous' => hash.fetch('slot_anomalies', {}),
+      'recurring' => hash.fetch('recurring', {}),
+      'anomalous' => hash.fetch('anomalous', {}),
       'unbookable' => hash.fetch('unbookable', [])
     }
   end

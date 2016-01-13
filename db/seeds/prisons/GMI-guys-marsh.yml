@@ -1,13 +1,13 @@
 ---
 name: Guys Marsh
 nomis_id: GMI
-address:
-- SHAFTESBURY
-- 'SP7 0AH '
-email: socialvisitsguysmarsh@hmps.gsi.gov.uk
+address: |-
+  Shaftesbury
+  SP7 0AH
+email_address: socialvisitsguysmarsh@hmps.gsi.gov.uk
+phone_no: 01747 856586
 enabled: true
-phone: 01747 856586
-slots:
+recurring:
   fri:
   - 1400-1600
   sat:

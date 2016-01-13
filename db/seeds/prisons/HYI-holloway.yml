@@ -1,14 +1,14 @@
 ---
 name: Holloway
 nomis_id: HYI
-address:
-- Pankhurst Road
-- London
-- N7 0NU
-email: socialvisits.holloway@hmps.gsi.gov.uk
+address: |-
+  Pankhurst Road
+  London
+  N7 0NU
+email_address: socialvisits.holloway@hmps.gsi.gov.uk
+phone_no: 020 7979 4751
 enabled: true
-phone: 020 7979 4751
-slots:
+recurring:
   mon:
   - 1430-1530
   tue:

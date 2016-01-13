@@ -1,13 +1,13 @@
 ---
 name: Cookham Wood
 nomis_id: CKI
-address:
-- Sir Evelyn Road
-- ME1 3LU
-email: socialvisits.cookhamwood@hmps.gsi.gov.uk
+address: |-
+  Sir Evelyn Road
+  ME1 3LU
+email_address: socialvisits.cookhamwood@hmps.gsi.gov.uk
+phone_no: 01634 202557
 enabled: true
-phone: 01634 202557
-slots:
+recurring:
   wed:
   - 1345-1615
   sat:

@@ -1,17 +1,17 @@
 ---
 name: Belmarsh
 nomis_id: BAI
-address:
-- Western Way
-- Thamesmead
-- London
-- SE28 0EB
-booking_window: 21
-email: belmarsh.visits@hmps.gsi.gov.uk
+address: |-
+  Western Way
+  Thamesmead
+  London
+  SE28 0EB
+email_address: belmarsh.visits@hmps.gsi.gov.uk
+phone_no: 020 8331 4768
 enabled: true
+booking_window: 21
 lead_days: 3
-phone: 020 8331 4768
-slots:
+recurring:
   tue:
   - 0930-1100
   - 1430-1600

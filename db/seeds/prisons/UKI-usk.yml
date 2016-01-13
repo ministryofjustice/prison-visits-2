@@ -1,13 +1,13 @@
 ---
 name: Usk
 nomis_id: UKI
-address:
-- 47 Maryport Street
-- NP15 1XP
-email: socialvisits.usk@hmps.gsi.gov.uk
+address: |-
+  47 Maryport Street
+  NP15 1XP
+email_address: socialvisits.usk@hmps.gsi.gov.uk
+phone_no: 01291 671730
 enabled: true
-phone: 01291 671730
-slots:
+recurring:
   mon:
   - 1700-1900
   tue:

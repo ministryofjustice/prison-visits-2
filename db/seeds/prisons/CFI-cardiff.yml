@@ -1,15 +1,15 @@
 ---
 name: Cardiff
 nomis_id: CFI
-address:
-- Knox Road
-- Cardiff
-- CF24 0UG
-booking_window: 14
-email: socialvisits.cardiff@hmps.gsi.gov.uk
+address: |-
+  Knox Road
+  Cardiff
+  CF24 0UG
+email_address: socialvisits.cardiff@hmps.gsi.gov.uk
+phone_no: 029 20923327
 enabled: true
-phone: 029 20923327
-slots:
+booking_window: 14
+recurring:
   mon:
   - 1330-1430
   - 1445-1545

@@ -1,14 +1,14 @@
 ---
 name: Moorland Closed
 nomis_id: MDI
-address:
-- Bawtry Road
-- DN7 6BW
-email: socialvisits.moorlandclosed@hmps.gsi.gov.uk
+address: |-
+  Bawtry Road
+  DN7 6BW
+email_address: socialvisits.moorlandclosed@hmps.gsi.gov.uk
+phone_no: 01302523289
 enabled: true
 lead_days: 1
-phone: 01302523289
-slots:
+recurring:
   wed:
   - 1340-1545
   thu:
