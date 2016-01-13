@@ -12,6 +12,12 @@ RSpec.describe PrisonSeeder do
       'email_address' => 'luna@hmps.gsi.gov.uk',
       'enabled' => true,
       'phone_no' => '0115 4960123',
+      'translations' => {
+        'xx' => {
+          'name' => 'Lünar Penäl Colöny',
+          'address' => "Oüter Rïm\nEratösthenes\nMäre Imbrïum\nLüna"
+        }
+      },
       'anomalous' => {
         Date.new(2015, 5, 25) => ['1330-1430'],
         Date.new(2015, 8, 31) => ['1330-1430']
@@ -100,6 +106,16 @@ RSpec.describe PrisonSeeder do
           "2015-08-31" => ["1330-1430"]
         },
         "unbookable" => ["2015-11-04"]
+      )
+    end
+
+    it 'imports translations' do
+      subject.import filename, hash
+      expect(Prison.find(uuid).translations).to eq(
+        'xx' => {
+          'name' => 'Lünar Penäl Colöny',
+          'address' => "Oüter Rïm\nEratösthenes\nMäre Imbrïum\nLüna"
+        }
       )
     end
   end
