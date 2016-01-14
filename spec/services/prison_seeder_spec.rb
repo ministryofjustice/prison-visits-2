@@ -10,6 +10,7 @@ RSpec.describe PrisonSeeder do
       'address' => "Outer Rim\nEratosthenes\nMare Imbrium\nLuna",
       'booking_window' => 28,
       'email_address' => 'luna@hmps.gsi.gov.uk',
+      'postcode' => 'XL1 1AA',
       'enabled' => true,
       'phone_no' => '0115 4960123',
       'translations' => {

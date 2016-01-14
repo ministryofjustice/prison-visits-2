@@ -3,7 +3,7 @@ name: North Sea Camp
 nomis_id: NSI
 address: |-
   Freiston
-  PE22 0QX
+postcode: PE22 0QX
 email_address: socialvisits.northseacamp@hmps.gsi.gov.uk
 phone_no: 01205 769 368
 enabled: true

@@ -3,7 +3,7 @@ name: New Hall
 nomis_id: NHI
 address: |-
   Dial Wood
-  WF4 4XX
+postcode: WF4 4XX
 email_address: socialvisits.newhall@hmps.gsi.gov.uk
 phone_no: 01924 803219
 enabled: true

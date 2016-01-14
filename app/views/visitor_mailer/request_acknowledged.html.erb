@@ -1,9 +1,9 @@
 <p>
   <%= t('.salutation', visitor_full_name: @visit.visitor_first_name) %>,
 </p>
-<h1>
+<h2>
   <%= t('.status') %>
-</h1>
+</h2>
 <p>
   <%= t('.where_to_check_status_html',
         url: visit_url(@visit, locale: I18n.locale)) %>
@@ -16,15 +16,15 @@
   <%= t('.when_to_check_spam',
         when: format_date_without_year(@visit.confirm_by)) %>
 </p>
-<h1>
+<h2>
   <%= t('.avoid_spam_filtering') %>
-</h1>
+</h2>
 <p>
   <%= t('.add_address', email: address_book.no_reply) %>
 </p>
-<h1>
+<h2>
   <%= t('.details') %>
-</h1>
+</h2>
 <p>
   <%= t('.request',
         prison: @visit.prison_name,
@@ -47,9 +47,9 @@
   <%= t('.prisoner_number') %>
   <strong><%= @visit.prisoner_number.upcase %></strong>
 </p>
-<h1>
+<h2>
   <%= t('.cancel_title') %>
-</h1>
+</h2>
 <p>
   <%= t('.cancel_html', url: visit_url(@visit, locale: I18n.locale)) %>
 </p>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160113104354) do
+ActiveRecord::Schema.define(version: 20160114101538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,20 +46,21 @@ ActiveRecord::Schema.define(version: 20160113104354) do
   end
 
   create_table "prisons", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "name",                               null: false
-    t.boolean  "enabled",            default: true,  null: false
-    t.integer  "booking_window",     default: 28,    null: false
+    t.string   "name",                                         null: false
+    t.boolean  "enabled",                      default: true,  null: false
+    t.integer  "booking_window",               default: 28,    null: false
     t.text     "address"
     t.string   "email_address"
     t.string   "phone_no"
-    t.json     "slot_details",       default: {},    null: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "lead_days",          default: 3,     null: false
-    t.boolean  "weekend_processing", default: false, null: false
-    t.integer  "adult_age",                          null: false
-    t.uuid     "estate_id",                          null: false
-    t.json     "translations",       default: {},    null: false
+    t.json     "slot_details",                 default: {},    null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.integer  "lead_days",                    default: 3,     null: false
+    t.boolean  "weekend_processing",           default: false, null: false
+    t.integer  "adult_age",                                    null: false
+    t.uuid     "estate_id",                                    null: false
+    t.json     "translations",                 default: {},    null: false
+    t.string   "postcode",           limit: 8
   end
 
   add_index "prisons", ["estate_id"], name: "index_prisons_on_estate_id", using: :btree

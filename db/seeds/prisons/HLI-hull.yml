@@ -3,7 +3,7 @@ name: Hull
 nomis_id: HLI
 address: |-
   Hedon Road
-  HU9 5LS
+postcode: HU9 5LS
 email_address: socialvisits.hull@hmps.gsi.gov.uk
 phone_no: 01482 282016
 enabled: false

@@ -3,7 +3,7 @@ name: Wolds
 nomis_id: WOI
 address: |-
   Everthorpe
-  HU15 2JZ
+postcode: HU15 2JZ
 email_address: socialvisits.everthorpe@hmps.gsi.gov.uk
 phone_no: 01430 426505
 enabled: true

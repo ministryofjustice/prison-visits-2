@@ -3,7 +3,7 @@ name: Chelmsford
 nomis_id: CDI
 address: |-
   200 Springfield Road
-  CM2 6LQ
+postcode: CM2 6LQ
 email_address: socialvisits.chelmsford@hmps.gsi.gov.uk
 phone_no: 01245 552265
 enabled: true

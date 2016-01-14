@@ -3,7 +3,7 @@ name: Ford
 nomis_id: FDI
 address: |-
   Arundel
-  BN18 0BX
+postcode: BN18 0BX
 email_address: socialvisits.ford@hmps.gsi.gov.uk
 phone_no: 01903 663000
 enabled: true

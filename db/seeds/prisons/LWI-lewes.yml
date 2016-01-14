@@ -3,7 +3,7 @@ name: Lewes
 nomis_id: LWI
 address: |-
   1 Brighton Road
-  BN7 1EA
+postcode: BN7 1EA
 email_address: socialvisits.lewes@hmps.gsi.gov.uk
 phone_no: 01273785277
 enabled: true

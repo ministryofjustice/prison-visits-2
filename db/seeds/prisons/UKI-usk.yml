@@ -3,14 +3,13 @@ name: Usk
 nomis_id: UKI
 address: |-
   47 Maryport Street
-  NP15 1XP
+postcode: NP15 1XP
 translations:
   cy:
     address: |-
       47 Stryd Maryport
       Brynbuga
       Sir Fynwy
-      NP15 1XP
 email_address: socialvisits.usk@hmps.gsi.gov.uk
 phone_no: 01291 671730
 enabled: true

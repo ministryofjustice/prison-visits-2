@@ -3,7 +3,7 @@ name: Dartmoor
 nomis_id: DAI
 address: |-
   Princetown
-  PL20 6RR
+postcode: PL20 6RR
 email_address: socvisdartmoor@hmps.gsi.gov.uk
 phone_no: 01822 322022
 enabled: true

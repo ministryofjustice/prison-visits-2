@@ -4,20 +4,18 @@ nomis_id: CFI
 address: |-
   Knox Road
   Cardiff
-  CF24 0UG
+postcode: CF24 0UG
 translations:
   cy:
     name: Caerdydd
     address: |-
       Knox Road
       Caerdydd
-      CF24 0UG
   xx:
     name: Cardïff
     address: |-
       Knöx Röad
       Cardïff
-      CF24 0UG
 email_address: socialvisits.cardiff@hmps.gsi.gov.uk
 phone_no: 029 20923327
 enabled: true

@@ -3,7 +3,7 @@ name: Leeds
 nomis_id: LEI
 address: |-
   Gloucester Terrace
-  LS12 2TJ
+postcode: LS12 2TJ
 email_address: socialvisits.leeds@hmps.gsi.gov.uk
 phone_no: 0113 203 2995
 enabled: true

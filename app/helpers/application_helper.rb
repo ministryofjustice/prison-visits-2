@@ -22,4 +22,8 @@ module ApplicationHelper
   def alternative_locales
     I18n.available_locales - [I18n.locale]
   end
+
+  def add_line_breaks(str)
+    safe_join(str.split(/\n/), '<br />'.html_safe)
+  end
 end
