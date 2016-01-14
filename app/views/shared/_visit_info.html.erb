@@ -1,0 +1,25 @@
+<h1><%= t(".what_to_bring") %></h1>
+
+<div>
+  <%= t('.id_requirements_html') %>
+</div>
+
+<p><%= t(".any_questions") %></p>
+
+<h1><%= t(".bringing_child_title") %></h1>
+
+<p><%= t(".bringing_child_body") %></p>
+
+<h1><%= t(".what_to_expect_title") %></h1>
+
+<p><%= t(".what_to_expect_body") %></p>
+
+<h1><%= t(".what_not_to_bring_title") %></h1>
+
+<p>
+  <%=
+    t(".what_not_to_bring_body_html",
+      url: link_directory.prison_finder(visit.prison),
+      prison: visit.prison_name)
+  %>
+</p>
