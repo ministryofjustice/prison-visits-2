@@ -16,5 +16,6 @@ migrate)
     ;;
 esac
 bundle exec rake assets:precompile
+bundle exec rake assets:generate_static_pages
 REDIS_URL="redis://redis:6379" bundle exec sidekiq -d -l /var/log/sidekiq.log --environment production
 bundle exec rails server --binding 0.0.0.0
