@@ -2,7 +2,7 @@
 
 <p><%= t(".visit_confirmed", prison: (@visit.prison_name)) %></p>
 
-<h2><%= format_slot_for_public(@visit.slot_granted) %></h2>
+<h3><%= format_slot_for_public(@visit.slot_granted) %></h3>
 
 <p><%= t(".please_arrive") %></p>
 
@@ -37,7 +37,7 @@
   <p><%= t(".this_is_a_closed_visit_html") %></p>
 <% end %>
 
-<h1><%= t('.cancel_change_title') %></h1>
+<h2><%= t('.cancel_change_title') %></h2>
 
 <p>
   <%= t('.cancel_html', url: visit_url(id: @visit, locale: I18n.locale)) %>
@@ -45,7 +45,7 @@
 
 <p><%= t(".want_to_change") %></p>
 
-<h1><%= t(".questions_about_your_visit") %></h1>
+<h2><%= t(".questions_about_your_visit") %></h2>
 
 <p><%= t(".dont_reply") %></p>
 
@@ -60,18 +60,18 @@
   </li>
 </ul>
 
-<h1><%= t(".avoid_spam_filtering_title") %></h1>
+<h2><%= t(".avoid_spam_filtering_title") %></h2>
 
 <p><%= t(".avoid_spam_filtering_body",
          email: address_book.no_reply) %>
 
 <%= render(partial: 'shared/visit_info', locals: { visit: @visit }) %>
 
-<h1><%= t(".your_data_title") %></h1>
+<h2><%= t(".your_data_title") %></h2>
 
 <p><%= t(".your_data_body") %></p>
 
-<h1><%= t(".need_help_title") %></h1>
+<h2><%= t(".need_help_title") %></h2>
 
 <p><%= t(".need_help_body_html",
          url: new_feedback_submission_url(locale: I18n.locale)) %></p>
