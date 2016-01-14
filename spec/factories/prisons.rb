@@ -12,6 +12,10 @@ FactoryGirl.define do
       FFaker::AddressUK.street_address
     end
 
+    postcode do
+      FFaker::AddressUK.postcode
+    end
+
     email_address do
       FFaker::Internet.disposable_email
     end

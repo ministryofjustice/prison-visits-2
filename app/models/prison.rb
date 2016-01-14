@@ -10,7 +10,8 @@ class Prison < ActiveRecord::Base
 
   validates :estate, :name, :slot_details, presence: true
   validates :enabled, inclusion: { in: [true, false] }
-  validates :address, :email_address, :phone_no, presence: true, if: :enabled?
+  validates :address, :email_address, :phone_no, :postcode,
+    presence: true, if: :enabled?
   validate :validate_unbookable_dates
 
   delegate :recurring_slots, :anomalous_slots, :unbookable_dates,

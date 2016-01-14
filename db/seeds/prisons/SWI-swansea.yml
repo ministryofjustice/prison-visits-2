@@ -3,14 +3,13 @@ name: Swansea
 nomis_id: SWI
 address: |-
   200 Oystermouth Road
-  SA1 3SR
+postcode: SA1 3SR
 translations:
   cy:
     name: Abertawe
     address: |-
       200 Heol Oystermouth
       Abertawe
-      SA1 3SR
 email_address: socialvisits.swansea@hmps.gsi.gov.uk
 phone_no: 01792 48 5322
 enabled: true

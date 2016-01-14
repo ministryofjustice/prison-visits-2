@@ -3,7 +3,7 @@ name: Whatton
 nomis_id: WTI
 address: |-
   New Lane
-  NG13 9FQ
+postcode: NG13 9FQ
 email_address: socialvisits.whatton@hmps.gsi.gov.uk
 phone_no: 01949 803564
 enabled: true

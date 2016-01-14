@@ -3,7 +3,7 @@ name: Haverigg
 nomis_id: HVI
 address: |-
   Millom
-  LA18 4NA
+postcode: LA18 4NA
 email_address: socialvisits.haverigg@hmps.gsi.gov.uk
 phone_no: 01229713016
 enabled: true

@@ -3,7 +3,7 @@ name: Hollesley Bay Open
 nomis_id: HBI
 address: |-
   Woodbridge
-  IP12 3JW
+postcode: IP12 3JW
 email_address: socialvisits.hollesleybay@hmps.gsi.gov.uk
 phone_no: 01394 412400
 enabled: true

@@ -3,7 +3,7 @@ name: Standford Hill
 nomis_id: EHI
 address: |-
   Church Road
-  ME12 4AA
+postcode: ME12 4AA
 email_address: socialvisits.standfordhill@hmps.gsi.gov.uk
 phone_no: 0300 060 6603
 enabled: true

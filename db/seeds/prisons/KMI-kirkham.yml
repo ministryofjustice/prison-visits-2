@@ -3,8 +3,8 @@ name: Kirkham
 nomis_id: KMI
 address: |-
   Freckleton Road
-   Kirkham
-  PR4 2RN
+  Kirkham
+postcode: PR4 2RN
 email_address: socialvisits.kirkham@hmps.gsi.gov.uk
 phone_no: 01772 675400
 enabled: true

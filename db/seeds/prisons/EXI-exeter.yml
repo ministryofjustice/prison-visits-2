@@ -3,7 +3,7 @@ name: Exeter
 nomis_id: EXI
 address: |-
   New North Road
-  EX4 4EX
+postcode: EX4 4EX
 email_address: socialvisits.exeter@hmps.gsi.gov.uk
 phone_no: 01392 41 5833
 enabled: true

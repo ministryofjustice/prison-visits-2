@@ -3,7 +3,7 @@ name: Bedford
 nomis_id: BFI
 address: |-
   St. Loyes Street
-  MK40 1HG
+postcode: MK40 1HG
 email_address: socialvisits.bedford@hmps.gsi.gov.uk
 phone_no: 01234 373196
 enabled: true

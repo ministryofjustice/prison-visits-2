@@ -3,7 +3,7 @@ name: Wetherby
 nomis_id: WYI
 address: |-
   York Road
-  LS22 5ED
+postcode: LS22 5ED
 email_address: socialvisits.wetherby@hmps.gsi.gov.uk
 phone_no: 01937 544207
 enabled: true

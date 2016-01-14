@@ -3,7 +3,7 @@ name: Eastwood Park
 nomis_id: EWI
 address: |-
   Falfield
-  GL12 8DB
+postcode: GL12 8DB
 email_address: socialvisits.eastwoodpark@hmps.gsi.gov.uk
 phone_no: 01454 382159
 enabled: true

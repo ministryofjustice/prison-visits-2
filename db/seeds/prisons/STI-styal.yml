@@ -3,7 +3,7 @@ name: Styal
 nomis_id: STI
 address: |-
   Wilmslow
-  SK9 4HR
+postcode: SK9 4HR
 email_address: socialvisits.styal@hmps.gsi.gov.uk
 phone_no: 01625553195
 enabled: true

@@ -3,7 +3,7 @@ name: Bullingdon (Remand Only)
 nomis_id: BNI
 address: |-
   Bicester
-  OX25 1PZ
+postcode: OX25 1PZ
 email_address: socialvisits.bullingdon@hmps.gsi.gov.uk
 phone_no: 01869 353176
 enabled: true

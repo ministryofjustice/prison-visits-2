@@ -4,7 +4,7 @@ nomis_id: BLI
 address: |-
   19 Cambridge Road
   Bristol
-  BS7 8PS
+postcode: BS7 8PS
 email_address: socialvisits.bristol@hmps.gsi.gov.uk
 phone_no: 0117 372 3213
 enabled: true

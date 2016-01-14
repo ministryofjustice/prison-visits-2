@@ -3,7 +3,7 @@ name: Wymott
 nomis_id: WMI
 address: |-
   Ulnes Walton Lane
-  PR26 8LW
+postcode: PR26 8LW
 email_address: socialvisits.wymott@hmps.gsi.gov.uk
 phone_no: 01772 442234
 enabled: true
