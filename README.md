@@ -88,7 +88,7 @@ The estate stores the NOMIS ID and Prison Finder link.
 #### `Visit`
 
 This is the main table in the application, and contains the essential data for
-a visit: the prison, visit state, and primary visitor's contact information,
+a visit: the prison, visit state, and primary visitor’s contact information,
 and a reference to a prisoner.
 
 The `processing_state` of a visit is governed by a state machine, with the
@@ -100,9 +100,9 @@ following states and transitions:
                                  |
                                  | accept
                                  v
-                              .------.          .--------.
+                              .------.          .---------.
                              ( booked ) -----> ( cancelled )
-                              '------'  cancel  '--------'
+                              '------'  cancel  '---------'
 
 #### `Prisoner`
 
@@ -196,7 +196,7 @@ year 1 CE.
 
 ### Development
 
-Emails will be sent to [MailCatcher](http://mailcatcher.me/), if it's running.
+Emails will be sent to [MailCatcher](http://mailcatcher.me/), if it’s running.
 See its website for instructions.
 
 ### Environment variables
@@ -233,7 +233,7 @@ This key is used to verify the integrity of signed cookies. If it is changed,
 all old signed cookies will become invalid.
 
 Make sure the secret is at least 30 characters and all random, no regular words
-or you'll be exposed to dictionary attacks. You can use `rake secret` to
+or you’ll be exposed to dictionary attacks. You can use `rake secret` to
 generate a secure secret key.
 
 #### `SERVICE_URL`
@@ -310,7 +310,7 @@ remove it from the database.
 
 When the service links to [Prison
 Finder](https://www.justice.gov.uk/contacts/prison-finder), it turns the estate
-name into part of the URL. For example, 'Drake Hall' becomes
+name into part of the URL. For example, ‘Drake Hall’ becomes
 [drake-hall](https://www.justice.gov.uk/contacts/prison-finder/drake-hall).
 
 When the Prison Finder link does not simply match the estate name in lower
@@ -428,6 +428,29 @@ Children are expect to sit on the laps of adults.
 adult_age: 15 # allow only 3 visitors over the age of 15
 ```
 
+#### Translating prison names and addresses
+
+You can override the name and address for a given language. In practice, as the
+majority of prisons are in England, this is a mechanism for adding Welsh
+translations. This is achieved by adding the translated name and/or address
+to the `translations` field under the language identifier – this is `en` for
+English and `cy` for Welsh (from ‘Cymraeg’).
+
+```yaml
+name: Swansea
+address: |-
+  200 Oystermouth Road
+  Swansea
+  SA1 3SR
+translations:
+  cy:
+    name: Abertawe
+    address: |-
+      200 Heol Oystermouth
+      Abertawe
+      SA1 3SR
+```
+
 #### Adding a prison
 
 Prisons are identified by the filename-to-UUID mappings in
@@ -450,7 +473,7 @@ change the UUID.
 
 #### Deleting a prison
 
-You can't. This is because historical bookings still refer to that prison.
+You can’t. This is because historical bookings still refer to that prison.
 Disable it instead (see above).
 
 #### Merging two prisons

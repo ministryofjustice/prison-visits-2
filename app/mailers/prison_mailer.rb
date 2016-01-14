@@ -9,30 +9,37 @@ class PrisonMailer < ActionMailer::Base
 
   attr_accessor :visit
 
+  before_action :set_locale
   after_action :do_not_send_to_prison, if: :smoke_test?
 
   def request_received(visit)
     @visit = visit
 
-    mail to: visit.prison_email_address,
-         subject: default_i18n_subject(
-           full_name: visit.prisoner_full_name,
-           request_date: format_date_without_year(visit.slots.first.begin_at)
-         )
+    mail(
+      to: visit.prison_email_address,
+      subject: default_i18n_subject(
+        full_name: visit.prisoner_full_name,
+        request_date: format_date_without_year(visit.slots.first.begin_at)
+      )
+    )
   end
 
   def booked(visit)
     @visit = visit
 
-    mail to: visit.prison_email_address,
-         subject: default_i18n_subject(prisoner: visit.prisoner_full_name)
+    mail(
+      to: visit.prison_email_address,
+      subject: default_i18n_subject(prisoner: visit.prisoner_full_name)
+    )
   end
 
   def rejected(visit)
     @visit = visit
 
-    mail to: visit.prison_email_address,
-         subject: default_i18n_subject(prisoner: visit.prisoner_full_name)
+    mail(
+      to: visit.prison_email_address,
+      subject: default_i18n_subject(prisoner: visit.prisoner_full_name)
+    )
   end
 
   def cancelled(visit)
@@ -61,5 +68,9 @@ private
 
   def mark_this_highest_priority
     headers('X-Priority' => '1 (Highest)', 'X-MSMail-Priority' => 'High')
+  end
+
+  def set_locale
+    I18n.locale = I18n.default_locale
   end
 end

@@ -22,6 +22,12 @@ RSpec.describe VisitorMailer, '.rejected' do
       expect(mail.subject).
         to match(/your visit for Monday 12 October could not be booked/)
     end
+
+    it 'uses the locale of the visit' do
+      rejection.visit.update locale: 'xx'
+      expect(mail.subject).
+        to match(/yoür visït för Mondäy 12 Octöber coüld nöt bë boöked/)
+    end
   end
 
   context 'slot_unavailable' do

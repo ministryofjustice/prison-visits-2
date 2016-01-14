@@ -1,7 +1,8 @@
 class StepsProcessor
-  def initialize(params)
+  def initialize(params, locale)
     @params = params
     @steps = load_steps
+    @locale = locale
   end
 
   def template_name
@@ -13,7 +14,8 @@ class StepsProcessor
     BookingRequestCreator.new.create!(
       steps.fetch(:prisoner_step),
       steps.fetch(:visitors_step),
-      steps.fetch(:slots_step)
+      steps.fetch(:slots_step),
+      @locale
     )
   end
 

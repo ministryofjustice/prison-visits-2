@@ -322,7 +322,8 @@ RSpec.describe BookingRequestsController do
             option_0: '2015-01-02T09:00/10:00',
             option_1: '2015-01-03T09:00/10:00',
             option_2: '2015-01-04T09:00/10:00'
-          )
+          ),
+          :en
         )
       post :create, params
     end

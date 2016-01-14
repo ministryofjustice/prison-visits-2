@@ -3,12 +3,12 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
-      "fingerprint": "c4314766d2ae3b02a73119cf21acd50b3fe491c556e3fcd8a18169c60232fb5d",
+      "fingerprint": "3e1ca88e6b07a45804b114d81f45036e4c4b12be8c226e89830bc4a9353945b1",
       "message": "Render path contains parameter value",
       "file": "app/controllers/booking_requests_controller.rb",
       "line": 7,
       "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => StepsProcessor.new(params).template_name, {})",
+      "code": "render(action => StepsProcessor.new(params, I18n.locale).template_name, {})",
       "render_path": null,
       "location": {
         "type": "method",
@@ -22,12 +22,12 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
-      "fingerprint": "ad3bc440f9388ccc87d460128867b7f34f9a5648a5e357b9d7c2d222e8555761",
+      "fingerprint": "b5852135689f2e61e4c23a95b16aca8996328d398556d06d40c1a6f0d7d26a75",
       "message": "Render path contains parameter value",
       "file": "app/controllers/booking_requests_controller.rb",
       "line": 14,
       "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => StepsProcessor.new(params).template_name, {})",
+      "code": "render(action => StepsProcessor.new(params, I18n.locale).template_name, {})",
       "render_path": null,
       "location": {
         "type": "method",
@@ -39,6 +39,6 @@
       "note": ""
     }
   ],
-  "updated": "2015-12-09 08:48:29 +0000",
-  "brakeman_version": "3.0.5"
+  "updated": "2016-01-12 12:12:34 +0000",
+  "brakeman_version": "3.1.3"
 }

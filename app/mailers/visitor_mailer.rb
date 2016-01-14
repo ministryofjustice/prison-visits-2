@@ -9,6 +9,7 @@ class VisitorMailer < ActionMailer::Base
 
   def request_acknowledged(visit)
     @visit = visit
+    I18n.locale = visit.locale
 
     SpamAndBounceResets.new(@visit).perform_resets
 
@@ -23,6 +24,7 @@ class VisitorMailer < ActionMailer::Base
 
   def booked(visit)
     @visit = visit
+    I18n.locale = visit.locale
 
     mail(
       reply_to: visit.prison_email_address,
@@ -35,6 +37,7 @@ class VisitorMailer < ActionMailer::Base
 
   def rejected(visit)
     @visit = visit
+    I18n.locale = visit.locale
 
     mail(
       reply_to: visit.prison_email_address,

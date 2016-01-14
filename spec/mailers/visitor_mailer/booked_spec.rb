@@ -21,4 +21,10 @@ RSpec.describe VisitorMailer, '.booked' do
     expect(mail.subject).
       to match(/your visit for Monday 12 October has been confirmed/)
   end
+
+  it 'uses the locale of the visit' do
+    visit.update locale: 'xx'
+    expect(mail.subject).
+      to match(/yoür visït för Mondäy 12 Octöber häs beën confïrmed/)
+  end
 end

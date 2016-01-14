@@ -13,17 +13,13 @@ Bundler.require(*Rails.groups)
 
 module PrisonVisits
   class Application < Rails::Application
-    # TODO: The template needs these, but they are set before we know which
-    # locale to use, so we can't use I18n.t().
-    config.app_title = 'Visit someone in prison'
-    config.proposition_title = 'Visit someone in prison'
     config.phase = 'live'
     config.product_type = 'service'
 
     config.autoload_paths += %w[ app/mailers/concerns ]
 
-    config.i18n.load_path +=
-      Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+    config.i18n.load_path =
+      Dir[Rails.root.join('config', 'locales', '{en,cy}', '*.yml').to_s]
     config.i18n.default_locale = :en
 
     config.time_zone = 'London'

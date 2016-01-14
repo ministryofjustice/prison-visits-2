@@ -15,6 +15,8 @@ FactoryGirl.define do
       v.prison.available_slots.first
     end
 
+    locale 'en'
+
     after(:create) do |v|
       create :visitor, visit: v
     end

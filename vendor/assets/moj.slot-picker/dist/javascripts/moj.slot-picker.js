@@ -36,8 +36,7 @@
       navPointer: 0,
       today: new Date(),
       scrollToFocus: true,
-      days: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-      months: ['January','February','March','April','May','June','July','August','September','October','November','December']
+      i18n: moj.i18n
     },
 
     cacheEls: function($el) {
@@ -155,7 +154,7 @@
         month = moj.Helpers.dateFromIso(day).getMonth();
         if (month !== lastMonth) {
           months.push({
-            label: this.settings.months[month],
+            label: this.settings.i18n.months[month],
             pos: $('#month-' + day.substr(0, 7), this.$_el).closest('tr').index() * this.settings.calendarDayHeight
           });
         }
@@ -437,7 +436,7 @@
       for (day in slots) {
         date = moj.Helpers.dateFromIso(day);
         out+= template({
-          date: this.settings.days[date.getDay()] +' '+ date.getDate() +' '+ this.settings.months[date.getMonth()],
+          date: this.settings.i18n.days[date.getDay()] +' '+ date.getDate() +' '+ this.settings.i18n.months[date.getMonth()],
           slot: day,
           slots: this.buildTimeSlots(day, slots[day]),
           oneSlot: slots[day].length === 1
@@ -486,7 +485,7 @@
           today: curIso === todayIso,
           newMonth: curDate.getDate() === 1,
           monthIso: curIso.substr(0, 7),
-          monthShort: this.settings.months[curDate.getMonth()].substr(0,3),
+          monthShort: this.settings.i18n.abbrMonths[curDate.getMonth()],
           klass: moj.Helpers.dateBookable(curDate, this.settings.bookableDates) ? 'BookingCalendar-date--bookable' : 'BookingCalendar-date--unavailable'
         });
 
@@ -522,7 +521,7 @@
         out+= ':' + mins;
       }
 
-      return out+= (hrs > 11) ? 'pm' : 'am';
+      return out += (hrs > 11) ? this.settings.i18n.pm : this.settings.i18n.am;
     },
 
     duration: function(start, end) {
@@ -531,16 +530,20 @@
           duration = new Date(diff);
 
       if (duration.getUTCHours()) {
-        out+= duration.getUTCHours() + ' hr';
+        out += duration.getUTCHours() + ' ';
         if (duration.getUTCHours() > 1) {
-          out+= 's';
+          out += this.settings.i18n.hour.other;
+        } else {
+          out += this.settings.i18n.hour.one;
         }
       }
 
       if (duration.getMinutes()) {
-        out+= ' ' + duration.getMinutes() + ' min';
+        out += ' ' + duration.getMinutes() + ' ';
         if (duration.getMinutes() > 1) {
-          out+= 's';
+          out += this.settings.i18n.minute.other;
+        } else {
+          out += this.settings.i18n.minute.one;
         }
       }
 
@@ -575,7 +578,10 @@
     },
 
     dayLabel: function(date) {
-      return [this.settings.days[date.getDay()], date.getDate(), this.settings.months[date.getMonth()]].join(' ');
+      return [
+        this.settings.i18n.days[date.getDay()],
+        date.getDate(),
+        this.settings.i18n.months[date.getMonth()]].join(' ');
     },
 
     isElementInViewport: function(el) {
