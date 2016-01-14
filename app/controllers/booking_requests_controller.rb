@@ -9,7 +9,7 @@ class BookingRequestsController < ApplicationController
 
   def create
     processor = StepsProcessor.new(params, I18n.locale)
-    processor.execute!
+    @visit = processor.execute!
     @steps = processor.steps
     render processor.template_name
   end

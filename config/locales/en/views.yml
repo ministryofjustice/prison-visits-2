@@ -105,6 +105,43 @@ en:
       next_step: Send request
     completed:
       title: Your request is being processed
+      intro_html: >-
+        <strong>Your visit is not booked yet:</strong>
+        you’ll get an email to %{visitor_email_address} by %{confirm_by} to
+        confirm the date and time of your visit.  If you don’t get a
+        confirmation email, please call %{phone_no} or email us at
+        <a href="mailto:%{prison_email_address}">%{prison_email_address}</a>.
+      your_visit: Your visit
+      option_0: "Option 1:"
+      option_1: "Option 2:"
+      option_2: "Option 3:"
+      location: Location
+      google_maps: View on Google Maps
+      phone_no: Phone
+      email_address: Email
+      print_page: Print this page
+      instructions_nav_title: Visiting %{name} prison
+      check_spam_title: If you don’t get an email to confirm your visit
+      check_spam_body_html: >-
+        <p>
+          Follow these steps if you don’t get an email to confirm your visit
+          within 3 working days.
+        </p>
+
+        <ul>
+          <li>
+            Check your spam / junk folder on a computer or tablet (rather than
+            a smart phone). If the confirmation email is there, mark it as ‘not
+            spam’ so that you don’t have problems with future emails.
+          </li>
+          <li>
+            Contact the prison on %{phone_no} or by email at
+            <a href="mailto:%{prison_email_address}">%{prison_email_address}</a>.
+            Please don’t contact us sooner than 3 working days, as we won’t be
+            able to comment on booking requests that are being processed.
+          </li>
+        </ul>
+      rate_service_html: Take a moment to <a href="%{url}">rate this service</a>.
     cancel:
       link_text: Cancel and delete all details
       confirmation: >-
@@ -311,7 +348,7 @@ en:
       heading: You need to fix the errors on this page before continuing.
       see_below: See highlighted errors below.
     visit_info:
-      what_to_bring: What to bring when you visit
+      what_to_bring_title: What to bring when you visit
       id_requirements_html: |
         <p>
           Please make sure you bring ID with you. This can be ONE of

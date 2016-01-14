@@ -16,7 +16,8 @@ class Visit < ActiveRecord::Base
     inclusion: { in: %w[ bounced spam_reported ] },
     allow_nil: true, allow_blank: true
 
-  delegate :email_address, :phone_no, :name, to: :prison, prefix: true
+  delegate :address, :email_address, :name, :phone_no, :postcode,
+    to: :prison, prefix: true
   alias_attribute :first_date, :slot_option_0
 
   def total_number_of_visitors
