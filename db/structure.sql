@@ -44,6 +44,119 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: visits; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE visits (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    prison_id uuid NOT NULL,
+    contact_email_address character varying NOT NULL,
+    contact_phone_no character varying NOT NULL,
+    slot_option_0 character varying NOT NULL,
+    slot_option_1 character varying,
+    slot_option_2 character varying,
+    slot_granted character varying,
+    processing_state character varying DEFAULT 'requested'::character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    override_delivery_error boolean DEFAULT false,
+    delivery_error_type character varying,
+    reference_no character varying,
+    closed boolean,
+    prisoner_id uuid NOT NULL,
+    locale character varying(2) NOT NULL
+);
+
+
+--
+-- Name: count_visits; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW count_visits AS
+ SELECT (count(*))::integer AS count
+   FROM visits;
+
+
+--
+-- Name: prisons; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE prisons (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    name character varying NOT NULL,
+    enabled boolean DEFAULT true NOT NULL,
+    booking_window integer DEFAULT 28 NOT NULL,
+    address text,
+    email_address character varying,
+    phone_no character varying,
+    slot_details json DEFAULT '{}'::json NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    lead_days integer DEFAULT 3 NOT NULL,
+    weekend_processing boolean DEFAULT false NOT NULL,
+    adult_age integer NOT NULL,
+    estate_id uuid NOT NULL,
+    translations json DEFAULT '{}'::json NOT NULL,
+    postcode character varying(8)
+);
+
+
+--
+-- Name: count_visits_by_prison_and_calendar_dates; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW count_visits_by_prison_and_calendar_dates AS
+ SELECT prisons.name AS prison_name,
+    (date_part('year'::text, visits.created_at))::integer AS year,
+    (date_part('month'::text, visits.created_at))::integer AS month,
+    (date_part('day'::text, visits.created_at))::integer AS day,
+    visits.processing_state,
+    count(*) AS count
+   FROM (visits
+     JOIN prisons ON ((prisons.id = visits.prison_id)))
+  GROUP BY visits.processing_state, prisons.name, (date_part('day'::text, visits.created_at))::integer, (date_part('month'::text, visits.created_at))::integer, (date_part('year'::text, visits.created_at))::integer;
+
+
+--
+-- Name: count_visits_by_prison_and_calendar_week; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW count_visits_by_prison_and_calendar_week AS
+ SELECT prisons.name AS prison_name,
+    (date_part('isoyear'::text, visits.created_at))::integer AS year,
+    (date_part('week'::text, visits.created_at))::integer AS week,
+    visits.processing_state,
+    count(*) AS count
+   FROM (visits
+     JOIN prisons ON ((prisons.id = visits.prison_id)))
+  GROUP BY visits.processing_state, prisons.name, (date_part('week'::text, visits.created_at))::integer, (date_part('isoyear'::text, visits.created_at))::integer;
+
+
+--
+-- Name: count_visits_by_prison_and_state; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW count_visits_by_prison_and_state AS
+ SELECT prisons.name AS prison_name,
+    visits.processing_state,
+    count(*) AS count
+   FROM (visits
+     JOIN prisons ON ((prisons.id = visits.prison_id)))
+  GROUP BY visits.processing_state, prisons.name;
+
+
+--
+-- Name: count_visits_by_state; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW count_visits_by_state AS
+ SELECT visits.processing_state,
+    (count(*))::integer AS count
+   FROM visits
+  GROUP BY visits.processing_state;
+
+
+--
 -- Name: estates; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -84,30 +197,6 @@ CREATE TABLE prisoners (
     number character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: prisons; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE prisons (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    name character varying NOT NULL,
-    enabled boolean DEFAULT true NOT NULL,
-    booking_window integer DEFAULT 28 NOT NULL,
-    address text,
-    email_address character varying,
-    phone_no character varying,
-    slot_details json DEFAULT '{}'::json NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    lead_days integer DEFAULT 3 NOT NULL,
-    weekend_processing boolean DEFAULT false NOT NULL,
-    adult_age integer NOT NULL,
-    estate_id uuid NOT NULL,
-    translations json DEFAULT '{}'::json NOT NULL,
-    postcode character varying(8)
 );
 
 
@@ -163,31 +252,6 @@ CREATE TABLE visitors (
     sort_index integer NOT NULL,
     banned boolean,
     not_on_list boolean
-);
-
-
---
--- Name: visits; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE visits (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    prison_id uuid NOT NULL,
-    contact_email_address character varying NOT NULL,
-    contact_phone_no character varying NOT NULL,
-    slot_option_0 character varying NOT NULL,
-    slot_option_1 character varying,
-    slot_option_2 character varying,
-    slot_granted character varying,
-    processing_state character varying DEFAULT 'requested'::character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    override_delivery_error boolean DEFAULT false,
-    delivery_error_type character varying,
-    reference_no character varying,
-    closed boolean,
-    prisoner_id uuid NOT NULL,
-    locale character varying(2) NOT NULL
 );
 
 
@@ -434,4 +498,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160112103846');
 INSERT INTO schema_migrations (version) VALUES ('20160113104354');
 
 INSERT INTO schema_migrations (version) VALUES ('20160114101538');
+
+INSERT INTO schema_migrations (version) VALUES ('20160115143844');
 
