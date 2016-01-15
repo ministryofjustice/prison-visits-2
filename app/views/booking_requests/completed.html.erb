@@ -1,6 +1,6 @@
 <% content_for :header, t('.title') %>
 
-<%= render(partial: 'shared/timeout_prompt') %>
+<%= render('shared/timeout_prompt') %>
 
 <div class="Grid">
   <div class="Grid-2-3">
@@ -103,7 +103,7 @@
             phone_no: @visit.prison_phone_no,
             prison_email_address: @visit.prison_email_address) %>
 
-    <%= render(partial: 'shared/visit_info', locals: { visit: @visit }) %>
+    <%= render('shared/visit_info', visit: @visit) %>
 
     <div class="footnote">
       <p><%= link_to(t('.rate_service_html'), link_directory.rate_service) %></p>

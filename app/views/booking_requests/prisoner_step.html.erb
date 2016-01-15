@@ -1,6 +1,6 @@
 <% content_for :header, t('.title') %>
 
-<%= render(partial: 'shared/timeout_prompt') %>
+<%= render('shared/timeout_prompt') %>
 
 <div class="Grid">
   <div class="Grid-2-3">
@@ -10,15 +10,15 @@
                  url: booking_requests_path,
                  html: { class: 'js-SubmitOnce', autocomplete: 'off' }) do |f| %>
       <% if reviewing? %>
-        <%= render(partial: 'hidden_visitors_step') %>
-        <%= render(partial: 'hidden_slots_step') %>
+        <%= render('hidden_visitors_step') %>
+        <%= render('hidden_slots_step') %>
       <% end %>
 
       <h2>
         <%= t('.prisoner_details') %>
       </h2>
 
-      <%= render(partial: 'shared/validation', object: f.object) %>
+      <%= render('shared/validation', object: f.object) %>
 
       <fieldset>
         <legend class="visuallyhidden">
@@ -30,7 +30,7 @@
         <%= single_field(f, :last_name, :text_field) %>
 
         <%= composite_field(f, :date_of_birth) do %>
-          <%= render(partial: 'dob', locals: { form: f }) %>
+          <%= render('dob', form: f) %>
         <% end %>
 
         <%= single_field(f, :number, :text_field) %>
@@ -44,7 +44,7 @@
           <div class="primary-actions">
             <%= f.submit(t('.next_step'), class: 'button button-primary') %>
           </div>
-          <%= render(partial: 'cancel') %>
+          <%= render('cancel') %>
         </div>
       </fieldset>
     <% end %>
@@ -55,6 +55,6 @@
       <%= t('.note') %>
     </p>
 
-    <%= render(partial: 'contact_prison') %>
+    <%= render('contact_prison') %>
   </div>
 </div>

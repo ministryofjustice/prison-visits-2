@@ -7,7 +7,7 @@
     <%= single_field(vf, :last_name, :text_field) %>
 
     <%= composite_field(vf, :date_of_birth) do %>
-      <%= render(partial: 'dob', locals: { form: vf }) %>
+      <%= render('dob', form: vf) %>
     <% end %>
   </div>
 <% end %>

@@ -1,22 +1,22 @@
 <% content_for :header, t('.title') %>
 
-<%= render(partial: 'shared/timeout_prompt') %>
+<%= render('shared/timeout_prompt') %>
 
 <div class="Grid">
   <div class="Grid-2-3">
     <%= form_for(@steps.fetch(:visitors_step),
                  url: booking_requests_path,
                  html: { class: 'js-SubmitOnce', autocomplete: 'off' }) do |f| %>
-      <%= render(partial: 'hidden_prisoner_step') %>
+      <%= render('hidden_prisoner_step') %>
       <% if reviewing? %>
-        <%= render(partial: 'hidden_slots_step') %>
+        <%= render('hidden_slots_step') %>
       <% end %>
 
       <h2>
         <%= t('.your_details') %>
       </h2>
 
-      <%= render(partial: 'shared/validation', object: f.object) %>
+      <%= render('shared/validation', object: f.object) %>
 
       <fieldset>
         <legend class="visuallyhidden">
@@ -58,11 +58,11 @@
           <div class="primary-actions">
             <%= f.submit(t('.next_step'), class: 'button button-primary') %>
           </div>
-          <%= render(partial: 'cancel') %>
+          <%= render('cancel') %>
         </div>
       </fieldset>
     <% end %>
 
-    <%= render(partial: 'contact_prison') %>
+    <%= render('contact_prison') %>
   </div>
 </div>

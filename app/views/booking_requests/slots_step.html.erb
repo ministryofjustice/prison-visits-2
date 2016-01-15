@@ -1,14 +1,14 @@
 <% content_for :header, t('.title') %>
 
-<%= render(partial: 'shared/timeout_prompt') %>
+<%= render('shared/timeout_prompt') %>
 
 <%= render('shared/slotpicker_templates') %>
 
 <%= form_for(@steps.fetch(:slots_step),
              url: booking_requests_path,
              html: { class: 'js-SubmitOnce', autocomplete: 'off' }) do |f| %>
-      <%= render(partial: 'hidden_prisoner_step') %>
-      <%= render(partial: 'hidden_visitors_step') %>
+      <%= render('hidden_prisoner_step') %>
+      <%= render('hidden_visitors_step') %>
 
   <div class="SlotPicker" data-today="<%= Time.zone.today %>">
     <div class="Grid visible--js-enabled">
@@ -23,16 +23,16 @@
             <div class="primary-actions">
               <%= f.submit(t('.next_step'), class: 'button button-primary') %>
             </div>
-            <%= render(partial: 'cancel') %>
+            <%= render('cancel') %>
           </div>
         </fieldset>
       </div>
 
       <div class="Grid-1-2">
-        <%= render(partial: 'slot_picker') %>
+        <%= render('slot_picker') %>
       </div>
       <%= render('hidden_inputs_for_calendars', f: f) %>
     </div>
   </div>
 <% end %>
-<%= render(partial: 'contact_prison') %>
+<%= render('contact_prison') %>
