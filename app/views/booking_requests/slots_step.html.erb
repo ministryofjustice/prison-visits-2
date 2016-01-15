@@ -3,7 +3,7 @@
 
 <%= form_for(@steps.fetch(:slots_step),
              url: booking_requests_path,
-             html: { class: 'js-SubmitOnce' }) do |f| %>
+             html: { class: 'js-SubmitOnce', autocomplete: 'off' }) do |f| %>
       <%= render(partial: 'hidden_prisoner_step') %>
       <%= render(partial: 'hidden_visitors_step') %>
 

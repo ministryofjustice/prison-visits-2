@@ -4,7 +4,7 @@
   <div class="Grid-2-3">
     <%= form_for(@steps.fetch(:visitors_step),
                  url: booking_requests_path,
-                 html: { class: 'js-SubmitOnce' }) do |f| %>
+                 html: { class: 'js-SubmitOnce', autocomplete: 'off' }) do |f| %>
       <%= render(partial: 'hidden_prisoner_step') %>
       <% if reviewing? %>
         <%= render(partial: 'hidden_slots_step') %>
