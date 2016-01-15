@@ -50,9 +50,14 @@ RSpec.describe CancellationsController, type: :controller do
       context 'when the request has been rejected' do
         let(:visit) { create(:rejected_visit) }
 
-        it 'raises StateMachines::InvalidTransition' do
-          expect { post :create, params }.
-            to raise_exception(StateMachines::InvalidTransition)
+        it 'does not change the visit' do
+          post :create, params
+          expect(visit.reload).to be_rejected
+        end
+
+        it 'redirects to the visit page' do
+          post :create, params
+          expect(response).to redirect_to(visit_path(visit, locale: 'en'))
         end
       end
 

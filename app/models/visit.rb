@@ -48,6 +48,7 @@ class Visit < ActiveRecord::Base
       transition withdrawn: :withdrawn
       transition booked: :cancelled
       transition cancelled: :cancelled
+      transition rejected: :rejected
     end
   end
 
