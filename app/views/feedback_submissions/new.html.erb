@@ -26,9 +26,17 @@
   <%= t('.not_able_to_help') %>
 </p>
 
-<%= form_for(@feedback,
-             url: feedback_submissions_path,
-             html: { novalidate: 'novalidate', class: 'js-SubmitOnce' }) do |f| %>
+<%= 
+  form_for(
+    @feedback,
+    url: feedback_submissions_path,
+    html: {
+      novalidate: 'novalidate',
+      class: 'js-SubmitOnce',
+      autocomplete: 'off'
+    }
+  ) do |f|
+%>
 
   <%= render(partial: 'shared/validation', object: f.object) %>
 
