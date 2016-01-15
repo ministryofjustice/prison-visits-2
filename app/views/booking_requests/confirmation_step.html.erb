@@ -1,5 +1,7 @@
 <% content_for :header, t('.title') %>
 
+<%= render(partial: 'shared/timeout_prompt') %>
+
 <%
   prisoner_step = @steps.fetch(:prisoner_step)
   visitors_step = @steps.fetch(:visitors_step)
