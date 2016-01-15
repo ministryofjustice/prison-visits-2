@@ -1,0 +1,26 @@
+<div
+  class="TimeoutPrompt"
+  data-exit-path="<%= booking_requests_path %>"
+  data-timeout-minutes="15"
+  data-respond-minutes="5"
+>
+  <script class="TimeoutPrompt-template" type="text/html">
+    <div
+      class="TimeoutPrompt-alert validation-summary alert-dialog"
+      role="alertdialog"
+      aria-labelledby="timeoutTitle"
+      aria-describedby="timeoutDesc"
+      tabindex="0"
+    >
+      <h2 id="timeoutTitle">
+        <%= t('.title', minutes_left: '{{ respondTime }}') %>
+      </h2>
+      <p id="timeoutDesc">
+        <%= t('.continue_question') %>
+      </p>
+      <button class="TimeoutPrompt-extend button button-primary">
+        <%= t('.yes_continue') %>
+      </button>
+    </div>
+  </script>
+</div>

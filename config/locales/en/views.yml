@@ -425,6 +425,10 @@ en:
         Please don’t bring anything restricted or illegal to the prison. The
         <a href="%{url}">%{prison} prison page</a> has more information about
         what you can bring.
+    timeout_prompt:
+      title: Your session will expire in %{minutes_left} minutes
+      continue_question: Would you like to continue?
+      yes_continue: "Yes"
   visits:
     show:
       title: Visit status

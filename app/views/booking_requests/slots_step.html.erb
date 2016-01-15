@@ -1,4 +1,7 @@
 <% content_for :header, t('.title') %>
+
+<%= render(partial: 'shared/timeout_prompt') %>
+
 <%= render('shared/slotpicker_templates') %>
 
 <%= form_for(@steps.fetch(:slots_step),
