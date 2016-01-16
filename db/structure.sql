@@ -118,10 +118,10 @@ CREATE VIEW count_visits_by_prison_and_calendar_dates AS
 
 
 --
--- Name: count_visits_by_prison_and_calendar_week; Type: VIEW; Schema: public; Owner: -
+-- Name: count_visits_by_prison_and_calendar_weeks; Type: VIEW; Schema: public; Owner: -
 --
 
-CREATE VIEW count_visits_by_prison_and_calendar_week AS
+CREATE VIEW count_visits_by_prison_and_calendar_weeks AS
  SELECT prisons.name AS prison_name,
     (date_part('isoyear'::text, visits.created_at))::integer AS year,
     (date_part('week'::text, visits.created_at))::integer AS week,
@@ -133,10 +133,10 @@ CREATE VIEW count_visits_by_prison_and_calendar_week AS
 
 
 --
--- Name: count_visits_by_prison_and_state; Type: VIEW; Schema: public; Owner: -
+-- Name: count_visits_by_prison_and_states; Type: VIEW; Schema: public; Owner: -
 --
 
-CREATE VIEW count_visits_by_prison_and_state AS
+CREATE VIEW count_visits_by_prison_and_states AS
  SELECT prisons.name AS prison_name,
     visits.processing_state,
     count(*) AS count
@@ -146,10 +146,10 @@ CREATE VIEW count_visits_by_prison_and_state AS
 
 
 --
--- Name: count_visits_by_state; Type: VIEW; Schema: public; Owner: -
+-- Name: count_visits_by_states; Type: VIEW; Schema: public; Owner: -
 --
 
-CREATE VIEW count_visits_by_state AS
+CREATE VIEW count_visits_by_states AS
  SELECT visits.processing_state,
     (count(*))::integer AS count
    FROM visits

@@ -2,15 +2,16 @@ class AddViewForCountingVisits < ActiveRecord::Migration
   def up
     execute <<-SQL
       CREATE VIEW count_visits AS
-        SELECT COUNT(*)::integer FROM visits;
+        SELECT COUNT(*)::integer AS count
+        FROM visits;
 
-      CREATE VIEW count_visits_by_state AS
+      CREATE VIEW count_visits_by_states AS
         SELECT processing_state,
                COUNT(*)::integer
         FROM visits
         GROUP BY processing_state;
 
-      CREATE VIEW count_visits_by_prison_and_state AS
+      CREATE VIEW count_visits_by_prison_and_states AS
         SELECT prisons.name AS prison_name,
                processing_state,
                COUNT(*)
@@ -19,7 +20,7 @@ class AddViewForCountingVisits < ActiveRecord::Migration
         GROUP BY processing_state,
                  prison_name;
 
-      CREATE VIEW count_visits_by_prison_and_calendar_week AS
+      CREATE VIEW count_visits_by_prison_and_calendar_weeks AS
         SELECT prisons.name AS prison_name,
                extract(isoyear from visits.created_at)::integer AS year,
                extract(week from visits.created_at)::integer AS week,
