@@ -6,7 +6,8 @@ RSpec.describe Prison::VisitsController, type: :controller do
   }
 
   it 'renders the show template when the submission is invalid' do
-    put :update, id: visit.id, booking_response: { selection: 'slot_0' }
+    put :update,
+      id: visit.id, booking_response: { selection: 'slot_0' }, locale: 'en'
     expect(response).to render_template('show')
   end
 end
