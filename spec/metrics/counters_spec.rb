@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Metrics do
+RSpec.describe Counters do
   context 'without dates' do
     before do
       luna = create(:prison, name: 'Lunar Penal Colony')
@@ -12,13 +12,13 @@ RSpec.describe Metrics do
       end
     end
 
-    describe Metrics::CountVisits do
+    describe Counters::CountVisits do
       it 'returns a total count of all visits' do
         expect(described_class.run).to eq(10)
       end
     end
 
-    describe Metrics::CountVisitsByState do
+    describe Counters::CountVisitsByState do
       it 'returns a total count of all visits' do
         expect(described_class.run).to eq('booked' => 2,
                                           'cancelled' => 2,
@@ -28,7 +28,7 @@ RSpec.describe Metrics do
       end
     end
 
-    describe Metrics::CountVisitsByPrisonAndState do
+    describe Counters::CountVisitsByPrisonAndState do
       it 'returns counts by state that are grouped by prison' do
         expect(described_class.run).to be ==
           { 'Lunar Penal Colony' =>
@@ -67,7 +67,7 @@ RSpec.describe Metrics do
       create(:cancelled_visit, created_at: Time.zone.local(2016, 1, 1), prison: luna)
     end
 
-    describe Metrics::CountVisitsByPrisonAndCalendarWeek do
+    describe Counters::CountVisitsByPrisonAndCalendarWeek do
       it 'returns counts by state that are grouped by prison, year, and week' do
         expect(described_class.run).to be ==
           { 'Lunar Penal Colony' =>
@@ -96,7 +96,7 @@ RSpec.describe Metrics do
       end
     end
 
-    describe Metrics::CountVisitsByPrisonAndCalendarDate do
+    describe Counters::CountVisitsByPrisonAndCalendarDate do
       it 'returns counts by state that are grouped by prison, year, and week' do
         expect(described_class.run).to be ==
           { 'Lunar Penal Colony' =>
