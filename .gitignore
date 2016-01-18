@@ -14,3 +14,5 @@
 
 /spec/examples.txt
 /coverage/*
+
+.transifexrc
