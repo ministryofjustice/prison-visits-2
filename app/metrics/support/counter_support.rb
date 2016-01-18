@@ -1,19 +1,27 @@
 module CounterSupport
-  def run
+  def fetch_and_format
     all.each_with_object({}) do |visit, result|
       visit = visit.attributes
       prison = visit.delete('prison_name') || 'all'
-      if result.key?(prison)
-        result[prison] = result[prison].deep_merge(hash_visit_data(visit))
-      else
-        result[prison] = hash_visit_data(visit)
-      end
+      result[prison] = result.fetch(prison, {}).deep_merge(
+        order_and_hash_visit_values(visit)
+      )
     end
   end
 
 protected
 
-  def hash_visit_data(visit)
+  # Takes the attributes of a visitor counter object, extracts the values,
+  # orders them from least specific to most specific and returns a hash of
+  # the results.
+  #
+  # For example, with these inputs:
+  # {isoyear: 2016, month: 1, day: 1, state: 'booked', count: 2 }
+  #
+  # The output would be:
+  #
+  # 2016 => { 1 => { 1 => { 'booked' => 2 }}}
+  def order_and_hash_visit_values(visit)
     visit.values.reverse.inject { |result, value|
       { value => result }
     }
