@@ -2,7 +2,7 @@
   <%= t('.title') %>
 <% end %>
 
-<%= render(partial: 'people_box') %>
+<%= render('people_box') %>
 
 <% if @booking_response.processable? %>
   <div class="processing-form confirmations">
@@ -15,10 +15,10 @@
         html: { class: 'js-SubmitOnce' }
       ) do |f|
     %>
-      <%= render(partial: 'visit_date_section', locals: { f: f }) %>
-      <%= render(partial: 'visiting_allowance_section', locals: { f: f }) %>
-      <%= render(partial: 'issue_with_prisoner_section', locals: { f: f }) %>
-      <%= render(partial: 'issue_with_visitors_section', locals: { f: f }) %>
+      <%= render('visit_date_section', f: f) %>
+      <%= render('visiting_allowance_section', f: f) %>
+      <%= render('issue_with_prisoner_section', f: f) %>
+      <%= render('issue_with_visitors_section', f: f) %>
 
       <div class="actions">
         <div class="primary-actions">

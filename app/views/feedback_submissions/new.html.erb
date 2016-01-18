@@ -38,7 +38,7 @@
   ) do |f|
 %>
 
-  <%= render(partial: 'shared/validation', object: f.object) %>
+  <%= render('shared/validation', object: f.object) %>
 
   <%= f.hidden_field :referrer %>
 

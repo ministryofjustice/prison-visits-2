@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     get 'healthcheck', to: 'healthcheck#index'
   end
 
-  scope '/:locale' do
+  scope '/:locale', locale: /[a-z]{2}/ do
     resources :booking_requests, path: 'request', only: %i[ index create ]
     resources :visits, only: %i[ show ]
     resources :cancellations, path: 'cancel', only: %i[ create ]

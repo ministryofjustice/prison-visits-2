@@ -1,6 +1,6 @@
 <% content_for :header, t('.title') %>
 
-<%= render(partial: 'shared/timeout_prompt') %>
+<%= render('shared/timeout_prompt') %>
 
 <%
   prisoner_step = @steps.fetch(:prisoner_step)
@@ -38,9 +38,9 @@
   <%= form_for(confirmation_step,
                url: booking_requests_path,
                html: { class: 'js-SubmitOnce' }) do |f| %>
-    <%= render(partial: 'hidden_prisoner_step') %>
-    <%= render(partial: 'hidden_visitors_step') %>
-    <%= render(partial: 'hidden_slots_step') %>
+    <%= render('hidden_prisoner_step') %>
+    <%= render('hidden_visitors_step') %>
+    <%= render('hidden_slots_step') %>
     <%= hidden_field_tag('review_step', 'prisoner_step') %>
 
     <p class="edit-link">
@@ -71,9 +71,9 @@
   <%= form_for(confirmation_step,
                url: booking_requests_path,
                html: { class: 'js-SubmitOnce' }) do |f| %>
-    <%= render(partial: 'hidden_prisoner_step') %>
-    <%= render(partial: 'hidden_visitors_step') %>
-    <%= render(partial: 'hidden_slots_step') %>
+    <%= render('hidden_prisoner_step') %>
+    <%= render('hidden_visitors_step') %>
+    <%= render('hidden_slots_step') %>
     <%= hidden_field_tag('review_step', 'visitors_step') %>
 
     <p class="edit-link">
@@ -114,9 +114,9 @@
   <%= form_for(confirmation_step,
                url: booking_requests_path,
                html: { class: 'js-SubmitOnce' }) do |f| %>
-    <%= render(partial: 'hidden_prisoner_step') %>
-    <%= render(partial: 'hidden_visitors_step') %>
-    <%= render(partial: 'hidden_slots_step') %>
+    <%= render('hidden_prisoner_step') %>
+    <%= render('hidden_visitors_step') %>
+    <%= render('hidden_slots_step') %>
     <%= hidden_field_tag('review_step', 'slots_step') %>
 
     <p class="edit-link">
@@ -131,16 +131,16 @@
   <%= form_for(confirmation_step,
                url: booking_requests_path,
                html: { class: 'js-SubmitOnce' }) do |f| %>
-      <%= render(partial: 'hidden_prisoner_step') %>
-      <%= render(partial: 'hidden_visitors_step') %>
-      <%= render(partial: 'hidden_slots_step') %>
+      <%= render('hidden_prisoner_step') %>
+      <%= render('hidden_visitors_step') %>
+      <%= render('hidden_slots_step') %>
       <%= hidden_field_tag('confirmation_step[confirmed]', true) %>
 
       <div class="actions">
         <div class="primary-actions">
           <%= f.submit(t('.next_step'), class: 'button button-primary') %>
         </div>
-        <%= render(partial: 'cancel') %>
+        <%= render('cancel') %>
       </div>
     <% end %>
   </div>

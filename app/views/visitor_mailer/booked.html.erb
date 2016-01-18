@@ -65,7 +65,7 @@
 <p><%= t(".avoid_spam_filtering_body",
          email: address_book.no_reply) %>
 
-<%= render(partial: 'shared/visit_info', locals: { visit: @visit }) %>
+<%= render('shared/visit_info', visit: @visit) %>
 
 <h2><%= t(".your_data_title") %></h2>
 

@@ -8,43 +8,34 @@ class VisitorMailer < ActionMailer::Base
   layout 'email'
 
   def request_acknowledged(visit)
-    @visit = visit
     I18n.locale = visit.locale
+    SpamAndBounceResets.new(visit).perform_resets
 
-    SpamAndBounceResets.new(@visit).perform_resets
-
-    mail(
-      reply_to: visit.prison_email_address,
-      to: visit.contact_email_address,
-      subject: default_i18n_subject(
-        receipt_date: format_date_without_year(visit.first_date)
-      )
-    )
+    mail_visitor visit,
+      receipt_date: format_date_without_year(visit.first_date)
   end
 
   def booked(visit)
-    @visit = visit
     I18n.locale = visit.locale
-
-    mail(
-      reply_to: visit.prison_email_address,
-      to: visit.contact_email_address,
-      subject: default_i18n_subject(
-        date: format_date_without_year(visit.date)
-      )
-    )
+    mail_visitor visit,
+      date: format_date_without_year(visit.date)
   end
 
   def rejected(visit)
-    @visit = visit
     I18n.locale = visit.locale
+    mail_visitor visit,
+      date: format_date_without_year(visit.first_date)
+  end
+
+private
+
+  def mail_visitor(visit, i18n_options = {})
+    @visit = visit
 
     mail(
-      reply_to: visit.prison_email_address,
       to: visit.contact_email_address,
-      subject: default_i18n_subject(
-        date: format_date_without_year(visit.first_date)
-      )
+      reply_to: visit.prison_email_address,
+      subject: default_i18n_subject(i18n_options)
     )
   end
 end

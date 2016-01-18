@@ -1,11 +1,11 @@
-<% if validation.errors.any? %>
+<% if object.errors.any? %>
   <div id="error-summary" class="validation-summary group" role="alert"
     tabindex="-1" aria-labelledby="error-heading">
     <h2 id="error-heading">
       <%= t('.heading') %>
     </h2>
 
-    <% general_errors = validation.errors[:general] %>
+    <% general_errors = object.errors[:general] %>
 
     <% if general_errors.any? %>
       <ul class="error-messages">
