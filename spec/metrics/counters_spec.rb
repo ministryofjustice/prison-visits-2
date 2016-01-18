@@ -14,23 +14,23 @@ RSpec.describe Counters do
 
     describe Counters::CountVisits do
       it 'returns a total count of all visits' do
-        expect(described_class.run).to eq(10)
+        expect(described_class.fetch_and_format).to eq(10)
       end
     end
 
     describe Counters::CountVisitsByState do
       it 'returns a total count of all visits' do
-        expect(described_class.run).to eq('booked' => 2,
-                                          'cancelled' => 2,
-                                          'withdrawn' => 2,
-                                          'rejected' => 2,
-                                          'requested' => 2)
+        expect(described_class.fetch_and_format).to eq('booked' => 2,
+                                                       'cancelled' => 2,
+                                                       'withdrawn' => 2,
+                                                       'rejected' => 2,
+                                                       'requested' => 2)
       end
     end
 
     describe Counters::CountVisitsByPrisonAndState do
       it 'returns counts by state that are grouped by prison' do
-        expect(described_class.run).to be ==
+        expect(described_class.fetch_and_format).to be ==
           { 'Lunar Penal Colony' =>
             { 'requested' => 1,
               'booked' => 1,
@@ -69,7 +69,7 @@ RSpec.describe Counters do
 
     describe Counters::CountVisitsByPrisonAndCalendarWeek do
       it 'returns counts by state that are grouped by prison, year, and week' do
-        expect(described_class.run).to be ==
+        expect(described_class.fetch_and_format).to be ==
           { 'Lunar Penal Colony' =>
             {
               2015 => {
@@ -98,7 +98,7 @@ RSpec.describe Counters do
 
     describe Counters::CountVisitsByPrisonAndCalendarDate do
       it 'returns counts by state that are grouped by prison, year, and week' do
-        expect(described_class.run).to be ==
+        expect(described_class.fetch_and_format).to be ==
           { 'Lunar Penal Colony' =>
             {
               2016 => {

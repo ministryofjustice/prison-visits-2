@@ -2,7 +2,7 @@ require 'support/counter_support'
 
 module Counters
   class CountVisits < ActiveRecord::Base
-    def self.run
+    def self.fetch_and_format
       first.count
     end
   end
