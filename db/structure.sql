@@ -201,6 +201,34 @@ CREATE TABLE prisoners (
 
 
 --
+-- Name: visit_state_changes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE visit_state_changes (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    visit_state character varying,
+    visit_id uuid NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: processing_times_by_prison_and_state; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW processing_times_by_prison_and_state AS
+ SELECT prisons.name AS prison_name,
+    vsc.visit_state AS state,
+    (percentile_cont((0.95)::double precision) WITHIN GROUP (ORDER BY ((date_part('epoch'::text, (vsc.created_at - v.created_at)))::integer)::double precision))::integer AS ninety_fifth,
+    (percentile_cont((0.50)::double precision) WITHIN GROUP (ORDER BY ((date_part('epoch'::text, (vsc.created_at - v.created_at)))::integer)::double precision))::integer AS median
+   FROM ((visits v
+     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+     JOIN prisons ON ((prisons.id = v.prison_id)))
+  GROUP BY prisons.name, vsc.visit_state;
+
+
+--
 -- Name: rejections; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -221,19 +249,6 @@ CREATE TABLE rejections (
 
 CREATE TABLE schema_migrations (
     version character varying NOT NULL
-);
-
-
---
--- Name: visit_state_changes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE visit_state_changes (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    visit_state character varying,
-    visit_id uuid NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -500,4 +515,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160113104354');
 INSERT INTO schema_migrations (version) VALUES ('20160114101538');
 
 INSERT INTO schema_migrations (version) VALUES ('20160115143844');
+
+INSERT INTO schema_migrations (version) VALUES ('20160119172114');
 
