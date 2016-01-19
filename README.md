@@ -1,7 +1,11 @@
 # Visit someone in prison
 
-This is a spike on a full rewrite from the ground up, using a database instead
-of serialised data in URLs in emails.
+This is a full rewrite from the ground up, using a database instead of
+serialised data in URLs in emails. The CSS and JavaScript has largely been
+ported intact from the previous application.
+
+The source of the predecessor can be found at
+[ministryofjustice/prison-visits](https://github.com/ministryofjustice/prison-visits).
 
 ## Notes on models
 
