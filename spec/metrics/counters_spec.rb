@@ -2,17 +2,17 @@ require 'rails_helper'
 require_relative 'shared_examples_for_metrics'
 
 RSpec.describe Counters do
-  context 'without dates' do
+  context 'that are not organised by date' do
     include_examples 'create visits without dates'
 
     describe Counters::CountVisits do
-      it 'returns a total count of all visits' do
+      it 'counts all visits' do
         expect(described_class.fetch_and_format).to eq(10)
       end
     end
 
     describe Counters::CountVisitsByState do
-      it 'returns a total count of all visits' do
+      it 'counts visits and group by visit state' do
         expect(described_class.fetch_and_format).to eq('booked' => 2,
                                                        'cancelled' => 2,
                                                        'withdrawn' => 2,
@@ -22,7 +22,7 @@ RSpec.describe Counters do
     end
 
     describe Counters::CountVisitsByPrisonAndState do
-      it 'returns counts by state that are grouped by prison' do
+      it 'counts visits and groups by prison then by visit state' do
         expect(described_class.fetch_and_format).to be ==
           { 'Lunar Penal Colony' =>
             { 'requested' => 1,
@@ -43,7 +43,7 @@ RSpec.describe Counters do
     end
   end
 
-  context 'by date' do
+  context 'that are organised by date' do
     include_examples 'create visits with dates'
 
     describe Counters::CountVisitsByPrisonAndCalendarWeek do
@@ -51,7 +51,7 @@ RSpec.describe Counters do
         luna_visits_with_dates
       end
 
-      it 'returns counts by state that are grouped by prison, year, and week' do
+      it 'counts visits and groups by prison, year, calendar week and visit state' do
         expect(described_class.fetch_and_format).to be ==
           { 'Lunar Penal Colony' =>
             {
@@ -78,13 +78,13 @@ RSpec.describe Counters do
         }
       end
 
-      context 'all prisons' do
+      context 'and aggregated across all prisons' do
         before do
           mars_visits_with_dates
           luna_visits_with_dates
         end
 
-        it 'returns counts by state for all prisons that are grouped by year, and week' do
+        it 'counts visits and groups by year, calendar week and visit state' do
           expect(described_class.fetch_and_format(:concatenate)).to be ==
             { 'all' =>
               {
@@ -118,7 +118,7 @@ RSpec.describe Counters do
         luna_visits_with_dates
       end
 
-      it 'returns counts by state that are grouped by prison, year, and week' do
+      it 'counts visits and groups by prison, nested calendar date and visit state' do
         expect(described_class.fetch_and_format).to be ==
           { 'Lunar Penal Colony' =>
             {
@@ -147,13 +147,13 @@ RSpec.describe Counters do
         }
       end
 
-      context 'all prisons' do
+      context 'and aggregated across all prisons' do
         before do
           luna_visits_with_dates
           mars_visits_with_dates
         end
 
-        it 'counts visits and groups them by calendar date and state' do
+        it 'counts visits and groups by calendar date and visit state' do
           expect(described_class.fetch_and_format(:aggregate)).to be ==
             { 'all' =>
               {
