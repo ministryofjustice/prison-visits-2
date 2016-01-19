@@ -1,16 +1,9 @@
 require 'rails_helper'
+require_relative 'shared_examples_for_metrics'
 
 RSpec.describe Counters do
   context 'without dates' do
-    before do
-      luna = create(:prison, name: 'Lunar Penal Colony')
-      mars = create(:prison, name: 'Martian Penal Colony')
-      [:visit, :booked_visit, :rejected_visit,
-       :cancelled_visit, :withdrawn_visit].each do |visit_type|
-        create(visit_type, prison: luna)
-        create(visit_type, prison: mars)
-      end
-    end
+    include_examples 'create visits without dates'
 
     describe Counters::CountVisits do
       it 'returns a total count of all visits' do
@@ -50,24 +43,14 @@ RSpec.describe Counters do
     end
   end
 
-  context 'by dates' do
-    before do
-      luna = create(:prison, name: 'Lunar Penal Colony')
-      create(:visit, created_at: Time.zone.local(2016, 2, 1), prison: luna)
-      create(:visit, created_at: Time.zone.local(2016, 2, 8), prison: luna)
-
-      create(:booked_visit, created_at: Time.zone.local(2016, 2, 1), prison: luna)
-      create(:booked_visit, created_at: Time.zone.local(2016, 2, 8), prison: luna)
-
-      create(:rejected_visit, created_at: Time.zone.local(2016, 2, 1), prison: luna)
-      create(:rejected_visit, created_at: Time.zone.local(2016, 2, 15), prison: luna)
-
-      # Due to percularities of isoyear, this will show up as the last week of 2015
-      # in the calendar week count.
-      create(:cancelled_visit, created_at: Time.zone.local(2016, 1, 1), prison: luna)
-    end
+  context 'by date' do
+    include_examples 'create visits with dates'
 
     describe Counters::CountVisitsByPrisonAndCalendarWeek do
+      before do
+        luna_visits_with_dates
+      end
+
       it 'returns counts by state that are grouped by prison, year, and week' do
         expect(described_class.fetch_and_format).to be ==
           { 'Lunar Penal Colony' =>
@@ -94,9 +77,47 @@ RSpec.describe Counters do
             }
         }
       end
+
+      context 'all prisons' do
+        before do
+          mars_visits_with_dates
+          luna_visits_with_dates
+        end
+
+        it 'returns counts by state for all prisons that are grouped by year, and week' do
+          expect(described_class.fetch_and_format(:concatenate)).to be ==
+            { 'all' =>
+              {
+                2015 => {
+                  53 => {
+                    'cancelled' => 2
+                  }
+                },
+                2016 => {
+                  5 => {
+                    'requested' => 2,
+                    'rejected' => 2,
+                    'booked' => 2
+                  },
+                  6 => {
+                    'requested' => 2,
+                    'booked' => 2
+                  },
+                  7 => {
+                    'rejected' => 2
+                  }
+                }
+              }
+          }
+        end
+      end
     end
 
     describe Counters::CountVisitsByPrisonAndCalendarDate do
+      before do
+        luna_visits_with_dates
+      end
+
       it 'returns counts by state that are grouped by prison, year, and week' do
         expect(described_class.fetch_and_format).to be ==
           { 'Lunar Penal Colony' =>
@@ -124,6 +145,42 @@ RSpec.describe Counters do
               }
             }
         }
+      end
+
+      context 'all prisons' do
+        before do
+          luna_visits_with_dates
+          mars_visits_with_dates
+        end
+
+        it 'counts visits and groups them by calendar date and state' do
+          expect(described_class.fetch_and_format(:aggregate)).to be ==
+            { 'all' =>
+              {
+                2016 => {
+                  1 => {
+                    1 => {
+                      'cancelled' => 2
+                    }
+                  },
+                  2 => {
+                    1 => {
+                      'requested' => 2,
+                      'booked' => 2,
+                      'rejected' => 2
+                    },
+                    8 => {
+                      'requested' => 2,
+                      'booked' => 2
+                    },
+                    15 => {
+                      'rejected' => 2
+                    }
+                  }
+                }
+              }
+          }
+        end
       end
     end
   end
