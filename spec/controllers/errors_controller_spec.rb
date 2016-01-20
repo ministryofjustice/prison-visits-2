@@ -12,7 +12,7 @@ RSpec.describe ErrorsController do
         get :show, status_code: status_code
       end
 
-      it { should respond_with(status_code.to_i) }
+      specify { expect(response.status).to eq(status_code.to_i) }
     end
   end
 end

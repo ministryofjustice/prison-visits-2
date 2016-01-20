@@ -12,7 +12,7 @@ RSpec.describe HighVoltage::PagesController do
         get :show, id: page_name
       end
 
-      it { should respond_with(:success) }
+      specify { expect(response.status).to eq(200) }
     end
   end
 end
