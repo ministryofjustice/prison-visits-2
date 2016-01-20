@@ -33,4 +33,9 @@ Rails.application.routes.draw do
       get 'unsubscribe', action: :show, id: 'unsubscribe'
     end
   end
+
+  namespace :api, constraints: { format: 'json' } do
+    get '/', to: 'root#index'
+    resources :prisons, only: %i[ index show ]
+  end
 end
