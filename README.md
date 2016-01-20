@@ -261,6 +261,10 @@ These are required in order to submit user feedback to Zendesk.
 
 `ZENDESK_URL` defaults to `https://ministryofjustice.zendesk.com/api/v2`.
 
+#### `ASSET_HOST` (optional)
+
+If specified this will configure Rails' `config.asset_host`, resulting in all asset URLs pointing to this host.
+
 ### Files to be created on deployment
 
 #### `META`

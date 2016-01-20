@@ -45,5 +45,9 @@ module PrisonVisits
       )
 
     config.exceptions_app = routes
+
+    if ENV['ASSET_HOST']
+      config.asset_host = ENV['ASSET_HOST']
+    end
   end
 end
