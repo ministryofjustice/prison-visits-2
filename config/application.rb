@@ -43,5 +43,7 @@ module PrisonVisits
             ENV.fetch('SMOKE_TEST_EMAIL_DOMAIN', 'digital.justice.gov.uk')
           )
       )
+
+    config.exceptions_app = routes
   end
 end

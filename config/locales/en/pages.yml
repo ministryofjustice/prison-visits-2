@@ -1,5 +1,5 @@
 en:
-  pages:
+  errors:
     "404":
       title: This page cannot be found
       body_md: |
@@ -23,6 +23,7 @@ en:
 
         You can try again later or book your visit by phone instead. See the
         [prison finder](%{prison_finder_url}) for contact details.
+  pages:
     unsubscribe:
       title: Why did I receive this email?
       you_received_an_email: You’ve received an email from %{email}
