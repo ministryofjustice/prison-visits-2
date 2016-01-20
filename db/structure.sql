@@ -44,6 +44,19 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: visit_state_changes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE visit_state_changes (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    visit_state character varying,
+    visit_id uuid NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: visits; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -69,12 +82,13 @@ CREATE TABLE visits (
 
 
 --
--- Name: count_visits; Type: VIEW; Schema: public; Owner: -
+-- Name: calculate_distributions; Type: VIEW; Schema: public; Owner: -
 --
 
-CREATE VIEW count_visits AS
- SELECT (count(*))::integer AS count
-   FROM visits;
+CREATE VIEW calculate_distributions AS
+ SELECT percentile_disc((ARRAY[0.99, 0.95, 0.90, 0.75, 0.50, 0.25])::double precision[]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles
+   FROM (visits v
+     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))));
 
 
 --
@@ -99,6 +113,28 @@ CREATE TABLE prisons (
     translations json DEFAULT '{}'::json NOT NULL,
     postcode character varying(8)
 );
+
+
+--
+-- Name: calculate_distributions_for_prisons; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW calculate_distributions_for_prisons AS
+ SELECT prisons.name AS prison_name,
+    percentile_disc((ARRAY[0.99, 0.95, 0.90, 0.75, 0.50, 0.25])::double precision[]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles
+   FROM ((visits v
+     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+     JOIN prisons ON ((prisons.id = v.prison_id)))
+  GROUP BY prisons.name;
+
+
+--
+-- Name: count_visits; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW count_visits AS
+ SELECT (count(*))::integer AS count
+   FROM visits;
 
 
 --
@@ -198,34 +234,6 @@ CREATE TABLE prisoners (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
-
-
---
--- Name: visit_state_changes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE visit_state_changes (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    visit_state character varying,
-    visit_id uuid NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: processing_times_by_prison_and_state; Type: VIEW; Schema: public; Owner: -
---
-
-CREATE VIEW processing_times_by_prison_and_state AS
- SELECT prisons.name AS prison_name,
-    vsc.visit_state AS state,
-    (percentile_cont((0.95)::double precision) WITHIN GROUP (ORDER BY ((date_part('epoch'::text, (vsc.created_at - v.created_at)))::integer)::double precision))::integer AS ninety_fifth,
-    (percentile_cont((0.50)::double precision) WITHIN GROUP (ORDER BY ((date_part('epoch'::text, (vsc.created_at - v.created_at)))::integer)::double precision))::integer AS median
-   FROM ((visits v
-     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
-     JOIN prisons ON ((prisons.id = v.prison_id)))
-  GROUP BY prisons.name, vsc.visit_state;
 
 
 --
