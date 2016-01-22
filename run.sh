@@ -4,15 +4,11 @@ cd /usr/src/app
 case ${DOCKER_STATE} in
 create)
     echo "running create"
-    bundle exec rake db:create db:schema:load db:seed
+    bundle exec rake db:setup db:seed
     ;;
-seed)
-    echo "running seed"
-    bundle exec rake db:schema:load db:seed
-    ;;
-migrate)
-    echo "running migrate"
-    bundle exec rake db:schema:load
+migrate_and_seed)
+    echo "running migrate and seed"
+    bundle exec rake db:migrate db:seed
     ;;
 esac
 REDIS_URL="redis://redis:6379" bundle exec sidekiq -d -l /var/log/sidekiq.log --environment production
