@@ -256,14 +256,6 @@ CREATE TABLE visitors (
 
 
 --
--- Name: additional_visitors_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY visitors
-    ADD CONSTRAINT additional_visitors_pkey PRIMARY KEY (id);
-
-
---
 -- Name: estates_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -309,6 +301,14 @@ ALTER TABLE ONLY rejections
 
 ALTER TABLE ONLY visit_state_changes
     ADD CONSTRAINT visit_state_changes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: visitors_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY visitors
+    ADD CONSTRAINT visitors_pkey PRIMARY KEY (id);
 
 
 --
@@ -392,11 +392,11 @@ ALTER TABLE ONLY visits
 
 
 --
--- Name: fk_rails_4dc5291c8c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_5c13a8e090; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY visitors
-    ADD CONSTRAINT fk_rails_4dc5291c8c FOREIGN KEY (visit_id) REFERENCES visits(id);
+    ADD CONSTRAINT fk_rails_5c13a8e090 FOREIGN KEY (visit_id) REFERENCES visits(id);
 
 
 --
