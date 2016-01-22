@@ -48,3 +48,7 @@ group :test do
   gem 'simplecov-rcov'
   gem 'webmock'
 end
+
+group :production do
+  gem 'rails_stdout_logging'
+end
