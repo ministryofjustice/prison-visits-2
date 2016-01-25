@@ -8,12 +8,15 @@ RSpec.describe Api::PrisonsController do
   let!(:prison) {
     create(
       :prison,
+      estate: estate,
       id: 'e3148a7b-a667-449d-b11a-bc72835f5a26',
       name: 'Luna',
       postcode: 'XL1 1AA',
       translations: { 'xx' => { 'name' => 'Lüna' } }
     )
   }
+
+  let(:estate) { create(:estate, nomis_id: 'LNX', name: 'Moon') }
 
   render_views
 
@@ -70,7 +73,9 @@ RSpec.describe Api::PrisonsController do
         'prison' => include(
           'id' => prison.id,
           'name' => 'Luna',
-          'postcode' => 'XL1 1AA'
+          'postcode' => 'XL1 1AA',
+          'prison_finder_url' =>
+            'http://www.justice.gov.uk/contacts/prison-finder/moon'
         )
       )
     end
