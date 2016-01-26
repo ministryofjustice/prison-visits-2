@@ -5,5 +5,4 @@ EXPOSE $UNICORN_PORT
 
 RUN RAILS_ENV=production SERVICE_URL=foo bundle exec rake assets:precompile --trace
 
-RUN chmod +x run.sh
 ENTRYPOINT ["./run.sh"]
