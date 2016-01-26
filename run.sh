@@ -11,5 +11,4 @@ migrate_and_seed)
     bundle exec rake db:migrate db:seed
     ;;
 esac
-REDIS_URL="redis://redis:6379" bundle exec sidekiq -d -l /var/log/sidekiq.log --environment production
 bundle exec rails server --binding 0.0.0.0
