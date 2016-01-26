@@ -4,6 +4,7 @@ Rails.application.config.assets.precompile += %w[
   email.css
   back-office.css
   *.png
+  favicon.ico
 ]
 
 Rails.application.config.assets.paths <<
