@@ -107,12 +107,16 @@ GEM
     high_voltage (2.4.0)
     highline (1.7.8)
     htmlentities (4.3.4)
+    http_accept_language (2.0.5)
     httparty (0.13.7)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
     ice_nine (0.11.1)
     inflection (1.0.0)
+    jbuilder (2.4.0)
+      activesupport (>= 3.0.0, < 5.1)
+      multi_json (~> 1.2)
     json (1.8.3)
     kramdown (1.9.0)
     launchy (2.4.3)
@@ -332,6 +336,8 @@ DEPENDENCIES
   fuubar
   govuk_frontend_toolkit (= 2.0.1)
   high_voltage
+  http_accept_language
+  jbuilder
   kramdown
   launchy
   logstasher
