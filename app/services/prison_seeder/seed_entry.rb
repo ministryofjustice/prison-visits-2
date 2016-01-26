@@ -33,7 +33,11 @@ private
   end
 
   def email_address
-    hash.fetch('email_address', nil)
+    if ENV['SMTP_HOSTNAME'] == 'maildrop.dsd.io'
+      "pvb2.#{name.parameterize}@maildrop.dsd.io"
+    else
+      hash.fetch('email_address', nil)
+    end
   end
 
   def enabled

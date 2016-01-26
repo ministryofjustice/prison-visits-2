@@ -119,5 +119,28 @@ RSpec.describe PrisonSeeder do
         }
       )
     end
+
+    context 'changes email address to maildrop when needed' do
+      before do
+        allow(ENV).to receive(:[]).
+          with('SMTP_HOSTNAME').
+          and_return('maildrop.dsd.io')
+      end
+
+      it 'creates a new prison record with a maildrop address' do
+        subject.import filename, hash
+        expect(Prison.first.email_address).
+          to eq('pvb2.lunar-penal-colony@maildrop.dsd.io')
+      end
+
+      it 'updates an existing prison record with a maildrop address' do
+        create :prison, id: uuid
+        expect {
+          subject.import filename, hash
+        }.not_to change(Prison, :count)
+        expect(Prison.find(uuid).email_address).
+          to eq('pvb2.lunar-penal-colony@maildrop.dsd.io')
+      end
+    end
   end
 end
