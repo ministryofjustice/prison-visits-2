@@ -175,12 +175,12 @@ CREATE TABLE visit_state_changes (
 
 CREATE VIEW distribution_by_prison_and_calendar_dates AS
  SELECT prisons.name AS prison_name,
-    percentile_disc((ARRAY[0.99, 0.95, 0.90, 0.75, 0.50, 0.25])::double precision[]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles,
+    percentile_disc(ARRAY[(0.99)::double precision, (0.95)::double precision, (0.90)::double precision, (0.75)::double precision, (0.50)::double precision, (0.25)::double precision]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles,
     (date_part('year'::text, v.created_at))::integer AS year,
     (date_part('month'::text, v.created_at))::integer AS month,
     (date_part('day'::text, v.created_at))::integer AS day
    FROM ((visits v
-     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])))))
      JOIN prisons ON ((prisons.id = v.prison_id)))
   GROUP BY prisons.name, (date_part('day'::text, v.created_at))::integer, (date_part('month'::text, v.created_at))::integer, (date_part('year'::text, v.created_at))::integer;
 
@@ -191,11 +191,11 @@ CREATE VIEW distribution_by_prison_and_calendar_dates AS
 
 CREATE VIEW distribution_by_prison_and_calendar_weeks AS
  SELECT prisons.name AS prison_name,
-    percentile_disc((ARRAY[0.99, 0.95, 0.90, 0.75, 0.50, 0.25])::double precision[]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles,
+    percentile_disc(ARRAY[(0.99)::double precision, (0.95)::double precision, (0.90)::double precision, (0.75)::double precision, (0.50)::double precision, (0.25)::double precision]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles,
     (date_part('isoyear'::text, v.created_at))::integer AS year,
     (date_part('week'::text, v.created_at))::integer AS week
    FROM ((visits v
-     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])))))
      JOIN prisons ON ((prisons.id = v.prison_id)))
   GROUP BY prisons.name, (date_part('week'::text, v.created_at))::integer, (date_part('isoyear'::text, v.created_at))::integer;
 
@@ -206,9 +206,9 @@ CREATE VIEW distribution_by_prison_and_calendar_weeks AS
 
 CREATE VIEW distribution_by_prisons AS
  SELECT prisons.name AS prison_name,
-    percentile_disc((ARRAY[0.99, 0.95, 0.90, 0.75, 0.50, 0.25])::double precision[]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles
+    percentile_disc(ARRAY[(0.99)::double precision, (0.95)::double precision, (0.90)::double precision, (0.75)::double precision, (0.50)::double precision, (0.25)::double precision]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles
    FROM ((visits v
-     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])))))
      JOIN prisons ON ((prisons.id = v.prison_id)))
   GROUP BY prisons.name;
 
@@ -218,9 +218,9 @@ CREATE VIEW distribution_by_prisons AS
 --
 
 CREATE VIEW distributions AS
- SELECT percentile_disc((ARRAY[0.99, 0.95, 0.90, 0.75, 0.50, 0.25])::double precision[]) WITHIN GROUP (ORDER BY date_part('epoch'::text, (vsc.created_at - v.created_at))) AS percentiles
+ SELECT percentile_disc(ARRAY[(0.99)::double precision, (0.95)::double precision, (0.90)::double precision, (0.75)::double precision, (0.50)::double precision, (0.25)::double precision]) WITHIN GROUP (ORDER BY date_part('epoch'::text, (vsc.created_at - v.created_at))) AS percentiles
    FROM (visits v
-     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))));
+     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])))));
 
 
 --
