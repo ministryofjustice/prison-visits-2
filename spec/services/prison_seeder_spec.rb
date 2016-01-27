@@ -119,5 +119,29 @@ RSpec.describe PrisonSeeder do
         }
       )
     end
+
+    context 'when no override is specified' do
+      it 'uses the supplied email address' do
+        subject.import filename, hash
+        expect(Prison.find(uuid)).
+          to have_attributes(email_address: 'luna@hmps.gsi.gov.uk')
+      end
+    end
+
+    context 'when an override is specified' do
+      around do |example|
+        ENV['OVERRIDE_PRISON_EMAIL_DOMAIN'] = 'override.example.com'
+        example.run
+        ENV.delete 'OVERRIDE_PRISON_EMAIL_DOMAIN'
+      end
+
+      it 'generates a NOMIS ID-based email address' do
+        subject.import filename, hash
+        expect(Prison.find(uuid)).
+          to have_attributes(
+            email_address: 'pvb2.lunar-penal-colony@override.example.com'
+          )
+      end
+    end
   end
 end
