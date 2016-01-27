@@ -255,13 +255,16 @@ These configure email delivery in the production environment. `SMTP_DOMAIN` is
 also used when generating the `no-reply@` address and the `feedback@` stand-in
 address used when submitting feedback without an email address to Zendesk.
 
-#### `SMTP_HOSTNAME` and staging
+#### `OVERRIDE_PRISON_EMAIL_DOMAIN`
 
-If you set `SMTP_HOSTNAME` to `maildrop.dsd.io` and seed prisons, it
-will create or update all prisons with emails in the format
-`pvb2.(parameterized prison name)@maildrop.dsd.io`.  This will ensure
-that staging and other test emails do not accidentally get sent to real
-prisons.
+In order to avoid sending confusing and irrelevant messages to real prisons and
+to facilitate testing, it is possible to send all prison emails to a different
+domain.
+
+If you set `OVERRIDE_PRISON_EMAIL_DOMAIN` to `maildrop.dsd.io` and seed
+prisons, it will create or update all prisons with emails in the format
+`pvb2.(parameterized prison name)@maildrop.dsd.io`. This will ensure that
+staging and other test emails do not accidentally get sent to real prisons.
 
 #### `ZENDESK_USERNAME`, `ZENDESK_TOKEN`, `ZENDESK_URL`
 
