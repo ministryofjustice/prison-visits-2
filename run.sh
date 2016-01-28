@@ -11,4 +11,5 @@ migrate_and_seed)
     bundle exec rake db:migrate db:seed
     ;;
 esac
-bundle exec rails server --binding 0.0.0.0
+bundle exec rails server -d --binding 0.0.0.0
+tail -f /usr/src/app/log/logstash_production.log
