@@ -210,6 +210,10 @@ See its website for instructions.
 This will override any settings in `config/database.yml`, and should be of the
 form `postgres://myuser:mypass@localhost/somedatabase`.
 
+#### `GA_TRACKING_ID`
+
+Google Analytics ID, used for the Performance Platform.
+
 #### `GOVUK_START_PAGE`
 
 Visiting `/` will redirect to this URL, if supplied, or the new booking page
