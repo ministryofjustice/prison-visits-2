@@ -8,6 +8,8 @@ email_address: socialvisits.springhill@hmps.gsi.gov.uk
 phone_no: 01296 445000
 enabled: true
 recurring:
+  fri:
+  - 1345-1600
   sat:
   - 1345-1600
   sun:
