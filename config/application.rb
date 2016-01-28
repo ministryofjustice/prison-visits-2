@@ -32,6 +32,8 @@ module PrisonVisits
     )
     config.prison_ip_ranges = ENV.fetch('PRISON_ESTATE_IPS', '127.0.0.1,::1')
 
+    config.ga_id = ENV['GA_TRACKING_ID']
+
     config.smoke_test =
       OpenStruct.new(
         local_part:

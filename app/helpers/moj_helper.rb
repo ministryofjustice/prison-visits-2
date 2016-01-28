@@ -1,9 +1,9 @@
 module MojHelper
   def config_item(key)
-    {
-      phase: Rails.configuration.phase,
-      product_type: Rails.configuration.product_type,
-      proposition_title: I18n.t('app_title')
-    }.fetch(key)
+    if key == :proposition_title
+      I18n.t('app_title')
+    else
+      Rails.configuration.public_send(key)
+    end
   end
 end
