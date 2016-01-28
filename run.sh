@@ -12,4 +12,4 @@ migrate_and_seed)
     ;;
 esac
 bundle exec rails server -d --binding 0.0.0.0
-tail -f /usr/src/app/log/logstash_production.log
+tail -f /usr/src/app/log/logstash_production.json
