@@ -44,6 +44,19 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: visit_state_changes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE visit_state_changes (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    visit_state character varying,
+    visit_id uuid NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: visits; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -69,12 +82,24 @@ CREATE TABLE visits (
 
 
 --
--- Name: count_visits; Type: VIEW; Schema: public; Owner: -
+-- Name: count_overdue_visits; Type: VIEW; Schema: public; Owner: -
 --
 
-CREATE VIEW count_visits AS
- SELECT (count(*))::integer AS count
-   FROM visits;
+CREATE VIEW count_overdue_visits AS
+ SELECT count(*) AS count,
+    vsc.visit_state
+   FROM (visits v
+     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+  WHERE (date_part('epoch'::text, (vsc.created_at - v.created_at)) > (259200)::double precision)
+  GROUP BY vsc.visit_state
+UNION
+ SELECT count(*) AS count,
+    v.processing_state AS visit_state
+   FROM visits v
+  WHERE ((date_part('epoch'::text, v.created_at) > (259200)::double precision) AND (( SELECT count(*) AS count
+           FROM visit_state_changes
+          WHERE (v.id = visit_state_changes.visit_id)) = 0))
+  GROUP BY v.processing_state;
 
 
 --
@@ -99,6 +124,100 @@ CREATE TABLE prisons (
     translations json DEFAULT '{}'::json NOT NULL,
     postcode character varying(8)
 );
+
+
+--
+-- Name: count_overdue_visits_by_prison_and_calendar_dates; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW count_overdue_visits_by_prison_and_calendar_dates AS
+ SELECT count(*) AS count,
+    vsc.visit_state,
+    prisons.name AS prison_name,
+    (date_part('day'::text, v.created_at))::integer AS day,
+    (date_part('month'::text, v.created_at))::integer AS month,
+    (date_part('year'::text, v.created_at))::integer AS year
+   FROM ((visits v
+     JOIN prisons ON ((prisons.id = v.prison_id)))
+     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+  WHERE (date_part('epoch'::text, (vsc.created_at - v.created_at)) > (259200)::double precision)
+  GROUP BY vsc.visit_state, prisons.name, (date_part('day'::text, v.created_at))::integer, (date_part('month'::text, v.created_at))::integer, (date_part('year'::text, v.created_at))::integer
+UNION
+ SELECT count(*) AS count,
+    v.processing_state AS visit_state,
+    prisons.name AS prison_name,
+    (date_part('day'::text, v.created_at))::integer AS day,
+    (date_part('month'::text, v.created_at))::integer AS month,
+    (date_part('year'::text, v.created_at))::integer AS year
+   FROM (visits v
+     JOIN prisons ON ((prisons.id = v.prison_id)))
+  WHERE ((date_part('epoch'::text, v.created_at) > (259200)::double precision) AND (( SELECT count(*) AS count
+           FROM visit_state_changes
+          WHERE (v.id = visit_state_changes.visit_id)) = 0))
+  GROUP BY v.processing_state, prisons.name, (date_part('day'::text, v.created_at))::integer, (date_part('month'::text, v.created_at))::integer, (date_part('year'::text, v.created_at))::integer;
+
+
+--
+-- Name: count_overdue_visits_by_prison_and_calendar_weeks; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW count_overdue_visits_by_prison_and_calendar_weeks AS
+ SELECT count(*) AS count,
+    vsc.visit_state,
+    prisons.name AS prison_name,
+    (date_part('week'::text, v.created_at))::integer AS week,
+    (date_part('isoyear'::text, v.created_at))::integer AS year
+   FROM ((visits v
+     JOIN prisons ON ((prisons.id = v.prison_id)))
+     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+  WHERE (date_part('epoch'::text, (vsc.created_at - v.created_at)) > (259200)::double precision)
+  GROUP BY vsc.visit_state, prisons.name, (date_part('week'::text, v.created_at))::integer, (date_part('isoyear'::text, v.created_at))::integer
+UNION
+ SELECT count(*) AS count,
+    v.processing_state AS visit_state,
+    prisons.name AS prison_name,
+    (date_part('week'::text, v.created_at))::integer AS week,
+    (date_part('isoyear'::text, v.created_at))::integer AS year
+   FROM (visits v
+     JOIN prisons ON ((prisons.id = v.prison_id)))
+  WHERE ((date_part('epoch'::text, v.created_at) > (259200)::double precision) AND (( SELECT count(*) AS count
+           FROM visit_state_changes
+          WHERE (v.id = visit_state_changes.visit_id)) = 0))
+  GROUP BY v.processing_state, prisons.name, (date_part('week'::text, v.created_at))::integer, (date_part('isoyear'::text, v.created_at))::integer;
+
+
+--
+-- Name: count_overdue_visits_by_prisons; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW count_overdue_visits_by_prisons AS
+ SELECT count(*) AS count,
+    vsc.visit_state,
+    prisons.name AS prison_name
+   FROM ((visits v
+     JOIN prisons ON ((prisons.id = v.prison_id)))
+     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+  WHERE (date_part('epoch'::text, (vsc.created_at - v.created_at)) > (259200)::double precision)
+  GROUP BY prisons.name, vsc.visit_state
+UNION
+ SELECT count(*) AS count,
+    v.processing_state AS visit_state,
+    prisons.name AS prison_name
+   FROM (visits v
+     JOIN prisons ON ((prisons.id = v.prison_id)))
+  WHERE ((date_part('epoch'::text, v.created_at) > (259200)::double precision) AND (( SELECT count(*) AS count
+           FROM visit_state_changes
+          WHERE (v.id = visit_state_changes.visit_id)) = 0))
+  GROUP BY prisons.name, v.processing_state;
+
+
+--
+-- Name: count_visits; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW count_visits AS
+ SELECT (count(*))::integer AS count
+   FROM visits;
 
 
 --
@@ -157,30 +276,17 @@ CREATE VIEW count_visits_by_states AS
 
 
 --
--- Name: visit_state_changes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE visit_state_changes (
-    id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    visit_state character varying,
-    visit_id uuid NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
 -- Name: distribution_by_prison_and_calendar_dates; Type: VIEW; Schema: public; Owner: -
 --
 
 CREATE VIEW distribution_by_prison_and_calendar_dates AS
  SELECT prisons.name AS prison_name,
-    percentile_disc(ARRAY[(0.99)::double precision, (0.95)::double precision, (0.90)::double precision, (0.75)::double precision, (0.50)::double precision, (0.25)::double precision]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles,
+    percentile_disc((ARRAY[0.99, 0.95, 0.90, 0.75, 0.50, 0.25])::double precision[]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles,
     (date_part('year'::text, v.created_at))::integer AS year,
     (date_part('month'::text, v.created_at))::integer AS month,
     (date_part('day'::text, v.created_at))::integer AS day
    FROM ((visits v
-     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])))))
+     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
      JOIN prisons ON ((prisons.id = v.prison_id)))
   GROUP BY prisons.name, (date_part('day'::text, v.created_at))::integer, (date_part('month'::text, v.created_at))::integer, (date_part('year'::text, v.created_at))::integer;
 
@@ -191,11 +297,11 @@ CREATE VIEW distribution_by_prison_and_calendar_dates AS
 
 CREATE VIEW distribution_by_prison_and_calendar_weeks AS
  SELECT prisons.name AS prison_name,
-    percentile_disc(ARRAY[(0.99)::double precision, (0.95)::double precision, (0.90)::double precision, (0.75)::double precision, (0.50)::double precision, (0.25)::double precision]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles,
+    percentile_disc((ARRAY[0.99, 0.95, 0.90, 0.75, 0.50, 0.25])::double precision[]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles,
     (date_part('isoyear'::text, v.created_at))::integer AS year,
     (date_part('week'::text, v.created_at))::integer AS week
    FROM ((visits v
-     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])))))
+     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
      JOIN prisons ON ((prisons.id = v.prison_id)))
   GROUP BY prisons.name, (date_part('week'::text, v.created_at))::integer, (date_part('isoyear'::text, v.created_at))::integer;
 
@@ -206,9 +312,9 @@ CREATE VIEW distribution_by_prison_and_calendar_weeks AS
 
 CREATE VIEW distribution_by_prisons AS
  SELECT prisons.name AS prison_name,
-    percentile_disc(ARRAY[(0.99)::double precision, (0.95)::double precision, (0.90)::double precision, (0.75)::double precision, (0.50)::double precision, (0.25)::double precision]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles
+    percentile_disc((ARRAY[0.99, 0.95, 0.90, 0.75, 0.50, 0.25])::double precision[]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles
    FROM ((visits v
-     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])))))
+     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
      JOIN prisons ON ((prisons.id = v.prison_id)))
   GROUP BY prisons.name;
 
@@ -218,9 +324,9 @@ CREATE VIEW distribution_by_prisons AS
 --
 
 CREATE VIEW distributions AS
- SELECT percentile_disc(ARRAY[(0.99)::double precision, (0.95)::double precision, (0.90)::double precision, (0.75)::double precision, (0.50)::double precision, (0.25)::double precision]) WITHIN GROUP (ORDER BY date_part('epoch'::text, (vsc.created_at - v.created_at))) AS percentiles
+ SELECT percentile_disc((ARRAY[0.99, 0.95, 0.90, 0.75, 0.50, 0.25])::double precision[]) WITHIN GROUP (ORDER BY date_part('epoch'::text, (vsc.created_at - v.created_at))) AS percentiles
    FROM (visits v
-     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])))));
+     JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))));
 
 
 --
@@ -556,4 +662,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160114101538');
 INSERT INTO schema_migrations (version) VALUES ('20160115143844');
 
 INSERT INTO schema_migrations (version) VALUES ('20160119172114');
+
+INSERT INTO schema_migrations (version) VALUES ('20160127162914');
 

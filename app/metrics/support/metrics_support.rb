@@ -11,8 +11,8 @@ protected
   # The output would be:
   #
   # 2016 => { 1 => { 1 => { 'booked' => 2 }}}
-  def order_and_hash_visit_values(visit)
-    visit.values.reverse.inject { |result, value|
+  def order_and_hash_visit_values(values)
+    values.reverse.inject { |result, value|
       { value => result }
     }
   end
