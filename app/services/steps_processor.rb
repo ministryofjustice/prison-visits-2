@@ -9,6 +9,8 @@ class StepsProcessor
     review_step_name || incomplete_step_name || :completed
   end
 
+  alias_method :step_name, :template_name
+
   def execute!
     return if incomplete?
     BookingRequestCreator.new.create!(

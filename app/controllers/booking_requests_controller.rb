@@ -4,6 +4,7 @@ class BookingRequestsController < ApplicationController
   def index
     processor = StepsProcessor.new(params, I18n.locale)
     @steps = processor.steps
+    @step_name = processor.step_name
     render processor.template_name
   end
 
@@ -11,6 +12,7 @@ class BookingRequestsController < ApplicationController
     processor = StepsProcessor.new(params, I18n.locale)
     @visit = processor.execute!
     @steps = processor.steps
+    @step_name = processor.step_name
     render processor.template_name
   end
 
