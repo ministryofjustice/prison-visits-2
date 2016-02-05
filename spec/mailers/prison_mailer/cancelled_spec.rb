@@ -28,6 +28,11 @@ RSpec.describe PrisonMailer, '.cancelled' do
       expect(mail['X-Priority'].value).to eq('1 (Highest)')
       expect(mail['X-MSMail-Priority'].value).to eq('High')
     end
+
+    it 'sends an email containing the visit id and reference number' do
+      expect(mail.body.encoded).to match(prisoner.number)
+      expect(mail.body.encoded).to match(visit.id)
+    end
   end
 
   context 'withdrawn visit' do
