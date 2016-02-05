@@ -31,13 +31,13 @@ en:
       subject: "%{status}: %{prisoner} on %{date}"
       salutation: Dear staff,
       details: >-
-        %{visitor} has cancelled the visit to %{prisoner} (%{prisoner_number) on
+        %{visitor} has cancelled the visit to %{prisoner} (%{prisoner_number}) on
         %{date}
       reference: "Reference number: %{reference_no}"
       please_delete: Please delete this visit from NOMIS.
       regards:  Kind regards,
       booking_team:  Prison visits booking team
-      visit_id: "Visit ID: %{@visit.id}"
+      visit_id: "Visit ID: %{visit_id}"
   visitor_mailer:
     booked:
       subject: >-
