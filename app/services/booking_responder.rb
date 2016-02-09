@@ -9,7 +9,6 @@ class BookingResponder
     else
       reject!
     end
-    LoggerMetadata.add booking_response: visit.processing_state
   end
 
 private
