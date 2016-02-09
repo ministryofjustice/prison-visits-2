@@ -31,7 +31,6 @@ RSpec.configure do |config|
 
   config.before(:each) do
     I18n.locale = I18n.default_locale
-    LogStasher.clear_request_context
     DatabaseCleaner.strategy = :transaction
   end
 

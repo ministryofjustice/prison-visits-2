@@ -115,10 +115,5 @@ RSpec.describe BookingRequestCreator do
       expect(mailing).to receive(:deliver_later)
       subject.create! prisoner_step, visitors_step, slots_step, :en
     end
-
-    it 'logs the visit id' do
-      subject.create! prisoner_step, visitors_step, slots_step, :en
-      expect(LogStasher.request_context).to match(visit_id: 2)
-    end
   end
 end
