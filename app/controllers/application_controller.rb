@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
 
 private
 
+  # :nocov:
+
   def append_to_log(params)
     @custom_log_items ||= {}
     @custom_log_items.merge!(params)
@@ -24,6 +26,8 @@ private
       payload[:custom_log_items] = @custom_log_items
     end
   end
+
+  # :nocov:
 
   def http_referrer
     request.headers['REFERER']
