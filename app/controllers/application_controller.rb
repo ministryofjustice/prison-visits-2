@@ -22,7 +22,7 @@ private
   # Rails' instrumentation code, and is run after each request.
   def append_info_to_payload(payload)
     super
-    if @extra_log_items
+    if @custom_log_items
       payload[:custom_log_items] = @custom_log_items
     end
   end
