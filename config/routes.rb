@@ -37,5 +37,6 @@ Rails.application.routes.draw do
   namespace :api, constraints: { format: 'json' } do
     get '/', to: 'root#index'
     resources :prisons, only: %i[ index show ]
+    resources :slots, only: %i[ index ]
   end
 end
