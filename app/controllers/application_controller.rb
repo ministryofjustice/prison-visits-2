@@ -10,6 +10,25 @@ class ApplicationController < ActionController::Base
 
 private
 
+  # :nocov:
+
+  def append_to_log(params)
+    @custom_log_items ||= {}
+    @custom_log_items.merge!(params)
+  end
+
+  # Looks rather strange, but this is the suggested mechanism to add extra data
+  # into the event passed to lograge's custom options. The method is part of
+  # Rails' instrumentation code, and is run after each request.
+  def append_info_to_payload(payload)
+    super
+    if @extra_log_items
+      payload[:custom_log_items] = @custom_log_items
+    end
+  end
+
+  # :nocov:
+
   def http_referrer
     request.headers['REFERER']
   end
