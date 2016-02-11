@@ -280,6 +280,10 @@ These are required in order to submit user feedback to Zendesk.
 
 If specified this will configure Rails' `config.asset_host`, resulting in all asset URLs pointing to this host.
 
+#### `SENTRY_DSN` (optional)
+
+If specified, exceptions will be sent to the given Sentry project.
+
 ### Files to be created on deployment
 
 #### `META`
