@@ -119,4 +119,8 @@ Style/PercentLiteralDelimiters:
 ClassAndModuleChildren:
   Enabled: false
 
+# This encourages bad style IMHO
+Rails/Delegate:
+  Enabled: false
+
 require: rubocop-rspec
