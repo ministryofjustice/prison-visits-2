@@ -18,4 +18,8 @@ class ErrorsController < ApplicationController
 
     render template_to_render, status: status_code
   end
+
+  def test
+    fail 'This is an test exception'
+  end
 end

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   %w[ 404 500 503 ].each do |code|
     match code, to: 'errors#show', status_code: code, via: %i[ get post ]
   end
+  match 'exception', to: 'errors#test', via: %i[ get post ]
 
   constraints format: 'json' do
     get 'ping', to: 'ping#index'
