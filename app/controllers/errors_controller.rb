@@ -5,6 +5,10 @@ class ErrorsController < ApplicationController
     503 => :'503'
   }
 
+  # Otherwise erroring POST requests can fail the CSRF check when rendering the
+  # error page...
+  skip_before_action :verify_authenticity_token
+
   def show
     status_code = params.fetch(:status_code).to_i
 
