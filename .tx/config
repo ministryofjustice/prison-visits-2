@@ -25,12 +25,6 @@ source_file = config/locales/en/mailers.yml
 source_lang = en
 type = YAML
 
-[prison-visit-booking.models]
-file_filter = config/locales/<lang>/models.yml
-source_file = config/locales/en/models.yml
-source_lang = en
-type = YAML
-
 [prison-visit-booking.pages]
 file_filter = config/locales/<lang>/pages.yml
 source_file = config/locales/en/pages.yml
