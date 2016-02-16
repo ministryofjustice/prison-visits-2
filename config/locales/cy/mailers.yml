@@ -1,0 +1,148 @@
+cy:
+  mailer:
+    noreply: System trefnu i ymweld â rhywun yn y carchar (Heb neb yn bresennol) <noreply@%{domain}>
+  prison_mailer:
+    request_received:
+      subject: Cais i ymweld â %{full_name} ar %{request_date}
+      prisoner: 'Carcharor:'
+      number: 'Rhif:'
+      date_of_birth: 'Dyddiad geni:'
+      choice: Dewis %{n}
+      visitor: Ymwelydd %{n}
+      age: 'Oed:'
+      email_address: 'E-bost:'
+      phone_no: 'Ffôn:'
+      process_booking: Prosesu'r cais i ymweld â charcharor
+      copy_paste_explanation: Os na allwch glicio ar y ddolen uchod, copïwch y ddolen
+        gyfan a'i gludo i'r bar cyfeiriad yn eich porwr.
+      visit_id: 'Rhif adnabod ar gyfer yr ymweliad:'
+    booked:
+      subject: COPI o gadarnhad ymweliad ar gyfer %{prisoner}
+      copy_of_booking: Dyma gopi o'r e-bost a anfonwyd at yr ymwelydd i gadarnhau'r
+        cais i ymweld â charcharor
+    rejected:
+      subject: COPI o'r neges gwrthod ymweliad ar gyfer %{prisoner}
+      copy_of_rejection: Dyma gopi o'r e-bost a anfonwyd at yr ymwelydd i wrthod y
+        cais i ymweld â charcharor
+    cancelled:
+      subject: '%{status}: %{prisoner} ar %{date}'
+      salutation: 'Annwyl staff, '
+      details: Mae %{visitor} wedi canslo'r trefniant i ymweld â %{prisoner} (%{prisoner_number)
+        ar %{date}
+      reference: 'Cyfeirnod: %{reference_no}'
+      please_delete: Dileu'r ymweliad hwn oddi ar NOMIS
+      regards: Cofion cynnes,
+      booking_team: Y tîm trefnu i ymweld â rhywun yn y carchar
+      visit_id: 'Rhif yr ymweliad: %{@visit.id}'
+  visitor_mailer:
+    booked:
+      subject: 'Cadarnhau ymweliad: mae eich ymweliad ar %{date} wedi''i gadarnhau'
+      salutation: Annwyl %{name},
+      visit_confirmed: Mae eich ymweliad â Charchar %{prison} wedi'i gadarnhau'n llwyddiannus.
+      please_arrive: 'Gwnewch yn siŵr eich bod yn cyrraedd 45 munud cyn amser dechrau
+        eich ymweliad, os gwelwch yn dda. '
+      prisoner: 'Carcharor:'
+      number: 'Rhif:'
+      visitor: 'Ymwelydd %{n}:'
+      reference_no: 'Eich cyfeirnod yw:'
+      this_is_a_closed_visit_html: <strong>Mae hwn yn ymweliad caeëdig:</strong> bydd
+        y carcharor y tu ôl i sgrin wydr mewn man ar wahân i'r neuadd ymweld.
+      cancel_change_title: 'Canslo neu newid yr ymweliad '
+      cancel_html: Os nad ydych eisiau ymweld ar y dyddiad hwn ddim mwy, <a href="%{url}">gallwch
+        ganslo'r ymweliad hwn</a>.
+      want_to_change: 'Os hoffech newid unrhyw beth am eich ymweliad, fel dyddiadau
+        neu''r ymwelwyr, cysylltwch â''r carchar. '
+      questions_about_your_visit: 'Cwestiynau ynglŷn â''ch ymweliad '
+      dont_reply: 'Peidiwch ag ymateb i''r e-bost hwn os oes gennych chi unrhyw gwestiynau
+        eraill am eich ymweliad, rhaid i chi gysylltu â ni''n uniongyrchol. '
+      phone_no: 'Ffôn:'
+      email_address: 'E-bost:'
+      avoid_spam_filtering_title: Ychwanegu'r cyfeiriad e-bost hwn i'ch llyfr cyfeiriadau
+      avoid_spam_filtering_body: I rwystro'r negeseuon e-bost cadarnhau ymweliad rhag
+        mynd i'r ffolder negeseuon sbam neu sothach, ychwanegwch %{email} i'ch llyfr
+        cyfeiriadau neu restr anfonwyr diogel
+      your_data_title: Eich data
+      your_data_body: 'Mae''r Weinyddiaeth Cyfiawnder (Gwasanaeth Carchardai EM) yn
+        defnyddio ac yn cadw data personol ymwelwyr at ddibenion darparu Gwasanaeth
+        Carchardai saff a diogel, gan gynnwys y rhai sy''n berthnasol i reoli ac adsefydlu
+        troseddwyr.  Caniateir mynediad i''r sefydliad ar ôl rhoi''r wybodaeth angenrheidiol
+        er mwyn sicrhau a chynnal amgylchedd saff a diogel i bawb.  Mae gennych hawl
+        i ofyn am fanylion o ran yr wybodaeth bersonol os yw''n anghywir neu''n hen.  Ni
+        fyddwn yn rhannu eich gwybodaeth â sefydliadau eraill oni bai ei fod yn ofynnol
+        ar gyfer dibenion atal, datgelu trosedd, arestio, erlyn, a rheoli troseddwyr;
+        atal terfysgaeth; Diogelwch Cenedlaethol; neu''n ofynnol yn ôl  y gyfraith.     '
+      need_help_title: 'Ydych chi eisiau help neu a oes gennych chi gwestiwn? '
+      need_help_body_html: Os oes gennych chi gwestiwn, neu os ydych chi eisiau help
+        gyda'r gwasanaeth trefnu ymweliadau ar-lein, cysylltwch â ni os gwelwch yn
+        dda
+      visit_id: 'Rhif adnabod ar gyfer yr ymweliad:'
+    rejected:
+      subject: 'Nid yw''n bosib i''r ymweliad fynd ymlaen: nid oedd yn bosib trefnu
+        eich ymweliad ar %{date}'
+      salutation: Annwyl %{name}
+      slot_unavailable_html: Mae'n ddrwg gennym ond nid oedd y dyddiadau a'r amseroedd
+        a ddewisoch i ymweld â <strong>%{prisoner}</strong> yn <strong>%{prison}</strong>
+        ar gael.
+      alternatives_html: Ewch i <a href="https://www.gov.uk/prison-visits">www.gov.uk/prison-visits</a>
+        i ddewis dyddiadau eraill.
+      no_allowance: 'Mae''n ddrwg gennym, ond nid oes gan y carcharor yr hoffech ei
+        weld unrhyw lwfans ymweliadau ar ôl ar y dyddiadau a ddewiswyd gennych. '
+      privileged_allowance_available: 'Fodd bynnag, gallwch drefnu ymweliad yn ystod
+        yr wythnos gyda''r lwfans ymweliadau sy''n ddilys tan %{date}.  Rhaid i chi
+        ymweld cyn dyddiad dod i ben y lwfans. '
+      allowance_will_renew: Bydd gan %{prisoner} ei lwfans ymweld llawn (VO) wedi'i
+        adnewyddu ar %{date}.
+      prisoner_details_incorrect: 'Nid yw''n bosib i''r ymweliad ddigwydd oherwydd
+        nad ydych wedi rhoi''r wybodaeth gywir ar gyfer y carcharor. E.e. enw''r carcharor,
+        rhif neu mae''r dyddiad geni yn anghywir.  Cysylltwch â''r carcharor i gael
+        yr wybodaeth y ddiweddaraf. '
+      prisoner_moved_html: Your visit cannot take place as the prisoner you want to
+        visit has moved prison. They should contact you about where they are now.
+        You can also use the <a href="http://www.gov.uk/find-prisoner">find a prisoner
+        service</a>.
+      visitor_banned: Your visit cannot take place. %{visitors} should have received
+        a letter to say that they’re banned from visiting the prison at the moment.
+        Get in touch with the prison for more information.
+      visitor_not_on_list: Your visit cannot take place as details for %{visitors}
+        don’t match our records or they aren’t on the prisoner’s contact list.
+      update_list: Please contact the prisoner and ask them to update their contact
+        list with correct details, making sure that names appear exactly the same
+        as on ID documents.
+      first_visit: 'Os mai dyma yw ymweliad cyntaf y carcharor (ymweliad croeso),
+        yna mae''n rhaid i chi gysylltu â''r carchar i drefnu. '
+      any_questions_html: If you have any questions, visit the <a href="%{url}">prison
+        website</a> or call the prison on <strong>%{phone_no}</strong>.
+      visit_id: 'Rhif adnabod ar gyfer yr ymweliad:'
+    request_acknowledged:
+      subject: 'Not booked yet: we’ve received your visit request for %{receipt_date}'
+      add_address: I rwystro'r negeseuon e-bost cadarnhau ymweliad rhag mynd i'r ffolder
+        negeseuon sbam neu sothach, ychwanegwch %{email} i'ch llyfr cyfeiriadau neu
+        restr anfonwyr diogel
+      avoid_spam_filtering: Ychwanegu'r cyfeiriad e-bost hwn i'ch llyfr cyfeiriadau
+      cancel_title: Canslo'r cais hwn i ymweld
+      cancel_html: Os nad ydych eisiau ymweld ar y dyddiad hwn ddim mwy, <a href="%{url}">gallwch
+        ganslo'r ymweliad hwn</a>.
+      choice: Dewis %{n}
+      details: Manylion y cais i ymweld
+      feedback_html: Need help or want to make a complaint? If you have a question
+        or need any help with the online visits service, please <a href="%{url}">contact
+        us</a>.
+      prisoner: 'Carcharor:'
+      prisoner_number: 'Rhif y carcharor:'
+      request:
+        one: You have requested a visit to %{prison} for %{count} person
+        other: You have requested a visit to %{prison} for %{count} people
+        many: You have requested a visit to %{prison} for %{count} people
+        two: You have requested a visit to %{prison} for %{count} people
+      salutation: Annwyl %{visitor_full_name}
+      status: 'Nid yw eich ymweliad wedi''i drefnu eto '
+      phone_no: 'Ffôn:'
+      email_address: 'E-bost:'
+      when_to_check_spam: If you don’t receive a confirmation email by %{when}, please
+        check your spam or junk folder for it. You need to do this on a computer or
+        tablet (rather than a smart phone).
+      when_to_expect_response: We’ll email you by %{when} to confirm the date and
+        time of your visit. Please don’t contact us any sooner than that, as we won’t
+        be able to comment on booking requests that are being processed.
+      where_to_check_status_html: You can check whether your visit has been booked
+        on the <a href="%{url}">visit status page</a>.

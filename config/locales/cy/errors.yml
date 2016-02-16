@@ -1,0 +1,21 @@
+cy:
+  activemodel:
+    errors:
+      messages:
+        name: nid yw'n enw dilys
+        blank: 'yn ofynnol '
+      models:
+        visitors_step:
+          attributes:
+            general:
+              too_few_adults: 'Rhaid i o leiaf un o''r ymwelwyr fod yn oedolyn '
+              too_many_adults: Gallwch sicrhau lle i uchafswm o %{max} ymwelydd dros
+                %{age} oed ar yr ymweliad hwn
+  activerecord:
+    errors:
+      models:
+        prison:
+          duplicate_unbookable_date: 'Nid yw''n bosib clicio ddwywaith ar ddyddiad
+            sydd ddim ar gael  '
+          unbookable_and_anomalous_conflict: Nid yw'n anarferol cael dyddiad sydd
+            ddim ar gael

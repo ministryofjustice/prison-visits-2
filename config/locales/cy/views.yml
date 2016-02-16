@@ -1,0 +1,340 @@
+cy:
+  layouts:
+    application:
+      cookies_intro: Mae GOV.UK yn defnyddio cwcis i wneud y safle'n symlach.
+      cookies_find_out_more: Rhagor o wybodaeth am gwcis
+      cookies: Cwcis
+      ts_and_cs: Telerau ac amodau
+      contact_us: Cysylltwch â ni
+  booking_requests:
+    hidden_inputs_for_calendars:
+      option: Opsiwn %{n}
+      none: Dim
+    booking_calendar:
+      today: Heddiw
+    booking_calendar_legend:
+      visit_days: 'Diwrnodau y gellir ymweld '
+      non_visit_days: Diwrnodau na ellir ymweld
+    slot_picker_time_slots:
+      visit_in_the_past: Nid yw'n bosib trefnu ymweliad yn y gorffennol.
+      visit_today: 'Nid yw''n bosib trefnu ymweliad ar y diwrnod hwn. '
+      bookability_window: Gallwch drefnu ymweliad yn y %{days} diwrnod nesaf yn unig.
+      required_notice: 'Dim ond 3 diwrnod gwaith ymlaen llaw y gallwch drefnu ymweliad. '
+    prisoner_step:
+      title: Â phwy ydych chi am ymweld?
+      information_html: "<ul>\n  <li>\n    you don’t need a Visiting Order (VO) number
+        to request a visit\n  </li>\n  <li>\n    you need the dates of birth for all
+        visitors coming with you\n  </li>\n  <li>\n    your visit will be confirmed
+        by email within 3 working days of\n    making your request\n  </li>\n</ul>\n"
+      prisoner_details: Manylion y carcharor
+      first_name: Enw cyntaf y carcharor
+      last_name: Enw olaf y carcharor
+      date_of_birth: Dyddiad geni'r carcharor
+      date_of_birth_hint: ee 28 04 1996
+      number: Rhif y carcharor
+      number_hint: ee a1234bc
+      prison_id: Enw'r carchar
+      prison_id_hint: e.e. Caerdydd
+      prison_id_prompt: Dewiswch garchar
+      note_header: Sylwch
+      note: 'Os na fyddwch yn rhoi unrhyw wybodaeth i mewn am 20 neu fwy, bydd eich
+        sesiwn yn dod i ben a bydd angen i chi ddechrau eto. '
+      next_step: Parhau
+    visitors_step:
+      title: Ymwelydd 1
+      your_details: 'Eich manylion '
+      other_visitors: 'Ymwelwyr eraill '
+      seating_arrangements: Seating arrangements at this prison allow 3 visitors over
+        the age of 18 plus 3 children under that age. Children may have to sit on
+        your lap.
+      additional_visitor_count: 'Faint o ymwelwyr eraill? '
+      next_step: Parhau
+    principal_visitor:
+      first_name: Eich enw cyntaf
+      last_name: Eich cyfenw
+      date_of_birth: Eich dyddiad geni
+      date_of_birth_hint: Mae'n rhaid i chi fod dros 18 i drefnu ymweliad
+      email_address: Cyfeiriad e-bost
+      email_address_hint: Byddwch yn cael cadarnhad drwy e-bost
+      phone_no: Rhif ffôn
+      override_delivery_error: Ticiwch y blwch hwn i gadarnhau os hoffech i ni geisio
+        anfon negeseuon atoch chi yn y dyfodol.
+    additional_visitors:
+      visitor: Ymwelydd %{n}
+      first_name: Enw cyntaf
+      last_name: Cyfenw
+      date_of_birth: Dyddiad geni
+    slots_step:
+      title: 'Pa bryd hoffech chi ymweld? '
+      choose_alternatives: 'Dewiswch ddau ddyddiad gwahanol, rhag ofn na fydd eich
+        dewis cyntaf ar gael. '
+      option_0: Opsiwn 1
+      option_1: Opsiwn 2
+      option_2: Opsiwn 3
+      next_step: Parhau
+    confirmation_step:
+      title: 'Gwiriwch eich cais '
+      prisoner_details: Manylion y carcharor
+      date_of_birth: 'Dyddiad geni:'
+      prisoner_number: 'Rhif y carcharor:'
+      prison: 'Carchar:'
+      change_prisoner_details: Newid manylion y carcharor
+      visitor_details: Manylion yr ymwelydd
+      confirmation_email_address: 'E-bost cadarnhau:'
+      visitor_n: 'Ymwelydd %{n}:'
+      change_visitor_details: Newid manylion yr ymwelydd
+      your_visit: Eich ymweliad
+      options_available: 'Gallwch ddewis hyd at 2 ddyddiad arall os nad yw eich dewis
+        cyntaf ar gael. '
+      first_choice: 'Dewis cyntaf: '
+      alternatives: 'Dyddiadau eraill: '
+      change_visit_details: 'Newid manylion yr ymweliad '
+      ts_and_cs: Telerau ac amodau
+      next_step: Anfon cais
+    completed:
+      title: Mae eich cais yn cael ei brosesu
+      intro_html: <strong>Your visit is not booked yet:</strong> you’ll get an email
+        to %{visitor_email_address} by %{confirm_by} to confirm the date and time
+        of your visit.  If you don’t get a confirmation email, please call %{phone_no}
+        or email us at <a href="mailto:%{prison_email_address}">%{prison_email_address}</a>.
+      your_visit: Eich ymweliad
+      option_0: 'Opsiwn 1:'
+      option_1: 'Opsiwn 2:'
+      option_2: 'Opsiwn 3:'
+      location: 'Lleoliad '
+      google_maps: Gweld ar Google Maps
+      phone_no: Ffôn
+      email_address: E-bost
+      print_page: Printio'r dudalen hon
+      instructions_nav_title: Ymweld â Charchar %{name}
+      check_spam_title: Os na fyddwch yn cael neges e-bost yn cadarnhau eich ymweliad
+      check_spam_body_html: "<p>\n  Follow these steps if you don’t get an email to
+        confirm your visit\n  within 3 working days.\n</p>\n<ul>\n  <li>\n    Check
+        your spam / junk folder on a computer or tablet (rather than\n    a smart
+        phone). If the confirmation email is there, mark it as ‘not\n    spam’ so
+        that you don’t have problems with future emails.\n  </li>\n  <li>\n    Contact
+        the prison on %{phone_no} or by email at\n    <a href=\"mailto:%{prison_email_address}\">%{prison_email_address}</a>.\n
+        \   Please don’t contact us sooner than 3 working days, as we won’t be\n    able
+        to comment on booking requests that are being processed.\n  </li>\n</ul>"
+      rate_service_html: Cymrwch funud i <a href="%{url}">ddweud wrthym pa mor fodlon
+        oeddech chi gyda'r gwasanaeth hwn </a>.
+    cancel:
+      link_text: 'Canslo a dileu''r holl fanylion '
+      confirmation: 'Ydych chi''n siŵr eich bod yn dymuno canslo''r cais hwn i ymweld?
+        Bydd hyn yn dileu''r holl wybodaeth yr ydych wedi''i rhoi. '
+    contact_prison:
+      help_html: '<a href="%{url}" rel="external"> Cysylltwch â''r carchar </a> os
+        na allwch wneud cais i ymweld gan ddefnyddio''r gwasanaeth hwn. '
+    slot_picker:
+      slot_picker_help: 'Defnyddiwch y saethau i roi eich dewisiadau ymweld yn y drefn
+        sydd fwyaf cyfleus i chi. '
+  feedback_submissions:
+    new:
+      title: Cysylltwch â ni
+      intro_html: 'You can use this form to tell us about a problem you’re having
+        with the website. You must <a href="%{url}">contact the prison</a> if your
+        question is about:'
+      whether_booked: whether your visit has been booked
+      cancelling_changing: cancelling or changing visit details eg names of visitors,
+        dates or times
+      what_can_bring: what you can bring when you visit, eg clothes or money
+      contact_lists: prisoner’s contact lists or visiting allowance
+      not_able_to_help: We’re not able to help with questions about the above.
+      no_sensitive_info: Please don’t include any sensitive personal information (eg.
+        prisoner numbers).
+      feedback_form: 'Ffurflen adborth '
+      body: Eich cwestiwn
+      want_reply_title: 'Ydych chi eisiau ymateb? '
+      want_reply_text: If you’d like us to get back to you, please leave your details
+        below.
+      email_address: Eich cyfeiriad e-bost
+      email_address_hint: We’ll only use this to reply to your message.
+      send: Anfon
+    create:
+      title: 'Diolch am eich adborth '
+  prison:
+    visits:
+      calendar:
+        today: Heddiw
+      update:
+        title: Diolch
+        booked: A confirmation email has been sent to the visitor.
+        rejected: A rejection email has been sent to the visitor.
+      show:
+        title: Process a visit request
+        introduction_html: "<ul>\n  <li>\n    book the visit in NOMIS first\n  </li>\n
+          \ <li>\n    use this form to send a visit confirmation or visit rejection\n
+          \   email to the visitor\n  </li>\n  <li>\n    make sure you select visitors
+          who can’t attend under ‘Issue\n    with visitors’\n  </li>\n</ul>\n"
+        submit: Send email
+        booked: This request has already been accepted
+        cancelled: The visitor has cancelled this booking
+        rejected: This request has already been rejected
+        withdrawn: The visitor has withdrawn this request
+      people_box:
+        prisoner: 'Carcharor:'
+        number: 'Rhif:'
+        date_of_birth: 'Dyddiad geni:'
+        visitor: 'Ymwelydd %{n}:'
+        age: 'Oed:'
+        email_address: 'E-bost:'
+        phone_no: 'Ffôn:'
+      shared:
+        what_we_will_tell: What we’ll tell the visitor
+      visit_date_section:
+        title: Visit date
+        choice_html: 'Choice %{n}: <strong>%{date}</strong>'
+        reference_no: Reference number
+        reference_no_hint: eg Last 8 digits of VO number or “none” for remand
+        closed_visit: This is a closed visit
+        closed_visit_wording_html: "<p>\n  <strong>This is a closed visit:</strong>
+          the prisoner will be\n  behind a glass screen in a separate area rather
+          than in the\n  visiting hall.\n</p>\n"
+        none_available: None of the chosen times are available
+        none_available_explanation_html: "<p>\n  Choose this option if:\n</p>\n\n<ul>\n
+          \ <li>\n    the prisoner has restrictions on their visits\n  </li>\n  <li>\n
+          \   the prisoner is due to be elsewhere, eg at court\n  </li>\n  <li>\n
+          \   the visit can’t take place because another prisoner is having a\n    visit
+          at the same time and they are incompatible\n  </li>\n</ul>\n"
+        none_available_wording_html: "<p>\n  We’re sorry but none of the dates and
+          times you chose to visit\n  %{prisoner} at %{prison} were available. Please
+          visit\n  www.gov.uk/prison-visits to choose some alternative dates.\n</p>\n"
+      visiting_allowance_section:
+        title: Visiting allowance
+        no_allowance: The prisoner does not have any visiting allowance (VO)
+        no_allowance_wording_html: "<p>\n  We’re sorry, but the prisoner you want
+          to visit has not got any\n  visiting allowance left for the dates you’ve
+          chosen.\n</p>\n"
+        no_allowance_tell_more: 'You can also tell the visitor more about the VO and
+          PVO status:'
+        allowance_will_renew: 'Visiting allowance (weekends and weekday visits) (VO)
+          will be renewed:'
+        allowance_will_renew_wording_html: "<p>\n  %{prisoner} will have their full
+          visiting allowance (VO) renewed on\n  <span class=\"date\">[DATE NOT CHOSEN]</span>.\n</p>\n"
+        privileged_allowance_available: 'If weekday visit (PVO) is possible instead,
+          choose the date PVO expires:'
+        privileged_allowance_available_wording_html: "<p>\n  However, you can book
+          a weekday visit with visiting allowance valid\n  until <span class=\"date\">[DATE
+          NOT CHOSEN]</date>.\n  The visit must be taken before the allowance expires.\n</p>\n"
+      issue_with_prisoner_section:
+        title: Issue with the prisoner
+        prisoner_details_incorrect: Prisoner details are incorrect
+        prisoner_details_incorrect_wording_html: "<p>\n  Your visit cannot take place
+          as you haven’t given correct\n  information for the prisoner. Eg, the prisoner’s
+          name, number or\n  date of birth is incorrect. Contact the prisoner to get
+          up-to-date\n  information.\n</p>\n"
+        prisoner_moved: Prisoner no longer at the prison
+        prisoner_moved_wording_html: "<p>\n  Your visit cannot take place as the prisoner
+          you want to visit has\n  moved prison. They should contact you about where
+          they are now. You\n  can also use the find a prisoner service\n  (www.gov.uk/find-prisoner).\n</p>\n"
+      issue_with_visitors_section:
+        title: Issue with visitors
+        visitor_not_on_list: Visitor isn’t on the contact list
+        visitor_not_on_list_wording_html: "<p>\n  Your visit cannot take place as
+          details for\n  <span class=\"CheckboxSummary-summary\">[VISITOR NAME]</span>
+          don’t\n  match our records or they aren’t on the prisoner’s contact list.\n</p>\n<p>\n
+          \ Please contact the prisoner and ask them to update their contact\n  list
+          with correct details, making sure that names appear exactly\n  the same
+          as on ID documents.\n</p>\n<p>\n  If this is the prisoner’s first visit
+          (reception visit), then you\n  need to contact the prison to book.\n</p>\n"
+        visitor_not_on_list_label: '%{name} (%{date}) is not on the list'
+        visitor_banned: Visitor is banned
+        visitor_banned_wording_html: "<p>\n  Your visit cannot take place.\n  <span
+          class=\"CheckboxSummary-summary\">[VISITOR NAME]</span> should\n  have received
+          a letter to say that they’re banned from visiting the\n  prison at the moment.
+          Get in touch with the prison for more\n  information.\n</p>\n"
+        visitor_banned_label: '%{name} (%{date}) is banned'
+  shared:
+    slotpicker_templates:
+      one_slot_available: 'Dim ond un slot amser sydd ar gael ar y diwrnod hwn, dewiswch
+        hwn i fynd ymlaen '
+      choose_date_and_time: Dewiswch ddyddiad ac amser o'r calendr
+      promote: Hyrwyddo
+      remove: Tynnu
+      today: Heddiw
+      choose_two_alternatives: 'Dewiswch ddau ddyddiad gwahanol, rhag ofn na fydd
+        eich dewis cyntaf ar gael. '
+    validation:
+      heading: You need to fix the errors on this page before continuing.
+      see_below: See highlighted errors below.
+    visit_info:
+      what_to_bring_title: Beth ddylech ddod efo chi pan fyddwch yn ymweld
+      id_requirements_html: "<p>\n  Please make sure you bring ID with you. This can
+        be ONE of\n  the following:\n</p>\n\n<ul>\n  <li>\n    passport, including
+        foreign passports, and expired passports where\n    the photograph is still
+        recognisable\n  </li>\n  <li>\n    identity card (including European identity
+        cards)\n  </li>\n  <li>\n    driving licence\n  </li>\n  <li>\n    benefits
+        book\n  </li>\n  <li>\n    senior citizen’s public transport photo pass issued
+        by a local\n    authority\n  </li>\n  <li>\n    employer’s or student ID card
+        but only if this has a photo and\n    clearly shows your name and the issuing
+        employer or educational\n    establishment\n  </li>\n</ul>\n\n<p>\n  If you
+        don’t have one of these forms of ID, you can bring TWO of\n  the following:\n</p>\n\n<ul>\n
+        \ <li>\n    birth or marriage certificate\n  </li>\n  <li>\n    cheque book
+        or credit or debit card\n  </li>\n  <li>\n    employer’s pass or ID or student
+        ID card without photo\n  </li>\n  <li>\n    young person’s ‘proof of age’
+        card\n  </li>\n  <li>\n    trade union or National Students’ Union membership
+        card\n  </li>\n  <li>\n    rent book\n  </li>\n  <li>\n    foreign identity
+        or residents’ card\n  </li>\n</ul>\n"
+      any_questions: If you have any questions about ID requirements, please contact
+        the prison.
+      bringing_child_title: If you’re bringing someone else’s child
+      bringing_child_body: You’ll need a letter from that child’s parents giving you
+        permission to accompany their child.
+      what_to_expect_title: What to expect when visiting prison
+      what_to_expect_body: You will be searched before entering the prison visiting
+        room. Prison staff may check  your pockets, pat you down and ask you to go
+        through a metal detector. Dogs may also be used to detect illegal substances.
+      what_not_to_bring_title: What not to bring
+      what_not_to_bring_body_html: Please don’t bring anything restricted or illegal
+        to the prison. The <a href="%{url}">%{prison} prison page</a> has more information
+        about what you can bring.
+    timeout_prompt:
+      title: Your session will expire in %{minutes_left} minutes
+      continue_question: 'Hoffech chi fynd ymlaen? '
+      yes_continue: Hoffwn
+  visits:
+    show:
+      title: 'Statws ymweliad '
+    shared:
+      avoid_spam_filtering_html: To stop visit confirmation emails going to your spam
+        or junk folder please add <span class="no-wrap">%{email}</span> to your address
+        book or safe senders list.
+      request_new_visit_html: Request a <a href="%{url}">new visit</a>
+      yes_cancel: 'Ydw, rydw i eisiau canslo''r ymweliad hwn '
+    booked:
+      title: Your visit has been confirmed
+      intro: You should have received an email confirming the exact date and time
+        of your visit.
+      not_received: If you haven’t received a confirmation email, please check your
+        spam or junk folder. You need to do this on a computer or tablet (rather than
+        a smart phone).
+      cancel_title: 'Canslo''r ymweliad hwn '
+      cancel_intro: Os nad ydych eisiau ymweld ar y dyddiad hwn ddim mwy, gallwch
+        ganslo'r ymweliad.
+      cancel_confirm: Ydw, rydw i eisiau canslo'r ymweliad hwn
+      cancel_cta: 'Canslo''r ymweliad '
+    rejected:
+      title: Your visit request cannot take place on the dates you’ve chosen
+      intro: There are a couple of possible reasons for this, for example there may
+        be no space in the visiting hall, or the prisoner may not have any visiting
+        allowance left.
+      not_received: If you haven’t received an email to say that your visit can’t
+        take place as planned, please check your spam or junk folder. You need to
+        do this on a computer or tablet (rather than a smart phone).
+    requested:
+      title: 'Nid yw eich ymweliad wedi''i drefnu eto '
+      intro: Your visit request hasn’t yet been processed by visit booking staff.
+        You should get a visit confirmation email within 3 working days of making
+        your request.
+      not_received: If you don’t receive an email within 3 working days, please check
+        your spam or junk folder. You need to do this on a computer or tablet (rather
+        than a smart phone).
+      cancel_title: Canslo'r cais hwn i ymweld
+      cancel_intro: If you no longer want to visit on this date, you can cancel this
+        request.
+      cancel_confirm: 'Ydw, rydw i eisiau canslo''r ymweliad hwn '
+      cancel_cta: Cancel request
+    cancelled:
+      title: You cancelled this visit
+    withdrawn:
+      title: You cancelled this visit request

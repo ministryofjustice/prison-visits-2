@@ -1,0 +1,182 @@
+cy:
+  pages:
+    '404':
+      title: 'Ni ellir dod o hyd i''r dudalen hon '
+      body_md: 'You can
+
+        [start a new prison visit request](%{new_booking_url})
+
+        or book your visit by phone instead. See the
+
+        [prison finder](%{prison_finder_url}) for contact details.
+
+'
+    '500':
+      title: 'Rydym yn cael problemau technegol '
+      body_md: 'The prison visits booking system is not available right now, but
+
+        we''re working hard to get things up and running again.
+
+
+        You can try again later or book your visit by phone instead. See the
+
+        [prison finder](%{prison_finder_url}) for contact details.
+
+'
+    '503':
+      title: 'Rydym yn cael problemau technegol '
+      body_md: 'The prison visits booking system is not available as we''re carrying
+
+        out some planned maintenance.
+
+
+        You can try again later or book your visit by phone instead. See the
+
+        [prison finder](%{prison_finder_url}) for contact details.
+
+'
+    unsubscribe:
+      title: Why did I receive this email?
+      you_received_an_email: Rydych wedi cael e-bost gan %{email}
+      why: 'Yn ôl pob tebyg, mae hyn oherwydd eich bod wedi gofyn i ymweld â charcharor. '
+      confirmation: We’ll confirm your visit by email, so make sure you add this email
+        address to your address book or safe senders list.
+    terms_and_conditions:
+      title: Telerau ac amodau a pholisi preifatrwydd
+      body_md: "By using this digital prison visit request service you agree to our\nprivacy
+        policy and to these terms and conditions. Please read them\ncarefully.\n\nTerms
+        and conditions\n--------------------\n\n### General\n\nThese terms and conditions
+        affect your rights and liabilities under the\nlaw. They govern your use of,
+        and relationship with, the digital prison\nvisit request service. They don’t
+        apply to other services provided by\nthe Ministry of Justice (HM Prison Service),
+        or to any other department\nor service which is linked to in this service.\n\nWe
+        may occasionally update these terms and conditions. This might happen\nif
+        there’s a change in the law or to the way this service works. If\nthere’s
+        a change, you’ll be asked to agree to the new terms and\nconditions the next
+        time you sign in, so you can continue to use this\nservice.\n\nIf you don’t
+        agree to the terms and conditions and privacy policy set\nout in this document,
+        you should not use this service.\n\n### Applicable law\n\nYour use of this
+        service and any dispute arising from its use will be\ngoverned by and construed
+        in accordance with the laws of England and\nWales, including but not limited
+        to the:\n\n-   Computer Misuse Act 1990\n-   Data Protection Act 1998\n-   Mental
+        Capacity Act 2005\n\n### How to use this service responsibly\n\nThere are
+        risks in using a shared computer, such as in an internet café,\nto use this
+        service. It’s your responsibility to be aware of these risks\nand to avoid
+        using any computer which may leave your personal\ninformation accessible to
+        others. You are responsible if you choose to\nleave a computer unprotected
+        while in the process of making a prison\nvisit request.\n\nWe make every effort
+        to check and test this service whenever we amend or\nupdate it. However, you
+        must take your own precautions to ensure that\nthe way you access this service
+        does not expose you to the risk of\nviruses, malicious computer code or other
+        forms of interference which\nmay damage your own computer system.\n\nYou must
+        not misuse our service by knowingly introducing viruses,\ntrojans, worms,
+        logic bombs or other material which is malicious or\ntechnologically harmful.
+        You must not attempt to gain unauthorised\naccess to our service, the system
+        on which our service is stored or any\nserver, computer or database connected
+        to our service. You must not\nattack our site via a denial-of-service attack
+        or a distributed\ndenial-of-service attack.\n\nPrivacy policy\n--------------\n\n###
+        Information provided by this service\n\nWe work hard to ensure that information
+        within this prison visit request\nservice is accurate. However, we can’t guarantee
+        the accuracy and\ncompleteness of any information at all times.\n\nWhile we
+        make every effort to ensure this service is accessible at all\ntimes, we are
+        not liable if it is unavailable for any period of time.\n\n### How we use
+        your information\n\nThe Ministry of Justice (HM Prison Service) uses and retains
+        the\npersonal data of visitors for the purposes of the safe and secure\nprovision
+        of Prison Services, including those related to the management\nand rehabilitation
+        of offenders.\n\nAccess to the establishment can only be granted by supplying
+        the\nprescribed information in order to ensure and maintain a safe and secure\nenvironment
+        for all.\n\nYou have the right to request details as to the personal information
+        we\nhold for you; and subsequently request that we correct any personal\ninformation
+        if it is found to be inaccurate or out of date. We will not\nshare your information
+        with other organisations unless it is required\nfor the purposes of prevention,
+        detection of crime, apprehension,\nprosecution, and management of offenders;
+        prevention of terrorism;\nnational security; or required to do by law.\n\nSeparately
+        from the information entered by those using this service, we\nalso collect
+        site-usage information which allows us to see how the\nservice is being used
+        in order to allow us to improve it. This\ninformation does not contain any
+        personal data.\n\nIt includes:\n\n-   questions, queries or feedback you leave,
+        including your email\n    address if you send a message via feedback\n-   your
+        IP address, and details of which version of web browser you\n    used\n-   information
+        on how you use the site, using cookies and page tagging\n    techniques to
+        help us improve the website\n\nThis helps us to:\n\n-   improve the site by
+        monitoring how you use it\n-   respond to any feedback you send us, if you’ve
+        asked us to\n-   provide you with information about local services if you
+        want it\n\nWe can’t personally identify you using your data.\n\n### Where
+        your data is stored\n\nWe store your data on our secure servers in the UK.
+        However, it may also\nbe stored outside of Europe, where it could be viewed
+        by our staff or\nsuppliers. By submitting your personal data, you agree to
+        this.\n\nWe also use other suppliers to provide this service:\n\n-   [SendGrid](http://sendgrid.com)
+        to relay information to prisons. See\n    the [terms & conditions](http://sendgrid.com/tos)
+        attached to\n    this service.\n-   [ZenDesk](http://www.zendesk.com) to handle
+        any feedback that\n    you leave. See the [terms &\n    conditions](http://www.zendesk.com/company/terms)
+        attached to\n    this service.\n\n### Keeping your data secure\n\nTransmitting
+        information over the internet is generally not completely\nsecure, and we
+        can’t guarantee the security of your data. We do however\nuse SSL in order
+        to encrypt all data transferred to and received from\nour server.\n\nWe take
+        data security very seriously and we take every step to ensure\nthat your data
+        remains private and secure.\n\n### Any data you transmit is at your own risk.\n\nWe
+        have procedures and security features in place to try and keep your\ndata
+        secure once we receive it.\n\nWe won’t share your information with any other
+        organisations for\nmarketing, market research or commercial purposes, and
+        we don’t pass on\nyour details to other websites.\n\n### Disclosing your information\n\nWe
+        may pass on your personal information if we have a legal obligation\nto do
+        so.\n\n### How we manage sessions\n\nThis service can be used to make a prison
+        visit request. Your session is\nactive for 20 minutes even if you close your
+        browser, or navigate away\nfrom this service. During this time, personal information
+        about you may\nbe visible to anyone with access to your computer.\n\nYour
+        data is held in memory during the duration of the session; this is\ncleared
+        after 20 minutes of inactivity.\n\n### Data Protection Act 1998\n\nThis service
+        complies with all principles of the DPA 1998.\n\nMinistry of Justice (MoJ)
+        is the ‘data controller’ for the purposes of\nthe Act. However, the information
+        you enter into this service is not\nautomatically transmitted to the Ministry
+        of Justice, but is stored in a\nsecure database. No personal data will be
+        used in testing this service.\n\nOur hosting provider, and MoJ staff responsible
+        for supporting this\nservice, will have access to the server in which all
+        personal\ninformation entered into this service is momentarily stored. All
+        staff\nwho have access to the secure data have MoJ security clearance.\n\nAnyone
+        who believes their personal data is kept within this service has\nthe right
+        to submit a subject access request to the MoJ, who will give\ndetails of the
+        information stored on the server.\n\n### Disclaimer\n\nWe don’t accept liability
+        for loss or damage incurred by users of this\nservice, whether direct, indirect
+        or consequential, whether caused by\ntort, breach of contract or otherwise.
+        This includes loss of income or\nrevenue, business, profits or contracts,
+        anticipated savings, data,\ngoodwill, tangible property or wasted time in
+        connection with this\nservice or any websites linked to it and any materials
+        posted on it.\nThis condition shall not prevent claims for loss of or damage
+        to your\ntangible property or any other claims for direct financial loss that
+        are\nnot excluded by any of the categories set out above.\n\nThis does not
+        affect our liability for death or personal injury arising\nfrom our negligence,
+        nor our liability for fraudulent misrepresentation\nor misrepresentation as
+        to a fundamental matter, nor any other liability\nwhich cannot be excluded
+        or limited under applicable law.\n\n### Contact us\n\nMinistry of Justice\n
+        Digital Services, 11.51\n 102 Petty France\n London SW1H 9AJ United Kingdom\n"
+    cookies:
+      title: Cwcis
+      body_md: "Prison Visits Booking (PVB) puts small files (known as ‘cookies’)
+        onto\nyour computer to collect information about how you browse the site.\n\nCookies
+        are used to:\n\n-   measure how you use the website so it can be updated and
+        improved\n    based on your needs\n-   remember the notifications you’ve seen
+        so that we don’t show them to\n    you again\n\nPVB cookies aren’t used to
+        identify you personally.\n\nYou’ll normally see a message on the site before
+        we store a cookie on\nyour computer.\n\nFind out more about [how to manage\ncookies.](http://www.aboutcookies.org/)\n\nHow
+        cookies are used on PVB\n---------------------------\n\n### Measuring website
+        usage (Google Analytics)\n\nWe use Google Analytics software to collect information
+        about how you\nuse PVB. We do this to help make sure the site is meeting the
+        needs of\nits users and to help us make improvements.\n\nGoogle Analytics
+        stores information about:\n\n-   the pages you visit on PVB – how long you
+        spend on each PVB page\n-   how you got to the site\n-   what you click on
+        while you’re visiting the site\n\nWe don’t collect or store your personal
+        information (eg your name or\naddress) so this information can’t be used to
+        identify who you are.\n\nWe don’t allow Google to use or share our analytics
+        data.\n\nGoogle Analytics sets the following cookies:\n\n| Name | Purpose
+        | Expires |\n| ------------------------ |\n| _ga | Determines the number of
+        unique visitors to the site | 2 years |\n\nYou can [opt out of Google Analytics\ncookies.](https://tools.google.com/dlpage/gaoptout)\n\n###
+        Our introductory message\n\nYou may see a pop-up welcome message when you
+        first visit PVB. We’ll\nstore a cookie so that your computer knows you’ve
+        seen it and knows not\nto show it again.\n\n| Name | Purpose | Expires |\n|
+        ------------------------ |\n| seen_cookie_message | Saves a message to let
+        us know that you have seen our cookie message | 1 month |\n\n### Session\n\nThe
+        PVB service does not store your prisoner and visitor information.\nThe details
+        you enter are encrypted and temporarily stored on your\ncomputer until your
+        booking request is sent.\n\n| Name | Purpose | Expires |\n| ------------------------
+        |\n| pvbs | Store prisoner, visitor and visit details | 20 minutes |\n"
