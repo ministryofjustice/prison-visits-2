@@ -13,7 +13,6 @@ Bundler.require(*Rails.groups)
 
 module PrisonVisits
   class Application < Rails::Application
-    config.active_record.schema_format = :sql
     config.phase = 'live'
     config.product_type = 'service'
 
