@@ -16,7 +16,7 @@ class ZendeskTicketsJob < ActiveJob::Base
       Rails.configuration.zendesk_client,
       description: feedback.body,
       requester: {
-        email: feedback.email_address,
+        email: email_address_to_submit(feedback),
         name: 'Unknown'
       },
       custom_fields: custom_fields(feedback)
@@ -29,5 +29,17 @@ class ZendeskTicketsJob < ActiveJob::Base
       { id: SERVICE_FIELD, value: 'prison_visits' },
       { id: BROWSER_FIELD, value: feedback.user_agent }
     ]
+  end
+
+private
+
+  # Zendesk requires tickets to have an email, but we do not enforce
+  # providing an email. Therefore, a default email is used.
+  def email_address_to_submit(feedback)
+    if feedback.email_address.present?
+      feedback.email_address
+    else
+      Rails.configuration.address_book.feedback
+    end
   end
 end

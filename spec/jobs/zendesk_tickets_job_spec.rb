@@ -49,4 +49,30 @@ RSpec.describe ZendeskTicketsJob, type: :job do
     expect(ticket).to receive(:save!).once
     subject.perform_now(feedback)
   end
+
+  describe 'when email not provided' do
+    let(:feedback) {
+      FeedbackSubmission.new(
+        body: 'text',
+        referrer: 'ref',
+        user_agent: 'Mozilla'
+      )
+    }
+
+    it 'creates a ticket with default email address' do
+      expect(ZendeskAPI::Ticket).
+        to receive(:new).
+        with(
+          client,
+          description: 'text',
+          requester: { email: 'feedback@email.test.host', name: 'Unknown' },
+          custom_fields: [
+            { id: '23730083', value: 'ref' },
+            { id: '23757677', value: 'prison_visits' },
+            { id: '23791776', value: 'Mozilla' }
+          ]
+        ).and_return(ticket)
+      subject.perform_now(feedback)
+    end
+  end
 end
