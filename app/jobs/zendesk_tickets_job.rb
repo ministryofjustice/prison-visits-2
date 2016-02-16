@@ -6,7 +6,12 @@ class ZendeskTicketsJob < ActiveJob::Base
   SERVICE_FIELD = '23757677'
   BROWSER_FIELD = '23791776'
 
+  # rubocop:disable Metrics/MethodLength
   def perform(feedback)
+    unless Rails.configuration.zendesk_client
+      fail 'Cannot create Zendesk ticket since Zendesk not configured'
+    end
+
     ZendeskAPI::Ticket.create!(
       Rails.configuration.zendesk_client,
       description: feedback.body,

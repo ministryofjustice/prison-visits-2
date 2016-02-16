@@ -11,8 +11,20 @@ RSpec.describe ZendeskTicketsJob, type: :job do
       user_agent: 'Mozilla'
     )
   }
-  let(:client) { Rails.configuration.zendesk_client }
+  let(:client) { double(ZendeskAPI::Client) }
   let(:ticket) { double(ZendeskAPI::Ticket, save!: nil) }
+
+  before :each do
+    Rails.configuration.zendesk_client = client
+  end
+
+  it 'raises an error if Zendesk is not configured' do
+    Rails.configuration.zendesk_client = nil
+
+    expect {
+      subject.perform_now(feedback)
+    }.to raise_error('Cannot create Zendesk ticket since Zendesk not configured')
+  end
 
   it 'creates a ticket with feedback and custom fields' do
     expect(ZendeskAPI::Ticket).
