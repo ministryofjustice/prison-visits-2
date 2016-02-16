@@ -5,6 +5,10 @@ class ErrorsController < ApplicationController
     503 => :'503'
   }
 
+  # Otherwise erroring POST requests can fail the CSRF check when rendering the
+  # error page...
+  skip_before_action :verify_authenticity_token
+
   def show
     status_code = params.fetch(:status_code).to_i
 
@@ -13,5 +17,9 @@ class ErrorsController < ApplicationController
     template_to_render = SUPPORTED_ERRORS.fetch(status_code)
 
     render template_to_render, status: status_code
+  end
+
+  def test
+    fail 'This is an test exception'
   end
 end

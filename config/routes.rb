@@ -5,8 +5,9 @@ Rails.application.routes.draw do
   get '/', to: redirect(ENV.fetch('GOVUK_START_PAGE', '/en/request'))
 
   %w[ 404 500 503 ].each do |code|
-    get code, to: 'errors#show', status_code: code
+    match code, to: 'errors#show', status_code: code, via: %i[ get post ]
   end
+  match 'exception', to: 'errors#test', via: %i[ get post ]
 
   constraints format: 'json' do
     get 'ping', to: 'ping#index'
