@@ -2,10 +2,6 @@ class FeedbackSubmission < ActiveRecord::Base
   validates :body, presence: true
   validate :validate_email
 
-  def email_address
-    super.present? ? super : Rails.configuration.address_book.feedback
-  end
-
 private
 
   def validate_email
