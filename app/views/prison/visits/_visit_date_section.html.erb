@@ -21,13 +21,21 @@
 <div id="selected_slot_details" class="panel-indent">
   <%= single_field(f, :reference_no, :text_field) %>
 
-  <%= single_field(f, :closed_visit, :check_box) %>
+  <%= 
+    single_field(
+      f, :closed_visit, :check_box, 
+      class: 'js-Conditional',
+      data: { 'conditional-el': 'details_closed_visit' }
+    )
+  %>
 
-  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+  <div id="details_closed_visit">
+    <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
 
-  <blockquote>
-    <%= t('.closed_visit_wording_html') %>
-  </blockquote>
+    <blockquote>
+      <%= t('.closed_visit_wording_html') %>
+    </blockquote>
+  </div>
 </div>
 
 <%= error_container(f, :selection) do %>
