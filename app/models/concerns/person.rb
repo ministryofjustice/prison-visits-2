@@ -33,8 +33,4 @@ module Person
   def maximum_date_of_birth
     Time.zone.today.end_of_year
   end
-
-  def date_of_birth
-    super.is_a?(Date) ? super : nil
-  end
 end
