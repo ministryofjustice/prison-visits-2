@@ -249,7 +249,7 @@ GEM
     scrub_rb (1.0.1)
     sendgrid_toolkit (1.4.0)
       httparty (>= 0.7.6)
-    sentry-raven (0.15.5)
+    sentry-raven (0.15.4)
       faraday (>= 0.7.6)
     sexp_processor (4.6.0)
     shoulda-matchers (3.0.1)
@@ -361,7 +361,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   scenic (>= 1.2.0)
   sendgrid_toolkit
-  sentry-raven
+  sentry-raven (= 0.15.4)
   shoulda-matchers
   sidekiq
   simplecov
