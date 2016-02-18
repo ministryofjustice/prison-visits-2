@@ -1,3 +1,5 @@
+require 'maybe_date'
+
 class VisitorsStep
   include NonPersistedModel
 
@@ -7,7 +9,7 @@ class VisitorsStep
 
     attribute :first_name, String
     attribute :last_name, String
-    attribute :date_of_birth, Date
+    attribute :date_of_birth, MaybeDate
   end
 
   attribute :prison, Prison
