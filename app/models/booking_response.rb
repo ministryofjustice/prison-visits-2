@@ -26,6 +26,8 @@ class BookingResponse
 
   attribute :unlisted_visitor_ids, Array
   attribute :banned_visitor_ids, Array
+  attribute :visitor_not_on_list, Virtus::Attribute::Boolean
+  attribute :visitor_banned, Virtus::Attribute::Boolean
 
   delegate :slots, :prison, :to_param,
     :prisoner_full_name, :prisoner_number, :prisoner_date_of_birth,
@@ -36,8 +38,7 @@ class BookingResponse
   delegate :name, to: :prison, prefix: true
   delegate :visitors, to: :visit
   delegate :inquiry, to: :selection, prefix: true
-  delegate :no_allowance?, :visitor_not_on_list?, :visitor_banned?,
-    to: :selection_inquiry
+  delegate :no_allowance?, to: :selection_inquiry
 
   def slot_selected?
     SLOTS.include?(selection)
@@ -59,9 +60,9 @@ private
 
   def validate_checked_visitors
     if visitor_not_on_list? && unlisted_visitor_ids.empty?
-      errors.add :selection, :no_unlisted_visitors_selected
+      errors.add :visitor_not_on_list, :no_unlisted_visitors_selected
     elsif visitor_banned? && banned_visitor_ids.empty?
-      errors.add :selection, :no_banned_visitors_selected
+      errors.add :visitor_banned, :no_banned_visitors_selected
     end
   end
   validate :validate_checked_visitors

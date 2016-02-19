@@ -28,29 +28,36 @@ RSpec.describe BookingResponse, type: :model do
   end
 
   context 'validations' do
-    describe 'selection' do
+    before do
+      subject.selection = 'slot_0'
+      subject.reference_no = 12345678
+    end
+
+    describe 'visitor_not_on_list' do
       it 'is valid if it is visitor_not_on_list and visitors are selected' do
-        subject.selection = 'visitor_not_on_list'
+        subject.visitor_not_on_list = true
         subject.unlisted_visitor_ids = %w[ 42 ]
         expect(subject).to be_valid
       end
 
       it 'is invalid if it is visitor_not_on_list but no visitors are selected' do
-        subject.selection = 'visitor_not_on_list'
+        subject.visitor_not_on_list = true
         expect(subject).not_to be_valid
-        expect(subject.errors).to have_key(:selection)
+        expect(subject.errors).to have_key(:visitor_not_no_list)
       end
+    end
 
+    describe 'visitor_banned' do
       it 'is valid if it is visitor_banned and visitors are selected' do
-        subject.selection = 'visitor_banned'
+        subject.visitor_banned = true
         subject.banned_visitor_ids = %w[ 42 ]
         expect(subject).to be_valid
       end
 
       it 'is invalid if it is visitor_banned but no visitors are selected' do
-        subject.selection = 'visitor_banned'
+        subject.visitor_banned = true
         expect(subject).not_to be_valid
-        expect(subject.errors).to have_key(:selection)
+        expect(subject.errors).to have_key(:visitor_banned)
       end
     end
 
