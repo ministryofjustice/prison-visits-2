@@ -1,15 +1,15 @@
 class BookingResponse
   include NonPersistedModel
 
-  SLOTS = %w[ slot_0 slot_1 slot_2 ]
+  SLOTS = %w[ slot_0 slot_1 slot_2 none ]
 
   attribute :visit
 
-  attribute :selection, String
+  attribute :selection, String, default: 'none'
   validates :selection, inclusion: { in: SLOTS + Rejection::REASONS }
 
   attribute :reference_no, String
-  validates :reference_no, presence: true, if: :slot_selected?
+  validates :reference_no, presence: true, if: :bookable?
   attribute :closed_visit, Virtus::Attribute::Boolean
 
   attribute :allowance_will_renew, Virtus::Attribute::Boolean
@@ -40,6 +40,16 @@ class BookingResponse
   delegate :inquiry, to: :selection, prefix: true
   delegate :no_allowance?, to: :selection_inquiry
 
+  def reason
+    return 'visitor_not_on_list' if visitor_not_on_list?
+    return 'visitor_banned' if visitor_banned?
+    selection
+  end
+
+  def bookable?
+    slot_selected? && at_least_one_valid_visitor?
+  end
+
   def slot_selected?
     SLOTS.include?(selection)
   end
@@ -57,6 +67,11 @@ class BookingResponse
   end
 
 private
+
+  def at_least_one_valid_visitor?
+    (visitors.map(&:id) -
+     [unlisted_visitor_ids, banned_visitor_ids].flatten).present?
+  end
 
   def validate_checked_visitors
     if visitor_not_on_list? && unlisted_visitor_ids.empty?
