@@ -37,5 +37,14 @@ module Api
         prisoner_step, visitors_step, slots_step, locale
       )
     end
+
+    def show
+      @visit = Visit.find(params[:id])
+    end
+
+    def destroy
+      @visit = Visit.find(params[:id])
+      @visit.cancel!
+    end
   end
 end

@@ -49,4 +49,43 @@ RSpec.describe Api::VisitsController do
       expect(parsed_body['visit']['processing_state']).to eq('requested')
     end
   end
+
+  describe 'show' do
+    let(:params) {
+      {
+        format: :json,
+        id: visit.id
+      }
+    }
+
+    it 'returns visit status' do
+      get :show, params
+      expect(response).to have_http_status(:ok)
+      expect(parsed_body['visit']['processing_state']).to eq('requested')
+    end
+  end
+
+  describe 'destroy' do
+    let(:params) {
+      {
+        format: :json,
+        id: visit.id
+      }
+    }
+
+    let(:mailing) {
+      double(Mail::Message, deliver_later: nil)
+    }
+
+    it 'cancels a visit request' do
+      delete :destroy, params
+      expect(response).to have_http_status(:ok)
+      expect(parsed_body['visit']['processing_state']).to eq('withdrawn')
+    end
+
+    it 'triggers a cancellation email to staff' do
+      expect(PrisonMailer).to receive(:withdrawn).once.and_return(mailing)
+      delete :destroy, params
+    end
+  end
 end
