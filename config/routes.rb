@@ -42,5 +42,6 @@ Rails.application.routes.draw do
     get '/', to: 'root#index'
     resources :prisons, only: %i[ index show ]
     resources :slots, only: %i[ index ]
+    resources :visits, only: %i[ create ]
   end
 end
