@@ -16,11 +16,6 @@
   <strong><%= @visit.prisoner_number %></strong>
 </p>
 
-<p>
-  <%= t('.visitor', n: 1) %>
-  <strong><%= @visit.visitor_anonymized_name %></strong>
-</p>
-
 <% @visit.visitors.each_with_index do |visitor, index| %>
   <p>
     <%= t('.visitor', n: index + 1) %>
