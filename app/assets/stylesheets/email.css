@@ -46,6 +46,10 @@ p, li {
   font: 16px Helvetica, Arial, sans-serif
 }
 
+p small {
+  font: 14px Helvetica, Arial, sans-serif;
+}
+
 h1, h2 {
   font: bold 24px Helvetica, Arial, sans-serif;
 }

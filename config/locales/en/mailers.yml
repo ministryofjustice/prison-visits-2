@@ -7,8 +7,8 @@ en:
       prisoner: "Prisoner:"
       number: "Number:"
       date_of_birth: "Date of birth:"
-      choice: "Choice %{n}"
-      visitor: "Visitor %{n}"
+      choice: "Choice %{n}:"
+      visitor: "Visitor %{n}:"
       age: "Age:"
       email_address: "Email:"
       phone_no: "Phone:"
@@ -149,7 +149,7 @@ en:
       cancel_html: >-
         If you no longer want to visit on this date,
         <a href="%{url}">you can cancel this visit</a>.
-      choice: "Choice %{n}"
+      choice: "Choice %{n}:"
       details: "Visit request details"
       feedback_html: >-
         Need help or want to make a complaint? If you have a question or need

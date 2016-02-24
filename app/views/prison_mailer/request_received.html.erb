@@ -33,6 +33,8 @@
     <strong><%= format_date_of_birth(visitor.date_of_birth) %></strong>
 
     <% if index.zero? %>
+      <br/>
+
       <%= t('.email_address') %>
       <strong><%= @visit.contact_email_address %></strong>
       <br/>
@@ -52,9 +54,9 @@
   <%= t('.copy_paste_explanation') %>
 </p>
 
-<div>
+<p>
   <%= prison_visit_url(@visit, locale: I18n.locale) %>
-</div>
+</p>
 
 <p>
   <small><%= t('.visit_id') %> <%= @visit.id %></small>
