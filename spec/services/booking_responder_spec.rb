@@ -100,6 +100,18 @@ RSpec.describe BookingResponder do
       booking_response.selection = 'slot_unavailable'
     end
 
+    context 'an already rejected visit' do
+      before do
+        subject.respond!
+      end
+
+      it 'does not try to re-reject the visit' do
+        expect(VisitorMailer).to_not receive(:rejected)
+        expect(PrisonMailer).to_not receive(:rejected)
+        expect { subject.respond! }.to_not change { Rejection.count }
+      end
+    end
+
     it 'emails the visitor' do
       expect(VisitorMailer).to receive(:rejected).with(visit).
         and_return(mailing)
