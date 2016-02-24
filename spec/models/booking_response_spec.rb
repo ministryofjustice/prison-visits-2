@@ -25,7 +25,7 @@ RSpec.describe BookingResponse, type: :model do
         before do
           subject.selection = 'slot_0'
           subject.visitor_not_on_list = true
-          subject.unlisted_visitor_ids = %w[ visit.visitors.first.id ]
+          subject.unlisted_visitor_ids = [visit.visitors.first.id]
         end
 
         it 'is bookable' do
@@ -49,7 +49,7 @@ RSpec.describe BookingResponse, type: :model do
         before do
           subject.selection = 'slot_0'
           subject.visitor_banned = true
-          subject.banned_visitor_ids = %w[ visit.visitors.first.id ]
+          subject.banned_visitor_ids = [visit.visitors.first.id]
         end
 
         it 'is bookable' do
