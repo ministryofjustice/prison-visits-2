@@ -28,15 +28,19 @@ private
   end
 
   def reject!
+    return if visit.rejected?
+
     visit.reject!
     rejection = Rejection.new(visit: visit, reason: booking_response.selection)
-    copy_no_allowance_parameters rejection if booking_response.no_allowance?
-    mark_disallowed_visitors
+    copy_no_allowance_parameters(rejection)
     rejection.save!
+    mark_disallowed_visitors
     notify_rejected visit
   end
 
   def copy_no_allowance_parameters(rejection)
+    return unless booking_response.no_allowance?
+
     if booking_response.allowance_will_renew?
       rejection.allowance_renews_on = booking_response.allowance_renews_on
     end
