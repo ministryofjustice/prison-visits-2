@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe BookingResponse, type: :model do
+  subject do
+    described_class.new(visit: FactoryGirl.build_stubbed(:visit))
+  end
+
   describe 'slot_selected?' do
     it 'is true if slot 0 is selected' do
       subject.selection = 'slot_0'
@@ -48,6 +52,15 @@ RSpec.describe BookingResponse, type: :model do
         expect(subject).not_to be_valid
         expect(subject.errors).to have_key(:selection)
       end
+    end
+
+    it 'is invalid if the visit is not processable' do
+      subject.visit.processing_state = 'booked'
+
+      subject.selection = 'slot_unavailable'
+
+      expect(subject).not_to be_valid
+      expect(subject.errors).to have_key(:visit)
     end
   end
 
