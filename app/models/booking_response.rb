@@ -65,4 +65,11 @@ private
     end
   end
   validate :validate_checked_visitors
+
+  def validate_visit_is_processable
+    unless visit.processable?
+      errors.add :visit, :already_processed
+    end
+  end
+  validate :validate_visit_is_processable
 end
