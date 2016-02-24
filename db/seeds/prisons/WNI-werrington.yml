@@ -10,10 +10,14 @@ phone_no: 0300 060 6508
 enabled: true
 adult_age: 10
 recurring:
+  mon:
+  - 1415-1615
+  tues:
+  - 1415-1615
   wed:
-  - 1400-1600
-  fri:
-  - 1400-1600
+  - 1415-1615
+  thu:
+  - 1415-1615
   sat:
   - 1430-1630
   sun:
