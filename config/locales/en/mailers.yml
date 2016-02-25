@@ -48,14 +48,16 @@ en:
       prisoner: "Prisoner:"
       number: "Number:"
       visitor: "Visitor %{n}:"
-      visitor_banned: >-
-        %{name} cannot attend as they are currently banned
+      visitor_banned_html: >-
+        <strong>%{name} cannot attend</strong> as they are currently
+        <strong>banned</strong>
       banned_instructions: >-
         Banned visitors should have received a letter to say that they are
         banned from visiting the prison at the moment. Get in touch with
         the prison for more information.
-      visitor_not_on_list: >-
-        %{name} cannot attend as they are not on the prisoner’s contact list
+      visitor_not_on_list_html: >-
+        <strong>%{name} cannot attend</strong> as they are
+        <strong>not on the prisoner’s contact list</strong>
       not_on_list_instructions: >-
         Visitors not on contact lists need to ask prisoners to update their
         lists with correct details, making sure that names appear exactly the
