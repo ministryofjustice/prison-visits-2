@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160216110743) do
+ActiveRecord::Schema.define(version: 20160225142259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,15 +86,15 @@ ActiveRecord::Schema.define(version: 20160216110743) do
   add_index "visit_state_changes", ["visit_id"], name: "index_visit_state_changes_on_visit_id", using: :btree
 
   create_table "visitors", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "visit_id",      null: false
-    t.string   "first_name",    null: false
-    t.string   "last_name",     null: false
-    t.date     "date_of_birth", null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "sort_index",    null: false
-    t.boolean  "banned"
-    t.boolean  "not_on_list"
+    t.uuid     "visit_id",                      null: false
+    t.string   "first_name",                    null: false
+    t.string   "last_name",                     null: false
+    t.date     "date_of_birth",                 null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "sort_index",                    null: false
+    t.boolean  "banned",        default: false
+    t.boolean  "not_on_list",   default: false
   end
 
   add_index "visitors", ["visit_id", "sort_index"], name: "index_visitors_on_visit_id_and_sort_index", unique: true, using: :btree
