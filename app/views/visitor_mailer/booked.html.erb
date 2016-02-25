@@ -16,7 +16,7 @@
   <strong><%= @visit.prisoner_number %></strong>
 </p>
 
-<% @visit.visitors.each_with_index do |visitor, index| %>
+<% @visit.visitors.allowed.each_with_index do |visitor, index| %>
   <p>
     <%= t('.visitor', n: index + 1) %>
     <strong><%= visitor.anonymized_name %></strong>
