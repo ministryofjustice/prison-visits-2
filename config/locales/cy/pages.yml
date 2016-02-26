@@ -1,0 +1,210 @@
+cy:
+  errors:
+    '404':
+      title: 'Ni ellir dod o hyd i''r dudalen hon '
+      body_md: 'Gallwch ddechrau cais newydd i ymweld â rhywun yn y carchar
+
+        [start a new prison visit request](%{new_booking_url})
+
+        neu drefnu eich ymweliad dros y ffôn yn lle. Ewch i''r system dod o hyd i
+        garchar
+
+        [prison finder](%{prison_finder_url}) i gael manylion cyswllt.
+
+'
+    '500':
+      title: Rydym yn cael problemau technegol
+      body_md: 'Nid yw''r system trefnu i ymweld â rhywun yn y carchar ar gael ar
+        hyn o bryd, ond rydym yn gweithio''n galed i ddatrys y broblem.
+
+
+        Rhowch gynnig arall arni yn hwyrach ymlaen neu trefnwch eich ymweliad dros
+        y ffôn. Ewch i''r system dod o hyd i garchar [prison finder](%{prison_finder_url})
+        i gael manylion cyswllt.
+
+
+'
+    '503':
+      title: 'Rydym yn cael problemau technegol '
+      body_md: 'Nid yw''r system trefnu i ymweld â rhywun yn y carchar ar gael oherwydd
+        ein bod yn gwneud gwaith cynnal  a chadw wedi''i gynllunio ymlaen llaw.
+
+
+        Rhowch gynnig arall arni yn hwyrach ymlaen neu trefnwch eich ymweliad dros
+        y ffôn. Ewch i''r system dod o hyd i garchar [prison finder](%{prison_finder_url})
+        i gael manylion cyswllt.
+
+
+'
+  pages:
+    unsubscribe:
+      title: 'Pam y cefais yr e-bost hwn? '
+      you_received_an_email: Rydych wedi cael e-bost gan %{email}
+      why: 'Yn ôl pob tebyg, mae hyn oherwydd eich bod wedi gofyn i ymweld â charcharor. '
+      confirmation: Byddwn yn anfon neges e-bost atoch i gadarnhau eich ymweliad,
+        felly gwnewch yn siŵr eich bod yn ychwanegu'r cyfeiriad e-bost hwn at eich
+        llyfr cyfeiriadau neu restr anfonwyr diogel.
+    terms_and_conditions:
+      title: Telerau ac amodau a pholisi preifatrwydd
+      body_md: "Drwy ddefnyddio'r gwasanaeth digidol hwn i drefnu i ymweld â rhywun
+        yn y carchar, rydych yn cytuno i'n \npolisi preifatrwydd ac i'r telerau ac
+        amodau hyn. Darllenwch yn ofalus, os gwelwch yn dda. \n\nTelerau ac Amodau\n--------------------\n\n###
+        Cyffredinol\n\nMae'r telerau ac amodau hyn yn effeithio ar eich hawliau a'ch
+        atebolrwydd dan y \ngyfraith. Maent yn llywodraethu'r defnydd a wnewch, a'r
+        perthynas gyda'r gwasanaeth\ndigidol i wneud cais i ymweld â rhywun yn y carchar.
+        Nid ydynt yn berthnasol wasanaethau eraill a ddarperir gan \ny Weinyddiaeth
+        Cyfiawnder (Gwasanaeth Carchardai EM), neu i unrhyw adran neu \nwasanaeth
+        arall sy'n gysylltiedig â'r gwasanaeth hwn.\n\nEfallai y byddwn yn diweddaru'r
+        telerau ac amodau hyn o dro i dro. Gall hyn ddigwydd\nos oes newid yn y gyfraith
+        neu i'r ffordd y mae'r gwasanaeth hwn yn gweithio. Os\noes newid, gofynnir
+        i chi gytuno i'r telerau ac amodau\nnewydd y tro nesaf y byddwch yn mewngofnodi,
+        fel y gallwch barhau i ddefnyddio'r\ngwasanaeth hwn. \n\nOs nad ydych yn cytuno
+        i'r telerau ac amodau na'r polisi preifatrwydd a nodir\nyn y ddogfen hon,
+        ni ddylech ddefnyddio'r gwasanaeth hwn.\n\n### Cyfraith berthnasol\n\nBydd
+        y defnydd a wnewch o'r gwasanaeth hwn, ac unrhyw anghydfod sy'n codi yn sgil
+        hynny, \nyn cael ei lywodraethu gan, a'i ddehongli yn unol â chyfreithiau
+        Cymru\na Lloegr, gan gynnwys ond nid yn gyfyngedig i'r canlynol:\n\n-   Deddf
+        Camddefnyddio Cyfrifiaduron 1990\n-   Deddf Diogelu Data 1998\n-   Deddf Galluedd
+        Meddyliol 2005\n\n### Sut i ddefnyddio'r gwasanaeth hwn mewn ffordd gyfrifol
+        \n\nMae peryglon ynghlwm wrth ddefnyddio cyfrifiadur a rennir, megis mewn
+        caffi rhyngrwyd,\ni ddefnyddio'r gwasanaeth hwn. Eich cyfrifoldeb chi yw bod
+        yn ymwybodol o'r peryglon hyn\nac osgoi defnyddio unrhyw gyfrifiadur allai
+        adael eich gwybodaeth bersonol \nar gael i eraill gael mynediad ati. Chi sy'n
+        gyfrifol os byddwch yn dewis \ni adael cyfrifiadur heb ei ddiogelu pan fyddwch
+        yn y broses o wneud cais \ni ymweld â rhywun yn y carchar.\n\nRydym yn gwneud
+        ein gorau glas i wirio a phrofi'r gwasanaeth hwn pa bryd bynnag y byddwn yn\nnewid
+        neu'n diweddaru unrhyw beth. Fodd bynnag, rhaid i chi gymryd camau eich hunan
+        i ofalu a sicrhau nad yw'r \nffordd yr ydych yn cael mynediad at y gwasanaeth
+        hwn yn eich gwneud yn agored i beryglon\nfirysau, codau cyfrifiaduron maleisus
+        neu ffurfiau eraill o ymyrraeth allai\nddifrodi eich system gyfrifiadurol
+        eich hun. \n\nNi ddylech gamddefnyddio ein gwasanaeth drwy gyflwyno firysau,
+        ymwelwyr diwahoddiad,\nmwydod, bomiau rhesymeg neu ddeunydd arall sy'n faleisus
+        neu'n \nniweidiol yn dechnolegol. Ni ddylech geisio cael mynediad heb awdurdod\ni'n
+        gwasanaeth, y system lle cedwir ein gwasanaeth nac unrhyw\nweinydd, cyfrifiadur
+        neu gronfa data sy'n gysylltiedig â'n gwasanaeth. Ni ddylech\nymosod ar ein
+        safle drwy ymosodiad gwrthod gwasanaeth neu ymosodiad atal\ngwasanaeth.\n\nPolisi
+        preifatrwydd\n--------------\n\n### Gwybodaeth a ddarperir gan y gwasanaeth
+        hwn\n\nRydym yn gweithio'n galed i sicrhau bod yr wybodaeth o fewn y gwasanaeth
+        digidol hwn\ni wneud cais i ymweld â rhywun yn y carchar yn gywir. Fodd bynnag,
+        ni allwn sicrhau bod yr wybodaeth yn gywir ac yn gyflawn bob amser.\n\nEr
+        ein bod yn gwneud pob ymdrech i sicrhau bod y gwasanaeth hwn ar gael bob amser,\nnid
+        ydym yn gyfrifol os nad yw ar gael am unrhyw gyfnod penodol. \n\n### Sut rydym
+        yn defnyddio eich gwybodaeth\n\nMae'r Weinyddiaeth Cyfiawnder (Gwasanaeth
+        Carchardai EM) yn defnyddio ac yn cadw\ndata personol ymwelwyr at ddibenion
+        darparu Gwasanaethau Carchardai saff a diogel, \ngan gynnwys y rhai sy'n berthnasol
+        i reoli ac \nadsefydlu troseddwyr.\n\nCaniateir mynediad i'r sefydliad drwy
+        roi'r wybodaeth\ny gofynnir amdani'n unig er mwyn sicrhau ein bod yn cynnal
+        amgylchedd saff a diogel\ni bawb.\n\nMae gennych yr hawl i ofyn am fanylion
+        o ran yr wybodaeth bersonol sydd \ngennym amdanoch chi; ac o ganlyniad, mae
+        gofyn i ni gywiro unrhyw wybodaeth\nbersonol sy'n anghywir neu'n hen. Ni fyddwn
+        yn\nrhannu eich gwybodaeth gyda sefydliadau eraill oni bai ei bod yn ofynnol
+        i ni wneud hynny \nat ddibenion atal, canfod trosedd, arestio,\nerlyn, a rheoli
+        troseddwyr; atal terfysgaeth;\ndiogelwch cenedlaethol; neu fod gofyniad cyfreithiol
+        i wneud hynny.\n\nAr wahân i'r wybodaeth sy'n cael ei fewnbynnu gan y sawl
+        sy'n defnyddio'r gwasanaeth hwn, hefyd\nrydym yn casglu gwybodaeth am y defnydd
+        a wneir o'r safle sy'n ein galluogi i weld sut mae'r \ngwasanaeth yn cael
+        ei ddefnyddio i'n helpu i'w wella. Nid yw'r\nwybodaeth hon yn cynnwys unrhyw
+        ddata personol.\n\nMae'n cynnwys:\n\n-   cwestiynau, ymholiadau neu adborth
+        y byddwch yn ei adael, gan gynnwys eich cyfeiriad\n    e-bost os byddwch yn
+        anfon neges drwy adborth\n-   eich cyfeiriad IP, a manylion y fersiwn o'r
+        porwr gwe a ddefnyddiwyd gennych\n-   gwybodaeth ar sut rydych yn defnyddio'r
+        safle, defnyddio cwcis a thechnegau tagio tudalennau\n    i'n helpu i wella'r
+        wefan\n\nMae hyn yn ein helpu i:\n\n-   wella'r safle drwy fonitro'r ffordd
+        yr ydych yn ei defnyddio\n-   ymateb i unrhyw adborth y byddwch yn ei roi
+        i ni, os ydych wedi gofyn i ni wneud hynny\n-   darparu gwybodaeth am wasanaethau
+        lleol\n\nNid ydym yn gallu canfod pwy ydych chi'n bersonol drwy ddefnyddio
+        eich data.\n\n### Ym mhle mae eich data yn cael ei storio\n\nRydym yn storio
+        eich data ar ein gweinyddwyr diogel yn y DU. Fodd bynnag, efallai y bydd\nyn
+        cael ei storio y tu allan i Ewrop hefyd, i'n staff neu ein darparwyr weld.\nRydych
+        yn cytuno i hyn drwy gyflwyno eich data personol. \n\nHefyd, rydym yn defnyddio
+        cyflenwyr eraill i ddarparu'r gwasanaeth hwn:\n\n-   [SendGrid](http://sendgrid.com)
+        i gyfnewid gwybodaeth â charchardai. Gweler\n    y telerau ac amodau [terms
+        & conditions](http://sendgrid.com/tos) sydd ynghlwm wrth \n    y gwasanaeth
+        hwn.\n-   [ZenDesk](http://www.zendesk.com) i ddelio ag unrhyw adborth y byddwch\n
+        \   yn ei adael. Gweler y telerau ac amodau [terms &\n    conditions](http://www.zendesk.com/company/terms)
+        sydd ynghlwm wrth y gwasanaeth\n   hwn.\n\n### Cadw eich data yn ddiogel\n\nYn
+        gyffredinol, nid yw trosglwyddo gwybodaeth dros y we yn gwbl\nddiogel, ac
+        ni allwn eich gwarantu y cedwir eich data yn ddiogel.  Fodd bynnag, rydym\nyn
+        defnyddio SSL er mwyn amgryptio'r holl ddata sy'n cael ei drosglwyddo i mewn
+        a'r data a dderbynnir \no'n gweinydd.\n\nRydym yn cymryd diogelwch data o
+        ddifrif, ac rydym yn cymryd pob cam i sicrhau\ny cedwir eich data yn breifat
+        ac yn ddiogel.\n\n### Rydych yn cyflwyno unrhyw ddata ar eich menter eich
+        hun.\n\nMae gennym weithdrefnau a nodweddion diogelwch mewn lle i geisio cadw
+        eich\ndata yn ddiogel unwaith y byddwn wedi ei gael.\n\nNi fyddwn yn rhannu
+        eich gwybodaeth gydag unrhyw sefydliadau eraill at ddibenion\nmarchnata, ymchwil
+        marchnad neu ddibenion masnachol ac nid ydym yn anfon\neich manylion ymlaen
+        i wefannau eraill.\n\n### Datgelu eich gwybodaeth\n\nEfallai y byddwn yn anfon
+        eich gwybodaeth bersonol ymlaen os oes gennym ddyletswydd gyfreithiol i wneud
+        hynny.\n\n### Sut rydym yn rheoli sesiynau\n\nGallwch ddefnyddio'r gwasanaeth
+        hwn i wneud cais i ymweld â rhywun yn carchar.  Bydd eich sesiwn yn fyw\nam
+        20 munud, hyd yn oed os byddwch yn cau eich porwr, neu'n llywio i ffwrdd oddi
+        ar y gwasanaeth. Yn ystod y cyfnod hwn, efallai y bydd gwybodaeth bersonol
+        amdanoch chi\nyn weladwy i unrhyw un sydd â mynediad at eich cyfrifiadur.\n\nBydd
+        eich data yn cael ei gadw ar y cof yn ystod eich sesiwn; bydd hyn yn cael\nei
+        glirio 20 munud wedi unrhyw ddiffyg gweithredu.\n\n### Deddf Diogelu Data
+        1998\n\nMae'r gwasanaeth hwn yn cydymffurfio gyda holl egwyddorion Deddf Diogelu
+        Data 1998.\n\nY Weinyddiaeth Cyfiawnder yw'r 'rheolydd data' at ddibenion
+        \ny Ddeddf. Fodd bynnag, nid yw'r wybodaeth yr ydych yn ei rhoi i mewn i'r
+        gwasanaeth hwn\nyn cael ei throsglwyddo'n awtomatig i'r Weinyddiaeth Cyfiawnder,
+        ond mae'n cael ei chadw mewn \ncronfa ddata. Ni fydd unrhyw ddata personol
+        yn ei ddefnyddio wrth brofi'r gwasanaeth hwn.\n\nBydd gan ein darparwr lletya,
+        a staff y Weinyddiaeth Cyfiawnder sy'n gyfrifol am gefnogi'r \ngwasanaeth
+        hwn, fynediad ar y gweinydd lle mae'r holl wybodaeth bersonol yn cael ei \nmewnbynnu
+        a lle cedwir y data ar gyfer y gwasanaeth hwn dros dro. Mae'r holl staff\nsydd
+        â mynediad at y data diogel wedi bod yn destun cliriad diogelwch y Weinyddiaeth
+        Cyfiawnder.\n\nMae gan unrhyw un sy'n credu bod eu data personol yn cael ei
+        gadw o fewn y gwasanaeth hwn\nyr hawl i gyflwyno cais am fynediad at yr wybodaeth
+        i'r Weinyddiaeth Cyfiawnder, a fydd yn rhoi manylion yr wybodaeth a gedwir
+        ar y gweinydd.\n\n### Ymwadiad\n\nNid ydym yn derbyn unrhyw gyfrifoldeb am
+        unrhyw golled neu niwed a achosir o ganlyniad i ddefnyddio'r gwasanaeth hwn,
+        boed yn uniongyrchol, yn anuniongyrchol, pa un ai achosir\nhyn drwy gamwedd,
+        torri cytundeb neu fel arall. Mae hyn yn cynnwys colli incwm neu\nrefeniw,
+        busnes, elw neu gontractau, arbedion a ragwelir, data,\newyllys da, eiddo
+        diriaethol neu amser a wastraffir yng nghyswllt y\ngwasanaeth hwn neu unrhyw
+        wefannau cysylltiedig iddo ac unrhyw ddeunyddiau sy'n cael eu postio arno.\nNi
+        ddylai'r amod hwn atal gwneud hawliad am golled neu ddifrod i'ch\neiddo diriaethol
+        neu unrhyw hawliadau eraill am golled ariannol uniongyrchol nad ydynt\nwedi'i
+        heithrio gan unrhyw un o'r categorïau a nodir uchod.\n\nNid yw hyn yn effeithio
+        ar ein cyfrifoldeb dros farwolaeth neu anaf personol a achosir\no ganlyniad
+        i'n esgeulustod, nac ein cyfrifoldeb dros anwiredd twyllodrus\nneu anwiredd
+        mewn perthynas â mater sylfaenol, nac unrhyw gyfrifoldeb arall\nna ellir ei
+        eithrio neu sy'n gyfyngedig o dan y gyfraith berthnasol.\n\n### Cysylltwch
+        â ni\n\nY Weinyddiaeth Cyfiawnder\nGwasanaethau Digidol, 11.51\n102 Petty
+        France\nLlundain SW1H 9AJ Y Deyrnas Unedig\n"
+    cookies:
+      title: Cwcis
+      body_md: "Mae'r System trefnu i ymweld â rhywun yn y Carchar (PVB) yn rhoi ffeiliau
+        bychain (a elwir yn 'cwcis') ar \neich cyfrifiadur i gasglu gwybodaeth am
+        sut yr ydych yn pori'r safle.\n\nMae cwcis yn cael eu defnyddio i:\n\n-   fesur
+        sut y byddwch yn defnyddio'r wefan fel y gellir ei diweddaru a'i gwella\n
+        \   ar sail eich anghenion\n-   cofio'r hysbysiadau yr ydych wedi'u gweld
+        fel na fyddwn yn eu dangos\n    i chi eto\n\nNi ddefnyddir cwcis PVB i gael
+        gwybod pwy ydych chi'n bersonol. \n\nFel arfer, fe welwch neges ar y safle
+        cyn y byddwn yn storio cwcis ar\neich cyfrifiadur.\n\nI gael gwybod mwy am
+        reoli cwcis [how to manage\ncookies.](http://www.aboutcookies.org/)\n\nSut
+        y defnyddir cwcis ar PVB\n---------------------------\n\n### Mesur y defnydd
+        a wneir o'r wefan (Google Analytics)\n\nRydym yn defnyddio meddalwedd Google
+        Analytics i gasglu gwybodaeth am sut yr ydych yn\ndefnyddio PVB. Rydym yn
+        gwneud hyn i helpu sicrhau bod y safle'n cwrdd ag anghenion\nei defnyddwyr
+        a'n helpu i wneud gwelliannau.\n\nMae Google Analytics yn storio gwybodaeth
+        am:\n\n-   y tudalennau yr ydych wedi ymweld â nhw ar PVB - faint o amser
+        yr ydych wedi'i dreulio ar bob tudalen PVB\n-   sut y daethoch o hyd i'r safle\n-
+        \  beth rydych yn glicio arno tra byddwch ar y safle\n\nNid ydym yn casglu
+        gwybodaeth nac yn storio eich gwybodaeth bersonol (ee eich enw neu\ngyfeiriad)
+        ac felly ni ellir defnyddio'r wybodaeth hon i ganfod pwy ydych chi.\n\nNid
+        ydym yn caniatáu Google i ddefnyddio na rhannu ein data dadansoddol.\n\nMae
+        Google Analytics yn gosod y cwcis canlynol:\n\n| Enw | Pwrpas | Dod i ben
+        |\n| ------------------------ |\n| _ga | Pennu'r nifer o ymwelwyr unigryw
+        i'r safle | 2 flynedd |\n\nGallwch ddewis i optio allan rhag defnyddio cwcis
+        Google Analytics [opt out of Google Analytics\ncookies.](https://tools.google.com/dlpage/gaoptout)\n\n###
+        Ein neges rhagarweiniol\n\nEfallai y byddwch yn gweld neges i'ch croesawu
+        pan fyddwch yn ymweld â thudalen PVB am y tro cyntaf.  Byddwn\nyn storio cwci
+        fel bod eich cyfrifiadur yn gwybod eich bod wedi gweld y neges ac i wybod
+        i beidio\nâ'i ddangos i chi eto.\n\n| Enw | Pwrpas | Dod i ben |\n| ------------------------
+        |\n| seen_cookie_message | Cadw neges i roi gwybod i ni eich bod wedi gweld
+        ein neges cwci | 1 mis |\n\n### Sesiwn\n\nNid yw'r gwasanaeth PVB yn storio
+        manylion y carcharor na manylion yr ymwelydd.\nMae'r manylion yr ydych yn
+        eu rhoi yn cael eu hamgryptio a'u storio ar eich\ncyfrifiadur dros dro nes
+        yr anfonir eich cais nesaf i ymweld â rhywun yn y carchar.\n\n| Enw | Pwrpas
+        | Dod i ben |\n| ------------------------ |\n| pvbs | Storio manylion carcharor,
+        ymwelydd a manylion yr ymweliad | 20 munud |\n"

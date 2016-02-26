@@ -20,7 +20,10 @@ module ApplicationHelper
   end
 
   def alternative_locales
-    I18n.available_locales - [I18n.locale]
+    # This disables the link to Welsh
+    disabled_locales = [:cy]
+
+    I18n.available_locales - disabled_locales - [I18n.locale]
   end
 
   def add_line_breaks(str)

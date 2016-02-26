@@ -1,0 +1,100 @@
+cy:
+  language: Cymraeg
+  app_title: Ymweld â rhywun yn y carchar
+  date:
+    fields:
+      day: 'Diwrnod '
+      month: Mis
+      year: Blwyddyn
+    formats:
+      date_of_birth: '%-d %B %Y'
+      date_without_year: '%A %-d %B'
+      day_of_month: '%-e'
+      day_of_week: '%a'
+      short_month_name: '%b'
+      year_and_month_internal: '%Y-%m'
+      date_internal: '%Y-%m-%d'
+    day_names:
+    - Dydd Sul
+    - Dydd Llun
+    - Dydd Mawrth
+    - Dydd Mercher
+    - Dydd Iau
+    - Dydd Gwener
+    - Dydd Sadwrn
+    abbr_day_names:
+    - Sul
+    - Llun
+    - Maw
+    - Mer
+    - Iau
+    - Gwe
+    - Sad
+    month_names:
+    - Dim
+    - Ionawr
+    - Chwefror
+    - Mawrth
+    - Ebrill
+    - Mai
+    - 'Mehefin '
+    - Gorffennaf
+    - Awst
+    - Medi
+    - Hydref
+    - Tachwedd
+    - Rhagfyr
+    abbr_month_names:
+    - Dim
+    - Ion
+    - Chwe
+    - Maw
+    - Ebr
+    - Mai
+    - Meh
+    - Gorff
+    - Awst
+    - Medi
+    - Hyd
+    - Tach
+    - Rhag
+    order:
+    - diwrnod
+    - mis
+    - blwyddyn
+  time:
+    formats:
+      twelve_hour: '%-l:%M%P'
+      twenty_four_hour: '%H:%M'
+    am: am
+    pm: pm
+    hour:
+      one: awr
+      other: awr
+      many: awr
+      two: awr
+    minute:
+      one: munud
+      other: munud
+      many: munud
+      two: munud
+  formats:
+    slot:
+      public:
+        full: '%{date} %{time} am %{duration}'
+        begin_only: '%{date} %{time}'
+      staff: '%{date} %{begin} - %{end}'
+    duration:
+      glue: ' '
+      hours:
+        one: '%{count} awr'
+        other: '%{count} awr'
+        many: '%{count} awr'
+        two: '%{count} awr'
+      minutes:
+        one: '%{count} munud'
+        other: '%{count} munud'
+        many: '%{count} munud'
+        two: '%{count} munud'
+    name:
+      full: '%{first} %{last}'
