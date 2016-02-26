@@ -24,6 +24,7 @@ private
     params.
       require(:booking_response).
       permit(
+        :visitor_banned, :visitor_not_on_list,
         :selection, :reference_no, :closed_visit,
         :allowance_will_renew, :allowance_renews_on,
         :privileged_allowance_available, :privileged_allowance_expires_on,

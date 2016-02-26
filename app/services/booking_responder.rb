@@ -4,7 +4,8 @@ class BookingResponder
   end
 
   def respond!
-    if booking_response.slot_selected?
+    mark_disallowed_visitors
+    if booking_response.bookable?
       accept!
     else
       reject!
@@ -18,7 +19,7 @@ private
   private :visit
 
   def accept!
-    visit.accept
+    visit.accept!
     visit.update!(
       slot_granted: visit.slots.fetch(booking_response.slot_index),
       reference_no: booking_response.reference_no,
@@ -31,10 +32,9 @@ private
     return if visit.rejected?
 
     visit.reject!
-    rejection = Rejection.new(visit: visit, reason: booking_response.selection)
+    rejection = Rejection.new(visit: visit, reason: booking_response.reason)
     copy_no_allowance_parameters(rejection)
     rejection.save!
-    mark_disallowed_visitors
     notify_rejected visit
   end
 

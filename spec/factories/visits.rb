@@ -21,6 +21,12 @@ FactoryGirl.define do
       create :visitor, visit: v
     end
 
+    factory :visit_with_two_visitors do
+      after(:create) do |v|
+        create :visitor, visit: v
+      end
+    end
+
     factory :visit_with_three_slots do
       slot_option_1 do |v|
         v.prison.available_slots.to_a[1]

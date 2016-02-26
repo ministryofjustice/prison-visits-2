@@ -307,8 +307,13 @@ en:
           </p>
       issue_with_visitors_section:
         title: Issue with visitors
-        visitor_not_on_list: Visitor isn’t on the contact list
+        visitor_not_on_list: Visitor is not on the contact list
         visitor_not_on_list_wording_html: |
+          <h3>If there are other visitors who can visit</h3>
+          <p>
+            We will tell them who is not on the list and what they need to do
+          </p>
+          <h3>If there are no other visitors who can visit</h3>
           <p>
             Your visit cannot take place as details for
             <span class="CheckboxSummary-summary">[VISITOR NAME]</span> don’t
@@ -326,6 +331,11 @@ en:
         visitor_not_on_list_label: "%{name} (%{date}) is not on the list"
         visitor_banned: Visitor is banned
         visitor_banned_wording_html: |
+          <h3>If there are other visitors who can visit</h3>
+          <p>
+            We will tell them who is banned and what they need to do
+          </p>
+          <h3>If there are no other visitors who can visit</h3>
           <p>
             Your visit cannot take place.
             <span class="CheckboxSummary-summary">[VISITOR NAME]</span> should

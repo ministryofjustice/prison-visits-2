@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_relative 'booking_responder_shared_context'
 
 RSpec.describe BookingResponder do
   subject { described_class.new(booking_response) }
@@ -24,73 +25,35 @@ RSpec.describe BookingResponder do
   end
 
   context 'accepting a request' do
-    before do
-      booking_response.selection = 'slot_0'
-      booking_response.reference_no = '1337807'
-    end
+    include_context 'accepting a request'
 
-    it 'changes the status of the visit to booked' do
-      expect(visit_after_responding).to be_booked
-    end
+    context 'when one of the visitors is not on the list' do
+      include_context 'accepting a request'
 
-    it 'sets the reference number of the visit' do
-      expect(visit_after_responding.reference_no).to eq('1337807')
-    end
-
-    it 'marks the visit as closed' do
-      booking_response.closed_visit = true
-      expect(visit_after_responding).to be_closed
-    end
-
-    it 'marks the visit as not closed' do
-      booking_response.closed_visit = false
-      expect(visit_after_responding).not_to be_closed
-    end
-
-    it 'emails the visitor' do
-      expect(VisitorMailer).to receive(:booked).with(visit).
-        and_return(mailing)
-      expect(mailing).to receive(:deliver_later)
-      subject.respond!
-    end
-
-    it 'emails the prison' do
-      expect(PrisonMailer).to receive(:booked).with(visit).
-        and_return(mailing)
-      expect(mailing).to receive(:deliver_later)
-      subject.respond!
-    end
-
-    context 'with the first slot' do
       before do
-        booking_response.selection = 'slot_0'
+        booking_response.visitor_not_on_list = true
+        visit.visitors << build(:visitor)
+        booking_response.unlisted_visitor_ids = [visit.visitors.first.id]
       end
 
-      it 'assigns the selected slot' do
-        expect(visit_after_responding.slot_granted).
-          to eq(visit_after_responding.slots[0])
-      end
-    end
-
-    context 'with the second slot' do
-      before do
-        booking_response.selection = 'slot_1'
-      end
-
-      it 'assigns the selected slot' do
-        expect(visit_after_responding.slot_granted).
-          to eq(visit_after_responding.slots[1])
+      it 'marks each unlisted visitor as not_on_list' do
+        subject.respond!
+        expect(visit.visitors[0]).to be_not_on_list
+        expect(visit.visitors[1]).not_to be_not_on_list
       end
     end
 
-    context 'with the third slot' do
+    context 'when one of the visitors is banned' do
       before do
-        booking_response.selection = 'slot_2'
+        booking_response.visitor_banned = true
+        visit.visitors << build(:visitor)
+        booking_response.banned_visitor_ids = [visit.visitors.first.id]
       end
 
-      it 'assigns the selected slot' do
-        expect(visit_after_responding.slot_granted).
-          to eq(visit_after_responding.slots[2])
+      it 'marks each unlisted visitor as not_on_list' do
+        subject.respond!
+        expect(visit.visitors[0]).to be_banned
+        expect(visit.visitors[1]).not_to be_banned
       end
     end
   end
@@ -230,11 +193,11 @@ RSpec.describe BookingResponder do
       end
     end
 
-    context 'because the visitor is not on the list' do
+    context 'because none of the visitors are on the list' do
       before do
-        booking_response.selection = 'visitor_not_on_list'
+        booking_response.visitor_not_on_list = true
         visit.visitors << build(:visitor)
-        booking_response.unlisted_visitor_ids = [visit.visitors.first.id]
+        booking_response.unlisted_visitor_ids = visit.visitors.map(&:id)
       end
 
       it 'changes the status of the visit to rejected' do
@@ -253,13 +216,13 @@ RSpec.describe BookingResponder do
       it 'marks each unlisted visitor as not_on_list' do
         subject.respond!
         expect(visit.visitors[0]).to be_not_on_list
-        expect(visit.visitors[1]).not_to be_not_on_list
+        expect(visit.visitors[1]).to be_not_on_list
       end
     end
 
-    context 'because the visitor is banned' do
+    context 'because the only visitor is banned' do
       before do
-        booking_response.selection = 'visitor_banned'
+        booking_response.visitor_banned = true
         visit.visitors << build(:visitor)
         booking_response.banned_visitor_ids = [visit.visitors.first.id]
       end
@@ -277,7 +240,7 @@ RSpec.describe BookingResponder do
           to eq('visitor_banned')
       end
 
-      it 'marks each unlisted visitor as not_on_list' do
+      it 'marks each banned visitor as banned' do
         subject.respond!
         expect(visit.visitors[0]).to be_banned
         expect(visit.visitors[1]).not_to be_banned

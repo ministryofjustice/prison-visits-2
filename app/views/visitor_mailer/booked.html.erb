@@ -16,7 +16,7 @@
   <strong><%= @visit.prisoner_number %></strong>
 </p>
 
-<% @visit.visitors.each_with_index do |visitor, index| %>
+<% @visit.visitors.allowed.each_with_index do |visitor, index| %>
   <p>
     <%= t('.visitor', n: index + 1) %>
     <strong><%= visitor.anonymized_name %></strong>
@@ -30,6 +30,20 @@
 
 <% if @visit.closed? %>
   <p><%= t(".this_is_a_closed_visit_html") %></p>
+<% end %>
+
+<% if @visit.visitors.any?(&:banned?) %>
+  <% @visit.visitors.select(&:banned?).each do |v| %>
+    <p><%= t('.visitor_banned_html', name: v.anonymized_name) %></p>
+  <% end %>
+  <p><%= t('.banned_instructions') %></p>
+<% end %>
+
+<% if @visit.visitors.any?(&:not_on_list?) %>
+  <% @visit.visitors.select(&:not_on_list?).each do |v| %>
+    <p><%= t('.visitor_not_on_list_html', name: v.anonymized_name) %></p>
+  <% end %>
+  <p><%= t('.not_on_list_instructions') %></p>
 <% end %>
 
 <h2><%= t('.cancel_change_title') %></h2>

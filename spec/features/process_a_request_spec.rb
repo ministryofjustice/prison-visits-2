@@ -65,26 +65,88 @@ RSpec.feature 'Processing a request', js: true do
     end
   end
 
-  scenario 'accepting a booking' do
-    find('#booking_response_selection_slot_0').click
-    fill_in 'Reference number', with: '12345678'
+  context 'accepting' do
+    scenario 'accepting a booking' do
+      find('#booking_response_selection_slot_0').click
+      fill_in 'Reference number', with: '12345678'
 
-    click_button 'Send email'
+      click_button 'Send email'
 
-    expect(page).to have_text('A confirmation email has been sent to the visitor')
+      expect(page).to have_text('A confirmation email has been sent to the visitor')
 
-    vst.reload
-    expect(vst).to be_booked
-    expect(vst.reference_no).to eq('12345678')
+      vst.reload
+      expect(vst).to be_booked
+      expect(vst.reference_no).to eq('12345678')
 
-    expect(contact_email_address).
-      to receive_email.
-      with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
-      and_body(/Your visit to Reading Gaol is now successfully confirmed/)
-    expect(prison_email_address).
-      to receive_email.
-      with_subject(/COPY of booking confirmation for Oscar Wilde/).
-      and_body(/This is a copy of the booking confirmation email sent to the visitor/)
+      expect(contact_email_address).
+        to receive_email.
+        with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
+        and_body(/Your visit to Reading Gaol is now successfully confirmed/)
+      expect(prison_email_address).
+        to receive_email.
+        with_subject(/COPY of booking confirmation for Oscar Wilde/).
+        and_body(/This is a copy of the booking confirmation email sent to the visitor/)
+    end
+
+    context 'disallowed visitors' do
+      before do
+        vst.visitors << build(:visitor)
+      end
+
+      scenario 'accepting a booking while banning a visitor' do
+        find('#booking_response_selection_slot_0').click
+        fill_in 'Reference number', with: '12345678'
+
+        check 'Visitor is banned'
+        within '#visitor_banned_details' do
+          check vst.visitors.first.full_name
+        end
+
+        click_button 'Send email'
+
+        expect(page).to have_text('A confirmation email has been sent to the visitor')
+
+        vst.reload
+        expect(vst).to be_booked
+        expect(vst.reference_no).to eq('12345678')
+
+        expect(contact_email_address).
+          to receive_email.
+          with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
+          and_body(/cannot attend as they are currently banned/)
+        expect(prison_email_address).
+          to receive_email.
+          with_subject(/COPY of booking confirmation for Oscar Wilde/).
+          and_body(/This is a copy of the booking confirmation email sent to the visitor/)
+      end
+
+      scenario 'accepting a booking while indicating a visitor is not on the list' do
+        find('#booking_response_selection_slot_0').click
+        fill_in 'Reference number', with: '12345678'
+
+        check "Visitor is not on the contact list"
+        within '#visitor_not_on_list_details' do
+          check vst.visitors.first.full_name
+        end
+
+        click_button 'Send email'
+
+        expect(page).to have_text('A confirmation email has been sent to the visitor')
+
+        vst.reload
+        expect(vst).to be_booked
+        expect(vst.reference_no).to eq('12345678')
+
+        expect(contact_email_address).
+          to receive_email.
+          with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
+          and_body(/cannot attend as they are not on the prisoner’s contact list/)
+        expect(prison_email_address).
+          to receive_email.
+          with_subject(/COPY of booking confirmation for Oscar Wilde/).
+          and_body(/This is a copy of the booking confirmation email sent to the visitor/)
+      end
+    end
   end
 
   scenario 'rejecting a booking with no available slot' do
@@ -177,10 +239,12 @@ RSpec.feature 'Processing a request', js: true do
       and_body(/This is a copy of the booking rejection email sent to the visitor/)
   end
 
-  scenario 'rejecting a booking when the visitor is not on the contact list' do
-    choose 'Visitor isn’t on the contact list'
+  scenario 'rejecting a booking when no visitors are on the contact list' do
+    check 'Visitor is not on the contact list'
     within '#visitor_not_on_list_details' do
-      check vst.visitors.first.full_name
+      vst.visitors.each do |v|
+        check v.full_name
+      end
     end
 
     click_button 'Send email'
@@ -202,10 +266,12 @@ RSpec.feature 'Processing a request', js: true do
       and_body(/This is a copy of the booking rejection email sent to the visitor/)
   end
 
-  scenario 'rejecting a booking when the visitor is banned' do
-    choose 'Visitor is banned'
+  scenario 'rejecting a booking when all visitors are banned' do
+    check 'Visitor is banned'
     within '#visitor_banned_details' do
-      check vst.visitors.first.full_name
+      vst.visitors.each do |v|
+        check v.full_name
+      end
     end
 
     click_button 'Send email'

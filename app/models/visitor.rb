@@ -9,6 +9,10 @@ class Visitor < ActiveRecord::Base
     order(sort_index: :asc)
   end
 
+  def self.allowed
+    where(banned: false, not_on_list: false)
+  end
+
   def self.banned
     where(banned: true)
   end
