@@ -17,5 +17,5 @@ cy:
         prison:
           duplicate_unbookable_date: 'Nid yw''n bosib clicio ddwywaith ar ddyddiad
             sydd ddim ar gael  '
-          unbookable_and_anomalous_conflict: Nid yw'n anarferol cael dyddiad sydd
+          unbookable_and_anomalous_conflict: Nid yw'n anarferol i gael dyddiad sydd
             ddim ar gael
