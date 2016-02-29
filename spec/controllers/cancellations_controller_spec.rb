@@ -73,6 +73,11 @@ RSpec.describe CancellationsController, type: :controller do
           post :create, params
           expect(response).to redirect_to(visit_path(visit, locale: 'en'))
         end
+
+        it 'does not try to re-cancel the visit' do
+          expect_any_instance_of(Visit).not_to receive(:cancel!)
+          post :create, params
+        end
       end
     end
 

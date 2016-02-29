@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe Visit, type: :model do
   subject { build(:visit) }
 
+  let(:mailing) {
+    double(Mail::Message, deliver_later: nil)
+  }
+
   describe '.delivery_error_type' do
     specify do
       is_expected.
@@ -38,6 +42,13 @@ RSpec.describe Visit, type: :model do
       subject.accept!
       subject.cancel!
       expect(subject).to be_cancelled
+    end
+
+    it "sends an email when cancelling" do
+      subject.accept!
+
+      expect(PrisonMailer).to receive(:cancelled).with(subject).and_return(mailing)
+      subject.cancel!
     end
 
     it 'is not processable after booking' do
