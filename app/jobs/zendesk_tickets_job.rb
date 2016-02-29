@@ -22,6 +22,7 @@ class ZendeskTicketsJob < ActiveJob::Base
       custom_fields: custom_fields(feedback)
     )
   end
+  # rubocop:enable Metrics/MethodLength
 
   def custom_fields(feedback)
     [
