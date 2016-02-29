@@ -10,7 +10,6 @@ if url && username && token
     config.retry = true
   end
 else
-  # rubocop:disable Rails/Output
   # (Rails logger is not initialized yet)
-  puts '[WARN] Zendesk is not configured'
+  STDOUT.puts '[WARN] Zendesk is not configured'
 end

@@ -24,7 +24,6 @@ module SmokeTest
         select_prison(prisoner.prison_name)
         click_button 'Continue'
       end
-
     # rubocop:enable Metrics/AbcSize
 
     private

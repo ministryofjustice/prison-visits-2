@@ -51,6 +51,9 @@ private
     end
     :valid
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/MethodLength
 
   def override_sendgrid?
     @override_sendgrid

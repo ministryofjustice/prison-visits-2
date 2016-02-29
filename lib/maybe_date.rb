@@ -22,4 +22,5 @@ class MaybeDate < Virtus::Attribute
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 end
