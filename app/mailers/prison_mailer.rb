@@ -50,7 +50,19 @@ class PrisonMailer < ActionMailer::Base
       to: visit.prison_email_address,
       subject: default_i18n_subject(
         prisoner: visit.prisoner_full_name,
-        date: format_date_without_year(visit.slots.first.begin_at),
+        date: format_date_without_year(visit.slot_granted),
+        status: visit.processing_state.upcase
+      )
+    )
+  end
+
+  def withdrawn(visit)
+    @visit = visit
+
+    mail(
+      to: visit.prison_email_address,
+      subject: default_i18n_subject(
+        prisoner: visit.prisoner_full_name,
         status: visit.processing_state.upcase
       )
     )

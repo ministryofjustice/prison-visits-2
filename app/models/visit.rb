@@ -35,9 +35,6 @@ class Visit < ActiveRecord::Base
         VisitStateChange.new(visit_state: visit.processing_state)
     end
 
-    after_transition any => %i[cancelled withdrawn],
-                     do: :send_cancellation_email
-
     event :accept do
       transition requested: :booked
     end
@@ -51,6 +48,14 @@ class Visit < ActiveRecord::Base
       transition withdrawn: :withdrawn
       transition booked: :cancelled
       transition rejected: :rejected
+    end
+
+    after_transition booked: :cancelled do |visit, _|
+      PrisonMailer.cancelled(visit).deliver_later
+    end
+
+    after_transition requested: :withdrawn do |visit, _|
+      PrisonMailer.withdrawn(visit).deliver_later
     end
   end
 
@@ -89,11 +94,5 @@ class Visit < ActiveRecord::Base
 
   def unlisted_visitors
     visitors.unlisted
-  end
-
-private
-
-  def send_cancellation_email
-    PrisonMailer.cancelled(self).deliver_later
   end
 end

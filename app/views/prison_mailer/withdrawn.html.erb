@@ -4,8 +4,7 @@
   <%= t('.details',
           visitor: @visit.visitor_full_name,
           prisoner: @visit.prisoner_full_name,
-          prisoner_number: @visit.prisoner_number,
-          date: format_slot_for_staff(@visit.slot_granted)
+          prisoner_number: @visit.prisoner_number
        )
   %>
 </p>
@@ -15,8 +14,6 @@
     <%= t('.reference', reference_no: @visit.reference_no) %>
   </p>
 <% end %>
-
-<p><%= t('.please_delete') %></p>
 
 <p>
   <%= t('.regards') %>
