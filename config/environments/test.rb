@@ -15,6 +15,7 @@ Rails.application.configure do
   config.active_support.test_order = :random
   config.active_support.deprecation = :stderr
 
+  config.enable_sendgrid_validations = true
   config.mx_checker = MxChecker::Dummy.new
 
   config.i18n.load_path =

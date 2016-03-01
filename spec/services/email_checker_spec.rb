@@ -98,10 +98,19 @@ RSpec.describe EmailChecker do
         it { is_expected.not_to be_reset_spam_report }
       end
 
-      context 'but override is set' do
+      context 'but override is set by a parameter' do
         let(:override) { true }
         it_behaves_like 'a valid address'
         it { is_expected.to be_reset_spam_report }
+      end
+
+      context 'but sendgrid validations are disabled' do
+        before do
+          allow(Rails.configuration).
+            to receive(:enable_sendgrid_validations).
+            and_return(false)
+        end
+        it_behaves_like 'a valid address'
       end
     end
 
@@ -115,10 +124,19 @@ RSpec.describe EmailChecker do
         it { is_expected.not_to be_reset_bounce }
       end
 
-      context 'but override is set' do
+      context 'but override is set by a paramenter' do
         let(:override) { true }
         it_behaves_like 'a valid address'
         it { is_expected.to be_reset_bounce }
+      end
+
+      context 'but sendgrid validations are disabled' do
+        before do
+          allow(Rails.configuration).
+            to receive(:enable_sendgrid_validations).
+            and_return(false)
+        end
+        it_behaves_like 'a valid address'
       end
     end
   end
