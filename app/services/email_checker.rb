@@ -56,7 +56,7 @@ private
   # rubocop:enable Metrics/MethodLength
 
   def override_sendgrid?
-    @override_sendgrid
+    @override_sendgrid || !Rails.configuration.enable_sendgrid_validations
   end
 
   def domain
