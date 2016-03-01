@@ -1,4 +1,39 @@
 <p class="copy-notice">
+  <strong>Confirmed booking information</strong>
+</p>
+
+<table cellspacing="10">
+  <tr>
+    <th valign="top" align="left">Slot granted</th>
+    <td><%= format_slot_for_public(@visit.slot_granted) %></td>
+  </tr>
+  <tr>
+    <th valign="top" align="left">Prisoner name</th>
+    <td><%= @visit.prisoner_full_name %></td>
+  </tr>
+  <tr>
+    <th valign="top" align="left">Prisoner number</th>
+    <td><%= @visit.prisoner_number %></td>
+  </tr>
+  <tr>
+    <th valign="top" align="left">Approved visitors</th>
+    <td>
+      <% @visit.visitors.allowed.each do |visitor| %>
+      <div><%= visitor.full_name %></div>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th valign="top" align="left">Reference number</th>
+    <td><%= @visit.reference_no %></td>
+  </tr>
+  <tr>
+    <th valign="top" align="left">Visit ID</th>
+    <td><%= @visit.id %></td>
+  </tr>
+</table>
+
+<p class="copy-notice">
   <strong><%= t('.copy_of_booking') %></strong>
 </p>
 

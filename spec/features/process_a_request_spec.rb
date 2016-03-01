@@ -85,7 +85,9 @@ RSpec.feature 'Processing a request', js: true do
       expect(prison_email_address).
         to receive_email.
         with_subject(/COPY of booking confirmation for Oscar Wilde/).
-        and_body(/This is a copy of the booking confirmation email sent to the visitor/)
+        with_body(/This is a copy of the booking confirmation email sent to the visitor/).
+        with_body(/#{vst.visitors.first.full_name}/).
+        with_body(/#{vst.prisoner.full_name}/)
     end
 
     context 'disallowed visitors' do
