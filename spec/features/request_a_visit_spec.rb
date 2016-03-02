@@ -5,7 +5,9 @@ RSpec.feature 'Booking a visit', js: true do
   include FeaturesHelper
 
   let!(:prison) { create(:prison, name: 'Reading Gaol') }
-  let(:visitor_email) { 'ado@test.example.com' }
+
+  # Whitespace on email to test stripping
+  let(:visitor_email) { ' ado@test.example.com ' }
 
   scenario 'happy path' do
     visit booking_requests_path(locale: 'en')
@@ -32,7 +34,7 @@ RSpec.feature 'Booking a visit', js: true do
       to receive_email.
       with_subject(/\AVisit request for Oscar Wilde on \w+ \d+ \w+\z/).
       and_body(/Prisoner:\s*Oscar Wilde/)
-    expect(visitor_email).
+    expect(visitor_email.strip).
       to receive_email.
       with_subject(/we’ve received your visit request for \w+ \d+ \w+\z/).
       and_body(/Prisoner:\s*Oscar W/)

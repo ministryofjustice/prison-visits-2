@@ -4,6 +4,13 @@ RSpec.describe VisitorsStep do
   let(:prison) { build(:prison) }
   subject { described_class.new(prison: prison) }
 
+  describe "email_address=" do
+    it 'strips whitespace' do
+      subject.email_address = ' email@example.com '
+      expect(subject.email_address).to eq('email@example.com')
+    end
+  end
+
   describe 'backfilled_visitors' do
     it 'includes supplied visitors' do
       subject.visitors_attributes = {
