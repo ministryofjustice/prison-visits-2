@@ -1,5 +1,90 @@
-<p class="copy-notice">
-  <strong><%= t('.copy_of_booking') %></strong>
+<p><%= t(".salutation", name: (@visit.visitor_full_name)) %></p>
+
+<p><%= t(".visit_confirmed", prison: (@visit.prison_name)) %></p>
+
+<h3><%= format_slot_for_public(@visit.slot_granted) %></h3>
+
+<p><%= t(".please_arrive") %></p>
+
+<p>
+  <%= t('.prisoner') %>
+  <strong><%= @visit.prisoner_full_name %></strong>
 </p>
 
-<%= render(template: 'visitor_mailer/booked') %>
+<p>
+  <%= t('.number') %>
+  <strong><%= @visit.prisoner_number %></strong>
+</p>
+
+<% @visit.visitors.allowed.each_with_index do |visitor, index| %>
+  <p>
+    <%= t('.visitor', n: index + 1) %>
+    <strong><%= visitor.full_name %></strong>
+  </p>
+<% end %>
+
+<p>
+  <%= t(".reference_no") %>
+  <strong><%= @visit.reference_no %></strong>
+</p>
+
+<% if @visit.closed? %>
+  <p><%= t(".this_is_a_closed_visit_html") %></p>
+<% end %>
+
+<% if @visit.visitors.any?(&:banned?) %>
+  <% @visit.visitors.select(&:banned?).each do |v| %>
+    <p><%= t('.visitor_banned_html', name: v.full_name) %></p>
+  <% end %>
+  <p><%= t('.banned_instructions') %></p>
+<% end %>
+
+<% if @visit.visitors.any?(&:not_on_list?) %>
+  <% @visit.visitors.select(&:not_on_list?).each do |v| %>
+    <p><%= t('.visitor_not_on_list_html', name: v.full_name) %></p>
+  <% end %>
+  <p><%= t('.not_on_list_instructions') %></p>
+<% end %>
+
+<h2><%= t('.cancel_change_title') %></h2>
+
+<p>
+  <%= t('.cancel_html', url: visit_url(id: @visit, locale: I18n.locale)) %>
+</p>
+
+<p><%= t(".want_to_change") %></p>
+
+<h2><%= t(".questions_about_your_visit") %></h2>
+
+<p><%= t(".dont_reply") %></p>
+
+<ul>
+  <li>
+    <%= t(".phone_no") %>
+    <strong><%= @visit.prison_phone_no %></strong>
+  </li>
+  <li>
+    <%= t(".email_address") %>
+    <strong><%= @visit.prison_email_address %></strong>
+  </li>
+</ul>
+
+<h2><%= t(".avoid_spam_filtering_title") %></h2>
+
+<p><%= t(".avoid_spam_filtering_body",
+         email: address_book.no_reply) %>
+
+<%= render('shared/visit_info', visit: @visit) %>
+
+<h2><%= t(".your_data_title") %></h2>
+
+<p><%= t(".your_data_body") %></p>
+
+<h2><%= t(".need_help_title") %></h2>
+
+<p><%= t(".need_help_body_html",
+         url: new_feedback_submission_url(locale: I18n.locale)) %></p>
+
+<p>
+  <small><%= t(".visit_id") %> <%= @visit.id %></small>
+</p>

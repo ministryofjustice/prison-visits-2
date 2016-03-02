@@ -84,8 +84,8 @@ RSpec.feature 'Processing a request', js: true do
         and_body(/Your visit to Reading Gaol is now successfully confirmed/)
       expect(prison_email_address).
         to receive_email.
-        with_subject(/COPY of booking confirmation for Oscar Wilde/).
-        and_body(/This is a copy of the booking confirmation email sent to the visitor/)
+        with_subject(/Booking confirmation for Oscar Wilde/).
+        and_body(/#{vst.visitors.first.full_name}/)
     end
 
     context 'disallowed visitors' do
@@ -114,10 +114,12 @@ RSpec.feature 'Processing a request', js: true do
           to receive_email.
           with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
           and_body(/cannot attend as they are currently banned/)
+
         expect(prison_email_address).
           to receive_email.
-          with_subject(/COPY of booking confirmation for Oscar Wilde/).
-          and_body(/This is a copy of the booking confirmation email sent to the visitor/)
+          with_subject(/Booking confirmation for Oscar Wilde/).
+          with_body(/#{vst.visitors.first.full_name}/).
+          with_body(/#{vst.prisoner.full_name}/)
       end
 
       scenario 'accepting a booking while indicating a visitor is not on the list' do
@@ -143,8 +145,8 @@ RSpec.feature 'Processing a request', js: true do
           and_body(/cannot attend as they are not on the prisoner’s contact list/)
         expect(prison_email_address).
           to receive_email.
-          with_subject(/COPY of booking confirmation for Oscar Wilde/).
-          and_body(/This is a copy of the booking confirmation email sent to the visitor/)
+          with_subject(/Booking confirmation for Oscar Wilde/).
+          and_body(/#{vst.visitors.first.full_name}/)
       end
     end
   end
