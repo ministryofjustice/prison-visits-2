@@ -276,6 +276,10 @@ These are required in order to submit user feedback to Zendesk.
 
 `ZENDESK_URL` defaults to `https://ministryofjustice.zendesk.com/api/v2`.
 
+#### `ENABLE_SENDGRID_VALIDATIONS` (optional)
+
+If specified it will enable the email validations that use Sendgrid in the `EmailChecker` class.
+
 #### `ASSET_HOST` (optional)
 
 If specified this will configure Rails' `config.asset_host`, resulting in all asset URLs pointing to this host.
