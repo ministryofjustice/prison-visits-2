@@ -11,6 +11,7 @@ RSpec.describe SendgridApi, '.bounced?' do
 
   context 'sendgrid credentials are set' do
     include_examples 'error handling'
+    include_examples 'timeout handling'
 
     context 'when there is no bounce' do
       it_should_behave_like 'there is nothing to report'

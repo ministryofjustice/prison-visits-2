@@ -1,6 +1,8 @@
 class SendgridApi
   extend SingleForwardable
 
+  DEFAULT_TIMEOUT = 2 # seconds
+
   def_single_delegators :new, :spam_reported?, :bounced?,
     :remove_from_bounce_list, :remove_from_spam_list
 
@@ -23,7 +25,12 @@ class SendgridApi
 private
 
   def api(&_action)
-    yield
+    Timeout.timeout(DEFAULT_TIMEOUT) do
+      yield
+    end
+  rescue Timeout::Error => e
+    Rails.logger.error("SendgripApi timeout: #{e.class} #{e}")
+    false
   rescue => e
     Rails.logger.error("SendgridApi error: #{e.class} #{e}")
     false
