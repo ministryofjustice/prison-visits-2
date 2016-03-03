@@ -78,3 +78,14 @@ RSpec.shared_examples 'there is something to report' do
     expect(subject).to be_truthy
   end
 end
+
+RSpec.shared_examples 'timeout handling' do
+  specify do
+    expect(Timeout).
+      to receive(:timeout).
+      with(described_class::DEFAULT_TIMEOUT).
+      and_raise(Timeout::Error)
+
+    expect(subject).to be_falsey
+  end
+end

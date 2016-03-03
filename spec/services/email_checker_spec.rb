@@ -139,5 +139,11 @@ RSpec.describe EmailChecker do
         it_behaves_like 'a valid address'
       end
     end
+
+    context 'when sendgrid api client times out' do
+      include_context 'sendgrid timeouts'
+
+      it { is_expected.to be_valid }
+    end
   end
 end
