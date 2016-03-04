@@ -32,8 +32,12 @@ Rails.application.configure do
   config.lograge.logger = ActiveSupport::Logger.new \
     "#{Rails.root}/log/logstash_#{Rails.env}.json"
 
+  config.sendgrid_api_host = ENV['SENDGRID_API_HOST']
+  config.sendgrid_api_user = ENV['SMTP_USERNAME']
+  config.sendgrid_api_key = ENV['SMTP_PASSWORD']
   config.enable_sendgrid_validations =
     ENV.key?('ENABLE_SENDGRID_VALIDATIONS')
+
   config.mx_checker = MxChecker.new
 
   config.active_job.queue_adapter = :sidekiq

@@ -15,6 +15,9 @@ Rails.application.configure do
   config.active_support.test_order = :random
   config.active_support.deprecation = :stderr
 
+  config.sendgrid_api_host = ENV['SENDGRID_API_HOST'] || 'https://sendgrid.example.com/'
+  config.sendgrid_api_user = ENV['SMTP_USERNAME']
+  config.sendgrid_api_key = ENV['SMTP_PASSWORD']
   config.enable_sendgrid_validations = true
   config.mx_checker = MxChecker::Dummy.new
 

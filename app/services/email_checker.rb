@@ -23,37 +23,40 @@ class EmailChecker
 
   def reset_bounce?
     return false unless parsed
-    override_sendgrid? && SendgridApi.bounced?(parsed.address)
+    override_sendgrid? && sendgrid_api.bounced?(parsed.address)
   end
 
   def reset_spam_report?
     return false unless parsed
-    override_sendgrid? && SendgridApi.spam_reported?(parsed.address)
+    override_sendgrid? && sendgrid_api.spam_reported?(parsed.address)
   end
 
 private
 
   attr_reader :original_address, :parsed
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  # rubocop:disable Metrics/PerceivedComplexity
-  # rubocop:disable Metrics/MethodLength
   def compute_error
+    format_error || mx_records_error || sendgrid_error || :valid
+  end
+
+  def format_error
     return :unparseable unless parsed
     return :domain_dot if domain_dot_error?
     return :malformed unless well_formed_address?
+  end
+
+  def mx_records_error
     return :no_mx_record unless mx_records?
+  end
+
+  def sendgrid_error
     unless override_sendgrid?
       Metrics.log('Validating email address via Sendgrid API') do
-        return :spam_reported if SendgridApi.spam_reported?(parsed.address)
-        return :bounced if SendgridApi.bounced?(parsed.address)
+        return :spam_reported if sendgrid_api.spam_reported?(parsed.address)
+        return :bounced if sendgrid_api.bounced?(parsed.address)
       end
     end
-    :valid
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
-  # rubocop:enable Metrics/PerceivedComplexity
-  # rubocop:enable Metrics/MethodLength
 
   def override_sendgrid?
     @override_sendgrid || !Rails.configuration.enable_sendgrid_validations
@@ -82,5 +85,9 @@ private
     Metrics.log('Validating email address MX record') do
       Rails.configuration.mx_checker.records?(domain)
     end
+  end
+
+  def sendgrid_api
+    @sendgrid_api ||= SendgridApi.new
   end
 end

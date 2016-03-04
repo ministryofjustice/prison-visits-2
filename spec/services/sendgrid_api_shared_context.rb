@@ -12,27 +12,27 @@ end
 
 RSpec.shared_context 'sendgrid credentials are set' do
   before do
-    allow(ENV).to receive(:[]).
-      with('SMTP_USERNAME').and_return('test_smtp_username')
+    allow(Rails.configuration).to receive(:sendgrid_api_user).
+      and_return('test_smtp_username')
 
-    allow(ENV).to receive(:[]).
-      with('SMTP_PASSWORD').and_return('test_smtp_password')
+    allow(Rails.configuration).to receive(:sendgrid_api_key).
+      and_return('test_smtp_password')
   end
 end
 
 RSpec.shared_context 'sendgrid credentials are not set' do
   before do
-    allow(ENV).to receive(:[]).
-      with('SMTP_USERNAME').and_return(nil)
+    allow(Rails.configuration).to receive(:sendgrid_api_user).
+      and_return(nil)
 
-    allow(ENV).to receive(:[]).
-      with('SMTP_PASSWORD').and_return(nil)
+    allow(Rails.configuration).to receive(:sendgrid_api_key).
+      and_return(nil)
   end
 end
 
 RSpec.shared_context 'sendgrid api responds normally' do
   before do
-    stub_request(:any, %r{.+api\.sendgrid\.com/api/.+\.json}).
+    stub_request(:any, %r{.+sendgrid\.example\.com/api/.+\.json}).
       with(query: hash_including(
         'api_key'   => 'test_smtp_password',
         'api_user'  => 'test_smtp_username',
@@ -43,7 +43,7 @@ end
 
 RSpec.shared_context 'sendgrid api raises an exception' do
   before do
-    stub_request(:any, %r{.*api\.sendgrid\.com/api/.+\.json}).
+    stub_request(:any, %r{.*sendgrid\.example\.com/api/.+\.json}).
       to_raise(StandardError)
   end
 end

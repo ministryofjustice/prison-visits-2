@@ -83,6 +83,7 @@ GEM
     docile (1.1.5)
     equalizer (0.0.11)
     erubis (2.7.0)
+    excon (0.47.0)
     execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -109,9 +110,6 @@ GEM
     highline (1.7.8)
     htmlentities (4.3.4)
     http_accept_language (2.0.5)
-    httparty (0.13.7)
-      json (~> 1.8)
-      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     ice_nine (0.11.1)
     inflection (1.0.0)
@@ -138,7 +136,6 @@ GEM
     moj_template (0.21.0)
       rails (>= 3.1)
     multi_json (1.11.2)
-    multi_xml (0.5.5)
     multipart-post (2.0.0)
     netaddr (1.5.0)
     nokogiri (1.6.7.2)
@@ -248,8 +245,6 @@ GEM
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
     scrub_rb (1.0.1)
-    sendgrid_toolkit (1.4.0)
-      httparty (>= 0.7.6)
     sentry-raven (0.15.4)
       faraday (>= 0.7.6)
     sexp_processor (4.6.0)
@@ -334,6 +329,7 @@ DEPENDENCIES
   byebug
   capybara
   database_cleaner
+  excon (~> 0.47.0)
   factory_girl_rails
   ffaker
   fuubar
@@ -362,7 +358,6 @@ DEPENDENCIES
   rubocop-rspec
   sass-rails (~> 5.0)
   scenic (>= 1.2.0)
-  sendgrid_toolkit
   sentry-raven (= 0.15.4)
   shoulda-matchers
   sidekiq

@@ -1,12 +1,13 @@
 class SpamAndBounceResets
   def initialize(visit)
     @visit = visit
+    @sendgrid_api = SendgridApi.new
   end
 
   delegate :contact_email_address, :override_delivery_error?,
     :delivery_error_type, to: :@visit
 
-  delegate :remove_from_bounce_list, :remove_from_spam_list, to: :SendgridApi
+  delegate :remove_from_bounce_list, :remove_from_spam_list, to: :@sendgrid_api
 
   def perform_resets
     return unless override_delivery_error?

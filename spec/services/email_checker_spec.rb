@@ -70,8 +70,10 @@ RSpec.describe EmailChecker do
     end
 
     it 'checks Sendgrid only once' do
-      expect(SendgridApi).to receive(:spam_reported?).once.and_return(false)
-      expect(SendgridApi).to receive(:bounced?).once.and_return(false)
+      expect_any_instance_of(SendgridApi).
+        to receive(:spam_reported?).once.and_return(false)
+      expect_any_instance_of(SendgridApi).
+        to receive(:bounced?).once.and_return(false)
 
       2.times do
         subject.valid?

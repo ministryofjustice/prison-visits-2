@@ -2,9 +2,10 @@ require 'rails_helper'
 require_relative '../sendgrid_api_shared_context'
 require_relative './shared_examples'
 
-RSpec.describe SendgridApi, '.bounced?' do
+RSpec.describe SendgridApi, '#bounced?' do
+  let(:instance) { described_class.new }
   subject {
-    described_class.bounced?('test@example.com')
+    instance.bounced?('test@example.com')
   }
 
   include_context 'sendgrid shared tools'

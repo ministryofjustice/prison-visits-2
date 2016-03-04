@@ -18,7 +18,7 @@ RSpec.shared_examples 'error handling' do
       let(:body) { '{"error":"LOL"}' }
 
       it 'rescues, logs the error and returns false' do
-        check_error_log_message_contains(/SendgridToolkit::APIError LOL/)
+        check_error_log_message_contains(/SendgridApi::Error.+LOL/)
         expect(subject).to be_falsey
       end
     end
@@ -39,21 +39,25 @@ RSpec.shared_examples 'error handling for missing credentials' do
     include_context 'sendgrid credentials are not set'
 
     it 'rescues, logs the error and returns false' do
-      check_error_log_message_contains(/SendgridToolkit::NoAPIUserSpecified/)
+      check_error_log_message_contains(
+        /SendgridApi::Error.+no api credentials specified/)
       expect(subject).to be_falsey
     end
 
     it 'does not talk to sendgrid' do
-      expect(HTTParty).to receive(:post).never { subject }
+      subject
+      expect(a_request(:any, /#{Rails.configuration.sendgrid_api_host}/)).
+        to_not have_been_made
     end
   end
 end
 
 RSpec.shared_examples 'API reports email does not exist' do
-  let(:body) { '{"message": "Email does not exist"}' }
+  let(:message) { 'Email does not exist' }
+  let(:body) { "{\"message\": \"#{message}\"}" }
 
   specify do
-    check_error_log_message_contains(/EmailDoesNotExist/)
+    check_error_log_message_contains(/SendgridApi::Error.+#{message}/)
     expect(subject).to be_falsey
   end
 end

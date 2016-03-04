@@ -2,9 +2,10 @@ require 'rails_helper'
 require_relative '../sendgrid_api_shared_context'
 require_relative './shared_examples'
 
-RSpec.describe SendgridApi, '.spam_reported?' do
+RSpec.describe SendgridApi, '#spam_reported?' do
+  let(:instance) { described_class.new }
   subject {
-    described_class.spam_reported?('test@example.com')
+    instance.spam_reported?('test@example.com')
   }
 
   include_context 'sendgrid shared tools'
