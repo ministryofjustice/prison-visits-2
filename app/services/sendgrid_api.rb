@@ -1,9 +1,12 @@
 class SendgridApi
   class Error < StandardError; end
 
+  TIMEOUT = 2 # seconds
+
   def initialize
     @connection = Excon.new(Rails.configuration.sendgrid_api_host,
-      persistent: true)
+      persistent: true,
+      connect_timeout: TIMEOUT)
   end
 
   def spam_reported?(email)
@@ -37,8 +40,10 @@ class SendgridApi
     response = post_request(route, body)
 
     check_email_error(response)
+    true
   rescue => e
     Rails.logger.error("SendgridApi error: #{e.class} #{e}")
+    false
   end
 
   def remove_from_spam_list(email)
@@ -48,8 +53,10 @@ class SendgridApi
     response = post_request(route, body)
 
     check_email_error(response)
+    true
   rescue => e
     Rails.logger.error("SendgridApi error: #{e.class} #{e}")
+    false
   end
 
 private
@@ -67,7 +74,7 @@ private
   end
 
   # rubocop:disable Metrics/MethodLength
-  def get_request(route, query)
+  def get_request(route, query, timeout: TIMEOUT)
     options = {
       path: "api/#{route}",
       expects: [200],
@@ -75,7 +82,9 @@ private
         'Accept' => 'application/json',
         'Accept-Language' => 'en'
       },
-      query: query.merge(credentials)
+      query: query.merge(credentials),
+      read_timeout: timeout,
+      write_timeout: timeout
     }
 
     response = JSON.parse(@connection.get(options).body)
@@ -87,7 +96,7 @@ private
   # rubocop:enable Metrics/MethodLength
 
   # rubocop:disable Metrics/MethodLength
-  def post_request(route, body)
+  def post_request(route, body, timeout: TIMEOUT)
     options = {
       path: "/api/#{route}",
       expects: [200],
@@ -95,7 +104,9 @@ private
         'Accept' => 'application/json',
         'Accept-Language' => 'en'
       },
-      query: URI.encode_www_form(body.merge(credentials))
+      query: URI.encode_www_form(body.merge(credentials)),
+      read_timeout: timeout,
+      write_timeout: timeout
     }
 
     response = JSON.parse(@connection.post(options).body)
@@ -115,7 +126,7 @@ private
   end
 
   def check_email_error(response)
-    if response.try(:key?, 'message')
+    if response.try(:key?, 'message') && response['message'] != 'success'
       fail Error, "email does not exist: #{response['message']}"
     end
   end

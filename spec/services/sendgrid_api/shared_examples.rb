@@ -82,3 +82,12 @@ RSpec.shared_examples 'there is something to report' do
     expect(subject).to be_truthy
   end
 end
+
+RSpec.shared_examples 'there is a timeout' do
+  specify do
+    stub_request(:any, /#{Rails.configuration.sendgrid_api_host}/).
+      to_timeout
+
+    expect(subject).to be_falsey
+  end
+end
