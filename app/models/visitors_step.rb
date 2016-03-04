@@ -27,6 +27,10 @@ class VisitorsStep
 
   attr_reader :general # Required in order to assign errors to 'general'
 
+  def email_address=(val)
+    super(val.strip)
+  end
+
   # Return at least Prison::MAX_VISITORS visitors, filling with new instances
   # as needed. The regular #visitors method will return only those visitors
   # actually supplied via filled fields (or one blank primary visitor).
