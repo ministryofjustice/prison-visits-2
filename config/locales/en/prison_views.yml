@@ -1,0 +1,160 @@
+en:
+  prison:
+    visits:
+      calendar:
+        today: Today
+      update:
+        title: Thank you
+        booked: A confirmation email has been sent to the visitor.
+        rejected: A rejection email has been sent to the visitor.
+      show:
+        title: Process a visit request
+        introduction_html: |
+          <ul>
+            <li>
+              book the visit in NOMIS first
+            </li>
+            <li>
+              use this form to send a visit confirmation or visit rejection
+              email to the visitor
+            </li>
+            <li>
+              make sure you select visitors who can’t attend under ‘Issue
+              with visitors’
+            </li>
+          </ul>
+        submit: Send email
+        booked: This request has already been accepted
+        cancelled: The visitor has cancelled this booking
+        rejected: This request has already been rejected
+        withdrawn: The visitor has withdrawn this request
+      people_box:
+        prisoner: "Prisoner:"
+        number: "Number:"
+        date_of_birth: "Date of birth:"
+        visitor: "Visitor %{n}:"
+        age: "Age:"
+        email_address: "Email:"
+        phone_no: "Phone:"
+      shared:
+        what_we_will_tell: What we’ll tell the visitor
+      visit_date_section:
+        title: Visit date
+        choice_html: "Choice %{n}: <strong>%{date}</strong>"
+        reference_no: Reference number
+        reference_no_hint: eg Last 8 digits of VO number or “none” for remand
+        closed_visit: This is a closed visit
+        closed_visit_wording_html: |
+          <p>
+            <strong>This is a closed visit:</strong> the prisoner will be
+            behind a glass screen in a separate area rather than in the
+            visiting hall.
+          </p>
+        none_available: None of the chosen times are available
+        none_available_explanation_html: |
+          <p>
+            Choose this option if:
+          </p>
+
+          <ul>
+            <li>
+              the prisoner has restrictions on their visits
+            </li>
+            <li>
+              the prisoner is due to be elsewhere, eg at court
+            </li>
+            <li>
+              the visit can’t take place because another prisoner is having a
+              visit at the same time and they are incompatible
+            </li>
+          </ul>
+        none_available_wording_html: |
+          <p>
+            We’re sorry but none of the dates and times you chose to visit
+            %{prisoner} at %{prison} were available. Please visit
+            www.gov.uk/prison-visits to choose some alternative dates.
+          </p>
+      visiting_allowance_section:
+        title: Visiting allowance
+        no_allowance: The prisoner does not have any visiting allowance (VO)
+        no_allowance_wording_html: |
+          <p>
+            We’re sorry, but the prisoner you want to visit has not got any
+            visiting allowance left for the dates you’ve chosen.
+          </p>
+        no_allowance_tell_more: >-
+          You can also tell the visitor more about the VO and PVO status:
+        allowance_will_renew: >-
+          Visiting allowance (weekends and weekday visits) (VO) will
+          be renewed:
+        allowance_will_renew_wording_html: |
+          <p>
+            %{prisoner} will have their full visiting allowance (VO) renewed on
+            <span class="date">[DATE NOT CHOSEN]</span>.
+          </p>
+        privileged_allowance_available: >-
+          If weekday visit (PVO) is possible instead, choose the date
+          PVO expires:
+        privileged_allowance_available_wording_html: |
+          <p>
+            However, you can book a weekday visit with visiting allowance valid
+            until <span class="date">[DATE NOT CHOSEN]</date>.
+            The visit must be taken before the allowance expires.
+          </p>
+      issue_with_prisoner_section:
+        title: Issue with the prisoner
+        prisoner_details_incorrect: Prisoner details are incorrect
+        prisoner_details_incorrect_wording_html: |
+          <p>
+            Your visit cannot take place as you haven’t given correct
+            information for the prisoner. Eg, the prisoner’s name, number or
+            date of birth is incorrect. Contact the prisoner to get up-to-date
+            information.
+          </p>
+        prisoner_moved: Prisoner no longer at the prison
+        prisoner_moved_wording_html: |
+          <p>
+            Your visit cannot take place as the prisoner you want to visit has
+            moved prison. They should contact you about where they are now. You
+            can also use the find a prisoner service
+            (www.gov.uk/find-prisoner).
+          </p>
+      issue_with_visitors_section:
+        title: Issue with visitors
+        visitor_not_on_list: Visitor is not on the contact list
+        visitor_not_on_list_wording_html: |
+          <h3>If there are other visitors who can visit</h3>
+          <p>
+            We will tell them who is not on the list and what they need to do
+          </p>
+          <h3>If there are no other visitors who can visit</h3>
+          <p>
+            Your visit cannot take place as details for
+            <span class="CheckboxSummary-summary">[VISITOR NAME]</span> don’t
+            match our records or they aren’t on the prisoner’s contact list.
+          </p>
+          <p>
+            Please contact the prisoner and ask them to update their contact
+            list with correct details, making sure that names appear exactly
+            the same as on ID documents.
+          </p>
+          <p>
+            If this is the prisoner’s first visit (reception visit), then you
+            need to contact the prison to book.
+          </p>
+        visitor_not_on_list_label: "%{name} (%{date}) is not on the list"
+        visitor_banned: Visitor is banned
+        visitor_banned_wording_html: |
+          <h3>If there are other visitors who can visit</h3>
+          <p>
+            We will tell them who is banned and what they need to do
+          </p>
+          <h3>If there are no other visitors who can visit</h3>
+          <p>
+            Your visit cannot take place.
+            <span class="CheckboxSummary-summary">[VISITOR NAME]</span> should
+            have received a letter to say that they’re banned from visiting the
+            prison at the moment. Get in touch with the prison for more
+            information.
+          </p>
+        visitor_banned_label: "%{name} (%{date}) is banned"

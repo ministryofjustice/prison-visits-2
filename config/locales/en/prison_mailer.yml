@@ -1,0 +1,47 @@
+en:
+  prison_mailer:
+    request_received:
+      subject: "Visit request for %{full_name} on %{request_date}"
+      prisoner: "Prisoner:"
+      number: "Number:"
+      date_of_birth: "Date of birth:"
+      choice: "Choice %{n}:"
+      visitor: "Visitor %{n}:"
+      age: "Age:"
+      email_address: "Email:"
+      phone_no: "Phone:"
+      process_booking: "Process the booking"
+      copy_paste_explanation: >-
+        If you cannot click on the link above, copy the entire link and paste
+        it into the address bar of your browser.
+      visit_id: "Visit ID:"
+    booked:
+      subject: >-
+        COPY of booking confirmation for %{prisoner}
+      copy_of_booking: >-
+        This is a copy of the booking confirmation email sent to the visitor
+    rejected:
+      subject: >-
+        COPY of booking rejection for %{prisoner}
+      copy_of_rejection: >-
+        This is a copy of the booking rejection email sent to the visitor
+    cancelled:
+      subject: "CANCELLED: Visit for %{prisoner} on %{date}"
+      salutation: Dear staff,
+      details: >-
+        %{visitor} has cancelled the visit to %{prisoner} (%{prisoner_number}) on
+        %{date}
+      reference: "Reference number: %{reference_no}"
+      please_delete: Please delete this visit from NOMIS.
+      regards:  Kind regards,
+      booking_team:  Prison visits booking team
+      visit_id: "Visit ID: %{visit_id}"
+    withdrawn:
+      subject: "WITHDRAWN: Visit request for %{prisoner}"
+      salutation: Dear staff,
+      details: >-
+        %{visitor} has withdrawn their request to visit %{prisoner} (%{prisoner_number})
+      reference: "Reference number: %{reference_no}"
+      regards:  Kind regards,
+      booking_team:  Prison visits booking team
+      visit_id: "Visit ID: %{visit_id}"
