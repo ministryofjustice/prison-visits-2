@@ -13,6 +13,7 @@ RSpec.describe SendgridApi, '#spam_reported?' do
   context 'sendgrid credentials are set' do
     include_examples 'error handling'
     include_examples 'there is a timeout'
+    include_examples 'sendgrid pool timeouts'
 
     context 'when there is no spam report' do
       it_should_behave_like 'there is nothing to report'

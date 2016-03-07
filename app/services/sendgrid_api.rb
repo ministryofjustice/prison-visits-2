@@ -3,15 +3,17 @@ class SendgridApi
 
   RESCUABLE_ERRORS = [SendgridClient::Error,
                       JSON::ParserError,
-                      Excon::Errors::Error].freeze
+                      Excon::Errors::Error,
+                      Timeout::Error
+                     ].freeze
 
   def spam_reported?(email)
     action = 'spamreports.get.json'
     query = { email: email }
 
-    response = SendgridPool.instance.with do |conn|
+    response = SendgridPool.instance.with { |conn|
       conn.get_request(action, query)
-    end
+    }
 
     return false if error_response?(response)
 
@@ -25,9 +27,9 @@ class SendgridApi
     action = 'bounces.get.json'
     query = { email: email }
 
-    response = SendgridPool.instance.with do |conn|
+    response = SendgridPool.instance.with { |conn|
       conn.get_request(action, query)
-    end
+    }
 
     return false if error_response?(response)
 
@@ -41,9 +43,9 @@ class SendgridApi
     action = 'bounces.delete.json'
     data = { email: email }
 
-    response = SendgridPool.instance.with do |conn|
+    response = SendgridPool.instance.with { |conn|
       conn.post_request(action, data)
-    end
+    }
 
     return false if error_response?(response)
 
@@ -57,9 +59,9 @@ class SendgridApi
     action = 'spamreports.delete.json'
     data = { email: email }
 
-    response = SendgridPool.instance.with do |conn|
+    response = SendgridPool.instance.with { |conn|
       conn.post_request(action, data)
-    end
+    }
 
     return false if error_response?(response)
 

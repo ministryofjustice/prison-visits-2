@@ -38,10 +38,3 @@ RSpec.shared_context 'sendgrid api responds normally' do
       to_return(status: 200, body: body, headers: {})
   end
 end
-
-RSpec.shared_context 'sendgrid api raises an exception' do
-  before do
-    stub_request(:any, %r{.*sendgrid\.example\.com/api/.+\.json}).
-      to_raise(StandardError)
-  end
-end

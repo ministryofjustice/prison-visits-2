@@ -13,6 +13,7 @@ RSpec.describe SendgridApi, '#remove_from_bounce_list' do
   context 'sendgrid credentials are set' do
     include_examples 'error handling'
     include_examples 'there is a timeout'
+    include_examples 'sendgrid pool timeouts'
 
     context 'when there is no bounce' do
       include_examples 'API reports email does not exist'

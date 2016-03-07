@@ -74,3 +74,10 @@ RSpec.shared_examples 'there is a timeout' do
     expect(subject).to be_falsey
   end
 end
+
+RSpec.shared_examples 'sendgrid pool timeouts' do
+  specify do
+    allow(SendgridPool.instance).to receive(:with).and_raise(Timeout::Error)
+    expect(subject).to be_falsey
+  end
+end
