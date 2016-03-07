@@ -4,7 +4,13 @@ en:
       messages:
         name: is not a valid name
         blank: is required
+        invalid: is invalid
+        too_short: is too short (minimum is %{count} characters)
       models:
+        prisoner_step:
+          attributes:
+            number:
+              invalid: is invalid
         visitors_step:
           attributes:
             general:
