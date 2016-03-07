@@ -328,6 +328,7 @@ DEPENDENCIES
   brakeman
   byebug
   capybara
+  connection_pool
   database_cleaner
   excon
   factory_girl_rails

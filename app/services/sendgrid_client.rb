@@ -1,15 +1,11 @@
 class SendgridClient
-  include Singleton
-
   TIMEOUT = 2 # seconds
 
   class Error < StandardError; end
 
-  attr_accessor :api_key, :api_user
+  attr_reader :api_key, :api_user
 
-  def configure(api_key:, api_user:, http_opts: {})
-    fail 'Already configured!' if @connection
-
+  def initialize(api_key:, api_user:, http_opts: {})
     timeout = http_opts.fetch(:timeout, TIMEOUT)
     persistent = http_opts.fetch(:persistent, false)
 

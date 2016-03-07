@@ -9,7 +9,9 @@ class SendgridApi
     action = 'spamreports.get.json'
     query = { email: email }
 
-    response = SendgridClient.instance.get_request(action, query)
+    response = SendgridPool.instance.with do |conn|
+      conn.get_request(action, query)
+    end
 
     return false if error_response?(response)
 
@@ -23,7 +25,9 @@ class SendgridApi
     action = 'bounces.get.json'
     query = { email: email }
 
-    response = SendgridClient.instance.get_request(action, query)
+    response = SendgridPool.instance.with do |conn|
+      conn.get_request(action, query)
+    end
 
     return false if error_response?(response)
 
@@ -37,7 +41,9 @@ class SendgridApi
     action = 'bounces.delete.json'
     data = { email: email }
 
-    response = SendgridClient.instance.post_request(action, data)
+    response = SendgridPool.instance.with do |conn|
+      conn.post_request(action, data)
+    end
 
     return false if error_response?(response)
 
@@ -51,7 +57,9 @@ class SendgridApi
     action = 'spamreports.delete.json'
     data = { email: email }
 
-    response = SendgridClient.instance.post_request(action, data)
+    response = SendgridPool.instance.with do |conn|
+      conn.post_request(action, data)
+    end
 
     return false if error_response?(response)
 

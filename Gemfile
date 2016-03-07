@@ -3,6 +3,7 @@ ruby '2.3.0'
 
 gem 'rails', '~> 4.2.3'
 
+gem 'connection_pool'
 gem 'excon'
 gem 'govuk_frontend_toolkit', '2.0.1'
 gem 'high_voltage'
