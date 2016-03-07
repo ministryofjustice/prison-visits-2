@@ -23,5 +23,6 @@ RSpec.describe PrisonMailer, '.booked' do
   it 'sends an email confirming the booking' do
     expect(mail.subject).
       to match(/COPY of booking confirmation for Arthur Raffles/)
+    expect(mail.body.encoded).to match(visit.prison.name)
   end
 end
