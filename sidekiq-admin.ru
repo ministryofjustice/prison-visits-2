@@ -6,4 +6,4 @@ end
 
 require 'sidekiq/web'
 use Rack::Session::Cookie, :secret => ENV.fetch('SESSION_SECRET_KEY')
-run Rack::URLMap.new('/sidekiq' => Sidekiq::Web)
+run Rack::URLMap.new('/' => Sidekiq::Web)
