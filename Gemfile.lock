@@ -329,7 +329,7 @@ DEPENDENCIES
   byebug
   capybara
   database_cleaner
-  excon (~> 0.47.0)
+  excon
   factory_girl_rails
   ffaker
   fuubar

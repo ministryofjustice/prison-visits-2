@@ -3,7 +3,7 @@ ruby '2.3.0'
 
 gem 'rails', '~> 4.2.3'
 
-gem 'excon', '~> 0.47.0'
+gem 'excon'
 gem 'govuk_frontend_toolkit', '2.0.1'
 gem 'high_voltage'
 gem 'http_accept_language'
