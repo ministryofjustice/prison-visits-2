@@ -14,7 +14,7 @@ module SmokeTest
     private
 
       def expected_email_subject
-        'CANCELLED: %s on %s' % [
+        'CANCELLED: Visit for %s on %s' % [
           state.prisoner.full_name,
           state.first_slot_date_prison_format
         ]
