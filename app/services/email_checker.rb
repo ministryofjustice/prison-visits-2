@@ -59,7 +59,7 @@ private
   end
 
   def override_sendgrid?
-    @override_sendgrid || !Rails.configuration.enable_sendgrid_validations
+    @override_sendgrid
   end
 
   def domain

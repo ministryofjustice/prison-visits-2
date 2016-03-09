@@ -5,6 +5,19 @@ RSpec.shared_examples 'error handling' do
   include_context 'sendgrid api responds normally'
 
   context 'error handling' do
+    context 'when the API raises an exception' do
+      include_context 'sendgrid api raises an exception'
+
+      it 'rescues, logs the error and returns false' do
+        check_error_log_message_contains(/StandardError/)
+        expect(Raven).
+          to receive(:capture_exception).
+          with(instance_of(StandardError))
+
+        expect(subject).to be_falsey
+      end
+    end
+
     context 'when the API reports an error' do
       let(:body) { '{"error":"LOL"}' }
 

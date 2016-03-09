@@ -11,15 +11,11 @@ class SendgridApi
   end
 
   def configure_pool(pool_size:, pool_timeout:)
-    @enabled = @api_user.present? && @api_key.present?
-
-    if @enabled
-      @pool = ConnectionPool.new(size: pool_size, timeout: pool_timeout) do
-        SendgridClient.new(
-          api_key: @api_key,
-          api_user: @api_user,
-          http_opts: { persistent: true, timeout: @timeout })
-      end
+    @pool = ConnectionPool.new(size: pool_size, timeout: pool_timeout) do
+      SendgridClient.new(
+        api_key: @api_key,
+        api_user: @api_user,
+        http_opts: { persistent: true, timeout: @timeout })
     end
   end
 
@@ -92,12 +88,13 @@ private
     response = @pool.with { |client| client.request(method, action, data) }
 
     yield response
-  rescue *RESCUABLE_ERRORS => e
+  rescue => e
     Rails.logger.error("#{e.class.name}: #{e.message}")
+    Raven.capture_exception(e) unless RESCUABLE_ERRORS.include?(e.class)
     false
   end
 
   def enabled?
-    @enabled
+    @pool.present?
   end
 end

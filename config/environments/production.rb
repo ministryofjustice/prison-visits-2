@@ -32,9 +32,6 @@ Rails.application.configure do
   config.lograge.logger = ActiveSupport::Logger.new \
     "#{Rails.root}/log/logstash_#{Rails.env}.json"
 
-  config.enable_sendgrid_validations =
-    ENV.key?('ENABLE_SENDGRID_VALIDATIONS')
-
   config.mx_checker = MxChecker.new
 
   config.active_job.queue_adapter = :sidekiq

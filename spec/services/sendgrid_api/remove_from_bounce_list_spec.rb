@@ -3,13 +3,8 @@ require_relative '../sendgrid_api_shared_context'
 require_relative './shared_examples'
 
 RSpec.describe SendgridApi, '#remove_from_bounce_list' do
-  let(:instance) {
-    obj = described_class.new(api_user: api_user,
-                              api_key: api_key,
-                              timeout: 1)
-    obj.configure_pool(pool_size: 1, pool_timeout: 1)
-    obj
-  }
+  include_context 'sendgrid instance'
+
   subject {
     instance.remove_from_bounce_list('test@example.com')
   }

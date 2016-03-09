@@ -62,5 +62,10 @@ module PrisonVisits
       ActionDispatch::RemoteIp::TRUSTED_PROXIES + skyscape_proxy_ips
     config.middleware.swap ActionDispatch::RemoteIp,
       ActionDispatch::RemoteIp, true, trusted_proxies
+
+    config.enable_sendgrid_validations =
+      ENV.key?('ENABLE_SENDGRID_VALIDATIONS') &&
+      ENV.key?('SMTP_USERNAME') &&
+      ENV.key?('SMTP_PASSWORD')
   end
 end
