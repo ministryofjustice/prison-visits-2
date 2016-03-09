@@ -30,7 +30,7 @@ RSpec.shared_examples 'error handling for missing credentials' do
     include_context 'sendgrid credentials are not set'
 
     it 'rescues, logs the error and returns false' do
-      check_error_log_message_contains(/no credentials set/)
+      check_error_log_message_contains(/Sendgrid is disabled/)
       expect(subject).to be_falsey
     end
   end
@@ -77,7 +77,8 @@ end
 
 RSpec.shared_examples 'sendgrid pool timeouts' do
   specify do
-    allow(SendgridPool.instance).to receive(:with).and_raise(Timeout::Error)
+    allow_any_instance_of(ConnectionPool).
+      to receive(:with).and_raise(Timeout::Error)
     expect(subject).to be_falsey
   end
 end

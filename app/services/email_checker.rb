@@ -88,6 +88,6 @@ private
   end
 
   def sendgrid_api
-    @sendgrid_api ||= SendgridApi.new
+    Rails.configuration.sendgrid_api
   end
 end

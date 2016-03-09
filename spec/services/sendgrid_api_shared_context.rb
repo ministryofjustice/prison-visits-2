@@ -11,21 +11,13 @@ RSpec.shared_context 'sendgrid shared tools' do
 end
 
 RSpec.shared_context 'sendgrid credentials are set' do
-  before do
-    allow_any_instance_of(SendgridClient).
-      to receive(:api_user).and_return('test_smtp_username')
-    allow_any_instance_of(SendgridClient).
-      to receive(:api_key).and_return('test_smtp_password')
-  end
+  let(:api_user) { 'test_smtp_username' }
+  let(:api_key) { 'test_smtp_password' }
 end
 
 RSpec.shared_context 'sendgrid credentials are not set' do
-  before do
-    allow_any_instance_of(SendgridClient).
-      to receive(:api_user).and_return(nil)
-    allow_any_instance_of(SendgridClient).
-      to receive(:api_key).and_return(nil)
-  end
+  let(:api_user) { nil }
+  let(:api_key) { nil }
 end
 
 RSpec.shared_context 'sendgrid api responds normally' do

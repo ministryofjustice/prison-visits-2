@@ -1,74 +1,62 @@
 class SendgridApi
-  TIMEOUT = 2 # seconds
-
-  RESCUABLE_ERRORS = [SendgridClient::Error,
-                      JSON::ParserError,
+  RESCUABLE_ERRORS = [JSON::ParserError,
                       Excon::Errors::Error,
                       Timeout::Error
                      ].freeze
+
+  def initialize(api_user:, api_key:, timeout:)
+    @api_user = api_user
+    @api_key = api_key
+    @timeout = timeout
+  end
+
+  def configure_pool(pool_size:, pool_timeout:)
+    @enabled = @api_user.present? && @api_key.present?
+
+    if @enabled
+      @pool = ConnectionPool.new(size: pool_size, timeout: pool_timeout) do
+        SendgridClient.new(
+          api_key: @api_key,
+          api_user: @api_user,
+          http_opts: { persistent: true, timeout: @timeout })
+      end
+    end
+  end
 
   def spam_reported?(email)
     action = 'spamreports.get.json'
     query = { email: email }
 
-    response = SendgridPool.instance.with { |conn|
-      conn.get_request(action, query)
+    call_api(:post, action, query) { |response|
+      !error_response?(response) && response.any?
     }
-
-    return false if error_response?(response)
-
-    response.any?
-  rescue *RESCUABLE_ERRORS => e
-    Rails.logger.error("#{e.class.name}: #{e.message}")
-    false
   end
 
   def bounced?(email)
     action = 'bounces.get.json'
     query = { email: email }
 
-    response = SendgridPool.instance.with { |conn|
-      conn.get_request(action, query)
+    call_api(:post, action, query) { |response|
+      !error_response?(response) && response.any?
     }
-
-    return false if error_response?(response)
-
-    response.any?
-  rescue *RESCUABLE_ERRORS => e
-    Rails.logger.error("#{e.class.name}: #{e.message}")
-    false
   end
 
   def remove_from_bounce_list(email)
     action = 'bounces.delete.json'
     data = { email: email }
 
-    response = SendgridPool.instance.with { |conn|
-      conn.post_request(action, data)
+    call_api(:post, action, data) { |response|
+      !error_response?(response) && email_removed?(response)
     }
-
-    return false if error_response?(response)
-
-    email_removed?(response)
-  rescue *RESCUABLE_ERRORS => e
-    Rails.logger.error("#{e.class.name}: #{e.message}")
-    false
   end
 
   def remove_from_spam_list(email)
     action = 'spamreports.delete.json'
     data = { email: email }
 
-    response = SendgridPool.instance.with { |conn|
-      conn.post_request(action, data)
+    call_api(:post, action, data) { |response|
+      !error_response?(response) && email_removed?(response)
     }
-
-    return false if error_response?(response)
-
-    email_removed?(response)
-  rescue *RESCUABLE_ERRORS => e
-    Rails.logger.error("#{e.class.name}: #{e.message}")
-    false
   end
 
 private
@@ -86,12 +74,30 @@ private
   end
 
   def email_removed?(response)
-    if response.try(:key?, 'message') && response['message'] != 'success'
+    if response['message'] == 'success'
+      true
+    else
       msg = "'#{self.class.name}' #{response['message']}"
       Rails.logger.error(msg)
       false
-    else
-      true
     end
+  end
+
+  def call_api(method, action, data)
+    unless enabled?
+      Rails.logger.error('Sendgrid is disabled')
+      return false
+    end
+
+    response = @pool.with { |client| client.request(method, action, data) }
+
+    yield response
+  rescue *RESCUABLE_ERRORS => e
+    Rails.logger.error("#{e.class.name}: #{e.message}")
+    false
+  end
+
+  def enabled?
+    @enabled
   end
 end
