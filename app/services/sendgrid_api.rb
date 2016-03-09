@@ -23,36 +23,28 @@ class SendgridApi
     action = 'spamreports.get.json'
     query = { email: email }
 
-    call_api(:post, action, query) { |response|
-      !error_response?(response) && response.any?
-    }
+    call_api(:post, action, query) { |response| email_found?(response) }
   end
 
   def bounced?(email)
     action = 'bounces.get.json'
     query = { email: email }
 
-    call_api(:post, action, query) { |response|
-      !error_response?(response) && response.any?
-    }
+    call_api(:post, action, query) { |response| email_found?(response) }
   end
 
   def remove_from_bounce_list(email)
     action = 'bounces.delete.json'
     data = { email: email }
 
-    call_api(:post, action, data) { |response|
-      !error_response?(response) && email_removed?(response)
-    }
+    call_api(:post, action, data) { |response| email_removed?(response) }
   end
 
   def remove_from_spam_list(email)
     action = 'spamreports.delete.json'
     data = { email: email }
 
-    call_api(:post, action, data) { |response|
-      !error_response?(response) && email_removed?(response)
-    }
+    call_api(:post, action, data) { |response| email_removed?(response) }
   end
 
 private
@@ -70,6 +62,8 @@ private
   end
 
   def email_removed?(response)
+    return false if error_response?(response)
+
     if response['message'] == 'success'
       true
     else
@@ -77,6 +71,12 @@ private
       Rails.logger.error(msg)
       false
     end
+  end
+
+  def email_found?(response)
+    return false if error_response?(response)
+
+    response.any?
   end
 
   def call_api(method, action, data)
