@@ -1,5 +1,6 @@
 class Prison::VisitsController < ApplicationController
   helper CalendarHelper
+  before_action :authorize_prison_request
 
   def show
     @booking_response = BookingResponse.new(visit: visit)
@@ -31,5 +32,12 @@ private
         unlisted_visitor_ids: [], banned_visitor_ids: []
       ).
       merge(visit: visit)
+  end
+
+  def authorize_prison_request
+    unless Rails.configuration.prison_ip_matcher.include?(request.remote_ip)
+      Rails.logger.info "Unauthorized request from #{request.remote_ip}"
+      fail ActionController::RoutingError, 'Not Found'
+    end
   end
 end
