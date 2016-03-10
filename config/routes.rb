@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  prison_ip_matcher =
-    IpAddressMatcher.new(Rails.configuration.prison_ip_ranges)
-
   get '/', to: redirect(ENV.fetch('GOVUK_START_PAGE', '/en/request'))
 
   %w[ 404 500 503 ].each do |code|
@@ -17,10 +14,8 @@ Rails.application.routes.draw do
   scope '/:locale', locale: /[a-z]{2}/ do
     get '/', to: redirect('/%{locale}/request')
 
-    constraints ip: prison_ip_matcher do
-      namespace :prison do
-        resources :visits, only: %i[ show update ]
-      end
+    namespace :prison do
+      resources :visits, only: %i[ show update ]
     end
 
     resources :booking_requests, path: 'request', only: %i[ index create ]
