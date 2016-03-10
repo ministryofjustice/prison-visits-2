@@ -37,7 +37,7 @@ private
   def authorize_prison_request
     unless Rails.configuration.prison_ip_matcher.include?(request.remote_ip)
       Rails.logger.info "Unauthorized request from #{request.remote_ip}"
-      fail ActionController::RoutingError 'Not Found'
+      fail ActionController::RoutingError, 'Not Found'
     end
   end
 end
