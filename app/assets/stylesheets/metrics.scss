@@ -90,3 +90,29 @@ line {
     stroke: steelblue;
     stroke-width: 1.5px;
 }
+
+td.prison-name {
+}
+
+.even {
+  background-color: LightGray;
+}
+
+table {
+  border-collapse: collapse;
+  background: white;
+}
+
+table td {
+  padding-right: 0.5em;
+  vertical-align: bottom;
+  text-align: right;
+}
+
+table .narrow {
+  width: 3em;
+}
+
+table .left-border {
+  border-left: thin solid grey;
+}

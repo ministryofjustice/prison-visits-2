@@ -1,27 +1,18 @@
 require 'rails_helper'
+require_relative '../untrusted_examples'
 
 RSpec.describe Prison::VisitsController, type: :controller do
   let(:visit) {
     create(:visit)
   }
 
-  it 'renders the show template when the submission is invalid' do
-    put :update,
-      id: visit.id, booking_response: { selection: 'slot_0' }, locale: 'en'
-    expect(response).to render_template('show')
+  subject do
+    put :update, id: visit.id,
+                 booking_response: { selection: 'slot_0' },
+                 locale: 'en'
   end
 
-  context "whent the ip is not allowed" do
-    before do
-      allow_any_instance_of(ActionDispatch::Request).
-        to receive(:remote_ip).
-        and_return('192.168.1.0')
-    end
+  it { is_expected.to render_template('show') }
 
-    it 'raises a not found error' do
-      expect {
-        put :update, id: visit.id, locale: 'en'
-      }.to raise_error(ActionController::RoutingError)
-    end
-  end
+  it_behaves_like 'disallows untrusted ips'
 end

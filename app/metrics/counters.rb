@@ -9,7 +9,7 @@ module Counters
 
   class CountVisitsByState < ActiveRecord::Base
     def self.fetch_and_format
-      pluck(:processing_state, :count).to_h
+      pluck(:prison_name, :count).to_h
     end
   end
 
