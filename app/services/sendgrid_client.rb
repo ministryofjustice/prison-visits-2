@@ -10,7 +10,7 @@ class SendgridClient
     @api_key = api_key
     @api_user = api_user
 
-    @connection ||= Excon.new('https://api.sendgrid.com',
+    @connection = Excon.new('https://api.sendgrid.com',
       persistent: persistent,
       connect_timeout: timeout)
   end
