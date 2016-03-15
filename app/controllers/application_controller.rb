@@ -10,14 +10,14 @@ class ApplicationController < ActionController::Base
 
 private
 
+  # :nocov:
+
   def authorize_prison_request
     unless Rails.configuration.prison_ip_matcher.include?(request.remote_ip)
       Rails.logger.info "Unauthorized request from #{request.remote_ip}"
       fail ActionController::RoutingError, 'Not Found'
     end
   end
-
-  # :nocov:
 
   def append_to_log(params)
     @custom_log_items ||= {}
