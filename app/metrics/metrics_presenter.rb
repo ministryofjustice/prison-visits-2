@@ -11,7 +11,7 @@ class MetricsPresenter
   def initialize(counts, overdue_counts, percentiles)
     @counts = counts
     @overdue_counts = overdue_to_h(overdue_counts)
-    @percentiles = percentiles
+    @percentiles = percentiles_to_h(percentiles)
   end
 
   def total_visits(prison_name)
@@ -46,5 +46,11 @@ private
 
   def overdue_to_h(counts)
     counts.each_with_object({}) { |count, hash| hash[count[0]] = count[2] }
+  end
+
+  def percentiles_to_h(percentiles)
+    percentiles.each_with_object({}) do |count, hash|
+      hash[count[0]] = count[-1]
+    end
   end
 end

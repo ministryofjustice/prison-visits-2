@@ -2,19 +2,76 @@ class MetricsController < ApplicationController
   before_action :authorize_prison_request
 
   def index
-    counts = Counters::CountVisitsByPrisonAndState.fetch_and_format
-    overdue_counts = Overdue::CountOverdueVisitsByPrison.ordered_counters
-    percentiles = Percentiles::DistributionByPrison.ordered_counters.to_h
+    @start_date = start_date_from_range
+
+    if all_time?
+      counts = all_time_counts
+    else
+      counts = weekly_counts(year: @start_date.year,
+                             week: @start_date.cweek)
+    end
+
+    @dataset = MetricsPresenter.new(*counts)
+  end
+
+  def weekly
+    @prison = Prison.find(params[:prison])
+    @date = 1.week.ago.to_date
+
+    counts = Counters::CountVisitsByPrisonAndCalendarWeek.
+             where(prison_name: @prison.name).
+             where(year: @date.year, week: @date.cweek).
+             fetch_and_format
+
+    overdue_counts = Overdue::CountOverdueVisitsByPrisonAndCalendarWeek.
+                     where(prison_name: @prison.name).
+                     where(year: @date.year, week: @date.cweek).
+                     ordered_counters
+
+    percentiles = Percentiles::DistributionByPrisonAndCalendarWeek.
+                  where(prison_name: @prison.name).
+                  where(year: @date.year, week: @date.cweek).
+                  ordered_counters
 
     @dataset = MetricsPresenter.new(counts, overdue_counts, percentiles)
   end
 
 private
 
-  def authorize_prison_request
-    unless Rails.configuration.prison_ip_matcher.include?(request.remote_ip)
-      Rails.logger.info "Unauthorized request from #{request.remote_ip}"
-      fail ActionController::RoutingError, 'Not Found'
+  def weekly_counts(year: nil, week: nil)
+    counts = Counters::CountVisitsByPrisonAndCalendarWeek.
+             where(year: year, week: week).fetch_and_format
+
+    overdue = Overdue::CountOverdueVisitsByPrisonAndCalendarWeek.
+              where(year: year, week: week).ordered_counters
+
+    percentiles = Percentiles::DistributionByPrisonAndCalendarWeek.
+                  where(year: year, week: week).ordered_counters
+
+    [flatten_weekly_count(counts, year, week), overdue, percentiles]
+  end
+
+  def flatten_weekly_count(data, year, week)
+    data.each_with_object({}) do |(name, value), hash|
+      hash[name] = value[year][week]
     end
+  end
+
+  def all_time_counts
+    [Counters::CountVisitsByPrisonAndState.fetch_and_format,
+     Overdue::CountOverdueVisitsByPrison.ordered_counters,
+     Percentiles::DistributionByPrison.ordered_counters]
+  end
+
+  def start_date_from_range
+    if all_time?
+      nil
+    else
+      1.week.ago.to_date
+    end
+  end
+
+  def all_time?
+    params[:range].nil?
   end
 end

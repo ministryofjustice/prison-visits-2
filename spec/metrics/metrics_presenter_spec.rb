@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe MetricsPresenter do
   let(:counts) { {} }
   let(:overdue_counts) { [] }
-  let(:percentiles) { {} }
+  let(:percentiles) { [] }
   let(:prison_name) { 'Cardiff' }
 
   let(:instance) { described_class.new(counts, overdue_counts, percentiles) }
@@ -81,44 +81,70 @@ RSpec.describe MetricsPresenter do
     end
 
     context 'when there is data for the prison' do
-      let(:percentiles) do
-        {
-          prison_name => [99.days.to_i,
-                          95.days.to_i,
-                          90.days.to_i,
-                          75.days.to_i,
-                          50.days.to_i,
-                          25.days.to_i] }
+      shared_examples_for 'returns each percentile' do
+        context '99th percentile' do
+          let(:percentile) { '99th' }
+          it { is_expected.to eq('99.00') }
+        end
+
+        context '95th percentile' do
+          let(:percentile) { '95th' }
+          it { is_expected.to eq('95.00') }
+        end
+
+        context '90th percentile' do
+          let(:percentile) { '90th' }
+          it { is_expected.to eq('90.00') }
+        end
+
+        context '75th percentile' do
+          let(:percentile) { '75th' }
+          it { is_expected.to eq('75.00') }
+        end
+
+        context '50th percentile' do
+          let(:percentile) { '50th' }
+          it { is_expected.to eq('50.00') }
+        end
+
+        context '25th percentile' do
+          let(:percentile) { '25th' }
+          it { is_expected.to eq('25.00') }
+        end
       end
 
-      context '99th percentile' do
-        let(:percentile) { '99th' }
-        it { is_expected.to eq('99.00') }
+      context "with all time percentiles" do
+        let(:percentiles) do
+          [
+            [prison_name, [99.days.to_i,
+                           95.days.to_i,
+                           90.days.to_i,
+                           75.days.to_i,
+                           50.days.to_i,
+                           25.days.to_i]
+            ]
+          ]
+        end
+
+        it_behaves_like 'returns each percentile'
       end
 
-      context '95th percentile' do
-        let(:percentile) { '95th' }
-        it { is_expected.to eq('95.00') }
-      end
+      context "with weekly percentiles" do
+        let(:percentiles) do
+          [
+            [prison_name,
+             anything,
+             anything, [99.days.to_i,
+                        95.days.to_i,
+                        90.days.to_i,
+                        75.days.to_i,
+                        50.days.to_i,
+                        25.days.to_i]
+            ]
+          ]
+        end
 
-      context '90th percentile' do
-        let(:percentile) { '90th' }
-        it { is_expected.to eq('90.00') }
-      end
-
-      context '75th percentile' do
-        let(:percentile) { '75th' }
-        it { is_expected.to eq('75.00') }
-      end
-
-      context '50th percentile' do
-        let(:percentile) { '50th' }
-        it { is_expected.to eq('50.00') }
-      end
-
-      context '25th percentile' do
-        let(:percentile) { '25th' }
-        it { is_expected.to eq('25.00') }
+        it_behaves_like 'returns each percentile'
       end
     end
   end

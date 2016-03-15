@@ -5,21 +5,21 @@
 <% if @start_date %>
   <h1>
     From
-    <%= format_date_without_year(@start_date) %>
+    <%= @start_date.beginning_of_week.to_s(:short) %>
     to
-    <%= format_date_without_year(@end_date) %>
+    <%= @start_date.end_of_week.to_s(:short) %>
   </h1>
   <h3>
-    <%= link_to('View this data for all time', range: 'all') %>
-    <%= link_to('Download this view as CSV', format: :csv, range: '') %>
+    <%= link_to('View this data for all time', range: nil) %>
+    <%# link_to('Download this view as CSV', format: :csv, range: '') %>
   </h3>
 <% else %>
   <h1>
     All time
   </h1>
   <h3>
-    <%= link_to('View this data for the past two weeks', range: '') %>
-    <%= link_to('Download this view as CSV', format: :csv, range: 'all') %>
+    <%= link_to('View this data for the past week', range: 'week') %>
+    <%# link_to('Download this view as CSV', format: :csv, range: 'all') %>
   </h3>
 <% end %>
 <%= render partial: 'all_prisons', locals: { dataset: @dataset } %>
