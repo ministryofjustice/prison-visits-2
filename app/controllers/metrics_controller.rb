@@ -48,7 +48,11 @@ private
     percentiles = Percentiles::DistributionByPrisonAndCalendarWeek.
                   where(year: year, week: week).ordered_counters
 
-    [flatten_weekly_count(counts, year, week), overdue, percentiles]
+    rejections = Rejections::RejectionPercentageByPrisonAndCalendarWeek.
+                 where(year: year, week: week).fetch_and_format
+
+    [flatten_weekly_count(counts, year, week), overdue, percentiles,
+     flatten_weekly_count(rejections, year, week)]
   end
 
   def flatten_weekly_count(data, year, week)
@@ -60,7 +64,8 @@ private
   def all_time_counts
     [Counters::CountVisitsByPrisonAndState.fetch_and_format,
      Overdue::CountOverdueVisitsByPrison.ordered_counters,
-     Percentiles::DistributionByPrison.ordered_counters]
+     Percentiles::DistributionByPrison.ordered_counters,
+     Rejections::RejectionPercentageByPrison.fetch_and_format]
   end
 
   def start_date_from_range

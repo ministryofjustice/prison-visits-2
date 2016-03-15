@@ -19,6 +19,9 @@
       <td>No slot</td>
       <td>Not on contact list</td>
       <td>No VOs left</td>
+      <td>Prisoner moved</td>
+      <td>Visitor banned</td>
+      <td>Prisoner details incorrect</td>
     </tr>
     <% Prison.enabled.each do |prison| %>
       <tr class="<%= cycle('odd', 'even') %>">
@@ -47,20 +50,25 @@
           <%= dataset.end_to_end_percentile(prison.name, '95th') %>
         </td>
         <td class="narrow left-border">
-          0
-          <%# display_percent(dataset.percent_rejected(nomis_id)) %>
+          <%= dataset.percent_rejected(prison.name, 'total') %>
         </td>
         <td class="narrow">
-          0
-          <%# display_percent(dataset.percent_rejected(nomis_id, Confirmation::NO_SLOT_AVAILABLE)) %>
+          <%= dataset.percent_rejected(prison.name, 'slot_unavailable') %>
         </td>
         <td class="narrow">
-          0
-          <%# display_percent(dataset.percent_rejected(nomis_id, Confirmation::NOT_ON_CONTACT_LIST)) %>
+          <%= dataset.percent_rejected(prison.name, 'visitor_not_on_list') %>
         </td>
         <td class="narrow">
-          0
-          <%# display_percent(dataset.percent_rejected(nomis_id, Confirmation::NO_VOS_LEFT)) %>
+          <%= dataset.percent_rejected(prison.name, 'no_allowance') %>
+        </td>
+        <td class="narrow">
+          <%= dataset.percent_rejected(prison.name, 'prisoner_moved') %>
+        </td>
+        <td class="narrow">
+          <%= dataset.percent_rejected(prison.name, 'visitor_banned') %>
+        </td>
+        <td class="narrow">
+          <%= dataset.percent_rejected(prison.name, 'prisoner_details_incorrect') %>
         </td>
       </tr>
     <% end %>

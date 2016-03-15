@@ -8,10 +8,11 @@ class MetricsPresenter
     '25th' => 5
   }
 
-  def initialize(counts, overdue_counts, percentiles)
+  def initialize(counts, overdue_counts, percentiles, rejections)
     @counts = counts
     @overdue_counts = overdue_to_h(overdue_counts)
     @percentiles = percentiles_to_h(percentiles)
+    @rejections = rejections
   end
 
   def total_visits(prison_name)
@@ -42,6 +43,14 @@ class MetricsPresenter
     sprintf('%2.2f', seconds.to_f / 1.day)
   end
 
+  def percent_rejected(prison_name, reason)
+    rejections = @rejections[prison_name]
+    return '0' unless rejections
+
+    metric = rejections.fetch(reason, 0)
+    metric.to_s
+  end
+
 private
 
   def overdue_to_h(counts)
@@ -52,5 +61,9 @@ private
     percentiles.each_with_object({}) do |count, hash|
       hash[count[0]] = count[-1]
     end
+  end
+
+  def rejections_to_h(rejections)
+    rejections
   end
 end

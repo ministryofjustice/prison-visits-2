@@ -4,9 +4,12 @@ RSpec.describe MetricsPresenter do
   let(:counts) { {} }
   let(:overdue_counts) { [] }
   let(:percentiles) { [] }
+  let(:rejections) { {} }
   let(:prison_name) { 'Cardiff' }
 
-  let(:instance) { described_class.new(counts, overdue_counts, percentiles) }
+  let(:instance) do
+    described_class.new(counts, overdue_counts, percentiles, rejections)
+  end
 
   describe '#total_visits' do
     subject { instance.total_visits(prison_name) }
@@ -146,6 +149,31 @@ RSpec.describe MetricsPresenter do
 
         it_behaves_like 'returns each percentile'
       end
+    end
+  end
+
+  context '#percent_rejected' do
+    let(:name) { 'total' }
+    subject { instance.percent_rejected(prison_name, name) }
+
+    context 'no data for the prison' do
+      let(:rejections) { {} }
+
+      it { is_expected.to eq('0') }
+    end
+
+    context 'no data for the specific metric' do
+      let(:rejections) { { prison_name => { 'something' => 3 } } }
+
+      it { is_expected.to eq('0') }
+    end
+
+    context 'with a present metric' do
+      let(:rejections) do
+        { prison_name => { name => BigDecimal.new(0.4, 2) } }
+      end
+
+      it { is_expected.to eq('0.4') }
     end
   end
 end
