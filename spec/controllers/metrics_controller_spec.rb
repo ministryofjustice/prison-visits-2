@@ -9,7 +9,7 @@ RSpec.describe MetricsController, type: :controller do
     subject { get :index, params }
 
     context 'with no range' do
-      let(:range) { nil }
+      let(:range) { 'all_time' }
       it { is_expected.to be_successful }
     end
 

@@ -10,7 +10,7 @@
     <%= @start_date.end_of_week.to_s(:short) %>
   </h1>
   <h3>
-    <%= link_to('View this data for all time', range: nil) %>
+    <%= link_to('View this data for all time', range: 'all_time') %>
     <%# link_to('Download this view as CSV', format: :csv, range: '') %>
   </h3>
 <% else %>

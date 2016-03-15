@@ -72,6 +72,6 @@ private
   end
 
   def all_time?
-    params[:range].nil?
+    params[:range] == 'all_time'
   end
 end
