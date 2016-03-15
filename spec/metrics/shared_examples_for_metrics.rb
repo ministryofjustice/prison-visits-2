@@ -1,3 +1,50 @@
+RSpec.shared_examples 'create rejections without dates' do
+  let(:luna) { create(:prison, name: 'Lunar Penal Colony') }
+  let(:mars) { create(:prison, name: 'Martian Penal Colony') }
+
+  let!(:luna_visits_without_dates) do
+    make_visits(luna)
+  end
+
+  let!(:mars_visits_without_dates) do
+    make_visits(mars)
+  end
+
+  def make_visits(prison)
+    create_list(:visit, 7, prison: prison)
+    na = create(:rejected_visit, prison: prison)
+    su = create(:rejected_visit, prison: prison)
+    vb = create(:rejected_visit, prison: prison)
+    create(:rejection, visit: na, reason: 'no_allowance')
+    create(:rejection, visit: su, reason: 'slot_unavailable')
+    create(:rejection, visit: vb, reason: 'visitor_banned')
+  end
+end
+
+RSpec.shared_examples 'create rejections with dates' do
+  let(:luna) { create(:prison, name: 'Lunar Penal Colony') }
+  let(:mars) { create(:prison, name: 'Martian Penal Colony') }
+
+  let(:luna_visits_with_dates) do
+    make_visits(luna)
+  end
+
+  let(:mars_visits_with_dates) do
+    make_visits(mars)
+  end
+
+  def make_visits(prison)
+    create_list(:visit, 7, created_at: Time.zone.local(2016, 2, 1), prison: luna)
+
+    na = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 1))
+    su = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 1))
+    vb = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 1))
+    create(:rejection, visit: na, reason: 'no_allowance', created_at: Time.zone.local(2016, 2, 1))
+    create(:rejection, visit: su, reason: 'slot_unavailable', created_at: Time.zone.local(2016, 2, 1))
+    create(:rejection, visit: vb, reason: 'visitor_banned', created_at: Time.zone.local(2016, 2, 1))
+  end
+end
+
 RSpec.shared_examples 'create visits without dates' do
   let(:luna) { create(:prison, name: 'Lunar Penal Colony') }
   let(:mars) { create(:prison, name: 'Martian Penal Colony') }
