@@ -62,8 +62,4 @@ private
       hash[count[0]] = count[-1]
     end
   end
-
-  def rejections_to_h(rejections)
-    rejections
-  end
 end

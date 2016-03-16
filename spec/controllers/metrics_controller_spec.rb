@@ -4,7 +4,7 @@ require_relative 'untrusted_examples'
 RSpec.describe MetricsController, type: :controller do
   describe 'index' do
     let(:range) { nil }
-    let(:params) { { range: nil, locale: 'en' } }
+    let(:params) { { range: range, locale: 'en' } }
 
     subject { get :index, params }
 
@@ -15,6 +15,7 @@ RSpec.describe MetricsController, type: :controller do
 
     context "with a range" do
       let(:range) { 'weekly' }
+      before { FactoryGirl.create(:visit, created_at: 1.week.ago) }
       it { is_expected.to be_successful }
     end
 
