@@ -14,28 +14,6 @@ class MetricsController < ApplicationController
     @dataset = MetricsPresenter.new(*counts)
   end
 
-  def weekly
-    @prison = Prison.find(params[:prison])
-    @date = 1.week.ago.to_date
-
-    counts = Counters::CountVisitsByPrisonAndCalendarWeek.
-             where(prison_name: @prison.name).
-             where(year: @date.year, week: @date.cweek).
-             fetch_and_format
-
-    overdue_counts = Overdue::CountOverdueVisitsByPrisonAndCalendarWeek.
-                     where(prison_name: @prison.name).
-                     where(year: @date.year, week: @date.cweek).
-                     ordered_counters
-
-    percentiles = Percentiles::DistributionByPrisonAndCalendarWeek.
-                  where(prison_name: @prison.name).
-                  where(year: @date.year, week: @date.cweek).
-                  ordered_counters
-
-    @dataset = MetricsPresenter.new(counts, overdue_counts, percentiles)
-  end
-
 private
 
   def weekly_counts(year: nil, week: nil)
