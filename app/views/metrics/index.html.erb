@@ -11,7 +11,7 @@
   </h1>
   <h3>
     <%= link_to('View this data for all time', range: 'all_time') %>
-    <%# link_to('Download this view as CSV', format: :csv, range: '') %>
+    <%= link_to('Download confirmed bookings CSV', action: 'confirmed_bookings', format: :csv) %>
   </h3>
 <% else %>
   <h1>
@@ -19,7 +19,7 @@
   </h1>
   <h3>
     <%= link_to('View this data for the past week', range: 'week') %>
-    <%# link_to('Download this view as CSV', format: :csv, range: 'all') %>
+    <%= link_to('Download confirmed bookings CSV', action: 'confirmed_bookings', format: :csv) %>
   </h3>
 <% end %>
 <%= render partial: 'all_prisons', locals: { dataset: @dataset } %>

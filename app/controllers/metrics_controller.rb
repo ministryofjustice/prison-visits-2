@@ -14,6 +14,14 @@ class MetricsController < ApplicationController
     @dataset = MetricsPresenter.new(*counts)
   end
 
+  def confirmed_bookings
+    exporter = WeeklyMetricsConfirmedCsvExporter.new(weeks: 12)
+
+    respond_to do |format|
+      format.csv { render csv: exporter, filename: 'weekly_booking_stats' }
+    end
+  end
+
 private
 
   def weekly_counts(year: nil, week: nil)

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
     scope controller: :metrics do
       get 'metrics', action: :index
+      get 'metrics/confirmed_bookings', action: :confirmed_bookings
     end
 
     namespace :prison do
