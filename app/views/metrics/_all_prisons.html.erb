@@ -1,0 +1,77 @@
+<div class="table-wrap">
+  <table>
+    <tr>
+      <th></th>
+      <th colspan="5">Number of visits</th>
+      <th colspan="2">End to end</th>
+      <th colspan="4">Percent rejected</th>
+    </tr>
+    <tr>
+      <td class="prison-name">Prison name</td>
+      <td>Total</td>
+      <td>Waiting</td>
+      <td>Overdue</td>
+      <td>Rejected</td>
+      <td>Confirmed</td>
+      <td>Median days</td>
+      <td>95th percentile days</td>
+      <td>Overall</td>
+      <td>No slot</td>
+      <td>Not on contact list</td>
+      <td>No VOs left</td>
+      <td>Prisoner moved</td>
+      <td>Visitor banned</td>
+      <td>Prisoner details incorrect</td>
+    </tr>
+    <% Prison.enabled.each do |prison| %>
+      <tr class="<%= cycle('odd', 'even') %>">
+        <td class="prison-name">
+          <%= prison_name %>
+          <%# link_to(prison.name, prison_metrics_weekly_path(prison)) %>
+        </td>
+        <td class="narrow left-border">
+          <%= dataset.total_visits(prison.name) %>
+        </td>
+        <td class="narrow">
+          <%= dataset.visits_in_state(prison.name, 'requested') %>
+        </td>
+        <td class="narrow">
+          <%= dataset.overdue_count(prison.name) %>
+        </td>
+        <td class="narrow">
+          <%= dataset.visits_in_state(prison.name, 'rejected') %>
+        </td>
+        <td class="narrow">
+          <%= dataset.visits_in_state(prison.name, 'booked') %>
+        </td>
+        <td class="left-border">
+          <%= dataset.end_to_end_percentile(prison.name, '50th') %>
+        </td>
+        <td class="narrow">
+          <%= dataset.end_to_end_percentile(prison.name, '95th') %>
+        </td>
+        <td class="narrow left-border">
+          <%= dataset.percent_rejected(prison.name, 'total') %>
+        </td>
+        <td class="narrow">
+          <%= dataset.percent_rejected(prison.name, 'slot_unavailable') %>
+        </td>
+        <td class="narrow">
+          <%= dataset.percent_rejected(prison.name, 'visitor_not_on_list') %>
+        </td>
+        <td class="narrow">
+          <%= dataset.percent_rejected(prison.name, 'no_allowance') %>
+        </td>
+        <td class="narrow">
+          <%= dataset.percent_rejected(prison.name, 'prisoner_moved') %>
+        </td>
+        <td class="narrow">
+          <%= dataset.percent_rejected(prison.name, 'visitor_banned') %>
+        </td>
+        <td class="narrow">
+          <%= dataset.percent_rejected(prison.name, 'prisoner_details_incorrect') %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

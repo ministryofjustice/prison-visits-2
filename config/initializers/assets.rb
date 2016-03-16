@@ -5,6 +5,7 @@ Rails.application.config.assets.precompile += %w[
   back-office.css
   *.png
   favicon.ico
+  metrics.css
 ]
 
 Rails.application.config.assets.paths <<

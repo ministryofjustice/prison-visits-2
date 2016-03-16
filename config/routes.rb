@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   scope '/:locale', locale: /[a-z]{2}/ do
     get '/', to: redirect('/%{locale}/request')
 
+    scope controller: :metrics do
+      get 'metrics', action: :index
+    end
+
     namespace :prison do
       resources :visits, only: %i[ show update ]
     end
