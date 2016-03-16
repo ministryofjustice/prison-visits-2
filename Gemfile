@@ -42,6 +42,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-retry'
   gem 'rubocop'
   gem 'rubocop-rspec'
   gem 'shoulda-matchers'
