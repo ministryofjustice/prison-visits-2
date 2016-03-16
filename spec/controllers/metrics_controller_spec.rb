@@ -15,7 +15,7 @@ RSpec.describe MetricsController, type: :controller do
 
     context "with a range" do
       let(:range) { 'weekly' }
-      before { FactoryGirl.create(:visit, created_at: 1.week.ago) }
+      before do FactoryGirl.create(:visit, created_at: 1.week.ago) end
       it { is_expected.to be_successful }
     end
 
