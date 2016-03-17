@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'poltergeist_helper'
 require 'shared_sendgrid_context'
 
 RSpec.feature "overriding Sendgrid", js: true do
@@ -29,7 +29,10 @@ RSpec.feature "overriding Sendgrid", js: true do
 
       expect(page).to have_text('When do you want to visit?')
       select_slots
-      click_button 'Continue'
+      # Something in the DOM appears to be intermittently confusing poltergeist
+      # about this particular button. Sometimes, it does not find it when used
+      # with 'click_button' This is their suggested workaround.
+      find_button('Continue').trigger('click')
 
       expect(page).to have_text('Check your request')
 
@@ -61,7 +64,10 @@ RSpec.feature "overriding Sendgrid", js: true do
 
       expect(page).to have_text('When do you want to visit?')
       select_slots
-      click_button 'Continue'
+      # Something in the DOM appears to be intermittently confusing poltergeist
+      # about this particular button. Sometimes, it does not find it when used
+      # with 'click_button' This is their suggested workaround.
+      find_button('Continue').trigger('click')
 
       expect(page).to have_text('Check your request')
 
@@ -86,7 +92,10 @@ RSpec.feature "overriding Sendgrid", js: true do
 
     expect(page).to have_text('When do you want to visit?')
     select_slots
-    click_button 'Continue'
+    # Something in the DOM appears to be intermittently confusing poltergeist
+    # about this particular button. Sometimes, it does not find it when used
+    # with 'click_button' This is their suggested workaround.
+    find_button('Continue').trigger('click')
 
     expect(page).to have_text('Check your request')
 
