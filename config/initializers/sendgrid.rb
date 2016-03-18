@@ -1,11 +1,17 @@
+client_opts = { timeout: 2, # seconds
+                persistent: true }
+
+pool_opts = { timeout: 1, # seconds
+              size: ActiveRecord::Base.connection.pool.size }
+
 sendgrid_api = SendgridApi.new(api_user: ENV['SMTP_USERNAME'],
                                api_key: ENV['SMTP_PASSWORD'],
-                               timeout: 2) # seconds
+                               client_opts: client_opts,
+                               pool_opts: pool_opts)
 
-if Rails.configuration.enable_sendgrid_validations
-  sendgrid_api.configure_pool(
-    pool_size: ActiveRecord::Base.connection.pool.size,
-    pool_timeout: 1) # seconds
-end
+# If the app is started with Sendgrid disabled then the API wrapper will behave
+# if any API call is successful.
+# Sendgrid could be disabled if they are have planned maintenance for example.
+sendgrid_api.disable unless Rails.configuration.enable_sendgrid_validations
 
 Rails.configuration.sendgrid_api = sendgrid_api

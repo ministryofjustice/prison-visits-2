@@ -14,13 +14,14 @@ RSpec.shared_context 'sendgrid instance' do
   let(:instance) {
     obj = described_class.new(api_user: api_user,
                               api_key: api_key,
-                              timeout: 1)
+                              client_opts: { timeout: 1, persistent: true },
+                              pool_opts: { timeout: 1, size: 1 })
     # Configuring the pool enables the clients which we do in the Rails
     # initializers based on a configuration flag.
     #
     # Expected behaviour is for the api to not be enabled if the credentials are
     # missing.
-    obj.configure_pool(pool_size: 1, pool_timeout: 1) if api_user && api_key
+    obj.disable unless api_user && api_key
     obj
   }
 end
