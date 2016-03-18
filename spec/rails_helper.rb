@@ -9,6 +9,7 @@ require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'ffaker'
 require 'webmock/rspec'
+require 'rspec/retry'
 
 WebMock.disable_net_connect!(allow: 'codeclimate.com', allow_localhost: true)
 
@@ -19,6 +20,12 @@ Capybara.asset_host = 'http://localhost:3000'
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  config.display_try_failure_messages = true
+
+  config.around :each, :js do |ex|
+    ex.run_with_retry retry: 3
+  end
+
   config.use_transactional_fixtures = false
   config.include FactoryGirl::Syntax::Methods
   config.include ActiveSupport::Testing::TimeHelpers
