@@ -1,39 +1,118 @@
 class SendgridApi
-  extend SingleForwardable
+  RESCUABLE_ERRORS = [JSON::ParserError,
+                      Excon::Errors::Error,
+                      Timeout::Error
+                     ].freeze
 
-  def_single_delegators :new, :spam_reported?, :bounced?,
-    :remove_from_bounce_list, :remove_from_spam_list
+  class << self
+    def instance
+      @instance ||= begin
+        pool_size = ActiveRecord::Base.connection.pool.size
+
+        client = new_client(Rails.configuration.sendgrid_api_user,
+          Rails.configuration.sendgrid_api_key)
+
+        pool = ConnectionPool.new(size: pool_size, timeout: 1, &client)
+        send(:new, pool)
+      end
+    end
+
+    def new_client(api_user, api_key)
+      lambda {
+        SendgridClient.new(
+          api_key: api_key,
+          api_user: api_user,
+          http_opts: { persistent: true, timeout: 2 }
+        )
+      }
+    end
+  end
 
   def spam_reported?(email)
-    api { spam_reports.retrieve(email: email).any? }
+    action = 'spamreports.get.json'
+    query = { email: email }
+
+    call_api(:post, action, query) { |response| email_found?(response) }
   end
 
   def bounced?(email)
-    api { bounces.retrieve(email: email).any? }
+    action = 'bounces.get.json'
+    query = { email: email }
+
+    call_api(:post, action, query) { |response| email_found?(response) }
   end
 
   def remove_from_bounce_list(email)
-    api { bounces.delete(email: email) }
+    action = 'bounces.delete.json'
+    data = { email: email }
+
+    call_api(:post, action, data) { |response| email_removed?(response) }
   end
 
   def remove_from_spam_list(email)
-    api { spam_reports.delete(email: email) }
+    action = 'spamreports.delete.json'
+    data = { email: email }
+
+    call_api(:post, action, data) { |response| email_removed?(response) }
+  end
+
+  def disable
+    @enabled = false
   end
 
 private
 
-  def api(&_action)
-    yield
+  def initialize(pool)
+    @pool = pool
+    @enabled = true
+  end
+
+  def error_response?(response)
+    # Response could be empty which gets translated to an Array or have data
+    # which becomes a Hash according to the specs
+    if response.try(:key?, 'error')
+      msg = "'#{self.class.name}' sendgrid response: #{response['error']}"
+      Rails.logger.error(msg)
+      true
+    else
+      false
+    end
+  end
+
+  def email_removed?(response)
+    return false if error_response?(response)
+
+    if response['message'] == 'success'
+      true
+    else
+      msg = "'#{self.class.name}' #{response['message']}"
+      Rails.logger.error(msg)
+      false
+    end
+  end
+
+  def email_found?(response)
+    return false if error_response?(response)
+
+    response.any?
+  end
+
+  def call_api(method, action, data)
+    unless enabled?
+      Rails.logger.error('Sendgrid is disabled')
+      return false
+    end
+
+    response = @pool.with { |client| client.request(method, action, data) }
+
+    yield response
   rescue => e
-    Rails.logger.error("SendgridApi error: #{e.class} #{e}")
+    Rails.logger.error("#{e.class.name}: #{e.message}")
+    Raven.capture_exception(e) unless RESCUABLE_ERRORS.include?(e.class)
     false
   end
 
-  def spam_reports
-    SendgridToolkit::SpamReports.new
-  end
-
-  def bounces
-    SendgridToolkit::Bounces.new
+  def enabled?
+    @enabled
   end
 end

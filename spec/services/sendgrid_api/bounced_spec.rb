@@ -2,15 +2,19 @@ require 'rails_helper'
 require_relative '../sendgrid_api_shared_context'
 require_relative './shared_examples'
 
-RSpec.describe SendgridApi, '.bounced?' do
+RSpec.describe SendgridApi, '#bounced?' do
+  include_context 'sendgrid instance'
+
   subject {
-    described_class.bounced?('test@example.com')
+    instance.bounced?('test@example.com')
   }
 
   include_context 'sendgrid shared tools'
 
   context 'sendgrid credentials are set' do
     include_examples 'error handling'
+    include_examples 'there is a timeout'
+    include_examples 'sendgrid pool timeouts'
 
     context 'when there is no bounce' do
       it_should_behave_like 'there is nothing to report'

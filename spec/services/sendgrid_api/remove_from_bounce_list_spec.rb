@@ -2,13 +2,19 @@ require 'rails_helper'
 require_relative '../sendgrid_api_shared_context'
 require_relative './shared_examples'
 
-RSpec.describe SendgridApi, '.remove_from_bounce_list' do
+RSpec.describe SendgridApi, '#remove_from_bounce_list' do
+  include_context 'sendgrid instance'
+
   subject {
-    described_class.remove_from_bounce_list('test@example.com')
+    instance.remove_from_bounce_list('test@example.com')
   }
+
+  include_context 'sendgrid shared tools'
 
   context 'sendgrid credentials are set' do
     include_examples 'error handling'
+    include_examples 'there is a timeout'
+    include_examples 'sendgrid pool timeouts'
 
     context 'when there is no bounce' do
       include_examples 'API reports email does not exist'

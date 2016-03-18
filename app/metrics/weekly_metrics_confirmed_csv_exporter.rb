@@ -1,3 +1,5 @@
+require 'csv'
+
 class WeeklyMetricsConfirmedCsvExporter
   def initialize(weeks:)
     @counts = Counters::CountVisitsByPrisonAndCalendarWeek.fetch_and_format

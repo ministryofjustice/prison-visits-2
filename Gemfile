@@ -3,6 +3,8 @@ ruby '2.3.0'
 
 gem 'rails', '~> 4.2.3'
 
+gem 'connection_pool'
+gem 'excon'
 gem 'govuk_frontend_toolkit', '2.0.1'
 gem 'high_voltage'
 gem 'http_accept_language'
@@ -22,7 +24,7 @@ gem 'scenic', '>= 1.2.0'
 # 'last_comment' to be defined. Review once we are using a different Rails
 # version
 gem 'rake', '< 11.0'
-gem 'sendgrid_toolkit'
+
 # Fixed version as workaround for bug in 0.15.5
 # https://github.com/getsentry/raven-ruby/issues/460
 gem 'sentry-raven', '0.15.4'

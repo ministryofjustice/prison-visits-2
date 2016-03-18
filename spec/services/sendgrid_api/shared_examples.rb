@@ -10,6 +10,10 @@ RSpec.shared_examples 'error handling' do
 
       it 'rescues, logs the error and returns false' do
         check_error_log_message_contains(/StandardError/)
+        expect(Raven).
+          to receive(:capture_exception).
+          with(instance_of(StandardError))
+
         expect(subject).to be_falsey
       end
     end
@@ -18,7 +22,7 @@ RSpec.shared_examples 'error handling' do
       let(:body) { '{"error":"LOL"}' }
 
       it 'rescues, logs the error and returns false' do
-        check_error_log_message_contains(/SendgridToolkit::APIError LOL/)
+        check_error_log_message_contains(/LOL/)
         expect(subject).to be_falsey
       end
     end
@@ -27,7 +31,7 @@ RSpec.shared_examples 'error handling' do
       let(:body) { 'Oopsy daisy' }
 
       it 'rescues, logs the error and returns false' do
-        check_error_log_message_contains(/JSON::ParserError.+Oopsy daisy/)
+        check_error_log_message_contains(/Oopsy daisy/)
         expect(subject).to be_falsey
       end
     end
@@ -39,21 +43,18 @@ RSpec.shared_examples 'error handling for missing credentials' do
     include_context 'sendgrid credentials are not set'
 
     it 'rescues, logs the error and returns false' do
-      check_error_log_message_contains(/SendgridToolkit::NoAPIUserSpecified/)
+      check_error_log_message_contains(/Sendgrid is disabled/)
       expect(subject).to be_falsey
-    end
-
-    it 'does not talk to sendgrid' do
-      expect(HTTParty).to receive(:post).never { subject }
     end
   end
 end
 
 RSpec.shared_examples 'API reports email does not exist' do
-  let(:body) { '{"message": "Email does not exist"}' }
+  let(:message) { 'Email does not exist' }
+  let(:body) { "{\"message\": \"#{message}\"}" }
 
   specify do
-    check_error_log_message_contains(/EmailDoesNotExist/)
+    check_error_log_message_contains(/#{message}/)
     expect(subject).to be_falsey
   end
 end
@@ -76,5 +77,21 @@ end
 RSpec.shared_examples 'there is something to report' do
   specify do
     expect(subject).to be_truthy
+  end
+end
+
+RSpec.shared_examples 'there is a timeout' do
+  specify do
+    stub_request(:any, %r{.+api\.sendgrid\.com/api/.+\.json}).to_timeout
+
+    expect(subject).to be_falsey
+  end
+end
+
+RSpec.shared_examples 'sendgrid pool timeouts' do
+  specify do
+    allow_any_instance_of(ConnectionPool).
+      to receive(:with).and_raise(Timeout::Error)
+    expect(subject).to be_falsey
   end
 end

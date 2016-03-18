@@ -70,8 +70,10 @@ RSpec.describe EmailChecker do
     end
 
     it 'checks Sendgrid only once' do
-      expect(SendgridApi).to receive(:spam_reported?).once.and_return(false)
-      expect(SendgridApi).to receive(:bounced?).once.and_return(false)
+      expect_any_instance_of(SendgridApi).
+        to receive(:spam_reported?).once.and_return(false)
+      expect_any_instance_of(SendgridApi).
+        to receive(:bounced?).once.and_return(false)
 
       2.times do
         subject.valid?
@@ -103,15 +105,6 @@ RSpec.describe EmailChecker do
         it_behaves_like 'a valid address'
         it { is_expected.to be_reset_spam_report }
       end
-
-      context 'but sendgrid validations are disabled' do
-        before do
-          allow(Rails.configuration).
-            to receive(:enable_sendgrid_validations).
-            and_return(false)
-        end
-        it_behaves_like 'a valid address'
-      end
     end
 
     context 'when bounce is reported' do
@@ -128,15 +121,6 @@ RSpec.describe EmailChecker do
         let(:override) { true }
         it_behaves_like 'a valid address'
         it { is_expected.to be_reset_bounce }
-      end
-
-      context 'but sendgrid validations are disabled' do
-        before do
-          allow(Rails.configuration).
-            to receive(:enable_sendgrid_validations).
-            and_return(false)
-        end
-        it_behaves_like 'a valid address'
       end
     end
   end

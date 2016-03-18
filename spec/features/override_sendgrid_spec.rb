@@ -36,11 +36,12 @@ RSpec.feature "overriding Sendgrid", js: true do
 
       expect(page).to have_text('Check your request')
 
-      expect(SendgridApi).to receive(:remove_from_spam_list).
+      expect_any_instance_of(SendgridApi).to receive(:remove_from_spam_list).
         with(expected_email_address).
         and_return(irrelevant_response)
 
-      expect(SendgridApi).to_not receive(:remove_from_bounce_list)
+      expect_any_instance_of(SendgridApi).
+        to_not receive(:remove_from_bounce_list)
 
       click_button 'Send request'
 
@@ -71,11 +72,12 @@ RSpec.feature "overriding Sendgrid", js: true do
 
       expect(page).to have_text('Check your request')
 
-      expect(SendgridApi).to receive(:remove_from_bounce_list).
+      expect_any_instance_of(SendgridApi).to receive(:remove_from_bounce_list).
         with(expected_email_address).
         and_return(irrelevant_response)
 
-      expect(SendgridApi).to_not receive(:remove_from_spam_list)
+      expect_any_instance_of(SendgridApi).
+        to_not receive(:remove_from_spam_list)
 
       click_button 'Send request'
 
@@ -99,8 +101,10 @@ RSpec.feature "overriding Sendgrid", js: true do
 
     expect(page).to have_text('Check your request')
 
-    expect(SendgridApi).to_not receive(:remove_from_bounce_list)
-    expect(SendgridApi).to_not receive(:remove_from_spam_list)
+    expect_any_instance_of(SendgridApi).
+      to_not receive(:remove_from_bounce_list)
+    expect_any_instance_of(SendgridApi).
+      to_not receive(:remove_from_spam_list)
 
     click_button 'Send request'
 

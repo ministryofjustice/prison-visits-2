@@ -10,24 +10,34 @@ RSpec.shared_context 'sendgrid shared tools' do
   end
 end
 
-RSpec.shared_context 'sendgrid credentials are set' do
-  before do
-    allow(ENV).to receive(:[]).
-      with('SMTP_USERNAME').and_return('test_smtp_username')
+RSpec.shared_context 'sendgrid instance' do
+  # SendgridApi is a singleton, since we are testing the disabling behaviour we
+  # want to bypass the singletong so that state changes don't leak to other
+  # specs
+  let(:instance) {
+    client = SendgridApi.new_client(api_user, api_key)
+    pool = ConnectionPool.new(size: 1, timeout: 1, &client)
 
-    allow(ENV).to receive(:[]).
-      with('SMTP_PASSWORD').and_return('test_smtp_password')
-  end
+    obj = described_class.send(:new, pool)
+
+    # Configuring the pool enables the clients which we do in the Rails
+    # initializers based on a configuration flag.
+    #
+    # Expected behaviour is for the api to not be enabled if the credentials are
+    # missing.
+    obj.disable unless api_user && api_key
+    obj
+  }
+end
+
+RSpec.shared_context 'sendgrid credentials are set' do
+  let(:api_user) { 'test_smtp_username' }
+  let(:api_key) { 'test_smtp_password' }
 end
 
 RSpec.shared_context 'sendgrid credentials are not set' do
-  before do
-    allow(ENV).to receive(:[]).
-      with('SMTP_USERNAME').and_return(nil)
-
-    allow(ENV).to receive(:[]).
-      with('SMTP_PASSWORD').and_return(nil)
-  end
+  let(:api_user) { nil }
+  let(:api_key) { nil }
 end
 
 RSpec.shared_context 'sendgrid api responds normally' do
