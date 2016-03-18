@@ -11,11 +11,15 @@ RSpec.shared_context 'sendgrid shared tools' do
 end
 
 RSpec.shared_context 'sendgrid instance' do
+  # SendgridApi is a singleton, since we are testing the disabling behaviour we
+  # want to bypass the singletong so that state changes don't leak to other
+  # specs
   let(:instance) {
-    obj = described_class.new(api_user: api_user,
-                              api_key: api_key,
-                              client_opts: { timeout: 1, persistent: true },
-                              pool_opts: { timeout: 1, size: 1 })
+    client = SendgridApi.new_client(api_user, api_key)
+    pool = ConnectionPool.new(size: 1, timeout: 1, &client)
+
+    obj = described_class.send(:new, pool)
+
     # Configuring the pool enables the clients which we do in the Rails
     # initializers based on a configuration flag.
     #

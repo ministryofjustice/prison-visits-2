@@ -1,7 +1,7 @@
 class SpamAndBounceResets
   def initialize(visit)
     @visit = visit
-    @sendgrid_api = Rails.configuration.sendgrid_api
+    @sendgrid_api = SendgridApi.instance
   end
 
   delegate :contact_email_address, :override_delivery_error?,

@@ -4,22 +4,28 @@ class SendgridApi
                       Timeout::Error
                      ].freeze
 
-  def initialize(api_user:, api_key:, client_opts:, pool_opts:)
-    api_user = api_user
-    api_key = api_key
-    timeout = client_opts.fetch(:timeout)
-    persistent = client_opts.fetch(:persistent)
-    pool_size = pool_opts.fetch(:size)
-    pool_timeout = pool_opts.fetch(:timeout)
+  class << self
+    def instance
+      @instance ||= begin
+        pool_size = ActiveRecord::Base.connection.pool.size
 
-    @pool = ConnectionPool.new(size: pool_size, timeout: pool_timeout) do
-      SendgridClient.new(
-        api_key: api_key,
-        api_user: api_user,
-        http_opts: { persistent: persistent, timeout: timeout })
+        client = new_client(Rails.configuration.sendgrid_api_user,
+          Rails.configuration.sendgrid_api_key)
+
+        pool = ConnectionPool.new(size: pool_size, timeout: 1, &client)
+        send(:new, pool)
+      end
     end
 
-    @enabled = true
+    def new_client(api_user, api_key)
+      lambda {
+        SendgridClient.new(
+          api_key: api_key,
+          api_user: api_user,
+          http_opts: { persistent: true, timeout: 2 }
+        )
+      }
+    end
   end
 
   def spam_reported?(email)
@@ -55,6 +61,11 @@ class SendgridApi
   end
 
 private
+
+  def initialize(pool)
+    @pool = pool
+    @enabled = true
+  end
 
   def error_response?(response)
     # Response could be empty which gets translated to an Array or have data
