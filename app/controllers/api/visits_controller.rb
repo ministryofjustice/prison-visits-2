@@ -24,6 +24,9 @@ module Api
       )
 
       slots = params.fetch(:slot_options)
+      unless slots.is_a?(Array) && slots.size >= 1
+        fail ParameterError, 'slot_options must contain >= slot'
+      end
       slots_step = SlotsStep.new(
         option_0: slots.fetch(0), # We expect at least 1 slot
         option_1: slots.fetch(1, nil),
@@ -32,6 +35,13 @@ module Api
       )
 
       locale = params.fetch(:locale)
+
+      # This is admitedly not great, but it will do until we remove the steps
+      # from the app, at which point it will make make sense to implement
+      # validation on this API call properly
+      fail_if_invalid('prisoner', prisoner_step)
+      fail_if_invalid('visitors', visitors_step)
+      fail_if_invalid('slot_options', slots_step)
 
       @visit = BookingRequestCreator.new.create!(
         prisoner_step, visitors_step, slots_step, locale
@@ -45,6 +55,15 @@ module Api
     def destroy
       @visit = Visit.find(params[:id])
       @visit.cancel!
+    end
+
+  private
+
+    def fail_if_invalid(param, step)
+      unless step.valid?
+        fail ParameterError,
+          "#{param} (#{step.errors.full_messages.join(', ')})"
+      end
     end
   end
 end

@@ -15,6 +15,12 @@ RSpec.describe Api::VisitsController do
     JSON.parse(response.body)
   }
 
+  around do |example|
+    travel_to Time.zone.local(2016, 2, 3, 14, 0) do
+      example.run
+    end
+  end
+
   describe 'create' do
     let(:params) {
       {
@@ -47,6 +53,54 @@ RSpec.describe Api::VisitsController do
       expect(response).to have_http_status(:ok)
       expect(parsed_body['visit']).to have_key('id')
       expect(parsed_body['visit']['processing_state']).to eq('requested')
+    end
+
+    it 'fails if a (top-level) parameter is missing' do
+      params.delete(:contact_email_address)
+      post :create, params
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(parsed_body['message']).
+        to eq('Missing parameter: contact_email_address')
+    end
+
+    it 'fails if the prisoner is invalid' do
+      params[:prisoner][:first_name] = nil
+      post :create, params
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(parsed_body['message']).
+        to eq('Invalid parameter: prisoner (First name is required)')
+    end
+
+    it 'fails if the visitors are invalid' do
+      params[:visitors][0][:first_name] = nil
+      post :create, params
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(parsed_body['message']).
+        to eq('Invalid parameter: visitors ()')
+    end
+
+    it 'fails if slot_options is not an array' do
+      params[:slot_options] = 'string'
+      post :create, params
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(parsed_body['message']).
+        to eq('Invalid parameter: slot_options must contain >= slot')
+    end
+
+    it 'fails if slot_options does not contain at least 1 slot' do
+      params[:slot_options] = 'string'
+      post :create, params
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(parsed_body['message']).
+        to eq('Invalid parameter: slot_options must contain >= slot')
+    end
+
+    it 'returns an error if the slot does not exist' do
+      params[:slot_options] = ['2016-02-15T04:00/04:30']
+      post :create, params
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(parsed_body['message']).
+        to eq('Invalid parameter: slot_options (Option 0 is not included in the list)')
     end
   end
 
