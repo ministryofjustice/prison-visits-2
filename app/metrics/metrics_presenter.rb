@@ -54,7 +54,7 @@ class MetricsPresenter
 private
 
   def overdue_to_h(counts)
-    counts.each_with_object({}) { |count, hash| hash[count[0]] = count[2] }
+    counts.each_with_object({}) { |count, hash| hash[count[0]] = count.last }
   end
 
   def percentiles_to_h(percentiles)
