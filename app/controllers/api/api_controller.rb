@@ -13,6 +13,10 @@ module Api
       render_error 422, "Invalid parameter: #{e.message}"
     end
 
+    rescue_from ActiveRecord::RecordNotFound do
+      render_error 404, 'Not found'
+    end
+
   private
 
     def set_locale

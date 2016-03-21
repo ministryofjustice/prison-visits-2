@@ -117,6 +117,13 @@ RSpec.describe Api::VisitsController do
       expect(response).to have_http_status(:ok)
       expect(parsed_body['visit']['processing_state']).to eq('requested')
     end
+
+    it 'fails if the visit does not exist' do
+      params[:id] = '123'
+      get :show, params
+      expect(response).to have_http_status(:not_found)
+      expect(parsed_body['message']).to eq('Not found')
+    end
   end
 
   describe 'destroy' do
@@ -140,6 +147,13 @@ RSpec.describe Api::VisitsController do
     it 'triggers a cancellation email to staff' do
       expect(PrisonMailer).to receive(:withdrawn).once.and_return(mailing)
       delete :destroy, params
+    end
+
+    it 'fails if the visit does not exist' do
+      params[:id] = '123'
+      delete :destroy, params
+      expect(response).to have_http_status(:not_found)
+      expect(parsed_body['message']).to eq('Not found')
     end
   end
 end
