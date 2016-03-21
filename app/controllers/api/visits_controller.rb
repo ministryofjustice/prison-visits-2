@@ -54,7 +54,9 @@ module Api
 
     def destroy
       @visit = Visit.find(params[:id])
-      @visit.cancel!
+      if @visit.can_cancel?
+        @visit.cancel!
+      end
     end
 
   private

@@ -155,5 +155,15 @@ RSpec.describe Api::VisitsController do
       expect(response).to have_http_status(:not_found)
       expect(parsed_body['message']).to eq('Not found')
     end
+
+    it 'is idempotent' do
+      delete :destroy, params
+      expect(response).to have_http_status(:ok)
+      expect(assigns(:visit).visit_state_changes.size).to eq(1)
+
+      delete :destroy, params
+      expect(response).to have_http_status(:ok)
+      expect(assigns(:visit).visit_state_changes.size).to eq(1)
+    end
   end
 end
