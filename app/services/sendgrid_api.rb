@@ -1,3 +1,5 @@
+require 'connection_pool'
+
 class SendgridApi
   RESCUABLE_ERRORS = [JSON::ParserError,
                       Excon::Errors::Error,
