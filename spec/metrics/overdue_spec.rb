@@ -6,6 +6,7 @@ RSpec.describe Overdue do
 
   before do
     book_a_luna_visit_late
+    book_a_luna_visit_late
     book_a_luna_visit_on_time
     reject_a_luna_visit_late
     reject_a_luna_visit_on_time
@@ -19,7 +20,7 @@ RSpec.describe Overdue do
   context 'that are not organised by date' do
     describe Overdue::CountOverdueVisits do
       it 'counts all overdue visits' do
-        expect(described_class.fetch_and_format).to eq('booked' => 2,
+        expect(described_class.fetch_and_format).to eq('booked' => 3,
                                                        'rejected' => 2,
                                                        'requested' => 1)
       end
@@ -29,7 +30,7 @@ RSpec.describe Overdue do
       it 'counts all overdue visits and group by prison' do
         expect(described_class.fetch_and_format).to be ==
           { 'Lunar Penal Colony' =>
-            { 'booked' => 1,
+            { 'booked' => 2,
               'rejected' => 1,
               'requested' => 1
             },
@@ -56,7 +57,7 @@ RSpec.describe Overdue do
               2016 => {
                 5 => {
                   'rejected' => 1,
-                  'booked' => 1
+                  'booked' => 2
                 }
               }
             },
@@ -85,7 +86,7 @@ RSpec.describe Overdue do
                 2016 => {
                   5 => {
                     'rejected' => 2,
-                    'booked' => 2
+                    'booked' => 3
                   }
                 }
               }
@@ -108,7 +109,7 @@ RSpec.describe Overdue do
                 2 => {
                   1 => {
                     'rejected' => 1,
-                    'booked' => 1
+                    'booked' => 2
                   }
                 }
               }
@@ -141,7 +142,7 @@ RSpec.describe Overdue do
                   2 => {
                     1 => {
                       'rejected' => 2,
-                      'booked' => 2
+                      'booked' => 3
                     }
                   }
                 }
