@@ -22,7 +22,7 @@ RSpec.feature 'Booking a visit', js: true do
     click_button 'Continue'
 
     select_slots
-    click_button 'Continue'
+    find_button('Continue').trigger('click')
 
     expect(page).to have_text('Check your request')
 
