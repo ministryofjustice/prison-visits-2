@@ -57,3 +57,10 @@ RSpec.shared_context 'sendgrid api raises an exception' do
       to_raise(StandardError)
   end
 end
+
+RSpec.shared_context 'sendgrid times out' do
+  before do
+    stub_request(:any, %r{.*api\.sendgrid\.com/api/.+\.json}).
+      to_raise(Excon::Errors::Timeout)
+  end
+end

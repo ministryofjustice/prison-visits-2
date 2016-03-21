@@ -18,6 +18,17 @@ RSpec.shared_examples 'error handling' do
       end
     end
 
+    context 'when times outs' do
+      include_context 'sendgrid times out'
+
+      it 'rescues, logs the error and returns false' do
+        check_error_log_message_contains(/Timeout/)
+        expect(Raven).to_not receive(:capture_exception)
+
+        expect(subject).to be_falsey
+      end
+    end
+
     context 'when the API reports an error' do
       let(:body) { '{"error":"LOL"}' }
 
