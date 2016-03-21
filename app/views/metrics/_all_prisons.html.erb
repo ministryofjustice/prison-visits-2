@@ -34,7 +34,7 @@
         <td class="narrow">
           <%= dataset.visits_in_state(prison.name, 'requested') %>
         </td>
-        <td class="narrow">
+        <td class="narrow <%= prison.finder_slug -%>-overdue">
           <%= dataset.overdue_count(prison.name) %>
         </td>
         <td class="narrow">
