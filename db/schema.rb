@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160315143957) do
+ActiveRecord::Schema.define(version: 20160318163141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -474,6 +474,32 @@ ActiveRecord::Schema.define(version: 20160315143957) do
        JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
     WHERE (date_part('epoch'::text, (vsc.created_at - v.created_at)) < (259200)::double precision)
     GROUP BY prisons.name, vsc.visit_state;
+  SQL
+
+  create_view :timely_and_overdue_by_calendar_weeks,  sql_definition: <<-SQL
+      SELECT count(*) AS count,
+      'overdue'::text AS status,
+      vsc.visit_state,
+      prisons.name AS prison_name,
+      (date_part('week'::text, v.created_at))::integer AS week,
+      (date_part('isoyear'::text, v.created_at))::integer AS year
+     FROM ((visits v
+       JOIN prisons ON ((prisons.id = v.prison_id)))
+       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+    WHERE (date_part('epoch'::text, (vsc.created_at - v.created_at)) > (259200)::double precision)
+    GROUP BY prisons.name, vsc.visit_state, (date_part('week'::text, v.created_at))::integer, (date_part('isoyear'::text, v.created_at))::integer
+  UNION
+   SELECT count(*) AS count,
+      'timely'::text AS status,
+      vsc.visit_state,
+      prisons.name AS prison_name,
+      (date_part('week'::text, v.created_at))::integer AS week,
+      (date_part('isoyear'::text, v.created_at))::integer AS year
+     FROM ((visits v
+       JOIN prisons ON ((prisons.id = v.prison_id)))
+       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+    WHERE (date_part('epoch'::text, (vsc.created_at - v.created_at)) < (259200)::double precision)
+    GROUP BY prisons.name, vsc.visit_state, (date_part('week'::text, v.created_at))::integer, (date_part('isoyear'::text, v.created_at))::integer;
   SQL
 
 end
