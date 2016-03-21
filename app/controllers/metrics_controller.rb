@@ -21,18 +21,34 @@ class MetricsController < ApplicationController
     end
   end
 
+  def summary
+    @prison = Prison.find(params[:prison_id])
+    @date = 1.week.ago.beginning_of_week.to_date
+
+    @summary = PrisonSummaryMetricsPresenter.
+               new(summary_counts(@prison.name, @date))
+  end
+
 private
+
+  def summary_counts(prison, date)
+    {
+      counts: week_counts(date)[prison],
+      timings: week_timings(date)[prison],
+      percentiles: week_percentiles(date)[prison]
+    }
+  end
 
   def week_counts(date)
     counts = Counters::CountVisitsByPrisonAndCalendarWeek.
-      where(year: date.year, week: date.cweek).fetch_and_format
+             where(year: date.year, week: date.cweek).fetch_and_format
 
     flatten_weekly_count(counts, date.year, date.cweek)
   end
 
   def week_timings(date)
     timings = Timings::TimelyAndOverdueByCalendarWeek.
-      where(year: date.year, week: date.cweek).fetch_and_format
+              where(year: date.year, week: date.cweek).fetch_and_format
 
     flatten_weekly_count(timings, date.year, date.cweek)
   end
@@ -47,14 +63,14 @@ private
 
   def week_overdue_counts(date)
     overdue = Overdue::CountOverdueVisitsByPrisonAndCalendarWeek.
-      where(year: date.year, week: date.cweek).fetch_and_format
+              where(year: date.year, week: date.cweek).fetch_and_format
 
     flatten_weekly_count(overdue, date.year, date.cweek)
   end
 
   def week_rejections(date)
     rejections = Rejections::RejectionPercentageByPrisonAndCalendarWeek.
-      where(year: date.year, week: date.cweek).fetch_and_format
+                 where(year: date.year, week: date.cweek).fetch_and_format
 
     flatten_weekly_count(rejections, date.year, date.cweek)
   end

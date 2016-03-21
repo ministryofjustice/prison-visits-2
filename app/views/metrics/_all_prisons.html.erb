@@ -26,8 +26,7 @@
     <% Prison.enabled.each do |prison| %>
       <tr class="<%= cycle('odd', 'even') %>">
         <td class="prison-name">
-          <%= prison.name %>
-          <%# link_to(prison.name, prison_metrics_weekly_path(prison)) %>
+          <%= link_to(prison.name, prison_metrics_summary_path(prison)) %>
         </td>
         <td class="narrow left-border">
           <%= dataset.total_visits(prison.name) %>
