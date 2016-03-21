@@ -86,53 +86,53 @@ RSpec.shared_examples 'create visits with dates' do
     create(:visit, created_at: Time.zone.local(2016, 2, 1), prison: mars)
   end
 
-  let(:request_a_visit_that_remains_overdue) do
+  def request_a_visit_that_remains_overdue
     create(:visit, created_at: Time.zone.local(2016, 1, 1), prison: luna)
   end
 
-  let(:book_a_luna_visit_late) do
+  def book_a_luna_visit_late
     travel_to Time.zone.local(2016, 2, 5) do
       luna_visit.accept!
     end
   end
 
-  let(:book_a_luna_visit_on_time) do
+  def book_a_luna_visit_on_time
     travel_to Time.zone.local(2016, 2, 2) do
       luna_visit.accept!
     end
   end
 
-  let(:reject_a_luna_visit_late) do
+  def reject_a_luna_visit_late
     travel_to Time.zone.local(2016, 2, 5) do
       luna_visit.reject!
     end
   end
 
-  let(:reject_a_luna_visit_on_time) do
+  def reject_a_luna_visit_on_time
     travel_to Time.zone.local(2016, 2, 2) do
       luna_visit.reject!
     end
   end
 
-  let(:book_a_mars_visit_late) do
+  def book_a_mars_visit_late
     travel_to Time.zone.local(2016, 2, 5) do
       mars_visit.accept!
     end
   end
 
-  let(:book_a_mars_visit_on_time) do
+  def book_a_mars_visit_on_time
     travel_to Time.zone.local(2016, 2, 2) do
       mars_visit.accept!
     end
   end
 
-  let(:reject_a_mars_visit_late) do
+  def reject_a_mars_visit_late
     travel_to Time.zone.local(2016, 2, 5) do
       mars_visit.reject!
     end
   end
 
-  let(:reject_a_mars_visit_on_time) do
+  def reject_a_mars_visit_on_time
     travel_to Time.zone.local(2016, 2, 2) do
       mars_visit.reject!
     end
