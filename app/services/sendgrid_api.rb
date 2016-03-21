@@ -7,7 +7,7 @@ class SendgridApi
   class << self
     def instance
       @instance ||= begin
-        pool_size = ActiveRecord::Base.connection.pool.size
+        pool_size = database_pool_size
 
         client = new_client(Rails.configuration.sendgrid_api_user,
           Rails.configuration.sendgrid_api_key)
@@ -25,6 +25,13 @@ class SendgridApi
           http_opts: { persistent: true, timeout: 2 }
         )
       }
+    end
+
+  private
+
+    def database_pool_size
+      db_config = Rails.configuration.database_configuration
+      db_config[Rails.env].fetch('pool', 5)
     end
   end
 
