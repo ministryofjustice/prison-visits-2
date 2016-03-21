@@ -6,9 +6,9 @@ RSpec.feature 'Metrics', js: true do
   include_examples 'create visits with dates'
 
   before do
-    book_a_luna_visit_late
-    book_a_luna_visit_late
-    book_a_mars_visit_late
+    luna_visit
+    luna_visit
+    mars_visit
 
     # Shared examples are booked within the first week of February, 2106. The
     # controller tracks one week behind the current date.
@@ -17,7 +17,7 @@ RSpec.feature 'Metrics', js: true do
     end
   end
 
-  it 'should not fail' do
+  it 'has the correct overdue values' do
     expect(page).to have_selector('.luna-overdue', text: 2)
     expect(page).to have_selector('.mars-overdue', text: 1)
   end
