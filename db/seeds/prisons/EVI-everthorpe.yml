@@ -6,7 +6,7 @@ address: |-
 postcode: HU15 1RB
 email_address: socialvisits.everthorpe@hmps.gsi.gov.uk
 phone_no: 01430 426505
-enabled: flase
+enabled: false
 recurring:
   fri:
   - 1415-1615
