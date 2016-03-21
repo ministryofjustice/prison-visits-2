@@ -66,8 +66,12 @@ RSpec.shared_examples 'create visits without dates' do
 end
 
 RSpec.shared_examples 'create visits with dates' do
-  let(:luna) { create(:prison, name: 'Lunar Penal Colony') }
-  let(:mars) { create(:prison, name: 'Martian Penal Colony') }
+  # Most of the time these don't matter.  I've included them here to make it
+  # easier to target the TDs in the metrics table.
+  let(:luna_estate) { create(:estate, finder_slug: 'luna') }
+  let(:mars_estate) { create(:estate, finder_slug: 'mars') }
+  let(:luna) { create(:prison, name: 'Lunar Penal Colony', estate: luna_estate) }
+  let(:mars) { create(:prison, name: 'Martian Penal Colony', estate: mars_estate) }
 
   let(:luna_visits_with_dates) do
     make_visits(luna)
