@@ -45,7 +45,6 @@ class Visit < ActiveRecord::Base
 
     event :cancel do
       transition requested: :withdrawn
-      transition withdrawn: :withdrawn
       transition booked: :cancelled
       transition rejected: :rejected
     end
