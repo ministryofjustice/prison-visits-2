@@ -29,4 +29,10 @@ RSpec.describe MetricsController, type: :controller do
     subject { get :confirmed_bookings, params }
     it { is_expected.to be_successful }
   end
+
+  describe 'summary' do
+    let(:prison) { create(:prison) }
+    subject { get :summary, prison_id: prison.to_param, locale: 'en' }
+    it { is_expected.to be_successful }
+  end
 end

@@ -1,0 +1,60 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'metrics' %>
+<% end %>
+
+<h1>
+  Weekly performance indicators for
+  <%= @prison.name %>
+</h1>
+<h2>
+  Summary for
+  <%= @date.beginning_of_week.to_s(:long) %>
+  to
+  <%= @date.end_of_week.to_s(:long) %>
+</h2>
+<table id="overall-performance">
+  <tr>
+    <th>
+      Under 3 days
+    </th>
+    <th>
+      Over 3 days
+    </th>
+    <th>
+      Status
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <%= @summary.processed_on_time %>
+    </td>
+    <td>
+      <%= @summary.processed_overdue %>
+    </td>
+    <td>
+      <%= image_for_performance_score(@summary.end_to_end_percentile('95th')) %>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      Median
+    </th>
+    <th>
+      Total
+    </th>
+    <th>
+      Waiting
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <%= @summary.end_to_end_percentile('50th') %>
+    </td>
+    <td>
+      <%= @summary.total_visits %>
+    </td>
+    <td>
+      <%= @summary.visits_in_state('requested') %>
+    </td>
+  </tr>
+</table>
