@@ -32,7 +32,7 @@
       <%= @summary.processed_overdue %>
     </td>
     <td>
-      <%= image_for_performance_score(@summary.end_to_end_percentile('95th')) %>
+      <%= image_for_performance_score(@summary.end_to_end_percentile('95th').to_f) %>
     </td>
   </tr>
   <tr>
