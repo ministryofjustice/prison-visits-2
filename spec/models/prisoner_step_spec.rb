@@ -26,4 +26,12 @@ RSpec.describe PrisonerStep do
     expect(dob).to be_kind_of(UncoercedDate)
     expect(dob.month).to eql(13)
   end
+
+  it 'does not fail if the prisoner number has extra spaces' do
+    params[:number] = 'a1234bc '
+
+    prisoner_step = described_class.new(params)
+
+    expect(prisoner_step).to be_valid
+  end
 end
