@@ -36,10 +36,12 @@ RSpec.shared_examples 'create rejections with dates' do
   def make_visits(prison)
     create_list(:visit, 7, created_at: Time.zone.local(2016, 2, 1), prison: luna)
 
-    na = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 1))
+    na = create_list(:rejected_visit, 3, prison: prison, created_at: Time.zone.local(2016, 2, 1))
     su = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 1))
     vb = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 1))
-    create(:rejection, visit: na, reason: 'no_allowance', created_at: Time.zone.local(2016, 2, 1))
+    na.each do |visit|
+      create(:rejection, visit: visit, reason: 'no_allowance', created_at: Time.zone.local(2016, 2, 1))
+    end
     create(:rejection, visit: su, reason: 'slot_unavailable', created_at: Time.zone.local(2016, 2, 1))
     create(:rejection, visit: vb, reason: 'visitor_banned', created_at: Time.zone.local(2016, 2, 1))
   end

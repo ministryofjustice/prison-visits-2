@@ -51,10 +51,10 @@ RSpec.describe Rejections do
               2016 =>
               { 5 =>
                 {
-                  'no_allowance' => 10.0,
-                  'slot_unavailable' => 10.0,
-                  'visitor_banned' => 10.0,
-                  'total' => 30.0
+                  'no_allowance' => 25.0,
+                  'slot_unavailable' => 8.33,
+                  'visitor_banned' => 8.33,
+                  'total' => 41.67
                 }
               }
             }
@@ -75,10 +75,10 @@ RSpec.describe Rejections do
               { 2 =>
                 { 1 =>
                   {
-                    'no_allowance' => 10.0,
-                    'slot_unavailable' => 10.0,
-                    'visitor_banned' => 10.0,
-                    'total' => 30.0
+                    'no_allowance' => 25.0,
+                    'slot_unavailable' => 8.33,
+                    'visitor_banned' => 8.33,
+                    'total' => 41.67
                   }
                 }
               }
