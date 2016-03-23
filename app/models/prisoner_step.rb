@@ -3,12 +3,15 @@ require 'maybe_date'
 class PrisonerStep
   include NonPersistedModel
   include Person
+  include ActiveModel::Validations::Callbacks
 
   attribute :first_name, String
   attribute :last_name, String
   attribute :date_of_birth, MaybeDate
   attribute :number, String
   attribute :prison_id, Integer
+
+  before_validation :scrub_trailing_spaces
 
   validates :number, format: {
     with: /\A[a-z]\d{4}[a-z]{2}\z/i
@@ -19,5 +22,11 @@ class PrisonerStep
 
   def prison
     Prison.find_by(id: prison_id)
+  end
+
+private
+
+  def scrub_trailing_spaces
+    number.try(:strip!)
   end
 end
