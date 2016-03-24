@@ -1,0 +1,11 @@
+<% content_for :header, t('.title') %>
+
+<div class='Grid'>
+  <div class='Grid-2-3'>
+    <article>
+      <%= markdown t('.body_md', {
+            new_booking_url: booking_requests_path,
+            prison_finder_url: link_directory.prison_finder}) %>
+    </article>
+  </div>
+</div>
