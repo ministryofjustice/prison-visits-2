@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   end
   match 'exception', to: 'errors#test', via: %i[ get post ]
 
+  # Old pvb1 path to start a booking
+  get '/prisoner', to: redirect(ENV.fetch('GOVUK_START_PAGE', '/en/request'))
+
   constraints format: 'json' do
     get 'ping', to: 'ping#index'
     get 'healthcheck', to: 'healthcheck#index'
