@@ -20,11 +20,4 @@ module Rejections
       pluck(:prison_name, :year, :week, :reason, :percentage)
     end
   end
-
-  class RejectionPercentageByPrisonAndCalendarDate < ActiveRecord::Base
-    extend CounterSupport
-    def self.ordered_counters
-      pluck(:prison_name, :year, :month, :day, :reason, :percentage)
-    end
-  end
 end

@@ -51,35 +51,10 @@ RSpec.describe Rejections do
               2016 =>
               { 5 =>
                 {
-                  'no_allowance' => 25.0,
-                  'slot_unavailable' => 8.33,
-                  'visitor_banned' => 8.33,
-                  'total' => 41.67
-                }
-              }
-            }
-        }
-      end
-    end
-
-    describe Rejections::RejectionPercentageByPrisonAndCalendarDate do
-      before do
-        luna_visits_with_dates
-      end
-
-      it 'counts visits and groups by prison, year, calendar week and visit state' do
-        expect(described_class.fetch_and_format).to be ==
-          { 'Lunar Penal Colony' =>
-            {
-              2016 =>
-              { 2 =>
-                { 1 =>
-                  {
-                    'no_allowance' => 25.0,
-                    'slot_unavailable' => 8.33,
-                    'visitor_banned' => 8.33,
-                    'total' => 41.67
-                  }
+                  'no_allowance' => 18.18,
+                  'slot_unavailable' => 9.09,
+                  'visitor_banned' => 9.09,
+                  'total' => 36.36
                 }
               }
             }

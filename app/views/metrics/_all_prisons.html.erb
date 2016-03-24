@@ -49,25 +49,25 @@
         <td class="narrow <%= prison.finder_slug -%>-ninety-fifth">
           <%= dataset.end_to_end_percentile(prison.name, '95th') %>
         </td>
-        <td class="narrow left-border">
+        <td class="narrow left-border <%= prison.finder_slug -%>-total-rejected">
           <%= dataset.percent_rejected(prison.name, 'total') %>
         </td>
-        <td class="narrow">
+        <td class="narrow <%= prison.finder_slug -%>-slot-unavailable">
           <%= dataset.percent_rejected(prison.name, 'slot_unavailable') %>
         </td>
-        <td class="narrow">
+        <td class="narrow <%= prison.finder_slug -%>-visitor-not-on-list">
           <%= dataset.percent_rejected(prison.name, 'visitor_not_on_list') %>
         </td>
-        <td class="narrow">
+        <td class="narrow <%= prison.finder_slug -%>-no-allowance">
           <%= dataset.percent_rejected(prison.name, 'no_allowance') %>
         </td>
-        <td class="narrow">
+        <td class="narrow <%= prison.finder_slug -%>-prisoner-moved">
           <%= dataset.percent_rejected(prison.name, 'prisoner_moved') %>
         </td>
-        <td class="narrow">
+        <td class="narrow <%= prison.finder_slug -%>-visitor-banned">
           <%= dataset.percent_rejected(prison.name, 'visitor_banned') %>
         </td>
-        <td class="narrow">
+        <td class="narrow <%= prison.finder_slug -%>-prisoner-details-incorrect">
           <%= dataset.percent_rejected(prison.name, 'prisoner_details_incorrect') %>
         </td>
       </tr>
