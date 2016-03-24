@@ -70,5 +70,7 @@ module PrisonVisits
       !ENV.key?('ENABLE_SENDGRID_VALIDATIONS') &&
       !ENV.key?('SMTP_USERNAME') &&
       !ENV.key?('SMTP_PASSWORD')
+
+    config.nomis_api_host = ENV.fetch('NOMIS_API_HOST')
   end
 end

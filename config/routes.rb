@@ -49,5 +49,6 @@ Rails.application.routes.draw do
     resources :prisons, only: %i[ index show ]
     resources :slots, only: %i[ index ]
     resources :visits, only: %i[ create show destroy ]
+    post '/validations/prisoner', to: 'validations#prisoner'
   end
 end
