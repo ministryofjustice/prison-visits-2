@@ -1,4 +1,14 @@
 en:
+  pvb1_paths:
+    status:
+      title: Visit expired
+      body_md: |
+        This visit has expired and its information has been removed.
+
+        You can
+        [start a new prison visit request](%{new_booking_url})
+        or book your visit by phone instead. See the
+        [prison finder](%{prison_finder_url}) for contact details.
   errors:
     "404":
       title: This page cannot be found
