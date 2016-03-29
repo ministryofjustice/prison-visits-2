@@ -3,6 +3,21 @@ require 'rails_helper'
 RSpec.describe Nomis::Api do
   subject { described_class.instance }
 
+  it 'is implicitly enabled if the api host is configured' do
+    expect(Rails.configuration).to receive(:nomis_api_host).and_return(nil)
+    expect(described_class.enabled?).to be false
+
+    expect(Rails.configuration).to receive(:nomis_api_host).and_return('http://example.com/')
+    expect(described_class.enabled?).to be true
+  end
+
+  it 'fails if code attempts to use the client when disabled' do
+    expect(described_class).to receive(:enabled?).and_return(false)
+    expect {
+      described_class.instance
+    }.to raise_error(Nomis::DisabledError, 'Nomis API is disabled')
+  end
+
   describe 'lookup_active_offender', vcr: { cassette_name: 'lookup_active_offender' } do
     let(:params) {
       {
