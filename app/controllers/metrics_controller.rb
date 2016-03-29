@@ -10,6 +10,7 @@ class MetricsController < ApplicationController
       metrics_counts = weekly_counts(@start_date)
     end
 
+    @prisons = Prison.enabled.includes(:estate)
     @dataset = MetricsPresenter.new(metrics_counts)
   end
 
