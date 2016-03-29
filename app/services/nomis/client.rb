@@ -11,9 +11,9 @@ module Nomis
       request(:get, route, params)
     end
 
-    def post(route, params)
-      request(:post, route, params)
-    end
+  # def post(route, params)
+  #   request(:post, route, params)
+  # end
 
   private
 
@@ -48,11 +48,11 @@ module Nomis
 
       if method == :get || method == :delete
         { query: params }
-      else
-        {
-          body: params.to_json,
-          headers: { 'Content-Type' => 'application/json' }
-        }
+        # else
+        #   {
+        #     body: params.to_json,
+        #     headers: { 'Content-Type' => 'application/json' }
+        #   }
       end
     end
   end
