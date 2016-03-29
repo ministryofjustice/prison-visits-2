@@ -7,6 +7,11 @@ RSpec.describe Api::ValidationsController do
     JSON.parse(response.body)
   }
 
+  before do
+    allow(Nomis::Api).to receive(:enabled?).and_return(true)
+    allow(Nomis::Api).to receive(:instance).and_return(instance_double(Nomis::Api))
+  end
+
   describe 'prisoner' do
     let(:params) {
       {
@@ -42,6 +47,13 @@ RSpec.describe Api::ValidationsController do
         'valid' => false,
         'errors' => ['prisoner_does_not_exist']
       )
+    end
+
+    it 'returns valid if the NOMIS API is disabled' do
+      expect(Nomis::Api).to receive(:enabled?).and_return(false)
+      expect(Nomis::Api.instance).not_to receive(:lookup_active_offender)
+      post :prisoner, params
+      expect(parsed_body['validation']['valid']).to eq(true)
     end
   end
 end

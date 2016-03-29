@@ -1,7 +1,17 @@
 module Nomis
+  DisabledError = Class.new(StandardError)
+
   class Api
     class << self
+      def enabled?
+        Rails.configuration.nomis_api_host != nil
+      end
+
       def instance
+        unless enabled?
+          fail DisabledError, 'Nomis API is disabled'
+        end
+
         @instance ||= begin
           client = Nomis::Client.new(Rails.configuration.nomis_api_host)
           new(client)
