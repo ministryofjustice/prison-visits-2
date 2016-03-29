@@ -43,10 +43,10 @@
         <td class="narrow">
           <%= dataset.visits_in_state(prison.name, 'booked') %>
         </td>
-        <td class="left-border">
+        <td class="left-border <%= prison.finder_slug -%>-median">
           <%= dataset.end_to_end_percentile(prison.name, '50th') %>
         </td>
-        <td class="narrow">
+        <td class="narrow <%= prison.finder_slug -%>-ninety-fifth">
           <%= dataset.end_to_end_percentile(prison.name, '95th') %>
         </td>
         <td class="narrow left-border">

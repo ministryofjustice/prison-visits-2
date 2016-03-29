@@ -1,12 +1,4 @@
 class PrisonSummaryMetricsPresenter
-  PERCENTILES_INDEX = {
-    '99th' => 0,
-    '95th' => 1,
-    '90th' => 2,
-    '75th' => 3,
-    '50th' => 4,
-    '25th' => 5
-  }
   def initialize(counts: nil,
     timings: nil,
     percentiles: nil,
@@ -31,8 +23,8 @@ class PrisonSummaryMetricsPresenter
   def end_to_end_percentile(percentile)
     return 0 unless @percentiles
 
-    index = PERCENTILES_INDEX.fetch(percentile)
-    seconds = @percentiles[index]
+    key = percentile[/\d+/].to_i
+    seconds = @percentiles[key]
 
     sprintf('%2.2f', seconds.to_f / 1.day)
   end
