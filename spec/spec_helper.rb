@@ -55,3 +55,16 @@ RSpec.configure do |config|
   config.order = :random
   Kernel.srand config.seed
 end
+
+require 'vcr'
+
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
+  config.hook_into :webmock
+  config.configure_rspec_metadata!
+
+  config.ignore_request do |request|
+    # Ignore capybara requests within feature tests
+    request.uri =~ /__identify__/
+  end
+end

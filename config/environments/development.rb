@@ -20,4 +20,7 @@ Rails.application.configure do
 
   config.i18n.load_path =
     Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
+
+  config.nomis_api_host = ENV.fetch('NOMIS_API_HOST',
+    'http://172.22.16.2:8080/')
 end
