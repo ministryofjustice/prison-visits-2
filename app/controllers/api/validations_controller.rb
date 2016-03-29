@@ -1,29 +1,18 @@
 module Api
   class ValidationsController < ApiController
     def prisoner
-      valid = true
-      errors = []
+      validation = PrisonerValidation.new(
+        noms_id: params.fetch(:number),
+        date_of_birth: Date.parse(params.fetch(:date_of_birth))
+      )
 
-      if Nomis::Api.enabled?
-        begin
-          offender = Nomis::Api.instance.lookup_active_offender(
-            noms_id: params.fetch(:number),
-            date_of_birth: Date.parse(params.fetch(:date_of_birth))
-          )
-
-          unless offender
-            valid = false
-            errors << 'prisoner_does_not_exist'
-          end
-        rescue Excon::Errors::Error => e
-          Rails.logger.warn "Error calling the nomis API: #{e.inspect}"
-        end
+      if validation.valid?
+        response = { valid: true }
+      else
+        response = { valid: false, errors: validation.errors.values.flatten }
       end
 
-      validation = { valid: valid }
-      validation[:errors] = errors if errors.any?
-
-      render status: 200, json: { validation: validation }
+      render status: 200, json: { validation: response }
     end
   end
 end
