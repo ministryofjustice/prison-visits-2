@@ -29,8 +29,8 @@ module Nomis
         noms_id: noms_id,
         date_of_birth: date_of_birth
       )
-      return nil unless response['found'] == 'true'
-      Offender.new(id: response['offender_id'])
+      return nil unless response['found'] == true
+      Offender.new(response['offender'])
     end
   end
 end
