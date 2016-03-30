@@ -32,5 +32,22 @@ module Nomis
       return nil unless response['found'] == true
       Offender.new(response['offender'])
     end
+
+    # rubocop:disable Metrics/MethodLength
+    def offender_visiting_availability(offender_id:, start_date:, end_date:)
+      response = @client.get(
+        "/offenders/#{offender_id}/visiting_availability",
+        offender_id: offender_id,
+        start_date: start_date,
+        end_date: end_date
+      )
+      if response.fetch('available')
+        dates = response.fetch('dates').map(&:to_date)
+        return PrisonerAvailability.new(dates: dates)
+      else
+        return PrisonerAvailability.new(dates: [])
+      end
+    end
+    # rubocop:enable Metrics/MethodLength
   end
 end
