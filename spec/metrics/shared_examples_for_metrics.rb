@@ -22,26 +22,30 @@ RSpec.shared_examples 'create rejections without dates' do
 end
 
 RSpec.shared_examples 'create rejections with dates' do
-  let(:luna) { create(:prison, name: 'Lunar Penal Colony') }
-  let(:mars) { create(:prison, name: 'Martian Penal Colony') }
+  let(:luna_estate) { create(:estate, finder_slug: 'luna') }
+  let(:mars_estate) { create(:estate, finder_slug: 'mars') }
+  let(:luna) { create(:prison, name: 'Lunar Penal Colony', estate: luna_estate) }
+  let(:mars) { create(:prison, name: 'Martian Penal Colony', estate: mars_estate) }
 
-  let(:luna_visits_with_dates) do
+  def luna_visits_with_dates
     make_visits(luna)
   end
 
-  let(:mars_visits_with_dates) do
+  def mars_visits_with_dates
     make_visits(mars)
   end
 
   def make_visits(prison)
-    create_list(:visit, 7, created_at: Time.zone.local(2016, 2, 1), prison: luna)
+    create_list(:booked_visit, 7, created_at: Time.zone.local(2016, 2, 1), prison: luna)
 
-    na = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 1))
-    su = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 1))
-    vb = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 1))
-    create(:rejection, visit: na, reason: 'no_allowance', created_at: Time.zone.local(2016, 2, 1))
-    create(:rejection, visit: su, reason: 'slot_unavailable', created_at: Time.zone.local(2016, 2, 1))
-    create(:rejection, visit: vb, reason: 'visitor_banned', created_at: Time.zone.local(2016, 2, 1))
+    nc = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 1))
+    na = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 2))
+    su = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 3))
+    vb = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 4))
+    create(:rejection, visit: nc, created_at: Time.zone.local(2016, 2, 1))
+    create(:rejection, visit: na, created_at: Time.zone.local(2016, 2, 2))
+    create(:rejection, visit: su, reason: 'slot_unavailable', created_at: Time.zone.local(2016, 2, 3))
+    create(:rejection, visit: vb, reason: 'visitor_banned', created_at: Time.zone.local(2016, 2, 4))
   end
 end
 
