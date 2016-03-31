@@ -5,19 +5,6 @@ RSpec.describe Api::SlotsController do
     JSON.parse(response.body)
   }
 
-  let!(:prison) {
-    create(
-      :prison,
-      slot_details: { 'recurring' => { 'mon' => ['1330-1430'] } }
-    )
-  }
-
-  around do |example|
-    travel_to Time.zone.local(2016, 2, 3, 14, 0) do
-      example.run
-    end
-  end
-
   render_views
 
   describe 'index' do
@@ -25,19 +12,35 @@ RSpec.describe Api::SlotsController do
       {
         format: :json,
         prison_id: prison.id,
-        prisoner_no: 'a1234bc',
-        first_name: 'Winston',
-        last_name: 'Smith',
-        date_of_birth: '1950-01-01'
+        prisoner_number: 'a1234bc',
+        prisoner_dob: '1950-01-01'
       }
     }
+
+    let(:prison) { create(:prison) }
+
+    let(:slots) {
+      [
+        '2016-02-15T13:30/14:30',
+        '2016-02-22T13:30/14:30',
+        '2016-02-29T13:30/14:30'
+      ].map { |e| ConcreteSlot.parse(e) }
+    }
+
+    let(:slot_availability) {
+      instance_double(SlotAvailability, restrict_by_prisoner: nil, slots: slots)
+    }
+
+    before do
+      allow(SlotAvailability).to receive(:new).and_return(slot_availability)
+    end
 
     it 'returns 200 OK' do
       get :index, params
       expect(response).to have_http_status(:ok)
     end
 
-    it 'lists available slots' do
+    it 'lists available slots, as returned by SlotAvailability' do
       get :index, params
       expect(parsed_body).to include(
         'slots' => [
