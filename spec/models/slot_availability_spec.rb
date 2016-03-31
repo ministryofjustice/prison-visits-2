@@ -5,6 +5,13 @@ RSpec.describe SlotAvailability, type: :model do
 
   let!(:prison) { create(:prison) }
 
+  let(:prisoner_params) {
+    {
+      prisoner_number: 'a1234bc',
+      prisoner_dob: Date.parse('1970-01-01')
+    }
+  }
+
   let(:default_prison_slots) {
     [
       "2016-04-11T14:00/16:10",
@@ -47,10 +54,7 @@ RSpec.describe SlotAvailability, type: :model do
     expect(Nomis::Api.instance).to receive(:offender_visiting_availability).
       and_return(prisoner_availability)
 
-    subject.restrict_by_prisoner(
-      prisoner_number: 'a1234bc',
-      prisoner_dob: Date.parse('1970-01-01')
-    )
+    subject.restrict_by_prisoner(prisoner_params)
 
     expect(subject.slots.map(&:iso8601)).to eq(
       [
@@ -66,10 +70,19 @@ RSpec.describe SlotAvailability, type: :model do
     expect(Nomis::Api.instance).not_to receive(:lookup_active_offender)
     expect(Nomis::Api.instance).not_to receive(:offender_visiting_availability)
 
-    subject.restrict_by_prisoner(
-      prisoner_number: 'a1234bc',
-      prisoner_dob: Date.parse('1970-01-01')
+    subject.restrict_by_prisoner(prisoner_params)
+
+    expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
+  end
+
+  it 'returns only prison slots if the NOMIS API cannot be contacted' do
+    allow(Nomis::Api.instance).to receive(:lookup_active_offender).
+      and_raise(Excon::Errors::Error, 'Lookup error')
+    expect(Rails.logger).to receive(:warn).with(
+      'Error calling the NOMIS API: #<Excon::Errors::Error: Lookup error>'
     )
+
+    subject.restrict_by_prisoner(prisoner_params)
 
     expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
   end

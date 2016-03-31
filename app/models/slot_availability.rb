@@ -7,6 +7,7 @@ class SlotAvailability
   end
 
   # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def restrict_by_prisoner(prisoner_number:, prisoner_dob:)
     # Skip restriction if Nomis api is not enabled
     return unless Nomis::Api.enabled?
@@ -26,6 +27,10 @@ class SlotAvailability
     @slots = @slots.select { |slot|
       slot.to_date.in? offender_available_dates
     }
+  rescue Excon::Errors::Error => e
+    # Skip restriction if NOMIS API is misbehaving
+    Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
   end
   # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 end

@@ -20,6 +20,6 @@ class PrisonerValidation
     end
   rescue Excon::Errors::Error => e
     # Validation should pass if the Nomis API is misbehaving
-    Rails.logger.warn "Error calling the nomis API: #{e.inspect}"
+    Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
   end
 end
