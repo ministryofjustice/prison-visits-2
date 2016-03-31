@@ -19,6 +19,12 @@ RSpec.describe SlotAvailability, type: :model do
     ]
   }
 
+  before do
+    allow(Nomis::Api).to receive(:enabled?).and_return(true)
+    allow(Nomis::Api).to receive(:instance).
+      and_return(instance_double(Nomis::Api))
+  end
+
   around do |example|
     travel_to Time.zone.local(2016, 3, 31) do
       example.run
@@ -53,5 +59,18 @@ RSpec.describe SlotAvailability, type: :model do
         '2016-04-25T14:00/16:10'
       ]
     )
+  end
+
+  it 'returns only prison slots if the NOMIS API is disabled' do
+    expect(Nomis::Api).to receive(:enabled?).and_return(false)
+    expect(Nomis::Api.instance).not_to receive(:lookup_active_offender)
+    expect(Nomis::Api.instance).not_to receive(:offender_visiting_availability)
+
+    subject.restrict_by_prisoner(
+      prisoner_number: 'a1234bc',
+      prisoner_dob: Date.parse('1970-01-01')
+    )
+
+    expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
   end
 end

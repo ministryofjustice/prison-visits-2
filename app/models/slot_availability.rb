@@ -8,6 +8,9 @@ class SlotAvailability
 
   # rubocop:disable Metrics/MethodLength
   def restrict_by_prisoner(prisoner_number:, prisoner_dob:)
+    # Skip restriction if Nomis api is not enabled
+    return unless Nomis::Api.enabled?
+
     offender = Nomis::Api.instance.lookup_active_offender(
       noms_id: prisoner_number,
       date_of_birth: prisoner_dob
