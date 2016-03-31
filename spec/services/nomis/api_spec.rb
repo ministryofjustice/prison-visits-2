@@ -38,4 +38,27 @@ RSpec.describe Nomis::Api do
       expect(subject).to be_nil
     end
   end
+
+  describe 'offender_visiting_availability', vcr: { cassette_name: 'offender_visiting_availability' } do
+    let(:params) {
+      {
+        offender_id: 1_055_827,
+        start_date: Date.parse('2016-04-01'),
+        end_date: Date.parse('2016-04-21')
+      }
+    }
+
+    subject { super().offender_visiting_availability(params) }
+
+    it 'returns availability info containing a list of available dates' do
+      expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
+      expect(subject.dates.first).to eq(Date.parse('2016-04-01'))
+    end
+
+    it 'returns empty list of available dates if there is no availability', vcr: { cassette_name: 'offender_visiting_availability-noavailability' } do
+      params[:offender_id] = 1_055_847
+      expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
+      expect(subject.dates).to be_empty
+    end
+  end
 end

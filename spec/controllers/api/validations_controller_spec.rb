@@ -60,7 +60,7 @@ RSpec.describe Api::ValidationsController do
       allow(Nomis::Api.instance).to receive(:lookup_active_offender).
         and_raise(Excon::Errors::Error, 'Something broke')
       expect(Rails.logger).to receive(:warn).with(
-        'Error calling the nomis API: #<Excon::Errors::Error: Something broke>'
+        'Error calling the NOMIS API: #<Excon::Errors::Error: Something broke>'
       )
       post :prisoner, params
       expect(parsed_body['validation']['valid']).to eq(true)
