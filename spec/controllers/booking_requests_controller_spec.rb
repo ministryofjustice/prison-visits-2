@@ -20,7 +20,7 @@ RSpec.describe BookingRequestsController do
       email_address: 'ada@test.example.com',
       phone_no: '01154960222',
       visitors_attributes: {
-        0 => {
+        '0' => {
           first_name: 'Ada',
           last_name: 'Lovelace',
           date_of_birth: {
@@ -73,6 +73,22 @@ RSpec.describe BookingRequestsController do
     it 'renders the prisoner template' do
       expect(response).to render_template('prisoner_step')
     end
+  end
+
+  context 'passing a hash as the prison_id' do
+    before do
+      allow(Prison).to receive(:find_by).and_call_original
+    end
+
+    subject do
+      lambda {
+        post :create,
+          prisoner_step: { prison_id: { admin: true } },
+          locale: 'en'
+      }
+    end
+
+    it { is_expected.to_not raise_error }
   end
 
   context 'after submitting prisoner details' do
