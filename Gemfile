@@ -17,6 +17,7 @@ gem 'netaddr'
 gem 'pg'
 gem 'premailer-rails'
 gem 'puma'
+gem 'redcarpet'
 gem 'sass-rails', '~> 5.0'
 gem 'scenic', '>= 1.2.0'
 

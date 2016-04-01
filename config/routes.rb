@@ -52,4 +52,7 @@ Rails.application.routes.draw do
     resources :visits, only: %i[ create show destroy ]
     post '/validations/prisoner', to: 'validations#prisoner'
   end
+
+  get '/staff', to: 'staff_info#index'
+  get '/staff/:page', to: 'staff_info#show'
 end

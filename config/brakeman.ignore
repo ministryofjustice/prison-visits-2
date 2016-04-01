@@ -3,6 +3,43 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
+      "fingerprint": "02ab7b803c65898228495f502abdf9c6f3e623f025bafec655c1a547ef03dcf3",
+      "message": "Render path contains parameter value",
+      "file": "app/controllers/errors_controller.rb",
+      "line": 19,
+      "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => { 404 => :\"404\", 500 => :\"500\", 503 => :\"503\" }.fetch(params.fetch(:status_code).to_i), { :status => params.fetch(:status_code).to_i })",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ErrorsController",
+        "method": "show"
+      },
+      "user_input": "params.fetch(:status_code)",
+      "confidence": "Weak",
+      "note": "The controller has a lookup table of acceptable render templates"
+    },
+    {
+      "warning_type": "Cross Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "000ec2b11dfa993c085c2bd6603794de8567c67c0c41f3b5dbc4cb95d5186163",
+      "message": "Unescaped parameter value",
+      "file": "app/views/staff_info/show.html.erb",
+      "line": 3,
+      "link": "http://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "markdown(fetch(params.values_at(:page, :format).compact.join(\".\")).body)",
+      "render_path": [{"type":"controller","class":"StaffInfoController","method":"show","line":20,"file":"app/controllers/staff_info_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "staff_info/show"
+      },
+      "user_input": "params.values_at(:page, :format).compact.join(\".\")",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
       "fingerprint": "c598eec54ac508f70f6b8ec3509e6d2d65910784da867ef6ceb57c171b86841c",
       "message": "Render path contains parameter value",
       "file": "app/controllers/booking_requests_controller.rb",
@@ -37,25 +74,6 @@
       "user_input": "params",
       "confidence": "Weak",
       "note": ""
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "02ab7b803c65898228495f502abdf9c6f3e623f025bafec655c1a547ef03dcf3",
-      "message": "Render path contains parameter value",
-      "file": "app/controllers/errors_controller.rb",
-      "line": 15,
-      "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => { 404 => :\"404\", 500 => :\"500\", 503 => :\"503\" }.fetch(params.fetch(:status_code).to_i), { :status => params.fetch(:status_code).to_i })",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "ErrorsController",
-        "method": "show"
-      },
-      "user_input": "params.fetch(:status_code)",
-      "confidence": "Weak",
-      "note": "The controller has a lookup table of acceptable render templates"
     },
     {
       "warning_type": "Dynamic Render Path",
@@ -96,6 +114,6 @@
       "note": ""
     }
   ],
-  "updated": "2016-02-11 13:06:34 +0000",
+  "updated": "2016-04-06 17:12:22 +0100",
   "brakeman_version": "3.1.3"
 }
