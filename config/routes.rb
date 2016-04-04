@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   scope '/:locale', locale: /[a-z]{2}/ do
     get '/', to: redirect('/%{locale}/request')
 
+    post 'webhooks/email/:auth', to: 'webhooks#email'
+
     scope controller: :metrics do
       get 'metrics', action: :index
       get 'metrics/confirmed_bookings', action: :confirmed_bookings
