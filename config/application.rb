@@ -65,6 +65,7 @@ module PrisonVisits
 
     config.sendgrid_api_user = ENV['SMTP_USERNAME']
     config.sendgrid_api_key = ENV['SMTP_PASSWORD']
+    config.webhook_auth_key = ENV['WEBHOOK_AUTH_KEY'] || 'development_key'
 
     config.disable_sendgrid_validations =
       !ENV.key?('ENABLE_SENDGRID_VALIDATIONS') &&

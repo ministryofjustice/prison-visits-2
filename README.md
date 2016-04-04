@@ -270,6 +270,10 @@ prisons, it will create or update all prisons with emails in the format
 `pvb2.(parameterized prison name)@maildrop.dsd.io`. This will ensure that
 staging and other test emails do not accidentally get sent to real prisons.
 
+#### `WEBHOOK_AUTH_KEY`
+
+Used in the Sendgrid webhook. Ensures that the request comes from Sendgrid.
+
 #### `ZENDESK_USERNAME`, `ZENDESK_TOKEN`, `ZENDESK_URL`
 
 These are required in order to submit user feedback to Zendesk.

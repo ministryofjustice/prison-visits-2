@@ -2,6 +2,7 @@ class VisitorMailer < ActionMailer::Base
   include LogoAttachment
   include NoReply
   include DateHelper
+  include Autoresponder
   add_template_helper DateHelper
   add_template_helper LinksHelper
 
