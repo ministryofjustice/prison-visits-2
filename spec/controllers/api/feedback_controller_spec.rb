@@ -1,9 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Api::FeedbackSubmissionsController, type: :controller do
+RSpec.describe Api::FeedbackController, type: :controller do
   include ActiveJobHelper
-
-  render_views
 
   before do
     allow(ZendeskTicketsJob).to receive(:perform_later)
@@ -18,7 +16,7 @@ RSpec.describe Api::FeedbackSubmissionsController, type: :controller do
     let(:params) {
       {
         format: :json,
-        feedback_submission: {
+        feedback: {
           body: body,
           email_address: 'john@example.com',
           user_agent: 'browser user agent',
@@ -41,6 +39,10 @@ RSpec.describe Api::FeedbackSubmissionsController, type: :controller do
       create
     end
 
+    it 'renders a 200' do
+      is_expected.to be_ok
+    end
+
     describe 'with invalid data' do
       let(:body) { nil }
 
@@ -51,7 +53,7 @@ RSpec.describe Api::FeedbackSubmissionsController, type: :controller do
 
       it 'returns an error' do
         is_expected.to be_unprocessable
-        expect(parsed_body['messages']).to eq(["Body can't be blank"])
+        expect(parsed_body['message']).to eq(["Body can't be blank"])
       end
     end
   end
