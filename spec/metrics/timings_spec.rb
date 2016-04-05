@@ -7,6 +7,10 @@ RSpec.describe Timings do
   before do
     book_a_luna_visit_late
     book_a_luna_visit_on_time
+    cancel_a_luna_visit_late
+    cancel_a_luna_visit_on_time
+    withdraw_a_luna_visit_late
+    withdraw_a_luna_visit_on_time
     reject_a_luna_visit_late
     reject_a_luna_visit_on_time
     book_a_mars_visit_late
@@ -23,11 +27,15 @@ RSpec.describe Timings do
             {
               'timely' => {
                 'booked' => 1,
-                'rejected' => 1
+                'rejected' => 1,
+                'cancelled' => 1,
+                'withdrawn' => 1
               },
               'overdue' => {
                 'booked' => 1,
-                'rejected' => 1
+                'rejected' => 1,
+                'cancelled' => 1,
+                'withdrawn' => 1
               }
             },
             'Martian Penal Colony' =>
@@ -52,8 +60,18 @@ RSpec.describe Timings do
             { 'Lunar Penal Colony' =>
               { 2016 =>
                 { 5 => {
-                  'overdue' => { 'rejected' => 1, 'booked' => 1 },
-                  'timely' => { 'rejected' => 1, 'booked' => 1 }
+                  'overdue' => {
+                    'rejected' => 1,
+                    'booked' => 1,
+                    'cancelled' => 1,
+                    'withdrawn' => 1
+                  },
+                  'timely' => {
+                    'rejected' => 1,
+                    'booked' => 1,
+                    'cancelled' => 1,
+                    'withdrawn' => 1
+                  }
                 }
                 }
               },
