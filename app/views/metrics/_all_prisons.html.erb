@@ -23,7 +23,7 @@
       <td>Visitor banned</td>
       <td>Prisoner details incorrect</td>
     </tr>
-    <% Prison.enabled.each do |prison| %>
+    <% @prisons.each do |prison| %>
       <tr class="<%= cycle('odd', 'even') %>">
         <td class="prison-name">
           <%= link_to(prison.name, prison_metrics_summary_path(prison)) %>
