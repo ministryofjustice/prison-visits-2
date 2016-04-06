@@ -17,6 +17,10 @@ module Api
       render_error 404, 'Not found'
     end
 
+    rescue_from ActiveRecord::RecordInvalid do |e|
+      render_error 422, e.record.errors.full_messages
+    end
+
   private
 
     def set_locale
