@@ -7,6 +7,7 @@ postcode: HP20 1EH
 email_address: socialvisits.aylesbury@hmps.gsi.gov.uk
 phone_no: 01296 444099
 enabled: true
+adult_age: 10
 recurring:
   mon:
   - 1415-1615
