@@ -5,31 +5,43 @@ RSpec.describe Rejections do
   context 'that are not organised by date' do
     include_examples 'create rejections without dates'
 
+    before do
+      luna_visits_without_dates
+    end
+
+    it { expect(Visit.count).to eq(14) }
+    it { expect(Visit.where(processing_state: 'booked').count).to eq(10) }
+    it { expect(Visit.where(processing_state: 'rejected').count).to eq(4) }
+
     describe Rejections::RejectionPercentage do
       it 'calculates percentages of all rejections' do
-        expect(described_class.fetch_and_format).to eq('no_allowance' => 10.0,
+        expect(described_class.fetch_and_format).to eq('no_allowance' => 20.0,
                                                        'slot_unavailable' => 10.0,
                                                        'visitor_banned' => 10.0,
-                                                       'total' => 30.0)
+                                                       'total' => 40.0)
       end
     end
 
     describe Rejections::RejectionPercentageByPrison do
+      before do
+        mars_visits_without_dates
+      end
+
       it 'calculates percentages of all rejections by prison' do
         expect(described_class.fetch_and_format).to be ==
           { 'Lunar Penal Colony' =>
             {
-              'no_allowance' => 10.0,
+              'no_allowance' => 20.0,
               'slot_unavailable' => 10.0,
               'visitor_banned' => 10.0,
-              'total' => 30.0
+              'total' => 40.0
             },
             'Martian Penal Colony' =>
             {
-              'no_allowance' => 10.0,
+              'no_allowance' => 20.0,
               'slot_unavailable' => 10.0,
               'visitor_banned' => 10.0,
-              'total' => 30.0
+              'total' => 40.0
             }
         }
       end
@@ -44,6 +56,10 @@ RSpec.describe Rejections do
         luna_visits_with_dates
       end
 
+      it { expect(Visit.count).to eq(14) }
+      it { expect(Visit.where(processing_state: 'booked').count).to eq(10) }
+      it { expect(Visit.where(processing_state: 'rejected').count).to eq(4) }
+
       it 'counts visits and groups by prison, year, calendar week and visit state' do
         expect(described_class.fetch_and_format).to be ==
           { 'Lunar Penal Colony' =>
@@ -51,10 +67,10 @@ RSpec.describe Rejections do
               2016 =>
               { 5 =>
                 {
-                  'no_allowance' => 18.18,
-                  'slot_unavailable' => 9.09,
-                  'visitor_banned' => 9.09,
-                  'total' => 36.36
+                  'no_allowance' => 20.00,
+                  'slot_unavailable' => 10.00,
+                  'visitor_banned' => 10.00,
+                  'total' => 40.00
                 }
               }
             }
