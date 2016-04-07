@@ -72,5 +72,6 @@ module PrisonVisits
       !ENV.key?('SMTP_PASSWORD')
 
     config.nomis_api_host = ENV.fetch('NOMIS_API_HOST', nil)
+    config.staff_info_endpoint = ENV.fetch('STAFF_INFO_ENDPOINT', nil)
   end
 end

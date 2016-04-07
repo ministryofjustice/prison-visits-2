@@ -259,6 +259,10 @@ These configure email delivery in the production environment. `SMTP_DOMAIN` is
 also used when generating the `no-reply@` address and the `feedback@` stand-in
 address used when submitting feedback without an email address to Zendesk.
 
+#### `STAFF_INFO_ENDPOINT`
+
+This is used to proxy the staff information pages static site.
+
 #### `OVERRIDE_PRISON_EMAIL_DOMAIN`
 
 In order to avoid sending confusing and irrelevant messages to real prisons and
