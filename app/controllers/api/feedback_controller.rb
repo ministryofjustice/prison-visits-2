@@ -3,7 +3,7 @@ module Api
     def create
       @feedback = FeedbackSubmission.create!(feedback_params)
       ZendeskTicketsJob.perform_later(@feedback)
-      head :ok
+      render json: {}, status: 200
     end
 
   private
