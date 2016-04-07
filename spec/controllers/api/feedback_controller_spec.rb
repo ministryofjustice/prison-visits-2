@@ -41,6 +41,7 @@ RSpec.describe Api::FeedbackController, type: :controller do
 
     it 'renders a 200' do
       is_expected.to be_ok
+      expect(response.body).to eq('{}')
     end
 
     describe 'with invalid data' do
