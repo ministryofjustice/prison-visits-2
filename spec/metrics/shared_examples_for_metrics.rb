@@ -110,6 +110,34 @@ RSpec.shared_examples 'create visits with dates' do
     end
   end
 
+  def cancel_a_luna_visit_late
+    lv = luna_visit
+    travel_to Time.zone.local(2016, 2, 5) do
+      lv.accept!
+      lv.cancel!
+    end
+  end
+
+  def cancel_a_luna_visit_on_time
+    lv = luna_visit
+    travel_to Time.zone.local(2016, 2, 2) do
+      lv.accept!
+      lv.cancel!
+    end
+  end
+
+  def withdraw_a_luna_visit_late
+    travel_to Time.zone.local(2016, 2, 5) do
+      luna_visit.cancel!
+    end
+  end
+
+  def withdraw_a_luna_visit_on_time
+    travel_to Time.zone.local(2016, 2, 2) do
+      luna_visit.cancel!
+    end
+  end
+
   def reject_a_luna_visit_late
     travel_to Time.zone.local(2016, 2, 5) do
       luna_visit.reject!
