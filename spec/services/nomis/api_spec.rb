@@ -43,8 +43,8 @@ RSpec.describe Nomis::Api do
     let(:params) {
       {
         offender_id: 1_055_827,
-        start_date: Date.parse('2016-04-01'),
-        end_date: Date.parse('2016-04-21')
+        start_date: Date.parse('2016-05-01'),
+        end_date: Date.parse('2016-05-21')
       }
     }
 
@@ -52,7 +52,7 @@ RSpec.describe Nomis::Api do
 
     it 'returns availability info containing a list of available dates' do
       expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
-      expect(subject.dates.first).to eq(Date.parse('2016-04-01'))
+      expect(subject.dates.first).to eq(Date.parse('2016-05-01'))
     end
 
     it 'returns empty list of available dates if there is no availability', vcr: { cassette_name: 'offender_visiting_availability-noavailability' } do
@@ -60,5 +60,11 @@ RSpec.describe Nomis::Api do
       expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
       expect(subject.dates).to be_empty
     end
+
+    it 'is an error if the offender does not exist', vcr: { cassette_name: 'offender_visiting_availability-invalid_offender' } do
+      params[:offender_id] = 999_999
+      expect { subject }.to raise_error(Nomis::NotFound, 'Unknown offender')
+    end
+  end
   end
 end

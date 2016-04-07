@@ -1,5 +1,7 @@
 module Nomis
-  DisabledError = Class.new(StandardError)
+  Error = Class.new(StandardError)
+  DisabledError = Class.new(Error)
+  NotFound = Class.new(Error)
 
   class Api
     class << self
@@ -47,6 +49,8 @@ module Nomis
       else
         return PrisonerAvailability.new(dates: [])
       end
+    rescue Excon::Errors::NotFound
+      raise NotFound, 'Unknown offender'
     end
     # rubocop:enable Metrics/MethodLength
   end
