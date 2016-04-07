@@ -1,6 +1,6 @@
 class FeedbackSubmission < ActiveRecord::Base
   validates :body, presence: true
-  validate :validate_email
+  validate :email_format
 
   before_validation :strip_email_address, on: :create
 
@@ -10,9 +10,9 @@ private
     self.email_address = email_address.strip
   end
 
-  def validate_email
-    return unless email_address.present?
-    email_checker = EmailChecker.new(email_address)
-    errors.add :email_address, email_checker.message unless email_checker.valid?
+  def email_format
+    Mail::Address.new(email_address)
+  rescue Mail::Field::ParseError
+    errors.add(:email_address, 'has incorrect format')
   end
 end

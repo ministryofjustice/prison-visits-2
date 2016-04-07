@@ -26,7 +26,7 @@ RSpec.describe FeedbackSubmission do
       end
 
       it 'is invalid when not an email address' do
-        subject.email_address = 'BOGUS!'
+        subject.email_address = 'BOGUS !'
         subject.validate
         expect(subject.errors).to have_key(:email_address)
       end
