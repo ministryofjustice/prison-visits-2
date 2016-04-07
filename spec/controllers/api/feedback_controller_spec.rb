@@ -54,7 +54,7 @@ RSpec.describe Api::FeedbackController, type: :controller do
 
       it 'returns an error' do
         is_expected.to be_unprocessable
-        expect(parsed_body['message']).to eq(["Body can't be blank"])
+        expect(parsed_body['message']).to eq("Body can't be blank")
       end
     end
   end

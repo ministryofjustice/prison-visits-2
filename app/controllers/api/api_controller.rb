@@ -18,7 +18,7 @@ module Api
     end
 
     rescue_from ActiveRecord::RecordInvalid do |e|
-      render_error 422, e.record.errors.full_messages
+      render_error 422, e.record.errors.full_messages.join(', ')
     end
 
   private
