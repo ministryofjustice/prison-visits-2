@@ -6,7 +6,7 @@ SELECT COUNT(*),
          extract(isoyear from v.created_at)::integer AS year
   FROM visits AS v
   INNER JOIN prisons ON prisons.id = v.prison_id
-  INNER JOIN visit_state_changes AS vsc ON v.id = vsc.visit_id AND vsc.visit_state IN ('booked', 'rejected', 'cancelled', 'withdrawn')
+  INNER JOIN visit_state_changes AS vsc ON v.id = vsc.visit_id AND vsc.visit_state NOT IN ('requested')
   WHERE EXTRACT(EPOCH FROM vsc.created_at - v.created_at) > 259200
     AND vsc.visit_state = v.processing_state
   GROUP BY prison_name,
@@ -22,7 +22,7 @@ SELECT COUNT(*),
          extract(isoyear from v.created_at)::integer AS year
   FROM visits AS v
   INNER JOIN prisons ON prisons.id = v.prison_id
-  INNER JOIN visit_state_changes AS vsc ON v.id = vsc.visit_id AND vsc.visit_state IN ('booked', 'rejected', 'cancelled', 'withdrawn')
+  INNER JOIN visit_state_changes AS vsc ON v.id = vsc.visit_id AND vsc.visit_state NOT IN ('requested')
   WHERE EXTRACT(EPOCH FROM vsc.created_at - v.created_at) < 259200
     AND vsc.visit_state = v.processing_state
   GROUP BY prison_name,
