@@ -43,6 +43,35 @@ RSpec.describe SlotAvailability, type: :model do
   end
 
   describe 'fetching available slots from NOMIS' do
+    subject { described_class.new(prison: prison, use_nomis_slots: true) }
+
+    it 'can request slots from NOMIS' do
+      expect(Nomis::Api.instance).to receive(:fetch_bookable_slots).
+        with(
+          prison: prison,
+          start_date: Date.parse('2016-04-06'),
+          end_date: Date.parse('2016-04-28')
+        ).
+        and_return([ConcreteSlot.parse('2016-04-12T09:00/10:00')])
+
+      expect(subject.slots.map(&:iso8601)).to eq(['2016-04-12T09:00/10:00'])
+    end
+
+    it 'falls back to hard-coded slots if NOMIS is disabled' do
+      expect(Nomis::Api).to receive(:enabled?).and_return(false)
+      expect(Nomis::Api.instance).not_to receive(:fetch_bookable_slots)
+
+      expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
+    end
+
+    it 'falls back to hard-coded slots if NOMIS call fails' do
+      allow(Nomis::Api.instance).to receive(:fetch_bookable_slots).
+        and_raise(Excon::Errors::Error, 'Fail')
+      expect(Rails.logger).to receive(:warn).with(
+        'Error calling the NOMIS API: #<Excon::Errors::Error: Fail>'
+      )
+
+      expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
     end
   end
 

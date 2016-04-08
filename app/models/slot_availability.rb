@@ -1,10 +1,30 @@
 class SlotAvailability
   attr_reader :slots
 
-  def initialize(prison:)
+  def initialize(prison:, use_nomis_slots: false)
     @prison = prison
-    @slots = prison.available_slots.to_a
+    @slots = lookup_slots_for_prison(prison, use_nomis_slots)
   end
+
+  # rubocop:disable Metrics/MethodLength
+  def lookup_slots_for_prison(prison, use_nomis)
+    # Default to hard-coded slots if API is unavailable or returns an error
+    if use_nomis && Nomis::Api.enabled?
+      begin
+        Nomis::Api.instance.fetch_bookable_slots(
+          prison: prison,
+          start_date: prison.first_bookable_date,
+          end_date: prison.last_bookable_date
+        )
+      rescue Excon::Errors::Error => e
+        Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
+        prison.available_slots.to_a
+      end
+    else
+      prison.available_slots.to_a
+    end
+  end
+  # rubocop:enable Metrics/MethodLength
 
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
