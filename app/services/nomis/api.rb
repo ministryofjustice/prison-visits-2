@@ -53,5 +53,14 @@ module Nomis
       raise NotFound, 'Unknown offender'
     end
     # rubocop:enable Metrics/MethodLength
+
+    def fetch_bookable_slots(prison:, start_date:, end_date:)
+      response = @client.get(
+        "/prison/#{prison.nomis_id}/visit_slots",
+        start_date: start_date,
+        end_date: end_date
+      )
+      response['slots'].map { |s| ConcreteSlot.parse(s) }
+    end
   end
 end

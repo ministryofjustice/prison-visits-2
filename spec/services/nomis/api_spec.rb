@@ -66,5 +66,20 @@ RSpec.describe Nomis::Api do
       expect { subject }.to raise_error(Nomis::NotFound, 'Unknown offender')
     end
   end
+
+  describe 'fetch_bookable_slots', vcr: { cassette_name: 'fetch_bookable_slots' } do
+    let(:params) {
+      {
+        prison: instance_double(Prison, nomis_id: 'LEI'),
+        start_date: Date.parse('2016-04-08'),
+        end_date: Date.parse('2016-05-01')
+      }
+    }
+
+    subject { super().fetch_bookable_slots(params) }
+
+    it 'returns an array of slots' do
+      expect(subject.first.iso8601).to eq('2016-04-09T09:00/10:00')
+    end
   end
 end
