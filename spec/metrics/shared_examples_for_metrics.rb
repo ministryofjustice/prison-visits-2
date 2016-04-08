@@ -2,19 +2,21 @@ RSpec.shared_examples 'create rejections without dates' do
   let(:luna) { create(:prison, name: 'Lunar Penal Colony') }
   let(:mars) { create(:prison, name: 'Martian Penal Colony') }
 
-  let!(:luna_visits_without_dates) do
+  def luna_visits_without_dates
     make_visits(luna)
   end
 
-  let!(:mars_visits_without_dates) do
+  def mars_visits_without_dates
     make_visits(mars)
   end
 
   def make_visits(prison)
-    create_list(:visit, 7, prison: prison)
+    create_list(:booked_visit, 10, prison: prison)
+    nc = create(:rejected_visit, prison: prison)
     na = create(:rejected_visit, prison: prison)
     su = create(:rejected_visit, prison: prison)
     vb = create(:rejected_visit, prison: prison)
+    create(:rejection, visit: nc, reason: 'no_allowance')
     create(:rejection, visit: na, reason: 'no_allowance')
     create(:rejection, visit: su, reason: 'slot_unavailable')
     create(:rejection, visit: vb, reason: 'visitor_banned')
@@ -36,7 +38,7 @@ RSpec.shared_examples 'create rejections with dates' do
   end
 
   def make_visits(prison)
-    create_list(:booked_visit, 7, created_at: Time.zone.local(2016, 2, 1), prison: luna)
+    create_list(:booked_visit, 10, created_at: Time.zone.local(2016, 2, 1), prison: prison)
 
     nc = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 1))
     na = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 2))
