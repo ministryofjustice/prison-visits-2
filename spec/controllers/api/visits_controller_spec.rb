@@ -15,6 +15,10 @@ RSpec.describe Api::VisitsController do
     JSON.parse(response.body)
   }
 
+  before do
+    request.headers['Accept-Language'] = 'cy'
+  end
+
   around do |example|
     travel_to Time.zone.local(2016, 2, 3, 14, 0) do
       example.run
@@ -43,16 +47,18 @@ RSpec.describe Api::VisitsController do
           '2016-02-15T13:30/14:30'
         ],
         contact_email_address: 'foo@example.com',
-        contact_phone_no: '1234567890',
-        locale: 'en'
+        contact_phone_no: '1234567890'
       }
     }
 
     it 'creates a new visit booking request' do
-      post :create, params
+      expect { post :create, params }.to change(Visit, :count).by(1)
+
       expect(response).to have_http_status(:ok)
       expect(parsed_body['visit']).to have_key('id')
       expect(parsed_body['visit']['processing_state']).to eq('requested')
+
+      expect(Visit.last.locale).to eq('cy')
     end
 
     it 'fails if a (top-level) parameter is missing' do
@@ -68,7 +74,7 @@ RSpec.describe Api::VisitsController do
       post :create, params
       expect(response).to have_http_status(:unprocessable_entity)
       expect(parsed_body['message']).
-        to eq('Invalid parameter: prisoner (First name is required)')
+        to eq('Invalid parameter: prisoner (First name yn ofynnol)')
     end
 
     it 'fails if the visitors are invalid' do
@@ -100,7 +106,7 @@ RSpec.describe Api::VisitsController do
       post :create, params
       expect(response).to have_http_status(:unprocessable_entity)
       expect(parsed_body['message']).
-        to eq('Invalid parameter: slot_options (Option 0 is not included in the list)')
+        to match(/Invalid parameter: slot_options \(Option 0/)
     end
   end
 

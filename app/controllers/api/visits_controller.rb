@@ -34,8 +34,6 @@ module Api
         prison: prison
       )
 
-      locale = params.fetch(:locale)
-
       # This is admitedly not great, but it will do until we remove the steps
       # from the app, at which point it will make make sense to implement
       # validation on this API call properly
@@ -44,7 +42,7 @@ module Api
       fail_if_invalid('slot_options', slots_step)
 
       @visit = BookingRequestCreator.new.create!(
-        prisoner_step, visitors_step, slots_step, locale
+        prisoner_step, visitors_step, slots_step, I18n.locale
       )
     end
 

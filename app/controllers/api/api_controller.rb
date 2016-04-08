@@ -24,8 +24,7 @@ module Api
   private
 
     def set_locale
-      I18n.locale =
-        http_accept_language.compatible_language_from(I18n.available_locales)
+      I18n.locale = request.headers['Accept-Language']
     end
 
     def render_error(status, message)
