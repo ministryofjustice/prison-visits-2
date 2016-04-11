@@ -28,7 +28,9 @@
         <div id="other-visitors">
           <h2><%= t('.other_visitors') %></h2>
 
-          <p><%= t('.seating_arrangements') %></p>
+          <p>
+            <%= t('.seating_arrangements', adult_age: f.object.adult_age) %>
+          </p>
 
           <script type="text/html" id="additional-visitor-selector">
             <fieldset>
