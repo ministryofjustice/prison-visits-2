@@ -109,7 +109,6 @@ GEM
     high_voltage (2.4.0)
     highline (1.7.8)
     htmlentities (4.3.4)
-    http_accept_language (2.0.5)
     i18n (0.7.0)
     ice_nine (0.11.1)
     inflection (1.0.0)
@@ -338,7 +337,6 @@ DEPENDENCIES
   fuubar
   govuk_frontend_toolkit (= 2.0.1)
   high_voltage
-  http_accept_language
   jbuilder
   kramdown
   launchy

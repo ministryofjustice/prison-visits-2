@@ -3,7 +3,7 @@ cy:
     errors:
       messages:
         name: nid yw'n enw dilys
-        blank: 'yn ofynnol '
+        blank: 'yn ofynnol'
       models:
         visitors_step:
           attributes:
