@@ -11,7 +11,7 @@ RSpec.shared_examples 'create rejections without dates' do
   end
 
   def make_visits(prison)
-    create_list(:booked_visit, 10, prison: prison)
+    create_list(:booked_visit, 6, prison: prison)
     nc = create(:rejected_visit, prison: prison)
     na = create(:rejected_visit, prison: prison)
     su = create(:rejected_visit, prison: prison)
@@ -38,7 +38,7 @@ RSpec.shared_examples 'create rejections with dates' do
   end
 
   def make_visits(prison)
-    create_list(:booked_visit, 10, created_at: Time.zone.local(2016, 2, 1), prison: prison)
+    create_list(:booked_visit, 6, created_at: Time.zone.local(2016, 2, 1), prison: prison)
 
     nc = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 1))
     na = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 2))

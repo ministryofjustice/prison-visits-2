@@ -28,7 +28,7 @@
         <td class="prison-name">
           <%= link_to(prison.name, prison_metrics_summary_path(prison)) %>
         </td>
-        <td class="narrow left-border">
+        <td class="narrow left-border <%= prison.finder_slug -%>-total">
           <%= dataset.total_visits(prison.name) %>
         </td>
         <td class="narrow">
@@ -37,7 +37,7 @@
         <td class="narrow <%= prison.finder_slug -%>-overdue">
           <%= dataset.overdue_count(prison.name) %>
         </td>
-        <td class="narrow">
+        <td class="narrow <%= prison.finder_slug -%>-rejected">
           <%= dataset.visits_in_state(prison.name, 'rejected') %>
         </td>
         <td class="narrow">
