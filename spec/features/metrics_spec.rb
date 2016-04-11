@@ -28,22 +28,44 @@ RSpec.feature 'Metrics', js: true do
   context 'rejections' do
     include_examples 'create rejections with dates'
 
-    before do
-      luna_visits_with_dates
+    context 'weekly' do
+      before do
+        luna_visits_with_dates
 
-      # Shared examples are booked within the first week of February, 2106. The
-      # controller tracks one week behind the current date.
-      travel_to Time.zone.local(2016, 2, 8) do
-        visit(metrics_path(locale: 'en'))
+        # Shared examples are booked within the first week of February, 2106. The
+        # controller tracks one week behind the current date.
+        travel_to Time.zone.local(2016, 2, 8) do
+          visit(metrics_path(locale: 'en'))
+        end
+      end
+
+      it 'has the correct rejection percentages' do
+        # These will track the spec in spec/metrics/rejections_spec.rb
+        expect(page).to have_selector('.luna-total', text: 10)
+        expect(page).to have_selector('.luna-rejected', text: 4)
+        expect(page).to have_selector('.luna-total-rejected', text: 40.00)
+        expect(page).to have_selector('.luna-no-allowance', text: 20.00)
+        expect(page).to have_selector('.luna-visitor-banned', text: 10.00)
+        expect(page).to have_selector('.luna-slot-unavailable', text: 10.00)
       end
     end
 
-    it 'has the correct rejection percentages' do
-      # These will track the spec in spec/metrics/rejections_spec.rb
-      expect(page).to have_selector('.luna-total-rejected', text: 40.00)
-      expect(page).to have_selector('.luna-no-allowance', text: 20.00)
-      expect(page).to have_selector('.luna-visitor-banned', text: 10.00)
-      expect(page).to have_selector('.luna-slot-unavailable', text: 10.00)
+    context 'all time' do
+      before do
+        luna_visits_with_dates
+
+        visit(metrics_path(locale: 'en', range: 'all_time'))
+      end
+
+      it 'has the correct rejection percentages' do
+        # These will track the spec in spec/metrics/rejections_spec.rb
+        expect(page).to have_selector('.luna-total', text: 10)
+        expect(page).to have_selector('.luna-rejected', text: 4)
+        expect(page).to have_selector('.luna-total-rejected', text: 40.00)
+        expect(page).to have_selector('.luna-no-allowance', text: 20.00)
+        expect(page).to have_selector('.luna-visitor-banned', text: 10.00)
+        expect(page).to have_selector('.luna-slot-unavailable', text: 10.00)
+      end
     end
   end
 

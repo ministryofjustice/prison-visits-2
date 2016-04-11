@@ -9,8 +9,8 @@ RSpec.describe Rejections do
       luna_visits_without_dates
     end
 
-    it { expect(Visit.count).to eq(14) }
-    it { expect(Visit.where(processing_state: 'booked').count).to eq(10) }
+    it { expect(Visit.count).to eq(10) }
+    it { expect(Visit.where(processing_state: 'booked').count).to eq(6) }
     it { expect(Visit.where(processing_state: 'rejected').count).to eq(4) }
 
     describe Rejections::RejectionPercentage do
@@ -56,8 +56,8 @@ RSpec.describe Rejections do
         luna_visits_with_dates
       end
 
-      it { expect(Visit.count).to eq(14) }
-      it { expect(Visit.where(processing_state: 'booked').count).to eq(10) }
+      it { expect(Visit.count).to eq(10) }
+      it { expect(Visit.where(processing_state: 'booked').count).to eq(6) }
       it { expect(Visit.where(processing_state: 'rejected').count).to eq(4) }
 
       it 'counts visits and groups by prison, year, calendar week and visit state' do
