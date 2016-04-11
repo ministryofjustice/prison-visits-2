@@ -50,5 +50,14 @@ RSpec.describe Api::SlotsController do
         ]
       )
     end
+
+    it 'optionally requests nomis slots from SlotAvailability' do
+      params[:use_nomis_slots] = 'true'
+
+      expect(SlotAvailability).to receive(:new).
+        with(hash_including(use_nomis_slots: true)).
+        and_return(slot_availability)
+      get :index, params
+    end
   end
 end

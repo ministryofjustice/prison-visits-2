@@ -16,7 +16,7 @@ class Prison < ActiveRecord::Base
 
   delegate :recurring_slots, :anomalous_slots, :unbookable_dates,
     to: :parsed_slot_details
-  delegate :finder_slug, to: :estate
+  delegate :finder_slug, :nomis_id, to: :estate
 
   scope :enabled, lambda {
     where(enabled: true).order(name: :asc)

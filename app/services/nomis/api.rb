@@ -1,5 +1,7 @@
 module Nomis
-  DisabledError = Class.new(StandardError)
+  Error = Class.new(StandardError)
+  DisabledError = Class.new(Error)
+  NotFound = Class.new(Error)
 
   class Api
     class << self
@@ -47,7 +49,18 @@ module Nomis
       else
         return PrisonerAvailability.new(dates: [])
       end
+    rescue Excon::Errors::NotFound
+      raise NotFound, 'Unknown offender'
     end
     # rubocop:enable Metrics/MethodLength
+
+    def fetch_bookable_slots(prison:, start_date:, end_date:)
+      response = @client.get(
+        "/prison/#{prison.nomis_id}/visit_slots",
+        start_date: start_date,
+        end_date: end_date
+      )
+      response['slots'].map { |s| ConcreteSlot.parse(s) }
+    end
   end
 end
