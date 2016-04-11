@@ -20,6 +20,8 @@ class VisitorsStep
   attribute :delivery_error_occurred, Boolean
   attribute :visitors, Array[Visitor]
 
+  delegate :adult_age, to: :prison
+
   validates :email_address, presence: true
   validates :phone_no, presence: true, length: { minimum: 9 }
 

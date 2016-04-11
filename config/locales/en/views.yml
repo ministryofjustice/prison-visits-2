@@ -56,8 +56,9 @@ en:
       your_details: Your details
       other_visitors: Other visitors
       seating_arrangements: >-
-        Seating arrangements at this prison allow 3 visitors over the age of 18
-        plus 3 children under that age. Children may have to sit on your lap.
+        Seating arrangements at this prison allow 3 visitors over the age of
+        %{adult_age} plus 3 children under that age. Children may have to sit 
+        on your lap.
       additional_visitor_count: How many other visitors?
       next_step: Continue
     principal_visitor:
