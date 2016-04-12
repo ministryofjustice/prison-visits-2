@@ -1,23 +1,136 @@
 require 'support/counter_support'
 
 module Rejections
-  class RejectionPercentage < ActiveRecord::Base
-    def self.fetch_and_format
-      pluck(:reason, :percentage).to_h
-    end
-  end
-
   class RejectionPercentageByPrison < ActiveRecord::Base
     extend CounterSupport
     def self.ordered_counters
-      pluck(:prison_name, :reason, :percentage)
+      query.map { |q| [q.prison_name, q.reason, q.percentage] }
+    end
+
+    def self.query
+      find_by_sql <<-SQL
+SELECT rejected.prison_name,
+       'total' AS reason,
+       ROUND((rejected_count::numeric / total_count * 100),2) AS percentage
+FROM (SELECT prisons.name AS prison_name,
+             count(*) AS rejected_count
+      FROM visits
+      INNER JOIN prisons ON prisons.id = visits.prison_id
+      INNER JOIN rejections ON rejections.visit_id = visits.id
+      WHERE visits.processing_state = 'rejected'
+      GROUP BY prison_name, prison_id
+     ) rejected,
+     (SELECT prisons.name AS prison_name,
+             count(*) AS total_count
+      FROM visits
+      INNER JOIN prisons ON prisons.id = visits.prison_id
+      GROUP BY prison_name,
+               prison_id
+      ) booked
+WHERE rejected.prison_name = booked.prison_name
+GROUP BY rejected.prison_name,
+         percentage
+UNION
+SELECT rejected.prison_name,
+       reason,
+       ROUND((rejected_count::numeric / total_count * 100),2) AS percentage
+FROM (SELECT reason,
+             prisons.name AS prison_name,
+             count(*) AS rejected_count
+      FROM visits
+      INNER JOIN prisons ON prisons.id = visits.prison_id
+      INNER JOIN rejections ON rejections.visit_id = visits.id
+      WHERE visits.processing_state = 'rejected'
+      GROUP BY prison_name, prison_id, reason
+      ) rejected,
+     (SELECT prisons.name AS prison_name,
+             count(*) AS total_count
+      FROM visits
+      INNER JOIN prisons ON prisons.id = visits.prison_id
+      GROUP BY prison_name,
+               prison_id
+      ) booked
+WHERE rejected.prison_name = booked.prison_name
+GROUP BY rejected.prison_name,
+         reason,
+         percentage
+      SQL
     end
   end
 
   class RejectionPercentageByPrisonAndCalendarWeek < ActiveRecord::Base
     extend CounterSupport
     def self.ordered_counters
-      pluck(:prison_name, :year, :week, :reason, :percentage)
+      query.map { |q| [q.prison_name, q.year, q.week, q.reason, q.percentage] }
+    end
+
+    def self.query
+      find_by_sql <<-SQL
+SELECT rejected.prison_name,
+       'total' AS reason,
+       rejected.year AS year,
+       rejected.week AS week,
+       ROUND((rejected_count::numeric / total_count * 100),2) AS percentage
+FROM (SELECT prisons.name AS prison_name,
+             count(*) AS rejected_count,
+             extract(isoyear from visits.created_at)::integer AS year,
+             extract(week from visits.created_at)::integer AS week
+      FROM visits
+      INNER JOIN prisons ON prisons.id = visits.prison_id
+      WHERE visits.processing_state = 'rejected'
+      GROUP BY prison_name,
+             prison_id,
+               year,
+               week
+      ) rejected,
+     (SELECT prisons.name AS prison_name,
+             count(*) AS total_count
+      FROM visits
+      INNER JOIN prisons ON prisons.id = visits.prison_id
+      GROUP BY prison_name,
+               prison_id
+      ) booked
+WHERE rejected.prison_name = booked.prison_name
+GROUP BY rejected.prison_name,
+         reason,
+         percentage,
+         year,
+         week
+UNION
+SELECT rejected.prison_name,
+       reason,
+       rejected.year AS year,
+       rejected.week AS week,
+       ROUND((rejected_count::numeric / total_count * 100),2) AS percentage
+FROM (SELECT reason,
+             prisons.name AS prison_name,
+             count(*) AS rejected_count,
+             extract(isoyear from visits.created_at)::integer AS year,
+             extract(week from visits.created_at)::integer AS week
+      FROM visits
+      INNER JOIN prisons ON prisons.id = visits.prison_id
+      INNER JOIN rejections ON rejections.visit_id = visits.id
+      WHERE visits.processing_state = 'rejected'
+      GROUP BY prison_name,
+             prison_id,
+               reason,
+               year,
+               week
+      ) rejected,
+     (SELECT prisons.name AS prison_name,
+             count(*) AS total_count
+      FROM visits
+      INNER JOIN prisons ON prisons.id = visits.prison_id
+      GROUP BY prison_name,
+               prison_id
+      ) booked
+WHERE rejected.prison_name = booked.prison_name
+GROUP BY rejected.prison_name,
+         reason,
+         percentage,
+         year,
+         week
+      SQL
     end
   end
 end
