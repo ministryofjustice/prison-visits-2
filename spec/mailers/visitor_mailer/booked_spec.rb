@@ -23,8 +23,8 @@ RSpec.describe VisitorMailer, '.booked' do
   end
 
   it 'uses the locale of the visit' do
-    visit.update locale: 'xx'
+    visit.update locale: 'cy'
     expect(mail.subject).
-      to match(/yoür visït för Mondäy 12 Octöber häs beën confïrmed/)
+      to match(/mae eich ymweliad ar Dydd Llun 12 Hydref wedi'i gadarnhau/)
   end
 end

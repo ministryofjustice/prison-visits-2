@@ -23,9 +23,10 @@ RSpec.describe VisitorMailer, '.request_acknowledged' do
   end
 
   it 'uses the locale of the visit' do
-    visit.update locale: 'xx'
+    visit.update locale: 'cy'
     expect(mail.subject).
-      to match(/receïved yoür visït reqüest för Mondäy 12 Octöber/)
+      to match(
+        /mae eich cais i ymweld ar Dydd Llun 12 Hydref wedi cyrraedd/)
   end
 
   context 'spam and bounce handling' do

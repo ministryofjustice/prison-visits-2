@@ -14,7 +14,7 @@ RSpec.describe PrisonSeeder do
       'enabled' => true,
       'phone_no' => '0115 4960123',
       'translations' => {
-        'xx' => {
+        'cy' => {
           'name' => 'Lünar Penäl Colöny',
           'address' => "Oüter Rïm\nEratösthenes\nMäre Imbrïum\nLüna"
         }
@@ -113,7 +113,7 @@ RSpec.describe PrisonSeeder do
     it 'imports translations' do
       subject.import filename, hash
       expect(Prison.find(uuid).translations).to eq(
-        'xx' => {
+        'cy' => {
           'name' => 'Lünar Penäl Colöny',
           'address' => "Oüter Rïm\nEratösthenes\nMäre Imbrïum\nLüna"
         }

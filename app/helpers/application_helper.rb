@@ -20,6 +20,8 @@ module ApplicationHelper
   end
 
   def alternative_locales
+    # TODO: Remove the stubs in the feature spec for language switching when
+    # enabling Welsh.
     # This disables the link to Welsh
     disabled_locales = [:cy]
 

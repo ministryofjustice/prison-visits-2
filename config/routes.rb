@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   # Old pvb1 link that users got in an email
   get 'status/:id', controller: :pvb1_paths, action: :status, as: :pvb1_status
 
-  scope '/:locale', locale: /[a-z]{2}/ do
+  scope '/:locale', locale: /en|cy/ do
     get '/', to: redirect('/%{locale}/request')
 
     scope controller: :metrics do
