@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160411135416) do
+ActiveRecord::Schema.define(version: 20160412111212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,12 @@ ActiveRecord::Schema.define(version: 20160411135416) do
   end
 
   add_index "prisons", ["estate_id"], name: "index_prisons_on_estate_id", using: :btree
+
+  create_table "rejection_percentage_by_prison_and_calendar_weeks", force: :cascade do |t|
+  end
+
+  create_table "rejection_percentage_by_prisons", force: :cascade do |t|
+  end
 
   create_table "rejections", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "visit_id",                        null: false
@@ -299,53 +305,6 @@ ActiveRecord::Schema.define(version: 20160411135416) do
     GROUP BY v.processing_state, prisons.name, (date_part('day'::text, v.created_at))::integer, (date_part('month'::text, v.created_at))::integer, (date_part('year'::text, v.created_at))::integer;
   SQL
 
-  create_view :rejection_percentage_by_prison_and_calendar_dates,  sql_definition: <<-SQL
-      SELECT rejected.prison_name,
-      'total'::character varying AS reason,
-      (date_part('year'::text, rejected.created_at))::integer AS year,
-      (date_part('month'::text, rejected.created_at))::integer AS month,
-      (date_part('day'::text, rejected.created_at))::integer AS day,
-      round((((rejected.rejected_count)::numeric / (booked.booked_count)::numeric) * (100)::numeric), 2) AS percentage
-     FROM ( SELECT prisons.name AS prison_name,
-              count(*) AS rejected_count,
-              rejections.created_at
-             FROM ((visits
-               JOIN prisons ON ((prisons.id = visits.prison_id)))
-               JOIN rejections ON ((rejections.visit_id = visits.id)))
-            WHERE ((visits.processing_state)::text = 'rejected'::text)
-            GROUP BY prisons.name, visits.prison_id, rejections.created_at) rejected,
-      ( SELECT prisons.name AS prison_name,
-              count(*) AS booked_count
-             FROM (visits
-               JOIN prisons ON ((prisons.id = visits.prison_id)))
-            GROUP BY prisons.name, visits.prison_id) booked
-    WHERE ((rejected.prison_name)::text = (booked.prison_name)::text)
-    GROUP BY rejected.prison_name, round((((rejected.rejected_count)::numeric / (booked.booked_count)::numeric) * (100)::numeric), 2), (date_part('year'::text, rejected.created_at))::integer, (date_part('month'::text, rejected.created_at))::integer, (date_part('day'::text, rejected.created_at))::integer
-  UNION
-   SELECT rejected.prison_name,
-      rejected.reason,
-      (date_part('year'::text, rejected.created_at))::integer AS year,
-      (date_part('month'::text, rejected.created_at))::integer AS month,
-      (date_part('day'::text, rejected.created_at))::integer AS day,
-      round((((rejected.rejected_count)::numeric / (booked.booked_count)::numeric) * (100)::numeric), 2) AS percentage
-     FROM ( SELECT rejections.reason,
-              prisons.name AS prison_name,
-              count(*) AS rejected_count,
-              rejections.created_at
-             FROM ((visits
-               JOIN prisons ON ((prisons.id = visits.prison_id)))
-               JOIN rejections ON ((rejections.visit_id = visits.id)))
-            WHERE ((visits.processing_state)::text = 'rejected'::text)
-            GROUP BY prisons.name, visits.prison_id, rejections.reason, rejections.created_at) rejected,
-      ( SELECT prisons.name AS prison_name,
-              count(*) AS booked_count
-             FROM (visits
-               JOIN prisons ON ((prisons.id = visits.prison_id)))
-            GROUP BY prisons.name, visits.prison_id) booked
-    WHERE ((rejected.prison_name)::text = (booked.prison_name)::text)
-    GROUP BY rejected.prison_name, rejected.reason, round((((rejected.rejected_count)::numeric / (booked.booked_count)::numeric) * (100)::numeric), 2), (date_part('year'::text, rejected.created_at))::integer, (date_part('month'::text, rejected.created_at))::integer, (date_part('day'::text, rejected.created_at))::integer;
-  SQL
-
   create_view :timely_and_overdue_by_calendar_weeks,  sql_definition: <<-SQL
       SELECT count(*) AS count,
       'overdue'::text AS status,
@@ -392,115 +351,6 @@ ActiveRecord::Schema.define(version: 20160411135416) do
        JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text <> 'requested'::text))))
     WHERE ((date_part('epoch'::text, (vsc.created_at - v.created_at)) < (259200)::double precision) AND ((vsc.visit_state)::text = (v.processing_state)::text))
     GROUP BY prisons.name, vsc.visit_state;
-  SQL
-
-  create_view :rejection_percentage_by_prison_and_calendar_weeks,  sql_definition: <<-SQL
-      SELECT rejected.prison_name,
-      'total'::text AS reason,
-      rejected.year,
-      rejected.week,
-      round((((rejected.rejected_count)::numeric / (booked.booked_count)::numeric) * (100)::numeric), 2) AS percentage
-     FROM ( SELECT prisons.name AS prison_name,
-              count(*) AS rejected_count,
-              (date_part('isoyear'::text, visits.created_at))::integer AS year,
-              (date_part('week'::text, visits.created_at))::integer AS week
-             FROM (visits
-               JOIN prisons ON ((prisons.id = visits.prison_id)))
-            WHERE ((visits.processing_state)::text = 'rejected'::text)
-            GROUP BY prisons.name, visits.prison_id, (date_part('isoyear'::text, visits.created_at))::integer, (date_part('week'::text, visits.created_at))::integer) rejected,
-      ( SELECT prisons.name AS prison_name,
-              count(*) AS booked_count
-             FROM (visits
-               JOIN prisons ON ((prisons.id = visits.prison_id)))
-            GROUP BY prisons.name, visits.prison_id) booked
-    WHERE ((rejected.prison_name)::text = (booked.prison_name)::text)
-    GROUP BY rejected.prison_name, 'total'::text, round((((rejected.rejected_count)::numeric / (booked.booked_count)::numeric) * (100)::numeric), 2), rejected.year, rejected.week
-  UNION
-   SELECT rejected.prison_name,
-      rejected.reason,
-      rejected.year,
-      rejected.week,
-      round((((rejected.rejected_count)::numeric / (booked.booked_count)::numeric) * (100)::numeric), 2) AS percentage
-     FROM ( SELECT rejections.reason,
-              prisons.name AS prison_name,
-              count(*) AS rejected_count,
-              (date_part('isoyear'::text, visits.created_at))::integer AS year,
-              (date_part('week'::text, visits.created_at))::integer AS week
-             FROM ((visits
-               JOIN prisons ON ((prisons.id = visits.prison_id)))
-               JOIN rejections ON ((rejections.visit_id = visits.id)))
-            WHERE ((visits.processing_state)::text = 'rejected'::text)
-            GROUP BY prisons.name, visits.prison_id, rejections.reason, (date_part('isoyear'::text, visits.created_at))::integer, (date_part('week'::text, visits.created_at))::integer) rejected,
-      ( SELECT prisons.name AS prison_name,
-              count(*) AS booked_count
-             FROM (visits
-               JOIN prisons ON ((prisons.id = visits.prison_id)))
-            GROUP BY prisons.name, visits.prison_id) booked
-    WHERE ((rejected.prison_name)::text = (booked.prison_name)::text)
-    GROUP BY rejected.prison_name, rejected.reason, round((((rejected.rejected_count)::numeric / (booked.booked_count)::numeric) * (100)::numeric), 2), rejected.year, rejected.week;
-  SQL
-
-  create_view :rejection_percentages,  sql_definition: <<-SQL
-      SELECT 'total'::character varying AS reason,
-      round((((rejected.rejected_count)::numeric / (booked.booked_count)::numeric) * (100)::numeric), 2) AS percentage
-     FROM ( SELECT count(*) AS rejected_count
-             FROM (visits
-               JOIN rejections ON ((rejections.visit_id = visits.id)))
-            WHERE ((visits.processing_state)::text = 'rejected'::text)) rejected,
-      ( SELECT count(*) AS booked_count
-             FROM visits) booked
-    GROUP BY round((((rejected.rejected_count)::numeric / (booked.booked_count)::numeric) * (100)::numeric), 2)
-  UNION
-   SELECT rejected.reason,
-      round((((rejected.rejected_count)::numeric / (booked.booked_count)::numeric) * (100)::numeric), 2) AS percentage
-     FROM ( SELECT rejections.reason,
-              count(*) AS rejected_count
-             FROM (visits
-               JOIN rejections ON ((rejections.visit_id = visits.id)))
-            WHERE ((visits.processing_state)::text = 'rejected'::text)
-            GROUP BY rejections.reason) rejected,
-      ( SELECT count(*) AS booked_count
-             FROM visits) booked
-    GROUP BY rejected.reason, round((((rejected.rejected_count)::numeric / (booked.booked_count)::numeric) * (100)::numeric), 2);
-  SQL
-
-  create_view :rejection_percentage_by_prisons,  sql_definition: <<-SQL
-      SELECT rejected.prison_name,
-      'total'::character varying AS reason,
-      round((((rejected.rejected_count)::numeric / (booked.booked_count)::numeric) * (100)::numeric), 2) AS percentage
-     FROM ( SELECT prisons.name AS prison_name,
-              count(*) AS rejected_count
-             FROM ((visits
-               JOIN prisons ON ((prisons.id = visits.prison_id)))
-               JOIN rejections ON ((rejections.visit_id = visits.id)))
-            WHERE ((visits.processing_state)::text = 'rejected'::text)
-            GROUP BY prisons.name, visits.prison_id) rejected,
-      ( SELECT prisons.name AS prison_name,
-              count(*) AS booked_count
-             FROM (visits
-               JOIN prisons ON ((prisons.id = visits.prison_id)))
-            GROUP BY prisons.name, visits.prison_id) booked
-    WHERE ((rejected.prison_name)::text = (booked.prison_name)::text)
-    GROUP BY rejected.prison_name, round((((rejected.rejected_count)::numeric / (booked.booked_count)::numeric) * (100)::numeric), 2)
-  UNION
-   SELECT rejected.prison_name,
-      rejected.reason,
-      round((((rejected.rejected_count)::numeric / (booked.booked_count)::numeric) * (100)::numeric), 2) AS percentage
-     FROM ( SELECT rejections.reason,
-              prisons.name AS prison_name,
-              count(*) AS rejected_count
-             FROM ((visits
-               JOIN prisons ON ((prisons.id = visits.prison_id)))
-               JOIN rejections ON ((rejections.visit_id = visits.id)))
-            WHERE ((visits.processing_state)::text = 'rejected'::text)
-            GROUP BY prisons.name, visits.prison_id, rejections.reason) rejected,
-      ( SELECT prisons.name AS prison_name,
-              count(*) AS booked_count
-             FROM (visits
-               JOIN prisons ON ((prisons.id = visits.prison_id)))
-            GROUP BY prisons.name, visits.prison_id) booked
-    WHERE ((rejected.prison_name)::text = (booked.prison_name)::text)
-    GROUP BY rejected.prison_name, rejected.reason, round((((rejected.rejected_count)::numeric / (booked.booked_count)::numeric) * (100)::numeric), 2);
   SQL
 
 end

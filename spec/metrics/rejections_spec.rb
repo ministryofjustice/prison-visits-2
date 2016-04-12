@@ -13,15 +13,6 @@ RSpec.describe Rejections do
     it { expect(Visit.where(processing_state: 'booked').count).to eq(6) }
     it { expect(Visit.where(processing_state: 'rejected').count).to eq(4) }
 
-    describe Rejections::RejectionPercentage do
-      it 'calculates percentages of all rejections' do
-        expect(described_class.fetch_and_format).to eq('no_allowance' => 20.0,
-                                                       'slot_unavailable' => 10.0,
-                                                       'visitor_banned' => 10.0,
-                                                       'total' => 40.0)
-      end
-    end
-
     describe Rejections::RejectionPercentageByPrison do
       before do
         mars_visits_without_dates
