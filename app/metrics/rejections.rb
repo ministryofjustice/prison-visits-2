@@ -80,17 +80,23 @@ FROM (SELECT prisons.name AS prison_name,
       WHERE visits.processing_state = 'rejected'
       GROUP BY prison_name,
              prison_id,
-               year,
-               week
+             year,
+             week
       ) rejected,
      (SELECT prisons.name AS prison_name,
-             count(*) AS total_count
+             count(*) AS total_count,
+             extract(isoyear from visits.created_at)::integer AS total_year,
+             extract(week from visits.created_at)::integer AS total_week
       FROM visits
       INNER JOIN prisons ON prisons.id = visits.prison_id
       GROUP BY prison_name,
-               prison_id
-      ) booked
-WHERE rejected.prison_name = booked.prison_name
+               prison_id,
+               total_year,
+               total_week
+      ) total
+WHERE rejected.prison_name = total.prison_name
+AND year = total_year
+AND week = total_week
 GROUP BY rejected.prison_name,
          reason,
          percentage,
@@ -118,13 +124,19 @@ FROM (SELECT reason,
                week
       ) rejected,
      (SELECT prisons.name AS prison_name,
-             count(*) AS total_count
+             count(*) AS total_count,
+             extract(isoyear from visits.created_at)::integer AS total_year,
+             extract(week from visits.created_at)::integer AS total_week
       FROM visits
       INNER JOIN prisons ON prisons.id = visits.prison_id
       GROUP BY prison_name,
-               prison_id
-      ) booked
-WHERE rejected.prison_name = booked.prison_name
+               prison_id,
+               total_year,
+               total_week
+      ) total
+WHERE rejected.prison_name = total.prison_name
+AND year = total_year
+AND week = total_week
 GROUP BY rejected.prison_name,
          reason,
          percentage,
