@@ -3,12 +3,12 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
-      "fingerprint": "02ab7b803c65898228495f502abdf9c6f3e623f025bafec655c1a547ef03dcf3",
+      "fingerprint": "8c390dff3f40970d84fbba866e35c1f62e8ea4629c767e5df706bf873bc39f40",
       "message": "Render path contains parameter value",
       "file": "app/controllers/errors_controller.rb",
-      "line": 19,
+      "line": 20,
       "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => { 404 => :\"404\", 500 => :\"500\", 503 => :\"503\" }.fetch(params.fetch(:status_code).to_i), { :status => params.fetch(:status_code).to_i })",
+      "code": "render(action => { 404 => :\"404\", 406 => :\"404\", 500 => :\"500\", 503 => :\"503\" }.fetch(params.fetch(:status_code).to_i), { :status => params.fetch(:status_code).to_i, :format => :html })",
       "render_path": null,
       "location": {
         "type": "method",
@@ -114,6 +114,6 @@
       "note": ""
     }
   ],
-  "updated": "2016-04-06 17:12:22 +0100",
+  "updated": "2016-04-12 12:56:28 +0100",
   "brakeman_version": "3.1.3"
 }

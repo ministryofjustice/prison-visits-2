@@ -6,7 +6,10 @@ class BookingRequestsController < ApplicationController
     @steps = processor.steps
     @step_name = processor.step_name
     append_to_log booking_step_rendered: processor.step_name
-    render processor.step_name
+
+    respond_to do |format|
+      format.html { render processor.step_name }
+    end
   end
 
   def create
@@ -16,7 +19,10 @@ class BookingRequestsController < ApplicationController
     @step_name = processor.step_name
     append_to_log booking_step_rendered: processor.step_name
     append_to_log visit_id: @visit.id if @visit
-    render processor.step_name
+
+    respond_to do |format|
+      format.html { render processor.step_name }
+    end
   end
 
 private
