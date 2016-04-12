@@ -67,6 +67,31 @@ RSpec.describe Rejections do
             }
         }
       end
+
+      context 'when there are visits outside of the date range' do
+        before do
+          travel_to(Time.zone.local(2016, 4, 1)) do
+            create_list(:visit, 10, prison: luna)
+          end
+        end
+
+        it 'the count is not changed for the target week' do
+          expect(described_class.fetch_and_format).to be ==
+            { 'Lunar Penal Colony' =>
+              {
+                2016 =>
+                { 5 =>
+                  {
+                    'no_allowance' => 20.00,
+                    'slot_unavailable' => 10.00,
+                    'visitor_banned' => 10.00,
+                    'total' => 40.00
+                  }
+                }
+              }
+          }
+        end
+      end
     end
   end
 end
