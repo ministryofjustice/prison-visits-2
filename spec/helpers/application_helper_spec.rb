@@ -51,7 +51,7 @@ RSpec.describe ApplicationHelper do
 
   describe 'alternative_locales' do
     it 'lists all available locales except the current one' do
-      I18n.locale = :xx
+      I18n.locale = :cy
       expect(alternative_locales).to eq(%i[ en ])
     end
   end

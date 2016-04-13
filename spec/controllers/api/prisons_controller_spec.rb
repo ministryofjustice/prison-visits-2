@@ -12,7 +12,7 @@ RSpec.describe Api::PrisonsController do
       id: 'e3148a7b-a667-449d-b11a-bc72835f5a26',
       name: 'Luna',
       postcode: 'XL1 1AA',
-      translations: { 'xx' => { 'name' => 'Lüna' } }
+      translations: { 'cy' => { 'name' => 'Lleuad' } }
     )
   }
 
@@ -51,10 +51,10 @@ RSpec.describe Api::PrisonsController do
     end
 
     it 'localises prison details on Accept-Language header' do
-      request.env['HTTP_ACCEPT_LANGUAGE'] = 'xx'
+      request.env['HTTP_ACCEPT_LANGUAGE'] = 'cy'
       get :index, params
       expect(parsed_body).to include(
-        'prisons' => [include('name' => 'Lüna')]
+        'prisons' => [include('name' => 'Lleuad')]
       )
     end
   end
@@ -81,10 +81,10 @@ RSpec.describe Api::PrisonsController do
     end
 
     it 'localises prison details on Accept-Language header' do
-      request.env['HTTP_ACCEPT_LANGUAGE'] = 'xx'
+      request.env['HTTP_ACCEPT_LANGUAGE'] = 'cy'
       get :show, params
       expect(parsed_body).to include(
-        'prison' => include('name' => 'Lüna')
+        'prison' => include('name' => 'Lleuad')
       )
     end
   end

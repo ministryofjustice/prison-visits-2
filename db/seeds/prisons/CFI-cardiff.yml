@@ -11,11 +11,6 @@ translations:
     address: |-
       Knox Road
       Caerdydd
-  xx:
-    name: Cardïff
-    address: |-
-      Knöx Röad
-      Cardïff
 email_address: socialvisits.cardiff@hmps.gsi.gov.uk
 phone_no: 029 20923327
 enabled: true
