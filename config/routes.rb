@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   # Old pvb1 path to start a booking
   get '/prisoner', to: redirect(ENV.fetch('GOVUK_START_PAGE', '/en/request'))
 
+  # Another Gov.uk start path
+  get '/prisoner-details', to: redirect('/en/request')
+
   constraints format: 'json' do
     get 'ping', to: 'ping#index'
     get 'healthcheck', to: 'healthcheck#index'
