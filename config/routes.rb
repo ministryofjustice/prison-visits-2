@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   match 'exception', to: 'errors#test', via: %i[ get post ]
 
   # Old pvb1 path to start a booking
-  get '/prisoner', to: redirect(ENV.fetch('GOVUK_START_PAGE', '/en/request'))
+  get '/prisoner', to: redirect('/en/request')
 
   # Another Gov.uk start path
   get '/prisoner-details', to: redirect('/en/request')
