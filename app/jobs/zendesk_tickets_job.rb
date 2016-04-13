@@ -8,7 +8,7 @@ class ZendeskTicketsJob < ActiveJob::Base
 
   # rubocop:disable Metrics/MethodLength
   def perform(feedback)
-    unless Rails.configuration.zendesk_client
+    unless Rails.configuration.try(:zendesk_client)
       fail 'Cannot create Zendesk ticket since Zendesk not configured'
     end
 

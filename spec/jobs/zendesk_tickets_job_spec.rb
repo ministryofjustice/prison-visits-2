@@ -14,16 +14,18 @@ RSpec.describe ZendeskTicketsJob, type: :job do
   let(:client) { double(ZendeskAPI::Client) }
   let(:ticket) { double(ZendeskAPI::Ticket, save!: nil) }
 
-  before :each do
+  before do
     Rails.configuration.zendesk_client = client
   end
 
-  it 'raises an error if Zendesk is not configured' do
-    Rails.configuration.zendesk_client = nil
+  context 'Zendesk is not configured' do
+    it 'raises an error if Zendesk is not configured' do
+      allow(Rails).to receive(:configuration).and_return(Class.new)
 
-    expect {
-      subject.perform_now(feedback)
-    }.to raise_error('Cannot create Zendesk ticket since Zendesk not configured')
+      expect {
+        subject.perform_now(feedback)
+      }.to raise_error('Cannot create Zendesk ticket since Zendesk not configured')
+    end
   end
 
   it 'creates a ticket with feedback and custom fields' do
