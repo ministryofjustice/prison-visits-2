@@ -27,8 +27,7 @@ RSpec.describe VisitorMailer, '.rejected' do
       rejection.visit.update locale: 'cy'
       expect(mail.subject).
         to match(
-          /nid oedd yn bosib trefnu eich ymweliad ar Dydd Llun 12 Hydref/
-      )
+          /nid oedd yn bosib trefnu eich ymweliad ar Dydd Llun 12 Hydref/)
     end
   end
 
