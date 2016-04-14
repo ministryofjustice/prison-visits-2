@@ -8,6 +8,7 @@ require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'action_view/railtie'
 require 'sprockets/railtie'
+require_relative '../app/middleware/http_method_not_allowed'
 
 Bundler.require(*Rails.groups)
 
@@ -62,6 +63,9 @@ module PrisonVisits
       ActionDispatch::RemoteIp::TRUSTED_PROXIES + skyscape_proxy_ips
     config.middleware.swap ActionDispatch::RemoteIp,
       ActionDispatch::RemoteIp, true, trusted_proxies
+
+    config.middleware.insert_before ActionDispatch::ParamsParser,
+      HttpMethodNotAllowed
 
     config.sendgrid_api_user = ENV['SMTP_USERNAME']
     config.sendgrid_api_key = ENV['SMTP_PASSWORD']
