@@ -112,14 +112,15 @@ private
     yield response
   rescue => e
     Rails.logger.error("#{e.class.name}: #{e.message}")
-    unless RESCUABLE_ERRORS.any? { |error_klass| e.is_a?(error_klass) }
-      Raven.capture_exception(e)
-    end
+    Raven.capture_exception(e) unless ignore_error?(e)
     false
   end
 
+  def ignore_error?(error)
+    RESCUABLE_ERRORS.any? { |error_klass| error.is_a?(error_klass) }
+  end
+
   def enabled?
-    Rails.logger.error('Sendgrid is disabled') unless @enabled
     @enabled
   end
 end

@@ -18,8 +18,8 @@ RSpec.shared_examples 'error handling' do
       end
     end
 
-    context 'when times outs' do
-      include_context 'sendgrid times out'
+    context 'when Sendgrid times outs' do
+      include_context 'sendgrid timeout'
 
       it 'rescues, logs the error and returns false' do
         check_error_log_message_contains(/Timeout/)
@@ -54,7 +54,6 @@ RSpec.shared_examples 'error handling for missing credentials' do
     include_context 'sendgrid credentials are not set'
 
     it 'rescues, logs the error and returns false' do
-      check_error_log_message_contains(/Sendgrid is disabled/)
       expect(subject).to be_falsey
     end
   end
