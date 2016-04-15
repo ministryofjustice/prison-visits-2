@@ -18,6 +18,17 @@ RSpec.shared_examples 'error handling' do
       end
     end
 
+    context 'when Sendgrid times outs' do
+      include_context 'sendgrid timeout'
+
+      it 'rescues, logs the error and returns false' do
+        check_error_log_message_contains(/Timeout/)
+        expect(Raven).to_not receive(:capture_exception)
+
+        expect(subject).to be_falsey
+      end
+    end
+
     context 'when the API reports an error' do
       let(:body) { '{"error":"LOL"}' }
 
@@ -43,7 +54,6 @@ RSpec.shared_examples 'error handling for missing credentials' do
     include_context 'sendgrid credentials are not set'
 
     it 'rescues, logs the error and returns false' do
-      check_error_log_message_contains(/Sendgrid is disabled/)
       expect(subject).to be_falsey
     end
   end

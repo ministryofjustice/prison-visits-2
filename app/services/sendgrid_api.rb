@@ -105,18 +105,19 @@ private
   end
 
   def call_api(method, action, data)
-    unless enabled?
-      Rails.logger.error('Sendgrid is disabled')
-      return false
-    end
+    return false unless enabled?
 
     response = @pool.with { |client| client.request(method, action, data) }
 
     yield response
   rescue => e
     Rails.logger.error("#{e.class.name}: #{e.message}")
-    Raven.capture_exception(e) unless RESCUABLE_ERRORS.include?(e.class)
+    Raven.capture_exception(e) unless ignore_error?(e)
     false
+  end
+
+  def ignore_error?(error)
+    RESCUABLE_ERRORS.any? { |error_klass| error.is_a?(error_klass) }
   end
 
   def enabled?
