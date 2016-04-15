@@ -4,6 +4,7 @@ module Api
   class ApiController < ActionController::Base
     skip_before_action :verify_authenticity_token
     before_action :set_locale
+    before_action :store_request_id
 
     rescue_from ActionController::ParameterMissing do |e|
       render_error 422, "Missing parameter: #{e.param}"
@@ -29,6 +30,23 @@ module Api
 
     def render_error(status, message)
       render json: { message: message }, status: status
+    end
+
+    # WARNING: This a Rails private method, could easily break in the future.
+    #
+    # Looks rather strange, but this is the suggested mechanism to add extra
+    # data into the event passed to lograge's custom options. The method is
+    # part of Rails' instrumentation code, and is run after each request.
+    def append_info_to_payload(payload)
+      super
+
+      payload[:custom_log_items] = {
+        request_id: RequestStore.store[:request_id]
+      }
+    end
+
+    def store_request_id
+      RequestStore.store[:request_id] = request.uuid
     end
   end
 end
