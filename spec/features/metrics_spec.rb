@@ -9,22 +9,37 @@ RSpec.feature 'Metrics', js: true do
     # Shared examples are booked within the first week of February, 2106. The
     # controller tracks one week behind the current date.
     let(:date_today) { Time.zone.local(2016, 2, 8) }
-
-    before do
+    let!(:visits) do
       book_a_luna_visit_late
       reject_a_luna_visit_late
       book_a_mars_visit_late
       luna_visit
+    end
 
-      travel_to(date_today) do
-        visit(metrics_path(locale: 'en'))
+    context 'weekly' do
+      before do
+        travel_to(date_today) do
+          visit(metrics_path(locale: 'en'))
+        end
+      end
+
+      it 'has the correct overdue and waiting values' do
+        expect(page).to have_selector('.luna-overdue', text: 2)
+        expect(page).to have_selector('.mars-overdue', text: 1)
+        expect(page).to have_selector('.luna-waiting', text: 1)
       end
     end
 
-    it 'has the correct overdue and waiting values' do
-      expect(page).to have_selector('.luna-overdue', text: 2)
-      expect(page).to have_selector('.mars-overdue', text: 1)
-      expect(page).to have_selector('.luna-waiting', text: 1)
+    context 'all time' do
+      before do
+        visit(metrics_path(locale: 'en', range: 'all_time'))
+      end
+
+      it 'has the correct overdue and waiting values' do
+        expect(page).to have_selector('.luna-overdue', text: 2)
+        expect(page).to have_selector('.mars-overdue', text: 1)
+        expect(page).to have_selector('.luna-waiting', text: 1)
+      end
     end
   end
 
