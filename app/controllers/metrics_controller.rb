@@ -81,7 +81,8 @@ private
       counts: week_counts(date),
       overdue_counts: week_overdue_counts(date),
       percentiles: week_percentiles(date),
-      rejections: week_rejections(date)
+      rejections: week_rejections(date),
+      timings: week_timings(date)
     }
   end
 
@@ -96,7 +97,8 @@ private
       counts: Counters::CountVisitsByPrisonAndState.fetch_and_format,
       overdue_counts: Overdue::CountOverdueVisitsByPrison.fetch_and_format,
       percentiles: Percentiles::DistributionByPrison.fetch_and_format,
-      rejections: Rejections::RejectionPercentageByPrison.fetch_and_format
+      rejections: Rejections::RejectionPercentageByPrison.fetch_and_format,
+      timings: Timings::TimelyAndOverdue.fetch_and_format
     }
   end
 
