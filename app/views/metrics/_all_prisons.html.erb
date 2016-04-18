@@ -31,7 +31,7 @@
         <td class="narrow left-border <%= prison.finder_slug -%>-total">
           <%= dataset.total_visits(prison.name) %>
         </td>
-        <td class="narrow">
+        <td class="narrow <%= prison.finder_slug -%>-waiting">
           <%= dataset.visits_in_state(prison.name, 'requested') %>
         </td>
         <td class="narrow <%= prison.finder_slug -%>-overdue">
