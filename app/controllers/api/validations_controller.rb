@@ -1,26 +1,35 @@
 module Api
   class ValidationsController < ApiController
-    # rubocop:disable Metrics/MethodLength
     def prisoner
+      date, noms_id = validate_prisoner_parameters(params)
+
+      prisoner = PrisonerValidation.new(noms_id: noms_id, date_of_birth: date)
+
+      if prisoner.valid?
+        response = { valid: true }
+      else
+        response = { valid: false, errors: prisoner.errors.values.flatten }
+      end
+
+      render status: 200, json: { validation: response }
+    end
+
+  private
+
+    def validate_prisoner_parameters(params)
       begin
         date = Date.parse(params.fetch(:date_of_birth))
       rescue ArgumentError
         raise ParameterError, 'date_of_birth'
       end
 
-      validation = PrisonerValidation.new(
-        noms_id: params.fetch(:number),
-        date_of_birth: date
-      )
+      noms_id = params.fetch(:number)
 
-      if validation.valid?
-        response = { valid: true }
-      else
-        response = { valid: false, errors: validation.errors.values.flatten }
-      end
-
-      render status: 200, json: { validation: response }
+      # TODO: Discuss removing this cop; especially when there are multiple
+      # return values I find an explicit return much cleaner.
+      # rubocop:disable Style/RedundantReturn
+      return date, noms_id
+      # rubocop:enable Style/RedundantReturn
     end
-    # rubocop:enable Metrics/MethodLength
   end
 end
