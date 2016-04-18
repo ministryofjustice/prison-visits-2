@@ -57,6 +57,19 @@ RSpec.describe BookingResponse, type: :model do
         end
       end
 
+      context 'and the allowed visitor is a child' do
+        let(:visit) { create(:visit) }
+
+        before do
+          visit.prison.update!(adult_age: 16)
+          visit.visitors.update_all(date_of_birth: 17.years.ago)
+        end
+
+        it 'is not bookable' do
+          expect(subject).to_not be_bookable
+        end
+      end
+
       context 'and all visitors are banned' do
         before do
           subject.selection = 'slot_0'
