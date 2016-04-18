@@ -14,6 +14,7 @@ translations:
 email_address: socialvisits.cardiff@hmps.gsi.gov.uk
 phone_no: 029 20923327
 enabled: true
+works_weekends: false
 booking_window: 14
 recurring:
   mon:
