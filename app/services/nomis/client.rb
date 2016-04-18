@@ -28,7 +28,8 @@ module Nomis
         path: path,
         expects: [200],
         headers: {
-          'Accept' => 'application/json'
+          'Accept' => 'application/json',
+          'X-Request-Id' => RequestStore.store[:request_id]
         }
       }.deep_merge(params_options(method, params))
 
