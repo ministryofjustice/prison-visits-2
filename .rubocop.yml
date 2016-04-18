@@ -79,7 +79,7 @@ Metrics/MethodLength:
   Exclude:
     - 'spec/**/*'
     - 'app/helpers/form_elements_helper.rb'
-    - 'app/metrics/*' # Some very long SQL based methods there.
+    - 'app/metrics/**/*' # Some very long SQL based methods there.
 
 
 # Don't worry about the complexity of spec methods
