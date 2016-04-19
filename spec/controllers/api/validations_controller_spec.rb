@@ -49,6 +49,14 @@ RSpec.describe Api::ValidationsController do
       )
     end
 
+    it 'returns an error if the date of birth is invalid' do
+      params[:date_of_birth] = '1980-50-01'
+      expect(Nomis::Api.instance).not_to receive(:lookup_active_offender)
+      post :prisoner, params
+      expect(response.status).to eq(422)
+      expect(parsed_body['message']).to eq('Invalid parameter: date_of_birth')
+    end
+
     it 'returns valid if the NOMIS API is disabled' do
       expect(Nomis::Api).to receive(:enabled?).and_return(false)
       expect(Nomis::Api.instance).not_to receive(:lookup_active_offender)
