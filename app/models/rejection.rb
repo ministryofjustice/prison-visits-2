@@ -1,6 +1,7 @@
 class Rejection < ActiveRecord::Base
   REASONS = %w[
     slot_unavailable
+    no_adult
     no_allowance
     prisoner_details_incorrect
     prisoner_moved

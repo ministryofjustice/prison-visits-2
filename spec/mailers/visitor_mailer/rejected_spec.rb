@@ -82,6 +82,16 @@ RSpec.describe VisitorMailer, '.rejected' do
     end
   end
 
+  context 'no_adult' do
+    let(:reason) { 'no_adult' }
+
+    include_examples 'template checks'
+
+    it 'explains the error' do
+      expect(body).to match(/at least one adult/)
+    end
+  end
+
   context 'visitor_banned' do
     let(:reason) { 'visitor_banned' }
 

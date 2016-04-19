@@ -49,6 +49,7 @@ class BookingResponse
   def reason
     return 'visitor_not_on_list' if visitor_not_on_list?
     return 'visitor_banned' if visitor_banned?
+    return 'no_adult' unless at_least_one_valid_visitor?
     selection
   end
 
