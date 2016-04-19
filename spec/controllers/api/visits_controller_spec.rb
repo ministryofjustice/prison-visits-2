@@ -74,7 +74,7 @@ RSpec.describe Api::VisitsController do
       post :create, params
       expect(response).to have_http_status(:unprocessable_entity)
       expect(parsed_body['message']).
-        to eq('Invalid parameter: prisoner (First name yn ofynnol)')
+        to eq('Invalid parameter: prisoner (First name Gofynnol)')
     end
 
     it 'fails if the visitors are invalid' do

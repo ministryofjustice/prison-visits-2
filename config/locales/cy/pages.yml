@@ -1,4 +1,19 @@
 cy:
+  pvb1_paths:
+    status:
+      title: 'Ymweliad wedi bod '
+      body_md: 'Mae''r ymweliad hwn wedi bod ac mae''r wybodaeth wedi cael ei dileu.
+
+
+        Gallwch
+
+        [ddechrau cais newydd i ymweld â rhywun yn y carchar](%{new_booking_url})
+
+        neu gallwch ffonio i drefnu eich ymweliad. Ewch i''r system dod o hyd i garchar
+
+        [prison finder](%{prison_finder_url}) am fanylion cyswllt.
+
+'
   errors:
     '404':
       title: 'Ni ellir dod o hyd i''r dudalen hon '
