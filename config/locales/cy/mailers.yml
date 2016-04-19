@@ -1,39 +1,6 @@
 cy:
   mailer:
     noreply: System trefnu i ymweld â rhywun yn y carchar (Heb neb yn bresennol) <noreply@%{domain}>
-  prison_mailer:
-    request_received:
-      subject: Cais i ymweld â %{full_name} ar %{request_date}
-      prisoner: 'Carcharor:'
-      number: 'Rhif:'
-      date_of_birth: 'Dyddiad geni:'
-      choice: Dewis %{n}
-      visitor: Ymwelydd %{n}
-      age: 'Oed:'
-      email_address: 'E-bost:'
-      phone_no: 'Ffôn:'
-      process_booking: Prosesu'r cais i ymweld â charcharor
-      copy_paste_explanation: Os na allwch glicio ar y ddolen uchod, copïwch y ddolen
-        gyfan a'i gludo i'r bar cyfeiriad yn eich porwr.
-      visit_id: 'Rhif adnabod ar gyfer yr ymweliad:'
-    booked:
-      subject: COPI o gadarnhad ymweliad ar gyfer %{prisoner}
-      copy_of_booking: Dyma gopi o'r e-bost a anfonwyd at yr ymwelydd i gadarnhau'r
-        cais i ymweld â charcharor
-    rejected:
-      subject: COPI o'r neges gwrthod ymweliad ar gyfer %{prisoner}
-      copy_of_rejection: Dyma gopi o'r e-bost a anfonwyd at yr ymwelydd i wrthod y
-        cais i ymweld â charcharor
-    cancelled:
-      subject: '%{status}: %{prisoner} ar %{date}'
-      salutation: 'Annwyl staff, '
-      details: Mae %{visitor} wedi canslo'r trefniant i ymweld â %{prisoner} (%{prisoner_number})
-        ar %{date}
-      reference: 'Cyfeirnod: %{reference_no}'
-      please_delete: Dileu'r ymweliad hwn oddi ar NOMIS
-      regards: Cofion cynnes,
-      booking_team: Y tîm trefnu i ymweld â rhywun yn y carchar
-      visit_id: 'Rhif yr ymweliad: %{@visit.id}'
   visitor_mailer:
     booked:
       subject: 'Cadarnhau ymweliad: mae eich ymweliad ar %{date} wedi''i gadarnhau'
@@ -44,6 +11,17 @@ cy:
       prisoner: 'Carcharor:'
       number: 'Rhif:'
       visitor: 'Ymwelydd %{n}:'
+      visitor_banned_html: Nid yw <strong>%{name} yn gallu ymweld â Charchar </strong>
+        oherwydd eu bod wedi'u gwahardd ar hyn o bryd <strong>banned</strong>
+      banned_instructions: Dylai ymwelwyr sydd wedi'u gwahardd fod wedi cael llythyr
+        i ddweud eu bod wedi'u gwahardd rhag ymweld â'r carchar ar hyn o bryd. Cysylltwch
+        â'r carchar am ragor o wybodaeth.
+      visitor_not_on_list_html: Nid yw <strong>%{name} yn gallu ymweld â Charchar
+        </strong> oherwydd nid ydynt ar restr cyswllt y carcharor</strong>
+      not_on_list_instructions: 'Mae angen i ymwelwyr sydd ddim ar restrau cyswllt
+        ofyn wrth garcharorion i ddiweddaru eu rhestrau gyda''r manylion cywir, gan
+        wneud yn siŵr bod yr enwau''n ymddangos yn union yr un fath â''r dogfennau
+        adnabod. '
       reference_no: 'Eich cyfeirnod yw:'
       this_is_a_closed_visit_html: <strong>Mae hwn yn ymweliad caeëdig:</strong> bydd
         y carcharor y tu ôl i sgrin wydr mewn man ar wahân i'r neuadd ymweld.
@@ -125,7 +103,7 @@ cy:
       cancel_title: Canslo'r cais hwn i ymweld
       cancel_html: Os nad ydych eisiau ymweld ar y dyddiad hwn ddim mwy, <a href="%{url}">gallwch
         ganslo'r ymweliad hwn</a>.
-      choice: Dewis %{n}
+      choice: 'Dewis %{n}:'
       details: Manylion y cais i ymweld
       feedback_html: Eisiau help neu wneud cwyn? Os oes gennych gwestiwn, neu os oes
         arnoch angen help gyda'r gwasanaeth trefnu ymweliadau ar-lein, cysylltwch
@@ -134,11 +112,12 @@ cy:
       prisoner_number: 'Rhif y carcharor:'
       request:
         one: Rydych wedi gofyn i drefnu ymweliad â %{prison} ar gyfer %{count} person
-        other: Rydych wedi gofyn i drefnu ymweliad â %{prison} ar gyfer %{count} o
-          bobl
-        many: Rydych wedi gofyn i drefnu ymweliad â %{prison} ar gyfer %{count} o
-          bobl
-        two: Rydych wedi gofyn i drefnu ymweliad â %{prison} ar gyfer %{count} o bobl
+        other: Rydych wedi gofyn i drefnu ymweliad â Charchar %{prison} ar gyfer %{count}
+          o bobl
+        many: Rydych wedi gofyn i drefnu ymweliad â Charchar %{prison} ar gyfer %{count}
+          o bobl
+        two: Rydych wedi gofyn i drefnu ymweliad â Charchar %{prison} ar gyfer %{count}
+          o bobl
       salutation: Annwyl %{visitor_full_name}
       status: 'Nid yw eich ymweliad wedi''i drefnu eto '
       phone_no: 'Ffôn:'

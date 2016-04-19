@@ -23,13 +23,13 @@ cy:
     prisoner_step:
       title: Â phwy ydych chi am ymweld?
       information_html: "<ul>\n  <li>\n    nid oes arnoch angen rhif Gorchymyn Ymweld
-        (VO) number i wneud cais am ymweliad\n  </li>\n  <li>\n    mae arnoch angen
-        dyddiad geni pob ymwelydd sy'n dod gyda chi\n  </li>\n  <li>\n    byddwn yn
-        cadarnhau eich ymweliad drwy e-bost o fewn 3 diwrnod gwaith ar ôl i chi wneud
-        y cais\n  </li>\n</ul>\n"
+        (VO) i wneud cais am ymweliad\n  </li>\n  <li>\n    mae arnoch angen dyddiad
+        geni pob ymwelydd sy'n dod gyda chi\n  </li>\n  <li>\n    byddwn yn cadarnhau
+        eich ymweliad drwy e-bost o fewn 3 diwrnod gwaith ar ôl i chi wneud y cais\n
+        \ </li>\n</ul>\n"
       prisoner_details: Manylion y carcharor
       first_name: Enw cyntaf y carcharor
-      last_name: Enw olaf y carcharor
+      last_name: Cyfenw'r carcharor
       date_of_birth: Dyddiad geni'r carcharor
       date_of_birth_hint: ee 28 04 1996
       number: Rhif y carcharor
@@ -45,9 +45,9 @@ cy:
       title: Ymwelydd 1
       your_details: 'Eich manylion '
       other_visitors: 'Ymwelwyr eraill '
-      seating_arrangements: 'Mae''r drefn eistedd yn y carchar hwn yn caniatáu 3 ymwelydd
-        dros 18 oed a 3 plentyn o dan 18 oed. Efallai y bydd yn rhaid i blant eistedd
-        ar eich glin. '
+      seating_arrangements: Mae'r trefniadau eistedd yn y carchar hwn yn caniatáu
+        3 ymwelydd dros %{adult_age} a 3 plentyn o dan yr oedran hwnnw. Efallai y
+        bydd yn rhaid i blant eistedd ar eich glin.
       additional_visitor_count: 'Faint o ymwelwyr eraill? '
       next_step: Parhau
     principal_visitor:
@@ -156,102 +156,6 @@ cy:
       send: Anfon
     create:
       title: 'Diolch am eich adborth '
-  prison:
-    visits:
-      calendar:
-        today: Heddiw
-      update:
-        title: Diolch
-        booked: 'Rydym wedi anfon neges e-bost i gadarnhau''r trefniadau at yr ymwelydd. '
-        rejected: 'Anfonwyd e-bost at yr ymwelydd i wrthod yr ymweliad. '
-      show:
-        title: 'Prosesu cais i ymweld '
-        introduction_html: "<ul>\n  <li>\n    trefnwch yr ymweliad yn NOMIS yn gyntaf\n
-          \ </li>\n  <li>\n    defnyddiwch y ffurflen hon i anfon neges e-bost at
-          yr ymwelydd i gadarnhau neu wrthod ymweliad\n  </li>\n  <li>\n    gwnewch
-          yn siŵr eich bod yn dewis ymwelwyr sydd ddim yn gallu ymweld o dan 'Problemau
-          gydag ymwelwyr’\n  </li>\n</ul>\n"
-        submit: Anfon yr e-bost
-        booked: Mae'r cais hwn wedi cael ei dderbyn yn barod
-        cancelled: Mae'r ymwelydd wedi canslo'r cais hwn i ymweld
-        rejected: Mae'r cais hwn wedi cael ei wrthod yn barod
-        withdrawn: Mae'r ymwelydd wedi tynnu'r cais hwn yn ôl
-      people_box:
-        prisoner: 'Carcharor:'
-        number: 'Rhif:'
-        date_of_birth: 'Dyddiad geni:'
-        visitor: 'Ymwelydd %{n}:'
-        age: 'Oed:'
-        email_address: 'E-bost:'
-        phone_no: 'Ffôn:'
-      shared:
-        what_we_will_tell: 'Beth fyddwn yn dweud wrth yr ymwelydd '
-      visit_date_section:
-        title: Dyddiad yr ymweliad
-        choice_html: 'Dewis %{n}: <strong>%{date}</strong>'
-        reference_no: Cyfeirnod
-        reference_no_hint: e.e 8 digid olaf y rhif VO neu "dim" ar gyfer remand
-        closed_visit: 'Mae hwn yn ymweliad caeëdig '
-        closed_visit_wording_html: "<p>\n  <strong>Mae hwn yn ymweliad caeëdig:</strong>
-          bydd y carcharor\n  y tu ôl i sgrin wydr mewn man ar wahân\n  i'r neuadd
-          ymweld.\n</p>\n"
-        none_available: Nid oes unrhyw un o'r amseroedd a ddewiswyd gennych ar gael
-        none_available_explanation_html: "<p>\n  Dewiswch yr opsiwn hwn os:\n</p>\n\n<ul>\n
-          \ <li>\n    oes gan y carcharor gyfyngiadau ar eu hymweliadau\n  </li>\n
-          \ <li>\n    yw'r carcharor i fod yn rhywle arall, e.e yn y llys\n  </li>\n
-          \ <li>\n    nad yw'n bosib cynnal yr ymweliad oherwydd bod carcharor arall
-          yn cael ymweliad ar yr un pryd ac nid ydynt yn cytuno\n  </li>\n</ul>\n"
-        none_available_wording_html: "<p>\n  Mae'n ddrwg gennym, ond nid oedd yr un
-          o'r dyddiadau a'r amseroedd a ddewisoch i ymweld â  %{prisoner} yn %{prison}
-          ar gael. Ewch i www.gov.uk/prison-visits i ddewis dyddiadau eraill.\n</p>\n"
-      visiting_allowance_section:
-        title: Lwfans ymweld
-        no_allowance: Nid oes gan y carcharor unrhyw lwfans ymweld (VO)
-        no_allowance_wording_html: "<p>\n  Mae'n ddrwg gennym, ond nid oes gan y carcharor
-          yr hoffech ymweld ag o unrhyw lwfans ymweliadau ar ôl ar y dyddiadau a ddewsiwyd
-          gennych.\n</p>\n"
-        no_allowance_tell_more: 'Gallwch ddweud mwy wrth yr ymwelydd am statws y VO
-          a''r PVO:'
-        allowance_will_renew: 'Bydd y lwfans ymweld (ymweliadau ar y penwythnos ac
-          ar ddyddiau''r wythnos) (VO) yn cael eu hadnewyddu: '
-        allowance_will_renew_wording_html: "<p>\n  bydd lwfans ymweld (VO) llawn %{prisoner}
-          yn cael ei adnewyddu ar\n  <span class=\"date\">[DATE NOT CHOSEN]</span>.\n</p>\n"
-        privileged_allowance_available: 'Os yw''n bosib i chi ymweld ar ddiwrnod o''r
-          wythnos (PVO) yn lle, dewiswch y dyddiad mae''r PVO yn dod i ben: '
-        privileged_allowance_available_wording_html: "<p>\n  Fodd bynnag, gallwch
-          drefnu ymweliad yn ystod yr wythnos gyda'r lwfans ymweliadau sy'n ddilys\n
-          \ tan <span class=\"date\">[DATE NOT CHOSEN]</date>.\n  Rhaid i chi ymweld
-          cyn dyddiad dod i ben y lwfans.\n</p>\n"
-      issue_with_prisoner_section:
-        title: Problem gyda'r carcharor
-        prisoner_details_incorrect: Mae manylion y carcharor yn anghywir
-        prisoner_details_incorrect_wording_html: "<p>\n  Nid yw'n bosib i'r ymweliad
-          ddigwydd oherwydd nad ydych wedi rhoi'r wybodaeth gywir\n  ar gyfer y carcharor.
-          E.e. enw'r carcharor, rhif neu\n  mae'r dyddiad geni yn anghywir. Cysylltwch
-          â'r carcharor i gael yr\n  wybodaeth ddiweddaraf.\n</p>\n"
-        prisoner_moved: Nid yw'r carcharor yn y carchar ddim mwy
-        prisoner_moved_wording_html: "<p>\n  Nid yw'n bosib i'r ymweliad ddigwydd
-          oherwydd bod\n  y carcharor wedi symud i garchar arall. Dylent gysylltu
-          â chi i ddweud wrthych ym mha garchar maent yn awr. Hefyd, gallwch ddefnyddio'r
-          gwasanaeth dod o hyd i garcharor\n  (www.gov.uk/find-prisoner).\n</p>\n"
-      issue_with_visitors_section:
-        title: Problem gyda'r ymwelwyr
-        visitor_not_on_list: Nid yw'r ymwelydd ar y rhestr gyswllt
-        visitor_not_on_list_wording_html: "<p>\n  Nid yw'n bosib cynnal eich ymweliad
-          oherwydd nad yw'r manylion ar gyfer\n  <span class=\"CheckboxSummary-summary\">[VISITOR
-          NAME]</span> yr un fath â'n\n  cofnodion ni, neu nid ydynt ar restr gyswllt
-          y carcharor.\n</p>\n<p>\n  Cysylltwch â'r carcharor a gofynnwch iddo ddiweddaru
-          ei restr gyswllt \n  gyda'r manylion cywir, a sicrhau bod yr enwau'n ymddangos
-          yn union\n  yr un fath â'r dogfennau adnabod.\n</p>\n<p>\n  Os mai dyma
-          fydd ymweliad cyntaf y carcharor (ymweliad derbyn), yna mae'n rhaid i chi
-          gysylltu\n  â'r carchar i drefnu.\n</p>\n"
-        visitor_not_on_list_label: nid yw %{name} (%{date}) ar y rhestr
-        visitor_banned: Mae'r ymwelydd wedi'i wahardd
-        visitor_banned_wording_html: "<p>\n  Nid yw'n bosib cynnal eich ymweliad.\n
-          Dylai bod <span class=\"CheckboxSummary-summary\">[VISITOR NAME]</span>
-          wedi cael llythyr i ddweud ei fod wedi'i wahardd rhag ymweld â'r carchar
-          ar hyn o bryd. Cysylltwch â'r carchar am ragor o wybodaeth.\n</p>\n"
-        visitor_banned_label: mae %{name} (%{date}) wedi'i wahardd
   shared:
     slotpicker_templates:
       one_slot_available: 'Dim ond un slot amser sydd ar gael ar y diwrnod hwn, dewiswch
@@ -298,7 +202,7 @@ cy:
       what_not_to_bring_title: Beth i beidio â dod gyda chi
       what_not_to_bring_body_html: Peidiwch â dod ag unrhyw eitemau gwaharddedig neu
         anghyfreithlon i'r carchar.  Mae rhagor o wybodaeth ar beth allwch ddod efo
-        chi ar dudalen y carchar <a href="%{url}">%{prison}.
+        chi ar dudalen Carchar <a href="%{url}">%{prison}.
     timeout_prompt:
       title: Bydd eich sesiwn yn dod i ben mewn %{minutes_left} munud
       continue_question: 'Hoffech chi fynd ymlaen? '
