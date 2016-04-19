@@ -11,6 +11,8 @@ en:
           attributes:
             number:
               invalid: is invalid
+            date_of_birth:
+              inclusion: is not a valid date
         visitors_step:
           attributes:
             general:
