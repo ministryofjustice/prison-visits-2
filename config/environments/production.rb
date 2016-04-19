@@ -9,11 +9,6 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 
-  service_url = URI.parse(ENV.fetch('SERVICE_URL'))
-  config.action_mailer.default_url_options = {
-    host: service_url.hostname, protocol: service_url.scheme
-  }
-
   config.cache_classes = true
   config.eager_load = true
   config.consider_all_requests_local       = false
