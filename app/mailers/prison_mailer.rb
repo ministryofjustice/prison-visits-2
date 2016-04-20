@@ -56,18 +56,6 @@ class PrisonMailer < ActionMailer::Base
     )
   end
 
-  def withdrawn(visit)
-    @visit = visit
-
-    mail(
-      to: visit.prison_email_address,
-      subject: default_i18n_subject(
-        prisoner: visit.prisoner_full_name,
-        status: visit.processing_state.upcase
-      )
-    )
-  end
-
 private
 
   def smoke_test?

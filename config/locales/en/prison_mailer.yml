@@ -36,12 +36,3 @@ en:
       regards:  Kind regards,
       booking_team:  Prison visits booking team
       visit_id: "Visit ID: %{visit_id}"
-    withdrawn:
-      subject: "WITHDRAWN: Visit request for %{prisoner}"
-      salutation: Dear staff,
-      details: >-
-        %{visitor} has withdrawn their request to visit %{prisoner} (%{prisoner_number})
-      reference: "Reference number: %{reference_no}"
-      regards:  Kind regards,
-      booking_team:  Prison visits booking team
-      visit_id: "Visit ID: %{visit_id}"

@@ -52,10 +52,6 @@ class Visit < ActiveRecord::Base
     after_transition booked: :cancelled do |visit, _|
       PrisonMailer.cancelled(visit).deliver_later
     end
-
-    after_transition requested: :withdrawn do |visit, _|
-      PrisonMailer.withdrawn(visit).deliver_later
-    end
   end
 
   delegate :age, :full_name, :anonymized_name, :number, :date_of_birth,

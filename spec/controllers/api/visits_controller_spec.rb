@@ -150,11 +150,6 @@ RSpec.describe Api::VisitsController do
       expect(parsed_body['visit']['processing_state']).to eq('withdrawn')
     end
 
-    it 'triggers a cancellation email to staff' do
-      expect(PrisonMailer).to receive(:withdrawn).once.and_return(mailing)
-      delete :destroy, params
-    end
-
     it 'fails if the visit does not exist' do
       params[:id] = '123'
       delete :destroy, params
