@@ -29,6 +29,10 @@ RSpec.describe VisitorMailer, '.rejected' do
         to match(
           /nid oedd yn bosib trefnu eich ymweliad ar Dydd Llun 12 Hydref/)
     end
+
+    it 'includes the visit id' do
+      expect(mail.body.encoded).to match(rejection.visit_id)
+    end
   end
 
   context 'slot_unavailable' do
