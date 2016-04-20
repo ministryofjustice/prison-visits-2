@@ -48,8 +48,8 @@ RSpec.describe Rejections do
       end
 
       it { expect(Visit.count).to eq(10) }
-      it { expect(Visit.where(processing_state: 'booked').count).to eq(6) }
-      it { expect(Visit.where(processing_state: 'rejected').count).to eq(4) }
+      it { expect(Visit.where(processing_state: 'booked').count).to eq(5) }
+      it { expect(Visit.where(processing_state: 'rejected').count).to eq(5) }
 
       it 'counts visits and groups by prison, year, calendar week and visit state' do
         expect(described_class.fetch_and_format).to be ==
@@ -61,7 +61,8 @@ RSpec.describe Rejections do
                   'no_allowance' => 20.00,
                   'slot_unavailable' => 10.00,
                   'visitor_banned' => 10.00,
-                  'total' => 40.00
+                  'no_adult' => 10.00,
+                  'total' => 50.00
                 }
               }
             }
@@ -85,7 +86,8 @@ RSpec.describe Rejections do
                     'no_allowance' => 20.00,
                     'slot_unavailable' => 10.00,
                     'visitor_banned' => 10.00,
-                    'total' => 40.00
+                    'no_adult' => 10.00,
+                    'total' => 50.00
                   }
                 }
               }
