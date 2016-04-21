@@ -247,7 +247,7 @@ generate a secure secret key.
 #### `PUBLIC_SERVICE_URL`
 
 This is used to build public links in emails. It must be set in the production
-environment to `https://www.prisonvisits.service.gov.uk/`.
+environment to `https://prisonvisits.service.gov.uk/`.
 
 #### `STAFF_SERVICE_URL`
 
