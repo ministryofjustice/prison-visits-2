@@ -54,4 +54,6 @@
 <p><%= t('.any_questions_html',
          url: link_directory.prison_finder(@visit.prison),
          phone_no: @visit.prison_phone_no) %></p>
-<p><%= t('.visit_id') %></p>
+<p>
+  <small><%= t('.visit_id') %> <%= @visit.id %></small>
+</p>
