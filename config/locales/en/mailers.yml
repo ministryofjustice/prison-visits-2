@@ -88,6 +88,8 @@ en:
       allowance_will_renew: >-
         %{prisoner} will have their full visiting allowance (VO) renewed on
         %{date}.
+      no_adult:
+        There must be at least one adult visitor.
       prisoner_details_incorrect: >-
         Your visit cannot take place as you haven’t given correct information
         for the prisoner. Eg, the prisoner’s name, number or date of birth is

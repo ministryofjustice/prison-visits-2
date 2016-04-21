@@ -36,6 +36,10 @@
   <p><%= t('.visitor_banned',
            visitors: @visit.banned_visitors.map(&:anonymized_name).to_sentence) %></p>
 
+<% when 'no_adult' %>
+
+  <p><%= t('.no_adult') %></p>
+
 <% when 'visitor_not_on_list' %>
 
   <p><%= t('.visitor_not_on_list',

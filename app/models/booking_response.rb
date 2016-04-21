@@ -3,6 +3,10 @@ class BookingResponse
 
   SLOTS = %w[ slot_0 slot_1 slot_2 ]
 
+  # The adult age for accepting a booking is different from the configurable
+  # adult age in Prison
+  ADULT_AGE = 18
+
   attribute :visit
 
   attribute :selection, String, default: 'none'
@@ -45,6 +49,7 @@ class BookingResponse
   def reason
     return 'visitor_not_on_list' if visitor_not_on_list?
     return 'visitor_banned' if visitor_banned?
+    return 'no_adult' unless at_least_one_valid_visitor?
     selection
   end
 
@@ -71,8 +76,10 @@ class BookingResponse
 private
 
   def at_least_one_valid_visitor?
-    (visitors.map(&:id) -
-     [unlisted_visitor_ids, banned_visitor_ids].flatten).present?
+    visitors.
+      reject { |visitor| visitor.id.in? unlisted_visitor_ids }.
+      reject { |visitor| visitor.id.in? banned_visitor_ids }.
+      any? { |visitor| visitor.age >= ADULT_AGE }
   end
 
   def validate_checked_visitors

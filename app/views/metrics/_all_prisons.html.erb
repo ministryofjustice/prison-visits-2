@@ -22,6 +22,7 @@
       <td>Prisoner moved</td>
       <td>Visitor banned</td>
       <td>Prisoner details incorrect</td>
+      <td>No adult present</td>
     </tr>
     <% @prisons.each do |prison| %>
       <tr class="<%= cycle('odd', 'even') %>">
@@ -69,6 +70,9 @@
         </td>
         <td class="narrow <%= prison.finder_slug -%>-prisoner-details-incorrect">
           <%= dataset.percent_rejected(prison.name, 'prisoner_details_incorrect') %>
+        </td>
+        <td class="narrow <%= prison.finder_slug -%>-no-adult">
+          <%= dataset.percent_rejected(prison.name, 'no_adult') %>
         </td>
       </tr>
     <% end %>
