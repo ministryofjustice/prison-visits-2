@@ -35,4 +35,4 @@ en:
       please_delete: Please delete this visit from NOMIS.
       regards:  Kind regards,
       booking_team:  Prison visits booking team
-      visit_id: "Visit ID: %{visit_id}"
+      visit_id: "Visit ID:"
