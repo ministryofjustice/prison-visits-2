@@ -31,16 +31,13 @@
 
   <p><%= t('.prisoner_moved_html') %></p>
 
-<% when 'visitor_banned' %>
-
-  <p><%= t('.visitor_banned',
-           visitors: @visit.banned_visitors.map(&:anonymized_name).to_sentence) %></p>
-
 <% when 'no_adult' %>
 
   <p><%= t('.no_adult') %></p>
 
-<% when 'visitor_not_on_list' %>
+<% end %>
+
+<% if @visit.unlisted_visitors.any? %>
 
   <p><%= t('.visitor_not_on_list',
            visitors: @visit.unlisted_visitors.map(&:anonymized_name).to_sentence) %></p>
@@ -48,6 +45,13 @@
   <p><%= t('.update_list') %></p>
 
   <p><%= t('.first_visit') %></p>
+
+<% end %>
+
+<% if @visit.banned_visitors.any? %>
+
+  <p><%= t('.visitor_banned',
+           visitors: @visit.banned_visitors.map(&:anonymized_name).to_sentence) %></p>
 
 <% end %>
 

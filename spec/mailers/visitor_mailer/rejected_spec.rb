@@ -33,6 +33,60 @@ RSpec.describe VisitorMailer, '.rejected' do
     it 'includes the visit id' do
       expect(mail.body.encoded).to match(rejection.visit_id)
     end
+
+    context 'includes information about banned visitors' do
+      before do
+        rejection.visit.visitors << build(
+          :visitor,
+          banned: true,
+          first_name: 'Percy',
+          last_name: 'Perkins',
+          sort_index: 1
+        )
+        rejection.visit.visitors << build(
+          :visitor,
+          banned: true,
+          first_name: 'John',
+          last_name: 'Johnson',
+          sort_index: 2
+        )
+      end
+
+      it 'explains the error' do
+        expect(body).to match(/banned from visiting the prison/)
+      end
+
+      it 'enumerates the banned visitors' do
+        expect(body).to match(/Percy P and John J should have received a letter/)
+      end
+    end
+
+    context 'includes information about not on list visitors' do
+      before do
+        rejection.visit.visitors << build(
+          :visitor,
+          not_on_list: true,
+          first_name: 'Percy',
+          last_name: 'Perkins',
+          sort_index: 1
+        )
+        rejection.visit.visitors << build(
+          :visitor,
+          not_on_list: true,
+          first_name: 'John',
+          last_name: 'Johnson',
+          sort_index: 2
+        )
+      end
+
+      it 'explains the error' do
+        expect(body).to match(/ask them to update their contact list/)
+      end
+
+      it 'enumerates the banned visitors' do
+        expect(body).to match(/details for Percy P and John J don’t match our/)
+      end
+    end
   end
 
   context 'slot_unavailable' do
@@ -93,68 +147,6 @@ RSpec.describe VisitorMailer, '.rejected' do
 
     it 'explains the error' do
       expect(body).to match(/at least one adult/)
-    end
-  end
-
-  context 'visitor_banned' do
-    let(:reason) { 'visitor_banned' }
-
-    before do
-      rejection.visit.visitors << build(
-        :visitor,
-        banned: true,
-        first_name: 'Percy',
-        last_name: 'Perkins',
-        sort_index: 1
-      )
-      rejection.visit.visitors << build(
-        :visitor,
-        banned: true,
-        first_name: 'John',
-        last_name: 'Johnson',
-        sort_index: 2
-      )
-    end
-
-    include_examples 'template checks'
-
-    it 'explains the error' do
-      expect(body).to match(/banned from visiting the prison/)
-    end
-
-    it 'enumerates the banned visitors' do
-      expect(body).to match(/Percy P and John J should have received a letter/)
-    end
-  end
-
-  context 'visitor_not_on_list' do
-    let(:reason) { 'visitor_not_on_list' }
-
-    before do
-      rejection.visit.visitors << build(
-        :visitor,
-        not_on_list: true,
-        first_name: 'Percy',
-        last_name: 'Perkins',
-        sort_index: 1
-      )
-      rejection.visit.visitors << build(
-        :visitor,
-        not_on_list: true,
-        first_name: 'John',
-        last_name: 'Johnson',
-        sort_index: 2
-      )
-    end
-
-    include_examples 'template checks'
-
-    it 'explains the error' do
-      expect(body).to match(/ask them to update their contact list/)
-    end
-
-    it 'enumerates the banned visitors' do
-      expect(body).to match(/details for Percy P and John J don’t match our/)
     end
   end
 end
