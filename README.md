@@ -244,15 +244,10 @@ Make sure the secret is at least 30 characters and all random, no regular words
 or you’ll be exposed to dictionary attacks. You can use `rake secret` to
 generate a secure secret key.
 
-#### `PUBLIC_SERVICE_URL`
+#### `SERVICE_URL`
 
-This is used to build public links in emails. It must be set in the production
-environment to `https://prisonvisits.service.gov.uk/`.
-
-#### `STAFF_SERVICE_URL`
-
-This is used to build staff links in emails. It must be set in the production
-environment to `https://staff.prisonvisits.service.gov.uk/`.
+This is used to build links in emails. It must be set in the production
+environment to `https://www.prisonvisits.service.gov.uk/`.
 
 #### `SESSION_SECRET_KEY`
 
