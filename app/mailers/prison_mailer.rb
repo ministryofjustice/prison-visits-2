@@ -1,6 +1,5 @@
 class PrisonMailer < ActionMailer::Base
   include LogoAttachment
-  include NoReply
   include DateHelper
   add_template_helper DateHelper
   add_template_helper LinksHelper
@@ -16,6 +15,7 @@ class PrisonMailer < ActionMailer::Base
     @visit = visit
 
     mail(
+      from: I18n.t('mailer.noreply', domain: smtp_settings[:domain]),
       to: visit.prison_email_address,
       subject: default_i18n_subject(
         full_name: visit.prisoner_full_name,
@@ -28,6 +28,7 @@ class PrisonMailer < ActionMailer::Base
     @visit = visit
 
     mail(
+      from: I18n.t('mailer.noreply', domain: smtp_settings[:domain]),
       to: visit.prison_email_address,
       subject: default_i18n_subject(prisoner: visit.prisoner_full_name)
     )
@@ -37,6 +38,7 @@ class PrisonMailer < ActionMailer::Base
     @visit = visit
 
     mail(
+      from: I18n.t('mailer.noreply', domain: smtp_settings[:domain]),
       to: visit.prison_email_address,
       subject: default_i18n_subject(prisoner: visit.prisoner_full_name)
     )
@@ -47,16 +49,21 @@ class PrisonMailer < ActionMailer::Base
 
     mark_this_highest_priority
     mail(
+      from: I18n.t('mailer.noreply', domain: smtp_settings[:domain]),
       to: visit.prison_email_address,
-      subject: default_i18n_subject(
-        prisoner: visit.prisoner_full_name,
-        date: format_date_without_year(visit.slot_granted),
-        status: visit.processing_state.upcase
-      )
+      subject: default_i18n_subject(cancelled_attributes(visit))
     )
   end
 
 private
+
+  def cancelled_attributes(visit)
+    {
+      prisoner: visit.prisoner_full_name,
+      date: format_date_without_year(visit.slot_granted),
+      status: visit.processing_state.upcase
+    }
+  end
 
   def smoke_test?
     visit && SmokeTestEmailCheck.new(visit.contact_email_address).matches?
