@@ -1,6 +1,5 @@
 class VisitorMailer < ActionMailer::Base
   include LogoAttachment
-  include NoReply
   include DateHelper
   add_template_helper DateHelper
   add_template_helper LinksHelper
@@ -33,6 +32,7 @@ private
     @visit = visit
 
     mail(
+      from: I18n.t('mailer.noreply', domain: smtp_settings[:domain]),
       to: visit.contact_email_address,
       reply_to: visit.prison_email_address,
       subject: default_i18n_subject(i18n_options)
