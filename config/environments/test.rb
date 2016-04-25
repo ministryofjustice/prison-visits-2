@@ -10,8 +10,6 @@ Rails.application.configure do
   config.action_dispatch.show_exceptions = false
   config.active_job.queue_adapter = :test
   config.action_mailer.delivery_method = :test
-  config.action_mailer.default_url_options =
-    { host: 'localhost', protocol: 'https', port: '3000' }
   config.active_support.test_order = :random
   config.active_support.deprecation = :stderr
 
