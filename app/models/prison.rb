@@ -3,7 +3,6 @@ class Prison < ActiveRecord::Base
 
   MAX_VISITORS = 6
   MAX_ADULTS = 3
-  MIN_ADULTS = 1
   REQUESTING_VISITOR_MIN_AGE = 18
 
   has_many :visits, dependent: :destroy
@@ -60,8 +59,6 @@ class Prison < ActiveRecord::Base
 
     if adults > MAX_ADULTS
       target.errors.add field, :too_many_adults, max: MAX_ADULTS, age: adult_age
-    elsif adults < MIN_ADULTS
-      target.errors.add field, :too_few_adults, min: MIN_ADULTS, age: adult_age
     end
   end
 

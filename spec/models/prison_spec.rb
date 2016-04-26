@@ -6,7 +6,6 @@ RSpec.describe Prison, type: :model do
     subject.weekend_processing = false
   end
 
-
   describe 'first_bookable_date' do
     #
     #    Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo
@@ -261,7 +260,6 @@ RSpec.describe Prison, type: :model do
       end
     end
   end
-
 
   describe '.validate_visitor_ages_on' do
     context 'when there aren’t any visitors' do
