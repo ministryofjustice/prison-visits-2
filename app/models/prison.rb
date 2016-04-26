@@ -4,6 +4,7 @@ class Prison < ActiveRecord::Base
   MAX_VISITORS = 6
   MAX_ADULTS = 3
   MIN_ADULTS = 1
+  REQUESTING_VISITOR_MIN_AGE = 18
 
   has_many :visits, dependent: :destroy
   belongs_to :estate
@@ -49,7 +50,14 @@ class Prison < ActiveRecord::Base
   end
 
   def validate_visitor_ages_on(target, field, ages)
+    return if ages.blank?
     adults, _children = ages.partition { |a| adult?(a) }.map(&:length)
+    # For simplicity’s sake, this operates on the possibly unsafe assumption
+    # that the first visitor is always going to be the requesting visitor.
+    if ages.first < REQUESTING_VISITOR_MIN_AGE
+      target.errors.add(field, :requestor_must_be_over_18)
+    end
+
     if adults > MAX_ADULTS
       target.errors.add field, :too_many_adults, max: MAX_ADULTS, age: adult_age
     elsif adults < MIN_ADULTS

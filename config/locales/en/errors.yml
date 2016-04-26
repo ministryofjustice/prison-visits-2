@@ -16,6 +16,8 @@ en:
         visitors_step:
           attributes:
             general:
+              requestor_must_be_over_18:
+                The person requesting the visit must be over the age of 18
               too_few_adults:
                 There must be at least one adult visitor
               too_many_adults:
