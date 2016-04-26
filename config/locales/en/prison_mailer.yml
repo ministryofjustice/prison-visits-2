@@ -3,6 +3,8 @@ en:
     request_received:
       subject: "Visit request for %{full_name} on %{request_date}"
       prisoner: "Prisoner:"
+      first_name: "First name:"
+      last_name: "Last name:"
       number: "Number:"
       date_of_birth: "Date of birth:"
       choice: "Choice %{n}:"

@@ -35,7 +35,7 @@ module DateHelper
   def format_slot_for_staff(slot)
     I18n.t(
       'formats.slot.staff',
-      date: format_date_without_year(slot.begin_at.to_date),
+      date: slot.begin_at.to_date.to_s(:nomis),
       begin: format_time_24hr(slot.begin_at),
       end: format_time_24hr(slot.end_at)
     )

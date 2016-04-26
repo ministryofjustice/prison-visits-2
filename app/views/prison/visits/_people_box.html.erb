@@ -1,27 +1,33 @@
 <div class="people">
   <dl class="labels">
-    <dt><%= t('.prisoner') %></dt>
-    <dd><%= @booking_response.prisoner_full_name %></dd>
+    <dt><%= t('.prisoner_first_name') %></dt>
+    <dd><%= @booking_response.prisoner_first_name %></dd>
+
+    <dt><%= t('.prisoner_last_name') %></dt>
+    <dd><%= @booking_response.prisoner_last_name %></dd>
 
     <dt><%= t('.number') %></dt>
     <dd><%= @booking_response.prisoner_number %></dd>
 
     <dt><%= t('.date_of_birth') %></dt>
-    <dd><%= format_date_of_birth(@booking_response.prisoner_date_of_birth) %></dd>
+    <dd><%= @booking_response.prisoner_date_of_birth.to_s(:nomis) %></dd>
   </dl>
 
   <hr/>
 
   <% @booking_response.visitors.each_with_index do |visitor, index| %>
     <dl class="labels">
-      <dt><%= t('.visitor', n: index + 1) %></dt>
-      <dd><%= visitor.full_name %></dd>
+      <dt><%= t('.visitor_first_name', n: index + 1) %></dt>
+      <dd><%= visitor.first_name %></dd>
+
+      <dt><%= t('.visitor_last_name', n: index + 1) %></dt>
+      <dd><%= visitor.last_name %></dd>
 
       <dt><%= t('.age') %></dt>
       <dd><%= visitor.age %></dd>
 
       <dt><%= t('.date_of_birth') %></dt>
-      <dd><%= format_date_of_birth(visitor.date_of_birth) %></dd>
+      <dd><%= visitor.date_of_birth.to_s(:nomis) %></dd>
 
       <% if index.zero? %>
         <dt><%= t('.email_address') %></dt>

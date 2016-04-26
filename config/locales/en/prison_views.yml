@@ -29,10 +29,12 @@ en:
         rejected: This request has already been rejected
         withdrawn: The visitor has withdrawn this request
       people_box:
-        prisoner: "Prisoner:"
+        prisoner: "Prisoner first name:"
+        prisoner: "Prisoner last name:"
         number: "Number:"
         date_of_birth: "Date of birth:"
-        visitor: "Visitor %{n}:"
+        visitor_first_name: "Visitor %{n} (first name):"
+        visitor_last_name: "Visitor %{n} (last name):"
         age: "Age:"
         email_address: "Email:"
         phone_no: "Phone:"
