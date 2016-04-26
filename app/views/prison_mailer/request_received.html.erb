@@ -1,12 +1,17 @@
 <p>
   <%= t('.prisoner') %>
-  <strong><%= @visit.prisoner_full_name %></strong>
+  <br/>
+  <%= t('.first_name') %>
+  <strong><%= @visit.prisoner_first_name %></strong>
+  <br/>
+  <%= t('.last_name') %>
+  <strong><%= @visit.prisoner_last_name %></strong>
   <br/>
   <%= t('.number') %>
   <strong><%= @visit.prisoner_number %></strong>
   <br/>
   <%= t('.date_of_birth') %>
-  <strong><%= format_date_of_birth(@visit.prisoner_date_of_birth) %></strong>
+  <strong><%= @visit.prisoner_date_of_birth.to_s(:nomis) %></strong>
 </p>
 
 <p>
@@ -21,8 +26,12 @@
 <% @visit.visitors.each_with_index do |visitor, index| %>
   <p>
     <%= t('.visitor', n: index + 1) %>
-
-    <strong><%= visitor.full_name %></strong>
+    <br/>
+    <%= t('.first_name') %>
+    <strong><%= visitor.first_name %></strong>
+    <br/>
+    <%= t('.last_name') %>
+    <strong><%= visitor.last_name %></strong>
     <br/>
 
     <%= t('.age') %>
@@ -30,7 +39,7 @@
     <br/>
 
     <%= t('.date_of_birth') %>
-    <strong><%= format_date_of_birth(visitor.date_of_birth) %></strong>
+    <strong><%= visitor.date_of_birth.to_s(:nomis) %></strong>
 
     <% if index.zero? %>
       <br/>

@@ -54,8 +54,8 @@ class Visit < ActiveRecord::Base
     end
   end
 
-  delegate :age, :full_name, :anonymized_name, :number, :date_of_birth,
-    to: :prisoner, prefix: true
+  delegate :age, :first_name, :last_name, :full_name, :anonymized_name,
+    :number, :date_of_birth, to: :prisoner, prefix: true
 
   delegate :first_name, :last_name, :full_name, :anonymized_name,
     to: :principal_visitor, prefix: :visitor

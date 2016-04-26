@@ -33,7 +33,8 @@ RSpec.feature 'Booking a visit', js: true do
     expect(prison.email_address).
       to receive_email.
       with_subject(/\AVisit request for Oscar Wilde on \w+ \d+ \w+\z/).
-      and_body(/Prisoner:\s*Oscar Wilde/)
+      and_body(/First name: Oscar/).
+      and_body(/Last name: Wilde/)
     expect(visitor_email.strip).
       to receive_email.
       with_subject(/we’ve received your visit request for \w+ \d+ \w+\z/).
