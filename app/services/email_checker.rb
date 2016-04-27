@@ -1,8 +1,7 @@
 class EmailChecker
-  def initialize(original_address, override_sendgrid = false)
+  def initialize(original_address)
     @original_address = original_address
     @parsed = parse_address(original_address)
-    @override_sendgrid = override_sendgrid
   end
 
   def error
@@ -17,26 +16,12 @@ class EmailChecker
     error.valid?
   end
 
-  def delivery_error_occurred?
-    error.spam_reported? || error.bounced?
-  end
-
-  def reset_bounce?
-    return false unless parsed
-    override_sendgrid? && sendgrid_api.bounced?(parsed.address)
-  end
-
-  def reset_spam_report?
-    return false unless parsed
-    override_sendgrid? && sendgrid_api.spam_reported?(parsed.address)
-  end
-
 private
 
   attr_reader :original_address, :parsed
 
   def compute_error
-    format_error || mx_records_error || sendgrid_error || :valid
+    format_error || mx_records_error || :valid
   end
 
   def format_error
@@ -47,19 +32,6 @@ private
 
   def mx_records_error
     return :no_mx_record unless mx_records?
-  end
-
-  def sendgrid_error
-    unless override_sendgrid?
-      Metrics.log('Validating email address via Sendgrid API') do
-        return :spam_reported if sendgrid_api.spam_reported?(parsed.address)
-        return :bounced if sendgrid_api.bounced?(parsed.address)
-      end
-    end
-  end
-
-  def override_sendgrid?
-    @override_sendgrid
   end
 
   def domain
@@ -85,9 +57,5 @@ private
     Metrics.log('Validating email address MX record') do
       Rails.configuration.mx_checker.records?(domain)
     end
-  end
-
-  def sendgrid_api
-    SendgridApi.instance
   end
 end

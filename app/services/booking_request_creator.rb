@@ -8,22 +8,18 @@ class BookingRequestCreator
 
 private
 
-  # rubocop:disable Metrics/MethodLength
   def create_visit(prisoner_step, visitors_step, slots_step, locale)
     Visit.create!(
       prisoner_id: create_prisoner(prisoner_step).id,
       prison_id: prisoner_step.prison_id,
       contact_email_address: visitors_step.email_address,
       contact_phone_no: visitors_step.phone_no,
-      override_delivery_error: visitors_step.override_delivery_error,
-      delivery_error_type: visitors_step.delivery_error_type,
       slot_option_0: slots_step.option_0,
       slot_option_1: slots_step.option_1,
       slot_option_2: slots_step.option_2,
       locale: locale
     ).tap { |v| create_visitors visitors_step, v }
   end
-  # rubocop:enable Metrics/MethodLength
 
   def create_visitors(visitors_step, visit)
     visitors_step.visitors.each_with_index do |visitor, sort_index|

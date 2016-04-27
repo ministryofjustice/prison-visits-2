@@ -55,8 +55,6 @@ private
       :email_address,
       :phone_no,
       :additional_visitor_count,
-      :override_delivery_error,
-      :delivery_error_type,
       visitors_attributes: permitted_person_attrs(first_visitor)]
     ]
   end

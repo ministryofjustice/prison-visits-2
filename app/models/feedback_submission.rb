@@ -13,8 +13,7 @@ private
   def email_format
     return if email_address.blank?
 
-    # true overrides sendgrid validations
-    email_checker = EmailChecker.new(email_address, true)
+    email_checker = EmailChecker.new(email_address)
 
     unless email_checker.valid?
       errors.add(:email_address, 'has incorrect format')

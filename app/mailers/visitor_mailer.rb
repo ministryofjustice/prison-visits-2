@@ -8,7 +8,6 @@ class VisitorMailer < ActionMailer::Base
 
   def request_acknowledged(visit)
     I18n.locale = visit.locale
-    SpamAndBounceResets.new(visit).perform_resets
 
     mail_visitor visit,
       receipt_date: format_date_without_year(visit.first_date)

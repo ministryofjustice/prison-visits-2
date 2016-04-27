@@ -12,10 +12,6 @@ class Visit < ActiveRecord::Base
     :processing_state,
     presence: true
 
-  validates :delivery_error_type,
-    inclusion: { in: %w[ bounced spam_reported ] },
-    allow_nil: true, allow_blank: true
-
   delegate :address, :email_address, :name, :phone_no, :postcode,
     to: :prison, prefix: true
   alias_attribute :first_date, :slot_option_0

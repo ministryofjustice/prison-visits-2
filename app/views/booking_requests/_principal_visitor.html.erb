@@ -9,12 +9,6 @@
     <% end %>
 
     <%= single_field(f, :email_address, :text_field) %>
-    <% if f.object.delivery_error_occurred? %>
-      <label class="validation-message">
-        <%= single_field(f, :override_delivery_error, :check_box) %>
-        <%= single_field(f, :delivery_error_type, :hidden_field) %>
-      </label>
-    <% end %>
 
     <%= single_field(f, :phone_no, :text_field) %>
   </div>
