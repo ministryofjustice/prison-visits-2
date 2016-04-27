@@ -38,6 +38,11 @@
   padding: 5px;
 }
 
+.mtp_survey {
+  padding: 10px;
+  border: medium solid #d3d3d3;
+}
+
 p, h1, h2 {
   margin: 1em 0;
 }
