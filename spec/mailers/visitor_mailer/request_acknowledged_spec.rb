@@ -28,17 +28,4 @@ RSpec.describe VisitorMailer, '.request_acknowledged' do
       to match(
         /mae eich cais i ymweld ar Dydd Llun 12 Hydref wedi cyrraedd/)
   end
-
-  context 'spam and bounce handling' do
-    before do
-      visit.save
-    end
-
-    let(:reset_call) { double(SpamAndBounceResets, perform_resets: true) }
-
-    it 'resets sendgrid spam and bounce settings before sending' do
-      expect(SpamAndBounceResets).to receive(:new).and_return(reset_call)
-      mail.deliver_now
-    end
-  end
 end

@@ -2,8 +2,7 @@ require 'rails_helper'
 require 'shared_sendgrid_context'
 
 RSpec.describe EmailChecker do
-  subject { described_class.new(address, override) }
-  let(:override) { false }
+  subject { described_class.new(address) }
 
   shared_examples 'a valid address' do
     it { is_expected.to be_valid }
@@ -25,33 +24,26 @@ RSpec.describe EmailChecker do
     context 'with empty string' do
       let(:address) { '' }
       it_behaves_like 'an invalid address', 'malformed'
-      it { is_expected.not_to be_delivery_error_occurred }
-      it { is_expected.not_to be_reset_spam_report }
-      it { is_expected.not_to be_reset_bounce }
     end
 
     context 'with domain only' do
       let(:address) { '@test.example.com' }
       it_behaves_like 'an invalid address', 'unparseable'
-      it { is_expected.not_to be_delivery_error_occurred }
     end
 
     context 'with local part only' do
       let(:address) { 'jimmy.harris' }
       it_behaves_like 'an invalid address', 'malformed'
-      it { is_expected.not_to be_delivery_error_occurred }
     end
 
     context 'with dot at start of domain' do
       let(:address) { 'user@.test.example.com' }
       it_behaves_like 'an invalid address', 'domain_dot'
-      it { is_expected.not_to be_delivery_error_occurred }
     end
 
     context 'with dot at end of domain' do
       let(:address) { 'user@test.example.com.' }
       it_behaves_like 'an invalid address', 'unparseable'
-      it { is_expected.not_to be_delivery_error_occurred }
     end
   end
 
@@ -69,17 +61,6 @@ RSpec.describe EmailChecker do
       end
     end
 
-    it 'checks Sendgrid only once' do
-      expect_any_instance_of(SendgridApi).
-        to receive(:spam_reported?).once.and_return(false)
-      expect_any_instance_of(SendgridApi).
-        to receive(:bounced?).once.and_return(false)
-
-      2.times do
-        subject.valid?
-      end
-    end
-
     context 'when MX check fails' do
       before do
         allow(Rails.configuration.mx_checker).
@@ -87,41 +68,6 @@ RSpec.describe EmailChecker do
       end
 
       it_behaves_like 'an invalid address', 'no_mx_record'
-      it { is_expected.not_to be_delivery_error_occurred }
-    end
-
-    context 'when spam is reported' do
-      include_context 'sendgrid reports spam'
-
-      it { is_expected.to be_delivery_error_occurred }
-
-      context 'and override is not set' do
-        it_behaves_like 'an invalid address', 'spam_reported'
-        it { is_expected.not_to be_reset_spam_report }
-      end
-
-      context 'but override is set by a parameter' do
-        let(:override) { true }
-        it_behaves_like 'a valid address'
-        it { is_expected.to be_reset_spam_report }
-      end
-    end
-
-    context 'when bounce is reported' do
-      include_context 'sendgrid reports a bounce'
-
-      it { is_expected.to be_delivery_error_occurred }
-
-      context 'and override is not set' do
-        it_behaves_like 'an invalid address', 'bounced'
-        it { is_expected.not_to be_reset_bounce }
-      end
-
-      context 'but override is set by a paramenter' do
-        let(:override) { true }
-        it_behaves_like 'a valid address'
-        it { is_expected.to be_reset_bounce }
-      end
     end
   end
 end

@@ -67,8 +67,6 @@ RSpec.describe BookingRequestCreator do
           prisoner_id: 'PRISONERID',
           contact_email_address: 'ada@test.example.com',
           contact_phone_no: '01154960222',
-          override_delivery_error: nil,
-          delivery_error_type: nil,
           slot_option_0: '2015-01-02T09:00/10:00',
           slot_option_1: '2015-01-03T09:00/10:00',
           slot_option_2: '2015-01-04T09:00/10:00',

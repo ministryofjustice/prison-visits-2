@@ -7,17 +7,6 @@ RSpec.describe Visit, type: :model do
     double(Mail::Message, deliver_later: nil)
   }
 
-  describe '.delivery_error_type' do
-    specify do
-      is_expected.
-        to validate_inclusion_of(:delivery_error_type).
-        in_array(%w[ bounced spam_reported ])
-    end
-
-    it { is_expected.to allow_value(nil).for(:delivery_error_type) }
-    it { is_expected.to allow_value('').for(:delivery_error_type) }
-  end
-
   describe 'state' do
     it 'is requested initially' do
       expect(subject).to be_requested
