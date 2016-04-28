@@ -93,15 +93,15 @@ RSpec.describe Nomis::Api do
     let(:params) {
       {
         prison: instance_double(Prison, nomis_id: 'LEI'),
-        start_date: Date.parse('2016-04-08'),
-        end_date: Date.parse('2016-05-01')
+        start_date: Date.parse('2016-05-08'),
+        end_date: Date.parse('2016-06-01')
       }
     }
 
     subject { super().fetch_bookable_slots(params) }
 
     it 'returns an array of slots' do
-      expect(subject.first.iso8601).to eq('2016-04-09T09:00/10:00')
+      expect(subject.first.iso8601).to eq('2016-05-09T10:30/11:30')
     end
   end
 end
