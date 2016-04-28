@@ -49,7 +49,9 @@ class Prison < ActiveRecord::Base
   end
 
   def validate_visitor_ages_on(target, field, ages)
-    return if ages.blank?
+    # This validation does not apply if there are no visitors
+    return if ages.empty?
+
     adults, _children = ages.partition { |a| adult?(a) }.map(&:length)
     # For simplicity’s sake, this operates on the possibly unsafe assumption
     # that the first visitor is always going to be the requesting visitor.
