@@ -1,6 +1,8 @@
 require 'excon'
 
 module Nomis
+  APIError = Class.new(StandardError)
+
   class Client
     TIMEOUT = 1 # seconds
 
@@ -26,10 +28,12 @@ module Nomis
   private
 
     # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize
     def request(method, route, params)
       # For cleanliness, strip initial / if supplied
       route = route.sub(%r{^\/}, '')
       path = "/nomisapi/#{route}"
+      api_method = "#{method.to_s.upcase} #{path}"
 
       options = {
         method: method,
@@ -48,8 +52,25 @@ module Nomis
       response = @connection.request(options)
 
       JSON.parse(response.body)
+    rescue Excon::Errors::HTTPStatusError => e
+      body = e.response.body
+
+      # API errors should be returned as JSON, but there are many scenarios
+      # where this may not be the case.
+      begin
+        error = JSON.parse(body)
+      rescue JSON::ParserError
+        # Present non-JSON bodies truncated (e.g. this could be HTML)
+        error = "(invalid-JSON) #{body[0, 80]}"
+      end
+
+      raise e,
+        "Unexpected status #{e.response.status} calling #{api_method}: #{error}"
+    rescue Excon::Errors::Error => e
+      raise APIError, "Exception #{e.class} calling #{api_method}: #{e}"
     end
     # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize
 
     # Returns excon options which put params in either the query string or body.
     def params_options(method, params)
