@@ -1,6 +1,8 @@
 require 'excon'
 
 module Nomis
+  APIError = Class.new(StandardError)
+
   class Client
     TIMEOUT = 1 # seconds
 
@@ -48,6 +50,22 @@ module Nomis
       response = @connection.request(options)
 
       JSON.parse(response.body)
+    rescue Excon::Errors::HTTPStatusError => e
+      body = e.response.body
+
+      # API errors should be returned as JSON, but there are many scenarios
+      # where this may not be the case.
+      begin
+        error = JSON.parse(body)
+      rescue JSON::ParserError
+        # Present non-JSON bodies truncated (e.g. this could be HTML)
+        error = "(invalid-JSON) #{body[0, 80]}"
+      end
+
+      raise APIError,
+        "Unexpected status #{e.response.status} calling #{api_method}: #{error}"
+    rescue Excon::Errors::Error => e
+      raise APIError, "Exception #{e.class} calling #{api_method}: #{e}"
     end
     # rubocop:enable Metrics/MethodLength
 
