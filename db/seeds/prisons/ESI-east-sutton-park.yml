@@ -15,3 +15,5 @@ recurring:
   sun:
   - 0930-1130
   - 1330-1530
+unbookable:
+- 2016-05-21
