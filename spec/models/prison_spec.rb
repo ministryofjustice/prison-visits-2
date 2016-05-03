@@ -282,7 +282,7 @@ RSpec.describe Prison, type: :model do
       end
 
       it 'makes the request invalid' do
-        expect(target.errors).to receive(:add).with('adults', :requestor_must_be_over_18)
+        expect(target.errors).to receive(:add).with('adults', :lead_visitor_age, min: 18)
         subject.validate_visitor_ages_on(target, 'adults', group)
       end
     end
@@ -296,7 +296,7 @@ RSpec.describe Prison, type: :model do
       end
 
       it 'makes the request invalid' do
-        expect(target.errors).not_to receive(:add).with('adults', :requestor_must_be_over_18)
+        expect(target.errors).not_to receive(:add).with('adults', :lead_visitor_age)
         subject.validate_visitor_ages_on(target, 'adults', group)
       end
     end

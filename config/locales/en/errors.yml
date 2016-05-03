@@ -16,8 +16,8 @@ en:
         visitors_step:
           attributes:
             general:
-              requestor_must_be_over_18:
-                The person requesting the visit must be over the age of 18
+              lead_visitor_age:
+                The person requesting the visit must be over the age of %{min}
               too_many_adults:
                 You can book a maximum of %{max} visitors over the age of
                 %{age} on this visit
