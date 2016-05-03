@@ -55,7 +55,7 @@ RSpec.feature 'Booking a visit', js: true do
     enter_visitor_information date_of_birth: Date.new(2014, 11, 30)
     click_button 'Continue'
 
-    expect(page).to have_text('There must be at least one adult visitor')
+    expect(page).to have_text('The person requesting the visit must be over the age of 18')
   end
 
   scenario 'review and edit' do

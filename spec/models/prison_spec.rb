@@ -260,4 +260,45 @@ RSpec.describe Prison, type: :model do
       end
     end
   end
+
+  describe '.validate_visitor_ages_on' do
+    context 'when there aren’t any visitors' do
+      let(:target) { double('target').as_null_object }
+      let(:group) { [] }
+
+      it 'skips the vaildation silently' do
+        expect{
+          subject.validate_visitor_ages_on(target, 'adults', group)
+        }.not_to raise_error
+      end
+    end
+
+    context 'when the visit is requested by someone under 18' do
+      let(:target) { double('target').as_null_object }
+      let(:group) { [12, 15, 18] }
+
+      before do
+        allow(subject).to receive(:adult?).and_return(false, false, true)
+      end
+
+      it 'makes the request invalid' do
+        expect(target.errors).to receive(:add).with('adults', :lead_visitor_age, min: 18)
+        subject.validate_visitor_ages_on(target, 'adults', group)
+      end
+    end
+
+    context 'when the visit is requested by someone over 18' do
+      let(:target) { double('target').as_null_object }
+      let(:group) { [18, 15, 18] }
+
+      before do
+        allow(subject).to receive(:adult?).and_return(true, false, true)
+      end
+
+      it 'makes the request invalid' do
+        expect(target.errors).not_to receive(:add).with('adults', :lead_visitor_age)
+        subject.validate_visitor_ages_on(target, 'adults', group)
+      end
+    end
+  end
 end

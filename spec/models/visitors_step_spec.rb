@@ -225,25 +225,13 @@ RSpec.describe VisitorsStep do
       end
     end
 
-    it 'is valid if there is one adult visitor' do
-      subject.visitors = [
-        {
-          first_name:  'John',
-          last_name:  'Johnson',
-          date_of_birth:  { day:  '1', month:  '12', year:  '2002' }
-        }
-      ]
-      subject.validate
-      expect(subject.errors).not_to have_key(:general)
-    end
-
     it 'is valid if there are 3 adult and 3 child visitors' do
       subject.visitors = [
         {
           first_name:  'John',
           last_name:  'Johnson',
           date_of_birth:  {
-            day:  '1', month:  '12', year:  '2002' # 13 today
+            day:  '1', month:  '12', year:  '1990' # First visitor > 18
           }
         },
         {
@@ -292,7 +280,7 @@ RSpec.describe VisitorsStep do
           first_name:  'John',
           last_name:  'Johnson',
           date_of_birth:  {
-            day:  '1', month:  '12', year:  '2002' # 13 today
+            day:  '1', month:  '12', year:  '1970'
           }
         },
         {
@@ -356,7 +344,7 @@ RSpec.describe VisitorsStep do
       ]
       subject.validate
       expect(subject.errors[:general]).to include(
-        'There must be at least one adult visitor'
+        'The person requesting the visit must be over the age of 18'
       )
     end
   end
