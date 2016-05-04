@@ -56,14 +56,6 @@ module PrisonVisits
       event.payload[:custom_log_items]
     end
 
-    # Filter skyscape proxy IPs while computing the client's real IP address.
-    # Note: This can be removed after PVB1 redirction has been removed.
-    skyscape_proxy_ips = ['185.40.9.51', '185.40.9.60']
-    trusted_proxies =
-      ActionDispatch::RemoteIp::TRUSTED_PROXIES + skyscape_proxy_ips
-    config.middleware.swap ActionDispatch::RemoteIp,
-      ActionDispatch::RemoteIp, true, trusted_proxies
-
     config.middleware.insert_before ActionDispatch::ParamsParser,
       HttpMethodNotAllowed
 
