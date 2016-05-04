@@ -11,7 +11,7 @@
   <strong><%= @visit.prisoner_number %></strong>
   <br/>
   <%= t('.date_of_birth') %>
-  <strong><%= @visit.prisoner_date_of_birth.to_s(:nomis) %></strong>
+  <strong><%= @visit.prisoner_date_of_birth.to_s(:short_nomis) %></strong>
 </p>
 
 <p>
@@ -39,7 +39,7 @@
     <br/>
 
     <%= t('.date_of_birth') %>
-    <strong><%= visitor.date_of_birth.to_s(:nomis) %></strong>
+    <strong><%= visitor.date_of_birth.to_s(:short_nomis) %></strong>
 
     <% if index.zero? %>
       <br/>
