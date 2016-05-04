@@ -10,7 +10,7 @@
     <dd><%= @booking_response.prisoner_number %></dd>
 
     <dt><%= t('.date_of_birth') %></dt>
-    <dd><%= @booking_response.prisoner_date_of_birth.to_s(:nomis) %></dd>
+    <dd><%= @booking_response.prisoner_date_of_birth.to_s(:short_nomis) %></dd>
   </dl>
 
   <hr/>
@@ -27,7 +27,7 @@
       <dd><%= visitor.age %></dd>
 
       <dt><%= t('.date_of_birth') %></dt>
-      <dd><%= visitor.date_of_birth.to_s(:nomis) %></dd>
+      <dd><%= visitor.date_of_birth.to_s(:short_nomis) %></dd>
 
       <% if index.zero? %>
         <dt><%= t('.email_address') %></dt>
