@@ -48,7 +48,6 @@ Rails.application.routes.draw do
   end
 
   namespace :api, format: false do
-    get '/', to: 'root#index'
     resources :feedback, only: %i[ create ]
     resources :prisons, only: %i[ index show ]
     resources :slots, only: %i[ index ]

@@ -57,6 +57,12 @@ RSpec.describe Api::PrisonsController do
         'prisons' => [include('name' => 'Lleuad')]
       )
     end
+
+    it 'returns an error if the format is not json' do
+      get :index, format: :xml
+      expect(response.status).to eq(406)
+      expect(parsed_body).to eq("message" => "Only JSON supported")
+    end
   end
 
   describe 'show' do
