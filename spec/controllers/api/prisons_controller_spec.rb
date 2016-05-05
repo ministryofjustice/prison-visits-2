@@ -42,7 +42,7 @@ RSpec.describe Api::PrisonsController do
           include(
             '_links' => {
               'self' => {
-                'href' => "http://test.host/api/prisons/#{prison.id}.json"
+                'href' => "http://test.host/api/prisons/#{prison.id}"
               }
             }
           )

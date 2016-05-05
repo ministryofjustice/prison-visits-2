@@ -10,7 +10,7 @@ json.prison do
   json.adult_age @prison.adult_age
   json._links do
     json.self do
-      json.href api_prison_url(@prison, format: :json)
+      json.href api_prison_url(@prison)
     end
   end
 end

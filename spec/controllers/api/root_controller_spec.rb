@@ -18,7 +18,7 @@ RSpec.describe Api::RootController do
       expect(parsed_body).to include(
         '_links' => {
           'prisons' => {
-            'href' => 'http://test.host/api/prisons.json'
+            'href' => 'http://test.host/api/prisons'
           }
         }
       )
