@@ -5,6 +5,7 @@ module Api
     skip_before_action :verify_authenticity_token
     before_action :set_locale
     before_action :store_request_id
+    before_action :enforce_json
 
     rescue_from ActionController::ParameterMissing do |e|
       render_error 422, "Missing parameter: #{e.param}"
@@ -47,6 +48,12 @@ module Api
 
     def store_request_id
       RequestStore.store[:request_id] = request.uuid
+    end
+
+    def enforce_json
+      unless request.format.to_sym == :json
+        render_error 406, 'Only JSON supported'
+      end
     end
   end
 end

@@ -23,5 +23,11 @@ RSpec.describe Api::RootController do
         }
       )
     end
+
+    it 'returns an error if the format is not json' do
+      get :index, format: :xml
+      expect(response.status).to eq(406)
+      expect(parsed_body).to eq("message" => "Only JSON supported")
+    end
   end
 end
