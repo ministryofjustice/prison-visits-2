@@ -39,13 +39,7 @@ RSpec.describe Api::PrisonsController do
       get :index, params
       expect(parsed_body).to include(
         'prisons' => [
-          include(
-            '_links' => {
-              'self' => {
-                'href' => "http://test.host/api/prisons/#{prison.id}"
-              }
-            }
-          )
+          include('prison_url' => "http://test.host/api/prisons/#{prison.id}")
         ]
       )
     end
