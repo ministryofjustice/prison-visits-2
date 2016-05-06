@@ -39,13 +39,7 @@ RSpec.describe Api::PrisonsController do
       get :index, params
       expect(parsed_body).to include(
         'prisons' => [
-          include(
-            '_links' => {
-              'self' => {
-                'href' => "http://test.host/api/prisons/#{prison.id}.json"
-              }
-            }
-          )
+          include('prison_url' => "http://test.host/api/prisons/#{prison.id}")
         ]
       )
     end
@@ -56,6 +50,12 @@ RSpec.describe Api::PrisonsController do
       expect(parsed_body).to include(
         'prisons' => [include('name' => 'Lleuad')]
       )
+    end
+
+    it 'returns an error if the format is not json' do
+      get :index, format: :xml
+      expect(response.status).to eq(406)
+      expect(parsed_body).to eq("message" => "Only JSON supported")
     end
   end
 

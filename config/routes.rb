@@ -47,8 +47,7 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :api, constraints: { format: 'json' } do
-    get '/', to: 'root#index'
+  namespace :api, format: false do
     resources :feedback, only: %i[ create ]
     resources :prisons, only: %i[ index show ]
     resources :slots, only: %i[ index ]
