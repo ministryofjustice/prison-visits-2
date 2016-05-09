@@ -2,9 +2,17 @@ require 'excon'
 
 module Nomis
   class Client
+    TIMEOUT = 1 # seconds
+
     def initialize(host)
       @host = host
-      @connection = Excon.new(host, persistent: true)
+      @connection = Excon.new(
+        host,
+        persistent: true,
+        connect_timeout: TIMEOUT,
+        read_timeout: TIMEOUT,
+        write_timeout: TIMEOUT
+      )
     end
 
     def get(route, params = {})
