@@ -27,8 +27,12 @@ module PrisonVisits
 
     config.active_record.raise_in_transactional_callbacks = true
 
+    # The last 3 errors can be removed with Rails 5. See Rails PR #19632
     config.action_dispatch.rescue_responses.merge!(
-      'StateMachines::InvalidTransition' => :unprocessable_entity
+      'StateMachines::InvalidTransition' => :unprocessable_entity,
+      'ActionController::ParameterMissing' => :bad_request,
+      'Rack::Utils::ParameterTypeError' => :bad_request,
+      'Rack::Utils::InvalidParameterError' => :bad_request
     )
 
     config.ga_id = ENV['GA_TRACKING_ID']
@@ -45,7 +49,7 @@ module PrisonVisits
           )
       )
 
-    config.exceptions_app = routes
+    config.exceptions_app = ->(env) { ErrorHandler.call(env) }
 
     if ENV['ASSET_HOST']
       config.asset_host = ENV['ASSET_HOST']

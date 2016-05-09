@@ -76,7 +76,11 @@
   </li>
   <% alternative_locales.each do |locale| %>
     <li>
-      <%= link_to(t('language', locale: locale), locale: locale) %>
+      <% if controller_name == 'errors' %>
+        <%= link_to(t('language', locale: locale), "/#{response.status}?locale=#{locale}")%>
+      <% else %>
+        <%= link_to(t('language', locale: locale), locale: locale) %>
+      <% end %>
     </li>
   <% end %>
 <% end %>
