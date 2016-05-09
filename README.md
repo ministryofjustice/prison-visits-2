@@ -7,6 +7,8 @@ ported intact from the previous application.
 The source of the predecessor can be found at
 [ministryofjustice/prison-visits](https://github.com/ministryofjustice/prison-visits).
 
+This application exposes an interface to staff to allow managing bookings, and an API which is used by the doubled public facing booking application ([ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public)).
+
 ## Notes on models
 
 ### Slots
