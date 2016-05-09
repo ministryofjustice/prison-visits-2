@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   get '/', to: redirect(ENV.fetch('GOVUK_START_PAGE', '/en/request'))
 
-  %w[ 404 406 500 503 ].each do |code|
-    match code, to: 'errors#show', status_code: code, via: %i[ get post ]
-  end
   match 'exception', to: 'errors#test', via: %i[ get post ]
+
+  if Rails.env.test?
+    match 'error_handling', to: 'errors#show', via: :get
+  end
 
   # Old pvb1 path to start a booking
   get '/prisoner', to: redirect('/en/request')

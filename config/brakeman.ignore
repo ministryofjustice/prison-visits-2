@@ -3,6 +3,43 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
+      "fingerprint": "2b3a1157063993c962dd2b41351e4e24a0f2be5a63f818f13ee2d8a5b964f3f2",
+      "message": "Render path contains parameter value",
+      "file": "app/controllers/errors_controller.rb",
+      "line": 22,
+      "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => { 404 => :\"404\", 406 => :\"404\", 500 => :\"500\", 503 => :\"503\" }.fetch((params[:status_code] or env[\"PATH_INFO\"][(1..-1)]).to_i), { :status => ((params[:status_code] or env[\"PATH_INFO\"][(1..-1)])), :format => :html })",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ErrorsController",
+        "method": "show"
+      },
+      "user_input": "params[:status_code]",
+      "confidence": "Weak",
+      "note": "The controller has a lookup table of acceptable render templates"
+    },
+    {
+      "warning_type": "Cross Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "000ec2b11dfa993c085c2bd6603794de8567c67c0c41f3b5dbc4cb95d5186163",
+      "message": "Unescaped parameter value",
+      "file": "app/views/staff_info/show.html.erb",
+      "line": 3,
+      "link": "http://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "markdown(fetch(params.values_at(:page, :format).compact.join(\".\")).body)",
+      "render_path": [{"type":"controller","class":"StaffInfoController","method":"show","line":21,"file":"app/controllers/staff_info_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "staff_info/show"
+      },
+      "user_input": "params.values_at(:page, :format).compact.join(\".\")",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
       "fingerprint": "8c390dff3f40970d84fbba866e35c1f62e8ea4629c767e5df706bf873bc39f40",
       "message": "Render path contains parameter value",
       "file": "app/controllers/errors_controller.rb",
@@ -18,24 +55,6 @@
       "user_input": "params.fetch(:status_code)",
       "confidence": "Weak",
       "note": "The controller has a lookup table of acceptable render templates"
-    },
-    {
-      "warning_type": "Cross Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "000ec2b11dfa993c085c2bd6603794de8567c67c0c41f3b5dbc4cb95d5186163",
-      "message": "Unescaped parameter value",
-      "file": "app/views/staff_info/show.html.erb",
-      "line": 3,
-      "link": "http://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "markdown(fetch(params.values_at(:page, :format).compact.join(\".\")).body)",
-      "render_path": [{"type":"controller","class":"StaffInfoController","method":"show","line":20,"file":"app/controllers/staff_info_controller.rb"}],
-      "location": {
-        "type": "template",
-        "template": "staff_info/show"
-      },
-      "user_input": "params.values_at(:page, :format).compact.join(\".\")",
-      "confidence": "Weak",
-      "note": ""
     },
     {
       "warning_type": "Dynamic Render Path",
@@ -114,6 +133,6 @@
       "note": ""
     }
   ],
-  "updated": "2016-04-12 12:56:28 +0100",
+  "updated": "2016-05-03 14:06:37 +0100",
   "brakeman_version": "3.1.3"
 }

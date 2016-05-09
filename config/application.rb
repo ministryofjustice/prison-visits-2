@@ -49,7 +49,7 @@ module PrisonVisits
           )
       )
 
-    config.exceptions_app = routes
+    config.exceptions_app = ->(env) { ErrorHandler.call(env) }
 
     if ENV['ASSET_HOST']
       config.asset_host = ENV['ASSET_HOST']

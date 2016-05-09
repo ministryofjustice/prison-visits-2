@@ -12,12 +12,16 @@ class ErrorsController < ApplicationController
   before_action :set_html_format, only: :show
 
   def show
-    status_code = params.fetch(:status_code).to_i
+    append_to_log(original_fullpath: request.original_fullpath)
+
+    status_code = env['PATH_INFO'][1..-1]
 
     # Explicity protect against rendering an unexpected template (although such
     # a situation should not be possible with a correct routes definition)
-    template_to_render = SUPPORTED_ERRORS.fetch(status_code)
-    render template_to_render, status: status_code, format: :html
+    template_to_render = SUPPORTED_ERRORS.fetch(status_code.to_i)
+    render template_to_render,
+      status: status_code,
+      format: :html
   end
 
   def test
