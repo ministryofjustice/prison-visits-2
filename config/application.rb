@@ -37,18 +37,6 @@ module PrisonVisits
 
     config.ga_id = ENV['GA_TRACKING_ID']
 
-    config.smoke_test =
-      OpenStruct.new(
-        local_part:
-          Regexp.escape(
-            ENV.fetch('SMOKE_TEST_EMAIL_LOCAL_PART', 'prison-visits-smoke-test')
-          ),
-        domain:
-          Regexp.escape(
-            ENV.fetch('SMOKE_TEST_EMAIL_DOMAIN', 'digital.justice.gov.uk')
-          )
-      )
-
     config.exceptions_app = ->(env) { ErrorHandler.call(env) }
 
     if ENV['ASSET_HOST']
