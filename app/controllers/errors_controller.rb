@@ -2,6 +2,7 @@ class ErrorsController < ApplicationController
   SUPPORTED_ERRORS = {
     404 => :'404',
     406 => :'404',
+    422 => :'503', # Invalid Authenticity Token
     500 => :'500',
     503 => :'503'
   }
