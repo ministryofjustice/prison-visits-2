@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ErrorHandler do
   describe '.call' do
+    let(:query_string) { 'anything' }
     let(:env) do
       {
         'QUERY_STRING' => query_string,
@@ -36,6 +37,19 @@ RSpec.describe ErrorHandler do
 
         expect(show_action).to receive(:call).with(new_env)
         subject
+      end
+    end
+
+    context 'error handling' do
+      let(:error) { StandardError.new }
+
+      before do
+        expect(show_action).to receive(:call).with(env).and_raise(error)
+      end
+
+      it 'reports the error to sentry and reraises' do
+        expect(Raven).to receive(:capture_exception).with(error)
+        expect { subject }.to raise_error(error)
       end
     end
   end
