@@ -32,7 +32,6 @@ private
   # Rails' instrumentation code, and is run after each request.
   def append_info_to_payload(payload)
     super
-    append_to_log(request_id: RequestStore.store[:request_id])
     payload[:custom_log_items] = @custom_log_items
   end
 
@@ -59,6 +58,8 @@ private
   end
 
   def store_request_id
+    append_to_log(request_id: RequestStore.store[:request_id])
     RequestStore.store[:request_id] = request.uuid
+    Raven.extra_context(request_id: RequestStore.store[:request_id])
   end
 end
