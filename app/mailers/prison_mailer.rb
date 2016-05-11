@@ -9,7 +9,6 @@ class PrisonMailer < ActionMailer::Base
   attr_accessor :visit
 
   before_action :set_locale
-  after_action :do_not_send_to_prison, if: :smoke_test?
 
   def request_received(visit)
     @visit = visit
@@ -63,14 +62,6 @@ private
       date: format_date_without_year(visit.slot_granted),
       status: visit.processing_state.upcase
     }
-  end
-
-  def smoke_test?
-    visit && SmokeTestEmailCheck.new(visit.contact_email_address).matches?
-  end
-
-  def do_not_send_to_prison
-    message.to = visit.contact_email_address
   end
 
   def mark_this_highest_priority
