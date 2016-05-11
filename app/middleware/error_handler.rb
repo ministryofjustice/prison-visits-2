@@ -11,6 +11,9 @@ class ErrorHandler
     end
 
     ErrorsController.action(:show).call(env)
+  rescue => e
+    Raven.capture_exception(e)
+    raise
   end
 
   def self.valid_query_string?(query_string)
