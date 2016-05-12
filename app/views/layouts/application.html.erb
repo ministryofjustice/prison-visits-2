@@ -71,9 +71,6 @@
   <li>
     <%= link_to(t('.ts_and_cs'), terms_and_conditions_path) %>
   </li>
-  <li>
-    <%= link_to(t('.contact_us'), new_feedback_submission_path) %>
-  </li>
   <% alternative_locales.each do |locale| %>
     <li>
       <% if controller_name == 'errors' %>
