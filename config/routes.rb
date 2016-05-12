@@ -12,9 +12,6 @@ Rails.application.routes.draw do
     get 'healthcheck', to: 'healthcheck#index'
   end
 
-  # Old pvb1 link that users got in an email
-  get 'status/:id', controller: :pvb1_paths, action: :status, as: :pvb1_status
-
   scope '/:locale', locale: /en|cy/ do
     get '/', to: redirect('/%{locale}/request')
 
