@@ -48,6 +48,7 @@ module Api
 
     def store_request_id
       RequestStore.store[:request_id] = request.uuid
+      Raven.extra_context(request_id: RequestStore.store[:request_id])
     end
 
     def enforce_json
