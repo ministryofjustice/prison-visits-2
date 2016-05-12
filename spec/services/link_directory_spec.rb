@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe LinkDirectory do
   subject {
-    described_class.new(prison_finder: 'http://pf.example.com/find{/prison}')
+    described_class.new(
+      prison_finder: 'http://pf.example.com/find{/prison}',
+      public_service: 'http://localhost:4000'
+    )
   }
 
   describe 'prison_finder' do
@@ -16,5 +19,10 @@ RSpec.describe LinkDirectory do
       expect(subject.prison_finder(prison)).
         to eq('http://pf.example.com/find/luna')
     end
+  end
+
+  it 'generates feedback links' do
+    expect(subject.feedback_submission).
+      to eq('http://localhost:4000/en/feedback/new')
   end
 end

@@ -49,7 +49,7 @@
 <h2><%= t('.cancel_change_title') %></h2>
 
 <p>
-  <%= t('.cancel_html', url: visit_url(id: @visit, locale: I18n.locale)) %>
+  <%= t('.cancel_html', url: link_directory.visit_status(@visit, locale: I18n.locale)) %>
 </p>
 
 <p><%= t(".want_to_change") %></p>
@@ -83,7 +83,7 @@
 <h2><%= t(".need_help_title") %></h2>
 
 <p><%= t(".need_help_body_html",
-         url: new_feedback_submission_url(locale: I18n.locale)) %></p>
+         url: link_directory.feedback_submission(locale: I18n.locale)) %></p>
 
 <p>
   <small><%= t(".visit_id") %> <%= @visit.id %></small>

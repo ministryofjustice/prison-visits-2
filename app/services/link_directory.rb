@@ -1,22 +1,29 @@
 require 'uri_template'
 
 class LinkDirectory
-  GOOGLE_MAPS = 'http://google.com/maps?q={query}'
-  RATE_SERVICE = 'http://www.gov.uk/done/prison-visits'
+  VISIT_STATUS_PATH = '/{locale}/visits/{visit_id}'
+  FEEDBACK_PATH = '/{locale}/feedback/new'
 
-  def initialize(prison_finder:)
+  def initialize(prison_finder:, public_service:)
     @prison_finder_template = URITemplate.new(prison_finder)
+    @status_template = URITemplate.new(public_service + VISIT_STATUS_PATH)
+    @feedback_template = URITemplate.new(public_service + FEEDBACK_PATH)
+    @public_service_template = URITemplate.new(public_service + '/{path}')
   end
 
   def prison_finder(prison = nil)
     @prison_finder_template.expand(prison: prison ? prison.finder_slug : nil)
   end
 
-  def google_maps(query)
-    URITemplate.new(GOOGLE_MAPS).expand(query: query)
+  def visit_status(visit, locale: 'en')
+    @status_template.expand(visit_id: visit.id, locale: locale)
   end
 
-  def rate_service
-    RATE_SERVICE
+  def feedback_submission(locale: 'en')
+    @feedback_template.expand(locale: locale)
+  end
+
+  def public_service(path: nil)
+    @public_service_template.expand(path: path)
   end
 end
