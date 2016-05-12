@@ -30,8 +30,6 @@ Rails.application.routes.draw do
       resources :visits, only: %i[ show update ]
     end
 
-    resources :visits, only: %i[ show ]
-    resources :cancellations, path: 'cancel', only: %i[ create ]
     resources :feedback_submissions, path: 'feedback', only: %i[ new create ]
 
     controller 'high_voltage/pages' do
