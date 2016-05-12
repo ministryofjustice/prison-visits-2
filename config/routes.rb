@@ -1,17 +1,11 @@
 Rails.application.routes.draw do
-  get '/', to: redirect(ENV.fetch('GOVUK_START_PAGE', '/en/request'))
+  get '/', to: redirect('/staff')
 
   match 'exception', to: 'errors#test', via: %i[ get post ]
 
   if Rails.env.test?
     match 'error_handling', to: 'errors#show', via: :get
   end
-
-  # Old pvb1 path to start a booking
-  get '/prisoner', to: redirect('/en/request')
-
-  # Another Gov.uk start path
-  get '/prisoner-details', to: redirect('/en/request')
 
   constraints format: 'json' do
     get 'ping', to: 'ping#index'
@@ -36,7 +30,6 @@ Rails.application.routes.draw do
       resources :visits, only: %i[ show update ]
     end
 
-    resources :booking_requests, path: 'request', only: %i[ index create ]
     resources :visits, only: %i[ show ]
     resources :cancellations, path: 'cancel', only: %i[ create ]
     resources :feedback_submissions, path: 'feedback', only: %i[ new create ]
