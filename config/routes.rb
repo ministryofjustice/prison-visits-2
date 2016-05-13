@@ -58,4 +58,6 @@ Rails.application.routes.draw do
 
   get '/staff', to: 'staff_info#index'
   get '/staff/:page', to: 'staff_info#show'
+
+  get '/interface', to: 'interface#index'
 end
