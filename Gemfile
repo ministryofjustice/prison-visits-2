@@ -5,7 +5,6 @@ gem 'rails', '~> 4.2.3'
 
 gem 'connection_pool'
 gem 'excon'
-gem 'govuk_frontend_toolkit', '2.0.1'
 gem 'jbuilder'
 gem 'kramdown'
 gem 'lograge'
@@ -19,6 +18,9 @@ gem 'redcarpet'
 gem 'request_store'
 gem 'sass-rails', '~> 5.0'
 gem 'scenic', '>= 1.2.0'
+gem 'govuk_template', '~> 0.17.0'
+gem 'govuk_frontend_toolkit', '>= 4.6.1'
+gem 'govuk_elements_rails', '>= 1.1.2'
 
 # Fixed version as workaround for Rails version 4.2 expecting method
 # 'last_comment' to be defined. Review once we are using a different Rails
