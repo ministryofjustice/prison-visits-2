@@ -1,7 +1,3 @@
-// Vendor
-@import "dist/stylesheets/moj.slot-picker.ap";
-@import "dist/stylesheets/moj.date-slider.ap";
-
 // GOV.UK Toolkit
 @import "measurements";
 @import "design-patterns/buttons";
@@ -23,13 +19,8 @@
 @import "layout";
 @import "grid";
 @import "forms";
-@import "visitors";
 @import "staff";
-@import "choose-slot";
-@import "print";
-@import "phasebanner";
 
-@import "modules/moj.age-label";
 
 // Candidates for re-usable components
 @import "responsive";
