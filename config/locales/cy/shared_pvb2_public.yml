@@ -1,0 +1,52 @@
+cy:
+  shared:
+    slotpicker_templates:
+      one_slot_available: 'Dim ond un slot amser sydd ar gael ar y diwrnod hwn, dewiswch
+        hwn i fynd ymlaen '
+      choose_date_and_time: Dewiswch ddyddiad ac amser o'r calendr
+      promote: Hyrwyddo
+      remove: Tynnu
+      today: Heddiw
+      choose_two_alternatives: 'Dewiswch ddau ddyddiad gwahanol, rhag ofn na fydd
+        eich dewis cyntaf ar gael. '
+    validation:
+      heading: Rhaid i chi gywiro'r camgymeriadau ar y dudalen hon cyn mynd ymlaen
+      see_below: 'Gweler y camgymeriadau isod. '
+    visit_info:
+      what_to_bring_title: Beth ddylech ddod efo chi pan fyddwch yn ymweld
+      id_requirements_html: "<p>\n  Gwnewch yn siŵr eich bod yn dod â cherdyn neu
+        ddogfen adnabod gyda chi.  Gall hyn fod yn UN\n o’r pethau canlynol :\n</p>\n\n<ul>\n
+        \ <li>\n    pasbort, gan gynnwys pasbortau tramor, a phasbortau sydd wedi
+        dod i ben lle\n    gellir eich adnabod o’r llun \n  </li>\n  <li>\n    cerdyn
+        adnabod (gan gynnwys cardiau adnabod Ewropeaidd)\n  </li>\n  <li>\n    trwydded
+        yrru\n  </li>\n  <li>\n    trwydded breswylio fiometrig\n  </li>\n  <li>\n
+        \   llyfr budd-daliadau\n  </li>\n  <li>\n    llun tocyn teithio am ddim ar
+        drafnidiaeth gyhoeddus yr henoed a roddwyd gan\n    awdurdod lleol\n  </li>\n
+        \ <li>\n    cerdyn adnabod cyflogwr neu fyfyriwr, ond dim ond os oes llun
+        a'i\n    fod yn dangos eich enw ac enw'r cyflogwr neu sefydliad addysgiadol
+        \n    yn glir\n  </li>\n</ul>\n\n<p>\n  Os nad oes gennych unrhyw un o'r cardiau/dogfennau
+        adnabod hyn, gallwch ddod â DAU o'r \n  dogfennau canlynol:\n</p>\n\n<ul>\n
+        \ <li>\n    tystysgrif geni neu dystysgrif briodas\n  </li>\n  <li>\n    llyfr
+        siec neu gerdyn credyd neu ddebyd\n  </li>\n  <li>\n    cerdyn adnabod cyflogwr
+        neu fyfyriwr heb lun\n  </li>\n  <li>\n    cerdyn 'profi oedran' person ifanc\n
+        \ </li>\n  <li>\n    cerdyn aelodaeth undeb llafur neu Undeb Cenedlaethol
+        y Myfyrwyr  \n  </li>\n  <li>\n    llyfr rhent\n  </li>\n  <li>\n    cerdyn
+        adnabod gwladolyn tramor neu gerdyn preswylio \n  </li>\n</ul>\n"
+      any_questions: 'Os oes gennych unrhyw gwestiynau ynglŷn â gofynion cardiau adnabod,
+        cysylltwch â’r carchar. '
+      bringing_child_title: 'Os ydych chi''n dod â phlentyn rhywun arall '
+      bringing_child_body: Bydd arnoch angen llythyr gan rieni'r plentyn hwnnw yn
+        rhoi caniatâd i chi fynd â'u plentyn.
+      what_to_expect_title: Beth i'w ddisgwyl pan fyddwch yn ymweld â charchar
+      what_to_expect_body: Byddwch yn cael eich chwilio cyn mynd i mewn i'r ystafell
+        ymweld.  Efallai y bydd staff y carchar yn edrych yn eich pocedi, yn cyffwrdd
+        â chi, ac yn gofyn i chi gerdded trwy borth datgelu metel.  Hefyd, efallai
+        y defnyddir cŵn i ddod o hyd i unrhyw sylweddau anghyfreithlon.
+      what_not_to_bring_title: Beth i beidio â dod gyda chi
+      what_not_to_bring_body_html: Peidiwch â dod ag unrhyw eitemau gwaharddedig neu
+        anghyfreithlon i'r carchar.  Mae rhagor o wybodaeth ar beth allwch ddod efo
+        chi ar dudalen Carchar <a href="%{url}">%{prison}.
+    timeout_prompt:
+      title: Bydd eich sesiwn yn dod i ben mewn %{minutes_left} munud
+      continue_question: 'Hoffech chi fynd ymlaen? '
+      yes_continue: Hoffwn
