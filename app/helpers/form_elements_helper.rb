@@ -8,22 +8,6 @@ module FormElementsHelper
     end
   end
 
-  def composite_field(form, name, &blk)
-    error_container(form, name) {
-      content_tag(:fieldset) {
-        join(
-          content_tag(:legend) { t(".#{name}") },
-          content_tag(:div) {
-            join(
-              field_hint(name),
-              capture(&blk)
-            )
-          }
-        )
-      }
-    }
-  end
-
   def field_error(form, name)
     errors = form.object.errors[name]
     return '' unless errors.any?
