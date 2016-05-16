@@ -16,3 +16,4 @@
 /coverage/*
 
 .transifexrc
+*.DS_Store
