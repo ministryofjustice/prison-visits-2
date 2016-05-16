@@ -20,10 +20,6 @@ class PrisonerStep
 
   delegate :name, to: :prison, prefix: true
 
-  def prison
-    Prison.find_by(id: prison_id)
-  end
-
 private
 
   def scrub_trailing_spaces
