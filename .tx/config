@@ -12,3 +12,9 @@ file_filter = config/locales/<lang>/mailers.yml
 source_file = config/locales/en/mailers.yml
 source_lang = en
 type = YAML
+
+[prison-visit-booking.shared]
+file_filter = config/locales/<lang>/shared_pvb2_public.yml
+source_file = config/locales/en/shared_pvb2_public.yml
+source_lang = en
+type = YAML
