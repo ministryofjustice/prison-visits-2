@@ -30,7 +30,6 @@ gem 'rake', '< 11.0'
 # https://github.com/getsentry/raven-ruby/issues/460
 gem 'sentry-raven', '0.15.4'
 gem 'sidekiq'
-gem 'sinatra'
 gem 'state_machines-activerecord'
 gem 'string_scrubber'
 gem 'uglifier', '>= 1.3.0'
