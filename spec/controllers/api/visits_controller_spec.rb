@@ -15,10 +15,6 @@ RSpec.describe Api::VisitsController do
     JSON.parse(response.body)
   }
 
-  before do
-    request.headers['Accept-Language'] = 'cy'
-  end
-
   around do |example|
     travel_to Time.zone.local(2016, 2, 3, 14, 0) do
       example.run
@@ -57,7 +53,11 @@ RSpec.describe Api::VisitsController do
       expect(response).to have_http_status(:ok)
       expect(parsed_body['visit']).to have_key('id')
       expect(parsed_body['visit']['processing_state']).to eq('requested')
+    end
 
+    it 'sets the locale of the visit if Accept-Language header sent' do
+      request.headers['Accept-Language'] = 'cy'
+      expect { post :create, params }.to change(Visit, :count).by(1)
       expect(Visit.last.locale).to eq('cy')
     end
 
@@ -74,7 +74,7 @@ RSpec.describe Api::VisitsController do
       post :create, params
       expect(response).to have_http_status(:unprocessable_entity)
       expect(parsed_body['message']).
-        to eq('Invalid parameter: prisoner (First name Gofynnol)')
+        to eq('Invalid parameter: prisoner (First name is required)')
     end
 
     it 'fails if the visitors are invalid' do
