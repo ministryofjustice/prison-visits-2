@@ -106,7 +106,6 @@ GEM
       tilt
     hashdiff (0.2.3)
     hashie (3.4.3)
-    high_voltage (2.4.0)
     highline (1.7.8)
     htmlentities (4.3.4)
     i18n (0.7.0)
@@ -331,7 +330,6 @@ DEPENDENCIES
   ffaker
   fuubar
   govuk_frontend_toolkit (= 2.0.1)
-  high_voltage
   jbuilder
   kramdown
   launchy

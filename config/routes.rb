@@ -26,10 +26,6 @@ Rails.application.routes.draw do
     namespace :prison do
       resources :visits, only: %i[ show update ]
     end
-
-    controller 'high_voltage/pages' do
-      get 'unsubscribe', action: :show, id: 'unsubscribe'
-    end
   end
 
   namespace :api, format: false do

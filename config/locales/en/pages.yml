@@ -33,11 +33,3 @@ en:
 
         You can try again later or book your visit by phone instead. See the
         [prison finder](%{prison_finder_url}) for contact details.
-  pages:
-    unsubscribe:
-      title: Why did I receive this email?
-      you_received_an_email: You’ve received an email from %{email}
-      why: This is probably because you requested a prison visit.
-      confirmation: >-
-        We’ll confirm your visit by email, so make sure you add this email
-        address to your address book or safe senders list.
