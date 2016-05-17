@@ -7,6 +7,21 @@ RSpec.describe Visit, type: :model do
     double(Mail::Message, deliver_later: nil)
   }
 
+  describe 'scopes' do
+    describe '.from_estate' do
+      let(:visit) { FactoryGirl.create(:visit) }
+      let!(:estate) { visit.prison.estate }
+
+      before do
+        FactoryGirl.create(:visit)
+      end
+
+      subject { described_class.from_estate(estate) }
+
+      it { is_expected.to eq([visit]) }
+    end
+  end
+
   describe 'state' do
     it 'is requested initially' do
       expect(subject).to be_requested
