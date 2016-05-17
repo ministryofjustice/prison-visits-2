@@ -7,32 +7,8 @@ source_file = config/locales/en/defaults.yml
 source_lang = en
 type = YAML
 
-[prison-visit-booking.email_checker]
-file_filter = config/locales/<lang>/email_checker.yml
-source_file = config/locales/en/email_checker.yml
-source_lang = en
-type = YAML
-
-[prison-visit-booking.errors]
-file_filter = config/locales/<lang>/errors.yml
-source_file = config/locales/en/errors.yml
-source_lang = en
-type = YAML
-
 [prison-visit-booking.mailers]
 file_filter = config/locales/<lang>/mailers.yml
 source_file = config/locales/en/mailers.yml
-source_lang = en
-type = YAML
-
-[prison-visit-booking.pages]
-file_filter = config/locales/<lang>/pages.yml
-source_file = config/locales/en/pages.yml
-source_lang = en
-type = YAML
-
-[prison-visit-booking.views]
-file_filter = config/locales/<lang>/views.yml
-source_file = config/locales/en/views.yml
 source_lang = en
 type = YAML

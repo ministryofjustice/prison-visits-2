@@ -39,7 +39,6 @@
 
 <% content_for :cookie_message do %>
   <%= t('.cookies_intro') %>
-  <%= link_to(t('.cookies_find_out_more'), cookies_path) %>
 <% end %>
 
 <% content_for :content_override do %>
@@ -66,23 +65,8 @@
 
 <% content_for :footer_support_links do %>
   <li>
-    <%= link_to(t('.cookies'), cookies_path) %>
+    <%= link_to(t('.staff_guide'), staff_path) %>
   </li>
-  <li>
-    <%= link_to(t('.ts_and_cs'), terms_and_conditions_path) %>
-  </li>
-  <li>
-    <%= link_to(t('.contact_us'), new_feedback_submission_path) %>
-  </li>
-  <% alternative_locales.each do |locale| %>
-    <li>
-      <% if controller_name == 'errors' %>
-        <%= link_to(t('language', locale: locale), "/#{response.status}?locale=#{locale}")%>
-      <% else %>
-        <%= link_to(t('language', locale: locale), locale: locale) %>
-      <% end %>
-    </li>
-  <% end %>
 <% end %>
 
 <%= render(template: 'layouts/moj_template') %>

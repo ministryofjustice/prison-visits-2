@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SlotsStep, type: :model do
   describe 'validation of options' do
-    subject { described_class.new(prison: prison) }
+    subject(:instance) { described_class.new(prison: prison) }
 
     let(:slot) { ConcreteSlot.new(2015, 1, 2, 9, 0, 10, 0) }
     let(:prison) { double(Prison, available_slots: [slot]) }
@@ -65,6 +65,17 @@ RSpec.describe SlotsStep, type: :model do
         subject.validate
         expect(subject.errors).not_to have_key(:option_2)
       end
+    end
+
+    describe '#slots' do
+      subject { instance.slots }
+      let(:option) { '2015-01-02T09:00/10:00' }
+
+      before do
+        instance.option_0 = option
+      end
+
+      it { is_expected.to eq [ConcreteSlot.parse(option)] }
     end
   end
 end
