@@ -27,21 +27,4 @@ module CalendarHelper
     end_on = prison.last_bookable_date.end_of_month.end_of_week
     (begin_on..end_on).group_by(&:beginning_of_week).values
   end
-
-  def calendar_day(date, bookable)
-    day = content_tag(
-      :span, I18n.l(date, format: :day_of_month),
-      class: 'BookingCalendar-day'
-    )
-    return day if bookable == false
-    content_tag(
-      :a, day,
-      class: 'BookingCalendar-dateLink', 'data-date': date.iso8601,
-      href: "#date-#{date.iso8601}"
-    )
-  end
-
-  def bookable(prison, day)
-    prison.bookable_date?(day) ? 'bookable' : 'unavailable'
-  end
 end
