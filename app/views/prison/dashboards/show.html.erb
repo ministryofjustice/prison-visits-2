@@ -22,7 +22,7 @@
         <td class=""><%= format_slot_times(visit.slots.first) %></td>
         <td><%= visit.visitor_full_name %></td>
         <td><%= visit.contact_phone_no %></td>
-        <td><a href="javascript: void(0);" class="">View Booking</a></td>
+        <td><%= link_to 'View Booking', prison_visit_path(visit) %></td>
       </tr>
     <% end %>
   </tbody>
