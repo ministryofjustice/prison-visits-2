@@ -1,5 +1,8 @@
 en:
   prison:
+    dashboards:
+      index:
+        title: Choose a prison
     visits:
       calendar:
         today: Today
