@@ -9,9 +9,8 @@ RSpec.describe MojHelper do
     expect(config_item(:product_type)).to eq('service')
   end
 
-  it 'returns the localised proposition title' do
-    I18n.locale = 'cy'
+  it 'returns the proposition title' do
     expect(config_item(:proposition_title)).
-      to eq('Ymweld â rhywun yn y carchar')
+      to eq('Visit someone in prison')
   end
 end
