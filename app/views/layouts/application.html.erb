@@ -8,41 +8,25 @@
   <%= stylesheet_link_tag('application', media: 'all') %>
 <% end %>
 
-<% content_for :header_class do "with-proposition" end %>
-
-<% content_for :proposition_header do %>
-  <div class="header-proposition">
-    <div class="content">
-      <nav id="proposition-menu">
-        <a href="/" id="proposition-name"><%= t('app_title') %></a>
-      </nav>
-    </div>
-  </div>
-<% end %>
-
 <% content_for :cookie_message do %>
   <%= t('.cookies_intro') %>
 <% end %>
 
 <% content_for :content do %>
-  <main id="wrapper" role="main">
-    <div class="container">
-      <section class="content inner cf" id="content">
-        <header>
-          <h1 class="heading-large">
-            <%= yield :header %>
-          </h1>
-        </header>
+  <main>
+    <header>
+      <h1 class="heading-large">
+        <%= yield :header %>
+      </h1>
+    </header>
 
-        <% if notice.present? %>
-          <p class="validation-summary">
-            <%= notice %>
-          </p>
-        <% end %>
+    <% if notice.present? %>
+      <p class="validation-summary">
+        <%= notice %>
+      </p>
+    <% end %>
 
-        <%= yield %>
-      </section>
-    </div>
+    <%= yield %>
   </main>
 <% end %>
 
@@ -77,4 +61,4 @@
   <% end %>
 <% end %>
 
-<%= render(template: 'layouts/govuk_template') %>
+<%= render(template: 'layouts/moj_template') %>

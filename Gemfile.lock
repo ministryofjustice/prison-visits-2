@@ -137,6 +137,8 @@ GEM
     mime-types (2.99.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
+    moj_template (0.23.2)
+      rails (>= 3.1)
     multi_json (1.11.2)
     multipart-post (2.0.0)
     netaddr (1.5.0)
@@ -341,6 +343,7 @@ DEPENDENCIES
   launchy
   lograge
   logstash-event
+  moj_template (= 0.23.2)
   netaddr
   parser (~> 2.3.0.pre.6)
   pg
