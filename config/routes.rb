@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   end
 
   scope '/:locale', locale: /en|cy/ do
-    get '/', to: redirect('/%{locale}/request')
+    get '/', to: redirect('/')
 
     scope controller: :metrics do
       get 'metrics', action: :index
