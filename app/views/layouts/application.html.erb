@@ -39,7 +39,6 @@
 
 <% content_for :cookie_message do %>
   <%= t('.cookies_intro') %>
-  <%= link_to(t('.cookies_find_out_more'), cookies_path) %>
 <% end %>
 
 <% content_for :content_override do %>
@@ -66,10 +65,7 @@
 
 <% content_for :footer_support_links do %>
   <li>
-    <%= link_to(t('.cookies'), cookies_path) %>
-  </li>
-  <li>
-    <%= link_to(t('.ts_and_cs'), terms_and_conditions_path) %>
+    <%= link_to(t('.staff_guide'), staff_path) %>
   </li>
 <% end %>
 
