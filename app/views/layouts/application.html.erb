@@ -6,79 +6,6 @@
   <%= csrf_meta_tag %>
   <%= favicon_link_tag %>
   <%= stylesheet_link_tag('application', media: 'all') %>
-<<<<<<< HEAD
-<% end %>
-
-<% content_for :cookie_message do %>
-  <%= t('.cookies_intro') %>
-  <%= link_to(t('.cookies_find_out_more'), cookies_path) %>
-<% end %>
-
-<% content_for :content do %>
-  <main>
-    <header>
-      <h1 class="heading-large">
-        <%= yield :header %>
-      </h1>
-    </header>
-
-    <% if notice.present? %>
-      <p class="validation-summary">
-        <%= notice %>
-      </p>
-    <% end %>
-
-    <%= yield %>
-  </main>
-<% end %>
-
-<% content_for :footer_support_links do %>
-  <li>
-    <%= link_to(t('.cookies'), cookies_path) %>
-  </li>
-  <li>
-    <%= link_to(t('.ts_and_cs'), terms_and_conditions_path) %>
-  </li>
-  <li>
-    <%= link_to(t('.contact_us'), new_feedback_submission_path) %>
-  </li>
-  <% alternative_locales.each do |locale| %>
-    <li>
-      <% if controller_name == 'errors' %>
-        <%= link_to(t('language', locale: locale), "/#{response.status}?locale=#{locale}")%>
-      <% else %>
-        <%= link_to(t('language', locale: locale), locale: locale) %>
-      <% end %>
-    </li>
-  <% end %>
-<% end %>
-
-<% content_for :body_end do %>
-  <script>
-    moj.i18n = <%= raw(javascript_i18n.to_json) %>;
-  </script>
-  <%= javascript_include_tag('application') %>
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', '<%= config_item :ga_id %>', 'service.gov.uk');
-    <% if @step_name %>
-      ga('send', 'pageview', location.pathname + '#<%= @step_name %>');
-    <% else %>
-      ga('send', 'pageview');
-    <% end %>
-  </script>
-  <% if Rails.env == 'test' %>
-    <script>
-      moj.log = function(){}; // Silence hiring banner
-    </script>
-  <% end %>
-<% end %>
-
-=======
 <% end %>
 
 <% content_for :cookie_message do %>
@@ -134,5 +61,4 @@
   <% end %>
 <% end %>
 
->>>>>>> c16d99394cd36336175642ece3ed5bf93a1bfb1a
 <%= render(template: 'layouts/moj_template') %>
