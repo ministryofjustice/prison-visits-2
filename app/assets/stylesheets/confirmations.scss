@@ -71,6 +71,59 @@ label.BookingCalendar-dateLink {
   width: 33%;
 }
 
+.group, .panel-indent {
+  margin: 1em 0;
+}
+
+.actions {
+  margin: 1em 0;
+  padding-top: 1em;
+  @include media(desktop) {
+    clear: both;
+  }
+
+  p {
+    margin-top: 0.263em;
+    text-align: right;
+    @include media(false, 768px) {
+      margin-top: 2em;
+      text-align: left;
+    }
+  }
+}
+
+.primary-actions {
+  float: left;
+  @include media(false, 768px) {
+    float: none;
+  }
+
+  @include ie(6) {
+    float: none;
+  }
+}
+
+dl {
+  @include core-19;
+  dt {
+    @include core-16;
+  }
+  &.labels {
+    dt {
+      @include core-19;
+      float: left;
+      margin-right: 0.25em;
+    }
+    dd {
+      font-weight: bold;
+    }
+  }
+}
+
+dd {
+  margin: 0;
+}
+
 @include media(mobile) {
   .processing-form,
   .people {

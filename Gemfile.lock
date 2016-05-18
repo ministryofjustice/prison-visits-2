@@ -99,9 +99,15 @@ GEM
       ruby-progressbar (~> 1.4)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
-    govuk_frontend_toolkit (2.0.1)
+    govuk_elements_rails (1.1.4)
+      govuk_frontend_toolkit (>= 4.10.0)
+      rails (>= 4.1.0)
+      sass (>= 3.2.0)
+    govuk_frontend_toolkit (4.10.0)
       rails (>= 3.1.0)
       sass (>= 3.2.0)
+    govuk_template (0.17.1)
+      rails (>= 3.1)
     haml (4.0.7)
       tilt
     hashdiff (0.2.3)
@@ -131,7 +137,7 @@ GEM
     mime-types (2.99.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
-    moj_template (0.21.0)
+    moj_template (0.23.2)
       rails (>= 3.1)
     multi_json (1.11.2)
     multipart-post (2.0.0)
@@ -329,13 +335,15 @@ DEPENDENCIES
   factory_girl_rails
   ffaker
   fuubar
-  govuk_frontend_toolkit (= 2.0.1)
+  govuk_elements_rails (>= 1.1.2)
+  govuk_frontend_toolkit (>= 4.6.1)
+  govuk_template (~> 0.17.0)
   jbuilder
   kramdown
   launchy
   lograge
   logstash-event
-  moj_template (= 0.21.0)
+  moj_template (= 0.23.2)
   netaddr
   parser (~> 2.3.0.pre.6)
   pg
@@ -368,5 +376,8 @@ DEPENDENCIES
   webmock
   zendesk_api
 
+RUBY VERSION
+   ruby 2.3.0p0
+
 BUNDLED WITH
-   1.11.2
+   1.12.3

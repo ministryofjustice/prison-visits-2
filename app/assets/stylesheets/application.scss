@@ -2,31 +2,54 @@
 @import "dist/stylesheets/moj.slot-picker.ap";
 @import "dist/stylesheets/moj.date-slider.ap";
 
-// GOV.UK Toolkit
-@import "measurements";
-@import "design-patterns/buttons";
-@import "design-patterns/alpha-beta";
-@import "colours";
-@import "typography";
-@import "conditionals";
+// From GDS's alphagov/govuk_frontend_toolkit
+@import 'colours';
+@import 'font_stack';
+@import 'measurements';
+@import 'conditionals';
+@import 'device-pixels';
+@import 'grid_layout';
+@import 'typography';
+@import 'shims';
 
-// GOV.UK Elements
-@import "public/sass/elements/panels";
-@import "public/sass/elements/forms/form-block-labels";
-@import "public/sass/elements/forms/form-validation";
+@import 'design-patterns/alpha-beta';
+@import 'design-patterns/buttons';
+@import 'design-patterns/breadcrumbs';
 
-@import "shame";
+// From GDS's alphagov/govuk_elements
+@import 'elements/helpers';
+@import 'elements/reset';
 
-// Application
+// Base (unclassed HTML elements)
+// These are predefined by govuk_template
+// If you're not using govuk_template, uncomment the line below.
+// HTML elements, set by the GOV.UK template
+// @import 'elements/base'
+
+@import 'elements/layout';
+@import 'elements/elements-typography';
+@import 'elements/buttons';
+// @import 'elements/icons'
+@import 'elements/lists';
+@import 'elements/tables';
+@import 'elements/details';
+@import 'elements/panels';
+@import 'elements/forms';
+@import 'elements/forms/form-block-labels';
+@import 'elements/forms/form-date';
+@import 'elements/forms/form-validation';
+@import 'elements/breadcrumbs';
+@import 'elements/phase-banner';
+@import 'elements/components';
+
+// Application - Shame
 @import "components/buttons";
-@import "main";
-@import "layout";
-@import "grid";
-@import "forms";
 @import "staff";
 @import "choose-slot";
-@import "print";
-@import "phasebanner";
+@import "confirmations";
+
+// Application
+@import "moj-overrides";
 
 // Candidates for re-usable components
 @import "responsive";

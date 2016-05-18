@@ -5,14 +5,38 @@
 <% content_for :head do %>
   <%= csrf_meta_tag %>
   <%= favicon_link_tag %>
-<% end %>
-
-<% content_for :javascripts do %>
   <%= stylesheet_link_tag('application', media: 'all') %>
-  <%= stylesheet_link_tag('back-office', media: 'all') %>
 <% end %>
 
-<% content_for :javascripts do %>
+<% content_for :cookie_message do %>
+  <%= t('.cookies_intro') %>
+<% end %>
+
+<% content_for :content do %>
+  <main>
+    <header>
+      <h1 class="heading-large">
+        <%= yield :header %>
+      </h1>
+    </header>
+
+    <% if notice.present? %>
+      <p class="validation-summary">
+        <%= notice %>
+      </p>
+    <% end %>
+
+    <%= yield %>
+  </main>
+<% end %>
+
+<% content_for :footer_support_links do %>
+  <li>
+    <%= link_to(t('.staff_guide'), staff_path) %>
+  </li>
+<% end %>
+
+<% content_for :body_end do %>
   <script>
     moj.i18n = <%= raw(javascript_i18n.to_json) %>;
   </script>
@@ -35,38 +59,6 @@
       moj.log = function(){}; // Silence hiring banner
     </script>
   <% end %>
-<% end %>
-
-<% content_for :cookie_message do %>
-  <%= t('.cookies_intro') %>
-<% end %>
-
-<% content_for :content_override do %>
-  <main id="wrapper" role="main">
-    <div class="container">
-      <section class="content inner cf" id="content">
-        <header>
-          <h1>
-            <%= yield :header %>
-          </h1>
-        </header>
-
-        <% if notice.present? %>
-          <p class="validation-summary">
-            <%= notice %>
-          </p>
-        <% end %>
-
-        <%= yield %>
-      </section>
-    </div>
-  </main>
-<% end %>
-
-<% content_for :footer_support_links do %>
-  <li>
-    <%= link_to(t('.staff_guide'), staff_path) %>
-  </li>
 <% end %>
 
 <%= render(template: 'layouts/moj_template') %>

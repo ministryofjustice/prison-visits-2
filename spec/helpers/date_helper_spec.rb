@@ -47,4 +47,14 @@ RSpec.describe DateHelper do
         to eq('Thursday 05/11/2015 13:30 - 14:45')
     end
   end
+
+  describe 'format_slot_times' do
+    let(:slot) {
+      ConcreteSlot.new(2015, 11, 5, 13, 30, 14, 45)
+    }
+
+    it 'displays the date the times of a slot' do
+      expect(helper.format_slot_times(slot)).to eq('13:30 - 14:45')
+    end
+  end
 end
