@@ -1,30 +1,37 @@
-<h2 class="heading-large">Latest booking requests</h2>
+<h2 class="heading-large">Latest visit requests</h2>
 
-<table>
-  <caption class="visuallyhidden">Visit inbox</caption>
-  <thead>
-    <tr>
-      <th class="" scope="col">Prisoner No.</th>
-      <th scope="col">Prisoner Name</th>
-      <th class="" scope="col">Visit Date</th>
-      <th class="" scope="col">Time slot</th>
-      <th scope="col">Lead Visitor</th>
-      <th scope="col">Tel.</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @requested_visits.each do |visit| %>
+<% if @requested_visits.any? %>
+
+  <table>
+    <caption class="visuallyhidden">Visit inbox</caption>
+    <thead>
       <tr>
-        <td><%= visit.prisoner_number %></td>
-        <td><%= visit.prisoner_full_name %></td>
-        <td class=""><%= visit.slots.first.to_date %></td>
-        <td class=""><%= format_slot_times(visit.slots.first) %></td>
-        <td><%= visit.visitor_full_name %></td>
-        <td><%= visit.contact_phone_no %></td>
-        <td><%= link_to 'View Booking', prison_visit_path(visit) %></td>
+        <th>Prisoner No.</th>
+        <th>Prisoner Name</th>
+        <th>Visit Date</th>
+        <th>Time slot</th>
+        <th>Lead Visitor</th>
+        <th>Tel.</th>
+        <th>Action</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @requested_visits.each do |visit| %>
+        <tr>
+          <td><%= visit.prisoner_number %></td>
+          <td><%= visit.prisoner_full_name %></td>
+          <td><%= visit.slots.first.to_date %></td>
+          <td><%= format_slot_times(visit.slots.first) %></td>
+          <td><%= visit.visitor_full_name %></td>
+          <td><%= visit.contact_phone_no %></td>
+          <td><%= link_to 'View Booking', prison_visit_path(visit) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
+<% else %>
+  
+  <p class="lede"><%= t('.no_visits') %></p>
+
+<% end %>

@@ -3,6 +3,8 @@ en:
     dashboards:
       index:
         title: Choose a prison
+      show:
+        no_visits: There are currently no visit requests
     visits:
       calendar:
         today: Today
