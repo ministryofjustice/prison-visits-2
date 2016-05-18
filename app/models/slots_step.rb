@@ -13,17 +13,11 @@ class SlotsStep
     allow_blank: true
   validates :option_0, presence: true
 
-  def options_available?
-    options.length < 3
-  end
-
-  def additional_options?
-    options.length > 1
-  end
-
   def slots
     options.map { |s| ConcreteSlot.parse(s) }
   end
+
+private
 
   def options
     [option_0, option_1, option_2].select(&:present?)

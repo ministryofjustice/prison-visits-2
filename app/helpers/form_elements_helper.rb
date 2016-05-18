@@ -1,3 +1,5 @@
+# This class will go away when we start using the form builder gem
+# :nocov:
 module FormElementsHelper
   def single_field(form, name, field_method, *options)
     case field_method
@@ -6,22 +8,6 @@ module FormElementsHelper
     else
       label_first_single_field(form, name, field_method, *options)
     end
-  end
-
-  def composite_field(form, name, &blk)
-    error_container(form, name) {
-      content_tag(:fieldset) {
-        join(
-          content_tag(:legend) { t(".#{name}") },
-          content_tag(:div) {
-            join(
-              field_hint(name),
-              capture(&blk)
-            )
-          }
-        )
-      }
-    }
   end
 
   def field_error(form, name)

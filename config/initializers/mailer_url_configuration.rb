@@ -1,6 +1,5 @@
-configurator = lambda do |mailer_klass, env_name|
-  local_url_value = 'http://localhost:3000'
-  url_value = Rails.env.production? ? ENV.fetch(env_name) : local_url_value
+configurator = lambda do |mailer_klass, env_name, non_prod_default|
+  url_value = Rails.env.production? ? ENV.fetch(env_name) : non_prod_default
 
   service_url = URI.parse(url_value)
 
@@ -11,5 +10,5 @@ configurator = lambda do |mailer_klass, env_name|
   }
 end
 
-configurator.call(PrisonMailer, 'STAFF_SERVICE_URL')
-configurator.call(VisitorMailer, 'PUBLIC_SERVICE_URL')
+configurator.call(PrisonMailer, 'STAFF_SERVICE_URL', 'http://localhost:3000')
+configurator.call(VisitorMailer, 'PUBLIC_SERVICE_URL', 'http://localhost:4000')

@@ -112,7 +112,7 @@ following states and transitions:
 
 #### `Prisoner`
 
-At present, there is always a one-to-one correspondance between `Prison` and
+At present, there is always a one-to-one correspondence between `Prison` and
 `Prisoner`. We envisage that in the future a prisoner will have many visits.
 
 `Prisoner` mixes in `Person` for name and age validations and calculations.
@@ -125,29 +125,6 @@ visitors are always created from a `VisitorsStep` (which validates this) by
 the `BookingRequestCreator`.
 
 `Visitor` mixes in `Person` for name and age validations and calculations.
-
-## Requesting a visit
-
-The `BookingRequestsController` has only two actions, `index` and `create`,
-which means only one path, differentiated by `GET` or `POST`. It is completely
-stateless: progression through the steps is determined by the availability of
-complete information in the preceding steps, passed either as user-completed
-form fields or (in the case of preceding steps) as hidden fields.
-
-The logic of processing steps and determining which step has been reached is
-handled by the `StepsProcessor` class.
-
-On an initial `GET`, the first step (`PrisonerStep`) is instantiated with no
-parameters.
-
-Thereafter, on a `POST` request, each step in turn is instantiated using the
-named parameters for that step (if available). The first incomplete step (where
-incompleteness is determined by the complete absence of parameters for that
-step, or by the invalidity of those supplied) determines the template to be
-rendered.
-
-Finally, if all steps are complete, a `Visit` is created by
-`BookingRequestCreator` and the `completed` template is rendered.
 
 ## Processing a request
 
@@ -216,13 +193,6 @@ form `postgres://myuser:mypass@localhost/somedatabase`.
 
 Google Analytics ID, used for the Performance Platform.
 
-#### `GOVUK_START_PAGE`
-
-Visiting `/` will redirect to this URL, if supplied, or the new booking page
-otherwise. On production, this must be set to
-[https://www.gov.uk/prison-visits](https://www.gov.uk/prison-visits), the
-official start page for the service.
-
 #### `PRISON_ESTATE_IPS`
 
 A semicolon- or comma-separated list of IP addresses or CIDR ranges. Users on
@@ -269,17 +239,6 @@ address used when submitting feedback without an email address to Zendesk.
 #### `STAFF_INFO_ENDPOINT`
 
 This is used to proxy the staff information pages static site.
-
-#### `OVERRIDE_PRISON_EMAIL_DOMAIN`
-
-In order to avoid sending confusing and irrelevant messages to real prisons and
-to facilitate testing, it is possible to send all prison emails to a different
-domain.
-
-If you set `OVERRIDE_PRISON_EMAIL_DOMAIN` to `maildrop.dsd.io` and seed
-prisons, it will create or update all prisons with emails in the format
-`pvb2.(parameterized prison name)@maildrop.dsd.io`. This will ensure that
-staging and other test emails do not accidentally get sent to real prisons.
 
 #### `ZENDESK_USERNAME`, `ZENDESK_TOKEN`, `ZENDESK_URL`
 

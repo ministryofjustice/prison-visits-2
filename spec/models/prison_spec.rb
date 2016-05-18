@@ -67,27 +67,6 @@ RSpec.describe Prison, type: :model do
         )
       end
     end
-
-    describe 'bookable_date?' do
-      around do |example|
-        travel_to today do
-          example.run
-        end
-      end
-
-      it 'returns true if a slot is within the available range' do
-        requested_date = Date.new(2015, 10, 10)
-        expect(subject.bookable_date?(requested_date)).to be_truthy
-      end
-
-      it 'returns false if a slot is not within the available range' do
-        first_date = Date.new(2015, 10, 12)
-        second_date = Date.new(2015, 10, 6)
-
-        expect(subject.bookable_date?(first_date)).to be_falsey
-        expect(subject.bookable_date?(second_date)).to be_falsey
-      end
-    end
   end
 
   describe 'confirm_by' do

@@ -6,7 +6,7 @@
 </h2>
 <p>
   <%= t('.where_to_check_status_html',
-        url: visit_url(@visit, locale: I18n.locale)) %>
+        url: link_directory.visit_status(@visit, locale: I18n.locale)) %>
 </p>
 <p>
   <%= t('.when_to_expect_response',
@@ -51,7 +51,7 @@
   <%= t('.cancel_title') %>
 </h2>
 <p>
-  <%= t('.cancel_html', url: visit_url(@visit, locale: I18n.locale)) %>
+  <%= t('.cancel_html', url: link_directory.visit_status(@visit, locale: I18n.locale)) %>
 </p>
 <ul>
   <li>
@@ -65,7 +65,7 @@
 </ul>
 <p>
   <%= t('.feedback_html',
-        url: new_feedback_submission_url(locale: I18n.locale)) %>
+        url: link_directory.feedback_submission(locale: I18n.locale)) %>
 </p>
 <div class="mtp_survey">
   <p><strong><%= t('.survey_question1') %></strong></p>
