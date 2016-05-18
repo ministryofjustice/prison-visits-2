@@ -240,17 +240,6 @@ address used when submitting feedback without an email address to Zendesk.
 
 This is used to proxy the staff information pages static site.
 
-#### `OVERRIDE_PRISON_EMAIL_DOMAIN`
-
-In order to avoid sending confusing and irrelevant messages to real prisons and
-to facilitate testing, it is possible to send all prison emails to a different
-domain.
-
-If you set `OVERRIDE_PRISON_EMAIL_DOMAIN` to `maildrop.dsd.io` and seed
-prisons, it will create or update all prisons with emails in the format
-`pvb2.(parameterized prison name)@maildrop.dsd.io`. This will ensure that
-staging and other test emails do not accidentally get sent to real prisons.
-
 #### `ZENDESK_USERNAME`, `ZENDESK_TOKEN`, `ZENDESK_URL`
 
 These are required in order to submit user feedback to Zendesk.
