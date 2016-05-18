@@ -25,11 +25,13 @@ Rails.application.routes.draw do
 
     namespace :prison do
       resources :visits, only: %i[ show update ]
+    end
+  end
 
-      scope controller: :dashboards do
-        get '/', action: :index, as: 'dashboards_root'
-        get '/:estate_id', to: :show, as: 'estate_dashboard'
-      end
+  namespace :prison do
+    scope controller: :dashboards do
+      get '/', action: :index, as: 'dashboards_root'
+      get '/:estate_id', action: :show, as: 'estate_dashboard'
     end
   end
 
