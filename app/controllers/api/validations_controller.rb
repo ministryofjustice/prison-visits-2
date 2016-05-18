@@ -14,22 +14,59 @@ module Api
       render status: 200, json: { validation: response }
     end
 
+    def visitors
+      lead_date_of_birth, date_of_births = validate_visitors_parameters(params)
+      prison = validate_prison_id_parameter(params)
+
+      visitors_group = VisitorsValidation.new(
+        prison: prison,
+        lead_date_of_birth: lead_date_of_birth,
+        date_of_births: date_of_births)
+
+      render status: 200, json: {
+        validation: visitors_response(visitors_group)
+      }
+    end
+
   private
 
-    def validate_prisoner_parameters(params)
-      begin
-        date = Date.parse(params.fetch(:date_of_birth))
-      rescue ArgumentError
-        raise ParameterError, 'date_of_birth'
+    def visitors_response(visitors_group)
+      if visitors_group.valid?
+        { valid: true }
+      else
+        { valid: false, errors: visitors_group.error_keys }
       end
+    end
+
+    def validate_visitors_parameters(params)
+      lead_date_of_birth = validate_date(params.fetch(:lead_date_of_birth),
+        :lead_date_of_birth)
+
+      dates_of_birth = params.fetch(:dates_of_birth).map { |date|
+        validate_date(date, :dates_of_birth)
+      }
+
+      [lead_date_of_birth, dates_of_birth]
+    end
+
+    def validate_prisoner_parameters(params)
+      date = validate_date(params.fetch(:date_of_birth), :date_of_birth)
 
       noms_id = params.fetch(:number)
 
-      # TODO: Discuss removing this cop; especially when there are multiple
-      # return values I find an explicit return much cleaner.
-      # rubocop:disable Style/RedundantReturn
-      return date, noms_id
-      # rubocop:enable Style/RedundantReturn
+      [date, noms_id]
+    end
+
+    def validate_prison_id_parameter(params)
+      Prison.find(params.fetch(:prison_id))
+    rescue ActiveRecord::RecordNotFound
+      raise ParameterError, 'prison_id'
+    end
+
+    def validate_date(value, field_name)
+      Date.parse(value)
+    rescue ArgumentError
+      raise ParameterError, field_name
     end
   end
 end

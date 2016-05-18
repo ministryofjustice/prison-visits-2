@@ -12,6 +12,69 @@ RSpec.describe Api::ValidationsController do
     allow(Nomis::Api).to receive(:instance).and_return(instance_double(Nomis::Api))
   end
 
+  describe 'visitors' do
+    let!(:prison) { FactoryGirl.create(:prison) }
+    let(:prison_id) { prison.id }
+    let(:lead_dob) { '1990-01-01' }
+    let(:dobs) { [lead_dob] }
+
+    let(:params) do
+      {
+        lead_date_of_birth: lead_dob,
+        dates_of_birth: dobs,
+        prison_id: prison_id
+      }
+    end
+
+    subject { post :visitors, params.merge(format: :json) }
+
+    context 'when the group of visitors conform to the prison rules' do
+      it { is_expected.to be_successful }
+
+      it 'returns a body' do
+        subject
+        expect(parsed_body).to eq('validation' => { 'valid' => true })
+      end
+    end
+
+    context 'when the prison_id is missing' do
+      let(:prison_id) { nil }
+
+      it { is_expected.to_not be_successful }
+
+      it 'returns a body' do
+        subject
+        expect(parsed_body).to eq(
+          'message' => 'Invalid parameter: prison_id')
+      end
+    end
+
+    context 'when the prison_id is not found' do
+      let(:prison_id) { 'foo' }
+
+      it 'returns a body' do
+        subject
+        expect(parsed_body).to eq(
+          'message' => 'Invalid parameter: prison_id')
+      end
+    end
+
+    context 'when the data is invalid' do
+      let(:lead_dob) { '2015-01-01' }
+
+      it { is_expected.to be_successful }
+
+      it 'returns a body' do
+        subject
+        expect(parsed_body).to eq(
+          'validation' => {
+            'valid' => false,
+            'errors' => ['lead_visitor_age']
+          })
+      end
+    end
+  end
+
   describe 'prisoner' do
     let(:params) {
       {
