@@ -1,5 +1,4 @@
 class PrisonSeeder::SeedEntry
-  OVERRIDE_KEY = 'OVERRIDE_PRISON_EMAIL_DOMAIN'
   DEFAULT_BOOKING_WINDOW = 28
   DEFAULT_LEAD_DAYS = 3
   DEFAULT_ADULT_AGE = 18
@@ -34,11 +33,7 @@ private
   end
 
   def email_address
-    if ENV.key?(OVERRIDE_KEY)
-      'pvb2.%s@%s' % [name.parameterize, ENV.fetch(OVERRIDE_KEY)]
-    else
-      hash.fetch('email_address', nil)
-    end
+    hash.fetch('email_address', nil)
   end
 
   def enabled
