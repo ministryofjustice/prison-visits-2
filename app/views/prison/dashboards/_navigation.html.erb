@@ -1,0 +1,13 @@
+<% content_for :navigation do %>
+  <div class="navigation">
+    <ol>
+      <% if visits.any? %>
+      <li><%= link_to t('.requested'), prison_estate_dashboard_path(estate.finder_slug) %></li>
+      <li><%= link_to t('.processed'), prison_processed_visits_path(estate.finder_slug) %></li>
+      <% end %>
+      <li class="float-right">
+        <%= t('.current') %>
+        <%= estate.name %> (<%= link_to t('.change'), prison_dashboards_root_path %>)</li>
+    </ol>
+  </div>
+<% end %>
