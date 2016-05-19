@@ -25,6 +25,10 @@ class Visit < ActiveRecord::Base
     :allowance_will_renew?, :allowance_renews_on,
     to: :rejection
 
+  scope :from_estate, lambda { |estate|
+    joins(prison: :estate).where(estates: { id: estate.id })
+  }
+
   state_machine :processing_state, initial: :requested do
     after_transition do |visit|
       visit.visit_state_changes <<

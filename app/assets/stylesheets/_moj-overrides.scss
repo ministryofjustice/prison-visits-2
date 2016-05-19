@@ -1,0 +1,11 @@
+#global-header .header-proposition #proposition-name:hover {
+  border: none;
+}
+table {
+  th {
+    @include bold-16;
+  }
+  td {
+    @include core-16;
+  }
+}
