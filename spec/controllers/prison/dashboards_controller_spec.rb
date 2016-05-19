@@ -18,4 +18,26 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     it { is_expected.to be_successful }
   end
+
+  context '#processed' do
+    let(:estate) { FactoryGirl.create(:estate) }
+    let(:prison) { FactoryGirl.create(:prison, estate: estate) }
+    subject { get :processed, estate_id: estate.finder_slug }
+
+    it { is_expected.to be_successful }
+
+    context "when there are more processed visits than the default" do
+      before do
+        stub_const("#{described_class}::NUMBER_VISITS", 2)
+        FactoryGirl.create(:booked_visit, prison: prison)
+        FactoryGirl.create(:booked_visit, prison: prison)
+      end
+
+      it 'sets up the view to render only one visit' do
+        subject
+        expect(assigns[:processed_visits].size).to eq(1)
+        expect(assigns[:all_visits_shown]).to eq(false)
+      end
+    end
+  end
 end

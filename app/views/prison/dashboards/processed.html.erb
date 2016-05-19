@@ -1,0 +1,40 @@
+<h2 class="heading-large">Latest Processed visits</h2>
+
+<% if @processed_visits.any? %>
+
+  <table>
+    <caption class="visuallyhidden">Visit inbox</caption>
+    <thead>
+      <tr>
+        <th>Prisoner No.</th>
+        <th>Prisoner Name</th>
+        <th>Visit Date</th>
+        <th>Time slot</th>
+        <th>Lead Visitor</th>
+        <th>Status</th>
+        <th>Processed on</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @processed_visits.each do |visit| %>
+        <tr>
+          <td><%= visit.prisoner_number %></td>
+          <td><%= visit.prisoner_full_name %></td>
+          <td><%= visit.slots.first.to_date %></td>
+          <td><%= format_slot_times(visit.slots.first) %></td>
+          <td><%= visit.visitor_full_name %></td>
+          <td><%= visit.processing_state %></td>
+          <td><%= visit.updated_at.to_s(:short) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% unless @all_visits_shown %>
+    <p>Not all visits shown</p>
+  <% end %>
+<% else %>
+
+  <p class="lede"><%= t('.no_visits') %></p>
+
+<% end %>
