@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     scope controller: :dashboards do
       get '/', action: :index, as: 'dashboards_root'
       get '/:estate_id', action: :show, as: 'estate_dashboard'
+      get '/:estate_id/processed', action: :processed, as: 'processed_visits'
     end
   end
 
