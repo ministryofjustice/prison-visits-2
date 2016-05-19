@@ -41,6 +41,13 @@ module DateHelper
     )
   end
 
+  def format_slot_times(slot)
+    begin_at = slot.begin_at.strftime('%H:%M')
+    end_at = slot.end_at.strftime('%H:%M')
+
+    "#{begin_at} - #{end_at}"
+  end
+
 private
 
   def format_duration(secs)

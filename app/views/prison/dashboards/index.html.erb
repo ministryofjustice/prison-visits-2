@@ -1,0 +1,17 @@
+<div class="grid-row">
+  <div class="column-two-thirds">
+    
+    <% content_for :header do %>
+      <%= t('.title') %>
+    <% end %>
+
+    <ul class="list">
+    <% @estates.each do |estate| %>
+      <li>
+        <%= link_to estate.name, prison_estate_dashboard_path(estate.finder_slug) %>
+      </li>
+    <% end %>
+    </ul>
+
+  </div>
+</div>

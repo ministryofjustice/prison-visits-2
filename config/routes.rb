@@ -28,6 +28,13 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :prison do
+    scope controller: :dashboards do
+      get '/', action: :index, as: 'dashboards_root'
+      get '/:estate_id', action: :show, as: 'estate_dashboard'
+    end
+  end
+
   namespace :api, format: false do
     resources :feedback, only: %i[ create ]
     resources :prisons, only: %i[ index show ]
