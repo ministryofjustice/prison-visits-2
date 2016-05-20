@@ -4,6 +4,7 @@ en:
       navigation:
         requested: Requested visits
         processed: Processed visits
+        print_visits: Print visits
         current: "Current prison:"
         change: Change
       index:
@@ -15,6 +16,11 @@ en:
       show:
         process_link: Process booking
         title: Latest visit requests
+        no_visits: There are currently no visit requests
+      print_visits:
+        visit_date: Visit date
+        filter_form_hint: Enter a date to view the visits
+        show: Show
     visits:
       calendar:
         today: Today

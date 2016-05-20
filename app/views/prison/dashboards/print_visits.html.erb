@@ -1,0 +1,37 @@
+<%= render 'navigation', estate: @estate %>
+
+<div class='grid-row'>
+  <div class='column-one-half'>
+    <%= form_tag prison_print_visits_path(@estate.finder_slug), method: :get, enforce_utf8: false, class: 'form' do -%>
+      <div class="form-group">
+        <%= label_tag "visit_date", class: "form-label-bold" do -%>
+          <%= t('.visit_date') %>
+          <span class="form-hint">
+            <%= t('.filter_form_hint') %>
+          </span>
+        <% end %>
+        <%= date_field_tag 'visit_date', @visit_date, class: 'form-control' %>
+        <%= submit_tag t('.show'), name: nil, class: 'button' %>
+      </div>
+    <% end -%>
+  </div>
+</div>
+
+<% if @visit_date %>
+  <% if @data.any? %>
+    <% @data.each do |slot, visits| %>
+      <h2><%= format_slot_times(slot) %></h2>
+
+      <ul>
+        <% visits.each do |visit| %>
+          <li><%= visit.prisoner_number %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  <% else %>
+    <p>No visits on <%= @visit_date %>
+  <% end %>
+<% else %>
+  <p>Filter to generate print lists</p>
+<% end %>
+

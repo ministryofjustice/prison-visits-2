@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       get '/', action: :index, as: 'dashboards_root'
       get '/:estate_id', action: :show, as: 'estate_dashboard'
       get '/:estate_id/processed', action: :processed, as: 'processed_visits'
+      get '/:estate_id/print_visits', action: :print_visits, as: 'print_visits'
     end
   end
 

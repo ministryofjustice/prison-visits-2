@@ -30,6 +30,16 @@ class Prison::DashboardsController < ApplicationController
     end
   end
 
+  def print_visits
+    @estate = Estate.find_by!(finder_slug: params[:estate_id])
+
+    @visit_date = if params[:visit_date].present?
+                    Date.parse(params[:visit_date])
+                  end
+
+    @data = EstateVisitQuery.new(@estate).visits_to_print_by_slot(@visit_date)
+  end
+
 private
 
   def load_processed_visits(estate, prisoner_number)
