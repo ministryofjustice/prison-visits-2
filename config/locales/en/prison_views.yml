@@ -21,7 +21,7 @@ en:
         title: Thank you
         booked: A confirmation email has been sent to the visitor.
         rejected: A rejection email has been sent to the visitor.
-      show:
+      process_visit:
         title: Process a visit request
         introduction_html: |
           <ul>

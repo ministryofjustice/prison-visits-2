@@ -2,7 +2,7 @@ class Prison::VisitsController < ApplicationController
   helper CalendarHelper
   before_action :authorize_prison_request
 
-  def show
+  def process_visit
     @booking_response = BookingResponse.new(visit: visit)
   end
 
@@ -11,8 +11,12 @@ class Prison::VisitsController < ApplicationController
     if @booking_response.valid?
       BookingResponder.new(@booking_response).respond!
     else
-      render :show
+      render :process_visit
     end
+  end
+
+  def show
+    @visit = visit
   end
 
 private

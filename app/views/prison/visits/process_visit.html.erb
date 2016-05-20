@@ -1,0 +1,32 @@
+<% content_for :header do %>
+  <%= t('.title') %>
+<% end %>
+
+<%= render('people_box') %>
+
+<% if @booking_response.processable? %>
+  <div class="processing-form confirmations">
+    <%= t('.introduction_html') %>
+    <%=
+      form_for(
+        @booking_response,
+        url: prison_visit_path(@booking_response),
+        method: :put,
+        html: { class: 'js-SubmitOnce' }
+      ) do |f|
+    %>
+      <%= render('visit_date_section', f: f) %>
+      <%= render('visiting_allowance_section', f: f) %>
+      <%= render('issue_with_prisoner_section', f: f) %>
+      <%= render('issue_with_visitors_section', f: f) %>
+
+      <div class="actions">
+        <div class="primary-actions">
+          <%= f.submit(t('.submit'), class: 'button button-primary') %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <h2><%= t(".#{@booking_response.processing_state_name}") %></h2>
+<% end %>
