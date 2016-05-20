@@ -1,0 +1,6 @@
+.navigation {
+  @include breadcrumbs;
+  li {
+    background-image: none;
+  }
+}

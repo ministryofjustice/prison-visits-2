@@ -1,6 +1,11 @@
 #global-header .header-proposition #proposition-name:hover {
   border: none;
 }
+
+#wrapper {
+  margin: 0;
+}
+
 table {
   th {
     @include bold-16;

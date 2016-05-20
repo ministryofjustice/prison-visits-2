@@ -1,6 +1,11 @@
 en:
   prison:
     dashboards:
+      navigation:
+        requested: Requested visits
+        processed: Processed visits
+        current: "Current prison:"
+        change: Change
       index:
         title: Choose a prison
       show:
