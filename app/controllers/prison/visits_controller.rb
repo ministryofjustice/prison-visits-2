@@ -17,6 +17,7 @@ class Prison::VisitsController < ApplicationController
 
   def show
     @visit = visit
+    @estate = @visit.prison.estate
   end
 
 private

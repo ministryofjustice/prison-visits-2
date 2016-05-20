@@ -1,5 +1,81 @@
+<a class="float-right" href="javascript:history.back();"><%= t('back_to_results', scope: :shared) %></a>
+
 <% content_for :header do %>
-  Page title
+  <%= t('.title') %>
 <% end %>
 
-<h2><%= @visit.processing_state %></h2>
+<%= render 'prison/dashboards/navigation', estate: @estate %>
+
+
+<div class="grid-row">
+  <div class="column-two-thirds">
+
+    <div class="grid-row">
+      <div class="column-one-third">
+        <span class="text-secondary"><%= t('status', scope: :shared) %></span>
+        <h2 class="bold-medium">
+          <%=  @visit.processing_state.capitalize %>
+        </h2>
+      </div>
+      <div class="column-one-third">
+        <span class="text-secondary"><%= t('visit_date', scope: :shared) %></span>
+        <h2 class="bold-medium">
+          <%=  @visit.slots.first.to_date.to_s(:short_nomis) %>
+        </h2>
+      </div>
+      <div class="column-one-third">
+        <span class="text-secondary"><%= t('time_slot', scope: :shared) %></span>
+        <h2 class="bold-medium">
+          <%=  format_slot_times(@visit.slots.first) %>
+        </h2>
+      </div>
+    </div>
+    
+    <% if @visit.rejection %>
+      <p>&nbsp;</p>
+      <p><%= t(@visit.rejection_reason, scope: 'shared.rejection_reason') %></p>
+    <% end %>
+
+    <h3 class="heading-medium"><%= t('prisoner', scope: :shared) %></h3>
+
+    <table>
+      <caption class="visuallyhidden"><%= t('prisoner', scope: :shared) %></caption>
+      <thead>
+        <tr>
+          <th><%= t('name', scope: :shared) %></th>
+          <th><%= t('prisoner_number', scope: :shared) %></th>
+          <th><%= t('dob', scope: :shared) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%=  @visit.prisoner_full_name %></td>
+          <td><%=  @visit.prisoner_number %></td>
+          <td><%=  @visit.prisoner_date_of_birth.to_s(:short_nomis) %></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<h3 class="heading-medium"><%= t('visitors', scope: :shared) %></h3>
+
+<table>
+  <caption class="visuallyhidden"><%= t('visitors', scope: :shared) %></caption>
+  <thead>
+    <tr>
+      <th><%= t('name', scope: :shared) %></th>
+      <th><%= t('dob', scope: :shared) %></th>
+      <th><%= t('email_address', scope: :shared) %></th>
+      <th><%= t('tel', scope: :shared) %></th>
+      <th><%= t('status', scope: :shared) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render 'visitor_row', visitor: @visit.principal_visitor, lead: true %>
+    <% @visit.visitors[1..-1].each do |visitor| %>
+      <%= render 'visitor_row', visitor: visitor, lead: false %>
+    <% end %>
+  </tbody>
+</table>

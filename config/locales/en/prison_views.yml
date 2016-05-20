@@ -11,6 +11,7 @@ en:
       processed:
         title: Latest processed visits
         filter_form_hint: Filter by prisoner number eg a1234bc
+        view_link: View booking
       show:
         process_link: Process booking
         title: Latest visit requests
@@ -54,6 +55,8 @@ en:
         phone_no: "Phone:"
       shared:
         what_we_will_tell: What we’ll tell the visitor
+      show:
+        title: Visit details
       visit_date_section:
         title: Visit date
         choice_html: "Choice %{n}: <strong>%{date}</strong>"
@@ -179,15 +182,29 @@ en:
       staff_info_service_unavailable: >-
         Staff info service is temporarily unavailable. Please check back later.
   shared:
+    actions: Actions
+    back_to_results: Back to results
+    dob: Date of birth
+    email_address: Email address
+    filter: Filter
+    lead_visitor: Lead visitor
+    name: Name
+    no_visits: There are currently no visits
+    not_all_visits: Not all visits are shown
+    prisoner: Prisoner
     prisoner_name: Prisoner name
     prisoner_number: Prisoner no.
-    visit_date: Visit date
-    time_slot: Time slot
-    lead_visitor: Lead visitor
-    tel: Tel.
-    actions: Actions
-    status: Status
     processed_on: Processed on
-    not_all_visits: Not all visits are shown
-    no_visits: There are currently no visits
-    filter: Filter
+    status: Status
+    tel: Telephone no.
+    time_slot: Time slot
+    visit_date: Visit date
+    visitors: Visitors
+    rejection_reason:
+      no_adult: There must be at least one adult visitor
+      no_allowance: The prisoner has not got any visiting allowance left for the dates chosen
+      prisoner_details_incorrect: The visitor hasn’t given correct information for the prisoner
+      prisoner_moved: The prisoner is no longer at the prison
+      slot_unavailable: None of the dates and times chosen were available
+      visitor_banned: A visitor has been banned
+      visitor_not_on_list: A visitor is not on the contact list

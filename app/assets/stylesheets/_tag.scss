@@ -1,0 +1,11 @@
+.tag {
+  padding: 2px 5px;
+}
+.tag-error {
+  background-color: $error-colour;
+  color: $white;
+}
+.tag-warning {
+  background-color: $orange;
+  color: $white;
+}
