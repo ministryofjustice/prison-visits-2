@@ -8,8 +8,12 @@ en:
         change: Change
       index:
         title: Choose a prison
+      processed:
+        title: Latest processed visits
       show:
         no_visits: There are currently no visit requests
+        process_link: Process booking
+        title: Latest visit requests
     visits:
       calendar:
         today: Today
