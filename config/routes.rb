@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     resources :slots, only: %i[ index ]
     resources :visits, only: %i[ create show destroy ]
     post '/validations/prisoner', to: 'validations#prisoner'
+    post '/validations/visitors', to: 'validations#visitors'
   end
 
   get '/staff', to: 'staff_info#index'
