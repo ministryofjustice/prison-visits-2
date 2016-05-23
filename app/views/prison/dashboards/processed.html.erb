@@ -8,13 +8,13 @@
     <caption class="visuallyhidden"><%= t('.title') %></caption>
     <thead>
       <tr>
-        <th>Prisoner name</th>
-        <th>Prisoner no.</th>
-        <th>Visit date</th>
-        <th>Time slot</th>
-        <th>Lead visitor</th>
-        <th>Status</th>
-        <th>Processed on</th>
+        <th><%= t('prisoner_name', scope: :shared) %></th>
+        <th><%= t('prisoner_number', scope: :shared) %></th>
+        <th><%= t('visit_date', scope: :shared) %></th>
+        <th><%= t('time_slot', scope: :shared) %></th>
+        <th><%= t('lead_visitor', scope: :shared) %></th>
+        <th><%= t('status', scope: :shared) %></th>
+        <th><%= t('processed_on', scope: :shared) %></th>
       </tr>
     </thead>
     <tbody>
@@ -33,10 +33,10 @@
   </table>
 
   <% unless @all_visits_shown %>
-    <p class="text-secondary">Not all visits shown</p>
+    <p class="text-secondary"><%= t('not_all_visits', scope: :shared) %></p>
   <% end %>
 <% else %>
 
-  <p class="lede"><%= t('.no_visits') %></p>
+  <p class="lede"><%= t('no_visits', scope: :shared) %></p>
 
 <% end %>

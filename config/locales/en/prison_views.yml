@@ -11,7 +11,6 @@ en:
       processed:
         title: Latest processed visits
       show:
-        no_visits: There are currently no visit requests
         process_link: Process booking
         title: Latest visit requests
     visits:
@@ -178,3 +177,15 @@ en:
     not_available:
       staff_info_service_unavailable: >-
         Staff info service is temporarily unavailable. Please check back later.
+  shared:    
+    prisoner_name: Prisoner name
+    prisoner_number: Prisoner no.
+    visit_date: Visit date
+    time_slot: Time slot
+    lead_visitor: Lead visitor
+    tel: Tel.
+    actions: Actions
+    status: Status
+    processed_on: Processed on
+    not_all_visits: Not all visits are shown
+    no_visits: There are currently no visits
