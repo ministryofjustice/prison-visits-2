@@ -10,6 +10,7 @@ en:
         title: Choose a prison
       processed:
         title: Latest processed visits
+        filter_form_hint: Filter by prisoner number eg a1234bc
       show:
         process_link: Process booking
         title: Latest visit requests
@@ -177,7 +178,7 @@ en:
     not_available:
       staff_info_service_unavailable: >-
         Staff info service is temporarily unavailable. Please check back later.
-  shared:    
+  shared:
     prisoner_name: Prisoner name
     prisoner_number: Prisoner no.
     visit_date: Visit date
@@ -189,3 +190,4 @@ en:
     processed_on: Processed on
     not_all_visits: Not all visits are shown
     no_visits: There are currently no visits
+    filter: Filter

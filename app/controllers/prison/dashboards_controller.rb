@@ -20,7 +20,7 @@ class Prison::DashboardsController < ApplicationController
   def processed
     @estate = Estate.find_by!(finder_slug: params[:estate_id])
 
-    @processed_visits = load_processed_visits(@estate)
+    @processed_visits = load_processed_visits(@estate, params[:prisoner_number])
 
     if @processed_visits.size == NUMBER_VISITS
       @processed_visits.pop # Show only 100 most recent visits
@@ -32,13 +32,18 @@ class Prison::DashboardsController < ApplicationController
 
 private
 
-  def load_processed_visits(estate)
-    Visit.
-      includes(:prisoner, :visitors).
-      without_processing_state(:requested).
-      from_estate(estate).
-      order('updated_at desc').
-      limit(NUMBER_VISITS).
-      to_a
+  def load_processed_visits(estate, prisoner_number)
+    visits = Visit.preload(:prisoner, :visitors).
+             without_processing_state(:requested).
+             from_estate(estate).
+             order('visits.updated_at desc').
+             limit(NUMBER_VISITS)
+
+    if prisoner_number
+      visits = visits.joins(:prisoner).
+               where(prisoners: { number: prisoner_number })
+    end
+
+    visits.to_a
   end
 end
