@@ -19,7 +19,7 @@ en:
         no_visits: There are currently no visit requests
       print_visits:
         visit_date: Visit date
-        filter_form_hint: Enter a date to view the visits
+        filter_form_hint: Enter a date to view the visits eg 01/12/2016
         show: Show
         print: Print
         no_visits: "No visits on %{date}"

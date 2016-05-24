@@ -120,6 +120,8 @@ GEM
     jbuilder (2.4.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
+    jquery-ui-rails (5.0.5)
+      railties (>= 3.2.16)
     json (1.8.3)
     kramdown (1.9.0)
     launchy (2.4.3)
@@ -339,6 +341,7 @@ DEPENDENCIES
   govuk_frontend_toolkit (>= 4.6.1)
   govuk_template (~> 0.17.0)
   jbuilder
+  jquery-ui-rails
   kramdown
   launchy
   lograge
