@@ -11,6 +11,7 @@ class EstateVisitQuery
              with_processing_state(:booked).
              from_estate(@estate).
              where('slot_granted LIKE ?', "#{date.to_s(:db)}%").
+             order('slot_granted asc').
              to_a
 
     visits.group_by(&:slot_granted)

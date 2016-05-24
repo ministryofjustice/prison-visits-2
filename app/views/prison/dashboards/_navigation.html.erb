@@ -1,5 +1,5 @@
 <% content_for :navigation do %>
-  <div class="navigation">
+  <div class="navigation hidden--print">
     <ol>
       <li><%= link_to t('.requested'), prison_estate_dashboard_path(estate.finder_slug) %></li>
       <li><%= link_to t('.processed'), prison_processed_visits_path(estate.finder_slug) %></li>

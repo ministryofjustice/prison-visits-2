@@ -14,3 +14,11 @@ table {
     @include core-16;
   }
 }
+
+@media print {
+  table {
+    td div {
+      page-break-inside: avoid;
+    }
+  }
+}
