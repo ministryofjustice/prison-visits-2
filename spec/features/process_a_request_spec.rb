@@ -26,7 +26,7 @@ RSpec.feature 'Processing a request', js: true do
   }
 
   before do
-    visit prison_visit_path(vst, locale: 'en')
+    visit prison_visit_process_path(vst, locale: 'en')
   end
 
   context 'with a withdrawn visit' do

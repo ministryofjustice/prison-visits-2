@@ -58,7 +58,7 @@ class Visit < ActiveRecord::Base
     :number, :date_of_birth, to: :prisoner, prefix: true
 
   delegate :first_name, :last_name, :full_name, :anonymized_name,
-    to: :principal_visitor, prefix: :visitor
+    :date_of_birth, to: :principal_visitor, prefix: :visitor
 
   alias_method :processable?, :requested?
 
