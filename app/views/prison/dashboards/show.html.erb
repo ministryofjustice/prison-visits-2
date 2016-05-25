@@ -14,6 +14,7 @@
         <th><%= t('time_slot', scope: :shared) %></th>
         <th><%= t('lead_visitor', scope: :shared) %></th>
         <th><%= t('tel', scope: :shared) %></th>
+        <th><%= t('requested_on', scope: :shared) %></th>
         <th><%= t('actions', scope: :shared) %></th>
       </tr>
     </thead>
@@ -26,6 +27,7 @@
           <td><%= format_slot_times(visit.slots.first) %></td>
           <td><%= visit.visitor_full_name %></td>
           <td><%= visit.contact_phone_no %></td>
+          <td><%= visit.created_at.to_s(:short) %></td>
           <td><%= link_to t('.process_link'), prison_visit_path(visit) %></td>
         </tr>
       <% end %>
