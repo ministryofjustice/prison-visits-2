@@ -8,13 +8,13 @@
 <%= form_tag prison_processed_visits_path(@estate.finder_slug), method: :get, enforce_utf8: false, class: 'form' do -%>
   <div class="form-group">
     <%= label_tag "prisoner_number", class: "form-label-bold" do -%>
-      <%= t('filter', scope: :shared) %>
+      <%= t('search', scope: :shared) %>
       <span class="form-hint">
         <%= t('.filter_form_hint') %>
       </span>
     <% end %>
     <%= text_field_tag 'prisoner_number', params[:prisoner_number], class: 'form-control' %>
-    <%= submit_tag t('filter', scope: :shared), name: nil, class: 'button' %>
+    <%= submit_tag t('search', scope: :shared), name: nil, class: 'button' %>
   </div>
 <% end -%>
 </div>

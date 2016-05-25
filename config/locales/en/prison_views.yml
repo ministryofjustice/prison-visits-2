@@ -11,7 +11,7 @@ en:
         title: Choose a prison
       processed:
         title: Latest processed visits
-        filter_form_hint: Filter by prisoner number eg a1234bc
+        filter_form_hint: By prisoner number eg A1234BC
         view_link: View booking
       show:
         process_link: Process booking
@@ -197,7 +197,6 @@ en:
     back_to_results: Back to results
     dob: Date of birth
     email_address: Email address
-    filter: Filter
     lead_visitor: Lead visitor
     name: Name
     no_visits: There are currently no visits
@@ -206,8 +205,9 @@ en:
     prisoner_name: Prisoner name
     prisoner_number: Prisoner no.
     processed_on: Processed on
-    status: Status
     requested_on: Requested on
+    status: Status
+    search: Search
     tel: Telephone no.
     time_slot: Time slot
     visit_date: Visit date
