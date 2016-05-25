@@ -10,7 +10,7 @@
             <%= t('.filter_form_hint') %>
           </span>
         <% end %>
-        <input class="form-control js-Datepicker" data-datepicker='{"dateFormat": "dd/mm/yy", "defaultDate": "<%= @visit_date.to_s(:short_nomis) %>", "showButtonPanel": true}' type="text" id="visit_date" name="visit_date" value="<%= @visit_date.to_s(:short_nomis) %>">
+        <input class="form-control js-Datepicker" data-datepicker='{"dateFormat": "dd/mm/yy", "defaultDate": "<%= @visit_date&.to_s(:short_nomis) %>", "showButtonPanel": true}' type="text" id="visit_date" name="visit_date" value="<%= @visit_date&.to_s(:short_nomis) %>">
         <%= submit_tag t('.show'), name: nil, class: 'button' %>
       </div>
     <% end -%>
