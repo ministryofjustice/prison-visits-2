@@ -11,3 +11,8 @@
 .text-right {
   text-align: right !important;
 }
+@media print {
+  .page-break {
+    page-break-before: always;
+  }
+}

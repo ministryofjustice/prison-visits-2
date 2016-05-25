@@ -4,6 +4,7 @@ en:
       navigation:
         requested: Requested visits
         processed: Processed visits
+        print_visits: Print visits
         current: "Current prison:"
         change: Change
       index:
@@ -15,6 +16,14 @@ en:
       show:
         process_link: Process booking
         title: Latest visit requests
+        no_visits: There are currently no visit requests
+      print_visits:
+        visit_date: Visit date
+        filter_form_hint: Enter a date to view the visits eg 01/12/2016
+        show: Show
+        print: Print
+        no_visits: "No visits on %{date}"
+        filter_list: Filter to generate print lists
     visits:
       calendar:
         today: Today
@@ -183,6 +192,7 @@ en:
         Staff info service is temporarily unavailable. Please check back later.
   shared:
     actions: Actions
+    additional_visitors: Additional visitors
     back_to_results: Back to results
     dob: Date of birth
     email_address: Email address

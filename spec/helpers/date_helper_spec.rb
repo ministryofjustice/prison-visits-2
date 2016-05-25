@@ -54,7 +54,7 @@ RSpec.describe DateHelper do
     }
 
     it 'displays the date the times of a slot' do
-      expect(helper.format_slot_times(slot)).to eq('13:30 - 14:45')
+      expect(helper.format_slot_times(slot)).to eq('13:30–14:45')
     end
   end
 end

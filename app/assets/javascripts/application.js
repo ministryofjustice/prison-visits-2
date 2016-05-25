@@ -6,6 +6,7 @@
 //= require dist/javascripts/moj.slot-picker
 //= require dist/javascripts/moj.date-slider
 //= require dest/respond.min
+//= require jquery-ui/datepicker
 
 // GOVUK modules
 //= require govuk/selection-buttons
@@ -20,3 +21,4 @@
 //= require modules/moj.Conditional
 //= require modules/moj.RevealAdditional
 //= require modules/moj.checkbox-summary
+//= require modules/moj.datepicker
