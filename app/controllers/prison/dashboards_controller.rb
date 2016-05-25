@@ -41,7 +41,7 @@ private
 
     if prisoner_number
       visits = visits.joins(:prisoner).
-               where(prisoners: { number: prisoner_number })
+               where('prisoners.number ILIKE ?', prisoner_number.strip)
     end
 
     visits.to_a
