@@ -1,3 +1,4 @@
+<%= render 'prison/dashboards/banner' %>
 <a class="float-right" href="javascript:history.back();"><%= t('back_to_results', scope: :shared) %></a>
 
 <% content_for :header do %>
@@ -30,7 +31,7 @@
         </h2>
       </div>
     </div>
-    
+
     <% if @visit.rejection %>
       <p>&nbsp;</p>
       <p><%= t(@visit.rejection_reason, scope: 'shared.rejection_reason') %></p>
