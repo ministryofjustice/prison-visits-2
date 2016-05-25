@@ -206,6 +206,7 @@ en:
     prisoner_number: Prisoner no.
     processed_on: Processed on
     status: Status
+    requested_on: Requested on
     tel: Telephone no.
     time_slot: Time slot
     visit_date: Visit date
