@@ -193,6 +193,7 @@ en:
   shared:
     actions: Actions
     additional_visitors: Additional visitors
+    beta_text: This is a new service – only online visits are shown on this page.
     back_to_results: Back to results
     dob: Date of birth
     email_address: Email address
