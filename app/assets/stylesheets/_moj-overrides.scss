@@ -9,9 +9,19 @@
 table {
   th {
     @include bold-16;
+    white-space: nowrap;
   }
   td {
     @include core-16;
+  }
+  .long {
+    word-break: break-word;
+  }
+  .col-time {
+    min-width: 100px;
+  }
+  .col-actions {
+    min-width: 120px;
   }
 }
 
