@@ -12,49 +12,42 @@ class PrisonMailer < ActionMailer::Base
 
   def request_received(visit)
     @visit = visit
+    preferred_date = visit.slots.first.begin_at
 
-    mail(
-      from: I18n.t('mailer.noreply', domain: smtp_settings[:domain]),
-      to: visit.prison_email_address,
-      subject: default_i18n_subject(
-        full_name: visit.prisoner_full_name,
-        request_date: format_date_without_year(visit.slots.first.begin_at)
-      )
-    )
+    mail_prison(visit,
+                full_name: visit.prisoner_full_name,
+                request_date: format_date_without_year(preferred_date))
   end
 
   def booked(visit)
     @visit = visit
 
-    mail(
-      from: I18n.t('mailer.noreply', domain: smtp_settings[:domain]),
-      to: visit.prison_email_address,
-      subject: default_i18n_subject(prisoner: visit.prisoner_full_name)
-    )
+    mail_prison(visit, prisoner: visit.prisoner_full_name)
   end
 
   def rejected(visit)
     @visit = visit
 
-    mail(
-      from: I18n.t('mailer.noreply', domain: smtp_settings[:domain]),
-      to: visit.prison_email_address,
-      subject: default_i18n_subject(prisoner: visit.prisoner_full_name)
-    )
+    mail_prison(visit, prisoner: visit.prisoner_full_name)
   end
 
   def cancelled(visit)
     @visit = visit
 
     mark_this_highest_priority
-    mail(
-      from: I18n.t('mailer.noreply', domain: smtp_settings[:domain]),
-      to: visit.prison_email_address,
-      subject: default_i18n_subject(cancelled_attributes(visit))
-    )
+
+    mail_prison(visit, cancelled_attributes(visit))
   end
 
 private
+
+  def mail_prison(visit, i18n_options = {})
+    mail(
+      from: I18n.t('mailer.noreply', domain: smtp_settings[:domain]),
+      to: visit.prison_email_address,
+      subject: default_i18n_subject(i18n_options)
+    )
+  end
 
   def cancelled_attributes(visit)
     {
