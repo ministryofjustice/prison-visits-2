@@ -15,8 +15,8 @@ class PrisonMailer < ActionMailer::Base
     preferred_date = visit.slots.first.begin_at
 
     mail_prison(visit,
-                full_name: visit.prisoner_full_name,
-                request_date: format_date_without_year(preferred_date))
+      full_name: visit.prisoner_full_name,
+      request_date: format_date_without_year(preferred_date))
   end
 
   def booked(visit)
@@ -43,7 +43,7 @@ private
 
   def mail_prison(visit, i18n_options = {})
     mail(
-      from: I18n.t('mailer.noreply', domain: smtp_settings[:domain]),
+      from: I18n.t('mailer.noreply', domain: noreply_domain),
       to: visit.prison_email_address,
       subject: default_i18n_subject(i18n_options)
     )
@@ -63,5 +63,11 @@ private
 
   def set_locale
     I18n.locale = I18n.default_locale
+  end
+
+  # The whitelabel settings in Sendgrid also means that the domain we use to
+  # send emails gets set up to receive emails.
+  def noreply_domain
+    'robot.' + smtp_settings[:domain]
   end
 end
