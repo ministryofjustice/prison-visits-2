@@ -23,6 +23,7 @@ RSpec.describe PrisonMailer, '.rejected' do
   end
 
   include_examples 'template checks'
+  include_examples 'noreply checks'
 
   it 'sends an email reporting the rejection' do
     expect(mail.subject).

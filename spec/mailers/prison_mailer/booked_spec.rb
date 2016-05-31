@@ -19,6 +19,7 @@ RSpec.describe PrisonMailer, '.booked' do
   end
 
   include_examples 'template checks'
+  include_examples 'noreply checks'
 
   it 'sends an email confirming the booking' do
     expect(mail.subject).

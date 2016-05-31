@@ -5,6 +5,7 @@ RSpec.describe PrisonMailer, '.cancelled' do
   let(:prisoner) {
     create(:prisoner, first_name: 'Arthur', last_name: 'Raffles')
   }
+  let(:visit) { create(:cancelled_visit, prisoner: prisoner, slot_granted: '2015-11-06T16:00/17:00') }
 
   let(:mail) { described_class.cancelled(visit) }
 
@@ -15,8 +16,10 @@ RSpec.describe PrisonMailer, '.cancelled' do
     end
   end
 
+  include_examples 'template checks'
+  include_examples 'noreply checks'
+
   context 'cancelled visit' do
-    let(:visit) { create(:cancelled_visit, prisoner: prisoner, slot_granted: '2015-11-06T16:00/17:00') }
     include_examples 'template checks'
 
     it 'sends an email notifyting the prison of the cancellation' do
