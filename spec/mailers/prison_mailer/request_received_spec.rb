@@ -31,4 +31,8 @@ RSpec.describe PrisonMailer, '.request_received' do
     expect(mail.subject).
       to match(/Visit request for Arthur Raffles on Monday 12 October/)
   end
+
+  it 'reports the prison name' do
+    expect(mail.html_part.body).to include(visit.prison_name)
+  end
 end

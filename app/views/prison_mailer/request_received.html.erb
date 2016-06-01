@@ -12,6 +12,9 @@
   <br/>
   <%= t('.date_of_birth') %>
   <strong><%= @visit.prisoner_date_of_birth.to_s(:short_nomis) %></strong>
+  <br/>
+  <%= t('.prison') %>
+  <strong><%= @visit.prison_name %></strong>
 </p>
 
 <p>
