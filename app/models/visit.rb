@@ -44,13 +44,31 @@ class Visit < ActiveRecord::Base
     end
 
     event :cancel do
-      transition requested: :withdrawn
       transition booked: :cancelled
       transition rejected: :rejected
     end
 
-    after_transition booked: :cancelled do |visit, _|
-      PrisonMailer.cancelled(visit).deliver_later
+    event :withdraw do
+      transition requested: :withdrawn
+    end
+  end
+
+  def can_cancel_or_withdraw?
+    can_cancel? || can_withdraw?
+  end
+
+  def visitor_cancel_or_withdraw!
+    fail "Can't cancel or withdraw visit #{id}" unless can_cancel_or_withdraw?
+
+    if can_cancel?
+      cancel!
+      PrisonMailer.cancelled(self).deliver_later
+      return
+    end
+
+    if can_withdraw?
+      withdraw!
+      return
     end
   end
 
