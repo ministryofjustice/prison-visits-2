@@ -9,6 +9,6 @@ json.visit do
 
   json.visitors @visit.visitors do |visitor|
     json.anonymized_name visitor.anonymized_name
-    json.allowed !visitor.banned && !visitor.not_on_list
+    json.allowed visitor.allowed?
   end
 end
