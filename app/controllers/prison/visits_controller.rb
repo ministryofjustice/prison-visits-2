@@ -9,10 +9,16 @@ class Prison::VisitsController < ApplicationController
   def update
     @booking_response = BookingResponse.new(booking_response_params)
     if @booking_response.valid?
+      @visit = @booking_response.visit
       BookingResponder.new(@booking_response).respond!
+      redirect_to prison_deprecated_visit_path(@visit)
     else
       render :process_visit
     end
+  end
+
+  def deprecated_show
+    @visit = visit
   end
 
   def show
