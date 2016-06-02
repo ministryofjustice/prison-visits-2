@@ -47,6 +47,8 @@ RSpec.describe Api::VisitsController do
       }
     }
 
+    specify do expect(post :create, params).to render_template(:show) end
+
     it 'creates a new visit booking request' do
       expect { post :create, params }.to change(Visit, :count).by(1)
 
@@ -118,6 +120,8 @@ RSpec.describe Api::VisitsController do
       }
     }
 
+    specify do expect(get :show, params).to render_template(:show) end
+
     it 'returns visit status' do
       get :show, params
       expect(response).to have_http_status(:ok)
@@ -143,6 +147,8 @@ RSpec.describe Api::VisitsController do
     let(:mailing) {
       double(Mail::Message, deliver_later: nil)
     }
+
+    specify do expect(delete :destroy, params).to render_template(:show) end
 
     it 'cancels a visit request' do
       delete :destroy, params

@@ -44,6 +44,8 @@ module Api
       @visit = BookingRequestCreator.new.create!(
         prisoner_step, visitors_step, slots_step, I18n.locale
       )
+
+      render :show
     end
 
     def show
@@ -55,6 +57,8 @@ module Api
       if @visit.can_cancel?
         @visit.cancel!
       end
+
+      render :show
     end
 
   private
