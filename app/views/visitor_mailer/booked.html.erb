@@ -49,7 +49,11 @@
 <h2><%= t('.cancel_change_title') %></h2>
 
 <p>
-  <%= t('.cancel_html', url: link_directory.visit_status(@visit, locale: I18n.locale)) %>
+  <% if @override_cancel_link %>
+    <%= t('.cancel_html', url: prison_deprecated_visit_url(@visit, locale: I18n.locale)) %>
+  <% else %>
+    <%= t('.cancel_html', url: link_directory.visit_status(@visit, locale: I18n.locale)) %>
+  <% end %>
 </p>
 
 <p><%= t(".want_to_change") %></p>

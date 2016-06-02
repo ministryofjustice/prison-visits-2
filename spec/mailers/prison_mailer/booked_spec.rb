@@ -26,4 +26,9 @@ RSpec.describe PrisonMailer, '.booked' do
       to match(/COPY of booking confirmation for Arthur Raffles/)
     expect(mail.body.encoded).to match(visit.prison.name)
   end
+
+  it 'links to the prison visit show page' do
+    expect(mail.body.encoded).
+      to match(prison_deprecated_visit_path(visit, locale: 'en'))
+  end
 end

@@ -21,6 +21,7 @@ class PrisonMailer < ActionMailer::Base
 
   def booked(visit)
     @visit = visit
+    @override_cancel_link = true
 
     mail_prison(visit, prisoner: visit.prisoner_full_name)
   end
