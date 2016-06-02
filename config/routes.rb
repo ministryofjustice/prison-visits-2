@@ -30,6 +30,7 @@ Rails.application.routes.draw do
         get '/visits/deprecated/:id',
           action: :deprecated_show,
           as: :deprecated_visit
+        delete '/visits/:id', action: :cancel, as: :cancel_visit
       end
     end
   end

@@ -34,4 +34,25 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
     it_behaves_like 'disallows untrusted ips'
   end
+
+  describe '#cancel' do
+    let(:visit) { FactoryGirl.create(:booked_visit) }
+    let(:mailing) { double(Mail::Message, deliver_later: nil) }
+
+    subject { delete :cancel, id: visit.id, locale: 'en' }
+
+    it_behaves_like 'disallows untrusted ips'
+
+    it { is_expected.to redirect_to(prison_deprecated_visit_path(visit)) }
+
+    it 'cancels the visit' do
+      expect { subject }.
+        to change { visit.reload.processing_state }.to('cancelled')
+    end
+
+    it 'sends an email to the visitor' do
+      expect(VisitorMailer).to receive(:cancelled).and_return(mailing)
+      subject
+    end
+  end
 end

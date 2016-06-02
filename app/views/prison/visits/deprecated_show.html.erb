@@ -5,3 +5,17 @@
 <p>
   <%= t(".#{@visit.processing_state}") %>
 </p>
+
+<% if @visit.can_cancel? %>
+  <h2><%= t('.cancel_title') %></h2>
+  <p><%= t('.cancel_description') %></p>
+  <div class='grid-row'>
+    <div class='column-one-half'>
+      <%= form_tag prison_cancel_visit_path(@visit, locale: 'en'), method: :delete, class: 'form' do -%>
+        <div class='form-group'>
+          <%= submit_tag t('.cancel_button'), class: 'button' %>
+        </div>
+      <% end -%>
+    </div>
+  </div>
+<% end %>

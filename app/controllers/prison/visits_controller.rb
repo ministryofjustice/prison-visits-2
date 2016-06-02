@@ -26,6 +26,14 @@ class Prison::VisitsController < ApplicationController
     @estate = @visit.prison.estate
   end
 
+  def cancel
+    if visit.can_cancel?
+      visit.cancel!
+      VisitorMailer.cancelled(visit).deliver_later
+    end
+    redirect_to prison_deprecated_visit_path(visit)
+  end
+
 private
 
   def visit
