@@ -69,5 +69,11 @@ RSpec.describe Prison::VisitsController, type: :controller do
       expect { subject }.
         to change { visit.reload.processing_state }.to('cancelled')
     end
+
+    context 'when the visit is already cancelled' do
+      let(:visit) { FactoryGirl.create(:cancelled_visit) }
+
+      it { is_expected.to redirect_to(prison_deprecated_visit_path(visit)) }
+    end
   end
 end
