@@ -98,6 +98,11 @@ RSpec.describe Visit, type: :model do
         expect { subject }.to change { visit.processing_state }.to('cancelled')
       end
 
+      it 'creates a cancellation record' do
+        expect { subject }.
+          to change { Cancellation.where(visit_id: visit.id).count }.by(1)
+      end
+
       it 'sends an email to the prison' do
         expect(PrisonMailer).to receive(:cancelled).with(visit).and_return(mailing)
         subject

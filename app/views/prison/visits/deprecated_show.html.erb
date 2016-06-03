@@ -12,7 +12,7 @@
   <div class='grid-row'>
     <div class='column-one-half'>
       <%= form_tag prison_cancel_visit_path(@visit, locale: 'en'), method: :delete, class: 'form' do -%>
-        <% Cancellation::REASONS.each_with_index do |reason, index| %>
+        <% Cancellation::STAFF_REASONS.each_with_index do |reason, index| %>
           <label>
             <%= radio_button_tag 'cancellation_reason', reason, index.zero? %>
             <%= t(".#{reason}") %>

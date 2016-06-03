@@ -55,11 +55,7 @@ class Visit < ActiveRecord::Base
   end
 
   def staff_cancellation!(reason)
-    transaction do
-      cancel!
-      Cancellation.create!(visit: self, reason: reason)
-    end
-
+    cancellation!(reason)
     VisitorMailer.cancelled(self).deliver_later
   end
 
@@ -71,7 +67,7 @@ class Visit < ActiveRecord::Base
     fail "Can't cancel or withdraw visit #{id}" unless can_cancel_or_withdraw?
 
     if can_cancel?
-      cancel!
+      cancellation!(Cancellation::VISITOR_CANCELLED)
       PrisonMailer.cancelled(self).deliver_later
       return
     end
@@ -117,5 +113,14 @@ class Visit < ActiveRecord::Base
 
   def unlisted_visitors
     visitors.unlisted
+  end
+
+private
+
+  def cancellation!(reason)
+    transaction do
+      cancel!
+      Cancellation.create!(visit: self, reason: reason)
+    end
   end
 end

@@ -1,8 +1,12 @@
 class Cancellation < ActiveRecord::Base
-  REASONS = %w[
+  VISITOR_CANCELLED = 'visitor_cancelled'
+
+  STAFF_REASONS = %w[
     slot_unavailable
     prisoner_moved
   ]
+
+  REASONS = STAFF_REASONS + [VISITOR_CANCELLED]
 
   belongs_to :visit
 
