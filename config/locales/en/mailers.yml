@@ -167,7 +167,10 @@ en:
     cancelled:
       subject: "CANCELLED: Your %{prison_name} prison visit for %{date}"
       salutation: Dear %{name},
-      details: Your visit can't no longer take place, apologies.
+      slot_unavailable_html: >-
+        We’re sorry but your visit on %{date} to visit
+        <strong>%{prisoner}</strong> at <strong>%{prison}</strong>
+        is no longer available for visits.
       any_questions_html:
         If you have any questions, visit the
         <a href="%{url}">prison website</a> or call the prison on

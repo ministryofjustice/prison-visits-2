@@ -6,6 +6,7 @@ class Visit < ActiveRecord::Base
   has_many :visitors, dependent: :destroy
   has_many :visit_state_changes, dependent: :destroy
   has_one :rejection, dependent: :destroy
+  has_one :cancellation, dependent: :destroy
 
   validates :prison, :prisoner,
     :contact_email_address, :contact_phone_no, :slot_option_0,
@@ -21,6 +22,7 @@ class Visit < ActiveRecord::Base
   end
 
   delegate :reason, to: :rejection, prefix: true
+  delegate :reason, to: :cancellation, prefix: true
   delegate :privileged_allowance_available?, :privileged_allowance_expires_on,
     :allowance_will_renew?, :allowance_renews_on,
     to: :rejection

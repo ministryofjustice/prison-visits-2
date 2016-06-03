@@ -4,9 +4,11 @@ require 'mailers/shared_mailer_examples'
 RSpec.describe VisitorMailer, '.cancelled' do
   let(:visit) { create(:cancelled_visit) }
   let(:mail) { described_class.cancelled(visit) }
+  let(:reason) { 'slot_unavailable' }
 
   before do
     ActionMailer::Base.deliveries.clear
+    FactoryGirl.create(:cancellation, visit: visit, reason: reason)
   end
 
   around do |example|
@@ -22,5 +24,17 @@ RSpec.describe VisitorMailer, '.cancelled' do
     expect(mail.subject).
       to match(
         /CANCELLED: Your #{prison_name} prison visit for Monday 12 October/)
+  end
+
+  context 'when the slot is no longer available' do
+    let(:reason) { 'slot_unavailable' }
+
+    it { expect(mail.html_part.body).to match(/no longer available/) }
+  end
+
+  context 'when the prisoner has moved' do
+    let(:reason) { 'prisoner_moved' }
+
+    it { expect(mail.html_part.body).to match(/has moved prison/) }
   end
 end
