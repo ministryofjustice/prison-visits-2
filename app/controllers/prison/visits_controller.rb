@@ -4,6 +4,10 @@ class Prison::VisitsController < ApplicationController
 
   def process_visit
     @booking_response = BookingResponse.new(visit: visit)
+
+    unless @booking_response.processable?
+      redirect_to prison_deprecated_visit_path(visit)
+    end
   end
 
   def update

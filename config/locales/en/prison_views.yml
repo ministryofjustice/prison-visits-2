@@ -28,9 +28,11 @@ en:
       calendar:
         today: Today
       deprecated_show:
-        title: Thank you
-        booked: A confirmation email has been sent to the visitor.
-        rejected: A rejection email has been sent to the visitor.
+        title: Visit details
+        booked: This request has been accepted, a confirmation email has been sent to the visitor.
+        rejected: This request has been rejected, a rejection email has been sent to the visitor.
+        withdrawn: The visitor has withdrawn this request.
+        cancelled: The visit has been cancelled.
         cancel_title: Cancel this visit
         cancel_description: If this visit can't no longer take place, you can cancel it. This will email the visitor to let them know.
         cancel_button: Cancel visit
@@ -53,10 +55,6 @@ en:
             </li>
           </ul>
         submit: Send email
-        booked: This request has already been accepted
-        cancelled: The visitor has cancelled this booking
-        rejected: This request has already been rejected
-        withdrawn: The visitor has withdrawn this request
       people_box:
         prisoner: "Prisoner first name:"
         prisoner: "Prisoner last name:"

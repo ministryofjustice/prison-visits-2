@@ -2,7 +2,22 @@ require 'rails_helper'
 require_relative '../untrusted_examples'
 
 RSpec.describe Prison::VisitsController, type: :controller do
-  let(:visit) { create(:visit) }
+  let(:visit) { FactoryGirl.create(:visit) }
+
+  describe '#process_visit' do
+    subject do
+      get :process_visit, id: visit.id, locale: 'en'
+    end
+
+    context 'when is processable' do
+      it { is_expected.to render_template('process_visit') }
+    end
+
+    context 'when is unprocessble' do
+      let!(:visit) { FactoryGirl.create(:booked_visit) }
+      it { is_expected.to redirect_to(prison_deprecated_visit_path(visit)) }
+    end
+  end
 
   describe '#update' do
     subject do

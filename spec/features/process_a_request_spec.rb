@@ -42,7 +42,7 @@ RSpec.feature 'Processing a request', js: true do
     let(:vst) { create(:cancelled_visit) }
 
     scenario 'is not allowed' do
-      expect(page).to have_text('The visitor has cancelled this booking')
+      expect(page).to have_text('The visit has been cancelled.')
       expect(page).not_to have_text('Send email')
     end
   end
@@ -51,7 +51,7 @@ RSpec.feature 'Processing a request', js: true do
     let(:vst) { create(:booked_visit) }
 
     scenario 'is not allowed' do
-      expect(page).to have_text('This request has already been accepted')
+      expect(page).to have_text('This request has been accepted')
       expect(page).not_to have_text('Send email')
     end
   end
@@ -60,7 +60,7 @@ RSpec.feature 'Processing a request', js: true do
     let(:vst) { create(:rejected_visit) }
 
     scenario 'is not allowed' do
-      expect(page).to have_text('This request has already been rejected')
+      expect(page).to have_text('This request has been rejected')
       expect(page).not_to have_text('Send email')
     end
   end
@@ -72,7 +72,7 @@ RSpec.feature 'Processing a request', js: true do
 
       click_button 'Send email'
 
-      expect(page).to have_text('A confirmation email has been sent to the visitor')
+      expect(page).to have_text('a confirmation email has been sent to the visitor')
 
       vst.reload
       expect(vst).to be_booked
@@ -106,7 +106,7 @@ RSpec.feature 'Processing a request', js: true do
 
         click_button 'Send email'
 
-        expect(page).to have_text('A confirmation email has been sent to the visitor')
+        expect(page).to have_text('a confirmation email has been sent to the visitor')
 
         vst.reload
         expect(vst).to be_booked
@@ -133,7 +133,7 @@ RSpec.feature 'Processing a request', js: true do
 
         click_button 'Send email'
 
-        expect(page).to have_text('A confirmation email has been sent to the visitor')
+        expect(page).to have_text('a confirmation email has been sent to the visitor')
 
         vst.reload
         expect(vst).to be_booked
@@ -156,7 +156,7 @@ RSpec.feature 'Processing a request', js: true do
 
     click_button 'Send email'
 
-    expect(page).to have_text('A rejection email has been sent to the visitor')
+    expect(page).to have_text('a rejection email has been sent to the visitor')
 
     vst.reload
     expect(vst).to be_rejected
@@ -181,7 +181,7 @@ RSpec.feature 'Processing a request', js: true do
 
     click_button 'Send email'
 
-    expect(page).to have_text('A rejection email has been sent to the visitor')
+    expect(page).to have_text('a rejection email has been sent to the visitor')
 
     vst.reload
     expect(vst).to be_rejected
@@ -204,7 +204,7 @@ RSpec.feature 'Processing a request', js: true do
 
     click_button 'Send email'
 
-    expect(page).to have_text('A rejection email has been sent to the visitor')
+    expect(page).to have_text('a rejection email has been sent to the visitor')
 
     vst.reload
     expect(vst.rejection_reason).to eq('prisoner_details_incorrect')
@@ -225,7 +225,7 @@ RSpec.feature 'Processing a request', js: true do
 
     click_button 'Send email'
 
-    expect(page).to have_text('A rejection email has been sent to the visitor')
+    expect(page).to have_text('a rejection email has been sent to the visitor')
 
     vst.reload
     expect(vst.rejection_reason).to eq('prisoner_moved')
@@ -251,7 +251,7 @@ RSpec.feature 'Processing a request', js: true do
 
     click_button 'Send email'
 
-    expect(page).to have_text('A rejection email has been sent to the visitor')
+    expect(page).to have_text('a rejection email has been sent to the visitor')
 
     vst.reload
     expect(vst.rejection_reason).to eq('visitor_not_on_list')
@@ -278,7 +278,7 @@ RSpec.feature 'Processing a request', js: true do
 
     click_button 'Send email'
 
-    expect(page).to have_text('A rejection email has been sent to the visitor')
+    expect(page).to have_text('a rejection email has been sent to the visitor')
 
     vst.reload
     expect(vst.rejection_reason).to eq('visitor_banned')
