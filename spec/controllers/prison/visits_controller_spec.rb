@@ -39,7 +39,12 @@ RSpec.describe Prison::VisitsController, type: :controller do
     let(:visit) { FactoryGirl.create(:booked_visit) }
     let(:mailing) { double(Mail::Message, deliver_later: nil) }
 
-    subject { delete :cancel, id: visit.id, locale: 'en' }
+    subject do
+      delete :cancel,
+        id: visit.id,
+        cancellation_reason: 'slot_unavailable',
+        locale: 'en'
+    end
 
     it_behaves_like 'disallows untrusted ips'
 
@@ -48,11 +53,6 @@ RSpec.describe Prison::VisitsController, type: :controller do
     it 'cancels the visit' do
       expect { subject }.
         to change { visit.reload.processing_state }.to('cancelled')
-    end
-
-    it 'sends an email to the visitor' do
-      expect(VisitorMailer).to receive(:cancelled).and_return(mailing)
-      subject
     end
   end
 end

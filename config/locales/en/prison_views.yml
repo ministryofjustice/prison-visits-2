@@ -34,6 +34,8 @@ en:
         cancel_title: Cancel this visit
         cancel_description: If this visit can't no longer take place, you can cancel it. This will email the visitor to let them know.
         cancel_button: Cancel visit
+        slot_unavailable: The date is no longer available.
+        prisoner_moved: The prisoner has moved.
       process_visit:
         title: Process a visit request
         introduction_html: |

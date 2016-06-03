@@ -53,6 +53,15 @@ class Visit < ActiveRecord::Base
     end
   end
 
+  def staff_cancellation!(reason)
+    transaction do
+      cancel!
+      Cancellation.create!(visit: self, reason: reason)
+    end
+
+    VisitorMailer.cancelled(self).deliver_later
+  end
+
   def can_cancel_or_withdraw?
     can_cancel? || can_withdraw?
   end

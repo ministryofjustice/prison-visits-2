@@ -28,8 +28,7 @@ class Prison::VisitsController < ApplicationController
 
   def cancel
     if visit.can_cancel?
-      visit.cancel!
-      VisitorMailer.cancelled(visit).deliver_later
+      visit.staff_cancellation!(params[:cancellation_reason])
     end
     redirect_to prison_deprecated_visit_path(visit)
   end

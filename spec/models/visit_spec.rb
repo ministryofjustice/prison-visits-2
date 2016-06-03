@@ -25,6 +25,37 @@ RSpec.describe Visit, type: :model do
     end
   end
 
+  describe "#staff_cancellation!" do
+    let(:visit) { FactoryGirl.create(:booked_visit) }
+    let(:reason) { Cancellation::REASONS.first }
+
+    subject(:cancellation!) { visit.staff_cancellation!(reason) }
+
+    it 'transitions to cancelled' do
+      expect { cancellation! }.
+        to change { visit.processing_state }.to('cancelled')
+    end
+
+    it 'creates a cancellation record' do
+      expect { cancellation! }.
+        to change { Cancellation.where(visit_id: visit.id).count }.by(1)
+    end
+
+    it 'sends an email to the visitor' do
+      expect(VisitorMailer).to receive(:cancelled).with(visit).and_return(mailing)
+      cancellation!
+    end
+
+    context 'invalid reason' do
+      let(:reason) { 'rubbish' }
+      it 'fails and does not record the cancellation' do
+        expect { cancellation! }.to raise_error(ActiveRecord::RecordInvalid)
+        expect(Cancellation.count).to eq(0)
+        expect(visit.reload.processing_state).to eq('booked')
+      end
+    end
+  end
+
   describe '#can_cancel_or_withdraw?' do
     subject { visit.can_cancel_or_withdraw? }
 
