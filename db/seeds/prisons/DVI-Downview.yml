@@ -1,7 +1,7 @@
 ---
 name: Downview
 nomis_id: DVI
-enabled: false
+enabled: true
 address: |-
   Sutton Lane
   Sutton
