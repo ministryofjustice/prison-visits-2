@@ -122,5 +122,4 @@ private
       cancel!
       Cancellation.create!(visit: self, reason: reason)
     end
-  end
 end

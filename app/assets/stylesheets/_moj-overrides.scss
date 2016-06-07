@@ -23,6 +23,14 @@ table {
   .col-actions {
     min-width: 120px;
   }
+  &.table--hover {
+    tr:hover {
+      td {
+        background-color: $highlight-colour;
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 @media print {
