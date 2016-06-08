@@ -11,11 +11,11 @@
       <caption class="visuallyhidden"><%= t('.title') %></caption>
       <thead>
         <tr>
-          <th><%= t('prisoner_name', scope: :shared) %></th>
           <th><%= t('prisoner_number', scope: :shared) %></th>
+          <th><%= t('prisoner_name', scope: :shared) %></th>
+          <th><%= t('lead_visitor', scope: :shared) %></th>
           <th><%= t('visit_date', scope: :shared) %></th>
           <th class="col-time"><%= t('time_slot', scope: :shared) %></th>
-          <th><%= t('lead_visitor', scope: :shared) %></th>
           <th><%= t('requested', scope: :shared) %></th>
           <th class="col-actions"><%= t('actions', scope: :shared) %></th>
         </tr>
@@ -23,11 +23,11 @@
       <tbody>
         <% booking.each do |visit| %>
           <tr onclick="window.document.location='<%= prison_visit_path(visit) %>';">
-            <td class="long"><%= visit.prisoner_full_name %></td>
             <td><%= visit.prisoner_number %></td>
+            <td class="long"><%= visit.prisoner_full_name %></td>
+            <td class="long"><%= visit.visitor_full_name %></td>
             <td><%= visit.slots.first.to_date.to_s(:short_nomis) %></td>
             <td><%= format_slot_times(visit.slots.first) %></td>
-            <td class="long"><%= visit.visitor_full_name %></td>
             <td><%= visit.created_at.to_s(:time) %></td>
             <td><%= link_to t('.process_link'), prison_visit_path(visit) %></td>
           </tr>
