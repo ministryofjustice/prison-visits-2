@@ -5,7 +5,7 @@
 
 <% if @requested_visits.any? %>
 
-  <% @requested_visits.group_by(&:group_by_create_date).each do |date, booking| %>
+  <% @requested_visits.group_by {|v| v.created_at.to_date}.each do |date, booking| %>
     <h3 class="heading-medium"><%= date.to_s(:short) %></h3>
     <table class="table--hover">
       <caption class="visuallyhidden"><%= t('.title') %></caption>
