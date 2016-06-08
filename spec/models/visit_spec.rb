@@ -9,7 +9,10 @@ RSpec.describe Visit, type: :model do
 
   describe 'scopes' do
     describe '.from_estate' do
-      let(:visit) { FactoryGirl.create(:visit) }
+      let(:visit) do
+        FactoryGirl.create(:visit)
+      end
+
       let!(:estate) { visit.prison.estate }
 
       before do
@@ -19,6 +22,91 @@ RSpec.describe Visit, type: :model do
       subject { described_class.from_estate(estate) }
 
       it { is_expected.to eq([visit]) }
+    end
+  end
+
+  describe "#staff_cancellation!" do
+    let(:visit) { FactoryGirl.create(:booked_visit) }
+    let(:reason) { Cancellation::REASONS.first }
+
+    subject(:cancellation!) { visit.staff_cancellation!(reason) }
+
+    it 'transitions to cancelled' do
+      expect { cancellation! }.
+        to change { visit.processing_state }.to('cancelled')
+    end
+
+    it 'creates a cancellation record' do
+      expect { cancellation! }.
+        to change { Cancellation.where(visit_id: visit.id).count }.by(1)
+    end
+
+    it 'sends an email to the visitor' do
+      expect(VisitorMailer).to receive(:cancelled).with(visit).and_return(mailing)
+      cancellation!
+    end
+
+    context 'invalid reason' do
+      let(:reason) { 'rubbish' }
+      it 'fails and does not record the cancellation' do
+        expect { cancellation! }.to raise_error(ActiveRecord::RecordInvalid)
+        expect(Cancellation.count).to eq(0)
+        expect(visit.reload.processing_state).to eq('booked')
+      end
+    end
+  end
+
+  describe '#can_cancel_or_withdraw?' do
+    subject { visit.can_cancel_or_withdraw? }
+
+    context 'when it can be withdrawn' do
+      let(:visit) { FactoryGirl.create(:visit) }
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when it can be cancelled' do
+      let(:visit) { FactoryGirl.create(:booked_visit) }
+      it { is_expected.to eq(true) }
+    end
+
+    context "when it can't be cancelled or withdrawn" do
+      let(:visit) { FactoryGirl.create(:withdrawn_visit) }
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#visitor_cancel_or_withdraw!' do
+    subject { visit.visitor_cancel_or_withdraw! }
+
+    context "when it can't be cancelled or withdrawn" do
+      let(:visit) { FactoryGirl.create(:withdrawn_visit) }
+      it { expect { subject }.to raise_error(/cancel or withdraw/) }
+    end
+
+    context 'when it can be withdrawn' do
+      let(:visit) { FactoryGirl.create(:visit) }
+
+      it 'transitions to withdrawn' do
+        expect { subject }.to change { visit.processing_state }.to('withdrawn')
+      end
+    end
+
+    context 'when it can be cancelled' do
+      let(:visit) { FactoryGirl.create(:booked_visit) }
+
+      it 'transitions to cancelled' do
+        expect { subject }.to change { visit.processing_state }.to('cancelled')
+      end
+
+      it 'creates a cancellation record' do
+        expect { subject }.
+          to change { Cancellation.where(visit_id: visit.id).count }.by(1)
+      end
+
+      it 'sends an email to the prison' do
+        expect(PrisonMailer).to receive(:cancelled).with(visit).and_return(mailing)
+        subject
+      end
     end
   end
 
@@ -38,7 +126,7 @@ RSpec.describe Visit, type: :model do
     end
 
     it 'is withdrawn after cancellation if not accpeted' do
-      subject.cancel!
+      subject.withdraw!
       expect(subject).to be_withdrawn
     end
 
@@ -46,13 +134,6 @@ RSpec.describe Visit, type: :model do
       subject.accept!
       subject.cancel!
       expect(subject).to be_cancelled
-    end
-
-    it "sends an email when cancelling" do
-      subject.accept!
-
-      expect(PrisonMailer).to receive(:cancelled).with(subject).and_return(mailing)
-      subject.cancel!
     end
 
     it 'is not processable after booking' do
@@ -66,7 +147,7 @@ RSpec.describe Visit, type: :model do
     end
 
     it 'is not processable after withdrawal' do
-      subject.cancel!
+      subject.withdraw!
       expect(subject).not_to be_processable
     end
 
@@ -97,7 +178,7 @@ RSpec.describe Visit, type: :model do
 
       it 'is recorded after withdrawal' do
         expect{
-          subject.cancel!
+          subject.withdraw!
         }.to change {
           subject.visit_state_changes.withdrawn.count
         }.by(1)

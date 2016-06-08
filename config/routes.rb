@@ -27,6 +27,10 @@ Rails.application.routes.draw do
       scope controller: :visits do
         get '/visits/:id', action: :process_visit, as: :visit_process
         put '/visits/:id', action: :update, as: :visit
+        get '/visits/deprecated/:id',
+          action: :deprecated_show,
+          as: :deprecated_visit
+        delete '/visits/:id', action: :cancel, as: :cancel_visit
       end
     end
   end

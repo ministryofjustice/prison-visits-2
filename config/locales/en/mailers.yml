@@ -164,3 +164,16 @@ en:
         <a href="http://www.surveygizmo.com/s3/2527768/?q=%{prison}">quick survey</a>.
       survey_thanks:
         Thanks for your help.
+    cancelled:
+      subject: "CANCELLED: Your %{prison_name} prison visit for %{date}"
+      salutation: Dear %{name},
+      slot_unavailable_html: >-
+        We’re sorry but %{date} is no longer available.
+        Your visit to %{prisoner} at %{prison} has been cancelled.
+
+      any_questions_html:
+        If you have any questions, visit the
+        <a href="%{url}">prison website</a> or call the prison on
+        <strong>%{phone_no}</strong>.
+      visit_id: "Visit ID:"
+

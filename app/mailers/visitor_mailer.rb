@@ -25,6 +25,13 @@ class VisitorMailer < ActionMailer::Base
       date: format_date_without_year(visit.first_date)
   end
 
+  def cancelled(visit)
+    I18n.locale = visit.locale
+    mail_visitor visit,
+      prison_name: visit.prison_name,
+      date: format_date_without_year(visit.date)
+  end
+
 private
 
   def mail_visitor(visit, i18n_options = {})

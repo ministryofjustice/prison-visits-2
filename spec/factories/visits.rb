@@ -51,6 +51,10 @@ FactoryGirl.define do
 
     factory :cancelled_visit do
       processing_state 'cancelled'
+
+      slot_granted do |v|
+        v.slot_option_0
+      end
     end
 
     factory :rejected_visit do

@@ -1,5 +1,10 @@
 en:
   prison:
+    flash:
+      already_processed: The visit has already been processed
+      process_thank_you: Thank you for processing the visit
+      visit_cancelled: The visit has been cancelled
+      already_cancelled: The visit is no longer cancellable
     dashboards:
       navigation:
         requested: Requested visits
@@ -27,10 +32,17 @@ en:
     visits:
       calendar:
         today: Today
-      update:
-        title: Thank you
-        booked: A confirmation email has been sent to the visitor.
-        rejected: A rejection email has been sent to the visitor.
+      deprecated_show:
+        title: Visit details
+        booked: This request has been accepted, a confirmation email has been sent to the visitor.
+        rejected: This request has been rejected, a rejection email has been sent to the visitor.
+        withdrawn: The visitor has withdrawn this request.
+        cancelled: The visit on %{date} to %{prisoner} is cancelled.
+        cancel_title: Cancel this visit
+        cancel_description: If this visit can't no longer take place, you can cancel it. This will email the visitor to let them know.
+        cancel_button: Cancel visit
+        slot_unavailable: The date is no longer available.
+        prisoner_moved: The prisoner has moved.
       process_visit:
         title: Process a visit request
         introduction_html: |
@@ -48,10 +60,6 @@ en:
             </li>
           </ul>
         submit: Send email
-        booked: This request has already been accepted
-        cancelled: The visitor has cancelled this booking
-        rejected: This request has already been rejected
-        withdrawn: The visitor has withdrawn this request
       people_box:
         prisoner: "Prisoner first name:"
         prisoner: "Prisoner last name:"

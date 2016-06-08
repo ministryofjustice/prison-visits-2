@@ -11,11 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412111212) do
+ActiveRecord::Schema.define(version: 20160603081312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "cancellations", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "visit_id",   null: false
+    t.string   "reason",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cancellations", ["visit_id"], name: "index_cancellations_on_visit_id", unique: true, using: :btree
 
   create_table "estates", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",                  null: false
@@ -127,6 +136,7 @@ ActiveRecord::Schema.define(version: 20160412111212) do
 
   add_index "visits", ["prison_id"], name: "index_visits_on_prison_id", using: :btree
 
+  add_foreign_key "cancellations", "visits"
   add_foreign_key "prisons", "estates"
   add_foreign_key "rejections", "visits"
   add_foreign_key "visitors", "visits"

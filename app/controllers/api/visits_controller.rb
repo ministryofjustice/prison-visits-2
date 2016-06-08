@@ -54,8 +54,8 @@ module Api
 
     def destroy
       @visit = Visit.find(params[:id])
-      if @visit.can_cancel?
-        @visit.cancel!
+      if @visit.can_cancel_or_withdraw?
+        @visit.visitor_cancel_or_withdraw!
       end
 
       render :show
