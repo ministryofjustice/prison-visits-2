@@ -2,10 +2,22 @@
   padding: 2px 5px;
 }
 .tag-error {
-  background-color: $error-colour;
+  background-color: $mellow-red;
   color: $white;
 }
 .tag-warning {
   background-color: $orange;
+  color: $white;
+}
+.tag-rejected {
+  background-color: $purple;
+  color: $white;
+}
+.tag-withdrawn {
+  background-color: $fuschia;
+  color: $white;
+}
+.tag-cancelled {
+  background-color: $grey-1;
   color: $white;
 }
