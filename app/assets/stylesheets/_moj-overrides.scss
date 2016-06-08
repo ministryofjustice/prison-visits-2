@@ -18,10 +18,15 @@ table {
     word-break: break-word;
   }
   .col-time {
-    min-width: 100px;
+    min-width: 80px;
   }
-  .col-actions {
-    min-width: 120px;
+  &.table--hover {
+    tr:hover {
+      td {
+        background-color: $highlight-colour;
+        cursor: pointer;
+      }
+    }
   }
 }
 
