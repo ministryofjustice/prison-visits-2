@@ -3,7 +3,14 @@
 <% end %>
 
 <p>
-  <%= t(".#{@visit.processing_state}") %>
+  <% case @visit.processing_state %>
+  <% when 'cancelled' %>
+    <%= t(".#{@visit.processing_state}",
+      date: format_date_without_year(@visit.date),
+      prisoner: @visit.prisoner_full_name) %>
+  <% else %>
+    <%= t(".#{@visit.processing_state}") %>
+  <% end %>
 </p>
 
 <% if @visit.can_cancel? %>

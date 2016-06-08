@@ -37,7 +37,7 @@ en:
         booked: This request has been accepted, a confirmation email has been sent to the visitor.
         rejected: This request has been rejected, a rejection email has been sent to the visitor.
         withdrawn: The visitor has withdrawn this request.
-        cancelled: The visit has been cancelled.
+        cancelled: The visit on %{date} to %{prisoner} is cancelled.
         cancel_title: Cancel this visit
         cancel_description: If this visit can't no longer take place, you can cancel it. This will email the visitor to let them know.
         cancel_button: Cancel visit
