@@ -6,6 +6,12 @@ class Prisoner < ActiveRecord::Base
   validates :number, presence: true
 
   before_validation(on: :create) do
-    self.number = number.upcase.strip if attribute_present?('number')
+    if attribute_present?('number')
+      self.number = self.class.normalise_number(number)
+    end
+  end
+
+  def self.normalise_number(number)
+    number.upcase.strip
   end
 end
