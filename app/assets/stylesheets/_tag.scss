@@ -1,23 +1,27 @@
 .tag {
   padding: 2px 5px;
 }
+.tag-booked {
+  background-color: $button-colour;
+  color: $white;
+}
+.tag-cancelled {
+  background-color: $black;
+  color: $white;
+}
 .tag-error {
   background-color: $mellow-red;
+  color: $white;
+}
+.tag-rejected {
+  background-color: $red;
   color: $white;
 }
 .tag-warning {
   background-color: $orange;
   color: $white;
 }
-.tag-rejected {
-  background-color: $purple;
-  color: $white;
-}
 .tag-withdrawn {
-  background-color: $fuschia;
-  color: $white;
-}
-.tag-cancelled {
   background-color: $grey-1;
   color: $white;
 }
