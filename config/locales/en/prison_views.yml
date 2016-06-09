@@ -15,9 +15,9 @@ en:
       index:
         title: Choose a prison
       processed:
-        title: Latest processed visits
+        title: Processed visits
         filter_form_hint: By prisoner number eg A1234BC
-        view_link: View booking
+        view_link: View
       show:
         process_link: View
         title: Requested visits

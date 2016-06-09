@@ -23,15 +23,15 @@
 
 <% if @processed_visits.any? %>
 
-  <table>
+  <table class="table--hover">
     <caption class="visuallyhidden"><%= t('.title') %></caption>
     <thead>
       <tr>
-        <th><%= t('prisoner_name', scope: :shared) %></th>
         <th><%= t('prisoner_number', scope: :shared) %></th>
+        <th><%= t('prisoner_name', scope: :shared) %></th>
+        <th><%= t('lead_visitor', scope: :shared) %></th>
         <th><%= t('visit_date', scope: :shared) %></th>
         <th class="col-time"><%= t('time_slot', scope: :shared) %></th>
-        <th><%= t('lead_visitor', scope: :shared) %></th>
         <th><%= t('status', scope: :shared) %></th>
         <th><%= t('processed_on', scope: :shared) %></th>
         <th class="col-actions"><%= t('actions', scope: :shared) %></th>
@@ -39,13 +39,13 @@
     </thead>
     <tbody>
       <% @processed_visits.each do |visit| %>
-        <tr>
-          <td class="long"><%= visit.prisoner_full_name %></td>
+        <tr onclick="window.document.location='<%= prison_visit_show_path(visit) %>';">
           <td><%= visit.prisoner_number %></td>
+          <td class="long"><%= visit.prisoner_full_name %></td>
+          <td class="long"><%= visit.visitor_full_name %></td>
           <td><%= visit.slots.first.to_date.to_s(:short_nomis) %></td>
           <td><%= format_slot_times(visit.slots.first) %></td>
-          <td class="long"><%= visit.visitor_full_name %></td>
-          <td><%= visit.processing_state.capitalize %></td>
+          <td><span class="tag tag-<%= visit.processing_state %>"><%= visit.processing_state.capitalize %></span></td>
           <td><%= visit.updated_at.to_s(:short) %></td>
           <td><%= link_to t('.view_link'), prison_visit_show_path(visit) %></td>
         </tr>
