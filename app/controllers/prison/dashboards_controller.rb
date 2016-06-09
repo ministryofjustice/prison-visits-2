@@ -49,9 +49,9 @@ private
              order('visits.updated_at desc').
              limit(NUMBER_VISITS)
 
-    if prisoner_number
-      visits = visits.joins(:prisoner).
-               where('prisoners.number ILIKE ?', prisoner_number.strip)
+    if prisoner_number.present?
+      number = Prisoner.normalise_number(prisoner_number)
+      visits = visits.joins(:prisoner).where(prisoners: { number: number })
     end
 
     visits.to_a
