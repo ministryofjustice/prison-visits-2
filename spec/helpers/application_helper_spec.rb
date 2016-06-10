@@ -55,4 +55,33 @@ RSpec.describe ApplicationHelper do
       expect(alternative_locales).to eq(%i[ en ])
     end
   end
+
+  describe 'nav_link' do
+    let(:link_text) { 'link_text' }
+    let(:link_path) { 'link/path' }
+
+    subject { helper.nav_link(link_text, link_path) }
+
+    context 'when is the current page' do
+      before do
+        allow(helper).
+          to receive(:current_page?).with(link_path).and_return(true)
+      end
+
+      it 'adds an active class' do
+        is_expected.to match('class="active"')
+      end
+    end
+
+    context 'when is not the current page' do
+      before do
+        allow(helper).
+          to receive(:current_page?).with(link_path).and_return(false)
+      end
+
+      it 'does not add an active class' do
+        is_expected.to_not match('class="active"')
+      end
+    end
+  end
 end
