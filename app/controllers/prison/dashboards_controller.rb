@@ -3,7 +3,7 @@ class Prison::DashboardsController < ApplicationController
 
   before_action :authorize_prison_request
 
-  def show
+  def unprocessed
     @estate = Estate.find_by!(finder_slug: params[:estate_id])
 
     @requested_visits = Visit.includes(:prisoner, :visitors).
