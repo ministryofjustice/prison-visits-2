@@ -204,6 +204,7 @@ en:
       staff_info_service_unavailable: >-
         Staff info service is temporarily unavailable. Please check back later.
   shared:
+    age: Age
     actions: Actions
     additional_visitors: Additional visitors
     beta_text: This is a new service – only online visits are shown on this page.
@@ -212,8 +213,11 @@ en:
     email_address: Email address
     lead_visitor: Lead visitor
     name: Name
+    no_of_visitors: No. of visitors
     no_visits: There are currently no visits
     not_all_visits: Not all visits are shown
+    open_close: Open/Close
+    other_visitors: Other visitors
     prisoner: Prisoner
     prisoner_name: Prisoner name
     prisoner_number: Prisoner no.
@@ -223,6 +227,7 @@ en:
     search: Search
     tel: Telephone no.
     time_slot: Time slot
+    view: View
     visit_date: Visit date
     visitors: Visitors
     rejection_reason:

@@ -1,0 +1,43 @@
+<tr class="hidden-row hide">
+  <td colspan="9" class="request-details">
+    <div class="request-row-details">
+      <dl>
+        <dt><%= t('lead_visitor', scope: :shared) %></dt>
+        <dd><%= visit.principal_visitor.first_name %> <%= visit.principal_visitor.last_name %></dd>
+      </dl>
+      <dl>
+        <dt><%= t('dob', scope: :shared) %> (<%= t('age', scope: :shared) %>)</dt>
+        <dd><%= visit.principal_visitor.date_of_birth.to_s(:short_nomis) %> (<%= visit.principal_visitor.age %>)</dd>
+      </dl>
+      <dl>
+        <dt><%= t('email_address', scope: :shared) %></dt>
+        <dd><%= visit.contact_email_address %></dd>
+      </dl>
+      <dl>
+        <dt><%= t('tel', scope: :shared) %></dt>
+        <dd><%= visit.contact_phone_no %></dd>
+      </dl>
+    </div>
+    <% if visit.visitors.count > 1 %>
+    <hr>
+    <div class="request-row-details">
+      <dl>
+        <dt><%= t('other_visitors', scope: :shared) %></dt>
+      </dl>
+      <dl>
+        <dt><%= t('dob', scope: :shared) %> (<%= t('age', scope: :shared) %>)</dt>
+      </dl>
+    </div>
+    <% visit.visitors[1..-1].each do |visitor| %>
+      <div class="request-row-details">
+        <dl>
+          <dd><%= visitor.first_name %> <%= visitor.last_name %></dd>
+        </dl>
+        <dl>
+          <dd><%= visitor.date_of_birth.to_s(:short_nomis) %> (<%= visitor.age %>)</dd>
+        </dl>
+      </div>
+    <% end %>
+    <% end %>
+  </td>
+</tr>
