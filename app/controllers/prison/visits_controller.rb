@@ -1,6 +1,7 @@
 class Prison::VisitsController < ApplicationController
   helper CalendarHelper
   before_action :authorize_prison_request
+  before_action :authenticate_user!, only: :show
 
   def process_visit
     @booking_response = BookingResponse.new(visit: visit)

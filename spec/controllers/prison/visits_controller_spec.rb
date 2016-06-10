@@ -44,10 +44,22 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
   describe '#show' do
     subject { get :show, id: visit.id }
-
-    it { is_expected.to render_template('show') }
+    let(:user) { FactoryGirl.create(:user) }
 
     it_behaves_like 'disallows untrusted ips'
+
+    context "when logged in" do
+      before do
+        sign_in user
+      end
+
+      it { is_expected.to render_template('show') }
+      it { is_expected.to be_successful }
+    end
+
+    context "when logged out" do
+      it { is_expected.to_not be_successful }
+    end
   end
 
   describe '#cancel' do
