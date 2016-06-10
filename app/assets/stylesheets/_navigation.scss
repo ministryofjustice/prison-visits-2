@@ -2,5 +2,13 @@
   @include breadcrumbs;
   li {
     background-image: none;
+    margin: 0 0.75em;
+    padding: 0;
+    &.active {
+      border-bottom: 2px solid $link-colour;
+      a {
+        text-decoration: none;
+      }
+    }
   }
 }
