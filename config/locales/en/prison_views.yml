@@ -11,7 +11,7 @@ en:
         processed: Processed visits
         print_visits: Print visits
         current: "Current prison:"
-        change: Change
+        sign_out: Sign out
       index:
         title: Choose a prison
       processed:

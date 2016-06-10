@@ -1,13 +1,12 @@
 <% content_for :navigation do %>
   <div class="navigation hidden--print">
     <ol>
-      <%= nav_link t('.requested'), prison_estate_dashboard_path(estate.finder_slug) %>
-      <%= nav_link t('.processed'), prison_processed_visits_path(estate.finder_slug) %>
-      <%= nav_link t('.print_visits'), prison_print_visits_path(estate.finder_slug) %>
+      <%= nav_link t('.requested'), prison_unprocessed_visits_path %>
+      <%= nav_link t('.processed'), prison_processed_visits_path %>
+      <%= nav_link t('.print_visits'), prison_print_visits_path %>
 
       <li class="float-right">
-        <%= t('.current') %>
-        <%= estate.name %> (<%= link_to t('.change'), prison_dashboards_root_path %>)</li>
+        <%= current_user.email %> (<%= link_to t('.sign_out'), destroy_user_session_path, method: :delete %>)</li>
     </ol>
   </div>
 <% end %>

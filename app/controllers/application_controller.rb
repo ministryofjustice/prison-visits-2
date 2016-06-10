@@ -62,4 +62,8 @@ private
     RequestStore.store[:request_id] = request.uuid
     Raven.extra_context(request_id: RequestStore.store[:request_id])
   end
+
+  def after_sign_in_path_for(_resource)
+    prison_unprocessed_visits_path
+  end
 end
