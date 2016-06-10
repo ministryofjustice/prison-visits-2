@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get '/', to: redirect('/staff')
+  devise_for :users
+  root to: 'staff_info#index'
 
   match 'exception', to: 'errors#test', via: %i[ get post ]
 
