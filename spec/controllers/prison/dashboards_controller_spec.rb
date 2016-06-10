@@ -3,7 +3,7 @@ require_relative '../untrusted_examples'
 
 RSpec.describe Prison::DashboardsController, type: :controller do
   let(:estate) { FactoryGirl.create(:estate) }
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:user, estate: estate) }
   subject { get :unprocessed, estate_id: estate.finder_slug }
 
   it_behaves_like 'disallows untrusted ips'

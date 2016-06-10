@@ -5,19 +5,16 @@ class Prison::DashboardsController < ApplicationController
   before_action :authenticate_user!
 
   def unprocessed
-    @estate = Estate.find_by!(finder_slug: params[:estate_id])
-
     @requested_visits = Visit.includes(:prisoner, :visitors).
                         with_processing_state(:requested).
-                        from_estate(@estate).
+                        from_estate(user_estate).
                         order('created_at asc').
                         to_a
   end
 
   def processed
-    @estate = Estate.find_by!(finder_slug: params[:estate_id])
-
-    @processed_visits = load_processed_visits(@estate, params[:prisoner_number])
+    @processed_visits = load_processed_visits(user_estate,
+      params[:prisoner_number])
 
     if @processed_visits.size == NUMBER_VISITS
       @processed_visits.pop # Show only 100 most recent visits
@@ -28,16 +25,19 @@ class Prison::DashboardsController < ApplicationController
   end
 
   def print_visits
-    @estate = Estate.find_by!(finder_slug: params[:estate_id])
-
     @visit_date = if params[:visit_date].present?
                     Date.parse(params[:visit_date])
                   end
 
-    @data = EstateVisitQuery.new(@estate).visits_to_print_by_slot(@visit_date)
+    @data = EstateVisitQuery.new(user_estate).
+            visits_to_print_by_slot(@visit_date)
   end
 
 private
+
+  def user_estate
+    current_user.estate
+  end
 
   def load_processed_visits(estate, prisoner_number)
     visits = Visit.preload(:prisoner, :visitors).

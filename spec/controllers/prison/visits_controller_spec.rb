@@ -44,7 +44,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
   describe '#show' do
     subject { get :show, id: visit.id }
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user, estate: visit.prison.estate) }
 
     it_behaves_like 'disallows untrusted ips'
 
