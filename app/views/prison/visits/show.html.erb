@@ -15,19 +15,19 @@
       <div class="column-one-third">
         <span class="text-secondary"><%= t('status', scope: :shared) %></span>
         <h2 class="bold-medium">
-          <%=  @visit.processing_state.capitalize %>
+          <%= @visit.processing_state.capitalize %>
         </h2>
       </div>
       <div class="column-one-third">
         <span class="text-secondary"><%= t('visit_date', scope: :shared) %></span>
         <h2 class="bold-medium">
-          <%=  @visit.slots.first.to_date.to_s(:short_nomis) %>
+          <%= @visit.slots.first.to_date.to_s(:short_nomis) %>
         </h2>
       </div>
       <div class="column-one-third">
         <span class="text-secondary"><%= t('time_slot', scope: :shared) %></span>
         <h2 class="bold-medium">
-          <%=  format_slot_times(@visit.slots.first) %>
+          <%= format_slot_times(@visit.slots.first) %>
         </h2>
       </div>
     </div>
@@ -50,13 +50,12 @@
       </thead>
       <tbody>
         <tr>
-          <td><%=  @visit.prisoner_full_name %></td>
-          <td><%=  @visit.prisoner_number %></td>
-          <td><%=  @visit.prisoner_date_of_birth.to_s(:short_nomis) %></td>
+          <td><%= @visit.prisoner_full_name %></td>
+          <td><%= @visit.prisoner_number %></td>
+          <td><%= @visit.prisoner_date_of_birth.to_s(:short_nomis) %></td>
         </tr>
       </tbody>
     </table>
-
   </div>
 </div>
 
