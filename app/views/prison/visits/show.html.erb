@@ -79,3 +79,26 @@
     <% end %>
   </tbody>
 </table>
+
+<% if @visit.can_cancel? %>
+  <h3 class="heading-medium"><%= t('.cancel_title') %></h3>
+  <p><%= t('.cancel_description') %></p>
+  <div class='grid-row'>
+    <div class='column-one-half'>
+      <%= form_tag prison_cancel_visit_path(@visit, locale: 'en'), method: :delete, class: 'form' do -%>
+        <fieldset>
+          <% Cancellation::STAFF_REASONS.each_with_index do |reason, index| %>
+            <label class="block-label" for="cancellation_reason_<%= reason %>">
+              <%= radio_button_tag 'cancellation_reason', reason, index.zero? %>
+              <%= t(".#{reason}") %>
+            </label>
+            <br/>
+          <% end %>
+        </fieldset>
+        <div class='form-group'>
+          <%= submit_tag t('.cancel_button'), class: 'button' %>
+        </div>
+      <% end -%>
+    </div>
+  </div>
+<% end %>

@@ -74,6 +74,11 @@ en:
         what_we_will_tell: What we’ll tell the visitor
       show:
         title: Visit details
+        cancel_title: Cancel this visit
+        cancel_description: If this visit can't no longer take place, you can cancel it. This will email the visitor to let them know.
+        cancel_button: Cancel visit
+        slot_unavailable: The date is no longer available.
+        prisoner_moved: The prisoner has moved.
       visit_date_section:
         title: Visit date
         choice_html: "Choice %{n}: <strong>%{date}</strong>"
