@@ -355,6 +355,7 @@ DEPENDENCIES
   govuk_elements_rails (>= 1.1.2)
   govuk_frontend_toolkit (>= 4.6.1)
   govuk_template (~> 0.17.0)
+  highline
   jbuilder
   jquery-ui-rails
   kramdown
