@@ -228,3 +228,7 @@ en:
       slot_unavailable: None of the dates and times chosen were available
       visitor_banned: A visitor has been banned
       visitor_not_on_list: A visitor is not on the contact list
+  devise:
+    sessions:
+      new:
+        sign_in: Sign in
