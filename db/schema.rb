@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603081312) do
+ActiveRecord::Schema.define(version: 20160610101017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,18 @@ ActiveRecord::Schema.define(version: 20160603081312) do
 
   add_index "rejections", ["visit_id"], name: "index_rejections_on_visit_id", unique: true, using: :btree
 
+  create_table "users", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "email",               default: "", null: false
+    t.string   "encrypted_password",  default: "", null: false
+    t.datetime "remember_created_at"
+    t.uuid     "estate_id",                        null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["estate_id"], name: "index_users_on_estate_id", unique: true, using: :btree
+
   create_table "visit_state_changes", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "visit_state"
     t.uuid     "visit_id",    null: false
@@ -139,6 +151,7 @@ ActiveRecord::Schema.define(version: 20160603081312) do
   add_foreign_key "cancellations", "visits"
   add_foreign_key "prisons", "estates"
   add_foreign_key "rejections", "visits"
+  add_foreign_key "users", "estates"
   add_foreign_key "visitors", "visits"
   add_foreign_key "visits", "prisoners"
   add_foreign_key "visits", "prisons"

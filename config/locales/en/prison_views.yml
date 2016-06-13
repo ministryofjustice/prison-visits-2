@@ -11,14 +11,14 @@ en:
         processed: Processed visits
         print_visits: Print visits
         current: "Current prison:"
-        change: Change
+        sign_out: Sign out
       index:
         title: Choose a prison
       processed:
         title: Processed visits
         filter_form_hint: By prisoner number eg A1234BC
         view_link: View
-      show:
+      unprocessed:
         process_link: View
         title: Requested visits
         no_visits: There are currently no visit requests

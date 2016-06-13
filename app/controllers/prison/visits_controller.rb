@@ -1,6 +1,7 @@
 class Prison::VisitsController < ApplicationController
   helper CalendarHelper
   before_action :authorize_prison_request
+  before_action :authenticate_user!, only: :show
 
   def process_visit
     @booking_response = BookingResponse.new(visit: visit)
@@ -28,8 +29,11 @@ class Prison::VisitsController < ApplicationController
   end
 
   def show
-    @visit = visit
-    @estate = @visit.prison.estate
+    @visit = Visit.joins(prison: :estate).
+             where(estates: { id: current_user.estate_id }).
+             find(params[:id])
+
+    @estate = current_user.estate
   end
 
   def cancel

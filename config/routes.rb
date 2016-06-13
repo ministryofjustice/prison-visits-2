@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get '/', to: redirect('/staff')
+  devise_for :users
+  root to: 'staff_info#index'
 
   match 'exception', to: 'errors#test', via: %i[ get post ]
 
@@ -41,10 +42,9 @@ Rails.application.routes.draw do
     end
 
     scope controller: :dashboards do
-      get '/', action: :index, as: 'dashboards_root'
-      get '/:estate_id', action: :show, as: 'estate_dashboard'
-      get '/:estate_id/processed', action: :processed, as: 'processed_visits'
-      get '/:estate_id/print_visits', action: :print_visits, as: 'print_visits'
+      get '/inbox', action: :unprocessed, as: 'unprocessed_visits'
+      get '/processed', action: :processed, as: 'processed_visits'
+      get '/print_visits', action: :print_visits, as: 'print_visits'
     end
   end
 

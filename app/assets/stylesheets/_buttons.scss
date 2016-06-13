@@ -1,0 +1,14 @@
+.button-link {
+  background: none;
+  border: none;
+  color: $link-colour;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  &:hover {
+    color: $link-hover-colour;
+  }
+  &:visited {
+    color: $link-visited-colour;
+  }
+}

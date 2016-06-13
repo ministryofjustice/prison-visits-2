@@ -4,7 +4,9 @@ ruby '2.3.0'
 gem 'rails', '~> 4.2.3'
 
 gem 'connection_pool'
+gem 'devise'
 gem 'excon'
+gem 'highline', require: false
 gem 'jbuilder'
 gem 'kramdown'
 gem 'lograge'

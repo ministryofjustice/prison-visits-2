@@ -7,6 +7,7 @@ class StaffInfoController < ApplicationController
   TIMEOUT = 2
 
   before_action :authorize_prison_request
+  skip_before_action :store_current_location
 
   def index
     @content = fetch('/').body
