@@ -1,5 +1,7 @@
 <%= render 'prison/dashboards/banner' %>
-<a class="float-right" href="javascript:history.back();"><%= t('back_to_results', scope: :shared) %></a>
+<% if @visit.can_cancel? %>
+  <a class="float-right" href="#cancel"><%= t('.cancel', scope: :shared) %></a>
+<% end %>
 
 <% content_for :header do %>
   <%= t('.title') %>
@@ -15,19 +17,19 @@
       <div class="column-one-third">
         <span class="text-secondary"><%= t('status', scope: :shared) %></span>
         <h2 class="bold-medium">
-          <%=  @visit.processing_state.capitalize %>
+          <%= @visit.processing_state.capitalize %>
         </h2>
       </div>
       <div class="column-one-third">
         <span class="text-secondary"><%= t('visit_date', scope: :shared) %></span>
         <h2 class="bold-medium">
-          <%=  @visit.slots.first.to_date.to_s(:short_nomis) %>
+          <%= @visit.slots.first.to_date.to_s(:short_nomis) %>
         </h2>
       </div>
       <div class="column-one-third">
         <span class="text-secondary"><%= t('time_slot', scope: :shared) %></span>
         <h2 class="bold-medium">
-          <%=  format_slot_times(@visit.slots.first) %>
+          <%= format_slot_times(@visit.slots.first) %>
         </h2>
       </div>
     </div>
@@ -50,13 +52,12 @@
       </thead>
       <tbody>
         <tr>
-          <td><%=  @visit.prisoner_full_name %></td>
-          <td><%=  @visit.prisoner_number %></td>
-          <td><%=  @visit.prisoner_date_of_birth.to_s(:short_nomis) %></td>
+          <td><%= @visit.prisoner_full_name %></td>
+          <td><%= @visit.prisoner_number %></td>
+          <td><%= @visit.prisoner_date_of_birth.to_s(:short_nomis) %></td>
         </tr>
       </tbody>
     </table>
-
   </div>
 </div>
 
@@ -80,3 +81,26 @@
     <% end %>
   </tbody>
 </table>
+
+<% if @visit.can_cancel? %>
+  <h3 class="heading-medium" id="cancel"><%= t('.cancel_title') %></h3>
+  <p><%= t('.cancel_description') %></p>
+  <div class='grid-row'>
+    <div class='column-one-half'>
+      <%= form_tag prison_cancel_visit_path(@visit, locale: 'en'), method: :delete, class: 'form' do -%>
+        <fieldset>
+          <% Cancellation::STAFF_REASONS.each_with_index do |reason, index| %>
+            <label class="block-label" for="cancellation_reason_<%= reason %>">
+              <%= radio_button_tag 'cancellation_reason', reason, index.zero? %>
+              <%= t(".#{reason}") %>
+            </label>
+            <br/>
+          <% end %>
+        </fieldset>
+        <div class='form-group'>
+          <%= submit_tag t('.cancel_button'), class: 'button' %>
+        </div>
+      <% end -%>
+    </div>
+  </div>
+<% end %>

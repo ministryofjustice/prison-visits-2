@@ -73,13 +73,23 @@ RSpec.describe Prison::VisitsController, type: :controller do
         locale: 'en'
     end
 
-    it_behaves_like 'disallows untrusted ips'
-
-    it { is_expected.to redirect_to(prison_deprecated_visit_path(visit)) }
-
     it 'cancels the visit' do
       expect { subject }.
         to change { visit.reload.processing_state }.to('cancelled')
+    end
+
+    it_behaves_like 'disallows untrusted ips'
+
+    context 'when there is a user logged in' do
+      before do
+        allow(controller).to receive(:current_user).and_return(double(User))
+      end
+
+      it { is_expected.to redirect_to(prison_visit_path(visit)) }
+    end
+
+    context "when there isn't a user logged in" do
+      it { is_expected.to redirect_to(prison_deprecated_visit_path(visit)) }
     end
 
     context 'when the visit is already cancelled' do
