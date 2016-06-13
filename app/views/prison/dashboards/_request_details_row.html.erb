@@ -1,6 +1,14 @@
 <tr class="hidden-row hide">
   <td colspan="9" class="request-details">
     <div class="request-row-details">
+      <% visit.slots.each_with_index do |slot, i| %>
+        <dl>
+          <dt><%= t('.choice', number: ActiveSupport::Inflector.ordinalize(i+1)) %></dt>
+          <dd><%= slot.to_date.to_s(:short_nomis) %><br><%= format_slot_times(slot) %></dd>
+        </dl>
+      <% end %>
+    </div>
+    <div class="request-row-details push-top">
       <dl>
         <dt><%= t('lead_visitor', scope: :shared) %></dt>
         <dd><%= visit.principal_visitor.first_name %> <%= visit.principal_visitor.last_name %></dd>
@@ -19,8 +27,7 @@
       </dl>
     </div>
     <% if visit.visitors.size > 1 %>
-    <hr>
-    <div class="request-row-details">
+    <div class="request-row-details push-top">
       <dl>
         <dt><%= t('other_visitors', scope: :shared) %></dt>
       </dl>

@@ -1,13 +1,14 @@
 <%= render 'banner' %>
 <%= render 'navigation' %>
 
-<h2 class="heading-large"><%= t('.title') %></h2>
+<h2 class="heading-large"><%= @estate.name %> <%= t('.title') %></h2>
 
 <% if @requested_visits.any? %>
 
   <% @requested_visits.group_by {|v| v.created_at.to_date}.each do |date, booking| %>
-    <h3 class="heading-medium"><%= date.to_s(:short) %></h3>
-    <table class="table--hover">
+    <span class="text-secondary">Requested on</span>
+    <h3 class="bold-medium"><%= date.to_s(:short) %></h3>
+    <table class="table--hover push-bottom push-top--half">
       <caption class="visuallyhidden"><%= t('.title') %></caption>
       <thead>
         <tr>
@@ -17,7 +18,7 @@
           <th><%= t('dob', scope: :shared) %></th>
           <th><%= t('visit_date', scope: :shared) %></th>
           <th class="col-time"><%= t('time_slot', scope: :shared) %></th>
-          <th><%= t('no_of_visitors', scope: :shared) %></th>
+          <th><%= t('visitors', scope: :shared) %></th>
           <th><%= t('requested', scope: :shared) %></th>
           <th class="col-actions"><%= t('actions', scope: :shared) %></th>
         </tr>

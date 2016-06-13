@@ -3,7 +3,8 @@
 }
 .request-row-details {
   clear: left;
-  cursor: normal;
+  height: auto;
+  overflow: hidden;
   dl {
     @include core-16;
     float: left;

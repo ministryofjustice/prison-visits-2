@@ -7,7 +7,7 @@ en:
       already_cancelled: The visit is no longer cancellable
     dashboards:
       navigation:
-        requested: Requested visits
+        requested: Inbox
         processed: Processed visits
         print_visits: Print visits
         current: "Current prison:"
@@ -18,9 +18,11 @@ en:
         title: Processed visits
         filter_form_hint: By prisoner number eg A1234BC
         view_link: View
+      request_details_row:
+        choice: "%{number} Choice"
       unprocessed:
         process_link: View
-        title: Requested visits
+        title: Inbox
         no_visits: There are currently no visit requests
       print_visits:
         visit_date: Visit date
@@ -213,7 +215,6 @@ en:
     email_address: Email address
     lead_visitor: Lead visitor
     name: Name
-    no_of_visitors: No. of visitors
     no_visits: There are currently no visits
     not_all_visits: Not all visits are shown
     open_close: Open/Close
