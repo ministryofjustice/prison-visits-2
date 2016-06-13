@@ -1,5 +1,7 @@
 <%= render 'prison/dashboards/banner' %>
-<a class="float-right" href="javascript:history.back();"><%= t('back_to_results', scope: :shared) %></a>
+<% if @visit.can_cancel? %>
+  <a class="float-right" href="#cancel"><%= t('.cancel', scope: :shared) %></a>
+<% end %>
 
 <% content_for :header do %>
   <%= t('.title') %>
@@ -81,7 +83,7 @@
 </table>
 
 <% if @visit.can_cancel? %>
-  <h3 class="heading-medium"><%= t('.cancel_title') %></h3>
+  <h3 class="heading-medium" id="cancel"><%= t('.cancel_title') %></h3>
   <p><%= t('.cancel_description') %></p>
   <div class='grid-row'>
     <div class='column-one-half'>

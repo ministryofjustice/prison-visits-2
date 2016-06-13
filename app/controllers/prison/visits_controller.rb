@@ -45,7 +45,7 @@ class Prison::VisitsController < ApplicationController
       flash[:notice] = t('already_cancelled', scope: [:prison, :flash])
     end
 
-    redirect_to visit_page(visit)
+    redirect_to visit_page(@visit)
   end
 
 private
