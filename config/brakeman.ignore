@@ -1,6 +1,43 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "a9c7da07bef903ef75214122da61d8eb8a761a53e65d0ec5f6257a3b56d7e892",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/prison/visits_controller.rb",
+      "line": 11,
+      "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(visit_page(BookingResponse.new(:visit => visit).visit))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Prison::VisitsController",
+        "method": "process_visit"
+      },
+      "user_input": "BookingResponse.new(:visit => visit).visit",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "000ec2b11dfa993c085c2bd6603794de8567c67c0c41f3b5dbc4cb95d5186163",
+      "message": "Unescaped parameter value",
+      "file": "app/views/staff_info/show.html.erb",
+      "line": 3,
+      "link": "http://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "markdown(fetch(params.values_at(:page, :format).compact.join(\".\")).body)",
+      "render_path": [{"type":"controller","class":"StaffInfoController","method":"show","line":22,"file":"app/controllers/staff_info_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "staff_info/show"
+      },
+      "user_input": "params.values_at(:page, :format).compact.join(\".\")",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "2b3a1157063993c962dd2b41351e4e24a0f2be5a63f818f13ee2d8a5b964f3f2",
@@ -18,24 +55,6 @@
       "user_input": "params[:status_code]",
       "confidence": "Weak",
       "note": "The controller has a lookup table of acceptable render templates"
-    },
-    {
-      "warning_type": "Cross Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "000ec2b11dfa993c085c2bd6603794de8567c67c0c41f3b5dbc4cb95d5186163",
-      "message": "Unescaped parameter value",
-      "file": "app/views/staff_info/show.html.erb",
-      "line": 3,
-      "link": "http://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "markdown(fetch(params.values_at(:page, :format).compact.join(\".\")).body)",
-      "render_path": [{"type":"controller","class":"StaffInfoController","method":"show","line":21,"file":"app/controllers/staff_info_controller.rb"}],
-      "location": {
-        "type": "template",
-        "template": "staff_info/show"
-      },
-      "user_input": "params.values_at(:page, :format).compact.join(\".\")",
-      "confidence": "Weak",
-      "note": ""
     },
     {
       "warning_type": "Dynamic Render Path",
@@ -133,6 +152,6 @@
       "note": ""
     }
   ],
-  "updated": "2016-05-03 14:06:37 +0100",
+  "updated": "2016-06-14 09:33:02 +0100",
   "brakeman_version": "3.1.3"
 }

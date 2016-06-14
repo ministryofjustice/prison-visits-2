@@ -2,6 +2,11 @@
   <%= t('.title') %>
 <% end %>
 
+<%# Processing a booking could be done as a non logged in / off user during the trial %>
+<% if current_user %>
+  <%= render 'prison/dashboards/navigation' %>
+<% end %>
+
 <%= render('people_box') %>
 
 <div class="processing-form confirmations">
