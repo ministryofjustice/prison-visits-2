@@ -61,8 +61,8 @@ en:
           </ul>
         submit: Send email
       people_box:
-        prisoner: "Prisoner first name:"
-        prisoner: "Prisoner last name:"
+        prisoner_first_name: "Prisoner first name:"
+        prisoner_last_name: "Prisoner last name:"
         number: "Number:"
         date_of_birth: "Date of birth:"
         visitor_first_name: "Visitor %{n} (first name):"
