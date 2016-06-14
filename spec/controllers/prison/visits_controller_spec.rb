@@ -85,7 +85,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
         allow(controller).to receive(:current_user).and_return(double(User))
       end
 
-      it { is_expected.to redirect_to(prison_visit_path(visit)) }
+      it { is_expected.to redirect_to(prison_visit_show_path(visit)) }
     end
 
     context "when there isn't a user logged in" do
