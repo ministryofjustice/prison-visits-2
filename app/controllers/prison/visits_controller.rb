@@ -8,7 +8,7 @@ class Prison::VisitsController < ApplicationController
 
     unless @booking_response.processable?
       flash[:notice] = t('already_processed', scope: [:prison, :flash])
-      redirect_to prison_deprecated_visit_path(visit)
+      redirect_to visit_page(@booking_response.visit)
     end
   end
 
