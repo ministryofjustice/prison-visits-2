@@ -6,6 +6,9 @@ en:
       visit_cancelled: The visit has been cancelled
       already_cancelled: The visit is no longer cancellable
     dashboards:
+      banner:
+        beta_html: |
+          <span>This is a new service – <a href='%{link}' target='_blank' rel='external'>your feedback<span class='visuallyhidden'> (link opens in a new browser window)</span></a> will help us to improve it.</span>
       navigation:
         requested: Requested visits
         processed: Processed visits
@@ -206,7 +209,6 @@ en:
   shared:
     actions: Actions
     additional_visitors: Additional visitors
-    beta_text: This is a new service – only online visits are shown on this page.
     back_to_results: Back to results
     dob: Date of birth
     email_address: Email address
