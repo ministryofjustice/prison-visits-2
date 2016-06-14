@@ -6,6 +6,9 @@ gem 'rails', '~> 4.2.3'
 gem 'connection_pool'
 gem 'devise'
 gem 'excon'
+gem 'haikunator',
+  require: false,
+  git: 'git@github.com:usmanbashir/haikunator.git'
 gem 'highline', require: false
 gem 'jbuilder'
 gem 'kramdown'
