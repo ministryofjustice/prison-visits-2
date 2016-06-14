@@ -1,0 +1,16 @@
+.request-details {
+  padding: 15px 15px 15px 40px;
+}
+.request-row-details {
+  clear: left;
+  height: auto;
+  overflow: hidden;
+  dl {
+    @include core-16;
+    float: left;
+    width: 25%;
+  }
+  dt {
+    @include bold-16;
+  }
+}

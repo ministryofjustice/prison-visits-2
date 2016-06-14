@@ -32,7 +32,7 @@
 @import 'elements/layout';
 @import 'elements/elements-typography';
 @import 'elements/buttons';
-// @import 'elements/icons'
+@import 'elements/icons';
 @import 'elements/lists';
 @import 'elements/tables';
 @import 'elements/details';
@@ -53,9 +53,11 @@
 // Application
 @import "buttons";
 @import "helpers";
+@import "icons";
 @import "moj-overrides";
 @import "navigation";
 @import "notification";
+@import "request-details";
 @import "tag";
 
 // Candidates for re-usable components

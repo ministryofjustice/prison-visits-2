@@ -13,6 +13,9 @@ table {
   }
   td {
     @include core-16;
+    .icon {
+      display: block;
+    }
   }
   .long {
     word-break: break-word;
@@ -21,12 +24,17 @@ table {
     min-width: 80px;
   }
   &.table--hover {
-    tr:hover {
+    tbody>tr:not(.hidden-row):hover {
       td {
         background-color: $highlight-colour;
-        cursor: pointer;
       }
     }
+  }
+  tr.hide {
+    display: none;
+  }
+  tr.show {
+    display: table-row;
   }
 }
 

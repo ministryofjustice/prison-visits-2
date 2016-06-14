@@ -1,36 +1,32 @@
 <%= render 'banner' %>
 <%= render 'navigation' %>
 
-<h2 class="heading-large"><%= t('.title') %></h2>
+<h2 class="heading-large"><%= @estate.name %> <%= t('.title') %></h2>
 
 <% if @requested_visits.any? %>
 
   <% @requested_visits.group_by {|v| v.created_at.to_date}.each do |date, booking| %>
-    <h3 class="heading-medium"><%= date.to_s(:short) %></h3>
-    <table class="table--hover">
+    <span class="text-secondary">Requested on</span>
+    <h3 class="bold-medium"><%= date.to_s(:short) %></h3>
+    <table class="table--hover push-bottom push-top--half">
       <caption class="visuallyhidden"><%= t('.title') %></caption>
       <thead>
         <tr>
+          <th></th>
           <th><%= t('prisoner_number', scope: :shared) %></th>
           <th><%= t('prisoner_name', scope: :shared) %></th>
-          <th><%= t('lead_visitor', scope: :shared) %></th>
+          <th><%= t('dob', scope: :shared) %></th>
           <th><%= t('visit_date', scope: :shared) %></th>
           <th class="col-time"><%= t('time_slot', scope: :shared) %></th>
+          <th><%= t('visitors', scope: :shared) %></th>
           <th><%= t('requested', scope: :shared) %></th>
           <th class="col-actions"><%= t('actions', scope: :shared) %></th>
         </tr>
       </thead>
       <tbody>
         <% booking.each do |visit| %>
-          <tr onclick="window.document.location='<%= prison_visit_path(visit) %>';">
-            <td><%= visit.prisoner_number %></td>
-            <td class="long"><%= visit.prisoner_full_name %></td>
-            <td class="long"><%= visit.visitor_full_name %></td>
-            <td><%= visit.slots.first.to_date.to_s(:short_nomis) %></td>
-            <td><%= format_slot_times(visit.slots.first) %></td>
-            <td><%= visit.created_at.to_s(:time) %></td>
-            <td><%= link_to t('.process_link'), prison_visit_path(visit) %></td>
-          </tr>
+          <%= render 'request_summary_row', visit: visit %>
+          <%= render 'request_details_row', visit: visit %>
         <% end %>
       </tbody>
     </table>

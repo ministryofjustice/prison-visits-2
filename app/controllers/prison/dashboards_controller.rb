@@ -10,6 +10,8 @@ class Prison::DashboardsController < ApplicationController
                         from_estate(user_estate).
                         order('created_at asc').
                         to_a
+
+    @estate = user_estate
   end
 
   def processed

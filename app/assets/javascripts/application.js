@@ -22,3 +22,4 @@
 //= require modules/moj.RevealAdditional
 //= require modules/moj.checkbox-summary
 //= require modules/moj.datepicker
+//= require modules/moj.RevealNextRow
