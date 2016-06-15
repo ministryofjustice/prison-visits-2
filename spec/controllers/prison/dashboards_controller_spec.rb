@@ -4,13 +4,13 @@ require_relative '../untrusted_examples'
 RSpec.describe Prison::DashboardsController, type: :controller do
   let(:estate) { FactoryGirl.create(:estate) }
   let(:user) { FactoryGirl.create(:user, estate: estate) }
-  subject { get :unprocessed, estate_id: estate.finder_slug }
+  subject { get :inbox, estate_id: estate.finder_slug }
 
   it_behaves_like 'disallows untrusted ips'
 
-  describe '#unprocessed' do
+  describe '#inbox' do
     let(:estate) { FactoryGirl.create(:estate) }
-    subject { get :unprocessed, estate_id: estate.finder_slug }
+    subject { get :inbox, estate_id: estate.finder_slug }
 
     context "when logged in" do
       before do

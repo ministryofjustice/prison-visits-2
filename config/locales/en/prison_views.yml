@@ -7,7 +7,7 @@ en:
       already_cancelled: The visit is no longer cancellable
     dashboards:
       navigation:
-        requested: Inbox
+        inbox: Inbox
         processed: Processed visits
         print_visits: Print visits
         current: "Current prison:"
@@ -20,7 +20,7 @@ en:
         view_link: View
       request_details_row:
         choice: "%{number} Choice"
-      unprocessed:
+      inbox:
         process_link: View
         title: Inbox
         no_visits: There are currently no visit requests

@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     end
 
     scope controller: :dashboards do
-      get '/inbox', action: :unprocessed, as: 'unprocessed_visits'
+      get '/inbox', action: :inbox, as: 'inbox'
       get '/processed', action: :processed, as: 'processed_visits'
       get '/print_visits', action: :print_visits, as: 'print_visits'
     end

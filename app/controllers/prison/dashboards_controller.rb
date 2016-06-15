@@ -4,7 +4,7 @@ class Prison::DashboardsController < ApplicationController
   before_action :authorize_prison_request
   before_action :authenticate_user!
 
-  def unprocessed
+  def inbox
     @requested_visits = Visit.includes(:prisoner, :visitors).
                         with_processing_state(:requested).
                         from_estate(user_estate).
