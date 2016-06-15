@@ -10,7 +10,31 @@ RSpec.describe Prison::VisitsController, type: :controller do
     end
 
     context 'when is processable' do
-      it { is_expected.to render_template('process_visit') }
+      context 'when is part of the dashboard trial' do
+        before do
+          allow(Rails.configuration).
+            to receive(:dashboard_trial).
+            and_return([visit.prison.estate.name])
+        end
+
+        context 'and there is no logged in user' do
+          it { is_expected.to_not be_successful }
+        end
+
+        context 'and there is a logged in user' do
+          let(:user) { FactoryGirl.create(:user, estate: visit.prison.estate) }
+
+          before do
+            sign_in user
+          end
+
+          it { is_expected.to render_template('process_visit') }
+        end
+      end
+
+      context "when it isn't part of the dashboard trial" do
+        it { is_expected.to render_template('process_visit') }
+      end
     end
 
     context 'when is unprocessble' do

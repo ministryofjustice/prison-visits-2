@@ -2,6 +2,7 @@ class Prison::VisitsController < ApplicationController
   helper CalendarHelper
   before_action :authorize_prison_request
   before_action :authenticate_user!, only: :show
+  before_action :require_login_during_trial, only: :process_visit
 
   def process_visit
     @booking_response = BookingResponse.new(visit: visit)
@@ -49,6 +50,12 @@ class Prison::VisitsController < ApplicationController
   end
 
 private
+
+  def require_login_during_trial
+    if visit.prison.estate.name.in?(Rails.configuration.dashboard_trial)
+      authenticate_user!
+    end
+  end
 
   def visit_page(visit)
     if current_user
