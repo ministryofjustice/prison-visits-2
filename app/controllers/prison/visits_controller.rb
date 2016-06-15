@@ -33,8 +33,6 @@ class Prison::VisitsController < ApplicationController
     @visit = Visit.joins(prison: :estate).
              where(estates: { id: current_user.estate_id }).
              find(params[:id])
-
-    @estate = current_user.estate
   end
 
   def cancel
