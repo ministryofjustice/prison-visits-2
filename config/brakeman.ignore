@@ -3,19 +3,38 @@
     {
       "warning_type": "Redirect",
       "warning_code": 18,
-      "fingerprint": "a9c7da07bef903ef75214122da61d8eb8a761a53e65d0ec5f6257a3b56d7e892",
+      "fingerprint": "0e98734f1d2a0fdb30d31e821b8ab492552002e66c1678a1df33488145be1a37",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/prison/visits_controller.rb",
-      "line": 11,
+      "line": 12,
       "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(visit_page(BookingResponse.new(:visit => visit).visit))",
+      "code": "redirect_to(visit_page(BookingResponse.new(:visit => load_visit).visit))",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "Prison::VisitsController",
         "method": "process_visit"
       },
-      "user_input": "BookingResponse.new(:visit => visit).visit",
+      "user_input": "BookingResponse.new(:visit => load_visit).visit",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "4bc61047faecb30d90c9112eab4626ac184f777f4a7b34c29659a933e7caab04",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/prison/visits_controller.rb",
+      "line": 22,
+      "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(visit_page(BookingResponse.new(booking_response_params).visit))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Prison::VisitsController",
+        "method": "update"
+      },
+      "user_input": "BookingResponse.new(booking_response_params).visit",
       "confidence": "Weak",
       "note": ""
     },
@@ -34,6 +53,25 @@
         "template": "staff_info/show"
       },
       "user_input": "params.values_at(:page, :format).compact.join(\".\")",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "a9c7da07bef903ef75214122da61d8eb8a761a53e65d0ec5f6257a3b56d7e892",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/prison/visits_controller.rb",
+      "line": 11,
+      "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(visit_page(BookingResponse.new(:visit => visit).visit))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Prison::VisitsController",
+        "method": "process_visit"
+      },
+      "user_input": "BookingResponse.new(:visit => visit).visit",
       "confidence": "Weak",
       "note": ""
     },
@@ -152,6 +190,6 @@
       "note": ""
     }
   ],
-  "updated": "2016-06-14 09:33:02 +0100",
+  "updated": "2016-06-15 14:01:34 +0100",
   "brakeman_version": "3.1.3"
 }
