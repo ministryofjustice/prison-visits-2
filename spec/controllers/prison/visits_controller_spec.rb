@@ -55,14 +55,46 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
     it_behaves_like 'disallows untrusted ips'
 
-    context 'when invalid' do
-      it { is_expected.to render_template('process_visit') }
+    context "when isn't part of the dashboard trial" do
+      context 'when invalid' do
+        it { is_expected.to render_template('process_visit') }
+      end
+
+      context 'when valid' do
+        let(:booking_response) { { selection: 'slot_0', reference_no: 'none' } }
+
+        it { is_expected.to redirect_to(prison_deprecated_visit_path(visit)) }
+      end
     end
 
-    context 'when valid' do
-      let(:booking_response) { { selection: 'slot_0', reference_no: 'none' } }
+    context 'when is part of the dashboard trial' do
+      before do
+        allow(Rails.configuration).
+          to receive(:dashboard_trial).
+          and_return([visit.prison.estate.name])
+      end
 
-      it { is_expected.to redirect_to(prison_deprecated_visit_path(visit)) }
+      context 'and there is no logged in user' do
+        it { is_expected.to_not be_successful }
+      end
+
+      context 'and there is a logged in user' do
+        let(:user) { FactoryGirl.create(:user, estate: visit.prison.estate) }
+
+        before do
+          sign_in user
+        end
+
+        context 'when invalid' do
+          it { is_expected.to render_template('process_visit') }
+        end
+
+        context 'when valid' do
+          let(:booking_response) { { selection: 'slot_0', reference_no: 'none' } }
+
+          it { is_expected.to redirect_to(prison_visit_show_path(visit)) }
+        end
+      end
     end
   end
 

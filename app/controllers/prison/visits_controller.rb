@@ -2,7 +2,7 @@ class Prison::VisitsController < ApplicationController
   helper CalendarHelper
   before_action :authorize_prison_request
   before_action :authenticate_user!, only: :show
-  before_action :require_login_during_trial, only: :process_visit
+  before_action :require_login_during_trial, only: %w[process_visit update]
 
   def process_visit
     @booking_response = BookingResponse.new(visit: load_visit)
@@ -19,7 +19,7 @@ class Prison::VisitsController < ApplicationController
       @visit = @booking_response.visit
       BookingResponder.new(@booking_response).respond!
       flash[:notice] = t('process_thank_you', scope: [:prison, :flash])
-      redirect_to prison_deprecated_visit_path(@visit)
+      redirect_to visit_page(@visit)
     else
       render :process_visit
     end
