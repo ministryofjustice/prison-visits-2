@@ -6,6 +6,26 @@
   margin: 0;
 }
 
+.phase-banner-beta {
+  a {
+    text-decoration: none;
+  }
+}
+
+a[rel="external"]{
+  &:after {
+    background-position: right 4px;
+    height: 12px;
+    margin-left: 6px;
+    width: 12px;
+  }
+  &:hover {
+    &:after {
+      background-position: right -384px;
+    }
+  }
+}
+
 table {
   th {
     @include bold-16;
