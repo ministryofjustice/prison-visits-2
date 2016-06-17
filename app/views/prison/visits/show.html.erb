@@ -1,6 +1,6 @@
 <%= render 'prison/dashboards/banner' %>
 <% if @visit.can_cancel? %>
-  <a class="float-right" href="#cancel"><%= t('.cancel', scope: :shared) %></a>
+  <a class="float-right" href="#cancel"><%= t('cancel', scope: :shared) %></a>
 <% end %>
 
 <% content_for :header do %>
@@ -12,35 +12,48 @@
 
 <div class="grid-row">
   <div class="column-two-thirds">
+    <span class="text-secondary"><%= t('status', scope: :shared) %></span>
+    <h2 class="bold-medium">
+      <%= @visit.processing_state.capitalize %>
+      <% if @visit.rejection %>
+        <small class="font-xsmall">(<%= t(@visit.rejection_reason, scope: 'shared.rejection_reason') %>)</small>
+      <% end %>
+    </h2>
+  </div>
+</div>
 
-    <div class="grid-row">
-      <div class="column-one-third">
-        <span class="text-secondary"><%= t('status', scope: :shared) %></span>
-        <h2 class="bold-medium">
-          <%= @visit.processing_state.capitalize %>
-        </h2>
-      </div>
-      <div class="column-one-third">
-        <span class="text-secondary"><%= t('visit_date', scope: :shared) %></span>
-        <h2 class="bold-medium">
-          <%= @visit.slots.first.to_date.to_s(:short_nomis) %>
-        </h2>
-      </div>
-      <div class="column-one-third">
-        <span class="text-secondary"><%= t('time_slot', scope: :shared) %></span>
-        <h2 class="bold-medium">
-          <%= format_slot_times(@visit.slots.first) %>
-        </h2>
-      </div>
-    </div>
+<div class="grid-row push-top">
+  <div class="column-quarter">
+    <span class="text-secondary"><%= t('visit_date', scope: :shared) %></span>
+    <h2 class="bold-medium">
+      <%= @visit.slots.first.to_date.to_s(:short_nomis) %>
+    </h2>
+  </div>
+  <div class="column-quarter">
+    <span class="text-secondary"><%= t('time_slot', scope: :shared) %></span>
+    <h2 class="bold-medium">
+      <%= format_slot_times(@visit.slots.first) %>
+    </h2>
+  </div>
+  <div class="column-quarter">
+    <span class="text-secondary"><%= t('requested_on', scope: :shared) %></span>
+      <h2 class="bold-medium">
+        <%= @visit.created_at.to_s(:short) %>
+      </h2>
+  </div>
+  <div class="column-quarter">
+    <span class="text-secondary"><%= t('processed_on', scope: :shared) %></span>
+      <h2 class="bold-medium">
+        <%= @visit.updated_at.to_s(:short) %>
+      </h2>
+  </div>
+</div>
 
-    <% if @visit.rejection %>
-      <p>&nbsp;</p>
-      <p><%= t(@visit.rejection_reason, scope: 'shared.rejection_reason') %></p>
-    <% end %>
+<hr>
 
-    <h3 class="heading-medium"><%= t('prisoner', scope: :shared) %></h3>
-
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <h3 class="bold-medium"><%= t('prisoner', scope: :shared) %></h3>
     <table>
       <caption class="visuallyhidden"><%= t('prisoner', scope: :shared) %></caption>
       <thead>
