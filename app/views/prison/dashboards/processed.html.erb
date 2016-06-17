@@ -33,6 +33,7 @@
         <th><%= t('visit_date', scope: :shared) %></th>
         <th class="col-time"><%= t('time_slot', scope: :shared) %></th>
         <th><%= t('status', scope: :shared) %></th>
+        <th><%= t('requested_on', scope: :shared) %></th>
         <th><%= t('processed_on', scope: :shared) %></th>
         <th class="col-actions"><%= t('actions', scope: :shared) %></th>
       </tr>
@@ -46,6 +47,7 @@
           <td><%= visit.slots.first.to_date.to_s(:short_nomis) %></td>
           <td><%= format_slot_times(visit.slots.first) %></td>
           <td><span class="tag tag-<%= visit.processing_state %>"><%= visit.processing_state.capitalize %></span></td>
+          <td><%= visit.created_at.to_s(:short) %></td>
           <td><%= visit.updated_at.to_s(:short) %></td>
           <td><%= link_to t('.view_link'), prison_visit_show_path(visit) %></td>
         </tr>
