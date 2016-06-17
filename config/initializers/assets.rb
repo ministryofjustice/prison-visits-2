@@ -5,6 +5,7 @@ Rails.application.config.assets.precompile += %w[
   email.css
   back-office.css
   *.png
+  *.svg
   favicon.ico
   metrics.css
   gov.uk_logotype_crown.svg
