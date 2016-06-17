@@ -51,7 +51,7 @@ en:
       process_visit:
         title: Process a visit request
         introduction_html: |
-          <ul>
+          <ul class="list list-bullet">
             <li>
               book the visit in NOMIS first
             </li>
