@@ -111,6 +111,7 @@ dl {
   &.labels {
     dt {
       @include core-19;
+      float: left;
       margin-right: 0.25em;
     }
     dd {

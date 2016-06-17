@@ -66,12 +66,12 @@ en:
           </ul>
         submit: Send email
       people_box:
-        prisoner_first_name: "Prisoner first name:"
-        prisoner_last_name: "Prisoner last name:"
+        prisoner_first_name: "First name:"
+        prisoner_last_name: "Last name:"
         number: "Number:"
         date_of_birth: "Date of birth:"
-        visitor_first_name: "Visitor %{n} (first name):"
-        visitor_last_name: "Visitor %{n} (last name):"
+        visitor_first_name: "First name:"
+        visitor_last_name: "Last name:"
         age: "Age:"
         email_address: "Email:"
         phone_no: "Phone:"
@@ -234,6 +234,7 @@ en:
     view: View
     visit_date: Visit date
     visitors: Visitors
+    visitor_no: Visitor %{n}
     rejection_reason:
       no_adult: There must be at least one adult visitor
       no_allowance: The prisoner has not got any visiting allowance left for the dates chosen
