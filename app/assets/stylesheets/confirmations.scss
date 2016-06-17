@@ -72,7 +72,9 @@ label.BookingCalendar-dateLink {
 }
 
 .group, .panel-indent {
+  height: auto;
   margin: 1em 0;
+  overflow: hidden;
 }
 
 .actions {
