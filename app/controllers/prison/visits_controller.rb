@@ -56,7 +56,7 @@ private
 
   def visit_page(visit)
     if current_user
-      prison_visit_show_path(visit)
+      prison_inbox_path
     else
       prison_deprecated_visit_path(visit)
     end

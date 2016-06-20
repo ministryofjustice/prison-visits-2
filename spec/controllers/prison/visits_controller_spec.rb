@@ -92,7 +92,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
         context 'when valid' do
           let(:booking_response) { { selection: 'slot_0', reference_no: 'none' } }
 
-          it { is_expected.to redirect_to(prison_visit_show_path(visit)) }
+          it { is_expected.to redirect_to(prison_inbox_path) }
         end
       end
     end
@@ -143,7 +143,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
         allow(controller).to receive(:current_user).and_return(user)
       end
 
-      it { is_expected.to redirect_to(prison_visit_show_path(visit)) }
+      it { is_expected.to redirect_to(prison_inbox_path) }
     end
 
     context "when there isn't a user logged in" do
