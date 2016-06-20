@@ -3,23 +3,7 @@
 
 <h2 class="heading-large"><%= t('.title') %></h2>
 
-<div class='grid-row'>
-  <div class='column-one-half'>
-<%= form_tag prison_processed_visits_path, method: :get, enforce_utf8: false, class: 'form' do -%>
-  <div class="form-group">
-    <%= label_tag "prisoner_number", class: "form-label-bold" do -%>
-      <%= t('search', scope: :shared) %>
-      <span class="form-hint">
-        <%= t('.filter_form_hint') %>
-      </span>
-    <% end %>
-    <%= text_field_tag 'prisoner_number', params[:prisoner_number], class: 'form-control' %>
-    <%= submit_tag t('search', scope: :shared), name: nil, class: 'button' %>
-  </div>
-<% end -%>
-</div>
-</div>
-
+<%= render 'search_form', locals: {search_path: prison_processed_visits_path} %>
 
 <% if @processed_visits.any? %>
 
