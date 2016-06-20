@@ -58,14 +58,17 @@ RSpec.describe ApplicationHelper do
 
   describe 'nav_link' do
     let(:link_text) { 'link_text' }
-    let(:link_path) { 'link/path' }
+    let(:link_path) { 'prison/inbox' }
 
     subject { helper.nav_link(link_text, link_path) }
 
     context 'when is the current page' do
       before do
         allow(helper).
-          to receive(:current_page?).with(link_path).and_return(true)
+          to receive(:params).
+          and_return(controller: 'prison/dashboards',
+                     action: 'inbox',
+                     prisoner_number: 'A1234BC')
       end
 
       it 'adds an active class' do
@@ -76,7 +79,8 @@ RSpec.describe ApplicationHelper do
     context 'when is not the current page' do
       before do
         allow(helper).
-          to receive(:current_page?).with(link_path).and_return(false)
+          to receive(:params).
+          and_return(controller: 'prison/dashboards', action: 'processed')
       end
 
       it 'does not add an active class' do
