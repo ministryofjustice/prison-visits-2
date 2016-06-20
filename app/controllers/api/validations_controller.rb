@@ -15,13 +15,13 @@ module Api
     end
 
     def visitors
-      lead_date_of_birth, date_of_births = validate_visitors_parameters(params)
+      lead_date_of_birth, dates_of_birth = validate_visitors_parameters(params)
       prison = validate_prison_id_parameter(params)
 
       visitors_group = VisitorsValidation.new(
         prison: prison,
         lead_date_of_birth: lead_date_of_birth,
-        date_of_births: date_of_births)
+        dates_of_birth: dates_of_birth)
 
       render status: 200, json: {
         validation: visitors_response(visitors_group)

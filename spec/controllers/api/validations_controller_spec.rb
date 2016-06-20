@@ -37,6 +37,19 @@ RSpec.describe Api::ValidationsController do
       end
     end
 
+    context 'when there are too many adults' do
+      let(:dobs) { [lead_dob, lead_dob, lead_dob, lead_dob] }
+
+      it { is_expected.to be_successful }
+
+      it 'returns a body' do
+        subject
+        expect(parsed_body).
+          to eq('validation' => { 'valid' => false,
+                                  'errors' => ['too_many_adults'] })
+      end
+    end
+
     context 'when the prison_id is missing' do
       let(:prison_id) { nil }
 
