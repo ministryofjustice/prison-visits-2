@@ -1,0 +1,18 @@
+<div class='grid-row'>
+  <div class='column-one-half'>
+    <%= form_tag @search_path, method: :get, enforce_utf8: false, class: 'form search' do -%>
+      <div class="form-group">
+        <%= label_tag "prisoner_number", class: "form-label-bold" do -%>
+          <%= t('search', scope: :shared) %>
+          <span class="form-hint">
+            <%= t('filter_form_hint', scope: :shared) %>
+          </span>
+        <% end %>
+        <%= text_field_tag 'prisoner_number', params[:prisoner_number], class: 'form-control' %>
+        <%= submit_tag t('search', scope: :shared), name: nil, class: 'button' %>
+        <br/>
+        <%= link_to t('reset', scope: :shared), @search_path, class: 'reset' %>
+      </div>
+    <% end -%>
+  </div>
+</div>

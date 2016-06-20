@@ -1,0 +1,38 @@
+<table class="table--hover push-bottom push-top--half">
+  <caption class="visuallyhidden"><%= t('title', scope: [:prison, :dashboards, :inbox]) %></caption>
+  <thead>
+    <tr>
+      <th></th>
+      <th><%= t('prisoner_number', scope: :shared) %></th>
+      <th><%= t('prisoner_name', scope: :shared) %></th>
+      <th><%= t('dob', scope: :shared) %></th>
+      <th><%= t('visit_date', scope: :shared) %></th>
+      <th class="col-time"><%= t('time_slot', scope: :shared) %></th>
+      <th><%= t('visitors', scope: :shared) %></th>
+      <th><%= t('requested', scope: :shared) %></th>
+      <th class="col-actions"><%= t('actions', scope: :shared) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% visits.each do |visit| %>
+      <tr>
+        <td>
+          <a href="javascript:void(0);" class="js-RevealNextRow" title="<%= t('open_close', scope: :shared) %>">
+            <i class="icon icon-closed">
+              <span class="visuallyhidden"><%= t('open_close', scope: :shared) %></span>
+            </i>
+          </a>
+        </td>
+        <td><%= visit.prisoner_number %></td>
+        <td class="long"><%= visit.prisoner_full_name %></td>
+        <td class="long"><%= visit.prisoner_date_of_birth.to_s(:short_nomis) %></td>
+        <td><%= visit.slots.first.to_date.to_s(:short_nomis) %></td>
+        <td><%= format_slot_times(visit.slots.first) %></td>
+        <td><%= visit.visitors.size %></td>
+        <td><%= visit.created_at.to_s(:short) %></td>
+        <td><%= link_to t('.view', scope: :shared), prison_visit_path(visit) %></td>
+      </tr>
+      <%= render 'request_details_row', visit: visit %>
+    <% end %>
+  </tbody>
+</table>

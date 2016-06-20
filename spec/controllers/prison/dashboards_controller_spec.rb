@@ -10,6 +10,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
   describe '#inbox' do
     let(:estate) { FactoryGirl.create(:estate) }
+    let(:prison) { FactoryGirl.create(:prison, estate: estate) }
     subject { get :inbox, estate_id: estate.finder_slug }
 
     context "when logged in" do
@@ -18,6 +19,21 @@ RSpec.describe Prison::DashboardsController, type: :controller do
       end
 
       it { is_expected.to be_successful }
+
+      context 'filtering by prisoner number' do
+        subject do
+          get :inbox,
+            estate_id: estate.finder_slug,
+            prisoner_number: visit.prisoner_number
+        end
+
+        let!(:visit) { FactoryGirl.create(:visit, prison: prison) }
+
+        it 'returns the visit for that prisoner' do
+          subject
+          expect(assigns[:requested_visits].size).to eq(1)
+        end
+      end
     end
 
     context "when logged out" do

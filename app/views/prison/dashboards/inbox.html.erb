@@ -3,33 +3,14 @@
 
 <h2 class="heading-large"><%= @estate.name %> <%= t('.title') %></h2>
 
+<%= render 'search_form', locals: {search_path: prison_inbox_path} %>
+
 <% if @requested_visits.any? %>
 
-  <% @requested_visits.group_by {|v| v.created_at.to_date}.each do |date, booking| %>
-    <span class="text-secondary">Requested on</span>
-    <h3 class="bold-medium"><%= date.to_s(:short) %></h3>
-    <table class="table--hover push-bottom push-top--half">
-      <caption class="visuallyhidden"><%= t('.title') %></caption>
-      <thead>
-        <tr>
-          <th></th>
-          <th><%= t('prisoner_number', scope: :shared) %></th>
-          <th><%= t('prisoner_name', scope: :shared) %></th>
-          <th><%= t('dob', scope: :shared) %></th>
-          <th><%= t('visit_date', scope: :shared) %></th>
-          <th class="col-time"><%= t('time_slot', scope: :shared) %></th>
-          <th><%= t('visitors', scope: :shared) %></th>
-          <th><%= t('requested', scope: :shared) %></th>
-          <th class="col-actions"><%= t('actions', scope: :shared) %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% booking.each do |visit| %>
-          <%= render 'request_summary_row', visit: visit %>
-          <%= render 'request_details_row', visit: visit %>
-        <% end %>
-      </tbody>
-    </table>
+  <% if params[:prisoner_number] %>
+    <%= render 'inbox_search_results', visits: @requested_visits %>
+  <% else %>
+    <%= render 'inbox_results', visits: @requested_visits %>
   <% end %>
 
 <% else %>
