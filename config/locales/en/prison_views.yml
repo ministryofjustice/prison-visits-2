@@ -226,6 +226,7 @@ en:
     prisoner_number: Prisoner no.
     processed_on: Processed on
     requested: Requested
+    requested_on: Requested on
     reset: Reset
     status: Status
     search: Search

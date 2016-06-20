@@ -5,11 +5,8 @@ class Prison::DashboardsController < ApplicationController
   before_action :authenticate_user!
 
   def inbox
-    @requested_visits = Visit.includes(:prisoner, :visitors).
-                        with_processing_state(:requested).
-                        from_estate(user_estate).
-                        order('created_at asc').
-                        to_a
+    @requested_visits = load_requested_visits(user_estate,
+      params[:prisoner_number])
 
     @estate = user_estate
   end
@@ -39,6 +36,20 @@ private
 
   def user_estate
     current_user.estate
+  end
+
+  def load_requested_visits(estate, prisoner_number)
+    visits = Visit.preload(:prisoner, :visitors).
+             with_processing_state(:requested).
+             from_estate(estate).
+             order('created_at asc')
+
+    if prisoner_number.present?
+      number = Prisoner.normalise_number(prisoner_number)
+      visits = visits.joins(:prisoner).where(prisoners: { number: number })
+    end
+
+    visits.to_a
   end
 
   def load_processed_visits(estate, prisoner_number)
