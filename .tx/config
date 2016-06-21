@@ -1,11 +1,11 @@
 [main]
 host = https://www.transifex.com
 
-[prison-visit-booking.defaults]
-file_filter = config/locales/<lang>/defaults.yml
-source_file = config/locales/en/defaults.yml
-source_lang = en
-type = YAML
+[prison-visit-booking.pvb2-defaults]
+file_filter = config/locales/<lang>/pvb2-defaults.yml
+source_file = config/locales/en/pvb2-defaults.yml
+source_lang = en_GB
+type = YML
 
 [prison-visit-booking.mailers]
 file_filter = config/locales/<lang>/mailers.yml
