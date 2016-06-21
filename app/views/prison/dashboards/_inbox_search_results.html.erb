@@ -30,7 +30,7 @@
         <td><%= format_slot_times(visit.slots.first) %></td>
         <td><%= visit.visitors.size %></td>
         <td><%= visit.created_at.to_s(:short) %></td>
-        <td><%= link_to t('.view', scope: :shared), prison_visit_path(visit) %></td>
+        <td><%= link_to t('view', scope: :shared), prison_visit_path(visit) %></td>
       </tr>
       <%= render 'request_details_row', visit: visit %>
     <% end %>
