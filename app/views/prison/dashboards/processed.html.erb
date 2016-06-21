@@ -1,7 +1,8 @@
 <%= render 'banner' %>
 <%= render 'navigation' %>
-
-<h2 class="heading-large"><%= t('.title') %></h2>
+<% content_for :header do %>
+  <%= t('.title') %>
+<% end %>
 
 <%= render 'search_form', locals: {search_path: prison_processed_visits_path} %>
 
