@@ -71,6 +71,7 @@ cy:
         ymweld cyn dyddiad dod i ben y lwfans. '
       allowance_will_renew: Bydd lwfans ymweld llawn (VO) %{prisoner} yn cael ei adnewyddu
         ar %{date}.
+      no_adult: There must be at least one adult visitor.
       prisoner_details_incorrect: 'Nid yw''n bosib i''r ymweliad ddigwydd oherwydd
         nad ydych wedi rhoi''r wybodaeth gywir ar gyfer y carcharor. E.e. enw''r carcharor,
         rhif neu mae''r dyddiad geni yn anghywir.  Cysylltwch â''r carcharor i gael
@@ -107,7 +108,7 @@ cy:
       details: Manylion y cais i ymweld
       feedback_html: Eisiau help neu wneud cwyn? Os oes gennych gwestiwn, neu os oes
         arnoch angen help gyda'r gwasanaeth trefnu ymweliadau ar-lein, cysylltwch
-        â ni <a href="%{url}"> os gwelwch yn dda</a>
+        â ni <a href="%{url}">os gwelwch yn dda</a>.
       prisoner: 'Carcharor:'
       prisoner_number: 'Rhif y carcharor:'
       request:
@@ -131,3 +132,45 @@ cy:
         cael eu prosesu. '
       where_to_check_status_html: Gallwch edrych i weld os yw eich ymweliad wedi'i
         drefnu ar y dudalen <a href="%{url}">statws ymweliad</a>.
+    cancelled:
+      subject: 'CANCELLED: Your %{prison_name} prison visit for %{date}'
+      salutation: Annwyl %{name},
+      slot_unavailable_html: We’re sorry but %{date} is no longer available. Your
+        visit to %{prisoner} at %{prison} has been cancelled.
+      any_questions_html: Os oes gennych unrhyw gwestiynau, ewch i wefan y carchar
+        yn <a href="%{url}">prison website</a> neu ffoniwch y carchar ar <strong>%{phone_no}</strong>.
+      visit_id: 'Rhif adnabod ar gyfer yr ymweliad:'
+    visit_info:
+      what_to_bring_title: Beth ddylech ddod efo chi pan fyddwch yn ymweld
+      id_requirements_html: "<p>\n  Gwnewch yn siŵr eich bod yn dod â cherdyn neu
+        ddogfen adnabod gyda chi.  Gall hyn fod yn UN\n o’r pethau canlynol :\n</p>\n\n<ul>\n
+        \ <li>\n    pasbort, gan gynnwys pasbortau tramor, a phasbortau sydd wedi
+        dod i ben lle\n    gellir eich adnabod o’r llun \n  </li>\n  <li>\n    cerdyn
+        adnabod (gan gynnwys cardiau adnabod Ewropeaidd)\n  </li>\n  <li>\n    trwydded
+        yrru\n  </li>\n  <li>\n    trwydded breswylio fiometrig\n  </li>\n  <li>\n
+        \   llyfr budd-daliadau\n  </li>\n  <li>\n    llun tocyn teithio am ddim ar
+        drafnidiaeth gyhoeddus yr henoed a roddwyd gan\n    awdurdod lleol\n  </li>\n
+        \ <li>\n    cerdyn adnabod cyflogwr neu fyfyriwr, ond dim ond os oes llun
+        a'i\n    fod yn dangos eich enw ac enw'r cyflogwr neu sefydliad addysgiadol
+        \n    yn glir\n  </li>\n</ul>\n\n<p>\n  Os nad oes gennych unrhyw un o'r cardiau/dogfennau
+        adnabod hyn, gallwch ddod â DAU o'r \n  dogfennau canlynol:\n</p>\n\n<ul>\n
+        \ <li>\n    tystysgrif geni neu dystysgrif briodas\n  </li>\n  <li>\n    llyfr
+        siec neu gerdyn credyd neu ddebyd\n  </li>\n  <li>\n    cerdyn adnabod cyflogwr
+        neu fyfyriwr heb lun\n  </li>\n  <li>\n    cerdyn 'profi oedran' person ifanc\n
+        \ </li>\n  <li>\n    cerdyn aelodaeth undeb llafur neu Undeb Cenedlaethol
+        y Myfyrwyr  \n  </li>\n  <li>\n    llyfr rhent\n  </li>\n  <li>\n    cerdyn
+        adnabod gwladolyn tramor neu gerdyn preswylio \n  </li>\n</ul>\n"
+      any_questions: 'Os oes gennych unrhyw gwestiynau ynglŷn â gofynion cardiau adnabod,
+        cysylltwch â’r carchar. '
+      bringing_child_title: 'Os ydych chi''n dod â phlentyn rhywun arall '
+      bringing_child_body: Bydd arnoch angen llythyr gan rieni'r plentyn hwnnw yn
+        rhoi caniatâd i chi fynd â'u plentyn.
+      what_to_expect_title: Beth i'w ddisgwyl pan fyddwch yn ymweld â charchar
+      what_to_expect_body: Byddwch yn cael eich chwilio cyn mynd i mewn i'r ystafell
+        ymweld.  Efallai y bydd staff y carchar yn edrych yn eich pocedi, yn cyffwrdd
+        â chi, ac yn gofyn i chi gerdded trwy borth datgelu metel.  Hefyd, efallai
+        y defnyddir cŵn i ddod o hyd i unrhyw sylweddau anghyfreithlon.
+      what_not_to_bring_title: Beth i beidio â dod gyda chi
+      what_not_to_bring_body_html: Peidiwch â dod ag unrhyw eitemau gwaharddedig neu
+        anghyfreithlon i'r carchar.  Mae rhagor o wybodaeth ar beth allwch ddod efo
+        chi ar dudalen Carchar <a href="%{url}">%{prison}.
