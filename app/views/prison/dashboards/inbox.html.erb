@@ -1,7 +1,8 @@
 <%= render 'banner' %>
 <%= render 'navigation' %>
-
-<h2 class="heading-large"><%= @estate.name %> <%= t('.title') %></h2>
+<% content_for :header do %>
+  <%= @estate.name %> <%= t('.title') %>
+<% end %>
 
 <%= render 'search_form', locals: {search_path: prison_inbox_path} %>
 
