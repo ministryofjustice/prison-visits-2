@@ -1,4 +1,4 @@
-<tr class="hidden-row hide">
+<tr class="hidden-row hide" aria-hidden="true">
   <td colspan="9" class="request-details">
     <div class="request-row-details">
       <% visit.slots.each_with_index do |slot, i| %>
@@ -30,21 +30,17 @@
     <div class="request-row-details push-top">
       <dl>
         <dt><%= t('other_visitors', scope: :shared) %></dt>
+        <% visit.visitors[1..-1].each do |visitor| %>
+          <dd><%= visitor.first_name %> <%= visitor.last_name %></dd>
+        <% end %>
       </dl>
       <dl>
         <dt><%= t('dob', scope: :shared) %> (<%= t('age', scope: :shared) %>)</dt>
+        <% visit.visitors[1..-1].each do |visitor| %>
+          <dd><%= visitor.date_of_birth.to_s(:short_nomis) %> (<%= visitor.age %>)</dd>
+        <% end %>
       </dl>
     </div>
-    <% visit.visitors[1..-1].each do |visitor| %>
-      <div class="request-row-details">
-        <dl>
-          <dd><%= visitor.first_name %> <%= visitor.last_name %></dd>
-        </dl>
-        <dl>
-          <dd><%= visitor.date_of_birth.to_s(:short_nomis) %> (<%= visitor.age %>)</dd>
-        </dl>
-      </div>
-    <% end %>
     <% end %>
   </td>
 </tr>

@@ -24,13 +24,18 @@
     bindEvents: function() {
       var self = this;
       this.$el.on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
         $(this).find('.icon').toggleClass('icon-closed, icon-open');
-        self.showNextRow(self);
+        self.toggleNextRow(self);
       });
     },
 
-    showNextRow: function(self){
+    toggleNextRow: function(self){
       self.$nextRow.toggleClass('show');
+      self.$nextRow.attr('aria-hidden', function (i, attr) {
+          return attr == 'true' ? 'false' : 'true'
+      });
     }
 
   };
