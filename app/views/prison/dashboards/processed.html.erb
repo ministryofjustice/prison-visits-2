@@ -25,7 +25,7 @@
     </thead>
     <tbody>
       <% @processed_visits.each do |visit| %>
-        <tr onclick="window.document.location='<%= prison_visit_show_path(visit) %>';">
+        <tr>
           <td><%= visit.prisoner_number %><br/><%= visit.prisoner_full_name %></td>
           <td class="long"><%= visit.visitor_full_name %></td>
           <td><%= visit.contact_phone_no %></td>
@@ -34,7 +34,7 @@
           <td><span class="tag tag-<%= visit.processing_state %>"><%= visit.processing_state.capitalize %></span></td>
           <td><%= visit.created_at.to_s(:short) %></td>
           <td><%= visit.updated_at.to_s(:short) %></td>
-          <td><%= link_to t('.view_link'), prison_visit_show_path(visit) %></td>
+          <td><%= link_to t('.view_link'), prison_visit_show_path(visit), {:title => t('.view_link')} %></td>
         </tr>
       <% end %>
     </tbody>
