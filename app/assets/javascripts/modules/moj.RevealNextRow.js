@@ -36,6 +36,9 @@
       self.$nextRow.attr('aria-hidden', function (i, attr) {
           return attr == 'true' ? 'false' : 'true'
       });
+      self.$nextRow.attr('aria-expanded', function (i, attr) {
+          return attr == 'true' ? 'false' : 'true'
+      });
     }
 
   };
