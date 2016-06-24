@@ -1,6 +1,6 @@
 <tr>
   <td>
-    <a href="javascript:void(0);" class="js-RevealNextRow" title="<%= t('open_close', scope: :shared) %>">
+    <a href="#" class="open-close js-RevealNextRow" title="<%= t('open_close', scope: :shared) %>">
       <i class="icon icon-closed">
         <span class="visuallyhidden"><%= t('open_close', scope: :shared) %></span>
       </i>
@@ -13,5 +13,5 @@
   <td><%= format_slot_times(visit.slots.first) %></td>
   <td><%= visit.visitors.size %></td>
   <td><%= visit.created_at.to_s(:time) %></td>
-  <td><%= link_to t('view', scope: :shared), prison_visit_path(visit) %></td>
+  <td><%= link_to t('view', scope: :shared), prison_visit_path(visit), {:title => t('view', scope: :shared)} %></td>
 </tr>

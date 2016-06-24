@@ -1,12 +1,19 @@
+.open-close {
+  display: block;
+  height: 0.65em;
+  margin: 5px;
+  padding: 5px;
+  width: 0.65em;
+}
 .icon-closed {
   background: image-url('accordion-closed.png');
   background: image-url('accordion-closed.svg'),
     linear-gradient(transparent, transparent);
   background-repeat: no-repeat;
   background-size: 100%;
-  height: 10px;
-  margin: 0 5px;
-  width: 10px;
+  background-position: center;
+  height: 100%;
+  width: 100%;
 }
 .icon-open {
   background: image-url('accordion-open.png');
@@ -14,7 +21,7 @@
     linear-gradient(transparent, transparent);
   background-repeat: no-repeat;
   background-size: 100%;
-  height: 10px;
-  margin: 0 5px;
-  width: 10px;
+  background-position: center;
+  height: 100%;
+  width: 100%;
 }

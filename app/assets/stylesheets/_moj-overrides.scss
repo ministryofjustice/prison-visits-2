@@ -12,6 +12,9 @@
   }
 }
 
+a:hover {
+  text-decoration: none;
+}
 a[rel="external"]{
   &:after {
     background-position: right 4px;
