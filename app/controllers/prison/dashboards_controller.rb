@@ -24,15 +24,25 @@ class Prison::DashboardsController < ApplicationController
   end
 
   def print_visits
-    @visit_date = if params[:visit_date].present?
-                    Date.parse(params[:visit_date])
-                  end
+    @visit_date = parse_date(params[:visit_date])
 
     @data = EstateVisitQuery.new(user_estate).
             visits_to_print_by_slot(@visit_date)
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        render csv: BookedVisitsCsvExporter.new(@data),
+               filename: 'booked_visits'
+      end
+    end
   end
 
 private
+
+  def parse_date(date)
+    Date.parse(date) if date
+  end
 
   def user_estate
     current_user.estate
