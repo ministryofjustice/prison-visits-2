@@ -1,7 +1,7 @@
 class Prison::VisitsController < ApplicationController
   helper CalendarHelper
   before_action :authorize_prison_request
-  before_action :authenticate_user!, only: %i[ show nomis_cancelled ]
+  before_action :authenticate_user, only: %i[ show nomis_cancelled ]
   before_action :require_login_during_trial, only: %w[process_visit update]
 
   def process_visit
@@ -57,7 +57,7 @@ private
   def require_login_during_trial
     estate = unscoped_visit.prison.estate
     if estate.name.in?(Rails.configuration.dashboard_trial)
-      authenticate_user!
+      authenticate_user
     end
   end
 
