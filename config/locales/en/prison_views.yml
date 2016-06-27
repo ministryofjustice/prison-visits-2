@@ -101,7 +101,7 @@ en:
             Choose this option if:
           </p>
 
-          <ul>
+          <ul class="list list-bullet">
             <li>
               the prisoner has restrictions on their visits
             </li>
@@ -143,7 +143,7 @@ en:
         privileged_allowance_available_wording_html: |
           <p>
             However, you can book a weekday visit with visiting allowance valid
-            until <span class="date">[DATE NOT CHOSEN]</date>.
+            until <span class="date">[DATE NOT CHOSEN]</span>.
             The visit must be taken before the allowance expires.
           </p>
       issue_with_prisoner_section:

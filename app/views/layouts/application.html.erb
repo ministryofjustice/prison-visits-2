@@ -5,9 +5,7 @@
 <% content_for :head do %>
   <%= csrf_meta_tag %>
   <%= favicon_link_tag %>
-<% end %>
 
-<% content_for :stylesheets do %>
   <%= stylesheet_link_tag('application', media: 'all') %>
   <!--[if IE 8]>
     <%= stylesheet_link_tag('application-ie8', media: 'all') %>
@@ -19,7 +17,7 @@
 <% end %>
 
 <% content_for :content do %>
-  <main>
+  <main id="content">
     <%= yield :banner %>
     <%= yield :navigation %>
     <header>
@@ -35,6 +33,7 @@
     <% end %>
 
     <%= yield %>
+
   </main>
 <% end %>
 
@@ -46,7 +45,7 @@
 
 <% content_for :body_end do %>
   <script>
-    moj.i18n = <%= raw(javascript_i18n.to_json) %>;
+    var javascript_i18n = <%= raw(javascript_i18n.to_json) %>;
   </script>
   <%= javascript_include_tag('application') %>
   <script>
@@ -65,4 +64,4 @@
   <% end %>
 <% end %>
 
-<%= render(template: 'layouts/moj_template') %>
+<%= render(template: 'layouts/govuk_template') %>

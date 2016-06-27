@@ -19,15 +19,17 @@
       html: { class: 'js-SubmitOnce' }
     ) do |f|
   %>
-<%= render('visit_date_section', f: f) %>
-<%= render('visiting_allowance_section', f: f) %>
-<%= render('issue_with_prisoner_section', f: f) %>
-<%= render('issue_with_visitors_section', f: f) %>
+  <fieldset>
+    <%= render('visit_date_section', f: f) %>
+    <%= render('visiting_allowance_section', f: f) %>
+    <%= render('issue_with_prisoner_section', f: f) %>
+  </fieldset>
+  <%= render('issue_with_visitors_section', f: f) %>
 
-<div class="actions">
-  <div class="primary-actions">
-    <%= f.submit(t('.submit'), class: 'button button-primary') %>
+  <div class="actions">
+    <div class="primary-actions">
+      <%= f.submit(t('.submit'), class: 'button button-primary') %>
+    </div>
   </div>
-</div>
     <% end %>
 </div>
