@@ -6,9 +6,16 @@ class ApplicationController < ActionController::Base
   before_action :do_not_cache
   before_action :set_locale
   before_action :store_request_id
-  before_action :store_current_location, unless: :devise_controller?
 
   helper LinksHelper
+  helper_method :current_user
+
+  def current_user
+    @_current_user ||= begin
+      user_id = session[:current_user_id]
+      user_id ? User.find(user_id) : nil
+    end
+  end
 
 private
 
@@ -22,6 +29,13 @@ private
     unless Rails.configuration.prison_ip_matcher.include?(request.remote_ip)
       Rails.logger.info "Unauthorized request from #{request.remote_ip}"
       fail ActionController::RoutingError, 'Not Found'
+    end
+  end
+
+  def authenticate_user
+    unless current_user
+      session[:redirect_path] = request.original_fullpath
+      redirect_to '/auth/mojsso'
     end
   end
 
@@ -66,16 +80,5 @@ private
     append_to_log(request_id: RequestStore.store[:request_id])
     RequestStore.store[:request_id] = request.uuid
     Raven.extra_context(request_id: RequestStore.store[:request_id])
-  end
-
-  def after_sign_in_path_for(resource)
-    stored_location_for(resource) || prison_inbox_path
-  end
-
-  # override the devise helper to store the current location so we can
-  # redirect to it after loggin in or out. This override makes signing in
-  # and signing up work automatically.
-  def store_current_location
-    store_location_for(:user, request.url)
   end
 end

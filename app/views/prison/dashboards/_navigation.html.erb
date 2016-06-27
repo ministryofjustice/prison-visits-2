@@ -6,7 +6,7 @@
       <%= nav_link t('.print_visits'), prison_print_visits_path %>
 
       <li class="float-right">
-        <%= form_tag destroy_user_session_path, method: :delete, enforce_utf8: false, class: 'form' do -%>
+        <%= form_tag session_path, method: :delete, enforce_utf8: false, class: 'form' do -%>
           <%= current_user.email %> (<input class="button-link" type="submit" value="<%= t('.sign_out') %>">)
           <% end %>
       </li>
