@@ -32,7 +32,8 @@ en:
         show: Show
         print: Print
         no_visits: "No visits on %{date}"
-        filter_list: Filter to generate print lists
+        search_list: Search to generate print lists
+        download_csv: Download CSV
     visits:
       calendar:
         today: Today

@@ -21,6 +21,7 @@
 
 <% if @visit_date %>
   <% if @data.any? %>
+    <%= link_to t('.download_csv'), prison_print_visits_path(visit_date: params[:visit_date] ,format: :csv) %>
     <a class="hidden--print" href="javascript:print()"><%= t('.print') %></a>
     <% @data.each_with_index do |(slot, visits), index| %>
       <% if !index.zero? %>
@@ -64,5 +65,5 @@
     <p class="lede"><%= t('.no_visits', date: @visit_date.to_s(:short_nomis)) %></p>
   <% end %>
 <% else %>
-  <p class="lede"><%= t('.filter_list') %></p>
+  <p class="lede"><%= t('.search_list') %></p>
 <% end %>
