@@ -4,7 +4,6 @@ ruby '2.3.0'
 gem 'rails', '~> 4.2.3'
 
 gem 'connection_pool'
-gem 'devise'
 gem 'excon'
 gem 'highline', require: false
 gem 'jbuilder'
@@ -12,6 +11,8 @@ gem 'kramdown'
 gem 'lograge'
 gem 'logstash-event'
 gem 'netaddr'
+# Pinned to 1.3.1 due to https://github.com/intridea/omniauth-oauth2/issues/81
+gem 'omniauth-oauth2', '1.3.1'
 gem 'pg'
 gem 'premailer-rails'
 gem 'puma'
