@@ -94,7 +94,9 @@ RSpec.describe Prison::DashboardsController, type: :controller do
     let(:slot_granted1) { '2016-01-01T09:00/10:00' }
     let(:slot_granted2) { '2016-01-01T12:00/14:00' }
 
-    subject { get :print_visits, estate_id: estate.finder_slug, visit_date: visit_date }
+    subject do
+      get :print_visits, estate_id: estate.finder_slug, visit_date: visit_date
+    end
 
     context "when logged out" do
       let(:visit_date) { nil }
@@ -136,6 +138,17 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
           expect(assigns[:data][visit1.slot_granted].size).to eq(1)
           expect(assigns[:data][visit2.slot_granted].size).to eq(1)
+        end
+
+        context 'as a csv' do
+          subject do
+            get :print_visits,
+              estate_id: estate.finder_slug,
+              visit_date: visit_date,
+              format: :csv
+          end
+
+          it { is_expected.to be_successful }
         end
       end
     end
