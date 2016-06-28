@@ -16,6 +16,14 @@
   <%= t('.cookies_intro') %>
 <% end %>
 
+<% content_for :proposition_header do %>
+  <div class="header-proposition">
+    <div class="content">
+      <a href="/" id="proposition-name"><%= t('app_title') %></a>
+    </div>
+  </div>
+<% end %>
+
 <% content_for :content do %>
   <main id="content">
     <%= yield :banner %>
