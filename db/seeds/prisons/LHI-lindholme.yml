@@ -18,3 +18,5 @@ recurring:
   - 1415-1600
   sun:
   - 1415-1600
+unbookable:
+- 2016-07-20
