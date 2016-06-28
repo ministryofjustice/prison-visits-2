@@ -1,83 +1,86 @@
-<h2><%= t('.title') %></h2>
+<fieldset>
+  <legend class="visuallyhidden"><%= t('.title') %></legend>
+  <h2><%= t('.title') %></h2>
 
-<%= error_container(f, :selection) do %>
-  <label class="block-label">
-    <%=
-      f.check_box(
-        :visitor_not_on_list,
-        class: 'js-Conditional',
-        data: { 'conditional-el': 'visitor_not_on_list_details' }
-      )
-    %>
-    <%= t('.visitor_not_on_list') %>
-  </label>
-<% end %>
-
-<div id="visitor_not_on_list_details" class="panel-indent CheckboxSummary">
-  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
-
-  <blockquote>
-    <%= t('.visitor_not_on_list_wording_html') %>
-  </blockquote>
-
-  <% f.object.visitors.each do |visitor| %>
+  <%= error_container(f, :selection) do %>
     <label class="block-label">
       <%=
-        check_box_tag(
-          'booking_response[unlisted_visitor_ids][]',
-          visitor.id,
-          f.object.unlisted_visitor_ids.include?(visitor.id),
-          data: { checkbox_summary_text: visitor.anonymized_name }
+        f.check_box(
+          :visitor_not_on_list,
+          class: 'js-Conditional',
+          data: { 'conditional-el': 'visitor_not_on_list_details' }
         )
       %>
-      <%=
-        t(
-          '.visitor_not_on_list_label',
-          name: visitor.full_name,
-          date: format_date_of_birth(visitor.date_of_birth)
-        )
-      %>
+      <%= t('.visitor_not_on_list') %>
     </label>
   <% end %>
-</div>
 
-<%= error_container(f, :selection) do %>
-  <label class="block-label">
-    <%=
-      f.check_box(
-        :visitor_banned,
-        class: 'js-Conditional',
-        data: { 'conditional-el': 'visitor_banned_details' }
-      )
-    %>
-    <%= t('.visitor_banned') %>
-  </label>
-<% end %>
+  <div id="visitor_not_on_list_details" class="panel panel-border-narrow CheckboxSummary">
+    <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
 
-<div id="visitor_banned_details" class="panel-indent CheckboxSummary">
-  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+    <blockquote>
+      <%= t('.visitor_not_on_list_wording_html') %>
+    </blockquote>
 
-  <blockquote>
-    <%= t('.visitor_banned_wording_html') %>
-  </blockquote>
+    <% f.object.visitors.each do |visitor| %>
+      <label class="block-label">
+        <%=
+          check_box_tag(
+            'booking_response[unlisted_visitor_ids][]',
+            visitor.id,
+            f.object.unlisted_visitor_ids.include?(visitor.id),
+            data: { checkbox_summary_text: visitor.anonymized_name }
+          )
+        %>
+        <%=
+          t(
+            '.visitor_not_on_list_label',
+            name: visitor.full_name,
+            date: format_date_of_birth(visitor.date_of_birth)
+          )
+        %>
+      </label>
+    <% end %>
+  </div>
 
-  <% f.object.visitors.each do |visitor| %>
+  <%= error_container(f, :selection) do %>
     <label class="block-label">
       <%=
-        check_box_tag(
-          'booking_response[banned_visitor_ids][]',
-          visitor.id,
-          f.object.banned_visitor_ids.include?(visitor.id),
-          data: { checkbox_summary_text: visitor.anonymized_name }
+        f.check_box(
+          :visitor_banned,
+          class: 'js-Conditional',
+          data: { 'conditional-el': 'visitor_banned_details' }
         )
       %>
-      <%=
-        t(
-          '.visitor_banned_label',
-          name: visitor.full_name,
-          date: format_date_of_birth(visitor.date_of_birth)
-        )
-      %>
+      <%= t('.visitor_banned') %>
     </label>
   <% end %>
-</div>
+
+  <div id="visitor_banned_details" class="panel panel-border-narrow CheckboxSummary">
+    <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+    <blockquote>
+      <%= t('.visitor_banned_wording_html') %>
+    </blockquote>
+
+    <% f.object.visitors.each do |visitor| %>
+      <label class="block-label">
+        <%=
+          check_box_tag(
+            'booking_response[banned_visitor_ids][]',
+            visitor.id,
+            f.object.banned_visitor_ids.include?(visitor.id),
+            data: { checkbox_summary_text: visitor.anonymized_name }
+          )
+        %>
+        <%=
+          t(
+            '.visitor_banned_label',
+            name: visitor.full_name,
+            date: format_date_of_birth(visitor.date_of_birth)
+          )
+        %>
+      </label>
+    <% end %>
+  </div>
+</fieldset>

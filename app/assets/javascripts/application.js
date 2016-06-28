@@ -1,15 +1,17 @@
 // Vendor assets
+//= require jquery
+//= require jquery_ujs
+
+// GOVUK modules
+//= require govuk_toolkit
+//= require govuk/selection-buttons
+//= require moj
 //= require handlebars
 //= require lodash
 //= require jquery-ui-autocomplete
 //= require vendor/modernizr.custom.85598
-//= require dist/javascripts/moj.slot-picker
-//= require dist/javascripts/moj.date-slider
 //= require dest/respond.min
 //= require jquery-ui/datepicker
-
-// GOVUK modules
-//= require govuk/selection-buttons
 
 // MOJ elements
 //= require src/moj.TimeoutPrompt
@@ -23,3 +25,11 @@
 //= require modules/moj.checkbox-summary
 //= require modules/moj.datepicker
 //= require modules/moj.RevealNextRow
+
+(function () {
+  'use strict';
+  delete moj.Modules.devs;
+  var selectionButtons = new GOVUK.SelectionButtons("label input[type='radio'], label input[type='checkbox']");
+  moj.init();
+
+}());

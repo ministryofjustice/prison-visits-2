@@ -1,5 +1,26 @@
-#global-header .header-proposition #proposition-name:hover {
-  border: none;
+#global-header {
+  .header-wrapper {
+    .header-global {
+      float: left;
+      width: 34%;
+      .header-logo {
+        width: 100%;
+      }
+    }
+    .header-proposition {
+      float: left;
+      padding-top: 8px;
+      width: 66%;
+      #proposition-name {
+        display: inline-block;
+        line-height: 1em;
+        &:hover {
+          border-bottom: 1px solid white;
+          text-decoration: none;
+        }
+      }
+    }
+  }
 }
 
 #wrapper {

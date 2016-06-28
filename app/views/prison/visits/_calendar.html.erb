@@ -31,7 +31,7 @@
                     class="BookingCalendar-dateLink"
                     data-date="<%= day %>"
                     for="<%= sanitize_to_id(name) %>_<%= day.iso8601 %>"
-                    href="#date-<%= I18n.l(day, format: :date_internal) %>"
+
                     >
                     <%= radio_button_tag(name, day.iso8601) %>
                   </label>

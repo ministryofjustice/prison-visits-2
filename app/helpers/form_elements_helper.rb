@@ -19,7 +19,7 @@ module FormElementsHelper
   def field_hint(name)
     text = t(".#{name}_hint", default: '')
     if text.present?
-      content_tag(:p, class: 'form-hint') { text }
+      content_tag(:span, class: 'form-hint') { text }
     else
       ''
     end
@@ -39,7 +39,7 @@ private
   def label_first_single_field(form, name, field_method, *options)
     error_container(form, name) {
       join(
-        form.label(name) {
+        form.label(name, class: 'form-label') {
           join(
             t(".#{name}"),
             field_hint(name),

@@ -1,8 +1,9 @@
+<legend class="visuallyhidden"><%= t('.title') %></legend>
 <h2><%= t('.title') %></h2>
 
-<% f.object.slots.each_with_index do |slot, index| %>
-  <%= error_container(f, :selection) do %>
-    <label class="block-label">
+<%= error_container(f, :selection) do %>
+  <% f.object.slots.each_with_index do |slot, index| %>
+    <label class="block-label" for="booking_response_selection_slot_<%= index %>">
       <%=
         f.radio_button(
           :selection, "slot_#{index}",
@@ -18,12 +19,12 @@
   <% end %>
 <% end %>
 
-<div id="selected_slot_details" class="panel-indent">
-  <%= single_field(f, :reference_no, :text_field) %>
+<div id="selected_slot_details" class="panel panel-border-narrow">
+  <%= single_field(f, :reference_no, :text_field, class: 'form-control') %>
 
-  <%= 
+  <%=
     single_field(
-      f, :closed_visit, :check_box, 
+      f, :closed_visit, :check_box,
       class: 'js-Conditional',
       data: { 'conditional-el': 'details_closed_visit' }
     )
@@ -51,7 +52,7 @@
   </label>
 <% end %>
 
-<div id="none_available_details" class="panel-indent">
+<div id="none_available_details" class="panel panel-border-narrow">
   <%= t('.none_available_explanation_html') %>
 
   <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
