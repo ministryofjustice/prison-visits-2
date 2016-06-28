@@ -1,3 +1,6 @@
+# WARNING: Workaround Transifex bug/oddity: rename the locale to en_GB before 
+# pushing, then rename back to en before comitting. Hopefully we'll find a 
+# better solution in time...
 en:
   language: English
   app_title: Visit someone in prison

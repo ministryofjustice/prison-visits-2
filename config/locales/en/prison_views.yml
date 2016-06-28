@@ -1,4 +1,7 @@
 en:
+  layouts:
+    application:
+      cookies_intro: GOV.UK uses cookies to make the site simpler.
   prison:
     flash:
       already_processed: The visit has already been processed

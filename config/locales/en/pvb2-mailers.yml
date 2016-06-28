@@ -166,4 +166,84 @@ en:
         <a href="%{url}">prison website</a> or call the prison on
         <strong>%{phone_no}</strong>.
       visit_id: "Visit ID:"
+    visit_info:
+      what_to_bring_title: What to bring when you visit
+      id_requirements_html: |
+        <p>
+          Please make sure you bring ID with you. This can be ONE of
+          the following:
+        </p>
 
+        <ul>
+          <li>
+            passport, including foreign passports, and expired passports where
+            the photograph is still recognisable
+          </li>
+          <li>
+            identity card (including European identity cards)
+          </li>
+          <li>
+            driving licence
+          </li>
+          <li>
+            biometric residence permit
+          </li>
+          <li>
+            benefits book
+          </li>
+          <li>
+            senior citizen’s public transport photo pass issued by a local
+            authority
+          </li>
+          <li>
+            employer’s or student ID card but only if this has a photo and
+            clearly shows your name and the issuing employer or educational
+            establishment
+          </li>
+        </ul>
+
+        <p>
+          If you don’t have one of these forms of ID, you can bring TWO of
+          the following:
+        </p>
+
+        <ul>
+          <li>
+            birth or marriage certificate
+          </li>
+          <li>
+            cheque book or credit or debit card
+          </li>
+          <li>
+            employer’s pass or ID or student ID card without photo
+          </li>
+          <li>
+            young person’s ‘proof of age’ card
+          </li>
+          <li>
+            trade union or National Students’ Union membership card
+          </li>
+          <li>
+            rent book
+          </li>
+          <li>
+            foreign identity or residents’ card
+          </li>
+        </ul>
+      any_questions: >-
+        If you have any questions about ID requirements, please contact the
+        prison.
+      bringing_child_title: If you’re bringing someone else’s child
+      bringing_child_body: >-
+        You’ll need a letter from that child’s parents giving you permission to
+        accompany their child.
+      what_to_expect_title: What to expect when visiting prison
+      what_to_expect_body: >-
+        You will be searched before entering the prison visiting room. Prison
+        staff may check  your pockets, pat you down and ask you to go through a
+        metal detector. Dogs may also be used to detect illegal substances.
+      what_not_to_bring_title: What not to bring
+      what_not_to_bring_body_html: >-
+        Please don’t bring anything restricted or illegal to the prison. The
+        <a href="%{url}">%{prison} prison page</a> has more information about
+        what you can bring.

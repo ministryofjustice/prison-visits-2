@@ -7,13 +7,13 @@ cy:
       month: Mis
       year: Blwyddyn
     formats:
-      date_of_birth: '%-d %B %Y'
-      date_without_year: '%A %-d %B'
-      day_of_month: '%-e'
-      day_of_week: '%a'
-      short_month_name: '%b'
-      year_and_month_internal: '%Y-%m'
-      date_internal: '%Y-%m-%d'
+      date_of_birth: "%-d %B %Y"
+      date_without_year: "%A %-d %B"
+      day_of_month: "%-e"
+      day_of_week: "%a"
+      short_month_name: "%b"
+      year_and_month_internal: "%Y-%m"
+      date_internal: "%Y-%m-%d"
     day_names:
     - Dydd Sul
     - Dydd Llun
@@ -31,7 +31,7 @@ cy:
     - Gwe
     - Sad
     month_names:
-    - Dim
+    - null
     - Ionawr
     - Chwefror
     - Mawrth
@@ -45,7 +45,7 @@ cy:
     - Tachwedd
     - Rhagfyr
     abbr_month_names:
-    - Dim
+    - null
     - Ion
     - Chwe
     - Maw
@@ -64,37 +64,37 @@ cy:
     - blwyddyn
   time:
     formats:
-      twelve_hour: '%-l:%M%P'
-      twenty_four_hour: '%H:%M'
+      twelve_hour: "%-l:%M%P"
+      twenty_four_hour: "%H:%M"
     am: am
     pm: pm
     hour:
       one: awr
-      other: awr
-      many: awr
       two: awr
+      many: awr
+      other: awr
     minute:
       one: munud
-      other: munud
-      many: munud
       two: munud
+      many: munud
+      other: munud
   formats:
     slot:
       public:
-        full: '%{date} %{time} am %{duration}'
-        begin_only: '%{date} %{time}'
-      staff: '%{date} %{begin} - %{end}'
+        full: "%{date} %{time} am %{duration}"
+        begin_only: "%{date} %{time}"
+      staff: "%{date} %{begin} - %{end}"
     duration:
-      glue: ' '
+      glue: " "
       hours:
-        one: '%{count} awr'
-        other: '%{count} awr'
-        many: '%{count} awr'
-        two: '%{count} awr'
+        one: "%{count} awr"
+        two: "%{count} awr"
+        many: "%{count} awr"
+        other: "%{count} awr"
       minutes:
-        one: '%{count} munud'
-        other: '%{count} munud'
-        many: '%{count} munud'
-        two: '%{count} munud'
+        one: "%{count} munud"
+        two: "%{count} munud"
+        many: "%{count} munud"
+        other: "%{count} munud"
     name:
-      full: '%{first} %{last}'
+      full: "%{first} %{last}"
