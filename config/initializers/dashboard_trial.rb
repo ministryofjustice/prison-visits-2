@@ -1,1 +1,1 @@
-Rails.configuration.dashboard_trial = []
+Rails.configuration.dashboard_trial = %w[ Belmarsh Cardiff Coldingley ]
