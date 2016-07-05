@@ -40,6 +40,7 @@ RSpec.describe BookedVisitsCsvExporter do
       expect(row['Prisoner number']).to eq(booked_visit.prisoner_number)
       expect(row['Slot granted']).
         to eq(instance.format_slot_for_staff(booked_visit.slot_granted))
+      expect(row['Closed visit']).to eq('false')
 
       expect(row['Phone number']).to eq(booked_visit.contact_phone_no)
       expect(row['Email address']).to eq(booked_visit.contact_email_address)
