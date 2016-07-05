@@ -173,7 +173,7 @@ RSpec.feature 'Processing a request', js: true do
   end
 
   scenario 'rejecting a booking when the prisoner has no visiting allowance' do
-    choose 'The prisoner does not have any visiting allowance (VO)'
+    choose 'Prisoner does not have any visiting allowance (VO)'
     check 'Visiting allowance (weekends and weekday visits) (VO) will be renewed:'
     first('input[name="booking_response[allowance_renews_on]"]').click
     check 'If weekday visit (PVO) is possible instead, choose the date PVO expires:'

@@ -27,7 +27,7 @@ en:
         choice: "%{number} Choice"
       inbox:
         process_link: View
-        title: Inbox
+        title: inbox
         no_visits: There are currently no visit requests
       print_visits:
         visit_date: Visit date
@@ -54,16 +54,17 @@ en:
       process_visit:
         title: Process a visit request
         introduction_html: |
+          <p>Make sure you:</p>
           <ul class="list list-bullet">
             <li>
               book the visit in NOMIS first
             </li>
             <li>
-              use this form to send a visit confirmation or visit rejection
+              use this form to send a confirm or reject
               email to the visitor
             </li>
             <li>
-              make sure you select visitors who can’t attend under ‘Issue
+              select visitors who can’t attend under ‘Issue
               with visitors’
             </li>
           </ul>
@@ -77,7 +78,7 @@ en:
         visitor_last_name: "Last name:"
         age: "Age:"
         email_address: "Email:"
-        phone_no: "Phone:"
+        phone_no: "Telephone:"
       shared:
         what_we_will_tell: What we’ll tell the visitor
       show:
@@ -113,8 +114,8 @@ en:
               the prisoner is due to be elsewhere, eg at court
             </li>
             <li>
-              the visit can’t take place because another prisoner is having a
-              visit at the same time and they are incompatible
+              the visit can’t take place because an incompatible prisoner is having a
+              visit at the same time
             </li>
           </ul>
         none_available_wording_html: |
@@ -125,11 +126,11 @@ en:
           </p>
       visiting_allowance_section:
         title: Visiting allowance
-        no_allowance: The prisoner does not have any visiting allowance (VO)
+        no_allowance: Prisoner does not have any visiting allowance (VO)
         no_allowance_wording_html: |
           <p>
-            We’re sorry, but the prisoner you want to visit has not got any
-            visiting allowance left for the dates you’ve chosen.
+            We’re sorry but there is no visiting allowance left for the
+            prisoner you want to visit.
           </p>
         no_allowance_tell_more: >-
           You can also tell the visitor more about the VO and PVO status:
@@ -163,10 +164,9 @@ en:
         prisoner_moved: Prisoner no longer at the prison
         prisoner_moved_wording_html: |
           <p>
-            Your visit cannot take place as the prisoner you want to visit has
-            moved prison. They should contact you about where they are now. You
-            can also use the find a prisoner service
-            (www.gov.uk/find-prisoner).
+            Your visit can't take place as the prisoner has moved prison.
+            They should contact you soon. You can also use the 'find a prisoner'
+            service (www.gov.uk/find-prisoner).
           </p>
       issue_with_visitors_section:
         title: Issue with visitors
@@ -174,13 +174,13 @@ en:
         visitor_not_on_list_wording_html: |
           <h3>If there are other visitors who can visit</h3>
           <p>
-            We will tell them who is not on the list and what they need to do
+            Tell them who is not on the list and what they need to do
           </p>
           <h3>If there are no other visitors who can visit</h3>
           <p>
-            Your visit cannot take place as details for
-            <span class="CheckboxSummary-summary">[VISITOR NAME]</span> don’t
-            match our records or they aren’t on the prisoner’s contact list.
+            You can't visit because details for
+            <span class="CheckboxSummary-summary">[VISITOR NAME]</span> EITHER
+            don’t match our records OR are not on the prisoner’s contact list.
           </p>
           <p>
             Please contact the prisoner and ask them to update their contact
@@ -196,13 +196,13 @@ en:
         visitor_banned_wording_html: |
           <h3>If there are other visitors who can visit</h3>
           <p>
-            We will tell them who is banned and what they need to do
+            Tell them who is banned and what they need to do
           </p>
           <h3>If there are no other visitors who can visit</h3>
           <p>
-            Your visit cannot take place.
-            <span class="CheckboxSummary-summary">[VISITOR NAME]</span> should
-            have received a letter to say that they’re banned from visiting the
+            Your visit can't take place. A letter should have reached
+            <span class="CheckboxSummary-summary">[VISITOR NAME]</span>
+            telling you you're banned from visiting the
             prison at the moment. Get in touch with the prison for more
             information.
           </p>

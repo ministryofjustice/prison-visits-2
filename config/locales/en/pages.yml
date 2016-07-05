@@ -11,9 +11,9 @@ en:
       title: We are experiencing technical difficulties
       body_md: |
         The prison visits booking system is not available right now, but
-        we're working hard to get things up and running again.
+        we're working hard to get things up and running.
 
-        You can try again later or book your visit by phone instead. See the
+        Try again later or book your visit by phone instead. See the
         [prison finder](%{prison_finder_url}) for contact details.
     "503":
       title: We are experiencing technical difficulties
@@ -21,5 +21,5 @@ en:
         The prison visits booking system is not available as we're carrying
         out some planned maintenance.
 
-        You can try again later or book your visit by phone instead. See the
+        Try again later or book your visit by phone instead. See the
         [prison finder](%{prison_finder_url}) for contact details.
