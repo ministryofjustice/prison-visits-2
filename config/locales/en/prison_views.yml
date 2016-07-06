@@ -243,11 +243,11 @@ en:
     visit_date: Visit date
     visitors: Visitors
     visitor_no: Visitor %{n}
-    rejection_reason:
-      no_adult: There must be at least one adult visitor
-      no_allowance: The prisoner has not got any visiting allowance left for the dates chosen
-      prisoner_details_incorrect: The visitor hasn’t given correct information for the prisoner
-      prisoner_moved: The prisoner is no longer at the prison
-      slot_unavailable: None of the dates and times chosen were available
-      visitor_banned: A visitor has been banned
-      visitor_not_on_list: A visitor is not on the contact list
+    no_adult: There must be at least one adult visitor
+    no_allowance: The prisoner has not got any visiting allowance left for the dates chosen
+    prisoner_details_incorrect: The visitor hasn’t given correct information for the prisoner
+    prisoner_moved: The prisoner is no longer at the prison
+    slot_unavailable: None of the dates and times chosen were available
+    visitor_banned: A visitor has been banned
+    visitor_cancelled: The visitor cancelled the visit
+    visitor_not_on_list: A visitor is not on the contact list
