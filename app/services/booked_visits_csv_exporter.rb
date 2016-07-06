@@ -19,9 +19,10 @@ class BookedVisitsCsvExporter
 
   def headers
     [
-      'Prisoner name', 'Prisoner number', 'Slot granted', 'Lead visitor',
-      'Lead visitor dob', 'Lead visitor allowed?', 'Phone number',
-      'Email address', 'Visitor 2 name', 'Visitor 2 dob', 'Visitor 2 allowed?',
+      'Prisoner name', 'Prisoner number', 'Slot granted', 'Closed visit',
+      'Lead visitor', 'Lead visitor dob', 'Lead visitor allowed?',
+      'Phone number', 'Email address',
+      'Visitor 2 name', 'Visitor 2 dob', 'Visitor 2 allowed?',
       'Visitor 3 name', 'Visitor 3 dob', 'Visitor 3 allowed?',
       'Visitor 4 name', 'Visitor 4 dob', 'Visitor 4 allowed?',
       'Visitor 5 name', 'Visitor 5 dob', 'Visitor 5 allowed?',
@@ -35,17 +36,16 @@ private
     visit_attrs(visit).merge(additional_visitor_attrs(visit.visitors))
   end
 
-  def visit_attrs(visit)
-    {
-      'Prisoner name' => visit.prisoner_full_name,
-      'Prisoner number' => visit.prisoner_number,
-      'Slot granted' => format_slot_for_staff(visit.slot_granted),
-      'Lead visitor' => visit.visitor_full_name,
-      'Lead visitor dob' => visit.visitor_date_of_birth,
-      'Lead visitor allowed?' => visit.principal_visitor.allowed?,
-      'Phone number' => visit.contact_phone_no,
-      'Email address' => visit.contact_email_address
-    }
+  def visit_attrs(visit){
+    'Prisoner name' => visit.prisoner_full_name,
+    'Prisoner number' => visit.prisoner_number,
+    'Slot granted' => format_slot_for_staff(visit.slot_granted),
+    'Closed visit' => visit.closed?,
+    'Lead visitor' => visit.visitor_full_name,
+    'Lead visitor dob' => visit.visitor_date_of_birth,
+    'Lead visitor allowed?' => visit.principal_visitor.allowed?,
+    'Phone number' => visit.contact_phone_no,
+    'Email address' => visit.contact_email_address }
   end
 
   def additional_visitor_attrs(visitors)

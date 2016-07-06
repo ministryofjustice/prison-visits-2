@@ -18,6 +18,9 @@
       <% if @visit.rejection %>
         <small class="font-xsmall">(<%= t(@visit.rejection_reason, scope: 'shared.rejection_reason') %>)</small>
       <% end %>
+      <% if (@visit.closed? && @visit.booked?) %>
+        <small class="font-xsmall">(<%= t('.closed_visit') %>)</small>
+      <% end %>
     </h2>
   </div>
 </div>

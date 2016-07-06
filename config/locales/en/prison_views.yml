@@ -86,6 +86,7 @@ en:
         cancel_title: Cancel this visit
         cancel_description: You can cancel this visit if it can no longer take place. This will email the visitor to let them know.
         cancel_button: Cancel visit
+        closed_visit: This is a closed visit
         slot_unavailable: The date is no longer available.
         prisoner_moved: The prisoner has moved.
       visit_date_section:
@@ -217,6 +218,7 @@ en:
     additional_visitors: Additional visitors
     back_to_results: Back to results
     cancel: Cancel
+    closed: Closed
     dob: Date of birth
     email_address: Email address
     filter_form_hint: By prisoner number eg A1234BC
