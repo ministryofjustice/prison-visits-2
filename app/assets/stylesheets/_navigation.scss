@@ -1,13 +1,28 @@
 .navigation {
+  border-bottom: 1px solid $border-colour;
+  border-top: 1px solid $border-colour;
+  margin-top: $gutter-half;
   @include breadcrumbs;
+  padding: 0;
   li {
     background-image: none;
-    margin: 0 0.75em;
+    margin: 0;
     padding: 0;
+    a {
+      display: inline-block;
+      font-weight: bold;
+      margin: 0;
+      outline: 0;
+      padding: $gutter-half $gutter;
+      text-decoration: none;
+    }
+    form {
+      padding-top: $gutter-half;
+    }
     &.active {
-      border-bottom: 2px solid $link-colour;
+      background-color: $link-colour;
       a {
-        text-decoration: none;
+        color: $white;
       }
     }
   }
