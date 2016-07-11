@@ -11,17 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160610101017) do
+ActiveRecord::Schema.define(version: 20160711135837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
   create_table "cancellations", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "visit_id",   null: false
-    t.string   "reason",     null: false
+    t.uuid     "visit_id",                        null: false
+    t.string   "reason",                          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "nomis_cancelled", default: false, null: false
   end
 
   add_index "cancellations", ["visit_id"], name: "index_cancellations_on_visit_id", unique: true, using: :btree

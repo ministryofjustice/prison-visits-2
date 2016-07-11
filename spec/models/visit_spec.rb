@@ -38,7 +38,9 @@ RSpec.describe Visit, type: :model do
 
     it 'creates a cancellation record' do
       expect { cancellation! }.
-        to change { Cancellation.where(visit_id: visit.id).count }.by(1)
+        to change {
+          Cancellation.where(visit_id: visit.id, nomis_cancelled: true).count
+        }.by(1)
     end
 
     it 'sends an email to the visitor' do
@@ -87,7 +89,8 @@ RSpec.describe Visit, type: :model do
       let(:visit) { FactoryGirl.create(:visit) }
 
       it 'transitions to withdrawn' do
-        expect { subject }.to change { visit.processing_state }.to('withdrawn')
+        expect { subject }.
+          to change { visit.processing_state }.to('withdrawn')
       end
     end
 
@@ -100,7 +103,9 @@ RSpec.describe Visit, type: :model do
 
       it 'creates a cancellation record' do
         expect { subject }.
-          to change { Cancellation.where(visit_id: visit.id).count }.by(1)
+          to change {
+            Cancellation.where(visit_id: visit.id, nomis_cancelled: false).count
+          }.by(1)
       end
 
       it 'sends an email to the prison' do
