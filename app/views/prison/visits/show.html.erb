@@ -16,10 +16,13 @@
     <h2 class="bold-medium">
       <%= @visit.processing_state.capitalize %>
       <% if @visit.rejection %>
-        <small class="font-xsmall">(<%= t(@visit.rejection_reason, scope: 'shared.rejection_reason') %>)</small>
+        <small class="font-xsmall">(<%= t(@visit.rejection_reason, scope: :shared) %>)</small>
       <% end %>
       <% if (@visit.closed? && @visit.booked?) %>
         <small class="font-xsmall">(<%= t('.closed_visit') %>)</small>
+      <% end %>
+      <% if @visit.cancelled? %>
+        <small class="font-xsmall">(<%= t(@visit.cancellation_reason, scope: :shared) %>)</small>
       <% end %>
     </h2>
   </div>
