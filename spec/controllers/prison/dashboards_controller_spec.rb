@@ -9,7 +9,6 @@ RSpec.describe Prison::DashboardsController, type: :controller do
   it_behaves_like 'disallows untrusted ips'
 
   describe '#inbox' do
-    let(:estate) { FactoryGirl.create(:estate) }
     let(:prison) { FactoryGirl.create(:prison, estate: estate) }
     subject { get :inbox, estate_id: estate.finder_slug }
 
@@ -42,7 +41,6 @@ RSpec.describe Prison::DashboardsController, type: :controller do
   end
 
   describe '#processed' do
-    let(:estate) { FactoryGirl.create(:estate) }
     let(:prison) { FactoryGirl.create(:prison, estate: estate) }
     subject { get :processed, estate_id: estate.finder_slug }
 
@@ -89,7 +87,6 @@ RSpec.describe Prison::DashboardsController, type: :controller do
   end
 
   context '#print_visits' do
-    let(:estate) { FactoryGirl.create(:estate) }
     let(:prison) { FactoryGirl.create(:prison, estate: estate) }
     let(:slot_granted1) { '2016-01-01T09:00/10:00' }
     let(:slot_granted2) { '2016-01-01T12:00/14:00' }

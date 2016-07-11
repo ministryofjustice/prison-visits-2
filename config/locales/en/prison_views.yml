@@ -8,6 +8,7 @@ en:
       process_thank_you: Thank you for processing the visit
       visit_cancelled: The visit has been cancelled
       already_cancelled: The visit is no longer cancellable
+      nomis_cancellation_confirmed: The visit has been cancelled
     dashboards:
       banner:
         beta_html: |
@@ -16,16 +17,18 @@ en:
         inbox: Inbox
         processed: Processed visits
         print_visits: Print visits
+        visitor_cancellations: Visitor cancellations
         current: "Current prison:"
         sign_out: Sign out
-      index:
-        title: Choose a prison
       processed:
         title: Processed visits
         view_link: View
       request_details_row:
         choice: "%{number} Choice"
       inbox:
+        cancellations: Cancellations
+        cancel_text: The visitor has asked to cancel. Please cancel the booking in NOMIS and confirm using the button below
+        no_cancellations: There are no new cancellations
         process_link: View
         title: inbox
         no_visits: There are currently no visit requests
@@ -218,6 +221,7 @@ en:
     additional_visitors: Additional visitors
     back_to_results: Back to results
     cancel: Cancel
+    cancelled: Cancelled
     closed: Closed
     dob: Date of birth
     email_address: Email address
@@ -234,6 +238,8 @@ en:
     processed_on: Processed on
     requested: Requested
     requested_on: Requested on
+    requests: Requests
+    cancelled_on: Cancelled on
     reset: Reset
     status: Status
     search: Search

@@ -8,6 +8,8 @@ class Prison::DashboardsController < ApplicationController
     @requested_visits = load_requested_visits(user_estate,
       params[:prisoner_number])
 
+    @cancellations = load_visitor_cancellations(user_estate)
+
     @estate = user_estate
   end
 
@@ -46,6 +48,16 @@ private
 
   def user_estate
     current_user.estate
+  end
+
+  def load_visitor_cancellations(estate)
+    Visit.
+      preload(:prisoner, :visitors).
+      joins(:cancellation).
+      from_estate(estate).
+      where(cancellations: { nomis_cancelled: false }).
+      order('created_at asc').
+      to_a
   end
 
   def load_requested_visits(estate, prisoner_number)

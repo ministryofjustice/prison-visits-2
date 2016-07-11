@@ -172,7 +172,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
         sign_in user
       end
 
-      it { is_expected.to redirect_to(prison_cancellations_path) }
+      it { is_expected.to redirect_to(prison_inbox_path) }
     end
 
     context "when signed out" do

@@ -4,18 +4,69 @@
   <%= @estate.name %> <%= t('.title') %>
 <% end %>
 
+<h2 class="heading-medium"><%= t('.cancellations') %></h2>
+<% if @cancellations.any? %>
+  <p><%= t('.cancel_text') %></p>
+  <table class="table--hover push-bottom push-top--half">
+    <caption class="visuallyhidden"><%= t('title', scope: [:prison, :dashboards, :inbox]) %></caption>
+    <thead>
+      <tr>
+        <th></th>
+        <th><%= t('prisoner_number', scope: :shared) %></th>
+        <th><%= t('prisoner_name', scope: :shared) %></th>
+        <th><%= t('dob', scope: :shared) %></th>
+        <th><%= t('visit_date', scope: :shared) %></th>
+        <th class="col-time"><%= t('time_slot', scope: :shared) %></th>
+        <th><%= t('cancelled', scope: :shared) %></th>
+        <th class="col-actions"><%= t('actions', scope: :shared) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cancellations.each do |visit| %>
+        <tr>
+          <td>
+            <a href="#" class="open-close js-RevealNextRow" title="<%= t('open_close', scope: :shared) %>">
+              <i class="icon icon-closed">
+                <span class="visuallyhidden"><%= t('open_close', scope: :shared) %></span>
+              </i>
+            </a>
+          </td>
+          <td><%= visit.prisoner_number %></td>
+          <td class="long"><%= visit.prisoner_full_name %></td>
+          <td class="long"><%= visit.prisoner_date_of_birth.to_s(:short_nomis) %></td>
+          <td><%= visit.slots.first.to_date.to_s(:short_nomis) %></td>
+          <td><%= format_slot_times(visit.slots.first) %></td>
+          <td><%= visit.created_at.to_s(:short) %></td>
+          <td>
+          <%=
+            form_for(
+              visit,
+              url: prison_confirm_nomis_cancellation_visit_path(visit),
+              method: :post,
+              html: { class: 'js-SubmitOnce' }
+            ) do |f|
+          %>
+            <%= f.submit(t('cancelled', scope: :shared), class: 'button') %>
+          <% end %>
+          </td>
+        </tr>
+        <%= render 'request_details_row', visit: visit %>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p><%= t('.no_cancellations') %></p>
+<% end %>
+
 <%= render 'search_form', locals: {search_path: prison_inbox_path} %>
 
 <% if @requested_visits.any? %>
-
+  <h2 class="bold-medium push-bottom"><%= t('.requests') %></h2>
   <% if params[:prisoner_number] %>
     <%= render 'inbox_search_results', visits: @requested_visits %>
   <% else %>
     <%= render 'inbox_results', visits: @requested_visits %>
   <% end %>
-
 <% else %>
-
   <p class="lede"><%= t('no_visits', scope: :shared) %></p>
-
 <% end %>
