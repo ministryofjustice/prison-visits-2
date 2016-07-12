@@ -1,5 +1,5 @@
 require 'logstash_sidekiq_logger'
 
-log_file = Rails.root.join("log/logstash_#{Rails.env}.log")
+log_file = Rails.root.join("log/logstash_#{Rails.env}.json")
 
 LogstashSidekiqLogger.setup(log_file)
