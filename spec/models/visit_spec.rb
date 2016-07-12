@@ -25,6 +25,40 @@ RSpec.describe Visit, type: :model do
     end
   end
 
+  describe "#confirm_nomis_cancelled" do
+    let(:cancellation) do
+      FactoryGirl.create(:cancellation,
+        nomis_cancelled: nomis_cancelled,
+        updated_at: 1.day.ago)
+    end
+    let(:visit) { cancellation.visit }
+
+    subject(:confirm_nomis_cancelled) { visit.confirm_nomis_cancelled }
+
+    context "when it hasn't been marked as cancelled" do
+      let(:nomis_cancelled) { false }
+
+      it 'marks the cancellation as cancelled in nomis' do
+        confirm_nomis_cancelled
+        expect(cancellation.reload).to be_nomis_cancelled
+      end
+
+      it 'bumps updated_at field' do
+        expect { confirm_nomis_cancelled }.
+          to change { cancellation.reload.updated_at }
+      end
+    end
+
+    context 'when it has already been cancelled' do
+      let(:nomis_cancelled) { true }
+
+      it 'does not bump updated_at field' do
+        expect { confirm_nomis_cancelled }.
+          to_not change { cancellation.reload.updated_at }
+      end
+    end
+  end
+
   describe "#staff_cancellation!" do
     let(:visit) { FactoryGirl.create(:booked_visit) }
     let(:reason) { Cancellation::REASONS.first }

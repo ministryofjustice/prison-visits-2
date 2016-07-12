@@ -156,4 +156,27 @@ RSpec.describe Prison::VisitsController, type: :controller do
       it { is_expected.to redirect_to(prison_deprecated_visit_path(visit)) }
     end
   end
+
+  describe '#confirm_nomis_cancelled' do
+    let(:cancellation) { FactoryGirl.create(:cancellation) }
+    let(:visit) { cancellation.visit }
+
+    subject { post :nomis_cancelled, id: visit.id }
+
+    it_behaves_like 'disallows untrusted ips'
+
+    context 'when there is a user signed in' do
+      let(:user) { FactoryGirl.create(:user, estate: visit.prison.estate) }
+
+      before do
+        sign_in user
+      end
+
+      it { is_expected.to redirect_to(prison_cancellations_path) }
+    end
+
+    context "when signed out" do
+      it { is_expected.to_not be_successful }
+    end
+  end
 end
