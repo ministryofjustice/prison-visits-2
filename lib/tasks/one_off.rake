@@ -138,4 +138,40 @@ namespace :pvb do
     FileUtils.rm(password_filename)
     STDOUT.puts "\nRemoved passwords."
   end
+
+  desc 'Backpopulate cancellation reasons'
+  task backpopulate_cancellation_reasons: :environment do
+    missing_cancellation = Visit.
+                           preload(:cancellation).
+                           with_processing_state('cancelled').
+                           joins(<<-EOS).
+        LEFT OUTER JOIN cancellations \
+          ON cancellations.visit_id = visits.id
+      EOS
+                           where(cancellations: { id: nil })
+
+    batch = missing_cancellation.limit(1000).to_a
+
+    while batch.any?
+      batch.each do |visit|
+        if visit.cancellation
+          fail "Visit #{visit.id} already has a cancellation!"
+        end
+
+        Cancellation.create!(visit_id: visit.id,
+                             reason: Cancellation::VISITOR_CANCELLED,
+                             created_at: visit.updated_at,
+                             updated_at: visit.updated_at)
+      end
+
+      batch = missing_cancellation.limit(1000).to_a
+    end
+
+    if missing_cancellation.any?
+      STDERR.puts "Something went wrong, visits with missing cancellations: \
+      #{missing_cancellation.count}"
+    else
+      STDOUT.puts 'Done.'
+    end
+  end
 end
