@@ -1,0 +1,75 @@
+require 'rails_helper'
+
+# rubocop:disable RSpec/FilePath
+RSpec.describe OmniAuth::Strategies::Mojsso do
+  let(:app){
+    Rack::Builder.new do |b|
+      b.run ->(_env) { [200, {}, ['Hello']] }
+    end.to_app
+  }
+
+  before do
+    OmniAuth.config.test_mode = true
+  end
+
+  after do
+    OmniAuth.config.test_mode = false
+  end
+
+  subject(:strategy) do
+    described_class.new(app, 'client_id', 'secret')
+  end
+
+  context 'methods' do
+    let(:uid) { double('uid') }
+    let(:email) { FFaker::Internet.email }
+    let(:permissions) { double('permissions') }
+
+    let(:raw_info) do
+      { 'id' => uid, 'email' => email, 'permissions' => permissions }
+    end
+
+    context '#info' do
+      before do
+        allow(strategy).to receive(:raw_info).and_return(raw_info)
+      end
+
+      it 'returns a hash with the email and permissions' do
+        expect(strategy.info).to eq(email: email, permissions: permissions)
+      end
+    end
+
+    context '#extra' do
+      before do
+        allow(strategy).to receive(:raw_info).and_return(raw_info)
+      end
+
+      it { expect(strategy.extra).to eq(raw_info: raw_info) }
+    end
+
+    context '#uid' do
+      before do
+        allow(strategy).to receive(:raw_info).and_return(raw_info)
+      end
+
+      it { expect(strategy.uid).to eq(uid) }
+    end
+
+    context '#raw_info' do
+      let(:token) { double('token') }
+      let(:api_response) { double('api_response') }
+
+      before do
+        allow(strategy).to receive(:access_token).and_return(token)
+      end
+
+      it 'makes a call to the api and parses' do
+        expect(token).
+          to receive(:get).with('/api/user_details').and_return(api_response)
+        expect(api_response).to receive(:parsed).and_return(raw_info)
+
+        expect(strategy.raw_info).to eq(raw_info)
+      end
+    end
+  end
+end

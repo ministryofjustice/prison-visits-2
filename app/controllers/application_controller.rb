@@ -11,10 +11,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def current_user
-    @_current_user ||= begin
-      user_id = session[:current_user_id]
-      user_id ? User.find(user_id) : nil
-    end
+    @_current_user ||= User.find_by(id: session[:current_user_id])
   end
 
 private

@@ -25,7 +25,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
           let(:user) { FactoryGirl.create(:user, estate: visit.prison.estate) }
 
           before do
-            sign_in user
+            stub_logged_in_user(user)
           end
 
           it { is_expected.to render_template('process_visit') }
@@ -82,7 +82,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
         let(:user) { FactoryGirl.create(:user, estate: visit.prison.estate) }
 
         before do
-          sign_in user
+          stub_logged_in_user(user)
         end
 
         context 'when invalid' do
@@ -106,7 +106,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
     context "when logged in" do
       before do
-        sign_in user
+        stub_logged_in_user(user)
       end
 
       it { is_expected.to render_template('show') }
@@ -140,7 +140,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
       let(:user) { FactoryGirl.create(:user, estate: visit.prison.estate) }
 
       before do
-        allow(controller).to receive(:current_user).and_return(user)
+        stub_logged_in_user(user)
       end
 
       it { is_expected.to redirect_to(prison_inbox_path) }
