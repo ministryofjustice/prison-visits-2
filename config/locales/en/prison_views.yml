@@ -263,6 +263,9 @@ en:
     not_available:
       staff_info_service_unavailable: >-
         Staff info service is temporarily unavailable. Please check back later.
+  sessions:
+    create:
+      cannot_sign_in: You cannot be signed in
   shared:
     age: Age
     actions: Actions

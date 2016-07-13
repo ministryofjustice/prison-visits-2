@@ -14,7 +14,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        sign_in user
+        stub_logged_in_user(user)
       end
 
       it { is_expected.to be_successful }
@@ -50,7 +50,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        sign_in user
+        stub_logged_in_user(user)
       end
 
       it { is_expected.to be_successful }
@@ -103,7 +103,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        sign_in user
+        stub_logged_in_user(user)
       end
 
       let!(:visit1) do

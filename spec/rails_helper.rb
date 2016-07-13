@@ -9,6 +9,7 @@ require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'ffaker'
 require 'webmock/rspec'
+require 'support/helpers/controller_helper'
 
 WebMock.disable_net_connect!(allow: 'codeclimate.com', allow_localhost: true)
 
@@ -22,6 +23,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.include FactoryGirl::Syntax::Methods
   config.include ActiveSupport::Testing::TimeHelpers
+  config.include ControllerHelper, type: :controller
 
   config.infer_spec_type_from_file_location!
 
