@@ -8,6 +8,7 @@
     background-image: none;
     margin: 0;
     padding: 0;
+    position: relative;
     a {
       display: inline-block;
       font-weight: bold;
@@ -24,6 +25,11 @@
       a {
         color: $white;
       }
+    }
+    .badge {
+      position: absolute;
+      right: 5px;
+      top: 5px;
     }
   }
 }
