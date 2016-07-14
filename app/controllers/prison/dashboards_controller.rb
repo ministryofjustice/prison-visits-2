@@ -8,12 +8,16 @@ class Prison::DashboardsController < ApplicationController
     @requested_visits = load_requested_visits(user_estate,
       params[:prisoner_number])
 
+    @cancellations = load_visitor_cancellations(user_estate)
+
     @estate = user_estate
   end
 
   def processed
-    @processed_visits = load_processed_visits(user_estate,
-      params[:prisoner_number])
+    estate_query = EstateVisitQuery.new(user_estate)
+    @processed_visits = estate_query.
+                        processed(prisoner_number: params[:prisoner_number],
+                                  limit: NUMBER_VISITS)
 
     if @processed_visits.size == NUMBER_VISITS
       @processed_visits.pop # Show only 100 most recent visits
@@ -48,26 +52,21 @@ private
     current_user.estate
   end
 
+  def load_visitor_cancellations(estate)
+    Visit.
+      preload(:prisoner, :visitors).
+      joins(:cancellation).
+      from_estate(estate).
+      where(cancellations: { nomis_cancelled: false }).
+      order('created_at asc').
+      to_a
+  end
+
   def load_requested_visits(estate, prisoner_number)
     visits = Visit.preload(:prisoner, :visitors).
              with_processing_state(:requested).
              from_estate(estate).
              order('created_at asc')
-
-    if prisoner_number.present?
-      number = Prisoner.normalise_number(prisoner_number)
-      visits = visits.joins(:prisoner).where(prisoners: { number: number })
-    end
-
-    visits.to_a
-  end
-
-  def load_processed_visits(estate, prisoner_number)
-    visits = Visit.preload(:prisoner, :visitors).
-             without_processing_state(:requested).
-             from_estate(estate).
-             order('visits.updated_at desc').
-             limit(NUMBER_VISITS)
 
     if prisoner_number.present?
       number = Prisoner.normalise_number(prisoner_number)

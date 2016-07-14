@@ -54,6 +54,12 @@ class Visit < ActiveRecord::Base
     end
   end
 
+  def confirm_nomis_cancelled
+    Cancellation.
+      where(visit_id: id, nomis_cancelled: false).
+      update_all(nomis_cancelled: true, updated_at: Time.zone.now)
+  end
+
   def staff_cancellation!(reason)
     cancellation!(reason, nomis_cancelled: true)
     VisitorMailer.cancelled(self).deliver_later

@@ -1,7 +1,7 @@
 class Prison::VisitsController < ApplicationController
   helper CalendarHelper
   before_action :authorize_prison_request
-  before_action :authenticate_user!, only: :show
+  before_action :authenticate_user!, only: %i[ show nomis_cancelled ]
   before_action :require_login_during_trial, only: %w[process_visit update]
 
   def process_visit
@@ -23,6 +23,13 @@ class Prison::VisitsController < ApplicationController
     else
       render :process_visit
     end
+  end
+
+  def nomis_cancelled
+    visit = scoped_visit
+    visit.confirm_nomis_cancelled
+    flash[:notice] = t('nomis_cancellation_confirmed', scope: [:prison, :flash])
+    redirect_to prison_inbox_path
   end
 
   def deprecated_show

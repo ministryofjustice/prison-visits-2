@@ -17,3 +17,5 @@
 
 .transifexrc
 *.DS_Store
+
+.env

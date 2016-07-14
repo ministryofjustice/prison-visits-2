@@ -68,6 +68,10 @@ Style/SymbolProc:
 Style/TrivialAccessors:
   AllowPredicates: true
 
+# Default is 100
+Metrics/ClassLength:
+  Max: 150
+
 Metrics/LineLength:
   Max: 80
   Exclude:
@@ -80,7 +84,6 @@ Metrics/MethodLength:
     - 'spec/**/*'
     - 'app/helpers/form_elements_helper.rb'
     - 'app/metrics/**/*' # Some very long SQL based methods there.
-
 
 # Don't worry about the complexity of spec methods
 Metrics/AbcSize:

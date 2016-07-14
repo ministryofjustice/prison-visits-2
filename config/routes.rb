@@ -39,6 +39,9 @@ Rails.application.routes.draw do
   namespace :prison do
     scope controller: :visits do
       get '/visits/:id', action: :show, as: :visit_show
+      post '/visits/:id/confirm_nomis_cancellation',
+        action: :nomis_cancelled,
+        as: :confirm_nomis_cancellation_visit
     end
 
     scope controller: :dashboards do

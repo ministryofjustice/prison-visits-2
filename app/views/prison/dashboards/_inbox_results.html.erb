@@ -1,6 +1,6 @@
 <% @requested_visits.group_by {|v| v.created_at.to_date}.each do |date, booking| %>
   <span class="text-secondary"><%= t('requested_on', scope: :shared) %></span>
-  <h2 class="bold-medium"><%= date.to_s(:short) %></h2>
+  <h3 class="bold-medium"><%= date.to_s(:short) %></h3>
   <table class="table--hover push-bottom push-top--half">
     <caption class="visuallyhidden"><%= t('title', scope: [:prison, :dashboards, :inbox]) %></caption>
     <thead>
