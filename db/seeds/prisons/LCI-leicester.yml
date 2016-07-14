@@ -8,12 +8,10 @@ email_address: socialvisitsleiceste@hmps.gsi.gov.uk
 phone_no: 0116 228 3128
 enabled: true
 recurring:
-  mon:
-  - 1415-1615
   tue:
   - 1415-1615
   wed:
-  - 1600-1800
+  - 1415-1615
   thu:
   - 1415-1615
   sat:
