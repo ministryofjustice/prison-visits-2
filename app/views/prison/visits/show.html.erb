@@ -9,7 +9,6 @@
 
 <%= render 'prison/dashboards/navigation' %>
 
-
 <div class="grid-row">
   <div class="column-two-thirds">
     <span class="text-secondary"><%= t('status', scope: :shared) %></span>
@@ -32,13 +31,13 @@
   <div class="column-quarter">
     <span class="text-secondary"><%= t('visit_date', scope: :shared) %></span>
     <h2 class="bold-medium">
-      <%= @visit.slots.first.to_date.to_s(:short_nomis) %>
+      <%= (@visit.slot_granted || @visit.slots.first).to_date.to_s(:short_nomis) %>
     </h2>
   </div>
   <div class="column-quarter">
     <span class="text-secondary"><%= t('time_slot', scope: :shared) %></span>
     <h2 class="bold-medium">
-      <%= format_slot_times(@visit.slots.first) %>
+      <%= format_slot_times(@visit.slot_granted || @visit.slots.first) %>
     </h2>
   </div>
   <div class="column-quarter">
