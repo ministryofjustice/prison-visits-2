@@ -21,6 +21,26 @@ FactoryGirl.define do
       create :visitor, visit: v
     end
 
+    trait :requested do
+      processing_state 'requested'
+    end
+
+    trait :nomis_cancelled do
+      processing_state 'cancelled'
+
+      after(:create) do |v|
+        create :cancellation, visit: v, nomis_cancelled: true
+      end
+    end
+
+    trait :pending_nomis_cancellation do
+      processing_state 'cancelled'
+
+      after(:create) do |v|
+        create :cancellation, visit: v, nomis_cancelled: false
+      end
+    end
+
     factory :visit_with_two_visitors do
       after(:create) do |v|
         create :visitor, visit: v
