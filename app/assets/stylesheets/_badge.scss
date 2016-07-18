@@ -1,0 +1,19 @@
+.badge {
+  background-color: $panel-colour;
+  border-radius: 4px;
+  font-size: 10px;
+  margin-left: 6px;
+  padding: 1px 4px;
+}
+  .badge--blue {
+    background-color: $link-colour;
+    color: $white;
+  }
+  .badge--green {
+    background-color: $green;
+    color: $white;
+  }
+  .badge--red {
+    background-color: $red;
+    color: $white;
+  }

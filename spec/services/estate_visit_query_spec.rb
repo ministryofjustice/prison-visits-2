@@ -58,4 +58,26 @@ RSpec.describe EstateVisitQuery do
       end
     end
   end
+
+  describe '#inbox_count' do
+    subject(:inbox_count) { instance.inbox_count }
+
+    context 'with visits in different estates' do
+      before do
+        FactoryGirl.create(:visit, :requested, prison: prison)
+        FactoryGirl.create(:visit, :requested, prison: prison)
+        FactoryGirl.create(:booked_visit, prison: prison)
+        FactoryGirl.create(:rejected_visit, prison: prison)
+        FactoryGirl.create(:visit,
+          :nomis_cancelled,
+          prison: prison,
+          updated_at: 1.day.ago)
+        FactoryGirl.create(:visit, :pending_nomis_cancellation, prison: prison)
+      end
+
+      it 'returns the count of the visits that are in the inbox' do
+        is_expected.to eq(3)
+      end
+    end
+  end
 end
