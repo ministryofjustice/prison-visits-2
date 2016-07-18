@@ -67,10 +67,14 @@ class BookingResponse
   end
 
   def unlisted_visitors
+    return [] unless visitor_not_on_list
+
     visitors.select { |v| unlisted_visitor_ids.include?(v.id) }
   end
 
   def banned_visitors
+    return [] unless visitor_banned
+
     visitors.select { |v| banned_visitor_ids.include?(v.id) }
   end
 
@@ -78,8 +82,8 @@ private
 
   def at_least_one_valid_visitor?
     visitors.
-      reject { |visitor| visitor.id.in? unlisted_visitor_ids }.
-      reject { |visitor| visitor.id.in? banned_visitor_ids }.
+      reject { |visitor| visitor.in? unlisted_visitors }.
+      reject { |visitor| visitor.in? banned_visitors }.
       any? { |visitor| visitor.age >= ADULT_AGE }
   end
 
