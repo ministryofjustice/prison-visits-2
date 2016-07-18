@@ -28,6 +28,19 @@ class EstateVisitQuery
     visits.to_a
   end
 
+  def inbox_count
+    Visit.
+      joins(<<-EOS).
+LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
+      EOS
+      where(<<-EOS, nomis_cancelled: false).
+cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
+      EOS
+      with_processing_state(:requested, :cancelled).
+      from_estate(@estate).
+      count
+  end
+
 private
 
   def base_processed_query(limit:)

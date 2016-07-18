@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
 
 private
 
+  def set_inbox_navigation_count
+    @inbox_count = EstateVisitQuery.new(current_user.estate).inbox_count
+  end
+
   # :nocov:
 
   def authorize_prison_request

@@ -3,6 +3,9 @@ class Prison::VisitsController < ApplicationController
   before_action :authorize_prison_request
   before_action :authenticate_user!, only: %i[ show nomis_cancelled ]
   before_action :require_login_during_trial, only: %w[process_visit update]
+  before_action :set_inbox_navigation_count,
+    only: %w[show process_visit update],
+    if: -> { part_of_trial? }
 
   def process_visit
     @booking_response = BookingResponse.new(visit: load_visit)
@@ -54,11 +57,13 @@ class Prison::VisitsController < ApplicationController
 
 private
 
-  def require_login_during_trial
+  def part_of_trial?
     estate = unscoped_visit.prison.estate
-    if estate.name.in?(Rails.configuration.dashboard_trial)
-      authenticate_user!
-    end
+    estate.name.in?(Rails.configuration.dashboard_trial)
+  end
+
+  def require_login_during_trial
+    authenticate_user! if part_of_trial?
   end
 
   def visit_page(visit)

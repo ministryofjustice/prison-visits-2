@@ -3,6 +3,7 @@ class Prison::DashboardsController < ApplicationController
 
   before_action :authorize_prison_request
   before_action :authenticate_user!
+  before_action :set_inbox_navigation_count
 
   def inbox
     @requested_visits = load_requested_visits(user_estate,
