@@ -35,6 +35,48 @@ RSpec.describe VisitorMailer, '.cancelled' do
   context 'when the prisoner has moved' do
     let(:reason) { 'prisoner_moved' }
 
-    it { expect(mail.html_part.body).to match(/has moved prison/) }
+    it { expect(mail.html_part.body).to match(/has now moved/) }
+  end
+
+  context 'when the visitor is banned' do
+    let(:reason) { 'visitor_banned' }
+
+    it { expect(mail.html_part.body).to match(/A letter has been sent/) }
+  end
+
+  context 'when the prisoner has no vos' do
+    let(:reason) { 'prisoner_vos' }
+
+    it { expect(mail.html_part.body).to match(/no visiting allowance/) }
+  end
+
+  context 'when the prisoner has been released' do
+    let(:reason) { 'prisoner_released' }
+
+    it { expect(mail.html_part.body).to match(/has been released/) }
+  end
+
+  context 'when there are capacity issues' do
+    let(:reason) { 'capacity_issues' }
+
+    it { expect(mail.html_part.body).to match(/capacity issues/) }
+  end
+
+  context 'when there are child protection issues' do
+    let(:reason) { 'child_protection_issues' }
+
+    it { expect(mail.html_part.body).to match(/is now restricted/) }
+  end
+
+  context 'when non association issues' do
+    let(:reason) { 'prisoner_non_association' }
+
+    it { expect(mail.html_part.body).to match(/is now restricted/) }
+  end
+
+  context 'when booked in error' do
+    let(:reason) { 'booked_in_error' }
+
+    it { expect(mail.html_part.body).to match(/booked in error/) }
   end
 end

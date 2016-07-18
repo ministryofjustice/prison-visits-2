@@ -52,8 +52,15 @@ en:
         cancel_title: Cancel this visit
         cancel_description: You can cancel this visit if it can no longer take place. This will email the visitor to let them know.
         cancel_button: Cancel visit
-        slot_unavailable: The date is no longer available.
-        prisoner_moved: The prisoner has moved.
+        slot_unavailable: The date is no longer available
+        prisoner_moved: The prisoner has now moved
+        booked_in_error: It was booked in error
+        capacity_issues: Capacity issues in the visit hall
+        child_protection_issues: The prisoner is now subject to Child Protection measures
+        prisoner_non_association: the prisoner is now subject to a non-association
+        prisoner_released: the prisoner has been released
+        prisoner_vos: issues with the prisoner’s VOs
+        visitor_banned: the visitor has been banned from the visit
       process_visit:
         title: Process a visit request
         introduction_html: |
@@ -90,8 +97,15 @@ en:
         cancel_description: You can cancel this visit if it can no longer take place. This will email the visitor to let them know.
         cancel_button: Cancel visit
         closed_visit: This is a closed visit
-        slot_unavailable: The date is no longer available.
-        prisoner_moved: The prisoner has moved.
+        slot_unavailable: The date is no longer available
+        prisoner_moved: The prisoner has now moved
+        booked_in_error: It was booked in error
+        capacity_issues: Capacity issues in the visit hall
+        child_protection_issues: The prisoner is now subject to Child Protection measures
+        prisoner_non_association: the prisoner is now subject to a non-association
+        prisoner_released: the prisoner has been released
+        prisoner_vos: issues with the prisoner’s VOs
+        visitor_banned: the visitor has been banned from the visit
       visit_date_section:
         title: Visit date
         choice_html: "Choice %{n}: <strong>%{date}</strong>"

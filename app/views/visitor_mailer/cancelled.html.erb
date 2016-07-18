@@ -1,13 +1,19 @@
 <p><%= t('.salutation', name: @visit.visitor_first_name) %></p>
 
 <% case @visit.cancellation_reason %>
-<% when 'slot_unavailable' %>
-  <p><%= t('.slot_unavailable_html',
-           prisoner: @visit.prisoner_full_name,
-           prison: @visit.prison_name,
-           date: format_date_without_year(@visit.date)) %>
-<% when 'prisoner_moved' %>
-  <p><%= t('prisoner_moved_html', scope: [:visitor_mailer, :rejected]) %></p>
+<% when 'visitor_banned' %>
+  <%= t('.visitor_banned_html',
+        date: format_slot_for_public(@visit.slot_granted),
+        prison: @visit.prison.name,
+        prisoner: @visit.prisoner_full_name,
+        visitor_name: @visit.visitor_full_name) %>
+  <% else %>
+    <p>
+    <%= t('.intro',
+          date: format_slot_for_public(@visit.slot_granted),
+          prison: @visit.prison.name,
+          prisoner: @visit.prisoner_full_name) %> <%= t(".#{@visit.cancellation_reason}") %>
+    </p>
 <% end %>
 
 <p><%= t('.any_questions_html',

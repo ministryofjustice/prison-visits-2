@@ -157,9 +157,32 @@ en:
     cancelled:
       subject: "CANCELLED: Your %{prison_name} prison visit for %{date}"
       salutation: Dear %{name},
-      slot_unavailable_html: >-
-        We’re sorry but %{date} is no longer available.
-        Your visit to %{prisoner} at %{prison} has been cancelled.
+      intro:
+        We're sorry but your visit to to %{prisoner} at %{prison} on %{date}
+        has been cancelled
+      slot_unavailable: >-
+        because the date is no longer available.
+      visitor_banned_html: |
+        <p>We're sorry but your visit to to %{prisoner} at %{prison} on %{date}
+        has been cancelled.</p>
+
+        <p>A letter has been sent telling you you're banned from visiting the
+        prison at the moment. Get in touch with the prison for more
+        information.</p>
+      booked_in_error: >-
+        because it was booked in error.
+      capacity_issues: >-
+        because of capacity issues in the visit hall.
+      child_protection_issues:
+        because the prisoner is now restricted.
+      prisoner_moved: >-
+        because the prisoner has now moved.
+      prisoner_non_association: >-
+        because the prisoner is now restricted.
+      prisoner_released: >-
+        because the prisoner has been released.
+      prisoner_vos: >-
+        because there is no visiting allowance left for the prisoner you want to visit.
 
       any_questions_html:
         If you have any questions, visit the
