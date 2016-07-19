@@ -31,13 +31,13 @@
   <div class="column-quarter">
     <span class="text-secondary"><%= t('visit_date', scope: :shared) %></span>
     <h2 class="bold-medium">
-      <%= (@visit.slot_granted || @visit.slots.first).to_date.to_s(:short_nomis) %>
+      <%= format_visit_slot_date_for_staff(@visit) %>
     </h2>
   </div>
   <div class="column-quarter">
     <span class="text-secondary"><%= t('time_slot', scope: :shared) %></span>
     <h2 class="bold-medium">
-      <%= format_slot_times(@visit.slot_granted || @visit.slots.first) %>
+      <%= format_visit_slot_times_for_staff(@visit) %>
     </h2>
   </div>
   <div class="column-quarter">

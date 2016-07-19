@@ -26,6 +26,7 @@ en:
         view_link: View
       request_details_row:
         choice: "%{number} Choice"
+        booked_date: Booked date
       inbox:
         cancellations: Cancellations
         cancel_text: The visitor has asked to cancel. Please cancel the booking in NOMIS and confirm using the button below

@@ -57,4 +57,58 @@ RSpec.describe DateHelper do
       expect(helper.format_slot_times(slot)).to eq('13:30–14:45')
     end
   end
+
+  describe '#format_visit_slot_date_for_staff' do
+    subject { helper.format_visit_slot_date_for_staff(visit) }
+
+    let(:preferred_slot) { ConcreteSlot.new(2016, 7, 19, 10, 30, 11, 30) }
+    let(:visit) do
+      FactoryGirl.build_stubbed(:visit,
+        slot_option_0: preferred_slot,
+        slot_granted: slot_granted)
+    end
+
+    context 'without a granted slot' do
+      let(:slot_granted) { nil }
+
+      it 'formats the preferred slot' do
+        is_expected.to eq(preferred_slot.to_date.to_s(:short_nomis))
+      end
+    end
+
+    context 'with a granted slot' do
+      let(:slot_granted) { ConcreteSlot.new(2015, 11, 5, 13, 30, 14, 45) }
+
+      it 'formats the granted slot' do
+        is_expected.to eq(slot_granted.to_date.to_s(:short_nomis))
+      end
+    end
+  end
+
+  describe '#format_visit_slot_times_for_staff' do
+    subject { helper.format_visit_slot_times_for_staff(visit) }
+
+    let(:preferred_slot) { ConcreteSlot.new(2016, 7, 19, 10, 30, 11, 30) }
+    let(:visit) do
+      FactoryGirl.build_stubbed(:visit,
+        slot_option_0: preferred_slot,
+        slot_granted: slot_granted)
+    end
+
+    context 'without a granted slot' do
+      let(:slot_granted) { nil }
+
+      it 'formats the preferred slot' do
+        is_expected.to eq(helper.format_slot_times(preferred_slot))
+      end
+    end
+
+    context 'with a granted slot' do
+      let(:slot_granted) { ConcreteSlot.new(2015, 11, 5, 13, 30, 14, 45) }
+
+      it 'formats the granted slot' do
+        is_expected.to eq(helper.format_slot_times(slot_granted))
+      end
+    end
+  end
 end

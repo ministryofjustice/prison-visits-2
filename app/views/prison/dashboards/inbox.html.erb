@@ -34,8 +34,8 @@
           <td><%= visit.prisoner_number %></td>
           <td class="long"><%= visit.prisoner_full_name %></td>
           <td class="long"><%= visit.prisoner_date_of_birth.to_s(:short_nomis) %></td>
-          <td><%= visit.slots.first.to_date.to_s(:short_nomis) %></td>
-          <td><%= format_slot_times(visit.slots.first) %></td>
+          <td><%= format_visit_slot_date_for_staff(visit) %></td>
+          <td><%= format_visit_slot_times_for_staff(visit) %></td>
           <td><%= visit.created_at.to_s(:short) %></td>
           <td>
           <%=

@@ -1,12 +1,19 @@
 <tr class="hidden-row hide" aria-hidden="true" aria-expanded="false">
   <td colspan="9" class="request-details">
     <div class="request-row-details">
-      <% visit.slots.each_with_index do |slot, i| %>
+      <% if visit.slot_granted? -%>
         <dl>
-          <dt><%= t('.choice', number: ActiveSupport::Inflector.ordinalize(i+1)) %></dt>
-          <dd><%= slot.to_date.to_s(:short_nomis) %><br><%= format_slot_times(slot) %></dd>
+          <dt><%= t('.booked_date') %></dt>
+          <dd><%= format_visit_slot_date_for_staff(visit) %><br><%= format_visit_slot_times_for_staff(visit) %></dd>
         </dl>
-      <% end %>
+      <% else %>
+        <% visit.slots.each_with_index do |slot, i| %>
+          <dl>
+            <dt><%= t('.choice', number: ActiveSupport::Inflector.ordinalize(i+1)) %></dt>
+            <dd><%= slot.to_date.to_s(:short_nomis) %><br><%= format_slot_times(slot) %></dd>
+          </dl>
+        <% end %>
+      <% end -%>
     </div>
     <div class="request-row-details push-top">
       <dl>

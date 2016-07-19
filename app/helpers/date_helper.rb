@@ -41,6 +41,16 @@ module DateHelper
     )
   end
 
+  def format_visit_slot_date_for_staff(visit)
+    slot = visit.slot_granted || visit.slots.first
+    slot.to_date.to_s(:short_nomis)
+  end
+
+  def format_visit_slot_times_for_staff(visit)
+    slot = visit.slot_granted || visit.slots.first
+    format_slot_times(slot)
+  end
+
   def format_slot_times(slot)
     begin_at = slot.begin_at.strftime('%H:%M')
     end_at = slot.end_at.strftime('%H:%M')
