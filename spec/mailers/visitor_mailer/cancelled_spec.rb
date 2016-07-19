@@ -35,7 +35,7 @@ RSpec.describe VisitorMailer, '.cancelled' do
   context 'when the prisoner has moved' do
     let(:reason) { 'prisoner_moved' }
 
-    it { expect(mail.html_part.body).to match(/has now moved/) }
+    it { expect(mail.html_part.body).to match(/has moved prison/) }
   end
 
   context 'when the visitor is banned' do
@@ -65,13 +65,13 @@ RSpec.describe VisitorMailer, '.cancelled' do
   context 'when there are child protection issues' do
     let(:reason) { 'child_protection_issues' }
 
-    it { expect(mail.html_part.body).to match(/is now restricted/) }
+    it { expect(mail.html_part.body).to match(/has a restriction/) }
   end
 
   context 'when non association issues' do
     let(:reason) { 'prisoner_non_association' }
 
-    it { expect(mail.html_part.body).to match(/is now restricted/) }
+    it { expect(mail.html_part.body).to match(/has a restriction/) }
   end
 
   context 'when booked in error' do
