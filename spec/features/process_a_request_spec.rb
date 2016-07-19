@@ -221,7 +221,7 @@ RSpec.feature 'Processing a request', js: true do
   end
 
   scenario 'rejecting a booking when the prisoner has moved' do
-    choose 'Prisoner no longer at the prison'
+    choose 'Prisoner has moved prisons'
 
     click_button 'Send email'
 

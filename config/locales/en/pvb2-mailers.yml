@@ -95,8 +95,8 @@ en:
         for the prisoner. Eg, the prisoner’s name, number or date of birth is
         incorrect. Contact the prisoner to get up-to-date information.
       prisoner_moved_html: >-
-        Your visit cannot take place as the prisoner you want to visit has
-        moved prison. They should contact you about where they are now. You can
+        Your visit cannot take place because the prisoner has
+        moved prisons. They should contact soon. You can
         also use the
         <a href="http://www.gov.uk/find-prisoner">find a prisoner service</a>.
       visitor_banned:
