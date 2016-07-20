@@ -14,8 +14,10 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    sso_signout_url = sso_link(:logout)
     session.delete(:current_user_id)
-    redirect_to root_path
+    session.delete(:sso_data)
+    redirect_to sso_signout_url
   end
 
 private
