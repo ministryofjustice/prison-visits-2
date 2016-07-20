@@ -31,6 +31,26 @@ class Visit < ActiveRecord::Base
     joins(prison: :estate).where(estates: { id: estate.id })
   }
 
+  scope :processed, lambda {
+    joins(<<-EOS).
+LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
+    EOS
+      where(<<-EOS, nomis_cancelled: true).
+cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
+    EOS
+      without_processing_state(:requested)
+  }
+
+  scope :ready_for_processing, lambda {
+    joins(<<-EOS).
+LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
+    EOS
+      where(<<-EOS, nomis_cancelled: false).
+cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
+    EOS
+      with_processing_state(:requested, :cancelled)
+  }
+
   state_machine :processing_state, initial: :requested do
     after_transition do |visit|
       visit.visit_state_changes <<

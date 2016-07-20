@@ -7,6 +7,9 @@ RSpec.describe BookedVisitsCsvExporter do
   let!(:booked_visit) do
     FactoryGirl.create(:booked_visit, prison: prison)
   end
+  let!(:cancelled_visit) do
+    FactoryGirl.create(:cancelled_visit, prison: prison)
+  end
   let!(:second_visitor) do
     FactoryGirl.create(:visitor, visit: booked_visit, not_on_list: true)
   end
@@ -28,14 +31,18 @@ RSpec.describe BookedVisitsCsvExporter do
       CSV.parse(instance.to_csv).map { |r| Hash[instance.headers.zip(r)] }
     end
 
-    it { expect(csv.size).to eq(2) }
+    it { expect(csv.size).to eq(3) }
 
     it 'contains the headers' do
       expect(csv[0].keys).to eq(instance.headers)
     end
 
-    it 'serialises the booked visit' do
-      row = csv[1]
+    it 'serialises the booked and cancelled visits' do
+      row = csv.find { |r| r['Status'] == 'cancelled' }
+      expect(row['Status']).to eq(cancelled_visit.processing_state)
+
+      row = csv.find { |r| r['Status'] == 'booked' }
+      expect(row['Status']).to eq(booked_visit.processing_state)
       expect(row['Prisoner name']).to eq(booked_visit.prisoner_full_name)
       expect(row['Prisoner number']).to eq(booked_visit.prisoner_number)
       expect(row['Slot granted']).
