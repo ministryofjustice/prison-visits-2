@@ -32,5 +32,12 @@ RSpec.describe EstateSeeder do
       expect(Estate.find_by(nomis_id: nomis_id)).
         to have_attributes(finder_slug: 'luna')
     end
+
+    it 'generates an sso organisation name' do
+      subject.import nomis_id, hash.merge('name' => 'Lunar Penal Colony - A')
+      expect(Estate.find_by(nomis_id: nomis_id)).to have_attributes(
+        sso_organisation_name: 'lunar_penal_colony-a.prisons.noms.moj'
+      )
+    end
   end
 end
