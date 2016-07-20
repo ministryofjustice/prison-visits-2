@@ -54,15 +54,15 @@ en:
         cancel_title: Cancel this visit
         cancel_description: You can cancel this visit if it can no longer take place. This will email the visitor to let them know.
         cancel_button: Cancel visit
-        slot_unavailable: The date is no longer available
-        prisoner_moved: The prisoner has now moved
-        booked_in_error: It was booked in error
+        booked_in_error: Visit was booked in error
+        slot_unavailable: Visit slot no longer available
         capacity_issues: Capacity issues in the visit hall
-        child_protection_issues: The prisoner is now subject to Child Protection measures
-        prisoner_non_association: the prisoner is now subject to a non-association
-        prisoner_released: the prisoner has been released
-        prisoner_vos: issues with the prisoner’s VOs
-        visitor_banned: the visitor has been banned from the visit
+        prisoner_vos: Issue with the prisoner’s visiting allowance (VOs)
+        prisoner_moved: Prisoner has moved prisons
+        prisoner_released: Prisoner has been released
+        prisoner_non_association: Prisoner has a non-association
+        child_protection_issues: Prisoner has child protection measures
+        visitor_banned: Visitor is banned
       process_visit:
         title: Process a visit request
         introduction_html: |
@@ -99,15 +99,15 @@ en:
         cancel_description: You can cancel this visit if it can no longer take place. This will email the visitor to let them know.
         cancel_button: Cancel visit
         closed_visit: This is a closed visit
-        slot_unavailable: The date is no longer available
-        prisoner_moved: The prisoner has now moved
-        booked_in_error: It was booked in error
+        booked_in_error: Visit was booked in error
+        slot_unavailable: Visit slot no longer available
         capacity_issues: Capacity issues in the visit hall
-        child_protection_issues: The prisoner is now subject to Child Protection measures
-        prisoner_non_association: the prisoner is now subject to a non-association
-        prisoner_released: the prisoner has been released
-        prisoner_vos: issues with the prisoner’s VOs
-        visitor_banned: the visitor has been banned from the visit
+        prisoner_vos: Issue with the prisoner’s visiting allowance (VOs)
+        prisoner_moved: Prisoner has moved prisons
+        prisoner_released: Prisoner has been released
+        prisoner_non_association: Prisoner has a non-association
+        child_protection_issues: Prisoner has child protection measures
+        visitor_banned: Visitor is banned
       visit_date_section:
         title: Visit date
         choice_html: "Choice %{n}: <strong>%{date}</strong>"
