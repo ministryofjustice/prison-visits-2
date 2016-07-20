@@ -9,9 +9,18 @@ class ApplicationController < ActionController::Base
 
   helper LinksHelper
   helper_method :current_user
+  helper_method :sso_link
 
   def current_user
     @_current_user ||= User.find_by(id: session[:current_user_id])
+  end
+
+  def sso_link(name)
+    if session[:sso_data]
+      session[:sso_data].fetch('links').fetch(name.to_s)
+    else
+      nil
+    end
   end
 
 private

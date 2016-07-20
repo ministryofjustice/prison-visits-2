@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   def create
     user = User.from_sso(omniauth_info)
+    session[:sso_data] = omniauth_info
 
     if user
       session[:current_user_id] = user.id
