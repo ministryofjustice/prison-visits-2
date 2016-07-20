@@ -35,9 +35,8 @@ module LogstashSidekiqLogger
     end
 
     def log_message(data)
-      msg = "[#{data[:status]}] (#{data[:total_duration]} ms) "
-      msg += "#{data[:job_name]} args: #{data[:arguments]}"
-      msg
+      msg = "[#{data[:job_status]}] (#{data[:total_duration]} ms) "
+      msg + "#{data[:job_name]} args: #{data[:arguments]}"
     end
 
     def base_log_data(performed_job, message)
@@ -45,7 +44,7 @@ module LogstashSidekiqLogger
         job_name: job_name(performed_job),
         arguments: job_arguments(performed_job),
         queue_name: queue_name(performed_job),
-        status: calculate_status(message),
+        job_status: calculate_status(message),
         active_job_duration: active_job_duration(performed_job),
         total_duration: total_duration(message)
       }
