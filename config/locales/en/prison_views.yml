@@ -175,6 +175,22 @@ en:
             They should contact you soon. You can also use the 'find a prisoner'
             service (www.gov.uk/find-prisoner).
           </p>
+        prisoner_released: Prisoner has been released
+        prisoner_released_wording_html: |
+          <p>
+            Your visit can't take place as the prisoner has been released.
+            They should contact you soon.
+          </p>
+        prisoner_non_association: Prisoner has a non-association
+        prisoner_non_association_wording_html: |
+          <p>
+            Your visit can't take place as the prisoner has a restriction.
+          </p>
+        child_protection_issues: Prisoner has child protection measures
+        child_protection_issues_wording_html: |
+          <p>
+            Your visit can't take place as the prisoner has a restriction.
+          </p>
       issue_with_visitors_section:
         title: Issue with visitors
         visitor_not_on_list: Visitor is not on the contact list

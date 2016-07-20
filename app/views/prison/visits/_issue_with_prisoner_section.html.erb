@@ -41,3 +41,66 @@
     <%= t('.prisoner_moved_wording_html') %>
   </blockquote>
 </div>
+
+<%= error_container(f, :selection) do %>
+  <label class="block-label">
+    <%=
+      f.radio_button(
+        :selection, :prisoner_released,
+        class: 'js-Conditional',
+        data: { 'conditional-el': 'prisoner_released_details' }
+      )
+    %>
+    <%= t('.prisoner_released') %>
+  </label>
+<% end %>
+
+<div id="prisoner_released_details" class="panel panel-border-narrow">
+  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+  <blockquote>
+    <%= t('.prisoner_released_wording_html') %>
+  </blockquote>
+</div>
+
+<%= error_container(f, :selection) do %>
+  <label class="block-label">
+    <%=
+      f.radio_button(
+        :selection, :prisoner_released,
+        class: 'js-Conditional',
+        data: { 'conditional-el': 'prisoner_non_association_details' }
+      )
+    %>
+    <%= t('.prisoner_non_association') %>
+  </label>
+<% end %>
+
+<div id="prisoner_non_association_details" class="panel panel-border-narrow">
+  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+  <blockquote>
+    <%= t('.prisoner_non_association_wording_html') %>
+  </blockquote>
+</div>
+
+<%= error_container(f, :selection) do %>
+  <label class="block-label">
+    <%=
+      f.radio_button(
+        :selection, :child_protection_issues,
+        class: 'js-Conditional',
+        data: { 'conditional-el': 'child_protection_issues_details' }
+      )
+    %>
+    <%= t('.child_protection_issues') %>
+  </label>
+<% end %>
+
+<div id="child_protection_issues_details" class="panel panel-border-narrow">
+  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+  <blockquote>
+    <%= t('.child_protection_issues_wording_html') %>
+  </blockquote>
+</div>

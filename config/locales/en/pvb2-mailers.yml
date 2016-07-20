@@ -99,6 +99,13 @@ en:
         moved prisons. They should contact soon. You can
         also use the
         <a href="http://www.gov.uk/find-prisoner">find a prisoner service</a>.
+      prisoner_released:
+        Your visit can't take place as the prisoner has been released.
+        They should contact you soon.
+      prisoner_non_association:
+        Your visit can't take place as the prisoner has a restriction.
+      child_protection_issues:
+        Your visit can't take place as the prisoner has a restriction.
       visitor_banned:
         Your visit cannot take place. %{visitors} should have received a letter
         to say that they’re banned from visiting the prison at the moment. Get
