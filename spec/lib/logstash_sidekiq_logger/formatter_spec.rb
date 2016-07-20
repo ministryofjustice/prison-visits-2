@@ -94,7 +94,7 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
               'job_name' => 'prison_mailer_cancelled',
               'arguments' => [visit.to_global_id.to_s, 'foo'],
               'queue_name' => 'mailers',
-              'status' => 'completed',
+              'job_status' => 'completed',
               'active_job_duration' => 1234,
               'total_duration' => 2944)
           expect(logged_message['message']).
@@ -134,7 +134,7 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
               'job_name' => 'prison_mailer_cancelled',
               'arguments' => [visit.to_global_id.to_s, 'foo'],
               'queue_name' => 'mailers',
-              'status' => 'to_be_retried',
+              'job_status' => 'to_be_retried',
               'active_job_duration' => 1234,
               'total_duration' => 2945,
               "retry_count" => 0)
@@ -162,7 +162,7 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
               'job_name' => 'prison_mailer_cancelled',
               'arguments' => [visit.to_global_id.to_s, 'foo'],
               'queue_name' => 'mailers',
-              'status' => 'failed',
+              'job_status' => 'failed',
               'active_job_duration' => 1234,
               'total_duration' => 2945,
               "retry_count" => 0)

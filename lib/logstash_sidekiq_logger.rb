@@ -19,7 +19,7 @@
 #   "job_name":"prison_mailer_request_received",
 #   "arguments":["gid://prison-visits/Visit/0125d92d-3e27-4835-bc35-7fd5fb"],
 #   "queue_name":"mailers",
-#   "status":"completed",
+#   "job_status":"completed",
 #   "active_job_duration":640.827,
 #   "total_duration":691.0,
 #   "message":"[completed] 691.0 ms prison_mailer_request_received arguments
@@ -31,7 +31,7 @@
 #   "job_name":"prison_mailer_request_received",
 #   "arguments":["gid://prison-visits/Visit/0125d92d-3e27-4835-bc35-7fd5fb"],
 #   "queue_name":"mailers",
-#   "status":"to_be_retried",
+#   "job_status":"to_be_retried",
 #   "active_job_duration":1.194,
 #   "total_duration":4.0,
 #   "message":"[to_be_retried] 4.0 ms prison_mailer_request_received arguments
