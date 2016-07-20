@@ -123,21 +123,8 @@ en:
         none_available: None of the chosen times are available
         none_available_explanation_html: |
           <p>
-            Choose this option if:
+            Choose this option if the prisoner is due to be elsewhere, eg at court
           </p>
-
-          <ul class="list list-bullet">
-            <li>
-              the prisoner has restrictions on their visits
-            </li>
-            <li>
-              the prisoner is due to be elsewhere, eg at court
-            </li>
-            <li>
-              the visit can’t take place because an incompatible prisoner is having a
-              visit at the same time
-            </li>
-          </ul>
         none_available_wording_html: |
           <p>
             We’re sorry but none of the dates and times you chose to visit
