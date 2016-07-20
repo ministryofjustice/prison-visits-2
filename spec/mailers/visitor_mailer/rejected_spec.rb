@@ -136,7 +136,7 @@ RSpec.describe VisitorMailer, '.rejected' do
     include_examples 'template checks'
 
     it 'explains the error' do
-      expect(body).to match(/the prisoner you want to visit has moved prison/)
+      expect(body).to match(/the prisoner has moved prisons/)
     end
   end
 

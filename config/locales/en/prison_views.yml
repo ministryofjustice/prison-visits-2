@@ -181,7 +181,7 @@ en:
             date of birth is incorrect. Contact the prisoner to get up-to-date
             information.
           </p>
-        prisoner_moved: Prisoner no longer at the prison
+        prisoner_moved: Prisoner has moved prisons
         prisoner_moved_wording_html: |
           <p>
             Your visit can't take place as the prisoner has moved prison.
