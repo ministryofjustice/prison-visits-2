@@ -18,15 +18,13 @@
   </div>
 </div>
 
-
 <% if @visit_date %>
   <% if @data.any? %>
     <%= link_to t('.download_csv'), prison_print_visits_path(visit_date: params[:visit_date] ,format: :csv) %>
     <a class="hidden--print" href="javascript:print()"><%= t('.print') %></a>
 
-    <h2>Booked visits</h2>
     <% if @data['booked'].nil? -%>
-      No bookings
+      <p class="lede push-top">No bookings</p>
     <% else %>
       <% @data['booked'].each_with_index do |(slot, visits), index| %>
         <% unless index.zero? %>
@@ -36,15 +34,13 @@
       <% end -%>
     <% end -%>
 
-    <h2>Cancelled visits</h2>
     <% if @data['cancelled'].nil? -%>
-      No cancellations
+      <p class="lede push-top">No cancellations</p>
     <% else %>
+      <div class="page-break"></div>
+      <h3 class="heading-medium">Cancelled visits</h3>
       <% @data['cancelled'].each_with_index do |(slot, visits), index| %>
-        <% unless index.zero? %>
-          <div class="page-break"></div>
-        <% end %>
-        <%= render 'print_slot', slot: slot, visits: visits %>
+        <%= render 'print_cancelled_slot', slot: slot, visits: visits %>
       <% end -%>
     <% end -%>
   <% else %>
