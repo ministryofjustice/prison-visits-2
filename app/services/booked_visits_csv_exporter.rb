@@ -8,7 +8,7 @@ class BookedVisitsCsvExporter
   end
 
   def to_csv
-    visits = @data.values.flatten
+    visits = @data.values.map(&:values).flatten
 
     CSV.generate(headers: headers, write_headers: true) do |csv|
       visits.each do |visit|
@@ -19,9 +19,9 @@ class BookedVisitsCsvExporter
 
   def headers
     [
-      'Prisoner name', 'Prisoner number', 'Slot granted', 'Closed visit',
-      'Lead visitor', 'Lead visitor dob', 'Lead visitor allowed?',
-      'Phone number', 'Email address',
+      'Status', 'Prisoner name', 'Prisoner number', 'Slot granted',
+      'Closed visit', 'Lead visitor', 'Lead visitor dob',
+      'Lead visitor allowed?', 'Phone number', 'Email address',
       'Visitor 2 name', 'Visitor 2 dob', 'Visitor 2 allowed?',
       'Visitor 3 name', 'Visitor 3 dob', 'Visitor 3 allowed?',
       'Visitor 4 name', 'Visitor 4 dob', 'Visitor 4 allowed?',
@@ -37,6 +37,7 @@ private
   end
 
   def visit_attrs(visit){
+    'Status' => visit.processing_state,
     'Prisoner name' => visit.prisoner_full_name,
     'Prisoner number' => visit.prisoner_number,
     'Slot granted' => format_slot_for_staff(visit.slot_granted),

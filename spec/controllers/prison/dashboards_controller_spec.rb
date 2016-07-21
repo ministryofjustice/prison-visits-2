@@ -133,8 +133,8 @@ RSpec.describe Prison::DashboardsController, type: :controller do
         it 'assigns visits with a slot granted on the date' do
           subject
 
-          expect(assigns[:data][visit1.slot_granted].size).to eq(1)
-          expect(assigns[:data][visit2.slot_granted].size).to eq(1)
+          expect(assigns[:data]['booked'][visit1.slot_granted].size).to eq(1)
+          expect(assigns[:data]['booked'][visit2.slot_granted].size).to eq(1)
         end
 
         context 'as a csv' do

@@ -6,6 +6,40 @@ RSpec.describe EstateVisitQuery do
   let(:prison) { FactoryGirl.create(:prison) }
   let(:estate) { prison.estate }
 
+  describe '#visits_to_print_by_slot' do
+    subject(:visits_to_print_by_slot) do
+      instance.visits_to_print_by_slot(date)
+    end
+
+    let(:slot1) { ConcreteSlot.new(2016, 7, 19, 10, 30, 11, 30) }
+    let(:slot2) { ConcreteSlot.new(2016, 7, 19, 14, 30, 15, 30) }
+    let(:date) { slot1.to_date }
+    let!(:booked_visit1) do
+      FactoryGirl.create(
+        :booked_visit,
+        prison: prison,
+        slot_granted: slot1)
+    end
+    let!(:booked_visit2) do
+      FactoryGirl.create(:booked_visit,
+        prison: prison,
+        slot_granted: slot2)
+    end
+    let!(:cancelled_visit) do
+      FactoryGirl.create(:cancelled_visit,
+        prison: prison,
+        slot_granted: slot1)
+    end
+
+    it 'returns the data grouped by state and slot' do
+      is_expected.to eq('booked' => {
+                          slot1 => [booked_visit1],
+                          slot2 => [booked_visit2]
+                        },
+                        'cancelled' => { slot1 => [cancelled_visit] })
+    end
+  end
+
   describe '#processed' do
     subject(:processed) do
       instance.processed(limit: limit, prisoner_number: prisoner_number)
