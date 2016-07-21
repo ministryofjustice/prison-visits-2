@@ -4,7 +4,7 @@ en:
       cookies_intro: GOV.UK uses cookies to make the site simpler.
   prison:
     flash:
-      already_processed: The visit has already been processed
+      already_processed: Visit can't be processed
       process_thank_you: Thank you for processing the visit
       visit_cancelled: The visit has been cancelled
       already_cancelled: The visit is no longer cancellable

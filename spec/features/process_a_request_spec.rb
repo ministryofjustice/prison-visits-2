@@ -42,7 +42,7 @@ RSpec.feature 'Processing a request', js: true do
     let(:vst) { create(:cancelled_visit) }
 
     scenario 'is not allowed' do
-      expect(page).to have_text('The visit has already been processed')
+      expect(page).to have_text("Visit can't be processed")
       expect(page).not_to have_text('Send email')
     end
   end
