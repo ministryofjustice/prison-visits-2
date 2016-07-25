@@ -12,8 +12,10 @@
     <%= t('.intro',
           date: format_slot_for_public(@visit.slot_granted),
           prison: @visit.prison.name,
-          prisoner: @visit.prisoner_full_name) %> <%= t(".#{@visit.cancellation_reason}") %>
+          prisoner: @visit.prisoner_full_name) %>
     </p>
+
+    <%= t(".#{@visit.cancellation_reason}_html", service_url: link_directory.public_service, prisoner: @visit.prisoner_full_name) %>
 <% end %>
 
 <p><%= t('.any_questions_html',

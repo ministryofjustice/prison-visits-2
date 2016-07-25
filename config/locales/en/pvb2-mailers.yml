@@ -158,36 +158,45 @@ en:
       subject: "CANCELLED: Your %{prison_name} prison visit for %{date}"
       salutation: Dear %{name},
       intro:
-        We're sorry but your visit to to %{prisoner} at %{prison} on %{date}
-        has been cancelled
-      slot_unavailable: >-
-        because the visit time is no longer available.
-      visitor_banned_html: |
-        <p>We're sorry but your visit to to %{prisoner} at %{prison} on %{date}
-        has been cancelled.</p>
+        We're sorry to let you know we have cancelled your visit to %{prisoner} at %{prison} on %{date}.
+      slot_unavailable_html: >-
+        <p>We’re sorry but the slot you chose is no longer available.</p>
 
-        <p>A letter has been sent telling you you're banned from visiting the
-        prison at the moment. Get in touch with the prison for more
-        information.</p>
-      booked_in_error: >-
-        because it was booked in error.
-      capacity_issues: >-
-        because of capacity issues in the visit hall.
-      child_protection_issues:
-        because the prisoner has a restriction.
-      prisoner_moved: >-
-        because the prisoner has moved prison. They should contact you soon. You can also use the 'find a prisoner' service (www.gov.uk/find-prisoner).
-      prisoner_non_association: >-
-        because the prisoner has a restriction.
-      prisoner_released: >-
-        because the prisoner has been released. They should contact you soon.
-      prisoner_vos: >-
-        because there is no visiting allowance left for the prisoner you want to visit.
+        <p>To arrange another visit, go to <a href="%{service_url}">www.gov.uk/prison-visits</a> and choose new dates.</p>
+      visitor_banned_html: >-
+        <p>We have cancelled your visit because you have been banned from visiting this prison.</p>
 
+        <p>We have sent you a letter explaining why we took this decision and giving you further details.</p>
+      booked_in_error_html: >-
+        <p>Unfortunately, we made a mistake booking this visit.</p>
+
+        <p>To arrange another visit, go to <a href="%{service_url}">www.gov.uk/prison-visits</a> and choose new dates.</p>
+      capacity_issues_html: >-
+        <p>We’re sorry but there are too many visitors scheduled for that time and we do not have enough space to sit everyone safely.</p>
+
+        <p>To arrange another visit, go to <a href="%{service_url}">www.gov.uk/prison-visits</a> and choose new dates.</p>
+      child_protection_issues_html:
+        <p>We have cancelled your visit due to restrictions around this prisoner.</p>
+      prisoner_moved_html: >-
+        <p>We cancelled your visit because they have left this prison.</p>
+
+        <p>If they haven’t been in touch recently, visit (www.gov.uk/find-prisoner).This service will help you find them.</p>
+      prisoner_non_association_html: >-
+        <p>We have cancelled your visit due to restrictions around this prisoner.</p>
+
+        <p>You may be able to visit them at a later date.</p>
+      prisoner_released_html: >-
+        <p>We cancelled your visit because they were released from prison.</p>
+
+        <p>We’re not able to share any contact details so hope that they get in touch with you soon.</p>
+      prisoner_vos_html: >-
+        <p>There is a limit to how many visits a prisoner can have each month.</p>
+
+        <p>%{prisoner} will have reached this limit by the date you’ve chosen but you can try to visit them again after their allowance is re-set.</p>
+
+        <p>To arrange another visit, go to <a href="%{service_url}">www.gov.uk/prison-visits</a>.</p>
       any_questions_html:
-        If you have any questions, visit the
-        <a href="%{url}">prison website</a> or call the prison on
-        <strong>%{phone_no}</strong>.
+        If you have any questions, visit the <a href="%{url}">prison website</a> or call the prison on <strong>%{phone_no}</strong>.
       visit_id: "Visit ID:"
     visit_info:
       what_to_bring_title: What to bring when you visit
