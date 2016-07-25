@@ -6,6 +6,8 @@ json.visit do
   json.contact_email_address @visit.contact_email_address
   json.slots @visit.slots.map(&:iso8601)
   json.slot_granted @visit.slot_granted&.iso8601
+  json.cancellation_reason @visit.cancellation&.reason
+  json.cancelled_at @visit.cancellation&.created_at&.iso8601
 
   json.visitors @visit.visitors do |visitor|
     json.anonymized_name visitor.anonymized_name
