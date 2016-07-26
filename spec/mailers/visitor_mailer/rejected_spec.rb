@@ -140,6 +140,36 @@ RSpec.describe VisitorMailer, '.rejected' do
     end
   end
 
+  context 'prisoner_released' do
+    let(:reason) { 'prisoner_released' }
+
+    include_examples 'template checks'
+
+    it 'explains the error' do
+      expect(body).to match(/the prisoner has been released/)
+    end
+  end
+
+  context 'prisoner_non_association' do
+    let(:reason) { 'prisoner_non_association' }
+
+    include_examples 'template checks'
+
+    it 'explains the error' do
+      expect(body).to match(/the prisoner has a restriction/)
+    end
+  end
+
+  context 'child_protection_issues' do
+    let(:reason) { 'child_protection_issues' }
+
+    include_examples 'template checks'
+
+    it 'explains the error' do
+      expect(body).to match(/the prisoner has a restriction/)
+    end
+  end
+
   context 'no_adult' do
     let(:reason) { 'no_adult' }
 

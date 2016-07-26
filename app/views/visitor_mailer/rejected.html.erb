@@ -35,6 +35,18 @@
 
   <p><%= t('.no_adult') %></p>
 
+<% when 'prisoner_released' %>
+
+  <p><%= t('.prisoner_released') %></p>
+
+<% when 'prisoner_non_association' %>
+
+  <p><%= t('.prisoner_non_association') %></p>
+
+<% when 'child_protection_issues' %>
+
+  <p><%= t('.child_protection_issues') %></p>
+
 <% end %>
 
 <% if @visit.unlisted_visitors.any? %>
