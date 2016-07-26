@@ -43,6 +43,8 @@
 require_relative 'logstash_sidekiq_logger/active_job_subscriber'
 require_relative 'logstash_sidekiq_logger/formatter'
 
+# Remove when we enable it again
+# :nocov:
 module LogstashSidekiqLogger
   def self.setup(log_file)
     # Listen to Rails ActiveJob instrumentation

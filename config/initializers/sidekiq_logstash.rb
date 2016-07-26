@@ -1,5 +1,10 @@
-require 'logstash_sidekiq_logger'
+# Temporarily disable the logger until the recent Sentries are debugged and
+# fixed.
 
-log_file = Rails.root.join("log/logstash_#{Rails.env}.json")
+# require 'logstash_sidekiq_logger'
 
-LogstashSidekiqLogger.setup(log_file)
+# log_file = Rails.root.join("log/logstash_#{Rails.env}.json")
+
+# Temporarily disable the logger until the recent Sentries are debugged and
+# fixed.
+# LogstashSidekiqLogger.setup(log_file)
