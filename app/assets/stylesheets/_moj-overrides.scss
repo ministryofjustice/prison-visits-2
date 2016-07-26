@@ -19,6 +19,19 @@
           text-decoration: none;
         }
       }
+      #proposition-links {
+        @extend .font-xsmall;
+        float: right;
+      }
+      .button-link {
+        color: $white;
+        font-weight: bold;
+        line-height: 23px;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 }

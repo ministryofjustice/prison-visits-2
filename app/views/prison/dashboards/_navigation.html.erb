@@ -4,13 +4,6 @@
       <%= nav_link t('.inbox'), prison_inbox_path %>
       <%= nav_link t('.processed'), prison_processed_visits_path %>
       <%= nav_link t('.print_visits'), prison_print_visits_path %>
-
-      <li class="float-right">
-        <%= form_tag session_path, method: :delete, enforce_utf8: false, class: 'form' do -%>
-          <%= link_to current_user.email, sso_link(:profile) %>
-          (<input class="button-link" type="submit" value="<%= t('.sign_out') %>">)
-          <% end %>
-      </li>
     </ol>
   </div>
 <% end %>
