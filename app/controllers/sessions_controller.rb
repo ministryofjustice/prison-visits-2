@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
     sso_signout_url = URI.parse(sso_link(:logout))
 
     # Redirect to staff guide on signout rather than the (default) sso login
-    sso_signout_url.query = {redirect_to: root_url}.to_query
+    sso_signout_url.query = { redirect_to: root_url }.to_query
 
     session.delete(:current_user_id)
     session.delete(:sso_data)

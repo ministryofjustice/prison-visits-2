@@ -169,7 +169,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
       let(:user) { FactoryGirl.create(:user, estate: visit.prison.estate) }
 
       before do
-        sign_in user
+        stub_logged_in_user(user)
       end
 
       it { is_expected.to redirect_to(prison_inbox_path) }
