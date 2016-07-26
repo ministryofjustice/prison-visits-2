@@ -61,7 +61,7 @@
 <%= render 'search_form', locals: {search_path: prison_inbox_path} %>
 
 <% if @requested_visits.any? %>
-  <h2 class="bold-medium push-bottom"><%= t('.requests') %></h2>
+  <h2 class="bold-medium push-bottom js-AutoRefresh"><%= t('.requests') %></h2>
   <% if params[:prisoner_number] %>
     <%= render 'inbox_search_results', visits: @requested_visits %>
   <% else %>
