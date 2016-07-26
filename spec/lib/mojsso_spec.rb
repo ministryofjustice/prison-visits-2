@@ -22,11 +22,21 @@ RSpec.describe OmniAuth::Strategies::Mojsso do
 
   context 'methods' do
     let(:uid) { double('uid') }
+    let(:first_name) { double('first_name') }
+    let(:last_name) { double('last_name') }
     let(:email) { FFaker::Internet.email }
     let(:permissions) { double('permissions') }
+    let(:links) { double('links') }
 
     let(:raw_info) do
-      { 'id' => uid, 'email' => email, 'permissions' => permissions }
+      {
+        'id' => uid,
+        'first_name' => first_name,
+        'last_name' => last_name,
+        'email' => email,
+        'permissions' => permissions,
+        'links' => links
+      }
     end
 
     context '#info' do
@@ -35,7 +45,12 @@ RSpec.describe OmniAuth::Strategies::Mojsso do
       end
 
       it 'returns a hash with the email and permissions' do
-        expect(strategy.info).to eq(email: email, permissions: permissions)
+        expect(strategy.info).to eq(
+          first_name: first_name,
+          last_name: last_name,
+          email: email,
+          permissions: permissions,
+          links: links)
       end
     end
 
