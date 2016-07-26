@@ -18,8 +18,6 @@ class ApplicationController < ActionController::Base
   def sso_link(name)
     if session[:sso_data]
       session[:sso_data].fetch('links').fetch(name.to_s)
-    else
-      nil
     end
   end
 
