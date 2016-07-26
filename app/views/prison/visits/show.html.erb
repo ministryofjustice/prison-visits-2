@@ -5,6 +5,7 @@
 
 <% content_for :header do %>
   <%= t('.title') %>
+  <span class="heading-secondary float-right"><%= t('.ref', number: @visit.reference_no) %></span>
 <% end %>
 
 <%= render 'prison/dashboards/navigation' %>
