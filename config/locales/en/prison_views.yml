@@ -94,6 +94,7 @@ en:
       shared:
         what_we_will_tell: What we’ll tell the visitor
       show:
+        ref: "Ref: %{number}"
         title: Visit details
         cancel_title: Cancel this visit
         cancel_description: You can cancel this visit if it can no longer take place. This will email the visitor to let them know.
