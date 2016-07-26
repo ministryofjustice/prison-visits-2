@@ -8,7 +8,7 @@ en:
       process_thank_you: Thank you for processing the visit
       visit_cancelled: The visit has been cancelled
       already_cancelled: The visit is no longer cancellable
-      nomis_cancellation_confirmed: The visit has been cancelled
+      nomis_cancellation_confirmed: The visit has been cancelled. This request has now been filed under 'Processed visits'
     dashboards:
       banner:
         beta_html: |
