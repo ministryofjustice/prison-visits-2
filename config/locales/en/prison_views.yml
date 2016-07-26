@@ -2,6 +2,7 @@ en:
   layouts:
     application:
       cookies_intro: GOV.UK uses cookies to make the site simpler.
+      sign_out: Sign out
   prison:
     flash:
       already_processed: Visit can't be processed
@@ -20,7 +21,6 @@ en:
         print_visits: Print visits
         visitor_cancellations: Visitor cancellations
         current: "Current prison:"
-        sign_out: Sign out
       processed:
         title: Processed visits
         view_link: View
