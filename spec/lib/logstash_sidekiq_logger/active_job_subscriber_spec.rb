@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'logstash_sidekiq_logger'
 
 RSpec.describe LogstashSidekiqLogger::ActiveJobSubscriber do
   let(:instance) { described_class.new }
