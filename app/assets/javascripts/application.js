@@ -18,6 +18,7 @@
 
 // Candidates for re-usable components
 //= require modules/moj.autocomplete
+//= require modules/moj.autorefresh
 //= require modules/moj.hijacks
 //= require modules/moj.submit-once
 //= require modules/moj.Conditional
