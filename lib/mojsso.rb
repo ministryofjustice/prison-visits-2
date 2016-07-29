@@ -9,16 +9,16 @@ module OmniAuth
         authorize_url: 'http://localhost:5000/oauth/authorize'
 
       uid do
-        raw_info['id']
+        raw_info.fetch('id')
       end
 
       info do
         {
-          first_name: raw_info['first_name'],
-          last_name: raw_info['last_name'],
-          email: raw_info['email'],
-          permissions: raw_info['permissions'],
-          links: raw_info['links']
+          first_name: raw_info.fetch('first_name'),
+          last_name: raw_info.fetch('last_name'),
+          email: raw_info.fetch('email'),
+          permissions: raw_info.fetch('permissions'),
+          links: raw_info.fetch('links')
         }
       end
 
