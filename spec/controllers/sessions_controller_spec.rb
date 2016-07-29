@@ -5,6 +5,9 @@ RSpec.describe SessionsController, type: :controller do
     subject(:create) { get :create, provider: 'mojsoo' }
 
     let(:auth_hash) { { 'info' => anything } }
+    let(:sso_data) do
+      {}
+    end
 
     before do
       request.env['omniauth.auth'] = auth_hash
@@ -12,22 +15,22 @@ RSpec.describe SessionsController, type: :controller do
 
     context "when the user can't be signed in" do
       before do
-        expect(User).to receive(:from_sso).and_return(nil)
+        allow(SignonIdentity).to receive(:from_omniauth).and_return(nil)
       end
 
       it { is_expected.to redirect_to(root_path) }
     end
 
     context 'when the user can be signed in' do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:signon_identity) { double(SignonIdentity, to_session: sso_data) }
 
       before do
-        expect(User).to receive(:from_sso).and_return(user)
+        allow(SignonIdentity).to receive(:from_omniauth).and_return(signon_identity)
       end
 
-      it 'sets the current user id in the session' do
+      it 'sets the identity data in the session' do
         create
-        expect(session[:current_user_id]).to eq(user.id)
+        expect(session[:sso_data]).to eq(sso_data)
       end
 
       context 'with a redirect_path set on the session' do
@@ -54,13 +57,25 @@ RSpec.describe SessionsController, type: :controller do
   describe '#destroy' do
     subject(:destroy) { delete :destroy }
 
-    before do
-      session[:current_user_id] = 'user_id'
+    let(:user) { FactoryGirl.create(:user) }
 
-      allow(controller).
-        to receive(:sso_link).
-        with(:logout).
-        and_return('http://example.com/logout')
+    let(:sso_data) do
+      {
+        'user_id' => user.id,
+        'full_name' => 'Joe Bloggs',
+        'profile_url' => '',
+        'logout_url' => 'http://example.com/logout'
+      }
+    end
+
+    before do
+      session[:sso_data] = sso_data
+    end
+
+    it 'deletes the session and does not redirect to SSO if session data invalid' do
+      session[:sso_data].delete('user_id')
+      expect(destroy).to redirect_to(root_url)
+      expect(session[:sso_data]).to be_nil
     end
 
     it 'deletes the current user id from the session and redirects' do
@@ -68,7 +83,7 @@ RSpec.describe SessionsController, type: :controller do
         to redirect_to(<<-EOS.strip_heredoc)
           http://example.com/logout?redirect_to=#{CGI.escape(root_url)}
       EOS
-      expect(session[:current_user_id]).to be_nil
+      expect(session[:sso_data]).to be_nil
     end
   end
 end

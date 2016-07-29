@@ -9,15 +9,20 @@ class ApplicationController < ActionController::Base
 
   helper LinksHelper
   helper_method :current_user
-  helper_method :sso_link
+  helper_method :sso_identity
 
   def current_user
-    @_current_user ||= User.find_by(id: session[:current_user_id])
+    sso_identity&.user
   end
 
-  def sso_link(name)
-    if session[:sso_data]
-      session[:sso_data].fetch('links').fetch(name.to_s)
+  def sso_identity
+    @_sso_identity ||= begin
+      session[:sso_data] && SignonIdentity.from_session_data(session[:sso_data])
+    rescue SignonIdentity::InvalidSessionData
+      Rails.logger.info \
+        "Deleting invalid signon session data: #{session[:sso_data]}"
+      session.delete(:sso_data)
+      nil
     end
   end
 
@@ -37,7 +42,7 @@ private
   end
 
   def authenticate_user
-    unless current_user
+    unless sso_identity
       session[:redirect_path] = request.original_fullpath
       redirect_to '/auth/mojsso'
     end

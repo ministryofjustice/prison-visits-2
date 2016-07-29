@@ -1,11 +1,9 @@
 class SessionsController < ApplicationController
   def create
-    user = User.from_sso(omniauth_info)
-    session[:sso_data] = omniauth_info
+    identity = SignonIdentity.from_omniauth(request.env['omniauth.auth'])
 
-    if user
-      session[:current_user_id] = user.id
-
+    if identity
+      session[:sso_data] = identity.to_session
       redirect_to session.delete(:redirect_path) || prison_inbox_path
     else
       flash[:notice] = t('.cannot_sign_in')
@@ -14,20 +12,12 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    sso_signout_url = URI.parse(sso_link(:logout))
-
-    # Redirect to staff guide on signout rather than the (default) sso login
-    sso_signout_url.query = { redirect_to: root_url }.to_query
-
-    session.delete(:current_user_id)
-    session.delete(:sso_data)
-    redirect_to sso_signout_url.to_s
-  end
-
-private
-
-  # Set by the omni auth strategy in lib/mojsso.rb
-  def omniauth_info
-    request.env['omniauth.auth'].fetch('info')
+    if sso_identity
+      sso_logout_url = sso_identity.logout_url(redirect_to: root_url)
+      session.delete(:sso_data)
+      redirect_to sso_logout_url
+    else
+      redirect_to root_url
+    end
   end
 end

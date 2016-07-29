@@ -1,5 +1,6 @@
 module ControllerHelper
   def stub_logged_in_user(user)
-    allow(controller).to receive(:current_user).and_return(user)
+    identity = SignonIdentity.new(user, full_name: FFaker::Name.name, profile_url: '', logout_url: '')
+    allow(controller).to receive(:sso_identity).and_return(identity)
   end
 end
