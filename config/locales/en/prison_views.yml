@@ -143,8 +143,17 @@ en:
         none_available: None of the chosen times are available
         none_available_explanation_html: |
           <p>
-            Choose this option if the prisoner is due to be elsewhere, eg at court
+           Choose this option if:
           </p>
+
+          <ul class="list list-bullet">
+            <li>
+              there is no space left in the visit hall
+            </li>
+            <li>
+              the prisoner is due to be elsewhere, eg at court
+            </li>
+          </ul>
         none_available_wording_html: |
           <p>
             We’re sorry but none of the dates and times you chose to visit
