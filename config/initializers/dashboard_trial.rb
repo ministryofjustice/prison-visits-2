@@ -1,6 +1,7 @@
-Rails.configuration.dashboard_trial = %w[
-  Belmarsh
-  Cardiff
-  Coldingley
-  Pentonville
+Rails.configuration.dashboard_trial = [
+  'Belmarsh',
+  'Cardiff',
+  'Coldingley',
+  'Pentonville',
+  'Wormwood Scrubs'
 ]
