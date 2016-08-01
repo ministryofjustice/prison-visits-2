@@ -18,6 +18,7 @@ RSpec.describe PrisonMailer, '.cancelled' do
 
   include_examples 'template checks'
   include_examples 'noreply checks'
+  include_examples 'skipping email for the trial'
 
   context 'cancelled visit' do
     include_examples 'template checks'

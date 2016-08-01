@@ -26,6 +26,7 @@ RSpec.describe PrisonMailer, '.request_received' do
 
   include_examples 'template checks'
   include_examples 'noreply checks'
+  include_examples 'skipping email for the trial'
 
   it 'reports the request' do
     expect(mail.subject).
