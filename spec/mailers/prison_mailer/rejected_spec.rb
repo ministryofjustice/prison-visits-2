@@ -15,6 +15,7 @@ RSpec.describe PrisonMailer, '.rejected' do
       )
     )
   }
+  let(:visit) { rejection.visit }
   let(:mail) { described_class.rejected(rejection.visit) }
   let(:body) { mail.html_part.body }
 
@@ -24,6 +25,7 @@ RSpec.describe PrisonMailer, '.rejected' do
 
   include_examples 'template checks'
   include_examples 'noreply checks'
+  include_examples 'skipping email for the trial'
 
   it 'sends an email reporting the rejection' do
     expect(mail.subject).

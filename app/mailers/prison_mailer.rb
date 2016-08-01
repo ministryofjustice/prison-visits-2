@@ -43,6 +43,8 @@ class PrisonMailer < ActionMailer::Base
 private
 
   def mail_prison(visit, i18n_options = {})
+    return if skip_email?(visit)
+
     mail(
       from: I18n.t('mailer.noreply', domain: noreply_domain),
       to: visit.prison_email_address,
@@ -70,5 +72,9 @@ private
   # send emails gets set up to receive emails.
   def noreply_domain
     'robot.' + smtp_settings[:domain]
+  end
+
+  def skip_email?(visit)
+    visit.prison.estate.name.in? Rails.configuration.dashboard_trial
   end
 end

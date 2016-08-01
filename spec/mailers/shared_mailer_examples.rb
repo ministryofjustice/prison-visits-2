@@ -10,3 +10,13 @@ RSpec.shared_examples 'noreply checks' do
     expect(mail.from.first).to match(/@robot./)
   end
 end
+
+RSpec.shared_examples 'skipping email for the trial' do
+  it 'does not send emails for prisons in the dashboard trial' do
+    allow(Rails.configuration).
+      to receive(:dashboard_trial).
+      and_return([visit.prison.estate.name])
+
+    expect(mail.to).to be_nil
+  end
+end
