@@ -50,6 +50,7 @@ Rails.application.routes.draw do
       get '/inbox', action: :inbox, as: 'inbox'
       get '/processed', action: :processed, as: 'processed_visits'
       get '/print_visits', action: :print_visits, as: 'print_visits'
+      get '/search', action: :search, as: :search
     end
   end
 

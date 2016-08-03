@@ -1,15 +1,18 @@
 <%= render 'banner' %>
 <%= render 'navigation' %>
 <% content_for :header do %>
-  <%= @estate.name %> <%= t('.title') %>
+  <%= t('.title', prisoner_number: params[:prisoner_number]) %>
 <% end %>
 
 <h3 class="heading-medium"><%= t('.cancellations') %></h3>
 <%= render 'cancellations' %>
 
+<h3 class="heading-medium"><%= t('.requests') %></h3>
 <% if @requested_visits.any? %>
-  <h2 class="bold-medium push-bottom"><%= t('.requests') %></h2>
-  <%= render 'inbox_results', visits: @requested_visits %>
+  <%= render 'inbox_search_results', visits: @requested_visits %>
 <% else %>
   <p class="lede"><%= t('no_visits', scope: :shared) %></p>
 <% end %>
+
+<h3 class="heading-medium"><%= t('.processed') %></h3>
+<%= render 'processed' %>
