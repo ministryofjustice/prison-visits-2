@@ -7,6 +7,7 @@ postcode: LS12 2TJ
 email_address: socialvisits.leeds@hmps.gsi.gov.uk
 phone_no: 0113 203 2995
 enabled: true
+booking_window: 14
 recurring:
   mon:
   - 1000-1130
@@ -34,4 +35,3 @@ recurring:
   - 1030-1130
   - 1400-1500
   - 1530-1630
-
