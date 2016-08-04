@@ -1,7 +1,7 @@
 class Prison::VisitsController < ApplicationController
   helper CalendarHelper
   before_action :authorize_prison_request
-  before_action :authenticate_user!, only: %i[ show nomis_cancelled ]
+  before_action :authenticate_user, only: %i[ show nomis_cancelled ]
   before_action :require_login_during_trial, only: %w[process_visit update]
   before_action :set_inbox_navigation_count,
     only: %w[show process_visit update],
@@ -63,7 +63,7 @@ private
   end
 
   def require_login_during_trial
-    authenticate_user! if part_of_trial?
+    authenticate_user if part_of_trial?
   end
 
   def visit_page(visit)

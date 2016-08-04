@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711135837) do
+ActiveRecord::Schema.define(version: 20160712155242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,11 +28,12 @@ ActiveRecord::Schema.define(version: 20160711135837) do
   add_index "cancellations", ["visit_id"], name: "index_cancellations_on_visit_id", unique: true, using: :btree
 
   create_table "estates", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "name",                  null: false
+    t.string   "name",                            null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "nomis_id",    limit: 3, null: false
-    t.string   "finder_slug",           null: false
+    t.string   "nomis_id",              limit: 3, null: false
+    t.string   "finder_slug",                     null: false
+    t.string   "sso_organisation_name"
   end
 
   add_index "estates", ["name"], name: "index_estates_on_name", unique: true, using: :btree
@@ -102,7 +103,7 @@ ActiveRecord::Schema.define(version: 20160711135837) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["estate_id"], name: "index_users_on_estate_id", unique: true, using: :btree
+  add_index "users", ["estate_id"], name: "index_users_on_estate_id", using: :btree
 
   create_table "visit_state_changes", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "visit_state"

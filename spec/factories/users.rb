@@ -5,7 +5,5 @@ FactoryGirl.define do
     email do
       FFaker::Internet.disposable_email
     end
-
-    password { 'mypassword' }
   end
 end
