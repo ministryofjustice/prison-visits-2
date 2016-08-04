@@ -4,9 +4,7 @@ module OmniAuth
   module Strategies
     class Mojsso < OmniAuth::Strategies::OAuth2
       option :name, 'mojsso'
-      option :client_options,
-        site: 'http://localhost:5000',
-        authorize_url: 'http://localhost:5000/oauth/authorize'
+      option :client_options, site: ''
 
       uid do
         raw_info.fetch('id')
