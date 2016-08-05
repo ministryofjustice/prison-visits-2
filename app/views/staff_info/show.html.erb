@@ -1,3 +1,7 @@
+<% if current_user %>
+  <%= render 'prison/dashboards/banner' %>
+  <%= render 'prison/dashboards/navigation' %>
+<% end %>
 <section class = "Grid">
   <div class="Grid-2-3">
     <%= raw(@content) %>
