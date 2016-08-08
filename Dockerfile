@@ -1,5 +1,9 @@
 FROM ministryofjustice/ruby:2.3.0-webapp-onbuild
 
+# Update openssl & ca-certificates so that communication with signon can take place
+# (TODO: Remove this when base container has been updated)
+RUN apt-get update && apt-get install -y ca-certificates openssl && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 ENV UNICORN_PORT 3000
 EXPOSE $UNICORN_PORT
 
