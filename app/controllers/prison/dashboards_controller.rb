@@ -2,7 +2,7 @@ class Prison::DashboardsController < ApplicationController
   NUMBER_VISITS = 101
 
   before_action :authorize_prison_request
-  before_action :authenticate_user!
+  before_action :authenticate_user
   before_action :set_inbox_navigation_count
 
   def inbox

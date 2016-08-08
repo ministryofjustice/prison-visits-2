@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :users
   root to: 'staff_info#index'
 
   match 'exception', to: 'errors#test', via: %i[ get post ]
@@ -12,6 +11,9 @@ Rails.application.routes.draw do
     get 'ping', to: 'ping#index'
     get 'healthcheck', to: 'healthcheck#index'
   end
+
+  get '/auth/:provider/callback', to: 'sessions#create'
+  resource :session, only: %i[ destroy ]
 
   scope '/:locale', locale: /en|cy/ do
     get '/', to: redirect('/')

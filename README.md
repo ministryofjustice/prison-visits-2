@@ -193,6 +193,10 @@ form `postgres://myuser:mypass@localhost/somedatabase`.
 
 Google Analytics ID, used for the Performance Platform.
 
+#### `MOJSSO_ID, MOJSSO_SECRET, MOJSSO_URL`
+
+Configuration for OAuth based sign-on.
+
 #### `PRISON_ESTATE_IPS`
 
 A semicolon- or comma-separated list of IP addresses or CIDR ranges. Users on
