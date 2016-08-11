@@ -17,8 +17,15 @@
       padding: $gutter-half $gutter;
       text-decoration: none;
     }
-    form {
-      padding-top: $gutter-half;
+    form.search {
+      padding-top: 6px;
+      .form-control {
+        width: 70%;
+      }
+      .search-icon {
+        height: 16px;
+        width: 16px;
+      }
     }
     &.active {
       background-color: $link-colour;

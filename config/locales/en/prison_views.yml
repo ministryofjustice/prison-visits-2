@@ -14,6 +14,10 @@ en:
       banner:
         beta_html: |
           <span>This is a new service – <a href='%{link}' target='_blank' rel='external'>your feedback<span class='visuallyhidden'> (link opens in a new browser window)</span></a> will help us to improve it.</span>
+      cancellations:
+        cancellations: Cancellations
+        cancel_text: The visitor has asked to cancel. Please cancel the booking in NOMIS and confirm using the button below
+        no_cancellations: There are no new cancellations for this prisoner
       navigation:
         inbox_html: |
           Inbox <span class='badge badge--red'>%{inbox_count}</span>
@@ -29,11 +33,10 @@ en:
         booked_date: Booked date
       inbox:
         cancellations: Cancellations
-        cancel_text: The visitor has asked to cancel. Please cancel the booking in NOMIS and confirm using the button below
-        no_cancellations: There are no new cancellations
-        process_link: View
-        title: inbox
         no_visits: There are currently no visit requests
+        process_link: View
+        requests: Requests
+        title: inbox
       print_visits:
         visit_date: Visit date
         filter_form_hint: Enter a date to view the visits eg 01/12/2016
@@ -42,6 +45,11 @@ en:
         no_visits: "No visits on %{date}"
         search_list: Search to generate print lists
         download_csv: Download CSV
+      search:
+        cancellations: Cancellations
+        processed: Processed
+        requests: Requests
+        title: Search results for '%{prisoner_number}'
     visits:
       calendar:
         today: Today

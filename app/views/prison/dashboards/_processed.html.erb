@@ -1,11 +1,4 @@
-<%= render 'banner' %>
-<%= render 'navigation' %>
-<% content_for :header do %>
-  <%= t('.title') %>
-<% end %>
-
 <% if @processed_visits.any? %>
-
   <table class="table--hover">
     <caption class="visuallyhidden"><%= t('.title') %></caption>
     <thead>
@@ -42,7 +35,5 @@
     <p class="text-secondary"><%= t('not_all_visits', scope: :shared) %></p>
   <% end %>
 <% else %>
-
   <p class="lede"><%= t('no_visits', scope: :shared) %></p>
-
 <% end %>
