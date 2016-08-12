@@ -8,8 +8,6 @@ email_address: socialvisits.maidstone@hmps.gsi.gov.uk
 phone_no: 01622 775619
 enabled: true
 recurring:
-  tue:
-  - 1345-1545
   mon:
   - 1345-1545
   sat:
@@ -20,7 +18,8 @@ recurring:
   - 1345-1545
   wed:
   - 1345-1545
-unbookable:
-- 2016-06-28
-- 2016-07-14
-- 2016-08-09
+anomalous:
+  2016-08-23:
+  - 1345-1545
+  2016-08-30:
+  - 1345-1545
