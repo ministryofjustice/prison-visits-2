@@ -56,8 +56,33 @@ RSpec.describe ZendeskTicketsJob, type: :job do
           requester: { email: 'feedback@email.test.host', name: 'Unknown' },
           custom_fields: [
             { id: '23730083', value: 'ref' },
-            { id: '23757677', value: 'prison_visits' },
-            { id: '23791776', value: 'Mozilla' }
+            { id: '23791776', value: 'Mozilla' },
+            { id: '23757677', value: 'prison_visits' }
+          ]
+        ).and_return(ticket)
+      subject.perform_now(feedback)
+    end
+  end
+
+  context 'when feedback is associated to a prison' do
+    let(:prison) { FactoryGirl.create(:prison) }
+
+    before do
+      feedback.prison = prison
+    end
+
+    it 'creates a ticket with custom fields containing the prison' do
+      expect(ZendeskAPI::Ticket).
+        to receive(:new).
+        with(
+          client,
+          description: 'text',
+          requester: { email: 'email@example.com', name: 'Unknown' },
+          custom_fields: [
+            { id: '23730083', value: 'ref' },
+            { id: '23791776', value: 'Mozilla' },
+            { id: '23984153', value: prison.name },
+            { id: '23757677', value: 'prison_visits' }
           ]
         ).and_return(ticket)
       subject.perform_now(feedback)
@@ -76,8 +101,8 @@ RSpec.describe ZendeskTicketsJob, type: :job do
           requester: { email: 'email@example.com', name: 'Unknown' },
           custom_fields: [
             { id: '23730083', value: 'ref' },
-            { id: '23757677', value: 'prison_visits' },
-            { id: '23791776', value: 'Mozilla' }
+            { id: '23791776', value: 'Mozilla' },
+            { id: '23757677', value: 'prison_visits' }
           ]
         ).and_return(ticket)
       subject.perform_now(feedback)

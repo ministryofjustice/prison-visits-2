@@ -5,6 +5,7 @@ class ZendeskTicketsJob < ActiveJob::Base
   URL_FIELD = '23730083'
   SERVICE_FIELD = '23757677'
   BROWSER_FIELD = '23791776'
+  PRISON_FIELD = '23984153'
 
   def perform(feedback)
     unless Rails.configuration.try(:zendesk_client)
@@ -56,17 +57,20 @@ private
   end
 
   def staff_custom_fields(feedback)
-    [
+    attrs = [
       { id: URL_FIELD, value: feedback.referrer },
       { id: BROWSER_FIELD, value: feedback.user_agent }
     ]
+
+    if feedback.prison_id
+      attrs << { id: PRISON_FIELD, value: feedback.prison.name }
+    end
+
+    attrs
   end
 
   def public_custom_fields(feedback)
-    [
-      { id: URL_FIELD, value: feedback.referrer },
-      { id: SERVICE_FIELD, value: 'prison_visits' },
-      { id: BROWSER_FIELD, value: feedback.user_agent }
-    ]
+    service_field = { id: SERVICE_FIELD, value: 'prison_visits' }
+    staff_custom_fields(feedback) << service_field
   end
 end

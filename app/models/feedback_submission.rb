@@ -1,4 +1,6 @@
 class FeedbackSubmission < ActiveRecord::Base
+  belongs_to :prison
+
   validates :body, presence: true
   validate :email_format
 

@@ -39,12 +39,13 @@ ActiveRecord::Schema.define(version: 20160817081418) do
   add_index "estates", ["name"], name: "index_estates_on_name", unique: true, using: :btree
 
   create_table "feedback_submissions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.text     "body",          null: false
+    t.text     "body",                               null: false
     t.string   "email_address"
     t.string   "referrer"
     t.string   "user_agent"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.uuid     "prison_id"
     t.boolean  "submitted_by_staff", default: false, null: false
   end
 
@@ -152,6 +153,7 @@ ActiveRecord::Schema.define(version: 20160817081418) do
   add_index "visits", ["prison_id"], name: "index_visits_on_prison_id", using: :btree
 
   add_foreign_key "cancellations", "visits"
+  add_foreign_key "feedback_submissions", "prisons"
   add_foreign_key "prisons", "estates"
   add_foreign_key "rejections", "visits"
   add_foreign_key "users", "estates"
