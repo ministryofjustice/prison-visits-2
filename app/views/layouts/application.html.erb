@@ -58,9 +58,26 @@
 <% end %>
 
 <% content_for :footer_support_links do %>
-  <li>
-    <%= link_to(t('.staff_guide'), staff_path) %>
-  </li>
+  <ul>
+    <li>
+      <%= link_to(t('.staff_guide'), '/staff/staffuiguide.md') %>
+    </li>
+    <li>
+      <%= link_to(t('.recent_changes'), '/staff/changes.md') %>
+    </li>
+    <li>
+      <%= link_to(t('.stats'), metrics_path) %>
+    </li>
+    <li>
+      <%= link_to(t('.contact_us'), 'https://www.prisonvisits.service.gov.uk/en/feedback/new?referrer=staff') %>
+    </li>
+    <li>
+      <%= link_to(t('.downloads'), '/staff/downloads.md') %>
+    </li>
+    <li>
+      <%= link_to(t('.telephone'), '/staff/telephone-script.md') %>
+    </li>
+  </ul>
 <% end %>
 
 <% content_for :body_end do %>

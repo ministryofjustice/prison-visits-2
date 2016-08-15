@@ -4,6 +4,7 @@
       <%= nav_link t('.inbox_html', inbox_count: @inbox_count), prison_inbox_path %>
       <%= nav_link t('.processed'), prison_processed_visits_path %>
       <%= nav_link t('.print_visits'), prison_print_visits_path %>
+      <%= nav_link t('.staff_guide'), '/staff/staffuiguide.md' %>
 
       <li class="float-right text-right">
         <%= form_tag prison_search_path, method: :get, enforce_utf8: false, class: 'form search' do -%>

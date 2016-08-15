@@ -1,8 +1,14 @@
 en:
   layouts:
     application:
+      contact_us: Contact us
       cookies_intro: GOV.UK uses cookies to make the site simpler.
+      downloads: Downloads
+      recent_changes: Recent changes
       sign_out: Sign out
+      staff_guide: Service guide
+      stats: Stats
+      telephone: Telephone script
   prison:
     flash:
       already_processed: Visit can't be processed
@@ -23,6 +29,7 @@ en:
           Inbox <span class='badge badge--red'>%{inbox_count}</span>
         processed: Processed visits
         print_visits: Print visits
+        staff_guide: Service guide
         visitor_cancellations: Visitor cancellations
         current: "Current prison:"
       processed:
