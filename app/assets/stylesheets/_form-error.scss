@@ -1,0 +1,8 @@
+form {
+  .error {
+    label {
+      color: $error-colour;
+      @include bold-19;
+    }
+  }
+}

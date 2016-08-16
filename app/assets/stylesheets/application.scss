@@ -50,9 +50,12 @@
 @import "choose-slot";
 @import "confirmations";
 
+@import "mixins";
+
 // Application
 @import "badge";
 @import "buttons";
+@import "form-error";
 @import "helpers";
 @import "icons";
 @import "moj-overrides";
