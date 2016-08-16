@@ -19,22 +19,29 @@ private
   private :visit
 
   def accept!
-    visit.accept!
-    visit.update!(
-      slot_granted: visit.slots.fetch(booking_response.slot_index),
-      reference_no: booking_response.reference_no,
-      closed: booking_response.closed_visit
-    )
+    ActiveRecord::Base.transaction do
+      visit.accept!
+      visit.update!(
+        slot_granted: visit.slots.fetch(booking_response.slot_index),
+        reference_no: booking_response.reference_no,
+        closed: booking_response.closed_visit
+      )
+    end
+
     notify_accepted visit
   end
 
   def reject!
     return if visit.rejected?
 
-    visit.reject!
     rejection = Rejection.new(visit: visit, reason: booking_response.reason)
     copy_no_allowance_parameters(rejection)
-    rejection.save!
+
+    ActiveRecord::Base.transaction do
+      visit.reject!
+      rejection.save!
+    end
+
     notify_rejected visit
   end
 
