@@ -19,8 +19,11 @@
     }
     form.search {
       padding-top: 6px;
+      .form-label {
+        display: inline-block;
+      }
       .form-control {
-        width: 70%;
+        width: 60%;
       }
       .search-icon {
         height: 16px;
