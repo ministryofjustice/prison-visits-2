@@ -1,16 +1,14 @@
 #global-header {
   .header-wrapper {
     .header-global {
-      float: left;
-      width: 34%;
       .header-logo {
         width: 100%;
       }
     }
     .header-proposition {
-      float: left;
-      padding-top: 8px;
-      width: 66%;
+      .content {
+        margin: 0 $gutter-half;
+      }
       #proposition-name {
         display: inline-block;
         line-height: 1em;
@@ -21,7 +19,14 @@
       }
       #proposition-links {
         @extend .font-xsmall;
-        float: right;
+        display: block;
+        li {
+          border: none;
+          float: none;
+          a {
+            @extend .font-xsmall;
+          }
+        }
       }
       .button-link {
         color: $white;
@@ -30,6 +35,28 @@
         text-decoration: none;
         &:hover {
           text-decoration: underline;
+        }
+      }
+    }
+  }
+  @include media(desktop) {
+    .header-wrapper {
+      .header-global {
+        float: left;
+        width: 34%;
+      }
+
+      .header-proposition {
+        float: left;
+        padding-top: 8px;
+        width: 66%;
+        .content {
+          margin: 0;
+        }
+        #proposition-links {
+          li {
+            float: left;
+          }
         }
       }
     }
