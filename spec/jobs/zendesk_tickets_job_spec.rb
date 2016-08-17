@@ -8,11 +8,13 @@ RSpec.describe ZendeskTicketsJob, type: :job do
       body: 'text',
       email_address: 'email@example.com',
       referrer: 'ref',
-      user_agent: 'Mozilla'
+      user_agent: 'Mozilla',
+      submitted_by_staff: submitted_by_staff
     )
   }
   let(:client) { double(ZendeskAPI::Client) }
   let(:ticket) { double(ZendeskAPI::Ticket, save!: nil) }
+  let(:submitted_by_staff) { false }
 
   before do
     Rails.configuration.zendesk_client = client
@@ -26,22 +28,6 @@ RSpec.describe ZendeskTicketsJob, type: :job do
         subject.perform_now(feedback)
       }.to raise_error('Cannot create Zendesk ticket since Zendesk not configured')
     end
-  end
-
-  it 'creates a ticket with feedback and custom fields' do
-    expect(ZendeskAPI::Ticket).
-      to receive(:new).
-      with(
-        client,
-        description: 'text',
-        requester: { email: 'email@example.com', name: 'Unknown' },
-        custom_fields: [
-          { id: '23730083', value: 'ref' },
-          { id: '23757677', value: 'prison_visits' },
-          { id: '23791776', value: 'Mozilla' }
-        ]
-      ).and_return(ticket)
-    subject.perform_now(feedback)
   end
 
   it 'calls save! to send the feedback' do
@@ -71,6 +57,46 @@ RSpec.describe ZendeskTicketsJob, type: :job do
           custom_fields: [
             { id: '23730083', value: 'ref' },
             { id: '23757677', value: 'prison_visits' },
+            { id: '23791776', value: 'Mozilla' }
+          ]
+        ).and_return(ticket)
+      subject.perform_now(feedback)
+    end
+  end
+
+  context 'when is submitted by the public' do
+    let(:submitted_by_staff) { false }
+
+    it 'creates a ticket with feedback and custom fields' do
+      expect(ZendeskAPI::Ticket).
+        to receive(:new).
+        with(
+          client,
+          description: 'text',
+          requester: { email: 'email@example.com', name: 'Unknown' },
+          custom_fields: [
+            { id: '23730083', value: 'ref' },
+            { id: '23757677', value: 'prison_visits' },
+            { id: '23791776', value: 'Mozilla' }
+          ]
+        ).and_return(ticket)
+      subject.perform_now(feedback)
+    end
+  end
+
+  context 'when is submitted by staff' do
+    let(:submitted_by_staff) { true }
+
+    it 'creates a ticket with feedback, custom fields and a tag' do
+      expect(ZendeskAPI::Ticket).
+        to receive(:new).
+        with(
+          client,
+          description: 'text',
+          requester: { email: 'email@example.com', name: 'Unknown' },
+          tags: ['staff.prison.visits'],
+          custom_fields: [
+            { id: '23730083', value: 'ref' },
             { id: '23791776', value: 'Mozilla' }
           ]
         ).and_return(ticket)
