@@ -26,6 +26,10 @@
   </fieldset>
   <%= render('issue_with_visitors_section', f: f) %>
 
+  <% if current_user -%>
+    <%= single_field(f, :message_body, :text_area) %>
+  <% end -%>
+
   <div class="actions">
     <div class="primary-actions">
       <%= f.submit(t('.submit'), class: 'button button-primary') %>
