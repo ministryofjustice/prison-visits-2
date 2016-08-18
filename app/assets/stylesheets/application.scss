@@ -65,6 +65,10 @@
 @import "search_form";
 @import "tag";
 
+// Override resets on element styling
+// for staff info pages
+@import "staff-info";
+
 // Candidates for re-usable components
 @import "responsive";
 @import "components/moj.autocomplete";
