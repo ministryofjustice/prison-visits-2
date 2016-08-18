@@ -128,6 +128,16 @@ RSpec.describe Api::VisitsController do
       expect(parsed_body['visit']['processing_state']).to eq('requested')
     end
 
+    context 'with messages' do
+      let!(:message) { FactoryGirl.create(:message, visit: visit) }
+
+      it 'returns a list of messages' do
+        get :show, params
+        expect(parsed_body['visit']['messages']).
+          to eq([{ 'body' => message.body }])
+      end
+    end
+
     it 'fails if the visit does not exist' do
       params[:id] = '123'
       get :show, params
