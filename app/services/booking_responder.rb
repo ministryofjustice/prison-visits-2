@@ -22,13 +22,14 @@ private
     ActiveRecord::Base.transaction do
       visit.accept!
       visit.update!(
-        slot_granted: visit.slots.fetch(booking_response.slot_index),
+        slot_granted: slot_granted,
         reference_no: booking_response.reference_no,
         closed: booking_response.closed_visit
       )
+      create_message
     end
 
-    notify_accepted visit
+    notify_accepted(visit)
   end
 
   def reject!
@@ -40,9 +41,10 @@ private
     ActiveRecord::Base.transaction do
       visit.reject!
       rejection.save!
+      create_message
     end
 
-    notify_rejected visit
+    notify_rejected(visit)
   end
 
   def copy_no_allowance_parameters(rejection)
@@ -83,5 +85,18 @@ private
     booking_response.banned_visitors.each do |visitor|
       visitor.update! banned: true
     end
+  end
+
+  def create_message
+    return nil if booking_response.message_body.blank?
+
+    Message.create!(body: booking_response.message_body,
+                    user: booking_response.user,
+                    visit: visit,
+                    visit_state_change: visit.last_visit_state)
+  end
+
+  def slot_granted
+    visit.slots.fetch(booking_response.slot_index)
   end
 end

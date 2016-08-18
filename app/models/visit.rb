@@ -142,6 +142,20 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
     visitors.unlisted
   end
 
+  def acceptance_message
+    Message.find_by(
+      visit_state_change_id: visit_state_changes.booked.pluck(:id).first)
+  end
+
+  def rejection_message
+    Message.find_by(
+      visit_state_change_id: visit_state_changes.rejected.pluck(:id).first)
+  end
+
+  def last_visit_state
+    visit_state_changes.order('created_at desc').first
+  end
+
 private
 
   def cancellation!(reason, nomis_cancelled:)

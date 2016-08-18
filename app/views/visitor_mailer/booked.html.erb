@@ -28,6 +28,10 @@
   <strong><%= @visit.reference_no %></strong>
 </p>
 
+<% if @message %>
+  <%= @message.body %>
+<% end %>
+
 <% if @visit.closed? %>
   <p><%= t(".this_is_a_closed_visit_html") %></p>
 <% end %>
