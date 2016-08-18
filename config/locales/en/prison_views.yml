@@ -33,7 +33,7 @@ en:
       cancellations:
         cancellations: Cancellations
         cancel_text: The visitor has asked to cancel. Please cancel the booking in NOMIS and confirm using the button below
-        no_cancellations: There are no new cancellations for this prisoner
+        no_cancellations: There are no new cancellations
       navigation:
         inbox_html: |
           Inbox <span class='badge badge--red'>%{inbox_count}</span>
