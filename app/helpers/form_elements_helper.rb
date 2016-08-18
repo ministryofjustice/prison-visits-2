@@ -25,9 +25,9 @@ module FormElementsHelper
     end
   end
 
-  def error_container(form, name, options = { class: 'group' }, &blk)
+  def error_container(form, name, options = { class: 'form-group' }, &blk)
     if form.object.errors.include?(name)
-      klass = [options[:class], 'validation-error'].compact.join(' ')
+      klass = [options[:class], 'error'].compact.join(' ')
     else
       klass = options[:class]
     end

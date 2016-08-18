@@ -16,6 +16,16 @@ en:
       visit_cancelled: The visit has been cancelled
       already_cancelled: The visit is no longer cancellable
       nomis_cancellation_confirmed: The visit has been cancelled. This request has now been filed under 'Processed visits'
+      feedback_submitted: Your question has been submitted
+    feedbacks:
+      new:
+        title: Contact us
+        intro:
+          You can use this form to ask a question or tell us about a problem you’re having with the staff dashboard. Your comment/question will be emailed to the PVB support team.
+        body: Question
+        email_address: Email Address
+        prison: Prison
+        send: Send
     dashboards:
       banner:
         beta_html: |

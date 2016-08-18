@@ -23,6 +23,8 @@ en:
                 %{age} on this visit
   activerecord:
     errors:
+      messages:
+        blank: "is required"
       models:
         prison:
           duplicate_unbookable_date: An unbookable date may not be duplicated

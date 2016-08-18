@@ -52,6 +52,8 @@ Rails.application.routes.draw do
       get '/print_visits', action: :print_visits, as: 'print_visits'
       get '/search', action: :search, as: :search
     end
+
+    resources :feedbacks, only: %i[ new create ]
   end
 
   namespace :api, format: false do

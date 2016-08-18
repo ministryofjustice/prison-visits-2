@@ -49,6 +49,7 @@
       this.$text = $( '<input>' )
         .attr('type', 'text') // give it a field type
         .attr('data-input-name', this.$select.attr('name'))
+        .addClass('form-control')
         .val(val) // set value if already selected
         .data('select', this.$select); // assoc select with this input
 

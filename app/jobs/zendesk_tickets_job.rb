@@ -5,8 +5,8 @@ class ZendeskTicketsJob < ActiveJob::Base
   URL_FIELD = '23730083'
   SERVICE_FIELD = '23757677'
   BROWSER_FIELD = '23791776'
+  PRISON_FIELD = '23984153'
 
-  # rubocop:disable Metrics/MethodLength
   def perform(feedback)
     unless Rails.configuration.try(:zendesk_client)
       fail 'Cannot create Zendesk ticket since Zendesk not configured'
@@ -14,25 +14,37 @@ class ZendeskTicketsJob < ActiveJob::Base
 
     ZendeskAPI::Ticket.create!(
       Rails.configuration.zendesk_client,
-      description: feedback.body,
-      requester: {
-        email: email_address_to_submit(feedback),
-        name: 'Unknown'
-      },
-      custom_fields: custom_fields(feedback)
-    )
-  end
-  # rubocop:enable Metrics/MethodLength
-
-  def custom_fields(feedback)
-    [
-      { id: URL_FIELD, value: feedback.referrer },
-      { id: SERVICE_FIELD, value: 'prison_visits' },
-      { id: BROWSER_FIELD, value: feedback.user_agent }
-    ]
+      ticket_attrs(feedback))
   end
 
 private
+
+  # We have 2 Zendesk inboxes configured, one for the public that matches that
+  # the service field is 'prison_visits' and another one for staff that matches
+  # tickets tagged with 'staff.prison.visits'.
+  def ticket_attrs(feedback)
+    attrs = {
+      description: feedback.body,
+      requester: { email: email_address_to_submit(feedback), name: 'Unknown' }
+    }
+
+    if feedback.submitted_by_staff
+      attrs.merge(staff_attrs(feedback))
+    else
+      attrs.merge(public_attrs(feedback))
+    end
+  end
+
+  def staff_attrs(feedback)
+    {
+      tags: ['staff.prison.visits'],
+      custom_fields: staff_custom_fields(feedback)
+    }
+  end
+
+  def public_attrs(feedback)
+    { custom_fields: public_custom_fields(feedback) }
+  end
 
   # Zendesk requires tickets to have an email, but we do not enforce
   # providing an email. Therefore, a default email is used.
@@ -42,5 +54,23 @@ private
     else
       Rails.configuration.address_book.feedback
     end
+  end
+
+  def staff_custom_fields(feedback)
+    attrs = [
+      { id: URL_FIELD, value: feedback.referrer },
+      { id: BROWSER_FIELD, value: feedback.user_agent }
+    ]
+
+    if feedback.prison_id
+      attrs << { id: PRISON_FIELD, value: feedback.prison.name }
+    end
+
+    attrs
+  end
+
+  def public_custom_fields(feedback)
+    service_field = { id: SERVICE_FIELD, value: 'prison_visits' }
+    staff_custom_fields(feedback) << service_field
   end
 end
