@@ -101,6 +101,11 @@
   </tbody>
 </table>
 
+<% if @message %>
+  <h3 class="heading-medium"><%= t('.message_title') %></h3>
+  <p><blockquote><%= @message.body %></blockquote></p>
+<% end %>
+
 <% if @visit.can_cancel? %>
   <h3 class="heading-medium" id="cancel"><%= t('.cancel_title') %></h3>
   <p><%= t('.cancel_description') %></p>

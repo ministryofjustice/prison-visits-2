@@ -27,7 +27,7 @@
   <%= render('issue_with_visitors_section', f: f) %>
 
   <% if current_user -%>
-    <%= single_field(f, :message_body, :text_area) %>
+    <%= single_field(f, :message_body, :text_area, class: 'form-control form-control-full-width', rows: 4) %>
   <% end -%>
 
   <div class="actions">

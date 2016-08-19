@@ -106,6 +106,7 @@ en:
               with visitors’
             </li>
           </ul>
+        message_body: Message (optional)
         submit: Send email
       people_box:
         prisoner_first_name: "First name:"
@@ -122,6 +123,7 @@ en:
       show:
         ref: "Ref: %{number}"
         title: Visit details
+        message_title: Message sent to visitor
         cancel_title: Cancel this visit
         cancel_description: You can cancel this visit if it can no longer take place. This will email the visitor to let them know.
         cancel_button: Cancel visit
