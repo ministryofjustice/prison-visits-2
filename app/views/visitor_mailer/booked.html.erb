@@ -29,7 +29,8 @@
 </p>
 
 <% if @message %>
-  <p><%= @message.body %></p>
+  <h2><%= t('.message_title') %></h2>
+  <p><i><%= @message.body %></i></p>
 <% end %>
 
 <% if @visit.closed? %>
