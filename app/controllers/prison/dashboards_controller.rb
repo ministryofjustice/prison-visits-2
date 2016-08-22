@@ -8,7 +8,7 @@ class Prison::DashboardsController < ApplicationController
     requested_visits
     cancellations
 
-    @estate = user_estate
+    @estate = current_estate
   end
 
   def processed
@@ -18,7 +18,7 @@ class Prison::DashboardsController < ApplicationController
   def print_visits
     @visit_date = parse_date(params[:visit_date])
 
-    @data = EstateVisitQuery.new(user_estate).
+    @data = EstateVisitQuery.new(current_estate).
             visits_to_print_by_slot(@visit_date)
 
     respond_to do |format|
@@ -35,23 +35,23 @@ class Prison::DashboardsController < ApplicationController
     cancellations
     processed_visits
 
-    @estate = user_estate
+    @estate = current_estate
   end
 
 private
 
   def requested_visits
-    @requested_visits ||= load_requested_visits(user_estate,
+    @requested_visits ||= load_requested_visits(current_estate,
       prisoner_number)
   end
 
   def cancellations
-    @cancellations ||= load_visitor_cancellations(user_estate,
+    @cancellations ||= load_visitor_cancellations(current_estate,
       prisoner_number)
   end
 
   def processed_visits
-    estate_query = EstateVisitQuery.new(user_estate)
+    estate_query = EstateVisitQuery.new(current_estate)
     @processed_visits ||= estate_query.
                           processed(prisoner_number: params[:prisoner_number],
                                     limit: NUMBER_VISITS)
@@ -72,10 +72,6 @@ private
   rescue ArgumentError
     flash[:notice] = t('invalid_date', scope: [:prison, :flash])
     nil
-  end
-
-  def user_estate
-    current_user.estate
   end
 
   def load_visitor_cancellations(estate, prisoner_number)

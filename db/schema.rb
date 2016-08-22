@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(version: 20160822123558) do
     t.string   "email",               default: "", null: false
     t.string   "encrypted_password",  default: "", null: false
     t.datetime "remember_created_at"
-    t.uuid     "estate_id",                        null: false
+    t.uuid     "estate_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end

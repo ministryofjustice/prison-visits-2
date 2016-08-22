@@ -3,7 +3,7 @@ require_relative '../untrusted_examples'
 
 RSpec.describe Prison::DashboardsController, type: :controller do
   let(:estate) { FactoryGirl.create(:estate) }
-  let(:user) { FactoryGirl.create(:user, estate: estate) }
+  let(:user) { FactoryGirl.create(:user) }
   subject { get :inbox, estate_id: estate.finder_slug }
 
   it_behaves_like 'disallows untrusted ips'
@@ -14,7 +14,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        stub_logged_in_user(user)
+        stub_logged_in_user(user, estate)
       end
 
       it { is_expected.to be_successful }
@@ -35,7 +35,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        stub_logged_in_user(user)
+        stub_logged_in_user(user, estate)
       end
 
       it { is_expected.to be_successful }
@@ -62,7 +62,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        stub_logged_in_user(user)
+        stub_logged_in_user(user, estate)
       end
 
       it { is_expected.to be_successful }
@@ -117,7 +117,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        stub_logged_in_user(user)
+        stub_logged_in_user(user, estate)
       end
 
       let!(:visit1) do

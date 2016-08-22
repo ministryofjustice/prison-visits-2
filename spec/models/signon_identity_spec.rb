@@ -81,7 +81,7 @@ RSpec.describe SignonIdentity, type: :model do
 
         it 'creates a new user' do
           expect { from_omniauth }.to change {
-            User.where(email: oauth_info['email'], estate_id: estate.id).count
+            User.where(email: oauth_info['email']).count
           }.by(1)
         end
 
@@ -99,7 +99,9 @@ RSpec.describe SignonIdentity, type: :model do
         'user_id' => user.id,
         'full_name' => "Mr A",
         'profile_url' => 'https://example.com/profile',
-        'logout_url' => 'https://example.com/logout'
+        'logout_url' => 'https://example.com/logout',
+        'available_organisations' => ['noms'],
+        'current_organisation' => 'noms'
       }
     end
 

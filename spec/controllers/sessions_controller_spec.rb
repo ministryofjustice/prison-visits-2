@@ -64,7 +64,9 @@ RSpec.describe SessionsController, type: :controller do
         'user_id' => user.id,
         'full_name' => 'Joe Bloggs',
         'profile_url' => '',
-        'logout_url' => 'http://example.com/logout'
+        'logout_url' => 'http://example.com/logout',
+        'available_organisations' => ['org1'],
+        'current_organisation' => 'org1'
       }
     end
 

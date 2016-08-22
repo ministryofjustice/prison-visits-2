@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
     sso_identity&.user
   end
 
+  def current_estate
+    sso_identity&.current_estate
+  end
+
   def sso_identity
     @_sso_identity ||= begin
       session[:sso_data] && SignonIdentity.from_session_data(session[:sso_data])
