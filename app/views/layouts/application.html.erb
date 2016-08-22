@@ -30,6 +30,10 @@
               <% end %>
             </li>
           </ul>
+        <% else %>
+          <ul id="proposition-links" class="header__menu__proposition-links">
+            <li><%= link_to t('.sign_in'), prison_inbox_path %></li>
+          </ul>
         <% end %>
       </nav>
     </div>
