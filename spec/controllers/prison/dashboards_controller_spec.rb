@@ -170,4 +170,32 @@ RSpec.describe Prison::DashboardsController, type: :controller do
       end
     end
   end
+
+  context '#switch_estate' do
+    let(:other_estate) { FactoryGirl.create(:estate) }
+    subject do
+      post :switch_estate, estate: other_estate.id
+    end
+
+    context "when logged out" do
+      let(:visit_date) { nil }
+
+      it { is_expected.to_not be_successful }
+    end
+
+    context "when logged in" do
+      before do
+        stub_logged_in_user(user, estate, [estate, other_estate])
+
+        request.env['HTTP_REFERER'] = '/previous/path'
+      end
+
+      it 'updates the session current estate' do
+        subject
+        expect(controller.current_estate).to eq(other_estate)
+      end
+
+      it { is_expected.to redirect_to('/previous/path') }
+    end
+  end
 end

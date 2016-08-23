@@ -102,7 +102,19 @@ class SignonIdentity
   end
 
   def current_estate
-    @current_estate ||=
-      Estate.find_by!(sso_organisation_name: @current_organisation)
+    available_estates.find do |estate|
+      estate.sso_organisation_name == @current_organisation
+    end
+  end
+
+  def available_estates
+    @available_estates ||=
+      Estate.where(sso_organisation_name: @available_organisations).all.to_a
+  end
+
+  def change_current_estate(new_estate_id)
+    @current_organisation = available_estates.find { |estate|
+      estate.id == new_estate_id
+    }.sso_organisation_name
   end
 end

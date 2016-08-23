@@ -115,4 +115,31 @@ RSpec.describe SignonIdentity, type: :model do
       expect(identity.to_session).to eq(serialization)
     end
   end
+
+  describe 'changing the current estate' do
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:noms) { FactoryGirl.create(:estate, sso_organisation_name: 'noms') }
+    let!(:hmcts) do
+      FactoryGirl.create(:estate, sso_organisation_name: 'hmcts')
+    end
+    let!(:serialization) do
+      {
+        'user_id' => user.id,
+        'full_name' => "Mr A",
+        'profile_url' => 'https://example.com/profile',
+        'logout_url' => 'https://example.com/logout',
+        'available_organisations' => %w[noms hmcts],
+        'current_organisation' => 'noms'
+      }
+    end
+
+    it 'updates the current organisation' do
+      identity = described_class.from_session_data(serialization)
+
+      expect { identity.change_current_estate(hmcts.id) }.
+        to change { identity.to_session['current_organisation'] }.
+        from('noms').
+        to('hmcts')
+    end
+  end
 end

@@ -38,6 +38,12 @@ class Prison::DashboardsController < ApplicationController
     @estate = current_estate
   end
 
+  def switch_estate
+    sso_identity.change_current_estate(params[:estate])
+    session[:sso_data] = sso_identity.to_session
+    redirect_to :back
+  end
+
 private
 
   def requested_visits
