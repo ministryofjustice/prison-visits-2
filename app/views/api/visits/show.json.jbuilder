@@ -13,4 +13,8 @@ json.visit do
     json.anonymized_name visitor.anonymized_name
     json.allowed visitor.allowed?
   end
+
+  json.messages @visit.messages do |message|
+    json.body message.body
+  end
 end

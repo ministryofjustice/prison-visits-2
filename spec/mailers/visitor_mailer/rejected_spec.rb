@@ -89,6 +89,19 @@ RSpec.describe VisitorMailer, '.rejected' do
     end
   end
 
+  context 'with a rejection staff message' do
+    let(:message) { FactoryGirl.build_stubbed(:message) }
+
+    before do
+      expect(rejection.visit).
+        to receive(:rejection_message).and_return(message)
+    end
+
+    it 'displays the message' do
+      expect(body).to match(message.body)
+    end
+  end
+
   context 'slot_unavailable' do
     let(:reason) { 'slot_unavailable' }
 
