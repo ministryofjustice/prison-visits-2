@@ -142,4 +142,36 @@ RSpec.describe SignonIdentity, type: :model do
         to('hmcts')
     end
   end
+
+  describe '#available_estates' do
+    let(:user) { FactoryGirl.create(:user) }
+    let!(:estate) { FactoryGirl.create(:estate) }
+    let!(:other_estate) { FactoryGirl.create(:estate) }
+    let(:serialization) do
+      {
+        'user_id' => user.id,
+        'full_name' => "Mr A",
+        'profile_url' => 'https://example.com/profile',
+        'logout_url' => 'https://example.com/logout',
+        'available_organisations' => available_orgs,
+        'current_organisation' => 'noms'
+      }
+    end
+
+    let(:instance) { described_class.from_session_data(serialization) }
+
+    subject { instance.available_estates }
+
+    context "when it doesn't have access to the digital pvb org" do
+      let(:available_orgs) { [estate.sso_organisation_name] }
+
+      it { is_expected.to eq([estate]) }
+    end
+
+    context 'when it has access to the digital noms org' do
+      let(:available_orgs) { ['digital.noms.moj'] }
+
+      it { is_expected.to contain_exactly(estate, other_estate) }
+    end
+  end
 end

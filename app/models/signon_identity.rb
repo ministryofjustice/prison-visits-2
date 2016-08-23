@@ -4,6 +4,8 @@
 class SignonIdentity
   class InvalidSessionData < RuntimeError; end
 
+  DIGITAL_ORG = 'digital.noms.moj'
+
   class << self
     def from_omniauth(omniauth_auth)
       info = omniauth_auth.fetch('info')
@@ -109,7 +111,13 @@ class SignonIdentity
 
   def available_estates
     @available_estates ||=
-      Estate.where(sso_organisation_name: @available_organisations).all.to_a
+      begin
+        if @available_organisations.include?(DIGITAL_ORG)
+          Estate.all
+        else
+          Estate.where(sso_organisation_name: @available_organisations)
+        end.to_a
+      end
   end
 
   def change_current_estate(new_estate_id)
