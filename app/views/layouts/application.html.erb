@@ -29,15 +29,6 @@
                 <input class="button-link" type="submit" value="<%= t('.sign_out') %>">
               <% end %>
             </li>
-            <% if sso_identity.available_estates.size > 1 -%>
-              </li>
-                <%= form_tag prison_switch_estate_path, enforce_utf8: false, class: 'form' do -%>
-                  <%= select_tag 'estate', options_from_collection_for_select(sso_identity.available_estates, 'id', 'name', sso_identity.current_estate.id) %>
-                  <%= submit_tag t('.switch_estate'), class: 'button-link' %>
-                <% end -%>
-              </li>
-            <% end -%>
-
           </ul>
         <% else %>
           <ul id="proposition-links" class="header__menu__proposition-links">
@@ -53,6 +44,7 @@
   <main id="content">
     <%= yield :banner %>
     <%= yield :navigation %>
+    <%= yield :prison_switcher %>
     <header>
       <h1 class="heading-large">
         <%= yield :header %>

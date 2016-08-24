@@ -7,7 +7,6 @@ en:
       recent_changes: Recent changes
       sign_in: Sign in
       sign_out: Sign out
-      switch_estate: Update
       staff_guide: Service guide
       stats: Stats
       telephone: Telephone script
@@ -45,6 +44,8 @@ en:
         staff_guide: Service guide
         visitor_cancellations: Visitor cancellations
         current: "Current prison:"
+      prison_switcher:
+        switch_estate: Update
       processed:
         title: Processed visits
         view_link: View
@@ -58,6 +59,7 @@ en:
         requests: Requests
         title: inbox
       print_visits:
+        title: Print visits
         visit_date: Visit date
         filter_form_hint: Enter a date to view the visits eg 01/12/2016
         show: Show

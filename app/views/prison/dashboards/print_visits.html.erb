@@ -1,5 +1,9 @@
 <%= render 'banner' %>
 <%= render 'navigation' %>
+<%= render 'prison_switcher' %>
+<% content_for :header do %>
+  <%= t('.title') %>
+<% end %>
 
 <div class='grid-row hidden--print'>
   <div class='column-one-half'>
