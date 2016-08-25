@@ -7,7 +7,6 @@ class StaffInfoController < ApplicationController
   TIMEOUT = 2
 
   before_action :authorize_prison_request
-  before_action :set_inbox_navigation_count, if: -> { current_user }
   skip_before_action :store_current_location
 
   def index
