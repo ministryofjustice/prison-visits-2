@@ -7,9 +7,7 @@ FactoryGirl.define do
       FFaker::Internet.disposable_email
     end
 
-    contact_phone_no do
-      FFaker::PhoneNumber.short_phone_number
-    end
+    contact_phone_no '07900112233'
 
     slot_option_0 do |v|
       v.prison.available_slots.first

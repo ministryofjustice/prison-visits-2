@@ -25,6 +25,24 @@ RSpec.describe Visit, type: :model do
     end
   end
 
+  describe 'validations' do
+    describe 'contact_phone_no' do
+      before do
+        subject.contact_phone_no = phone_no
+      end
+
+      context 'when the phone number is valid' do
+        let(:phone_no) { '079 00 11 22 33' }
+        it { is_expected.to be_valid }
+      end
+
+      context 'when the phone number is invalid' do
+        let(:phone_no) { ' 07 00 11 22 33' }
+        it { is_expected.to_not be_valid }
+      end
+    end
+  end
+
   describe "#confirm_nomis_cancelled" do
     let(:cancellation) do
       FactoryGirl.create(:cancellation,

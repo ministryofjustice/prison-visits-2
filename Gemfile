@@ -14,6 +14,7 @@ gem 'netaddr'
 # Pinned to 1.3.1 due to https://github.com/intridea/omniauth-oauth2/issues/81
 gem 'omniauth-oauth2', '1.3.1'
 gem 'pg'
+gem 'phonelib'
 gem 'premailer-rails'
 gem 'puma'
 gem 'redcarpet'

@@ -13,6 +13,10 @@ class Visit < ActiveRecord::Base
     :processing_state,
     presence: true
 
+  validates :contact_phone_no, phone: true, on: :create
+
+  before_create :sanitise_contact_phone_no
+
   delegate :address, :email_address, :name, :phone_no, :postcode,
     to: :prison, prefix: true
   alias_attribute :first_date, :slot_option_0
@@ -72,6 +76,10 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
     event :withdraw do
       transition requested: :withdrawn
     end
+  end
+
+  def sanitise_contact_phone_no
+    self.contact_phone_no = Phonelib.parse(contact_phone_no).sanitized
   end
 
   def confirm_nomis_cancelled
