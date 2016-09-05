@@ -25,6 +25,7 @@
     <%= render('issue_with_prisoner_section', f: f) %>
   </fieldset>
   <%= render('issue_with_visitors_section', f: f) %>
+  <%= render('other_section', f: f) %>
 
   <% if current_user -%>
     <%= single_field(f, :message_body, :text_area, class: 'form-control form-control-full-width', rows: 4) %>
