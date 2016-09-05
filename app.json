@@ -1,0 +1,85 @@
+{
+  "name": "prison-visits-2",
+  "scripts": {
+    "postdeploy": "bundle exec rake db:setup"
+  },
+  "env": {
+    "LANG": {
+      "required": true
+    },
+    "MOJSSO_ID": {
+      "required": true
+    },
+    "MOJSSO_SECRET": {
+      "required": true
+    },
+    "MOJSSO_URL": {
+      "required": true
+    },
+    "PRISON_ESTATE_IPS": {
+      "required": true
+    },
+    "PUBLIC_SERVICE_URL": {
+      "required": true
+    },
+    "RACK_ENV": {
+      "required": true
+    },
+    "RAILS_ENV": {
+      "required": true
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "required": true
+    },
+    "SECRET_KEY_BASE": {
+      "required": true
+    },
+    "SENTRY_DSN": {
+      "required": true
+    },
+    "SMTP_DOMAIN": {
+      "required": true
+    },
+    "SMTP_HOSTNAME": {
+      "required": true
+    },
+    "SMTP_PASSWORD": {
+      "required": true
+    },
+    "SMTP_PORT": {
+      "required": true
+    },
+    "SMTP_USERNAME": {
+      "required": true
+    },
+    "STAFF_INFO_ENDPOINT": {
+      "required": true
+    },
+    "STAFF_SERVICE_URL": {
+      "required": true
+    },
+    "ZENDESK_TOKEN": {
+      "required": true
+    },
+    "ZENDESK_USERNAME": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    },
+    "worker": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "heroku-postgresql",
+    "heroku-redis"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ]
+}
