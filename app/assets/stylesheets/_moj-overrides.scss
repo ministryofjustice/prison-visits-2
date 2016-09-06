@@ -91,6 +91,10 @@ a[rel="external"]{
   }
 }
 
+.form-control-full-width {
+  width: 100%;
+}
+
 table {
   th {
     @include bold-16;

@@ -56,11 +56,37 @@ RSpec.describe BookingResponder do
         expect(visit.visitors[1]).not_to be_banned
       end
     end
+
+    context 'when staff have written a message' do
+      before do
+        booking_response.user = FactoryGirl.create(:user)
+        booking_response.message_body = 'Bring proof of your identity'
+      end
+
+      it 'creates a message record for the visit' do
+        expect { subject.respond! }.
+          to change { visit.messages.count }.by(1)
+        expect(Message.last.visit_state_change_id).to be_present
+      end
+    end
   end
 
   context 'rejecting a request' do
     before do
       booking_response.selection = 'slot_unavailable'
+    end
+
+    context 'when staff have written a message' do
+      before do
+        booking_response.user = FactoryGirl.create(:user)
+        booking_response.message_body = 'Try next month'
+      end
+
+      it 'creates a message record for the visit' do
+        expect { subject.respond! }.
+          to change { visit.messages.count }.by(1)
+        expect(Message.last.visit_state_change_id).to be_present
+      end
     end
 
     context 'an already rejected visit' do

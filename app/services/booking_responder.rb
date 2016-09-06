@@ -19,27 +19,37 @@ private
   private :visit
 
   def accept!
-    visit.accept!
-    visit.update!(
-      slot_granted: visit.slots.fetch(booking_response.slot_index),
-      reference_no: booking_response.reference_no,
-      closed: booking_response.closed_visit
-    )
-    notify_accepted visit
+    ActiveRecord::Base.transaction do
+      visit.accept!
+      visit.update!(
+        slot_granted: slot_granted,
+        reference_no: booking_response.reference_no,
+        closed: booking_response.closed_visit
+      )
+      create_message(visit.last_visit_state)
+    end
+
+    notify_accepted(visit)
   end
 
   def reject!
     return if visit.rejected?
 
-    visit.reject!
-    rejection = Rejection.new(visit: visit, reason: booking_response.reason)
-    copy_no_allowance_parameters(rejection)
-    rejection.save!
-    notify_rejected visit
+    rejection = build_rejection(visit, booking_response)
+
+    ActiveRecord::Base.transaction do
+      visit.reject!
+      rejection.save!
+      create_message(visit.last_visit_state)
+    end
+
+    notify_rejected(visit)
   end
 
-  def copy_no_allowance_parameters(rejection)
-    return unless booking_response.no_allowance?
+  def build_rejection(visit, booking_response)
+    rejection = Rejection.new(visit: visit, reason: booking_response.reason)
+
+    return rejection unless booking_response.no_allowance?
 
     if booking_response.allowance_will_renew?
       rejection.allowance_renews_on = booking_response.allowance_renews_on
@@ -49,6 +59,8 @@ private
       rejection.privileged_allowance_expires_on =
         booking_response.privileged_allowance_expires_on
     end
+
+    rejection
   end
 
   def notify_accepted(visit)
@@ -76,5 +88,18 @@ private
     booking_response.banned_visitors.each do |visitor|
       visitor.update! banned: true
     end
+  end
+
+  def create_message(visit_state_change)
+    return nil if booking_response.message_body.blank?
+
+    Message.create!(body: booking_response.message_body,
+                    user: booking_response.user,
+                    visit: visit,
+                    visit_state_change: visit_state_change)
+  end
+
+  def slot_granted
+    visit.slots.fetch(booking_response.slot_index)
   end
 end
