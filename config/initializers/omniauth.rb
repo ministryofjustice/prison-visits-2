@@ -1,6 +1,10 @@
 require 'mojsso'
 
-app_id = ENV.fetch('MOJSSO_ID', nil)
+# Used for Heroku review apps.
+# SSO app must have a unique id, so when a new heroku review app gets deployed
+# we use the name of the heroku app to be the id of a duplicate pvb app.
+review_app_id = ENV.fetch('HEROKU_APP_NAME', nil)
+app_id = ENV.fetch('MOJSSO_ID', review_app_id)
 app_secret = ENV.fetch('MOJSSO_SECRET', nil)
 sso_url = ENV.fetch('MOJSSO_URL', 'http://localhost:5000')
 
