@@ -33,7 +33,7 @@ class SignonIdentity
 
     def find_or_create_authorized_user(info)
       email = info.fetch('email')
-      sso_orgs = valid_pvb_orgs(info)
+      sso_orgs = info.fetch('permissions').map { |p| p.fetch('organisation') }
 
       unless sso_orgs.any?
         permissions = info.fetch('permissions')
@@ -47,14 +47,14 @@ class SignonIdentity
 
     def extract_additional_data(info)
       links = info.fetch('links')
-      sso_orgs = valid_pvb_orgs(info)
+      sso_orgs = info.fetch('permissions').map { |p| p.fetch('organisation') }
 
       {
         full_name: full_name_from_additional_data(info),
         profile_url: links.fetch('profile'),
         logout_url: links.fetch('logout'),
         available_organisations: sso_orgs,
-        current_organisation: sso_orgs.first
+        current_organisation: default_current_org(sso_orgs)
       }
     end
 
@@ -64,14 +64,13 @@ class SignonIdentity
       [first_name, last_name].reject(&:empty?).join(' ')
     end
 
-    def valid_pvb_orgs(info)
-      sso_orgs = info.fetch('permissions').map { |p| p.fetch('organisation') }
-      pvb_orgs = Estate.pluck(:sso_organisation_name)
-      sso_orgs.select { |org| pvb_orgs.include?(org) }
+    def default_current_org(sso_orgs)
+      sso_orgs.reject { |org| org == SignonIdentity::DIGITAL_ORG }.first
     end
   end
 
-  attr_reader :user, :full_name, :profile_url
+  attr_reader :user, :full_name, :profile_url, :available_organisations,
+    :current_organisation
 
   # rubocop:disable ParameterLists
   def initialize(user, full_name:, profile_url:, logout_url:,
@@ -103,26 +102,7 @@ class SignonIdentity
     }
   end
 
-  def current_estate
-    available_estates.find do |estate|
-      estate.sso_organisation_name == @current_organisation
-    end
-  end
-
-  def available_estates
-    @available_estates ||=
-      begin
-        if @available_organisations.include?(DIGITAL_ORG)
-          Estate.all
-        else
-          Estate.where(sso_organisation_name: @available_organisations)
-        end.to_a
-      end
-  end
-
-  def change_current_estate(new_estate_id)
-    @current_organisation = available_estates.find { |estate|
-      estate.id == new_estate_id
-    }.sso_organisation_name
+  def change_current_organisation(sso_org)
+    @current_organisation = sso_org
   end
 end

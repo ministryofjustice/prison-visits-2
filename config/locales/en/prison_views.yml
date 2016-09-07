@@ -19,6 +19,7 @@ en:
       nomis_cancellation_confirmed: The visit has been cancelled. This request has now been filed under 'Processed visits'
       feedback_submitted: Your question has been submitted
       invalid_date: The date is invalid
+      estate_error: You don't access rights, please speak to your manager
     feedbacks:
       new:
         title: Contact us

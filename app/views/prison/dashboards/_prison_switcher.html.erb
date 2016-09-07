@@ -1,10 +1,10 @@
 <% content_for :prison_switcher do %>
-  <% if sso_identity.available_estates.size > 1 -%>
+  <% if available_estates.size > 1 -%>
     <%= form_tag prison_switch_estate_path, enforce_utf8: false, class: 'form prison-switcher' do -%>
       <%= label_tag "estate", class: "form-label" do -%>
         Change prison
       <% end %>
-      <%= select_tag 'estate', options_from_collection_for_select(sso_identity.available_estates, 'id', 'name', sso_identity.current_estate.id), class: 'form-control form-control-auto-width' %>
+      <%= select_tag 'sso_org', options_from_collection_for_select(available_estates, 'sso_organisation_name', 'name', current_estate.id), class: 'form-control form-control-auto-width' %>
       <%= submit_tag t('.switch_estate'), class: 'button-link' %>
     <% end -%>
   <% end -%>

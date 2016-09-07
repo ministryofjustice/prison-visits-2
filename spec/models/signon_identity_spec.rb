@@ -34,13 +34,13 @@ RSpec.describe SignonIdentity, type: :model do
         end
       end
 
-      context 'has invalid permissions' do
+      context 'has permissions to an unknown estate' do
         let(:permissions) {
           [{ 'organisation' => 'not-an-estate', 'roles' => [] }]
         }
 
-        it 'rejects the login attempt' do
-          expect(from_omniauth).to be_nil
+        it 'accepts the login' do
+          expect(from_omniauth.user).to eq(user)
         end
       end
 
@@ -69,8 +69,14 @@ RSpec.describe SignonIdentity, type: :model do
           [{ 'organisation' => 'random', 'roles' => [] }]
         }
 
-        it 'rejects the login attempt' do
-          expect(from_omniauth).to be_nil
+        it 'creates a new user' do
+          expect { from_omniauth }.to change {
+            User.where(email: oauth_info['email']).count
+          }.by(1)
+        end
+
+        it 'returns a signon identity' do
+          expect(subject.full_name).to eq('Joe Bloggs')
         end
       end
 
@@ -116,7 +122,7 @@ RSpec.describe SignonIdentity, type: :model do
     end
   end
 
-  describe 'changing the current estate' do
+  describe 'changing the current organisation' do
     let!(:user) { FactoryGirl.create(:user) }
     let!(:noms) { FactoryGirl.create(:estate, sso_organisation_name: 'noms') }
     let!(:hmcts) do
@@ -136,42 +142,11 @@ RSpec.describe SignonIdentity, type: :model do
     it 'updates the current organisation' do
       identity = described_class.from_session_data(serialization)
 
-      expect { identity.change_current_estate(hmcts.id) }.
+      expect {
+        identity.change_current_organisation(hmcts.sso_organisation_name)
+      }.
         to change { identity.to_session['current_organisation'] }.
-        from('noms').
-        to('hmcts')
-    end
-  end
-
-  describe '#available_estates' do
-    let(:user) { FactoryGirl.create(:user) }
-    let!(:estate) { FactoryGirl.create(:estate) }
-    let!(:other_estate) { FactoryGirl.create(:estate) }
-    let(:serialization) do
-      {
-        'user_id' => user.id,
-        'full_name' => "Mr A",
-        'profile_url' => 'https://example.com/profile',
-        'logout_url' => 'https://example.com/logout',
-        'available_organisations' => available_orgs,
-        'current_organisation' => 'noms'
-      }
-    end
-
-    let(:instance) { described_class.from_session_data(serialization) }
-
-    subject { instance.available_estates }
-
-    context "when it doesn't have access to the digital pvb org" do
-      let(:available_orgs) { [estate.sso_organisation_name] }
-
-      it { is_expected.to eq([estate]) }
-    end
-
-    context 'when it has access to the digital noms org' do
-      let(:available_orgs) { ['digital.noms.moj'] }
-
-      it { is_expected.to contain_exactly(estate, other_estate) }
+        from('noms').to('hmcts')
     end
   end
 end

@@ -174,7 +174,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
   context '#switch_estate' do
     let(:other_estate) { FactoryGirl.create(:estate) }
     subject do
-      post :switch_estate, estate: other_estate.id
+      post :switch_estate, sso_org: other_estate.sso_organisation_name
     end
 
     context "when logged out" do
@@ -185,7 +185,10 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        stub_logged_in_user(user, estate, [estate, other_estate])
+        stub_logged_in_user(
+          user,
+          estate,
+          available_estates: [estate, other_estate])
 
         request.env['HTTP_REFERER'] = '/previous/path'
       end
