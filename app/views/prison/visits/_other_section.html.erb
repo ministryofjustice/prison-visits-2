@@ -1,0 +1,22 @@
+<h2><%= t('.title') %></h2>
+
+<%= error_container(f, :selection) do %>
+  <label class="block-label">
+    <%=
+      f.radio_button(
+        :selection, :duplicate_visit_request,
+        class: 'js-Conditional',
+        data: { 'conditional-el': 'duplicate_visit_details' }
+      )
+    %>
+    <%= t('.duplicate_visit_request') %>
+  </label>
+<% end %>
+
+<div id="duplicate_visit_details" class="panel panel-border-narrow">
+  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+  <blockquote>
+    <%= t('duplicate_visit_request', scope: [:visitor_mailer, :rejected]) %>
+  </blockquote>
+</div>

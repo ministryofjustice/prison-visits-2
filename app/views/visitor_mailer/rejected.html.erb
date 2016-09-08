@@ -47,6 +47,10 @@
 
   <p><%= t('.child_protection_issues') %></p>
 
+<% when 'duplicate_visit_request' %>
+
+  <p><%= t('.duplicate_visit_request') %></p>
+
 <% end %>
 
 <% if @visit.unlisted_visitors.any? %>

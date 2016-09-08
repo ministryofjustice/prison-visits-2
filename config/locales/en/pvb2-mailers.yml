@@ -107,6 +107,10 @@ en:
         Your visit can't take place as the prisoner has a restriction.
       child_protection_issues:
         Your visit can't take place as the prisoner has a restriction.
+      duplicate_visit_request:
+        You have already requested a visit with these details. You will have received
+        an email regarding your original visit request, containing a link to check the
+        status of your request.
       visitor_banned:
         Your visit cannot take place. %{visitors} should have received a letter
         to say that they’re banned from visiting the prison at the moment. Get

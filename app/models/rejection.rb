@@ -10,6 +10,7 @@ class Rejection < ActiveRecord::Base
     slot_unavailable
     visitor_banned
     visitor_not_on_list
+    duplicate_visit_request
   ]
 
   belongs_to :visit
