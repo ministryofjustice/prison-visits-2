@@ -34,6 +34,8 @@ class BookingResponse
   attribute :banned_visitor_ids, Array
   attribute :visitor_not_on_list, Virtus::Attribute::Boolean
   attribute :visitor_banned, Virtus::Attribute::Boolean
+  attribute :message_body, String
+  attribute :user, User
 
   delegate :slots, :prison, :to_param,
     :prisoner_full_name, :prisoner_number, :prisoner_date_of_birth,

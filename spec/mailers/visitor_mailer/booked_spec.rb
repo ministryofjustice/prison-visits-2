@@ -27,4 +27,16 @@ RSpec.describe VisitorMailer, '.booked' do
     expect(mail.subject).
       to match(/mae eich ymweliad ar Dydd Llun 12 Hydref wedi'i gadarnhau/)
   end
+
+  context 'with an acceptance staff message' do
+    let(:message) { FactoryGirl.build_stubbed(:message) }
+
+    before do
+      expect(visit).to receive(:acceptance_message).and_return(message)
+    end
+
+    it 'displays the message' do
+      expect(mail.html_part.body).to match(message.body)
+    end
+  end
 end

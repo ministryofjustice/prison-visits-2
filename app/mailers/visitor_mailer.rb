@@ -15,12 +15,16 @@ class VisitorMailer < ActionMailer::Base
 
   def booked(visit)
     I18n.locale = visit.locale
+    @message = visit.acceptance_message
+
     mail_visitor visit,
       date: format_date_without_year(visit.date)
   end
 
   def rejected(visit)
     I18n.locale = visit.locale
+    @message = visit.rejection_message
+
     mail_visitor visit,
       date: format_date_without_year(visit.first_date)
   end

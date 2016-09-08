@@ -5,6 +5,7 @@ class Visit < ActiveRecord::Base
   belongs_to :prisoner
   has_many :visitors, dependent: :destroy
   has_many :visit_state_changes, dependent: :destroy
+  has_many :messages
   has_one :rejection, dependent: :destroy
   has_one :cancellation, dependent: :destroy
 
@@ -147,6 +148,20 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
 
   def unlisted_visitors
     visitors.unlisted
+  end
+
+  def acceptance_message
+    Message.find_by(
+      visit_state_change_id: visit_state_changes.booked.pluck(:id).first)
+  end
+
+  def rejection_message
+    Message.find_by(
+      visit_state_change_id: visit_state_changes.rejected.pluck(:id).first)
+  end
+
+  def last_visit_state
+    visit_state_changes.order('created_at desc').first
   end
 
 private

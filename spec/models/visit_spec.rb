@@ -316,4 +316,46 @@ RSpec.describe Visit, type: :model do
       expect(subject.confirm_by).to eq(confirmation_date)
     end
   end
+
+  describe '#acceptance_message' do
+    before do
+      subject.accept!
+    end
+
+    context "when there isn't a message" do
+      it { expect(subject.acceptance_message).to be_nil }
+    end
+
+    context "when there is a message" do
+      let!(:message) do
+        FactoryGirl.create(
+          :message,
+          visit: subject,
+          visit_state_change: subject.visit_state_changes.last)
+      end
+
+      it { expect(subject.acceptance_message).to eq(message) }
+    end
+  end
+
+  describe '#rejection_message' do
+    before do
+      subject.reject!
+    end
+
+    context "when there isn't a message" do
+      it { expect(subject.rejection_message).to be_nil }
+    end
+
+    context "when there is a message" do
+      let!(:message) do
+        FactoryGirl.create(
+          :message,
+          visit: subject,
+          visit_state_change: subject.visit_state_changes.last)
+      end
+
+      it { expect(subject.rejection_message).to eq(message) }
+    end
+  end
 end

@@ -30,6 +30,7 @@ en:
         <strong>This is a closed visit:</strong>
         the prisoner will be behind a glass screen in a separate area rather
         than in the visiting hall.
+      message_title: "Message from the prison:"
       cancel_change_title: Cancel or change this visit
       cancel_html: >-
         If you no longer want to visit on this date,
@@ -125,6 +126,7 @@ en:
         <a href="%{url}">prison website</a> or call the prison on
         <strong>%{phone_no}</strong>.
       visit_id: "Visit ID:"
+      message_title: "Message from the prison:"
     request_acknowledged:
       subject: "Not booked yet: we’ve received your visit request for %{receipt_date}"
       add_address: >-
