@@ -69,7 +69,7 @@ RSpec.describe Depersonalizer do
       create(
         :visit,
         contact_email_address: 'user@example.com',
-        contact_phone_no: '0115 4960123'
+        contact_phone_no: '079 00112233'
       )
     }
 
@@ -85,7 +85,7 @@ RSpec.describe Depersonalizer do
       subject.remove_personal_information(Time.zone.now - 1.day)
       expect(visit.reload).to have_attributes(
         contact_email_address: 'user@example.com',
-        contact_phone_no: '0115 4960123'
+        contact_phone_no: '07900112233'
       )
     end
   end
