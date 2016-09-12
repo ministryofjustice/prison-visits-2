@@ -3,7 +3,6 @@ class Prison::DashboardsController < ApplicationController
 
   before_action :authorize_prison_request
   before_action :authenticate_user
-  before_action :validate_current_estate
 
   def inbox
     requested_visits
@@ -40,8 +39,15 @@ class Prison::DashboardsController < ApplicationController
   end
 
   def switch_estate
-    sso_identity.change_current_organisation(params[:sso_org])
-    session[:sso_data] = sso_identity.to_session
+    estate = Estate.find(params[:estate_id])
+
+    if sso_identity.accessible_estate?(estate)
+      session[:current_estate] = estate.id
+    else
+      # This should never happen
+      flash[:notice] = 'You cannot access that estate'
+    end
+
     redirect_to :back
   end
 

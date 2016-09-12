@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   helper LinksHelper
   helper_method :current_user
   helper_method :sso_identity
-  helper_method :available_estates
   helper_method :current_estate
 
   def current_user
@@ -18,21 +17,16 @@ class ApplicationController < ActionController::Base
   end
 
   def current_estate
-    available_estates.find do |estate|
-      estate.sso_organisation_name == sso_identity&.current_organisation
-    end
-  end
-
-  def available_estates
-    @available_estates ||=
-      if sso_identity.
-         available_organisations.
-         include?(SignonIdentity::DIGITAL_ORG)
-        Estate.all
+    return unless sso_identity
+    @_current_estate ||= begin
+      estate_id = session[:current_estate]
+      estate = estate_id && Estate.find_by(id: estate_id)
+      if estate && sso_identity.accessible_estate?(estate)
+        estate
       else
-        Estate.
-        where(sso_organisation_name: sso_identity.available_organisations)
-      end.to_a
+        sso_identity.default_estate
+      end
+    end
   end
 
   def sso_identity
@@ -61,14 +55,6 @@ private
     unless sso_identity
       session[:redirect_path] = request.original_fullpath
       redirect_to '/auth/mojsso'
-    end
-  end
-
-  def validate_current_estate
-    unless current_estate
-      session.delete(:sso_data)
-      flash[:notice] = t('estate_error', scope: [:prison, :flash])
-      redirect_to root_path
     end
   end
 

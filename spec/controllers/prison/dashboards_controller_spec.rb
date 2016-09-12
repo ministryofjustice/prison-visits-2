@@ -14,7 +14,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        stub_logged_in_user(user, estate)
+        login_user(user, estate)
       end
 
       it { is_expected.to be_successful }
@@ -35,7 +35,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        stub_logged_in_user(user, estate)
+        login_user(user, estate)
       end
 
       it { is_expected.to be_successful }
@@ -62,7 +62,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        stub_logged_in_user(user, estate)
+        login_user(user, estate)
       end
 
       it { is_expected.to be_successful }
@@ -117,7 +117,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        stub_logged_in_user(user, estate)
+        login_user(user, estate)
       end
 
       let!(:visit1) do
@@ -172,9 +172,10 @@ RSpec.describe Prison::DashboardsController, type: :controller do
   end
 
   context '#switch_estate' do
-    let(:other_estate) { FactoryGirl.create(:estate) }
+    let(:estate2) { FactoryGirl.create(:estate) }
+    let(:other_estate) { estate2 }
     subject do
-      post :switch_estate, sso_org: other_estate.sso_organisation_name
+      post :switch_estate, estate_id: other_estate.id
     end
 
     context "when logged out" do
@@ -185,11 +186,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        stub_logged_in_user(
-          user,
-          estate,
-          available_estates: [estate, other_estate])
-
+        login_user(user, estate, available_estates: [estate, estate2])
         request.env['HTTP_REFERER'] = '/previous/path'
       end
 
@@ -199,6 +196,15 @@ RSpec.describe Prison::DashboardsController, type: :controller do
       end
 
       it { is_expected.to redirect_to('/previous/path') }
+
+      context 'when switching to an inaccessible estate' do
+        let(:other_estate) { FactoryGirl.create(:estate) }
+
+        it 'does not updated the current estate' do
+          subject
+          expect(controller.current_estate).to eq(estate)
+        end
+      end
     end
   end
 end

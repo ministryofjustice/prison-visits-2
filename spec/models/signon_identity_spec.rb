@@ -34,17 +34,17 @@ RSpec.describe SignonIdentity, type: :model do
         end
       end
 
-      context 'has permissions to an unknown estate' do
+      context 'has permissions to access only unknown-to-pvb organisations' do
         let(:permissions) {
           [{ 'organisation' => 'not-an-estate', 'roles' => [] }]
         }
 
-        it 'accepts the login' do
-          expect(from_omniauth.user).to eq(user)
+        it 'rejects the login attempt' do
+          expect(from_omniauth).to be_nil
         end
       end
 
-      context 'has permissions to the estate' do
+      context 'has permission to access an org linked to a pvb estate' do
         let(:permissions) {
           [{ 'organisation' => org_name, 'roles' => [] }]
         }
@@ -64,23 +64,17 @@ RSpec.describe SignonIdentity, type: :model do
         end
       end
 
-      context 'has permissions to an unknown organisation' do
+      context 'has permissions to access only unknown-to-pvb organisations' do
         let(:permissions) {
           [{ 'organisation' => 'random', 'roles' => [] }]
         }
 
-        it 'creates a new user' do
-          expect { from_omniauth }.to change {
-            User.where(email: oauth_info['email']).count
-          }.by(1)
-        end
-
-        it 'returns a signon identity' do
-          expect(subject.full_name).to eq('Joe Bloggs')
+        it 'rejects the login attempt' do
+          expect(from_omniauth).to be_nil
         end
       end
 
-      context 'has permissions to the estate' do
+      context 'has permission to access an org linked to a pvb estate' do
         let(:permissions) {
           [{ 'organisation' => org_name, 'roles' => [] }]
         }
@@ -92,7 +86,7 @@ RSpec.describe SignonIdentity, type: :model do
         end
 
         it 'returns a signon identity' do
-          expect(subject.full_name).to eq('Joe Bloggs')
+          expect(from_omniauth.full_name).to eq('Joe Bloggs')
         end
       end
     end
@@ -106,8 +100,7 @@ RSpec.describe SignonIdentity, type: :model do
         'full_name' => "Mr A",
         'profile_url' => 'https://example.com/profile',
         'logout_url' => 'https://example.com/logout',
-        'available_organisations' => ['noms'],
-        'current_organisation' => 'noms'
+        'permissions' => [{ 'organisation' => 'noms', 'roles' => [] }]
       }
     end
 
@@ -122,31 +115,65 @@ RSpec.describe SignonIdentity, type: :model do
     end
   end
 
-  describe 'changing the current organisation' do
+  describe 'instance' do
     let!(:user) { FactoryGirl.create(:user) }
-    let!(:noms) { FactoryGirl.create(:estate, sso_organisation_name: 'noms') }
-    let!(:hmcts) do
-      FactoryGirl.create(:estate, sso_organisation_name: 'hmcts')
+    let!(:cardiff_org_name) { 'cardiff.noms' }
+    let!(:cardiff_estate) do
+      FactoryGirl.create(:estate,
+        sso_organisation_name: cardiff_org_name, nomis_id: 'CFI')
     end
+    let!(:pentonville_estate) do
+      FactoryGirl.create(:estate, sso_organisation_name: 'pentonville.noms')
+    end
+    let!(:swansea_org_name) { 'swansea.noms' }
+    let!(:swansea_estate) do
+      FactoryGirl.create(:estate,
+        sso_organisation_name: swansea_org_name, nomis_id: 'SWI')
+    end
+    let!(:orgs) { [swansea_org_name, cardiff_org_name] }
     let!(:serialization) do
       {
         'user_id' => user.id,
         'full_name' => "Mr A",
         'profile_url' => 'https://example.com/profile',
         'logout_url' => 'https://example.com/logout',
-        'available_organisations' => %w[noms hmcts],
-        'current_organisation' => 'noms'
+        'permissions' => orgs.map { |o| { 'organisation' => o, 'roles' => [] } }
       }
     end
 
-    it 'updates the current organisation' do
-      identity = described_class.from_session_data(serialization)
+    subject {
+      described_class.from_session_data(serialization)
+    }
 
-      expect {
-        identity.change_current_organisation(hmcts.sso_organisation_name)
-      }.
-        to change { identity.to_session['current_organisation'] }.
-        from('noms').to('hmcts')
+    it 'makes available the list of accessible estates' do
+      expect(subject.accessible_estates).to eq([cardiff_estate, swansea_estate])
+      expect(subject.accessible_estates).not_to include(pentonville_estate)
+    end
+
+    it 'allows checking whether an estate is accessible' do
+      expect(subject.accessible_estate?(cardiff_estate)).to be true
+      expect(subject.accessible_estate?(pentonville_estate)).to be false
+    end
+
+    it 'determines the default estate for a user' do
+      # Note: first accessible estate sorted by NOMIS ID
+      expect(subject.default_estate).to eq(cardiff_estate)
+    end
+
+    it 'builds the logout url required for SSO' do
+      expect(
+        subject.logout_url(redirect_to: 'https://pvb/loggedout')
+      ).to eq(
+        'https://example.com/logout?redirect_to=https%3A%2F%2Fpvb%2Floggedout'
+      )
+    end
+
+    context 'when a user is associated to a digital team' do
+      let!(:orgs) { [swansea_org_name, 'digital.noms.moj'] }
+
+      it 'makes all estates accessible' do
+        expect(subject.accessible_estates).to include(pentonville_estate)
+      end
     end
   end
 end
