@@ -30,4 +30,30 @@ namespace :heroku do
       headers: { 'Content-Type' => 'application/json' }
     )
   end
+
+  desc 'Runs once after the PR is merged or closed, used in app.json'
+  task :pr_destroy do
+    require 'excon'
+
+    sso_url = ENV.fetch('MOJSSO_URL')
+
+    new_app_name = ENV.fetch('HEROKU_APP_NAME')
+
+    delete_data = { 'new_app_name' => new_app_name }
+
+    connection = Excon.new(
+      sso_url,
+      user: ENV.fetch('SSO_BASIC_USER'),
+      password: ENV.fetch('SSO_BASIC_PASSWORD')
+    )
+
+    connection.request(
+      method: :delete,
+      path: '/review_apps',
+      expects: 200,
+      idempotent: true,
+      body: delete_data.to_json,
+      headers: { 'Content-Type' => 'application/json' }
+    )
+  end
 end

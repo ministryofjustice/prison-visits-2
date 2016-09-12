@@ -1,7 +1,8 @@
 {
   "name": "prison-visits-2",
   "scripts": {
-    "postdeploy": "bundle exec rake db:setup heroku:post_deploy"
+    "postdeploy": "bundle exec rake db:setup heroku:post_deploy",
+    "pr-predestroy": "bundle exec rake heroku:pr_predestroy"
   },
   "env": {
     "HEROKU_APP_NAME": {
