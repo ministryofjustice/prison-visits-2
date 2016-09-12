@@ -5,9 +5,11 @@ namespace :heroku do
 
     sso_url = ENV.fetch('MOJSSO_URL')
 
-    new_app_name = ENV.fetch('HEROKU_APP_NAME')
+    app_name = ENV.fetch('HEROKU_APP_NAME')
 
-    service_uri = "https://#{new_app_name}.herokuapp.com"
+    service_uri = "https://#{app_name}.herokuapp.com"
+
+    new_app_name = "Prison Visits Booking (review app: #{app_name})"
 
     post_data = {
       'app_name' => 'Prison Visits Booking',
@@ -37,7 +39,8 @@ namespace :heroku do
 
     sso_url = ENV.fetch('MOJSSO_URL')
 
-    new_app_name = ENV.fetch('HEROKU_APP_NAME')
+    app_name = ENV.fetch('HEROKU_APP_NAME')
+    new_app_name = "Prison Visits Booking (review app: #{app_name})"
 
     delete_data = { 'new_app_name' => new_app_name }
 
