@@ -1,26 +1,22 @@
 namespace :heroku do
   desc 'Runs once on the first PR deploy to Heroku, used in app.json'
-  task :post_deploy do
-    require 'excon'
-
-    sso_url = ENV.fetch('MOJSSO_URL')
-
+  task post_deploy: :environment do
     app_name = ENV.fetch('HEROKU_APP_NAME')
+
+    parent_app_id = ENV.fetch('SSO_REVIEW_PARENT_ID')
 
     service_uri = "https://#{app_name}.herokuapp.com"
 
-    new_app_name = "Prison Visits Booking (review app: #{app_name})"
-
     post_data = {
-      'app_name' => 'Prison Visits Booking',
-      'new_app_name' => new_app_name,
+      'parent_app_id' => parent_app_id,
+      'new_app_id' => Rails.configuration.sso_app_id,
       'new_app_uri' => service_uri
     }
 
     connection = Excon.new(
-      sso_url,
-      user: ENV.fetch('SSO_BASIC_USER'),
-      password: ENV.fetch('SSO_BASIC_PASSWORD')
+      Rails.configuration.sso_url,
+      user: ENV.fetch('SSO_REVIEW_BASIC_USER'),
+      password: ENV.fetch('SSO_REVIEW_BASIC_PASSWORD')
     )
 
     connection.request(
@@ -34,20 +30,15 @@ namespace :heroku do
   end
 
   desc 'Runs once after the PR is merged or closed, used in app.json'
-  task :pr_destroy do
-    require 'excon'
+  task pr_destroy: :environment do
+    fail('not a review app') unless ENV['HEROKU_PARENT_APP_NAME']
 
-    sso_url = ENV.fetch('MOJSSO_URL')
-
-    app_name = ENV.fetch('HEROKU_APP_NAME')
-    new_app_name = "Prison Visits Booking (review app: #{app_name})"
-
-    delete_data = { 'new_app_name' => new_app_name }
+    delete_data = { 'app_id' => Rails.configuration.sso_app_id }
 
     connection = Excon.new(
-      sso_url,
-      user: ENV.fetch('SSO_BASIC_USER'),
-      password: ENV.fetch('SSO_BASIC_PASSWORD')
+      Rails.configuration.sso_url,
+      user: ENV.fetch('SSO_REVIEW_BASIC_USER'),
+      password: ENV.fetch('SSO_REVIEW_BASIC_PASSWORD')
     )
 
     connection.request(

@@ -5,7 +5,13 @@
     "pr-predestroy": "bundle exec rake heroku:pr_predestroy"
   },
   "env": {
+    "REVIEW_APP_ID": {
+      "required": true
+    },
     "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "HEROKU_PARENT_APP_NAME": {
       "required": true
     },
     "LANG": {

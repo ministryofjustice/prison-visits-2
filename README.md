@@ -225,7 +225,7 @@ generate a secure secret key.
 This is used to build public links in emails. It must be set in the production
 environment to `https://prisonvisits.service.gov.uk/`.
 
-#### `SSO_BASIC_USER`, `SSO_BASIC_PASSWORD`
+#### `SSO_REVIEW_BASIC_USER`, `SSO_REVIEW_BASIC_PASSWORD`, `SSO_REVIEW_PARENT_ID`
 
 These are used by the Heroku hooks for review apps to setup and teardown SSO
 data.
