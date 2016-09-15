@@ -18,7 +18,8 @@ RSpec.describe Nomis::Api do
     }.to raise_error(Nomis::DisabledError, 'Nomis API is disabled')
   end
 
-  describe 'setting a unique request id', vcr: { cassette_name: 'lookup_active_offender' } do
+  # Really these tests should be written against the client directly
+  describe 'API client' do
     let(:params) {
       {
         noms_id: 'A1459AE',
@@ -28,15 +29,43 @@ RSpec.describe Nomis::Api do
 
     subject { super().lookup_active_offender(params) }
 
-    before do
-      RequestStore.store[:request_id] = 'uuid'
+    # Reset the client instance to allow testing configuration
+    around do |example|
+      Nomis::Api.instance_variable_set(:@instance, nil)
+      example.run
+      Nomis::Api.instance_variable_set(:@instance, nil)
     end
 
-    it 'on a header' do
+    it 'sets the X-Request-Id header if a request_id is present', vcr: { cassette_name: 'lookup_active_offender' } do
+      RequestStore.store[:request_id] = 'uuid'
       subject
-
       expect(WebMock).to have_requested(:get, /\w/).
         with(headers: { 'X-Request-Id' => 'uuid' })
+    end
+
+    it 'sends an Authorization header containing a JWT token if auth configured', vcr: { cassette_name: 'lookup_active_offender-auth' } do
+      expect(Rails.configuration).to receive(:nomis_api_token).and_return('fake')
+
+      # A random private key
+      key = OpenSSL::PKey::RSA.new('-----BEGIN RSA PRIVATE KEY-----
+MIIBOwIBAAJBAKgRAIAYi4/HbzLcrXf3H3zomuhuimXLWnhqEkCdZ5DBq7ofJpsr
+qYv1lPpQUqKhFkAORoj9+w/xM+xIcvFu8t8CAwEAAQJARnKyAf/H6GHRo8FK2WF2
+Cna6EDndu2OtLZJQylLwiYVnHs8xLZXdqcAGAv0ZMWEEt2qOBQPxbPQpEWJ6ZhB0
+cQIhANE61o8r4DgP15XNI3AYYCbjrgYgxgbKmXJtlK9Vl+f3AiEAzaKXDDGMEVOV
+MoFEqkSaIoIiOum28GBj4Soz1gSTolkCIEgDpWff5SvGoCBKXCEv8qBQC0zGqQIb
+Z5dQCjYTEtbfAiEAs/pqWbHD9iZBn0Kk5qHEhg+ABjAofZrf0GMvm1HGJYECIQDC
+QteHGErMYVksaiuQxrk8I8nbe2JP6UsCd2gyWYazkg==
+-----END RSA PRIVATE KEY-----')
+      expect(Rails.configuration).to receive(:nomis_api_key).and_return(key)
+
+      subject
+      expect(WebMock).to have_requested(:get, /\w/).
+        with { |req|
+          auth_type, token = req.headers["Authorization"].split(' ')
+          next unless auth_type == 'Bearer'
+          JWT.decode(token, nil, false) # raises error if not a JWT token
+          true
+        }
     end
   end
 

@@ -59,7 +59,23 @@ module PrisonVisits
       !ENV.key?('SMTP_USERNAME') &&
       !ENV.key?('SMTP_PASSWORD')
 
-    config.nomis_api_host = ENV.fetch('NOMIS_API_HOST', nil)
+    read_key = lambda { |string|
+      begin
+        # To ease configuration use a configuration strings without newlines
+        string = string.gsub('\n', "\n")
+        OpenSSL::PKey::RSA.new(string)
+      rescue OpenSSL::PKey::RSAError
+        STDOUT.puts "[WARN] Invalid key: #{string}"
+        nil
+      end
+    }
+
+    unless Rails.env.test?
+      config.nomis_api_host = ENV.fetch('NOMIS_API_HOST', nil)
+      config.nomis_api_token = ENV.fetch('NOMIS_API_TOKEN', nil)
+      config.nomis_api_key = read_key.call(ENV.fetch('NOMIS_API_KEY', ''))
+    end
+
     config.staff_info_endpoint = ENV.fetch('STAFF_INFO_ENDPOINT', nil)
   end
 end

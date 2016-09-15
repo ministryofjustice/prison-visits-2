@@ -18,6 +18,10 @@ Rails.application.configure do
   config.i18n.load_path =
     Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
 
-  config.nomis_api_host = ENV.fetch('NOMIS_API_HOST',
-    'http://172.22.16.2:8080/')
+  # Always make testing calls to the NOMIS dev server, and hard-code
+  # credentials to avoid the possibility of leaking sensitive credentials or
+  # returned data into VCR test output files.
+  config.nomis_api_host = 'http://172.22.16.2:8080/'
+  config.nomis_api_token = nil
+  config.nomis_api_key = nil
 end
