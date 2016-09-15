@@ -2,10 +2,10 @@
   "name": "prison-visits-2",
   "scripts": {
     "postdeploy": "bundle exec rake db:setup heroku:post_deploy",
-    "pr-predestroy": "bundle exec rake heroku:pr_predestroy"
+    "pr-predestroy": "bundle exec rake heroku:pr_destroy"
   },
   "env": {
-    "REVIEW_APP_ID": {
+    "SSO_REVIEW_PARENT_ID": {
       "required": true
     },
     "HEROKU_APP_NAME": {
@@ -59,10 +59,10 @@
     "SMTP_USERNAME": {
       "required": true
     },
-    "SSO_BASIC_USER": {
+    "SSO_REVIEW_BASIC_USER": {
       "required": true
     },
-    "SSO_BASIC_PASSWORD": {
+    "SSO_REVIEW_BASIC_PASSWORD": {
       "required": true
     },
     "STAFF_INFO_ENDPOINT": {
