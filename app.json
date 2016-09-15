@@ -1,13 +1,20 @@
 {
   "name": "prison-visits-2",
   "scripts": {
-    "postdeploy": "bundle exec rake db:setup"
+    "postdeploy": "bundle exec rake db:setup heroku:post_deploy",
+    "pr-predestroy": "bundle exec rake heroku:pr_predestroy"
   },
   "env": {
-    "LANG": {
+    "REVIEW_APP_ID": {
       "required": true
     },
-    "MOJSSO_ID": {
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "HEROKU_PARENT_APP_NAME": {
+      "required": true
+    },
+    "LANG": {
       "required": true
     },
     "MOJSSO_SECRET": {
@@ -50,6 +57,12 @@
       "required": true
     },
     "SMTP_USERNAME": {
+      "required": true
+    },
+    "SSO_BASIC_USER": {
+      "required": true
+    },
+    "SSO_BASIC_PASSWORD": {
       "required": true
     },
     "STAFF_INFO_ENDPOINT": {
