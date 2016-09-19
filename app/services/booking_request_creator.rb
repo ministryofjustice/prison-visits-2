@@ -9,7 +9,17 @@ class BookingRequestCreator
 private
 
   def create_visit(prisoner_step, visitors_step, slots_step, locale)
-    Visit.create!(
+    ActiveRecord::Base.transaction do
+      visit = build_visit(prisoner_step, visitors_step, slots_step, locale)
+
+      visit.save!
+      create_visitors(visitors_step, visit)
+      visit
+    end
+  end
+
+  def build_visit(prisoner_step, visitors_step, slots_step, locale)
+    Visit.new(
       prisoner_id: create_prisoner(prisoner_step).id,
       prison_id: prisoner_step.prison_id,
       contact_email_address: visitors_step.email_address,
@@ -18,7 +28,7 @@ private
       slot_option_1: slots_step.option_1,
       slot_option_2: slots_step.option_2,
       locale: locale
-    ).tap { |v| create_visitors visitors_step, v }
+    )
   end
 
   def create_visitors(visitors_step, visit)

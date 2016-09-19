@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe BookingRequestCreator do
+  let!(:prison) { FactoryGirl.create(:prison) }
   let(:prisoner_step) {
     PrisonerStep.new(
-      prison_id: 'PRISONID',
+      prison_id: prison.id,
       first_name: 'Oscar',
       last_name: 'Wilde',
       date_of_birth: Date.new(1980, 12, 31),
@@ -14,7 +15,7 @@ RSpec.describe BookingRequestCreator do
   let(:visitors_step) {
     VisitorsStep.new(
       email_address: 'ada@test.example.com',
-      phone_no: '01154960222',
+      phone_no: '079 00112233',
       visitors: [
         {
           first_name: 'Ada',
@@ -48,55 +49,21 @@ RSpec.describe BookingRequestCreator do
   end
 
   context 'creating records' do
-    let(:visitors) { double }
-
-    before do
-      allow(Prisoner).to receive(:create!).
-        and_return instance_double(Prisoner, id: 'PRISONERID')
-      allow(Visit).to receive(:create!).
-        and_return instance_double(Visit, id: 2, visitors: visitors)
-      allow(visitors).to receive(:create!)
-      allow(visitors).to receive(:create!)
-    end
-
     it 'creates a Visit record with the specified locale' do
-      expect(Visit).
-        to receive(:create!).
-        with(
-          prison_id: 'PRISONID',
-          prisoner_id: 'PRISONERID',
-          contact_email_address: 'ada@test.example.com',
-          contact_phone_no: '01154960222',
-          slot_option_0: '2015-01-02T09:00/10:00',
-          slot_option_1: '2015-01-03T09:00/10:00',
-          slot_option_2: '2015-01-04T09:00/10:00',
-          locale: :cy
-        ).and_return instance_double(Visit, id: 2, visitors: visitors)
-      subject.create! prisoner_step, visitors_step, slots_step, :cy
+      visit = subject.create!(prisoner_step, visitors_step, slots_step, :cy)
+      expect(visit.locale).to eq('cy')
     end
 
     it 'creates a Visitor record' do
-      expect(visitors).
-        to receive(:create!).
-        with(
-          first_name: 'Ada',
-          last_name: 'Lovelace',
-          date_of_birth: Date.new(1970, 11, 30),
-          sort_index: 0
-        )
-      subject.create! prisoner_step, visitors_step, slots_step, :en
+      expect {
+        subject.create!(prisoner_step, visitors_step, slots_step, :en)
+      }.to change { Visitor.count }.by(2)
     end
 
     it 'creates a Prisoner record' do
-      expect(Prisoner).
-        to receive(:create!).
-        with(
-          first_name: 'Oscar',
-          last_name: 'Wilde',
-          date_of_birth: Date.new(1980, 12, 31),
-          number: 'a1234bc'
-        ).and_return instance_double(Prisoner, id: 'PRISONERID')
-      subject.create! prisoner_step, visitors_step, slots_step, :en
+      expect {
+        subject.create!(prisoner_step, visitors_step, slots_step, :en)
+      }.to change { Prisoner.count }.by(1)
     end
   end
 
@@ -108,10 +75,10 @@ RSpec.describe BookingRequestCreator do
     end
 
     it 'emails the prison' do
-      expect(PrisonMailer).to receive(:request_received).with(visit).
+      expect(PrisonMailer).to receive(:request_received).with(instance_of(Visit)).
         and_return(mailing)
       expect(mailing).to receive(:deliver_later)
-      subject.create! prisoner_step, visitors_step, slots_step, :en
+      subject.create!(prisoner_step, visitors_step, slots_step, :en)
     end
   end
 end
