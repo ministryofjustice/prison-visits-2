@@ -1,8 +1,5 @@
 class Prison::FeedbacksController < ApplicationController
   before_action :authorize_prison_request
-  before_action :set_inbox_navigation_count,
-    if: -> { current_user },
-    only: :new
 
   def new
     @feedback = FeedbackSubmission.new(email_address: current_user&.email)
