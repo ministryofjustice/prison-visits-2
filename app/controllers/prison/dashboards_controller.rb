@@ -68,7 +68,7 @@ private
   end
 
   def parse_date(date)
-    Date.parse(date) if date
+    Date.parse(date) unless date.blank?
   end
 
   def user_estate

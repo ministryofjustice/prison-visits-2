@@ -133,7 +133,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
       end
 
       describe 'no date supplied' do
-        let(:visit_date) { nil }
+        let(:visit_date) { '' }
 
         it 'assigns an empty hash' do
           subject
