@@ -167,6 +167,16 @@ en:
       where_to_check_status_html: >-
         You can check whether your visit has been booked on the
         <a href="%{url}">visit status page</a>.
+      survey_question1:
+        Do you receive financial assistance to visit someone in prison?
+      survey_question2:
+        If so, can you spare 5 minutes to help us develop a new service to improve
+        this experience for everyone involved?
+      survey_link_html: >-
+        Have your say in this
+        <a href="https://goo.gl/forms/cnuf8ZVsDiW2m9pN2">quick survey</a>.
+      survey_thanks:
+        Thanks for your help.
     cancelled:
       subject: "CANCELLED: Your %{prison_name} prison visit for %{date}"
       salutation: Dear %{name},
