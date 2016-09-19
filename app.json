@@ -5,7 +5,7 @@
     "pr-predestroy": "bundle exec rake heroku:pr_predestroy"
   },
   "env": {
-    "REVIEW_APP_ID": {
+    "SSO_REVIEW_APP_ID": {
       "required": true
     },
     "HEROKU_APP_NAME": {
@@ -59,10 +59,10 @@
     "SMTP_USERNAME": {
       "required": true
     },
-    "SSO_BASIC_USER": {
+    "SSO_REVIEW_BASIC_USER": {
       "required": true
     },
-    "SSO_BASIC_PASSWORD": {
+    "SSO_REVIEW_BASIC_PASSWORD": {
       "required": true
     },
     "STAFF_INFO_ENDPOINT": {
