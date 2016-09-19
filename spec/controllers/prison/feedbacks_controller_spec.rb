@@ -6,6 +6,10 @@ RSpec.describe Prison::FeedbacksController, type: :controller do
     subject { get :new }
     it_behaves_like 'disallows untrusted ips'
 
+    before do
+      stub_logged_in_user(FactoryGirl.create(:user))
+    end
+
     it { is_expected.to be_successful }
   end
 
