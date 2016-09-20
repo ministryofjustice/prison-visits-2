@@ -1,6 +1,10 @@
 .tag {
   padding: 2px 5px;
 }
+.tag--heading {
+  margin-top: 7px;
+  margin-left: 4px;
+}
 .tag-booked {
   background-color: $button-colour;
   color: $white;
@@ -15,6 +19,10 @@
 }
 .tag-rejected {
   background-color: $red;
+  color: $white;
+}
+.tag-requested {
+  background-color: $light-blue;
   color: $white;
 }
 .tag-warning {

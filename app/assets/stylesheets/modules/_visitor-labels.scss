@@ -1,0 +1,34 @@
+.visitor-labels {
+  @include core-16;
+  dl {
+    clear: left;
+    margin: 5px 0;
+    @include core-16;
+  }
+  dt, dd {
+    display: inline-block;
+    @include core-16;
+  }
+  dt {
+    &:after {
+      content: ": ";
+      display: inline-block;
+      margin-right: 5px;
+    }
+  }
+  dd {
+    @include bold-16;
+  }
+  [class^='column-'] {
+    padding-top: $gutter-half;
+  }
+  [class^='column-']:nth-child(odd) {
+    clear: left;
+  }
+  [class^='column-']:nth-child(-n+2) {
+    hr {
+      display: none;
+    }
+  }
+}
+

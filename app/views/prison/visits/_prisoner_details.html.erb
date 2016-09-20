@@ -1,0 +1,14 @@
+<div class="grid-row push-top">
+  <div class="column-one-third">
+    <span class="text-secondary">Prisoner name</span>
+    <div class="bold-small"><%= @booking_response.prisoner_full_name %></div>
+  </div>
+  <div class="column-one-third">
+    <span class="text-secondary">Prisoner D.O.B</span>
+    <div class="bold-small"><%= @booking_response.prisoner_date_of_birth.to_s(:short_nomis) %></div>
+  </div>
+  <div class="column-one-third">
+    <span class="text-secondary">Prisoner no.</span>
+    <div class="bold-small"><%= @booking_response.prisoner_number %></div>
+  </div>
+</div>
