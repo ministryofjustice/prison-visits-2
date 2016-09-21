@@ -97,3 +97,10 @@
 <p>
   <small><%= t(".visit_id") %> <%= @visit.id %></small>
 </p>
+</p>
+<div class="apvs_survey">
+   <p><strong><%= t('survey_question1', scope: %i(visitor_mailer request_acknowledged)) %></strong></p>
+   <p><%= t('survey_question2', scope: %i(visitor_mailer request_acknowledged)) %></p>
+   <p><%= t('survey_link_html', prison: @visit.prison_id, scope: %i(visitor_mailer request_acknowledged)) %></p>
+   <p><%= t('survey_thanks', scope: %i(visitor_mailer request_acknowledged)) %></p>
+ </div>
