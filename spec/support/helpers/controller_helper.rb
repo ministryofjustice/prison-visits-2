@@ -1,6 +1,16 @@
 module ControllerHelper
-  def stub_logged_in_user(user)
-    identity = SignonIdentity.new(user, full_name: FFaker::Name.name, profile_url: '', logout_url: '')
-    allow(controller).to receive(:sso_identity).and_return(identity)
+  def login_user(user, estate, available_estates: [estate])
+    orgs = available_estates.map(&:sso_organisation_name)
+
+    sso_identity = SignonIdentity.new(
+      user,
+      full_name: FFaker::Name.name,
+      profile_url: '',
+      logout_url: '',
+      permissions: orgs.map { |o| { 'organisation' => o, 'roles' => [] } }
+    )
+
+    controller.session[:sso_data] = sso_identity.to_session
+    controller.session[:current_estate] = estate.id
   end
 end

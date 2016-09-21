@@ -11,5 +11,7 @@ FactoryGirl.define do
     finder_slug do |e|
       e.name.parameterize
     end
+
+    sso_organisation_name { name }
   end
 end

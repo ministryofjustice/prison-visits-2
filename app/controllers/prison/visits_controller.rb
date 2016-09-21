@@ -78,7 +78,7 @@ private
 
   def scoped_visit
     Visit.joins(prison: :estate).
-      where(estates: { id: current_user.estate_id }).
+      where(estates: { id: current_estate }).
       find(params[:id])
   end
 

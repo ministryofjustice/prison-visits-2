@@ -19,6 +19,7 @@ en:
       nomis_cancellation_confirmed: The visit has been cancelled. This request has now been filed under 'Processed visits'
       feedback_submitted: Your question has been submitted
       invalid_date: The date is invalid
+      estate_error: You don't access rights, please speak to your manager
     feedbacks:
       new:
         title: Contact us
@@ -44,6 +45,8 @@ en:
         staff_guide: Service guide
         visitor_cancellations: Visitor cancellations
         current: "Current prison:"
+      prison_switcher:
+        switch_estate: Update
       processed:
         title: Processed visits
         view_link: View
@@ -57,6 +60,7 @@ en:
         requests: Requests
         title: inbox
       print_visits:
+        title: Print visits
         visit_date: Visit date
         filter_form_hint: Enter a date to view the visits eg 01/12/2016
         show: Show

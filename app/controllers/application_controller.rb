@@ -10,9 +10,23 @@ class ApplicationController < ActionController::Base
   helper LinksHelper
   helper_method :current_user
   helper_method :sso_identity
+  helper_method :current_estate
 
   def current_user
     sso_identity&.user
+  end
+
+  def current_estate
+    return unless sso_identity
+    @_current_estate ||= begin
+      estate_id = session[:current_estate]
+      estate = estate_id && Estate.find_by(id: estate_id)
+      if estate && sso_identity.accessible_estate?(estate)
+        estate
+      else
+        sso_identity.default_estate
+      end
+    end
   end
 
   def sso_identity

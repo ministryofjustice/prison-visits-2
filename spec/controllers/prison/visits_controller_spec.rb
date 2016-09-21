@@ -3,6 +3,7 @@ require_relative '../untrusted_examples'
 
 RSpec.describe Prison::VisitsController, type: :controller do
   let(:visit) { FactoryGirl.create(:visit) }
+  let(:estate) { visit.prison.estate }
 
   describe '#process_visit' do
     subject do
@@ -22,10 +23,10 @@ RSpec.describe Prison::VisitsController, type: :controller do
         end
 
         context 'and there is a logged in user' do
-          let(:user) { FactoryGirl.create(:user, estate: visit.prison.estate) }
+          let(:user) { FactoryGirl.create(:user) }
 
           before do
-            stub_logged_in_user(user)
+            login_user(user, estate)
           end
 
           it { is_expected.to render_template('process_visit') }
@@ -79,10 +80,10 @@ RSpec.describe Prison::VisitsController, type: :controller do
       end
 
       context 'and there is a logged in user' do
-        let(:user) { FactoryGirl.create(:user, estate: visit.prison.estate) }
+        let(:user) { FactoryGirl.create(:user) }
 
         before do
-          stub_logged_in_user(user)
+          login_user(user, estate)
         end
 
         context 'when invalid' do
@@ -100,13 +101,13 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
   describe '#show' do
     subject { get :show, id: visit.id }
-    let(:user) { FactoryGirl.create(:user, estate: visit.prison.estate) }
+    let(:user) { FactoryGirl.create(:user) }
 
     it_behaves_like 'disallows untrusted ips'
 
     context "when logged in" do
       before do
-        stub_logged_in_user(user)
+        login_user(user, estate)
       end
 
       it { is_expected.to render_template('show') }
@@ -137,10 +138,10 @@ RSpec.describe Prison::VisitsController, type: :controller do
     it_behaves_like 'disallows untrusted ips'
 
     context 'when there is a user logged in' do
-      let(:user) { FactoryGirl.create(:user, estate: visit.prison.estate) }
+      let(:user) { FactoryGirl.create(:user) }
 
       before do
-        stub_logged_in_user(user)
+        login_user(user, estate)
       end
 
       it { is_expected.to redirect_to(prison_inbox_path) }
@@ -166,10 +167,10 @@ RSpec.describe Prison::VisitsController, type: :controller do
     it_behaves_like 'disallows untrusted ips'
 
     context 'when there is a user signed in' do
-      let(:user) { FactoryGirl.create(:user, estate: visit.prison.estate) }
+      let(:user) { FactoryGirl.create(:user) }
 
       before do
-        stub_logged_in_user(user)
+        login_user(user, estate)
       end
 
       it { is_expected.to redirect_to(prison_inbox_path) }

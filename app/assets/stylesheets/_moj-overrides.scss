@@ -127,6 +127,10 @@ table {
   }
 }
 
+.form-control-auto-width {
+  width: auto !important;
+}
+
 @media print {
   table {
     td div {

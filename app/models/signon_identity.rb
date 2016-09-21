@@ -4,73 +4,82 @@
 class SignonIdentity
   class InvalidSessionData < RuntimeError; end
 
+  DIGITAL_ORG = 'digital.noms.moj'
+
   class << self
     def from_omniauth(omniauth_auth)
       info = omniauth_auth.fetch('info')
-      user = find_or_create_authorized_user(info)
-      return unless user
 
+      # Disallow login unless user has access to at least one estate
+      if accessible_estates(info.fetch('permissions')).empty?
+        Rails.logger.info "User has no valid permissions: #{info}"
+        return
+      end
+
+      user = find_or_create_authorized_user(info)
       additional_data = extract_additional_data(info)
+
       new(user, **additional_data)
     end
 
     def from_session_data(data)
-      user = User.find(data.fetch('user_id'))
       new(
-        user,
+        User.find(data.fetch('user_id')),
         full_name: data.fetch('full_name'),
         profile_url: data.fetch('profile_url'),
-        logout_url: data.fetch('logout_url')
+        logout_url: data.fetch('logout_url'),
+        permissions: data.fetch('permissions')
       )
     rescue KeyError
       raise InvalidSessionData
     end
 
-  private
+    # Determines which estates a user can access based on their permissions
+    def accessible_estates(permissions)
+      orgs = permissions.map { |p| p.fetch('organisation') }
 
-    # rubocop:disable Metrics/MethodLength
-    def find_or_create_authorized_user(info)
-      email = info.fetch('email')
-      permissions = info.fetch('permissions')
+      return [] if orgs.empty?
 
-      sso_orgs = permissions.map { |p| p.fetch('organisation') }
-      estates = Estate.where(sso_organisation_name: sso_orgs)
-
-      unless estates.any?
-        Rails.logger.info \
-          "User #{email} has no valid permissions: #{permissions}"
-        return nil
-      end
-
-      User.find_or_create_by!(email: email) do |user|
-        # TODO: Allow the user to access multiple estates, or to switch estates
-        user.estate = estates.first
+      if orgs.include?(DIGITAL_ORG)
+        Estate.all
+      else
+        Estate.where(sso_organisation_name: orgs)
       end
     end
-    # rubocop:enable Metrics/MethodLength
+
+  private
+
+    def find_or_create_authorized_user(info)
+      email = info.fetch('email')
+      User.find_or_create_by!(email: email)
+    end
 
     def extract_additional_data(info)
-      first_name = info.fetch('first_name')
-      last_name = info.fetch('last_name')
-      full_name = [first_name, last_name].reject(&:empty?).join(' ')
-
       links = info.fetch('links')
 
       {
-        full_name: full_name,
+        full_name: full_name_from_additional_data(info),
         profile_url: links.fetch('profile'),
-        logout_url: links.fetch('logout')
+        logout_url: links.fetch('logout'),
+        permissions: info.fetch('permissions')
       }
+    end
+
+    def full_name_from_additional_data(info)
+      first_name = info.fetch('first_name')
+      last_name = info.fetch('last_name')
+      [first_name, last_name].reject(&:empty?).join(' ')
     end
   end
 
   attr_reader :user, :full_name, :profile_url
 
-  def initialize(user, full_name:, profile_url:, logout_url:)
+  def initialize(user, full_name:, profile_url:, logout_url:, permissions:)
     @user = user
     @full_name = full_name
     @profile_url = profile_url
     @logout_url = logout_url
+    @permissions = permissions
   end
 
   def logout_url(redirect_to: nil)
@@ -79,13 +88,26 @@ class SignonIdentity
     url.to_s
   end
 
+  def accessible_estates
+    @_ae ||= self.class.accessible_estates(@permissions).order(:nomis_id).to_a
+  end
+
+  def accessible_estate?(estate)
+    accessible_estates.include?(estate)
+  end
+
+  def default_estate
+    accessible_estates.first || fail('Should never be nil')
+  end
+
   # Export SSO data for storing in session between requests
   def to_session
     {
       'full_name' => @full_name,
       'user_id' => @user.id,
       'profile_url' => @profile_url,
-      'logout_url' => @logout_url
+      'logout_url' => @logout_url,
+      'permissions' => @permissions
     }
   end
 end
