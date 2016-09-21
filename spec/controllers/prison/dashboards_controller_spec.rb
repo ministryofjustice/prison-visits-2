@@ -141,6 +141,12 @@ RSpec.describe Prison::DashboardsController, type: :controller do
         end
       end
 
+      describe 'with an invalid date' do
+        let(:visit_date) { '2010913' }
+
+        it { expect { subject }.to_not raise_error }
+      end
+
       describe 'date supplied' do
         let(:visit_date) { '2016-01-01' }
 

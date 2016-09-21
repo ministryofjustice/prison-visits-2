@@ -18,6 +18,7 @@ en:
       already_cancelled: The visit is no longer cancellable
       nomis_cancellation_confirmed: The visit has been cancelled. This request has now been filed under 'Processed visits'
       feedback_submitted: Your question has been submitted
+      invalid_date: The date is invalid
     feedbacks:
       new:
         title: Contact us
