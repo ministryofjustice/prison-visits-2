@@ -78,7 +78,12 @@ private
   end
 
   def set_locale
-    I18n.locale = params.fetch(:locale, I18n.default_locale)
+    locale = params[:locale]
+    I18n.locale = if locale && I18n.available_locales.include?(locale)
+                    locale
+                  else
+                    I18n.default_locale
+                  end
   end
 
   def store_request_id
