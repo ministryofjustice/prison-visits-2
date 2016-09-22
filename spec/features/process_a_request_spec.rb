@@ -171,11 +171,21 @@ RSpec.feature 'Processing a request', js: true do
   end
 
   scenario 'rejecting a booking when the prisoner has no visiting allowance' do
-    choose 'Prisoner does not have any visiting allowance (VO)'
+    allowance_renewal           = 2.days.from_now.to_date
+    privilege_allowance_renewal = 3.days.from_now.to_date
+
+    choose 'Prisoner does not have any visiting allowance'
     check 'Visiting allowance (weekends and weekday visits) (VO) will be renewed:'
-    first('input[name="booking_response[allowance_renews_on]"]').click
+
+    fill_in 'Day',   with: allowance_renewal.day
+    fill_in 'Month', with: allowance_renewal.month
+    fill_in 'Year',  with: allowance_renewal.year
+
     check 'If weekday visit (PVO) is possible instead, choose the date PVO expires:'
-    first('input[name="booking_response[privileged_allowance_expires_on]"]').click
+
+    fill_in 'booking_response[privileged_allowance_expires_on][day]',   with: privilege_allowance_renewal.day
+    fill_in 'booking_response[privileged_allowance_expires_on][month]', with: privilege_allowance_renewal.month
+    fill_in 'booking_response[privileged_allowance_expires_on][year]',  with: privilege_allowance_renewal.year
 
     click_button 'Send email'
 
@@ -184,8 +194,8 @@ RSpec.feature 'Processing a request', js: true do
     vst.reload
     expect(vst).to be_rejected
     expect(vst.rejection_reason).to eq('no_allowance')
-    expect(vst.rejection.allowance_renews_on).to eq(Time.zone.today + 1)
-    expect(vst.rejection.allowance_renews_on).to eq(Time.zone.today + 1)
+    expect(vst.rejection.allowance_renews_on).to eq(allowance_renewal)
+    expect(vst.rejection.privileged_allowance_expires_on).to eq(privilege_allowance_renewal)
 
     expect(contact_email_address).
       to receive_email.

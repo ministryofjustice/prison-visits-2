@@ -91,3 +91,4 @@ private
     strings.inject(ActiveSupport::SafeBuffer.new(''), &:<<)
   end
 end
+# :nocov:
