@@ -31,6 +31,10 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
+  config.before(:suite, js: true) do
+    OmniAuth.config.test_mode = true
+  end
+
   config.before(:each) do
     I18n.locale = I18n.default_locale
     DatabaseCleaner.strategy = :transaction
