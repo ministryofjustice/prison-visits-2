@@ -99,9 +99,8 @@ RSpec.feature 'Processing a request', js: true do
         find('#booking_response_selection_slot_0').click
         fill_in 'Reference number', with: '12345678'
 
-        check 'Visitor is banned'
-        within '#visitor_banned_details' do
-          check vst.visitors.first.full_name
+        within '#visitor-0' do
+          check 'Visitor Banned Label'
         end
 
         click_button 'Send email'
@@ -126,9 +125,8 @@ RSpec.feature 'Processing a request', js: true do
         find('#booking_response_selection_slot_0').click
         fill_in 'Reference number', with: '12345678'
 
-        check "Visitor is not on the contact list"
-        within '#visitor_not_on_list_details' do
-          check vst.visitors.first.full_name
+        within '#visitor-0' do
+          check 'Visitor Not On List Label'
         end
 
         click_button 'Send email'
@@ -242,10 +240,9 @@ RSpec.feature 'Processing a request', js: true do
   end
 
   scenario 'rejecting a booking when no visitors are on the contact list' do
-    check 'Visitor is not on the contact list'
-    within '#visitor_not_on_list_details' do
-      vst.visitors.each do |v|
-        check v.full_name
+    vst.visitors.each_with_index do |_, i|
+      within "#visitor-#{i}" do
+        check 'Visitor Not On List Label'
       end
     end
 
@@ -269,10 +266,9 @@ RSpec.feature 'Processing a request', js: true do
   end
 
   scenario 'rejecting a booking when all visitors are banned' do
-    check 'Visitor is banned'
-    within '#visitor_banned_details' do
-      vst.visitors.each do |v|
-        check v.full_name
+    vst.visitors.each_with_index do |_, i|
+      within "#visitor-#{i}" do
+        check 'Visitor Banned Label'
       end
     end
 

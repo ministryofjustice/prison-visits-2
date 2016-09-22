@@ -74,8 +74,8 @@ private
   end
 
   def mark_disallowed_visitors
-    mark_unlisted_visitors if booking_response.visitor_not_on_list?
-    mark_banned_visitors if booking_response.visitor_banned?
+    mark_unlisted_visitors if booking_response.unlisted_visitors.any?
+    mark_banned_visitors if booking_response.banned_visitors.any?
   end
 
   def mark_unlisted_visitors
