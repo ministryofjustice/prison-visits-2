@@ -22,5 +22,6 @@ Rails.configuration.dashboard_trial = [
   'The Mount',
   'Norwich',
   'Warren Hill',
+  'Swansea',
   'Usk'
 ]
