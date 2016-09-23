@@ -1,3 +1,4 @@
+<h2 class="bold-medium push-bottom"><%= t('.title') %></h2>
 <div class="visitor-labels">
   <div class="grid-row">
     <% @booking_response.visitors.each_with_index do |visitor, index| %>
@@ -5,16 +6,16 @@
         <hr>
         <h3 class="bold-small"><%= t('visitor_no', n: index + 1, scope: :shared) %></h3>
         <dl>
-          <dt>Name</dt>
+          <dt><%= t('.name') %></dt>
           <dd><%= visitor.first_name %> <%= visitor.last_name %></dd>
         </dl>
         <dl>
-          <dt><%= t('.date_of_birth') %></dt>
+          <dt><%= t('.dob') %></dt>
           <dd><%= visitor.date_of_birth.to_s(:short_nomis) %> (<%= visitor.age %>)</dd>
         </dl>
         <% if index.zero? %>
           <dl>
-            <dt><%= t('.email_address') %></dt>
+            <dt><%= t('.email') %></dt>
             <dd><%= @booking_response.contact_email_address %></dd>
           </dl>
           <dl>
@@ -32,7 +33,7 @@
                 data: { checkbox_summary_text: visitor.anonymized_name }
               )
             %>
-            <%= t('.visitor_not_on_list_label') %>
+            <%= t('.visitor_not_on_list') %>
           </label>
           <label class="block-label">
             <%=
@@ -43,7 +44,7 @@
                 data: { checkbox_summary_text: visitor.anonymized_name }
               )
             %>
-            <%= t('.visitor_banned_label') %>
+            <%= t('.visitor_banned') %>
           </label>
         </div>
       <% end %>

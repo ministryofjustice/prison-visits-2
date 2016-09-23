@@ -1,8 +1,6 @@
 <div class="issue-with-prisoner">
-
   <div class="grid-row push-top">
     <div class="column-one-third">
-
       <%= error_container(f, :selection) do %>
         <label class="block-label">
           <%=
@@ -15,7 +13,6 @@
           <%= t('.no_allowance') %>
         </label>
       <% end %>
-
       <%= error_container(f, :selection) do %>
         <label class="block-label">
           <%=
@@ -27,10 +24,8 @@
           <%= t('.prisoner_released') %>
         </label>
       <% end %>
-
     </div>
     <div class="column-one-third">
-
       <%= error_container(f, :selection) do %>
         <label class="block-label">
           <%=
@@ -42,7 +37,6 @@
           <%= t('.prisoner_details_incorrect') %>
         </label>
       <% end %>
-
       <%= error_container(f, :selection) do %>
         <label class="block-label">
           <%=
@@ -54,10 +48,8 @@
           <%= t('.prisoner_non_association') %>
         </label>
       <% end %>
-
     </div>
     <div class="column-one-third">
-
       <%= error_container(f, :selection) do %>
         <label class="block-label">
           <%=
@@ -69,7 +61,6 @@
           <%= t('.prisoner_moved') %>
         </label>
       <% end %>
-
       <%= error_container(f, :selection) do %>
         <label class="block-label">
           <%=
@@ -81,12 +72,10 @@
           <%= t('.child_protection_issues') %>
         </label>
       <% end %>
-
     </div>
   </div>
-
   <div id="no_allowance_details" class="panel panel-border-narrow">
-    <p>You can also tell the visitor more about the VO and PVO status:</p>
+    <p><%= t('.no_allowance_tell_more') %></p>
     <div class="grid-row push-top">
       <div class="column-two-thirds">
         <%=
@@ -150,5 +139,4 @@
       </div>
     </div>
   </div>
-
 </div>

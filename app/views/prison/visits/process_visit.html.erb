@@ -12,43 +12,34 @@
   ) do |f|
 %>
 
-<div class="grid-row">
-  <div class="column-one-third">
-    <h1 class="bold-large float-left"><%= t('.title') %></h1>
-    <span class="tag tag--heading tag-requested font-xsmall float-left"><%= t('requested', scope: 'shared') %></span>
-  </div>
-  <div class="column-two-thirds">
-    <div class="grid-row">
-      <div class="column-two-thirds">
-        <div class="text-secondary">Requested: <br><%= @booking_response.visit.created_at.to_s(:short) %></div>
-      </div>
-      <div class="column-one-third text-right">
+  <div class="grid-row">
+    <div class="column-one-third">
+      <h1 class="bold-large float-left"><%= t('.title') %></h1>
+      <span class="tag tag--heading tag-requested font-xsmall float-left"><%= t('requested', scope: 'shared') %></span>
+    </div>
+    <div class="column-two-thirds">
+      <div class="grid-row">
+        <div class="column-two-thirds">
+          <div class="text-secondary"><%= t('requested', scope: 'shared') %>: <br><%= @booking_response.visit.created_at.to_s(:short) %></div>
+        </div>
+        <div class="column-one-third text-right">
 
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<hr>
-
-<h2 class="bold-medium">Prisoner details</h2>
-<%= render('prisoner_details') %>
-<%= render('issue_with_prisoner_section', f: f) %>
-
-<hr>
-
-<h2 class="bold-medium">Date</h2>
-<%= render('visit_date_section', f: f) %>
-
-<hr>
-<h2 class="bold-medium push-bottom">Visitor details</h2>
-<%= render('visitor_details', f: f) %>
-
-<hr>
-<div class="form-group">
-  <h2 class="bold-medium">Other</h2>
-  <%= render('duplicate_request', f: f) %>
-</div>
+  <hr>
+  <%= render('prisoner_details') %>
+  <%= render('issue_with_prisoner_section', f: f) %>
+  <hr>
+  <%= render('visit_date_section', f: f) %>
+  <hr>
+  <%= render('visitor_details', f: f) %>
+  <hr>
+  <div class="form-group">
+    <%= render('duplicate_request', f: f) %>
+  </div>
 
 <% if current_user -%>
   <div class="form-group">

@@ -10,11 +10,7 @@
     @include core-16;
   }
   dt {
-    &:after {
-      content: ": ";
-      display: inline-block;
-      margin-right: 5px;
-    }
+    margin-right: 5px;
   }
   dd {
     @include bold-16;
