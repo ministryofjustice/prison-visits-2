@@ -6,5 +6,6 @@ Rails.configuration.dashboard_trial = [
   'Chelmsford',
   'Coldingley',
   'Pentonville',
-  'Wormwood Scrubs'
+  'Wormwood Scrubs',
+  'Wandsworth'
 ]
