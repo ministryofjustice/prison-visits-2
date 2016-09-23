@@ -7,5 +7,21 @@ Rails.configuration.dashboard_trial = [
   'Coldingley',
   'Pentonville',
   'Wormwood Scrubs',
-  'Wandsworth'
+  'Wandsworth',
+  'Brixton',
+  'Downview',
+  'Feltham',
+  'High Down',
+  'Send',
+  'Bedford',
+  'Bure',
+  'Chelmsford',
+  'Hollesley Bay Open',
+  'Highpoint',
+  'Littlehey',
+  'The Mount',
+  'Norwich',
+  'Warren Hill',
+  'Swansea',
+  'Usk'
 ]
