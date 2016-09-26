@@ -16,6 +16,17 @@ RSpec.describe BookingResponse, type: :model do
 
   end
 
+  describe '#priviledge_allowance_renews_on' do
+
+    context 'with no blank date fields' do
+      it 'does not break' do
+        subject.privileged_allowance_expires_on = { day: '', month: '', year: '' }
+        expect(subject.privileged_allowance_expires_on).to be_instance_of(UncoercedDate)
+      end
+    end
+
+  end
+
   describe 'bookable?' do
     it 'is true if slot 0 is selected' do
       subject.selection = 'slot_0'

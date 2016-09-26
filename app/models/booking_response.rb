@@ -27,7 +27,7 @@ class BookingResponse
     if: :allowance_will_renew
 
   attribute :privileged_allowance_available, Virtus::Attribute::Boolean
-  attribute :privileged_allowance_expires_on, Date
+  attribute :privileged_allowance_expires_on, MaybeDate
   validates :privileged_allowance_expires_on,
     presence: true,
     if: :privileged_allowance_available
