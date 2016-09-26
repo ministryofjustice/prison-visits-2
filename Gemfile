@@ -34,7 +34,7 @@ gem 'rake', '< 11.0'
 
 # Fixed version as workaround for bug in 0.15.5
 # https://github.com/getsentry/raven-ruby/issues/460
-gem 'sentry-raven', '0.15.4'
+gem 'sentry-raven'
 gem 'sidekiq'
 gem 'state_machines-activerecord'
 gem 'string_scrubber'
