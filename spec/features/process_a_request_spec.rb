@@ -34,7 +34,7 @@ RSpec.feature 'Processing a request', js: true do
 
     scenario 'is not allowed' do
       expect(page).to have_text('The visitor has withdrawn this request')
-      expect(page).not_to have_text('Send email')
+      expect(page).not_to have_text('Process')
     end
   end
 
@@ -43,7 +43,7 @@ RSpec.feature 'Processing a request', js: true do
 
     scenario 'is not allowed' do
       expect(page).to have_text("Visit can't be processed")
-      expect(page).not_to have_text('Send email')
+      expect(page).not_to have_text('Process')
     end
   end
 
@@ -52,7 +52,7 @@ RSpec.feature 'Processing a request', js: true do
 
     scenario 'is not allowed' do
       expect(page).to have_text('This request has been accepted')
-      expect(page).not_to have_text('Send email')
+      expect(page).not_to have_text('Process')
     end
   end
 
@@ -61,7 +61,7 @@ RSpec.feature 'Processing a request', js: true do
 
     scenario 'is not allowed' do
       expect(page).to have_text('This request has been rejected')
-      expect(page).not_to have_text('Send email')
+      expect(page).not_to have_text('Process')
     end
   end
 
@@ -70,7 +70,7 @@ RSpec.feature 'Processing a request', js: true do
       find('#booking_response_selection_slot_0').click
       fill_in 'Reference number', with: '12345678'
 
-      click_button 'Send email'
+      click_button 'Process'
 
       expect(page).to have_text('a confirmation email has been sent to the visitor')
 
@@ -99,12 +99,11 @@ RSpec.feature 'Processing a request', js: true do
         find('#booking_response_selection_slot_0').click
         fill_in 'Reference number', with: '12345678'
 
-        check 'Visitor is banned'
-        within '#visitor_banned_details' do
-          check vst.visitors.first.full_name
+        within '#visitor-0' do
+          check 'Visitor is banned'
         end
 
-        click_button 'Send email'
+        click_button 'Process'
 
         expect(page).to have_text('a confirmation email has been sent to the visitor')
 
@@ -126,12 +125,11 @@ RSpec.feature 'Processing a request', js: true do
         find('#booking_response_selection_slot_0').click
         fill_in 'Reference number', with: '12345678'
 
-        check "Visitor is not on the contact list"
-        within '#visitor_not_on_list_details' do
-          check vst.visitors.first.full_name
+        within '#visitor-0' do
+          check 'Visitor is not on the contact list'
         end
 
-        click_button 'Send email'
+        click_button 'Process'
 
         expect(page).to have_text('a confirmation email has been sent to the visitor')
 
@@ -154,7 +152,7 @@ RSpec.feature 'Processing a request', js: true do
   scenario 'rejecting a booking with no available slot' do
     choose 'None of the chosen times are available'
 
-    click_button 'Send email'
+    click_button 'Process'
 
     expect(page).to have_text('a rejection email has been sent to the visitor')
 
@@ -173,21 +171,31 @@ RSpec.feature 'Processing a request', js: true do
   end
 
   scenario 'rejecting a booking when the prisoner has no visiting allowance' do
-    choose 'Prisoner does not have any visiting allowance (VO)'
-    check 'Visiting allowance (weekends and weekday visits) (VO) will be renewed:'
-    first('input[name="booking_response[allowance_renews_on]"]').click
-    check 'If weekday visit (PVO) is possible instead, choose the date PVO expires:'
-    first('input[name="booking_response[privileged_allowance_expires_on]"]').click
+    allowance_renewal           = 2.days.from_now.to_date
+    privilege_allowance_renewal = 3.days.from_now.to_date
 
-    click_button 'Send email'
+    choose 'Prisoner does not have any visiting allowance'
+    check 'Visiting allowance (weekends and weekday visits) (VO) will be renewed:'
+
+    fill_in 'Day',   with: allowance_renewal.day
+    fill_in 'Month', with: allowance_renewal.month
+    fill_in 'Year',  with: allowance_renewal.year
+
+    check 'If weekday visit (PVO) is possible instead, choose the date PVO expires:'
+
+    fill_in 'booking_response[privileged_allowance_expires_on][day]',   with: privilege_allowance_renewal.day
+    fill_in 'booking_response[privileged_allowance_expires_on][month]', with: privilege_allowance_renewal.month
+    fill_in 'booking_response[privileged_allowance_expires_on][year]',  with: privilege_allowance_renewal.year
+
+    click_button 'Process'
 
     expect(page).to have_text('a rejection email has been sent to the visitor')
 
     vst.reload
     expect(vst).to be_rejected
     expect(vst.rejection_reason).to eq('no_allowance')
-    expect(vst.rejection.allowance_renews_on).to eq(Time.zone.today + 1)
-    expect(vst.rejection.allowance_renews_on).to eq(Time.zone.today + 1)
+    expect(vst.rejection.allowance_renews_on).to eq(allowance_renewal)
+    expect(vst.rejection.privileged_allowance_expires_on).to eq(privilege_allowance_renewal)
 
     expect(contact_email_address).
       to receive_email.
@@ -202,7 +210,7 @@ RSpec.feature 'Processing a request', js: true do
   scenario 'rejecting a booking with incorrect prisoner details' do
     choose 'Prisoner details are incorrect'
 
-    click_button 'Send email'
+    click_button 'Process'
 
     expect(page).to have_text('a rejection email has been sent to the visitor')
 
@@ -223,7 +231,7 @@ RSpec.feature 'Processing a request', js: true do
   scenario 'rejecting a booking when the prisoner has moved' do
     choose 'Prisoner has moved prisons'
 
-    click_button 'Send email'
+    click_button 'Process'
 
     expect(page).to have_text('a rejection email has been sent to the visitor')
 
@@ -242,14 +250,13 @@ RSpec.feature 'Processing a request', js: true do
   end
 
   scenario 'rejecting a booking when no visitors are on the contact list' do
-    check 'Visitor is not on the contact list'
-    within '#visitor_not_on_list_details' do
-      vst.visitors.each do |v|
-        check v.full_name
+    vst.visitors.each_with_index do |_, i|
+      within "#visitor-#{i}" do
+        check 'Visitor is not on the contact list'
       end
     end
 
-    click_button 'Send email'
+    click_button 'Process'
 
     expect(page).to have_text('a rejection email has been sent to the visitor')
 
@@ -269,14 +276,13 @@ RSpec.feature 'Processing a request', js: true do
   end
 
   scenario 'rejecting a booking when all visitors are banned' do
-    check 'Visitor is banned'
-    within '#visitor_banned_details' do
-      vst.visitors.each do |v|
-        check v.full_name
+    vst.visitors.each_with_index do |_, i|
+      within "#visitor-#{i}" do
+        check 'Visitor is banned'
       end
     end
 
-    click_button 'Send email'
+    click_button 'Process'
 
     expect(page).to have_text('a rejection email has been sent to the visitor')
 

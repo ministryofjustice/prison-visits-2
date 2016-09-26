@@ -10,6 +10,27 @@ module FormElementsHelper
     end
   end
 
+  def composite_field(form, name, &blk)
+    error_container(form, name) {
+      content_tag(:fieldset) {
+        join(
+          content_tag(:legend) {
+            join(
+              content_tag(:span, class: 'form-label-bold') {
+                t(".#{name}")
+              },
+              field_error(form, name),
+              field_hint(name)
+            )
+          },
+          content_tag(:div, class: 'form-date') {
+            capture(&blk)
+          }
+        )
+      }
+    }
+  end
+
   def field_error(form, name)
     errors = form.object.errors[name]
     return '' unless errors.any?
@@ -70,3 +91,4 @@ private
     strings.inject(ActiveSupport::SafeBuffer.new(''), &:<<)
   end
 end
+# :nocov:
