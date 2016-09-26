@@ -8,7 +8,10 @@
             f.radio_button(
               :selection, "slot_#{index}",
               class: 'js-Conditional',
-              data: { 'conditional-el': 'selected_slot_details' }
+              data: {
+                'conditional-el': 'selected_slot_details',
+                'conditional-val': 'slot_0,slot_1,slot_2'
+              }
             )
           %>
           <%= t('.choice_html', n: index + 1, day: format_date_day(slot), date: format_date_of_birth(slot), time: format_slot_times(slot)) %>
