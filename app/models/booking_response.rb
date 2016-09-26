@@ -19,7 +19,7 @@ class BookingResponse
   attribute :closed_visit, Virtus::Attribute::Boolean
 
   attribute :allowance_will_renew, Virtus::Attribute::Boolean
-  attribute :allowance_renews_on, Date
+  attribute :allowance_renews_on, MaybeDate
   validates :allowance_renews_on,
     presence: true,
     if: :allowance_will_renew

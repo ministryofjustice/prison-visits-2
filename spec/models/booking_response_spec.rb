@@ -1,8 +1,20 @@
 require 'rails_helper'
+require 'maybe_date'
 
 RSpec.describe BookingResponse, type: :model do
   let(:visit) { create(:visit_with_two_visitors) }
   subject { described_class.new(visit: visit) }
+
+  describe '#allowance_renews_on' do
+
+    context 'with no blank date fields' do
+      it 'does not break' do
+        subject.allowance_renews_on = { day: '', month: '', year: '' }
+        expect(subject.allowance_renews_on).to be_instance_of(UncoercedDate)
+      end
+    end
+
+  end
 
   describe 'bookable?' do
     it 'is true if slot 0 is selected' do
