@@ -32,7 +32,8 @@ class BookingResponse
   validates :privileged_allowance_expires_on,
     presence: true,
     if: :privileged_allowance_available
-  validate :validate_privileged_allowance_expires_on, if: :privileged_allowance_available
+  validate :validate_privileged_allowance_expires_on,
+    if: :privileged_allowance_available
 
   attribute :unlisted_visitor_ids, Array
   attribute :banned_visitor_ids, Array
@@ -79,6 +80,7 @@ class BookingResponse
   end
 
 private
+
   def validate_allowance_renews_on
     unless allowance_renews_on && allowance_renews_on.is_a?(Date)
       errors.add :allowance_renews_on, :invalid
@@ -86,7 +88,8 @@ private
   end
 
   def validate_privileged_allowance_expires_on
-    unless privileged_allowance_expires_on && privileged_allowance_expires_on.is_a?(Date)
+    unless privileged_allowance_expires_on &&
+           privileged_allowance_expires_on.is_a?(Date)
       errors.add :privileged_allowance_expires_on, :invalid
     end
   end

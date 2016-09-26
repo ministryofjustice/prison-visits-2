@@ -11,15 +11,12 @@ RSpec.describe BookingResponse, type: :model do
     )
   end
 
-
   it 'has a valid test subject' do
     expect(subject).to be_valid
   end
 
   describe '#allowance_renews_on' do
-
     context 'with blank date fields' do
-
       before do
         subject.allowance_renews_on = { day: '', month: '', year: '' }
         subject.allowance_will_renew = true
@@ -35,12 +32,9 @@ RSpec.describe BookingResponse, type: :model do
         expect(subject.errors.full_messages).to eq(['Allowance renews on is invalid'])
       end
     end
-
-
   end
 
   describe '#priviledge_allowance_renews_on' do
-
     context 'with blank date fields' do
       before do
         subject.privileged_allowance_expires_on = { day: '', month: '', year: '' }
@@ -56,9 +50,7 @@ RSpec.describe BookingResponse, type: :model do
         expect(subject).to_not be_valid
         expect(subject.errors.full_messages).to eq(['Privileged allowance expires on is invalid'])
       end
-
     end
-
   end
 
   describe 'bookable?' do
