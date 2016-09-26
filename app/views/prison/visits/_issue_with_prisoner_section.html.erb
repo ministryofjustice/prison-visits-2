@@ -1,142 +1,106 @@
-<div class="issue-with-prisoner">
-  <div class="grid-row push-top">
-    <div class="column-one-third">
-      <%= error_container(f, :selection) do %>
-        <label class="block-label">
-          <%=
-            f.radio_button(
-              :selection, :no_allowance,
-              class: 'js-Conditional',
-              data: { 'conditional-el': 'no_allowance_details' }
-            )
-          %>
-          <%= t('.no_allowance') %>
-        </label>
-      <% end %>
-      <%= error_container(f, :selection) do %>
-        <label class="block-label">
-          <%=
-            f.radio_button(
-              :selection, :prisoner_released,
-              class: 'js-Conditional'
-            )
-          %>
-          <%= t('.prisoner_released') %>
-        </label>
-      <% end %>
-    </div>
-    <div class="column-one-third">
-      <%= error_container(f, :selection) do %>
-        <label class="block-label">
-          <%=
-            f.radio_button(
-              :selection, :prisoner_details_incorrect,
-              class: 'js-Conditional'
-            )
-          %>
-          <%= t('.prisoner_details_incorrect') %>
-        </label>
-      <% end %>
-      <%= error_container(f, :selection) do %>
-        <label class="block-label">
-          <%=
-            f.radio_button(
-              :selection, :prisoner_non_association,
-              class: 'js-Conditional'
-            )
-          %>
-          <%= t('.prisoner_non_association') %>
-        </label>
-      <% end %>
-    </div>
-    <div class="column-one-third">
-      <%= error_container(f, :selection) do %>
-        <label class="block-label">
-          <%=
-            f.radio_button(
-              :selection, :prisoner_moved,
-              class: 'js-Conditional'
-            )
-          %>
-          <%= t('.prisoner_moved') %>
-        </label>
-      <% end %>
-      <%= error_container(f, :selection) do %>
-        <label class="block-label">
-          <%=
-            f.radio_button(
-              :selection, :child_protection_issues,
-              class: 'js-Conditional'
-            )
-          %>
-          <%= t('.child_protection_issues') %>
-        </label>
-      <% end %>
-    </div>
-  </div>
-  <div id="no_allowance_details" class="panel panel-border-narrow">
-    <p><%= t('.no_allowance_tell_more') %></p>
-    <div class="grid-row push-top">
-      <div class="column-two-thirds">
-        <%=
-          single_field(
-            f, :allowance_will_renew, :check_box,
-            class: 'js-Conditional',
-            data: { 'conditional-el': 'allowance_will_renew_details' }
-          )
-        %>
-        <div id="allowance_will_renew_details" class="form-group">
-          <%= composite_field(f, :allowance_renews_on) do %>
-            <% %i[day month year].each do |field_name| %>
-              <div class="datefield form-group form-group-<%= field_name %>">
-                <label for="<%= f.object_name %>_allowance_renews_on_<%= field_name %>">
-                  <%= t(field_name, scope: 'date.fields') %>
-                </label>
-                <input
-                  class="form-control"
-                  value="<%=
-                    f.object.allowance_renews_on ?
-                      f.object.allowance_renews_on.send(field_name) : ''
-                    %>"
-                  type="number"
-                  name="<%= f.object_name %>[allowance_renews_on][<%= field_name %>]"
-                  id="<%= f.object_name %>_allowance_renews_on_<%= field_name %>"
-                  aria-describedby="allowance_renews_on"
-                />
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-        <%=
-          single_field(
-            f, :privileged_allowance_available, :check_box,
-            class: 'js-Conditional',
-            data: { 'conditional-el': 'privileged_allowance_available_details' }
-          )
-        %>
-        <div id="privileged_allowance_available_details" class="form-group">
-          <%= composite_field(f, :privileged_allowance_available_on) do %>
-            <% %i[day month year].each do |field_name| %>
-              <div class="datefield form-group form-group-<%= field_name %>">
-                <label for="<%= f.object_name %>_privileged_allowance_available_<%= field_name %>">
-                  <%= t(field_name, scope: 'date.fields') %>
-                </label>
-                <input
-                  class="form-control"
-                  value="<%=
-                    f.object.privileged_allowance_expires_on ?
-                      f.object.privileged_allowance_expires_on.send(field_name) : ''
-                    %>"
-                  type="number"
-                  name="<%= f.object_name %>[privileged_allowance_expires_on][<%= field_name %>]"
-                  id="<%= f.object_name %>_privileged_allowance_expires_on_<%= field_name %>"
-                  aria-describedby="privileged_allowance_expires_on"
-                />
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
+<h2><%= t('.title') %></h2>
+
+<%= error_container(f, :selection) do %>
+  <label class="block-label">
+    <%=
+      f.radio_button(
+        :selection, :prisoner_details_incorrect,
+        class: 'js-Conditional',
+        data: { 'conditional-el': 'prisoner_details_incorrect_details' }
+      )
+    %>
+    <%= t('.prisoner_details_incorrect') %>
+  </label>
+<% end %>
+
+<div id="prisoner_details_incorrect_details" class="panel panel-border-narrow">
+  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+  <blockquote>
+    <%= t('.prisoner_details_incorrect_wording_html') %>
+  </blockquote>
+</div>
+
+<%= error_container(f, :selection) do %>
+  <label class="block-label">
+    <%=
+      f.radio_button(
+        :selection, :prisoner_moved,
+        class: 'js-Conditional',
+        data: { 'conditional-el': 'prisoner_moved_details' }
+      )
+    %>
+    <%= t('.prisoner_moved') %>
+  </label>
+<% end %>
+
+<div id="prisoner_moved_details" class="panel panel-border-narrow">
+  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+  <blockquote>
+    <%= t('.prisoner_moved_wording_html') %>
+  </blockquote>
+</div>
+
+<%= error_container(f, :selection) do %>
+  <label class="block-label">
+    <%=
+      f.radio_button(
+        :selection, :prisoner_released,
+        class: 'js-Conditional',
+        data: { 'conditional-el': 'prisoner_released_details' }
+      )
+    %>
+    <%= t('.prisoner_released') %>
+  </label>
+<% end %>
+
+<div id="prisoner_released_details" class="panel panel-border-narrow">
+  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+  <blockquote>
+    <%= t('.prisoner_released_wording_html') %>
+  </blockquote>
+</div>
+
+<%= error_container(f, :selection) do %>
+  <label class="block-label">
+    <%=
+      f.radio_button(
+        :selection, :prisoner_non_association,
+        class: 'js-Conditional',
+        data: { 'conditional-el': 'prisoner_non_association_details' }
+      )
+    %>
+    <%= t('.prisoner_non_association') %>
+  </label>
+<% end %>
+
+<div id="prisoner_non_association_details" class="panel panel-border-narrow">
+  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+  <blockquote>
+    <%= t('.prisoner_non_association_wording_html') %>
+  </blockquote>
+</div>
+
+<%= error_container(f, :selection) do %>
+  <label class="block-label">
+    <%=
+      f.radio_button(
+        :selection, :child_protection_issues,
+        class: 'js-Conditional',
+        data: { 'conditional-el': 'child_protection_issues_details' }
+      )
+    %>
+    <%= t('.child_protection_issues') %>
+  </label>
+<% end %>
+
+<div id="child_protection_issues_details" class="panel panel-border-narrow">
+  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+  <blockquote>
+    <%= t('.child_protection_issues_wording_html') %>
+  </blockquote>
 </div>
