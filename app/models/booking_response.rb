@@ -1,3 +1,5 @@
+require 'maybe_date'
+
 class BookingResponse
   include NonPersistedModel
 
