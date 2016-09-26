@@ -24,7 +24,6 @@ RSpec.describe BookingResponse, type: :model do
       context 'and one visitor is unlisted' do
         before do
           subject.selection = 'slot_0'
-          subject.visitor_not_on_list = true
           subject.unlisted_visitor_ids = [visit.visitors.first.id]
         end
 
@@ -39,31 +38,14 @@ RSpec.describe BookingResponse, type: :model do
           subject.unlisted_visitor_ids = visit.visitors.map(&:id)
         end
 
-        context 'and visitor_not_on_list is true' do
-          before do
-            subject.visitor_not_on_list = true
-          end
-
-          it 'is not bookable' do
-            expect(subject).not_to be_bookable
-          end
-        end
-
-        context 'and visitor_not_on_list is false' do
-          before do
-            subject.visitor_not_on_list = false
-          end
-
-          it 'is bookable' do
-            expect(subject).to be_bookable
-          end
+        it 'is not bookable' do
+          expect(subject).not_to be_bookable
         end
       end
 
       context 'and one visitor is banned' do
         before do
           subject.selection = 'slot_0'
-          subject.visitor_banned = true
           subject.banned_visitor_ids = [visit.visitors.first.id]
         end
 
@@ -91,24 +73,8 @@ RSpec.describe BookingResponse, type: :model do
           subject.banned_visitor_ids = visit.visitors.map(&:id)
         end
 
-        context 'and visitor_banned is true' do
-          before do
-            subject.visitor_banned = true
-          end
-
-          it 'is not bookable' do
-            expect(subject).not_to be_bookable
-          end
-        end
-
-        context 'and visitor_banned is false' do
-          before do
-            subject.visitor_banned = false
-          end
-
-          it 'is bookable' do
-            expect(subject).to be_bookable
-          end
+        it 'is not bookable' do
+          expect(subject).not_to be_bookable
         end
       end
     end
@@ -143,30 +109,16 @@ RSpec.describe BookingResponse, type: :model do
     end
 
     describe 'visitor_not_on_list' do
-      it 'is valid if it is visitor_not_on_list and visitors are selected' do
-        subject.visitor_not_on_list = true
+      it 'is valid if visitors are selected' do
         subject.unlisted_visitor_ids = %w[ 42 ]
         expect(subject).to be_valid
-      end
-
-      it 'is invalid if it is visitor_not_on_list but no visitors are selected' do
-        subject.visitor_not_on_list = true
-        expect(subject).not_to be_valid
-        expect(subject.errors).to have_key(:visitor_not_on_list)
       end
     end
 
     describe 'visitor_banned' do
       it 'is valid if it is visitor_banned and visitors are selected' do
-        subject.visitor_banned = true
         subject.banned_visitor_ids = %w[ 42 ]
         expect(subject).to be_valid
-      end
-
-      it 'is invalid if it is visitor_banned but no visitors are selected' do
-        subject.visitor_banned = true
-        expect(subject).not_to be_valid
-        expect(subject.errors).to have_key(:visitor_banned)
       end
     end
 
