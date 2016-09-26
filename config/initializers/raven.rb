@@ -5,7 +5,7 @@ if sentry_dsn
 
   Raven.configure do |config|
     config.dsn = sentry_dsn
-    config.processors -= [Raven::Processor::PostData] # Do this to send POST data
+    config.processors -= [Raven::Processor::PostData]
   end
 else
   # (Rails logger is not initialized yet)
