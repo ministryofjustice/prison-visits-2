@@ -3,26 +3,60 @@ require 'maybe_date'
 
 RSpec.describe BookingResponse, type: :model do
   let(:visit) { create(:visit_with_two_visitors) }
-  subject { described_class.new(visit: visit) }
+  subject do
+    described_class.new(
+      visit: visit,
+      selection: 'slot_1',
+      reference_no: 'A1234BC'
+    )
+  end
+
+
+  it 'has a valid test subject' do
+    expect(subject).to be_valid
+  end
 
   describe '#allowance_renews_on' do
 
-    context 'with no blank date fields' do
-      it 'does not break' do
+    context 'with blank date fields' do
+
+      before do
         subject.allowance_renews_on = { day: '', month: '', year: '' }
+        subject.allowance_will_renew = true
+        subject.selection = 'no_allowance'
+      end
+
+      it 'does not break' do
         expect(subject.allowance_renews_on).to be_instance_of(UncoercedDate)
       end
+
+      it 'it is not a valid date' do
+        expect(subject).to_not be_valid
+        expect(subject.errors.full_messages).to eq(['Allowance renews on is invalid'])
+      end
     end
+
 
   end
 
   describe '#priviledge_allowance_renews_on' do
 
-    context 'with no blank date fields' do
-      it 'does not break' do
+    context 'with blank date fields' do
+      before do
         subject.privileged_allowance_expires_on = { day: '', month: '', year: '' }
+        subject.privileged_allowance_available = true
+        subject.selection = 'no_allowance'
+      end
+
+      it 'does not break' do
         expect(subject.privileged_allowance_expires_on).to be_instance_of(UncoercedDate)
       end
+
+      it 'it is not a valid date' do
+        expect(subject).to_not be_valid
+        expect(subject.errors.full_messages).to eq(['Privileged allowance expires on is invalid'])
+      end
+
     end
 
   end

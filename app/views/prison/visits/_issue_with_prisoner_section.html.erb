@@ -115,7 +115,7 @@
           )
         %>
         <div id="privileged_allowance_available_details" class="form-group">
-          <%= composite_field(f, :privileged_allowance_available_on) do %>
+          <%= composite_field(f, :privileged_allowance_expires_on) do %>
             <% %i[day month year].each do |field_name| %>
               <div class="datefield form-group form-group-<%= field_name %>">
                 <label for="<%= f.object_name %>_privileged_allowance_available_<%= field_name %>">

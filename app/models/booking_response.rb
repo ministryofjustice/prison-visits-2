@@ -25,12 +25,14 @@ class BookingResponse
   validates :allowance_renews_on,
     presence: true,
     if: :allowance_will_renew
+  validate :validate_allowance_renews_on, if: :allowance_will_renew
 
   attribute :privileged_allowance_available, Virtus::Attribute::Boolean
   attribute :privileged_allowance_expires_on, MaybeDate
   validates :privileged_allowance_expires_on,
     presence: true,
     if: :privileged_allowance_available
+  validate :validate_privileged_allowance_expires_on, if: :privileged_allowance_available
 
   attribute :unlisted_visitor_ids, Array
   attribute :banned_visitor_ids, Array
@@ -77,6 +79,17 @@ class BookingResponse
   end
 
 private
+  def validate_allowance_renews_on
+    unless allowance_renews_on && allowance_renews_on.is_a?(Date)
+      errors.add :allowance_renews_on, :invalid
+    end
+  end
+
+  def validate_privileged_allowance_expires_on
+    unless privileged_allowance_expires_on && privileged_allowance_expires_on.is_a?(Date)
+      errors.add :privileged_allowance_expires_on, :invalid
+    end
+  end
 
   def at_least_one_valid_visitor?
     visitors.
