@@ -1,0 +1,46 @@
+<div class="BookingCalendar">
+  <table class="BookingCalendar-dates">
+    <thead>
+      <tr>
+        <% each_day_of_week do |day| %>
+          <th><%= I18n.l(day, format: :day_of_week) %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody class="BookingCalendar-datesBody">
+      <% weeks(prison).each do |days| %>
+        <tr>
+          <% days.each do |day| %>
+            <td class="BookingCalendar-date--<%= (future?(day) ? 'bookable' : 'unbookable') %>">
+              <div class="BookingCalendar-content <%= (tagged?(day)) ? 'has-tag' : '' %>">
+                <span class="BookingCalendar-day">
+                  <%= I18n.l(day, format: :day_of_month) %>
+                </span>
+                <% if today?(day) %>
+                  <span class="BookingCalendar-tag BookingCalendar-tag--today"
+                    ><%= t('.today') %></span>
+                <% end %>
+                <% if first_day_of_month?(day) %>
+                  <span
+                    class="BookingCalendar-tag"
+                    id="month-<%= I18n.l(day, format: :year_and_month_internal) %>"
+                    ><%= I18n.l(day, format: :short_month_name) %></span>
+                <% end %>
+                <% if future?(day) %>
+                  <label
+                    class="BookingCalendar-dateLink"
+                    data-date="<%= day %>"
+                    for="<%= sanitize_to_id(name) %>_<%= day.iso8601 %>"
+
+                    >
+                    <%= radio_button_tag(name, day.iso8601) %>
+                  </label>
+                <% end %>
+              </div>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

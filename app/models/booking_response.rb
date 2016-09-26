@@ -32,6 +32,8 @@ class BookingResponse
 
   attribute :unlisted_visitor_ids, Array
   attribute :banned_visitor_ids, Array
+  attribute :visitor_not_on_list, Virtus::Attribute::Boolean
+  attribute :visitor_banned, Virtus::Attribute::Boolean
   attribute :message_body, String
   attribute :user, User
 
@@ -48,8 +50,8 @@ class BookingResponse
   delegate :no_allowance?, to: :selection_inquiry
 
   def reason
-    return 'visitor_not_on_list' if unlisted_visitor_ids.any?
-    return 'visitor_banned' if banned_visitor_ids.any?
+    return 'visitor_not_on_list' if visitor_not_on_list?
+    return 'visitor_banned' if visitor_banned?
     return 'no_adult' unless at_least_one_valid_visitor?
     selection
   end
@@ -67,10 +69,14 @@ class BookingResponse
   end
 
   def unlisted_visitors
+    return [] unless visitor_not_on_list
+
     visitors.select { |v| unlisted_visitor_ids.include?(v.id) }
   end
 
   def banned_visitors
+    return [] unless visitor_banned
+
     visitors.select { |v| banned_visitor_ids.include?(v.id) }
   end
 
@@ -82,6 +88,15 @@ private
       reject { |visitor| visitor.in? banned_visitors }.
       any? { |visitor| visitor.age >= ADULT_AGE }
   end
+
+  def validate_checked_visitors
+    if visitor_not_on_list? && unlisted_visitor_ids.empty?
+      errors.add :visitor_not_on_list, :no_unlisted_visitors_selected
+    elsif visitor_banned? && banned_visitor_ids.empty?
+      errors.add :visitor_banned, :no_banned_visitors_selected
+    end
+  end
+  validate :validate_checked_visitors
 
   def validate_visit_is_processable
     unless visit.processable?
