@@ -2,7 +2,7 @@
 <div class="visitor-labels">
   <div class="grid-row">
     <% @booking_response.visitors.each_with_index do |visitor, index| %>
-      <%= content_tag :div, class: 'column-one-half', id: "visitor-#{index}" do %>
+      <%= content_tag :div, class: "column-one-half visitor-labels__visitor-#{index}", id: "visitor-#{index}" do %>
         <hr>
         <h3 class="bold-small"><%= t('visitor_no', n: index + 1, scope: :shared) %></h3>
         <dl>
