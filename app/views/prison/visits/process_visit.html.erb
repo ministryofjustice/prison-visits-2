@@ -2,7 +2,7 @@
 <% if current_user %>
   <%= render 'prison/dashboards/navigation' %>
 <% end %>
-
+<% raise "ASDASDASDASDASD" %>
 <%=
   form_for(
     @booking_response,
@@ -23,7 +23,12 @@
           <div class="text-secondary"><%= t('requested', scope: 'shared') %>: <br><%= @booking_response.visit.created_at.to_s(:short) %></div>
         </div>
         <div class="column-one-third text-right">
+          <p>
 
+            <% unless @prisoner_validation_service.valid? %>
+              <%= t(@prisoner__validation_service.errors.full_message_for(:general)) >
+            <% end %>
+          </p>
         </div>
       </div>
     </div>

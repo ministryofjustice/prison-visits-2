@@ -4,8 +4,12 @@ class Prison::VisitsController < ApplicationController
   before_action :require_login_during_trial, only: %w[process_visit update]
 
   def process_visit
-    @booking_response = BookingResponse.new(visit: load_visit)
-
+    visit = load_visit
+    @booking_response = BookingResponse.new(visit: visit)
+    @prisoner_validation_service = PrisonerValidation.new(
+      noms_id:       visit.prisoner.number,
+      date_of_birth: visit.prisoner.date_of_birth
+    )
     unless @booking_response.processable?
       flash[:notice] = t('already_processed', scope: [:prison, :flash])
       redirect_to visit_page(@booking_response.visit)
