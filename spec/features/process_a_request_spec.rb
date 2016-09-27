@@ -28,8 +28,10 @@ RSpec.feature 'Processing a request', js: true do
 
   describe 'unprocessable visit request' do
     before do
+      allow(Nomis::Api.instance).to receive(:lookup_active_offender).and_return(double(Nomis::Offender))
       visit prison_visit_process_path(vst, locale: 'en')
     end
+
     context 'with a withdrawn visit' do
       let(:vst) { create(:withdrawn_visit) }
 
@@ -67,30 +69,72 @@ RSpec.feature 'Processing a request', js: true do
     end
   end
 
-  context 'accepting' do
-    context "validating prisonner informations" do
-      context "when the NOMIS API is working" do
-        context "and the prisonner's informations are not valid"  do
-
-          it 'informs staff informations are invalid' do
-            expect(page).to have_content("The provided prisonner information didn't match any prisonner.")
-          end
-        end
-
-
-      end
-
-      context "when the NOMIS API is not available" do
+  context "validating prisonner informations" do
+    context "when the NOMIS API is working" do
+      context "and the prisonner's informations are not valid" do
         it 'informs staff informations are invalid' do
-          # expect(Nomis::Api.instance).to receive(:lookup_active_offender).and_raise(Excon::Errors::Error)
+          expect(Nomis::Api.instance).to receive(:lookup_active_offender).and_return(nil)
           visit prison_visit_process_path(vst, locale: 'en')
-          expect(page).to have_content("Prisonner validation service is unavailable, please manually check prisonner's informations")
+
+          expect(page).to have_content("The provided prisoner information didn't match any prisoner.")
         end
       end
+    end
 
-      scenario 'accepting a booking' do
+    context "when the NOMIS API is not available" do
+      # Uncomment once the automatic checking NOMIS API is live.
+      xit 'informs staff informations are invalid' do
+        expect(Nomis::Api.instance).to receive(:lookup_active_offender).and_raise(Excon::Errors::Error)
+        visit prison_visit_process_path(vst, locale: 'en')
+        expect(page).to have_content("Prisoner validation service is unavailable, please manually check prisoner's informations")
+      end
+    end
+  end
+
+  context 'accepting' do
+    before do
+      allow(Nomis::Api.instance).to receive(:lookup_active_offender).and_return(double(Nomis::Offender))
+      visit prison_visit_process_path(vst, locale: 'en')
+    end
+
+    scenario 'accepting a booking' do
+      expect(page).to have_content("Prisoner's informations valid")
+
+      find('#booking_response_selection_slot_0').click
+      fill_in 'Reference number', with: '12345678'
+
+      click_button 'Process'
+
+      expect(page).to have_text('a confirmation email has been sent to the visitor')
+
+      vst.reload
+      expect(vst).to be_booked
+      expect(vst.reference_no).to eq('12345678')
+
+      expect(contact_email_address).
+        to receive_email.
+        with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
+        and_body(/Your visit to Reading Gaol is now successfully confirmed/)
+      expect(prison_email_address).
+        to receive_email.
+        with_subject(/COPY of booking confirmation for Oscar Wilde/).
+        with_body(/This is a copy of the booking confirmation email sent to the visitor/).
+        with_body(/#{vst.visitors.first.full_name}/).
+        with_body(/#{vst.prisoner.full_name}/)
+    end
+
+    context 'disallowed visitors' do
+      before do
+        vst.visitors << build(:visitor)
+      end
+
+      scenario 'accepting a booking while banning a visitor' do
         find('#booking_response_selection_slot_0').click
         fill_in 'Reference number', with: '12345678'
+
+        within '#visitor-0' do
+          check 'Visitor is banned'
+        end
 
         click_button 'Process'
 
@@ -103,71 +147,37 @@ RSpec.feature 'Processing a request', js: true do
         expect(contact_email_address).
           to receive_email.
           with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
-          and_body(/Your visit to Reading Gaol is now successfully confirmed/)
+          and_body(/cannot attend as they are currently banned/)
         expect(prison_email_address).
           to receive_email.
           with_subject(/COPY of booking confirmation for Oscar Wilde/).
-          with_body(/This is a copy of the booking confirmation email sent to the visitor/).
-          with_body(/#{vst.visitors.first.full_name}/).
-          with_body(/#{vst.prisoner.full_name}/)
+          and_body(/This is a copy of the booking confirmation email sent to the visitor/)
       end
 
-      context 'disallowed visitors' do
-        before do
-          vst.visitors << build(:visitor)
+      scenario 'accepting a booking while indicating a visitor is not on the list' do
+        find('#booking_response_selection_slot_0').click
+        fill_in 'Reference number', with: '12345678'
+
+        within '#visitor-0' do
+          check 'Visitor is not on the contact list'
         end
 
-        scenario 'accepting a booking while banning a visitor' do
-          find('#booking_response_selection_slot_0').click
-          fill_in 'Reference number', with: '12345678'
+        click_button 'Process'
 
-          within '#visitor-0' do
-            check 'Visitor is banned'
-          end
+        expect(page).to have_text('a confirmation email has been sent to the visitor')
 
-          click_button 'Process'
+        vst.reload
+        expect(vst).to be_booked
+        expect(vst.reference_no).to eq('12345678')
 
-          expect(page).to have_text('a confirmation email has been sent to the visitor')
-
-          vst.reload
-          expect(vst).to be_booked
-          expect(vst.reference_no).to eq('12345678')
-
-          expect(contact_email_address).
-            to receive_email.
-            with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
-            and_body(/cannot attend as they are currently banned/)
-          expect(prison_email_address).
-            to receive_email.
-            with_subject(/COPY of booking confirmation for Oscar Wilde/).
-            and_body(/This is a copy of the booking confirmation email sent to the visitor/)
-        end
-
-        scenario 'accepting a booking while indicating a visitor is not on the list' do
-          find('#booking_response_selection_slot_0').click
-          fill_in 'Reference number', with: '12345678'
-
-          within '#visitor-0' do
-            check 'Visitor is not on the contact list'
-          end
-
-          click_button 'Process'
-
-          expect(page).to have_text('a confirmation email has been sent to the visitor')
-
-          vst.reload
-          expect(vst).to be_booked
-          expect(vst.reference_no).to eq('12345678')
-
-          expect(contact_email_address).
-            to receive_email.
-            with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
-            and_body(/cannot attend as they are not on the prisoner’s contact list/)
-          expect(prison_email_address).
-            to receive_email.
-            with_subject(/COPY of booking confirmation for Oscar Wilde/).
-            and_body(/This is a copy of the booking confirmation email sent to the visitor/)
-        end
+        expect(contact_email_address).
+          to receive_email.
+          with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
+          and_body(/cannot attend as they are not on the prisoner’s contact list/)
+        expect(prison_email_address).
+          to receive_email.
+          with_subject(/COPY of booking confirmation for Oscar Wilde/).
+          and_body(/This is a copy of the booking confirmation email sent to the visitor/)
       end
     end
 
