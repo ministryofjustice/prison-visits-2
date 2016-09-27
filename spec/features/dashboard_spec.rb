@@ -36,6 +36,12 @@ RSpec.feature 'Using the dashboard', js: true do
 
     it do
       visit prison_inbox_path
+
+      within '.prison-switcher' do
+        select 'Cardiff', from: 'estate_id'
+        click_button 'Update'
+      end
+
       expect(page).to have_css('h1', text: 'Cardiff inbox')
       expect(page).to have_css('.navigation', 'Inbox 0')
 
