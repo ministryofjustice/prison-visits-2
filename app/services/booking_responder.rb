@@ -4,11 +4,15 @@ class BookingResponder
   end
 
   def respond!
-    mark_disallowed_visitors
-    if booking_response.bookable?
-      accept!
-    else
-      reject!
+    return unless visit.requested?
+
+    ActiveRecord::Base.transaction do
+      mark_disallowed_visitors
+      if booking_response.bookable?
+        accept!
+      else
+        reject!
+      end
     end
   end
 
@@ -19,29 +23,31 @@ private
   private :visit
 
   def accept!
-    ActiveRecord::Base.transaction do
-      visit.accept!
-      visit.update!(
-        slot_granted: slot_granted,
-        reference_no: booking_response.reference_no,
-        closed: booking_response.closed_visit
-      )
-      create_message(visit.last_visit_state)
-    end
+    visit.accept!
+    record_acceptance
 
     notify_accepted(visit)
   end
 
-  def reject!
-    return if visit.rejected?
+  def record_acceptance
+    visit.update!(
+      slot_granted: slot_granted,
+      reference_no: booking_response.reference_no,
+      closed: booking_response.closed_visit
+    )
 
+    last_visit_state = visit.last_visit_state
+    create_message(last_visit_state)
+    record_user(last_visit_state)
+  end
+
+  def reject!
     rejection = build_rejection(visit, booking_response)
 
-    ActiveRecord::Base.transaction do
-      visit.reject!
-      rejection.save!
-      create_message(visit.last_visit_state)
-    end
+    visit.reject!
+    rejection.save!
+    create_message(visit.last_visit_state)
+    record_user(visit.last_visit_state)
 
     notify_rejected(visit)
   end
@@ -97,6 +103,10 @@ private
                     user: booking_response.user,
                     visit: visit,
                     visit_state_change: visit_state_change)
+  end
+
+  def record_user(visit_state_change)
+    visit_state_change.update!(processed_by: booking_response.user)
   end
 
   def slot_granted

@@ -69,6 +69,21 @@ RSpec.describe BookingResponder do
         expect(Message.last.visit_state_change_id).to be_present
       end
     end
+
+    context 'when there was a user logged in' do
+      let(:user) { FactoryGirl.create(:user) }
+
+      before do
+        booking_response.user = user
+      end
+
+      it 'records the user on the visit state change' do
+        subject.respond!
+        last_change = visit.reload.visit_state_changes.last
+
+        expect(last_change.processed_by).to eq(user)
+      end
+    end
   end
 
   context 'rejecting a request' do
@@ -270,6 +285,21 @@ RSpec.describe BookingResponder do
         subject.respond!
         expect(visit.visitors[0]).to be_banned
         expect(visit.visitors[1]).not_to be_banned
+      end
+    end
+
+    context 'when there was a user logged in' do
+      let(:user) { FactoryGirl.create(:user) }
+
+      before do
+        booking_response.user = user
+      end
+
+      it 'records the user on the visit state change' do
+        subject.respond!
+        last_change = visit.reload.visit_state_changes.last
+
+        expect(last_change.processed_by).to eq(user)
       end
     end
   end
