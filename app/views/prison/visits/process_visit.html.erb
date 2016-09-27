@@ -23,15 +23,7 @@
           <div class="text-secondary"><%= t('requested', scope: 'shared') %>: <br><%= @booking_response.visit.created_at.to_s(:short) %></div>
         </div>
         <div class="column-one-third text-right">
-          <p>
-            <% if @prisoner_validation_service.valid? %>
-              <%= t(".prioner_valid") %>
-            <% else  %>
-              <% @prisoner_validation_service.errors[:base].each do |error| %>
-                <%= t(".#{error}") %>
-              <% end %>
-            <% end %>
-          </p>
+
         </div>
       </div>
     </div>

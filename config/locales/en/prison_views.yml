@@ -113,9 +113,6 @@ en:
           </ul>
         message_body: Message (optional)
         submit: Process
-        prisoner_validation_service_error: "Prisoner validation service is unavailable, please manually check prisoner's informations"
-        prisoner_does_not_exist: "The provided prisoner information didn't match any prisoner."
-        prioner_valid: "Prisoner's informations valid"
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
