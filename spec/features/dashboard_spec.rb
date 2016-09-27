@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Using the dashboard', js: true do
+RSpec.feature 'Using the dashboard' do
   before do
     OmniAuth.config.add_mock(:mojsso, sso_response)
   end
@@ -34,7 +34,7 @@ RSpec.feature 'Using the dashboard', js: true do
       FactoryGirl.create(:visit, prison: swansea_prison)
     end
 
-    it do
+    xit do
       visit prison_inbox_path
 
       within '.prison-switcher' do
