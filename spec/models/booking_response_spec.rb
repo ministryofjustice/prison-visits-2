@@ -1,8 +1,57 @@
 require 'rails_helper'
+require 'maybe_date'
 
 RSpec.describe BookingResponse, type: :model do
   let(:visit) { create(:visit_with_two_visitors) }
-  subject { described_class.new(visit: visit) }
+  subject do
+    described_class.new(
+      visit: visit,
+      selection: 'slot_1',
+      reference_no: 'A1234BC'
+    )
+  end
+
+  it 'has a valid test subject' do
+    expect(subject).to be_valid
+  end
+
+  describe '#allowance_renews_on' do
+    context 'with blank date fields' do
+      before do
+        subject.allowance_renews_on = { day: '', month: '', year: '' }
+        subject.allowance_will_renew = true
+        subject.selection = 'no_allowance'
+      end
+
+      it 'does not break' do
+        expect(subject.allowance_renews_on).to be_instance_of(UncoercedDate)
+      end
+
+      it 'it is not a valid date' do
+        expect(subject).to_not be_valid
+        expect(subject.errors.full_messages).to eq(['Allowance renews on is invalid'])
+      end
+    end
+  end
+
+  describe '#priviledge_allowance_renews_on' do
+    context 'with blank date fields' do
+      before do
+        subject.privileged_allowance_expires_on = { day: '', month: '', year: '' }
+        subject.privileged_allowance_available = true
+        subject.selection = 'no_allowance'
+      end
+
+      it 'does not break' do
+        expect(subject.privileged_allowance_expires_on).to be_instance_of(UncoercedDate)
+      end
+
+      it 'it is not a valid date' do
+        expect(subject).to_not be_valid
+        expect(subject.errors.full_messages).to eq(['Privileged allowance expires on is invalid'])
+      end
+    end
+  end
 
   describe 'bookable?' do
     it 'is true if slot 0 is selected' do
@@ -24,7 +73,6 @@ RSpec.describe BookingResponse, type: :model do
       context 'and one visitor is unlisted' do
         before do
           subject.selection = 'slot_0'
-          subject.visitor_not_on_list = true
           subject.unlisted_visitor_ids = [visit.visitors.first.id]
         end
 
@@ -39,31 +87,14 @@ RSpec.describe BookingResponse, type: :model do
           subject.unlisted_visitor_ids = visit.visitors.map(&:id)
         end
 
-        context 'and visitor_not_on_list is true' do
-          before do
-            subject.visitor_not_on_list = true
-          end
-
-          it 'is not bookable' do
-            expect(subject).not_to be_bookable
-          end
-        end
-
-        context 'and visitor_not_on_list is false' do
-          before do
-            subject.visitor_not_on_list = false
-          end
-
-          it 'is bookable' do
-            expect(subject).to be_bookable
-          end
+        it 'is not bookable' do
+          expect(subject).not_to be_bookable
         end
       end
 
       context 'and one visitor is banned' do
         before do
           subject.selection = 'slot_0'
-          subject.visitor_banned = true
           subject.banned_visitor_ids = [visit.visitors.first.id]
         end
 
@@ -91,24 +122,8 @@ RSpec.describe BookingResponse, type: :model do
           subject.banned_visitor_ids = visit.visitors.map(&:id)
         end
 
-        context 'and visitor_banned is true' do
-          before do
-            subject.visitor_banned = true
-          end
-
-          it 'is not bookable' do
-            expect(subject).not_to be_bookable
-          end
-        end
-
-        context 'and visitor_banned is false' do
-          before do
-            subject.visitor_banned = false
-          end
-
-          it 'is bookable' do
-            expect(subject).to be_bookable
-          end
+        it 'is not bookable' do
+          expect(subject).not_to be_bookable
         end
       end
     end
@@ -143,30 +158,16 @@ RSpec.describe BookingResponse, type: :model do
     end
 
     describe 'visitor_not_on_list' do
-      it 'is valid if it is visitor_not_on_list and visitors are selected' do
-        subject.visitor_not_on_list = true
+      it 'is valid if visitors are selected' do
         subject.unlisted_visitor_ids = %w[ 42 ]
         expect(subject).to be_valid
-      end
-
-      it 'is invalid if it is visitor_not_on_list but no visitors are selected' do
-        subject.visitor_not_on_list = true
-        expect(subject).not_to be_valid
-        expect(subject.errors).to have_key(:visitor_not_on_list)
       end
     end
 
     describe 'visitor_banned' do
       it 'is valid if it is visitor_banned and visitors are selected' do
-        subject.visitor_banned = true
         subject.banned_visitor_ids = %w[ 42 ]
         expect(subject).to be_valid
-      end
-
-      it 'is invalid if it is visitor_banned but no visitors are selected' do
-        subject.visitor_banned = true
-        expect(subject).not_to be_valid
-        expect(subject.errors).to have_key(:visitor_banned)
       end
     end
 

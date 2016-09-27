@@ -43,7 +43,7 @@ module PrisonVisits
       config.asset_host = ENV['ASSET_HOST']
     end
 
-    config.lograge.enabled = true
+    config.lograge.enabled = Rails.env.production?
     config.lograge.custom_options = lambda do |event|
       event.payload[:custom_log_items]
     end

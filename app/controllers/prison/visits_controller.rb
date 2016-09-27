@@ -1,11 +1,11 @@
 class Prison::VisitsController < ApplicationController
-  helper CalendarHelper
   before_action :authorize_prison_request
   before_action :authenticate_user, only: %i[ show nomis_cancelled ]
   before_action :require_login_during_trial, only: %w[process_visit update]
 
   def process_visit
-    @booking_response = BookingResponse.new(visit: load_visit)
+    visit = load_visit
+    @booking_response = BookingResponse.new(visit: visit)
 
     unless @booking_response.processable?
       flash[:notice] = t('already_processed', scope: [:prison, :flash])
@@ -91,9 +91,11 @@ private
       require(:booking_response).
       permit(
         :visitor_banned, :visitor_not_on_list, :selection, :reference_no,
-        :closed_visit, :allowance_will_renew, :allowance_renews_on,
-        :privileged_allowance_available, :privileged_allowance_expires_on,
-        :message_body, unlisted_visitor_ids: [], banned_visitor_ids: []
+        :allowance_will_renew, :privileged_allowance_available, :message_body,
+        :closed_visit,
+        allowance_renews_on: [:day, :month, :year],
+        privileged_allowance_expires_on: [:day, :month, :year],
+        unlisted_visitor_ids: [], banned_visitor_ids: []
       ).merge(visit: load_visit, user: current_user)
   end
 end
