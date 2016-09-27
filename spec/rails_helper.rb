@@ -19,6 +19,8 @@ Capybara.asset_host = 'http://localhost:3000'
 
 ActiveRecord::Migration.maintain_test_schema!
 
+OmniAuth.config.test_mode = true
+
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.include FactoryGirl::Syntax::Methods
@@ -29,10 +31,6 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
-  end
-
-  config.before(:suite, js: true) do
-    OmniAuth.config.test_mode = true
   end
 
   config.before(:each) do
