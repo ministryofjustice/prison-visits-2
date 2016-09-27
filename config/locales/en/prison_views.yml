@@ -117,6 +117,7 @@ en:
         message_body: Message (optional)
         submit: Process
         email_preview: Preview Email
+        prisoner_does_not_exist: "The provided prisoner information didn't match any prisoner."
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name

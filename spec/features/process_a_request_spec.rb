@@ -26,47 +26,77 @@ RSpec.feature 'Processing a request', js: true do
     )
   }
 
-  before do
-    visit prison_visit_process_path(vst, locale: 'en')
-  end
+  describe 'unprocessable visit request' do
+    before do
+      allow(Nomis::Api.instance).to receive(:lookup_active_offender).and_return(double(Nomis::Offender))
+      visit prison_visit_process_path(vst, locale: 'en')
+    end
 
-  context 'with a withdrawn visit' do
-    let(:vst) { create(:withdrawn_visit) }
+    context 'with a withdrawn visit' do
+      let(:vst) { create(:withdrawn_visit) }
 
-    scenario 'is not allowed' do
-      expect(page).to have_text('The visitor has withdrawn this request')
-      expect(page).not_to have_text('Process')
+      scenario 'is not allowed' do
+        expect(page).to have_text('The visitor has withdrawn this request')
+        expect(page).not_to have_text('Process')
+      end
+    end
+
+    context 'with a cancelled visit' do
+      let(:vst) { create(:cancelled_visit) }
+
+      scenario 'is not allowed' do
+        expect(page).to have_text("Visit can't be processed")
+        expect(page).not_to have_text('Process')
+      end
+    end
+
+    context 'with a booked visit' do
+      let(:vst) { create(:booked_visit) }
+
+      scenario 'is not allowed' do
+        expect(page).to have_text('This request has been accepted')
+        expect(page).not_to have_text('Process')
+      end
+    end
+
+    context 'with a rejected visit' do
+      let(:vst) { create(:rejected_visit) }
+
+      scenario 'is not allowed' do
+        expect(page).to have_text('This request has been rejected')
+        expect(page).not_to have_text('Process')
+      end
     end
   end
 
-  context 'with a cancelled visit' do
-    let(:vst) { create(:cancelled_visit) }
+  context "validating prisonner informations" do
+    context "when the NOMIS API is working" do
+      context "and the prisonner's informations are not valid" do
+        it 'informs staff informations are invalid' do
+          expect(Nomis::Api.instance).to receive(:lookup_active_offender).and_return(nil)
+          visit prison_visit_process_path(vst, locale: 'en')
 
-    scenario 'is not allowed' do
-      expect(page).to have_text("Visit can't be processed")
-      expect(page).not_to have_text('Process')
+          expect(page).to have_content("The provided prisoner information didn't match any prisoner.")
+        end
+      end
     end
-  end
 
-  context 'with a booked visit' do
-    let(:vst) { create(:booked_visit) }
-
-    scenario 'is not allowed' do
-      expect(page).to have_text('This request has been accepted')
-      expect(page).not_to have_text('Process')
-    end
-  end
-
-  context 'with a rejected visit' do
-    let(:vst) { create(:rejected_visit) }
-
-    scenario 'is not allowed' do
-      expect(page).to have_text('This request has been rejected')
-      expect(page).not_to have_text('Process')
+    context "when the NOMIS API is not available" do
+      # Uncomment once the automatic checking NOMIS API is live.
+      xit 'informs staff informations are invalid' do
+        expect(Nomis::Api.instance).to receive(:lookup_active_offender).and_raise(Excon::Errors::Error)
+        visit prison_visit_process_path(vst, locale: 'en')
+        expect(page).to have_content("Prisoner validation service is unavailable, please manually check prisoner's informations")
+      end
     end
   end
 
   context 'accepting' do
+    before do
+      allow(Nomis::Api.instance).to receive(:lookup_active_offender).and_return(double(Nomis::Offender))
+      visit prison_visit_process_path(vst, locale: 'en')
+    end
+
     scenario 'accepting a booking' do
       find('#booking_response_selection_slot_0').click
       fill_in 'Reference number', with: '12345678'
