@@ -31,6 +31,7 @@ RSpec.describe BookingResponder do
       include_context 'accepting a request'
 
       before do
+        booking_response.visitor_not_on_list = true
         visit.visitors << build(:visitor)
         booking_response.unlisted_visitor_ids = [visit.visitors.first.id]
       end
@@ -44,6 +45,7 @@ RSpec.describe BookingResponder do
 
     context 'when one of the visitors is banned' do
       before do
+        booking_response.visitor_banned = true
         visit.visitors << build(:visitor)
         booking_response.banned_visitor_ids = [visit.visitors.first.id]
       end
@@ -234,6 +236,7 @@ RSpec.describe BookingResponder do
 
     context 'because none of the visitors are on the list' do
       before do
+        booking_response.visitor_not_on_list = true
         visit.visitors << build(:visitor)
         booking_response.unlisted_visitor_ids = visit.visitors.map(&:id)
       end
@@ -260,6 +263,7 @@ RSpec.describe BookingResponder do
 
     context 'because the only visitor is banned' do
       before do
+        booking_response.visitor_banned = true
         visit.visitors << build(:visitor)
         booking_response.banned_visitor_ids = [visit.visitors.first.id]
       end

@@ -1,48 +1,69 @@
-<h2 class="bold-medium"><%= t('.title') %></h2>
-<div class="grid-row push-top choose-date">
-  <%= error_container(f, :selection) do %>
-    <% f.object.slots.each_with_index do |slot, index| %>
-      <div class="column-one-third">
-        <label class="block-label date-box" for="booking_response_selection_slot_<%= index %>">
-          <%=
-            f.radio_button(
-              :selection, "slot_#{index}",
-              class: 'js-Conditional',
-              data: {
-                'conditional-el': 'selected_slot_details',
-                'conditional-val': 'slot_0,slot_1,slot_2'
-              }
-            )
-          %>
-          <%= t('.choice_html', n: index + 1, day: format_date_day(slot), date: format_date_of_birth(slot), time: format_slot_times(slot)) %>
-        </label>
-      </div>
-    <% end %>
-  <% end %>
+<legend class="visuallyhidden"><%= t('.title') %></legend>
+<h2><%= t('.title') %></h2>
 
-  <div class="column-one-half">
-    <div id="selected_slot_details" class="panel panel-border-narrow">
-      <%= single_field(f, :reference_no, :text_field, class: 'form-control') %>
-
+<%= error_container(f, :selection) do %>
+  <% f.object.slots.each_with_index do |slot, index| %>
+    <label class="block-label" for="booking_response_selection_slot_<%= index %>">
       <%=
-        single_field(
-          f, :closed_visit, :check_box
+        f.radio_button(
+          :selection, "slot_#{index}",
+          class: 'js-Conditional',
+          data: {
+            'conditional-el': 'selected_slot_details',
+            'conditional-val': 'slot_0,slot_1,slot_2'
+          }
         )
       %>
-    </div>
-  </div>
+      <%= t('.choice_html', n: index + 1, date: format_slot_for_staff(slot)) %>
+    </label>
+  <% end %>
+<% end %>
 
-  <div class="column-two-thirds push-top">
-    <%= error_container(f, :selection) do %>
-      <label class="block-label">
-        <%=
-          f.radio_button(
-            :selection, :slot_unavailable,
-            class: 'js-Conditional'
-          )
-        %>
-        <%= t('.none_available') %>
-      </label>
-    <% end %>
+<div id="selected_slot_details" class="panel panel-border-narrow">
+  <%= single_field(f, :reference_no, :text_field, class: 'form-control') %>
+
+  <%=
+    single_field(
+      f, :closed_visit, :check_box,
+      class: 'js-Conditional',
+      data: { 'conditional-el': 'details_closed_visit' }
+    )
+  %>
+
+  <div id="details_closed_visit">
+    <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+    <blockquote>
+      <%= t('.closed_visit_wording_html') %>
+    </blockquote>
   </div>
+</div>
+
+<%= error_container(f, :selection) do %>
+  <label class="block-label">
+    <%=
+      f.radio_button(
+        :selection, :slot_unavailable,
+        class: 'js-Conditional',
+        data: { 'conditional-el': 'none_available_details' }
+      )
+    %>
+    <%= t('.none_available') %>
+  </label>
+<% end %>
+
+<div id="none_available_details" class="panel panel-border-narrow">
+  <%= t('.none_available_explanation_html') %>
+
+  <h3><%= t('prison.visits.shared.what_we_will_tell') %></h3>
+
+  <blockquote>
+    <%=
+      t(
+        '.none_available_wording_html',
+        prisoner: f.object.prisoner_full_name,
+        prison: f.object.prison_name
+      )
+    %>
+  </blockquote>
 </div>

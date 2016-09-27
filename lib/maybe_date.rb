@@ -14,9 +14,9 @@ class MaybeDate < Virtus::Attribute
     if value.is_a?(String)
       Date.parse(value)
     elsif value.respond_to?(:values_at)
-      ymd = value.values_at(:year, :month, :day)
+      ymd = value.values_at(:year, :month, :day).map(&:to_i)
       begin
-        Date.new(*ymd.map(&:to_i))
+        Date.new(*ymd)
       rescue ArgumentError # e.g. invalid date such as 2010-14-31
         UncoercedDate.new(*ymd)
       end
