@@ -18,10 +18,10 @@
   [class^='column-'] {
     padding-top: $gutter-half;
   }
-  [class^='column-']:nth-child(odd) {
+  .visitor-labels__visitor-2, .visitor-labels__visitor-4 {
     clear: left;
   }
-  [class^='column-']:nth-child(-n+2) {
+  .visitor-labels__visitor-0, .visitor-labels__visitor-1 {
     hr {
       display: none;
     }
