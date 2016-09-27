@@ -14,6 +14,8 @@ class BookingResponder
         reject!
       end
     end
+
+    send_emails
   end
 
 private
@@ -25,8 +27,6 @@ private
   def accept!
     visit.accept!
     record_acceptance
-
-    notify_accepted(visit)
   end
 
   def record_acceptance
@@ -48,8 +48,6 @@ private
     rejection.save!
     create_message(visit.last_visit_state)
     record_user(visit.last_visit_state)
-
-    notify_rejected(visit)
   end
 
   def build_rejection(visit, booking_response)
@@ -69,12 +67,12 @@ private
     rejection
   end
 
-  def notify_accepted(visit)
+  def notify_accepted
     VisitorMailer.booked(visit).deliver_later
     PrisonMailer.booked(visit).deliver_later
   end
 
-  def notify_rejected(visit)
+  def notify_rejected
     VisitorMailer.rejected(visit).deliver_later
     PrisonMailer.rejected(visit).deliver_later
   end
@@ -111,5 +109,14 @@ private
 
   def slot_granted
     visit.slots.fetch(booking_response.slot_index)
+  end
+
+  def send_emails
+    case visit.processing_state
+    when 'booked'
+      notify_accepted
+    when 'rejected'
+      notify_rejected
+    end
   end
 end
