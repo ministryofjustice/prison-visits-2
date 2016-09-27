@@ -22,18 +22,19 @@ class BookingResponse
 
   attribute :allowance_will_renew, Virtus::Attribute::Boolean
   attribute :allowance_renews_on, MaybeDate
-  validates :allowance_renews_on,
-    presence: true,
-    if: :allowance_will_renew
-  validate :validate_allowance_renews_on, if: :allowance_will_renew
+
+  with_options if: :allowance_will_renew do
+    validates :allowance_renews_on, presence: true
+    validate :validate_allowance_renews_on
+  end
 
   attribute :privileged_allowance_available, Virtus::Attribute::Boolean
   attribute :privileged_allowance_expires_on, MaybeDate
-  validates :privileged_allowance_expires_on,
-    presence: true,
-    if: :privileged_allowance_available
-  validate :validate_privileged_allowance_expires_on,
-    if: :privileged_allowance_available
+
+  with_options if: :privileged_allowance_available do
+    validates :privileged_allowance_expires_on, presence: true
+    validate :validate_privileged_allowance_expires_on
+  end
 
   attribute :unlisted_visitor_ids, Array
   attribute :banned_visitor_ids, Array
