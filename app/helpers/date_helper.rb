@@ -7,6 +7,10 @@ module DateHelper
     I18n.l(date.to_date, format: :date_without_year)
   end
 
+  def format_date_day(date)
+    I18n.l(date.to_date, format: '%A')
+  end
+
   def format_time_12hr(time)
     I18n.l(time, format: :twelve_hour)
   end

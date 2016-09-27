@@ -15,10 +15,9 @@ class PrisonerValidation
       date_of_birth: date_of_birth
     )
 
-    unless offender
-      errors.add :general, 'prisoner_does_not_exist'
-    end
+    errors.add :base, 'prisoner_does_not_exist' unless offender
   rescue Excon::Errors::Error => e
+    Raven.capture_exception(e)
     # Validation should pass if the Nomis API is misbehaving
     Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
   end
