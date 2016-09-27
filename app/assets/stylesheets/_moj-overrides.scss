@@ -131,16 +131,6 @@ table {
   width: auto !important;
 }
 
-.no-form-group {
-  .form-group {
-    margin-bottom: 10px;
-  }
-}
-legend .form-label,
-legend .form-label-bold {
-  padding-bottom: 0;
-}
-
 @media print {
   table {
     td div {

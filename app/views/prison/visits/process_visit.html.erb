@@ -1,69 +1,40 @@
+<% content_for :header do %>
+  <%= t('.title') %>
+<% end %>
+
 <%# Processing a booking could be done as a non logged in / off user during the trial %>
 <% if current_user %>
   <%= render 'prison/dashboards/navigation' %>
 <% end %>
 
-<%=
-  form_for(
-    @booking_response,
-    url: prison_visit_path(@booking_response),
-    method: :put,
-    html: { class: 'js-SubmitOnce no-form-group' }
-  ) do |f|
-%>
+<%= render('people_box') %>
 
-  <div class="grid-row">
-    <div class="column-one-third">
-      <h1 class="bold-large float-left"><%= t('.title') %></h1>
-      <span class="tag tag--heading tag-requested font-xsmall float-left"><%= t('requested', scope: 'shared') %></span>
-    </div>
-    <div class="column-two-thirds">
-      <div class="grid-row">
-        <div class="column-two-thirds">
-          <div class="text-secondary"><%= t('requested', scope: 'shared') %>: <br><%= @booking_response.visit.created_at.to_s(:short) %></div>
-        </div>
-        <div class="column-one-third text-right">
-          <p>
-            <% if @prisoner_validation_service.valid? %>
-              <%= t(".prioner_valid") %>
-            <% else  %>
-              <% @prisoner_validation_service.errors[:base].each do |error| %>
-                <%= t(".#{error}") %>
-              <% end %>
-            <% end %>
-          </p>
-        </div>
-      </div>
+<div class="processing-form confirmations">
+  <%= t('.introduction_html') %>
+  <%=
+    form_for(
+      @booking_response,
+      url: prison_visit_path(@booking_response),
+      method: :put,
+      html: { class: 'js-SubmitOnce' }
+    ) do |f|
+  %>
+  <fieldset>
+    <%= render('visit_date_section', f: f) %>
+    <%= render('visiting_allowance_section', f: f) %>
+    <%= render('issue_with_prisoner_section', f: f) %>
+  </fieldset>
+  <%= render('issue_with_visitors_section', f: f) %>
+  <%= render('other_section', f: f) %>
+
+  <% if current_user -%>
+    <%= single_field(f, :message_body, :text_area, class: 'form-control form-control-full-width', rows: 4) %>
+  <% end -%>
+
+  <div class="actions">
+    <div class="primary-actions">
+      <%= f.submit(t('.submit'), class: 'button button-primary') %>
     </div>
   </div>
-
-  <hr>
-  <%= render('prisoner_details') %>
-  <%= render('issue_with_prisoner_section', f: f) %>
-  <hr>
-  <%= render('visit_date_section', f: f) %>
-  <hr>
-  <%= render('visitor_details', f: f) %>
-  <hr>
-  <div class="form-group">
-    <%= render('duplicate_request', f: f) %>
-  </div>
-
-<% if current_user -%>
-  <div class="form-group">
-  <hr>
-  <div class="grid-row">
-    <div class="column-one-half">
-      <h2 class="bold-medium">Add a message</h2>
-      <%= single_field(f, :message_body, :text_area, class: 'form-control form-control-full-width', rows: 4) %>
-    </div>
-  </div>
-  </div>
-<% end -%>
-
-<div class="form-group text-center">
-  <hr>
-  <%= f.submit(t('.submit'), class: 'button button-primary') %>
+    <% end %>
 </div>
-
-<% end %>
