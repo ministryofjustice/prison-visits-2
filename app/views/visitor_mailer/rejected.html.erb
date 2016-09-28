@@ -1,6 +1,6 @@
 <p><%= t('.salutation', name: @visit.visitor_first_name) %></p>
 
-<% case @visit.rejection_reason %>
+<% case @booking_response.reason %>
 <% when 'slot_unavailable' %>
 
   <p><%= t('.slot_unavailable_html',
@@ -12,15 +12,15 @@
 
   <p><%= t('.no_allowance') %></p>
 
-  <% if @visit.privileged_allowance_available? %>
+  <% if @booking_response.privileged_allowance_available? %>
     <p><%= t('.privileged_allowance_available',
-             date: format_date_without_year(@visit.privileged_allowance_expires_on)) %></p>
+             date: format_date_without_year(@booking_response.privileged_allowance_expires_on)) %></p>
   <% end %>
 
-  <% if @visit.allowance_will_renew? %>
+  <% if @booking_response.allowance_will_renew? %>
     <p><%= t('.allowance_will_renew',
              prisoner: @visit.prisoner_anonymized_name,
-             date: format_date_without_year(@visit.allowance_renews_on)) %></p>
+             date: format_date_without_year(@booking_response.allowance_renews_on)) %></p>
   <% end %>
 
 <% when 'prisoner_details_incorrect' %>
@@ -53,10 +53,10 @@
 
 <% end %>
 
-<% if @visit.unlisted_visitors.any? %>
+<% if @booking_response.unlisted_visitors.any? %>
 
   <p><%= t('.visitor_not_on_list',
-           visitors: @visit.unlisted_visitors.map(&:anonymized_name).to_sentence) %></p>
+           visitors: @booking_response.unlisted_visitors.map(&:anonymized_name).to_sentence) %></p>
 
   <p><%= t('.update_list') %></p>
 
@@ -64,16 +64,16 @@
 
 <% end %>
 
-<% if @visit.banned_visitors.any? %>
+<% if @booking_response.banned_visitors.any? %>
 
   <p><%= t('.visitor_banned',
-           visitors: @visit.banned_visitors.map(&:anonymized_name).to_sentence) %></p>
+           visitors: @booking_response.banned_visitors.map(&:anonymized_name).to_sentence) %></p>
 
 <% end %>
 
-<% if @message %>
+<% if @booking_response.message_body %>
   <h2><%= t('.message_title') %></h2>
-  <p><i><%= @message.body %></i></p>
+  <p><i><%= @booking_response.message_body %></i></p>
 <% end %>
 
 <p><%= t('.any_questions_html',

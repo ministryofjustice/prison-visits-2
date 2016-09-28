@@ -46,6 +46,10 @@ Rails.application.routes.draw do
         as: :confirm_nomis_cancellation_visit
     end
 
+    resources :visits, only: [] do
+      resource :email_preview, only: :show
+    end
+
     scope controller: :dashboards do
       get '/inbox', action: :inbox, as: 'inbox'
       get '/processed', action: :processed, as: 'processed_visits'

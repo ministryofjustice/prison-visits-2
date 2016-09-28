@@ -113,6 +113,7 @@ en:
           </ul>
         message_body: Message (optional)
         submit: Process
+        email_preview: Preview Email
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name

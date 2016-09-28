@@ -12,7 +12,15 @@ RSpec.describe PrisonMailer, '.booked' do
       )
     )
   }
-  let(:mail) { described_class.booked(visit) }
+  let(:booking_request) do
+    BookingResponse.new(
+      visit: visit,
+      user: create(:user),
+      selection: BookingResponse::SLOTS.first
+    )
+  end
+
+  let(:mail) { described_class.booked(booking_request.email_attrs) }
 
   before do
     ActionMailer::Base.deliveries.clear

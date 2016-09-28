@@ -1,10 +1,17 @@
+# -*- coding: utf-8 -*-
 require 'rails_helper'
 require 'mailers/shared_mailer_examples'
 
 RSpec.describe VisitorMailer, '.rejected' do
   let(:rejection) { create(:rejection, reason: reason) }
   let(:reason) { 'slot_unavailable' }
-  let(:mail) { described_class.rejected(rejection.visit) }
+  let(:booking_response) do
+    BookingResponse.new(
+      visit:     rejection.visit,
+      selection: reason
+    )
+  end
+  let(:mail) { described_class.rejected(booking_response.email_attrs) }
   let(:body) { mail.html_part.body }
 
   around do |example|
@@ -50,6 +57,7 @@ RSpec.describe VisitorMailer, '.rejected' do
           last_name: 'Johnson',
           sort_index: 2
         )
+        booking_response.banned_visitor_ids = rejection.visit.banned_visitors.map(&:id)
       end
 
       it 'explains the error' do
@@ -77,6 +85,7 @@ RSpec.describe VisitorMailer, '.rejected' do
           last_name: 'Johnson',
           sort_index: 2
         )
+        booking_response.unlisted_visitor_ids = rejection.visit.unlisted_visitors.map(&:id)
       end
 
       it 'explains the error' do
@@ -93,8 +102,8 @@ RSpec.describe VisitorMailer, '.rejected' do
     let(:message) { FactoryGirl.build_stubbed(:message) }
 
     before do
-      expect(rejection.visit).
-        to receive(:rejection_message).and_return(message)
+      expect(booking_response).
+        to receive(:message_body).and_return(message.body)
     end
 
     it 'displays the message' do
@@ -109,16 +118,15 @@ RSpec.describe VisitorMailer, '.rejected' do
   end
 
   context 'no_allowance' do
-    let(:rejection) {
-      create(
-        :rejection,
-        reason: 'no_allowance',
-        allowance_renews_on: Date.new(2015, 10, 1),
-        privileged_allowance_expires_on: Date.new(2015, 10, 2)
-      )
-    }
-
     include_examples 'template checks'
+
+    before do
+      booking_response.selection                       = 'no_allowance'
+      booking_response.privileged_allowance_available  = true
+      booking_response.allowance_will_renew            = true
+      booking_response.allowance_renews_on             = Date.new(2015, 10, 1)
+      booking_response.privileged_allowance_expires_on = Date.new(2015, 10, 2)
+    end
 
     it 'explains the error' do
       expect(body).to match(/has not got any visiting allowance left/)

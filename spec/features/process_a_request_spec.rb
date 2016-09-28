@@ -71,6 +71,14 @@ RSpec.feature 'Processing a request', js: true do
       find('#booking_response_selection_slot_0').click
       fill_in 'Reference number', with: '12345678'
 
+      preview_window = window_opened_by {
+        click_link 'Preview Email'
+      }
+
+      within_window preview_window do
+        expect(page).to have_css('p', text: /Dear #{vst.visitor_full_name}/)
+      end
+
       click_button 'Process'
 
       expect(page).to have_text('a confirmation email has been sent to the visitor')

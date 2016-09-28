@@ -54,6 +54,7 @@ group :development, :test do
   gem 'rubocop'
   gem 'rubocop-rspec'
   gem 'shoulda-matchers'
+  gem 'awesome_print', require: 'ap'
 end
 
 group :test do

@@ -19,17 +19,27 @@ class PrisonMailer < ActionMailer::Base
       request_date: format_date_without_year(preferred_date))
   end
 
-  def booked(visit)
-    @visit = visit
+  def booked(attrs)
+    visit = Visit.find(attrs[:visit_id])
+    user  = User.find_by(id: attrs[:user_id])
     @override_cancel_link = true
+    @booking_response = BookingResponse.new(
+      attrs.merge(visit: visit, user: user)
+    )
 
     mail_prison(visit, prisoner: visit.prisoner_full_name)
   end
 
-  def rejected(visit)
-    @visit = visit
+  def rejected(attrs)
+    @visit = Visit.find(attrs.delete(:visit_id))
+    I18n.locale = visit.locale
+    user = User.find_by(id: attrs.delete(:user_id))
 
-    mail_prison(visit, prisoner: visit.prisoner_full_name)
+    @booking_response = BookingResponse.new(
+      attrs.merge(visit: @visit, user: user)
+    )
+
+    mail_prison(@visit, prisoner: @visit.prisoner_full_name)
   end
 
   def cancelled(visit)

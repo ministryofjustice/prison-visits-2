@@ -143,11 +143,19 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
   end
 
   def banned_visitors
-    visitors.banned
+    if visitors.loaded?
+      visitors.select(&:banned)
+    else
+      visitors.banned
+    end
   end
 
   def unlisted_visitors
-    visitors.unlisted
+    if visitors.loaded?
+      visitors.select(&:not_on_list)
+    else
+      visitors.unlisted
+    end
   end
 
   def acceptance_message
