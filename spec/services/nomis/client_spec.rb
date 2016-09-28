@@ -22,6 +22,14 @@ RSpec.describe Nomis::Client do
       with(headers: { 'X-Request-Id' => 'uuid' })
   end
 
+  it 'raises an APIError if an unexpected exception is raised containing request information' do
+    WebMock.stub_request(:get, /\w/).
+      to_raise(Excon::Errors::Timeout.new('Request Timeout'))
+    expect {
+      subject.get(path, params)
+    }.to raise_error(Nomis::APIError, 'Exception Excon::Errors::Timeout calling GET /nomisapi/lookup/active_offender: Request Timeout')
+  end
+
   describe 'with auth configured' do
     let(:client_token) { 'atoken' }
     let(:client_key) {
