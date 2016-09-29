@@ -15,7 +15,10 @@ module Nomis
         end
 
         @instance ||= begin
-          client = Nomis::Client.new(Rails.configuration.nomis_api_host)
+          host = Rails.configuration.nomis_api_host
+          client_token = Rails.configuration.nomis_api_token
+          client_key = Rails.configuration.nomis_api_key
+          client = Nomis::Client.new(host, client_token, client_key)
           new(client)
         end
       end
