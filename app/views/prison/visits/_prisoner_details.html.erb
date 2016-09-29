@@ -1,15 +1,38 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
+<% if @prisoner_validation_service.valid? %>
+  <div class="tag tag-verified"><i class="tag__icon icon icon-user"></i><%= t('.verified') %></div>
+  <p class="font-xsmall"><%= t('.verified_text') %></p>
+<% else  %>
+  <div class="tag tag-verified tag-verified--error"><i class="tag__icon icon icon-user"></i><%= t('.invalid') %></div>
+  <% @prisoner_validation_service.errors[:base].each do |error| %>
+    <p class="font-xsmall"><%= t(".#{error}") %></p>
+  <% end %>
+<% end %>
 <div class="grid-row push-top">
   <div class="column-one-third">
     <span class="text-secondary"><%= t('.prisoner_name') %></span>
     <div class="bold-small"><%= @booking_response.prisoner_full_name %></div>
   </div>
   <div class="column-one-third">
-    <span class="text-secondary"><%= t('.prisoner_dob') %></span>
+    <span class="text-secondary">
+      <%= t('.prisoner_dob') %>
+      <% if @prisoner_validation_service.valid? %>
+        <i class="icon icon-checkmark colour--turquoise"></i>
+      <% else  %>
+        <i class="icon icon-cross colour--error-colour"></i>
+      <% end %>
+    </span>
     <div class="bold-small"><%= @booking_response.prisoner_date_of_birth.to_s(:short_nomis) %></div>
   </div>
   <div class="column-one-third">
-    <span class="text-secondary"><%= t('.prisoner_number') %></span>
+    <span class="text-secondary">
+      <%= t('.prisoner_number') %>
+        <% if @prisoner_validation_service.valid? %>
+        <i class="icon icon-checkmark colour--turquoise"></i>
+      <% else  %>
+        <i class="icon icon-cross colour--error-colour"></i>
+      <% end %>
+      </span>
     <div class="bold-small"><%= @booking_response.prisoner_number %></div>
   </div>
 </div>

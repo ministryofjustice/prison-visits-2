@@ -123,6 +123,10 @@ en:
         prisoner_name: Prisoner name
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
+        verified: Verified
+        verified_text: The prisoner date of birth and number have been verified. Please check the prisoner name.
+        invalid: Not verified
+        prisoner_does_not_exist: "The provided prisoner information didn't match any prisoner."
       shared:
         what_we_will_tell: What we’ll tell the visitor
       show:

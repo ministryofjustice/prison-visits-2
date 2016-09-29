@@ -1,0 +1,8 @@
+@mixin colour($name, $colour) {
+  .colour--#{$name} {
+    color: $colour;
+  }
+}
+
+@include colour('turquoise', $turquoise);
+@include colour('error-colour', $error-colour);
