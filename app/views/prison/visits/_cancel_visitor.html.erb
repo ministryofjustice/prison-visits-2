@@ -1,0 +1,20 @@
+<% if @visit.can_cancel? %>
+  <details class="push-top">
+    <summary><span class="summary">Issue with a visitor</span></summary>
+    <div class="panel panel-border-narrow">
+      <div class="grid-row">
+        <fieldset>
+          <div class="column-one-third">
+            <label for="cancellation_reason_visitor_banned" class="block-label">
+              <%= radio_button_tag 'cancellation_reason', :visitor_banned, false %>
+              <%= t(".visitor_banned") %>
+            </label>
+          </div>
+        </fieldset>
+      </div>
+      <div class='form-group push-top'>
+        <%= submit_tag t('cancel_visit', scope: :shared), class: 'button' %>
+      </div>
+    </div>
+  </details>
+<% end %>

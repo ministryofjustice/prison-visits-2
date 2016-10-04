@@ -1,0 +1,28 @@
+<%= content_tag :div, class: "column-one-half visitor-labels__visitor-#{index}", id: "visitor-#{index}" do %>
+  <hr class="push-top--half">
+  <h3 class="bold-small float-left"><%= t('visitor_no', n: index + 1, scope: :shared) %></h3>
+  <% if visitor.banned %>
+    <span class="tag tag--heading tag-error">Banned</span>
+  <% end %>
+  <% if visitor.not_on_list %>
+    <span class="tag tag--heading tag-warning">Not listed</span>
+  <% end %>
+  <dl>
+    <dt><%= t('.name') %></dt>
+    <dd><%= visitor.first_name %> <%= visitor.last_name %></dd>
+  </dl>
+  <dl>
+    <dt><%= t('.dob') %></dt>
+    <dd><%= visitor.date_of_birth.to_s(:short_nomis) %> (<%= visitor.age %>)</dd>
+  </dl>
+  <% if index.zero? %>
+    <dl>
+      <dt><%= t('.email') %></dt>
+      <dd><%= @visit.contact_email_address %></dd>
+    </dl>
+    <dl>
+      <dt><%= t('.phone_no') %></dt>
+      <dd><%= @visit.contact_phone_no %></dd>
+    </dl>
+  <% end %>
+<% end %>
