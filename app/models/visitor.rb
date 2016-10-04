@@ -13,6 +13,12 @@ class Visitor < ActiveRecord::Base
     !(banned || not_on_list)
   end
 
+  def status
+    return 'banned' if banned?
+    return 'not on list' if not_on_list?
+    'allowed'
+  end
+
   def self.allowed
     where(banned: false, not_on_list: false)
   end

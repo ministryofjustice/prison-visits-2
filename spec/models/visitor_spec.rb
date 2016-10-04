@@ -38,4 +38,28 @@ RSpec.describe Visitor do
       it { is_expected.to eq(false) }
     end
   end
+
+  describe '#status' do
+    subject { instance.status }
+
+    context 'when is allowed' do
+      it { is_expected.to eq('allowed') }
+    end
+
+    context 'when is banned' do
+      before do
+        instance.banned = true
+      end
+
+      it { is_expected.to eq('banned') }
+    end
+
+    context 'when is not on the list' do
+      before do
+        instance.not_on_list = true
+      end
+
+      it { is_expected.to eq('not on list') }
+    end
+  end
 end

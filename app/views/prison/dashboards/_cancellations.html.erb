@@ -29,7 +29,7 @@
           <td class="long"><%= visit.prisoner_date_of_birth.to_s(:short_nomis) %></td>
           <td><%= format_visit_slot_date_for_staff(visit) %></td>
           <td><%= format_visit_slot_times_for_staff(visit) %></td>
-          <td><%= visit.created_at.to_s(:short) %></td>
+          <td><%= visit.cancellation.created_at.to_s(:short) %></td>
           <td>
           <%=
             form_for(
@@ -43,7 +43,7 @@
           <% end %>
           </td>
         </tr>
-        <%= render 'request_details_row', visit: visit %>
+        <%= render 'cancelled_details_row', visit: visit %>
       <% end %>
     </tbody>
   </table>

@@ -15,5 +15,13 @@ FactoryGirl.define do
     sort_index do |v|
       v.visit.visitors.count
     end
+
+    trait :banned do
+      banned true
+    end
+
+    trait :not_on_list do
+      not_on_list true
+    end
   end
 end

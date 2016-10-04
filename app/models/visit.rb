@@ -164,6 +164,10 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
     visit_state_changes.order('created_at desc').first
   end
 
+  def additional_visitors
+    visitors.reject { |v| v == principal_visitor }
+  end
+
 private
 
   def cancellation!(reason, nomis_cancelled:)

@@ -358,4 +358,29 @@ RSpec.describe Visit, type: :model do
       it { expect(subject.rejection_message).to eq(message) }
     end
   end
+
+  describe '#additional_visitors' do
+    let(:visitor1) { FactoryGirl.build_stubbed(:visitor) }
+    let(:visitor2) { FactoryGirl.build_stubbed(:visitor) }
+
+    describe 'when there is one visitor' do
+      before do
+        subject.visitors = [visitor1]
+      end
+
+      it 'returns an empty list' do
+        expect(subject.additional_visitors).to be_empty
+      end
+    end
+
+    describe 'when there is more than one visitor' do
+      before do
+        subject.visitors = [visitor1, visitor2]
+      end
+
+      it 'returns a list without the principal visitor' do
+        expect(subject.additional_visitors).to eq([visitor2])
+      end
+    end
+  end
 end
