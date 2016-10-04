@@ -1,12 +1,11 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
-<% if @prisoner_validation_service.valid? %>
+<% case @nomis_checker.prisoner_existance_status %>
+<% when StaffNomisChecker::VALID %>
   <div class="tag tag-verified"><i class="tag__icon icon icon-user"></i><%= t('.verified') %></div>
   <p class="font-xsmall"><%= t('.verified_text') %></p>
-<% else  %>
-  <div class="tag tag-verified tag-verified--error"><i class="tag__icon icon icon-user"></i><%= t('.invalid') %></div>
-  <% @prisoner_validation_service.errors[:base].each do |error| %>
-    <p class="font-xsmall"><%= t(".#{error}") %></p>
-  <% end %>
+<% when StaffNomisChecker::INVALID, StaffNomisChecker::UNKNOWN %>
+  <div class="tag tag-verified tag-verified--error"><i class="tag__icon icon icon-user"></i><%= t(".#{@nomis_checker.prisoner_existance_status}") %></div>
+  <p class="font-xsmall"><%= t(".#{@nomis_checker.prisoner_existance_error}_text") %></p>
 <% end %>
 <div class="grid-row push-top">
   <div class="column-one-third">
@@ -16,9 +15,10 @@
   <div class="column-one-third">
     <span class="text-secondary">
       <%= t('.prisoner_dob') %>
-      <% if @prisoner_validation_service.valid? %>
+      <% case @nomis_checker.prisoner_existance_status %>
+      <% when StaffNomisChecker::VALID %>
         <i class="icon icon-checkmark colour--turquoise"></i>
-      <% else  %>
+      <% when StaffNomisChecker::INVALID %>
         <i class="icon icon-cross colour--error-colour"></i>
       <% end %>
     </span>
@@ -27,9 +27,10 @@
   <div class="column-one-third">
     <span class="text-secondary">
       <%= t('.prisoner_number') %>
-        <% if @prisoner_validation_service.valid? %>
+      <% case @nomis_checker.prisoner_existance_status %>
+      <% when StaffNomisChecker::VALID  %>
         <i class="icon icon-checkmark colour--turquoise"></i>
-      <% else  %>
+      <% when StaffNomisChecker::INVALID %>
         <i class="icon icon-cross colour--error-colour"></i>
       <% end %>
       </span>

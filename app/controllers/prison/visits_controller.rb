@@ -7,10 +7,8 @@ class Prison::VisitsController < ApplicationController
   def process_visit
     visit = load_visit
     @booking_response = BookingResponse.new(visit: visit)
-    @prisoner_validation_service = PrisonerValidation.new(
-      noms_id:       visit.prisoner.number,
-      date_of_birth: visit.prisoner.date_of_birth
-    )
+    @nomis_checker = StaffNomisChecker.new(visit)
+
     unless @booking_response.processable?
       flash[:notice] = t('already_processed', scope: [:prison, :flash])
       redirect_to visit_page(@booking_response.visit)
