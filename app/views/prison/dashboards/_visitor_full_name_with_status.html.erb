@@ -1,0 +1,5 @@
+<%= visitor.full_name %>
+<% unless visitor.allowed? %>
+  <br>
+  (<%= visitor.status %>)
+<% end %>
