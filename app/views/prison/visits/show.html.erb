@@ -57,7 +57,7 @@
 <hr>
 <%= render('prisoner_details', visit: @visit) %>
 
-<%= form_tag prison_cancel_visit_path(@visit, locale: 'en'), method: :delete, class: 'form' do -%>
+<%= form_tag cancel_prison_visit_path(@visit, locale: 'en'), class: 'form' do -%>
 
   <%= render 'cancel_prisoner' %>
 
@@ -68,7 +68,7 @@
     <% @visit.slots.each_with_index do |slot, i| %>
     <div class="column-one-third">
       <div class="block-label date-box <%= 'selected' if @visit.slot_granted == slot %>">
-        <span class="date-box__number"><%= ActiveSupport::Inflector.ordinalize(i+1) %></span>
+        <span class="date-box__number"><%= (i+1).ordinalize %></span>
         <span class="date-box__day"><%= format_date_day(slot) %></span>
         <br><%= format_date_of_birth(slot) %> <br><%= format_slot_times(slot) %>
       </div>

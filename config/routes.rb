@@ -28,22 +28,22 @@ Rails.application.routes.draw do
 
     namespace :prison do
       scope controller: :visits do
+        # Linked from the prison emails
         get '/visits/:id', action: :process_visit, as: :visit_process
-        put '/visits/:id', action: :update, as: :visit
+        # Redirected after a visit is processed with no logged in user
         get '/visits/deprecated/:id',
           action: :deprecated_show,
           as: :deprecated_visit
-        delete '/visits/:id', action: :cancel, as: :cancel_visit
       end
     end
   end
 
   namespace :prison do
-    scope controller: :visits do
-      get '/visits/:id', action: :show, as: :visit_show
-      post '/visits/:id/confirm_nomis_cancellation',
-        action: :nomis_cancelled,
-        as: :confirm_nomis_cancellation_visit
+    resources :visits, only: %i[show update] do
+      member do
+        post 'nomis_cancelled'
+        post 'cancel'
+      end
     end
 
     resources :visits, only: [] do
