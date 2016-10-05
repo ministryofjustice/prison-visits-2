@@ -24,14 +24,13 @@
   </div>
 </div>
 
+<% if (@visit.closed? && @visit.booked?) %>
+  <p class="panel panel-border-narrow font-xsmall">
+    <%= t('.closed_visit') %>
+  </p>
+<% end %>
+
 <div class="grid-row">
-  <% if (@visit.closed? && @visit.booked?) %>
-    <div class="column-two-thirds push-top">
-      <div class="panel panel-border-narrow">
-        <small class="text-secondary"><%= t('.closed_visit') %></small>
-      </div>
-    </div>
-  <% end %>
   <% if @visit.rejection %>
     <div class="column-two-thirds push-top">
       <div class="panel panel-border-narrow">
