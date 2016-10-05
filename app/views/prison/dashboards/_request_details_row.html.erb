@@ -1,9 +1,10 @@
 <tr class="hidden-row hide" aria-hidden="true" aria-expanded="false">
   <td colspan="9" class="request-details">
     <div class="request-row-details">
+      <%= render visit.slots %>
       <% visit.slots.each_with_index do |slot, i| %>
         <dl>
-          <dt><%= t('.choice', number: ActiveSupport::Inflector.ordinalize(i+1)) %></dt>
+          <dt><%= t('.choice', number: (i+1).ordinalize %></dt>
           <dd><%= slot.to_date.to_s(:short_nomis) %><br><%= format_slot_times(slot) %></dd>
         </dl>
       <% end %>

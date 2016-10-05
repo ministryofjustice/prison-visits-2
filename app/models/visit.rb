@@ -165,7 +165,7 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
   end
 
   def additional_visitors
-    visitors.reject { |v| v == principal_visitor }
+    @additional_visitors ||= visitors.reject { |v| v == principal_visitor }
   end
 
 private
