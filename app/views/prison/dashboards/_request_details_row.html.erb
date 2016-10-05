@@ -1,7 +1,6 @@
 <tr class="hidden-row hide" aria-hidden="true" aria-expanded="false">
   <td colspan="9" class="request-details">
     <div class="request-row-details">
-      <%= render visit.slots %>
       <% visit.slots.each_with_index do |slot, i| %>
         <dl>
           <dt><%= t('.choice', number: (i+1).ordinalize %></dt>
