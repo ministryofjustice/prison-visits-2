@@ -1,11 +1,9 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
 <% case @nomis_checker.prisoner_existance_status %>
 <% when StaffNomisChecker::VALID %>
-  <div class="tag tag-verified"><i class="tag__icon icon icon-user"></i><%= t('.verified') %></div>
-  <p class="font-xsmall"><%= t('.verified_text') %></p>
+  <p class="panel panel-border-narrow background--highlight font-xsmall"><%= t('.verified_text') %></p>
 <% when StaffNomisChecker::INVALID, StaffNomisChecker::UNKNOWN %>
-  <div class="tag tag-verified tag-verified--error"><i class="tag__icon icon icon-user"></i><%= t(".#{@nomis_checker.prisoner_existance_status}") %></div>
-  <p class="font-xsmall"><%= t(".#{@nomis_checker.prisoner_existance_error}_text") %></p>
+  <p class="panel panel-border-narrow background--highlight font-xsmall"><%= t(".#{@nomis_checker.prisoner_existance_error}_text") %></p>
 <% end %>
 <div class="grid-row push-top">
   <div class="column-one-third">
@@ -17,9 +15,9 @@
       <%= t('.prisoner_dob') %>
       <% case @nomis_checker.prisoner_existance_status %>
       <% when StaffNomisChecker::VALID %>
-        <i class="icon icon-checkmark colour--turquoise"></i>
+        <div class="tag tag-verified"><i class="tag__icon icon icon-user"></i><%= t('.verified') %></div>
       <% when StaffNomisChecker::INVALID %>
-        <i class="icon icon-cross colour--error-colour"></i>
+        <div class="tag tag-verified tag-verified--error"><i class="tag__icon icon icon-user"></i><%= t(".#{@nomis_checker.prisoner_existance_status}") %></div>
       <% end %>
     </span>
     <div class="bold-small"><%= @booking_response.prisoner_date_of_birth.to_s(:short_nomis) %></div>
@@ -29,9 +27,9 @@
       <%= t('.prisoner_number') %>
       <% case @nomis_checker.prisoner_existance_status %>
       <% when StaffNomisChecker::VALID  %>
-        <i class="icon icon-checkmark colour--turquoise"></i>
+        <div class="tag tag-verified"><i class="tag__icon icon icon-user"></i><%= t('.verified') %></div>
       <% when StaffNomisChecker::INVALID %>
-        <i class="icon icon-cross colour--error-colour"></i>
+        <div class="tag tag-verified tag-verified--error"><i class="tag__icon icon icon-user"></i><%= t(".#{@nomis_checker.prisoner_existance_status}") %></div>
       <% end %>
       </span>
     <div class="bold-small"><%= @booking_response.prisoner_number %></div>

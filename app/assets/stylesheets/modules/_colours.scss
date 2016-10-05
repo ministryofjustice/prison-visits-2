@@ -6,3 +6,12 @@
 
 @include colour('turquoise', $turquoise);
 @include colour('error-colour', $error-colour);
+
+
+@mixin background($name, $colour) {
+  .background--#{$name} {
+    background-color: $colour;
+  }
+}
+
+@include background('highlight', $highlight-colour);
