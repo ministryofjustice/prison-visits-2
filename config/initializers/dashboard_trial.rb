@@ -88,6 +88,7 @@ Rails.configuration.dashboard_trial = [
   'Wealstun',
   'Wetherby',
   'Whatton',
+  'Whitemoor',
   'Winchester',
   'Woodhill',
   'Wormwood Scrubs',
