@@ -3,7 +3,7 @@
     <div class="request-row-details">
       <% visit.slots.each_with_index do |slot, i| %>
         <dl>
-          <dt><%= t('.choice', number: (i+1).ordinalize %></dt>
+          <dt><%= t('.choice', number: (i+1).ordinalize) %></dt>
           <dd><%= slot.to_date.to_s(:short_nomis) %><br><%= format_slot_times(slot) %></dd>
         </dl>
       <% end %>
