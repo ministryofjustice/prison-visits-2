@@ -22,6 +22,7 @@ Rails.configuration.dashboard_trial = [
   'Eastwood Park',
   'Elmley',
   'Erlestoke',
+  'Everthorpe',
   'Exeter',
   'Feltham',
   'Ford',
@@ -90,6 +91,7 @@ Rails.configuration.dashboard_trial = [
   'Whatton',
   'Whitemoor',
   'Winchester',
+  'Woolds',
   'Woodhill',
   'Wormwood Scrubs',
   'Wymott'
