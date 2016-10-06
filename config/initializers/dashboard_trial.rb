@@ -1,6 +1,7 @@
 # The dashboard trial enforces the use of the prison dashboard to process visits
 # and switches off the prison emails.
 Rails.configuration.dashboard_trial = [
+  'Askham Grange',
   'Aylesbury',
   'Bedford',
   'Belmarsh',
@@ -21,6 +22,7 @@ Rails.configuration.dashboard_trial = [
   'Ford',
   'Foston Hall',
   'Frankland',
+  'Full Sutton',
   'Garth',
   'Gartree',
   'Glen Parva',
@@ -42,6 +44,7 @@ Rails.configuration.dashboard_trial = [
   'Lancaster Farms',
   'Leeds',
   'Leicester',
+  'Lewes',
   'Lincoln',
   'Lindholme',
   'Littlehey',
@@ -57,6 +60,7 @@ Rails.configuration.dashboard_trial = [
   'Onley',
   'Pentonville',
   'Preston',
+  'Ranby',
   'Risley',
   'Rochester',
   'Send',
@@ -73,6 +77,7 @@ Rails.configuration.dashboard_trial = [
   'Wakefield',
   'Wandsworth',
   'Warren Hill',
+  'Wealstun',
   'Wetherby',
   'Whatton',
   'Winchester',
