@@ -20,6 +20,8 @@ en:
       feedback_submitted: Your question has been submitted
       invalid_date: The date is invalid
       estate_error: You don't access rights, please speak to your manager
+      message_create_error: Your message couldn't be saved
+      message_created: Message created
     feedbacks:
       new:
         title: Contact us
@@ -137,6 +139,10 @@ en:
         ref: Ref
         closed_visit: This is a closed visit
         message_title: Message sent to visitor
+        messages: Messages
+        send_a_message: Send a message
+        send_email: Send email
+        body: Please type your message
       cancel_prisoner:
         prisoner_vos: Issue with the prisoner’s visiting allowance (VOs)
         prisoner_moved: Prisoner has moved prisons

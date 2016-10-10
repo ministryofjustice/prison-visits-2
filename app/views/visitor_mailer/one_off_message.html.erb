@@ -1,0 +1,16 @@
+<p><%= t('.salutation', name: @visit.visitor_first_name) %></p>
+
+
+<p>
+  <%= t('.message', message_body: @message.body) %>
+  <br/>
+  <%= t('.sent_at', sent_at: @message.created_at.to_s(:short)) %>
+</p>
+
+<p><%= t('.any_questions_html',
+         url: link_directory.prison_finder(@visit.prison),
+         phone_no: @visit.prison_phone_no) %></p>
+
+<p>
+  <small><%= t('.visit_id') %> <%= @visit.id %></small>
+</p>

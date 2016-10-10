@@ -47,6 +47,13 @@ class VisitorMailer < ActionMailer::Base
       date: format_date_without_year(visit.date)
   end
 
+  def one_off_message(message)
+    @message = message
+    I18n.locale = message.visit.locale
+
+    mail_visitor message.visit
+  end
+
 private
 
   def mail_visitor(visit, i18n_options = {})

@@ -302,3 +302,13 @@ en:
         Please don’t bring anything restricted or illegal to the prison. The
         <a href="%{url}">%{prison} prison page</a> has more information about
         what you can bring.
+    one_off_message:
+      subject: Message from PVB
+      salutation: Dear %{name},
+      message: >-
+        %{message_body}
+      sent_at: >-
+        Message sent at %{sent_at}
+      any_questions_html:
+        If you have any questions, visit the <a href="%{url}">prison website</a> or call the prison on <strong>%{phone_no}</strong>.
+      visit_id: "Visit ID:"

@@ -41,7 +41,7 @@ class Prison::VisitsController < ApplicationController
 
   def show
     @visit = scoped_visit
-    @message = @visit.messages.first
+    @message = Message.new
   end
 
   def cancel

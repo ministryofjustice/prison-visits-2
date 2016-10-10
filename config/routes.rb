@@ -44,6 +44,8 @@ Rails.application.routes.draw do
         post 'nomis_cancelled'
         post 'cancel'
       end
+
+      resources :messages, only: :create
     end
 
     resources :visits, only: [] do

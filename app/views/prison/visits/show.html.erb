@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<% if (@visit.closed? && @visit.booked?) %>
+<% if @visit.closed? && @visit.booked? %>
   <p class="panel panel-border-narrow font-xsmall">
     <%= t('.closed_visit') %>
   </p>
@@ -54,11 +54,11 @@
 </div>
 
 <hr>
-<%= render('prisoner_details', visit: @visit) %>
+<%= render 'prison/visits/prisoner_details', visit: @visit %>
 
 <%= form_tag cancel_prison_visit_path(@visit, locale: 'en'), class: 'form' do -%>
 
-  <%= render 'cancel_prisoner' %>
+  <%= render 'prison/visits/cancel_prisoner' %>
 
   <hr>
 
@@ -74,7 +74,7 @@
     </div>
     <% end %>
   </div>
-  <%= render 'cancel_date' %>
+  <%= render 'prison/visits/cancel_date' %>
 
   <hr>
 
@@ -82,24 +82,47 @@
   <div class="visitor-labels">
     <div class="grid-row">
       <% @visit.visitors.each_with_index do |visitor, index| %>
-        <%= render 'visitor_detail', visitor: visitor, index: index %>
+        <%= render 'prison/visits/visitor_detail', visitor: visitor, index: index %>
       <% end %>
     </div>
   </div>
-  <%= render 'cancel_visitor' %>
+  <%= render 'prison/visits/cancel_visitor' %>
 
 <% end %> <!-- end form tag -->
 <hr>
 
 <div class="grid-row">
   <div class="column-two-thirds">
-    <% if @message %>
-      <h3 class="heading-medium"><%= t('.message_title') %></h3>
-      <p><blockquote><%= @message.body %></blockquote></p>
-    <% end %>
+    <h3 class="heading-medium" id="messages"><%= t('.messages') %></h3>
+    <div class="panel panel-border-narrow">
+      <h3 class="bold-medium"><%= t('.send_a_message') %></h3>
+
+      <%= form_for [:prison, @visit, @message], html: { class: 'js-SubmitOnce  form' } do |f| -%>
+        <%= single_field(f, :body, :text_area, class: 'form-control form-control-full-width', rows: 4) %>
+        <div class="form-group">
+          <%= f.submit t('.send_email'), class: 'button' %>
+        </div>
+      <% end -%>
+
+      <% if @visit.messages.any? -%>
+        <div class='messages push-top'>
+          <% @visit.messages.each do |message| %>
+            <div class="message">
+              <div class="message-top">
+                <span class="author"><%= message.user.email %></span>
+                <span class="dash">—</span>
+                <span class="datetime"><%= time_ago_in_words(message.created_at) %></span>
+              </div>
+              <p class="message-content"><%= message.body %></p>
+            </div>
+          <% end %>
+        </div>
+      <% end -%>
+    </div>
   </div>
+
   <div class="column-one-third">
     <h3 class="heading-medium">Visit history</h3>
-    <%= render('timeline') %>
+    <%= render 'prison/visits/timeline' %>
   </div>
 </div>
