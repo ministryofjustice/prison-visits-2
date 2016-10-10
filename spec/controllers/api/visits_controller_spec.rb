@@ -138,6 +138,19 @@ RSpec.describe Api::VisitsController do
       end
     end
 
+    context 'with a rejected visit' do
+      let(:rejection_reason) { Rejection::REASONS.sample }
+
+      it 'has the rejection reasons' do
+        BookingResponder.new(
+          BookingResponse.new(visit: visit, selection: rejection_reason)
+        ).respond!
+
+        get :show, params
+        expect(parsed_body['visit']['rejection_reasons']).to eq([rejection_reason])
+      end
+    end
+
     it 'fails if the visit does not exist' do
       params[:id] = '123'
       get :show, params
