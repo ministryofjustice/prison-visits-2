@@ -2,7 +2,7 @@
   <caption class="visuallyhidden"><%= t('title', scope: [:prison, :dashboards, :inbox]) %></caption>
   <thead>
     <tr>
-      <th scope="col"></th>
+      <th scope="col"><span class="visuallyhidden"><%= t('open_close', scope: :shared) %></span></th>
       <th scope="col"><%= t('prisoner_number', scope: :shared) %></th>
       <th scope="col"><%= t('prisoner_name', scope: :shared) %></th>
       <th scope="col"><%= t('dob', scope: :shared) %></th>
@@ -15,11 +15,14 @@
   </thead>
   <tbody>
     <% visits.each do |visit| %>
-      <tr scope="row">
+      <tr>
         <td>
           <a href="#" class="open-close js-RevealNextRow" title="<%= t('open_close', scope: :shared) %>">
             <i class="icon icon-closed">
-              <span class="visuallyhidden"><%= t('open_close', scope: :shared) %></span>
+              <span class="visuallyhidden">
+                <%= t('open_close', scope: :shared) %>
+                <%= t('visit_link_desc', name: visit.prisoner_full_name, number: visit.prisoner_number, scope: [:prison, :dashboards, :inbox]) %>
+              </span>
             </i>
           </a>
         </td>
@@ -30,7 +33,12 @@
         <td aria-label="<%= t('time_slot', scope: :shared) %>"><%= format_slot_times(visit.slots.first) %></td>
         <td aria-label="<%= t('visitors', scope: :shared) %>"><%= visit.visitors.size %></td>
         <td aria-label="<%= t('requested', scope: :shared) %>"><%= visit.created_at.to_s(:short) %></td>
-        <td aria-label="<%= t('actions', scope: :shared) %>"><%= link_to t('view', scope: :shared), prison_visit_path(visit), {:title => t('view', scope: :shared)} %></td>
+        <td aria-label="<%= t('actions', scope: :shared) %>">
+          <%= link_to prison_visit_path(visit), {:title => t('view', scope: :shared)} do %>
+            <%= t('view', scope: :shared) %>
+            <span class="visuallyhidden"><%= t('visit_link_desc', name: visit.prisoner_full_name, number: visit.prisoner_number, scope: [:prison, :dashboards, :inbox]) %></span>
+          <% end %>
+        </td>
       </tr>
       <%= render 'request_details_row', visit: visit %>
     <% end %>

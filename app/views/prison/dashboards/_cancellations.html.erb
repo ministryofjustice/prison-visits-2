@@ -1,7 +1,7 @@
 <% if @cancellations.any? %>
   <p><%= t('.cancel_text') %></p>
   <table class="table--hover push-bottom push-top--half">
-    <caption class="visuallyhidden"><%= t('title', scope: [:prison, :dashboards, :inbox]) %></caption>
+    <caption class="visuallyhidden"><%= t('.table_caption') %></caption>
     <thead>
       <tr>
         <th scope="col"></th>
@@ -17,7 +17,7 @@
     <tbody>
       <% @cancellations.each do |visit| %>
         <tr>
-          <td scope="row">
+          <td>
             <a href="#" class="open-close js-RevealNextRow" title="<%= t('open_close', scope: :shared) %>">
               <i class="icon icon-closed">
                 <span class="visuallyhidden"><%= t('open_close', scope: :shared) %></span>

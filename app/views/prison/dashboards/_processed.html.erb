@@ -17,7 +17,7 @@
     <tbody>
       <% @processed_visits.each do |visit| %>
         <tr>
-          <td scope="row" aria-label="<%= t('prisoner', scope: :shared) %>"><%= visit.prisoner_number %><br/><%= visit.prisoner_full_name %></td>
+          <td aria-label="<%= t('prisoner', scope: :shared) %>"><%= visit.prisoner_number %><br/><%= visit.prisoner_full_name %></td>
           <td class="long" aria-label="<%= t('lead_visitor', scope: :shared) %>"><%= visit.visitor_full_name %></td>
           <td aria-label="<%= t('tel', scope: :shared) %>"><%= visit.contact_phone_no %></td>
           <td aria-label="<%= t('visit_date', scope: :shared) %>"><%= format_visit_slot_date_for_staff(visit) %></td>

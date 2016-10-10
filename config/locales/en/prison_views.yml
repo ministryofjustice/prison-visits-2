@@ -37,6 +37,7 @@ en:
         cancellations: Cancellations
         cancel_text: The visitor has asked to cancel. Please cancel the booking in NOMIS and confirm using the button below
         no_cancellations: There are no new cancellations
+        table_caption: List of visit cancellations
       navigation:
         inbox_html: |
           Inbox <span class='badge badge--red'>%{inbox_count}</span>
@@ -59,6 +60,7 @@ en:
         process_link: View
         requests: Requests
         title: inbox
+        visit_link_desc: visit request details for prisoner %{name} (no. %{number})
       print_visits:
         title: Print visits
         visit_date: Visit date
