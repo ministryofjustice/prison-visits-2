@@ -2,20 +2,20 @@
   <caption class="visuallyhidden"><%= t('title', scope: [:prison, :dashboards, :inbox]) %></caption>
   <thead>
     <tr>
-      <th></th>
-      <th><%= t('prisoner_number', scope: :shared) %></th>
-      <th><%= t('prisoner_name', scope: :shared) %></th>
-      <th><%= t('dob', scope: :shared) %></th>
-      <th><%= t('visit_date', scope: :shared) %></th>
-      <th class="col-time"><%= t('time_slot', scope: :shared) %></th>
-      <th><%= t('visitors', scope: :shared) %></th>
-      <th><%= t('requested', scope: :shared) %></th>
-      <th class="col-actions"><%= t('actions', scope: :shared) %></th>
+      <th scope="col"></th>
+      <th scope="col"><%= t('prisoner_number', scope: :shared) %></th>
+      <th scope="col"><%= t('prisoner_name', scope: :shared) %></th>
+      <th scope="col"><%= t('dob', scope: :shared) %></th>
+      <th scope="col"><%= t('visit_date', scope: :shared) %></th>
+      <th scope="col" class="col-time"><%= t('time_slot', scope: :shared) %></th>
+      <th scope="col"><%= t('visitors', scope: :shared) %></th>
+      <th scope="col"><%= t('requested', scope: :shared) %></th>
+      <th scope="col" class="col-actions"><%= t('actions', scope: :shared) %></th>
     </tr>
   </thead>
   <tbody>
     <% visits.each do |visit| %>
-      <tr>
+      <tr scope="row">
         <td>
           <a href="#" class="open-close js-RevealNextRow" title="<%= t('open_close', scope: :shared) %>">
             <i class="icon icon-closed">
@@ -23,14 +23,14 @@
             </i>
           </a>
         </td>
-        <td><%= visit.prisoner_number %></td>
-        <td class="long"><%= visit.prisoner_full_name %></td>
-        <td class="long"><%= visit.prisoner_date_of_birth.to_s(:short_nomis) %></td>
-        <td><%= visit.slots.first.to_date.to_s(:short_nomis) %></td>
-        <td><%= format_slot_times(visit.slots.first) %></td>
-        <td><%= visit.visitors.size %></td>
-        <td><%= visit.created_at.to_s(:short) %></td>
-        <td><%= link_to t('view', scope: :shared), prison_visit_path(visit), {:title => t('view', scope: :shared)} %></td>
+        <td aria-label="<%= t('prisoner_number', scope: :shared) %>"><%= visit.prisoner_number %></td>
+        <td class="long" aria-label="<%= t('prisoner_name', scope: :shared) %>"><%= visit.prisoner_full_name %></td>
+        <td class="long" aria-label="<%= t('dob', scope: :shared) %>"><%= visit.prisoner_date_of_birth.to_s(:short_nomis) %></td>
+        <td aria-label="<%= t('visit_date', scope: :shared) %>"><%= visit.slots.first.to_date.to_s(:short_nomis) %></td>
+        <td aria-label="<%= t('time_slot', scope: :shared) %>"><%= format_slot_times(visit.slots.first) %></td>
+        <td aria-label="<%= t('visitors', scope: :shared) %>"><%= visit.visitors.size %></td>
+        <td aria-label="<%= t('requested', scope: :shared) %>"><%= visit.created_at.to_s(:short) %></td>
+        <td aria-label="<%= t('actions', scope: :shared) %>"><%= link_to t('view', scope: :shared), prison_visit_path(visit), {:title => t('view', scope: :shared)} %></td>
       </tr>
       <%= render 'request_details_row', visit: visit %>
     <% end %>
