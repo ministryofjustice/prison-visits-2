@@ -24,8 +24,8 @@
 
 <% if @visit_date %>
   <% if @data.any? %>
-    <%= link_to t('.download_csv'), prison_print_visits_path(visit_date: params[:visit_date] ,format: :csv) %>
-    <a class="hidden--print" href="javascript:print()"><%= t('.print') %></a>
+    <%= link_to t('.download_csv_html'), prison_print_visits_path(visit_date: params[:visit_date] ,format: :csv) %>
+    <a class="push-left--half hidden--print" href="javascript:print()"><%= t('.print') %></a>
 
     <% if @data['booked'].nil? -%>
       <p class="lede push-top">No bookings</p>
