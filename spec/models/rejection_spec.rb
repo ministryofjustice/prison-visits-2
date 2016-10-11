@@ -17,17 +17,6 @@ RSpec.describe Rejection, model: true do
     end
   end
 
-  describe '#reason' do
-    let(:reason) { described_class::REASONS.sample }
-    before do
-      subject.update!(reason: reason, visit: create(:visit))
-    end
-
-    it 'copies the reason to the reasons array' do
-      expect(subject.reasons).to eq([reason])
-    end
-  end
-
   describe '#reasons' do
     context 'without rejection reason' do
       it 'returns an empty array' do
