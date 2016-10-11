@@ -15,9 +15,8 @@ class Rejection < ActiveRecord::Base
   ].freeze
 
   belongs_to :visit
-  before_validation :copy_reason_to_reasons
-  validates :reason, inclusion: { in: REASONS }
 
+  validates :reason, inclusion: { in: REASONS }
   validate :validate_reasons
 
   def privileged_allowance_available?
@@ -29,12 +28,6 @@ class Rejection < ActiveRecord::Base
   end
 
 private
-
-  def copy_reason_to_reasons
-    if reason && !reasons.include?(reason)
-      reasons << reason
-    end
-  end
 
   def validate_reasons
     reasons.each do |r|
