@@ -67,7 +67,8 @@ en:
         print: Print
         no_visits: "No visits on %{date}"
         search_list: Search to generate print lists
-        download_csv: Download CSV
+        download_csv_html: |
+          Download CSV <span class="visuallyhidden">(link opens in a new browser window)</span>
       search:
         cancellations: Cancellations
         processed: Processed
