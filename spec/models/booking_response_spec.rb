@@ -15,6 +15,24 @@ RSpec.describe BookingResponse, type: :model do
     expect(subject).to be_valid
   end
 
+  describe '#no_allowance?' do
+    context 'with a selection of no_allowance' do
+      before do
+        subject.selection = 'no_allowance'
+      end
+
+      it { expect(subject.no_allowance?).to be true }
+    end
+
+    context 'with a selection other than no_allowance' do
+      before do
+        subject.selection = anything
+      end
+
+      it { expect(subject.no_allowance?).to be false }
+    end
+  end
+
   describe '#allowance_renews_on' do
     context 'with blank date fields' do
       before do
@@ -172,7 +190,7 @@ RSpec.describe BookingResponse, type: :model do
     end
 
     it 'is invalid if the visit is not processable' do
-      subject.visit.processing_state = 'booked'
+      subject.visit.update!(processing_state: 'booked')
 
       subject.selection = 'slot_unavailable'
 

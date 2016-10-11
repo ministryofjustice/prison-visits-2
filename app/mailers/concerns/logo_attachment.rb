@@ -6,7 +6,11 @@ module LogoAttachment
   end
 
   def attach_logo
-    attachments.inline['govuk-header-logo.png'] =
-      File.read(Rails.root.join('public', 'mailers', 'govuk-header-logo.png'))
+    attachments.inline['govuk-header-logo.png'] = {
+      content: File.read(
+        Rails.root.join('public', 'mailers', 'govuk-header-logo.png')
+      ),
+      mime_type: 'image/png'
+    }
   end
 end

@@ -3,7 +3,10 @@ require 'mailers/shared_mailer_examples'
 
 RSpec.describe VisitorMailer, '.booked' do
   let(:visit) { create(:booked_visit) }
-  let(:mail) { described_class.booked(visit) }
+  let(:bookind_response) do
+    BookingResponse.new(visit: visit, user: create(:user), selection: BookingResponse::SLOTS.first)
+  end
+  let(:mail) { described_class.booked(bookind_response.email_attrs) }
 
   before do
     ActionMailer::Base.deliveries.clear
@@ -29,11 +32,7 @@ RSpec.describe VisitorMailer, '.booked' do
   end
 
   context 'with an acceptance staff message' do
-    let(:message) { FactoryGirl.build_stubbed(:message) }
-
-    before do
-      expect(visit).to receive(:acceptance_message).and_return(message)
-    end
+    let!(:message) { create(:message, visit: visit) }
 
     it 'displays the message' do
       expect(mail.html_part.body).to match(message.body)

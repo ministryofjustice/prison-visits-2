@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'rails_helper'
 require_relative 'untrusted_examples'
 

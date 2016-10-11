@@ -1,4 +1,5 @@
 class Prison::VisitsController < ApplicationController
+  include BookingResponseContext
   before_action :authorize_prison_request
   before_action :authenticate_user, only: %i[ show nomis_cancelled ]
   before_action :require_login_during_trial, only: %w[process_visit update]
@@ -70,32 +71,5 @@ private
     else
       prison_deprecated_visit_path(visit)
     end
-  end
-
-  def load_visit
-    current_user ? scoped_visit : unscoped_visit
-  end
-
-  def scoped_visit
-    Visit.joins(prison: :estate).
-      where(estates: { id: current_estate }).
-      find(params[:id])
-  end
-
-  def unscoped_visit
-    Visit.find(params[:id])
-  end
-
-  def booking_response_params
-    params.
-      require(:booking_response).
-      permit(
-        :visitor_banned, :visitor_not_on_list, :selection, :reference_no,
-        :allowance_will_renew, :privileged_allowance_available, :message_body,
-        :closed_visit,
-        allowance_renews_on: [:day, :month, :year],
-        privileged_allowance_expires_on: [:day, :month, :year],
-        unlisted_visitor_ids: [], banned_visitor_ids: []
-      ).merge(visit: load_visit, user: current_user)
   end
 end

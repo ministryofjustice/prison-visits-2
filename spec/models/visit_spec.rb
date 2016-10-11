@@ -43,6 +43,56 @@ RSpec.describe Visit, type: :model do
     end
   end
 
+  describe '#banned_visitors' do
+    let(:visitors) { spy(subject.visitors) }
+
+    before do
+      allow(subject).to receive(:visitors).and_return(visitors)
+      expect(visitors).to receive(:loaded?).and_return(loaded)
+    end
+
+    context 'when the visitors collection is loaded' do
+      let(:loaded) { true }
+      it 'filters out banned visitors from memory' do
+        subject.banned_visitors
+        expect(visitors).to have_received(:select)
+      end
+    end
+
+    context 'when the visitors collection is not loaded' do
+      let(:loaded) { false }
+      it 'queries the banned visitors from the db' do
+        subject.banned_visitors
+        expect(visitors).to have_received(:banned)
+      end
+    end
+  end
+
+  describe '#unlisted_visitors' do
+    let(:visitors) { spy(subject.visitors) }
+
+    before do
+      allow(subject).to receive(:visitors).and_return(visitors)
+      expect(visitors).to receive(:loaded?).and_return(loaded)
+    end
+
+    context 'when the visitors collection is loaded' do
+      let(:loaded) { true }
+      it 'filters out unlisted visitors from memory' do
+        subject.unlisted_visitors
+        expect(visitors).to have_received(:select)
+      end
+    end
+
+    context 'when the visitors collection is not loaded' do
+      let(:loaded) { false }
+      it 'queries the unlisted visitors from the db' do
+        subject.unlisted_visitors
+        expect(visitors).to have_received(:unlisted)
+      end
+    end
+  end
+
   describe "#confirm_nomis_cancelled" do
     let(:cancellation) do
       FactoryGirl.create(:cancellation,

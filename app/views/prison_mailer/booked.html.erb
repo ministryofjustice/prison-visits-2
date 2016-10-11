@@ -5,35 +5,35 @@
 <table cellspacing="10">
   <tr>
     <th valign="top" align="left">Slot granted</th>
-    <td><%= format_slot_for_public(@visit.slot_granted) %></td>
+    <td><%= format_slot_for_public(@booking_response.slot_granted) %></td>
   </tr>
   <tr>
     <th valign="top" align="left">Prisoner name</th>
-    <td><%= @visit.prisoner_full_name %></td>
+    <td><%= @booking_response.prisoner_full_name %></td>
   </tr>
   <tr>
     <th valign="top" align="left">Prisoner number</th>
-    <td><%= @visit.prisoner_number %></td>
+    <td><%= @booking_response.prisoner_number %></td>
   </tr>
   <tr>
     <th valign="top" align="left">Approved visitors</th>
     <td>
-      <% @visit.visitors.allowed.each do |visitor| %>
+      <% @booking_response.allowed_visitors.each do |visitor| %>
       <div><%= visitor.full_name %></div>
       <% end %>
     </td>
   </tr>
   <tr>
     <th valign="top" align="left">Reference number</th>
-    <td><%= @visit.reference_no %></td>
+    <td><%= @booking_response.reference_no %></td>
   </tr>
   <tr>
     <th valign="top" align="left">Visit ID</th>
-    <td><%= @visit.id %></td>
+    <td><%= @booking_response.id %></td>
   </tr>
   <tr>
     <th valign="top" align="left">Prison</th>
-    <td><%= @visit.prison.name %></td>
+    <td><%= @booking_response.prison.name %></td>
   </tr>
 </table>
 

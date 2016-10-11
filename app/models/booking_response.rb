@@ -9,7 +9,7 @@ class BookingResponse
   # adult age in Prison
   ADULT_AGE = 18
 
-  attribute :visit
+  attribute :visit, Visit
 
   attribute :selection, String, default: 'none'
   validates :selection,
@@ -41,17 +41,30 @@ class BookingResponse
   attribute :message_body, String
   attribute :user, User
 
-  delegate :slots, :prison, :to_param,
-    :prisoner_full_name, :prisoner_number, :prisoner_date_of_birth,
-    :prisoner_first_name, :prisoner_last_name,
-    :contact_email_address, :contact_phone_no,
+  delegate :contact_email_address,
+    :contact_phone_no,
+    :closed?,
+    :id,
+    :prisoner_anonymized_name,
+    :prisoner_date_of_birth,
+    :prisoner_first_name,
+    :prisoner_full_name,
+    :prisoner_last_name,
+    :prisoner_number,
+    :prison,
+    :prison_email_address,
+    :prison_id,
+    :prison_name,
+    :prison_phone_no,
+    :processable?,
+    :processing_state_name,
+    :to_param,
+    :slots,
+    :visitor_full_name,
     :visitors,
-    :processable?, :processing_state_name,
     to: :visit
-  delegate :name, to: :prison, prefix: true
+  delegate :name,     to: :prison, prefix: true
   delegate :visitors, to: :visit
-  delegate :inquiry, to: :selection, prefix: true
-  delegate :no_allowance?, to: :selection_inquiry
 
   def reason
     return 'visitor_not_on_list' if unlisted_visitor_ids.any?
@@ -68,8 +81,12 @@ class BookingResponse
     SLOTS.include?(selection)
   end
 
-  def slot_index
-    SLOTS.index(selection)
+  def slot_granted
+    slots.fetch(slot_index)
+  end
+
+  def allowed_visitors
+    visitors.reject { |v| not_allowed_visitor_ids.include?(v.id) }
   end
 
   def unlisted_visitors
@@ -80,7 +97,45 @@ class BookingResponse
     visitors.select { |v| banned_visitor_ids.include?(v.id) }
   end
 
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
+  def email_attrs
+    attrs = {
+      visit_id:             visit.id,
+      selection:            selection,
+      reference_no:         reference_no,
+      closed_visit:         closed_visit,
+      allowance_will_renew: allowance_will_renew,
+      unlisted_visitor_ids: unlisted_visitor_ids,
+      user_id:              user.try(:id),
+      banned_visitor_ids:   banned_visitor_ids,
+      message_body:         message_body,
+      privileged_allowance_available: privileged_allowance_available
+    }
+
+    if allowance_renews_on.is_a?(Date)
+      attrs[:allowance_renews_on] = allowance_renews_on.to_s
+    end
+
+    if privileged_allowance_expires_on.is_a?(Date)
+      attrs[:privileged_allowance_expires_on] =
+        privileged_allowance_expires_on.to_s
+    end
+
+    attrs
+  end
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
+
+  def no_allowance?
+    selection == Rejection::NO_ALLOWANCE
+  end
+
 private
+
+  def slot_index
+    SLOTS.index(selection)
+  end
 
   def validate_allowance_renews_on
     unless allowance_renews_on && allowance_renews_on.is_a?(Date)
@@ -108,4 +163,9 @@ private
     end
   end
   validate :validate_visit_is_processable
+
+  def not_allowed_visitor_ids
+    @not_allowed_visitor_ids ||=
+      unlisted_visitor_ids + banned_visitor_ids
+  end
 end
