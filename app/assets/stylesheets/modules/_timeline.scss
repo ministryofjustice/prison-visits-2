@@ -55,3 +55,8 @@
       background-color: $black;
     }
   }
+  .timeline__entry--withdrawn {
+    &:after {
+      background-color: $grey-1;
+    }
+  }

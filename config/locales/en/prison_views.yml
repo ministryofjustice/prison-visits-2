@@ -143,7 +143,7 @@ en:
         send_a_message: Send a message
         send_email: Send email
         body: Please type your message
-        visit_history: Visitor history
+        visit_history: Visit history
       timeline:
         requested: Requested
         booked: Booked
