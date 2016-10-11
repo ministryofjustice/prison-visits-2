@@ -5,7 +5,7 @@ class Prison::VisitsController < ApplicationController
   before_action :require_login_during_trial, only: %w[process_visit update]
 
   def process_visit
-    visit = load_visit
+    visit = load_visit.find(params[:id])
     @booking_response = BookingResponse.new(visit: visit)
     @nomis_checker = StaffNomisChecker.new(visit)
 
@@ -29,23 +29,28 @@ class Prison::VisitsController < ApplicationController
   end
 
   def nomis_cancelled
-    visit = scoped_visit
+    visit = scoped_visit.find(params[:id])
     visit.confirm_nomis_cancelled
     flash[:notice] = t('nomis_cancellation_confirmed', scope: [:prison, :flash])
     redirect_to prison_inbox_path
   end
 
   def deprecated_show
-    @visit = unscoped_visit
+    @visit = unscoped_visit.find(params[:id])
   end
 
   def show
-    @visit = scoped_visit
+    @visit = scoped_visit.
+             includes(
+               :visitors,
+               messages: :user,
+               visit_state_changes: :processed_by).
+             find(params[:id])
     @message = Message.new
   end
 
   def cancel
-    @visit = load_visit
+    @visit = load_visit.find(params[:id])
     if @visit.can_cancel?
       @visit.staff_cancellation!(params[:cancellation_reason])
       flash[:notice] = t('visit_cancelled', scope: [:prison, :flash])
@@ -59,8 +64,12 @@ class Prison::VisitsController < ApplicationController
 private
 
   def part_of_trial?
-    estate = unscoped_visit.prison.estate
-    estate.name.in?(Rails.configuration.dashboard_trial)
+    estate_name = Estate.
+                  joins(prisons: :visits).
+                  where(visits: { id: params[:id] }).
+                  pluck('estates.name').
+                  first
+    estate_name.in?(Rails.configuration.dashboard_trial)
   end
 
   def require_login_during_trial
@@ -73,5 +82,31 @@ private
     else
       prison_deprecated_visit_path(visit)
     end
+  end
+
+  def load_visit
+    current_user ? scoped_visit : unscoped_visit
+  end
+
+  def scoped_visit
+    Visit.joins(prison: :estate).
+      where(estates: { id: current_estate })
+  end
+
+  def unscoped_visit
+    Visit
+  end
+
+  def booking_response_params
+    params.
+      require(:booking_response).
+      permit(
+        :visitor_banned, :visitor_not_on_list, :selection, :reference_no,
+        :allowance_will_renew, :privileged_allowance_available, :message_body,
+        :closed_visit,
+        allowance_renews_on: [:day, :month, :year],
+        privileged_allowance_expires_on: [:day, :month, :year],
+        unlisted_visitor_ids: [], banned_visitor_ids: []
+      ).merge(visit: load_visit.find(params[:id]), user: current_user)
   end
 end

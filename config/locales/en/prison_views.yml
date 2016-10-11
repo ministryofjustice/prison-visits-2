@@ -143,6 +143,16 @@ en:
         send_a_message: Send a message
         send_email: Send email
         body: Please type your message
+        visit_history: Visitor history
+      timeline:
+        requested: Requested
+        booked: Booked
+        withdrawn: Withdrawn
+        rejected: Rejected
+        cancelled: Cancelled
+        by: >-
+          by %{name}
+        anonymous: Anonymous
       cancel_prisoner:
         prisoner_vos: Issue with the prisoner’s visiting allowance (VOs)
         prisoner_moved: Prisoner has moved prisons

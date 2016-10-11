@@ -17,7 +17,7 @@
   <td aria-label="<%= t('visitors', scope: :shared) %>"><%= visit.visitors.size %></td>
   <td aria-label="<%= t('requested', scope: :shared) %>"><%= visit.created_at.to_s(:time) %></td>
   <td aria-label="<%= t('actions', scope: :shared) %>">
-    <%= link_to prison_visit_path(visit), {:title => t('view', scope: :shared)} do %>
+    <%= link_to prison_visit_process_path(visit), {:title => t('view', scope: :shared)} do %>
       <%= t('view', scope: :shared) %>
       <span class="visuallyhidden"><%= t('visit_link_desc', name: visit.prisoner_full_name, number: visit.prisoner_number, scope: [:prison, :dashboards, :inbox]) %></span>
     <% end %>
