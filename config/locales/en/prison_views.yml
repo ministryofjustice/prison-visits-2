@@ -248,6 +248,7 @@ en:
     visit_date: Visit date
     visitors: Visitors
     visitor_no: Visitor %{n}
+    warning: Warning
     no_adult: There must be at least one adult visitor
     no_allowance: The prisoner has not got any visiting allowance left for the dates chosen
     prisoner_details_incorrect: The visitor hasn’t given correct information for the prisoner

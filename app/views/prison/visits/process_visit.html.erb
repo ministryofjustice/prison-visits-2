@@ -15,7 +15,7 @@
   <div class="grid-row">
     <div class="column-one-third">
       <h1 class="bold-large float-left"><%= t('.title') %></h1>
-      <span class="tag tag--heading tag-requested font-xsmall float-left"><%= t('requested', scope: 'shared') %></span>
+      <span class="tag tag--heading tag--requested font-xsmall float-left"><%= t('requested', scope: 'shared') %></span>
     </div>
     <div class="column-two-thirds">
       <div class="grid-row">
@@ -51,7 +51,7 @@
   </div>
 <% end -%>
 
-<div class="form-group text-center">
+<div class="form-group">
   <hr>
   <%= f.submit(t('.submit'), class: 'button button-primary') %>
   <div class="push-top"><%= link_to(t('.email_preview'), prison_visit_email_preview_path(@booking_response.visit), class: 'js-LinkPreview', target: '_blank') %>
