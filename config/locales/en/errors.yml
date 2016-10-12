@@ -7,6 +7,10 @@ en:
         invalid: is invalid
         too_short: is too short (minimum is %{count} characters)
       models:
+        booking_response:
+          attributes:
+            visit:
+              already_processed: can't be processed
         prisoner_step:
           attributes:
             number:
@@ -42,3 +46,6 @@ en:
         Check your spam folder too
       bounced: >-
         needs to be checked as messages have been returned in the past
+  booking_response:
+    errors:
+      must_reject_or_accept_visit: "A visit must either be accepted by choosing a date or at least one rejection reason"

@@ -3,20 +3,30 @@ require 'rails_helper'
 RSpec.describe Visit, type: :model do
   subject { build(:visit) }
 
-  let(:mailing) {
+  let(:mailing) do
     double(Mail::Message, deliver_later: nil)
-  }
+  end
+
+  describe 'transitions' do
+    context 'transitioning from requested to rejected' do
+      it 'can not be saved without a rejection' do
+        expect {
+          subject.reject!
+        }.to raise_error(StateMachines::InvalidTransition)
+      end
+    end
+  end
 
   describe 'scopes' do
     describe '.from_estate' do
       let(:visit) do
-        FactoryGirl.create(:visit)
+        create(:visit)
       end
 
       let!(:estate) { visit.prison.estate }
 
       before do
-        FactoryGirl.create(:visit)
+        create(:visit)
       end
 
       subject { described_class.from_estate(estate) }
@@ -39,56 +49,6 @@ RSpec.describe Visit, type: :model do
       context 'when the phone number is invalid' do
         let(:phone_no) { ' 07 00 11 22 33' }
         it { is_expected.to_not be_valid }
-      end
-    end
-  end
-
-  describe '#banned_visitors' do
-    let(:visitors) { spy(subject.visitors) }
-
-    before do
-      allow(subject).to receive(:visitors).and_return(visitors)
-      expect(visitors).to receive(:loaded?).and_return(loaded)
-    end
-
-    context 'when the visitors collection is loaded' do
-      let(:loaded) { true }
-      it 'filters out banned visitors from memory' do
-        subject.banned_visitors
-        expect(visitors).to have_received(:select)
-      end
-    end
-
-    context 'when the visitors collection is not loaded' do
-      let(:loaded) { false }
-      it 'queries the banned visitors from the db' do
-        subject.banned_visitors
-        expect(visitors).to have_received(:banned)
-      end
-    end
-  end
-
-  describe '#unlisted_visitors' do
-    let(:visitors) { spy(subject.visitors) }
-
-    before do
-      allow(subject).to receive(:visitors).and_return(visitors)
-      expect(visitors).to receive(:loaded?).and_return(loaded)
-    end
-
-    context 'when the visitors collection is loaded' do
-      let(:loaded) { true }
-      it 'filters out unlisted visitors from memory' do
-        subject.unlisted_visitors
-        expect(visitors).to have_received(:select)
-      end
-    end
-
-    context 'when the visitors collection is not loaded' do
-      let(:loaded) { false }
-      it 'queries the unlisted visitors from the db' do
-        subject.unlisted_visitors
-        expect(visitors).to have_received(:unlisted)
       end
     end
   end
@@ -273,7 +233,7 @@ RSpec.describe Visit, type: :model do
     end
 
     it 'is rejected after rejecting' do
-      subject.reject!
+      reject_visit subject
       expect(subject).to be_rejected
     end
 
@@ -294,7 +254,7 @@ RSpec.describe Visit, type: :model do
     end
 
     it 'is not processable after rejection' do
-      subject.reject!
+      reject_visit subject
       expect(subject).not_to be_processable
     end
 
@@ -322,7 +282,7 @@ RSpec.describe Visit, type: :model do
 
       it 'is recorded after rejection' do
         expect{
-          subject.reject!
+          reject_visit subject
         }.to change {
           subject.visit_state_changes.rejected.count
         }.by(1)
@@ -453,7 +413,7 @@ RSpec.describe Visit, type: :model do
 
   describe '#rejection_message' do
     before do
-      subject.reject!
+      reject_visit subject
     end
 
     context "when there isn't a message" do

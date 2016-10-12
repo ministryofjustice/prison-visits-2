@@ -13,31 +13,35 @@ class VisitorMailer < ActionMailer::Base
       receipt_date: format_date_without_year(visit.first_date)
   end
 
-  def booked(attrs)
-    visit = Visit.find(attrs[:visit_id])
-    I18n.locale = visit.locale
-    @message = visit.acceptance_message
-
-    user = User.find_by(id: attrs[:user_id])
-    @booking_response = BookingResponse.new(
-      attrs.merge(visit: visit, user: user)
-    )
-
-    mail_visitor visit,
-      date: format_date_without_year(@booking_response.slot_granted.begin_at)
-  end
-
-  def rejected(attrs)
-    @visit = Visit.find(attrs.delete(:visit_id))
+  def booked(attrs, message_attrs = nil)
+    @visit = Visit.find(attrs['id'])
+    @visit.assign_attributes(attrs)
     I18n.locale = @visit.locale
-    user = User.find_by(id: attrs.delete(:user_id))
 
-    @booking_response = BookingResponse.new(
-      attrs.merge(visit: @visit, user: user)
-    )
+    if message_attrs
+      @message = Message.new(message_attrs)
+    end
 
     mail_visitor @visit,
-      date: format_date_without_year(@visit.first_date)
+      date: format_date_without_year(@visit.slot_granted.begin_at)
+  end
+
+  def rejected(attrs, message_attrs = nil)
+    @visit = Visit.find(attrs['id'])
+    @visit.assign_attributes(attrs)
+
+    # Loads the collection in memory we can
+    # then have banned and unlisted visitors from the params
+    @visit.visitors
+
+    @rejection  = @visit.rejection.decorate
+    I18n.locale = @visit.locale
+    if message_attrs
+      @message = Message.new(message_attrs)
+    end
+
+    mail_visitor @visit,
+      prison_name: @visit.prison_name
   end
 
   def cancelled(visit)

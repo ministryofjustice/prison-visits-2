@@ -19,25 +19,30 @@ class PrisonMailer < ActionMailer::Base
       request_date: format_date_without_year(preferred_date))
   end
 
-  def booked(attrs)
-    visit = Visit.find(attrs[:visit_id])
-    user  = User.find_by(id: attrs[:user_id])
+  def booked(attrs, message_attrs = nil)
+    @visit = Visit.find(attrs['id'])
+    @visit.assign_attributes(attrs)
     @override_cancel_link = true
-    @booking_response = BookingResponse.new(
-      attrs.merge(visit: visit, user: user)
-    )
+    if message_attrs
+      @message = Message.new(message_attrs)
+    end
 
-    mail_prison(visit, prisoner: visit.prisoner_full_name)
+    mail_prison(@visit, prisoner: @visit.prisoner_full_name)
   end
 
-  def rejected(attrs)
-    @visit = Visit.find(attrs.delete(:visit_id))
-    I18n.locale = visit.locale
-    user = User.find_by(id: attrs.delete(:user_id))
+  def rejected(attrs, message_attrs = nil)
+    @visit = Visit.find(attrs['id'])
+    @visit.assign_attributes(attrs)
 
-    @booking_response = BookingResponse.new(
-      attrs.merge(visit: @visit, user: user)
-    )
+    # Loads the collection in memory we can
+    # then have banned and unlisted visitors from the params
+    @visit.visitors
+
+    @rejection  = @visit.rejection.decorate
+    I18n.locale = @visit.locale
+    if message_attrs
+      @message = Message.new(message_attrs)
+    end
 
     mail_prison(@visit, prisoner: @visit.prisoner_full_name)
   end

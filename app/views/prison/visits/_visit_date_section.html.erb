@@ -1,46 +1,27 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
 <div class="grid-row push-top choose-date">
-  <%= error_container(f, :selection) do %>
+  <%= error_container(f, :slot_granted) do %>
     <% f.object.slots.each_with_index do |slot, index| %>
       <div class="column-one-third">
-        <label class="block-label date-box" for="booking_response_selection_slot_<%= index %>">
-          <%=
-            f.radio_button(
-              :selection, "slot_#{index}",
-              class: 'js-Conditional',
-              data: {
-                'conditional-el': 'selected_slot_details',
-                'conditional-val': 'slot_0,slot_1,slot_2'
-              }
-            )
-          %>
-          <%= t('.choice_html', n: index+1, day: format_date_day(slot), date: format_date_of_birth(slot), time: format_slot_times(slot)) %>
-        </label>
+        <%= f.label :slot_granted, class: 'block-label date-box', value: slot.iso8601 do %>
+          <%= f.radio_button :slot_granted, slot.iso8601, class: 'js-Conditional', data: { 'conditional-el': 'selected_slot_details', 'conditional-val': 'slot_option_0,slot_option_1,slot_option2'} %>
+          <%= slot.label(index+1) %>
+        <% end %>
       </div>
     <% end %>
   <% end %>
 
   <div class="column-one-half">
     <div id="selected_slot_details" class="panel panel-border-narrow">
-      <%= single_field(f, :reference_no, :text_field, class: 'form-control') %>
-
-      <%=
-        single_field(
-          f, :closed_visit, :check_box
-        )
-      %>
+      <%= single_field f, :reference_no, :text_field, class: 'form-control' %>
+      <%= single_field f, :closed, :check_box  %>
     </div>
   </div>
 
   <div class="column-two-thirds push-top">
-    <%= error_container(f, :selection) do %>
+      <%= error_container f, :slot_granted do %>
       <label class="block-label">
-        <%=
-          f.radio_button(
-            :selection, :slot_unavailable,
-            class: 'js-Conditional'
-          )
-        %>
+        <%= f.radio_button :slot_granted, Rejection::SLOT_UNAVAILABLE, {class: 'js-Conditional'} %>
         <%= t('.none_available') %>
       </label>
     <% end %>

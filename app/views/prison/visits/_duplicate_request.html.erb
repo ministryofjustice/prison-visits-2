@@ -1,12 +1,10 @@
-<h2 class="bold-medium"><%= t('.title') %></h2>
-<%= error_container(f, :selection) do %>
+<h2 class="bold-medium">
+  <%= t('.title') %>
+</h2>
+
+<%= error_container f, :reasons do %>
   <label class="block-label">
-    <%=
-      f.radio_button(
-        :selection, :duplicate_visit_request,
-        class: 'js-Conditional'
-      )
-    %>
+    <%= f.object.checkbox_for :duplicate_visit_request %>
     <%= t('.duplicate_visit_request') %>
   </label>
 <% end %>

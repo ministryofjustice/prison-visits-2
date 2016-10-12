@@ -1,75 +1,49 @@
 <div class="issue-with-prisoner">
   <div class="grid-row push-top">
     <div class="column-one-third">
-      <%= error_container(f, :selection) do %>
+      <%= error_container(rf, :reasons) do %>
         <label class="block-label">
-          <%=
-            f.radio_button(
-              :selection, :no_allowance,
-              class: 'js-Conditional',
-              data: { 'conditional-el': 'no_allowance_details' }
-            )
-          %>
+          <%= rf.object.checkbox_for(:no_allowance, class: 'js-Conditional', data: { 'conditional-el': 'no_allowance_details' }) %>
           <%= t('.no_allowance') %>
         </label>
       <% end %>
-      <%= error_container(f, :selection) do %>
+      <%= error_container(rf, :reasons) do %>
         <label class="block-label">
-          <%=
-            f.radio_button(
-              :selection, :prisoner_released,
-              class: 'js-Conditional'
-            )
-          %>
+          <%= rf.object.checkbox_for(:prisoner_released, class: 'js-Conditional') %>
           <%= t('.prisoner_released') %>
         </label>
       <% end %>
     </div>
     <div class="column-one-third">
-      <%= error_container(f, :selection) do %>
+      <%= error_container(rf, :reasons) do %>
         <label class="block-label">
           <%=
-            f.radio_button(
-              :selection, :prisoner_details_incorrect,
-              class: 'js-Conditional',
-              checked: @nomis_checker.prisoner_existance_status == StaffNomisChecker::INVALID
-            )
+          check_box_tag(
+            'visit[rejection_attributes][reasons][]',
+            :prisoner_details_incorrect,
+            @visit.prisoner_details_incorrect
+          )
           %>
           <%= t('.prisoner_details_incorrect') %>
         </label>
       <% end %>
-      <%= error_container(f, :selection) do %>
+      <%= error_container(rf, :reasons) do %>
         <label class="block-label">
-          <%=
-            f.radio_button(
-              :selection, :prisoner_non_association,
-              class: 'js-Conditional'
-            )
-          %>
+          <%= rf.object.checkbox_for(:prisoner_non_association, class: 'js-Conditional') %>
           <%= t('.prisoner_non_association') %>
         </label>
       <% end %>
     </div>
     <div class="column-one-third">
-      <%= error_container(f, :selection) do %>
+      <%= error_container(rf, :reasons) do %>
         <label class="block-label">
-          <%=
-            f.radio_button(
-              :selection, :prisoner_moved,
-              class: 'js-Conditional'
-            )
-          %>
+          <%= rf.object.checkbox_for(:prisoner_moved, class: 'js-Conditional') %>
           <%= t('.prisoner_moved') %>
         </label>
       <% end %>
-      <%= error_container(f, :selection) do %>
+      <%= error_container(rf, :reasons) do %>
         <label class="block-label">
-          <%=
-            f.radio_button(
-              :selection, :child_protection_issues,
-              class: 'js-Conditional'
-            )
-          %>
+          <%= rf.object.checkbox_for(:child_protection_issues, class: 'js-Conditional') %>
           <%= t('.child_protection_issues') %>
         </label>
       <% end %>
@@ -80,41 +54,25 @@
     <div class="grid-row push-top">
       <div class="column-two-thirds">
         <%=
-          single_field(
-            f, :allowance_will_renew, :check_box,
-            class: 'js-Conditional',
-            data: { 'conditional-el': 'allowance_will_renew_details' }
-          )
+        single_field(
+          rf,
+          :allowance_will_renew, :check_box,
+          {class: 'js-Conditional',
+           data: { 'conditional-el': 'allowance_will_renew_details' }},
+          true, false
+        )
         %>
         <div id="allowance_will_renew_details" class="form-group">
-          <%= f.fields_for :allowance_renews_on, f.object.allowance_renews_on do |pf| %>
-            <%= composite_field(f, :allowance_renews_on) do %>
+          <%= rf.fields_for :allowance_renews_on, rf.object.allowance_renews_on do |af| %>
+            <%= composite_field(rf, :allowance_renews_on) do %>
               <% accessible_date_options.each do |field_name, field_options| %>
-              <div class="datefield form-group form-group-<%= field_name %>">
-                <%= pf.label field_name %>
-                <%= pf.number_field field_name, field_options.merge( class: 'form-control', aria: { describedby: 'allowance_renews_on' }) %>
-              </div>
+                <div class="datefield form-group form-group-<%= field_name %>">
+                  <%= af.label field_name %>
+                  <%= af.number_field field_name, field_options.merge( class: 'form-control', aria: { describedby: 'allowance_renews_on' }) %>
+                </div>
               <% end %>
             <% end %>
-          <% end %>
-        </div>
-        <%=
-          single_field(
-            f, :privileged_allowance_available, :check_box,
-            class: 'js-Conditional',
-            data: { 'conditional-el': 'privileged_allowance_available_details' }
-          )
-        %>
-        <div id="privileged_allowance_available_details" class="form-group">
-          <%= f.fields_for :privileged_allowance_expires_on, f.object.privileged_allowance_expires_on do |pf| %>
-            <%= composite_field(f, :privileged_allowance_expires_on) do %>
-              <% accessible_date_options.each do |field_name, field_options| %>
-              <div class="datefield form-group form-group-<%= field_name %>">
-                <%= pf.label field_name %>
-                <%= pf.number_field field_name, field_options.merge( class: 'form-control', aria: { adescribedby: 'privileged_allowance_expires_on' }) %>
-              </div>
-              <% end %>
-            <% end %>
+
           <% end %>
         </div>
       </div>

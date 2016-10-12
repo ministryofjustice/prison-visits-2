@@ -1,19 +1,28 @@
 require "rails_helper"
 
 RSpec.describe BookingResponder::BookingRequestProcessor do
-  include_context 'booking request processor setup'
+  include_context 'booking response setup'
+
+  let(:booking_response) { BookingResponse.new(visit: visit, user: create(:user)) }
+  let(:message)          { build(:message, body: 'A staff message') }
+  before do
+    visit.assign_attributes(params)
+    expect(booking_response).to be_valid
+  end
+
+  subject { described_class.new(booking_response) }
 
   it '#process_request' do
     expect {
-      subject.process_request { visit.accept! }
+      subject.process_request message do
+        visit.accept!
+      end
     }.to change {
-      unlisted_visitors.map(&:reload).map(&:not_on_list)
-    }.from([false] * 2).to([true] * 2).and change {
-      banned_visitors.map(&:reload).map(&:banned)
-    }.from([false] * 2).to([true] * 2).and change {
-      visit.processing_state
+      visit.reload.processing_state
     }.from('requested').to('booked').and change {
-      visit.messages.where(body: params[:message_body]).count
-    }.by(1)
+      visit.messages.find_by(body: message.body)
+    }.from(nil).to(message)
+
+    expect(visit.last_visit_state.processed_by).to eq(booking_response.user)
   end
 end

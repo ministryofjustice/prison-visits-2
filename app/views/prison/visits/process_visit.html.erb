@@ -1,16 +1,18 @@
 <%# Processing a booking could be done as a non logged in / off user during the trial %>
-<% if current_user %>
-  <%= render 'prison/dashboards/navigation' %>
-<% end %>
+<%= render 'prison/dashboards/navigation' if current_user %>
 
-<%=
-  form_for(
-    @booking_response,
-    url: prison_visit_path(@booking_response),
-    method: :put,
-    html: { class: 'js-SubmitOnce no-form-group js-EmailPreview' }
-  ) do |f|
-%>
+<%= form_for @visit, url: prison_visit_path(@visit), method: :put, html: { class: 'js-SubmitOnce no-form-group js-EmailPreview' } do |f| %>
+  <%= f.hidden_field :id  %>
+  <%= f.hidden_field :slot_option_0  %>
+  <%= f.hidden_field :slot_option_1  %>
+  <%= f.hidden_field :slot_option_2  %>
+  <%= f.hidden_field :prisoner_id  %>
+  <%= f.hidden_field :principal_visitor_id  %>
+  <%= f.hidden_field :processing_state  %>
+  <% @visit.visitors.each do |visitor| %>
+    <%= hidden_field_tag 'visit[visitor_ids][]', visitor.id  %>
+  <% end %>
+  <%= f.hidden_field :prison_id  %>
 
   <div class="grid-row push-top">
     <div class="column-one-third">
@@ -19,42 +21,48 @@
     <div class="column-two-thirds">
       <div class="grid-row">
         <div class="column-two-thirds">
-          <div class="tag tag--requested tag--heading"><%= t('requested', scope: 'shared') %>: <br><%= @booking_response.visit.created_at.to_date.to_s(:short_nomis) %> - <%= @booking_response.visit.created_at.to_s(:time) %></div>
+          <div class="tag tag--requested tag--heading"><%= t('requested', scope: 'shared') %>: <br><%= @visit.created_at.to_date.to_s(:short_nomis) %> - <%= @visit.created_at.to_s(:time) %></div>
         </div>
-        <div class="column-one-third text-right"></div>
       </div>
     </div>
   </div>
-
   <hr>
-  <%= render('validate_prisoner_details', visit: @booking_response) %>
-  <%= render('issue_with_prisoner_section', f: f) %>
+  <%= render 'prisoner_details' %>
+  <%= f.fields_for :rejection, @visit.rejection do |rf| %>
+    <%= render 'issue_with_prisoner_section', rf: rf %>
+    <hr>
+  <% end %>
+  <%= render 'visit_date_section', f: f %>
   <hr>
-  <%= render('visit_date_section', f: f) %>
-  <hr>
-  <%= render('visitor_details', f: f) %>
+  <%= render 'visitor_details', f: f %>
   <hr>
   <div class="form-group">
-    <%= render('duplicate_request', f: f) %>
+    <%= f.fields_for :rejection, @visit.rejection do |rf| %>
+      <%= render 'duplicate_request', f: rf %>
+    <% end %>
   </div>
 
-<% if current_user -%>
+  <% if current_user -%>
+    <div class="form-group">
+      <hr/>
+      <div class="grid-row">
+        <div class="column-one-half">
+          <h2 class="bold-medium">Add a message</h2>
+          <%= fields_for :message, @visit.messages.first || @visit.messages.new do |mf| %>
+            <%= mf.hidden_field :user_id, value: current_user.id %>
+            <%= single_field mf, :body, :text_area, class: 'form-control form-control-full-width', rows: 4 %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end -%>
+
   <div class="form-group">
-  <hr>
-  <div class="grid-row">
-    <div class="column-one-half">
-      <h2 class="bold-medium">Add a message</h2>
-      <%= single_field(f, :message_body, :text_area, class: 'form-control form-control-full-width', rows: 4) %>
+    <hr>
+    <%= f.submit t('.submit'), class: 'button button-primary' %>
+    <div class="push-top">
+      <%= link_to t('.email_preview'), prison_visit_email_preview_path(@booking_response.visit), class: 'js-LinkPreview', target: '_blank' %>
     </div>
   </div>
-  </div>
-<% end -%>
-
-<div class="form-group">
-  <hr>
-  <%= f.submit(t('.submit'), class: 'button button-primary') %>
-  <div class="push-top"><%= link_to(t('.email_preview'), prison_visit_email_preview_path(@booking_response.visit), class: 'js-LinkPreview', target: '_blank') %>
-  </div>
-</div>
 
 <% end %>

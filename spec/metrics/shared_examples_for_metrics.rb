@@ -10,16 +10,29 @@ RSpec.shared_examples 'create rejections without dates' do
     make_visits(mars)
   end
 
+  def reject_visit(booking_response)
+    booking_response.valid?
+    BookingResponder.new(booking_response).respond!
+  end
+
   def make_visits(prison)
     create_list(:booked_visit, 6, prison: prison)
-    nc = create(:rejected_visit, prison: prison)
-    na = create(:rejected_visit, prison: prison)
-    su = create(:rejected_visit, prison: prison)
-    vb = create(:rejected_visit, prison: prison)
-    create(:rejection, visit: nc, reason: 'no_allowance')
-    create(:rejection, visit: na, reason: 'no_allowance')
-    create(:rejection, visit: su, reason: 'slot_unavailable')
-    create(:rejection, visit: vb, reason: 'visitor_banned')
+
+    reject_visit BookingResponse.new(
+      visit: create(:visit, prison: prison, rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
+
+    )
+
+    reject_visit BookingResponse.new(
+      visit: create(:visit, prison: prison, rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
+    )
+
+    reject_visit BookingResponse.new(
+      visit: create(:visit, prison: prison, rejection_attributes: { reasons: ['slot_unavailable'] })
+    )
+    reject_visit BookingResponse.new(
+      visit: create(:visit, prison: prison, rejection_attributes: { reasons: ['visitor_banned'] })
+    )
   end
 end
 
@@ -47,40 +60,40 @@ RSpec.shared_examples 'create rejections with dates' do
     reject_visit BookingResponse.new(
       visit: create(:visit,
         prison:     prison,
-        created_at: Time.zone.local(2016, 2, 1)
-                   ),
-      selection: Rejection::NO_ALLOWANCE
+        created_at: Time.zone.local(2016, 2, 1),
+        rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] }
+                   )
     )
 
     reject_visit BookingResponse.new(
       visit: create(:visit,
         prison:     prison,
-        created_at: Time.zone.local(2016, 2, 2)
-                   ),
-      selection: Rejection::NO_ALLOWANCE
+        created_at: Time.zone.local(2016, 2, 2),
+        rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] }
+                   )
     )
 
     reject_visit BookingResponse.new(
       visit: create(:visit,
         prison:     prison,
-        created_at: Time.zone.local(2016, 2, 3)
-                   ),
-      selection: 'slot_unavailable'
+        created_at: Time.zone.local(2016, 2, 3),
+        rejection_attributes: { reasons: ['slot_unavailable'] }
+                   )
     )
     reject_visit BookingResponse.new(
       visit: create(:visit,
         prison:     prison,
-        created_at: Time.zone.local(2016, 2, 4)
-                   ),
-      selection: 'visitor_banned'
+        created_at: Time.zone.local(2016, 2, 4),
+        rejection_attributes: { reasons: ['visitor_banned'] }
+                   )
     )
 
     reject_visit BookingResponse.new(
       visit: create(:visit,
         prison:     prison,
-        created_at: Time.zone.local(2016, 2, 4)
-                   ),
-      selection: 'no_adult'
+        created_at: Time.zone.local(2016, 2, 4),
+        rejection_attributes: { reasons: ['no_adult'] }
+                   )
     )
   end
 end
@@ -176,13 +189,13 @@ RSpec.shared_examples 'create visits with dates' do
 
   def reject_a_luna_visit_late
     travel_to Time.zone.local(2016, 2, 5) do
-      luna_visit.reject!
+      reject_visit luna_visit
     end
   end
 
   def reject_a_luna_visit_on_time
     travel_to Time.zone.local(2016, 2, 2) do
-      luna_visit.reject!
+      reject_visit luna_visit
     end
   end
 
@@ -200,13 +213,13 @@ RSpec.shared_examples 'create visits with dates' do
 
   def reject_a_mars_visit_late
     travel_to Time.zone.local(2016, 2, 5) do
-      mars_visit.reject!
+      reject_visit mars_visit
     end
   end
 
   def reject_a_mars_visit_on_time
     travel_to Time.zone.local(2016, 2, 2) do
-      mars_visit.reject!
+      reject_visit mars_visit
     end
   end
 

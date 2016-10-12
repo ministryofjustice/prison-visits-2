@@ -1,26 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe BookingResponder do
-  subject { described_class.new(booking_response) }
+  subject { described_class.new(booking_response, message) }
 
-  let(:prison)           { create(:prison) }
   let(:visit)            { create(:visit_with_three_slots) }
-  let(:booking_response) { BookingResponse.new(params) }
-  let(:params)           do
-    {
-      visit:     visit,
-      selection: BookingResponse::SLOTS.sample
-    }
-  end
+  let(:booking_response) { BookingResponse.new(visit: visit) }
+  let(:message)          { nil }
 
   describe 'with a requested visit' do
     let(:accept_processor) { spy(BookingResponder::Accept) }
     let(:reject_processor) { spy(BookingResponder::Reject) }
     let(:visitor_mailer)   { spy(VisitorMailer) }
     let(:prison_mailer)    { spy(PrisonMailer)  }
+    let(:message)          do
+      Message.new(body: 'a chicky message from staff')
+    end
+    let(:message_attributes) { message.attributes.slice('id', 'body') }
 
     context 'when a booking is bookable' do
       before do
+        booking_response.visit.slot_granted = visit.slot_option_0
+        expect(booking_response).to be_valid
+
         expect(BookingResponder::Accept).to receive(:new).
           and_return(accept_processor)
         allow(VisitorMailer).to receive(:booked).
@@ -31,21 +32,22 @@ RSpec.describe BookingResponder do
 
       it 'accepts the booking' do
         subject.respond!
-        expect(accept_processor).to have_received(:process_request)
+        expect(accept_processor).to have_received(:process_request).with(message)
       end
 
       it 'sends the booked emails to prison and visitors' do
         subject.respond!
         expect(PrisonMailer).to have_received(:booked).
-          with(booking_response.email_attrs)
+          with(booking_response.email_attrs, message_attributes)
         expect(VisitorMailer).to have_received(:booked).
-          with(booking_response.email_attrs)
+          with(booking_response.email_attrs, message_attributes)
       end
     end
 
     context 'when a booking is not bookable' do
       before do
-        params.merge!(selection: Rejection::NO_ALLOWANCE)
+        booking_response.visit.slot_granted = Rejection::SLOT_UNAVAILABLE
+        expect(booking_response).to be_valid
 
         expect(BookingResponder::Accept).to_not receive(:new)
         expect(BookingResponder::Reject).to receive(:new).
@@ -64,9 +66,9 @@ RSpec.describe BookingResponder do
       it 'sends the booked emails to prison and visitors' do
         subject.respond!
         expect(VisitorMailer).to have_received(:rejected).
-          with(booking_response.email_attrs)
+          with(booking_response.email_attrs, message_attributes)
         expect(PrisonMailer).to have_received(:rejected).
-          with(booking_response.email_attrs)
+          with(booking_response.email_attrs, message_attributes)
       end
     end
   end

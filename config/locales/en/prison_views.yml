@@ -23,6 +23,7 @@ en:
       message_create_error: Your message couldn't be saved
       message_created: Message created
       no_cancellation_reason: Please provide a cancellation reason
+      process_required: Please either reject or accept the booking
     feedbacks:
       new:
         title: Contact us
@@ -99,7 +100,7 @@ en:
               with visitors’
             </li>
           </ul>
-        message_body: Message (optional)
+        body: Message (optional)
         submit: Process
         email_preview: Preview Email
         prisoner_does_not_exist: "The provided prisoner information didn't match any prisoner."
@@ -108,11 +109,6 @@ en:
         prisoner_name: Prisoner name
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
-        verified: Verified
-        verified_html: |
-          The prisoner date of birth and number have been verified. <br>Please check the prisoner name.
-        invalid: Not verified
-        unknown: Unknown
         prisoner_does_not_exist_text: "The provided prisoner information didn't match any prisoner."
         unknown_text: The check couldn't take place due to a system error, please verify manually
       validate_prisoner_details:
@@ -120,7 +116,7 @@ en:
         prisoner_name: Prisoner name
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
-        verified: Verified
+        verified_text: Verified
         verified_html: |
           The prisoner date of birth and number have been verified. <br>Please check the prisoner name.
         invalid: Not verified
@@ -181,7 +177,7 @@ en:
         prisoner_non_association: Prisoner has a non-association
         child_protection_issues: Prisoner has child protection measures
         no_allowance_tell_more: >-
-          You can also tell the visitor more about the VO and PVO status:
+          You can also tell the visitor more about the VO status:
         allowance_will_renew: >-
           Visiting allowance (weekends and weekday visits) (VO) will
           be renewed:

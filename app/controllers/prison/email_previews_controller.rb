@@ -4,7 +4,11 @@ class Prison::EmailPreviewsController < ApplicationController
   include BookingResponseContext
 
   def show
-    render html: email_preview
+    if booking_response.valid?
+      render html: email_preview
+    else
+      render text: booking_response.errors.full_messages
+    end
   end
 
 private
@@ -17,11 +21,11 @@ private
 
   def booking_response
     @booking_response ||=
-      BookingResponse.new(booking_response_params)
+      BookingResponse.new(visit: Visit.new(visit_params))
   end
 
   def visitor_mailer
     @visitor_mailer ||=
-      BookingResponder.new(booking_response).visitor_mailer
+      BookingResponder.new(booking_response, message).visitor_mailer
   end
 end

@@ -1,5 +1,5 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
-<% case @nomis_checker.prisoner_existance_status %>
+<% case @visit.prisoner_existance_status %>
 <% when StaffNomisChecker::VALID %>
   <div class="notice push-top">
     <i class="icon icon-important">
@@ -12,7 +12,7 @@
     <i class="icon icon-important">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
-    <strong class="bold-small"><%= t(".#{@nomis_checker.prisoner_existance_error}_text") %></strong>
+    <strong class="bold-small"><%= t(".#{@visit.prisoner_existance_error}_text") %></strong>
   </div>
 <% end %>
 <div class="grid-row push-top">
@@ -23,21 +23,21 @@
   <div class="column-one-third">
     <span class="text-secondary"><%= t('.prisoner_dob') %></span>
     <div class="bold-small"><%= @visit.prisoner_date_of_birth.to_s(:short_nomis) %></div>
-    <% case @nomis_checker.prisoner_existance_status %>
+    <% case @visit.prisoner_existance_status %>
     <% when StaffNomisChecker::VALID %>
       <div class="tag tag--booked font-xsmall"><%= t('.verified') %></div>
     <% when StaffNomisChecker::INVALID %>
-      <div class="tag tag--error font-xsmall"><%= t(".#{@nomis_checker.prisoner_existance_status}") %></div>
+      <div class="tag tag--error font-xsmall"><%= t(".#{@visit.prisoner_existance_status}") %></div>
     <% end %>
   </div>
   <div class="column-one-third">
     <span class="text-secondary"><%= t('.prisoner_number') %></span>
     <div class="bold-small"><%= @visit.prisoner_number %></div>
-    <% case @nomis_checker.prisoner_existance_status %>
+    <% case @visit.prisoner_existance_status %>
     <% when StaffNomisChecker::VALID  %>
       <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
     <% when StaffNomisChecker::INVALID %>
-      <div class="font-xsmall tag tag--error"><%= t(".#{@nomis_checker.prisoner_existance_status}") %></div>
+      <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_existance_status}") %></div>
     <% end %>
   </div>
 </div>
