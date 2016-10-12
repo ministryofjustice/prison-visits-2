@@ -82,6 +82,7 @@ RSpec.shared_examples 'create rejections with dates' do
       ),
       selection: 'no_adult'
     )
+
   end
 end
 
