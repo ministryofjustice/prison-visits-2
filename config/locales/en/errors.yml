@@ -26,6 +26,8 @@ en:
       messages:
         blank: "is required"
       models:
+        rejection:
+          invalid_reason: "%{reason} is not in the list"
         prison:
           duplicate_unbookable_date: An unbookable date may not be duplicated
           unbookable_and_anomalous_conflict: An unbookable date may not also be anomalous

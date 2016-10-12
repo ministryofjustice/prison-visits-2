@@ -17,6 +17,7 @@ class Rejection < ActiveRecord::Base
   belongs_to :visit
 
   validates :reason, inclusion: { in: REASONS }
+  validate :validate_reasons
 
   def privileged_allowance_available?
     privileged_allowance_expires_on.present?
@@ -24,5 +25,20 @@ class Rejection < ActiveRecord::Base
 
   def allowance_will_renew?
     allowance_renews_on.present?
+  end
+
+private
+
+  def validate_reasons
+    reasons.each do |r|
+      next if REASONS.include?(r)
+      errors.add(
+        :reasons,
+        I18n.t(
+          'activerecord.errors.models.rejection.invalid_reason',
+          reason: r
+        )
+      )
+    end
   end
 end

@@ -66,6 +66,13 @@ GROUP BY rejected.prison_name,
 
     def self.query
       find_by_sql <<-SQL
+
+WITH rejection_reasons AS (
+  SELECT visit_id, unnest(reasons) AS reason
+  FROM rejections
+  GROUP BY visit_id, reasons
+)
+
 SELECT rejected.prison_name,
        'total' AS reason,
        rejected.year AS year,
@@ -115,7 +122,7 @@ FROM (SELECT reason,
              extract(week from visits.created_at)::integer AS week
       FROM visits
       INNER JOIN prisons ON prisons.id = visits.prison_id
-      INNER JOIN rejections ON rejections.visit_id = visits.id
+      INNER JOIN rejection_reasons ON visits.id = rejection_reasons.visit_id
       WHERE visits.processing_state = 'rejected'
       GROUP BY prison_name,
              prison_id,

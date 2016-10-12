@@ -10,7 +10,9 @@ RSpec.describe BookingResponder::Reject do
       visit.processing_state
     }.from('requested').to('rejected').and change {
       visit.reload.rejection&.reason
-    }.from(nil).to('visitor_not_on_list')
+    }.from(nil).to('visitor_not_on_list').and change {
+      visit.reload.rejection&.reasons
+    }.from(nil).to(['visitor_not_on_list'])
   end
 
   context 'without allowance' do

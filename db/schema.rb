@@ -94,12 +94,13 @@ ActiveRecord::Schema.define(version: 20161011123918) do
   end
 
   create_table "rejections", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "visit_id",                        null: false
+    t.uuid     "visit_id",                                     null: false
     t.date     "allowance_renews_on"
     t.date     "privileged_allowance_expires_on"
-    t.string   "reason",                          null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.string   "reason",                                       null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.string   "reasons",                         default: [],              array: true
   end
 
   add_index "rejections", ["visit_id"], name: "index_rejections_on_visit_id", unique: true, using: :btree
