@@ -108,7 +108,13 @@ en:
         prisoner_name: Prisoner name
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
+        prisoner_does_not_exist_text: "The provided prisoner information didn't match any prisoner."
         unknown_text: The check couldn't take place due to a system error, please verify manually
+      validate_prisoner_details:
+        title: Prisoner details
+        prisoner_name: Prisoner name
+        prisoner_dob: Prisoner D.O.B
+        prisoner_number: Prisoner no.
         verified_text: Verified
         verified_html: |
           The prisoner date of birth and number have been verified. <br>Please check the prisoner name.

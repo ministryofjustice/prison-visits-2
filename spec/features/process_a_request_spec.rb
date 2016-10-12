@@ -370,6 +370,7 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     scenario 'rejecting a booking when no visitors are on the contact list' do
+      choose_date
       vst.visitors.each_with_index do |_visitor, i|
         check "visit[visitors_attributes][#{i}][not_on_list]"
       end
