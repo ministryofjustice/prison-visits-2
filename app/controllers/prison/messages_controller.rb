@@ -3,7 +3,7 @@ class Prison::MessagesController < ApplicationController
   before_action :authenticate_user
 
   def create
-    @visit = load_visit
+    load_visit
     @message = Message.create_and_send_email(message_params)
 
     if @message.persisted?
@@ -18,13 +18,14 @@ class Prison::MessagesController < ApplicationController
 private
 
   def load_visit
-    Visit.joins(prison: :estate).
-      where(estates: { id: current_estate }).
-      find(params[:visit_id])
+    @visit ||= Visit.joins(prison: :estate).
+               where(estates: { id: current_estate }).
+               find(params[:visit_id])
   end
+  alias_method :visit, :load_visit
 
   def message_params
     params.require(:message).permit(:body).
-      merge(user: current_user, visit: @visit)
+      merge(user: current_user, visit: visit)
   end
 end
