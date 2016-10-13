@@ -23,6 +23,7 @@ class Prison::VisitsController < ApplicationController
       flash[:notice] = t('process_thank_you', scope: [:prison, :flash])
       redirect_to visit_page(@visit)
     else
+      @nomis_checker = StaffNomisChecker.new(@booking_response.visit)
       render :process_visit
     end
   end

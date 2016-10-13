@@ -98,6 +98,11 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     scenario 'accepting a booking' do
+      click_button 'Process'
+
+      # Renders the form again
+      expect(page).to have_text('Visit details')
+
       find('#booking_response_selection_slot_0').click
       fill_in 'Reference number', with: '12345678'
 
