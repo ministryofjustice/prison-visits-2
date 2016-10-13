@@ -59,6 +59,7 @@
 @import "form-error";
 @import "helpers";
 @import "icons";
+@import "layouts";
 @import "moj-overrides";
 @import "navigation";
 @import "notification";
@@ -68,7 +69,7 @@
 @import "tag";
 
 @import "modules/date-boxes";
-@import "modules/visitor-labels";
+@import "modules/visitor-card";
 
 // Override resets on element styling
 // for staff info pages

@@ -16,14 +16,32 @@
       outline: 0;
       padding: $gutter-half $gutter;
       text-decoration: none;
+      &:focus {
+        color: $text-colour !important;
+      }
     }
     form.search {
       padding-top: 6px;
+      position: relative;
       .form-label {
         display: inline-block;
       }
-      .form-control {
+      .search-input-wrapper {
+        float: left;
+        width: 100%;
+        padding-right: 40px;
+        margin-right: -40px;
+        box-sizing: border-box;
+      }
+      input#prisoner_number {
         width: 60%;
+        border-right: none;
+      }
+      .button.search {
+        box-shadow: none;
+        height: 37px;
+        float: left;
+        width: 40px;
       }
       .search-icon {
         height: 16px;
@@ -31,15 +49,19 @@
       }
     }
     &.active {
-      background-color: $link-colour;
+      background-color: #004A83;
       a {
         color: $white;
       }
     }
     .badge {
-      position: absolute;
-      right: 5px;
-      top: 5px;
+      font-size: 14px;
+      line-height: 1;
+      padding: 3px 2px 2px;
+      min-width: 15px;
+      display: inline-block;
+      border-radius: 10px;
+      text-align: center;
     }
   }
 }

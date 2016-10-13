@@ -1,0 +1,12 @@
+.visitor-card {
+  border: 1px solid $border-colour;
+  padding: $gutter-half;
+  margin-top: $gutter;
+  @include core-16;
+  dl {
+    margin: 5px 0;
+  }
+  dd {
+    @include bold-16;
+  }
+}

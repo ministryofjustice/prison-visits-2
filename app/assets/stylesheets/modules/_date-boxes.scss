@@ -1,19 +1,38 @@
 .date-box {
-  height: 100px;
-  padding: 15px 15px 15px 60px;
+  background: $white;
+  border: 1px solid $border-colour;
+  height: 105px;
+  min-height: 60px;
+  overflow: hidden;
   position: relative;
+  padding: 10px 10px 10px 70px;
   width: 100%;
+  // z-index: 0;
   @include core-16;
   @include prefix(box-sizing, border-box);
+  input {
+    // z-index: -1;
+  }
   .date-box__number {
+    background: $border-colour;
+    font-size: 48px;
     font-weight: bold;
-    font-size: 2em;
-    right: 10px;
-    padding: 5px;
+    height: 100%;
+    left: 10px;
+    line-height: 105px;
+    margin: -10px 0 0 -10px;
     position: absolute;
+    text-align: center;
     top: 10px;
+    width: 55px;
   }
   .date-box__day {
     @include bold-19;
+  }
+  &.selected {
+    .date-box__number {
+      background: #1B567D;
+      color: $white;
+    }
   }
 }

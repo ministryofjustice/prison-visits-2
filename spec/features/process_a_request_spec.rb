@@ -103,7 +103,8 @@ RSpec.feature 'Processing a request', js: true do
       # Renders the form again
       expect(page).to have_text('Visit details')
 
-      find('#booking_response_selection_slot_0').click
+      find('label[for=booking_response_selection_slot_0]').click
+
       fill_in 'Reference number', with: '12345678'
 
       preview_window = window_opened_by {
@@ -135,15 +136,18 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     context 'disallowed visitors' do
+      let(:visitor) { FactoryGirl.create(:visitor, visit: vst) }
+
       before do
-        vst.visitors << build(:visitor)
+        visitor.save!
+        visit prison_visit_process_path(vst, locale: 'en')
       end
 
       scenario 'accepting a booking while banning a visitor' do
-        find('#booking_response_selection_slot_0').click
+        find('label[for=booking_response_selection_slot_0]').click
         fill_in 'Reference number', with: '12345678'
 
-        within '#visitor-0' do
+        within "#visitor_#{visitor.id}" do
           check 'Visitor is banned'
         end
 
@@ -166,10 +170,10 @@ RSpec.feature 'Processing a request', js: true do
       end
 
       scenario 'accepting a booking while indicating a visitor is not on the list' do
-        find('#booking_response_selection_slot_0').click
+        find('label[for=booking_response_selection_slot_0]').click
         fill_in 'Reference number', with: '12345678'
 
-        within '#visitor-0' do
+        within "#visitor_#{visitor.id}" do
           check 'Visitor is not on the contact list'
         end
 
@@ -293,8 +297,8 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     scenario 'rejecting a booking when no visitors are on the contact list' do
-      vst.visitors.each_with_index do |_, i|
-        within "#visitor-#{i}" do
+      vst.visitors.each do |v|
+        within "#visitor_#{v.id}" do
           check 'Visitor is not on the contact list'
         end
       end
@@ -319,8 +323,8 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     scenario 'rejecting a booking when all visitors are banned' do
-      vst.visitors.each_with_index do |_, i|
-        within "#visitor-#{i}" do
+      vst.visitors.each do |visitor|
+        within "#visitor_#{visitor.id}" do
           check 'Visitor is banned'
         end
       end

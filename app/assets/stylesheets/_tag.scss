@@ -1,11 +1,9 @@
 .tag {
   display: inline-block;
-  line-height: 1;
   padding: 3px 5px 1px;
 }
 .tag--heading {
-  margin-top: 9px;
-  margin-left: 6px;
+  padding: 5px 5px 3px;
 }
 .tag--requested {
   background-color: $colour--requested;
