@@ -1,6 +1,10 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
 <div class="grid-row push-top choose-date">
   <%= error_container(f, :slot_granted) do %>
+    <% @nomis_checker.slots.each_with_index do |slot, index| %>
+
+    <% end %>
+
     <% f.object.slots.each_with_index do |slot, index| %>
       <div class="column-one-third">
         <%= f.label :slot_granted, class: 'block-label date-box', value: slot.iso8601 do %>

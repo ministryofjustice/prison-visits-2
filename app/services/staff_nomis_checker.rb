@@ -25,6 +25,12 @@ class StaffNomisChecker
     prisoner_validation.errors[:base].first
   end
 
+  def slots_errors(slot)
+    return [] unless @nomis_api_enabled
+
+    [prisoner_availability_validation.date_error(slot.to_date)]
+  end
+
 private
 
   def prisoner_validation
@@ -32,5 +38,16 @@ private
       PrisonerValidation.new(
         noms_id: @visit.prisoner_number,
         date_of_birth: @visit.prisoner.date_of_birth).tap(&:valid?)
+  end
+
+  def prisoner_availability_validation
+    @prisoner_availability_validation ||=
+      PrisonerAvailabilityValidation.new(
+        offender: offender,
+        requested_dates: @visit.slots.map(&:to_date)).tap(&:valid?)
+  end
+
+  def offender
+    prisoner_validation.offender
   end
 end

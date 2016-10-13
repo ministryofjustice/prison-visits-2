@@ -51,7 +51,7 @@ RSpec.describe StaffNomisChecker do
     end
   end
 
-  describe 'prisoner_existance_error' do
+  describe '#prisoner_existance_error' do
     before do
       expect(PrisonerValidation).
         to receive(:new).
@@ -67,6 +67,43 @@ RSpec.describe StaffNomisChecker do
 
     it 'is the error from the prisoner validation' do
       expect(instance.prisoner_existance_error).to eq('something')
+    end
+  end
+
+  describe '#slots_errors' do
+    subject { instance.slots_errors(slot) }
+    let(:slot) { visit.slots.first }
+
+    context 'when the nomis api is not enabled' do
+      before do
+        allow(Nomis::Api).to receive(:enabled?).and_return(false)
+      end
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'when the nomis api is enabled' do
+      let(:validator) do
+        double(PrisonerAvailabilityValidation, valid?: false)
+      end
+      let(:offender) { double(Nomis::Offender) }
+
+      let(:message) { PrisonerAvailabilityValidation::PRISONER_NOT_AVAILABLE }
+
+      before do
+        allow(Nomis::Api).to receive(:enabled?).and_return(true)
+        allow(instance).to receive(:offender).and_return(offender)
+        allow(PrisonerAvailabilityValidation).
+          to receive(:new).
+          with(offender: offender, requested_dates: visit.slots.map(&:to_date)).
+          and_return(validator)
+
+        expect(validator).
+          to receive(:date_error).with(visit.slots.first.to_date).
+          and_return(message)
+      end
+
+      it { is_expected.to eq([message]) }
     end
   end
 end
