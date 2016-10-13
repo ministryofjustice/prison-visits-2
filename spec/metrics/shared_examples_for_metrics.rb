@@ -48,7 +48,7 @@ RSpec.shared_examples 'create rejections with dates' do
       visit: create(:visit,
         prison:     prison,
         created_at: Time.zone.local(2016, 2, 1)
-      ),
+                   ),
       selection: Rejection::NO_ALLOWANCE
     )
 
@@ -56,7 +56,7 @@ RSpec.shared_examples 'create rejections with dates' do
       visit: create(:visit,
         prison:     prison,
         created_at: Time.zone.local(2016, 2, 2)
-      ),
+                   ),
       selection: Rejection::NO_ALLOWANCE
     )
 
@@ -64,14 +64,14 @@ RSpec.shared_examples 'create rejections with dates' do
       visit: create(:visit,
         prison:     prison,
         created_at: Time.zone.local(2016, 2, 3)
-      ),
+                   ),
       selection: 'slot_unavailable'
     )
     reject_visit BookingResponse.new(
       visit: create(:visit,
         prison:     prison,
         created_at: Time.zone.local(2016, 2, 4)
-      ),
+                   ),
       selection: 'visitor_banned'
     )
 
@@ -79,10 +79,9 @@ RSpec.shared_examples 'create rejections with dates' do
       visit: create(:visit,
         prison:     prison,
         created_at: Time.zone.local(2016, 2, 4)
-      ),
+                   ),
       selection: 'no_adult'
     )
-
   end
 end
 
