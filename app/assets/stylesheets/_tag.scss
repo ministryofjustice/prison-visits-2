@@ -1,35 +1,37 @@
 .tag {
-  padding: 2px 5px 0;
+  display: inline-block;
+  line-height: 1;
+  padding: 3px 5px 1px;
 }
 .tag--heading {
   margin-top: 9px;
   margin-left: 6px;
 }
-.tag-booked {
-  background-color: $button-colour;
+.tag--requested {
+  background-color: $colour--requested;
   color: $white;
 }
-.tag-cancelled {
-  background-color: $black;
+.tag--booked {
+  background-color: $colour--verified;
   color: $white;
 }
-.tag-error {
-  background-color: $mellow-red;
+.tag--cancelled {
+  background-color: $colour--cancelled;
   color: $white;
 }
-.tag-rejected {
-  background-color: $red;
+.tag--error {
+  background-color: $colour--error;
   color: $white;
 }
-.tag-requested {
-  background-color: $light-blue;
+.tag--rejected {
+  background-color: $colour--error;
   color: $white;
 }
-.tag-warning {
-  background-color: $orange;
+.tag--warning {
+  background-color: $colour--warning;
   color: $white;
 }
-.tag-withdrawn {
-  background-color: $grey-1;
+.tag--withdrawn {
+  background-color: $colour--withdrawn;
   color: $white;
 }

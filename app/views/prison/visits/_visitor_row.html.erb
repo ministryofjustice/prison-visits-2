@@ -3,7 +3,7 @@
   <td><%= visitor.date_of_birth.to_s(:short_nomis) %></td>
   <td>
     <% if lead %>
-      <%= mail_to @visit.contact_email_address %>      
+      <%= mail_to @visit.contact_email_address %>
     <% end %>
   </td>
   <td>
@@ -13,10 +13,10 @@
   </td>
   <td>
     <% if visitor.banned %>
-      <span class="tag tag-error">Banned</span>
+      <span class="tag tag--error">Banned</span>
     <% end %>
     <% if visitor.not_on_list %>
-      <span class="tag tag-warning">Not listed</span>
+      <span class="tag tag--warning">Not listed</span>
     <% end %>
   </td>
 </tr>

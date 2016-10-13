@@ -3,12 +3,12 @@ module Api
     def prisoner
       date, noms_id = validate_prisoner_parameters(params)
 
-      prisoner = PrisonerValidation.new(noms_id: noms_id, date_of_birth: date)
+      checker = ApiPrisonerChecker.new(noms_id: noms_id, date_of_birth: date)
 
-      if prisoner.valid?
+      if checker.valid?
         response = { valid: true }
       else
-        response = { valid: false, errors: prisoner.errors.values.flatten }
+        response = { valid: false, errors: [checker.error] }
       end
 
       render status: 200, json: { validation: response }

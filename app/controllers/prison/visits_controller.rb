@@ -7,6 +7,7 @@ class Prison::VisitsController < ApplicationController
   def process_visit
     visit = load_visit
     @booking_response = BookingResponse.new(visit: visit)
+    @nomis_checker = StaffNomisChecker.new(visit)
 
     unless @booking_response.processable?
       flash[:notice] = t('already_processed', scope: [:prison, :flash])

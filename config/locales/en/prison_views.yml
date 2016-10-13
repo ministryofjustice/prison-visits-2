@@ -117,11 +117,18 @@ en:
         message_body: Message (optional)
         submit: Process
         email_preview: Preview Email
+        prisoner_does_not_exist: "The provided prisoner information didn't match any prisoner."
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
+        verified: Verified
+        verified_text: The prisoner date of birth and number have been verified. Please check the prisoner name.
+        invalid: Not verified
+        unknown: Unknown
+        prisoner_does_not_exist_text: "The provided prisoner information didn't match any prisoner."
+        unknown_text: The check couldn't take place due to a system error, please verify manually
       shared:
         what_we_will_tell: What we’ll tell the visitor
       show:
@@ -241,6 +248,7 @@ en:
     visit_date: Visit date
     visitors: Visitors
     visitor_no: Visitor %{n}
+    warning: Warning
     no_adult: There must be at least one adult visitor
     no_allowance: The prisoner has not got any visiting allowance left for the dates chosen
     prisoner_details_incorrect: The visitor hasn’t given correct information for the prisoner
