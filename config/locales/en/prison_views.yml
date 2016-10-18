@@ -125,6 +125,11 @@ en:
         prisoner_name: Prisoner name
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
+      validate_prisoner_details:
+        title: Prisoner details
+        prisoner_name: Prisoner name
+        prisoner_dob: Prisoner D.O.B
+        prisoner_number: Prisoner no.
         verified: Verified
         verified_html: |
           The prisoner date of birth and number have been verified. <br>Please check the prisoner name.

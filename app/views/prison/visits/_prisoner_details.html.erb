@@ -15,29 +15,3 @@
     <strong class="bold-small"><%= t(".#{@nomis_checker.prisoner_existance_error}_text") %></strong>
   </div>
 <% end %>
-<div class="grid-row push-top">
-  <div class="column-one-third">
-    <span class="text-secondary"><%= t('.prisoner_name') %></span>
-    <div class="bold-small"><%= visit.prisoner_full_name %></div>
-  </div>
-  <div class="column-one-third">
-    <span class="text-secondary"><%= t('.prisoner_dob') %></span>
-    <div class="bold-small"><%= @booking_response.prisoner_date_of_birth.to_s(:short_nomis) %></div>
-    <% case @nomis_checker.prisoner_existance_status %>
-    <% when StaffNomisChecker::VALID %>
-      <div class="tag tag--booked font-xsmall"><%= t('.verified') %></div>
-    <% when StaffNomisChecker::INVALID %>
-      <div class="tag tag--error font-xsmall"><%= t(".#{@nomis_checker.prisoner_existance_status}") %></div>
-    <% end %>
-  </div>
-  <div class="column-one-third">
-    <span class="text-secondary"><%= t('.prisoner_number') %></span>
-    <div class="bold-small"><%= @booking_response.prisoner_number %></div>
-    <% case @nomis_checker.prisoner_existance_status %>
-    <% when StaffNomisChecker::VALID  %>
-      <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
-    <% when StaffNomisChecker::INVALID %>
-      <div class="font-xsmall tag tag--error"><%= t(".#{@nomis_checker.prisoner_existance_status}") %></div>
-    <% end %>
-  </div>
-</div>
