@@ -51,7 +51,9 @@ class VisitorMailer < ActionMailer::Base
     @message = message
     I18n.locale = message.visit.locale
 
-    mail_visitor message.visit
+    mail_visitor message.visit,
+      prison_name: message.visit.prison_name,
+      date: format_date_without_year(message.visit.date)
   end
 
 private

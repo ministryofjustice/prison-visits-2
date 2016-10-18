@@ -142,6 +142,7 @@ en:
         messages: Messages
         send_a_message: Send a message
         send_email: Send email
+        message_not_allowed: You can only send a message to the visitor when the visit is booked.
         body: Please type your message
         visit_history: Visit history
       timeline:
