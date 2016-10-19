@@ -1,6 +1,8 @@
 <%= render 'prison/dashboards/banner' %>
 
-<%= render 'prison/dashboards/navigation' %>
+<% if current_user %>
+  <%= render 'prison/dashboards/navigation' %>
+<% end %>
 
 <div class="grid-row">
   <div class="column-one-third">
@@ -94,19 +96,21 @@
 <div class="grid-row">
   <div class="column-two-thirds">
     <h3 class="bold-medium push-bottom" id="messages"><%= t('.messages') %></h3>
-    <% if @visit.booked? %>
-      <div class="panel panel-border-narrow">
-        <h3 class="bold-medium"><%= t('.send_a_message') %></h3>
-        <%= form_for [:prison, @visit, @message], html: { class: 'js-SubmitOnce  form' } do |f| -%>
-          <%= single_field(f, :body, :text_area, class: 'form-control form-control-full-width', rows: 4) %>
-          <div class="">
-            <%= f.submit t('.send_email'), class: 'button' %>
-          </div>
-        <% end -%>
-      </div>
-    <% else -%>
-      <div class="panel panel-border-narrow"><%= t('.message_not_allowed') %></div>
-    <% end -%>
+    <% if current_user %>
+      <% if @visit.booked? %>
+        <div class="panel panel-border-narrow">
+          <h3 class="bold-medium"><%= t('.send_a_message') %></h3>
+          <%= form_for [:prison, @visit, @message], html: { class: 'js-SubmitOnce  form' } do |f| -%>
+            <%= single_field(f, :body, :text_area, class: 'form-control form-control-full-width', rows: 4) %>
+            <div class="">
+              <%= f.submit t('.send_email'), class: 'button' %>
+            </div>
+          <% end -%>
+        </div>
+      <% else -%>
+        <div class="panel panel-border-narrow"><%= t('.message_not_allowed') %></div>
+      <% end -%>
+    <% end %>
     <% if @visit.messages.any? -%>
       <% @visit.messages.each do |message| %>
         <div class='messages push-top'>
@@ -120,6 +124,8 @@
           </div>
         </div>
       <% end %>
+    <% else %>
+      <p><%= t('.no_messages') %></p>
     <% end -%>
   </div>
 

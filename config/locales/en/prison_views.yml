@@ -22,6 +22,7 @@ en:
       estate_error: You don't access rights, please speak to your manager
       message_create_error: Your message couldn't be saved
       message_created: Message created
+      no_cancellation_reason: Please provide a cancellation reason
     feedbacks:
       new:
         title: Contact us
@@ -81,24 +82,6 @@ en:
     visits:
       calendar:
         today: Today
-      deprecated_show:
-        title: Visit details
-        booked: This request has been accepted, a confirmation email has been sent to the visitor.
-        rejected: This request has been rejected, a rejection email has been sent to the visitor.
-        withdrawn: The visitor has withdrawn this request.
-        cancelled: The visit on %{date} to %{prisoner} is cancelled.
-        cancel_title: Cancel this visit
-        cancel_description: You can cancel this visit if it can no longer take place. This will email the visitor to let them know.
-        cancel_button: Cancel visit
-        booked_in_error: Visit was booked in error
-        slot_unavailable: Visit slot no longer available
-        capacity_issues: Capacity issues in the visit hall
-        prisoner_vos: Issue with the prisoner’s visiting allowance (VOs)
-        prisoner_moved: Prisoner has moved prisons
-        prisoner_released: Prisoner has been released
-        prisoner_non_association: Prisoner has a non-association
-        child_protection_issues: Prisoner has child protection measures
-        visitor_banned: Visitor is banned
       process_visit:
         title: Visit details
         introduction_html: |
@@ -148,6 +131,7 @@ en:
         send_a_message: Send a message
         send_email: Send email
         message_not_allowed: You can only send a message to the visitor when the visit is booked.
+        no_messages: There are currently no messages.
         body: Please type your message
         visit_history: Visit history
       timeline:

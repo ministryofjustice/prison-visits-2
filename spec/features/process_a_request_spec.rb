@@ -36,13 +36,13 @@ RSpec.feature 'Processing a request', js: true do
       let(:vst) { create(:withdrawn_visit) }
 
       scenario 'is not allowed' do
-        expect(page).to have_text('The visitor has withdrawn this request')
+        expect(page).to have_text("Visit can't be processed")
         expect(page).not_to have_text('Process')
       end
     end
 
     context 'with a cancelled visit' do
-      let(:vst) { create(:cancelled_visit) }
+      let(:vst) { create(:cancellation).visit }
 
       scenario 'is not allowed' do
         expect(page).to have_text("Visit can't be processed")
@@ -54,7 +54,7 @@ RSpec.feature 'Processing a request', js: true do
       let(:vst) { create(:booked_visit) }
 
       scenario 'is not allowed' do
-        expect(page).to have_text('This request has been accepted')
+        expect(page).to have_text("Visit can't be processed")
         expect(page).not_to have_text('Process')
       end
     end
@@ -63,7 +63,7 @@ RSpec.feature 'Processing a request', js: true do
       let(:vst) { create(:rejected_visit) }
 
       scenario 'is not allowed' do
-        expect(page).to have_text('This request has been rejected')
+        expect(page).to have_text("Visit can't be processed")
         expect(page).not_to have_text('Process')
       end
     end
@@ -117,7 +117,7 @@ RSpec.feature 'Processing a request', js: true do
 
       click_button 'Process'
 
-      expect(page).to have_text('a confirmation email has been sent to the visitor')
+      expect(page).to have_text('Thank you for processing the visit')
 
       vst.reload
       expect(vst).to be_booked
@@ -153,7 +153,7 @@ RSpec.feature 'Processing a request', js: true do
 
         click_button 'Process'
 
-        expect(page).to have_text('a confirmation email has been sent to the visitor')
+        expect(page).to have_text('Thank you for processing the visit')
 
         vst.reload
         expect(vst).to be_booked
@@ -179,7 +179,7 @@ RSpec.feature 'Processing a request', js: true do
 
         click_button 'Process'
 
-        expect(page).to have_text('a confirmation email has been sent to the visitor')
+        expect(page).to have_text('Thank you for processing the visit')
 
         vst.reload
         expect(vst).to be_booked
@@ -201,7 +201,7 @@ RSpec.feature 'Processing a request', js: true do
 
       click_button 'Process'
 
-      expect(page).to have_text('a rejection email has been sent to the visitor')
+      expect(page).to have_text('Thank you for processing the visit')
 
       vst.reload
       expect(vst).to be_rejected
@@ -236,7 +236,7 @@ RSpec.feature 'Processing a request', js: true do
 
       click_button 'Process'
 
-      expect(page).to have_text('a rejection email has been sent to the visitor')
+      expect(page).to have_text('Thank you for processing the visit')
 
       vst.reload
       expect(vst).to be_rejected
@@ -259,7 +259,7 @@ RSpec.feature 'Processing a request', js: true do
 
       click_button 'Process'
 
-      expect(page).to have_text('a rejection email has been sent to the visitor')
+      expect(page).to have_text('Thank you for processing the visit')
 
       vst.reload
       expect(vst.rejection_reason).to eq('prisoner_details_incorrect')
@@ -280,7 +280,7 @@ RSpec.feature 'Processing a request', js: true do
 
       click_button 'Process'
 
-      expect(page).to have_text('a rejection email has been sent to the visitor')
+      expect(page).to have_text('Thank you for processing the visit')
 
       vst.reload
       expect(vst.rejection_reason).to eq('prisoner_moved')
@@ -305,7 +305,7 @@ RSpec.feature 'Processing a request', js: true do
 
       click_button 'Process'
 
-      expect(page).to have_text('a rejection email has been sent to the visitor')
+      expect(page).to have_text('Thank you for processing the visit')
 
       vst.reload
       expect(vst.rejection_reason).to eq('visitor_not_on_list')
@@ -331,7 +331,7 @@ RSpec.feature 'Processing a request', js: true do
 
       click_button 'Process'
 
-      expect(page).to have_text('a rejection email has been sent to the visitor')
+      expect(page).to have_text('Thank you for processing the visit')
 
       vst.reload
       expect(vst.rejection_reason).to eq('visitor_banned')

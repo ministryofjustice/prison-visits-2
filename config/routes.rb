@@ -30,10 +30,6 @@ Rails.application.routes.draw do
       scope controller: :visits do
         # Linked from the prison emails
         get '/visits/:id', action: :process_visit, as: :visit_process
-        # Redirected after a visit is processed with no logged in user
-        get '/visits/deprecated/:id',
-          action: :deprecated_show,
-          as: :deprecated_visit
       end
     end
   end
