@@ -125,8 +125,8 @@ en:
           The prisoner date of birth and number have been verified. <br>Please check the prisoner name.
         invalid: Not verified
         unknown: Unknown
-        prisoner_does_not_exist_text: "The provided prisoner information didn't match any prisoner."
-        unknown_text: The check couldn't take place due to a system error, please verify manually
+        prisoner_does_not_exist_text: The prisoner date of birth and number do not match.
+        unknown_text: You must check NOMIS to verify prisoner date of birth and number.
       shared:
         what_we_will_tell: What we’ll tell the visitor
       show:
