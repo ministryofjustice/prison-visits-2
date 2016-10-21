@@ -30,8 +30,7 @@
       }
       .button-link {
         color: $white;
-        font-weight: bold;
-        line-height: 23px;
+        line-height: 20px;
         text-decoration: none;
         &:hover {
           text-decoration: underline;
@@ -56,6 +55,7 @@
         #proposition-links {
           li {
             float: left;
+            margin-right: $gutter-half;
           }
         }
       }
