@@ -8,10 +8,12 @@
 
       <li class="float-right text-right">
         <%= form_tag prison_search_path, method: :get, enforce_utf8: false, class: 'form search' do -%>
-            <%= label_tag "prisoner_number", class: "form-label" do -%>
-              <%= t('search', scope: :shared) %>
-            <% end %>
-            <%= text_field_tag 'prisoner_number', params[:prisoner_number], class: 'form-control' %>
+            <div class="search-input-wrapper">
+              <%= label_tag "prisoner_number", class: "form-label" do -%>
+                <%= t('search', scope: :shared) %>
+              <% end %>
+              <%= text_field_tag 'prisoner_number', params[:prisoner_number], class: 'form-control' %>
+            </div>
             <%= button_tag(type: 'submit', class: 'button search', title: "Search") do -%>
               <img alt="Click to search" class="search-icon" src="<%= image_path('icons/search-ico.svg') %>">
             <% end -%>

@@ -65,6 +65,8 @@ class BookingResponse
     to: :visit
   delegate :name,     to: :prison, prefix: true
   delegate :visitors, to: :visit
+  delegate :principal_visitor, to: :visit
+  delegate :additional_visitors, to: :visit
 
   def reason
     return 'visitor_not_on_list' if unlisted_visitor_ids.any?

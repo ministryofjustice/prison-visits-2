@@ -34,7 +34,7 @@
 
       // if a conditional element has been set, run the checks
       if ($el.data('conditionalEl')) {
-        $el.attr('aria-control', $el.data('conditionalEl'));
+        $el.attr('aria-controls', $el.data('conditionalEl'));
 
         // if checked show/hide the extra content
         if($el.is(':checked') || moj.Modules.Conditional.isValueSelected($el, $el.data('conditionalVal'))){

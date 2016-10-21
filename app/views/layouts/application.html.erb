@@ -45,11 +45,13 @@
     <%= yield :banner %>
     <%= yield :navigation %>
     <%= yield :prison_switcher %>
-    <header>
-      <h1 class="heading-large">
-        <%= yield :header %>
-      </h1>
-    </header>
+    <% if content_for?(:header) %>
+      <header>
+        <h1 class="heading-large">
+          <%= yield :header %>
+        </h1>
+      </header>
+    <% end %>
 
     <% if notice.present? %>
       <p class="notification">
