@@ -18,4 +18,14 @@ class Cancellation < ActiveRecord::Base
   belongs_to :visit
 
   validates :reason, inclusion: { in: REASONS }
+  validate :check_visit_not_booked
+
+  private
+
+  def check_visit_not_booked
+    if visit&.booked?
+      errors.add(:base, :visit_booked)
+    end
+  end
+
 end

@@ -31,6 +31,10 @@ en:
         prison:
           duplicate_unbookable_date: An unbookable date may not be duplicated
           unbookable_and_anomalous_conflict: An unbookable date may not also be anomalous
+        cancellation:
+          attributes:
+            base:
+              visit_booked: Can't cancel an already booked date
   email_checker:
     errors:
       unparseable: "is not a valid address"
