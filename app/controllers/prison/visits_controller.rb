@@ -43,6 +43,7 @@ class Prison::VisitsController < ApplicationController
                messages: :user,
                visit_state_changes: :processed_by).
              find(load_visit.id)
+    @nomis_checker = StaffNomisChecker.new(@visit)
     @message = Message.new
   end
 
