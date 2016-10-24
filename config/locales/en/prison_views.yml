@@ -108,6 +108,13 @@ en:
         prisoner_name: Prisoner name
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
+        verified: Verified
+        verified_html: |
+          The prisoner date of birth and number have been verified. <br>Please check the prisoner name.
+        invalid: Not verified
+        unknown: Unknown
+        prisoner_does_not_exist_text: "The provided prisoner information didn't match any prisoner."
+        unknown_text: The check couldn't take place due to a system error, please verify manually
       validate_prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
@@ -189,6 +196,14 @@ en:
         title: Visitor details
         visitor_not_on_list: Visitor is not on the contact list
         visitor_banned: Visitor is banned
+        name: "Name"
+        dob: "Date of birth (age)"
+        email: "Email address"
+        phone_no: "Phone no"
+      visitor_detail:
+        title: Visitor details
+        not_listed: Not listed
+        banned: Banned
         name: "Name"
         dob: "Date of birth (age)"
         email: "Email address"
