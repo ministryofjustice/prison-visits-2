@@ -511,7 +511,6 @@ This is the appropriate process:
 1. Disable the individual prisons (by setting `enabled: false`)
 2. Add a new prison (see above) with the same estate
 
-
 #### Splitting a prison
 
 Conversely, if different parts of an estate now have distinct booking teams or
