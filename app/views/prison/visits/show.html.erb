@@ -4,18 +4,17 @@
   <%= render 'prison/dashboards/navigation' %>
 <% end %>
 
-<div class="grid-row">
+<div class="grid-row push-top">
   <div class="column-one-third">
     <h1 class="bold-large float-left"><%= t('.title') %></h1>
-    <span class="tag tag--heading tag--<%= @visit.processing_state %> font-xsmall float-left"><%= @visit.processing_state.capitalize %></span>
   </div>
   <div class="column-two-thirds">
     <div class="grid-row">
       <div class="column-one-third">
-        <div class="text-secondary"><%= t('requested', scope: 'shared') %>: <br><%= @visit.created_at.to_s(:short) %></div>
+        <div class="tag tag--requested tag--heading"><%= t('requested', scope: 'shared') %>: <br><%= @visit.created_at.to_date.to_s(:short_nomis) %> - <%= @visit.created_at.to_s(:time) %></div>
       </div>
       <div class="column-one-third">
-        <div class="text-secondary"><%= @visit.processing_state.capitalize %>: <br><%= @visit.updated_at.to_s(:short) %></div>
+        <div class="tag tag--<%= @visit.processing_state %> tag--heading"><%= @visit.processing_state.capitalize %>: <br><%= @visit.updated_at.to_date.to_s(:short_nomis) %> - <%= @visit.created_at.to_s(:time) %></div>
       </div>
       <div class="column-one-third">
         <% if @visit.reference_no -%>
@@ -65,11 +64,11 @@
   <hr>
 
   <h2 class="bold-medium">Visit date</h2>
-  <div class="grid-row push-top date-box--chosen">
+  <div class="grid-row push-top">
     <% @visit.slots.each_with_index do |slot, i| %>
     <div class="column-one-third">
-      <div class="block-label date-box <%= 'selected' if @visit.slot_granted == slot %>">
-        <span class="date-box__number"><%= (i+1).ordinalize %></span>
+      <div class="date-box <%= 'selected' if @visit.slot_granted == slot %>">
+        <span class="date-box__number"><%= i+1 %></span>
         <span class="date-box__day"><%= format_date_day(slot) %></span>
         <br><%= format_date_of_birth(slot) %> <br><%= format_slot_times(slot) %>
       </div>
@@ -80,14 +79,7 @@
 
   <hr>
 
-  <h2 class="bold-medium push-bottom"><%= t('visitors', scope: :shared) %></h2>
-  <div class="visitor-labels">
-    <div class="grid-row">
-      <% @visit.visitors.each_with_index do |visitor, index| %>
-        <%= render 'prison/visits/visitor_detail', visitor: visitor, index: index %>
-      <% end %>
-    </div>
-  </div>
+  <%= render 'prison/visits/visitor_detail' %>
   <%= render 'prison/visits/cancel_visitor' %>
 
 <% end %> <!-- end form tag -->

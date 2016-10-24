@@ -14,7 +14,7 @@
               }
             )
           %>
-          <%= t('.choice_html', n: ActiveSupport::Inflector.ordinalize(index+1), day: format_date_day(slot), date: format_date_of_birth(slot), time: format_slot_times(slot)) %>
+          <%= t('.choice_html', n: index+1, day: format_date_day(slot), date: format_date_of_birth(slot), time: format_slot_times(slot)) %>
         </label>
       </div>
     <% end %>

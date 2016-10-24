@@ -5,14 +5,14 @@
       <i class="icon icon-important">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
-    <%= t('.verified_text') %>
+    <strong class="bold-small"><%= t('.verified_html') %></strong>
   </div>
 <% when StaffNomisChecker::INVALID, StaffNomisChecker::UNKNOWN %>
   <div class="notice font-xsmall push-top">
       <i class="icon icon-important">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
-    <%= t(".#{@nomis_checker.prisoner_existance_error}_text") %>
+    <strong class="bold-small"><%= t(".#{@nomis_checker.prisoner_existance_error}_text") %></strong>
   </div>
 <% end %>
 <div class="grid-row push-top">
