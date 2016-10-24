@@ -27,7 +27,7 @@
   </div>
 
   <hr>
-  <%= render('prisoner_details') %>
+  <%= render('validate_prisoner_details', visit: @booking_response) %>
   <%= render('issue_with_prisoner_section', f: f) %>
   <hr>
   <%= render('visit_date_section', f: f) %>

@@ -34,7 +34,7 @@
           <%=
             form_for(
               visit,
-              url: prison_confirm_nomis_cancellation_visit_path(visit),
+              url: nomis_cancelled_prison_visit_path(visit),
               method: :post,
               html: { class: 'js-SubmitOnce' }
             ) do |f|

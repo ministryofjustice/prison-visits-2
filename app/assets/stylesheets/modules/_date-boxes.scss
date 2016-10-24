@@ -36,3 +36,18 @@
     }
   }
 }
+
+.date-box--chosen {
+  .date-box {
+    cursor: default;
+    padding: $gutter-half;
+    &:hover {
+      border-color: transparent;
+    }
+    &.selected {
+      background-color: $link-colour;
+      border-color: $white;
+      color: $white;
+    }
+  }
+}

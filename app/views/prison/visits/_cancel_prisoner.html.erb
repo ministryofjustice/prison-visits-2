@@ -1,0 +1,40 @@
+<% if @visit.can_cancel? %>
+  <details class="push-top">
+    <summary><span class="summary">Issue with the prisoner</span></summary>
+    <div class="panel panel-border-narrow">
+      <div class="grid-row">
+        <fieldset>
+          <div class="column-one-third">
+            <label for="cancellation_reason_prisoner_vos" class="block-label">
+              <%= radio_button_tag 'cancellation_reason', :prisoner_vos, false %>
+              <%= t(".prisoner_vos") %>
+            </label>
+            <label for="cancellation_reason_prisoner_non_association" class="block-label">
+              <%= radio_button_tag 'cancellation_reason', :prisoner_non_association, false %>
+              <%= t(".prisoner_non_association") %>
+            </label>
+          </div>
+          <div class="column-one-third">
+            <label for="cancellation_reason_prisoner_moved" class="block-label">
+              <%= radio_button_tag 'cancellation_reason', :prisoner_moved, false %>
+              <%= t(".prisoner_moved") %>
+            </label>
+                        <label for="cancellation_reason_child_protection_issues" class="block-label">
+              <%= radio_button_tag 'cancellation_reason', :child_protection_issues, false %>
+              <%= t(".child_protection_issues") %>
+            </label>
+          </div>
+          <div class="column-one-third">
+            <label for="cancellation_reason_prisoner_released" class="block-label">
+              <%= radio_button_tag 'cancellation_reason', :prisoner_released, false %>
+              <%= t(".prisoner_released") %>
+            </label>
+          </div>
+        </fieldset>
+      </div>
+      <div class='form-group push-top'>
+        <%= submit_tag t('cancel_visit', scope: :shared), class: 'button' %>
+      </div>
+    </div>
+  </details>
+<% end %>

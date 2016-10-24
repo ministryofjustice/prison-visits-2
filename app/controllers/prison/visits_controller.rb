@@ -1,8 +1,9 @@
 class Prison::VisitsController < ApplicationController
   include BookingResponseContext
   before_action :authorize_prison_request
-  before_action :authenticate_user, only: %i[ show nomis_cancelled ]
-  before_action :require_login_during_trial, only: %w[process_visit update]
+  before_action :require_login_during_trial,
+    only: %w[show nomis_cancelled process_visit update]
+  before_action :cancellation_reason_set, only: :cancel
 
   def process_visit
     visit = load_visit
@@ -29,23 +30,26 @@ class Prison::VisitsController < ApplicationController
   end
 
   def nomis_cancelled
-    visit = scoped_visit
+    visit = load_visit
     visit.confirm_nomis_cancelled
     flash[:notice] = t('nomis_cancellation_confirmed', scope: [:prison, :flash])
     redirect_to prison_inbox_path
   end
 
-  def deprecated_show
-    @visit = unscoped_visit
-  end
-
   def show
-    @visit = scoped_visit
-    @message = @visit.messages.first
+    @visit = Visit.
+             includes(
+               :visitors,
+               messages: :user,
+               visit_state_changes: :processed_by).
+             find(load_visit.id)
+    @nomis_checker = StaffNomisChecker.new(@visit)
+    @message = Message.new
   end
 
   def cancel
     @visit = load_visit
+
     if @visit.can_cancel?
       @visit.staff_cancellation!(params[:cancellation_reason])
       flash[:notice] = t('visit_cancelled', scope: [:prison, :flash])
@@ -58,9 +62,20 @@ class Prison::VisitsController < ApplicationController
 
 private
 
+  def cancellation_reason_set
+    unless params[:cancellation_reason]
+      flash[:notice] = t('no_cancellation_reason', scope: [:prison, :flash])
+      redirect_to action: :show
+    end
+  end
+
   def part_of_trial?
-    estate = unscoped_visit.prison.estate
-    estate.name.in?(Rails.configuration.dashboard_trial)
+    estate_name = Estate.
+                  joins(prisons: :visits).
+                  where(visits: { id: params[:id] }).
+                  pluck('estates.name').
+                  first
+    estate_name.in?(Rails.configuration.dashboard_trial)
   end
 
   def require_login_during_trial
@@ -71,7 +86,7 @@ private
     if current_user
       prison_inbox_path
     else
-      prison_deprecated_visit_path(visit)
+      prison_visit_path(visit)
     end
   end
 end

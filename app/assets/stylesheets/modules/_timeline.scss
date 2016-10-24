@@ -1,0 +1,62 @@
+.timeline {
+  margin-left: 8px;
+}
+  .timeline__entry {
+    padding: 20px;
+    position: relative;
+    @include core-16;
+    &:before {
+      border-left: 4px solid $border-colour;
+      content: "";
+      display: block;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 20px;
+      width: 4px;
+      z-index: 1;
+    }
+    &:after {
+      background-color: $light-blue;
+      content: "";
+      height: 20px;
+      left: -8px;
+      position: absolute;
+      top: 20px;
+      width: 20px;
+      z-index: 2;
+      @include prefix(border-radius, 50%);
+    }
+    &.timeline__entry-last:before {
+      display: none;
+    }
+  }
+  .timeline__date, .timeline__status {
+    position: relative;
+    left: auto;
+    text-align: left;
+  }
+  .timeline__smalltext {
+    color: $secondary-text-colour;
+    display: block;
+    font-size: 14px;
+  }
+  .timeline__date .timeline__smalltext {
+    display: inline-block;
+    margin-left: 5px;
+  }
+  .timeline__entry--booked {
+    &:after {
+      background-color: $green;
+    }
+  }
+  .timeline__entry--cancelled {
+    &:after {
+      background-color: $black;
+    }
+  }
+  .timeline__entry--withdrawn {
+    &:after {
+      background-color: $grey-1;
+    }
+  }

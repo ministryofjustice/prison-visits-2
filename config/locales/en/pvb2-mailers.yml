@@ -302,3 +302,15 @@ en:
         Please don’t bring anything restricted or illegal to the prison. The
         <a href="%{url}">%{prison} prison page</a> has more information about
         what you can bring.
+    one_off_message:
+      subject: "UPDATE: Your visit to %{prison_name} on %{date} (Do not reply)"
+      salutation: Dear %{name},
+      regarding: >-
+        We are writing to you to give you an important information update
+        regarding your visit to %{prison} on %{date}.
+      message: >-
+        %{message_body}
+      any_questions_html:
+        Please be advised that your visit is still confirmed. Should the
+        information in this email mean you can no longer visit on the above date,
+        please <a href="%{url}">cancel your booking</a> or call %{prison} at %{phone_no}.

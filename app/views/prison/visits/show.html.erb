@@ -1,213 +1,136 @@
 <%= render 'prison/dashboards/banner' %>
-<% if @visit.can_cancel? %>
-  <a class="float-right" href="#cancel"><%= t('cancel', scope: :shared) %></a>
-<% end %>
 
-<% content_for :header do %>
-  <%= t('.title') %>
-  <span class="heading-secondary float-right"><%= t('.ref', number: @visit.reference_no) %></span>
+<% if current_user %>
+  <%= render 'prison/dashboards/navigation' %>
 <% end %>
-
-<%= render 'prison/dashboards/navigation' %>
 
 <div class="grid-row">
+  <div class="column-one-third">
+    <h1 class="bold-large float-left"><%= t('.title') %></h1>
+    <span class="tag tag--heading tag--<%= @visit.processing_state %> font-xsmall float-left"><%= @visit.processing_state.capitalize %></span>
+  </div>
   <div class="column-two-thirds">
-    <span class="text-secondary"><%= t('status', scope: :shared) %></span>
-    <h2 class="bold-medium">
-      <%= @visit.processing_state.capitalize %>
-      <% if @visit.rejection %>
-        <small class="font-xsmall">(<%= t(@visit.rejection_reason, scope: :shared) %>)</small>
-      <% end %>
-      <% if (@visit.closed? && @visit.booked?) %>
-        <small class="font-xsmall">(<%= t('.closed_visit') %>)</small>
-      <% end %>
-      <% if @visit.cancelled? %>
-        <small class="font-xsmall">(<%= t(@visit.cancellation_reason, scope: :shared) %>)</small>
-      <% end %>
-    </h2>
+    <div class="grid-row">
+      <div class="column-one-third">
+        <div class="text-secondary"><%= t('requested', scope: 'shared') %>: <br><%= @visit.created_at.to_s(:short) %></div>
+      </div>
+      <div class="column-one-third">
+        <div class="text-secondary"><%= @visit.processing_state.capitalize %>: <br><%= @visit.updated_at.to_s(:short) %></div>
+      </div>
+      <div class="column-one-third">
+        <% if @visit.reference_no -%>
+          <div class="text-secondary"><%= t('.ref') %>: <br><%= @visit.reference_no %></div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="grid-row push-top">
-  <div class="column-quarter">
-    <span class="text-secondary"><%= t('visit_date', scope: :shared) %></span>
-    <h2 class="bold-medium">
-      <%= format_visit_slot_date_for_staff(@visit) %>
-    </h2>
-  </div>
-  <div class="column-quarter">
-    <span class="text-secondary"><%= t('time_slot', scope: :shared) %></span>
-    <h2 class="bold-medium">
-      <%= format_visit_slot_times_for_staff(@visit) %>
-    </h2>
-  </div>
-  <div class="column-quarter">
-    <span class="text-secondary"><%= t('requested_on', scope: :shared) %></span>
-      <h2 class="bold-medium">
-        <%= @visit.created_at.to_s(:short) %>
-      </h2>
-  </div>
-  <div class="column-quarter">
-    <span class="text-secondary"><%= t('processed_on', scope: :shared) %></span>
-      <h2 class="bold-medium">
-        <%= @visit.updated_at.to_s(:short) %>
-      </h2>
-  </div>
+<% if @visit.closed? && @visit.booked? %>
+  <p class="panel panel-border-narrow font-xsmall">
+    <%= t('.closed_visit') %>
+  </p>
+<% end %>
+
+<div class="grid-row">
+  <% if @visit.rejection %>
+    <div class="column-two-thirds push-top">
+      <div class="panel panel-border-narrow">
+        <div class="text-secondary">
+          <%= @visit.processing_state.capitalize %> reason
+        </div>
+        <small class="font-xsmall"><%= t(@visit.rejection_reason, scope: :shared) %></small>
+      </div>
+    </div>
+  <% end %>
+  <% if @visit.cancelled? %>
+    <div class="column-two-thirds push-top">
+      <div class="panel panel-border-narrow">
+        <div class="text-secondary">
+          <%= @visit.processing_state.capitalize %> reason
+        </div>
+        <small class="font-xsmall"><%= t(@visit.cancellation_reason, scope: :shared) %></small>
+      </div>
+    </div>
+  <% end %>
 </div>
 
+<hr>
+<%= render 'prison/visits/prisoner_details', visit: @visit %>
+
+<%= form_tag cancel_prison_visit_path(@visit, locale: 'en'), class: 'form' do -%>
+
+  <%= render 'prison/visits/cancel_prisoner' %>
+
+  <hr>
+
+  <h2 class="bold-medium">Visit date</h2>
+  <div class="grid-row push-top date-box--chosen">
+    <% @visit.slots.each_with_index do |slot, i| %>
+    <div class="column-one-third">
+      <div class="block-label date-box <%= 'selected' if @visit.slot_granted == slot %>">
+        <span class="date-box__number"><%= (i+1).ordinalize %></span>
+        <span class="date-box__day"><%= format_date_day(slot) %></span>
+        <br><%= format_date_of_birth(slot) %> <br><%= format_slot_times(slot) %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <%= render 'prison/visits/cancel_date' %>
+
+  <hr>
+
+  <h2 class="bold-medium push-bottom"><%= t('visitors', scope: :shared) %></h2>
+  <div class="visitor-labels">
+    <div class="grid-row">
+      <% @visit.visitors.each_with_index do |visitor, index| %>
+        <%= render 'prison/visits/visitor_detail', visitor: visitor, index: index %>
+      <% end %>
+    </div>
+  </div>
+  <%= render 'prison/visits/cancel_visitor' %>
+
+<% end %> <!-- end form tag -->
 <hr>
 
 <div class="grid-row">
   <div class="column-two-thirds">
-    <h3 class="bold-medium"><%= t('prisoner', scope: :shared) %></h3>
-    <table>
-      <caption class="visuallyhidden"><%= t('prisoner', scope: :shared) %></caption>
-      <thead>
-        <tr>
-          <th><%= t('name', scope: :shared) %></th>
-          <th><%= t('prisoner_number', scope: :shared) %></th>
-          <th><%= t('dob', scope: :shared) %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><%= @visit.prisoner_full_name %></td>
-          <td><%= @visit.prisoner_number %></td>
-          <td><%= @visit.prisoner_date_of_birth.to_s(:short_nomis) %></td>
-        </tr>
-      </tbody>
-    </table>
+    <h3 class="bold-medium push-bottom" id="messages"><%= t('.messages') %></h3>
+    <% if current_user %>
+      <% if @visit.booked? %>
+        <div class="panel panel-border-narrow">
+          <h3 class="bold-medium"><%= t('.send_a_message') %></h3>
+          <%= form_for [:prison, @visit, @message], html: { class: 'js-SubmitOnce  form' } do |f| -%>
+            <%= single_field(f, :body, :text_area, class: 'form-control form-control-full-width', rows: 4) %>
+            <div class="">
+              <%= f.submit t('.send_email'), class: 'button' %>
+            </div>
+          <% end -%>
+        </div>
+      <% else -%>
+        <div class="panel panel-border-narrow"><%= t('.message_not_allowed') %></div>
+      <% end -%>
+    <% end %>
+    <% if @visit.messages.any? -%>
+      <% @visit.messages.each do |message| %>
+        <div class='messages push-top'>
+          <div class="message">
+            <div class="message-top">
+              <span class="bold-small"><%= message.user.email %></span>
+              <span class="dash">—</span>
+              <span class="datetime"><%= time_ago_in_words(message.created_at) %></span>
+            </div>
+            <p class="message-content"><%= message.body %></p>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p><%= t('.no_messages') %></p>
+    <% end -%>
+  </div>
+
+  <div class="column-one-third">
+    <h3 class="bold-medium push-bottom"><%= t('.visit_history') %></h3>
+    <%= render 'prison/visits/timeline' %>
   </div>
 </div>
-
-<h3 class="heading-medium"><%= t('visitors', scope: :shared) %></h3>
-
-<table>
-  <caption class="visuallyhidden"><%= t('visitors', scope: :shared) %></caption>
-  <thead>
-    <tr>
-      <th><%= t('name', scope: :shared) %></th>
-      <th><%= t('dob', scope: :shared) %></th>
-      <th><%= t('email_address', scope: :shared) %></th>
-      <th><%= t('tel', scope: :shared) %></th>
-      <th><%= t('status', scope: :shared) %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render 'visitor_row', visitor: @visit.principal_visitor, lead: true %>
-    <% @visit.visitors[1..-1].each do |visitor| %>
-      <%= render 'visitor_row', visitor: visitor, lead: false %>
-    <% end %>
-  </tbody>
-</table>
-
-<% if @message %>
-  <h3 class="heading-medium"><%= t('.message_title') %></h3>
-  <p><blockquote><%= @message.body %></blockquote></p>
-<% end %>
-
-<% if @visit.can_cancel? %>
-  <h3 class="heading-medium" id="cancel"><%= t('.cancel_title') %></h3>
-  <p><%= t('.cancel_description') %></p>
-  <div class='grid-row'>
-    <div class='column-two-thirds'>
-      <%= form_tag prison_cancel_visit_path(@visit, locale: 'en'), method: :delete, class: 'form' do -%>
-        <div class="form-group">
-          <fieldset>
-            <h4 class="heading-small">Visit date</h4>
-            <label for="cancellation_reason_booked_in_error" class="block-label">
-              <%= radio_button_tag 'cancellation_reason', :booked_in_error, false, class: 'js-Conditional', data: { 'conditional-el': 'booked_in_error_details'} %>
-              <%= t(".booked_in_error") %>
-            </label>
-            <div id="booked_in_error_details" class="panel panel-border-narrow">
-              <h3 class="bold-small"><%= t('.what_we_will_tell') %></h3>
-              <blockquote><%= t(".booked_in_error_html") %></blockquote>
-            </div>
-            <label for="cancellation_reason_slot_unavailable" class="block-label">
-              <%= radio_button_tag 'cancellation_reason', :slot_unavailable, false, class: 'js-Conditional', data: { 'conditional-el': 'slot_unavailable_details'} %>
-              <%= t(".slot_unavailable") %>
-            </label>
-            <div id="slot_unavailable_details" class="panel panel-border-narrow">
-              <h3 class="bold-small"><%= t('.what_we_will_tell') %></h3>
-              <blockquote><%= t(".slot_unavailable_html") %></blockquote>
-            </div>
-            <label for="cancellation_reason_capacity_issues" class="block-label">
-              <%= radio_button_tag 'cancellation_reason', :capacity_issues, false, class: 'js-Conditional', data: { 'conditional-el': 'capacity_issues_details'} %>
-              <%= t(".capacity_issues") %>
-            </label>
-            <div id="capacity_issues_details" class="panel panel-border-narrow">
-              <h3 class="bold-small"><%= t('.what_we_will_tell') %></h3>
-              <blockquote><%= t(".capacity_issues_html") %></blockquote>
-            </div>
-          </fieldset>
-        </div>
-        <div class="form-group">
-          <fieldset>
-            <h4 class="heading-small">Visiting allowance</h4>
-            <label for="cancellation_reason_prisoner_vos" class="block-label">
-              <%= radio_button_tag 'cancellation_reason', :prisoner_vos, false, class: 'js-Conditional', data: { 'conditional-el': 'prisoner_vos_details'} %>
-              <%= t(".prisoner_vos") %>
-            </label>
-            <div id="prisoner_vos_details" class="panel panel-border-narrow">
-              <h3 class="bold-small"><%= t('.what_we_will_tell') %></h3>
-              <blockquote><%= t(".prisoner_vos_html") %></blockquote>
-            </div>
-          </fieldset>
-        </div>
-        <div class="form-group">
-          <fieldset>
-            <h4 class="heading-small">Issue with the prisoner</h4>
-            <label for="cancellation_reason_prisoner_moved" class="block-label">
-              <%= radio_button_tag 'cancellation_reason', :prisoner_moved, false, class: 'js-Conditional', data: { 'conditional-el': 'prisoner_moved_details'} %>
-              <%= t(".prisoner_moved") %>
-            </label>
-            <div id="prisoner_moved_details" class="panel panel-border-narrow">
-              <h3 class="bold-small"><%= t('.what_we_will_tell') %></h3>
-              <blockquote><%= t(".prisoner_moved_html") %></blockquote>
-            </div>
-            <label for="cancellation_reason_prisoner_released" class="block-label">
-              <%= radio_button_tag 'cancellation_reason', :prisoner_released, false, class: 'js-Conditional', data: { 'conditional-el': 'prisoner_released_details'} %>
-              <%= t(".prisoner_released") %>
-            </label>
-            <div id="prisoner_released_details" class="panel panel-border-narrow">
-              <h3 class="bold-small"><%= t('.what_we_will_tell') %></h3>
-              <blockquote><%= t(".prisoner_released_html") %></blockquote>
-            </div>
-            <label for="cancellation_reason_prisoner_non_association" class="block-label">
-              <%= radio_button_tag 'cancellation_reason', :prisoner_non_association, false, class: 'js-Conditional', data: { 'conditional-el': 'prisoner_non_association_details'} %>
-              <%= t(".prisoner_non_association") %>
-            </label>
-            <div id="prisoner_non_association_details" class="panel panel-border-narrow">
-              <h3 class="bold-small"><%= t('.what_we_will_tell') %></h3>
-              <blockquote><%= t(".prisoner_non_association_html") %></blockquote>
-            </div>
-            <label for="cancellation_reason_child_protection_issues" class="block-label">
-              <%= radio_button_tag 'cancellation_reason', :child_protection_issues, false, class: 'js-Conditional', data: { 'conditional-el': 'child_protection_issues_details'} %>
-              <%= t(".child_protection_issues") %>
-            </label>
-            <div id="child_protection_issues_details" class="panel panel-border-narrow">
-              <h3 class="bold-small"><%= t('.what_we_will_tell') %></h3>
-              <blockquote><%= t(".child_protection_issues_html") %></blockquote>
-            </div>
-          </fieldset>
-        </div>
-        <div class="form-group">
-          <fieldset>
-            <h4 class="heading-small">Issue with visitors</h4>
-            <label for="cancellation_reason_visitor_banned" class="block-label">
-              <%= radio_button_tag 'cancellation_reason', :visitor_banned, false, class: 'js-Conditional', data: { 'conditional-el': 'visitor_banned_details'} %>
-              <%= t(".visitor_banned") %>
-            </label>
-            <div id="visitor_banned_details" class="panel panel-border-narrow">
-              <h3 class="bold-small"><%= t('.what_we_will_tell') %></h3>
-              <blockquote><%= t(".visitor_banned_html") %></blockquote>
-            </div>
-          </fieldset>
-        </div>
-        <div class='form-group'>
-          <%= submit_tag t('.cancel_button'), class: 'button' %>
-        </div>
-      <% end -%>
-    </div>
-  </div>
-<% end %>

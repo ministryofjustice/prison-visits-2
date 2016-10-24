@@ -55,7 +55,7 @@
 
 <p>
   <% if @override_cancel_link %>
-    <%= t('.cancel_html', url: prison_deprecated_visit_url(@booking_response.visit, locale: I18n.locale)) %>
+    <%= t('.cancel_html', url: prison_visit_url(@booking_response.visit, locale: I18n.locale)) %>
   <% else %>
     <%= t('.cancel_html', url: link_directory.visit_status(@booking_response.visit, locale: I18n.locale)) %>
   <% end %>

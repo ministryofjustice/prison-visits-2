@@ -37,7 +37,6 @@ RSpec.describe PrisonMailer, '.booked' do
   end
 
   it 'links to the prison visit show page' do
-    expect(mail.body.encoded).
-      to match(prison_deprecated_visit_path(visit, locale: 'en'))
+    expect(mail.body.encoded).to match(prison_visit_path(visit))
   end
 end
