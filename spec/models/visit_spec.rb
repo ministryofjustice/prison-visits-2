@@ -376,7 +376,25 @@ RSpec.describe Visit, type: :model do
       it { expect(subject.acceptance_message).to be_nil }
     end
 
-    context "when there is a message" do
+    context "when there is a message not owned by the visit" do
+      before do
+        FactoryGirl.create(:message)
+      end
+
+      it { expect(subject.acceptance_message).to be_nil }
+    end
+
+    context "when there is a one off message" do
+      before do
+        FactoryGirl.create(
+          :message,
+          visit: subject)
+      end
+
+      it { expect(subject.acceptance_message).to be_nil }
+    end
+
+    context "when there is an acceptance message" do
       let!(:message) do
         FactoryGirl.create(
           :message,
@@ -397,7 +415,23 @@ RSpec.describe Visit, type: :model do
       it { expect(subject.rejection_message).to be_nil }
     end
 
-    context "when there is a message" do
+    context "when there is a message not owned by the visit" do
+      before do
+        FactoryGirl.create(:message)
+      end
+
+      it { expect(subject.acceptance_message).to be_nil }
+    end
+
+    context "when there is a one off message" do
+      before do
+        FactoryGirl.create(:message, visit: subject)
+      end
+
+      it { expect(subject.acceptance_message).to be_nil }
+    end
+
+    context "when there is a rejection message" do
       let!(:message) do
         FactoryGirl.create(
           :message,

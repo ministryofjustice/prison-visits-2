@@ -26,6 +26,30 @@ RSpec.feature 'Processing a request', js: true do
     )
   }
 
+  let(:sso_response) do
+    {
+      'uid' => '1234-1234-1234-1234',
+      'provider' => 'mojsso',
+      'info' => {
+        'first_name' => 'Joe',
+        'last_name' => 'Goldman',
+        'email' => 'joe@example.com',
+        'permissions' => [
+          { 'organisation' => vst.prison.estate.sso_organisation_name, roles: [] }
+        ],
+        'links' => {
+          'profile' => 'http://example.com/profile',
+          'logout' => 'http://example.com/logout'
+        }
+      }
+    }
+  end
+
+  before do
+    OmniAuth.config.add_mock(:mojsso, sso_response)
+    visit prison_inbox_path
+  end
+
   describe 'unprocessable visit request' do
     before do
       allow(Nomis::Api.instance).to receive(:lookup_active_offender).and_return(double(Nomis::Offender))
@@ -37,7 +61,7 @@ RSpec.feature 'Processing a request', js: true do
 
       scenario 'is not allowed' do
         expect(page).to have_text("Visit can't be processed")
-        expect(page).not_to have_text('Process')
+        expect(page).not_to have_button('Process')
       end
     end
 
@@ -46,7 +70,7 @@ RSpec.feature 'Processing a request', js: true do
 
       scenario 'is not allowed' do
         expect(page).to have_text("Visit can't be processed")
-        expect(page).not_to have_text('Process')
+        expect(page).not_to have_button('Process')
       end
     end
 
@@ -55,7 +79,7 @@ RSpec.feature 'Processing a request', js: true do
 
       scenario 'is not allowed' do
         expect(page).to have_text("Visit can't be processed")
-        expect(page).not_to have_text('Process')
+        expect(page).not_to have_button('Process')
       end
     end
 
@@ -64,7 +88,7 @@ RSpec.feature 'Processing a request', js: true do
 
       scenario 'is not allowed' do
         expect(page).to have_text("Visit can't be processed")
-        expect(page).not_to have_text('Process')
+        expect(page).not_to have_button('Process')
       end
     end
   end
@@ -106,6 +130,7 @@ RSpec.feature 'Processing a request', js: true do
       find('label[for=booking_response_selection_slot_0]').click
 
       fill_in 'Reference number', with: '12345678'
+      fill_in 'Message (optional)', with: 'A staff message'
 
       preview_window = window_opened_by {
         click_link 'Preview Email'
@@ -113,6 +138,7 @@ RSpec.feature 'Processing a request', js: true do
 
       within_window preview_window do
         expect(page).to have_css('p', text: /Dear #{vst.visitor_full_name}/)
+        expect(page).to have_css('p', text: 'A staff message')
       end
 
       click_button 'Process'
@@ -198,6 +224,17 @@ RSpec.feature 'Processing a request', js: true do
 
     scenario 'rejecting a booking with no available slot' do
       choose 'None of the chosen times are available'
+
+      fill_in 'Message (optional)', with: 'A staff message'
+
+      preview_window = window_opened_by {
+        click_link 'Preview Email'
+      }
+
+      within_window preview_window do
+        expect(page).to have_css('p', text: /Dear #{vst.visitor_first_name}/)
+        expect(page).to have_css('p', text: 'A staff message')
+      end
 
       click_button 'Process'
 
