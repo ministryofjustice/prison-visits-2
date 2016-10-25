@@ -25,7 +25,7 @@
           <td aria-label="<%= t('status', scope: :shared) %>"><span class="tag tag-<%= visit.processing_state %>"><%= visit.processing_state.capitalize %></span></td>
           <td aria-label="<%= t('requested_on', scope: :shared) %>"><%= visit.created_at.to_s(:short) %></td>
           <td aria-label="<%= t('processed_on', scope: :shared) %>"><%= visit.updated_at.to_s(:short) %></td>
-          <td aria-label="<%= t('actions', scope: :shared) %>"><%= link_to t('.view_link'), prison_visit_show_path(visit), title: t('.view_link') %></td>
+          <td aria-label="<%= t('actions', scope: :shared) %>"><%= link_to t('.view_link'), prison_visit_path(visit), title: t('.view_link') %></td>
         </tr>
       <% end %>
     </tbody>
