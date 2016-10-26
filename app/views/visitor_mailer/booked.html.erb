@@ -28,9 +28,9 @@
   <strong><%= @booking_response.reference_no %></strong>
 </p>
 
-<% if @message %>
+<% if @booking_response.message_body %>
   <h2><%= t('.message_title') %></h2>
-  <p><i><%= @message.body %></i></p>
+  <p><i><%= @booking_response.message_body %></i></p>
 <% end %>
 
 <% if @booking_response.closed? %>
