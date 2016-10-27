@@ -94,23 +94,22 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
     VisitorMailer.cancelled(self).deliver_later
   end
 
-  def can_cancel_or_withdraw?
-    can_cancel? || can_withdraw?
+  def visitor_can_cancel_or_withdraw?
+    (can_cancel? && slot_granted.begin_at >= Time.now.utc) ||
+      can_withdraw?
   end
 
   def visitor_cancel_or_withdraw!
-    fail "Can't cancel or withdraw visit #{id}" unless can_cancel_or_withdraw?
+    unless visitor_can_cancel_or_withdraw?
+      fail "Can't cancel or withdraw visit #{id}"
+    end
 
     if can_cancel?
-      cancellation!(Cancellation::VISITOR_CANCELLED, nomis_cancelled: false)
-      PrisonMailer.cancelled(self).deliver_later
+      process_cancellation_and_send_email
       return
     end
 
-    if can_withdraw?
-      withdraw!
-      return
-    end
+    withdraw! if can_withdraw?
   end
 
   delegate :age, :first_name, :last_name, :full_name, :anonymized_name,
@@ -120,6 +119,11 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
     :date_of_birth, to: :principal_visitor, prefix: :visitor
 
   alias_method :processable?, :requested?
+
+  def process_cancellation_and_send_email
+    cancellation!(Cancellation::VISITOR_CANCELLED, nomis_cancelled: false)
+    PrisonMailer.cancelled(self).deliver_later
+  end
 
   def principal_visitor
     visitors.first

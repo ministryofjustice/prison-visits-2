@@ -160,17 +160,33 @@ RSpec.describe Visit, type: :model do
     end
   end
 
-  describe '#can_cancel_or_withdraw?' do
-    subject { visit.can_cancel_or_withdraw? }
+  describe '#visitor_can_cancel_or_withdraw?' do
+    subject { visit.visitor_can_cancel_or_withdraw? }
 
     context 'when it can be withdrawn' do
       let(:visit) { FactoryGirl.create(:visit) }
       it { is_expected.to eq(true) }
     end
 
-    context 'when it can be cancelled' do
-      let(:visit) { FactoryGirl.create(:booked_visit) }
-      it { is_expected.to eq(true) }
+    context 'when the visit is booked' do
+      context 'and has not yet started' do
+        let(:prison) { FactoryGirl.create(:prison) }
+        let(:visit) do
+          FactoryGirl.create(:booked_visit,
+            prison: prison,
+            slot_granted: prison.available_slots.first)
+        end
+        it { is_expected.to eq(true) }
+      end
+
+      context 'and has already started' do
+        let(:visit) do
+          FactoryGirl.create(
+            :booked_visit,
+            slot_granted: ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0))
+        end
+        it { is_expected.to eq(false) }
+      end
     end
 
     context "when it can't be cancelled or withdrawn" do
