@@ -205,7 +205,7 @@ The base URL for the NOMIS API, or API gateway from which the API can be accesse
 
 #### `NOMIS_API_TOKEN` & `NOMIS_API_KEY`
 
-The `NOMIS_API_KEY` should be set to the client's private key, encoded in base64 PEM format, with explicit (not escaped) '\n' characters in place of newlines.
+The `NOMIS_API_KEY` should be set to the client's private key in DER format, encoded as Base64.
 
 The `NOMIS_API_TOKEN` is a JWT token which grants access to the NOMIS API when those requests are signed with the associated `NOMIS_API_KEY`.
 

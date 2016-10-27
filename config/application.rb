@@ -61,11 +61,10 @@ module PrisonVisits
 
     read_key = lambda { |string|
       begin
-        # To ease configuration use a configuration strings without newlines
-        string = string.gsub('\n', "\n")
-        OpenSSL::PKey::RSA.new(string)
-      rescue OpenSSL::PKey::RSAError
-        STDOUT.puts "[WARN] Invalid key: #{string}"
+        der = Base64.decode64(string)
+        OpenSSL::PKey::EC.new(der)
+      rescue OpenSSL::PKey::ECError => e
+        STDOUT.puts "[WARN] Invalid ECDSA key: #{e}"
         nil
       end
     }
