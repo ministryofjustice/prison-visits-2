@@ -12,9 +12,9 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE0NzUwODUwNTYsInRva2VuIjoiYXRva2VuIn0.fdufgsAUqSiKbaTQTXu5CqImxPiTeSTLD1B_TO66QBphAO1dbS-uf5pdtmGpUTQvgFCUqR4L7tQSiTigK8T_sQ
+      - Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJpYXQiOjE0Nzc2NTQ2ODUsInRva2VuIjoiYXRva2VuIn0.60zzCkaiY3QmMSFbLugXfsNnGClPOYyEse1gA06yvD7FgH0z-EyhUM3QcZaJEIK2IrnQ-ZplFILSBcQ5o_zEqg
       X-Request-Id:
-      - ''
+      - uuid
   response:
     status:
       code: 200
@@ -23,14 +23,14 @@ http_interactions:
       Server:
       - Apache-Coyote/1.1
       Server-Timing:
-      - total=44, db=34
+      - total=38, db=30
       Content-Type:
       - application/json
       Date:
-      - Wed, 28 Sep 2016 17:50:56 GMT
+      - Fri, 28 Oct 2016 11:38:06 GMT
     body:
       encoding: UTF-8
       string: '{"found":true,"offender":{"id":1055827}}'
     http_version:
-  recorded_at: Wed, 28 Sep 2016 17:50:57 GMT
+  recorded_at: Fri, 28 Oct 2016 11:38:06 GMT
 recorded_with: VCR 3.0.1

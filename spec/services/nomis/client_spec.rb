@@ -33,18 +33,8 @@ RSpec.describe Nomis::Client do
   describe 'with auth configured' do
     let(:client_token) { 'atoken' }
     let(:client_key) {
-      key = <<-END.gsub(/^ +/, "").chomp
-        -----BEGIN RSA PRIVATE KEY-----
-        MIIBOwIBAAJBAKgRAIAYi4/HbzLcrXf3H3zomuhuimXLWnhqEkCdZ5DBq7ofJpsr
-        qYv1lPpQUqKhFkAORoj9+w/xM+xIcvFu8t8CAwEAAQJARnKyAf/H6GHRo8FK2WF2
-        Cna6EDndu2OtLZJQylLwiYVnHs8xLZXdqcAGAv0ZMWEEt2qOBQPxbPQpEWJ6ZhB0
-        cQIhANE61o8r4DgP15XNI3AYYCbjrgYgxgbKmXJtlK9Vl+f3AiEAzaKXDDGMEVOV
-        MoFEqkSaIoIiOum28GBj4Soz1gSTolkCIEgDpWff5SvGoCBKXCEv8qBQC0zGqQIb
-        Z5dQCjYTEtbfAiEAs/pqWbHD9iZBn0Kk5qHEhg+ABjAofZrf0GMvm1HGJYECIQDC
-        QteHGErMYVksaiuQxrk8I8nbe2JP6UsCd2gyWYazkg==
-        -----END RSA PRIVATE KEY-----
-      END
-      OpenSSL::PKey::RSA.new(key)
+      key = 'MHcCAQEEIGSsQrYsGnRCEYDNmdXxzBQ8Tq4SpfVWvr5ROPWM29cxoAoGCCqGSM49AwEHoUQDQgAEQ9qVQgr2XA8nupSP7C67pvufywLc2ur11b3bYe7t6+mGAWYM9Pd/L49cI6HWnPVg5UPr1PC+aT4RKW6PGj6BuQ=='
+      OpenSSL::PKey::EC.new(Base64.decode64(key))
     }
 
     it 'sends an Authorization header containing a JWT token', vcr: { cassette_name: 'client-auth' } do
@@ -53,7 +43,8 @@ RSpec.describe Nomis::Client do
         with { |req|
           auth_type, token = req.headers["Authorization"].split(' ')
           next unless auth_type == 'Bearer'
-          JWT.decode(token, nil, false) # raises error if not a JWT token
+          # raises an error if token is not an ES256 JWT token
+          JWT.decode(token, client_key, true, algorithm: 'ES256')
           true
         }
     end

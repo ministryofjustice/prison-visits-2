@@ -102,7 +102,7 @@ module Nomis
         iat: Time.now.to_i,
         token: client_token
       }
-      JWT.encode(payload, client_key, 'RS256')
+      JWT.encode(payload, client_key, 'ES256')
     end
   end
 end
