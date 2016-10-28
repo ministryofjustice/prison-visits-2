@@ -181,17 +181,46 @@ RSpec.describe Visit, type: :model do
 
       context 'and has already started' do
         let(:visit) do
-          FactoryGirl.create(
+          create(
             :booked_visit,
-            slot_granted: ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0))
+            slot_granted: ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0)
+          )
         end
+
         it { is_expected.to eq(false) }
       end
     end
 
     context "when it can't be cancelled or withdrawn" do
-      let(:visit) { FactoryGirl.create(:withdrawn_visit) }
+      let(:visit) { create(:withdrawn_visit) }
       it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#visitor_can_cancel?' do
+    let(:slot) do
+      ConcreteSlot.new(
+        when_date.year,
+        when_date.month,
+        when_date.day,
+        when_date.hour,
+        when_date.min,
+        17,
+        0
+      )
+    end
+
+    describe 'when the visit has not started yet' do
+      subject         { create(:booked_visit, slot_granted: slot) }
+      let(:when_date) { 1.day.from_now }
+
+      it { is_expected.to be_visitor_can_cancel }
+    end
+
+    describe 'when the visit has already started' do
+      subject         { create(:booked_visit, slot_granted: slot) }
+      let(:when_date) { 1.day.ago }
+      it { is_expected.to_not be_visitor_can_cancel }
     end
   end
 

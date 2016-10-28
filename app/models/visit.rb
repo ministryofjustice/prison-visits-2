@@ -95,8 +95,11 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
   end
 
   def visitor_can_cancel_or_withdraw?
-    (can_cancel? && slot_granted.begin_at >= Time.now.utc) ||
-      can_withdraw?
+    visitor_can_cancel? || can_withdraw?
+  end
+
+  def visitor_can_cancel?
+    can_cancel? && slot_granted.begin_at >= Time.now.utc
   end
 
   def visitor_cancel_or_withdraw!
