@@ -66,6 +66,9 @@ module PrisonVisits
       rescue OpenSSL::PKey::ECError => e
         STDOUT.puts "[WARN] Invalid ECDSA key: #{e}"
         nil
+      rescue ArgumentError => e
+        STDOUT.puts "[WARN] Invalid ECDSA key: #{e}"
+        nil
       end
     }
 
