@@ -8,6 +8,9 @@ email_address: socialvisits.nottingham@hmps.gsi.gov.uk
 phone_no: 0115 962 8980
 enabled: true
 recurring:
+  tue:
+  - 0900-1100
+  - 1415-1615
   fri:
   - 0900-1100
   - 1415-1615
@@ -17,15 +20,7 @@ recurring:
   sun:
   - 0900-1100
   - 1400-1600
-  thu:
-  - 0900-1100
-  - 1415-1615
-  tue:
-  - 0900-1100
-  - 1415-1615
 unbookable:
-- 2016-10-13
-- 2016-10-27
 - 2016-11-03
 - 2016-11-10
 - 2016-11-17
