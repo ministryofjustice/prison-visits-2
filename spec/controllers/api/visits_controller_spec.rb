@@ -139,7 +139,22 @@ RSpec.describe Api::VisitsController do
       it 'returns visit status' do
         get :show, params
         expect(response).to have_http_status(:ok)
-        expect(parsed_body['visit']['cancellable']).to eq(false)
+        expect(parsed_body['visit']['can_cancel']).to eq(false)
+      end
+    end
+
+    context 'a booked visit' do
+      let(:visit) do
+        create(
+          :booked_visit,
+          slot_granted: ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0)
+        )
+      end
+
+      it 'returns visit status' do
+        get :show, params
+        expect(response).to have_http_status(:ok)
+        expect(parsed_body['visit']['can_withdraw']).to eq(false)
       end
     end
 

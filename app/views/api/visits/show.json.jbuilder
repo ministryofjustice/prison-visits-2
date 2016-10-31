@@ -8,7 +8,8 @@ json.visit do
   json.slot_granted @visit.slot_granted&.iso8601
   json.cancellation_reason @visit.cancellation&.reason
   json.cancelled_at @visit.cancellation&.created_at&.iso8601
-  json.cancellable @visit.visitor_can_cancel?
+  json.can_cancel @visit.visitor_can_cancel?
+  json.can_withdraw @visit.can_withdraw?
 
   json.visitors @visit.visitors do |visitor|
     json.anonymized_name visitor.anonymized_name
