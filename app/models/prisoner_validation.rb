@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 class PrisonerValidation
   include NonPersistedModel
 
-  UNKNOWN = 'unknown'.freeze
-  PRISONER_NOT_EXIST = 'prisoner_does_not_exist'.freeze
+  UNKNOWN = 'unknown'
+  PRISONER_NOT_EXIST = 'prisoner_does_not_exist'
 
   attribute :noms_id, String
   attribute :date_of_birth, Date
@@ -12,7 +13,8 @@ class PrisonerValidation
   def active_offender_exists
     if Nomis::Api.enabled?
       offender = Nomis::Api.instance.lookup_active_offender(
-        noms_id: noms_id, date_of_birth: date_of_birth)
+        noms_id: noms_id, date_of_birth: date_of_birth
+      )
 
       errors.add :base, PRISONER_NOT_EXIST unless offender
     else

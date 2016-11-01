@@ -1,5 +1,6 @@
+# frozen_string_literal: true
 class Rejection < ActiveRecord::Base
-  NO_ALLOWANCE = 'no_allowance'.freeze
+  NO_ALLOWANCE = 'no_allowance'
   REASONS = [
     'child_protection_issues',
     'no_adult',

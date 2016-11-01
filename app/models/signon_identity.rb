@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Responsible for the relationship between identities and permissions retrieved
 # from SSO, and the internal Users and Estates. Also for additional information
 # returned from the SSO application which is stored in the user's session.
@@ -97,7 +98,7 @@ class SignonIdentity
   end
 
   def default_estate
-    accessible_estates.first || fail('Should never be nil')
+    accessible_estates.first || raise('Should never be nil')
   end
 
   # Export SSO data for storing in session between requests

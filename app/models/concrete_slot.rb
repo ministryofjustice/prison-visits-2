@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ConcreteSlot = Struct.new(
   :year, :month, :day, :begin_hour, :begin_minute, :end_hour, :end_minute
 ) do
@@ -8,7 +9,7 @@ ConcreteSlot = Struct.new(
     if m
       new(*m[1, 7].map { |s| s.to_i(10) })
     else
-      fail ArgumentError, %{cannot parse "#{str}"}
+      raise ArgumentError, %{cannot parse "#{str}"}
     end
   end
 

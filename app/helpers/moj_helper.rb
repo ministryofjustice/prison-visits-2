@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module MojHelper
   def config_item(key)
     if key == :proposition_title

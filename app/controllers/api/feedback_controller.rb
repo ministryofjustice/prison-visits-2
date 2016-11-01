@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Api
   class FeedbackController < ApiController
     def create

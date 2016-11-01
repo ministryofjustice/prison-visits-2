@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Prisoner < ActiveRecord::Base
   include Person
   extend FreshnessCalculations

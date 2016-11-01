@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class SessionsController < ApplicationController
   def create
     identity = SignonIdentity.from_omniauth(request.env['omniauth.auth'])

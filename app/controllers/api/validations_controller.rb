@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Api
   class ValidationsController < ApiController
     def prisoner
@@ -5,11 +6,11 @@ module Api
 
       checker = ApiPrisonerChecker.new(noms_id: noms_id, date_of_birth: date)
 
-      if checker.valid?
-        response = { valid: true }
-      else
-        response = { valid: false, errors: [checker.error] }
-      end
+      response = if checker.valid?
+                   { valid: true }
+                 else
+                   { valid: false, errors: [checker.error] }
+                 end
 
       render status: 200, json: { validation: response }
     end
@@ -21,7 +22,8 @@ module Api
       visitors_group = VisitorsValidation.new(
         prison: prison,
         lead_date_of_birth: lead_date_of_birth,
-        dates_of_birth: dates_of_birth)
+        dates_of_birth: dates_of_birth
+      )
 
       render status: 200, json: {
         validation: visitors_response(visitors_group)

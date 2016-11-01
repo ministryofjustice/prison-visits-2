@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module MetricsHelper
   SECONDS_PER_DAY = 24 * 60 * 60
 

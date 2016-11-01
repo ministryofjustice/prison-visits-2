@@ -1,14 +1,15 @@
+# frozen_string_literal: true
 class MetricsController < ApplicationController
   before_action :authorize_prison_request
 
   def index
     @start_date = start_date_from_range
 
-    if all_time?
-      metrics_counts = all_time_counts
-    else
-      metrics_counts = weekly_counts(@start_date)
-    end
+    metrics_counts = if all_time?
+                       all_time_counts
+                     else
+                       weekly_counts(@start_date)
+                     end
 
     @prisons = Prison.enabled.includes(:estate)
     @dataset = MetricsPresenter.new(metrics_counts)

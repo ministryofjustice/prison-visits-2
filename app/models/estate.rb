@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Estate < ActiveRecord::Base
   has_many :prisons
 

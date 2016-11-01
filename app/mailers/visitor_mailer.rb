@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class VisitorMailer < ActionMailer::Base
   include LogoAttachment
   include DateHelper

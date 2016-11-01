@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class PrisonMailer < ActionMailer::Base
   include LogoAttachment
   include DateHelper

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ZendeskTicketsJob < ActiveJob::Base
   queue_as :zendesk
 
@@ -9,12 +10,13 @@ class ZendeskTicketsJob < ActiveJob::Base
 
   def perform(feedback)
     unless Rails.configuration.try(:zendesk_client)
-      fail 'Cannot create Zendesk ticket since Zendesk not configured'
+      raise 'Cannot create Zendesk ticket since Zendesk not configured'
     end
 
     ZendeskAPI::Ticket.create!(
       Rails.configuration.zendesk_client,
-      ticket_attrs(feedback))
+      ticket_attrs(feedback)
+    )
   end
 
 private

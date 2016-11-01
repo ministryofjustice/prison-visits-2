@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Cancellation < ActiveRecord::Base
   VISITOR_CANCELLED = 'visitor_cancelled'
 
@@ -11,7 +12,7 @@ class Cancellation < ActiveRecord::Base
     prisoner_vos
     slot_unavailable
     visitor_banned
-  ]
+  ].freeze
 
   REASONS = STAFF_REASONS + [VISITOR_CANCELLED]
 

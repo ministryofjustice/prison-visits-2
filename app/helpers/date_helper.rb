@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module DateHelper
   def format_date_of_birth(date)
     I18n.l(date.to_date, format: :date_of_birth)
@@ -69,8 +70,8 @@ private
     minutes = (secs.to_i / 60) % 60
 
     parts = []
-    parts << I18n.t('formats.duration.hours', count: hours) if hours > 0
-    parts << I18n.t('formats.duration.minutes', count: minutes) if minutes > 0
+    parts << I18n.t('formats.duration.hours', count: hours) if hours.positive?
+    parts << I18n.t('formats.duration.minutes', count: minutes) if minutes.positive?
 
     parts.join(I18n.t('formats.duration.glue'))
   end

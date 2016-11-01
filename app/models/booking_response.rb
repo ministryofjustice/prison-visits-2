@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require 'maybe_date'
 
 class BookingResponse
   include NonPersistedModel
 
-  SLOTS = %w[ slot_0 slot_1 slot_2 ]
+  SLOTS = %w[slot_0 slot_1 slot_2].freeze
 
   # The adult age for accepting a booking is different from the configurable
   # adult age in Prison

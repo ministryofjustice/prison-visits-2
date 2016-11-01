@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Visit < ActiveRecord::Base
   extend FreshnessCalculations
 
@@ -36,24 +37,24 @@ class Visit < ActiveRecord::Base
     joins(prison: :estate).where(estates: { id: estate.id })
   }
 
-  scope :processed, lambda {
-    joins(<<-EOS).
+  scope :processed, lambda { 
+                      joins(<<-EOS).
 LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
     EOS
-      where(<<-EOS, nomis_cancelled: true).
+    where(<<-EOS, nomis_cancelled: true).
 cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
     EOS
-      without_processing_state(:requested)
+    without_processing_state(:requested)
   }
 
-  scope :ready_for_processing, lambda {
-    joins(<<-EOS).
+  scope :ready_for_processing, lambda { 
+                                 joins(<<-EOS).
 LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
     EOS
-      where(<<-EOS, nomis_cancelled: false).
+    where(<<-EOS, nomis_cancelled: false).
 cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
     EOS
-      with_processing_state(:requested, :cancelled)
+    with_processing_state(:requested, :cancelled)
   }
 
   state_machine :processing_state, initial: :requested do
@@ -104,7 +105,7 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
 
   def visitor_cancel_or_withdraw!
     unless visitor_can_cancel_or_withdraw?
-      fail "Can't cancel or withdraw visit #{id}"
+      raise "Can't cancel or withdraw visit #{id}"
     end
 
     if can_cancel?
@@ -121,7 +122,7 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
   delegate :first_name, :last_name, :full_name, :anonymized_name,
     :date_of_birth, to: :principal_visitor, prefix: :visitor
 
-  alias_method :processable?, :requested?
+  alias processable? requested?
 
   def process_cancellation_and_send_email
     cancellation!(Cancellation::VISITOR_CANCELLED, nomis_cancelled: false)
@@ -161,14 +162,16 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
     messages.
       where.not(visit_state_change_id: nil).
       find_by(
-        visit_state_change_id: visit_state_changes.booked.pluck(:id).first)
+        visit_state_change_id: visit_state_changes.booked.pluck(:id).first
+      )
   end
 
   def rejection_message
     messages.
       where.not(visit_state_change_id: nil).
       find_by(
-        visit_state_change_id: visit_state_changes.rejected.pluck(:id).first)
+        visit_state_change_id: visit_state_changes.rejected.pluck(:id).first
+      )
   end
 
   def last_visit_state

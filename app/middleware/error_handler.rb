@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Our Rails exception_app is a Rails controller action. As such it tries to
 # parse the params before processing the action, to do this it relies on Rack,
 # which raises an error if the query string is invalid.

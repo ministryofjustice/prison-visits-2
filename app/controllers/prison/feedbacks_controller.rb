@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Prison::FeedbacksController < ApplicationController
   before_action :authorize_prison_request
 

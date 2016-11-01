@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Prison::VisitsController < ApplicationController
   include BookingResponseContext
   before_action :authorize_prison_request
@@ -41,7 +42,8 @@ class Prison::VisitsController < ApplicationController
              includes(
                :visitors,
                messages: :user,
-               visit_state_changes: :processed_by).
+               visit_state_changes: :processed_by
+             ).
              find(load_visit.id)
     @nomis_checker = StaffNomisChecker.new(@visit)
     @message = Message.new

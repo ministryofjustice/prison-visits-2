@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -47,7 +48,7 @@ private
   def authorize_prison_request
     unless Rails.configuration.prison_ip_matcher.include?(request.remote_ip)
       Rails.logger.info "Unauthorized request from #{request.remote_ip}"
-      fail ActionController::RoutingError, 'Not Found'
+      raise ActionController::RoutingError, 'Not Found'
     end
   end
 
