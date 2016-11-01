@@ -16,7 +16,8 @@ RSpec.describe PrisonMailer, '.rejected' do
     )
   }
   let(:visit) { rejection.visit }
-  let(:mail) { described_class.rejected(rejection.visit) }
+  let(:booking_response) { BookingResponse.new(visit: visit) }
+  let(:mail) { described_class.rejected(booking_response.email_attrs) }
   let(:body) { mail.html_part.body }
 
   before do

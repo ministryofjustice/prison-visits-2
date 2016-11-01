@@ -12,7 +12,15 @@ RSpec.describe PrisonMailer, '.booked' do
       )
     )
   }
-  let(:mail) { described_class.booked(visit) }
+  let(:booking_request) do
+    BookingResponse.new(
+      visit: visit,
+      user: create(:user),
+      selection: BookingResponse::SLOTS.first
+    )
+  end
+
+  let(:mail) { described_class.booked(booking_request.email_attrs) }
 
   before do
     ActionMailer::Base.deliveries.clear
@@ -29,7 +37,6 @@ RSpec.describe PrisonMailer, '.booked' do
   end
 
   it 'links to the prison visit show page' do
-    expect(mail.body.encoded).
-      to match(prison_deprecated_visit_path(visit, locale: 'en'))
+    expect(mail.body.encoded).to match(prison_visit_path(visit))
   end
 end

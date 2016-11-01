@@ -43,6 +43,56 @@ RSpec.describe Visit, type: :model do
     end
   end
 
+  describe '#banned_visitors' do
+    let(:visitors) { spy(subject.visitors) }
+
+    before do
+      allow(subject).to receive(:visitors).and_return(visitors)
+      expect(visitors).to receive(:loaded?).and_return(loaded)
+    end
+
+    context 'when the visitors collection is loaded' do
+      let(:loaded) { true }
+      it 'filters out banned visitors from memory' do
+        subject.banned_visitors
+        expect(visitors).to have_received(:select)
+      end
+    end
+
+    context 'when the visitors collection is not loaded' do
+      let(:loaded) { false }
+      it 'queries the banned visitors from the db' do
+        subject.banned_visitors
+        expect(visitors).to have_received(:banned)
+      end
+    end
+  end
+
+  describe '#unlisted_visitors' do
+    let(:visitors) { spy(subject.visitors) }
+
+    before do
+      allow(subject).to receive(:visitors).and_return(visitors)
+      expect(visitors).to receive(:loaded?).and_return(loaded)
+    end
+
+    context 'when the visitors collection is loaded' do
+      let(:loaded) { true }
+      it 'filters out unlisted visitors from memory' do
+        subject.unlisted_visitors
+        expect(visitors).to have_received(:select)
+      end
+    end
+
+    context 'when the visitors collection is not loaded' do
+      let(:loaded) { false }
+      it 'queries the unlisted visitors from the db' do
+        subject.unlisted_visitors
+        expect(visitors).to have_received(:unlisted)
+      end
+    end
+  end
+
   describe "#confirm_nomis_cancelled" do
     let(:cancellation) do
       FactoryGirl.create(:cancellation,
@@ -110,22 +160,67 @@ RSpec.describe Visit, type: :model do
     end
   end
 
-  describe '#can_cancel_or_withdraw?' do
-    subject { visit.can_cancel_or_withdraw? }
+  describe '#visitor_can_cancel_or_withdraw?' do
+    subject { visit.visitor_can_cancel_or_withdraw? }
 
     context 'when it can be withdrawn' do
       let(:visit) { FactoryGirl.create(:visit) }
       it { is_expected.to eq(true) }
     end
 
-    context 'when it can be cancelled' do
-      let(:visit) { FactoryGirl.create(:booked_visit) }
-      it { is_expected.to eq(true) }
+    context 'when the visit is booked' do
+      context 'and has not yet started' do
+        let(:prison) { FactoryGirl.create(:prison) }
+        let(:visit) do
+          FactoryGirl.create(:booked_visit,
+            prison: prison,
+            slot_granted: prison.available_slots.first)
+        end
+        it { is_expected.to eq(true) }
+      end
+
+      context 'and has already started' do
+        let(:visit) do
+          create(
+            :booked_visit,
+            slot_granted: ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0)
+          )
+        end
+
+        it { is_expected.to eq(false) }
+      end
     end
 
     context "when it can't be cancelled or withdrawn" do
-      let(:visit) { FactoryGirl.create(:withdrawn_visit) }
+      let(:visit) { create(:withdrawn_visit) }
       it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#visitor_can_cancel?' do
+    let(:slot) do
+      ConcreteSlot.new(
+        when_date.year,
+        when_date.month,
+        when_date.day,
+        when_date.hour,
+        when_date.min,
+        17,
+        0
+      )
+    end
+
+    describe 'when the visit has not started yet' do
+      subject         { create(:booked_visit, slot_granted: slot) }
+      let(:when_date) { 1.day.from_now }
+
+      it { is_expected.to be_visitor_can_cancel }
+    end
+
+    describe 'when the visit has already started' do
+      subject         { create(:booked_visit, slot_granted: slot) }
+      let(:when_date) { 1.day.ago }
+      it { is_expected.to_not be_visitor_can_cancel }
     end
   end
 
@@ -326,7 +421,25 @@ RSpec.describe Visit, type: :model do
       it { expect(subject.acceptance_message).to be_nil }
     end
 
-    context "when there is a message" do
+    context "when there is a message not owned by the visit" do
+      before do
+        FactoryGirl.create(:message)
+      end
+
+      it { expect(subject.acceptance_message).to be_nil }
+    end
+
+    context "when there is a one off message" do
+      before do
+        FactoryGirl.create(
+          :message,
+          visit: subject)
+      end
+
+      it { expect(subject.acceptance_message).to be_nil }
+    end
+
+    context "when there is an acceptance message" do
       let!(:message) do
         FactoryGirl.create(
           :message,
@@ -347,7 +460,23 @@ RSpec.describe Visit, type: :model do
       it { expect(subject.rejection_message).to be_nil }
     end
 
-    context "when there is a message" do
+    context "when there is a message not owned by the visit" do
+      before do
+        FactoryGirl.create(:message)
+      end
+
+      it { expect(subject.acceptance_message).to be_nil }
+    end
+
+    context "when there is a one off message" do
+      before do
+        FactoryGirl.create(:message, visit: subject)
+      end
+
+      it { expect(subject.acceptance_message).to be_nil }
+    end
+
+    context "when there is a rejection message" do
       let!(:message) do
         FactoryGirl.create(
           :message,
@@ -356,6 +485,31 @@ RSpec.describe Visit, type: :model do
       end
 
       it { expect(subject.rejection_message).to eq(message) }
+    end
+  end
+
+  describe '#additional_visitors' do
+    let(:visitor1) { FactoryGirl.build_stubbed(:visitor) }
+    let(:visitor2) { FactoryGirl.build_stubbed(:visitor) }
+
+    describe 'when there is one visitor' do
+      before do
+        subject.visitors = [visitor1]
+      end
+
+      it 'returns an empty list' do
+        expect(subject.additional_visitors).to be_empty
+      end
+    end
+
+    describe 'when there is more than one visitor' do
+      before do
+        subject.visitors = [visitor1, visitor2]
+      end
+
+      it 'returns a list without the principal visitor' do
+        expect(subject.additional_visitors).to eq([visitor2])
+      end
     end
   end
 end

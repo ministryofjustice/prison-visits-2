@@ -27,6 +27,7 @@ gem 'govuk_elements_rails', '>= 1.1.2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rake'
+gem 'jwt'
 
 # Fixed version as workaround for bug in 0.15.5
 # https://github.com/getsentry/raven-ruby/issues/460
@@ -49,6 +50,7 @@ group :development, :test do
   gem 'rubocop'
   gem 'rubocop-rspec'
   gem 'shoulda-matchers'
+  gem 'awesome_print', require: 'ap'
 end
 
 group :test do

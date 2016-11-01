@@ -1,17 +1,17 @@
 <% if @cancellations.any? %>
   <p><%= t('.cancel_text') %></p>
   <table class="table--hover push-bottom push-top--half">
-    <caption class="visuallyhidden"><%= t('title', scope: [:prison, :dashboards, :inbox]) %></caption>
+    <caption class="visuallyhidden"><%= t('.table_caption') %></caption>
     <thead>
       <tr>
-        <th></th>
-        <th><%= t('prisoner_number', scope: :shared) %></th>
-        <th><%= t('prisoner_name', scope: :shared) %></th>
-        <th><%= t('dob', scope: :shared) %></th>
-        <th><%= t('visit_date', scope: :shared) %></th>
-        <th class="col-time"><%= t('time_slot', scope: :shared) %></th>
-        <th><%= t('cancelled', scope: :shared) %></th>
-        <th class="col-actions"><%= t('actions', scope: :shared) %></th>
+        <th scope="col"></th>
+        <th scope="col"><%= t('prisoner_number', scope: :shared) %></th>
+        <th scope="col"><%= t('prisoner_name', scope: :shared) %></th>
+        <th scope="col"><%= t('dob', scope: :shared) %></th>
+        <th scope="col"><%= t('visit_date', scope: :shared) %></th>
+        <th scope="col" class="col-time"><%= t('time_slot', scope: :shared) %></th>
+        <th scope="col"><%= t('cancelled', scope: :shared) %></th>
+        <th scope="col" class="col-actions"><%= t('actions', scope: :shared) %></th>
       </tr>
     </thead>
     <tbody>
@@ -24,17 +24,17 @@
               </i>
             </a>
           </td>
-          <td><%= visit.prisoner_number %></td>
-          <td class="long"><%= visit.prisoner_full_name %></td>
-          <td class="long"><%= visit.prisoner_date_of_birth.to_s(:short_nomis) %></td>
-          <td><%= format_visit_slot_date_for_staff(visit) %></td>
-          <td><%= format_visit_slot_times_for_staff(visit) %></td>
-          <td><%= visit.created_at.to_s(:short) %></td>
-          <td>
+          <td aria-label="<%= t('prisoner_number', scope: :shared) %>"><%= visit.prisoner_number %></td>
+          <td class="long" aria-label="<%= t('prisoner_name', scope: :shared) %>"><%= visit.prisoner_full_name %></td>
+          <td class="long" aria-label="<%= t('dob', scope: :shared) %>"><%= visit.prisoner_date_of_birth.to_s(:short_nomis) %></td>
+          <td aria-label="<%= t('visit_date', scope: :shared) %>"><%= format_visit_slot_date_for_staff(visit) %></td>
+          <td aria-label="<%= t('time_slot', scope: :shared) %>"><%= format_visit_slot_times_for_staff(visit) %></td>
+          <td aria-label="<%= t('cancelled', scope: :shared) %>"><%= visit.cancellation.created_at.to_s(:short) %></td>
+          <td aria-label="<%= t('actions', scope: :shared) %>">
           <%=
             form_for(
               visit,
-              url: prison_confirm_nomis_cancellation_visit_path(visit),
+              url: nomis_cancelled_prison_visit_path(visit),
               method: :post,
               html: { class: 'js-SubmitOnce' }
             ) do |f|
@@ -43,7 +43,7 @@
           <% end %>
           </td>
         </tr>
-        <%= render 'request_details_row', visit: visit %>
+        <%= render 'cancelled_details_row', visit: visit %>
       <% end %>
     </tbody>
   </table>

@@ -29,6 +29,7 @@
                 <input class="button-link" type="submit" value="<%= t('.sign_out') %>">
               <% end %>
             </li>
+            <%= nav_link t('.staff_guide'), '/staff/staffuiguide.md' %>
           </ul>
         <% else %>
           <ul id="proposition-links" class="header__menu__proposition-links">
@@ -45,11 +46,13 @@
     <%= yield :banner %>
     <%= yield :navigation %>
     <%= yield :prison_switcher %>
-    <header>
-      <h1 class="heading-large">
-        <%= yield :header %>
-      </h1>
-    </header>
+    <% if content_for?(:header) %>
+      <header>
+        <h1 class="heading-large">
+          <%= yield :header %>
+        </h1>
+      </header>
+    <% end %>
 
     <% if notice.present? %>
       <p class="notification">

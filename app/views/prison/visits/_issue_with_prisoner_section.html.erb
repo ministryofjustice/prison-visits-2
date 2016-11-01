@@ -31,7 +31,8 @@
           <%=
             f.radio_button(
               :selection, :prisoner_details_incorrect,
-              class: 'js-Conditional'
+              class: 'js-Conditional',
+              checked: @nomis_checker.prisoner_existance_status == StaffNomisChecker::INVALID
             )
           %>
           <%= t('.prisoner_details_incorrect') %>

@@ -1,24 +1,17 @@
 <tr class="hidden-row hide" aria-hidden="true" aria-expanded="false">
   <td colspan="9" class="request-details">
     <div class="request-row-details">
-      <% if visit.slot_granted? -%>
+      <% visit.slots.each_with_index do |slot, i| %>
         <dl>
-          <dt><%= t('.booked_date') %></dt>
-          <dd><%= format_visit_slot_date_for_staff(visit) %><br><%= format_visit_slot_times_for_staff(visit) %></dd>
+          <dt><%= t('.choice', number: (i+1).ordinalize) %></dt>
+          <dd><%= slot.to_date.to_s(:short_nomis) %><br><%= format_slot_times(slot) %></dd>
         </dl>
-      <% else %>
-        <% visit.slots.each_with_index do |slot, i| %>
-          <dl>
-            <dt><%= t('.choice', number: ActiveSupport::Inflector.ordinalize(i+1)) %></dt>
-            <dd><%= slot.to_date.to_s(:short_nomis) %><br><%= format_slot_times(slot) %></dd>
-          </dl>
-        <% end %>
-      <% end -%>
+      <% end %>
     </div>
     <div class="request-row-details push-top">
       <dl>
         <dt><%= t('lead_visitor', scope: :shared) %></dt>
-        <dd><%= visit.principal_visitor.first_name %> <%= visit.principal_visitor.last_name %></dd>
+        <dd><%= visit.principal_visitor.full_name %></dd>
       </dl>
       <dl>
         <dt><%= t('dob', scope: :shared) %> (<%= t('age', scope: :shared) %>)</dt>
@@ -33,21 +26,21 @@
         <dd><%= visit.contact_phone_no %></dd>
       </dl>
     </div>
-    <% if visit.visitors.size > 1 %>
-    <div class="request-row-details push-top">
-      <dl>
-        <dt><%= t('other_visitors', scope: :shared) %></dt>
-        <% visit.visitors[1..-1].each do |visitor| %>
-          <dd><%= visitor.first_name %> <%= visitor.last_name %></dd>
-        <% end %>
-      </dl>
-      <dl>
-        <dt><%= t('dob', scope: :shared) %> (<%= t('age', scope: :shared) %>)</dt>
-        <% visit.visitors[1..-1].each do |visitor| %>
-          <dd><%= visitor.date_of_birth.to_s(:short_nomis) %> (<%= visitor.age %>)</dd>
-        <% end %>
-      </dl>
-    </div>
+    <% if visit.additional_visitors.any? %>
+      <div class="request-row-details push-top">
+        <dl>
+          <dt><%= t('other_visitors', scope: :shared) %></dt>
+          <% visit.additional_visitors.each do |visitor| %>
+            <dd><%= visitor.full_name %></dd>
+          <% end %>
+        </dl>
+        <dl>
+          <dt><%= t('dob', scope: :shared) %> (<%= t('age', scope: :shared) %>)</dt>
+          <% visit.additional_visitors.each do |visitor| %>
+            <dd><%= visitor.date_of_birth.to_s(:short_nomis) %> (<%= visitor.age %>)</dd>
+          <% end %>
+        </dl>
+      </div>
     <% end %>
   </td>
 </tr>

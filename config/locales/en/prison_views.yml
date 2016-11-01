@@ -20,6 +20,9 @@ en:
       feedback_submitted: Your question has been submitted
       invalid_date: The date is invalid
       estate_error: You don't access rights, please speak to your manager
+      message_create_error: Your message couldn't be saved
+      message_created: Message created
+      no_cancellation_reason: Please provide a cancellation reason
     feedbacks:
       new:
         title: Contact us
@@ -37,6 +40,7 @@ en:
         cancellations: Cancellations
         cancel_text: The visitor has asked to cancel. Please cancel the booking in NOMIS and confirm using the button below
         no_cancellations: There are no new cancellations
+        table_caption: List of visit cancellations
       navigation:
         inbox_html: |
           Inbox <span class='badge badge--red'>%{inbox_count}</span>
@@ -59,6 +63,7 @@ en:
         process_link: View
         requests: Requests
         title: inbox
+        visit_link_desc: visit request details for prisoner %{name} (no. %{number})
       print_visits:
         title: Print visits
         visit_date: Visit date
@@ -67,7 +72,8 @@ en:
         print: Print
         no_visits: "No visits on %{date}"
         search_list: Search to generate print lists
-        download_csv: Download CSV
+        download_csv_html: |
+          Download CSV <span class="visuallyhidden">(link opens in a new browser window)</span>
       search:
         cancellations: Cancellations
         processed: Processed
@@ -76,24 +82,6 @@ en:
     visits:
       calendar:
         today: Today
-      deprecated_show:
-        title: Visit details
-        booked: This request has been accepted, a confirmation email has been sent to the visitor.
-        rejected: This request has been rejected, a rejection email has been sent to the visitor.
-        withdrawn: The visitor has withdrawn this request.
-        cancelled: The visit on %{date} to %{prisoner} is cancelled.
-        cancel_title: Cancel this visit
-        cancel_description: You can cancel this visit if it can no longer take place. This will email the visitor to let them know.
-        cancel_button: Cancel visit
-        booked_in_error: Visit was booked in error
-        slot_unavailable: Visit slot no longer available
-        capacity_issues: Capacity issues in the visit hall
-        prisoner_vos: Issue with the prisoner’s visiting allowance (VOs)
-        prisoner_moved: Prisoner has moved prisons
-        prisoner_released: Prisoner has been released
-        prisoner_non_association: Prisoner has a non-association
-        child_protection_issues: Prisoner has child protection measures
-        visitor_banned: Visitor is banned
       process_visit:
         title: Visit details
         introduction_html: |
@@ -113,49 +101,67 @@ en:
           </ul>
         message_body: Message (optional)
         submit: Process
+        email_preview: Preview Email
+        prisoner_does_not_exist: "The provided prisoner information didn't match any prisoner."
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
+        verified: Verified
+        verified_html: |
+          The prisoner date of birth and number have been verified. <br>Please check the prisoner name.
+        invalid: Not verified
+        unknown: Unknown
+        prisoner_does_not_exist_text: "The provided prisoner information didn't match any prisoner."
+        unknown_text: The check couldn't take place due to a system error, please verify manually
+      validate_prisoner_details:
+        title: Prisoner details
+        prisoner_name: Prisoner name
+        prisoner_dob: Prisoner D.O.B
+        prisoner_number: Prisoner no.
+        verified: Verified
+        verified_html: |
+          The prisoner date of birth and number have been verified. <br>Please check the prisoner name.
+        invalid: Not verified
+        unknown: Unknown
+        prisoner_does_not_exist_text: The prisoner date of birth and number do not match.
+        unknown_text: You must check NOMIS to verify prisoner date of birth and number.
       shared:
         what_we_will_tell: What we’ll tell the visitor
       show:
-        ref: "Ref: %{number}"
         title: Visit details
-        message_title: Message sent to visitor
-        cancel_title: Cancel this visit
-        cancel_description: You can cancel this visit if it can no longer take place. This will email the visitor to let them know.
-        cancel_button: Cancel visit
+        ref: Ref
         closed_visit: This is a closed visit
-        what_we_will_tell: What we’ll tell the visitor
-        booked_in_error: Visit was booked in error
-        booked_in_error_html: |
-          Unfortunately, we made a mistake booking this visit. To arrange another visit, go to <a href="https://www.gov.uk/prison-visits">https://www.gov.uk/prison-visits</a> and choose new dates.
-        slot_unavailable: Visit slot no longer available
-        slot_unavailable_html: |
-          We’re sorry but the date and time you chose is no longer available. To arrange another visit, go to <a href="https://www.gov.uk/prison-visits">https://www.gov.uk/prison-visits</a> and choose new dates.
-        capacity_issues: Capacity issues in the visit hall
-        capacity_issues_html: |
-          We’re sorry but there are too many visitors scheduled for that time and we do not have enough space to sit everyone safely. To arrange another visit, go to <a href="https://www.gov.uk/prison-visits">https://www.gov.uk/prison-visits</a> and choose new dates.
+        message_title: Message sent to visitor
+        messages: Messages
+        send_a_message: Send a message
+        send_email: Send email
+        message_not_allowed: You can only send a message to the visitor when the visit is booked.
+        no_messages: There are currently no messages.
+        body: Please type your message
+        visit_history: Visit history
+      timeline:
+        requested: Requested
+        booked: Booked
+        withdrawn: Withdrawn
+        rejected: Rejected
+        cancelled: Cancelled
+        by: >-
+          by %{name}
+        anonymous: Anonymous
+      cancel_prisoner:
         prisoner_vos: Issue with the prisoner’s visiting allowance (VOs)
-        prisoner_vos_html: |
-          There is a limit to how many visits a prisoner can have each month. [Name] will have reached this limit by the date you’ve chosen but you can try to visit them again after their allowance is re-set on [date]. To arrange another visit, go to <a href="https://www.gov.uk/prison-visits">https://www.gov.uk/prison-visits</a>.
         prisoner_moved: Prisoner has moved prisons
-        prisoner_moved_html: |
-          We cancelled your visit because they have left this prison. If they haven’t been in touch recently, visit <a href="https://www.gov.uk/find-prisoner">https://www.gov.uk/find-prisoner</a>. This service will help you find them.
         prisoner_released: Prisoner has been released
-        prisoner_released_html: |
-          We cancelled your visit because they were released from prison on [exit date]. We’re not able to share any contact details so hope that they get in touch with you soon.
         prisoner_non_association: Prisoner has a non-association
-        prisoner_non_association_html: |
-          We have cancelled your visit because there are restrictions around this person. You may be able to visit them at a later date.
         child_protection_issues: Prisoner has child protection measures
-        child_protection_issues_html: |
-          We have cancelled your visit due to restrictions around this prisoner.
+      cancel_date:
+        booked_in_error: Visit was booked in error
+        slot_unavailable: Visit slot no longer available
+        capacity_issues: Capacity issues in the visit hall
+      cancel_visitor:
         visitor_banned: Visitor is banned
-        visitor_banned_html: |
-          We have cancelled your visit because you have been banned from visiting this prison. We have sent you a letter explaining why we took this decision and giving you further details. If you would like to find out more, contact this prison.
       other_section:
         title: Other
         duplicate_visit_request: Duplicate visit request
@@ -190,10 +196,18 @@ en:
         title: Visitor details
         visitor_not_on_list: Visitor is not on the contact list
         visitor_banned: Visitor is banned
-        name: "Name:"
-        dob: "Date of birth (age):"
-        email: "Email address:"
-        phone_no: "Phone no:"
+        name: "Name"
+        dob: "Date of birth (age)"
+        email: "Email address"
+        phone_no: "Phone no"
+      visitor_detail:
+        title: Visitor details
+        not_listed: Not listed
+        banned: Banned
+        name: "Name"
+        dob: "Date of birth (age)"
+        email: "Email address"
+        phone_no: "Phone no"
       duplicate_request:
         title: Other
   staff_info:
@@ -209,6 +223,7 @@ en:
     additional_visitors: Additional visitors
     back_to_results: Back to results
     cancel: Cancel
+    cancel_visit: Cancel visit
     cancelled: Cancelled
     closed: Closed
     dob: Date of birth
@@ -237,6 +252,7 @@ en:
     visit_date: Visit date
     visitors: Visitors
     visitor_no: Visitor %{n}
+    warning: Warning
     no_adult: There must be at least one adult visitor
     no_allowance: The prisoner has not got any visiting allowance left for the dates chosen
     prisoner_details_incorrect: The visitor hasn’t given correct information for the prisoner
@@ -246,3 +262,4 @@ en:
     visitor_cancelled: The visitor cancelled the visit
     visitor_not_on_list: A visitor is not on the contact list
     duplicate_visit_request: Duplicate visit request
+    reference_number: Reference number

@@ -9,6 +9,10 @@ Rails.application.config.assets.precompile += %w[
   favicon.ico
   metrics.css
   gov.uk_logotype_crown.svg
+  *.eot
+  *.svg
+  *.ttf
+  *.woff
 ]
 
 Rails.application.config.assets.paths <<

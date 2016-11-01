@@ -51,6 +51,7 @@
 @import "confirmations";
 
 @import "mixins";
+@import "modules/colours";
 
 // Application
 @import "badge";
@@ -58,15 +59,18 @@
 @import "form-error";
 @import "helpers";
 @import "icons";
+@import "layouts";
 @import "moj-overrides";
 @import "navigation";
 @import "notification";
 @import "request-details";
 @import "search_form";
+@import "tables";
 @import "tag";
 
 @import "modules/date-boxes";
-@import "modules/visitor-labels";
+@import "modules/visitor-card";
+@import "modules/timeline";
 
 // Override resets on element styling
 // for staff info pages

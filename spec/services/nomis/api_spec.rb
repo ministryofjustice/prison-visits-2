@@ -18,28 +18,6 @@ RSpec.describe Nomis::Api do
     }.to raise_error(Nomis::DisabledError, 'Nomis API is disabled')
   end
 
-  describe 'setting a unique request id', vcr: { cassette_name: 'lookup_active_offender' } do
-    let(:params) {
-      {
-        noms_id: 'A1459AE',
-        date_of_birth: Date.parse('1976-06-12')
-      }
-    }
-
-    subject { super().lookup_active_offender(params) }
-
-    before do
-      RequestStore.store[:request_id] = 'uuid'
-    end
-
-    it 'on a header' do
-      subject
-
-      expect(WebMock).to have_requested(:get, /\w/).
-        with(headers: { 'X-Request-Id' => 'uuid' })
-    end
-  end
-
   describe 'lookup_active_offender', vcr: { cassette_name: 'lookup_active_offender' } do
     let(:params) {
       {

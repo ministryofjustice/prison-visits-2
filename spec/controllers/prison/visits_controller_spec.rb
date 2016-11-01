@@ -40,7 +40,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
     context 'when is unprocessble' do
       let!(:visit) { FactoryGirl.create(:booked_visit) }
-      it { is_expected.to redirect_to(prison_deprecated_visit_path(visit)) }
+      it { is_expected.to redirect_to(prison_visit_path(visit)) }
     end
   end
 
@@ -64,7 +64,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
       context 'when valid' do
         let(:booking_response) { { selection: 'slot_0', reference_no: 'none' } }
 
-        it { is_expected.to redirect_to(prison_deprecated_visit_path(visit)) }
+        it { is_expected.to redirect_to(prison_visit_path(visit)) }
       end
     end
 
@@ -115,18 +115,19 @@ RSpec.describe Prison::VisitsController, type: :controller do
     end
 
     context "when logged out" do
-      it { is_expected.to_not be_successful }
+      it { is_expected.to be_successful }
     end
   end
 
   describe '#cancel' do
     let(:visit) { FactoryGirl.create(:booked_visit) }
     let(:mailing) { double(Mail::Message, deliver_later: nil) }
+    let(:cancellation_reason) { 'slot_unavailable' }
 
     subject do
       delete :cancel,
         id: visit.id,
-        cancellation_reason: 'slot_unavailable',
+        cancellation_reason: cancellation_reason,
         locale: 'en'
     end
 
@@ -148,13 +149,19 @@ RSpec.describe Prison::VisitsController, type: :controller do
     end
 
     context "when there isn't a user logged in" do
-      it { is_expected.to redirect_to(prison_deprecated_visit_path(visit)) }
+      it { is_expected.to redirect_to(prison_visit_path(visit)) }
     end
 
     context 'when the visit is already cancelled' do
       let(:visit) { FactoryGirl.create(:cancelled_visit) }
 
-      it { is_expected.to redirect_to(prison_deprecated_visit_path(visit)) }
+      it { is_expected.to redirect_to(prison_visit_path(visit)) }
+    end
+
+    context 'when there is no cancellation reason' do
+      let(:cancellation_reason) { nil }
+
+      it { is_expected.to redirect_to(prison_visit_path(visit)) }
     end
   end
 

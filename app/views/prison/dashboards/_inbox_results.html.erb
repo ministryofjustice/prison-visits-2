@@ -1,19 +1,21 @@
 <% @requested_visits.group_by {|v| v.created_at.to_date}.each do |date, booking| %>
-  <span class="text-secondary"><%= t('requested_on', scope: :shared) %></span>
-  <h3 class="bold-medium"><%= date.to_s(:short) %></h3>
+  <h3 class="bold-medium">
+    <span class="text-secondary font-small"><%= t('requested_on', scope: :shared) %></span>
+    <%= date.to_s(:short) %>
+  </h3>
   <table class="table--hover push-bottom push-top--half">
-    <caption class="visuallyhidden"><%= t('title', scope: [:prison, :dashboards, :inbox]) %></caption>
+    <caption class="visuallyhidden"><%= t('title', scope: [:prison, :dashboards, :inbox]).capitalize %> - <%= t('requested_on', scope: :shared).downcase %><%= date.to_s(:short) %></caption>
     <thead>
       <tr>
-        <th></th>
-        <th><%= t('prisoner_number', scope: :shared) %></th>
-        <th><%= t('prisoner_name', scope: :shared) %></th>
-        <th><%= t('dob', scope: :shared) %></th>
-        <th><%= t('visit_date', scope: :shared) %></th>
-        <th class="col-time"><%= t('time_slot', scope: :shared) %></th>
-        <th><%= t('visitors', scope: :shared) %></th>
-        <th><%= t('requested', scope: :shared) %></th>
-        <th class="col-actions"><%= t('actions', scope: :shared) %></th>
+        <th scope="col"><span class="visuallyhidden"><%= t('open_close', scope: :shared) %></span></th>
+        <th scope="col"><%= t('prisoner_number', scope: :shared) %></th>
+        <th scope="col"><%= t('prisoner_name', scope: :shared) %></th>
+        <th scope="col"><%= t('dob', scope: :shared) %></th>
+        <th scope="col"><%= t('visit_date', scope: :shared) %></th>
+        <th scope="col" class="col-time"><%= t('time_slot', scope: :shared) %></th>
+        <th scope="col"><%= t('visitors', scope: :shared) %></th>
+        <th scope="col"><%= t('requested', scope: :shared) %></th>
+        <th scope="col" class="col-actions"><%= t('actions', scope: :shared) %></th>
       </tr>
     </thead>
     <tbody>

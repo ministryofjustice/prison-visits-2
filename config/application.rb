@@ -59,7 +59,25 @@ module PrisonVisits
       !ENV.key?('SMTP_USERNAME') &&
       !ENV.key?('SMTP_PASSWORD')
 
-    config.nomis_api_host = ENV.fetch('NOMIS_API_HOST', nil)
+    read_key = lambda { |string|
+      begin
+        der = Base64.decode64(string)
+        OpenSSL::PKey::EC.new(der)
+      rescue OpenSSL::PKey::ECError => e
+        STDOUT.puts "[WARN] Invalid ECDSA key: #{e}"
+        nil
+      rescue ArgumentError => e
+        STDOUT.puts "[WARN] Invalid ECDSA key: #{e}"
+        nil
+      end
+    }
+
+    unless Rails.env.test?
+      config.nomis_api_host = ENV.fetch('NOMIS_API_HOST', nil)
+      config.nomis_api_token = ENV.fetch('NOMIS_API_TOKEN', nil)
+      config.nomis_api_key = read_key.call(ENV.fetch('NOMIS_API_KEY', ''))
+    end
+
     config.staff_info_endpoint = ENV.fetch('STAFF_INFO_ENDPOINT', nil)
   end
 end

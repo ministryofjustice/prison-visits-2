@@ -5,4 +5,11 @@ class Message < ActiveRecord::Base
 
   validates :body, presence: true
   validates :user_id, presence: true
+
+  def self.create_and_send_email(attrs)
+    message = new(attrs)
+
+    VisitorMailer.one_off_message(message).deliver_later if message.save
+    message
+  end
 end

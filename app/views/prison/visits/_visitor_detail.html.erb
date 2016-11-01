@@ -1,0 +1,68 @@
+<h2 class="bold-medium"><%= t('.title') %></h2>
+<div class="grid-row">
+  <div class="column-full">
+    <%= content_tag :div, class: 'visitor-card', id: dom_id(@visit.principal_visitor) do %>
+      <h3 class="bold-small"><%= t('lead_visitor', scope: :shared) %></h3>
+      <% if @visit.principal_visitor.banned %>
+        <span class="tag tag--error font-xsmall"><%= t('.banned') %></span>
+      <% end %>
+      <% if @visit.principal_visitor.not_on_list %>
+        <span class="tag tag--warning font-xsmall"><%= t('.not_listed') %></span>
+      <% end %>
+      <div class="grid-row">
+        <div class="column-one-quarter">
+          <dl>
+            <dt><%= t('.name') %></dt>
+            <dd><%= @visit.principal_visitor.full_name %></dd>
+          </dl>
+        </div>
+        <div class="column-one-quarter">
+          <dl>
+            <dt><%= t('.dob') %></dt>
+            <dd><%= @visit.principal_visitor.date_of_birth.to_s(:short_nomis) %> (<%= @visit.principal_visitor.age %>)</dd>
+          </dl>
+        </div>
+        <div class="column-one-quarter">
+          <dl>
+            <dt><%= t('.email') %></dt>
+            <dd><%= @visit.contact_email_address %></dd>
+          </dl>
+        </div>
+        <div class="column-one-quarter">
+          <dl>
+            <dt><%= t('.phone_no') %></dt>
+            <dd><%= @visit.contact_phone_no %></dd>
+          </dl>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <% @visit.additional_visitors.each_with_index do |visitor, index| %>
+    <div class="column-one-half">
+      <%= content_tag :div, class: 'visitor-card', id: dom_id(visitor) do %>
+        <h3 class="bold-small"><%= t('visitor_no', n: index + 2, scope: :shared) %></h3>
+        <% if visitor.banned %>
+          <span class="tag tag--error font-xsmall"><%= t('.banned') %></span>
+        <% end %>
+        <% if visitor.not_on_list %>
+          <span class="tag tag--warning font-xsmall"><%= t('.not_listed') %></span>
+        <% end %>
+        <div class="grid-row">
+          <div class="column-one-half">
+            <dl>
+              <dt><%= t('.name') %></dt>
+              <dd><%= visitor.full_name %></dd>
+            </dl>
+          </div>
+          <div class="column-one-half">
+            <dl>
+              <dt><%= t('.dob') %></dt>
+              <dd><%= visitor.date_of_birth.to_s(:short_nomis) %> (<%= visitor.age %>)</dd>
+            </dl>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,21 @@
+@media screen and (max-width: 768px) {
+  table thead {
+    display: none;
+  }
+  table tr {
+    border-bottom: 2px solid $border-colour;
+    display: block;
+  }
+  table td {
+    border-bottom: 1px solid $border-colour;
+    display: block;
+    text-align: right;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  table td:before {
+    content: attr(aria-label);
+    float: left;
+  }
+}

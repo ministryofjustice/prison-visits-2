@@ -1,0 +1,36 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://172.22.16.2:8080/nomisapi/lookup/active_offender?date_of_birth=1976-06-12&noms_id=A1459AE
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.49.0
+      Accept:
+      - application/json
+      Authorization:
+      - Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJpYXQiOjE0Nzc2NTQ2ODUsInRva2VuIjoiYXRva2VuIn0.60zzCkaiY3QmMSFbLugXfsNnGClPOYyEse1gA06yvD7FgH0z-EyhUM3QcZaJEIK2IrnQ-ZplFILSBcQ5o_zEqg
+      X-Request-Id:
+      - uuid
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - Apache-Coyote/1.1
+      Server-Timing:
+      - total=38, db=30
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 28 Oct 2016 11:38:06 GMT
+    body:
+      encoding: UTF-8
+      string: '{"found":true,"offender":{"id":1055827}}'
+    http_version:
+  recorded_at: Fri, 28 Oct 2016 11:38:06 GMT
+recorded_with: VCR 3.0.1

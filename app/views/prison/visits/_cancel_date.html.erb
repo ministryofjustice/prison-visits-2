@@ -1,0 +1,32 @@
+<% if @visit.can_cancel? %>
+  <details class="push-top">
+    <summary><span class="summary">Issue with the date</span></summary>
+    <div class="panel panel-border-narrow">
+      <div class="grid-row">
+        <fieldset>
+          <div class="column-one-third">
+            <label for="cancellation_reason_booked_in_error" class="block-label">
+              <%= radio_button_tag 'cancellation_reason', :booked_in_error, false %>
+              <%= t(".booked_in_error") %>
+            </label>
+          </div>
+          <div class="column-one-third">
+            <label for="cancellation_reason_slot_unavailable" class="block-label">
+              <%= radio_button_tag 'cancellation_reason', :slot_unavailable, false %>
+              <%= t(".slot_unavailable") %>
+            </label>
+          </div>
+          <div class="column-one-third">
+            <label for="cancellation_reason_capacity_issues" class="block-label">
+              <%= radio_button_tag 'cancellation_reason', :capacity_issues, false %>
+              <%= t(".capacity_issues") %>
+            </label>
+          </div>
+        </fieldset>
+      </div>
+      <div class='form-group push-top'>
+        <%= submit_tag t('cancel_visit', scope: :shared), class: 'button' %>
+      </div>
+    </div>
+  </details>
+<% end %>

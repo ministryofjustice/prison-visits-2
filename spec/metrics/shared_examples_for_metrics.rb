@@ -37,19 +37,51 @@ RSpec.shared_examples 'create rejections with dates' do
     make_visits(mars)
   end
 
+  def reject_visit(booking_response)
+    BookingResponder.new(booking_response).respond!
+  end
+
   def make_visits(prison)
     create_list(:booked_visit, 5, created_at: Time.zone.local(2016, 2, 1), prison: prison)
 
-    nc = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 1))
-    na = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 2))
-    su = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 3))
-    vb = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 4))
-    no_adult = create(:rejected_visit, prison: prison, created_at: Time.zone.local(2016, 2, 4))
-    create(:rejection, visit: nc, created_at: Time.zone.local(2016, 2, 1))
-    create(:rejection, visit: na, created_at: Time.zone.local(2016, 2, 2))
-    create(:rejection, visit: su, reason: 'slot_unavailable', created_at: Time.zone.local(2016, 2, 3))
-    create(:rejection, visit: vb, reason: 'visitor_banned', created_at: Time.zone.local(2016, 2, 4))
-    create(:rejection, visit: no_adult, reason: 'no_adult', created_at: Time.zone.local(2016, 2, 4))
+    reject_visit BookingResponse.new(
+      visit: create(:visit,
+        prison:     prison,
+        created_at: Time.zone.local(2016, 2, 1)
+                   ),
+      selection: Rejection::NO_ALLOWANCE
+    )
+
+    reject_visit BookingResponse.new(
+      visit: create(:visit,
+        prison:     prison,
+        created_at: Time.zone.local(2016, 2, 2)
+                   ),
+      selection: Rejection::NO_ALLOWANCE
+    )
+
+    reject_visit BookingResponse.new(
+      visit: create(:visit,
+        prison:     prison,
+        created_at: Time.zone.local(2016, 2, 3)
+                   ),
+      selection: 'slot_unavailable'
+    )
+    reject_visit BookingResponse.new(
+      visit: create(:visit,
+        prison:     prison,
+        created_at: Time.zone.local(2016, 2, 4)
+                   ),
+      selection: 'visitor_banned'
+    )
+
+    reject_visit BookingResponse.new(
+      visit: create(:visit,
+        prison:     prison,
+        created_at: Time.zone.local(2016, 2, 4)
+                   ),
+      selection: 'no_adult'
+    )
   end
 end
 

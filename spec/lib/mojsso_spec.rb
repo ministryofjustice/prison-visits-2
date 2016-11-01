@@ -8,14 +8,6 @@ RSpec.describe OmniAuth::Strategies::Mojsso do
     end.to_app
   }
 
-  before do
-    OmniAuth.config.test_mode = true
-  end
-
-  after do
-    OmniAuth.config.test_mode = false
-  end
-
   subject(:strategy) do
     described_class.new(app, 'client_id', 'secret')
   end

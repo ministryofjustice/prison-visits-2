@@ -25,3 +25,11 @@
   height: 100%;
   width: 100%;
 }
+.icon-important {
+  background-image: image-url('icon-important.png');
+}
+.text-secondary {
+  .icon {
+    margin-left: 2px;
+  }
+}

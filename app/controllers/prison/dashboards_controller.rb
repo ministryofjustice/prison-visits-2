@@ -88,7 +88,7 @@ private
   end
 
   def load_visitor_cancellations(estate, prisoner_number)
-    visits = Visit.preload(:prisoner, :visitors).
+    visits = Visit.preload(:prisoner, :visitors, :cancellation).
              joins(:cancellation).
              from_estate(estate).
              where(cancellations: { nomis_cancelled: false }).

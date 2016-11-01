@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe Api::VisitsController do
   render_views
 
-  let(:visit) { create(:visit) }
-  let(:prison) {
+  let(:visit)    { create(:visit) }
+  let(:prison)   do
     create(
       :prison,
       slot_details: { 'recurring' => { 'mon' => ['1330-1430'] } }
     )
-  }
+  end
 
   let(:parsed_body) {
     JSON.parse(response.body)
@@ -126,6 +126,36 @@ RSpec.describe Api::VisitsController do
       get :show, params
       expect(response).to have_http_status(:ok)
       expect(parsed_body['visit']['processing_state']).to eq('requested')
+    end
+
+    context 'a passed visit' do
+      let(:visit) do
+        create(
+          :booked_visit,
+          slot_granted: ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0)
+        )
+      end
+
+      it 'returns visit status' do
+        get :show, params
+        expect(response).to have_http_status(:ok)
+        expect(parsed_body['visit']['can_cancel']).to eq(false)
+      end
+    end
+
+    context 'a booked visit' do
+      let(:visit) do
+        create(
+          :booked_visit,
+          slot_granted: ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0)
+        )
+      end
+
+      it 'returns visit status' do
+        get :show, params
+        expect(response).to have_http_status(:ok)
+        expect(parsed_body['visit']['can_withdraw']).to eq(false)
+      end
     end
 
     context 'with messages' do

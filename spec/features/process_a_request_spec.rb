@@ -26,54 +26,124 @@ RSpec.feature 'Processing a request', js: true do
     )
   }
 
+  let(:sso_response) do
+    {
+      'uid' => '1234-1234-1234-1234',
+      'provider' => 'mojsso',
+      'info' => {
+        'first_name' => 'Joe',
+        'last_name' => 'Goldman',
+        'email' => 'joe@example.com',
+        'permissions' => [
+          { 'organisation' => vst.prison.estate.sso_organisation_name, roles: [] }
+        ],
+        'links' => {
+          'profile' => 'http://example.com/profile',
+          'logout' => 'http://example.com/logout'
+        }
+      }
+    }
+  end
+
   before do
-    visit prison_visit_process_path(vst, locale: 'en')
+    OmniAuth.config.add_mock(:mojsso, sso_response)
+    visit prison_inbox_path
   end
 
-  context 'with a withdrawn visit' do
-    let(:vst) { create(:withdrawn_visit) }
+  describe 'unprocessable visit request' do
+    before do
+      allow(Nomis::Api.instance).to receive(:lookup_active_offender).and_return(double(Nomis::Offender))
+      visit prison_visit_process_path(vst, locale: 'en')
+    end
 
-    scenario 'is not allowed' do
-      expect(page).to have_text('The visitor has withdrawn this request')
-      expect(page).not_to have_text('Process')
+    context 'with a withdrawn visit' do
+      let(:vst) { create(:withdrawn_visit) }
+
+      scenario 'is not allowed' do
+        expect(page).to have_text("Visit can't be processed")
+        expect(page).not_to have_button('Process')
+      end
+    end
+
+    context 'with a cancelled visit' do
+      let(:vst) { create(:cancellation).visit }
+
+      scenario 'is not allowed' do
+        expect(page).to have_text("Visit can't be processed")
+        expect(page).not_to have_button('Process')
+      end
+    end
+
+    context 'with a booked visit' do
+      let(:vst) { create(:booked_visit) }
+
+      scenario 'is not allowed' do
+        expect(page).to have_text("Visit can't be processed")
+        expect(page).not_to have_button('Process')
+      end
+    end
+
+    context 'with a rejected visit' do
+      let(:vst) { create(:rejected_visit) }
+
+      scenario 'is not allowed' do
+        expect(page).to have_text("Visit can't be processed")
+        expect(page).not_to have_button('Process')
+      end
     end
   end
 
-  context 'with a cancelled visit' do
-    let(:vst) { create(:cancelled_visit) }
+  context "validating prisonner informations" do
+    context "when the NOMIS API is working" do
+      context "and the prisonner's informations are not valid" do
+        it 'informs staff informations are invalid' do
+          expect(Nomis::Api.instance).to receive(:lookup_active_offender).and_return(nil)
+          visit prison_visit_process_path(vst, locale: 'en')
 
-    scenario 'is not allowed' do
-      expect(page).to have_text("Visit can't be processed")
-      expect(page).not_to have_text('Process')
+          expect(page).to have_content("The prisoner date of birth and number do not match.")
+        end
+      end
     end
-  end
 
-  context 'with a booked visit' do
-    let(:vst) { create(:booked_visit) }
-
-    scenario 'is not allowed' do
-      expect(page).to have_text('This request has been accepted')
-      expect(page).not_to have_text('Process')
-    end
-  end
-
-  context 'with a rejected visit' do
-    let(:vst) { create(:rejected_visit) }
-
-    scenario 'is not allowed' do
-      expect(page).to have_text('This request has been rejected')
-      expect(page).not_to have_text('Process')
+    context "when the NOMIS API is not available" do
+      # Uncomment once the automatic checking NOMIS API is live.
+      xit 'informs staff informations are invalid' do
+        expect(Nomis::Api.instance).to receive(:lookup_active_offender).and_raise(Excon::Errors::Error)
+        visit prison_visit_process_path(vst, locale: 'en')
+        expect(page).to have_content("Prisoner validation service is unavailable, please manually check prisoner's informations")
+      end
     end
   end
 
   context 'accepting' do
+    before do
+      allow(Nomis::Api.instance).to receive(:lookup_active_offender).and_return(double(Nomis::Offender))
+      visit prison_visit_process_path(vst, locale: 'en')
+    end
+
     scenario 'accepting a booking' do
-      find('#booking_response_selection_slot_0').click
+      click_button 'Process'
+
+      # Renders the form again
+      expect(page).to have_text('Visit details')
+
+      find('label[for=booking_response_selection_slot_0]').click
+
       fill_in 'Reference number', with: '12345678'
+      fill_in 'Message (optional)', with: 'A staff message'
+
+      preview_window = window_opened_by {
+        click_link 'Preview Email'
+      }
+
+      within_window preview_window do
+        expect(page).to have_css('p', text: /Dear #{vst.visitor_full_name}/)
+        expect(page).to have_css('p', text: 'A staff message')
+      end
 
       click_button 'Process'
 
-      expect(page).to have_text('a confirmation email has been sent to the visitor')
+      expect(page).to have_text('Thank you for processing the visit')
 
       vst.reload
       expect(vst).to be_booked
@@ -92,21 +162,24 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     context 'disallowed visitors' do
+      let(:visitor) { FactoryGirl.create(:visitor, visit: vst) }
+
       before do
-        vst.visitors << build(:visitor)
+        visitor.save!
+        visit prison_visit_process_path(vst, locale: 'en')
       end
 
       scenario 'accepting a booking while banning a visitor' do
-        find('#booking_response_selection_slot_0').click
+        find('label[for=booking_response_selection_slot_0]').click
         fill_in 'Reference number', with: '12345678'
 
-        within '#visitor-0' do
+        within "#visitor_#{visitor.id}" do
           check 'Visitor is banned'
         end
 
         click_button 'Process'
 
-        expect(page).to have_text('a confirmation email has been sent to the visitor')
+        expect(page).to have_text('Thank you for processing the visit')
 
         vst.reload
         expect(vst).to be_booked
@@ -123,16 +196,16 @@ RSpec.feature 'Processing a request', js: true do
       end
 
       scenario 'accepting a booking while indicating a visitor is not on the list' do
-        find('#booking_response_selection_slot_0').click
+        find('label[for=booking_response_selection_slot_0]').click
         fill_in 'Reference number', with: '12345678'
 
-        within '#visitor-0' do
+        within "#visitor_#{visitor.id}" do
           check 'Visitor is not on the contact list'
         end
 
         click_button 'Process'
 
-        expect(page).to have_text('a confirmation email has been sent to the visitor')
+        expect(page).to have_text('Thank you for processing the visit')
 
         vst.reload
         expect(vst).to be_booked
@@ -152,9 +225,20 @@ RSpec.feature 'Processing a request', js: true do
     scenario 'rejecting a booking with no available slot' do
       choose 'None of the chosen times are available'
 
+      fill_in 'Message (optional)', with: 'A staff message'
+
+      preview_window = window_opened_by {
+        click_link 'Preview Email'
+      }
+
+      within_window preview_window do
+        expect(page).to have_css('p', text: /Dear #{vst.visitor_first_name}/)
+        expect(page).to have_css('p', text: 'A staff message')
+      end
+
       click_button 'Process'
 
-      expect(page).to have_text('a rejection email has been sent to the visitor')
+      expect(page).to have_text('Thank you for processing the visit')
 
       vst.reload
       expect(vst).to be_rejected
@@ -189,7 +273,7 @@ RSpec.feature 'Processing a request', js: true do
 
       click_button 'Process'
 
-      expect(page).to have_text('a rejection email has been sent to the visitor')
+      expect(page).to have_text('Thank you for processing the visit')
 
       vst.reload
       expect(vst).to be_rejected
@@ -212,7 +296,7 @@ RSpec.feature 'Processing a request', js: true do
 
       click_button 'Process'
 
-      expect(page).to have_text('a rejection email has been sent to the visitor')
+      expect(page).to have_text('Thank you for processing the visit')
 
       vst.reload
       expect(vst.rejection_reason).to eq('prisoner_details_incorrect')
@@ -233,7 +317,7 @@ RSpec.feature 'Processing a request', js: true do
 
       click_button 'Process'
 
-      expect(page).to have_text('a rejection email has been sent to the visitor')
+      expect(page).to have_text('Thank you for processing the visit')
 
       vst.reload
       expect(vst.rejection_reason).to eq('prisoner_moved')
@@ -250,15 +334,15 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     scenario 'rejecting a booking when no visitors are on the contact list' do
-      vst.visitors.each_with_index do |_, i|
-        within "#visitor-#{i}" do
+      vst.visitors.each do |v|
+        within "#visitor_#{v.id}" do
           check 'Visitor is not on the contact list'
         end
       end
 
       click_button 'Process'
 
-      expect(page).to have_text('a rejection email has been sent to the visitor')
+      expect(page).to have_text('Thank you for processing the visit')
 
       vst.reload
       expect(vst.rejection_reason).to eq('visitor_not_on_list')
@@ -276,15 +360,15 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     scenario 'rejecting a booking when all visitors are banned' do
-      vst.visitors.each_with_index do |_, i|
-        within "#visitor-#{i}" do
+      vst.visitors.each do |visitor|
+        within "#visitor_#{visitor.id}" do
           check 'Visitor is banned'
         end
       end
 
       click_button 'Process'
 
-      expect(page).to have_text('a rejection email has been sent to the visitor')
+      expect(page).to have_text('Thank you for processing the visit')
 
       vst.reload
       expect(vst.rejection_reason).to eq('visitor_banned')

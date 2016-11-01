@@ -8,29 +8,26 @@
     @booking_response,
     url: prison_visit_path(@booking_response),
     method: :put,
-    html: { class: 'js-SubmitOnce no-form-group' }
+    html: { class: 'js-SubmitOnce no-form-group js-EmailPreview' }
   ) do |f|
 %>
 
-  <div class="grid-row">
+  <div class="grid-row push-top">
     <div class="column-one-third">
       <h1 class="bold-large float-left"><%= t('.title') %></h1>
-      <span class="tag tag--heading tag-requested font-xsmall float-left"><%= t('requested', scope: 'shared') %></span>
     </div>
     <div class="column-two-thirds">
       <div class="grid-row">
         <div class="column-two-thirds">
-          <div class="text-secondary"><%= t('requested', scope: 'shared') %>: <br><%= @booking_response.visit.created_at.to_s(:short) %></div>
+          <div class="tag tag--requested tag--heading"><%= t('requested', scope: 'shared') %>: <br><%= @booking_response.visit.created_at.to_date.to_s(:short_nomis) %> - <%= @booking_response.visit.created_at.to_s(:time) %></div>
         </div>
-        <div class="column-one-third text-right">
-
-        </div>
+        <div class="column-one-third text-right"></div>
       </div>
     </div>
   </div>
 
   <hr>
-  <%= render('prisoner_details') %>
+  <%= render('validate_prisoner_details', visit: @booking_response) %>
   <%= render('issue_with_prisoner_section', f: f) %>
   <hr>
   <%= render('visit_date_section', f: f) %>
@@ -53,9 +50,11 @@
   </div>
 <% end -%>
 
-<div class="form-group text-center">
+<div class="form-group">
   <hr>
   <%= f.submit(t('.submit'), class: 'button button-primary') %>
+  <div class="push-top"><%= link_to(t('.email_preview'), prison_visit_email_preview_path(@booking_response.visit), class: 'js-LinkPreview', target: '_blank') %>
+  </div>
 </div>
 
 <% end %>
