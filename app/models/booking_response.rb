@@ -67,7 +67,6 @@ private
       attrs
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def visitors_attributes
     @visitors_attributes ||= begin
