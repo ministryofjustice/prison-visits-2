@@ -108,7 +108,7 @@ RSpec.feature 'Processing a request', js: true do
         it 'informs staff informations are invalid' do
           expect(Nomis::Api.instance).to receive(:lookup_active_offender).and_return(nil)
           visit prison_visit_process_path(vst, locale: 'en')
-          expect(page).to have_content("The provided prisoner information didn't match any prisoner.")
+          expect(page).to have_content("The prisoner date of birth and number do not match.")
         end
       end
     end
