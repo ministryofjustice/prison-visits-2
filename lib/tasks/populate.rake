@@ -31,20 +31,18 @@ namespace :pvb do
       )
     end
 
-    def generate_visitor(sort_index)
-      Visitor.create(
+    def visitor_attributes
+      {
         first_name:    generate_first_name,
         last_name:     generate_last_name,
-        date_of_birth: generate_past_date,
-        sort_index:    sort_index
-      )
+        date_of_birth: generate_past_date
+      }
     end
 
     def generate_visit(prison)
       slots = prison.available_slots.to_a.sample(3)
       visit = Visit.create!(
         prisoner:              generate_prisoner,
-        visitors:              rand(1..5).times.map { |i| generate_visitor(i) },
         contact_phone_no:      '07777777777',
         contact_email_address: "#{generate_last_name}@example.com",
         prison:                 prison,
@@ -53,7 +51,11 @@ namespace :pvb do
         slot_option_2:          slots.pop,
         locale:                 'en'
       )
-
+      rand(1..5).times.map do |i|
+        visit.visitors.create!(
+          visitor_attributes.merge(sort_index: i)
+        )
+      end
       visit.visitors.create!(
         first_name:    generate_first_name,
         last_name:     generate_last_name,
@@ -75,7 +77,7 @@ namespace :pvb do
     end
 
     def reject_visit(visit, i)
-      rejection = visit.build_rejection(reason: Rejection::REASONS.sample)
+      rejection = visit.build_rejection(reasons: [Rejection::REASONS.sample])
       if i == 0
         rejection.allowance_renews_on = (1..10).to_a.sample.days.from_now
       elsif i == 1

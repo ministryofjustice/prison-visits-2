@@ -25,6 +25,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.include FactoryGirl::Syntax::Methods
   config.include ActiveSupport::Testing::TimeHelpers
+  config.include BookingResponseHelper
   config.include ControllerHelper, type: :controller
 
   config.infer_spec_type_from_file_location!

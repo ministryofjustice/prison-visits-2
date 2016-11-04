@@ -20,7 +20,7 @@ en:
         the prison for more information.
       visitor_not_on_list_html: >-
         <strong>%{name} cannot attend</strong> as they are
-        <strong>not on the prisoner’s contact list</strong>
+        <strong>not on the prisoner's contact list</strong>
       not_on_list_instructions: >-
         Visitors not on contact lists need to ask prisoners to update their
         lists with correct details, making sure that names appear exactly the
@@ -70,60 +70,60 @@ en:
       visit_id: "Visit ID:"
     rejected:
       subject: >-
-        Visit cannot take place: your visit for %{date} could not be booked
+        Your visit to %{prison_name} is NOT booked
       salutation: Dear %{name}
+      intro_html:
+        <p>We've not been able to book your visit to %{prison_name}. Please do NOT
+        go to the prison as you won't be able to get in.</p>
+      cant_visit: You can't visit because
       slot_unavailable_html: >-
-        We’re sorry but none of the dates and times you chose to visit
-        <strong>%{prisoner}</strong> at <strong>%{prison}</strong>
-        were available.
-      alternatives_html: >-
-        Please visit
-        <a href="https://www.gov.uk/prison-visits">www.gov.uk/prison-visits</a>
-        to choose some alternative dates.
-      no_allowance: >-
-        We’re sorry, but the prisoner you want to visit has not got any
-        visiting allowance left for the dates you’ve chosen.
-      privileged_allowance_available: >-
-        However, you can book a weekday visit with visiting allowance valid
-        until %{date}. The visit must be taken before the allowance expires.
-      allowance_will_renew: >-
-        %{prisoner} will have their full visiting allowance (VO) renewed on
-        %{date}.
-      no_adult:
-        There must be at least one adult visitor.
-      prisoner_details_incorrect: >-
-        Your visit cannot take place as you haven’t given correct information
-        for the prisoner. Eg, the prisoner’s name, number or date of birth is
-        incorrect. Contact the prisoner to get up-to-date information.
+        the dates and times you chose aren't available - choose new dates on
+        <a href="www.gov.uk/prison-visits">www.gov.uk/prison-visits</a>
+      no_allowance_html: >-
+        the prisoner has used their allowance of visits for this month - you
+        can only book a visit from %{date} onwards
+      no_adult_html:
+        children under 18 can only visit prison with an adult and you've not
+        listed any adults
+      prisoner_details_incorrect_html: >-
+        we can't find the prisoner from the information you've given - check
+        the prisoner's name, number and/or date of birth or contact the prisoner
+        to get this information
       prisoner_moved_html: >-
-        Your visit cannot take place because the prisoner has
-        moved prisons. They should contact soon. You can
-        also use the
-        <a href="http://www.gov.uk/find-prisoner">find a prisoner service</a>.
-      prisoner_released:
-        Your visit can't take place as the prisoner has been released.
-        They should contact you soon.
-      prisoner_non_association:
-        Your visit can't take place as the prisoner has a restriction.
-      child_protection_issues:
-        Your visit can't take place as the prisoner has a restriction.
-      duplicate_visit_request:
-        You have already requested a visit with these details. You will have received
-        an email regarding your original visit request, containing a link to check the
-        status of your request.
-      visitor_banned:
-        Your visit cannot take place. %{visitors} should have received a letter
-        to say that they’re banned from visiting the prison at the moment. Get
-        in touch with the prison for more information.
-      visitor_not_on_list:
-        Your visit cannot take place as details for %{visitors} don’t match our
-        records or they aren’t on the prisoner’s contact list.
+        the prisoner has moved prisons - they should contact you soon or you
+        can use the
+        <a href="http://www.gov.uk/find-prisoner">find a prisoner</a> service
+      prisoner_released_html:
+        the prisoner has been released - hopefully they will contact you soon
+      prisoner_non_association_html:
+        the prisoner has a restriction
+      child_protection_issues_html:
+        the prisoner has a restriction
+      duplicate_visit_request_html:
+        you've already requested a visit with these details and we've already
+        sent you an email response - please clink on the link in our original
+        response to check the status of your request
+      visitor_banned_html:
+        one: >-
+          %{visitors} is banned from visiting the prison at the moment and
+          should have received a letter from the prison - get in touch with the
+          prison for more information.
+        other: >-
+          %{visitors} are banned from visiting the prison at the moment and
+          should have received a letter from the prison - get in touch with the
+          prison for more information.
+      visitor_not_on_list_html:
+        details for %{visitors} don't match our records or  aren't on the
+        prisoner's contact list - ask the prisoner to update their contact list
+        with correct details, making sure that names appear exactly the same as
+        on ID documents; if this is the prisoner's first visit (reception
+        visit), then you need to contact the prison directly to book
       update_list:
         Please contact the prisoner and ask them to update their contact list
         with correct details, making sure that names appear exactly the same as
         on ID documents.
       first_visit:
-        If this is the prisoner’s first visit (reception visit), then you need
+        If this is the prisoner's first visit (reception visit), then you need
         to contact the prison to book.
       any_questions_html:
         If you have any questions, visit the

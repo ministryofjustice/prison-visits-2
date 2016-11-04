@@ -2,208 +2,176 @@ require 'rails_helper'
 require 'maybe_date'
 
 RSpec.describe BookingResponse, type: :model do
-  let(:visit) { create(:visit_with_two_visitors) }
-  subject do
-    described_class.new(
-      visit: visit,
-      selection: 'slot_1',
-      reference_no: 'A1234BC'
-    )
-  end
+  include_context 'booking response setup'
 
-  it 'has a valid test subject' do
-    expect(subject).to be_valid
-  end
+  subject { described_class.new(visit: Visit.new(params)) }
 
-  describe '#no_allowance?' do
-    context 'with a selection of no_allowance' do
+  describe 'validating a booking response' do
+    context 'when processable' do
+      it { is_expected.to be_valid }
+    end
+
+    context 'when not processable' do
+      let(:processing_state) { 'rejected' }
       before do
-        subject.selection = 'no_allowance'
+        is_expected.to_not be_valid
       end
 
-      it { expect(subject.no_allowance?).to be true }
+      specify { expect(subject.errors.full_messages).to eq(["Visit can't be processed"]) }
     end
 
-    context 'with a selection other than no_allowance' do
+    context 'when a rejection reasons and a slot is selected' do
       before do
-        subject.selection = anything
+        params[:rejection_attributes]['reasons'] = ['prisoner_moved']
+      end
+      it 'is invalid' do
+        is_expected.to be_invalid
+        expect(subject.errors.full_messages).
+          to eq([
+            I18n.t('must_reject_or_accept_visit',
+              scope: [:booking_response, :errors])
+          ])
+      end
+    end
+
+    context 'slot availability' do
+      before do subject.valid? end
+
+      context 'when a slot is available' do
+        it { is_expected.to be_valid }
       end
 
-      it { expect(subject.no_allowance?).to be false }
-    end
-  end
+      context 'when a slot is not available' do
+        let(:slot_granted) { Rejection::SLOT_UNAVAILABLE }
 
-  describe '#allowance_renews_on' do
-    context 'with blank date fields' do
+        it { is_expected.to be_valid }
+
+        it 'is has a rejection for slot unavailable' do
+          expect(subject.visit.rejection.reasons).to eq([Rejection::SLOT_UNAVAILABLE])
+        end
+      end
+    end
+
+    context 'no slot granted' do
+      let(:slot_granted) { '' }
+
+      context 'when all visitors are unlisted' do
+        let!(:unlisted_visitor) { create(:visitor, visit: visit) }
+
+        before do
+          unlisted_visitor.not_on_list = true
+          params[:visitors_attributes]['1'] = unlisted_visitor.attributes.slice('id', 'banned', 'not_on_list')
+          params[:visitors_attributes]['0'][:not_on_list] = true
+          subject.valid?
+        end
+
+        it { is_expected.to be_valid }
+
+        it 'is has a rejection for visitor not on the list' do
+          expect(subject.visit.rejection.reasons).to eq([Rejection::NOT_ON_THE_LIST, Rejection::NO_ADULT])
+        end
+      end
+
+      context 'when all visitor are banned' do
+        let!(:unlisted_visitor) { create(:visitor, visit: visit) }
+        let(:slot_granted)      { '' }
+        before do
+          unlisted_visitor.banned = true
+          params[:visitors_attributes]['1'] = unlisted_visitor.attributes.slice('id', 'banned', 'not_on_list')
+          params[:visitors_attributes]['0'][:banned] = true
+          subject.valid?
+        end
+
+        it { is_expected.to be_valid }
+
+        it 'has a rejection for visitor banned' do
+          expect(subject.visit.rejection.reasons).to eq([Rejection::BANNED, Rejection::NO_ADULT])
+        end
+      end
+    end
+
+    context 'without allowed adult visitors' do
+      let!(:minor_visitor) { create(:visitor, date_of_birth: 17.years.ago, visit: visit) }
       before do
-        subject.allowance_renews_on = { day: '', month: '', year: '' }
-        subject.allowance_will_renew = true
-        subject.selection = 'no_allowance'
+        params[:visitors_attributes]['0'][:banned] = true
+        params[:visitors_attributes]['1'] = minor_visitor.attributes.slice('id', 'banned', 'not_on_list')
+        subject.valid?
       end
 
-      it 'does not break' do
-        expect(subject.allowance_renews_on).to be_instance_of(UncoercedDate)
-      end
-
-      it 'it is not a valid date' do
-        expect(subject).to_not be_valid
-        expect(subject.errors.full_messages).to eq(['Allowance renews on is invalid'])
+      it 'has a rejection for no adult' do
+        expect(subject.visit.rejection.reasons).to eq([Rejection::NO_ADULT])
       end
     end
   end
 
-  describe '#priviledge_allowance_renews_on' do
-    context 'with blank date fields' do
+  describe '#email_attrs' do
+    let(:expected_params) do
+      {
+        'id'                     => nil,
+        'prison_id'              => visit.prison.id,
+        'contact_email_address'  => nil,
+        'contact_phone_no'       => nil,
+        'processing_state'       => 'requested',
+        'override_delivery_error' => false,
+        'delivery_error_type'    => nil,
+        'reference_no'           => 'A1234BC',
+        'closed'                 => params[:closed],
+        'prisoner_id'            => visit.prisoner_id,
+        'locale'                 => nil,
+        'principal_visitor_id'   => principal_visitor.id,
+        'slot_option_0'          => visit.slot_option_0,
+        'slot_option_1'          => visit.slot_option_1,
+        'slot_option_2'          => visit.slot_option_2,
+        'slot_granted'           => visit.slot_option_0,
+        'visitors_attributes'    => visit.visitors.each_with_object({}).with_index do |(visitor, h), i|
+          h[i.to_s] = visitor.slice('id', 'not_on_list', 'banned')
+        end
+      }
+    end
+
+    context 'with no rejection' do
+      before do subject.valid?  end
+
+      it 'has all the required serialized attributes' do
+        expect(subject.email_attrs).to eq(expected_params)
+      end
+    end
+
+    describe 'when rejected' do
+      let(:slot_granted)                     { '' }
+      let(:allowance_renew_date)             { 2.weeks.from_now.to_date }
+      let(:priviledge_allowance_expiry_date) { 1.month.from_now.to_date }
+
       before do
-        subject.privileged_allowance_expires_on = { day: '', month: '', year: '' }
-        subject.privileged_allowance_available = true
-        subject.selection = 'no_allowance'
-      end
+        params[:rejection_attributes][:reasons] = [Rejection::NO_ALLOWANCE]
+        params[:rejection_attributes][:allowance_will_renew] = true
+        params[:rejection_attributes][:allowance_renews_on]  = {
+          day:   allowance_renew_date.day,
+          month: allowance_renew_date.month,
+          year:  allowance_renew_date.year
+        }
 
-      it 'does not break' do
-        expect(subject.privileged_allowance_expires_on).to be_instance_of(UncoercedDate)
-      end
+        params[:rejection_attributes][:privileged_allowance_available]  = true
+        params[:rejection_attributes][:privileged_allowance_expires_on] = {
+          day:   priviledge_allowance_expiry_date.day,
+          month: priviledge_allowance_expiry_date.month,
+          year:  priviledge_allowance_expiry_date.year
+        }
 
-      it 'it is not a valid date' do
-        expect(subject).to_not be_valid
-        expect(subject.errors.full_messages).to eq(['Privileged allowance expires on is invalid'])
-      end
-    end
-  end
-
-  describe 'bookable?' do
-    it 'is true if slot 0 is selected' do
-      subject.selection = 'slot_0'
-      expect(subject).to be_bookable
-    end
-
-    it 'is true if slot 1 is selected' do
-      subject.selection = 'slot_1'
-      expect(subject).to be_bookable
-    end
-
-    it 'is true if slot 2 is selected' do
-      subject.selection = 'slot_2'
-      expect(subject).to be_bookable
-    end
-
-    context 'there are multiple visitors' do
-      context 'and one visitor is unlisted' do
-        before do
-          subject.selection = 'slot_0'
-          subject.unlisted_visitor_ids = [visit.visitors.first.id]
-        end
-
-        it 'is bookable' do
-          expect(subject).to be_bookable
-        end
-      end
-
-      context 'and all visitors are unlisted' do
-        before do
-          subject.selection = 'slot_0'
-          subject.unlisted_visitor_ids = visit.visitors.map(&:id)
-        end
-
-        it 'is not bookable' do
-          expect(subject).not_to be_bookable
-        end
-      end
-
-      context 'and one visitor is banned' do
-        before do
-          subject.selection = 'slot_0'
-          subject.banned_visitor_ids = [visit.visitors.first.id]
-        end
-
-        it 'is bookable' do
-          expect(subject).to be_bookable
-        end
-      end
-
-      context 'and the allowed visitor is a child' do
-        let(:visit) { create(:visit) }
-
-        before do
-          visit.prison.update!(adult_age: 16)
-          visit.visitors.update_all(date_of_birth: 17.years.ago)
-        end
-
-        it 'is not bookable' do
-          expect(subject).to_not be_bookable
-        end
-      end
-
-      context 'and all visitors are banned' do
-        before do
-          subject.selection = 'slot_0'
-          subject.banned_visitor_ids = visit.visitors.map(&:id)
-        end
-
-        it 'is not bookable' do
-          expect(subject).not_to be_bookable
-        end
-      end
-    end
-  end
-
-  describe 'slot_selected?' do
-    it 'is true if slot 0 is selected' do
-      subject.selection = 'slot_0'
-      expect(subject).to be_slot_selected
-    end
-
-    it 'is true if slot 1 is selected' do
-      subject.selection = 'slot_1'
-      expect(subject).to be_slot_selected
-    end
-
-    it 'is true if slot 2 is selected' do
-      subject.selection = 'slot_2'
-      expect(subject).to be_slot_selected
-    end
-
-    it 'is false if any other option is selected' do
-      subject.selection = 'slot_unavailable'
-      expect(subject).not_to be_slot_selected
-    end
-  end
-
-  context 'validations' do
-    before do
-      subject.selection = 'slot_0'
-      subject.reference_no = 12_345_678
-    end
-
-    describe 'visitor_not_on_list' do
-      it 'is valid if visitors are selected' do
-        subject.unlisted_visitor_ids = %w[ 42 ]
+        expected_params['rejection_attributes'] = {
+          'id'                              => nil,
+          'visit_id'                        => nil,
+          'reasons'                         => [Rejection::NO_ALLOWANCE],
+          'allowance_renews_on'             => allowance_renew_date.to_s,
+          'privileged_allowance_expires_on' => priviledge_allowance_expiry_date.to_s
+        }
+        expected_params['slot_granted'] = ''
         expect(subject).to be_valid
       end
-    end
 
-    describe 'visitor_banned' do
-      it 'is valid if it is visitor_banned and visitors are selected' do
-        subject.banned_visitor_ids = %w[ 42 ]
-        expect(subject).to be_valid
+      it 'has all the required attributes' do
+        expect(subject.email_attrs).to eq(expected_params)
       end
-    end
-
-    it 'is invalid if the visit is not processable' do
-      subject.visit.update!(processing_state: 'booked')
-
-      subject.selection = 'slot_unavailable'
-
-      expect(subject).not_to be_valid
-      expect(subject.errors).to have_key(:visit)
-    end
-  end
-
-  describe 'selection=' do
-    it 'is coerced to a string' do
-      subject.selection = :slot_0
-      expect(subject.selection).to eq('slot_0')
-      expect(subject.selection).to be_a(String)
     end
   end
 end

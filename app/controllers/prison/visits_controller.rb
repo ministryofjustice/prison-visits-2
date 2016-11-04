@@ -6,28 +6,32 @@ class Prison::VisitsController < ApplicationController
   before_action :cancellation_reason_set, only: :cancel
 
   def process_visit
-    visit = load_visit
-    @booking_response = BookingResponse.new(visit: visit)
-    @nomis_checker = StaffNomisChecker.new(visit)
+    @visit            = load_visit.decorate
+    @booking_response = BookingResponse.new(visit: @visit)
 
-    unless @booking_response.processable?
+    unless @visit.processable?
       flash[:notice] = t('already_processed', scope: [:prison, :flash])
-      redirect_to visit_page(@booking_response.visit)
+      redirect_to visit_page(@visit)
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def update
-    @booking_response = BookingResponse.new(booking_response_params)
+    @visit = load_visit.decorate
+    @visit.assign_attributes(visit_params)
+    @booking_response = BookingResponse.new(visit: @visit, user: current_user)
     if @booking_response.valid?
-      @visit = @booking_response.visit
-      BookingResponder.new(@booking_response).respond!
+      BookingResponder.new(@booking_response, message).respond!
       flash[:notice] = t('process_thank_you', scope: [:prison, :flash])
       redirect_to visit_page(@visit)
     else
-      @nomis_checker = StaffNomisChecker.new(@booking_response.visit)
+      flash[:alert] = t('process_required', scope: [:prison, :flash])
       render :process_visit
     end
   end
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 
   def nomis_cancelled
     visit = load_visit
@@ -42,8 +46,7 @@ class Prison::VisitsController < ApplicationController
                :visitors,
                messages: :user,
                visit_state_changes: :processed_by).
-             find(load_visit.id)
-    @nomis_checker = StaffNomisChecker.new(@visit)
+             find(load_visit.id).decorate
     @message = Message.new
   end
 

@@ -40,6 +40,7 @@ module FormElementsHelper
   end
 
   def field_error(form, name)
+    return unless form.object
     errors = form.object.errors[name]
     return '' unless errors.any?
     content_tag(:span, class: 'validation-message') { errors.first }
@@ -55,7 +56,7 @@ module FormElementsHelper
   end
 
   def error_container(form, name, options = { class: 'form-group' }, &blk)
-    if form.object.errors.include?(name)
+    if form.object&.errors&.include?(name)
       klass = [options[:class], 'error'].compact.join(' ')
     else
       klass = options[:class]

@@ -32,14 +32,16 @@
 <% end %>
 
 <div class="grid-row">
-  <% if @visit.rejection %>
+  <% if @visit.rejection.reasons.any? %>
     <div class="column-two-thirds push-top">
-      <div class="panel panel-border-narrow">
-        <div class="text-secondary">
-          <%= @visit.processing_state.capitalize %> reason
-        </div>
-        <small class="font-xsmall"><%= t(@visit.rejection_reason, scope: :shared) %></small>
+      <div class="push-top text-secondary push-bottom--half">
+        <i class="icon icon-information align-vertical--middle"></i> Rejected reason(s)
       </div>
+      <ul class="list list-bullet">
+        <% @visit.rejection.reasons.each do |reason| %>
+            <li><%= t(reason, scope: :shared) %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
   <% if @visit.cancelled? %>

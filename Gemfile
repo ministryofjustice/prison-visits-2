@@ -27,6 +27,7 @@ gem 'govuk_elements_rails', '>= 1.1.2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jwt'
+gem 'draper'
 
 # Fixed version as workaround for Rails version 4.2 expecting method
 # 'last_comment' to be defined. Review once we are using a different Rails
@@ -64,7 +65,6 @@ group :test do
   gem 'ffaker'
   gem 'fuubar'
   gem 'launchy'
-  gem 'phantomjs', require: 'phantomjs/poltergeist'
   gem 'poltergeist'
   gem 'simplecov'
   gem 'simplecov-rcov'

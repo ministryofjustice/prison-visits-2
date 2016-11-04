@@ -1,79 +1,28 @@
 <p><%= t('.salutation', name: @visit.visitor_first_name) %></p>
 
-<% case @booking_response.reason %>
-<% when 'slot_unavailable' %>
-
-  <p><%= t('.slot_unavailable_html',
-           prisoner: @visit.prisoner_anonymized_name,
-           prison: @visit.prison_name) %>
-  <p><%= t('.alternatives_html') %></p>
-
-<% when 'no_allowance' %>
-
-  <p><%= t('.no_allowance') %></p>
-
-  <% if @booking_response.privileged_allowance_available? %>
-    <p><%= t('.privileged_allowance_available',
-             date: format_date_without_year(@booking_response.privileged_allowance_expires_on)) %></p>
-  <% end %>
-
-  <% if @booking_response.allowance_will_renew? %>
-    <p><%= t('.allowance_will_renew',
-             prisoner: @visit.prisoner_anonymized_name,
-             date: format_date_without_year(@booking_response.allowance_renews_on)) %></p>
-  <% end %>
-
-<% when 'prisoner_details_incorrect' %>
-
-  <p><%= t('.prisoner_details_incorrect') %></p>
-
-<% when 'prisoner_moved' %>
-
-  <p><%= t('.prisoner_moved_html') %></p>
-
-<% when 'no_adult' %>
-
-  <p><%= t('.no_adult') %></p>
-
-<% when 'prisoner_released' %>
-
-  <p><%= t('.prisoner_released') %></p>
-
-<% when 'prisoner_non_association' %>
-
-  <p><%= t('.prisoner_non_association') %></p>
-
-<% when 'child_protection_issues' %>
-
-  <p><%= t('.child_protection_issues') %></p>
-
-<% when 'duplicate_visit_request' %>
-
-  <p><%= t('.duplicate_visit_request') %></p>
-
+<% if @rejection.reasons.size == 1 %>
+  <%= render 'visitor_mailer/single_rejection' %>
+<% else %>
+  <%= render 'visitor_mailer/multiple_rejection' %>
 <% end %>
 
-<% if @booking_response.unlisted_visitors.any? %>
-
-  <p><%= t('.visitor_not_on_list',
-           visitors: @booking_response.unlisted_visitors.map(&:anonymized_name).to_sentence) %></p>
-
+<% if @visit.unlisted_visitors.any? && !@rejection.reasons.include?('visitor_not_on_list') %>
+  <p>
+    <%= @rejection.visitor_not_on_list_explanation %>
+  </p>
   <p><%= t('.update_list') %></p>
-
   <p><%= t('.first_visit') %></p>
-
 <% end %>
 
-<% if @booking_response.banned_visitors.any? %>
-
-  <p><%= t('.visitor_banned',
-           visitors: @booking_response.banned_visitors.map(&:anonymized_name).to_sentence) %></p>
-
+<% if @visit.banned_visitors.any? && !@rejection.reasons.include?('visitor_banned') %>
+  <p>
+    <%= @rejection.visitor_banned_explanation %>
+  </p>
 <% end %>
 
-<% if @booking_response.message_body %>
+<% if @message&.body.present? %>
   <h2><%= t('.message_title') %></h2>
-  <p><i><%= @booking_response.message_body %></i></p>
+  <p><i><%= @message.body %></i></p>
 <% end %>
 
 <p><%= t('.any_questions_html',

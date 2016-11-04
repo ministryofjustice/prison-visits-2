@@ -2,20 +2,16 @@ require 'rails_helper'
 require 'mailers/shared_mailer_examples'
 
 RSpec.describe PrisonMailer, '.rejected' do
-  let(:rejection) {
+  let(:visit) do
     create(
-      :rejection,
-      visit: create(
-        :rejected_visit,
-        prisoner: create(
-          :prisoner,
-          first_name: 'Arthur',
-          last_name: 'Raffles'
-        )
+      :rejected_visit,
+      prisoner: create(
+        :prisoner,
+        first_name: 'Arthur',
+        last_name: 'Raffles'
       )
     )
-  }
-  let(:visit) { rejection.visit }
+  end
   let(:booking_response) { BookingResponse.new(visit: visit) }
   let(:mail) { described_class.rejected(booking_response.email_attrs) }
   let(:body) { mail.html_part.body }

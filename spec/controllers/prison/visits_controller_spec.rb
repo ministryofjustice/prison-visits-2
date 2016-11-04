@@ -48,21 +48,22 @@ RSpec.describe Prison::VisitsController, type: :controller do
     subject do
       put :update,
         id: visit.id,
-        booking_response: booking_response,
+        visit: booking_response,
         locale: 'en'
     end
 
-    let(:booking_response) { { selection: 'slot_0' } }
+    let(:booking_response) { { slot_granted: visit.slots.first.to_s } }
 
     it_behaves_like 'disallows untrusted ips'
 
     context "when isn't part of the dashboard trial" do
+      let(:booking_response) { { slot_granted: '' } }
       context 'when invalid' do
         it { is_expected.to render_template('process_visit') }
       end
 
       context 'when valid' do
-        let(:booking_response) { { selection: 'slot_0', reference_no: 'none' } }
+        let(:booking_response) { { slot_granted: visit.slots.first.to_s, reference_no: 'none' } }
 
         it { is_expected.to redirect_to(prison_visit_path(visit)) }
       end
@@ -87,11 +88,12 @@ RSpec.describe Prison::VisitsController, type: :controller do
         end
 
         context 'when invalid' do
+          let(:booking_response) { { slot_granted: '' } }
           it { is_expected.to render_template('process_visit') }
         end
 
         context 'when valid' do
-          let(:booking_response) { { selection: 'slot_0', reference_no: 'none' } }
+          let(:booking_response) { { slot_granted: visit.slots.first.to_s, reference_no: 'none' } }
 
           it { is_expected.to redirect_to(prison_inbox_path) }
         end

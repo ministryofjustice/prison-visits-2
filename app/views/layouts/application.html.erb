@@ -60,6 +60,12 @@
       </p>
     <% end %>
 
+    <% if alert.present? %>
+        <p class="notification">
+            <%= alert %>
+        </p>
+    <% end %>
+
     <%= yield %>
 
   </main>
