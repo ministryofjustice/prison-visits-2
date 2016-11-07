@@ -87,10 +87,13 @@ namespace :pvb do
     end
 
     def cancel_visit(visit, i)
-      if i == 0
-        visit.staff_cancellation! Cancellation::REASONS.sample
-      elsif i == 1
-        visit.visitor_cancel_or_withdraw!
+      if i.even?
+        CancellationResponse.new(
+          visit: visit,
+          user: nil,
+          reason: Cancellation::REASONS.sample).cancel!
+      else
+        VisitorCancellationResponse.new(visit: visit).cancel!
       end
     end
 

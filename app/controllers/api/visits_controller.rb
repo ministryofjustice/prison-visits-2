@@ -49,7 +49,7 @@ module Api
     end
 
     def show
-      @visit = load_visit
+      @visit = visit
     end
 
     def destroy
@@ -59,7 +59,7 @@ module Api
         visitor_withdrawal_response.withdraw!
       end
 
-      @visit = load_visit
+      @visit = visit
       render :show
     end
 
@@ -67,15 +67,15 @@ module Api
 
     def visitor_cancellation_response
       @_visitor_cancellation_response ||=
-        VisitorCancellationResponse.new(visit: load_visit)
+        VisitorCancellationResponse.new(visit: visit)
     end
 
     def visitor_withdrawal_response
       @_visitor_withdrawal_response ||=
-        VisitorWithdrawalResponse.new(visit: load_visit)
+        VisitorWithdrawalResponse.new(visit: visit)
     end
 
-    def load_visit
+    def visit
       @_visit ||= Visit.find(params[:id])
     end
 

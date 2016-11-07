@@ -1,7 +1,7 @@
 class BookingResponder
   class VisitorCancel < BookingRequestProcessor
     def process_request
-      super(nil) do
+      super do
         visit.cancel!
         Cancellation.create!(visit: visit,
                              reason: Cancellation::VISITOR_CANCELLED,
