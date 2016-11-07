@@ -48,6 +48,8 @@ private
   end
 
   def offender
-    prisoner_validation.offender
+    @offender ||= Nomis::Api.lookup_active_offender(
+      @visit.prisoner_number, @visit.prisoner.date_of_birth
+    )
   end
 end

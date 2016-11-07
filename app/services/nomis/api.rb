@@ -29,13 +29,22 @@ module Nomis
     end
 
     def lookup_active_offender(noms_id:, date_of_birth:)
-      response = @client.get(
-        '/lookup/active_offender',
-        noms_id: noms_id,
-        date_of_birth: date_of_birth
-      )
-      return nil unless response['found'] == true
-      Offender.new(response['offender'])
+      begin
+        response = @client.get(
+          '/lookup/active_offender',
+          noms_id: noms_id,
+          date_of_birth: date_of_birth
+        )
+      rescue APIError => e
+        Raven.capture_exception(e)
+        NullOffender.new
+      else
+        if response['found'] == true
+          Offender.new(response['offender'])
+        else
+          NullOffender.new
+        end
+      end
     end
 
     # rubocop:disable Metrics/MethodLength
