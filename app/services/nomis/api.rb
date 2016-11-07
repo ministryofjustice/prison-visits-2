@@ -52,8 +52,8 @@ module Nomis
       response = @client.get(
         "/offenders/#{offender_id}/visiting_availability",
         offender_id: offender_id,
-        start_date: start_date,
-        end_date: end_date
+        start_date:  start_date,
+        end_date:    end_date
       )
       if response.fetch('available')
         dates = response.fetch('dates').map(&:to_date)

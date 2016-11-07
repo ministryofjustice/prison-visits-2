@@ -41,10 +41,10 @@ private
 
     Nomis::Api.instance.offender_visiting_availability(
       offender_id: offender.id,
-      start_date: requested_dates.min,
-      end_date: requested_dates.max
+      start_date:  requested_dates.min,
+      end_date:    requested_dates.max
     ).dates
-  rescue Excon::Errors::Error => e
+  rescue Nomis::NotFound => e
     @prisoner_availability_error = true
     Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
     nil

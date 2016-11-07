@@ -1,7 +1,7 @@
 class StaffNomisChecker
-  VALID = 'valid'.freeze
-  INVALID = 'invalid'.freeze
-  UNKNOWN = 'unknown'.freeze
+  VALID    = 'valid'.freeze
+  INVALID  = 'invalid'.freeze
+  UNKNOWN  = 'unknown'.freeze
   NOT_LIVE = 'not_live'.freeze
 
   def initialize(visit)
@@ -25,7 +25,7 @@ class StaffNomisChecker
     prisoner_validation.errors[:base].first
   end
 
-  def slots_errors(slot)
+  def errors_for(slot)
     return [] unless @nomis_api_enabled
 
     [prisoner_availability_validation.date_error(slot.to_date)]
@@ -34,10 +34,7 @@ class StaffNomisChecker
 private
 
   def prisoner_validation
-    @prisoner_validation ||=
-      PrisonerValidation.new(
-        noms_id: @visit.prisoner_number,
-        date_of_birth: @visit.prisoner.date_of_birth).tap(&:valid?)
+    @prisoner_validation ||= PrisonerValidation.new(offender)
   end
 
   def prisoner_availability_validation

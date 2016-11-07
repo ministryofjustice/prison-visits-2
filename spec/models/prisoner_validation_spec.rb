@@ -18,17 +18,13 @@ RSpec.describe PrisonerValidation, type: :model do
   end
 
   describe 'when the NOMIS API is enabled' do
-    context 'and working correctly' do
-
-      context 'and the API finds a match' do
-        it { is_expected.to be_valid }
-      end
-
-      context 'and the API does not find a match' do
-        let(:offender) { Nomis::NullOffender.new }
-        it { is_expected.to_not be_valid }
-      end
+    context 'and the API finds a match' do
+      it { is_expected.to be_valid }
     end
 
+    context 'and the API does not find a match' do
+      let(:offender) { Nomis::NullOffender.new }
+      it { is_expected.to_not be_valid }
+    end
   end
 end
