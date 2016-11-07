@@ -1,20 +1,37 @@
 <div class="issue-with-prisoner">
+  <div class="border-box push-top">
+    <div class="grid-row">
+      <div class="column-one-half">
+        <div class="bold-small push-bottom--half"><%= t('.visiting_allowance') %></div>
+        <%= error_container(rf, :reasons) do %>
+          <label class="form-checkbox">
+            <%= rf.object.checkbox_for(:no_allowance) %>
+            <%= t('.no_allowance') %>
+          </label>
+        <% end %>
+      </div>
+      <div class="column-one-half">
+        <%= rf.fields_for :allowance_renews_on, rf.object.allowance_renews_on do |af| %>
+          <%= composite_field(rf, :allowance_renews_on) do %>
+            <% accessible_date_options.each do |field_name, field_options| %>
+              <div class="datefield form-group form-group-<%= field_name %>">
+                <%= af.label field_name %>
+                <%= af.number_field field_name, field_options.merge( class: 'form-control', aria: { describedby: 'allowance_renews_on' }) %>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
   <div class="grid-row push-top">
     <div class="column-one-third">
-      <%= error_container(rf, :reasons) do %>
-        <label class="block-label">
-          <%= rf.object.checkbox_for(:no_allowance, class: 'js-Conditional', data: { 'conditional-el': 'no_allowance_details' }) %>
-          <%= t('.no_allowance') %>
-        </label>
-      <% end %>
       <%= error_container(rf, :reasons) do %>
         <label class="block-label">
           <%= rf.object.checkbox_for(:prisoner_released, class: 'js-Conditional') %>
           <%= t('.prisoner_released') %>
         </label>
       <% end %>
-    </div>
-    <div class="column-one-third">
       <%= error_container(rf, :reasons) do %>
         <label class="block-label">
           <%=
@@ -27,55 +44,28 @@
           <%= t('.prisoner_details_incorrect') %>
         </label>
       <% end %>
+    </div>
+    <div class="column-one-third">
       <%= error_container(rf, :reasons) do %>
         <label class="block-label">
           <%= rf.object.checkbox_for(:prisoner_non_association, class: 'js-Conditional') %>
           <%= t('.prisoner_non_association') %>
         </label>
       <% end %>
-    </div>
-    <div class="column-one-third">
       <%= error_container(rf, :reasons) do %>
         <label class="block-label">
           <%= rf.object.checkbox_for(:prisoner_moved, class: 'js-Conditional') %>
           <%= t('.prisoner_moved') %>
         </label>
       <% end %>
+    </div>
+    <div class="column-one-third">
       <%= error_container(rf, :reasons) do %>
         <label class="block-label">
           <%= rf.object.checkbox_for(:child_protection_issues, class: 'js-Conditional') %>
           <%= t('.child_protection_issues') %>
         </label>
       <% end %>
-    </div>
-  </div>
-  <div id="no_allowance_details" class="panel panel-border-narrow">
-    <p><%= t('.no_allowance_tell_more') %></p>
-    <div class="grid-row push-top">
-      <div class="column-two-thirds">
-        <%=
-        single_field(
-          rf,
-          :allowance_will_renew, :check_box,
-          {class: 'js-Conditional',
-           data: { 'conditional-el': 'allowance_will_renew_details' }},
-          true, false
-        )
-        %>
-        <div id="allowance_will_renew_details" class="form-group">
-          <%= rf.fields_for :allowance_renews_on, rf.object.allowance_renews_on do |af| %>
-            <%= composite_field(rf, :allowance_renews_on) do %>
-              <% accessible_date_options.each do |field_name, field_options| %>
-                <div class="datefield form-group form-group-<%= field_name %>">
-                  <%= af.label field_name %>
-                  <%= af.number_field field_name, field_options.merge( class: 'form-control', aria: { describedby: 'allowance_renews_on' }) %>
-                </div>
-              <% end %>
-            <% end %>
-
-          <% end %>
-        </div>
-      </div>
     </div>
   </div>
 </div>

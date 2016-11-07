@@ -40,6 +40,10 @@
 .align-vertical--middle {
   vertical-align: text-bottom;
 }
+.border-box {
+  border: 1px solid $border-colour;
+  padding: $gutter-half;
+}
 @media print {
   .page-break {
     page-break-before: always;
