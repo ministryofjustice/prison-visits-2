@@ -104,7 +104,7 @@ RSpec.feature 'Processing a request', js: true do
 
   context "validating prisonner informations" do
     context "when the NOMIS API is working" do
-      context "and the prisonner's informations are not valid" do
+      context "and the prisoner's informations are not valid" do
         it 'informs staff informations are invalid' do
           expect(Nomis::Api.instance).to receive(:lookup_active_offender).and_return(nil)
           visit prison_visit_process_path(vst, locale: 'en')

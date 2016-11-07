@@ -190,27 +190,39 @@ RSpec.describe Api::VisitsController do
 
     specify do expect(delete :destroy, params).to render_template(:show) end
 
-    it 'cancels a visit request' do
-      delete :destroy, params
-      expect(response).to have_http_status(:ok)
-      expect(parsed_body['visit']['processing_state']).to eq('withdrawn')
+    context 'with a booked visit' do
+      let(:visit) { FactoryGirl.create(:booked_visit) }
+
+      it 'cancels a visit request' do
+        delete :destroy, params
+        expect(response).to have_http_status(:ok)
+        expect(parsed_body['visit']['processing_state']).to eq('cancelled')
+      end
     end
 
-    it 'fails if the visit does not exist' do
-      params[:id] = '123'
-      delete :destroy, params
-      expect(response).to have_http_status(:not_found)
-      expect(parsed_body['message']).to eq('Not found')
-    end
+    context 'with a requested visit' do
+      it 'withdraws the requested visit' do
+        delete :destroy, params
+        expect(response).to have_http_status(:ok)
+        expect(parsed_body['visit']['processing_state']).to eq('withdrawn')
+      end
 
-    it 'is idempotent' do
-      delete :destroy, params
-      expect(response).to have_http_status(:ok)
-      expect(assigns(:visit).visit_state_changes.size).to eq(1)
+      it 'fails if the visit does not exist' do
+        params[:id] = '123'
+        delete :destroy, params
+        expect(response).to have_http_status(:not_found)
+        expect(parsed_body['message']).to eq('Not found')
+      end
 
-      delete :destroy, params
-      expect(response).to have_http_status(:ok)
-      expect(assigns(:visit).visit_state_changes.size).to eq(1)
+      it 'is idempotent' do
+        delete :destroy, params
+        expect(response).to have_http_status(:ok)
+        expect(assigns(:visit).visit_state_changes.size).to eq(1)
+
+        delete :destroy, params
+        expect(response).to have_http_status(:ok)
+        expect(assigns(:visit).visit_state_changes.size).to eq(1)
+      end
     end
   end
 end

@@ -111,32 +111,6 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
       update_all(nomis_cancelled: true, updated_at: Time.zone.now)
   end
 
-  def staff_cancellation!(reason)
-    cancellation!(reason, nomis_cancelled: true)
-    VisitorMailer.cancelled(self).deliver_later
-  end
-
-  def visitor_can_cancel_or_withdraw?
-    visitor_can_cancel? || can_withdraw?
-  end
-
-  def visitor_can_cancel?
-    can_cancel? && slot_granted.begin_at >= Time.now.utc
-  end
-
-  def visitor_cancel_or_withdraw!
-    unless visitor_can_cancel_or_withdraw?
-      fail "Can't cancel or withdraw visit #{id}"
-    end
-
-    if can_cancel?
-      process_cancellation_and_send_email
-      return
-    end
-
-    withdraw! if can_withdraw?
-  end
-
   delegate :age, :first_name, :last_name, :full_name, :anonymized_name,
     :number, :date_of_birth, to: :prisoner, prefix: true
 
@@ -144,11 +118,6 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
     :date_of_birth, to: :principal_visitor, prefix: :visitor
 
   alias_method :processable?, :requested?
-
-  def process_cancellation_and_send_email
-    cancellation!(Cancellation::VISITOR_CANCELLED, nomis_cancelled: false)
-    PrisonMailer.cancelled(self).deliver_later
-  end
 
   def slots
     [slot_option_0, slot_option_1, slot_option_2].
@@ -194,14 +163,5 @@ private
   def not_allowed_visitor_ids
     @not_allowed_visitor_ids ||=
       unlisted_visitors.map(&:id) + banned_visitors.map(&:id)
-  end
-
-  def cancellation!(reason, nomis_cancelled:)
-    transaction do
-      cancel!
-      Cancellation.create!(visit: self,
-                           reason: reason,
-                           nomis_cancelled: nomis_cancelled)
-    end
   end
 end
