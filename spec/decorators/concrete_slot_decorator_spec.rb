@@ -21,9 +21,10 @@ RSpec.describe ConcreteSlotDecorator do
     let(:slot) do
       ConcreteSlot.new(2015, 11, 5, 13, 30, 14, 45)
     end
+    let(:nomis_checker) {  double(StaffNomisChecker, errors_for: []) }
     let(:html_fragment) do
       Capybara.string(
-        subject.label_for(form_builder, 0)
+        subject.label_for(form_builder, 0, nomis_checker)
       )
     end
     context 'when a prisoner is available' do
