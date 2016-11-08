@@ -49,19 +49,35 @@ module Api
     end
 
     def show
-      @visit = Visit.find(params[:id])
+      @visit = visit
     end
 
     def destroy
-      @visit = Visit.find(params[:id])
-      if @visit.visitor_can_cancel_or_withdraw?
-        @visit.visitor_cancel_or_withdraw!
+      if visitor_cancellation_response.visitor_can_cancel?
+        visitor_cancellation_response.cancel!
+      elsif visitor_withdrawal_response.visitor_can_withdraw?
+        visitor_withdrawal_response.withdraw!
       end
 
+      @visit = visit
       render :show
     end
 
   private
+
+    def visitor_cancellation_response
+      @_visitor_cancellation_response ||=
+        VisitorCancellationResponse.new(visit: visit)
+    end
+
+    def visitor_withdrawal_response
+      @_visitor_withdrawal_response ||=
+        VisitorWithdrawalResponse.new(visit: visit)
+    end
+
+    def visit
+      @_visit ||= Visit.find(params[:id])
+    end
 
     def fail_if_invalid(param, step)
       unless step.valid?

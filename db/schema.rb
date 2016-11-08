@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012153148) do
+ActiveRecord::Schema.define(version: 20161101112214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20161012153148) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.uuid     "processed_by_id"
+    t.uuid     "visitor_id"
   end
 
   add_index "visit_state_changes", ["visit_id"], name: "index_visit_state_changes_on_visit_id", using: :btree
@@ -172,6 +173,7 @@ ActiveRecord::Schema.define(version: 20161012153148) do
   add_foreign_key "rejections", "visits"
   add_foreign_key "users", "estates"
   add_foreign_key "visit_state_changes", "users", column: "processed_by_id"
+  add_foreign_key "visit_state_changes", "visitors"
   add_foreign_key "visitors", "visits"
   add_foreign_key "visits", "prisoners"
   add_foreign_key "visits", "prisons"

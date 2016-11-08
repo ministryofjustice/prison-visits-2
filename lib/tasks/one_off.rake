@@ -29,23 +29,19 @@ namespace :pvb do
     STDOUT.puts "Done. Withdrawn #{withdrawn_count} expired visits."
   end
 
-  namespace :db do
-    namespace :migrate do
-      desc 'Migrate rejection from single reason to multiple reasons'
-      task rejection: :environment do
-        Rejection.transaction do
-          Rejection::REASONS.each do |reason|
-            ActiveRecord::Base.
-              connection.
-              execute <<-SQL
-UPDATE rejections
-SET reasons = array_append(reasons, '#{reason}')
-WHERE reason  = '#{reason}'
-  AND reasons = '{}'
-SQL
-          end
-        end
+  desc 'Backpopulate visitors on visit state changes'
+  task backpopulate_visitors: :environment do
+    VisitStateChange.
+      where(to_state: 'withdrawn').
+      includes(visit: :visitors).find_each do |vs|
+        vs.update_column(:visitor_id, vs.visit.principal_visitor.id)
       end
+
+    VisitStateChange.
+      includes(visit: :visitors).
+      where(to_state: 'cancelled',
+            reason: Cancellation::VISITOR_CANCELLED).find_each do |vs|
+      vs.update_column(:visitor_id, vs.visit.principal_visitor.id)
     end
   end
 end

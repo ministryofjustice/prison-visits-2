@@ -4,11 +4,14 @@ class BookingResponder
       @booking_response = booking_response
     end
 
-    def process_request(message)
+    def process_request(message_for_visitor = nil)
       ActiveRecord::Base.transaction do
         yield if block_given?
-        create_message(message, visit.last_visit_state) if message
-        record_user(visit.last_visit_state)
+        if message_for_visitor
+          create_message(message_for_visitor, visit.last_visit_state)
+        end
+
+        record_visitor_or_user
       end
     end
 
@@ -20,6 +23,17 @@ class BookingResponder
     delegate :rejection, to: :visit
     private :visit
 
+    # Responses are either initiated by a user or visitor, but never both
+    def record_visitor_or_user
+      if booking_response.respond_to?(:user)
+        visit.last_visit_state.update!(processed_by: booking_response.user)
+      end
+
+      if booking_response.respond_to?(:visitor)
+        visit.last_visit_state.update!(visitor: booking_response.visitor)
+      end
+    end
+
     def create_message(message, visit_state_change)
       message.user_id ||= booking_response.user&.id
       return unless message.valid?
@@ -28,10 +42,6 @@ class BookingResponder
         visit:              visit,
         visit_state_change: visit_state_change
       )
-    end
-
-    def record_user(visit_state_change)
-      visit_state_change.update!(processed_by: booking_response.user)
     end
   end
 end

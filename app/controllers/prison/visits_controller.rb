@@ -51,19 +51,25 @@ class Prison::VisitsController < ApplicationController
   end
 
   def cancel
-    @visit = load_visit
-
-    if @visit.can_cancel?
-      @visit.staff_cancellation!(params[:cancellation_reason])
+    if cancellation_response.can_cancel?
+      cancellation_response.cancel!
       flash[:notice] = t('visit_cancelled', scope: [:prison, :flash])
     else
       flash[:notice] = t('already_cancelled', scope: [:prison, :flash])
     end
 
-    redirect_to visit_page(@visit)
+    redirect_to visit_page(cancellation_response.visit)
   end
 
 private
+
+  def cancellation_response
+    @_cancellation_response ||=
+      CancellationResponse.new(
+        visit: load_visit,
+        user: current_user,
+        reason: params[:cancellation_reason])
+  end
 
   def cancellation_reason_set
     unless params[:cancellation_reason]
