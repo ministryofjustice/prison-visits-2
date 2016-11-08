@@ -37,7 +37,6 @@ private
       :principal_visitor_id, :processing_state, :id,
       visitor_ids: [],
       rejection_attributes: [
-        :allowance_will_renew,
         allowance_renews_on: [:day, :month, :year],
         reasons: []
       ],

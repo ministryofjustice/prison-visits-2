@@ -18,14 +18,15 @@ class Prison::VisitsController < ApplicationController
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   def update
-    @visit = load_visit.decorate
-    @visit.assign_attributes(visit_params)
-    @booking_response = BookingResponse.new(visit: @visit, user: current_user)
+    visit = load_visit
+    visit.assign_attributes(visit_params)
+    @booking_response = BookingResponse.new(visit: visit, user: current_user)
     if @booking_response.valid?
       BookingResponder.new(@booking_response, message).respond!
       flash[:notice] = t('process_thank_you', scope: [:prison, :flash])
-      redirect_to visit_page(@visit)
+      redirect_to visit_page(visit)
     else
+      @visit = visit.decorate
       flash[:alert] = t('process_required', scope: [:prison, :flash])
       render :process_visit
     end
