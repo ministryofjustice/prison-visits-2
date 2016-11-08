@@ -53,6 +53,7 @@ private
   end
 
   def bookable?
-    visit.rejection.invalid? && visit.slot_granted?
+    (visit.rejection.nil? || visit.rejection.invalid?) &&
+      visit.slot_granted?
   end
 end
