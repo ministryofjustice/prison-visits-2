@@ -8,8 +8,10 @@ class Prison::MessagesController < ApplicationController
 
     if @message.persisted?
       flash[:notice] = t('message_created', scope: [:prison, :flash])
-      redirect_to :back
+      redirect_to prison_visit_path(@visit)
     else
+      @visit = @visit.decorate
+
       flash[:notice] = t('message_create_error', scope: [:prison, :flash])
       render 'prison/visits/show'
     end

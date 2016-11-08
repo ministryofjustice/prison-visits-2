@@ -14,10 +14,6 @@ RSpec.describe Prison::MessagesController do
 
     let(:message_body) { 'Hello' }
 
-    before do
-      request.env['HTTP_REFERER'] = '/previous/path'
-    end
-
     it_behaves_like 'disallows untrusted ips'
 
     context "when logged in" do
@@ -27,7 +23,7 @@ RSpec.describe Prison::MessagesController do
 
       it 'creates a message' do
         expect {
-          expect(subject).to redirect_to('/previous/path')
+          expect(subject).to redirect_to(prison_visit_path(visit))
         }.to change { visit.reload.messages.count }.by(1)
       end
 
