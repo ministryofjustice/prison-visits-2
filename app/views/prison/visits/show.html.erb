@@ -32,7 +32,7 @@
 <% end %>
 
 <div class="grid-row">
-  <% if @visit.rejection.reasons.any? %>
+  <% if @visit.rejected? %>
     <div class="column-two-thirds push-top">
       <div class="push-top text-secondary push-bottom--half">
         <i class="icon icon-information align-vertical--middle"></i> Rejected reason(s)
