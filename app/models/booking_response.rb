@@ -50,12 +50,11 @@ private
       attrs = visit.rejection.serializable_hash(
         except: [
           :created_at, :updated_at, :allowance_renews_on,
-          :privileged_allowance_expires_on])
+          :privileged_allowance_expires_on
+        ])
 
       attrs['allowance_renews_on'] =
         rejection.allowance_renews_on.to_s
-      attrs['privileged_allowance_expires_on'] =
-        rejection.privileged_allowance_expires_on.to_s
       attrs
     end
   end

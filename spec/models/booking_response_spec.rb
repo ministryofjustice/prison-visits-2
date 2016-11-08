@@ -143,7 +143,6 @@ RSpec.describe BookingResponse, type: :model do
 
       before do
         params[:rejection_attributes][:reasons] = [Rejection::NO_ALLOWANCE]
-        params[:rejection_attributes][:allowance_will_renew] = true
         params[:rejection_attributes][:allowance_renews_on]  = {
           day:   allowance_renew_date.day,
           month: allowance_renew_date.month,

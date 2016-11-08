@@ -41,55 +41,11 @@ RSpec.describe Rejection, model: true do
           before do
             subject.allowance_renews_on = date_hash
           end
+
           it { is_expected.to be_invalid }
 
           it 'preserves the set date' do
             expect(subject.allowance_renews_on).to eq(date_hash)
-          end
-        end
-      end
-    end
-
-    context 'when privileged allowance expires' do
-      before do
-        subject.reasons << described_class::NO_ALLOWANCE
-      end
-      context 'validates the privileged allowance expiry date' do
-        before do
-          subject.privileged_allowance_available = '1'
-        end
-
-        context 'with a date set' do
-          before do
-            subject.privileged_allowance_expires_on = { day: 01, month: 02, year: 2018 }
-          end
-
-          it { is_expected.to be_valid }
-        end
-
-        context 'without a date set' do
-          before do
-            subject.privileged_allowance_expires_on = { day: '', month: '', year: '' }
-            is_expected.to_not be_valid
-          end
-
-          it 'has an error' do
-            expect(subject.errors.full_messages).to eq(['Privileged allowance expires on is invalid'])
-          end
-        end
-
-        context 'with an erroneous date' do
-          let(:date_hash) { { day: '42', month: '42', year: '42' } }
-          let(:uncoerced_date) { UncoercedDate.new(date_hash) }
-
-          before do
-            subject.privileged_allowance_expires_on = date_hash
-          end
-
-          it { is_expected.to be_invalid }
-
-          it 'preserves the set date' do
-            expect(subject.privileged_allowance_expires_on).to eq(date_hash)
           end
         end
       end
@@ -125,18 +81,6 @@ RSpec.describe Rejection, model: true do
     end
   end
 
-  describe 'privileged_allowance_available?' do
-    it 'is true if there is a privileged_allowance_expires_on date' do
-      subject.privileged_allowance_expires_on = Time.zone.today + 1
-      expect(subject).to be_privileged_allowance_available
-    end
-
-    it 'is false if these is no privileged_allowance_expires_on date' do
-      subject.privileged_allowance_expires_on = ''
-      expect(subject).not_to be_privileged_allowance_available
-    end
-  end
-
   describe 'allowance_will_renew?' do
     it 'is true if there is an allowance_renews_on date' do
       subject.allowance_renews_on = Time.zone.today + 1
@@ -167,19 +111,6 @@ RSpec.describe Rejection, model: true do
         expect {
           subject.allowance_renews_on = dayish
         }.to change { subject.allowance_renews_on }.from(nil).to(Date.new(*dayish.values_at(:year, :month, :day).map(&:to_i)))
-      end
-    end
-  end
-
-  describe '#privileged_allowance_expires_on=' do
-    context 'when given a hash' do
-      let(:dayish) { { year: '2100', month: '11', day: '30' } }
-      it 'is cast as a date' do
-        expect {
-          subject.privileged_allowance_expires_on = dayish
-        }.to change {
-          subject.privileged_allowance_expires_on
-        }.from(nil).to(Date.new(*dayish.values_at(:year, :month, :day).map(&:to_i)))
       end
     end
   end

@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe RejectionDecorator do
   let(:allowance_renews_on)             { 2.days.from_now.to_date }
-  let(:privileged_allowance_expires_on) { 3.days.from_now.to_date }
   let!(:visit) { create(:rejected_visit) }
   let!(:unlisted_visitor) do
     create(:visitor, visit: visit, not_on_list: true)
@@ -15,8 +14,7 @@ RSpec.describe RejectionDecorator do
   before do
     visit.reload
     rejection.assign_attributes(
-      allowance_renews_on: allowance_renews_on,
-      privileged_allowance_expires_on: privileged_allowance_expires_on
+      allowance_renews_on: allowance_renews_on
     )
   end
 
@@ -111,29 +109,6 @@ RSpec.describe RejectionDecorator do
 
       it 'is nil' do
         expect(subject.allowance_renews_on.to_date).to eq(nil)
-      end
-    end
-  end
-
-  describe '#allowance_renews_on' do
-    context 'with a date' do
-      it 'returns an accessible date' do
-        expect(subject.privileged_allowance_expires_on).to be_instance_of(AccessibleDate)
-      end
-      it 'has the correct date' do
-        expect(subject.privileged_allowance_expires_on.to_date).to eq(privileged_allowance_expires_on)
-      end
-    end
-
-    context 'with no date' do
-      let(:privileged_allowance_expires_on) { nil }
-
-      it 'returns an accessible date' do
-        expect(subject.privileged_allowance_expires_on).to be_instance_of(AccessibleDate)
-      end
-
-      it 'is nil' do
-        expect(subject.privileged_allowance_expires_on.to_date).to eq(nil)
       end
     end
   end
