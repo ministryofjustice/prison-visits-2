@@ -45,7 +45,7 @@ class Rejection < ActiveRecord::Base
   end
 
   def allowance_will_renew?
-    allowance_renews_on.present?
+    allowance_renews_on.is_a?(Date)
   end
 
   def allowance_renews_on=(maybe_date)
