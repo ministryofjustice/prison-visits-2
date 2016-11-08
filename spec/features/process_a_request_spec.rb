@@ -269,11 +269,10 @@ RSpec.feature 'Processing a request', js: true do
         and_body(/the dates and times you chose aren't available/)
     end
 
-    xscenario 'a booking when the prisoner has no visiting allowance' do
+    scenario 'a booking when the prisoner has no visiting allowance' do
       allowance_renewal = 2.days.from_now.to_date
 
       check 'Prisoner does not have any visiting allowance'
-      check 'Visiting allowance (weekends and weekday visits) (VO) will be renewed:'
 
       fill_in 'Day',   with: allowance_renewal.day
       fill_in 'Month', with: allowance_renewal.month
