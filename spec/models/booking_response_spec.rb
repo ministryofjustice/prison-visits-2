@@ -140,7 +140,6 @@ RSpec.describe BookingResponse, type: :model do
     describe 'when rejected' do
       let(:slot_granted)                     { '' }
       let(:allowance_renew_date)             { 2.weeks.from_now.to_date }
-      let(:priviledge_allowance_expiry_date) { 1.month.from_now.to_date }
 
       before do
         params[:rejection_attributes][:reasons] = [Rejection::NO_ALLOWANCE]
@@ -151,19 +150,11 @@ RSpec.describe BookingResponse, type: :model do
           year:  allowance_renew_date.year
         }
 
-        params[:rejection_attributes][:privileged_allowance_available]  = true
-        params[:rejection_attributes][:privileged_allowance_expires_on] = {
-          day:   priviledge_allowance_expiry_date.day,
-          month: priviledge_allowance_expiry_date.month,
-          year:  priviledge_allowance_expiry_date.year
-        }
-
         expected_params['rejection_attributes'] = {
           'id'                              => nil,
           'visit_id'                        => nil,
           'reasons'                         => [Rejection::NO_ALLOWANCE],
-          'allowance_renews_on'             => allowance_renew_date.to_s,
-          'privileged_allowance_expires_on' => priviledge_allowance_expiry_date.to_s
+          'allowance_renews_on'             => allowance_renew_date.to_s
         }
         expected_params['slot_granted'] = ''
         expect(subject).to be_valid
