@@ -32,15 +32,16 @@ namespace :pvb do
   desc 'Backpopulate visitors on visit state changes'
   task backpopulate_visitors: :environment do
     VisitStateChange.
-      where(to_state: 'withdrawn').
+      where(visit_state: 'withdrawn').
       includes(visit: :visitors).find_each do |vs|
         vs.update_column(:visitor_id, vs.visit.principal_visitor.id)
       end
 
     VisitStateChange.
-      includes(visit: :visitors).
-      where(to_state: 'cancelled',
-            reason: Cancellation::VISITOR_CANCELLED).find_each do |vs|
+      includes(visit: [:cancellation, :visitors]).
+      where(visit_state: 'cancelled',
+            'cancellations.reason': Cancellation::VISITOR_CANCELLED).
+      find_each do |vs|
       vs.update_column(:visitor_id, vs.visit.principal_visitor.id)
     end
   end
