@@ -71,8 +71,15 @@ RSpec.feature 'Using the dashboard' do
       end
     end
 
-    it do
+    it 'sends a message and cancels the visit' do
       visit prison_visit_path(vst)
+
+      click_button 'Send email'
+
+      fill_in 'Please type your message', with: 'Sandals not allowed'
+      click_button 'Send email'
+
+      expect(page).to have_css('.message', 'Sandals not allowed')
 
       find('.summary', text: 'Issue with the prisoner').click
       choose 'Prisoner has moved prisons'
