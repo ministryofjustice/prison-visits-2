@@ -33,12 +33,7 @@ class Rejection < ActiveRecord::Base
   validates :reasons, presence: true
 
   validate :check_allowance_renews_on_is_date,
-    if: :allowance_will_renew
-
-  validate :check_privileged_allowance_expires_on_is_date,
-    if: :privileged_allowance_available
-
-  attr_reader :allowance_will_renew, :privileged_allowance_available
+    if: :allowance_will_renew?
 
   # TODO: Delete me when the column has dropped
   def self.columns
@@ -50,19 +45,11 @@ class Rejection < ActiveRecord::Base
   end
 
   def allowance_will_renew?
-    allowance_renews_on.is_a?(Date)
+    allowance_renews_on.present?
   end
 
   def allowance_renews_on=(maybe_date)
     super(DateCoercer.coerce(maybe_date) || maybe_date)
-  end
-
-  def privileged_allowance_expires_on=(maybe_date)
-    super(DateCoercer.coerce(maybe_date) || maybe_date)
-  end
-
-  def privileged_allowance_available=(value)
-    @privileged_allowance_available = truthy?(value)
   end
 
   def allowance_will_renew=(value)
@@ -92,12 +79,6 @@ private
   def check_allowance_renews_on_is_date
     if no_allowance? && !allowance_renews_on.is_a?(Date)
       errors.add(:allowance_renews_on, :invalid)
-    end
-  end
-
-  def check_privileged_allowance_expires_on_is_date
-    if no_allowance? && !privileged_allowance_expires_on.is_a?(Date)
-      errors.add(:privileged_allowance_expires_on, :invalid)
     end
   end
 

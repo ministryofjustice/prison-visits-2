@@ -26,9 +26,6 @@ RSpec.describe Rejection, model: true do
       end
 
       context 'validates the allowance renewal date' do
-        before do
-          subject.allowance_will_renew = '1'
-        end
 
         context 'with a date set' do
           before do
@@ -36,17 +33,6 @@ RSpec.describe Rejection, model: true do
           end
 
           it { is_expected.to be_valid }
-        end
-
-        context 'without a date set' do
-          before do
-            subject.allowance_renews_on = { day: '', month: '', year: '' }
-            is_expected.to be_invalid
-          end
-
-          it 'has an error' do
-            expect(subject.errors.full_messages).to eq(['Allowance renews on is invalid'])
-          end
         end
 
         context 'with an erroneous date' do
