@@ -26,6 +26,7 @@ class Prison::VisitsController < ApplicationController
       flash[:notice] = t('process_thank_you', scope: [:prison, :flash])
       redirect_to visit_page(@visit)
     else
+      # Always decorate object last once they've been mutated
       @visit = @visit.decorate
       flash[:alert] = t('process_required', scope: [:prison, :flash])
       render :process_visit
