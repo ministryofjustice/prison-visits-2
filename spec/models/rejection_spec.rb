@@ -26,7 +26,6 @@ RSpec.describe Rejection, model: true do
       end
 
       context 'validates the allowance renewal date' do
-
         context 'with a date set' do
           before do
             subject.allowance_renews_on = 1.day.from_now

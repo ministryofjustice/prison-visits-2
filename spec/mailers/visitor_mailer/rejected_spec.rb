@@ -118,7 +118,7 @@ RSpec.describe VisitorMailer, '.rejected' do
 
     before do
       visit.rejection.reasons = ['no_allowance']
-      visit.rejection.allowance_renews_on             = Date.new(2015, 10, 1)
+      visit.rejection.allowance_renews_on = Date.new(2015, 10, 1)
     end
 
     it 'explains the error' do

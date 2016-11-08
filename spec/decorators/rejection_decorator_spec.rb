@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe RejectionDecorator do
-  let(:allowance_renews_on)             { 2.days.from_now.to_date }
+  let(:allowance_renews_on) { 2.days.from_now.to_date }
   let!(:visit) { create(:rejected_visit) }
   let!(:unlisted_visitor) do
     create(:visitor, visit: visit, not_on_list: true)
