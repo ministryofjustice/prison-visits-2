@@ -80,6 +80,8 @@ en:
         the dates and times you chose aren't available - choose new dates on
         <a href="www.gov.uk/prison-visits">www.gov.uk/prison-visits</a>
       no_allowance_html: >-
+        the prisoner has used their allowance of visits for this month
+      no_allowance_date_html: >-
         the prisoner has used their allowance of visits for this month - you
         can only book a visit from %{date} onwards
       no_adult_html:
