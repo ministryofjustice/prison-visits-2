@@ -33,13 +33,11 @@ RSpec.describe BookingResponse, type: :model do
     end
 
     context 'given a booking is rejected for no available allowance' do
-
       before do
         params[:rejection_attributes][:reasons] = [Rejection::NO_ALLOWANCE]
       end
 
       context 'given a valid renewal date' do
-
         it 'converts to a date' do
           is_expected.to be_valid
           expect(subject.visit.rejection.allowance_renews_on).to eq(tomorrow)
@@ -47,7 +45,6 @@ RSpec.describe BookingResponse, type: :model do
       end
 
       context 'given an invalid date' do
-
         it 'does not convert to a date' do
           accessible_date['year'] = ''
           is_expected.to be_invalid

@@ -19,7 +19,6 @@ RSpec.describe Rejection, model: true do
         described_class.create!(visit_id: SecureRandom.uuid, reasons: [described_class::NOT_ON_THE_LIST])
       }.to raise_exception(ActiveRecord::InvalidForeignKey)
     end
-
   end
 
   describe '#reasons' do
@@ -62,5 +61,4 @@ RSpec.describe Rejection, model: true do
       expect(subject).not_to be_allowance_will_renew
     end
   end
-
 end
