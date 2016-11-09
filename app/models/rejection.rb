@@ -58,11 +58,6 @@ private
     end
   end
 
-  def truthy?(value)
-    ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.
-      include?(value)
-  end
-
   def check_allowance_renews_on_is_date
     if no_allowance? &&
        allowance_renews_on.present? &&
