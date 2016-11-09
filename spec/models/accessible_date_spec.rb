@@ -16,11 +16,22 @@ RSpec.describe AccessibleDate do
 
       it { is_expected.to_not be_valid }
     end
+
+    context 'with no date parts set' do
+      let(:attributes) { { year: '', month: '', day: '' } }
+      it { is_expected.to be_valid }
+    end
   end
 
   describe 'to_date' do
     it 'is serialized correctly' do
       expect(subject.to_date).to eq(Date.new(2017, 12, 25))
+    end
+    context 'with no date parts set' do
+      let(:attributes) { { year: '', month: '', day: '' } }
+      it 'returns nil' do
+        expect(subject.to_date).to be_nil
+      end
     end
   end
 end

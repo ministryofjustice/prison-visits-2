@@ -44,6 +44,17 @@ RSpec.describe BookingResponse, type: :model do
         end
       end
 
+      context 'given new date given' do
+        let(:accessible_date) do
+          { 'day' => '', 'month' => '', 'year' => '' }
+        end
+
+        it 'clears the date' do
+          is_expected.to be_valid
+          expect(subject.visit.rejection.allowance_renews_on).to eq(nil)
+        end
+      end
+
       context 'given an invalid date' do
         it 'does not convert to a date' do
           accessible_date['year'] = ''

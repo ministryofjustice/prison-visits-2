@@ -32,8 +32,6 @@ class Rejection < ActiveRecord::Base
   validate :validate_reasons
   validates :reasons, presence: true
 
-  validate :check_allowance_renews_on_is_date
-
   # TODO: Delete me when the column has dropped
   def self.columns
     super.reject { |c| c.name == 'reason' }
@@ -56,17 +54,5 @@ private
         )
       )
     end
-  end
-
-  def check_allowance_renews_on_is_date
-    if no_allowance? &&
-       allowance_renews_on.present? &&
-       !allowance_renews_on.is_a?(Date)
-      errors.add(:allowance_renews_on, :invalid)
-    end
-  end
-
-  def no_allowance?
-    reasons.include?(NO_ALLOWANCE)
   end
 end
