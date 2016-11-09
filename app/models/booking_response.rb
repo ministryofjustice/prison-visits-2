@@ -5,7 +5,6 @@ class BookingResponse
   attr_accessor :visit, :user
 
   before_validation :check_slot_available
-  before_validation :convert_accessible_dates
 
   validate :validate_visit_is_processable
   validate :visit_or_rejection_validity
@@ -13,7 +12,7 @@ class BookingResponse
   after_validation :check_for_banned_visitors
   after_validation :check_for_unlisted_visitors
   after_validation :check_at_least_one_adult_visitor
-
+  after_validation :clear_allowance_renews_on_date
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   def email_attrs
@@ -134,19 +133,9 @@ private
     end
   end
 
-  def convert_accessible_dates
-    if no_allowance? && allowance_renews_on.valid?
-      rejection.allowance_renews_on = allowance_renews_on.to_date
-    elsif !no_allowance?
+  def clear_allowance_renews_on_date
+    unless rejection.reasons.include?(Rejection::NO_ALLOWANCE)
       rejection.allowance_renews_on = nil
     end
-  end
-
-  def no_allowance?
-    rejection.reasons.include?(Rejection::NO_ALLOWANCE)
-  end
-
-  def allowance_renews_on
-    @allowance_renews_on ||= AccessibleDate.new(rejection.allowance_renews_on)
   end
 end

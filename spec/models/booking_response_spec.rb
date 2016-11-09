@@ -44,7 +44,7 @@ RSpec.describe BookingResponse, type: :model do
         end
       end
 
-      context 'given new date given' do
+      context 'given not date was set' do
         let(:accessible_date) do
           { 'day' => '', 'month' => '', 'year' => '' }
         end
