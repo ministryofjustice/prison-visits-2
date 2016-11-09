@@ -24,7 +24,7 @@ class VisitTimeline
   end
 
   def events
-    events = @visit.visit_state_changes.reverse.map.with_index { |state, i|
+    events = visit_state_changes.reverse.map.with_index { |state, i|
       build_event_from_state_change(state, last: i.zero?)
     }
 
@@ -33,6 +33,10 @@ class VisitTimeline
   end
 
 private
+
+  def visit_state_changes
+    @visit.visit_state_changes.sort { |a, b| a.created_at <=> b.created_at }
+  end
 
   def build_requested_event(last:)
     Event.new(
