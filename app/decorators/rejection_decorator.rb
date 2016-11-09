@@ -19,19 +19,6 @@ class RejectionDecorator < Draper::Decorator
       end
   end
 
-  def privileged_allowance_expires_on
-    @privileged_allowance_expires_on ||=
-      begin
-        if object.privileged_allowance_expires_on
-          AccessibleDate.new(
-            date_to_accessible_date(object.privileged_allowance_expires_on)
-          )
-        else
-          AccessibleDate.new
-        end
-      end
-  end
-
   def checkbox_for(reason, html_options = {})
     h.check_box_tag(
       'visit[rejection_attributes][reasons][]',

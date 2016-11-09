@@ -18,7 +18,7 @@ class Prison::VisitsController < ApplicationController
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   def update
-    @visit = load_visit.decorate
+    @visit = load_visit
     @visit.assign_attributes(visit_params)
     @booking_response = BookingResponse.new(visit: @visit, user: current_user)
     if @booking_response.valid?
@@ -26,6 +26,8 @@ class Prison::VisitsController < ApplicationController
       flash[:notice] = t('process_thank_you', scope: [:prison, :flash])
       redirect_to visit_page(@visit)
     else
+      # Always decorate object last once they've been mutated
+      @visit = @visit.decorate
       flash[:alert] = t('process_required', scope: [:prison, :flash])
       render :process_visit
     end

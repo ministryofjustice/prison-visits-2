@@ -177,11 +177,6 @@ en:
           be renewed:
         allowance_renews_on: Date visiting allowance will be renewed
         allowance_renews_on_hint: eg 28 04 1996
-        privileged_allowance_available: >-
-          If weekday visit (PVO) is possible instead, choose the date
-          PVO expires:
-        privileged_allowance_available_on: Date privileged visiting allowance will be renewed
-        privileged_allowance_available_on_hint: eg 28 04 1996
       visitor_details:
         title: Visitor details
         visitor_not_on_list: Visitor is not on the contact list

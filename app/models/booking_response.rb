@@ -12,7 +12,7 @@ class BookingResponse
   after_validation :check_for_banned_visitors
   after_validation :check_for_unlisted_visitors
   after_validation :check_at_least_one_adult_visitor
-
+  after_validation :clear_allowance_renews_on_date
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   def email_attrs
@@ -50,12 +50,11 @@ private
       attrs = visit.rejection.serializable_hash(
         except: [
           :created_at, :updated_at, :allowance_renews_on,
-          :privileged_allowance_expires_on])
+          :privileged_allowance_expires_on
+        ])
 
       attrs['allowance_renews_on'] =
         rejection.allowance_renews_on.to_s
-      attrs['privileged_allowance_expires_on'] =
-        rejection.privileged_allowance_expires_on.to_s
       attrs
     end
   end
@@ -131,6 +130,12 @@ private
   def validate_visit_is_processable
     unless visit.processable?
       errors.add(:visit, :already_processed)
+    end
+  end
+
+  def clear_allowance_renews_on_date
+    unless rejection.reasons.include?(Rejection::NO_ALLOWANCE)
+      rejection.allowance_renews_on = nil
     end
   end
 end

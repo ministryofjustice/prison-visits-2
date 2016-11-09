@@ -31,45 +31,35 @@ class Rejection < ActiveRecord::Base
 
   validate :validate_reasons
   validates :reasons, presence: true
-
-  validate :check_allowance_renews_on_is_date,
-    if: :allowance_will_renew
-
-  validate :check_privileged_allowance_expires_on_is_date,
-    if: :privileged_allowance_available
-
-  attr_reader :allowance_will_renew, :privileged_allowance_available
+  validate :validate_allowance_renews_on_date
 
   # TODO: Delete me when the column has dropped
   def self.columns
     super.reject { |c| c.name == 'reason' }
   end
 
-  def privileged_allowance_available?
-    privileged_allowance_expires_on.is_a?(Date)
-  end
-
   def allowance_will_renew?
     allowance_renews_on.is_a?(Date)
   end
 
-  def allowance_renews_on=(maybe_date)
-    super(DateCoercer.coerce(maybe_date) || maybe_date)
-  end
-
-  def privileged_allowance_expires_on=(maybe_date)
-    super(DateCoercer.coerce(maybe_date) || maybe_date)
-  end
-
-  def privileged_allowance_available=(value)
-    @privileged_allowance_available = truthy?(value)
-  end
-
-  def allowance_will_renew=(value)
-    @allowance_will_renew = truthy?(value)
+  def allowance_renews_on=(accessible_date)
+    date = AccessibleDate.new(accessible_date)
+    if date.valid?
+      super(date.to_date)
+    else
+      super(accessible_date)
+    end
+  rescue
+    super DateCoercer.coerce(accessible_date)
   end
 
 private
+
+  def validate_allowance_renews_on_date
+    if no_allowance? && !acceptable_allowance_renews_on_date?
+      errors.add(:allowance_renews_on, 'ius not a fate')
+    end
+  end
 
   def validate_reasons
     reasons.each do |r|
@@ -84,24 +74,11 @@ private
     end
   end
 
-  def truthy?(value)
-    ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.
-      include?(value)
-  end
-
-  def check_allowance_renews_on_is_date
-    if no_allowance? && !allowance_renews_on.is_a?(Date)
-      errors.add(:allowance_renews_on, :invalid)
-    end
-  end
-
-  def check_privileged_allowance_expires_on_is_date
-    if no_allowance? && !privileged_allowance_expires_on.is_a?(Date)
-      errors.add(:privileged_allowance_expires_on, :invalid)
-    end
+  def acceptable_allowance_renews_on_date?
+    allowance_renews_on.is_a?(Date) || allowance_renews_on.nil?
   end
 
   def no_allowance?
-    reasons.include?(NO_ALLOWANCE)
+    reasons.include?(Rejection::NO_ALLOWANCE)
   end
 end

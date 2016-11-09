@@ -80,9 +80,6 @@ namespace :pvb do
       rejection = visit.build_rejection(reasons: [Rejection::REASONS.sample])
       if i == 0
         rejection.allowance_renews_on = (1..10).to_a.sample.days.from_now
-      elsif i == 1
-        rejection.privileged_allowance_expires_on =
-          (1..10).to_a.sample.days.from_now
       end
     end
 

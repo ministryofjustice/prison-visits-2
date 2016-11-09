@@ -1,5 +1,5 @@
 module BookingResponseHelper
-  def reject_visit(visit, reasons = [Rejection::NO_ALLOWANCE])
+  def reject_visit(visit, reasons = [Rejection::SLOT_UNAVAILABLE])
     booking_response = BookingResponse.new(visit: visit)
     booking_response.valid?
     booking_response.visit.rejection.reasons += reasons

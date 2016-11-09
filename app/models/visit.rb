@@ -28,8 +28,7 @@ class Visit < ActiveRecord::Base
 
   delegate :reasons, to: :rejection, prefix: true
   delegate :reason, to: :cancellation, prefix: true
-  delegate :privileged_allowance_available?, :privileged_allowance_expires_on,
-    :allowance_will_renew?, :allowance_renews_on,
+  delegate :allowance_will_renew?, :allowance_renews_on,
     to: :rejection
 
   scope :from_estate, lambda { |estate|

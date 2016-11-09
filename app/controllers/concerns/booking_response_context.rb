@@ -37,9 +37,7 @@ private
       :principal_visitor_id, :processing_state, :id,
       visitor_ids: [],
       rejection_attributes: [
-        :allowance_will_renew, :privileged_allowance_available,
         allowance_renews_on: [:day, :month, :year],
-        privileged_allowance_expires_on: [:day, :month, :year],
         reasons: []
       ],
       visitors_attributes:  [:id, :banned, :not_on_list]

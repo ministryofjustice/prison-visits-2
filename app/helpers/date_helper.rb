@@ -4,6 +4,7 @@ module DateHelper
   end
 
   def format_date_without_year(date)
+    return unless date
     I18n.l(date.to_date, format: :date_without_year)
   end
 
