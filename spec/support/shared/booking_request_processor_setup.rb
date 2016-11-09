@@ -17,7 +17,6 @@ RSpec.shared_context 'booking response setup' do
       reference_no:         'A1234BC',
       closed:               [true, false].sample,
       rejection_attributes: {
-        allowance_will_renew: '0',
         allowance_renews_on: {
           day: '', month: '', year: ''
         }

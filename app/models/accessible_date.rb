@@ -7,7 +7,7 @@ class AccessibleDate
   attr_accessor :year, :month, :day
 
   validate :parsable?
-
+  validates :year, :month, :day, presence: true
   def attributes
     { year: year, month: month, day: day }
   end

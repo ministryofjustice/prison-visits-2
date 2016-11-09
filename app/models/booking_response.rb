@@ -5,6 +5,7 @@ class BookingResponse
   attr_accessor :visit, :user
 
   before_validation :check_slot_available
+  before_validation :convert_accessible_dates
 
   validate :validate_visit_is_processable
   validate :visit_or_rejection_validity
@@ -131,5 +132,21 @@ private
     unless visit.processable?
       errors.add(:visit, :already_processed)
     end
+  end
+
+  def convert_accessible_dates
+    if no_allowance? && allowance_renews_on.valid?
+      rejection.allowance_renews_on = allowance_renews_on.to_date
+    elsif !no_allowance?
+      rejection.allowance_renews_on = nil
+    end
+  end
+
+  def no_allowance?
+    rejection.reasons.include?(Rejection::NO_ALLOWANCE)
+  end
+
+  def allowance_renews_on
+    @allowance_renews_on ||= AccessibleDate.new(rejection.allowance_renews_on)
   end
 end

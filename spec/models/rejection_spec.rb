@@ -20,35 +20,6 @@ RSpec.describe Rejection, model: true do
       }.to raise_exception(ActiveRecord::InvalidForeignKey)
     end
 
-    context 'when allowance will renew' do
-      before do
-        subject.reasons << Rejection::NO_ALLOWANCE
-      end
-
-      context 'validates the allowance renewal date' do
-        context 'with a date set' do
-          before do
-            subject.allowance_renews_on = 1.day.from_now
-          end
-
-          it { is_expected.to be_valid }
-        end
-
-        context 'with an erroneous date' do
-          let(:date_hash)      { { day: '42', month: '42', year: '42' } }
-          let(:uncoerced_date) { UncoercedDate.new(date_hash) }
-          before do
-            subject.allowance_renews_on = date_hash
-          end
-
-          it { is_expected.to be_invalid }
-
-          it 'preserves the set date' do
-            expect(subject.allowance_renews_on).to eq(date_hash)
-          end
-        end
-      end
-    end
   end
 
   describe '#reasons' do
@@ -82,7 +53,7 @@ RSpec.describe Rejection, model: true do
 
   describe 'allowance_will_renew?' do
     it 'is true if there is an allowance_renews_on date' do
-      subject.allowance_renews_on = Time.zone.today + 1
+      subject.allowance_renews_on = Date.current
       expect(subject).to be_allowance_will_renew
     end
 
@@ -92,25 +63,4 @@ RSpec.describe Rejection, model: true do
     end
   end
 
-  describe '#allowance_renews_on=' do
-    context 'when given a hash' do
-      let(:dayish) { { year: '2100', month: '11', day: '30' } }
-      it 'is cast as a date' do
-        expect {
-          subject.allowance_renews_on = dayish
-        }.to change { subject.allowance_renews_on }.from(nil).to(Date.new(*dayish.values_at(:year, :month, :day).map(&:to_i)))
-      end
-    end
-  end
-
-  describe '#allowance_renews_on=' do
-    context 'when given a hash' do
-      let(:dayish) { { year: '2100', month: '11', day: '30' } }
-      it 'is cast as a date' do
-        expect {
-          subject.allowance_renews_on = dayish
-        }.to change { subject.allowance_renews_on }.from(nil).to(Date.new(*dayish.values_at(:year, :month, :day).map(&:to_i)))
-      end
-    end
-  end
 end

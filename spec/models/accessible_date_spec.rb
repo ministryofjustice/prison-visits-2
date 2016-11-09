@@ -7,6 +7,10 @@ RSpec.describe AccessibleDate do
   it { is_expected.to be_valid }
 
   describe 'validations' do
+    it { is_expected.to validate_presence_of :year }
+    it { is_expected.to validate_presence_of :month }
+    it { is_expected.to validate_presence_of :day }
+
     context 'with an invalid date' do
       let(:attributes) { { year: '2017', month: '13', day: '25' } }
 
