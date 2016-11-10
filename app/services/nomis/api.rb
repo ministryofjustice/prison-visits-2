@@ -55,12 +55,8 @@ module Nomis
         start_date:  start_date,
         end_date:    end_date
       )
-      if response.fetch('available')
-        dates = response.fetch('dates').map(&:to_date)
-        return PrisonerAvailability.new(dates: dates)
-      else
-        return PrisonerAvailability.new(dates: [])
-      end
+
+      PrisonerAvailability.new(response)
     rescue Excon::Errors::NotFound
       raise NotFound, 'Unknown offender'
     end
