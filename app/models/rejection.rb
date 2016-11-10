@@ -57,7 +57,7 @@ private
 
   def validate_allowance_renews_on_date
     if no_allowance? && !acceptable_allowance_renews_on_date?
-      errors.add(:allowance_renews_on, 'ius not a fate')
+      errors.add(:allowance_renews_on, :invalid)
     end
   end
 
