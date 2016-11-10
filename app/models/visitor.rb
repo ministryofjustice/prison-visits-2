@@ -13,6 +13,21 @@ class Visitor < ActiveRecord::Base
     order(sort_index: :asc)
   end
 
+  def banned_until?
+    banned_until.is_a?(Date)
+  end
+
+  def banned_until=(accessible_date)
+    date = AccessibleDate.new(accessible_date)
+    if date.valid?
+      super(date.to_date)
+    else
+      super(accessible_date)
+    end
+  rescue
+    super DateCoercer.coerce(accessible_date)
+  end
+
   def allowed?
     !(banned || not_on_list)
   end

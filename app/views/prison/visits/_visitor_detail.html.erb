@@ -5,6 +5,9 @@
       <h3 class="bold-small"><%= t('lead_visitor', scope: :shared) %></h3>
       <% if @visit.principal_visitor.banned %>
         <span class="tag tag--error font-xsmall"><%= t('.banned') %></span>
+        <% if @visit.principal_visitor.banned_until? %>
+          <span><%= @visit.principal_visitor.banned_until.to_s(:short_nomis) %></span>
+        <% end %>
       <% end %>
       <% if @visit.principal_visitor.not_on_list %>
         <span class="tag tag--warning font-xsmall"><%= t('.not_listed') %></span>
@@ -44,6 +47,9 @@
         <h3 class="bold-small"><%= t('visitor_no', n: index + 2, scope: :shared) %></h3>
         <% if visitor.banned %>
           <span class="tag tag--error font-xsmall"><%= t('.banned') %></span>
+          <% if visitor.banned_until? %>
+            <span><%= visitor.banned_until.to_s(:short_nomis) %></span>
+          <% end %> 
         <% end %>
         <% if visitor.not_on_list %>
           <span class="tag tag--warning font-xsmall"><%= t('.not_listed') %></span>

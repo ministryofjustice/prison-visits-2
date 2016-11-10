@@ -185,6 +185,8 @@ en:
         dob: "Date of birth (age)"
         email: "Email address"
         phone_no: "Phone no"
+        banned_until: Banned until
+        banned_until_hint: eg 28 04 1996
       visitor_detail:
         title: Visitor details
         not_listed: Not listed

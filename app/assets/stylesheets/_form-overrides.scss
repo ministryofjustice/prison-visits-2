@@ -1,0 +1,9 @@
+.form-checkbox {
+  position: relative;
+  padding-left: 25px;
+  input[type="checkbox"] {
+    position: absolute;
+    left: 0;
+    top: 5px;
+  }
+}

@@ -39,7 +39,13 @@
 
 <% if @visit.banned_visitors.any? %>
   <% @visit.banned_visitors.each do |v| %>
-    <p><%= t('.visitor_banned_html', name: v.anonymized_name) %></p>
+    <p>
+      <% if v.banned_until? %>
+        <%= t('.visitor_banned_until_html', name: v.anonymized_name, banned_until: v.banned_until.to_s(:short_nomis)) %>
+      <% else %>
+        <%= t('.visitor_banned_html', name: v.anonymized_name) %>
+      <% end %>
+    </p>
   <% end %>
   <p><%= t('.banned_instructions') %></p>
 <% end %>

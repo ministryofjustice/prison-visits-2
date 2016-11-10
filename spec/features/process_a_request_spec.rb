@@ -32,7 +32,7 @@ RSpec.feature 'Processing a request', js: true do
         first_name: 'Oscar',
         last_name: 'Wilde'
       )
-    ).decorate
+    )
   }
 
   let(:sso_response) do
@@ -174,6 +174,7 @@ RSpec.feature 'Processing a request', js: true do
 
     context 'disallowed visitors' do
       let(:visitor) { create(:visitor, visit: vst) }
+      let(:banned_until) { 3.days.from_now.to_date }
 
       before do
         visitor.save!
@@ -184,20 +185,33 @@ RSpec.feature 'Processing a request', js: true do
         choose_date
 
         fill_in 'Reference number', with: '12345678'
-        check 'visit[visitors_attributes][1][banned]'
+
+        within "#visitor_#{visitor.id}" do
+          check 'Visitor is banned'
+          fill_in 'Day', with: banned_until.day
+          fill_in 'Month', with: banned_until.month
+          fill_in 'Year', with: banned_until.year
+        end
 
         click_button 'Process'
 
         expect(page).to have_text('Thank you for processing the visit')
 
-        vst.reload
-        expect(vst).to be_booked
-        expect(vst.reference_no).to eq('12345678')
+        visit prison_visit_path(vst)
+
+        expect(page).to have_css('div.tag--heading', text: 'Booked')
+        expect(page).to have_css('div.text-secondary', text: 'Ref: 12345678')
+
+        within "#visitor_#{visitor.id}" do
+          expect(page).to have_text('Banned')
+          expect(page).to have_text(banned_until.to_s(:short_nomis))
+        end
 
         expect(contact_email_address).
           to receive_email.
           with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
-          and_body(/cannot attend as they are currently banned/)
+          and_body(/cannot attend as they are currently banned until/)
+
         expect(prison_email_address).
           to receive_email.
           with_subject(/COPY of booking confirmation for Oscar Wilde/).
@@ -274,9 +288,11 @@ RSpec.feature 'Processing a request', js: true do
 
       check 'Prisoner does not have any visiting allowance'
 
-      fill_in 'Day',   with: allowance_renewal.day
-      fill_in 'Month', with: allowance_renewal.month
-      fill_in 'Year',  with: allowance_renewal.year
+      within '.issue-with-prisoner' do
+        fill_in 'Day',   with: allowance_renewal.day
+        fill_in 'Month', with: allowance_renewal.month
+        fill_in 'Year',  with: allowance_renewal.year
+      end
 
       click_button 'Process'
 
@@ -285,7 +301,7 @@ RSpec.feature 'Processing a request', js: true do
       vst.reload
       expect(vst).to be_rejected
       expect(vst.rejection_reasons).to include('no_allowance')
-      expect(vst.rejection.object.allowance_renews_on).to eq(allowance_renewal)
+      expect(vst.rejection.allowance_renews_on).to eq(allowance_renewal)
 
       expect(contact_email_address).
         to receive_email.

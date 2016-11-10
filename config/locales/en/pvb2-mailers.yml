@@ -14,6 +14,9 @@ en:
       visitor_banned_html: >-
         <strong>%{name} cannot attend</strong> as they are currently
         <strong>banned</strong>
+      visitor_banned_until_html: >-
+        <strong>%{name} cannot attend</strong> as they are currently
+        <strong>banned</strong> until %{banned_until}
       banned_instructions: >-
         Banned visitors should have received a letter to say that they are
         banned from visiting the prison at the moment. Get in touch with

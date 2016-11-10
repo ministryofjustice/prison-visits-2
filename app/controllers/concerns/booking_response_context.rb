@@ -40,7 +40,12 @@ private
         allowance_renews_on: [:day, :month, :year],
         reasons: []
       ],
-      visitors_attributes:  [:id, :banned, :not_on_list]
+      visitors_attributes:  [
+        :id,
+        :banned,
+        :not_on_list,
+        banned_until: [:day, :month, :year]
+      ]
     )
   end
   # rubocop:enable Metrics/MethodLength

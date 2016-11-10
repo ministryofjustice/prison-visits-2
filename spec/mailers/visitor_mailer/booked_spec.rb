@@ -3,6 +3,8 @@ require 'mailers/shared_mailer_examples'
 
 RSpec.describe VisitorMailer, '.booked' do
   let(:visit) { create(:booked_visit) }
+  let!(:visitor) { create(:visitor, :banned, visit: visit, banned_until: banned_until) }
+  let(:banned_until) { 3.days.from_now.to_date }
   let(:booking_response) do
     BookingResponse.new(visit: visit, user: create(:user))
   end
@@ -27,9 +29,13 @@ RSpec.describe VisitorMailer, '.booked' do
   end
 
   it 'uses the locale of the visit' do
-    visit.update locale: 'cy'
+    visit.locale = 'cy'
     expect(mail.subject).
       to match(/mae eich ymweliad ar Dydd Llun 12 Hydref wedi'i gadarnhau/)
+  end
+
+  it 'notifies of the banned visitor' do
+    expect(mail.html_part.body).to match("until #{banned_until.to_s(:short_nomis)}")
   end
 
   context 'with an acceptance staff message' do
