@@ -20,8 +20,11 @@ private
   end
 
   def booking_response
-    @booking_response ||=
-      BookingResponse.new(visit: Visit.new(visit_params))
+    @booking_response ||= begin
+      visit = load_visit
+      visit.assign_attributes(visit_params)
+      BookingResponse.new(visit: visit)
+    end
   end
 
   def visitor_mailer

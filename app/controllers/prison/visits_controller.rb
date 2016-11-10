@@ -4,15 +4,11 @@ class Prison::VisitsController < ApplicationController
   before_action :require_login_during_trial,
     only: %w[show nomis_cancelled process_visit update]
   before_action :cancellation_reason_set, only: :cancel
+  before_action :visit_is_processable, only: [:process_visit, :update]
 
   def process_visit
     @visit            = load_visit.decorate
     @booking_response = BookingResponse.new(visit: @visit)
-
-    unless @visit.processable?
-      flash[:notice] = t('already_processed', scope: [:prison, :flash])
-      redirect_to visit_page(@visit)
-    end
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -64,6 +60,14 @@ class Prison::VisitsController < ApplicationController
   end
 
 private
+
+  def visit_is_processable
+    visit = load_visit
+    unless visit.processable?
+      flash[:notice] = t('already_processed', scope: [:prison, :flash])
+      redirect_to visit_page(visit)
+    end
+  end
 
   def cancellation_response
     @_cancellation_response ||=
