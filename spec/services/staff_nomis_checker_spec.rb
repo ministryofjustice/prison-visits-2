@@ -2,29 +2,26 @@ require 'rails_helper'
 
 RSpec.describe StaffNomisChecker do
   let(:instance) { described_class.new(visit) }
-  let(:visit) { FactoryGirl.build_stubbed(:visit, prisoner: prisoner) }
+  let(:visit)    { FactoryGirl.build_stubbed(:visit, prisoner: prisoner) }
   let(:prisoner) { FactoryGirl.build_stubbed(:prisoner) }
+  let(:offender) { Nomis::Offender.new(id: visit.prisoner_id) }
+  let(:enabled)  { true }
+  before do
+    expect(Nomis::Api).to receive(:enabled?).and_return(enabled)
+    allow(instance).to receive(:offender).and_return(offender)
+  end
 
   describe '#prisoner_existance_status' do
     subject { instance.prisoner_existance_status }
 
     describe 'when the nomis api is not live' do
-      before do
-        allow(Nomis::Api).to receive(:enabled?).and_return(false)
-      end
-
+      let(:enabled)  { false }
       it { is_expected.to eq('not_live') }
     end
 
     describe 'when the nomis api is live' do
       before do
-        allow(Nomis::Api).to receive(:enabled?).and_return(true)
-
-        expect(PrisonerValidation).
-          to receive(:new).
-          with(noms_id: prisoner.number,
-               date_of_birth: prisoner.date_of_birth).
-          and_return(validator)
+        expect(PrisonerValidation).to receive(:new).with(offender).and_return(validator)
       end
 
       let(:validator) do
@@ -70,8 +67,8 @@ RSpec.describe StaffNomisChecker do
     end
   end
 
-  describe '#slots_errors' do
-    subject { instance.slots_errors(slot) }
+  describe '#errors_for' do
+    subject { instance.errors_for(slot) }
     let(:slot) { visit.slots.first }
 
     context 'when the nomis api is not enabled' do
@@ -91,7 +88,7 @@ RSpec.describe StaffNomisChecker do
       let(:message) { PrisonerAvailabilityValidation::PRISONER_NOT_AVAILABLE }
 
       before do
-        allow(Nomis::Api).to receive(:enabled?).and_return(true)
+
         allow(instance).to receive(:offender).and_return(offender)
         allow(PrisonerAvailabilityValidation).
           to receive(:new).
