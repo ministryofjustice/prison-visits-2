@@ -9,6 +9,26 @@ RSpec.describe Visitor do
   it { is_expected.to validate_presence_of(:last_name) }
   it { is_expected.to validate_presence_of(:date_of_birth) }
 
+  describe 'validation' do
+    context 'when not banned an banned_until set' do
+      before do
+        instance.banned = false
+        instance.banned_until = Date.tomorrow
+      end
+
+      it { is_expected.to_not be_valid }
+    end
+
+    context 'when it is banned and is banned until yesterday' do
+      before do
+        instance.banned = true
+        instance.banned_until = Date.yesterday
+      end
+
+      it { is_expected.to_not be_valid }
+    end
+  end
+
   describe '#banned_until?' do
     subject { instance.banned_until? }
 
