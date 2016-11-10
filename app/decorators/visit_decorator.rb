@@ -14,7 +14,12 @@ class VisitDecorator < Draper::Decorator
   end
 
   def slots
-    @slots ||= ConcreteSlotDecorator.decorate_collection(object.slots)
+    @slots ||= object.slots.map_with_index do |slot, i|
+      ConcreteSlotDecorator.decorate(
+        slot,
+        context: { index: i, nomis_checker: nomis_checker }
+      )
+    end
   end
 
   def rejection

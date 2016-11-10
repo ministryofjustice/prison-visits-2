@@ -103,6 +103,7 @@ en:
         body: Message (optional)
         submit: Process
         email_preview: Preview Email
+        prisoner_unavailable: Prisoner unavailable
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
