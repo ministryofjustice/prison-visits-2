@@ -45,8 +45,9 @@ private
   end
 
   def offender
-    @offender ||= Nomis::Api.lookup_active_offender(
-      @visit.prisoner_number, @visit.prisoner.date_of_birth
+    @offender ||= Nomis::Api.instance.lookup_active_offender(
+      noms_id:       @visit.prisoner_number,
+      date_of_birth: @visit.prisoner.date_of_birth
     )
   end
 end

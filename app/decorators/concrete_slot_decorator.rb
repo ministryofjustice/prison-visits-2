@@ -8,19 +8,21 @@ class ConcreteSlotDecorator < Draper::Decorator
     }
   }.freeze
 
-  def label_for(form_builder)
+  def slot_picker(form_builder)
     html_classes = 'block-label date-box'
 
-    html_classes << ' date-box--error' if unavailable?
+    html_classes << ' radio-button-white date-box--error' if unavailable?
 
     form_builder.label(
-      :slot_granted, class: html_classes, value: iso8601
+      :slot_granted, class: html_classes, value: iso8601, data: {target: 'selected_slot_details'}
     ) do
       form_builder.radio_button(
         :slot_granted, iso8601, RADIO_BUTTON_OPTIONS
       )
+      h.concat(label_text)
 
       if unavailable?
+        h.concat(h.content_tag('br'))
         h.concat(
           h.content_tag(
             :span,
@@ -32,8 +34,6 @@ class ConcreteSlotDecorator < Draper::Decorator
           )
         )
       end
-
-      h.concat(label_text)
     end
   end
 
