@@ -2,10 +2,11 @@ require 'rails_helper'
 
 RSpec.describe StaffNomisChecker do
   let(:instance) { described_class.new(visit) }
-  let(:visit)    { FactoryGirl.build_stubbed(:visit, prisoner: prisoner) }
-  let(:prisoner) { FactoryGirl.build_stubbed(:prisoner) }
+  let(:visit)    { build_stubbed(:visit, prisoner: prisoner) }
+  let(:prisoner) { build_stubbed(:prisoner) }
   let(:offender) { Nomis::Offender.new(id: visit.prisoner_id) }
   let(:enabled)  { true }
+
   before do
     expect(Nomis::Api).to receive(:enabled?).and_return(enabled)
     allow(instance).to receive(:offender).and_return(offender)
@@ -49,21 +50,10 @@ RSpec.describe StaffNomisChecker do
   end
 
   describe '#prisoner_existance_error' do
-    before do
-      expect(PrisonerValidation).
-        to receive(:new).
-        with(noms_id: prisoner.number,
-             date_of_birth: prisoner.date_of_birth).
-        and_return(validator)
-    end
-
-    let(:validator) do
-      double(PrisonerValidation, valid?: true, errors: { base: errors })
-    end
-    let(:errors) { ['something'] }
+    let(:offender) { Nomis::NullOffender.new }
 
     it 'is the error from the prisoner validation' do
-      expect(instance.prisoner_existance_error).to eq('something')
+      expect(instance.prisoner_existance_error).to eq('prisoner_does_not_exist')
     end
   end
 

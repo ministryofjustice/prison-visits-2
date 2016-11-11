@@ -3,5 +3,7 @@ module Nomis
     include NonPersistedModel
 
     attribute :id
+
+    validates_presence_of :id
   end
 end

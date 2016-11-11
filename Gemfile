@@ -54,7 +54,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'rubocop'
   gem 'rubocop-rspec'
-  gem 'shoulda-matchers'
   gem 'awesome_print', require: 'ap'
 end
 
@@ -70,4 +69,5 @@ group :test do
   gem 'simplecov-rcov'
   gem 'vcr'
   gem 'webmock'
+  gem 'shoulda-matchers'
 end

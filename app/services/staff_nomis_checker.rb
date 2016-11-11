@@ -34,7 +34,7 @@ class StaffNomisChecker
 private
 
   def prisoner_validation
-    @prisoner_validation ||= PrisonerValidation.new(offender)
+    @prisoner_validation ||= PrisonerValidation.new(offender).tap(&:valid?)
   end
 
   def prisoner_availability_validation
