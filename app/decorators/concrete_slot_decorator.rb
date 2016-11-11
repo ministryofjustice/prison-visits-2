@@ -16,8 +16,11 @@ class ConcreteSlotDecorator < Draper::Decorator
     form_builder.label(
       :slot_granted, class: html_classes, value: iso8601, data: {target: 'selected_slot_details'}
     ) do
-      form_builder.radio_button(
-        :slot_granted, iso8601, RADIO_BUTTON_OPTIONS
+      h.concat(
+        form_builder.radio_button(
+          :slot_granted,
+          iso8601,
+          RADIO_BUTTON_OPTIONS)
       )
       h.concat(label_text)
 

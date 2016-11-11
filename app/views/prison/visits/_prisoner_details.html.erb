@@ -5,7 +5,7 @@
     <i class="icon icon-important">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
-    <strong class="bold-small"><%= t('.verified_html') %></strong>
+    <strong class="bold-small"><%= t('.verified_html', scope: [:prison, :visits, :prisoner_details]) %></strong>
   </div>
 <% when StaffNomisChecker::INVALID, StaffNomisChecker::UNKNOWN %>
   <div class="notice push-top">

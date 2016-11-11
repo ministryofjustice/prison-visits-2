@@ -115,12 +115,12 @@ RSpec.feature 'Processing a request', js: true do
             slot_option_2: nil
           )
         end
+        let!(:offender) { create(:offender_not_found) }
 
-        it 'informs staff informations are invalid', vcr: { cassette_name: 'offender_visiting_availability-noavailability' } do
-          expect(Nomis::Api.instance).to receive(:lookup_active_offender).and_return(Nomis::Offender.new(id: 1055847))
+        it 'informs staff informations are invalid' do
+          expect(Nomis::Api.instance).to receive(:lookup_active_offender).and_return(offender)
           visit prison_visit_process_path(vst, locale: 'en')
-          save_and_open_page
-          expect(page).to have_content("The prisoner date of birth and number do not match.")
+          expect(page).to have_content("The provided prisoner information didn't match any prisoner.")
         end
       end
     end
