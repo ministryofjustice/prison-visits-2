@@ -26,7 +26,7 @@ class StaffNomisChecker
   end
 
   def errors_for(slot)
-    return [] unless @nomis_api_enabled
+    return [] unless @nomis_api_enabled && offender.valid?
 
     [prisoner_availability_validation.date_error(slot.to_date)]
   end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe PrisonerValidation, type: :model do
-  let(:offender) { Nomis::Offender.new }
+  let(:offender) { Nomis::Offender.new(id: 'someid') }
   subject do
     described_class.new(offender)
   end
