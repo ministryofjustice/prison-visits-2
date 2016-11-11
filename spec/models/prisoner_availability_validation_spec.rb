@@ -51,7 +51,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
 
         context '#date_error' do
           it 'returns nothing' do
-            expect(subject.date_error(date)).to be_nil
+            expect(subject.date_error(date1)).to be_nil
           end
         end
       end
@@ -66,7 +66,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
 
         context '#date_error' do
           it 'returns the prisoner not available message' do
-            expect(subject.date_error(date)).
+            expect(subject.date_error(date2)).
               to eq(described_class::PRISONER_NOT_AVAILABLE)
           end
         end
@@ -77,7 +77,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
       before do
         allow_any_instance_of(Nomis::Api).
           to receive(:offender_visiting_availability).
-          and_raise(Excon::Errors::Error.new)
+          and_raise(Nomis::NotFound)
       end
 
       it 'adds unknown errors to all the dates' do
