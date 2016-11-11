@@ -73,8 +73,13 @@ private
   end
 
   def no_allowance_explanation
+    key = if object.allowance_renews_on?
+            'no_allowance_date_html'
+          else
+            'no_allowance_html'
+          end
     h.t(
-      'no_allowance_html',
+      key,
       scope: [:visitor_mailer, :rejected],
       date: h.format_date_without_year(object.allowance_renews_on)
     )

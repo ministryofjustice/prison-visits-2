@@ -13,9 +13,6 @@ RSpec.describe RejectionDecorator do
 
   before do
     visit.reload
-    rejection.assign_attributes(
-      allowance_renews_on: allowance_renews_on
-    )
   end
 
   subject { described_class.decorate(rejection) }
@@ -39,12 +36,30 @@ RSpec.describe RejectionDecorator do
       context 'containing no_allowance' do
         let(:reasons) { [Rejection::NO_ALLOWANCE] }
 
-        it 'has the correct explanation' do
-          expect(
-            subject.formated_reasons.map(&:explanation)
-          ).to eq([
-            "the prisoner has used their allowance of visits for this month - you can only book a visit from #{I18n.l(rejection.allowance_renews_on, format: :date_without_year)} onwards"
-          ])
+        context 'with a date set' do
+          before do
+            rejection.assign_attributes(
+              allowance_renews_on: allowance_renews_on
+            )
+          end
+
+          it 'has the correct explanation' do
+            expect(
+              subject.formated_reasons.map(&:explanation)
+            ).to eq([
+              "the prisoner has used their allowance of visits for this month - you can only book a visit from #{I18n.l(rejection.allowance_renews_on, format: :date_without_year)} onwards"
+            ])
+          end
+        end
+
+        context 'without a date' do
+          it 'has the correct explanation' do
+            expect(
+              subject.formated_reasons.map(&:explanation)
+            ).to eq([
+              "the prisoner has used their allowance of visits for this month"
+            ])
+          end
         end
       end
 
@@ -91,6 +106,12 @@ RSpec.describe RejectionDecorator do
 
   describe '#allowance_renews_on' do
     context 'with a date' do
+      before do
+        rejection.assign_attributes(
+          allowance_renews_on: allowance_renews_on
+        )
+      end
+
       it 'returns an accessible date' do
         expect(subject.allowance_renews_on).to be_instance_of(AccessibleDate)
       end
