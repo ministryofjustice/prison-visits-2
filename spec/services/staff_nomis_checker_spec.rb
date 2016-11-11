@@ -72,9 +72,7 @@ RSpec.describe StaffNomisChecker do
     let(:slot) { visit.slots.first }
 
     context 'when the nomis api is not enabled' do
-      before do
-        allow(Nomis::Api).to receive(:enabled?).and_return(false)
-      end
+      let(:enabled) { false }
 
       it { is_expected.to be_empty }
     end
