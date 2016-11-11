@@ -8,6 +8,8 @@ email_address: socialvisitshatfield@hmps.gsi.gov.uk
 phone_no: 01405 746611
 enabled: true
 recurring:
+  thu:
+  - 1400-1600
   fri:
   - 1400-1600
   sat:
