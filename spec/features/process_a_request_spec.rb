@@ -386,5 +386,31 @@ RSpec.feature 'Processing a request', js: true do
         with_subject(/COPY of booking rejection for Oscar Wilde/).
         and_body(/This is a copy of the booking rejection email sent to the visitor/)
     end
+
+    scenario 'trying to double process a visit' do
+      Capybara.using_session('window1') do
+        visit prison_visit_process_path(vst, locale: 'en')
+
+        check 'Prisoner details are incorrect'
+      end
+
+      Capybara.using_session('window2') do
+        visit prison_visit_process_path(vst, locale: 'en')
+
+        check 'Prisoner details are incorrect'
+      end
+
+      Capybara.using_session('window1') do
+        click_button 'Process'
+
+        expect(page).to have_text('Thank you for processing the visit')
+      end
+
+      Capybara.using_session('window2') do
+        click_button 'Process'
+
+        expect(page).to have_text("Visit can't be processed")
+      end
+    end
   end
 end
