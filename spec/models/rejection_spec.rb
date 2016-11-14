@@ -1,7 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Rejection, model: true do
-  subject { described_class.new(reasons: [Rejection::SLOT_UNAVAILABLE]) }
+  subject do
+    described_class.new(
+      reasons: reasons,
+      allowance_renews_on: allowance_renews_on
+    )
+  end
+  let(:reasons) { [Rejection::SLOT_UNAVAILABLE] }
+  let(:allowance_renews_on) do
+    { day: '12', month: '11', year:  '2017' }
+  end
 
   it { is_expected.to be_valid }
 
@@ -18,6 +27,32 @@ RSpec.describe Rejection, model: true do
       expect {
         described_class.create!(visit_id: SecureRandom.uuid, reasons: [described_class::NOT_ON_THE_LIST])
       }.to raise_exception(ActiveRecord::InvalidForeignKey)
+    end
+
+    context 'validate allowance renews on date' do
+      context 'rejection for no allowance' do
+        let(:reasons) { [described_class::NO_ALLOWANCE] }
+        context 'with a valid date' do
+          it 'is valid' do
+            expect(subject).to be_valid
+          end
+        end
+        context 'with a null date' do
+          let(:allowance_renews_on) { nil }
+
+          it 'is valid' do
+            expect(subject).to be_valid
+          end
+        end
+        context 'with an invalid accessible date' do
+          let(:allowance_renews_on) do
+            { day: '12', month: '11', year:  '' }
+          end
+          it 'is invalid' do
+            expect(subject).to be_invalid
+          end
+        end
+      end
     end
   end
 
