@@ -6,8 +6,8 @@ class Visitor < ActiveRecord::Base
   scope :unlisted, -> { where(not_on_list: true) }
   scope :allowed,  -> { where(banned: false, not_on_list: false) }
 
-  validates :banned_until, absence: true, unless: :banned?
-  validate :banned_until_is_in_future, on: :create, if: :banned?
+  validate :banned_when_banned_until
+  validate :banned_until_is_in_future, if: :banned?
 
   belongs_to :visit
   validates :visit, :sort_index, presence: true
@@ -16,10 +16,16 @@ class Visitor < ActiveRecord::Base
     order(sort_index: :asc)
   end
 
+  def banned_when_banned_until
+    if banned_until && !banned?
+      errors.add(:banned, 'must be selected when the banned until date is set')
+    end
+  end
+
   def banned_until_is_in_future
     return unless banned_until.is_a?(Date)
 
-    if banned_until <= Date.current
+    if banned_until_changed? && banned_until <= Date.current
       errors.add(:banned_until, 'must be a future date')
     end
   end

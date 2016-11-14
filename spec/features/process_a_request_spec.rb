@@ -186,6 +186,20 @@ RSpec.feature 'Processing a request', js: true do
 
         fill_in 'Reference number', with: '12345678'
 
+        # Fill in the banned until but not checking the banned checkbox
+        within "#visitor_#{visitor.id}" do
+          fill_in 'Day', with: banned_until.day
+          fill_in 'Month', with: banned_until.month
+          fill_in 'Year', with: banned_until.year
+        end
+
+        click_button 'Process'
+        expect(page).to have_css("#visitor_#{visitor.id}", text: /banned until date is set/)
+
+        choose_date
+
+        fill_in 'Reference number', with: '12345678'
+
         within "#visitor_#{visitor.id}" do
           check 'Visitor is banned'
           fill_in 'Day', with: banned_until.day

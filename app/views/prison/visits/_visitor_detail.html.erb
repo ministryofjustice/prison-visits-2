@@ -66,7 +66,7 @@
               <span class="tag tag--error font-xsmall text-center">
                 <%= t('.banned') %>
                 <% if visitor.banned_until? %>
-                  <%= t('.until') %> <%= visitor.banned_until.to_s(:short_nomis) %>
+                  <%= t('.until') %> <%= visitor.banned_until.to_date.to_s(:short_nomis) %>
                 <% end %>
               </span>
             <% elsif visitor.not_on_list %>

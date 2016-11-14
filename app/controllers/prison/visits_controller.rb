@@ -17,6 +17,7 @@ class Prison::VisitsController < ApplicationController
     @visit = load_visit
     @visit.assign_attributes(visit_params)
     @booking_response = BookingResponse.new(visit: @visit, user: current_user)
+
     if @booking_response.valid?
       BookingResponder.new(@booking_response, message).respond!
       flash[:notice] = t('process_thank_you', scope: [:prison, :flash])
