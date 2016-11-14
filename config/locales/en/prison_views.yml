@@ -191,6 +191,7 @@ en:
         title: Visitor details
         not_listed: Not listed
         banned: Banned
+        until: until
         name: "Name"
         dob: "Date of birth (age)"
         email: "Email address"

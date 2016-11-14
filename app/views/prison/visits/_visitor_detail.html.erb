@@ -2,16 +2,29 @@
 <div class="grid-row">
   <div class="column-full">
     <%= content_tag :div, class: 'visitor-card', id: dom_id(@visit.principal_visitor) do %>
-      <h3 class="bold-small"><%= t('lead_visitor', scope: :shared) %></h3>
-      <% if @visit.principal_visitor.banned %>
-        <span class="tag tag--error font-xsmall"><%= t('.banned') %></span>
-        <% if @visit.principal_visitor.banned_until? %>
-          <span><%= @visit.principal_visitor.banned_until.to_s(:short_nomis) %></span>
-        <% end %>
-      <% end %>
-      <% if @visit.principal_visitor.not_on_list %>
-        <span class="tag tag--warning font-xsmall"><%= t('.not_listed') %></span>
-      <% end %>
+      <div class="grid-row">
+        <div class="column-one-quarter">
+          <h3 class="bold-small"><%= t('lead_visitor', scope: :shared) %></h3>
+        </div>
+        <div class="column-one-quarter push-bottom--half">
+          <% if @visit.principal_visitor.banned %>
+            <span class="tag tag--error font-xsmall text-center">
+              <%= t('.banned') %>
+              <% if @visit.principal_visitor.banned_until? %>
+                <%= t('.until') %> <%= @visit.principal_visitor.banned_until.to_s(:short_nomis) %>
+              <% end %>
+            </span>
+          <% elsif @visit.principal_visitor.not_on_list %>
+            <span class="tag tag--warning font-xsmall text-center">
+              <%= t('.not_listed') %>
+            </span>
+          <% else %>
+            <span class="tag">
+              &nbsp;
+            </span>
+          <% end %>
+        </div>
+      </div>
       <div class="grid-row">
         <div class="column-one-quarter">
           <dl>
@@ -44,16 +57,29 @@
   <% @visit.additional_visitors.each_with_index do |visitor, index| %>
     <div class="column-one-half">
       <%= content_tag :div, class: 'visitor-card', id: dom_id(visitor) do %>
-        <h3 class="bold-small"><%= t('visitor_no', n: index + 2, scope: :shared) %></h3>
-        <% if visitor.banned %>
-          <span class="tag tag--error font-xsmall"><%= t('.banned') %></span>
-          <% if visitor.banned_until? %>
-            <span><%= visitor.banned_until.to_s(:short_nomis) %></span>
-          <% end %> 
-        <% end %>
-        <% if visitor.not_on_list %>
-          <span class="tag tag--warning font-xsmall"><%= t('.not_listed') %></span>
-        <% end %>
+        <div class="grid-row">
+          <div class="column-one-half">
+            <h3 class="bold-small"><%= t('visitor_no', n: index + 2, scope: :shared) %></h3>
+          </div>
+          <div class="column-one-half push-bottom--half">
+            <% if visitor.banned %>
+              <span class="tag tag--error font-xsmall text-center">
+                <%= t('.banned') %>
+                <% if visitor.banned_until? %>
+                  <%= t('.until') %> <%= visitor.banned_until.to_s(:short_nomis) %>
+                <% end %>
+              </span>
+            <% elsif visitor.not_on_list %>
+              <span class="tag tag--warning font-xsmall text-center">
+                <%= t('.not_listed') %>
+              </span>
+            <% else %>
+              <span class="tag">
+                &nbsp;
+              </span>
+            <% end %>
+          </div>
+        </div>
         <div class="grid-row">
           <div class="column-one-half">
             <dl>
