@@ -47,7 +47,7 @@ private
   def visitors_validity
     visit.visitors.each(&:valid?)
 
-    if visit.visitors.any? {|v| v.errors.any? }
+    if visit.visitors.any? { |v| v.errors.any? }
       errors.add(:visit, :visitors_invalid)
     end
   end

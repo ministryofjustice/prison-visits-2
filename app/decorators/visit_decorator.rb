@@ -27,7 +27,7 @@ class VisitDecorator < Draper::Decorator
 
   def additional_visitors
     @additional_visitors ||= VisitorDecorator.
-      decorate_collection(object.additional_visitors)
+                             decorate_collection(object.additional_visitors)
   end
 
 private

@@ -16,7 +16,7 @@ class VisitorDecorator < Draper::Decorator
 
 private
 
-   def date_to_accessible_date(date)
+  def date_to_accessible_date(date)
     return date if date.is_a?(Hash)
     {
       year:  date.year,

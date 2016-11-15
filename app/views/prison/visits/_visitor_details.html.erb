@@ -40,8 +40,8 @@
             <%= single_field vf, :banned, :check_box, :no_block %>
           </div>
           <div class="column-one-half push-top--half">
-            <%= vf.fields_for :banned_until, vf.object.banned_until, block: false do |bu| %>
-              <%= composite_field(bu, :banned_until) do %>
+            <%= vf.fields_for :banned_until, vf.object.banned_until do |bu| %>
+              <%= composite_field(vf, :banned_until) do %>
                 <% accessible_date_options.each do |field_name, field_options| %>
                   <div class="datefield form-group form-group-<%= field_name %>">
                     <%= bu.label field_name %>

@@ -27,6 +27,25 @@ RSpec.describe Visitor do
 
       it { is_expected.to_not be_valid }
     end
+
+    context 'when the banned until date is invalid' do
+      before do
+        instance.banned = true
+        instance.banned_until = banned_until
+      end
+
+      context 'with a bogus date' do
+        let(:banned_until) { { day: 30, month: 11, year: 1.year.from_now.year } }
+
+        it { is_expected.to_not be_valid }
+      end
+
+      context 'with a date missing the year' do
+        let(:banned_until) { { day: 30, month: 11, year: nil } }
+
+        it { is_expected.to_not be_valid }
+      end
+    end
   end
 
   describe '#banned_until?' do

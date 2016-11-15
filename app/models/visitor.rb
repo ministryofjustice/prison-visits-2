@@ -2,18 +2,26 @@ class Visitor < ActiveRecord::Base
   include Person
   extend FreshnessCalculations
 
-  scope :banned,   -> { where(banned: true) }
-  scope :unlisted, -> { where(not_on_list: true) }
-  scope :allowed,  -> { where(banned: false, not_on_list: false) }
+  belongs_to :visit
 
   validate :banned_when_banned_until
   validate :banned_until_is_in_future, if: :banned?
 
-  belongs_to :visit
   validates :visit, :sort_index, presence: true
+  validate :banned_until_is_a_date
 
   default_scope do
     order(sort_index: :asc)
+  end
+
+  scope :banned,   -> { where(banned: true) }
+  scope :unlisted, -> { where(not_on_list: true) }
+  scope :allowed,  -> { where(banned: false, not_on_list: false) }
+
+  def banned_until_is_a_date
+    if banned_until && !banned_until.is_a?(Date)
+      errors.add(:banned_until, :invalid)
+    end
   end
 
   def banned_when_banned_until
