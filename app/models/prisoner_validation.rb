@@ -10,7 +10,7 @@ class PrisonerValidation
   end
 
   def active_offender_exists
-    unless Nomis::Api.enabled?
+    unless Nomis::Api.enabled? && offender.api_call_successful?
       errors.add :base, UNKNOWN
       return
     end
@@ -20,6 +20,7 @@ class PrisonerValidation
     end
   end
 
-  private
+private
+
   attr_accessor :offender
 end

@@ -8,13 +8,18 @@ class ConcreteSlotDecorator < Draper::Decorator
     }
   }.freeze
 
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def slot_picker(form_builder)
     html_classes = 'block-label date-box'
 
     html_classes << ' radio-button-white date-box--error' if unavailable?
 
     form_builder.label(
-      :slot_granted, class: html_classes, value: iso8601, data: {target: 'selected_slot_details'}
+      :slot_granted,
+      class: html_classes,
+      value: iso8601,
+      data: { target: 'selected_slot_details' }
     ) do
       h.concat(
         form_builder.radio_button(
@@ -31,7 +36,7 @@ class ConcreteSlotDecorator < Draper::Decorator
             :span,
             I18n.t(
               '.prisoner_unavailable',
-              scope: ['prison', 'visits', 'process_visit']
+              scope: %w[prison visits process_visit]
             ),
             class: 'colour--error'
           )
@@ -39,8 +44,10 @@ class ConcreteSlotDecorator < Draper::Decorator
       end
     end
   end
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/AbcSize
 
-  private
+private
 
   def label_text
     @label_key ||= I18n.t(

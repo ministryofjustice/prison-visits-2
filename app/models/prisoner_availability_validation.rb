@@ -31,7 +31,7 @@ private
   end
 
   def offender_availability
-    return nil unless offender
+    return nil unless offender.valid?
 
     @offender_availability ||= load_offender_availability
   end

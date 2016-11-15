@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :offender do
-
     initialize_with do
       VCR.use_cassette('offender_visiting_availability-noavailability') do
         Nomis::Api.instance.lookup_active_offender(

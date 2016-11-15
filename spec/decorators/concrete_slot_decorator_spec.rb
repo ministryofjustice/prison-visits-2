@@ -25,23 +25,22 @@ RSpec.describe ConcreteSlotDecorator do
 
     context 'when a prisoner is available' do
       let(:html_fragment) do
-        Capybara.string(
-          subject.label_for(form_builder)
-        )
-        it 'renders the chexbox' do
-          expect(html_fragment).to have_css('label.block-label.date-box')
-          expect(html_fragment).to have_css('span.date-box__number', text: '1')
-          expect(html_fragment).to have_css('span.date-box__day',    text: 'Friday')
-          expect(html_fragment).to have_text('23 October 2015 14:00–15:30')
-        end
+        Capybara.string(subject.slot_picker(form_builder))
+      end
+
+      it 'renders the chexbox' do
+        expect(html_fragment).to have_css('label.block-label.date-box')
+        expect(html_fragment).to have_css('span.date-box__number', text: '1')
+        expect(html_fragment).to have_css('span.date-box__day',    text: 'Friday')
+        expect(html_fragment).to have_text('23 October 2015 14:00–15:30')
       end
     end
 
     context 'when a prisoner is not available' do
       let(:html_fragment) do
-        Capybara.string(subject.label_for(form_builder))
+        Capybara.string(subject.slot_picker(form_builder))
       end
-      let(:slot_errors)   { ['some slot errors'] }
+      let(:slot_errors) { ['some slot errors'] }
 
       it 'renders the chexbox' do
         expect(html_fragment).to have_css('label.block-label.date-box.date-box--error')

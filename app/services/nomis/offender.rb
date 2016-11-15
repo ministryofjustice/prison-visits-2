@@ -5,5 +5,9 @@ module Nomis
     attribute :id
 
     validates_presence_of :id
+
+    def api_call_successful?
+      true
+    end
   end
 end

@@ -39,8 +39,7 @@ RSpec.describe Nomis::Api do
     end
 
     it 'returns NullOffender if an ApiError is raised' do
-      allow(subject.instance_eval { @client }).to receive(:get).
-                                                   and_raise(Nomis::APIError)
+      allow_any_instance_of(Nomis::Client).to receive(:get).and_raise(Nomis::APIError)
       expect(offender).to be_instance_of(Nomis::NullOffender)
     end
   end
