@@ -108,15 +108,12 @@ en:
         you've already requested a visit with these details and we've already
         sent you an email response - please clink on the link in our original
         response to check the status of your request
-      visitor_banned_html:
-        one: >-
-          %{visitors} is banned from visiting the prison at the moment and
-          should have received a letter from the prison - get in touch with the
-          prison for more information.
-        other: >-
-          %{visitors} are banned from visiting the prison at the moment and
-          should have received a letter from the prison - get in touch with the
-          prison for more information.
+      visitor_banned_html: >-
+        %{name} is banned from visiting the prison at the moment and
+        should have received a letter from the prison.
+      visitor_banned_until_html: >-
+        %{name} is banned from visiting the prison until %{banned_until}
+        and should have received a letter from the prison.
       visitor_not_on_list_html:
         details for %{visitors} don't match our records or  aren't on the
         prisoner's contact list - ask the prisoner to update their contact list

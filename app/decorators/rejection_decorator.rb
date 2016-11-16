@@ -45,7 +45,7 @@ class RejectionDecorator < Draper::Decorator
   def visitor_banned_explanation
     h.t(
       'visitor_banned_html',
-      visitors: visit.banned_visitors.map { |uv|
+      name: visit.banned_visitors.map { |uv|
         uv.anonymized_name.titleize
       }.to_sentence,
       count: visit.banned_visitors.size,

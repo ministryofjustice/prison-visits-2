@@ -15,9 +15,15 @@
 <% end %>
 
 <% if @visit.banned_visitors.any? && !@rejection.reasons.include?('visitor_banned') %>
-  <p>
-    <%= @rejection.visitor_banned_explanation %>
-  </p>
+  <% @visit.banned_visitors.each do |v| %>
+    <p>
+      <% if v.banned_until? %>
+        <%= t('.visitor_banned_until_html', name: v.anonymized_name, banned_until: v.banned_until.to_s(:short_nomis)) %>
+      <% else %>
+        <%= t('.visitor_banned_html', name: v.anonymized_name) %>
+      <% end %>
+    </p>
+  <% end %>
 <% end %>
 
 <% if @message&.body.present? %>
