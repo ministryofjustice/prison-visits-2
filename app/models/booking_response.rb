@@ -72,8 +72,9 @@ private
   def visitors_attributes
     @visitors_attributes ||= begin
       attrs = {}
-      visit.visitors.each_with_object(attrs).with_index do |(visitor, attr), i|
-        attr[i.to_s] = visitor.attributes.slice('id', 'not_on_list', 'banned')
+      visit.visitors.each_with_object(attrs).with_index do |(visitor, attri), i|
+        attri[i.to_s] = visitor.attributes.slice('id', 'not_on_list', 'banned')
+        attri[i.to_s]['banned_until'] = visitor.banned_until.to_s
       end
       attrs
     end

@@ -184,6 +184,8 @@ RSpec.describe BookingResponse, type: :model do
         'slot_granted'           => visit.slot_option_0,
         'visitors_attributes'    => visit.visitors.each_with_object({}).with_index do |(visitor, h), i|
           h[i.to_s] = visitor.slice('id', 'not_on_list', 'banned')
+          h[i.to_s]['banned_until'] = visitor.banned_until.to_s
+          h
         end
       }
     end
