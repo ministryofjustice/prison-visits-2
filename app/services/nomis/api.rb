@@ -50,8 +50,6 @@ module Nomis
       )
 
       PrisonerAvailability.new(response)
-    rescue Excon::Errors::NotFound
-      raise NotFound, 'Unknown offender'
     end
 
     def fetch_bookable_slots(prison:, start_date:, end_date:)

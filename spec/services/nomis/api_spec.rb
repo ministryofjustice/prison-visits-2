@@ -65,11 +65,6 @@ RSpec.describe Nomis::Api do
       expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
       expect(subject.dates).to be_empty
     end
-
-    it 'is an error if the offender does not exist', vcr: { cassette_name: 'offender_visiting_availability-invalid_offender' } do
-      params[:offender_id] = 999_999
-      expect { subject }.to raise_error(Nomis::NotFound, 'Unknown offender')
-    end
   end
 
   describe 'fetch_bookable_slots', vcr: { cassette_name: 'fetch_bookable_slots' } do
