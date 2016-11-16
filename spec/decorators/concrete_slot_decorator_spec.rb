@@ -40,7 +40,7 @@ RSpec.describe ConcreteSlotDecorator do
       let(:html_fragment) do
         Capybara.string(subject.slot_picker(form_builder))
       end
-      let(:slot_errors) { ['some slot errors'] }
+      let(:slot_errors) { ['prisoner_not_available'] }
 
       it 'renders the chexbox' do
         expect(html_fragment).to have_css('label.block-label.date-box.date-box--error')

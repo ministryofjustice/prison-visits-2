@@ -13,8 +13,9 @@ class ConcreteSlotDecorator < Draper::Decorator
   def slot_picker(form_builder)
     html_classes = 'block-label date-box'
 
-    html_classes << ' radio-button-white date-box--error' if unavailable?
-
+    if errors.any?
+      html_classes << ' radio-button-white date-box--error'
+    end
     form_builder.label(
       :slot_granted,
       class: html_classes,
@@ -29,13 +30,13 @@ class ConcreteSlotDecorator < Draper::Decorator
       )
       h.concat(label_text)
 
-      if unavailable?
+      errors.each do |error|
         h.concat(h.content_tag('br'))
         h.concat(
           h.content_tag(
             :span,
             I18n.t(
-              '.prisoner_unavailable',
+              ".#{error}",
               scope: %w[prison visits process_visit]
             ),
             class: 'colour--error'
@@ -62,10 +63,6 @@ private
       time: h.format_slot_times(object),
       scope: %w[prison visits visit_date_section]
     }
-  end
-
-  def unavailable?
-    errors.any?
   end
 
   def errors
