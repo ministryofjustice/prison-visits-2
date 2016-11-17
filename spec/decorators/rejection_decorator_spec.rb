@@ -101,6 +101,21 @@ RSpec.describe RejectionDecorator do
           ).to eq(['the prisoner has a restriction'])
         end
       end
+
+      context 'containing both a no association and another non-restriction reason' do
+        let(:reasons) do
+          [
+            Rejection::PRISONER_NON_ASSOCIATION,
+            'prisoner_released'
+          ]
+        end
+
+        it 'has a restricted and non restricted reasons' do
+          expect(subject.formatted_reasons.map(&:explanation)).
+            to contain_exactly('the prisoner has a restriction',
+              'the prisoner has been released - hopefully they will contact you soon')
+        end
+      end
     end
   end
 

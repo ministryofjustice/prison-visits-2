@@ -68,7 +68,7 @@ RSpec.describe VisitorMailer, '.rejected' do
 
       it 'enumerates the banned visitors' do
         expect(body).to match(/Percy P is banned from visiting the prison at the moment/)
-        expect(body).to match(/John J is banned from visiting the prison until 01\/04\/2016/)
+        expect(body).to match(%r{John J is banned from visiting the prison until 01\/04\/2016})
       end
     end
 

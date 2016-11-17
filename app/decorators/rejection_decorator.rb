@@ -29,16 +29,19 @@ class RejectionDecorator < Draper::Decorator
   end
 
   def formatted_reasons
-    raw_reasons = object.reasons.dup
-    reason_objs = []
-    while raw_reasons.any?
-      reason = raw_reasons.pop
-      raw_reasons.delete_if do |r| RESTRICTON_REASONS.include?(r) end
+    result = []
 
-      explanations = *translated_explanations_for(reason)
-      reason_objs += explanations
+    if object.reasons.any? { |r| r.in? RESTRICTON_REASONS }
+      result << translated_restricted_reason
     end
-    reason_objs
+
+    non_restricted_reasons = object.reasons - RESTRICTON_REASONS
+
+    non_restricted_reasons.each do |reason|
+      explanations = *translated_explanations_for(reason)
+      result += explanations
+    end
+    result
   end
 
   def visitor_banned_explanation(visitor)
@@ -106,10 +109,6 @@ private
       Rejection::NotOnList.new(explanation: visitor_not_on_list_explanation)
     when Rejection::BANNED
       visitor_rejection_reasons
-    when *RESTRICTON_REASONS
-      Rejection::Reason.new(
-        explanation: h.t("#{reason}_html", scope: [:visitor_mailer, :rejected])
-      )
     else
       Rejection::Reason.new(
         explanation: h.t("#{reason}_html", scope: [:visitor_mailer, :rejected])
@@ -122,5 +121,10 @@ private
     visit.banned_visitors.map do |visitor|
       Rejection::Reason.new(explanation: visitor_banned_explanation(visitor))
     end
+  end
+
+  def translated_restricted_reason
+    explanation = h.t('restricted_reason', scope: [:visitor_mailer, :rejected])
+    Rejection::Reason.new(explanation: explanation)
   end
 end
