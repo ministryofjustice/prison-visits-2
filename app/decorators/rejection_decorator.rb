@@ -28,7 +28,7 @@ class RejectionDecorator < Draper::Decorator
     )
   end
 
-  def formated_reasons
+  def formatted_reasons
     raw_reasons = object.reasons.dup
     reason_objs = []
     while raw_reasons.any?
@@ -37,20 +37,26 @@ class RejectionDecorator < Draper::Decorator
         RESTRICTON_REASONS.include?(r)
       end
 
-      reason_objs << translated_explanation_for(reason)
+      reason_objs += translated_explanations_for(reason)
     end
     reason_objs
   end
 
-  def visitor_banned_explanation
-    h.t(
-      'visitor_banned_html',
-      name: visit.banned_visitors.map { |uv|
-        uv.anonymized_name.titleize
-      }.to_sentence,
-      count: visit.banned_visitors.size,
-      scope: [:visitor_mailer, :rejected]
-    )
+  def visitor_banned_explanation(visitor)
+    if visitor.banned_until?
+      h.t(
+        'visitor_banned_until_html',
+        name: visitor.anonymized_name.titleize,
+        banned_until: visitor.banned_until.to_s(:short_nomis),
+        scope: [:visitor_mailer, :rejected]
+      )
+    else
+      h.t(
+        'visitor_banned_html',
+        name: visitor.anonymized_name.titleize,
+        scope: [:visitor_mailer, :rejected]
+      )
+    end
   end
 
   def visitor_not_on_list_explanation
@@ -95,24 +101,26 @@ private
   end
 
   # rubocop:disable Metrics/MethodLength
-  def translated_explanation_for(reason)
+  def translated_explanations_for(reason)
     case reason
     when Rejection::SLOT_UNAVAILABLE
-      Rejection::Reason.new(explanation: slot_unavailable_explanation)
+      [Rejection::Reason.new(explanation: slot_unavailable_explanation)]
     when Rejection::NO_ALLOWANCE
-      Rejection::Reason.new(explanation: no_allowance_explanation)
+      [Rejection::Reason.new(explanation: no_allowance_explanation)]
     when Rejection::NOT_ON_THE_LIST
-      Rejection::NotOnList.new(explanation: visitor_not_on_list_explanation)
+      [Rejection::NotOnList.new(explanation: visitor_not_on_list_explanation)]
     when Rejection::BANNED
-      Rejection::Reason.new(explanation: visitor_banned_explanation)
+      visit.banned_visitors.map do |visitor|
+        Rejection::Reason.new(explanation: visitor_banned_explanation(visitor))
+      end
     when *RESTRICTON_REASONS
-      Rejection::Reason.new(
+      [Rejection::Reason.new(
         explanation: h.t("#{reason}_html", scope: [:visitor_mailer, :rejected])
-      )
+      )]
     else
-      Rejection::Reason.new(
+      [Rejection::Reason.new(
         explanation: h.t("#{reason}_html", scope: [:visitor_mailer, :rejected])
-      )
+      )]
     end
   end
   # rubocop:enable Metrics/MethodLength

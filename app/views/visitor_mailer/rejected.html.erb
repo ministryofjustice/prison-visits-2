@@ -17,11 +17,7 @@
 <% if @visit.banned_visitors.any? && !@rejection.reasons.include?('visitor_banned') %>
   <% @visit.banned_visitors.each do |v| %>
     <p>
-      <% if v.banned_until? %>
-        <%= t('.visitor_banned_until_html', name: v.anonymized_name, banned_until: v.banned_until.to_s(:short_nomis)) %>
-      <% else %>
-        <%= t('.visitor_banned_html', name: v.anonymized_name) %>
-      <% end %>
+      <%= @rejection.visitor_banned_explanation(v) %>
     </p>
   <% end %>
 <% end %>
