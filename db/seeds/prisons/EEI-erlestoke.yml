@@ -8,13 +8,13 @@ email_address: eecmbookavisit@hmps.gsi.gov.uk
 phone_no: 01380 814264
 enabled: true
 recurring:
-  sat:
-  - 0900-1130
-  - 1315-1600
   thu:
-  - 1315-1600
+  - 1400-1545
   fri:
-  - 1315-1600
+  - 1400-1545
+  sat:
+  - 0900-1045
+  - 1400-1545
 unbookable:
 - 2016-12-25
 - 2016-12-26
