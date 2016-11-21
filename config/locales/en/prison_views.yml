@@ -104,7 +104,7 @@ en:
         submit: Process
         email_preview: Preview Email
         prisoner_not_available: Prisoner unavailable
-        prisoner_availability_unknown: Prisoner availability could not be checked
+        prisoner_availability_unknown: You must check NOMIS to verify prisoner availability
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
