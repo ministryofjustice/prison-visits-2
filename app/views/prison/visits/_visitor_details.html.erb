@@ -28,21 +28,30 @@
             <dd><%= @visit.contact_phone_no %></dd>
           </dl>
         </div>
-        <div class="column-full">
-          <div class="push-top--half">
-            <%= f.fields_for :visitors, @visit.principal_visitor do |vf| %>
-              <%= vf.hidden_field :id %>
-              <%= vf.label :not_on_list, class: 'form-checkbox' do %>
-                <%= vf.check_box :not_on_list, data: { checkbox_summary_text: @visit.principal_visitor.anonymized_name } %>
-                <%= t('.visitor_not_on_list') %>
-              <% end %>
-              <%= vf.label :banned, class: 'form-checkbox' do %>
-                <%= vf.check_box :banned, data: { checkbox_summary_text: @visit.principal_visitor.anonymized_name } %>
-                <%= t('.visitor_banned') %>
+        <%= f.fields_for :visitors, @visit.principal_visitor do |vf| %>
+          <%= vf.hidden_field :id %>
+          <div class="column-one-quarter">
+            <%= vf.label :not_on_list, class: 'form-checkbox' do %>
+              <%= vf.check_box :not_on_list, data: { checkbox_summary_text: @visit.principal_visitor.anonymized_name } %>
+              <%= t('.visitor_not_on_list') %>
+            <% end %>
+          </div>
+          <div class="column-one-quarter">
+            <%= single_field vf, :banned, :check_box, :no_block %>
+          </div>
+          <div class="column-one-half push-top--half">
+            <%= vf.fields_for :banned_until, vf.object.banned_until do |bu| %>
+              <%= composite_field(vf, :banned_until) do %>
+                <% accessible_date_options.each do |field_name, field_options| %>
+                  <div class="datefield form-group form-group-<%= field_name %>">
+                    <%= bu.label field_name %>
+                    <%= bu.number_field field_name, field_options.merge( class: 'form-control', aria: { describedby: 'allowance_renews_on' }) %>
+                  </div>
+                <% end %>
               <% end %>
             <% end %>
           </div>
-        </div>
+        <% end %>
       </div>
     <% end %>
   </div>
@@ -73,11 +82,18 @@
                   <%= t('.visitor_not_on_list') %>
                 <% end %>
 
-                <%= vf.label :banned, class: 'form-checkbox' do %>
-                  <%= vf.check_box :banned, data: { checkbox_summary_text: visitor.anonymized_name } %>
-                  <%= t('.visitor_banned') %>
-                <% end %>
+                <%= single_field vf, :banned, :check_box, :no_block %>
 
+                <%= vf.fields_for :banned_until, vf.object.banned_until do |bu| %>
+                  <%= composite_field(bu, :banned_until) do %>
+                    <% accessible_date_options.each do |field_name, field_options| %>
+                      <div class="datefield form-group form-group-<%= field_name %>">
+                        <%= bu.label field_name %>
+                        <%= bu.number_field field_name, field_options.merge( class: 'form-control', aria: { describedby: 'allowance_renews_on' }) %>
+                      </div>
+                    <% end %>
+                  <% end %>
+                <% end %>
               <% end %>
             </div>
           </div>

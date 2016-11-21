@@ -8,6 +8,7 @@ class BookingResponse
 
   validate :validate_visit_is_processable
   validate :visit_or_rejection_validity
+  validate :visitors_validity
 
   after_validation :check_for_banned_visitors
   after_validation :check_for_unlisted_visitors
@@ -43,6 +44,14 @@ class BookingResponse
 
 private
 
+  def visitors_validity
+    visit.visitors.each(&:valid?)
+
+    if visit.visitors.any? { |v| v.errors.any? }
+      errors.add(:visit, :visitors_invalid)
+    end
+  end
+
   # rubocop:disable Metrics/MethodLength
   def rejection_attributes
     return unless visit.rejection&.valid?
@@ -63,8 +72,9 @@ private
   def visitors_attributes
     @visitors_attributes ||= begin
       attrs = {}
-      visit.visitors.each_with_object(attrs).with_index do |(visitor, attr), i|
-        attr[i.to_s] = visitor.attributes.slice('id', 'not_on_list', 'banned')
+      visit.visitors.each_with_object(attrs).with_index do |(visitor, attri), i|
+        attri[i.to_s] = visitor.attributes.slice('id', 'not_on_list', 'banned')
+        attri[i.to_s]['banned_until'] = visitor.banned_until.to_s
       end
       attrs
     end

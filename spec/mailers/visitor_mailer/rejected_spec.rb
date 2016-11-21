@@ -55,6 +55,7 @@ RSpec.describe VisitorMailer, '.rejected' do
         visit.visitors << build(
           :visitor,
           banned: true,
+          banned_until: 6.months.from_now.to_date,
           first_name: 'John',
           last_name: 'Johnson',
           sort_index: 2
@@ -66,7 +67,8 @@ RSpec.describe VisitorMailer, '.rejected' do
       end
 
       it 'enumerates the banned visitors' do
-        expect(body).to match(/Percy P and John J are banned from visiting the prison at the moment/)
+        expect(body).to match(/Percy P is banned from visiting the prison at the moment/)
+        expect(body).to match(%r{John J is banned from visiting the prison until 01\/04\/2016})
       end
     end
 

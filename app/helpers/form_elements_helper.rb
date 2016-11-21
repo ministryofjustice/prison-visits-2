@@ -82,9 +82,11 @@ private
   end
 
   def label_wrapped_single_field(form, name, field_method, *options)
+    label_class = options.delete(:no_block) ? 'form-checkbox' : 'block-label'
+
     error_container(form, name) {
       join(
-        form.label(name, class: 'block-label') {
+        form.label(name, class: label_class) {
           join(
             form.public_send(field_method, name, *options),
             t(".#{name}"),

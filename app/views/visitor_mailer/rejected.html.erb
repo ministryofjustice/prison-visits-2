@@ -15,9 +15,11 @@
 <% end %>
 
 <% if @visit.banned_visitors.any? && !@rejection.reasons.include?('visitor_banned') %>
-  <p>
-    <%= @rejection.visitor_banned_explanation %>
-  </p>
+  <% @visit.banned_visitors.each do |v| %>
+    <p>
+      <%= @rejection.visitor_banned_explanation(v) %>
+    </p>
+  <% end %>
 <% end %>
 
 <% if @message&.body.present? %>

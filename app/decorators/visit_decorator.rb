@@ -21,6 +21,15 @@ class VisitDecorator < Draper::Decorator
     @rejection ||= (object.rejection || object.build_rejection).decorate
   end
 
+  def principal_visitor
+    @principal_visitor ||= object.principal_visitor.decorate
+  end
+
+  def additional_visitors
+    @additional_visitors ||= VisitorDecorator.
+                             decorate_collection(object.additional_visitors)
+  end
+
 private
 
   def nomis_checker

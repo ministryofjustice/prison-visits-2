@@ -17,7 +17,7 @@ RSpec.describe RejectionDecorator do
 
   subject { described_class.decorate(rejection) }
 
-  describe '#formated_reasons' do
+  describe '#formatted_reasons' do
     before do
       rejection.reasons = reasons
     end
@@ -27,7 +27,7 @@ RSpec.describe RejectionDecorator do
 
       it 'has the correct explanation' do
         expect(
-          subject.formated_reasons.map(&:explanation)
+          subject.formatted_reasons.map(&:explanation)
         ).to eq([
           "the dates and times you chose aren't available - choose new dates on <a href=\"www.gov.uk/prison-visits\">www.gov.uk/prison-visits</a>"
         ])
@@ -45,7 +45,7 @@ RSpec.describe RejectionDecorator do
 
           it 'has the correct explanation' do
             expect(
-              subject.formated_reasons.map(&:explanation)
+              subject.formatted_reasons.map(&:explanation)
             ).to eq([
               "the prisoner has used their allowance of visits for this month - you can only book a visit from #{I18n.l(rejection.allowance_renews_on, format: :date_without_year)} onwards"
             ])
@@ -55,7 +55,7 @@ RSpec.describe RejectionDecorator do
         context 'without a date' do
           it 'has the correct explanation' do
             expect(
-              subject.formated_reasons.map(&:explanation)
+              subject.formatted_reasons.map(&:explanation)
             ).to eq([
               "the prisoner has used their allowance of visits for this month"
             ])
@@ -68,7 +68,7 @@ RSpec.describe RejectionDecorator do
 
         it 'has the correct explanation' do
           expect(
-            subject.formated_reasons.map(&:explanation)
+            subject.formatted_reasons.map(&:explanation)
           ).to eq([
             "details for #{unlisted_visitor.anonymized_name} don't match our records or  aren't on the prisoner's contact list - ask the prisoner to update their contact list with correct details, making sure that names appear exactly the same as on ID documents; if this is the prisoner's first visit (reception visit), then you need to contact the prison directly to book"
           ])
@@ -80,9 +80,9 @@ RSpec.describe RejectionDecorator do
 
         it 'has the correct explanation' do
           expect(
-            subject.formated_reasons.map(&:explanation)
+            subject.formatted_reasons.map(&:explanation)
           ).to eq([
-            "#{banned_visitor.anonymized_name} is banned from visiting the prison at the moment and should have received a letter from the prison - get in touch with the prison for more information."
+            "#{banned_visitor.anonymized_name} is banned from visiting the prison at the moment and should have received a letter from the prison."
           ])
         end
       end
@@ -97,8 +97,23 @@ RSpec.describe RejectionDecorator do
 
         it 'only as the explanation once' do
           expect(
-            subject.formated_reasons.map(&:explanation)
+            subject.formatted_reasons.map(&:explanation)
           ).to eq(['the prisoner has a restriction'])
+        end
+      end
+
+      context 'containing both a no association and another non-restriction reason' do
+        let(:reasons) do
+          [
+            Rejection::PRISONER_NON_ASSOCIATION,
+            'prisoner_released'
+          ]
+        end
+
+        it 'has a restricted and non restricted reasons' do
+          expect(subject.formatted_reasons.map(&:explanation)).
+            to contain_exactly('the prisoner has a restriction',
+              'the prisoner has been released - hopefully they will contact you soon')
         end
       end
     end
