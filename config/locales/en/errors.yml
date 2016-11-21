@@ -11,6 +11,7 @@ en:
           attributes:
             visit:
               already_processed: can't be processed
+              visitors_invalid: visitor selection is invalid
         prisoner_step:
           attributes:
             number:
