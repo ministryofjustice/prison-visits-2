@@ -104,7 +104,6 @@ en:
         submit: Process
         email_preview: Preview Email
         prisoner_not_available: Prisoner unavailable
-        prisoner_availability_unknown: You must check NOMIS to verify prisoner availability
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
@@ -169,6 +168,7 @@ en:
         reference_no_hint: eg Last 8 digits of VO number or “none” for remand
         closed_visit: This is a closed visit
         none_available: None of the chosen times are available
+        prisoner_availability_unknown: You must check NOMIS to verify prisoner availability
       issue_with_prisoner_section:
         visiting_allowance: Visiting allowance
         no_allowance: Prisoner does not have any visiting allowance

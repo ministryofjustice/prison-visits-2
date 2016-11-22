@@ -14,7 +14,7 @@ class ConcreteSlotDecorator < Draper::Decorator
     html_classes = 'block-label date-box'
 
     if errors.any?
-      html_classes << ' radio-button-white date-box--error'
+      html_classes << ' date-box--error'
     end
     form_builder.label(
       :slot_granted,

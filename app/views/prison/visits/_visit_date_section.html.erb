@@ -1,7 +1,13 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
 
-<% if true || @visit.prisoner_availability_unknown? %>
-  <marquee>Prisoner availability unknown</marquee>
+<% if @visit.prisoner_availability_unknown? %>
+  <div class="notice push-top">
+    <i class="icon icon-important">
+      <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
+    </i>
+    <strong class="bold-small"><%= t('.prisoner_availability_unknown') %></strong>
+  </div>
+
 <% end %>
 
 <div class="grid-row push-top choose-date">
