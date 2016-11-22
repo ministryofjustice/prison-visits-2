@@ -26,7 +26,7 @@ class StaffNomisChecker
   end
 
   def prisoner_availability_unknown?
-    prisoner_availability_validation.unknown_result?
+    @nomis_api_enabled && prisoner_availability_validation.unknown_result?
   end
 
   def errors_for(slot)

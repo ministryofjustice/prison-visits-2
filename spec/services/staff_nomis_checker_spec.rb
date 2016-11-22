@@ -60,6 +60,12 @@ RSpec.describe StaffNomisChecker do
   describe '#prisoner_availability_unknown?' do
     subject { instance.prisoner_availability_unknown? }
 
+    context 'when the nomis api is disabled' do
+      let(:enabled) { false }
+
+      it { is_expected.to eq(false) }
+    end
+
     context 'when the validator returns unknown' do
       before do
         allow_any_instance_of(PrisonerAvailabilityValidation).
