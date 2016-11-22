@@ -4,6 +4,7 @@ class VisitDecorator < Draper::Decorator
 
   delegate :prisoner_existance_status,
     :prisoner_existance_error,
+    :prisoner_availability_unknown?,
     to: :nomis_checker
 
   def prisoner_details_incorrect

@@ -14,7 +14,7 @@ class ConcreteSlotDecorator < Draper::Decorator
     html_classes = 'block-label date-box'
 
     if errors.any?
-      html_classes << ' date-box--error' unless errors.first == 'prisoner_availability_unknown'
+      html_classes << ' radio-button-white date-box--error'
     end
     form_builder.label(
       :slot_granted,
@@ -39,7 +39,7 @@ class ConcreteSlotDecorator < Draper::Decorator
               ".#{error}",
               scope: %w[prison visits process_visit]
             ),
-            class: ('colour--error' unless error == 'prisoner_availability_unknown')
+            class: 'colour--error'
           )
         )
       end

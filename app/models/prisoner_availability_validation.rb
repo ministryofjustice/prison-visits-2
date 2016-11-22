@@ -1,7 +1,6 @@
 class PrisonerAvailabilityValidation
   include NonPersistedModel
 
-  PRISONER_AVAILABILITY_UNKNOWN = 'prisoner_availability_unknown'.freeze
   PRISONER_NOT_AVAILABLE = 'prisoner_not_available'.freeze
 
   attribute :offender, Nomis::Offender
@@ -11,6 +10,10 @@ class PrisonerAvailabilityValidation
 
   def date_error(date)
     errors[date.to_s].first
+  end
+
+  def unknown_result?
+    !Nomis::Api.enabled? || offender_availability.nil? || api_error
   end
 
 private
@@ -25,9 +28,7 @@ private
   end
 
   def error_message_for_slot(date)
-    unless Nomis::Api.enabled? && offender_availability && !api_error
-      return PRISONER_AVAILABILITY_UNKNOWN
-    end
+    return if unknown_result?
 
     PRISONER_NOT_AVAILABLE unless offender_availability.include?(date)
   end

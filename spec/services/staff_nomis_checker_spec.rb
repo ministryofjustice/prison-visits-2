@@ -4,7 +4,7 @@ RSpec.describe StaffNomisChecker do
   let(:instance) { described_class.new(visit) }
   let(:visit)    { build_stubbed(:visit, prisoner: prisoner) }
   let(:prisoner) { build_stubbed(:prisoner) }
-  let(:offender) { Nomis::Offender.new(id: visit.prisoner_id) }
+  let(:offender) { Nomis::Offender.new(id: prisoner.number) }
   let(:enabled)  { true }
 
   before do
@@ -54,6 +54,30 @@ RSpec.describe StaffNomisChecker do
 
     it 'is the error from the prisoner validation' do
       expect(instance.prisoner_existance_error).to eq('prisoner_does_not_exist')
+    end
+  end
+
+  describe '#prisoner_availability_unknown?' do
+    subject { instance.prisoner_availability_unknown? }
+
+    context 'when the validator returns unknown' do
+      before do
+        allow_any_instance_of(PrisonerAvailabilityValidation).
+          to receive(:unknown_result?).and_return(true)
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the validator returns not unknown' do
+      before do
+        allow_any_instance_of(PrisonerAvailabilityValidation).
+          to receive(:valid?)
+        allow_any_instance_of(PrisonerAvailabilityValidation).
+          to receive(:unknown_result?).and_return(false)
+      end
+
+      it { is_expected.to eq(false) }
     end
   end
 

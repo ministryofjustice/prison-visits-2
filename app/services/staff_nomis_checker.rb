@@ -25,6 +25,10 @@ class StaffNomisChecker
     prisoner_validation.errors[:base].first
   end
 
+  def prisoner_availability_unknown?
+    prisoner_availability_validation.unknown_result?
+  end
+
   def errors_for(slot)
     return [] unless @nomis_api_enabled && offender.valid?
 

@@ -1,4 +1,9 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
+
+<% if true || @visit.prisoner_availability_unknown? %>
+  <marquee>Prisoner availability unknown</marquee>
+<% end %>
+
 <div class="grid-row push-top choose-date">
   <%= error_container(f, :slot_granted) do %>
 

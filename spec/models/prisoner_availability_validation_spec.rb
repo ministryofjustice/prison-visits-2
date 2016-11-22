@@ -16,15 +16,17 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
   describe 'when the NOMIS API is disabled' do
     before do
       allow(Nomis::Api).to receive(:enabled?).and_return(false)
+      subject.valid?
     end
 
     it 'adds an unknown error for each date' do
-      is_expected.to_not be_valid
-
       requested_dates.each do |date|
-        expect(subject.errors[date.to_s]).
-          to eq([described_class::PRISONER_AVAILABILITY_UNKNOWN])
+        expect(subject.errors[date.to_s]).to be_empty
       end
+    end
+
+    it 'is unknown result' do
+      expect(subject).to be_unknown_result
     end
   end
 
@@ -35,13 +37,18 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
           to receive(:get).and_raise(Nomis::APIError)
       end
 
-      it 'adds an unknown error for each date' do
-        is_expected.to_not be_valid
+      it 'adds no errors for any date' do
+        is_expected.to be_valid
 
         requested_dates.each do |date|
-          expect(subject.errors[date.to_s]).
-            to eq([described_class::PRISONER_AVAILABILITY_UNKNOWN])
+          expect(subject.errors[date.to_s]).to be_empty
         end
+      end
+
+      it 'is unknown result' do
+        subject.valid?
+
+        expect(subject).to be_unknown_result
       end
     end
 
@@ -71,6 +78,8 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
             expect(subject.date_error(date1)).to be_nil
           end
         end
+
+        it { is_expected.to_not be_unknown_result }
       end
 
       context 'for the dates that are unavailable' do
@@ -87,6 +96,8 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
               to eq(described_class::PRISONER_NOT_AVAILABLE)
           end
         end
+
+        it { is_expected.to_not be_unknown_result }
       end
     end
 
@@ -113,6 +124,8 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
             expect(subject.date_error(date)).to be_nil
           end
         end
+
+        it { is_expected.to_not be_unknown_result }
       end
 
       context 'with some dates in the past' do
@@ -120,16 +133,15 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
         let(:date2) { 61.days.from_now.to_date }
 
         before do
-        end
-
-        it 'filters out invalid dates' do
           expect_any_instance_of(Nomis::Api).
             to receive(:offender_visiting_availability).
             with(offender_id: offender.id,
                  start_date: date3,
                  end_date: date3).
             and_return(Nomis::PrisonerAvailability.new(dates: []))
+        end
 
+        it 'filters out invalid dates' do
           subject.valid?
 
           expect(subject.date_error(date1)).to be_nil
@@ -137,7 +149,15 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
           expect(subject.date_error(date3)).
             to eq(described_class::PRISONER_NOT_AVAILABLE)
         end
+
+        it { is_expected.to_not be_unknown_result }
       end
+    end
+
+    context 'and API enabled with invalid offender' do
+      let(:offender) { Nomis::NullOffender.new }
+
+      it { is_expected.to be_unknown_result }
     end
   end
 end
