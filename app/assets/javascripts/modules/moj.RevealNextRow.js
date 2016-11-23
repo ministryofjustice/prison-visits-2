@@ -26,7 +26,9 @@
       this.$el.on('click', function(e){
         e.preventDefault();
         e.stopPropagation();
-        $(this).find('.icon').toggleClass('icon-closed, icon-open');
+        var $this = $(this);
+        $this.find('.icon').toggleClass('icon-closed, icon-open');
+        self.section = $this.data('section');
         self.toggleNextRow(self);
       });
     },
@@ -34,11 +36,24 @@
     toggleNextRow: function(self){
       self.$nextRow.toggleClass('show');
       self.$nextRow.attr('aria-hidden', function (i, attr) {
-          return attr == 'true' ? 'false' : 'true'
+          var state = (attr == 'true') ? 'false' : 'true';
+          if(state === 'false'){
+            self.triggerAnalytics(self);
+          }
+          return state;
       });
       self.$nextRow.attr('aria-expanded', function (i, attr) {
           return attr == 'true' ? 'false' : 'true'
       });
+    },
+
+    triggerAnalytics: function(self){
+      var gaParams = {
+        'category': pvb.prison+' '+self.section+' - more information',
+        'action': 'click',
+        'label': pvb.user_email
+      };
+      moj.Modules.Analytics.send(gaParams);
     }
 
   };
