@@ -55,6 +55,11 @@
       background-color: $black;
     }
   }
+  .timeline__entry--rejected {
+    &:after {
+      background-color: $colour--error;
+    }
+  }
   .timeline__entry--withdrawn {
     &:after {
       background-color: $grey-1;
