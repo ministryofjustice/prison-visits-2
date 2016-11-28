@@ -3,11 +3,15 @@ require 'action_mailer/inline_preview_interceptor'
 class Prison::EmailPreviewsController < ApplicationController
   include BookingResponseContext
 
-  def show
+  def update
     if booking_response.valid?
       render html: email_preview
     else
-      render text: booking_response.errors.full_messages
+      render(
+        text: booking_response.
+          errors.full_messages.to_sentence,
+        status: :not_acceptable
+      )
     end
   end
 

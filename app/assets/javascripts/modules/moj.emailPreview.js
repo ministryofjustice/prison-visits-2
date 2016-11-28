@@ -13,7 +13,20 @@
     },
 
     handleClick: function(event) {
-      event.target.search = $(this.el).serialize();
+      event.preventDefault();
+
+      var ajaxOptions = {
+        url:    event.target.href,
+        method: 'POST',
+        data:   $(this.el).serialize()
+      };
+
+      $.ajax(ajaxOptions).done(function(data) {
+        var emailPreviewWindow = window.open("", "_blank")
+        emailPreviewWindow.document.write(data);
+      }).fail(function(xhr) {
+        alert(xhr.responseText);
+      });
     }
   };
 }());
