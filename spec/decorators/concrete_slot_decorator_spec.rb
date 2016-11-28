@@ -3,7 +3,11 @@ require "rails_helper"
 RSpec.describe ConcreteSlotDecorator do
   let(:visit) { create(:visit) }
   let(:slot_errors)   { [] }
-  let(:nomis_checker) { double(StaffNomisChecker, errors_for: slot_errors) }
+  let(:nomis_checker) do
+    double(StaffNomisChecker,
+      errors_for: slot_errors,
+      prisoner_availability_unknown?: false)
+  end
 
   subject do
     described_class.decorate(

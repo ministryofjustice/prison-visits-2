@@ -30,6 +30,20 @@ class ConcreteSlotDecorator < Draper::Decorator
       )
       h.concat(label_text)
 
+      if prisoner_available?
+        h.concat(h.content_tag('br'))
+        h.concat(
+          h.content_tag(
+            :span,
+            I18n.t(
+              '.prisoner_available',
+              scope: %w[prison visits process_visit]
+            ),
+            class: 'bold-xsmall colour--verified'
+          )
+        )
+      end
+
       errors.each do |error|
         h.concat(h.content_tag('br'))
         h.concat(
@@ -39,7 +53,7 @@ class ConcreteSlotDecorator < Draper::Decorator
               ".#{error}",
               scope: %w[prison visits process_visit]
             ),
-            class: 'colour--error'
+            class: 'bold-xsmall colour--error'
           )
         )
       end
@@ -49,6 +63,13 @@ class ConcreteSlotDecorator < Draper::Decorator
 # rubocop:enable Metrics/AbcSize
 
 private
+
+  def prisoner_available?
+    !nomis_checker.prisoner_availability_unknown? &&
+      errors.none? do |e|
+        e == PrisonerAvailabilityValidation::PRISONER_NOT_AVAILABLE
+      end
+  end
 
   def label_text
     @label_key ||= I18n.t(
