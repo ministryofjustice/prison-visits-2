@@ -42,6 +42,7 @@ class Prison::DashboardsController < ApplicationController
     estate = Estate.find(params[:estate_id])
 
     if sso_identity.accessible_estate?(estate)
+      @_current_estate         = nil
       session[:current_estate] = estate.id
     else
       # This should never happen

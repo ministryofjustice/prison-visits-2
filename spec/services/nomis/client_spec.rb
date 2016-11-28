@@ -15,11 +15,13 @@ RSpec.describe Nomis::Client do
 
   subject { described_class.new(api_host, client_token, client_key) }
 
-  it 'sets the X-Request-Id header if a request_id is present', vcr: { cassette_name: 'client-request-id' } do
-    RequestStore.store[:request_id] = 'uuid'
-    subject.get(path, params)
-    expect(WebMock).to have_requested(:get, /\w/).
-      with(headers: { 'X-Request-Id' => 'uuid' })
+  describe 'with a valid request', vcr: { cassette_name: 'client-request-id' } do
+    it 'sets the X-Request-Id header if a request_id is present' do
+      RequestStore.store[:request_id] = 'uuid'
+      subject.get(path, params)
+      expect(WebMock).to have_requested(:get, /\w/).
+        with(headers: { 'X-Request-Id' => 'uuid' })
+    end
   end
 
   context 'when there is an http status error' do
@@ -54,16 +56,52 @@ RSpec.describe Nomis::Client do
       WebMock.stub_request(:get, /\w/).to_raise(error)
     end
 
-    it 'raises an APIError containing request information' do
+    it 'raises an APIError if an unexpected exception is raised containing request information' do
       expect {
         subject.get(path, params)
       }.to raise_error(Nomis::APIError, 'Exception Excon::Errors::Timeout calling GET /nomisapi/lookup/active_offender: Request Timeout')
+    end
+
+    it 'logs API calls timing requests'do
+      expect(Instrumentation).to receive(:time_and_log).
+        with("Calling NOMIS API: GET /nomisapi#{path}", :api).and_return(double(Excon::Response, body: '{}'))
+      subject.get(path, params)
+    end
+
+    it 'increments the request count' do
+      expect {
+        subject.get(path, params)
+      }.to raise_error(Nomis::APIError).and change { RequestStore.store[:api_request_count] }.from(nil).to(1)
+    end
+  end
+
+  describe 'with an error' do
+    let(:error) do
+      Excon::Errors::HTTPStatusError.new('error',
+        double('request'),
+        double('response', status: 422, body: '<html>'))
+    end
+
+    before do
+      WebMock.stub_request(:get, /\w/).to_raise(error)
+    end
+
+    it 'raises an APIError if an unexpected exception is raised containing request information' do
+      expect {
+        subject.get(path, params)
+      }.to raise_error(Nomis::APIError, 'Unexpected status 422 calling GET /nomisapi/lookup/active_offender: (invalid-JSON) <html>')
     end
 
     it 'sends the error to sentry' do
       expect(Raven).to receive(:capture_exception).with(error)
 
       expect { subject.get(path, params) }.to raise_error(Nomis::APIError)
+    end
+
+    it 'increments the api error count' do
+      expect {
+        subject.get(path, params)
+      }.to raise_error(Nomis::APIError).and change { RequestStore.store[:api_error_count] }.from(nil).to(1)
     end
   end
 
