@@ -13,7 +13,7 @@
     },
 
     handleClick: function(event) {
-      event.target.search = $(this.el).serialize();
+      event.currentTarget.search = $(this.el).serialize();
     }
   };
 }());
