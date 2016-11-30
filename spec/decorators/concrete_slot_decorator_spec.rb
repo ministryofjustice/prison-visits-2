@@ -26,13 +26,12 @@ RSpec.describe ConcreteSlotDecorator do
     let(:slot) do
       ConcreteSlot.new(2015, 11, 5, 13, 30, 14, 45)
     end
+    let(:html_fragment) do
+      Capybara.string(subject.slot_picker(form_builder))
+    end
 
     context 'when a prisoner is available' do
-      let(:html_fragment) do
-        Capybara.string(subject.slot_picker(form_builder))
-      end
-
-      it 'renders the chexbox' do
+      it 'renders the checkbox' do
         expect(html_fragment).to have_css('label.block-label.date-box')
         expect(html_fragment).to have_css('span.date-box__number', text: '1')
         expect(html_fragment).to have_css('span.date-box__day',    text: 'Friday')
@@ -41,9 +40,6 @@ RSpec.describe ConcreteSlotDecorator do
     end
 
     context 'when a prisoner is not available' do
-      let(:html_fragment) do
-        Capybara.string(subject.slot_picker(form_builder))
-      end
       let(:slot_errors) { ['prisoner_not_available'] }
 
       it 'renders the chexbox' do
@@ -52,6 +48,19 @@ RSpec.describe ConcreteSlotDecorator do
         expect(html_fragment).to have_css('span.date-box__day',    text: 'Friday')
         expect(html_fragment).to have_text('23 October 2015 14:00–15:30')
         expect(html_fragment).to have_css('span.colour--error', text: 'Prisoner unavailable')
+      end
+    end
+
+    context 'when the api is disabled' do
+      before do
+        expect(Nomis::Api).to receive(:enabled?).and_return(false)
+      end
+
+      it 'renders the checkbox without errors' do
+        expect(html_fragment).to have_css('label.block-label.date-box')
+        expect(html_fragment).to have_css('span.date-box__number', text: '1')
+        expect(html_fragment).to have_css('span.date-box__day',    text: 'Friday')
+        expect(html_fragment).to have_text('23 October 2015 14:00–15:30')
       end
     end
   end
