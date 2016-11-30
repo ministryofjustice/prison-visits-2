@@ -34,28 +34,23 @@ module Nomis
         noms_id: noms_id,
         date_of_birth: date_of_birth
       )
-      return nil unless response['found'] == true
-      Offender.new(response['offender'])
+
+      build_offender(response)
+    rescue APIError => e
+      Raven.capture_exception(e)
+      NullOffender.new(api_call_successful: false)
     end
 
-    # rubocop:disable Metrics/MethodLength
     def offender_visiting_availability(offender_id:, start_date:, end_date:)
       response = @client.get(
         "/offenders/#{offender_id}/visiting_availability",
         offender_id: offender_id,
-        start_date: start_date,
-        end_date: end_date
+        start_date:  start_date,
+        end_date:    end_date
       )
-      if response.fetch('available')
-        dates = response.fetch('dates').map(&:to_date)
-        return PrisonerAvailability.new(dates: dates)
-      else
-        return PrisonerAvailability.new(dates: [])
-      end
-    rescue Excon::Errors::NotFound
-      raise NotFound, 'Unknown offender'
+
+      PrisonerAvailability.new(response)
     end
-    # rubocop:enable Metrics/MethodLength
 
     def fetch_bookable_slots(prison:, start_date:, end_date:)
       response = @client.get(
@@ -64,6 +59,16 @@ module Nomis
         end_date: end_date
       )
       response['slots'].map { |s| ConcreteSlot.parse(s) }
+    end
+
+  private
+
+    def build_offender(response)
+      if response['found'] == true
+        Offender.new(response['offender'])
+      else
+        NullOffender.new(api_call_successful: true)
+      end
     end
   end
 end

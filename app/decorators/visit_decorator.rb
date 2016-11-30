@@ -4,6 +4,7 @@ class VisitDecorator < Draper::Decorator
 
   delegate :prisoner_existance_status,
     :prisoner_existance_error,
+    :prisoner_availability_unknown?,
     to: :nomis_checker
 
   def prisoner_details_incorrect
@@ -14,7 +15,12 @@ class VisitDecorator < Draper::Decorator
   end
 
   def slots
-    @slots ||= ConcreteSlotDecorator.decorate_collection(object.slots)
+    @slots ||= object.slots.map.with_index { |slot, i|
+      ConcreteSlotDecorator.decorate(
+        slot,
+        context: { index: i, nomis_checker: nomis_checker }
+      )
+    }
   end
 
   def rejection
