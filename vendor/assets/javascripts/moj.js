@@ -5,6 +5,8 @@
 
     Modules: {},
 
+    Metrics: {},
+
     Helpers: {},
 
     Events: $({}),
@@ -19,6 +21,14 @@
       moj.Events.trigger('render');
     },
 
+    initMetrics: function() {
+      for (var x in moj.Metrics) {
+        if (typeof moj.Metrics[x].init === 'function') {
+          moj.Metrics[x].init();
+        }
+      }
+
+    },
     // safe logging
     log: function (msg) {
       if (window && window.console) {
