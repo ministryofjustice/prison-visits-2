@@ -26,16 +26,21 @@ RSpec.describe Nomis::Api do
       }
     }
 
-    subject { super().lookup_active_offender(params) }
+    let(:offender) { subject.lookup_active_offender(params) }
 
     it 'returns and offender if the data matches' do
-      expect(subject).to be_kind_of(Nomis::Offender)
-      expect(subject.id).to eq(1_055_827)
+      expect(offender).to be_kind_of(Nomis::Offender)
+      expect(offender.id).to eq(1_055_827)
     end
 
-    it 'returns nil if the data does not match', vcr: { cassette_name: 'lookup_active_offender-nomatch' } do
+    it 'returns NullOffender if the data does not match', vcr: { cassette_name: 'lookup_active_offender-nomatch' } do
       params[:noms_id] = 'Z9999ZZ'
-      expect(subject).to be_nil
+      expect(offender).to be_instance_of(Nomis::NullOffender)
+    end
+
+    it 'returns NullOffender if an ApiError is raised' do
+      allow_any_instance_of(Nomis::Client).to receive(:get).and_raise(Nomis::APIError)
+      expect(offender).to be_instance_of(Nomis::NullOffender)
     end
   end
 
@@ -59,11 +64,6 @@ RSpec.describe Nomis::Api do
       params[:offender_id] = 1_055_847
       expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
       expect(subject.dates).to be_empty
-    end
-
-    it 'is an error if the offender does not exist', vcr: { cassette_name: 'offender_visiting_availability-invalid_offender' } do
-      params[:offender_id] = 999_999
-      expect { subject }.to raise_error(Nomis::NotFound, 'Unknown offender')
     end
   end
 

@@ -2,6 +2,7 @@ module Nomis
   class PrisonerAvailability
     include NonPersistedModel
 
-    attribute :dates, Array
+    attribute :available, Boolean
+    attribute :dates, Array[Date]
   end
 end
