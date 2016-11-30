@@ -4,7 +4,7 @@ module Nomis
   APIError = Class.new(StandardError)
 
   class Client
-    TIMEOUT = 5 # seconds
+    TIMEOUT = 2 # seconds
 
     def initialize(host, client_token, client_key)
       @host = host
