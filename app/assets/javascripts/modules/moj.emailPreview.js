@@ -17,7 +17,7 @@
 
       var ajaxOptions = {
         url:    event.target.href,
-        method: 'POST',
+        method: 'POST', // not all browsers support PUT and DELETE
         data:   $(this.el).serialize()
       };
 
