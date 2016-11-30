@@ -1,7 +1,7 @@
 {
   "name": "prison-visits-2",
   "scripts": {
-    "postdeploy": "bundle exec rake db:setup heroku:post_deploy pvb:populate:visits",
+    "postdeploy": "bundle exec rake db:setup heroku:post_deploy pvb:populate:visits pvb:metrics:refresh",
     "pr-predestroy": "bundle exec rake heroku:pr_destroy"
   },
   "env": {

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   scope '/:locale', locale: /en|cy/ do
     get '/', to: redirect('/')
 
+    resources :metrics, only: [:index, :show]
     scope controller: :metrics do
       get 'metrics', action: :index
       get 'metrics/confirmed_bookings', action: :confirmed_bookings

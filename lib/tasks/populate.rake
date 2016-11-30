@@ -49,7 +49,8 @@ namespace :pvb do
         slot_option_0:          slots.pop,
         slot_option_1:          slots.pop,
         slot_option_2:          slots.pop,
-        locale:                 'en'
+        locale:                 'en',
+        created_at: (1..20).to_a.sample.days.ago
       )
       rand(1..5).times.map do |i|
         visit.visitors.create!(
@@ -65,6 +66,11 @@ namespace :pvb do
       visit
     end
 
+    def fake_processing_time(visit)
+      vsc = visit.visit_state_changes.order(created_at: :desc).first
+      vsc.update!(created_at: visit.created_at + (1..6).to_a.sample.day)
+    end
+
     def book(visit)
       granted_slot = [
         visit.slot_option_0, visit.slot_option_1, visit.slot_option_2
@@ -74,13 +80,32 @@ namespace :pvb do
       visit.update!(
         slot_granted: granted_slot, reference_no: 'none', closed: closed)
       visit.accept!
+      fake_processing_time(visit)
     end
 
-    def reject_visit(visit, i)
-      rejection = visit.build_rejection(reasons: [Rejection::REASONS.sample])
-      if i == 0
-        rejection.allowance_renews_on = (1..10).to_a.sample.days.from_now
-      end
+    def reject_visit(visit, _i)
+      attributes = if rand(10).even?
+                     { rejection_attributes:
+                         { reasons: [Rejection::REASONS.sample] }
+                     }
+                   else
+                     {
+                       rejection_attributes: {
+                         reasons: [Rejection::REASONS.sample],
+                         allowance_renews_on: (1..10).
+                                              to_a.
+                                              sample.
+                                              days.
+                                              from_now
+                       }
+                     }
+                   end
+
+      visit.assign_attributes(attributes)
+      BookingResponder::Reject.new(
+        BookingResponse.new(visit: visit)
+      ).process_request
+      fake_processing_time(visit.reload)
     end
 
     def cancel_visit(visit, i)
@@ -96,9 +121,9 @@ namespace :pvb do
 
     desc 'populate visits for review apps or dev environments'
     task visits: :environment do
-      %w[Sudbury Pentonville Usk].each do |prison_name|
+      %w[Sudbury Pentonville Usk Aylesbury].each do |prison_name|
         prison = Prison.find_by!(name: prison_name)
-        visits = 0.upto(14).map { |_i|
+        visits = 0.upto(ENV.fetch('COUNT', 14).to_i).map { |_i|
           visit = generate_visit(prison)
           visit.save!
           visit
@@ -122,4 +147,5 @@ namespace :pvb do
       end
     end
   end
+
 end

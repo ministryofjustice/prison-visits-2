@@ -2,16 +2,21 @@ class MetricsController < ApplicationController
   before_action :authorize_prison_request
 
   def index
-    @start_date = start_date_from_range
-
+    @start_date        = start_date_from_range
+    @metrics_presenter = GraphMetricsPresenter.new
     if all_time?
       metrics_counts = all_time_counts
     else
       metrics_counts = weekly_counts(@start_date)
     end
 
-    @prisons = Prison.enabled.includes(:estate)
+    @prisons = PrisonsDecorator.decorate Prison.enabled.includes(:estate)
     @dataset = MetricsPresenter.new(metrics_counts)
+  end
+
+  def show
+    @metrics_presenter = GraphMetricsPresenter.new
+    @prison            = Prison.find(params[:id])
   end
 
   def confirmed_bookings
