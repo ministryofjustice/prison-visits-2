@@ -103,15 +103,22 @@ en:
         body: Message (optional)
         submit: Process
         email_preview: Preview Email
+        prisoner_available: Prisoner available
+        prisoner_not_available: Prisoner unavailable
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
-        unknown_text: The check couldn't take place due to a system error, please verify manually
-        verified_text: Verified
+        prisoner_does_not_exist_text: The prisoner date of birth and number do not match.
+        unknown_text: "The check couldn't take place due to a system error, please verify manually"
         verified_html: |
           The prisoner date of birth and number have been verified. <br>Please check the prisoner name.
+      validate_prisoner_details:
+        title: Prisoner details
+        prisoner_name: Prisoner name
+        prisoner_dob: Prisoner D.O.B
+        prisoner_number: Prisoner no.
         invalid: Not verified
         unknown: Unknown
         prisoner_does_not_exist_text: The prisoner date of birth and number do not match.
@@ -162,6 +169,7 @@ en:
         reference_no_hint: eg Last 8 digits of VO number or “none” for remand
         closed_visit: This is a closed visit
         none_available: None of the chosen times are available
+        prisoner_availability_unknown: You must check NOMIS to verify prisoner availability
       issue_with_prisoner_section:
         visiting_allowance: Visiting allowance
         no_allowance: Prisoner does not have any visiting allowance
