@@ -45,7 +45,7 @@ Rails.application.routes.draw do
     end
 
     resources :visits, only: [] do
-      resource :email_preview, only: :show
+      resource :email_preview, only: :update
     end
 
     scope controller: :dashboards do
