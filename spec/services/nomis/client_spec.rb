@@ -22,15 +22,6 @@ RSpec.describe Nomis::Client do
       with(headers: { 'X-Request-Id' => 'uuid' })
   end
 
-  it 'raises an APIError when there is an http status error' do
-    request = double
-    response = double(status: 422, body: '<html>')
-    WebMock.stub_request(:get, /\w/).
-      to_raise(Excon::Errors::HTTPStatusError.new('error', request, response))
-
-    expect { subject.get(path, params) }.to raise_error(Nomis::APIError, 'Unexpected status 422 calling GET /nomisapi/lookup/active_offender: (invalid-JSON) <html>')
-  end
-
   it 'raises an APIError if an unexpected exception is raised containing request information' do
     WebMock.stub_request(:get, /\w/).
       to_raise(Excon::Errors::Timeout.new('Request Timeout'))

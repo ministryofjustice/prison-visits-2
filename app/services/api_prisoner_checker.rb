@@ -1,13 +1,7 @@
 class ApiPrisonerChecker
   def initialize(noms_id:, date_of_birth:)
-    @offender = if Nomis::Api.enabled?
-                  Nomis::Api.instance.lookup_active_offender(
-                    noms_id:       noms_id,
-                    date_of_birth: date_of_birth
-                  )
-                else
-                  Nomis::NullOffender.new(api_call_successful: false)
-                end
+    @noms_id = noms_id
+    @date_of_birth = date_of_birth
   end
 
   def valid?
@@ -21,6 +15,8 @@ class ApiPrisonerChecker
 private
 
   def prisoner_validation
-    @prisoner_validation ||= PrisonerValidation.new(@offender).tap(&:valid?)
+    @prisoner_validation ||=
+      PrisonerValidation.
+      new(noms_id: @noms_id, date_of_birth: @date_of_birth).tap(&:valid?)
   end
 end

@@ -1,26 +1,25 @@
 class PrisonerValidation
-  UNKNOWN            = 'unknown'.freeze
+  include NonPersistedModel
+
+  UNKNOWN = 'unknown'.freeze
   PRISONER_NOT_EXIST = 'prisoner_does_not_exist'.freeze
 
-  include ActiveModel::Validations
+  attribute :noms_id, String
+  attribute :date_of_birth, Date
+
   validate :active_offender_exists
 
-  def initialize(offender)
-    self.offender = offender
-  end
-
   def active_offender_exists
-    unless Nomis::Api.enabled? && offender.api_call_successful?
+    if Nomis::Api.enabled?
+      offender = Nomis::Api.instance.lookup_active_offender(
+        noms_id: noms_id, date_of_birth: date_of_birth)
+
+      errors.add :base, PRISONER_NOT_EXIST unless offender
+    else
       errors.add :base, UNKNOWN
-      return
     end
-
-    unless offender.valid?
-      errors.add :base, PRISONER_NOT_EXIST
-    end
+  rescue Excon::Errors::Error => e
+    Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
+    errors.add :base, UNKNOWN
   end
-
-private
-
-  attr_accessor :offender
 end
