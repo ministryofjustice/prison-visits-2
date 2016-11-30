@@ -13,7 +13,6 @@ $colour--cancelled: #0B0C0C;
 
 @include colour('turquoise', $turquoise);
 @include colour('error', $colour--error);
-@include colour('verified', $colour--verified);
 
 
 @mixin background($name, $colour) {

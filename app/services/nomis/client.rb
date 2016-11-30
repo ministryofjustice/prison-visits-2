@@ -68,7 +68,7 @@ module Nomis
         error = "(invalid-JSON) #{body[0, 80]}"
       end
 
-      raise APIError,
+      raise e,
         "Unexpected status #{e.response.status} calling #{api_method}: #{error}"
     rescue Excon::Errors::Error => e
       raise APIError, "Exception #{e.class} calling #{api_method}: #{e}"

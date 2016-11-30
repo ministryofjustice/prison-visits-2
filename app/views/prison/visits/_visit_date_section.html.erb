@@ -1,21 +1,12 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
-
-<% if @visit.prisoner_availability_unknown? %>
-  <div class="notice push-top">
-    <i class="icon icon-important">
-      <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
-    </i>
-    <strong class="bold-small"><%= t('.prisoner_availability_unknown') %></strong>
-  </div>
-
-<% end %>
-
 <div class="grid-row push-top choose-date">
   <%= error_container(f, :slot_granted) do %>
-
-    <% f.object.slots.each do |slot| %>
+    <% f.object.slots.each_with_index do |slot, index| %>
       <div class="column-one-third">
-        <%= slot.slot_picker(f) %>
+        <%= f.label :slot_granted, class: 'block-label date-box', value: slot.iso8601 do %>
+          <%= f.radio_button :slot_granted, slot.iso8601, class: 'js-Conditional', data: { 'conditional-el': 'selected_slot_details', 'conditional-val': 'slot_option_0,slot_option_1,slot_option2'} %>
+          <%= slot.label(index+1) %>
+        <% end %>
       </div>
     <% end %>
   <% end %>

@@ -1,7 +1,7 @@
 .date-box {
   background: $white;
   border: 1px solid $border-colour;
-  height: 125px;
+  height: 105px;
   min-height: 60px;
   overflow: hidden;
   position: relative;
@@ -30,12 +30,5 @@
       background: #1B567D;
       color: $white;
     }
-  }
-}
-
-.date-box--error {
-  .date-box__number {
-    background: $colour--error;
-    color: $white;
   }
 }

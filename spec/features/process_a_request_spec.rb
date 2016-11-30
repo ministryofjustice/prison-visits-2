@@ -105,20 +105,8 @@ RSpec.feature 'Processing a request', js: true do
   context "validating prisonner informations" do
     context "when the NOMIS API is working" do
       context "and the prisoner's informations are not valid" do
-        let(:slot_zero) { ConcreteSlot.new(2016, 5, 1, 10, 30, 11, 30) }
-        let(:slot_one) { ConcreteSlot.new(2016, 5, 21, 10, 30, 11, 30) }
-
-        before do
-          vst.update!(
-            slot_option_0: slot_zero.iso8601,
-            slot_option_1: slot_one.iso8601,
-            slot_option_2: nil
-          )
-        end
-        let!(:offender) { create(:offender_not_found) }
-
         it 'informs staff informations are invalid' do
-          expect(Nomis::Api.instance).to receive(:lookup_active_offender).and_return(offender)
+          expect(Nomis::Api.instance).to receive(:lookup_active_offender).and_return(nil)
           visit prison_visit_process_path(vst, locale: 'en')
           expect(page).to have_content("The prisoner date of birth and number do not match.")
         end

@@ -9,6 +9,7 @@ RSpec.describe Api::ValidationsController do
 
   before do
     allow(Nomis::Api).to receive(:enabled?).and_return(true)
+    allow(Nomis::Api).to receive(:instance).and_return(instance_double(Nomis::Api))
   end
 
   describe 'visitors' do
@@ -98,54 +99,53 @@ RSpec.describe Api::ValidationsController do
       }
     }
 
-    context 'when the prisoner exists' do
-      let(:offender) { Nomis::Offender.new(id: 123) }
+    let(:offender) {
+      instance_double(Nomis::Offender, id: 123)
+    }
 
-      it 'returns valid' do
-        expect(Nomis::Api.instance).to receive(:lookup_active_offender).
-          and_return(offender)
-
-        post :prisoner, params
-        expect(parsed_body['validation']).to eq('valid' => true)
-      end
+    before do
+      allow(Nomis::Api.instance).to receive(:lookup_active_offender).
+        and_return(offender)
     end
 
-    context 'when the prisoner does not exist' do
-      let(:offender) { Nomis::NullOffender.new(api_call_successful: true) }
+    it 'returns valid if the prisoner exists and can be visisted' do
+      expect(Nomis::Api.instance).to receive(:lookup_active_offender).
+        and_return(offender)
+      post :prisoner, params
+      expect(parsed_body['validation']).to eq('valid' => true)
+    end
 
-      it 'returns a validation error' do
-        expect(Nomis::Api.instance).to receive(:lookup_active_offender).
-          and_return(offender)
-
-        post :prisoner, params
-        expect(parsed_body['validation']).to eq(
-          'valid' => false,
-          'errors' => ['prisoner_does_not_exist']
-        )
-      end
+    it 'returns a validation error if the prisoner does not exist' do
+      expect(Nomis::Api.instance).to receive(:lookup_active_offender).
+        and_return(nil)
+      post :prisoner, params
+      expect(parsed_body['validation']).to eq(
+        'valid' => false,
+        'errors' => ['prisoner_does_not_exist']
+      )
     end
 
     it 'returns an error if the date of birth is invalid' do
       params[:date_of_birth] = '1980-50-01'
       expect(Nomis::Api.instance).not_to receive(:lookup_active_offender)
-
       post :prisoner, params
       expect(response.status).to eq(422)
       expect(parsed_body['message']).to eq('Invalid parameter: date_of_birth')
     end
 
     it 'returns valid if the NOMIS API is disabled' do
-      allow(Nomis::Api).to receive(:enabled?).and_return(false)
-      expect_any_instance_of(Nomis::Api).not_to receive(:lookup_active_offender)
-
+      expect(Nomis::Api).to receive(:enabled?).and_return(false)
+      expect(Nomis::Api.instance).not_to receive(:lookup_active_offender)
       post :prisoner, params
       expect(parsed_body['validation']['valid']).to eq(true)
     end
 
     it 'returns valid if the NOMIS API cannot be contacted' do
-      allow_any_instance_of(Nomis::Client).to receive(:get).
-        and_raise(Nomis::APIError, 'Something broke')
-
+      allow(Nomis::Api.instance).to receive(:lookup_active_offender).
+        and_raise(Excon::Errors::Error, 'Something broke')
+      expect(Rails.logger).to receive(:warn).with(
+        'Error calling the NOMIS API: #<Excon::Errors::Error: Something broke>'
+      )
       post :prisoner, params
       expect(parsed_body['validation']['valid']).to eq(true)
     end
