@@ -36,8 +36,7 @@ module Nomis
       )
 
       build_offender(response)
-    rescue APIError => e
-      Raven.capture_exception(e)
+    rescue APIError
       NullOffender.new(api_call_successful: false)
     end
 

@@ -22,21 +22,49 @@ RSpec.describe Nomis::Client do
       with(headers: { 'X-Request-Id' => 'uuid' })
   end
 
-  it 'raises an APIError when there is an http status error' do
-    request = double
-    response = double(status: 422, body: '<html>')
-    WebMock.stub_request(:get, /\w/).
-      to_raise(Excon::Errors::HTTPStatusError.new('error', request, response))
+  context 'when there is an http status error' do
+    let(:error) do
+      Excon::Errors::HTTPStatusError.new('error',
+        double('request'),
+        double('response', status: 422, body: '<html>'))
+    end
 
-    expect { subject.get(path, params) }.to raise_error(Nomis::APIError, 'Unexpected status 422 calling GET /nomisapi/lookup/active_offender: (invalid-JSON) <html>')
+    before do
+      WebMock.stub_request(:get, /\w/).to_raise(error)
+    end
+
+    it 'raises an APIError' do
+      expect { subject.get(path, params) }.
+        to raise_error(Nomis::APIError, 'Unexpected status 422 calling GET /nomisapi/lookup/active_offender: (invalid-JSON) <html>')
+    end
+
+    it 'sends the error to sentry' do
+      expect(Raven).to receive(:capture_exception).with(error)
+
+      expect { subject.get(path, params) }.to raise_error(Nomis::APIError)
+    end
   end
 
-  it 'raises an APIError if an unexpected exception is raised containing request information' do
-    WebMock.stub_request(:get, /\w/).
-      to_raise(Excon::Errors::Timeout.new('Request Timeout'))
-    expect {
-      subject.get(path, params)
-    }.to raise_error(Nomis::APIError, 'Exception Excon::Errors::Timeout calling GET /nomisapi/lookup/active_offender: Request Timeout')
+  context 'when there is an unexpected exception' do
+    let(:error) do
+      Excon::Errors::Timeout.new('Request Timeout')
+    end
+
+    before do
+      WebMock.stub_request(:get, /\w/).to_raise(error)
+    end
+
+    it 'raises an APIError containing request information' do
+      expect {
+        subject.get(path, params)
+      }.to raise_error(Nomis::APIError, 'Exception Excon::Errors::Timeout calling GET /nomisapi/lookup/active_offender: Request Timeout')
+    end
+
+    it 'sends the error to sentry' do
+      expect(Raven).to receive(:capture_exception).with(error)
+
+      expect { subject.get(path, params) }.to raise_error(Nomis::APIError)
+    end
   end
 
   describe 'with auth configured' do
