@@ -74,7 +74,7 @@ Metrics/ClassLength:
   Max: 200
 
 Metrics/LineLength:
-  Max: 80
+  Max: 90
   Exclude:
     - 'spec/**/*'
 
@@ -103,6 +103,9 @@ Style/StringLiterals:
 # Prefer sensible naming to comments everywhere.
 Documentation:
   Description: Document classes and non-namespace modules.
+  Enabled: false
+
+Style/DoubleNegation:
   Enabled: false
 
 # Would enforce do_y if x over if x / do y / end. As with GuardClause above,

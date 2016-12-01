@@ -2,11 +2,17 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
   describe '#create' do
-    subject(:create) { get :create, provider: 'mojsoo' }
+    subject(:create) { get :create, provider: 'mojsso' }
 
     let(:auth_hash) { { 'info' => anything } }
     let(:sso_data) do
-      {}
+      {
+        'user_id': 'some-user-id',
+        'profile_url': 'profile_url',
+        'full_name':   'John Doe',
+        'logout_url':  'logout_url',
+        'permissions': {}
+      }
     end
 
     before do
@@ -71,6 +77,7 @@ RSpec.describe SessionsController, type: :controller do
 
     before do
       session[:sso_data] = sso_data
+      create(:estate, sso_organisation_name: 'org1')
     end
 
     it 'deletes the session and does not redirect to SSO if session data invalid' do

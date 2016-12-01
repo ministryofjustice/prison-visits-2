@@ -7,6 +7,11 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :store_request_id
 
+  before_action :log_current_estate
+  before_action :log_current_user
+
+  after_action :log_api_counters
+
   helper LinksHelper
   helper_method :current_user
   helper_method :sso_identity
@@ -58,9 +63,8 @@ private
     end
   end
 
-  def append_to_log(params)
-    @custom_log_items ||= {}
-    @custom_log_items.merge!(params)
+  def append_to_log(request_params)
+    Instrumentation.append_to_log(request_params)
   end
 
   # WARNING: This a Rails private method, could easily break in the future.
@@ -70,7 +74,7 @@ private
   # Rails' instrumentation code, and is run after each request.
   def append_info_to_payload(payload)
     super
-    payload[:custom_log_items] = @custom_log_items
+    payload[:custom_log_items] = Instrumentation.custom_log_items
   end
 
   def http_referrer
@@ -101,8 +105,33 @@ private
   end
 
   def store_request_id
-    append_to_log(request_id: RequestStore.store[:request_id])
     RequestStore.store[:request_id] = request.uuid
+    append_to_log(request_id: RequestStore.store[:request_id])
     Raven.extra_context(request_id: RequestStore.store[:request_id])
+  end
+
+  def log_current_estate
+    if current_estate
+      append_to_log(estate_id: current_estate.id)
+    end
+  end
+
+  def log_current_user
+    if current_user
+      append_to_log(user_id: current_user.id)
+    end
+  end
+
+  def log_api_counters
+    append_to_log(api_request_count: api_request_count)
+    append_to_log(api_error_count:   api_error_count)
+  end
+
+  def api_request_count
+    RequestStore.store[:api_request_count]
+  end
+
+  def api_error_count
+    RequestStore.store[:api_error_count]
   end
 end

@@ -29,26 +29,26 @@ module Nomis
     end
 
     def lookup_active_offender(noms_id:, date_of_birth:)
-      response = @client.get(
-        '/lookup/active_offender',
-        noms_id: noms_id,
-        date_of_birth: date_of_birth
-      )
+      response = @client.get('/lookup/active_offender',
+        noms_id: noms_id, date_of_birth: date_of_birth)
 
-      build_offender(response)
-    rescue APIError
+      build_offender(response).tap do
+        Instrumentation.append_to_log(valid_offender_lookup: !!response['found'])
+      end
+    rescue APIError => e
+      Raven.capture_exception(e)
       NullOffender.new(api_call_successful: false)
     end
 
     def offender_visiting_availability(offender_id:, start_date:, end_date:)
       response = @client.get(
         "/offenders/#{offender_id}/visiting_availability",
-        offender_id: offender_id,
-        start_date:  start_date,
-        end_date:    end_date
-      )
-
-      PrisonerAvailability.new(response)
+        offender_id: offender_id, start_date: start_date, end_date: end_date)
+      PrisonerAvailability.new(response).tap do |prisoner_availability|
+        Instrumentation.append_to_log(
+          visit_available_count: prisoner_availability.dates.size
+        )
+      end
     end
 
     def fetch_bookable_slots(prison:, start_date:, end_date:)
@@ -57,7 +57,11 @@ module Nomis
         start_date: start_date,
         end_date: end_date
       )
-      response['slots'].map { |s| ConcreteSlot.parse(s) }
+      concrete_slots = response['slots'].map { |s| ConcreteSlot.parse(s) }
+      Instrumentation.append_to_log(
+        available_slots_count: concrete_slots.size
+      )
+      concrete_slots
     end
 
   private

@@ -172,7 +172,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
   end
 
   context '#switch_estate' do
-    let(:estate2) { FactoryGirl.create(:estate) }
+    let(:estate2)      { create(:estate) }
     let(:other_estate) { estate2 }
     subject do
       post :switch_estate, estate_id: other_estate.id
@@ -198,7 +198,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
       it { is_expected.to redirect_to('/previous/path') }
 
       context 'when switching to an inaccessible estate' do
-        let(:other_estate) { FactoryGirl.create(:estate) }
+        let(:other_estate) { create(:estate) }
 
         it 'does not updated the current estate' do
           subject
