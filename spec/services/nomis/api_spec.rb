@@ -3,6 +3,12 @@ require 'rails_helper'
 RSpec.describe Nomis::Api do
   subject { described_class.instance }
 
+  # Ensure that we have a new instance to prevent other specs interfering
+  around do |ex|
+    Singleton.__init__(described_class)
+    ex.run
+    Singleton.__init__(described_class)
+  end
   it 'is implicitly enabled if the api host is configured' do
     expect(Rails.configuration).to receive(:nomis_api_host).and_return(nil)
     expect(described_class.enabled?).to be false
