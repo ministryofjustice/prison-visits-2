@@ -82,5 +82,11 @@ module PrisonVisits
 
     config.connection_pool_size =
       config.database_configuration[Rails.env]['pool'] || 5
+
+    config.nomis_staff_prisoner_check_enabled =
+      ENV['NOMIS_STAFF_PRISONER_CHECK_ENABLED'] == 'true'
+
+    config.nomis_public_prisoner_check_enabled =
+      ENV['NOMIS_STAFF_PRISONER_CHECK_ENABLED'] == 'true'
   end
 end

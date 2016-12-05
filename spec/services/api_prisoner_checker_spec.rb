@@ -22,6 +22,16 @@ RSpec.describe ApiPrisonerChecker do
         allow(Nomis::Api).to receive(:enabled?).and_return(true)
       end
 
+      context 'and the check is disabled for public' do
+        before do
+          allow(Rails.configuration).
+            to receive(:nomis_public_prisoner_check_enabled).
+            and_return(false)
+        end
+
+        it { is_expected.to be_valid }
+      end
+
       context 'and the api is working' do
         before do
           expect(Nomis::Api.instance).

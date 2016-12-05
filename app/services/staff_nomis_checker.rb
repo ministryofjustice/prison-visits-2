@@ -10,7 +10,8 @@ class StaffNomisChecker
   end
 
   def prisoner_existance_status
-    return NOT_LIVE unless @nomis_api_enabled
+    return NOT_LIVE unless prisoner_check_enabled?
+
     case prisoner_existance_error
     when nil
       VALID
@@ -38,6 +39,11 @@ class StaffNomisChecker
   end
 
 private
+
+  def prisoner_check_enabled?
+    @nomis_api_enabled &&
+      Rails.configuration.nomis_staff_prisoner_check_enabled
+  end
 
   def prisoner_validation
     @prisoner_validation ||= PrisonerValidation.new(offender).tap(&:valid?)

@@ -1,6 +1,7 @@
 class ApiPrisonerChecker
   def initialize(noms_id:, date_of_birth:)
-    @offender = if Nomis::Api.enabled?
+    @offender = if Nomis::Api.enabled? &&
+                   Rails.configuration.nomis_public_prisoner_check_enabled
                   Nomis::Api.instance.lookup_active_offender(
                     noms_id:       noms_id,
                     date_of_birth: date_of_birth
