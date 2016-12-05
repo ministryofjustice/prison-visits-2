@@ -20,6 +20,18 @@ RSpec.describe StaffNomisChecker do
       it { is_expected.to eq('not_live') }
     end
 
+    describe 'api is configured and the check is disabled for staff' do
+      let(:enabled) { true }
+
+      before do
+        allow(Rails.configuration).
+          to receive(:nomis_staff_prisoner_check_enabled).
+          and_return(false)
+      end
+
+      it { is_expected.to eq('not_live') }
+    end
+
     describe 'when the nomis api is live' do
       before do
         expect(PrisonerValidation).to receive(:new).with(offender).and_return(validator)

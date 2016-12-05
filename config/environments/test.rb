@@ -24,4 +24,7 @@ Rails.application.configure do
   config.nomis_api_host = 'http://172.22.16.2:8080/'
   config.nomis_api_token = nil
   config.nomis_api_key = nil
+
+  config.nomis_staff_prisoner_check_enabled = true
+  config.nomis_public_prisoner_check_enabled = true
 end
