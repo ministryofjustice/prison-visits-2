@@ -4,33 +4,31 @@ module Nomis
   NotFound = Class.new(Error)
 
   class Api
-    class << self
-      def enabled?
-        Rails.configuration.nomis_api_host != nil
-      end
+    include Singleton
 
-      def instance
-        unless enabled?
-          fail DisabledError, 'Nomis API is disabled'
-        end
-
-        @instance ||= begin
-          host = Rails.configuration.nomis_api_host
-          client_token = Rails.configuration.nomis_api_token
-          client_key = Rails.configuration.nomis_api_key
-          client = Nomis::Client.new(host, client_token, client_key)
-          new(client)
-        end
-      end
+    def self.enabled?
+      Rails.configuration.nomis_api_host != nil
     end
 
-    def initialize(client)
-      @client = client
+    def initialize
+      unless self.class.enabled?
+        fail DisabledError, 'Nomis API is disabled'
+      end
+
+      pool_size = Rails.configuration.connection_pool_size
+      @pool = ConnectionPool.new(size: pool_size, timeout: 1) do
+        Nomis::Client.new(
+          Rails.configuration.nomis_api_host,
+          Rails.configuration.nomis_api_token,
+          Rails.configuration.nomis_api_key)
+      end
     end
 
     def lookup_active_offender(noms_id:, date_of_birth:)
-      response = @client.get('/lookup/active_offender',
-        noms_id: noms_id, date_of_birth: date_of_birth)
+      response = @pool.with { |client|
+        client.get('/lookup/active_offender',
+          noms_id: noms_id, date_of_birth: date_of_birth)
+      }
 
       build_offender(response).tap do
         Instrumentation.append_to_log(valid_offender_lookup: !!response['found'])
@@ -41,9 +39,12 @@ module Nomis
     end
 
     def offender_visiting_availability(offender_id:, start_date:, end_date:)
-      response = @client.get(
-        "/offenders/#{offender_id}/visiting_availability",
-        offender_id: offender_id, start_date: start_date, end_date: end_date)
+      response = @pool.with { |client|
+        client.get(
+          "/offenders/#{offender_id}/visiting_availability",
+          offender_id: offender_id, start_date: start_date, end_date: end_date)
+      }
+
       PrisonerAvailability.new(response).tap do |prisoner_availability|
         Instrumentation.append_to_log(
           visit_available_count: prisoner_availability.dates.size
@@ -52,15 +53,16 @@ module Nomis
     end
 
     def fetch_bookable_slots(prison:, start_date:, end_date:)
-      response = @client.get(
-        "/prison/#{prison.nomis_id}/free_slots",
-        start_date: start_date,
-        end_date: end_date
-      )
+      response = @pool.with { |client|
+        client.get(
+          "/prison/#{prison.nomis_id}/free_slots",
+          start_date: start_date,
+          end_date: end_date
+        )
+      }
       concrete_slots = response['slots'].map { |s| ConcreteSlot.parse(s) }
-      Instrumentation.append_to_log(
-        available_slots_count: concrete_slots.size
-      )
+      Instrumentation.append_to_log(available_slots_count: concrete_slots.size)
+
       concrete_slots
     end
 
