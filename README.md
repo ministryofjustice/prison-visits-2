@@ -218,6 +218,13 @@ prisoner validity.
 
 (Optional) By default it is false.
 
+#### `NOMIS_STAFF_PRISONER_AVAILABILITY_ENABLED`, `NOMIS_PUBLIC_PRISONER_AVAILABILITY_ENABLED`
+
+If `true` then the Nomis API will be used for staff or public to check the
+prisoner availability.
+
+(Optional) By default it is false.
+
 #### `PRISON_ESTATE_IPS`
 
 A semicolon- or comma-separated list of IP addresses or CIDR ranges. Users on

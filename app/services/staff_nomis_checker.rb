@@ -27,11 +27,12 @@ class StaffNomisChecker
   end
 
   def prisoner_availability_unknown?
-    @nomis_api_enabled && prisoner_availability_validation.unknown_result?
+    prisoner_availability_enabled? &&
+      prisoner_availability_validation.unknown_result?
   end
 
   def errors_for(slot)
-    return [] unless @nomis_api_enabled && offender.valid?
+    return [] unless prisoner_availability_enabled? && offender.valid?
 
     [
       prisoner_availability_validation.date_error(slot.to_date)
@@ -39,6 +40,11 @@ class StaffNomisChecker
   end
 
 private
+
+  def prisoner_availability_enabled?
+    @nomis_api_enabled &&
+      Rails.configuration.nomis_staff_prisoner_availability_enabled
+  end
 
   def prisoner_check_enabled?
     @nomis_api_enabled &&
