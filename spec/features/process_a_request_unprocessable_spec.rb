@@ -48,32 +48,38 @@ RSpec.feature 'Processing a request', js: true do
     end
   end
 
-  scenario 'trying to double process a visit', vcr: { cassette_name: 'process_booking_happy_path' } do
-    # VCR doesn't allow nesting the same cassette. Since we have to requests
-    # to the process page we need to setup another happy path cassette.
-    VCR.use_cassette("process_booking_happy_path-dup") do
-      Capybara.using_session('window1') do
-        visit prison_visit_process_path(vst, locale: 'en')
+  context do
+    around do |ex|
+      travel_to(Date.new(2016, 12, 1)) { ex.run }
+    end
 
-        check 'Prisoner details are incorrect'
-      end
+    scenario 'trying to double process a visit', vcr: { cassette_name: 'process_booking_happy_path' } do
+      # VCR doesn't allow nesting the same cassette. Since we have to requests
+      # to the process page we need to setup another happy path cassette.
+      VCR.use_cassette("process_booking_happy_path-dup") do
+        Capybara.using_session('window1') do
+          visit prison_visit_process_path(vst, locale: 'en')
 
-      Capybara.using_session('window2') do
-        visit prison_visit_process_path(vst, locale: 'en')
+          check 'Prisoner details are incorrect'
+        end
 
-        check 'Prisoner details are incorrect'
-      end
+        Capybara.using_session('window2') do
+          visit prison_visit_process_path(vst, locale: 'en')
 
-      Capybara.using_session('window1') do
-        click_button 'Process'
+          check 'Prisoner details are incorrect'
+        end
 
-        expect(page).to have_text('Thank you for processing the visit')
-      end
+        Capybara.using_session('window1') do
+          click_button 'Process'
 
-      Capybara.using_session('window2') do
-        click_button 'Process'
+          expect(page).to have_text('Thank you for processing the visit')
+        end
 
-        expect(page).to have_text("Visit can't be processed")
+        Capybara.using_session('window2') do
+          click_button 'Process'
+
+          expect(page).to have_text("Visit can't be processed")
+        end
       end
     end
   end
