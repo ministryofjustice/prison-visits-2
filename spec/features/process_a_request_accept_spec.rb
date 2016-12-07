@@ -6,6 +6,10 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
   include_context 'process request setup'
 
+  around do |ex|
+    travel_to(Date.new(2016, 12, 1)) { ex.run }
+  end
+
   context 'accepting', vcr: { cassette_name: 'process_booking_happy_path' } do
     context "validating prisoner informations - sad paths" do
       context "and the prisoner's informations are not valid", vcr: { cassette_name: 'lookup_active_offender-nomatch' } do
