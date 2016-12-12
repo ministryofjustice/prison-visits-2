@@ -150,14 +150,15 @@ RSpec.describe SignonIdentity, type: :model do
       expect(subject.accessible_estates).not_to include(pentonville_estate)
     end
 
-    it 'allows checking whether an estate is accessible' do
-      expect(subject.accessible_estate?(cardiff_estate)).to be true
-      expect(subject.accessible_estate?(pentonville_estate)).to be false
+    it 'allows checking whether all the estates is accessible' do
+      expect(subject.accessible_estates?([cardiff_estate])).to be true
+      expect(subject.accessible_estates?([pentonville_estate])).to be false
+      expect(subject.accessible_estates?([cardiff_estate, pentonville_estate])).
+        to be false
     end
 
-    it 'determines the default estate for a user' do
-      # Note: first accessible estate sorted by NOMIS ID
-      expect(subject.default_estate).to eq(cardiff_estate)
+    it 'determines the default estates for a user' do
+      expect(subject.default_estates).to contain_exactly(cardiff_estate, swansea_estate)
     end
 
     it 'builds the logout url required for SSO' do

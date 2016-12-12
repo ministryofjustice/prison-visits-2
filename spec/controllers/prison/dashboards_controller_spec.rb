@@ -14,7 +14,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        login_user(user, estate)
+        login_user(user, current_estates: [estate])
       end
 
       it { is_expected.to be_successful }
@@ -35,7 +35,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        login_user(user, estate)
+        login_user(user, current_estates: [estate])
       end
 
       it { is_expected.to be_successful }
@@ -62,7 +62,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        login_user(user, estate)
+        login_user(user, current_estates: [estate])
       end
 
       it { is_expected.to be_successful }
@@ -117,7 +117,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        login_user(user, estate)
+        login_user(user, current_estates: [estate])
       end
 
       let!(:visit1) do
@@ -171,28 +171,26 @@ RSpec.describe Prison::DashboardsController, type: :controller do
     end
   end
 
-  context '#switch_estate' do
+  context '#switch_estates' do
     let(:estate2)      { create(:estate) }
     let(:other_estate) { estate2 }
     subject do
-      post :switch_estate, estate_id: other_estate.id
+      post :switch_estates, estates_id: [other_estate.id]
     end
 
     context "when logged out" do
-      let(:visit_date) { nil }
-
       it { is_expected.to_not be_successful }
     end
 
     context "when logged in" do
       before do
-        login_user(user, estate, available_estates: [estate, estate2])
+        login_user(user, current_estates: [estate], available_estates: [estate, estate2])
         request.env['HTTP_REFERER'] = '/previous/path'
       end
 
       it 'updates the session current estate' do
         subject
-        expect(controller.current_estate).to eq(other_estate)
+        expect(controller.current_estates).to eq([other_estate])
       end
 
       it { is_expected.to redirect_to('/previous/path') }
@@ -202,7 +200,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
         it 'does not updated the current estate' do
           subject
-          expect(controller.current_estate).to eq(estate)
+          expect(controller.current_estates).to eq([estate])
         end
       end
     end

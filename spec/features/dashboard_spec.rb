@@ -37,19 +37,17 @@ RSpec.feature 'Using the dashboard' do
       visit prison_inbox_path
 
       within '.prison-switcher' do
-        select 'Cardiff', from: 'estate_id'
+        select 'Cardiff', from: 'estates_id'
         click_button 'Update'
       end
 
-      expect(page).to have_css('h1', text: 'Cardiff inbox')
       expect(page).to have_css('.navigation', 'Inbox 0')
 
       within '.prison-switcher' do
-        select 'Swansea', from: 'estate_id'
+        select 'Swansea', from: 'estates_id'
         click_button 'Update'
       end
 
-      expect(page).to have_css('h1', text: 'Swansea inbox')
       expect(page).to have_css('.navigation', 'Inbox 1')
     end
   end
@@ -66,7 +64,7 @@ RSpec.feature 'Using the dashboard' do
     before do
       visit prison_inbox_path
       within '.prison-switcher' do
-        select 'Swansea', from: 'estate_id'
+        select 'Swansea', from: 'estates_id'
         click_button 'Update'
       end
     end

@@ -38,13 +38,8 @@ class SignonIdentity
     def accessible_estates(permissions)
       orgs = permissions.map { |p| p.fetch('organisation') }
 
-      return [] if orgs.empty?
-
-      if orgs.include?(DIGITAL_ORG)
-        Estate.all
-      else
-        Estate.where(sso_organisation_name: orgs)
-      end
+      mapper = EstateSSOMapper.new(orgs)
+      mapper.accessible_estates
     end
 
   private
@@ -92,12 +87,12 @@ class SignonIdentity
     @_ae ||= self.class.accessible_estates(@permissions).order(:nomis_id).to_a
   end
 
-  def accessible_estate?(estate)
-    accessible_estates.include?(estate)
+  def accessible_estates?(estates)
+    estates.all? { |estate| accessible_estates.include?(estate) }
   end
 
-  def default_estate
-    accessible_estates.first || fail('Should never be nil')
+  def default_estates
+    accessible_estates || fail('Should never be nil')
   end
 
   # Export SSO data for storing in session between requests

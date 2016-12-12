@@ -21,7 +21,7 @@ private
 
   def load_visit
     @visit ||= Visit.joins(prison: :estate).
-               where(estates: { id: current_estate }).
+               where(estates: { id: current_estates }).
                find(params[:visit_id])
   end
   alias_method :visit, :load_visit

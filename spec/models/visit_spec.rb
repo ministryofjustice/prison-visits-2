@@ -18,20 +18,24 @@ RSpec.describe Visit, type: :model do
   end
 
   describe 'scopes' do
-    describe '.from_estate' do
+    describe '.from_estates' do
       let(:visit) do
+        create(:visit)
+      end
+      let(:other_visit) do
         create(:visit)
       end
 
       let!(:estate) { visit.prison.estate }
+      let!(:other_estate) { other_visit.prison.estate }
 
       before do
         create(:visit)
       end
 
-      subject { described_class.from_estate(estate) }
+      subject { described_class.from_estates([estate, other_estate]) }
 
-      it { is_expected.to eq([visit]) }
+      it { is_expected.to contain_exactly(visit, other_visit) }
     end
   end
 

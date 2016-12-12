@@ -63,7 +63,7 @@ en:
         no_visits: There are currently no visit requests
         process_link: View
         requests: Requests
-        title: inbox
+        title: Inbox
         visit_link_desc: visit request details for prisoner %{name} (no. %{number})
       print_visits:
         title: Print visits

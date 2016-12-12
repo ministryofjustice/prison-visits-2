@@ -8,7 +8,9 @@ RSpec.describe Prison::FeedbacksController, type: :controller do
 
     before do
       login_user(
-        FactoryGirl.create(:user), FactoryGirl.create(:estate))
+        FactoryGirl.create(:user),
+        current_estates: [FactoryGirl.create(:estate)]
+      )
     end
 
     it { is_expected.to be_successful }

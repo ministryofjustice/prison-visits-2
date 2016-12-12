@@ -53,7 +53,7 @@ Rails.application.routes.draw do
       get '/processed', action: :processed, as: 'processed_visits'
       get '/print_visits', action: :print_visits, as: 'print_visits'
       get '/search', action: :search, as: :search
-      post '/switch_estate', action: :switch_estate, as: 'switch_estate'
+      post '/switch_estates', action: :switch_estates, as: 'switch_estates'
     end
 
     resources :feedbacks, only: %i[ new create ]

@@ -38,8 +38,8 @@ RSpec.describe ApplicationController, type: :controller do
     end
   end
 
-  describe '#current_estate' do
-    subject(:current_estate) { controller.current_estate }
+  describe '#current_estates' do
+    subject(:current_estates) { controller.current_estates }
 
     let(:estate)  { create(:estate) }
     let(:estate2) { create(:estate) }
@@ -48,37 +48,37 @@ RSpec.describe ApplicationController, type: :controller do
 
     before do
       allow(controller.request).to receive(:uuid).and_return(uuid)
-      login_user(user, estate, available_estates: [estate])
+      login_user(user, current_estates: [estate], available_estates: [estate])
     end
 
     it 'returns the current_estate if set' do
-      login_user(user, estate)
-      expect(current_estate).to eq(estate)
+      login_user(user, current_estates: [estate])
+      expect(current_estates).to eq([estate])
     end
 
     it 'verifies that the current estate is available to the user, returning the default estate if not' do
-      login_user(user, estate2, available_estates: [estate])
-      expect(current_estate).to eq(estate)
+      login_user(user, current_estates: [estate2], available_estates: [estate])
+      expect(current_estates).to eq([estate])
     end
 
     it 'appends the current estate id, request uuid to and user id logs' do
-      login_user(user, estate)
+      login_user(user, current_estates: [estate])
       get :index
       expect(Instrumentation.custom_log_items[:request_id]).to eq(uuid)
-      expect(Instrumentation.custom_log_items[:estate_id]).to eq(estate.id)
+      expect(Instrumentation.custom_log_items[:estates_id]).to eq([estate.id])
       expect(Instrumentation.custom_log_items[:user_id]).to eq(user.id)
     end
 
     it 'returns the default estate if a current_estate is not set' do
-      login_user(user, estate)
-      controller.session.delete(:current_estate)
-      expect(current_estate).to eq(estate)
+      login_user(user, current_estates: [estate])
+      controller.session.delete(:current_estates)
+      expect(current_estates).to eq([estate])
     end
 
-    it 'returns the default estate if the current_estate does not exist' do
-      login_user(user, estate)
-      controller.session[:current_estate] = 'missing_id'
-      expect(current_estate).to eq(estate)
+    it 'returns the default estates if the current_estate does not exist' do
+      login_user(user, current_estates: [estate])
+      controller.session[:current_estates] = ['missing_id']
+      expect(current_estates).to eq([estate])
     end
   end
 end

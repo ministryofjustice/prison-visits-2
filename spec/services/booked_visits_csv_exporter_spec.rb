@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe BookedVisitsCsvExporter do
   let(:prison) { FactoryGirl.create(:prison) }
-  let(:estate) { prison.estate }
+  let(:estates) { [prison.estate] }
 
   let!(:booked_visit) do
     FactoryGirl.create(:booked_visit, prison: prison)
@@ -22,7 +22,7 @@ RSpec.describe BookedVisitsCsvExporter do
 
   let(:visit_date) { booked_visit.slot_granted.to_date }
   let(:data) do
-    EstateVisitQuery.new(estate).visits_to_print_by_slot(visit_date)
+    EstateVisitQuery.new(estates).visits_to_print_by_slot(visit_date)
   end
   let(:instance) { described_class.new(data) }
 

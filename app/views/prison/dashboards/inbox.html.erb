@@ -2,7 +2,7 @@
 <%= render 'navigation' %>
 <%= render 'prison_switcher' %>
 <% content_for :header do %>
-  <%= @estate.name %> <%= t('.title') %>
+  <%= t('.title') %>
 <% end %>
 
 <h3 class="heading-medium"><%= t('.cancellations') %></h3>
@@ -16,7 +16,7 @@
 <% end %>
 <script>
   var pvb = {
-    'prison': '<%= @estate.name %>',
+    'prison': '<%= @estates.first.name %>',
     'user_email': '<%= current_user.email %>'
   };
 </script>

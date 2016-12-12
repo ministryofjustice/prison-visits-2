@@ -8,7 +8,7 @@ class Prison::DashboardsController < ApplicationController
     requested_visits
     cancellations
 
-    @estate = current_estate
+    @estates = current_estates
   end
 
   def processed
@@ -18,7 +18,7 @@ class Prison::DashboardsController < ApplicationController
   def print_visits
     @visit_date = parse_date(params[:visit_date])
 
-    @data = EstateVisitQuery.new(current_estate).
+    @data = EstateVisitQuery.new(current_estates).
             visits_to_print_by_slot(@visit_date)
 
     respond_to do |format|
@@ -35,18 +35,18 @@ class Prison::DashboardsController < ApplicationController
     cancellations
     processed_visits
 
-    @estate = current_estate
+    @estates = current_estates
   end
 
-  def switch_estate
-    estate = Estate.find(params[:estate_id])
+  def switch_estates
+    estates = Estate.where(id: params[:estates_id])
 
-    if sso_identity.accessible_estate?(estate)
-      @_current_estate         = nil
-      session[:current_estate] = estate.id
+    if sso_identity.accessible_estates?(estates)
+      @_current_estates         = nil
+      session[:current_estates] = estates.map(&:id)
     else
       # This should never happen
-      flash[:notice] = 'You cannot access that estate'
+      flash[:notice] = "You don't access to these estates"
     end
 
     redirect_to :back
@@ -55,30 +55,23 @@ class Prison::DashboardsController < ApplicationController
 private
 
   def requested_visits
-    @requested_visits ||= load_requested_visits(current_estate,
-      prisoner_number)
+    @requested_visits ||= load_requested_visits(current_estates)
   end
 
   def cancellations
-    @cancellations ||= load_visitor_cancellations(current_estate,
-      prisoner_number)
+    @cancellations ||= load_visitor_cancellations(current_estates)
   end
 
   def processed_visits
-    estate_query = EstateVisitQuery.new(current_estate)
-    @processed_visits ||= estate_query.
-                          processed(prisoner_number: params[:prisoner_number],
-                                    limit: NUMBER_VISITS)
+    estate_query = EstateVisitQuery.new(current_estates)
+    @processed_visits ||= estate_query.processed(limit: NUMBER_VISITS)
+
     if @processed_visits.size == NUMBER_VISITS
       @processed_visits.pop # Show only 100 most recent visits
       @all_visits_shown = false
     else
       @all_visits_shown = true
     end
-  end
-
-  def prisoner_number
-    params[:prisoner_number]
   end
 
   def parse_date(date)
@@ -88,30 +81,22 @@ private
     nil
   end
 
-  def load_visitor_cancellations(estate, prisoner_number)
+  def load_visitor_cancellations(estates)
     visits = Visit.preload(:prisoner, :visitors, :cancellation).
              joins(:cancellation).
-             from_estate(estate).
+             from_estates(estates).
              where(cancellations: { nomis_cancelled: false }).
              order('created_at asc')
 
-    if prisoner_number.present?
-      number = Prisoner.normalise_number(prisoner_number)
-      visits = visits.joins(:prisoner).where(prisoners: { number: number })
-    end
     visits.to_a
   end
 
-  def load_requested_visits(estate, prisoner_number)
+  def load_requested_visits(estates)
     visits = Visit.preload(:prisoner, :visitors).
              with_processing_state(:requested).
-             from_estate(estate).
+             from_estates(estates).
              order('created_at asc')
 
-    if prisoner_number.present?
-      number = Prisoner.normalise_number(prisoner_number)
-      visits = visits.joins(:prisoner).where(prisoners: { number: number })
-    end
     visits.to_a
   end
 end

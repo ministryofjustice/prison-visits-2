@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe EstateVisitQuery do
-  subject(:instance) { described_class.new(estate) }
+  subject(:instance) { described_class.new([estate]) }
 
   let(:prison) { FactoryGirl.create(:prison) }
   let(:estate) { prison.estate }
@@ -42,11 +42,10 @@ RSpec.describe EstateVisitQuery do
 
   describe '#processed' do
     subject(:processed) do
-      instance.processed(limit: limit, prisoner_number: prisoner_number)
+      instance.processed(limit: limit)
     end
 
     let(:limit) { 10 }
-    let(:prisoner_number) { nil }
 
     context 'with visits in all possible states' do
       let!(:requested) do
@@ -80,14 +79,6 @@ RSpec.describe EstateVisitQuery do
 
         it 'returns the maximum number of records' do
           expect(processed.size).to eq(limit)
-        end
-      end
-
-      context 'providing a prisoner number' do
-        let(:prisoner_number) { booked.prisoner.number.downcase + ' ' }
-
-        it 'returns processed visits matching the prisoner number' do
-          is_expected.to eq([booked])
         end
       end
     end
