@@ -93,6 +93,5 @@ Rails.configuration.dashboard_trial = [
   'Winchester',
   'Woolds',
   'Woodhill',
-  'Wormwood Scrubs',
   'Wymott'
 ]
