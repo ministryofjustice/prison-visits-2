@@ -2,12 +2,19 @@
 <% case @visit.prisoner_existance_status %>
 <% when StaffNomisChecker::VALID %>
   <div class="notice push-top">
-    <i class="icon icon-important">
+    <i class="icon icon-information">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
     <strong class="bold-small"><%= t('.verified_html') %></strong>
   </div>
-<% when StaffNomisChecker::INVALID, StaffNomisChecker::UNKNOWN %>
+<% when StaffNomisChecker::INVALID %>
+  <div class="notice push-top">
+    <i class="icon icon-information">
+      <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
+    </i>
+    <strong class="bold-small"><%= t(".#{@visit.prisoner_existance_error}_text") %></strong>
+  </div>
+<% when StaffNomisChecker::UNKNOWN %>
   <div class="notice push-top">
     <i class="icon icon-important">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
