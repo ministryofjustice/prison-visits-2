@@ -27,4 +27,7 @@ Rails.application.configure do
 
   config.nomis_staff_prisoner_check_enabled = true
   config.nomis_public_prisoner_check_enabled = true
+
+  config.nomis_staff_prisoner_availability_enabled = true
+  config.nomis_public_prisoner_availability_enabled = true
 end

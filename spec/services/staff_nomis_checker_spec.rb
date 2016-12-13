@@ -78,6 +78,18 @@ RSpec.describe StaffNomisChecker do
       it { is_expected.to eq(false) }
     end
 
+    context 'when the api is enabled and the flag is disabled' do
+      let(:enabled) { true }
+
+      before do
+        allow(Rails.configuration).
+          to receive(:nomis_staff_prisoner_availability_enabled).
+          and_return(false)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
     context 'when the validator returns unknown' do
       before do
         allow_any_instance_of(PrisonerAvailabilityValidation).
@@ -105,6 +117,18 @@ RSpec.describe StaffNomisChecker do
 
     context 'when the nomis api is not enabled' do
       let(:enabled) { false }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'when the api is enabled and the flag is disabled' do
+      let(:enabled) { true }
+
+      before do
+        allow(Rails.configuration).
+          to receive(:nomis_staff_prisoner_availability_enabled).
+          and_return(false)
+      end
 
       it { is_expected.to be_empty }
     end

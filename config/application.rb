@@ -84,9 +84,20 @@ module PrisonVisits
       config.database_configuration[Rails.env]['pool'] || 5
 
     config.nomis_staff_prisoner_check_enabled =
-      ENV['NOMIS_STAFF_PRISONER_CHECK_ENABLED'] == 'true'
+      ENV['NOMIS_STAFF_PRISONER_CHECK_ENABLED'].try(:downcase) == 'true'
 
     config.nomis_public_prisoner_check_enabled =
-      ENV['NOMIS_STAFF_PRISONER_CHECK_ENABLED'] == 'true'
+      ENV['NOMIS_PUBLIC_PRISONER_CHECK_ENABLED'].try(:downcase) == 'true'
+
+    # Prisoner availability depends on the prisoner check flag because to check
+    # the availability we need to call the api used in the prisoner check to get
+    # the offender id.
+    config.nomis_staff_prisoner_availability_enabled =
+      config.nomis_staff_prisoner_check_enabled &&
+      ENV['NOMIS_STAFF_PRISONER_AVAILABILITY_ENABLED'].try(:downcase) == 'true'
+
+    config.nomis_public_prisoner_availability_enabled =
+      config.nomis_public_prisoner_check_enabled &&
+      ENV['NOMIS_PUBLIC_PRISONER_AVAILABILITY_ENABLED'].try(:downcase) == 'true'
   end
 end

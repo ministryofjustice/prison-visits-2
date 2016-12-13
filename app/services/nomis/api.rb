@@ -41,8 +41,8 @@ module Nomis
     def offender_visiting_availability(offender_id:, start_date:, end_date:)
       response = @pool.with { |client|
         client.get(
-          "/offenders/#{offender_id}/visiting_availability",
-          offender_id: offender_id, start_date: start_date, end_date: end_date)
+          "/offenders/#{offender_id}/visits/available_dates",
+          start_date: start_date, end_date: end_date)
       }
 
       PrisonerAvailability.new(response).tap do |prisoner_availability|
