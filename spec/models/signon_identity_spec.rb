@@ -157,8 +157,18 @@ RSpec.describe SignonIdentity, type: :model do
         to be false
     end
 
-    it 'determines the default estates for a user' do
-      expect(subject.default_estates).to contain_exactly(cardiff_estate, swansea_estate)
+    context '#default_estates' do
+      it 'determines the default estates for a user' do
+        expect(subject.default_estates).to contain_exactly(cardiff_estate, swansea_estate)
+      end
+
+      context 'when an admin' do
+        let!(:orgs) { [EstateSSOMapper::DIGITAL_ORG] }
+
+        it 'defaults to only 1 estate' do
+          expect(subject.default_estates.size).to eq(1)
+        end
+      end
     end
 
     it 'builds the logout url required for SSO' do

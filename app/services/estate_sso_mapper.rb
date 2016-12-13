@@ -48,11 +48,11 @@ class EstateSSOMapper
     end
   end
 
-private
-
   def admin?
     @orgs.include?(DIGITAL_ORG)
   end
+
+private
 
   def accessible_sso_names
     @orgs.each_with_object([]) do |org, result|
