@@ -8,6 +8,7 @@ AKI:
 ALI:
   name: Isle of Wight - Albany
   finder_slug: isle-of-wight
+  group: isle_of_wight.noms.moj
 ASI:
   name: Ashfield
 AYI:
@@ -22,6 +23,7 @@ BHI:
   name: Blantyre House
 BLI:
   name: Bristol
+  group: apvu.noms.moj
 BMI:
   name: Birmingham
 BNI:
@@ -31,6 +33,7 @@ BRI:
   name: Bure
 BSI:
   name: Brinsford
+  group: apvu.noms.moj
 BXI:
   name: Brixton
 BZI:
@@ -49,6 +52,7 @@ DAI:
   name: Dartmoor
 DHI:
   name: Drake Hall
+  group: apvu.noms.moj
 DMI:
   name: Durham
 DNI:
@@ -62,6 +66,7 @@ EEI:
 EHI:
   name: Standford Hill
   finder_slug: sheppey-cluster-standford-hill
+  group: sheppey_cluster.noms.moj
 ESI:
   name: East Sutton Park
 EVI:
@@ -73,6 +78,7 @@ EXI:
 EYI:
   name: Elmley
   finder_slug: sheppey-cluster-elmley
+  group: sheppey_cluster.noms.moj
 FBI:
   name: Forest Bank
 FDI:
@@ -88,12 +94,14 @@ FNI:
   name: Full Sutton
 FSI:
   name: Featherstone
+  group: apvu.noms.moj
 GHI:
   name: Garth
 GMI:
   name: Guys Marsh
 GNI:
   name: Grendon
+  group: grendon_and_springhill.noms.moj
 GPI:
   name: Glen Parva
 GTI:
@@ -107,6 +115,7 @@ HDI:
   finder_slug: hatfield
 HEI:
   name: Hewell
+  group: apvu.noms.moj
 HHI:
   name: Holme House
 HII:
@@ -129,6 +138,7 @@ ISI:
 IWI:
   name: Isle of Wight - Parkhurst
   finder_slug: isle-of-wight
+  group: isle_of_wight.noms.moj
 KMI:
   name: Kirkham
 KTI:
@@ -209,16 +219,21 @@ SDI:
   name: Send
 SFI:
   name: Stafford
+  group: apvu.noms.moj
 SHI:
   name: Stoke Heath
+  group: apvu.noms.moj
 SKI:
   name: Stocken
 SLI:
   name: Swaleside
+  group: sheppey_cluster.noms.moj
 SNI:
   name: Swinfen Hall
+  group: apvu.noms.moj
 SPI:
   name: Spring Hill
+  group: grendon_and_springhill.noms.moj
 STI:
   name: Styal
 SUI:
@@ -249,12 +264,14 @@ WMI:
   name: Wymott
 WNI:
   name: Werrington
+  group: apvu.noms.moj
 WOI:
   name: Wolds
 WRI:
   name: Whitemoor
 WSI:
   name: Wormwood Scrubs
+  group: apvu.noms.moj
 WTI:
   name: Whatton
 WWI:

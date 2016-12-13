@@ -1,38 +1,20 @@
 class EstateSSOMapper
-  APVU_ORG = 'apvu.noms.moj'.freeze
   DIGITAL_ORG = 'digital.noms.moj'.freeze
 
-  APVU_ESTATES = %w[
-    brinsford.prisons.noms.moj
-    bristol.prisons.noms.moj
-    drake_hall.prisons.noms.moj
-    featherstone.prisons.noms.moj
-    hewell.prisons.noms.moj
-    stafford.prisons.noms.moj
-    stoke_heath.prisons.noms.moj
-    swinfen_hall.prisons.noms.moj
-    werrington.prisons.noms.moj
-    wormwood_scrubs.prisons.noms.moj
-  ].freeze
+  def self.grouped_estates
+    @grouped_estates ||= begin
+      grouped_estates = Hash.new { |h, k| h[k] = [] }
+      Estate.where.not(group: nil).each do |estate|
+        grouped_estates[estate.group] << estate.sso_organisation_name
+      end
+      grouped_estates.values.freeze
+      grouped_estates.freeze
+    end
+  end
 
-  ISLE_OF_WIGHT_ORG = 'isle_of_wight.noms.moj'.freeze
-  ISLE_OF_WIGHT_ESTATES = %w[
-    isle_of_wight-albany.prisons.noms.moj
-    isle_of_wight-parkhurst.prisons.noms.moj
-  ].freeze
-
-  SHEPPEY_CLUSTER_ORG = 'sheppey_cluster.noms.moj'.freeze
-  SHEPPEY_CLUSTER_ESTATES = %w[
-    elmley.prisons.noms.moj
-    standford_hill.prisons.noms.moj
-    swaleside.prisons.noms.moj
-  ].freeze
-
-  GRENDON_AND_SPRINGHILL_ORG = 'grendon_and_springhill.noms.moj'.freeze
-  GRENDON_AND_SPRINGHILL_ESTATES = %w[
-    grendon.prisons.noms.moj
-    spring_hill.prisons.noms.moj
-  ].freeze
+  def self.reset_grouped_estates
+    @grouped_estates = nil
+  end
 
   def initialize(orgs)
     @orgs = orgs
@@ -65,20 +47,10 @@ private
   end
 
   def multi_estate?(org)
-    [
-      GRENDON_AND_SPRINGHILL_ORG,
-      SHEPPEY_CLUSTER_ORG,
-      ISLE_OF_WIGHT_ORG,
-      APVU_ORG
-    ].include?(org)
+    self.class.grouped_estates.keys.include?(org)
   end
 
   def estates_for(org)
-    case org
-    when APVU_ORG then APVU_ESTATES
-    when GRENDON_AND_SPRINGHILL_ORG then GRENDON_AND_SPRINGHILL_ESTATES
-    when ISLE_OF_WIGHT_ORG then ISLE_OF_WIGHT_ESTATES
-    when SHEPPEY_CLUSTER_ORG then SHEPPEY_CLUSTER_ESTATES
-    end
+    self.class.grouped_estates[org]
   end
 end

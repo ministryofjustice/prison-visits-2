@@ -5,14 +5,40 @@ RSpec.describe EstateSSOMapper do
 
   let!(:other_estate) { create(:estate) }
 
-  context '#accessible_estates' do
+  around(:each) do |ex|
+    described_class.reset_grouped_estates
+    ex.run
+    described_class.reset_grouped_estates
+  end
+
+  describe '#grouped_estates' do
+    subject { described_class.grouped_estates }
+
+    let!(:brinsford) do
+      create(:estate,
+        sso_organisation_name: 'brinsford.prisons.noms.moj',
+        group: 'apvu.noms.moj')
+    end
+
+    it { is_expected.to eq('apvu.noms.moj' => ['brinsford.prisons.noms.moj']) }
+  end
+
+  describe '#accessible_estates' do
     subject { instance.accessible_estates }
 
     context 'for apvu' do
       let!(:brinsford) do
-        create(:estate, sso_organisation_name: 'brinsford.prisons.noms.moj')
+        create(:estate,
+          sso_organisation_name: 'brinsford.prisons.noms.moj',
+          group: 'apvu.noms.moj')
       end
       let(:orgs) { ['apvu.noms.moj'] }
+
+      before do
+        allow(described_class).
+          to receive(:grouped_estates).
+          and_return('apvu.noms.moj' => ['brinsford.prisons.noms.moj'])
+      end
 
       it 'includes apvu estates' do
         is_expected.to include(brinsford)
@@ -22,9 +48,17 @@ RSpec.describe EstateSSOMapper do
 
     context 'for sheppey cluster' do
       let!(:elmley) do
-        create(:estate, sso_organisation_name: 'elmley.prisons.noms.moj')
+        create(:estate,
+          sso_organisation_name: 'elmley.prisons.noms.moj',
+          group: 'sheppey_cluster.noms.moj')
       end
       let(:orgs) { ['sheppey_cluster.noms.moj'] }
+
+      before do
+        allow(described_class).
+          to receive(:grouped_estates).
+          and_return('sheppey_cluster.noms.moj' => ['elmley.prisons.noms.moj'])
+      end
 
       it 'includes sheppey cluster estates' do
         is_expected.to include(elmley)
@@ -34,9 +68,17 @@ RSpec.describe EstateSSOMapper do
 
     context 'for grendon and springhill' do
       let!(:grendon) do
-        create(:estate, sso_organisation_name: 'grendon.prisons.noms.moj')
+        create(:estate,
+          sso_organisation_name: 'grendon.prisons.noms.moj',
+          group: 'grendon_and_springhill.noms.moj')
       end
       let(:orgs) { ['grendon_and_springhill.noms.moj'] }
+
+      before do
+        allow(described_class).
+          to receive(:grouped_estates).
+          and_return('grendon_and_springhill.noms.moj' => ['grendon.prisons.noms.moj'])
+      end
 
       it 'includes grendon and spring hill estates' do
         is_expected.to include(grendon)
@@ -47,9 +89,16 @@ RSpec.describe EstateSSOMapper do
     context 'for isle of wight' do
       let!(:iow_parkhurst) do
         create(:estate,
-          sso_organisation_name: 'isle_of_wight-parkhurst.prisons.noms.moj')
+          sso_organisation_name: 'isle_of_wight-parkhurst.prisons.noms.moj',
+          group: 'isle_of_wight.noms.moj')
       end
       let(:orgs) { ['isle_of_wight.noms.moj'] }
+
+      before do
+        allow(described_class).
+          to receive(:grouped_estates).
+          and_return('isle_of_wight.noms.moj' => ['isle_of_wight-parkhurst.prisons.noms.moj'])
+      end
 
       it 'includes isle of wight estates' do
         is_expected.to include(iow_parkhurst)

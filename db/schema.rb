@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161109150059) do
+ActiveRecord::Schema.define(version: 20161213154755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20161109150059) do
     t.string   "nomis_id",              limit: 3, null: false
     t.string   "finder_slug",                     null: false
     t.string   "sso_organisation_name"
+    t.string   "group"
   end
 
   add_index "estates", ["name"], name: "index_estates_on_name", unique: true, using: :btree
