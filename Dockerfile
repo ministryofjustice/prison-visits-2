@@ -7,7 +7,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY config/irbrc.example ~/.irbrc
+COPY config/irbrc.example /root/.irbrc
 
 ENV UNICORN_PORT 3000
 EXPOSE $UNICORN_PORT
