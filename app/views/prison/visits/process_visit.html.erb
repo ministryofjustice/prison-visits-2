@@ -1,5 +1,4 @@
-<%# Processing a booking could be done as a non logged in / off user during the trial %>
-<%= render 'prison/dashboards/navigation' if current_user %>
+<%= render 'prison/dashboards/navigation' %>
 
 <%= form_for @visit, url: prison_visit_path(@visit), method: :put, html: { class: 'js-SubmitOnce no-form-group js-EmailPreview' } do |f| %>
   <%= f.hidden_field :id  %>

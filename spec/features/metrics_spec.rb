@@ -6,7 +6,6 @@ RSpec.feature 'Metrics', js: true do
   include ActiveJobHelper
   before do
     allow(VisitorMailer).to receive(:rejected).and_return(double('Mailer', deliver_later: nil))
-    allow(PrisonMailer).to receive(:rejected).and_return(double('Mailer', deliver_later: nil))
   end
 
   context 'overdue' do

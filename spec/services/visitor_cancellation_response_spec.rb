@@ -36,11 +36,8 @@ RSpec.describe VisitorCancellationResponse do
   end
 
   describe '#cancel!' do
-    it 'process the cancellation and enqueues the email' do
+    it 'process the cancellation' do
       expect_any_instance_of(BookingResponder::VisitorCancel).to receive(:process_request)
-      mail = double('mail')
-      expect(PrisonMailer).to receive(:cancelled).with(visit).and_return(mail)
-      expect(mail).to receive(:deliver_later)
 
       instance.cancel!
     end

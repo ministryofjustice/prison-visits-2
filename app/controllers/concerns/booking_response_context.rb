@@ -4,7 +4,7 @@ module BookingResponseContext
 private
 
   def load_visit
-    @visit ||= current_user ? scoped_visit : unscoped_visit
+    @visit ||= scoped_visit
   end
 
   def message
@@ -19,10 +19,6 @@ private
     Visit.joins(prison: :estate).
       where(estates: { id: accessible_estates }).
       find(visit_id_param)
-  end
-
-  def unscoped_visit
-    Visit.find(visit_id_param)
   end
 
   def visit_id_param

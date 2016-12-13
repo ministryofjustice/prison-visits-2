@@ -44,7 +44,6 @@ RSpec.describe BookingRequestCreator do
   }
 
   before do
-    allow(PrisonMailer).to receive(:request_received).and_return(mailing)
     allow(VisitorMailer).to receive(:request_acknowledged).and_return(mailing)
   end
 
@@ -64,21 +63,6 @@ RSpec.describe BookingRequestCreator do
       expect {
         subject.create!(prisoner_step, visitors_step, slots_step, :en)
       }.to change { Prisoner.count }.by(1)
-    end
-  end
-
-  context 'emailing and logging' do
-    let(:visit) { instance_double(Visit, id: 2, visitors: double(create!: nil)) }
-
-    before do
-      allow(Visit).to receive(:create!).and_return(visit)
-    end
-
-    it 'emails the prison' do
-      expect(PrisonMailer).to receive(:request_received).with(instance_of(Visit)).
-        and_return(mailing)
-      expect(mailing).to receive(:deliver_later)
-      subject.create!(prisoner_step, visitors_step, slots_step, :en)
     end
   end
 end

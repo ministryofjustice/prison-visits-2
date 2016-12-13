@@ -11,7 +11,6 @@ RSpec.describe BookingResponder do
     let(:accept_processor) { spy(BookingResponder::Accept) }
     let(:reject_processor) { spy(BookingResponder::Reject) }
     let(:visitor_mailer)   { spy(VisitorMailer) }
-    let(:prison_mailer)    { spy(PrisonMailer)  }
     let(:message)          do
       Message.new(body: 'a chicky message from staff')
     end
@@ -26,8 +25,6 @@ RSpec.describe BookingResponder do
           and_return(accept_processor)
         allow(VisitorMailer).to receive(:booked).
           and_return(visitor_mailer)
-        allow(PrisonMailer).to receive(:booked).
-          and_return(prison_mailer)
       end
 
       it 'accepts the booking' do
@@ -37,8 +34,6 @@ RSpec.describe BookingResponder do
 
       it 'sends the booked emails to prison and visitors' do
         subject.respond!
-        expect(PrisonMailer).to have_received(:booked).
-          with(booking_response.email_attrs, message_attributes)
         expect(VisitorMailer).to have_received(:booked).
           with(booking_response.email_attrs, message_attributes)
       end
@@ -54,8 +49,6 @@ RSpec.describe BookingResponder do
           and_return(reject_processor)
         allow(VisitorMailer).to receive(:rejected).
           and_return(visitor_mailer)
-        allow(PrisonMailer).to receive(:rejected).
-          and_return(prison_mailer)
       end
 
       it 'accepts the booking' do
@@ -66,8 +59,6 @@ RSpec.describe BookingResponder do
       it 'sends the booked emails to prison and visitors' do
         subject.respond!
         expect(VisitorMailer).to have_received(:rejected).
-          with(booking_response.email_attrs, message_attributes)
-        expect(PrisonMailer).to have_received(:rejected).
           with(booking_response.email_attrs, message_attributes)
       end
     end

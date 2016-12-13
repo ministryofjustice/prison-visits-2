@@ -1,8 +1,7 @@
 class Prison::VisitsController < ApplicationController
   include BookingResponseContext
   before_action :authorize_prison_request
-  before_action :require_login_during_trial,
-    only: %w[show nomis_cancelled process_visit update]
+  before_action :authenticate_user
   before_action :cancellation_reason_set, only: :cancel
   before_action :visit_is_processable, only: [:process_visit, :update]
 
@@ -21,7 +20,7 @@ class Prison::VisitsController < ApplicationController
     if @booking_response.valid?
       BookingResponder.new(@booking_response, message).respond!
       flash[:notice] = t('process_thank_you', scope: [:prison, :flash])
-      redirect_to visit_page(@visit)
+      redirect_to prison_inbox_path
     else
       # Always decorate object last once they've been mutated
       @visit = @visit.decorate
@@ -33,8 +32,7 @@ class Prison::VisitsController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   def nomis_cancelled
-    visit = load_visit
-    visit.confirm_nomis_cancelled
+    load_visit.confirm_nomis_cancelled
     flash[:notice] = t('nomis_cancellation_confirmed', scope: [:prison, :flash])
     redirect_to prison_inbox_path
   end
@@ -57,16 +55,15 @@ class Prison::VisitsController < ApplicationController
       flash[:notice] = t('already_cancelled', scope: [:prison, :flash])
     end
 
-    redirect_to visit_page(cancellation_response.visit)
+    redirect_to action: :show
   end
 
 private
 
   def visit_is_processable
-    visit = load_visit
-    unless visit.processable?
+    unless load_visit.processable?
       flash[:notice] = t('already_processed', scope: [:prison, :flash])
-      redirect_to visit_page(visit)
+      redirect_to prison_inbox_path
     end
   end
 
@@ -82,27 +79,6 @@ private
     unless params[:cancellation_reason]
       flash[:notice] = t('no_cancellation_reason', scope: [:prison, :flash])
       redirect_to action: :show
-    end
-  end
-
-  def part_of_trial?
-    estate_name = Estate.
-                  joins(prisons: :visits).
-                  where(visits: { id: params[:id] }).
-                  pluck('estates.name').
-                  first
-    estate_name.in?(Rails.configuration.dashboard_trial)
-  end
-
-  def require_login_during_trial
-    authenticate_user if part_of_trial?
-  end
-
-  def visit_page(visit)
-    if current_user
-      prison_inbox_path
-    else
-      prison_visit_path(visit)
     end
   end
 end

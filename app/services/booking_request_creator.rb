@@ -2,7 +2,6 @@ class BookingRequestCreator
   def create!(prisoner_step, visitors_step, slots_step, locale)
     create_visit(prisoner_step, visitors_step, slots_step, locale).tap { |visit|
       VisitorMailer.request_acknowledged(visit).deliver_later
-      PrisonMailer.request_received(visit).deliver_later
     }
   end
 
