@@ -24,6 +24,8 @@ en:
       message_created: Message created
       no_cancellation_reason: Please provide a cancellation reason
       process_required: Please either reject or accept the booking
+      at_least_one_estate: You must select at least one estate
+      invalid_estate_selection: You don't access to these estates
     feedbacks:
       new:
         title: Contact us
