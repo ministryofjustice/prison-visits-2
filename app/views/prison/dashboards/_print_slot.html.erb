@@ -11,6 +11,7 @@
       <th scope="col"><%= t('lead_visitor', scope: :shared) %></th>
       <th scope="col"><%= t('tel', scope: :shared) %></th>
       <th scope="col"><%= t('additional_visitors', scope: :shared) %></th>
+      <th scope="col"><%= t('prison', scope: :shared) %></th>
       <th scope="col"><%= t('closed', scope: :shared) %></th>
     </tr>
   </thead>
@@ -28,6 +29,7 @@
             <% end %>
           </div>
         </td>
+        <td aria-label="<%= t('prison', scope: :shared) %>"><%= visit.prison_name %></td>
         <td aria-label="<%= t('closed', scope: :shared) %>"><%= 'Y' if visit.closed %></td>
       </tr>
     <% end %>
