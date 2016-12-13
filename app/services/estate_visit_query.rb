@@ -18,11 +18,16 @@ class EstateVisitQuery
       end
   end
 
-  def processed(limit:)
+  def processed(limit:, prisoner_number:)
     visits = Visit.preload(:prisoner, :visitors).
              processed.
              from_estates(@estates).
              order('visits.updated_at desc').limit(limit)
+
+    if prisoner_number.present?
+      number = Prisoner.normalise_number(prisoner_number)
+      visits = visits.joins(:prisoner).where(prisoners: { number: number })
+    end
 
     visits.to_a
   end

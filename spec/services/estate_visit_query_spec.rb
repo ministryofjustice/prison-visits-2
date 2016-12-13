@@ -42,10 +42,11 @@ RSpec.describe EstateVisitQuery do
 
   describe '#processed' do
     subject(:processed) do
-      instance.processed(limit: limit)
+      instance.processed(limit: limit, prisoner_number: prisoner_number)
     end
 
     let(:limit) { 10 }
+    let(:prisoner_number) { nil }
 
     context 'with visits in all possible states' do
       let!(:requested) do
@@ -79,6 +80,13 @@ RSpec.describe EstateVisitQuery do
 
         it 'returns the maximum number of records' do
           expect(processed.size).to eq(limit)
+        end
+      end
+
+      context 'providing a prisoner number' do
+        let(:prisoner_number) { booked.prisoner.number.downcase + ' ' }
+        it 'returns processed visits matching the prisoner number' do
+          is_expected.to eq([booked])
         end
       end
     end

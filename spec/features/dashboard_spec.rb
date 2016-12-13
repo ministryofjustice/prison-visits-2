@@ -52,7 +52,7 @@ RSpec.feature 'Using the dashboard' do
     end
   end
 
-  context 'cancelling a booked visit' do
+  context 'searching a visit and cancelling it' do
     before do
       allow(Nomis::Api).to receive(:enabled?).and_return(false)
     end
@@ -63,14 +63,18 @@ RSpec.feature 'Using the dashboard' do
 
     before do
       visit prison_inbox_path
+
+      # Search is independent of the prison filter
       within '.prison-switcher' do
-        select 'Swansea', from: 'estates_id'
+        unselect 'Swansea', from: 'estates_id'
         click_button 'Update'
       end
     end
 
     it 'sends a message and cancels the visit' do
-      visit prison_visit_path(vst)
+      fill_in 'Search', with: vst.prisoner_number
+      find('.button.search').click
+      click_link 'View'
 
       click_button 'Send email'
 

@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :sso_identity
   helper_method :current_estates
+  helper_method :accessible_estates
 
   def current_user
     sso_identity&.user
@@ -32,6 +33,10 @@ class ApplicationController < ActionController::Base
         sso_identity.default_estates
       end
     end
+  end
+
+  def accessible_estates
+    sso_identity.accessible_estates
   end
 
   def sso_identity
