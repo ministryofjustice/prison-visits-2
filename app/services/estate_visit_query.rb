@@ -11,11 +11,7 @@ class EstateVisitQuery
              where('slot_granted LIKE ?', "#{date.to_s(:db)}%").
              order('slot_granted asc').to_a
 
-    visits.
-      group_by(&:processing_state).
-      each_with_object({}) do |(processing_state, slots), result|
-        result[processing_state] = slots.group_by(&:slot_granted)
-      end
+    grouped_visits(visits)
   end
 
   def processed(limit:, prisoner_number:)
@@ -37,5 +33,21 @@ class EstateVisitQuery
       ready_for_processing.
       from_estates(@estates).
       count
+  end
+
+private
+
+  def grouped_visits(visits)
+    visits.
+      group_by(&:prison_name).
+      each_with_object({}) do |(prison_name, visits_by_prison), result|
+        result[prison_name] = {}
+
+        by_processing_state = visits_by_prison.group_by(&:processing_state)
+        by_processing_state.each do |processing_state, visits_by_status|
+          result[prison_name][processing_state] = visits_by_status.
+                                                  group_by(&:slot_granted)
+        end
+      end
   end
 end

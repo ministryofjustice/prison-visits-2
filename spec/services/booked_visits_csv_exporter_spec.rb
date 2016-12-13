@@ -43,6 +43,7 @@ RSpec.describe BookedVisitsCsvExporter do
 
       row = csv.find { |r| r['Status'] == 'booked' }
       expect(row['Status']).to eq(booked_visit.processing_state)
+      expect(row['Prison']).to eq(booked_visit.prison_name)
       expect(row['Prisoner name']).to eq(booked_visit.prisoner_full_name)
       expect(row['Prisoner number']).to eq(booked_visit.prisoner_number)
       expect(row['Slot granted']).
