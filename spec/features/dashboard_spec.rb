@@ -36,15 +36,15 @@ RSpec.feature 'Using the dashboard' do
     it do
       visit prison_inbox_path
 
-      within '.prison-switcher' do
-        select 'Cardiff', from: 'estates_id'
+      within '.prison-switcher-form' do
+        select 'Cardiff', from: 'Select one or more prisons'
         click_button 'Update'
       end
 
       expect(page).to have_css('.navigation', 'Inbox 0')
 
-      within '.prison-switcher' do
-        select 'Swansea', from: 'estates_id'
+      within '.prison-switcher-form' do
+        select 'Swansea', from: 'Select one or more prisons'
         click_button 'Update'
       end
 
@@ -65,8 +65,8 @@ RSpec.feature 'Using the dashboard' do
       visit prison_inbox_path
 
       # Search is independent of the prison filter
-      within '.prison-switcher' do
-        unselect 'Swansea', from: 'estates_id'
+      within '.prison-switcher-form' do
+        unselect 'Swansea', from: 'Select one or more prisons'
         click_button 'Update'
       end
     end

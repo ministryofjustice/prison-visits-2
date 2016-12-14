@@ -23,11 +23,11 @@
   </div>
 <% end %>
 <div class="grid-row push-top">
-  <div class="column-one-third">
+  <div class="column-one-quarter">
     <span class="text-secondary"><%= t('.prisoner_name') %></span>
     <div class="bold-small"><%= @visit.prisoner_full_name %></div>
   </div>
-  <div class="column-one-third">
+  <div class="column-one-quarter">
     <span class="text-secondary"><%= t('.prisoner_dob') %></span>
     <div class="bold-small"><%= @visit.prisoner_date_of_birth.to_s(:short_nomis) %></div>
     <% case @visit.prisoner_existance_status %>
@@ -37,7 +37,7 @@
       <div class="tag tag--error font-xsmall"><%= t(".#{@visit.prisoner_existance_status}") %></div>
     <% end %>
   </div>
-  <div class="column-one-third">
+  <div class="column-one-quarter">
     <span class="text-secondary"><%= t('.prisoner_number') %></span>
     <div class="bold-small"><%= @visit.prisoner_number %></div>
     <% case @visit.prisoner_existance_status %>
@@ -46,5 +46,9 @@
     <% when StaffNomisChecker::INVALID %>
       <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_existance_status}") %></div>
     <% end %>
+  </div>
+  <div class="column-one-quarter">
+    <span class="text-secondary"><%= t('.prison_name') %></span>
+    <div class="bold-small"><%= @visit.prison_name %></div>
   </div>
 </div>

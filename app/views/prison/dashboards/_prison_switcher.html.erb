@@ -2,8 +2,8 @@
   <div class="column-full">
     <% content_for :prison_switcher do %>
       <% if sso_identity.accessible_estates.size > 1 -%>
-        <%= form_tag prison_switch_estates_path, enforce_utf8: false, class: 'form' do -%>
-          <%= label_tag "estate_id", class: "form-label" do -%>
+        <%= form_tag prison_switch_estates_path, enforce_utf8: false, class: 'form prison-switcher-form' do -%>
+          <%= label_tag "estates_id", class: "form-label" do -%>
             <%= t('.prison_switcher') %>
           <% end %>
           <%= select_tag 'estates_id',
@@ -14,6 +14,6 @@
           <%= submit_tag t('.switch_estate'), class: 'button button-primary' %>
         <% end -%>
       <% end -%>
-  <% end -%>
-</div>
+    <% end -%>
+  </div>
 </div>
