@@ -6,7 +6,8 @@ RSpec.describe ConcreteSlotDecorator do
   let(:nomis_checker) do
     double(StaffNomisChecker,
       errors_for: slot_errors,
-      prisoner_availability_unknown?: false)
+      prisoner_availability_unknown?: false,
+      prisoner_availability_enabled?: true)
   end
 
   subject do
@@ -53,7 +54,7 @@ RSpec.describe ConcreteSlotDecorator do
 
     context 'when the api is disabled' do
       before do
-        expect(Nomis::Api).to receive(:enabled?).and_return(false)
+        expect(nomis_checker).to receive(:prisoner_availability_enabled?).and_return(false)
       end
 
       it 'renders the checkbox without errors' do

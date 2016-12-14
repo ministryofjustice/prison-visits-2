@@ -65,7 +65,7 @@ class ConcreteSlotDecorator < Draper::Decorator
 private
 
   def prisoner_available?
-    Nomis::Api.enabled? &&
+    nomis_checker.prisoner_availability_enabled? &&
       !nomis_checker.prisoner_availability_unknown? &&
       errors.none? do |e|
         e == PrisonerAvailabilityValidation::PRISONER_NOT_AVAILABLE
