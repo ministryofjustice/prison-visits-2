@@ -53,6 +53,7 @@ en:
         visitor_cancellations: Visitor cancellations
         current: "Current prison:"
       prison_switcher:
+        prison_switcher: Select one or more prisons
         switch_estate: Update
       processed:
         title: Processed visits

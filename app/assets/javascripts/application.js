@@ -1,6 +1,7 @@
 // Vendor assets
 //= require jquery
 //= require jquery_ujs
+//= require vendor/chosen.jquery
 
 // GOVUK modules
 //= require govuk_toolkit
@@ -27,6 +28,7 @@
 //= require modules/moj.datepicker
 //= require modules/moj.RevealNextRow
 //= require modules/moj.emailPreview
+//= require modules/moj.multiSelect
 
 (function () {
   'use strict';
