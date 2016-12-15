@@ -17,7 +17,7 @@
     <% visits.each do |visit| %>
       <tr>
         <td>
-          <a href="#" class="open-close js-RevealNextRow" title="<%= t('open_close', scope: :shared) %>">
+          <a href="#" class="open-close js-RevealNextRow" title="<%= t('open_close', scope: :shared) %>" data-section="inbox requests" data-prison="<%= visit.prison_name %>">
             <i class="icon icon-closed">
               <span class="visuallyhidden">
                 <%= t('open_close', scope: :shared) %>
