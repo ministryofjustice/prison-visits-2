@@ -3,10 +3,10 @@
     <% content_for :prison_switcher do %>
       <% if sso_identity.accessible_estates.size > 1 -%>
         <%= form_tag prison_switch_estates_path, enforce_utf8: false, class: 'form prison-switcher-form' do -%>
-          <%= label_tag "estates_id", class: "form-label" do -%>
+          <%= label_tag "estate_ids", class: "form-label" do -%>
             <%= t('.prison_switcher') %>
           <% end %>
-          <%= select_tag 'estates_id',
+          <%= select_tag 'estate_ids',
                          options_from_collection_for_select(sso_identity.accessible_estates, 'id', 'name', current_estates.map(&:id)),
                          multiple: true,
                          class: 'form-control js-MultiSelect prison-switcher',

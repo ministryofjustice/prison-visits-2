@@ -25,8 +25,8 @@ class ApplicationController < ActionController::Base
   def current_estates
     return unless sso_identity
     @_current_estates ||= begin
-      estates_id = session[:current_estates]
-      estates = estates_id ? Estate.where(id: estates_id).to_a : []
+      estate_ids = session[:current_estates]
+      estates = estate_ids ? Estate.where(id: estate_ids).to_a : []
       if estates.any? && sso_identity.accessible_estates?(estates)
         estates
       else
@@ -117,7 +117,7 @@ private
 
   def log_current_estates
     if current_estates
-      append_to_log(estates_id: current_estates.map(&:id))
+      append_to_log(estate_ids: current_estates.map(&:id))
     end
   end
 

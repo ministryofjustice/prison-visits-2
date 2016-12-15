@@ -65,7 +65,7 @@ RSpec.describe ApplicationController, type: :controller do
       login_user(user, current_estates: [estate])
       get :index
       expect(Instrumentation.custom_log_items[:request_id]).to eq(uuid)
-      expect(Instrumentation.custom_log_items[:estates_id]).to eq([estate.id])
+      expect(Instrumentation.custom_log_items[:estate_ids]).to eq([estate.id])
       expect(Instrumentation.custom_log_items[:user_id]).to eq(user.id)
     end
 

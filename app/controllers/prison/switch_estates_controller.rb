@@ -4,7 +4,7 @@ class Prison::SwitchEstatesController < ApplicationController
   before_action :verify_switch_estates
 
   def create
-    estates = Estate.where(id: params[:estates_id])
+    estates = Estate.where(id: params[:estate_ids])
     if sso_identity.accessible_estates?(estates)
       @_current_estates         = nil
       session[:current_estates] = estates.map(&:id)
@@ -18,7 +18,7 @@ class Prison::SwitchEstatesController < ApplicationController
 private
 
   def verify_switch_estates
-    if params[:estates_id].nil? || params[:estates_id].empty?
+    if params[:estate_ids].nil? || params[:estate_ids].empty?
       flash[:notice] = t('at_least_one_estate', scope: [:prison, :flash])
       redirect_to :back
     end

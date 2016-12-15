@@ -6,9 +6,9 @@ RSpec.describe Prison::SwitchEstatesController, type: :controller do
     let(:estate) { FactoryGirl.create(:estate) }
     let(:estate2)      { create(:estate) }
     let(:other_estate) { estate2 }
-    let(:estates_id) { [other_estate.id] }
+    let(:estate_ids) { [other_estate.id] }
     subject do
-      post :create, estates_id: estates_id
+      post :create, estate_ids: estate_ids
     end
 
     context "when logged out" do
@@ -38,7 +38,7 @@ RSpec.describe Prison::SwitchEstatesController, type: :controller do
       end
 
       context "with an empty selection" do
-        let(:estates_id) { [] }
+        let(:estate_ids) { [] }
 
         it 'does not update the current selection' do
           expect { subject }.to_not change { controller.current_estates }
