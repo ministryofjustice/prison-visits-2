@@ -12,10 +12,6 @@ class EstateSSOMapper
     end
   end
 
-  def self.reset_grouped_estates
-    @grouped_estates = nil
-  end
-
   def initialize(orgs)
     @orgs = orgs
   end

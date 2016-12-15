@@ -6,9 +6,9 @@ RSpec.describe EstateSSOMapper do
   let!(:other_estate) { create(:estate) }
 
   around(:each) do |ex|
-    described_class.reset_grouped_estates
+    described_class.instance_variable_set('@grouped_estates', nil)
     ex.run
-    described_class.reset_grouped_estates
+    described_class.instance_variable_set('@grouped_estates', nil)
   end
 
   describe '#grouped_estates' do

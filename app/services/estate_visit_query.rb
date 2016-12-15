@@ -6,7 +6,7 @@ class EstateVisitQuery
   def visits_to_print_by_slot(date)
     return {} unless date
 
-    visits = Visit.includes(:prisoner, :visitors).
+    visits = Visit.includes(:prisoner, :visitors, :prison).
              processed.from_estates(@estates).
              where('slot_granted LIKE ?', "#{date.to_s(:db)}%").
              order('slot_granted asc').to_a
@@ -37,6 +37,8 @@ class EstateVisitQuery
 
 private
 
+  # Returns a nested hash like:
+  # { 'Cardiff' => { 'booked' => { concrete_slot1 => [ v1, v2] }}}
   def grouped_visits(visits)
     visits.
       group_by(&:prison_name).
