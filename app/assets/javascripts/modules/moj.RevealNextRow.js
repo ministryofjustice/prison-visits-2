@@ -29,6 +29,7 @@
         var $this = $(this);
         $this.find('.icon').toggleClass('icon-closed, icon-open');
         self.section = $this.data('section');
+        self.prison = $this.data('prison');
         self.toggleNextRow(self);
       });
     },
@@ -49,7 +50,7 @@
 
     triggerAnalytics: function(self){
       var gaParams = {
-        'category': pvb.prison+' '+self.section+' - more information',
+        'category': self.prison+' '+self.section+' - more information',
         'action': 'click',
         'label': pvb.user_email
       };

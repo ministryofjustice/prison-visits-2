@@ -1,5 +1,5 @@
 class EstateSeeder::SeedEntry
-  KEYS = %i[ nomis_id name finder_slug sso_organisation_name ]
+  KEYS = %i[ nomis_id name finder_slug sso_organisation_name group ].freeze
 
   def initialize(nomis_id, hash)
     @nomis_id = nomis_id
@@ -25,5 +25,9 @@ private
   def sso_organisation_name
     label = name.downcase.gsub(/\s+-\s+/, '-').gsub(/\s+/, '_')
     "#{label}.prisons.noms.moj"
+  end
+
+  def group
+    hash['group']
   end
 end

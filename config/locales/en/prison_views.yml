@@ -24,6 +24,8 @@ en:
       message_created: Message created
       no_cancellation_reason: Please provide a cancellation reason
       process_required: Please either reject or accept the booking
+      at_least_one_estate: You must select at least one estate
+      invalid_estate_selection: You don't access to these estates
     feedbacks:
       new:
         title: Contact us
@@ -51,6 +53,7 @@ en:
         visitor_cancellations: Visitor cancellations
         current: "Current prison:"
       prison_switcher:
+        prison_switcher: Select one or more prisons
         switch_estate: Update
       processed:
         title: Processed visits
@@ -63,7 +66,7 @@ en:
         no_visits: There are currently no visit requests
         process_link: View
         requests: Requests
-        title: inbox
+        title: Inbox
         visit_link_desc: visit request details for prisoner %{name} (no. %{number})
       print_visits:
         title: Print visits
@@ -110,6 +113,7 @@ en:
         prisoner_name: Prisoner name
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
+        prison_name: Prison name
         prisoner_does_not_exist_text: The prisoner date of birth and number do not match.
         unknown_text: "The check couldn't take place due to a system error, please verify manually"
         verified_html: |
@@ -232,6 +236,7 @@ en:
     not_all_visits: Not all visits are shown
     open_close: Open/Close
     other_visitors: Other visitors
+    prison: Prison
     prisoner: Prisoner
     prisoner_name: Prisoner name
     prisoner_number: Prisoner no.

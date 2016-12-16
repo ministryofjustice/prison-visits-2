@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :store_request_id
 
-  before_action :log_current_estate
+  before_action :log_current_estates
   before_action :log_current_user
 
   after_action :log_api_counters
@@ -15,23 +15,28 @@ class ApplicationController < ActionController::Base
   helper LinksHelper
   helper_method :current_user
   helper_method :sso_identity
-  helper_method :current_estate
+  helper_method :current_estates
+  helper_method :accessible_estates
 
   def current_user
     sso_identity&.user
   end
 
-  def current_estate
+  def current_estates
     return unless sso_identity
-    @_current_estate ||= begin
-      estate_id = session[:current_estate]
-      estate = estate_id && Estate.find_by(id: estate_id)
-      if estate && sso_identity.accessible_estate?(estate)
-        estate
+    @_current_estates ||= begin
+      estate_ids = session[:current_estates]
+      estates = estate_ids ? Estate.where(id: estate_ids).to_a : []
+      if estates.any? && sso_identity.accessible_estates?(estates)
+        estates
       else
-        sso_identity.default_estate
+        sso_identity.default_estates
       end
     end
+  end
+
+  def accessible_estates
+    sso_identity.accessible_estates
   end
 
   def sso_identity
@@ -110,9 +115,9 @@ private
     Raven.extra_context(request_id: RequestStore.store[:request_id])
   end
 
-  def log_current_estate
-    if current_estate
-      append_to_log(estate_id: current_estate.id)
+  def log_current_estates
+    if current_estates
+      append_to_log(estate_ids: current_estates.map(&:id))
     end
   end
 

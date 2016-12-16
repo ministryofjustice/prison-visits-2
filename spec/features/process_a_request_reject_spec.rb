@@ -40,10 +40,6 @@ RSpec.feature 'Processing a request', js: true do
       expect(vst).to be_rejected
       expect(vst.rejection_reasons).to eq(['slot_unavailable'])
 
-      expect(prison_email_address).
-        to receive_email.
-        with_subject(/COPY of booking rejection for Oscar Wilde/).
-        and_body(/This is a copy of the booking rejection email sent to the visitor/)
       expect(contact_email_address).
         to receive_email.
         with_subject(/Your visit to #{prison.name} is NOT booked/).
@@ -74,10 +70,6 @@ RSpec.feature 'Processing a request', js: true do
         to receive_email.
         with_subject(/Your visit to #{prison.name} is NOT booked/).
         and_body(/the prisoner has used their allowance of visits for this month/)
-      expect(prison_email_address).
-        to receive_email.
-        with_subject(/COPY of booking rejection for Oscar Wilde/).
-        and_body(/This is a copy of the booking rejection email sent to the visitor/)
     end
 
     scenario 'rejecting a booking with incorrect prisoner details' do
@@ -95,10 +87,6 @@ RSpec.feature 'Processing a request', js: true do
         to receive_email.
         with_subject(/Your visit to #{prison.name} is NOT booked/).
         and_body(/we can't find the prisoner from the information you've given/)
-      expect(prison_email_address).
-        to receive_email.
-        with_subject(/COPY of booking rejection for Oscar Wilde/).
-        and_body(/This is a copy of the booking rejection email sent to the visitor/)
     end
 
     scenario 'rejecting a booking when the prisoner has moved' do
@@ -116,10 +104,6 @@ RSpec.feature 'Processing a request', js: true do
         to receive_email.
         with_subject(/Your visit to #{prison.name} is NOT booked/).
         and_body(/has moved prison/)
-      expect(prison_email_address).
-        to receive_email.
-        with_subject(/COPY of booking rejection for Oscar Wilde/).
-        and_body(/This is a copy of the booking rejection email sent to the visitor/)
     end
 
     scenario 'rejecting a booking when no visitors are on the contact list' do
@@ -140,10 +124,6 @@ RSpec.feature 'Processing a request', js: true do
         to receive_email.
         with_subject(/Your visit to #{prison.name} is NOT booked/).
         and_body(/prisoner's contact list/)
-      expect(prison_email_address).
-        to receive_email.
-        with_subject(/COPY of booking rejection for Oscar Wilde/).
-        and_body(/This is a copy of the booking rejection email sent to the visitor/)
     end
 
     scenario 'rejecting a booking when all visitors are banned' do
@@ -164,10 +144,6 @@ RSpec.feature 'Processing a request', js: true do
         to receive_email.
         with_subject(/Your visit to #{prison.name} is NOT booked/).
         and_body(/banned from visiting/)
-      expect(prison_email_address).
-        to receive_email.
-        with_subject(/COPY of booking rejection for Oscar Wilde/).
-        and_body(/This is a copy of the booking rejection email sent to the visitor/)
     end
   end
 end

@@ -11,36 +11,28 @@ RSpec.describe Prison::VisitsController, type: :controller do
     end
 
     context 'when is processable' do
-      context 'when is part of the dashboard trial' do
-        before do
-          allow(Rails.configuration).
-            to receive(:dashboard_trial).
-            and_return([visit.prison.estate.name])
-        end
-
-        context 'and there is no logged in user' do
-          it { is_expected.to_not be_successful }
-        end
-
-        context 'and there is a logged in user' do
-          let(:user) { FactoryGirl.create(:user) }
-
-          before do
-            login_user(user, estate)
-          end
-
-          it { is_expected.to render_template('process_visit') }
-        end
+      context 'and there is no logged in user' do
+        it { is_expected.to_not be_successful }
       end
 
-      context "when it isn't part of the dashboard trial" do
+      context 'and there is a logged in user' do
+        let(:user) { FactoryGirl.create(:user) }
+
+        before do
+          login_user(user, current_estates: [estate])
+        end
+
         it { is_expected.to render_template('process_visit') }
       end
     end
 
     context 'when is unprocessble' do
+      before do
+        user = FactoryGirl.create(:user)
+        login_user(user, current_estates: [estate])
+      end
       let!(:visit) { FactoryGirl.create(:booked_visit) }
-      it { is_expected.to redirect_to(prison_visit_path(visit)) }
+      it { is_expected.to redirect_to(prison_inbox_path) }
     end
   end
 
@@ -56,47 +48,26 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
     it_behaves_like 'disallows untrusted ips'
 
-    context "when isn't part of the dashboard trial" do
-      let(:booking_response) { { slot_granted: '' } }
+    context 'and there is no logged in user' do
+      it { is_expected.to_not be_successful }
+    end
+
+    context 'and there is a logged in user' do
+      let(:user) { FactoryGirl.create(:user) }
+
+      before do
+        login_user(user, current_estates: [estate])
+      end
+
       context 'when invalid' do
+        let(:booking_response) { { slot_granted: '' } }
         it { is_expected.to render_template('process_visit') }
       end
 
       context 'when valid' do
         let(:booking_response) { { slot_granted: visit.slots.first.to_s, reference_no: 'none' } }
 
-        it { is_expected.to redirect_to(prison_visit_path(visit)) }
-      end
-    end
-
-    context 'when is part of the dashboard trial' do
-      before do
-        allow(Rails.configuration).
-          to receive(:dashboard_trial).
-          and_return([visit.prison.estate.name])
-      end
-
-      context 'and there is no logged in user' do
-        it { is_expected.to_not be_successful }
-      end
-
-      context 'and there is a logged in user' do
-        let(:user) { FactoryGirl.create(:user) }
-
-        before do
-          login_user(user, estate)
-        end
-
-        context 'when invalid' do
-          let(:booking_response) { { slot_granted: '' } }
-          it { is_expected.to render_template('process_visit') }
-        end
-
-        context 'when valid' do
-          let(:booking_response) { { slot_granted: visit.slots.first.to_s, reference_no: 'none' } }
-
-          it { is_expected.to redirect_to(prison_inbox_path) }
-        end
+        it { is_expected.to redirect_to(prison_inbox_path) }
       end
     end
   end
@@ -109,7 +80,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
     context "when logged in" do
       before do
-        login_user(user, estate)
+        login_user(user, current_estates: [estate])
       end
 
       it { is_expected.to render_template('show') }
@@ -117,7 +88,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     end
 
     context "when logged out" do
-      it { is_expected.to be_successful }
+      it { is_expected.to_not be_successful }
     end
   end
 
@@ -133,37 +104,37 @@ RSpec.describe Prison::VisitsController, type: :controller do
         locale: 'en'
     end
 
-    it 'cancels the visit' do
-      expect { subject }.
-        to change { visit.reload.processing_state }.to('cancelled')
-    end
-
     it_behaves_like 'disallows untrusted ips'
 
     context 'when there is a user logged in' do
       let(:user) { FactoryGirl.create(:user) }
 
       before do
-        login_user(user, estate)
+        login_user(user, current_estates: [estate])
       end
 
-      it { is_expected.to redirect_to(prison_inbox_path) }
+      it { is_expected.to redirect_to(prison_visit_path(visit)) }
+
+      it 'cancels the visit' do
+        expect { subject }.
+          to change { visit.reload.processing_state }.to('cancelled')
+      end
+
+      context 'when the visit is already cancelled' do
+        let(:visit) { FactoryGirl.create(:cancelled_visit) }
+
+        it { is_expected.to redirect_to(prison_visit_path(visit)) }
+      end
+
+      context 'when there is no cancellation reason' do
+        let(:cancellation_reason) { nil }
+
+        it { is_expected.to redirect_to(prison_visit_path(visit)) }
+      end
     end
 
     context "when there isn't a user logged in" do
-      it { is_expected.to redirect_to(prison_visit_path(visit)) }
-    end
-
-    context 'when the visit is already cancelled' do
-      let(:visit) { FactoryGirl.create(:cancelled_visit) }
-
-      it { is_expected.to redirect_to(prison_visit_path(visit)) }
-    end
-
-    context 'when there is no cancellation reason' do
-      let(:cancellation_reason) { nil }
-
-      it { is_expected.to redirect_to(prison_visit_path(visit)) }
+      it { is_expected.to_not be_successful }
     end
   end
 
@@ -179,7 +150,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
       let(:user) { FactoryGirl.create(:user) }
 
       before do
-        login_user(user, estate)
+        login_user(user, current_estates: [estate])
       end
 
       it { is_expected.to redirect_to(prison_inbox_path) }

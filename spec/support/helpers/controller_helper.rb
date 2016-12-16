@@ -1,5 +1,5 @@
 module ControllerHelper
-  def login_user(user, estate, available_estates: [estate])
+  def login_user(user, current_estates:, available_estates: [current_estates.first])
     orgs = available_estates.map(&:sso_organisation_name)
 
     sso_identity = SignonIdentity.new(
@@ -11,6 +11,6 @@ module ControllerHelper
     )
 
     controller.session[:sso_data] = sso_identity.to_session
-    controller.session[:current_estate] = estate.id
+    controller.session[:current_estates] = current_estates.map(&:id)
   end
 end

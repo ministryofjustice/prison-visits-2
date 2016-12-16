@@ -25,7 +25,6 @@ private
 
   def send_notifications
     visitor_mailer.deliver_later
-    prison_mailer.deliver_later
   end
 
   def processor
@@ -36,12 +35,6 @@ private
         BookingResponder::Reject
       end.new(booking_response)
     end
-  end
-
-  def prison_mailer
-    @prison_mailer ||= PrisonMailer.send(
-      email, booking_response.email_attrs, message_attributes
-    )
   end
 
   def email

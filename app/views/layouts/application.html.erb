@@ -45,7 +45,6 @@
   <main id="content">
     <%= yield :banner %>
     <%= yield :navigation %>
-    <%= yield :prison_switcher %>
     <% if content_for?(:header) %>
       <header>
         <h1 class="heading-large">
@@ -65,6 +64,7 @@
             <%= alert %>
         </p>
     <% end %>
+    <%= yield :prison_switcher %>
 
     <%= yield %>
 

@@ -31,8 +31,8 @@ class Visit < ActiveRecord::Base
   delegate :allowance_will_renew?, :allowance_renews_on,
     to: :rejection
 
-  scope :from_estate, lambda { |estate|
-    joins(prison: :estate).where(estates: { id: estate.id })
+  scope :from_estates, lambda { |estates|
+    joins(prison: :estate).where(estates: { id: estates.map(&:id) })
   }
 
   scope :processed, lambda {

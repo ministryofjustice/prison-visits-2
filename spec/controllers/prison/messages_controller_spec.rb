@@ -18,7 +18,7 @@ RSpec.describe Prison::MessagesController do
 
     context "when logged in" do
       before do
-        login_user(user, estate)
+        login_user(user, current_estates: [estate])
       end
 
       it 'creates a message' do

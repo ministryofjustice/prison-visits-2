@@ -11,7 +11,6 @@ class VisitorCancellationResponse
 
   def cancel!
     processor.process_request
-    prison_mailer.deliver_later
   end
 
   def visitor
@@ -22,9 +21,5 @@ private
 
   def processor
     @processor ||= BookingResponder::VisitorCancel.new(self)
-  end
-
-  def prison_mailer
-    PrisonMailer.cancelled(visit)
   end
 end

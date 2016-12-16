@@ -7,6 +7,7 @@
       <th><%= t('lead_visitor', scope: :shared) %></th>
       <th><%= t('tel', scope: :shared) %></th>
       <th><%= t('additional_visitors', scope: :shared) %></th>
+      <th><%= t('prison', scope: :shared) %></th>
       <th><%= t('cancelled', scope: :shared) %></th>
     </tr>
   </thead>
@@ -24,6 +25,7 @@
             <% end %>
           </div>
         </td>
+        <td><%= visit.prison_name %></td>
         <td><%= visit.updated_at.to_s(:short) %></td>
       </tr>
     <% end %>

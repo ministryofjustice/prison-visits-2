@@ -4,8 +4,6 @@
 class SignonIdentity
   class InvalidSessionData < RuntimeError; end
 
-  DIGITAL_ORG = 'digital.noms.moj'
-
   class << self
     def from_omniauth(omniauth_auth)
       info = omniauth_auth.fetch('info')
@@ -34,20 +32,15 @@ class SignonIdentity
       raise InvalidSessionData
     end
 
+  private
+
     # Determines which estates a user can access based on their permissions
     def accessible_estates(permissions)
       orgs = permissions.map { |p| p.fetch('organisation') }
 
-      return [] if orgs.empty?
-
-      if orgs.include?(DIGITAL_ORG)
-        Estate.all
-      else
-        Estate.where(sso_organisation_name: orgs)
-      end
+      mapper = EstateSSOMapper.new(orgs)
+      mapper.accessible_estates
     end
-
-  private
 
     def find_or_create_authorized_user(info)
       email = info.fetch('email')
@@ -89,15 +82,20 @@ class SignonIdentity
   end
 
   def accessible_estates
-    @_ae ||= self.class.accessible_estates(@permissions).order(:nomis_id).to_a
+    @_ae ||= estate_sso_mapper.accessible_estates.order(:nomis_id).to_a
   end
 
-  def accessible_estate?(estate)
-    accessible_estates.include?(estate)
+  def accessible_estates?(estates)
+    estates.all? { |estate| accessible_estates.include?(estate) }
   end
 
-  def default_estate
-    accessible_estates.first || fail('Should never be nil')
+  def default_estates
+    # Prevent loading data from all prisons by defaul
+    if estate_sso_mapper.admin?
+      accessible_estates.take(1)
+    else
+      accessible_estates || fail('Should never be nil')
+    end
   end
 
   # Export SSO data for storing in session between requests
@@ -109,5 +107,14 @@ class SignonIdentity
       'logout_url' => @logout_url,
       'permissions' => @permissions
     }
+  end
+
+private
+
+  def estate_sso_mapper
+    @_estate_sso_mapper ||= begin
+      orgs = @permissions.map { |p| p.fetch('organisation') }
+      EstateSSOMapper.new(orgs)
+    end
   end
 end
