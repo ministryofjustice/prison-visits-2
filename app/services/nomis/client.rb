@@ -21,7 +21,7 @@ module Nomis
     end
 
     def get(route, params = {})
-      request(:get, route, params)
+      request(:get, route, params, idempotent: true)
     end
 
   # def post(route, params)
@@ -32,7 +32,7 @@ module Nomis
 
     # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/AbcSize
-    def request(method, route, params)
+    def request(method, route, params, idempotent:)
       # For cleanliness, strip initial / if supplied
       route = route.sub(%r{^\/}, '')
       path = "/nomisapi/#{route}"
@@ -42,6 +42,8 @@ module Nomis
         method: method,
         path: path,
         expects: [200],
+        idempotent: idempotent,
+        retry_limit: 2,
         headers: {
           'Accept' => 'application/json',
           'Authorization' => auth_header,

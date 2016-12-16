@@ -39,12 +39,12 @@ class StaffNomisChecker
     ].compact
   end
 
-private
-
   def prisoner_availability_enabled?
     @nomis_api_enabled &&
       Rails.configuration.nomis_staff_prisoner_availability_enabled
   end
+
+private
 
   def prisoner_check_enabled?
     @nomis_api_enabled &&
