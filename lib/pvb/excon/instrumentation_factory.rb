@@ -3,6 +3,11 @@ require 'pvb/excon/instrumentation/instrument'
 module PVB
   module Excon
     class InstrumentationFactory
+
+      REQUEST  = 'excon.request'.freeze
+      RESPONSE = 'excon.response'.freeze
+      ERROR    = 'excon.error'.freeze
+
       class << self
 
         def for(event, *args)
@@ -11,10 +16,12 @@ module PVB
 
         def instrument_class_for(event)
           case event
-          when 'excon.request'
+          when REQUEST
             Instrumentation::Request
-          when 'excon.response'
+          when RESPONSE
             Instrumentation::Response
+          when ERROR
+            Instrumentation::Error
           end
         end
       end

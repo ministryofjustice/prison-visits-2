@@ -19,3 +19,4 @@ end
 
 require 'pvb/excon/instrumentation/request'
 require 'pvb/excon/instrumentation/response'
+require 'pvb/excon/instrumentation/error'

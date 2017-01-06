@@ -8,6 +8,7 @@ RSpec.describe PVB::Excon::InstrumentationFactory do
   let(:payload)  { double(Hash) }
 
   describe '.for' do
+
     describe "with 'excon.request" do
 
       let(:instrumentation) { 'excon.request' }
@@ -25,5 +26,15 @@ RSpec.describe PVB::Excon::InstrumentationFactory do
         expect(described_class.for(instrumentation, start, finish, payload)).to be_instance_of(PVB::Excon::Instrumentation::Response)
       end
     end
+
+    describe "with 'excon.error" do
+
+      let(:instrumentation) { 'excon.error' }
+
+      it 'returns an instrumentation error' do
+        expect(described_class.for(instrumentation, start, finish, payload)).to be_instance_of(PVB::Excon::Instrumentation::Error)
+      end
+    end
+
   end
 end
