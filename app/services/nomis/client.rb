@@ -16,7 +16,8 @@ module Nomis
         persistent: true,
         connect_timeout: TIMEOUT,
         read_timeout: TIMEOUT,
-        write_timeout: TIMEOUT
+        write_timeout: TIMEOUT,
+        instrumentor: ActiveSupport::Notifications
       )
     end
 
