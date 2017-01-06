@@ -23,6 +23,11 @@ module Instrumentation
       result
     end
 
+    def incr(counter)
+      RequestStore.store[counter] ||= 0
+      RequestStore.store[counter] += 1
+    end
+
   private
 
     def time_action

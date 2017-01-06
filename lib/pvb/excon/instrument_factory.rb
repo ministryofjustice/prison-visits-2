@@ -1,10 +1,11 @@
-require 'pvb/excon/instrumentation/instrument'
+require 'pvb/excon/instrument'
 
 module PVB
   module Excon
-    class InstrumentationFactory
+    class InstrumentFactory
 
       REQUEST  = 'excon.request'.freeze
+      RETRY    = 'excon.retry'.freeze
       RESPONSE = 'excon.response'.freeze
       ERROR    = 'excon.error'.freeze
 
@@ -16,12 +17,12 @@ module PVB
 
         def instrument_class_for(event)
           case event
-          when REQUEST
-            Instrumentation::Request
+          when REQUEST, RETRY
+            Instrument::Request
           when RESPONSE
-            Instrumentation::Response
+            Instrument::Response
           when ERROR
-            Instrumentation::Error
+            Instrument::Error
           end
         end
       end

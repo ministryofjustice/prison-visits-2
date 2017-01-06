@@ -1,9 +1,11 @@
 module PVB
   module Excon
-    module Instrumentation
+    module Instrument
       class Error
         include Instrument
 
+        def process
+        end
       end
     end
   end

@@ -1,9 +1,10 @@
 module PVB
   module Excon
-    module Instrumentation
-      class Request
+    module Instrument
+      class Response
         include Instrument
-
+        def process
+        end
       end
     end
   end
