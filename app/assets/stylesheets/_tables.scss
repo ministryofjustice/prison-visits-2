@@ -1,3 +1,11 @@
+table.sortable {
+  th:not(.sorttable_nosort) {
+    cursor: pointer;
+  }
+  th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
+    content: " \25B8"
+  }
+}
 @media screen and (max-width: 768px) {
   table thead {
     display: none;
