@@ -2,6 +2,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require vendor/chosen.jquery
+//= require vendor/sortable
 
 // GOVUK modules
 //= require govuk_toolkit
