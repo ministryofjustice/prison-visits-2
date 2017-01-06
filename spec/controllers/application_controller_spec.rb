@@ -33,7 +33,8 @@ RSpec.describe ApplicationController, type: :controller do
       WebMock.stub_request(:get, /\w/).
         to_raise(Excon::Errors::Timeout.new('Request Timeout'))
       post :create
-      expect(Instrumentation.custom_log_items[:api_request_count]).to eq(1)
+      # 2 because we now catch the retries
+      expect(Instrumentation.custom_log_items[:api_request_count]).to eq(2)
       expect(Instrumentation.custom_log_items[:api_error_count]).to eq(1)
     end
   end

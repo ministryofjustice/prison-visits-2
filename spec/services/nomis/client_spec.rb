@@ -61,18 +61,6 @@ RSpec.describe Nomis::Client do
         subject.get(path, params)
       }.to raise_error(Nomis::APIError, 'Exception Excon::Errors::Timeout calling GET /nomisapi/lookup/active_offender: Request Timeout')
     end
-
-    it 'logs API calls timing requests'do
-      expect(Instrumentation).to receive(:time_and_log).
-        with("Calling NOMIS API: GET /nomisapi#{path}", :api).and_return(double(Excon::Response, body: '{}'))
-      subject.get(path, params)
-    end
-
-    it 'increments the request count' do
-      expect {
-        subject.get(path, params)
-      }.to raise_error(Nomis::APIError).and change { RequestStore.store[:api_request_count] }.from(nil).to(1)
-    end
   end
 
   describe 'with an error' do

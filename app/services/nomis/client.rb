@@ -12,12 +12,9 @@ module Nomis
       @client_key = client_key
 
       @connection = Excon.new(
-        host,
-        persistent: true,
-        connect_timeout: TIMEOUT,
-        read_timeout:    TIMEOUT,
-        write_timeout:   TIMEOUT,
-        instrumentor:    ActiveSupport::Notifications
+        host, persistent: true,
+              connect_timeout: TIMEOUT, read_timeout: TIMEOUT, write_timeout: TIMEOUT,
+              instrumentor: ActiveSupport::Notifications
       )
     end
 
@@ -105,6 +102,5 @@ module Nomis
       }
       JWT.encode(payload, client_key, 'ES256')
     end
-
   end
 end

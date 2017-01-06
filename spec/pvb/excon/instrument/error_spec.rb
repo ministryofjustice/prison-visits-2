@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe PVB::Excon::Instrument::Error do
-  let(:nowish)           { Time.now }
+  let(:nowish)           { Time.zone.now }
   let(:start)            { nowish }
   let(:finish)           { nowish + 0.5 }
-  let(:payload)          { {method: :get, path: '/some/path'} }
+  let(:payload)          { { method: :get, path: '/some/path' } }
 
   subject { described_class.new(start, finish, payload) }
 
