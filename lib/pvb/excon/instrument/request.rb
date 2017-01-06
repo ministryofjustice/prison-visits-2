@@ -7,7 +7,7 @@ module PVB
         def process
           Instrumentation.incr(:api_request_count)
           Instrumentation.append_to_log(category => total_time)
-          Rails.logger.info "#{message} – %.2fms" % [time_in_ms]
+          Rails.logger.info "#{message} - %.2fms" % [time_in_ms]
         end
 
         def time_in_ms
