@@ -5,6 +5,7 @@ module PVB
         include Instrument
 
         def process
+          Instrumentation.incr(:api_error_count)
         end
       end
     end
