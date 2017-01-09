@@ -15,6 +15,14 @@ RSpec.describe PVB::Excon::InstrumentFactory do
       end
     end
 
+    describe "with 'excon.retry" do
+      let(:instrumentation) { 'excon.retry' }
+
+      it 'returns an instrumentation retry' do
+        expect(described_class.for(instrumentation, start, finish, payload)).to be_instance_of(PVB::Excon::Instrument::Retry)
+      end
+    end
+
     describe "with 'excon.response" do
       let(:instrumentation) { 'excon.response' }
 

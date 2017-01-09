@@ -15,8 +15,10 @@ module PVB
 
         def instrument_class_for(event)
           case event
-          when REQUEST, RETRY
+          when REQUEST
             Instrument::Request
+          when RETRY
+            Instrument::Retry
           when RESPONSE
             Instrument::Response
           when ERROR

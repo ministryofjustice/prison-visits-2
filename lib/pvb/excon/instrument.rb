@@ -15,5 +15,6 @@ module PVB
 end
 
 require 'pvb/excon/instrument/request'
+require 'pvb/excon/instrument/retry'
 require 'pvb/excon/instrument/response'
 require 'pvb/excon/instrument/error'
