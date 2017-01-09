@@ -3,10 +3,10 @@ require 'pvb/excon/instrument'
 module PVB
   module Excon
     class InstrumentFactory
-      REQUEST  = 'excon.request'.freeze
-      RETRY    = 'excon.retry'.freeze
-      RESPONSE = 'excon.response'.freeze
-      ERROR    = 'excon.error'.freeze
+      REQUEST  = 'nomis_api.request'.freeze
+      RETRY    = 'nomis_api.retry'.freeze
+      RESPONSE = 'nomis_api.response'.freeze
+      ERROR    = 'nomis_api.error'.freeze
 
       class << self
         def for(event, *args)
