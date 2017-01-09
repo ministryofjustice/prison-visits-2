@@ -15,19 +15,6 @@ RSpec.describe Instrumentation do
     RequestStore.clear!
   end
 
-  describe '.inc_custom_log_item' do
-    it 'adds new items with a value of 1' do
-      expect(described_class.inc_custom_log_item(:foo)).
-        to eq(foo: 1)
-    end
-
-    it 'increments existing values' do
-      described_class.inc_custom_log_item(:foo)
-      expect(described_class.inc_custom_log_item(:foo)).
-        to eq(foo: 2)
-    end
-  end
-
   describe '.append_to_log' do
     it 'adds' do
       expect(described_class.append_to_log(fu: 'bar')).
@@ -59,57 +46,13 @@ RSpec.describe Instrumentation do
     end
   end
 
-  describe '.time_and_log' do
-    it 'requires a block' do
-      expect { described_class.time_and_log(:arg, 'arg') }.to raise_error(/Block required/)
-    end
-
-    it 'yields the block' do
-      expect { |b| described_class.time_and_log(:arg, 'arg', &b) }.to yield_with_no_args
-    end
-
-    it 'logs the message' do
-      expect(Rails.logger).to receive(:info).with(/arg/)
-      described_class.time_and_log(:arg, 'arg') { true }
-    end
-
-    it 'returns the result of the block' do
-      expect(described_class.time_and_log(:arg, 'arg') { 1 + 1 }).to eq(2)
-    end
-
-    context 'timing' do
-      it 'calculates the run time of the block' do
-        expect(Rails.logger).to receive(:info).with(/5000.00ms/)
-        described_class.time_and_log(:arg, 'arg') do
-          true
-        end
-      end
-    end
-
-    context 'categories' do
-      it 'appends/adds to the correct category' do
-        described_class.time_and_log('fu', :bar) do
-          true
-        end
-        expect(described_class.custom_log_items[:bar]).to eq(5000)
-      end
-
-      it 'does not require a category' do
-        expect(described_class).not_to receive(:append_to_log)
-        described_class.time_and_log('A prisoner API call') do
-          true
-        end
-      end
-
-      context 'timing' do
-        it 'adds time to an existing category' do
-          described_class.append_to_log(long_time: 1000)
-          described_class.time_and_log('fubar', :long_time) do
-            true
-          end
-          expect(described_class.custom_log_items[:long_time]).to eq(6000)
-        end
-      end
+  describe '.incr' do
+    it 'inscrements the given counter' do
+      expect {
+        described_class.incr(:a_counter)
+      }.to change {
+        described_class.custom_log_items[:a_counter]
+      }.from(nil).to(1)
     end
   end
 end

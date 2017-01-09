@@ -5,6 +5,7 @@ module Nomis
 
   class Client
     TIMEOUT = 2 # seconds
+    EXCON_INSTRUMENT_NAME = 'nomis_api'.freeze
 
     def initialize(host, client_token, client_key)
       @host = host
@@ -12,12 +13,10 @@ module Nomis
       @client_key = client_key
 
       @connection = Excon.new(
-        host,
-        persistent: true,
-        connect_timeout: TIMEOUT,
-        read_timeout: TIMEOUT,
-        write_timeout: TIMEOUT
-      )
+        host, persistent: true,
+              connect_timeout: TIMEOUT, read_timeout: TIMEOUT, write_timeout: TIMEOUT,
+              instrumentor: ActiveSupport::Notifications,
+              instrumentor_name: EXCON_INSTRUMENT_NAME)
     end
 
     def get(route, params = {})
@@ -51,12 +50,7 @@ module Nomis
         }
       }.deep_merge(params_options(method, params))
 
-      increment_request_count
-
-      msg = "Calling NOMIS API: #{method.to_s.upcase} #{path}"
-      response = Instrumentation.time_and_log(msg, :api) {
-        @connection.request(options)
-      }
+      response = @connection.request(options)
 
       JSON.parse(response.body)
     rescue Excon::Errors::HTTPStatusError => e
@@ -72,12 +66,10 @@ module Nomis
       end
 
       Raven.capture_exception(e)
-      increment_error_count
       raise APIError,
         "Unexpected status #{e.response.status} calling #{api_method}: #{error}"
     rescue Excon::Errors::Error => e
       Raven.capture_exception(e)
-      increment_error_count
       raise APIError, "Exception #{e.class} calling #{api_method}: #{e}"
     end
     # rubocop:enable Metrics/MethodLength
@@ -110,14 +102,6 @@ module Nomis
         token: client_token
       }
       JWT.encode(payload, client_key, 'ES256')
-    end
-
-    def increment_request_count
-      Instrumentation.inc_custom_log_item(:api_request_count)
-    end
-
-    def increment_error_count
-      Instrumentation.inc_custom_log_item(:api_error_count)
     end
   end
 end
