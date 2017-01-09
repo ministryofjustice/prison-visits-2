@@ -89,7 +89,8 @@ RSpec.describe Nomis::Client do
     it 'increments the api error count' do
       expect {
         subject.get(path, params)
-      }.to raise_error(Nomis::APIError).and change { RequestStore.store[:api_error_count] }.from(nil).to(1)
+      }.to raise_error(Nomis::APIError).
+        and change { Instrumentation.custom_log_items[:api_request_count] }.from(nil).to(1)
     end
   end
 

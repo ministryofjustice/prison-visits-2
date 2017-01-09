@@ -15,6 +15,19 @@ RSpec.describe Instrumentation do
     RequestStore.clear!
   end
 
+  describe '.inc_custom_log_item' do
+    it 'adds new items with a value of 1' do
+      expect(described_class.inc_custom_log_item(:foo)).
+        to eq(foo: 1)
+    end
+
+    it 'increments existing values' do
+      described_class.inc_custom_log_item(:foo)
+      expect(described_class.inc_custom_log_item(:foo)).
+        to eq(foo: 2)
+    end
+  end
+
   describe '.append_to_log' do
     it 'adds' do
       expect(described_class.append_to_log(fu: 'bar')).

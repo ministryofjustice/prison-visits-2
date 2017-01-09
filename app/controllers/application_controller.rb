@@ -10,8 +10,6 @@ class ApplicationController < ActionController::Base
   before_action :log_current_estates
   before_action :log_current_user
 
-  after_action :log_api_counters
-
   helper LinksHelper
   helper_method :current_user
   helper_method :sso_identity
@@ -125,18 +123,5 @@ private
     if current_user
       append_to_log(user_id: current_user.id)
     end
-  end
-
-  def log_api_counters
-    append_to_log(api_request_count: api_request_count)
-    append_to_log(api_error_count:   api_error_count)
-  end
-
-  def api_request_count
-    RequestStore.store[:api_request_count]
-  end
-
-  def api_error_count
-    RequestStore.store[:api_error_count]
   end
 end
