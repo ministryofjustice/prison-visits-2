@@ -8,5 +8,4 @@ RSpec.describe PVB::Excon::Instrument::Retry do
     expect(Instrumentation).to receive(:incr).with(:api_retry_count)
     subject.process
   end
-
 end
