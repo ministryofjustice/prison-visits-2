@@ -9,7 +9,7 @@ phone_no: 01302523289
 enabled: true
 lead_days: 1
 recurring:
-  wed:
+  tue:
   - 1340-1545
   thu:
   - 1340-1545
