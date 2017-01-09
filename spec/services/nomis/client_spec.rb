@@ -90,7 +90,7 @@ RSpec.describe Nomis::Client do
       expect {
         subject.get(path, params)
       }.to raise_error(Nomis::APIError).
-        and change { Instrumentation.custom_log_items[:api_request_count] }.from(nil).to(1)
+        and change { Instrumentation.custom_log_items[:api_request_count] }.from(nil).to(2)
     end
   end
 
