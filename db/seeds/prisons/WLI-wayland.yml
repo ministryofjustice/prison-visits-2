@@ -7,6 +7,8 @@ postcode: IP25 6RL
 email_address: socialvisits.wayland@hmps.gsi.gov.uk
 phone_no: 01953 804152
 enabled: true
+private: false
+closed: false
 recurring:
   tue:
   - 1400-1600

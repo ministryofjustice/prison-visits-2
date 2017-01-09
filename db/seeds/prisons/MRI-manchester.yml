@@ -2,3 +2,5 @@
 name: Manchester
 nomis_id: MRI
 enabled: false
+private: false
+closed: false

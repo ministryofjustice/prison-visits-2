@@ -7,6 +7,8 @@ postcode: GL12 8DB
 email_address: socialvisits.eastwoodpark@hmps.gsi.gov.uk
 phone_no: 01454 382159
 enabled: true
+private: false
+closed: false
 recurring:
   tue:
   - 1400-1500

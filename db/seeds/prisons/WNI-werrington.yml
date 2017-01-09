@@ -8,6 +8,8 @@ postcode: ST9 0DX
 email_address: visitsbooking.westmidlands@noms.gsi.gov.uk
 phone_no: 0300 060 6508
 enabled: true
+private: false
+closed: false
 adult_age: 10
 recurring:
   mon:

@@ -6,7 +6,9 @@ address: |-
 postcode: L31 1HX
 email_address: socialvisits.kennet@hmps.gsi.gov.uk
 phone_no: 0151 213 3179
-enabled: true
+enabled: false
+closed: true
+private: false
 recurring:
   mon:
   - 1345-1445

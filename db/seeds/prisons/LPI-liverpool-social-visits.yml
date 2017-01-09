@@ -7,6 +7,8 @@ postcode: L9 3DF
 email_address: socialvisits.liverpool@hmps.gsi.gov.uk
 phone_no: 0151 530 4050
 enabled: true
+private: false
+closed: false
 recurring:
   fri:
   - 0905-1005

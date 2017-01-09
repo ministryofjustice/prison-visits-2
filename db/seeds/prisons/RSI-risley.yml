@@ -7,6 +7,8 @@ postcode: WA3 6BP
 email_address: socialvisits.risley@hmps.gsi.gov.uk
 phone_no: 01925 733284
 enabled: true
+private: false
+closed: false
 recurring:
   sat:
   - 0900-1115

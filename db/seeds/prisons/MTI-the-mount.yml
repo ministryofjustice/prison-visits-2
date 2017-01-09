@@ -7,6 +7,8 @@ postcode: HP3 0NZ
 email_address: socialvisits.themount@hmps.gsi.gov.uk
 phone_no: 01442 836352
 enabled: true
+private: false
+closed: false
 recurring:
   wed:
   - 1400-1600

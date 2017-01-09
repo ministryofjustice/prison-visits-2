@@ -7,6 +7,8 @@ postcode: W12 0AE
 email_address: visitsbooking.westmidlands@noms.gsi.gov.uk
 phone_no: 0121 626 3791
 enabled: true
+private: false
+closed: false
 recurring:
   mon:
   - 0900-1100

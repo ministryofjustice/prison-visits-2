@@ -5,7 +5,7 @@ class PrisonSeeder::SeedEntry
 
   KEYS = %i[
     address adult_age booking_window email_address enabled lead_days name
-    phone_no postcode slot_details translations weekend_processing
+    phone_no postcode slot_details translations weekend_processing closed private
   ]
 
   def initialize(hash)
@@ -46,6 +46,14 @@ private
 
   def name
     hash.fetch('name')
+  end
+
+  def closed
+    hash.fetch('closed')
+  end
+
+  def private
+    hash.fetch('private')
   end
 
   def phone_no

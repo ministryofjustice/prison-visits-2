@@ -2,3 +2,5 @@
 name: Lowdham Grange
 nomis_id: LGI
 enabled: false
+private: false
+closed: false

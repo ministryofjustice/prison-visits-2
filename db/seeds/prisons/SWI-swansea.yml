@@ -13,6 +13,8 @@ translations:
 email_address: socialvisits.swansea@hmps.gsi.gov.uk
 phone_no: 01792 48 5322
 enabled: true
+private: false
+closed: false
 recurring:
   mon:
   - 1345-1445

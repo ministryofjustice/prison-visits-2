@@ -2,3 +2,5 @@
 name: Birmingham
 nomis_id: BMI
 enabled: false
+private: false
+closed: false

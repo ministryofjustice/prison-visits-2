@@ -9,6 +9,8 @@ postcode: ME17 3DF
 email_address: socialvisits.eastsuttonpark@hmps.gsi.gov.uk
 phone_no: 01622 785010
 enabled: true
+private: false
+closed: false
 recurring:
   sat:
   - 1330-1530

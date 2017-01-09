@@ -12,6 +12,8 @@ RSpec.describe PrisonSeeder do
       'email_address' => 'luna@hmps.gsi.gov.uk',
       'postcode' => 'XL1 1AA',
       'enabled' => true,
+      'closed'  => false,
+      'private'  => false,
       'phone_no' => '0115 4960123',
       'translations' => {
         'cy' => {

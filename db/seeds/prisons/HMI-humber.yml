@@ -9,6 +9,8 @@
  email_address: socialvisits.everthorpe@hmps.gsi.gov.uk
  phone_no: 01430 273000
  enabled: true
+private: false
+closed: false
  recurring:
    mon:
    - 1400-1600

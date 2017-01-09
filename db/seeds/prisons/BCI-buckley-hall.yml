@@ -7,6 +7,8 @@ postcode: OL12 9DP
 email_address: socialvisits.buckleyhall@hmps.gsi.gov.uk
 phone_no: 01706 514350
 enabled: true
+private: false
+closed: false
 recurring:
   mon:
   - 1400-1600

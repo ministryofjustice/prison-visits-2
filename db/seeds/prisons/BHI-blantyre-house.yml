@@ -6,6 +6,8 @@ address: |-
 postcode: TN17 2NH
 email_address: socialvisits.blantyrehouse@hmps.gsi.gov.uk
 enabled: false
+private: false
+closed: false
 recurring:
   sat:
   - 1345-1600

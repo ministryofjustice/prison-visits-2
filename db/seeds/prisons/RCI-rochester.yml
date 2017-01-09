@@ -9,6 +9,8 @@ postcode: ME1 3QS
 email_address: socialvisits.rochester@hmps.gsi.gov.uk
 phone_no: 01634 803100
 enabled: true
+private: false
+closed: false
 recurring:
   mon:
   - 1345-1545

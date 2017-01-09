@@ -2,3 +2,5 @@
 name: Oakwood
 nomis_id: OWI
 enabled: false
+private: false
+closed: false

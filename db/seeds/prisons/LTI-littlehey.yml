@@ -7,6 +7,8 @@ postcode: PE28 0SR
 email_address: socialvisits.littlehey@hmps.gsi.gov.uk
 phone_no: 01480 335650
 enabled: true
+private: false
+closed: false
 lead_days: 2
 recurring:
   fri:

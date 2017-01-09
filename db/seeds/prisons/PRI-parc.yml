@@ -2,3 +2,5 @@
 name: Parc
 nomis_id: PRI
 enabled: false
+private: false
+closed: false

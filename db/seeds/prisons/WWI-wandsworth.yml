@@ -8,6 +8,8 @@ postcode: SW18 3HS
 email_address: socialvisits.wandsworth@hmps.gsi.gov.uk
 phone_no: 020 8588 4002
 enabled: true
+private: false
+closed: false
 recurring:
   mon:
   - 1000-1100

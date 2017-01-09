@@ -8,6 +8,8 @@ postcode: DH1 3HU
 email_address: socialvisits.durham@hmps.gsi.gov.uk
 phone_no: 0191 3323417
 enabled: true
+private: false
+closed: false
 recurring:
   mon:
   - 1345-1545

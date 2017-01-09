@@ -7,6 +7,8 @@ postcode: LS22 5ED
 email_address: socialvisits.wetherby@hmps.gsi.gov.uk
 phone_no: 01937 544207
 enabled: true
+private: false
+closed: false
 recurring:
   wed:
   - 1830-2000

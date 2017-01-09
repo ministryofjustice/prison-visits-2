@@ -2,6 +2,8 @@
 name: Garth
 nomis_id: GHI
 enabled: true
+private: false
+closed: false
 address: |-
   Ulnes Walton
   Leyland
