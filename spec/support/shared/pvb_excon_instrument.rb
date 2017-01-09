@@ -7,6 +7,11 @@ RSpec.shared_context 'pvb instrumentation' do
   subject { described_class.new(start, finish, payload) }
 end
 RSpec.shared_examples_for 'request time logger' do
+  it 'appends request time to the total request time' do
+    subject.process
+    expect(Instrumentation.custom_log_items).to include(api: 500)
+  end
+
   it 'logs the current request time' do
     expect(Rails.logger).to receive(:info).with("Calling NOMIS API: GET /some/path - 500.00ms")
     subject.process

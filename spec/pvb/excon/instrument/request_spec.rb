@@ -10,11 +10,6 @@ RSpec.describe PVB::Excon::Instrument::Request do
       subject.process
     end
 
-    it 'appends request time to the total request time' do
-      subject.process
-      expect(Instrumentation.custom_log_items).to include(api: 500)
-    end
-
     it_behaves_like 'request time logger'
   end
 end
