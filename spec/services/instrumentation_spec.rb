@@ -51,7 +51,7 @@ RSpec.describe Instrumentation do
       expect {
         described_class.incr(:a_counter)
       }.to change {
-        Instrumentation.custom_log_items[:a_counter]
+        described_class.custom_log_items[:a_counter]
       }.from(nil).to(1)
     end
   end
