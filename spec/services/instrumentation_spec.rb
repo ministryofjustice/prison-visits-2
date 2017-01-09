@@ -117,7 +117,9 @@ RSpec.describe Instrumentation do
     it 'inscrements the given counter' do
       expect {
         described_class.incr(:a_counter)
-      }.to change { RequestStore.store[:a_counter] }.from(nil).to(1)
+      }.to change {
+        Instrumentation.custom_log_items[:a_counter]
+      }.from(nil).to(1)
     end
   end
 end

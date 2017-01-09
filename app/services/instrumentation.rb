@@ -24,8 +24,8 @@ module Instrumentation
     end
 
     def incr(counter)
-      RequestStore.store[counter] ||= 0
-      RequestStore.store[counter] += 1
+      old_value = custom_log_items[counter] || 0
+      append_to_log(counter => old_value + 1)
     end
 
   private
