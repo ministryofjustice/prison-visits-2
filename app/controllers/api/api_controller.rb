@@ -7,8 +7,6 @@ module Api
     before_action :store_request_id
     before_action :enforce_json
 
-    after_action :log_api_counters
-
     rescue_from ActionController::ParameterMissing do |e|
       render_error 422, "Missing parameter: #{e.param}"
     end
@@ -49,19 +47,6 @@ module Api
       RequestStore.store[:request_id] = request.uuid
       Instrumentation.append_to_log(request_id: RequestStore.store[:request_id])
       Raven.extra_context(request_id: RequestStore.store[:request_id])
-    end
-
-    def log_api_counters
-      Instrumentation.append_to_log(api_request_count: api_request_count)
-      Instrumentation.append_to_log(api_error_count:   api_error_count)
-    end
-
-    def api_request_count
-      RequestStore.store[:api_request_count]
-    end
-
-    def api_error_count
-      RequestStore.store[:api_error_count]
     end
 
     def enforce_json

@@ -23,6 +23,11 @@ module Instrumentation
       result
     end
 
+    def inc_custom_log_item(item)
+      old_value = custom_log_items[item] || 0
+      append_to_log(item => old_value + 1)
+    end
+
   private
 
     def time_action

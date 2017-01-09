@@ -113,13 +113,11 @@ module Nomis
     end
 
     def increment_request_count
-      RequestStore.store[:api_request_count] ||= 0
-      RequestStore.store[:api_request_count] += 1
+      Instrumentation.inc_custom_log_item(:api_request_count)
     end
 
     def increment_error_count
-      RequestStore.store[:api_error_count] ||= 0
-      RequestStore.store[:api_error_count] += 1
+      Instrumentation.inc_custom_log_item(:api_error_count)
     end
   end
 end
