@@ -36,7 +36,15 @@ class VisitDecorator < Draper::Decorator
                              decorate_collection(object.additional_visitors)
   end
 
+  def processed_at
+    @processed_at ||= last_visit_state_change&.created_at || object.created_at
+  end
+
 private
+
+  def last_visit_state_change
+    object.visit_state_changes.max_by(&:created_at)
+  end
 
   def nomis_checker
     @nomis_checker ||= StaffNomisChecker.new(object)
