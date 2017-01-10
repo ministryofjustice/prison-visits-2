@@ -14,7 +14,7 @@
         <div class="tag tag--requested tag--heading"><%= t('requested', scope: 'shared') %>: <br><%= @visit.created_at.to_date.to_s(:short_nomis) %> - <%= @visit.created_at.to_s(:time) %></div>
       </div>
       <div class="column-one-third">
-        <div class="tag tag--<%= @visit.processing_state %> tag--heading"><%= @visit.processing_state.capitalize %>: <br><%= @visit.updated_at.to_date.to_s(:short_nomis) %> - <%= @visit.created_at.to_s(:time) %></div>
+        <div class="tag tag--<%= @visit.processing_state %> tag--heading"><%= @visit.processing_state.capitalize %>: <br><%= @visit.processed_at.to_date.to_s(:short_nomis) %> - <%= @visit.processed_at.to_s(:time) %></div>
       </div>
       <div class="column-one-third">
         <% if @visit.reference_no -%>
