@@ -39,7 +39,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
   describe '#update' do
     subject do
-      put :update, params: { id: visit.id, visit: booking_response, locale: 'en' }
+      put :update, { id: visit.id, visit: booking_response, locale: 'en' }
     end
 
     let(:booking_response) { { slot_granted: visit.slots.first.to_s } }
@@ -71,7 +71,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
   end
 
   describe '#show' do
-    subject { get :show, params: { id: visit.id } }
+    subject { get :show, { id: visit.id } }
     let(:user) { FactoryGirl.create(:user) }
 
     it_behaves_like 'disallows untrusted ips'
@@ -137,7 +137,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     let(:cancellation) { FactoryGirl.create(:cancellation) }
     let(:visit) { cancellation.visit }
 
-    subject { post :nomis_cancelled, params: { id: visit.id } }
+    subject { post :nomis_cancelled, { id: visit.id } }
 
     it_behaves_like 'disallows untrusted ips'
 
