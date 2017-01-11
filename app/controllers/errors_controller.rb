@@ -27,7 +27,7 @@ class ErrorsController < ApplicationController
   end
 
   def test
-    raise 'This is an test exception'
+    fail 'This is an test exception'
   end
 
 private

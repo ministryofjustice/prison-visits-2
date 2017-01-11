@@ -26,7 +26,7 @@ module Api
 
       slots = params.fetch(:slot_options)
       unless slots.is_a?(Array) && slots.size >= 1
-        raise ParameterError, 'slot_options must contain >= slot'
+        fail ParameterError, 'slot_options must contain >= slot'
       end
       slots_step = SlotsStep.new(
         option_0: slots.fetch(0), # We expect at least 1 slot
@@ -82,7 +82,7 @@ module Api
 
     def fail_if_invalid(param, step)
       unless step.valid?
-        raise ParameterError,
+        fail ParameterError,
           "#{param} (#{step.errors.full_messages.join(', ')})"
       end
     end

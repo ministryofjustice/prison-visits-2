@@ -25,7 +25,7 @@ private
                where(estates: { id: accessible_estates }).
                find(params[:visit_id])
   end
-  alias visit load_visit
+  alias_method :visit, :load_visit
 
   def message_params
     params.require(:message).permit(:body).

@@ -9,7 +9,7 @@ ConcreteSlot = Struct.new(
     if m
       new(*m[1, 7].map { |s| s.to_i(10) })
     else
-      raise ArgumentError, %{cannot parse "#{str}"}
+      fail ArgumentError, %{cannot parse "#{str}"}
     end
   end
 

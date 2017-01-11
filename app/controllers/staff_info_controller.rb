@@ -42,7 +42,7 @@ private
   end
 
   def not_found
-    raise ActionController::RoutingError, 'Not Found'
+    fail ActionController::RoutingError, 'Not Found'
   end
 
   def not_available

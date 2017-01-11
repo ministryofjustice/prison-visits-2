@@ -10,7 +10,7 @@ class ZendeskTicketsJob < ActiveJob::Base
 
   def perform(feedback)
     unless Rails.configuration.try(:zendesk_client)
-      raise 'Cannot create Zendesk ticket since Zendesk not configured'
+      fail 'Cannot create Zendesk ticket since Zendesk not configured'
     end
 
     ZendeskAPI::Ticket.create!(
