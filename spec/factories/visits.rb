@@ -23,6 +23,10 @@ FactoryGirl.define do
       processing_state 'requested'
     end
 
+    trait :booked do
+      processing_state 'booked'
+    end
+
     trait :nomis_cancelled do
       processing_state 'cancelled'
 
