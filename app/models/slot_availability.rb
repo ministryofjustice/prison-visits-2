@@ -10,8 +10,8 @@ class SlotAvailability
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   def restrict_by_prisoner(prisoner_number:, prisoner_dob:)
-    # Skip restriction if Nomis api is not enabled
-    return unless Nomis::Api.enabled?
+    # Skip restriction if prisoner availability is enabled
+    return unless public_prisoner_availability_enabled?
 
     offender = Nomis::Api.instance.lookup_active_offender(
       noms_id: prisoner_number,
@@ -42,7 +42,7 @@ private
   end
 
   def nomis_slots(prison)
-    return nil unless Nomis::Api.enabled?
+    return nil unless public_prisoner_availability_enabled?
 
     Nomis::Api.instance.fetch_bookable_slots(
       prison: prison,
@@ -52,5 +52,10 @@ private
   rescue Excon::Errors::Error => e
     Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
     nil
+  end
+
+  def public_prisoner_availability_enabled?
+    Nomis::Api.enabled? &&
+      Rails.configuration.nomis_public_prisoner_availability_enabled
   end
 end

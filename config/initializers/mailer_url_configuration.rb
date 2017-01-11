@@ -10,5 +10,4 @@ configurator = lambda do |mailer_klass, env_name, non_prod_default|
   }
 end
 
-configurator.call(PrisonMailer, 'STAFF_SERVICE_URL', 'http://localhost:3000')
 configurator.call(VisitorMailer, 'PUBLIC_SERVICE_URL', 'http://localhost:4000')

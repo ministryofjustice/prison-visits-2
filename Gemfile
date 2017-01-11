@@ -29,6 +29,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rake'
 gem 'jwt'
+gem 'draper'
 
 # Fixed version as workaround for bug in 0.15.5
 # https://github.com/getsentry/raven-ruby/issues/460
@@ -50,7 +51,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop'
   gem 'rubocop-rspec'
-  gem 'shoulda-matchers'
   gem 'awesome_print', require: 'ap'
 end
 
@@ -61,10 +61,10 @@ group :test do
   gem 'ffaker'
   gem 'fuubar'
   gem 'launchy'
-  gem 'phantomjs', require: 'phantomjs/poltergeist'
   gem 'poltergeist'
   gem 'simplecov'
   gem 'simplecov-rcov'
   gem 'vcr'
   gem 'webmock'
+  gem 'shoulda-matchers'
 end

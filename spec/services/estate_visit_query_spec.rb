@@ -1,15 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe EstateVisitQuery do
-  subject(:instance) { described_class.new(estate) }
+  subject(:instance) { described_class.new(estates) }
 
   let(:prison) { FactoryGirl.create(:prison) }
-  let(:estate) { prison.estate }
+  let(:estates) { [prison.estate] }
 
   describe '#visits_to_print_by_slot' do
     subject(:visits_to_print_by_slot) do
       instance.visits_to_print_by_slot(date)
     end
+    let(:other_prison) { other_prison_visit.prison }
+    let(:estates) { [prison.estate, other_prison.estate] }
 
     let(:slot1) { ConcreteSlot.new(2016, 7, 19, 10, 30, 11, 30) }
     let(:slot2) { ConcreteSlot.new(2016, 7, 19, 14, 30, 15, 30) }
@@ -30,13 +32,26 @@ RSpec.describe EstateVisitQuery do
         prison: prison,
         slot_granted: slot1)
     end
+    let!(:other_prison_visit) do
+      FactoryGirl.create(
+        :booked_visit,
+        slot_granted: slot1)
+    end
 
-    it 'returns the data grouped by state and slot' do
-      is_expected.to eq('booked' => {
-                          slot1 => [booked_visit1],
-                          slot2 => [booked_visit2]
-                        },
-                        'cancelled' => { slot1 => [cancelled_visit] })
+    it 'returns the data grouped by prison, status and slot' do
+      is_expected.to eq(
+        prison.name => {
+          'booked' => {
+            slot1 => [booked_visit1],
+            slot2 => [booked_visit2]
+          },
+          'cancelled' => { slot1 => [cancelled_visit] }
+        },
+        other_prison.name => {
+          'booked' => {
+            slot1 => [other_prison_visit]
+          }
+        })
     end
   end
 
@@ -85,7 +100,6 @@ RSpec.describe EstateVisitQuery do
 
       context 'providing a prisoner number' do
         let(:prisoner_number) { booked.prisoner.number.downcase + ' ' }
-
         it 'returns processed visits matching the prisoner number' do
           is_expected.to eq([booked])
         end

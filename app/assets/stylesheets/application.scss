@@ -51,12 +51,13 @@
 @import "confirmations";
 
 @import "mixins";
-@import "modules/colours";
+@import "colour-overrides";
 
 // Application
 @import "badge";
 @import "buttons";
 @import "form-error";
+@import "form-overrides";
 @import "helpers";
 @import "icons";
 @import "layouts";
@@ -79,3 +80,4 @@
 // Candidates for re-usable components
 @import "responsive";
 @import "components/moj.autocomplete";
+@import "components/govuk.chosen";

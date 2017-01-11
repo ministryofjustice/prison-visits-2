@@ -87,7 +87,7 @@ RSpec.describe Prison, type: :model do
     end
 
     context 'when the lead days are broken up by the weekend' do
-      context 'when a prison doesn’t process at the weekend' do
+      context "when a prison doesn't process at the weekend" do
         #
         #    16 17 18 19 20 21 22 23 24 25 26 27 28 29
         #    Mo Tu We Th Fr Sa Su Mo Tu We Th Fr Sa Su
@@ -241,7 +241,7 @@ RSpec.describe Prison, type: :model do
   end
 
   describe '.validate_visitor_ages_on' do
-    context 'when there aren’t any visitors' do
+    context "when there aren't any visitors" do
       let(:target) { double('target').as_null_object }
       let(:group) { [] }
 

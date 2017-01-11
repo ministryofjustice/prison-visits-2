@@ -24,7 +24,14 @@ RSpec.describe VisitTimeline do
         visit.accept
         VisitStateChange.last.update!(processed_by: user)
 
-        visit.staff_cancellation!('booked_in_error')
+        CancellationResponse.new(
+          visit: visit,
+          user: nil,
+          reason: 'booked_in_error').tap(&:cancel!)
+
+        VisitStateChange.
+          find_by!(visit_state: 'cancelled').
+          update!(created_at: 1.minute.from_now)
         visit.reload
       end
 
@@ -46,6 +53,8 @@ RSpec.describe VisitTimeline do
     describe 'for a withdrawn visit' do
       before do
         visit.withdraw
+        VisitStateChange.last.update!(visitor: visit.principal_visitor)
+        visit.reload
       end
 
       it 'records the user name from the visitor for the withdraw event' do

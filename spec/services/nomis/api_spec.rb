@@ -3,6 +3,12 @@ require 'rails_helper'
 RSpec.describe Nomis::Api do
   subject { described_class.instance }
 
+  # Ensure that we have a new instance to prevent other specs interfering
+  around do |ex|
+    Singleton.__init__(described_class)
+    ex.run
+    Singleton.__init__(described_class)
+  end
   it 'is implicitly enabled if the api host is configured' do
     expect(Rails.configuration).to receive(:nomis_api_host).and_return(nil)
     expect(described_class.enabled?).to be false
@@ -26,16 +32,43 @@ RSpec.describe Nomis::Api do
       }
     }
 
-    subject { super().lookup_active_offender(params) }
+    let(:offender) { subject.lookup_active_offender(params) }
 
     it 'returns and offender if the data matches' do
-      expect(subject).to be_kind_of(Nomis::Offender)
-      expect(subject.id).to eq(1_055_827)
+      expect(offender).to be_kind_of(Nomis::Offender)
+      expect(offender.id).to eq(1_055_827)
     end
 
-    it 'returns nil if the data does not match', vcr: { cassette_name: 'lookup_active_offender-nomatch' } do
+    it 'returns NullOffender if the data does not match', vcr: { cassette_name: 'lookup_active_offender-nomatch' } do
       params[:noms_id] = 'Z9999ZZ'
-      expect(subject).to be_nil
+      expect(offender).to be_instance_of(Nomis::NullOffender)
+    end
+
+    it 'returns NullOffender if an ApiError is raised' do
+      allow_any_instance_of(Nomis::Client).to receive(:get).and_raise(Nomis::APIError)
+      expect(offender).to be_instance_of(Nomis::NullOffender)
+      expect(offender).to_not be_api_call_successful
+    end
+
+    it 'logs the lookup result, api lookup time' do
+      offender
+      expect(Instrumentation.custom_log_items[:api]).to be > 1
+      expect(Instrumentation.custom_log_items[:valid_offender_lookup]).to be true
+    end
+
+    describe 'with no matching offender', vcr: { cassette_name: 'lookup_active_offender-nomatch' } do
+      before do
+        params[:noms_id] = 'Z9999ZZ'
+      end
+
+      it 'returns nil if the data does not match' do
+        expect(offender).to be_instance_of(Nomis::NullOffender)
+      end
+
+      it 'logs the offender was unsucessful' do
+        offender
+        expect(Instrumentation.custom_log_items[:valid_offender_lookup]).to be false
+      end
     end
   end
 
@@ -55,15 +88,14 @@ RSpec.describe Nomis::Api do
       expect(subject.dates.first).to eq(Date.parse('2016-05-01'))
     end
 
+    it 'logs the number of available dates' do
+      expect(subject.dates.count).to eq(Instrumentation.custom_log_items[:visit_available_count])
+    end
+
     it 'returns empty list of available dates if there is no availability', vcr: { cassette_name: 'offender_visiting_availability-noavailability' } do
       params[:offender_id] = 1_055_847
       expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
       expect(subject.dates).to be_empty
-    end
-
-    it 'is an error if the offender does not exist', vcr: { cassette_name: 'offender_visiting_availability-invalid_offender' } do
-      params[:offender_id] = 999_999
-      expect { subject }.to raise_error(Nomis::NotFound, 'Unknown offender')
     end
   end
 
@@ -80,6 +112,10 @@ RSpec.describe Nomis::Api do
 
     it 'returns an array of slots' do
       expect(subject.first.iso8601).to eq('2016-05-09T10:30/11:30')
+    end
+
+    it 'logs the number of available slots' do
+      expect(subject.count).to eq(Instrumentation.custom_log_items[:available_slots_count])
     end
   end
 end

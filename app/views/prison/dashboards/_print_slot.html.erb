@@ -1,7 +1,7 @@
-<h2 class="heading-large">
+<h3 class="heading-large">
   <span class="heading-secondary"><%= format_date_without_year(@visit_date) %></span>
   <%= format_slot_times(slot) %>
-</h2>
+</h3>
 <table>
   <caption class="visually-hidden"><%= t('time_slot', scope: :shared) %> <%= format_slot_times(slot) %></caption>
   <thead>
@@ -11,6 +11,7 @@
       <th scope="col"><%= t('lead_visitor', scope: :shared) %></th>
       <th scope="col"><%= t('tel', scope: :shared) %></th>
       <th scope="col"><%= t('additional_visitors', scope: :shared) %></th>
+      <th scope="col"><%= t('prison', scope: :shared) %></th>
       <th scope="col"><%= t('closed', scope: :shared) %></th>
     </tr>
   </thead>
@@ -28,6 +29,7 @@
             <% end %>
           </div>
         </td>
+        <td aria-label="<%= t('prison', scope: :shared) %>"><%= visit.prison_name %></td>
         <td aria-label="<%= t('closed', scope: :shared) %>"><%= 'Y' if visit.closed %></td>
       </tr>
     <% end %>

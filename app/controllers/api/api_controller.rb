@@ -41,14 +41,12 @@ module Api
     # part of Rails' instrumentation code, and is run after each request.
     def append_info_to_payload(payload)
       super
-
-      payload[:custom_log_items] = {
-        request_id: RequestStore.store[:request_id]
-      }
+      payload[:custom_log_items] = Instrumentation.custom_log_items
     end
 
     def store_request_id
       RequestStore.store[:request_id] = request.uuid
+      Instrumentation.append_to_log(request_id: RequestStore.store[:request_id])
       Raven.extra_context(request_id: RequestStore.store[:request_id])
     end
 

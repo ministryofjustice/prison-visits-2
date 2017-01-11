@@ -23,6 +23,9 @@ en:
       message_create_error: Your message couldn't be saved
       message_created: Message created
       no_cancellation_reason: Please provide a cancellation reason
+      process_required: Please either reject or accept the booking
+      at_least_one_estate: You must select at least one estate
+      invalid_estate_selection: You don't access to these estates
     feedbacks:
       new:
         title: Contact us
@@ -50,6 +53,7 @@ en:
         visitor_cancellations: Visitor cancellations
         current: "Current prison:"
       prison_switcher:
+        prison_switcher: Select one or more prisons
         switch_estate: Update
       processed:
         title: Processed visits
@@ -62,7 +66,7 @@ en:
         no_visits: There are currently no visit requests
         process_link: View
         requests: Requests
-        title: inbox
+        title: Inbox
         visit_link_desc: visit request details for prisoner %{name} (no. %{number})
       print_visits:
         title: Print visits
@@ -99,30 +103,26 @@ en:
               with visitors’
             </li>
           </ul>
-        message_body: Message (optional)
+        body: Message (optional)
         submit: Process
         email_preview: Preview Email
-        prisoner_does_not_exist: "The provided prisoner information didn't match any prisoner."
+        prisoner_available: Prisoner available
+        prisoner_not_available: Prisoner unavailable
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
-        verified: Verified
+        prison_name: Prison name
+        prisoner_does_not_exist_text: The prisoner date of birth and number do not match.
+        unknown_text: "The check couldn't take place due to a system error, please verify manually"
         verified_html: |
           The prisoner date of birth and number have been verified. <br>Please check the prisoner name.
-        invalid: Not verified
-        unknown: Unknown
-        prisoner_does_not_exist_text: "The provided prisoner information didn't match any prisoner."
-        unknown_text: The check couldn't take place due to a system error, please verify manually
       validate_prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
-        verified: Verified
-        verified_html: |
-          The prisoner date of birth and number have been verified. <br>Please check the prisoner name.
         invalid: Not verified
         unknown: Unknown
         prisoner_does_not_exist_text: The prisoner date of birth and number do not match.
@@ -173,7 +173,9 @@ en:
         reference_no_hint: eg Last 8 digits of VO number or “none” for remand
         closed_visit: This is a closed visit
         none_available: None of the chosen times are available
+        prisoner_availability_unknown: You must check NOMIS to verify prisoner availability
       issue_with_prisoner_section:
+        visiting_allowance: Visiting allowance
         no_allowance: Prisoner does not have any visiting allowance
         prisoner_details_incorrect: Prisoner details are incorrect
         prisoner_moved: Prisoner has moved prisons
@@ -181,17 +183,12 @@ en:
         prisoner_non_association: Prisoner has a non-association
         child_protection_issues: Prisoner has child protection measures
         no_allowance_tell_more: >-
-          You can also tell the visitor more about the VO and PVO status:
+          You can also tell the visitor more about the VO status:
         allowance_will_renew: >-
           Visiting allowance (weekends and weekday visits) (VO) will
           be renewed:
         allowance_renews_on: Date visiting allowance will be renewed
         allowance_renews_on_hint: eg 28 04 1996
-        privileged_allowance_available: >-
-          If weekday visit (PVO) is possible instead, choose the date
-          PVO expires:
-        privileged_allowance_available_on: Date privileged visiting allowance will be renewed
-        privileged_allowance_available_on_hint: eg 28 04 1996
       visitor_details:
         title: Visitor details
         visitor_not_on_list: Visitor is not on the contact list
@@ -200,10 +197,14 @@ en:
         dob: "Date of birth (age)"
         email: "Email address"
         phone_no: "Phone no"
+        banned: Visitor is banned
+        banned_until: Banned until
+        banned_until_hint: eg 28 04 1996
       visitor_detail:
         title: Visitor details
         not_listed: Not listed
         banned: Banned
+        until: until
         name: "Name"
         dob: "Date of birth (age)"
         email: "Email address"
@@ -235,6 +236,7 @@ en:
     not_all_visits: Not all visits are shown
     open_close: Open/Close
     other_visitors: Other visitors
+    prison: Prison
     prisoner: Prisoner
     prisoner_name: Prisoner name
     prisoner_number: Prisoner no.

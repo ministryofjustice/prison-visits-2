@@ -9,6 +9,7 @@ AllCops:
     - '**/*.gemspec'
     - '**/Rakefile'
     - '**/Vagrantfile'
+    - 'app/views/api/**/*.json.jbuilder'
     - 'config/initializers/simple_form.rb'
     - 'config/unicorn.rb'
     - 'spec/rails_helper.rb'
@@ -69,10 +70,10 @@ Style/TrivialAccessors:
 
 # Default is 100
 Metrics/ClassLength:
-  Max: 150
+  Max: 200
 
 Metrics/LineLength:
-  Max: 80
+  Max: 90
   Exclude:
     - 'spec/**/*'
 
@@ -101,6 +102,9 @@ Style/StringLiterals:
 # Prefer sensible naming to comments everywhere.
 Documentation:
   Description: Document classes and non-namespace modules.
+  Enabled: false
+
+Style/DoubleNegation:
   Enabled: false
 
 # Would enforce do_y if x over if x / do y / end. As with GuardClause above,

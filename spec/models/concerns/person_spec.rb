@@ -23,6 +23,8 @@ RSpec.describe Person do
     end
   end
 
+  it { is_expected.to_not be_persisted }
+
   describe 'minimum_date_of_birth' do
     it 'gives a day of 1st' do
       expect(subject.minimum_date_of_birth.day).to eq(1)

@@ -3,16 +3,16 @@ require 'rails_helper'
 require 'mailers/shared_mailer_examples'
 
 RSpec.describe VisitorMailer, '.rejected' do
-  let(:rejection) { create(:rejection, reason: reason) }
+  let(:visit) { create :visit }
   let(:reason) { 'slot_unavailable' }
   let(:booking_response) do
     BookingResponse.new(
-      visit:     rejection.visit,
-      selection: reason
+      visit:     visit
     )
   end
-  let(:mail) { described_class.rejected(booking_response.email_attrs) }
+  let(:mail) { described_class.rejected(booking_response.email_attrs, message_attributes) }
   let(:body) { mail.html_part.body }
+  let(:message_attributes) { nil }
 
   around do |example|
     travel_to Date.new(2015, 10, 1) do
@@ -21,43 +21,45 @@ RSpec.describe VisitorMailer, '.rejected' do
   end
 
   before do
+    visit.rejection_attributes = { reasons: [reason] }
     ActionMailer::Base.deliveries.clear
   end
 
   context 'always' do
     it 'sends an email reporting the rejection' do
       expect(mail.subject).
-        to match(/your visit for Monday 12 October could not be booked/)
+        to match(/Your visit to #{visit.prison_name} is NOT booked/)
     end
 
     it 'uses the locale of the visit' do
-      rejection.visit.update locale: 'cy'
+      pending('Wait for Welsh translation')
+      visit.update locale: 'cy'
       expect(mail.subject).
         to match(
           /nid oedd yn bosib trefnu eich ymweliad ar Dydd Llun 12 Hydref/)
     end
 
     it 'includes the visit id' do
-      expect(mail.body.encoded).to match(rejection.visit_id)
+      expect(mail.body.encoded).to match(visit.id)
     end
 
     context 'includes information about banned visitors' do
       before do
-        rejection.visit.visitors << build(
+        visit.visitors << build(
           :visitor,
           banned: true,
           first_name: 'Percy',
           last_name: 'Perkins',
           sort_index: 1
         )
-        rejection.visit.visitors << build(
+        visit.visitors << build(
           :visitor,
           banned: true,
+          banned_until: 6.months.from_now.to_date,
           first_name: 'John',
           last_name: 'Johnson',
           sort_index: 2
         )
-        booking_response.banned_visitor_ids = rejection.visit.banned_visitors.map(&:id)
       end
 
       it 'explains the error' do
@@ -65,27 +67,27 @@ RSpec.describe VisitorMailer, '.rejected' do
       end
 
       it 'enumerates the banned visitors' do
-        expect(body).to match(/Percy P and John J should have received a letter/)
+        expect(body).to match(/Percy P is banned from visiting the prison at the moment/)
+        expect(body).to match(%r{John J is banned from visiting the prison until 01\/04\/2016})
       end
     end
 
     context 'includes information about not on list visitors' do
       before do
-        rejection.visit.visitors << build(
+        visit.visitors << build(
           :visitor,
           not_on_list: true,
           first_name: 'Percy',
           last_name: 'Perkins',
           sort_index: 1
         )
-        rejection.visit.visitors << build(
+        visit.visitors << build(
           :visitor,
           not_on_list: true,
           first_name: 'John',
           last_name: 'Johnson',
           sort_index: 2
         )
-        booking_response.unlisted_visitor_ids = rejection.visit.unlisted_visitors.map(&:id)
       end
 
       it 'explains the error' do
@@ -93,18 +95,14 @@ RSpec.describe VisitorMailer, '.rejected' do
       end
 
       it 'enumerates the banned visitors' do
-        expect(body).to match(/details for Percy P and John J don’t match our/)
+        expect(body).to match(/details for Percy P and John J don't match our/)
       end
     end
   end
 
   context 'with a rejection staff message' do
     let(:message) { FactoryGirl.build_stubbed(:message) }
-
-    before do
-      expect(booking_response).
-        to receive(:message_body).and_return(message.body)
-    end
+    let(:message_attributes) { message.attributes.slice('body') }
 
     it 'displays the message' do
       expect(body).to match(message.body)
@@ -121,23 +119,16 @@ RSpec.describe VisitorMailer, '.rejected' do
     include_examples 'template checks'
 
     before do
-      booking_response.selection                       = 'no_allowance'
-      booking_response.privileged_allowance_available  = true
-      booking_response.allowance_will_renew            = true
-      booking_response.allowance_renews_on             = Date.new(2015, 10, 1)
-      booking_response.privileged_allowance_expires_on = Date.new(2015, 10, 2)
+      visit.rejection.reasons = ['no_allowance']
+      visit.rejection.allowance_renews_on = Date.new(2015, 10, 1)
     end
 
     it 'explains the error' do
-      expect(body).to match(/has not got any visiting allowance left/)
-    end
-
-    it 'explains privileged allowance expiry' do
-      expect(body).to match(/valid until Friday 2 October/)
+      expect(body).to match(/prisoner has used their allowance of visits for this month/)
     end
 
     it 'explains allowance renewal' do
-      expect(body).to match(/renewed on Thursday 1 October/)
+      expect(body).to match(/you can only book a visit from Thursday 1 October onwards/)
     end
   end
 
@@ -147,7 +138,7 @@ RSpec.describe VisitorMailer, '.rejected' do
     include_examples 'template checks'
 
     it 'explains the error' do
-      expect(body).to match(/haven’t given correct information for the prisoner/)
+      expect(body).to match(/we can't find the prisoner from the information you've given/)
     end
   end
 
@@ -197,7 +188,7 @@ RSpec.describe VisitorMailer, '.rejected' do
     include_examples 'template checks'
 
     it 'explains the error' do
-      expect(body).to match(/at least one adult/)
+      expect(body).to match(/children under 18 can only visit prison with an adult and you've not listed any adults/)
     end
   end
 end

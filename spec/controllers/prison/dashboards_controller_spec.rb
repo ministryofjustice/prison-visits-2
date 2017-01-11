@@ -14,7 +14,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        login_user(user, estate)
+        login_user(user, current_estates: [estate])
       end
 
       it { is_expected.to be_successful }
@@ -35,7 +35,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        login_user(user, estate)
+        login_user(user, current_estates: [estate])
       end
 
       it { is_expected.to be_successful }
@@ -62,7 +62,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        login_user(user, estate)
+        login_user(user, current_estates: [estate])
       end
 
       it { is_expected.to be_successful }
@@ -117,7 +117,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
     context "when logged in" do
       before do
-        login_user(user, estate)
+        login_user(user, current_estates: [estate])
       end
 
       let!(:visit1) do
@@ -153,8 +153,9 @@ RSpec.describe Prison::DashboardsController, type: :controller do
         it 'assigns visits with a slot granted on the date' do
           subject
 
-          expect(assigns[:data]['booked'][visit1.slot_granted].size).to eq(1)
-          expect(assigns[:data]['booked'][visit2.slot_granted].size).to eq(1)
+          prison_name = visit1.prison_name
+          expect(assigns[:data][prison_name]['booked'][visit1.slot_granted].size).to eq(1)
+          expect(assigns[:data][prison_name]['booked'][visit2.slot_granted].size).to eq(1)
         end
 
         context 'as a csv' do
@@ -166,43 +167,6 @@ RSpec.describe Prison::DashboardsController, type: :controller do
           end
 
           it { is_expected.to be_successful }
-        end
-      end
-    end
-  end
-
-  context '#switch_estate' do
-    let(:estate2) { FactoryGirl.create(:estate) }
-    let(:other_estate) { estate2 }
-    subject do
-      post :switch_estate, estate_id: other_estate.id
-    end
-
-    context "when logged out" do
-      let(:visit_date) { nil }
-
-      it { is_expected.to_not be_successful }
-    end
-
-    context "when logged in" do
-      before do
-        login_user(user, estate, available_estates: [estate, estate2])
-        request.env['HTTP_REFERER'] = '/previous/path'
-      end
-
-      it 'updates the session current estate' do
-        subject
-        expect(controller.current_estate).to eq(other_estate)
-      end
-
-      it { is_expected.to redirect_to('/previous/path') }
-
-      context 'when switching to an inaccessible estate' do
-        let(:other_estate) { FactoryGirl.create(:estate) }
-
-        it 'does not updated the current estate' do
-          subject
-          expect(controller.current_estate).to eq(estate)
         end
       end
     end

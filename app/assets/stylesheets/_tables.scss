@@ -1,3 +1,31 @@
+table.sortable {
+  th {
+    cursor: pointer;
+  }
+  #sorttable_sortfwdind, #sorttable_sortrevind {
+    display: none;
+  }
+  th:after {
+    content: image-url('accordion-closed.png');
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-left: 5px;
+  }
+  th.sorttable_nosort {
+    cursor: auto;
+    &:after {
+      content: '';
+      display: none;
+    }
+  }
+  th.sorttable_sorted:after {
+    content: image-url('accordion-open.png');
+  }
+  th.sorttable_sorted_reverse:after {
+    content: image-url('accordion-up.png');
+  }
+}
 @media screen and (max-width: 768px) {
   table thead {
     display: none;

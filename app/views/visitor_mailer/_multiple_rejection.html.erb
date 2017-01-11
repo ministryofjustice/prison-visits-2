@@ -1,0 +1,5 @@
+<%= t('intro_html', prison_name: @visit.prison_name, scope: [:visitor_mailer, :rejected]) %>
+<p><%= t('cant_visit', scope: [:visitor_mailer, :rejected]) %>:</p>
+<ul class="list list-bullet">
+  <%= render @rejection.formatted_reasons %>
+</ul>

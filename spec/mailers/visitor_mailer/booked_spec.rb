@@ -3,12 +3,15 @@ require 'mailers/shared_mailer_examples'
 
 RSpec.describe VisitorMailer, '.booked' do
   let(:visit) { create(:booked_visit) }
+  let!(:visitor) { create(:visitor, :banned, visit: visit, banned_until: banned_until) }
+  let(:banned_until) { 3.days.from_now.to_date }
   let(:booking_response) do
-    BookingResponse.new(visit: visit, user: create(:user), selection: BookingResponse::SLOTS.first)
+    BookingResponse.new(visit: visit, user: create(:user))
   end
-  let(:mail) { described_class.booked(booking_response.email_attrs) }
-
+  let(:mail) { described_class.booked(booking_response.email_attrs, message_attributes) }
+  let(:message_attributes) { nil }
   before do
+    booking_response.valid?
     ActionMailer::Base.deliveries.clear
   end
 
@@ -26,21 +29,20 @@ RSpec.describe VisitorMailer, '.booked' do
   end
 
   it 'uses the locale of the visit' do
-    visit.update locale: 'cy'
+    visit.locale = 'cy'
     expect(mail.subject).
       to match(/mae eich ymweliad ar Dydd Llun 12 Hydref wedi'i gadarnhau/)
   end
 
-  context 'with an acceptance staff message' do
-    let(:message) { FactoryGirl.build_stubbed(:message) }
+  it 'notifies of the banned visitor' do
+    expect(mail.html_part.body).to match("until #{banned_until.to_s(:short_nomis)}")
+  end
 
-    before do
-      expect(booking_response).
-        to receive(:message_body).and_return(message.body)
-    end
+  context 'with an acceptance staff message' do
+    let(:message_attributes) { attributes_for(:message).slice(:body) }
 
     it 'displays the message' do
-      expect(mail.html_part.body).to match(message.body)
+      expect(mail.html_part.body).to match(message_attributes[:body])
     end
   end
 end

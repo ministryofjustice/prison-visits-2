@@ -1,12 +1,9 @@
 <%= render 'prison/dashboards/banner' %>
-
-<% if current_user %>
-  <%= render 'prison/dashboards/navigation' %>
-<% end %>
+<%= render 'prison/dashboards/navigation' %>
 
 <div class="grid-row push-top">
   <div class="column-one-third">
-    <h1 class="bold-large float-left"><%= t('.title') %></h1>
+    <h1 class="bold-large"><%= t('.title') %></h1>
   </div>
   <div class="column-two-thirds">
     <div class="grid-row">
@@ -14,7 +11,7 @@
         <div class="tag tag--requested tag--heading"><%= t('requested', scope: 'shared') %>: <br><%= @visit.created_at.to_date.to_s(:short_nomis) %> - <%= @visit.created_at.to_s(:time) %></div>
       </div>
       <div class="column-one-third">
-        <div class="tag tag--<%= @visit.processing_state %> tag--heading"><%= @visit.processing_state.capitalize %>: <br><%= @visit.updated_at.to_date.to_s(:short_nomis) %> - <%= @visit.created_at.to_s(:time) %></div>
+        <div class="tag tag--<%= @visit.processing_state %> tag--heading"><%= @visit.processing_state.capitalize %>: <br><%= @visit.processed_at.to_date.to_s(:short_nomis) %> - <%= @visit.processed_at.to_s(:time) %></div>
       </div>
       <div class="column-one-third">
         <% if @visit.reference_no -%>
@@ -32,14 +29,16 @@
 <% end %>
 
 <div class="grid-row">
-  <% if @visit.rejection %>
+  <% if @visit.rejected? %>
     <div class="column-two-thirds push-top">
-      <div class="panel panel-border-narrow">
-        <div class="text-secondary">
-          <%= @visit.processing_state.capitalize %> reason
-        </div>
-        <small class="font-xsmall"><%= t(@visit.rejection_reason, scope: :shared) %></small>
+      <div class="push-top text-secondary push-bottom--half">
+        <i class="icon icon-information align-vertical--middle"></i> Rejected reason(s)
       </div>
+      <ul class="list list-bullet">
+        <% @visit.rejection.reasons.each do |reason| %>
+            <li><%= t(reason, scope: :shared) %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
   <% if @visit.cancelled? %>
@@ -67,7 +66,7 @@
   <div class="grid-row push-top">
     <% @visit.slots.each_with_index do |slot, i| %>
     <div class="column-one-third">
-      <div class="date-box <%= 'selected' if @visit.slot_granted == slot %>">
+      <div class="date-box <%= 'selected' if @visit.slot_granted == slot.object %>">
         <span class="date-box__number"><%= i+1 %></span>
         <span class="date-box__day"><%= format_date_day(slot) %></span>
         <br><%= format_date_of_birth(slot) %> <br><%= format_slot_times(slot) %>

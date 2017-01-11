@@ -1,27 +1,23 @@
 class EstateVisitQuery
-  def initialize(estate)
-    @estate = estate
+  def initialize(estates)
+    @estates = estates
   end
 
   def visits_to_print_by_slot(date)
     return {} unless date
 
-    visits = Visit.includes(:prisoner, :visitors).
-             processed.from_estate(@estate).
+    visits = Visit.includes(:prisoner, :visitors, :prison).
+             processed.from_estates(@estates).
              where('slot_granted LIKE ?', "#{date.to_s(:db)}%").
              order('slot_granted asc').to_a
 
-    visits.
-      group_by(&:processing_state).
-      each_with_object({}) do |(processing_state, slots), result|
-        result[processing_state] = slots.group_by(&:slot_granted)
-      end
+    grouped_visits(visits)
   end
 
-  def processed(limit:, prisoner_number: nil)
+  def processed(limit:, prisoner_number:)
     visits = Visit.preload(:prisoner, :visitors).
              processed.
-             from_estate(@estate).
+             from_estates(@estates).
              order('visits.updated_at desc').limit(limit)
 
     if prisoner_number.present?
@@ -35,7 +31,25 @@ class EstateVisitQuery
   def inbox_count
     Visit.
       ready_for_processing.
-      from_estate(@estate).
+      from_estates(@estates).
       count
+  end
+
+private
+
+  # Returns a nested hash like:
+  # { 'Cardiff' => { 'booked' => { concrete_slot1 => [ v1, v2] }}}
+  def grouped_visits(visits)
+    visits.
+      group_by(&:prison_name).
+      each_with_object({}) do |(prison_name, visits_by_prison), result|
+        result[prison_name] = {}
+
+        by_processing_state = visits_by_prison.group_by(&:processing_state)
+        by_processing_state.each do |processing_state, visits_by_status|
+          result[prison_name][processing_state] = visits_by_status.
+                                                  group_by(&:slot_granted)
+        end
+      end
   end
 end

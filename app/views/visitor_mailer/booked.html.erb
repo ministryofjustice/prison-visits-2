@@ -1,22 +1,22 @@
-<p><%= t(".salutation", name: (@booking_response.visitor_full_name)) %></p>
+<p><%= t(".salutation", name: (@visit.visitor_full_name)) %></p>
 
-<p><%= t(".visit_confirmed", prison: (@booking_response.prison_name)) %></p>
+<p><%= t(".visit_confirmed", prison: (@visit.prison_name)) %></p>
 
-<h3><%= format_slot_for_public(@booking_response.slot_granted) %></h3>
+<h3><%= format_slot_for_public(@visit.slot_granted) %></h3>
 
 <p><%= t(".please_arrive") %></p>
 
 <p>
   <%= t('.prisoner') %>
-  <strong><%= @booking_response.prisoner_anonymized_name %></strong>
+  <strong><%= @visit.prisoner_anonymized_name %></strong>
 </p>
 
 <p>
   <%= t('.number') %>
-  <strong><%= @booking_response.prisoner_number %></strong>
+  <strong><%= @visit.prisoner_number %></strong>
 </p>
 
-<% @booking_response.allowed_visitors.each_with_index do |visitor, index| %>
+<% @visit.allowed_visitors.each_with_index do |visitor, index| %>
   <p>
     <%= t('.visitor', n: index + 1) %>
     <strong><%= visitor.anonymized_name %></strong>
@@ -25,27 +25,33 @@
 
 <p>
   <%= t(".reference_no") %>
-  <strong><%= @booking_response.reference_no %></strong>
+  <strong><%= @visit.reference_no %></strong>
 </p>
 
-<% if @booking_response.message_body %>
+<% if @message&.body.present? %>
   <h2><%= t('.message_title') %></h2>
-  <p><i><%= @booking_response.message_body %></i></p>
+  <p><i><%= @message.body %></i></p>
 <% end %>
 
-<% if @booking_response.closed? %>
+<% if @visit.closed? %>
   <p><%= t(".this_is_a_closed_visit_html") %></p>
 <% end %>
 
-<% if @booking_response.banned_visitors.any? %>
-  <% @booking_response.banned_visitors.each do |v| %>
-    <p><%= t('.visitor_banned_html', name: v.anonymized_name) %></p>
+<% if @visit.banned_visitors.any? %>
+  <% @visit.banned_visitors.each do |v| %>
+    <p>
+      <% if v.banned_until? %>
+        <%= t('.visitor_banned_until_html', name: v.anonymized_name, banned_until: v.banned_until.to_s(:short_nomis)) %>
+      <% else %>
+        <%= t('.visitor_banned_html', name: v.anonymized_name) %>
+      <% end %>
+    </p>
   <% end %>
   <p><%= t('.banned_instructions') %></p>
 <% end %>
 
-<% if @booking_response.unlisted_visitors.any? %>
-  <% @booking_response.unlisted_visitors.each do |v| %>
+<% if @visit.unlisted_visitors.any? %>
+  <% @visit.unlisted_visitors.each do |v| %>
     <p><%= t('.visitor_not_on_list_html', name: v.anonymized_name) %></p>
   <% end %>
   <p><%= t('.not_on_list_instructions') %></p>
@@ -55,9 +61,9 @@
 
 <p>
   <% if @override_cancel_link %>
-    <%= t('.cancel_html', url: prison_visit_url(@booking_response.visit, locale: I18n.locale)) %>
+    <%= t('.cancel_html', url: prison_visit_url(@visit, locale: I18n.locale)) %>
   <% else %>
-    <%= t('.cancel_html', url: link_directory.visit_status(@booking_response.visit, locale: I18n.locale)) %>
+    <%= t('.cancel_html', url: link_directory.visit_status(@visit, locale: I18n.locale)) %>
   <% end %>
 </p>
 
@@ -70,11 +76,11 @@
 <ul>
   <li>
     <%= t(".phone_no") %>
-    <strong><%= @booking_response.prison_phone_no %></strong>
+    <strong><%= @visit.prison_phone_no %></strong>
   </li>
   <li>
     <%= t(".email_address") %>
-    <strong><%= @booking_response.prison_email_address %></strong>
+    <strong><%= @visit.prison_email_address %></strong>
   </li>
 </ul>
 
@@ -83,7 +89,7 @@
 <p><%= t(".avoid_spam_filtering_body",
          email: address_book.no_reply) %>
 
-  <%= render('visitor_mailer/visit_info', visit: @booking_response.visit) %>
+  <%= render('visitor_mailer/visit_info', visit: @visit) %>
 
 <h2><%= t(".your_data_title") %></h2>
 
@@ -97,5 +103,5 @@
 </p>
 
 <p>
-  <small><%= t(".visit_id") %> <%= @booking_response.visit.id %></small>
+  <small><%= t(".visit_id") %> <%= @visit&.id %></small>
 </p>

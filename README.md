@@ -211,6 +211,20 @@ The `NOMIS_API_TOKEN` is a JWT token which grants access to the NOMIS API when t
 
 (Optional) If not set API calls will be sent without an Authorization header.
 
+#### `NOMIS_STAFF_PRISONER_CHECK_ENABLED`, `NOMIS_PUBLIC_PRISONER_CHECK_ENABLED`
+
+If `true` then the Nomis API will be used for staff or public to check the
+prisoner validity.
+
+(Optional) By default it is false.
+
+#### `NOMIS_STAFF_PRISONER_AVAILABILITY_ENABLED`, `NOMIS_PUBLIC_PRISONER_AVAILABILITY_ENABLED`
+
+If `true` then the Nomis API will be used for staff or public to check the
+prisoner availability.
+
+(Optional) By default it is false.
+
 #### `PRISON_ESTATE_IPS`
 
 A semicolon- or comma-separated list of IP addresses or CIDR ranges. Users on

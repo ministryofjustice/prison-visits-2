@@ -27,8 +27,8 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
       "job_class" => "ActionMailer::DeliveryJob",
       "job_id" => "5962f204-9f90-4196-95bd-c7db08a9c8dd",
       "queue_name" => "mailers",
-      "arguments" => ["PrisonMailer",
-                      "request_received",
+      "arguments" => ["VisitorMailer",
+                      "booked",
                       "deliver_now!",
                       { "_aj_globalid" => visit.to_global_id }]
     }]
@@ -63,7 +63,7 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
           'ActiveSupportNotification',
           duration: 1234,
           payload: {
-            job: double(arguments: ['PrisonMailer', 'cancelled', visit, 'foo'],
+            job: double(arguments: ['VisitorMailer', 'cancelled', visit, 'foo'],
                         queue_name: 'mailers')
           })
       end
@@ -91,7 +91,7 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
         it 'outputs a message' do
           expect(logged_message).
             to include(
-              'job_name' => 'prison_mailer_cancelled',
+              'job_name' => 'visitor_mailer_cancelled',
               'arguments' => [visit.to_global_id.to_s, 'foo'],
               'queue_name' => 'mailers',
               'job_status' => 'completed',
@@ -131,7 +131,7 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
         it 'outputs a message' do
           expect(logged_message).
             to include(
-              'job_name' => 'prison_mailer_cancelled',
+              'job_name' => 'visitor_mailer_cancelled',
               'arguments' => [visit.to_global_id.to_s, 'foo'],
               'queue_name' => 'mailers',
               'job_status' => 'to_be_retried',
@@ -159,7 +159,7 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
         it 'outputs a message' do
           expect(logged_message).
             to include(
-              'job_name' => 'prison_mailer_cancelled',
+              'job_name' => 'visitor_mailer_cancelled',
               'arguments' => [visit.to_global_id.to_s, 'foo'],
               'queue_name' => 'mailers',
               'job_status' => 'failed',

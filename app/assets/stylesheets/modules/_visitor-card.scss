@@ -9,4 +9,10 @@
   dd {
     @include bold-16;
   }
+  .form-label, .form-hint {
+    @include core-16;
+  }
+  .form-label-bold {
+    @include bold-16;
+  }
 }

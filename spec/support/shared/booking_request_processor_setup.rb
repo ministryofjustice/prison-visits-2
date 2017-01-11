@@ -1,24 +1,31 @@
-RSpec.shared_context 'booking request processor setup' do
-  let(:user)              { create(:user) }
+RSpec.shared_context 'booking response setup' do
+  let(:principal_visitor) { visit.principal_visitor }
   let(:visit)             { create :visit_with_three_slots }
-  let!(:visitor) { create(:visitor, visit: visit) }
-  let(:unlisted_visitors) do
-    create_list(:visitor, 2, visit: visit)
-  end
-  let(:banned_visitors)   do
-    create_list(:visitor, 2, visit: visit)
-  end
-  let(:booking_response) { BookingResponse.new(params) }
+  let(:slot_granted)      { visit.slot_option_0 }
+  let(:processing_state)  { 'requested' }
   let(:params) do
     {
-      user:                 user,
-      visit:                visit,
-      selection:            BookingResponse::SLOTS.sample,
-      unlisted_visitor_ids: unlisted_visitors.map(&:id),
-      banned_visitor_ids:   banned_visitors.map(&:id),
-      message_body:         'a message from the team'
+      slot_option_0:        visit.slot_option_0,
+      slot_option_1:        visit.slot_option_1,
+      slot_option_2:        visit.slot_option_2,
+      slot_granted:         slot_granted,
+      prison_id:            visit.prison_id,
+      prisoner_id:          visit.prisoner_id,
+      principal_visitor_id: visit.principal_visitor.id,
+      processing_state:     processing_state,
+      visitor_ids:          visit.visitor_ids,
+      reference_no:         'A1234BC',
+      closed:               [true, false].sample,
+      rejection_attributes: {
+        allowance_renews_on: {
+          day: '', month: '', year: ''
+        }
+      },
+      visitors_attributes:  {
+        '0' => visit.principal_visitor.attributes.slice('id', 'banned', 'not_on_list')
+      }
     }
   end
 
-  subject { described_class.new(booking_response) }
+  let(:user) { create(:user) }
 end

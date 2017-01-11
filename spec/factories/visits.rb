@@ -23,6 +23,10 @@ FactoryGirl.define do
       processing_state 'requested'
     end
 
+    trait :booked do
+      processing_state 'booked'
+    end
+
     trait :nomis_cancelled do
       processing_state 'cancelled'
 
@@ -76,7 +80,12 @@ FactoryGirl.define do
     end
 
     factory :rejected_visit do
-      processing_state 'rejected'
+      rejection_attributes do { reasons: [Rejection::SLOT_UNAVAILABLE] } end
+      after :create do |visit|
+        booking_request = BookingResponse.new(visit: visit)
+        booking_request.valid?
+        BookingResponder.new(booking_request).respond!
+      end
     end
 
     factory :withdrawn_visit do

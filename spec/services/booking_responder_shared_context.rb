@@ -31,13 +31,6 @@ RSpec.shared_context 'accepting a request' do
     subject.respond!
   end
 
-  it 'emails the prison' do
-    expect(PrisonMailer).to receive(:booked).with(visit).
-      and_return(mailing)
-    expect(mailing).to receive(:deliver_later)
-    subject.respond!
-  end
-
   context 'with the first slot' do
     before do
       booking_response.selection = 'slot_0'

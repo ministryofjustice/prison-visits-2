@@ -8,7 +8,7 @@ class BookedVisitsCsvExporter
   end
 
   def to_csv
-    visits = @data.values.map(&:values).flatten
+    visits = @data.values.map(&:values).flatten(1).map(&:values).flatten
 
     CSV.generate(headers: headers, write_headers: true) do |csv|
       visits.each do |visit|
@@ -19,7 +19,7 @@ class BookedVisitsCsvExporter
 
   def headers
     [
-      'Status', 'Prisoner name', 'Prisoner number', 'Slot granted',
+      'Status', 'Prison', 'Prisoner name', 'Prisoner number', 'Slot granted',
       'Closed visit', 'Lead visitor', 'Lead visitor dob',
       'Lead visitor allowed?', 'Phone number', 'Email address',
       'Visitor 2 name', 'Visitor 2 dob', 'Visitor 2 allowed?',
@@ -36,18 +36,23 @@ private
     visit_attrs(visit).merge(additional_visitor_attrs(visit.visitors))
   end
 
-  def visit_attrs(visit){
-    'Status' => visit.processing_state,
-    'Prisoner name' => visit.prisoner_full_name,
-    'Prisoner number' => visit.prisoner_number,
-    'Slot granted' => format_slot_for_staff(visit.slot_granted),
-    'Closed visit' => visit.closed?,
-    'Lead visitor' => visit.visitor_full_name,
-    'Lead visitor dob' => visit.visitor_date_of_birth,
-    'Lead visitor allowed?' => visit.principal_visitor.allowed?,
-    'Phone number' => visit.contact_phone_no,
-    'Email address' => visit.contact_email_address }
+  # rubocop:disable Metrics/MethodLength
+  def visit_attrs(visit)
+    {
+      'Status' => visit.processing_state,
+      'Prison' => visit.prison_name,
+      'Prisoner name' => visit.prisoner_full_name,
+      'Prisoner number' => visit.prisoner_number,
+      'Slot granted' => format_slot_for_staff(visit.slot_granted),
+      'Closed visit' => visit.closed?,
+      'Lead visitor' => visit.visitor_full_name,
+      'Lead visitor dob' => visit.visitor_date_of_birth,
+      'Lead visitor allowed?' => visit.principal_visitor.allowed?,
+      'Phone number' => visit.contact_phone_no,
+      'Email address' => visit.contact_email_address
+    }
   end
+  # rubocop:enable Metrics/MethodLength
 
   def additional_visitor_attrs(visitors)
     attrs = {}

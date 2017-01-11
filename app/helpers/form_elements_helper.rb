@@ -41,6 +41,7 @@ module FormElementsHelper
   end
 
   def field_error(form, name)
+    return unless form.object
     errors = form.object.errors[name]
     return '' unless errors.any?
     content_tag(:span, class: 'validation-message') { errors.first }
@@ -56,11 +57,11 @@ module FormElementsHelper
   end
 
   def error_container(form, name, options = { class: 'form-group' }, &blk)
-    klass = if form.object.errors.include?(name)
-              [options[:class], 'error'].compact.join(' ')
-            else
-              options[:class]
-            end
+    if form.object&.errors&.include?(name)
+      klass = [options[:class], 'error'].compact.join(' ')
+    else
+      klass = options[:class]
+    end
     content_tag(:div, options.merge(class: klass), &blk)
   end
 
@@ -82,9 +83,11 @@ private
   end
 
   def label_wrapped_single_field(form, name, field_method, *options)
+    label_class = options.delete(:no_block) ? 'form-checkbox' : 'block-label'
+
     error_container(form, name) {
       join(
-        form.label(name, class: 'block-label') {
+        form.label(name, class: label_class) {
           join(
             form.public_send(field_method, name, *options),
             t(".#{name}"),

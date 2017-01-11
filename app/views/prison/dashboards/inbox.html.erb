@@ -2,7 +2,7 @@
 <%= render 'navigation' %>
 <%= render 'prison_switcher' %>
 <% content_for :header do %>
-  <%= @estate.name %> <%= t('.title') %>
+  <%= t('.title') %>
 <% end %>
 
 <h3 class="heading-medium"><%= t('.cancellations') %></h3>
@@ -14,3 +14,8 @@
 <% else %>
   <p class="lede"><%= t('no_visits', scope: :shared) %></p>
 <% end %>
+<script>
+  var pvb = {
+    'user_email': '<%= current_user.email %>'
+  };
+</script>

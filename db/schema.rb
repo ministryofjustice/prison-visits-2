@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161011123918) do
+ActiveRecord::Schema.define(version: 20161213154755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20161011123918) do
     t.string   "nomis_id",              limit: 3, null: false
     t.string   "finder_slug",                     null: false
     t.string   "sso_organisation_name"
+    t.string   "group"
   end
 
   add_index "estates", ["name"], name: "index_estates_on_name", unique: true, using: :btree
@@ -97,7 +98,7 @@ ActiveRecord::Schema.define(version: 20161011123918) do
     t.uuid     "visit_id",                                     null: false
     t.date     "allowance_renews_on"
     t.date     "privileged_allowance_expires_on"
-    t.string   "reason",                                       null: false
+    t.string   "reason"
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.string   "reasons",                         default: [],              array: true
@@ -123,6 +124,7 @@ ActiveRecord::Schema.define(version: 20161011123918) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.uuid     "processed_by_id"
+    t.uuid     "visitor_id"
   end
 
   add_index "visit_state_changes", ["visit_id"], name: "index_visit_state_changes_on_visit_id", using: :btree
@@ -137,6 +139,7 @@ ActiveRecord::Schema.define(version: 20161011123918) do
     t.integer  "sort_index",                    null: false
     t.boolean  "banned",        default: false
     t.boolean  "not_on_list",   default: false
+    t.date     "banned_until"
   end
 
   add_index "visitors", ["visit_id", "sort_index"], name: "index_visitors_on_visit_id_and_sort_index", unique: true, using: :btree
@@ -172,6 +175,7 @@ ActiveRecord::Schema.define(version: 20161011123918) do
   add_foreign_key "rejections", "visits"
   add_foreign_key "users", "estates"
   add_foreign_key "visit_state_changes", "users", column: "processed_by_id"
+  add_foreign_key "visit_state_changes", "visitors"
   add_foreign_key "visitors", "visits"
   add_foreign_key "visits", "prisoners"
   add_foreign_key "visits", "prisons"

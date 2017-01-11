@@ -3,7 +3,6 @@ module Api
   class ValidationsController < ApiController
     def prisoner
       date, noms_id = validate_prisoner_parameters(params)
-
       checker = ApiPrisonerChecker.new(noms_id: noms_id, date_of_birth: date)
 
       response = if checker.valid?

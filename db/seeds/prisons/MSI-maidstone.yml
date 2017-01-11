@@ -7,6 +7,7 @@ postcode: ME14 1UZ
 email_address: socialvisits.maidstone@hmps.gsi.gov.uk
 phone_no: 01622 775619
 enabled: true
+adult_age: 12
 recurring:
   mon:
   - 1400-1545
@@ -18,3 +19,6 @@ recurring:
   - 1400-1545
   wed:
   - 1400-1545
+unbookable:
+- 2016-12-25
+- 2016-12-26

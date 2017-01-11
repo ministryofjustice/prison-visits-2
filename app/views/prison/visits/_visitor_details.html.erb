@@ -1,64 +1,62 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
 <div class="grid-row">
   <div class="column-full">
-    <%= content_tag :div, class: 'visitor-card', id: dom_id(@booking_response.principal_visitor) do %>
+    <%= content_tag :div, class: 'visitor-card', id: dom_id(@visit.principal_visitor) do %>
       <h3 class="bold-small"><%= t('lead_visitor', scope: :shared) %></h3>
       <div class="grid-row">
         <div class="column-one-quarter">
           <dl>
             <dt><%= t('.name') %></dt>
-            <dd><%= @booking_response.principal_visitor.full_name %></dd>
+            <dd><%= @visit.principal_visitor.full_name %></dd>
           </dl>
         </div>
         <div class="column-one-quarter">
           <dl>
             <dt><%= t('.dob') %></dt>
-            <dd><%= @booking_response.principal_visitor.date_of_birth.to_s(:short_nomis) %> (<%= @booking_response.principal_visitor.age %>)</dd>
+            <dd><%= @visit.principal_visitor.date_of_birth.to_s(:short_nomis) %> (<%= @visit.principal_visitor.age %>)</dd>
           </dl>
         </div>
         <div class="column-one-quarter">
           <dl>
             <dt><%= t('.email') %></dt>
-            <dd><%= @booking_response.contact_email_address %></dd>
+            <dd><%= @visit.contact_email_address %></dd>
           </dl>
         </div>
         <div class="column-one-quarter">
           <dl>
             <dt><%= t('.phone_no') %></dt>
-            <dd><%= @booking_response.contact_phone_no %></dd>
+            <dd><%= @visit.contact_phone_no %></dd>
           </dl>
         </div>
-        <div class="column-full">
-          <div class="push-top--half">
-            <label class="form-checkbox">
-              <%=
-                check_box_tag(
-                  'booking_response[unlisted_visitor_ids][]',
-                  @booking_response.principal_visitor.id,
-                  f.object.unlisted_visitor_ids.include?(@booking_response.principal_visitor.id),
-                  id: dom_id(@booking_response.principal_visitor, 'not_on_list')
-                )
-              %>
+        <%= f.fields_for :visitors, @visit.principal_visitor do |vf| %>
+          <%= vf.hidden_field :id %>
+          <div class="column-one-quarter">
+            <%= vf.label :not_on_list, class: 'form-checkbox' do %>
+              <%= vf.check_box :not_on_list, data: { checkbox_summary_text: @visit.principal_visitor.anonymized_name } %>
               <%= t('.visitor_not_on_list') %>
-            </label>
-            <label class="form-checkbox">
-              <%=
-                check_box_tag(
-                  'booking_response[banned_visitor_ids][]',
-                  @booking_response.principal_visitor.id,
-                  f.object.banned_visitor_ids.include?(@booking_response.principal_visitor.id),
-                  id: dom_id(@booking_response.principal_visitor, 'banned')
-                )
-              %>
-              <%= t('.visitor_banned') %>
-            </label>
+            <% end %>
           </div>
-        </div>
+          <div class="column-one-quarter">
+            <%= single_field vf, :banned, :check_box, :no_block %>
+          </div>
+          <div class="column-one-half push-top--half">
+            <%= vf.fields_for :banned_until, vf.object.banned_until do |bu| %>
+              <%= composite_field(vf, :banned_until) do %>
+                <% accessible_date_options.each do |field_name, field_options| %>
+                  <div class="datefield form-group form-group-<%= field_name %>">
+                    <%= bu.label field_name %>
+                    <%= bu.number_field field_name, field_options.merge( class: 'form-control', aria: { describedby: 'allowance_renews_on' }) %>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     <% end %>
   </div>
 
-  <% @booking_response.additional_visitors.each_with_index do |visitor, index| %>
+  <% @visit.additional_visitors.each_with_index do |visitor, index| %>
     <div class="column-one-half">
       <%= content_tag :div, class: 'visitor-card', id: dom_id(visitor) do %>
         <h3 class="bold-small"><%= t('visitor_no', n: index + 2, scope: :shared) %></h3>
@@ -77,28 +75,26 @@
           </div>
           <div class="column-full">
             <div class="push-top--half">
-              <label class="form-checkbox">
-                <%=
-                  check_box_tag(
-                    'booking_response[unlisted_visitor_ids][]',
-                    visitor.id,
-                    f.object.unlisted_visitor_ids.include?(visitor.id),
-                    id: dom_id(visitor, 'not_on_list')
-                  )
-                %>
-              <%= t('.visitor_not_on_list') %>
-              </label>
-              <label class="form-checkbox">
-                <%=
-                  check_box_tag(
-                    'booking_response[banned_visitor_ids][]',
-                    visitor.id,
-                    f.object.banned_visitor_ids.include?(visitor.id),
-                    id: dom_id(visitor, 'banned')
-                  )
-                %>
-              <%= t('.visitor_banned') %>
-              </label>
+              <%= f.fields_for :visitors, visitor do |vf| %>
+                <%= vf.hidden_field :id %>
+                <%= vf.label :not_on_list, class: 'form-checkbox' do %>
+                  <%= vf.check_box :not_on_list, data: { checkbox_summary_text: visitor.anonymized_name } %>
+                  <%= t('.visitor_not_on_list') %>
+                <% end %>
+
+                <%= single_field vf, :banned, :check_box, :no_block %>
+
+                <%= vf.fields_for :banned_until, vf.object.banned_until do |bu| %>
+                  <%= composite_field(bu, :banned_until) do %>
+                    <% accessible_date_options.each do |field_name, field_options| %>
+                      <div class="datefield form-group form-group-<%= field_name %>">
+                        <%= bu.label field_name %>
+                        <%= bu.number_field field_name, field_options.merge( class: 'form-control', aria: { describedby: 'allowance_renews_on' }) %>
+                      </div>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% end %>
             </div>
           </div>
         </div>

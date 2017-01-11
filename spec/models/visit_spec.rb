@@ -3,25 +3,39 @@ require 'rails_helper'
 RSpec.describe Visit, type: :model do
   subject { build(:visit) }
 
-  let(:mailing) {
+  let(:mailing) do
     double(Mail::Message, deliver_later: nil)
-  }
+  end
+
+  describe 'transitions' do
+    context 'transitioning from requested to rejected' do
+      it 'can not be saved without a rejection' do
+        expect {
+          subject.reject!
+        }.to raise_error(StateMachines::InvalidTransition)
+      end
+    end
+  end
 
   describe 'scopes' do
-    describe '.from_estate' do
+    describe '.from_estates' do
       let(:visit) do
-        FactoryGirl.create(:visit)
+        create(:visit)
+      end
+      let(:other_visit) do
+        create(:visit)
       end
 
       let!(:estate) { visit.prison.estate }
+      let!(:other_estate) { other_visit.prison.estate }
 
       before do
-        FactoryGirl.create(:visit)
+        create(:visit)
       end
 
-      subject { described_class.from_estate(estate) }
+      subject { described_class.from_estates([estate, other_estate]) }
 
-      it { is_expected.to eq([visit]) }
+      it { is_expected.to contain_exactly(visit, other_visit) }
     end
   end
 
@@ -39,56 +53,6 @@ RSpec.describe Visit, type: :model do
       context 'when the phone number is invalid' do
         let(:phone_no) { ' 07 00 11 22 33' }
         it { is_expected.to_not be_valid }
-      end
-    end
-  end
-
-  describe '#banned_visitors' do
-    let(:visitors) { spy(subject.visitors) }
-
-    before do
-      allow(subject).to receive(:visitors).and_return(visitors)
-      expect(visitors).to receive(:loaded?).and_return(loaded)
-    end
-
-    context 'when the visitors collection is loaded' do
-      let(:loaded) { true }
-      it 'filters out banned visitors from memory' do
-        subject.banned_visitors
-        expect(visitors).to have_received(:select)
-      end
-    end
-
-    context 'when the visitors collection is not loaded' do
-      let(:loaded) { false }
-      it 'queries the banned visitors from the db' do
-        subject.banned_visitors
-        expect(visitors).to have_received(:banned)
-      end
-    end
-  end
-
-  describe '#unlisted_visitors' do
-    let(:visitors) { spy(subject.visitors) }
-
-    before do
-      allow(subject).to receive(:visitors).and_return(visitors)
-      expect(visitors).to receive(:loaded?).and_return(loaded)
-    end
-
-    context 'when the visitors collection is loaded' do
-      let(:loaded) { true }
-      it 'filters out unlisted visitors from memory' do
-        subject.unlisted_visitors
-        expect(visitors).to have_received(:select)
-      end
-    end
-
-    context 'when the visitors collection is not loaded' do
-      let(:loaded) { false }
-      it 'queries the unlisted visitors from the db' do
-        subject.unlisted_visitors
-        expect(visitors).to have_received(:unlisted)
       end
     end
   end
@@ -127,141 +91,6 @@ RSpec.describe Visit, type: :model do
     end
   end
 
-  describe "#staff_cancellation!" do
-    let(:visit) { FactoryGirl.create(:booked_visit) }
-    let(:reason) { Cancellation::REASONS.first }
-
-    subject(:cancellation!) { visit.staff_cancellation!(reason) }
-
-    it 'transitions to cancelled' do
-      expect { cancellation! }.
-        to change { visit.processing_state }.to('cancelled')
-    end
-
-    it 'creates a cancellation record' do
-      expect { cancellation! }.
-        to change {
-          Cancellation.where(visit_id: visit.id, nomis_cancelled: true).count
-        }.by(1)
-    end
-
-    it 'sends an email to the visitor' do
-      expect(VisitorMailer).to receive(:cancelled).with(visit).and_return(mailing)
-      cancellation!
-    end
-
-    context 'invalid reason' do
-      let(:reason) { 'rubbish' }
-      it 'fails and does not record the cancellation' do
-        expect { cancellation! }.to raise_error(ActiveRecord::RecordInvalid)
-        expect(Cancellation.count).to eq(0)
-        expect(visit.reload.processing_state).to eq('booked')
-      end
-    end
-  end
-
-  describe '#visitor_can_cancel_or_withdraw?' do
-    subject { visit.visitor_can_cancel_or_withdraw? }
-
-    context 'when it can be withdrawn' do
-      let(:visit) { FactoryGirl.create(:visit) }
-      it { is_expected.to eq(true) }
-    end
-
-    context 'when the visit is booked' do
-      context 'and has not yet started' do
-        let(:prison) { FactoryGirl.create(:prison) }
-        let(:visit) do
-          FactoryGirl.create(:booked_visit,
-            prison: prison,
-            slot_granted: prison.available_slots.first)
-        end
-        it { is_expected.to eq(true) }
-      end
-
-      context 'and has already started' do
-        let(:visit) do
-          create(
-            :booked_visit,
-            slot_granted: ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0)
-          )
-        end
-
-        it { is_expected.to eq(false) }
-      end
-    end
-
-    context "when it can't be cancelled or withdrawn" do
-      let(:visit) { create(:withdrawn_visit) }
-      it { is_expected.to eq(false) }
-    end
-  end
-
-  describe '#visitor_can_cancel?' do
-    let(:slot) do
-      ConcreteSlot.new(
-        when_date.year,
-        when_date.month,
-        when_date.day,
-        when_date.hour,
-        when_date.min,
-        17,
-        0
-      )
-    end
-
-    describe 'when the visit has not started yet' do
-      subject         { create(:booked_visit, slot_granted: slot) }
-      let(:when_date) { 1.day.from_now }
-
-      it { is_expected.to be_visitor_can_cancel }
-    end
-
-    describe 'when the visit has already started' do
-      subject         { create(:booked_visit, slot_granted: slot) }
-      let(:when_date) { 1.day.ago }
-      it { is_expected.to_not be_visitor_can_cancel }
-    end
-  end
-
-  describe '#visitor_cancel_or_withdraw!' do
-    subject { visit.visitor_cancel_or_withdraw! }
-
-    context "when it can't be cancelled or withdrawn" do
-      let(:visit) { FactoryGirl.create(:withdrawn_visit) }
-      it { expect { subject }.to raise_error(/cancel or withdraw/) }
-    end
-
-    context 'when it can be withdrawn' do
-      let(:visit) { FactoryGirl.create(:visit) }
-
-      it 'transitions to withdrawn' do
-        expect { subject }.
-          to change { visit.processing_state }.to('withdrawn')
-      end
-    end
-
-    context 'when it can be cancelled' do
-      let(:visit) { FactoryGirl.create(:booked_visit) }
-
-      it 'transitions to cancelled' do
-        expect { subject }.to change { visit.processing_state }.to('cancelled')
-      end
-
-      it 'creates a cancellation record' do
-        expect { subject }.
-          to change {
-            Cancellation.where(visit_id: visit.id, nomis_cancelled: false).count
-          }.by(1)
-      end
-
-      it 'sends an email to the prison' do
-        expect(PrisonMailer).to receive(:cancelled).with(visit).and_return(mailing)
-        subject
-      end
-    end
-  end
-
   describe 'state' do
     it 'is requested initially' do
       expect(subject).to be_requested
@@ -273,7 +102,7 @@ RSpec.describe Visit, type: :model do
     end
 
     it 'is rejected after rejecting' do
-      subject.reject!
+      reject_visit subject
       expect(subject).to be_rejected
     end
 
@@ -294,7 +123,7 @@ RSpec.describe Visit, type: :model do
     end
 
     it 'is not processable after rejection' do
-      subject.reject!
+      reject_visit subject
       expect(subject).not_to be_processable
     end
 
@@ -322,7 +151,7 @@ RSpec.describe Visit, type: :model do
 
       it 'is recorded after rejection' do
         expect{
-          subject.reject!
+          reject_visit subject
         }.to change {
           subject.visit_state_changes.rejected.count
         }.by(1)
@@ -453,7 +282,7 @@ RSpec.describe Visit, type: :model do
 
   describe '#rejection_message' do
     before do
-      subject.reject!
+      reject_visit subject
     end
 
     context "when there isn't a message" do

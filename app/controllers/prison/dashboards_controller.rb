@@ -4,22 +4,21 @@ class Prison::DashboardsController < ApplicationController
 
   before_action :authorize_prison_request
   before_action :authenticate_user
+  before_action :verify_switch_estates, only: :switch_estates
 
   def inbox
-    requested_visits
-    cancellations
-
-    @estate = current_estate
+    requested_visits(estates: current_estates)
+    cancellations(estates: current_estates)
   end
 
   def processed
-    processed_visits
+    processed_visits(estates: current_estates)
   end
 
   def print_visits
     @visit_date = parse_date(params[:visit_date])
 
-    @data = EstateVisitQuery.new(current_estate).
+    @data = EstateVisitQuery.new(current_estates).
             visits_to_print_by_slot(@visit_date)
 
     respond_to do |format|
@@ -32,53 +31,40 @@ class Prison::DashboardsController < ApplicationController
   end
 
   def search
-    requested_visits
-    cancellations
-    processed_visits
+    prisoner_number = params[:prisoner_number]
 
-    @estate = current_estate
-  end
-
-  def switch_estate
-    estate = Estate.find(params[:estate_id])
-
-    if sso_identity.accessible_estate?(estate)
-      session[:current_estate] = estate.id
-    else
-      # This should never happen
-      flash[:notice] = 'You cannot access that estate'
-    end
-
-    redirect_to :back
+    requested_visits(estates: accessible_estates,
+                     prisoner_number: prisoner_number)
+    cancellations(estates: accessible_estates,
+                  prisoner_number: prisoner_number)
+    processed_visits(estates: accessible_estates,
+                     prisoner_number: prisoner_number)
   end
 
 private
 
-  def requested_visits
-    @requested_visits ||= load_requested_visits(current_estate,
-      prisoner_number)
+  def requested_visits(estates:, prisoner_number: nil)
+    @requested_visits ||=
+      load_requested_visits(estates, prisoner_number: prisoner_number)
   end
 
-  def cancellations
-    @cancellations ||= load_visitor_cancellations(current_estate,
-      prisoner_number)
+  def cancellations(estates:, prisoner_number: nil)
+    @cancellations ||=
+      load_visitor_cancellations(estates, prisoner_number: prisoner_number)
   end
 
-  def processed_visits
-    estate_query = EstateVisitQuery.new(current_estate)
-    @processed_visits ||= estate_query.
-                          processed(prisoner_number: params[:prisoner_number],
-                                    limit: NUMBER_VISITS)
+  def processed_visits(estates:, prisoner_number: nil)
+    estate_query = EstateVisitQuery.new(estates)
+    @processed_visits ||= estate_query.processed(
+      prisoner_number: prisoner_number,
+      limit: NUMBER_VISITS)
+
     if @processed_visits.size == NUMBER_VISITS
       @processed_visits.pop # Show only 100 most recent visits
       @all_visits_shown = false
     else
       @all_visits_shown = true
     end
-  end
-
-  def prisoner_number
-    params[:prisoner_number]
   end
 
   def parse_date(date)
@@ -88,10 +74,10 @@ private
     nil
   end
 
-  def load_visitor_cancellations(estate, prisoner_number)
+  def load_visitor_cancellations(estates, prisoner_number: nil)
     visits = Visit.preload(:prisoner, :visitors, :cancellation).
              joins(:cancellation).
-             from_estate(estate).
+             from_estates(estates).
              where(cancellations: { nomis_cancelled: false }).
              order('created_at asc')
 
@@ -99,19 +85,21 @@ private
       number = Prisoner.normalise_number(prisoner_number)
       visits = visits.joins(:prisoner).where(prisoners: { number: number })
     end
+
     visits.to_a
   end
 
-  def load_requested_visits(estate, prisoner_number)
+  def load_requested_visits(estates, prisoner_number: nil)
     visits = Visit.preload(:prisoner, :visitors).
              with_processing_state(:requested).
-             from_estate(estate).
+             from_estates(estates).
              order('created_at asc')
 
     if prisoner_number.present?
       number = Prisoner.normalise_number(prisoner_number)
       visits = visits.joins(:prisoner).where(prisoners: { number: number })
     end
+
     visits.to_a
   end
 end

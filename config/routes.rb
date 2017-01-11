@@ -45,7 +45,7 @@ Rails.application.routes.draw do
     end
 
     resources :visits, only: [] do
-      resource :email_preview, only: :show
+      resource :email_preview, only: :update
     end
 
     scope controller: :dashboards do
@@ -53,9 +53,9 @@ Rails.application.routes.draw do
       get '/processed', action: :processed, as: 'processed_visits'
       get '/print_visits', action: :print_visits, as: 'print_visits'
       get '/search', action: :search, as: :search
-      post '/switch_estate', action: :switch_estate, as: 'switch_estate'
     end
 
+    resource :switch_estates, only: %i[ create ]
     resources :feedbacks, only: %i[ new create ]
   end
 

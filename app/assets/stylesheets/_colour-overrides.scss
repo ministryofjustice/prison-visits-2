@@ -1,0 +1,32 @@
+$colour--requested: #1B567D;
+$colour--verified: #15554F;
+$colour--warning: #912B88;
+$colour--error: #B10E1E;
+$colour--withdrawn: #52585A;
+$colour--cancelled: #0B0C0C;
+
+@mixin colour($name, $colour) {
+  .colour--#{$name} {
+    color: $colour;
+  }
+}
+
+@include colour('turquoise', $turquoise);
+@include colour('error', $colour--error);
+@include colour('verified', $colour--verified);
+
+
+@mixin background($name, $colour) {
+  .background--#{$name} {
+    background-color: $colour;
+  }
+}
+
+@include background('highlight', $highlight-colour);
+
+// MOJ overrides
+$secondary-text-colour: #52585A;
+
+.text-secondary {
+  color: $secondary-text-colour;
+}
