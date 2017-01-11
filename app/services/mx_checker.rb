@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class MxChecker
   def initialize(resolver = ::Resolv::DNS.new)
     @resolver = resolver

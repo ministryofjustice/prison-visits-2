@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class VisitorCancellationResponse
   attr_reader :visit
 

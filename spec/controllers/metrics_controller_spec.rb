@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require_relative 'untrusted_examples'
 
@@ -6,7 +7,7 @@ RSpec.describe MetricsController, type: :controller do
     let(:range) { nil }
     let(:params) { { range: range, locale: 'en' } }
 
-    subject { get :index, params }
+    subject { get :index, params: params }
 
     context 'with no range' do
       let(:range) { 'all_time' }
@@ -26,13 +27,13 @@ RSpec.describe MetricsController, type: :controller do
 
   describe 'confirmed_bookings' do
     let(:params) { { locale: 'en', format: 'csv' } }
-    subject { get :confirmed_bookings, params }
+    subject { get :confirmed_bookings, params: params }
     it { is_expected.to be_successful }
   end
 
   describe 'summary' do
     let(:prison) { create(:prison) }
-    subject { get :summary, prison_id: prison.to_param, locale: 'en' }
+    subject { get :summary, params: { prison_id: prison.to_param, locale: 'en' } }
     it { is_expected.to be_successful }
   end
 end

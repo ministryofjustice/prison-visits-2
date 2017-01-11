@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class BookingRequestCreator
   def create!(prisoner_step, visitors_step, slots_step, locale)
     create_visit(prisoner_step, visitors_step, slots_step, locale).tap { |visit|

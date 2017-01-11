@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe EstateSSOMapper do
@@ -5,7 +6,7 @@ RSpec.describe EstateSSOMapper do
 
   let!(:other_estate) { create(:estate) }
 
-  around(:each) do |ex|
+  around do |ex|
     described_class.instance_variable_set('@grouped_estates', nil)
     ex.run
     described_class.instance_variable_set('@grouped_estates', nil)
@@ -42,7 +43,7 @@ RSpec.describe EstateSSOMapper do
 
       it 'includes apvu estates' do
         is_expected.to include(brinsford)
-        is_expected.to_not include(other_estate)
+        is_expected.not_to include(other_estate)
       end
     end
 
@@ -62,7 +63,7 @@ RSpec.describe EstateSSOMapper do
 
       it 'includes sheppey cluster estates' do
         is_expected.to include(elmley)
-        is_expected.to_not include(other_estate)
+        is_expected.not_to include(other_estate)
       end
     end
 
@@ -82,7 +83,7 @@ RSpec.describe EstateSSOMapper do
 
       it 'includes grendon and spring hill estates' do
         is_expected.to include(grendon)
-        is_expected.to_not include(other_estate)
+        is_expected.not_to include(other_estate)
       end
     end
 
@@ -102,7 +103,7 @@ RSpec.describe EstateSSOMapper do
 
       it 'includes isle of wight estates' do
         is_expected.to include(iow_parkhurst)
-        is_expected.to_not include(other_estate)
+        is_expected.not_to include(other_estate)
       end
     end
 
@@ -113,7 +114,7 @@ RSpec.describe EstateSSOMapper do
 
       it 'includes the combined orgs' do
         is_expected.to contain_exactly(estate1, estate2)
-        is_expected.to_not include(other_estate)
+        is_expected.not_to include(other_estate)
       end
     end
 

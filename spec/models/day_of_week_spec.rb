@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe DayOfWeek do
   describe 'by_name' do
     it 'finds a day by short name' do

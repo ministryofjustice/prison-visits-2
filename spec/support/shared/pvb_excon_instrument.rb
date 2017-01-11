@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_context 'pvb instrumentation' do
   let(:nowish)           { Time.zone.now }
   let(:start)            { nowish }

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Prison::SwitchEstatesController < ApplicationController
   before_action :authorize_prison_request
   before_action :authenticate_user

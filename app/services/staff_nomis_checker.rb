@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 class StaffNomisChecker
-  VALID    = 'valid'.freeze
-  INVALID  = 'invalid'.freeze
-  UNKNOWN  = 'unknown'.freeze
-  NOT_LIVE = 'not_live'.freeze
+  VALID    = 'valid'
+  INVALID  = 'invalid'
+  UNKNOWN  = 'unknown'
+  NOT_LIVE = 'not_live'
 
   def initialize(visit)
     @visit = visit
@@ -59,7 +60,8 @@ private
     @prisoner_availability_validation ||=
       PrisonerAvailabilityValidation.new(
         offender: offender,
-        requested_dates: @visit.slots.map(&:to_date)).tap(&:valid?)
+        requested_dates: @visit.slots.map(&:to_date)
+      ).tap(&:valid?)
   end
 
   def offender

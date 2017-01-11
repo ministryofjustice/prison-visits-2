@@ -95,7 +95,7 @@ class SignonIdentity
     if estate_sso_mapper.admin?
       accessible_estates.take(1)
     else
-      accessible_estates || fail('Should never be nil')
+      accessible_estates || raise('Should never be nil')
     end
   end
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe VisitTimeline do
@@ -27,7 +28,8 @@ RSpec.describe VisitTimeline do
         CancellationResponse.new(
           visit: visit,
           user: nil,
-          reason: 'booked_in_error').tap(&:cancel!)
+          reason: 'booked_in_error'
+        ).tap(&:cancel!)
 
         VisitStateChange.
           find_by!(visit_state: 'cancelled').

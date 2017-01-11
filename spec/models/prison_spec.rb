@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Prison, type: :model do
@@ -246,7 +247,7 @@ RSpec.describe Prison, type: :model do
       let(:group) { [] }
 
       it 'skips the vaildation silently' do
-        expect{
+        expect {
           subject.validate_visitor_ages_on(target, 'adults', group)
         }.not_to raise_error
       end

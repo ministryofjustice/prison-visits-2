@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Message, type: :model do
@@ -33,8 +34,8 @@ RSpec.describe Message, type: :model do
       let(:message_body) { nil }
 
       it 'does not create or send a message' do
-        expect(VisitorMailer).to_not receive(:one_off_message)
-        expect { subject }.to_not change { visit.messages }
+        expect(VisitorMailer).not_to receive(:one_off_message)
+        expect { subject }.not_to change { visit.messages }
       end
     end
   end

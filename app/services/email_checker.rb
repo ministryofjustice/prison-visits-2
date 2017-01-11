@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class EmailChecker
   def initialize(original_address)
     @original_address = original_address

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Api::ValidationsController do
@@ -52,12 +53,13 @@ RSpec.describe Api::ValidationsController do
     context 'when the prison_id is missing' do
       let(:prison_id) { nil }
 
-      it { is_expected.to_not be_successful }
+      it { is_expected.not_to be_successful }
 
       it 'returns a body' do
         subject
         expect(parsed_body).to eq(
-          'message' => 'Invalid parameter: prison_id')
+          'message' => 'Invalid parameter: prison_id'
+        )
       end
     end
 
@@ -67,7 +69,8 @@ RSpec.describe Api::ValidationsController do
       it 'returns a body' do
         subject
         expect(parsed_body).to eq(
-          'message' => 'Invalid parameter: prison_id')
+          'message' => 'Invalid parameter: prison_id'
+        )
       end
     end
 
@@ -82,7 +85,8 @@ RSpec.describe Api::ValidationsController do
           'validation' => {
             'valid' => false,
             'errors' => ['lead_visitor_age']
-          })
+          }
+        )
       end
     end
   end
@@ -105,7 +109,7 @@ RSpec.describe Api::ValidationsController do
         expect(Nomis::Api.instance).to receive(:lookup_active_offender).
           and_return(offender)
 
-        post :prisoner, params
+        post :prisoner, params: params
         expect(parsed_body['validation']).to eq('valid' => true)
       end
     end
@@ -117,7 +121,7 @@ RSpec.describe Api::ValidationsController do
         expect(Nomis::Api.instance).to receive(:lookup_active_offender).
           and_return(offender)
 
-        post :prisoner, params
+        post :prisoner, params: params
         expect(parsed_body['validation']).to eq(
           'valid' => false,
           'errors' => ['prisoner_does_not_exist']
@@ -129,7 +133,7 @@ RSpec.describe Api::ValidationsController do
       params[:date_of_birth] = '1980-50-01'
       expect(Nomis::Api.instance).not_to receive(:lookup_active_offender)
 
-      post :prisoner, params
+      post :prisoner, params: params
       expect(response.status).to eq(422)
       expect(parsed_body['message']).to eq('Invalid parameter: date_of_birth')
     end
@@ -138,7 +142,7 @@ RSpec.describe Api::ValidationsController do
       allow(Nomis::Api).to receive(:enabled?).and_return(false)
       expect_any_instance_of(Nomis::Api).not_to receive(:lookup_active_offender)
 
-      post :prisoner, params
+      post :prisoner, params: params
       expect(parsed_body['validation']['valid']).to eq(true)
     end
 
@@ -146,7 +150,7 @@ RSpec.describe Api::ValidationsController do
       allow_any_instance_of(Nomis::Client).to receive(:get).
         and_raise(Nomis::APIError, 'Something broke')
 
-      post :prisoner, params
+      post :prisoner, params: params
       expect(parsed_body['validation']['valid']).to eq(true)
     end
   end

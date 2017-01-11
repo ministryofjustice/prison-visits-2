@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_examples 'create rejections without dates' do
   let(:luna) { create(:prison, name: 'Lunar Penal Colony') }
   let(:mars) { create(:prison, name: 'Martian Penal Colony') }
@@ -61,39 +62,34 @@ RSpec.shared_examples 'create rejections with dates' do
       visit: create(:visit,
         prison:     prison,
         created_at: Time.zone.local(2016, 2, 1),
-        rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] }
-                   )
+        rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
     )
 
     reject_visit BookingResponse.new(
       visit: create(:visit,
         prison:     prison,
         created_at: Time.zone.local(2016, 2, 2),
-        rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] }
-                   )
+        rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
     )
 
     reject_visit BookingResponse.new(
       visit: create(:visit,
         prison:     prison,
         created_at: Time.zone.local(2016, 2, 3),
-        rejection_attributes: { reasons: ['slot_unavailable'] }
-                   )
+        rejection_attributes: { reasons: ['slot_unavailable'] })
     )
     reject_visit BookingResponse.new(
       visit: create(:visit,
         prison:     prison,
         created_at: Time.zone.local(2016, 2, 4),
-        rejection_attributes: { reasons: ['visitor_banned'] }
-                   )
+        rejection_attributes: { reasons: ['visitor_banned'] })
     )
 
     reject_visit BookingResponse.new(
       visit: create(:visit,
         prison:     prison,
         created_at: Time.zone.local(2016, 2, 4),
-        rejection_attributes: { reasons: ['no_adult'] }
-                   )
+        rejection_attributes: { reasons: ['no_adult'] })
     )
   end
 end

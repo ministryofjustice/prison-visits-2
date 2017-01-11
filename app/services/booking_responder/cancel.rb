@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class BookingResponder
   class Cancel < BookingRequestProcessor
     def process_request(message = nil)

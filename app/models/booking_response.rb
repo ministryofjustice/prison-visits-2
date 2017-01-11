@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class BookingResponse
   include ActiveModel::Model
   include ActiveModel::Validations::Callbacks
@@ -60,7 +61,8 @@ private
         except: [
           :created_at, :updated_at, :allowance_renews_on,
           :privileged_allowance_expires_on
-        ])
+        ]
+      )
 
       attrs['allowance_renews_on'] =
         rejection.allowance_renews_on.to_s

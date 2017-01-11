@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Sets up a new sidekiq file logger for logstash consumption.
 #
 # To do this it combines data from ActiveJob notifications and from Sidekiq

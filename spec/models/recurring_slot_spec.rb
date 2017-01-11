@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe RecurringSlot do
   context 'when parsed from a valid description' do
     subject { described_class.parse('0930-1445') }
@@ -31,7 +32,7 @@ RSpec.describe RecurringSlot do
   context 'when initialized with an end before the start' do
     it 'raises an exception' do
       expect {
-        described_class.new(12, 00, 11, 10)
+        described_class.new(12, 0o0, 11, 10)
       }.to raise_exception(described_class::InvalidRange)
     end
   end

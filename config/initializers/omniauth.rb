@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'mojsso'
 
 # Used for Heroku review apps.
@@ -27,5 +28,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     :mojsso,
     Rails.configuration.sso_app_id,
     sso_app_secret,
-    client_options: { site: Rails.configuration.sso_url })
+    client_options: { site: Rails.configuration.sso_url }
+  )
 end

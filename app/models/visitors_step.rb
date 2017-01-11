@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'maybe_date'
 
 class VisitorsStep
@@ -36,7 +37,7 @@ class VisitorsStep
   def backfilled_visitors
     existing = visitors
     num_needed = Prison::MAX_VISITORS - existing.count
-    backfill = num_needed.times.map { Visitor.new }
+    backfill = Array.new(num_needed) { Visitor.new }
     existing + backfill
   end
 
@@ -58,7 +59,7 @@ class VisitorsStep
     visitors.inject([super]) { |a, e| a << e.valid? }.all?
   end
 
-  alias_method :validate, :valid?
+  alias validate valid?
 
   def additional_visitor_count
     visitors.count - 1

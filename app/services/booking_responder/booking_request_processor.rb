@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class BookingResponder
   class BookingRequestProcessor
     def initialize(booking_response)

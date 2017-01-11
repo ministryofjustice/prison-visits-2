@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 Rails.application.routes.draw do
   root to: 'staff_info#index'
 
-  match 'exception', to: 'errors#test', via: %i[ get post ]
+  match 'exception', to: 'errors#test', via: %i[get post]
 
   if Rails.env.test?
     match 'error_handling', to: 'errors#show', via: :get
@@ -13,7 +14,7 @@ Rails.application.routes.draw do
   end
 
   get '/auth/:provider/callback', to: 'sessions#create'
-  resource :session, only: %i[ destroy ]
+  resource :session, only: %i[destroy]
 
   scope '/:locale', locale: /en|cy/ do
     get '/', to: redirect('/')
@@ -55,15 +56,15 @@ Rails.application.routes.draw do
       get '/search', action: :search, as: :search
     end
 
-    resource :switch_estates, only: %i[ create ]
-    resources :feedbacks, only: %i[ new create ]
+    resource :switch_estates, only: %i[create]
+    resources :feedbacks, only: %i[new create]
   end
 
   namespace :api, format: false do
-    resources :feedback, only: %i[ create ]
-    resources :prisons, only: %i[ index show ]
-    resources :slots, only: %i[ index ]
-    resources :visits, only: %i[ create show destroy ]
+    resources :feedback, only: %i[create]
+    resources :prisons, only: %i[index show]
+    resources :slots, only: %i[index]
+    resources :visits, only: %i[create show destroy]
     post '/validations/prisoner', to: 'validations#prisoner'
     post '/validations/visitors', to: 'validations#visitors'
   end

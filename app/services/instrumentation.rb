@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Instrumentation
   class << self
     def append_to_log(payload)

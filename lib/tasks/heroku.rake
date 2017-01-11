@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :heroku do
   desc 'Runs once on the first PR deploy to Heroku, used in app.json'
   task post_deploy: :environment do
@@ -31,7 +32,7 @@ namespace :heroku do
 
   desc 'Runs once after the PR is merged or closed, used in app.json'
   task pr_destroy: :environment do
-    fail('not a review app') unless ENV['HEROKU_PARENT_APP_NAME']
+    raise('not a review app') unless ENV['HEROKU_PARENT_APP_NAME']
 
     delete_data = { 'app_id' => Rails.configuration.sso_app_id }
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Nomis
   class Offender
     include NonPersistedModel

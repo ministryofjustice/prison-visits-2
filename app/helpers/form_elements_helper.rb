@@ -57,11 +57,11 @@ module FormElementsHelper
   end
 
   def error_container(form, name, options = { class: 'form-group' }, &blk)
-    if form.object&.errors&.include?(name)
-      klass = [options[:class], 'error'].compact.join(' ')
-    else
-      klass = options[:class]
-    end
+    klass = if form.object&.errors&.include?(name)
+              [options[:class], 'error'].compact.join(' ')
+            else
+              options[:class]
+            end
     content_tag(:div, options.merge(class: klass), &blk)
   end
 

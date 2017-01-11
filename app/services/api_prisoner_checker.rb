@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ApiPrisonerChecker
   def initialize(noms_id:, date_of_birth:)
     @offender = if Nomis::Api.enabled? &&

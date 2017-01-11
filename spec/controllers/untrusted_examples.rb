@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_examples 'disallows untrusted ips' do
   context 'an untrusted ip' do
     before do

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe EstateVisitQuery do
@@ -20,7 +21,8 @@ RSpec.describe EstateVisitQuery do
       FactoryGirl.create(
         :booked_visit,
         prison: prison,
-        slot_granted: slot1)
+        slot_granted: slot1
+      )
     end
     let!(:booked_visit2) do
       FactoryGirl.create(:booked_visit,
@@ -35,7 +37,8 @@ RSpec.describe EstateVisitQuery do
     let!(:other_prison_visit) do
       FactoryGirl.create(
         :booked_visit,
-        slot_granted: slot1)
+        slot_granted: slot1
+      )
     end
 
     it 'returns the data grouped by prison, status and slot' do
@@ -51,7 +54,8 @@ RSpec.describe EstateVisitQuery do
           'booked' => {
             slot1 => [other_prison_visit]
           }
-        })
+        }
+      )
     end
   end
 

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# frozen_string_literal: true
 require 'rails_helper'
 require 'mailers/shared_mailer_examples'
 
@@ -7,7 +8,7 @@ RSpec.describe VisitorMailer, '.rejected' do
   let(:reason) { 'slot_unavailable' }
   let(:booking_response) do
     BookingResponse.new(
-      visit:     visit
+      visit: visit
     )
   end
   let(:mail) { described_class.rejected(booking_response.email_attrs, message_attributes) }
@@ -36,7 +37,8 @@ RSpec.describe VisitorMailer, '.rejected' do
       visit.update locale: 'cy'
       expect(mail.subject).
         to match(
-          /nid oedd yn bosib trefnu eich ymweliad ar Dydd Llun 12 Hydref/)
+          /nid oedd yn bosib trefnu eich ymweliad ar Dydd Llun 12 Hydref/
+        )
     end
 
     it 'includes the visit id' do

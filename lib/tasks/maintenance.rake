@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :maintenance do
   desc 'Generate UUID mapping entries for prisons that lack them'
   task prison_uuids: :environment do

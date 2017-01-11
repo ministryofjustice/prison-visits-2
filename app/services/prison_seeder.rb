@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class PrisonSeeder
   MissingUuidMapping = Class.new(StandardError)
   ImportFailure = Class.new(StandardError)
@@ -33,7 +34,7 @@ private
     filename = File.basename(path)
 
     unless @filename_to_uuid_map.key?(filename)
-      fail MissingUuidMapping, <<-EOF.strip_heredoc
+      raise MissingUuidMapping, <<-EOF.strip_heredoc
         #{filename} is missing a UUID mapping.
         Rerun `rake maintenance:prison_uuids`, commit the result and rerun
         `rake db:seed`.

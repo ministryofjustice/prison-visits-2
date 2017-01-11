@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # http://api.rubyonrails.org/classes/ActionController/Renderers.html
 
 ActionController::Renderers.add :csv do |obj, options|

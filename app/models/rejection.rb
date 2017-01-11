@@ -1,17 +1,18 @@
+# frozen_string_literal: true
 require 'date_coercer'
 
 class Rejection < ActiveRecord::Base
-  NO_ALLOWANCE     = 'no_allowance'.freeze
-  NOT_ON_THE_LIST  = 'visitor_not_on_list'.freeze
-  BANNED           = 'visitor_banned'.freeze
-  SLOT_UNAVAILABLE = 'slot_unavailable'.freeze
-  NO_ADULT         = 'no_adult'.freeze
+  NO_ALLOWANCE     = 'no_allowance'
+  NOT_ON_THE_LIST  = 'visitor_not_on_list'
+  BANNED           = 'visitor_banned'
+  SLOT_UNAVAILABLE = 'slot_unavailable'
+  NO_ADULT         = 'no_adult'
   PRISONER_DETAILS_INCORRECT =
-    'prisoner_details_incorrect'.freeze
+    'prisoner_details_incorrect'
   PRISONER_NON_ASSOCIATION =
-    'prisoner_non_association'.freeze
+    'prisoner_non_association'
   CHILD_PROTECTION_ISSUES =
-    'child_protection_issues'.freeze
+    'child_protection_issues'
 
   REASONS = [
     CHILD_PROTECTION_ISSUES,

@@ -14,7 +14,7 @@ class RecurringSlot < TimeRange
 
   def self.parse(text_range)
     matches = text_range.match(PARSE_PATTERN)
-    fail ParseError, "Cannot parse '#{text_range}'" unless matches
+    raise ParseError, "Cannot parse '#{text_range}'" unless matches
     new(*matches[1, 4].map { |v| v.to_i(10) })
   end
 
@@ -22,7 +22,7 @@ class RecurringSlot < TimeRange
     super
 
     unless valid_hours? && valid_minutes? && ends_after_begins?
-      fail InvalidRange, 'Invalid range'
+      raise InvalidRange, 'Invalid range'
     end
   end
 

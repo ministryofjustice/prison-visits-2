@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'pvb/excon/instrument_factory'
 
 ns = Nomis::Client::EXCON_INSTRUMENT_NAME

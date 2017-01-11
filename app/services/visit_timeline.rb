@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class VisitTimeline
   class Event
     def initialize(state:, created_at:, last:, user:)
@@ -35,7 +36,7 @@ class VisitTimeline
 private
 
   def visit_state_changes
-    @visit.visit_state_changes.sort { |a, b| a.created_at <=> b.created_at }
+    @visit.visit_state_changes.sort_by(&:created_at)
   end
 
   def build_requested_event(last:)
@@ -52,6 +53,7 @@ private
       state:      state.visit_state,
       created_at: state.created_at,
       last:       last,
-      user:       state.actioned_by)
+      user:       state.actioned_by
+    )
   end
 end

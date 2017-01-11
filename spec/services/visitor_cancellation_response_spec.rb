@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe VisitorCancellationResponse do
@@ -28,7 +29,8 @@ RSpec.describe VisitorCancellationResponse do
         let(:visit) do
           FactoryGirl.create(
             :booked_visit,
-            slot_granted: ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0))
+            slot_granted: ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0)
+          )
         end
         it { is_expected.to eq(false) }
       end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe ConcreteSlot do
   subject {
     described_class.new(2015, 10, 23, 14, 0, 15, 30)

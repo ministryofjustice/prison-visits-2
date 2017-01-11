@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 FactoryGirl.define do
   factory :offender_not_found, class: Nomis::NullOffender do
     skip_create

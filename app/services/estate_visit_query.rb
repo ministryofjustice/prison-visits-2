@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class EstateVisitQuery
   def initialize(estates)
     @estates = estates

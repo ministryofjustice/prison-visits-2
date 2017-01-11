@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module BookingResponseHelper
   def reject_visit(visit, reasons = [Rejection::SLOT_UNAVAILABLE])
     booking_response = BookingResponse.new(visit: visit)

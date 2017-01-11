@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Depersonalizer
   STRING = 'REMOVED'
   DATE = Date.new(1, 1, 1)

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'netaddr'
 
 class IpAddressMatcher
@@ -15,7 +16,7 @@ class IpAddressMatcher
     end
   end
 
-  alias_method :===, :include?
+  alias === include?
 
 private
 

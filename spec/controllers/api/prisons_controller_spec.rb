@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Api::PrisonsController do
@@ -24,19 +25,19 @@ RSpec.describe Api::PrisonsController do
     let(:params) { { format: :json } }
 
     it 'returns 200 OK' do
-      get :index, params
+      get :index, params: params
       expect(response).to have_http_status(:ok)
     end
 
     it 'returns the id and name of each enabled prison' do
-      get :index, params
+      get :index, params: params
       expect(parsed_body).to include(
         'prisons' => [include('id' => prison.id, 'name' => 'Luna')]
       )
     end
 
     it 'includes an API link for each prison' do
-      get :index, params
+      get :index, params: params
       expect(parsed_body).to include(
         'prisons' => [
           include('prison_url' => "http://test.host/api/prisons/#{prison.id}")
@@ -46,7 +47,7 @@ RSpec.describe Api::PrisonsController do
 
     it 'localises prison details on Accept-Language header' do
       request.env['HTTP_ACCEPT_LANGUAGE'] = 'cy'
-      get :index, params
+      get :index, params: params
       expect(parsed_body).to include(
         'prisons' => [include('name' => 'Lleuad')]
       )
@@ -63,12 +64,12 @@ RSpec.describe Api::PrisonsController do
     let(:params) { { id: prison.id, format: :json } }
 
     it 'returns 200 OK' do
-      get :show, params
+      get :show, params: params
       expect(response).to have_http_status(:ok)
     end
 
     it 'returns prison details' do
-      get :show, params
+      get :show, params: params
       expect(parsed_body).to include(
         'prison' => include(
           'id' => prison.id,
@@ -82,7 +83,7 @@ RSpec.describe Api::PrisonsController do
 
     it 'localises prison details on Accept-Language header' do
       request.env['HTTP_ACCEPT_LANGUAGE'] = 'cy'
-      get :show, params
+      get :show, params: params
       expect(parsed_body).to include(
         'prison' => include('name' => 'Lleuad')
       )

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ParameterPruner
   def prune(params)
     prune_object(params)

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Calendar
   refine Date do
     def holiday?

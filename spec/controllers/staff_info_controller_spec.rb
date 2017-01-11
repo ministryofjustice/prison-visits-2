@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# frozen_string_literal: true
 require 'rails_helper'
 require_relative 'untrusted_examples'
 
@@ -54,7 +55,7 @@ RSpec.describe StaffInfoController, type: :controller do
       end
 
       subject do
-        get :show, page: 'changes.md'
+        get :show, params: { page: 'changes.md' }
       end
 
       it { expect(response.status).to eq(200) }
@@ -71,7 +72,7 @@ RSpec.describe StaffInfoController, type: :controller do
       end
 
       subject do
-        get :show, page: 'acrobat.pdf'
+        get :show, params: { page: 'acrobat.pdf' }
       end
 
       it { is_expected.to have_http_status(200) }
@@ -80,7 +81,7 @@ RSpec.describe StaffInfoController, type: :controller do
 
     context 'errors' do
       subject do
-        get :show, page: :wildweasel
+        get :show, params: { page: :wildweasel }
       end
 
       context 'missing page' do

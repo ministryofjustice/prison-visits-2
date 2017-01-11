@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 public_service_url = if Rails.env.production?
                        ENV.fetch('PUBLIC_SERVICE_URL')
                      else

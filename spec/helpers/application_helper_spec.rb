@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe ApplicationHelper do
@@ -10,7 +11,7 @@ RSpec.describe ApplicationHelper do
   describe 'javascript_i18n' do
     it 'includes the days of the week' do
       expect(javascript_i18n).to include(
-        days: %w[ Sunday Monday Tuesday Wednesday Thursday Friday Saturday ]
+        days: %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday]
       )
     end
 
@@ -27,7 +28,7 @@ RSpec.describe ApplicationHelper do
     it 'includes abbreviated months of the year with January at index 0' do
       # JavaScript follows the libc convention of 0 = January etc.
       expect(javascript_i18n).to include(
-        abbrMonths: %w[ Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec ]
+        abbrMonths: %w[Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec]
       )
     end
 
@@ -52,7 +53,7 @@ RSpec.describe ApplicationHelper do
   describe 'alternative_locales' do
     it 'lists all available locales except the current one' do
       I18n.locale = :cy
-      expect(alternative_locales).to eq(%i[ en ])
+      expect(alternative_locales).to eq(%i[en])
     end
   end
 
@@ -84,7 +85,7 @@ RSpec.describe ApplicationHelper do
       end
 
       it 'does not add an active class' do
-        is_expected.to_not match('class="active"')
+        is_expected.not_to match('class="active"')
       end
     end
   end

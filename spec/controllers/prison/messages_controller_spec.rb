@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require_relative '../untrusted_examples'
 
@@ -33,13 +34,13 @@ RSpec.describe Prison::MessagesController do
         it 'renders the visit show page' do
           expect {
             expect(subject).to render_template('prison/visits/show')
-          }.to_not change { visit.reload.messages.count }
+          }.not_to change { visit.reload.messages.count }
         end
       end
     end
 
     context "when logged out" do
-      it { is_expected.to_not be_successful }
+      it { is_expected.not_to be_successful }
     end
   end
 end

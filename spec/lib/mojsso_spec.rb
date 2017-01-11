@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 # rubocop:disable RSpec/FilePath
 RSpec.describe OmniAuth::Strategies::Mojsso do
-  let(:app){
+  let(:app) {
     Rack::Builder.new do |b|
       b.run ->(_env) { [200, {}, ['Hello']] }
     end.to_app
@@ -42,7 +43,8 @@ RSpec.describe OmniAuth::Strategies::Mojsso do
           last_name: last_name,
           email: email,
           permissions: permissions,
-          links: links)
+          links: links
+        )
       end
     end
 

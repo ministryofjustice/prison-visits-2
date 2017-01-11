@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe VisitorsStep do
@@ -42,7 +43,7 @@ RSpec.describe VisitorsStep do
     end
 
     it 'ignores more than Prison::MAX_VISITORS visitors' do
-      subject.visitors_attributes = 7.times.map { |n|
+      subject.visitors_attributes = Array.new(7) { |n|
         [
           n.to_s,
           {
@@ -136,7 +137,7 @@ RSpec.describe VisitorsStep do
     end
 
     it 'ignores more than Prison::MAX_VISITORS visitors' do
-      subject.visitors_attributes = 7.times.map { |n|
+      subject.visitors_attributes = Array.new(7) { |n|
         [
           n.to_s,
           {

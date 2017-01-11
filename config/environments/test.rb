@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Rails.application.configure do
   config.action_mailer.smtp_settings = { domain: 'email.test.host' }
   config.cache_classes = true

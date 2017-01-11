@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "rails_helper"
 
 RSpec.describe RejectionDecorator do
@@ -29,8 +30,8 @@ RSpec.describe RejectionDecorator do
         expect(
           subject.formatted_reasons.map(&:explanation)
         ).to eq([
-          "the dates and times you chose aren't available - choose new dates on <a href=\"www.gov.uk/prison-visits\">www.gov.uk/prison-visits</a>"
-        ])
+                  "the dates and times you chose aren't available - choose new dates on <a href=\"www.gov.uk/prison-visits\">www.gov.uk/prison-visits</a>"
+                ])
       end
 
       context 'containing no_allowance' do
@@ -47,8 +48,8 @@ RSpec.describe RejectionDecorator do
             expect(
               subject.formatted_reasons.map(&:explanation)
             ).to eq([
-              "the prisoner has used their allowance of visits for this month - you can only book a visit from #{I18n.l(rejection.allowance_renews_on, format: :date_without_year)} onwards"
-            ])
+                      "the prisoner has used their allowance of visits for this month - you can only book a visit from #{I18n.l(rejection.allowance_renews_on, format: :date_without_year)} onwards"
+                    ])
           end
         end
 
@@ -57,8 +58,8 @@ RSpec.describe RejectionDecorator do
             expect(
               subject.formatted_reasons.map(&:explanation)
             ).to eq([
-              "the prisoner has used their allowance of visits for this month"
-            ])
+                      "the prisoner has used their allowance of visits for this month"
+                    ])
           end
         end
       end
@@ -70,8 +71,8 @@ RSpec.describe RejectionDecorator do
           expect(
             subject.formatted_reasons.map(&:explanation)
           ).to eq([
-            "details for #{unlisted_visitor.anonymized_name} don't match our records or  aren't on the prisoner's contact list - ask the prisoner to update their contact list with correct details, making sure that names appear exactly the same as on ID documents; if this is the prisoner's first visit (reception visit), then you need to contact the prison directly to book"
-          ])
+                    "details for #{unlisted_visitor.anonymized_name} don't match our records or  aren't on the prisoner's contact list - ask the prisoner to update their contact list with correct details, making sure that names appear exactly the same as on ID documents; if this is the prisoner's first visit (reception visit), then you need to contact the prison directly to book"
+                  ])
         end
       end
 
@@ -82,8 +83,8 @@ RSpec.describe RejectionDecorator do
           expect(
             subject.formatted_reasons.map(&:explanation)
           ).to eq([
-            "#{banned_visitor.anonymized_name} is banned from visiting the prison at the moment and should have received a letter from the prison."
-          ])
+                    "#{banned_visitor.anonymized_name} is banned from visiting the prison at the moment and should have received a letter from the prison."
+                  ])
         end
       end
 

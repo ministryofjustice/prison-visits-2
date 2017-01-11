@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Api::FeedbackController, type: :controller do
@@ -25,7 +26,7 @@ RSpec.describe Api::FeedbackController, type: :controller do
       }
     }
 
-    subject(:create) { post :create, params }
+    subject(:create) { post :create, params: params }
 
     it 'creates a new feedback submission' do
       expect { create }.to change { FeedbackSubmission.count }.by(1)

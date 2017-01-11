@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_context 'sendgrid reports a bounce' do
   before do
     allow_any_instance_of(SendgridApi).
