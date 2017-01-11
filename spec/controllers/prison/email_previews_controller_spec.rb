@@ -13,7 +13,7 @@ RSpec.describe Prison::EmailPreviewsController do
     end
 
     it 'renders the errors message' do
-      put :update, params: { visit_id: visit.id, visit: visit.attributes }
+      put :update, { visit_id: visit.id, visit: visit.attributes }
       expect(response.body).to include('invalid booking response')
     end
   end
