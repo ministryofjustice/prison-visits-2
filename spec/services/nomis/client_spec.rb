@@ -41,7 +41,7 @@ RSpec.describe Nomis::Client do
     end
 
     it 'sends the error to sentry' do
-      expect(Raven).to receive(:capture_exception).with(error)
+      expect(Raven).to receive(:capture_exception).with(error, fingerprint: %w[nomis excon])
 
       expect { subject.get(path, params) }.to raise_error(Nomis::APIError)
     end
@@ -81,7 +81,7 @@ RSpec.describe Nomis::Client do
     end
 
     it 'sends the error to sentry' do
-      expect(Raven).to receive(:capture_exception).with(error)
+      expect(Raven).to receive(:capture_exception).with(error, fingerprint: %w[nomis excon])
 
       expect { subject.get(path, params) }.to raise_error(Nomis::APIError)
     end
