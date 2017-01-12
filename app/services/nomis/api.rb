@@ -34,7 +34,7 @@ module Nomis
         Instrumentation.append_to_log(valid_offender_lookup: !!response['found'])
       end
     rescue APIError => e
-      Raven.capture_exception(e)
+      Raven.capture_exception(e, fingerprint: %w[nomis api_error])
       NullOffender.new(api_call_successful: false)
     end
 
