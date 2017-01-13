@@ -1,29 +1,15 @@
-table.sortable {
-  th {
+table.tablesorter {
+  th.tablesorter-header:not(.sorter-false) {
     cursor: pointer;
   }
-  #sorttable_sortfwdind, #sorttable_sortrevind {
-    display: none;
+  th:not(.sorter-false).tablesorter-headerUnSorted {
+    background: image-url('black-unsorted.gif') no-repeat right 15px center;
   }
-  th:after {
-    content: image-url('accordion-closed.png');
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin-left: 5px;
+  th:not(.sorter-false).tablesorter-headerAsc {
+    background: image-url('black-desc.gif') no-repeat right 15px center;
   }
-  th.sorttable_nosort {
-    cursor: auto;
-    &:after {
-      content: '';
-      display: none;
-    }
-  }
-  th.sorttable_sorted:after {
-    content: image-url('accordion-open.png');
-  }
-  th.sorttable_sorted_reverse:after {
-    content: image-url('accordion-up.png');
+  th:not(.sorter-false).tablesorter-headerDesc {
+    background: image-url('black-asc.gif') no-repeat right 15px center;
   }
 }
 @media screen and (max-width: 768px) {

@@ -2,7 +2,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require vendor/chosen.jquery
-//= require vendor/sortable
+//= require vendor/jquery.tablesorter
 
 // GOVUK modules
 //= require govuk_toolkit
@@ -30,6 +30,7 @@
 //= require modules/moj.RevealNextRow
 //= require modules/moj.emailPreview
 //= require modules/moj.multiSelect
+//= require modules/moj.tableSorter
 
 (function () {
   'use strict';
