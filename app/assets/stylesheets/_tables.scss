@@ -1,15 +1,19 @@
 table.tablesorter {
-  th.tablesorter-header:not(.sorter-false) {
+  th.tablesorter-header {
     cursor: pointer;
   }
-  th:not(.sorter-false).tablesorter-headerUnSorted {
-    background: image-url('black-unsorted.gif') no-repeat right 15px center;
+  th.tablesorter-header-none .tablesorter-header-inner {
+    background: image-url('black-unsorted.gif') no-repeat right center !important;
   }
-  th:not(.sorter-false).tablesorter-headerAsc {
-    background: image-url('black-desc.gif') no-repeat right 15px center;
+  th.tablesorter-header-asc .tablesorter-header-inner {
+    background: image-url('black-desc.gif') no-repeat right center !important;
   }
-  th:not(.sorter-false).tablesorter-headerDesc {
-    background: image-url('black-asc.gif') no-repeat right 15px center;
+  th.tablesorter-header-desc .tablesorter-header-inner {
+    background: image-url('black-asc.gif') no-repeat right center !important;
+  }
+  th.sorter-false .tablesorter-header-inner {
+    cursor: auto;
+    background: none !important;
   }
 }
 @media screen and (max-width: 768px) {
