@@ -8,7 +8,8 @@
       'legend':    { 'position': 'none' },
       'chartArea': { 'width': '65%', 'height': 300, 'left': 50 },
       'height':    350,
-      'isStacked': true
+      'isStacked': true,
+      'vAxis': { 'title': 'Number of days' }
     },
     init: function () {
       google.charts.load('current', {'packages':['corechart', 'bar']});
