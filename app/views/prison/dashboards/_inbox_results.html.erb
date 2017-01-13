@@ -3,19 +3,19 @@
     <span class="text-secondary font-small"><%= t('requested_on', scope: :shared) %></span>
     <%= date.to_s(:short) %>
   </h3>
-  <table class="table--hover push-bottom push-top--half sortable">
+  <table class="table--hover push-bottom push-top--half tablesorter">
     <caption class="visuallyhidden"><%= t('title', scope: [:prison, :dashboards, :inbox]).capitalize %> - <%= t('requested_on', scope: :shared).downcase %><%= date.to_s(:short) %></caption>
     <thead>
       <tr>
-        <th scope="col" class="sorttable_nosort"><span class="visuallyhidden"><%= t('open_close', scope: :shared) %></span></th>
-        <th scope="col" class="sorttable_nosort"><%= t('prisoner_number', scope: :shared) %></th>
-        <th scope="col" class="sorttable_nosort"><%= t('prisoner_name', scope: :shared) %></th>
-        <th scope="col" class="sorttable_nosort"><%= t('dob', scope: :shared) %></th>
-        <th scope="col" class="sorttable_date"><%= t('visit_date', scope: :shared) %></th>
-        <th scope="col" class="col-time sorttable_nosort"><%= t('time_slot', scope: :shared) %></th>
-        <th scope="col" class="sorttable_sorted"><%= t('requested', scope: :shared) %></th>
+        <th scope="col" data-sorter="false"><span class="visuallyhidden"><%= t('open_close', scope: :shared) %></span></th>
+        <th scope="col" data-sorter="false"><%= t('prisoner_number', scope: :shared) %></th>
+        <th scope="col" data-sorter="false"><%= t('prisoner_name', scope: :shared) %></th>
+        <th scope="col" data-sorter="false"><%= t('dob', scope: :shared) %></th>
+        <th scope="col" data-date-format="ddmmyyyy"><%= t('visit_date', scope: :shared) %></th>
+        <th scope="col" data-sorter="false" class="col-time "><%= t('time_slot', scope: :shared) %></th>
+        <th scope="col"><%= t('requested', scope: :shared) %></th>
         <th scope="col"><%= t('prison', scope: :shared) %></th>
-        <th scope="col" class="col-actions sorttable_nosort"><%= t('actions', scope: :shared) %></th>
+        <th scope="col" data-sorter="false" class="col-actions"><%= t('actions', scope: :shared) %></th>
       </tr>
     </thead>
     <tbody>
