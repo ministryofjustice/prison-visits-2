@@ -22,18 +22,6 @@
     <%= link_to('Download confirmed bookings CSV', action: 'confirmed_bookings', format: :csv) %>
   </h3>
 <% end %>
-<%#= render partial: 'all_prisons', locals: { dataset: @dataset } %>
+<%= render partial: 'all_prisons', locals: { dataset: @dataset } %>
 
 <%= render 'graph' %>
-
-<div  class="grid-row">
-  <% @prisons.object.in_groups_of(@prisons.slab_size, nil) do |prisons| %>
-    <div  class="column-one-third">
-      <ul>
-        <% prisons.each do |prison| %>
-          <li><%= link_to prison.name, metric_path(prison) %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-</div>
