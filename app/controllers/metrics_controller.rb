@@ -2,7 +2,7 @@ class MetricsController < ApplicationController
   before_action :authorize_prison_request
 
   def index
-    @start_date        = start_date_from_range
+    @start_date = start_date_from_range
     if all_time?
       metrics_counts = all_time_counts
     else

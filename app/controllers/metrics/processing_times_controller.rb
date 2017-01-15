@@ -1,5 +1,4 @@
 class Metrics::ProcessingTimesController < ApplicationController
-
   def index
     @metrics_presenter = GraphMetricsPresenter.new
     @prisons           = PrisonsDecorator.decorate(Prison.enabled.includes(:estate))
@@ -9,6 +8,4 @@ class Metrics::ProcessingTimesController < ApplicationController
     @metrics_presenter = GraphMetricsPresenter.new
     @prison            = Prison.find(params[:id])
   end
-
-
 end

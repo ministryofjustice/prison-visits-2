@@ -32,6 +32,5 @@ RSpec.describe Metrics::ProcessingTimesController do
       expect(response.body).to have_css('.js-TimelyVisitsCount')
       expect(response.body).to have_css('.js-RejectionPercentages')
     end
-
   end
 end
