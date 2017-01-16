@@ -2,10 +2,9 @@ WITH rejection_reasons AS (
   SELECT visit_id, unnest(reasons) AS reason
   FROM rejections
   GROUP BY visit_id, reasons
-)
+),
 
-
-WITH rejected_visits_count_by_prison AS (
+rejected_visits_count_by_prison AS (
   SELECT prisons.name            AS prison_name,
          prisons.id              AS prison_id,
          visits.created_at::date AS date,
@@ -14,9 +13,9 @@ WITH rejected_visits_count_by_prison AS (
   INNER JOIN prisons ON prisons.id = visits.prison_id
   WHERE visits.processing_state    = 'rejected'
   GROUP BY prison_name, prisons.id, date
-)
+),
 
-WITH visit_count_by_prison AS (
+visit_count_by_prison AS (
   SELECT prisons.name            AS prison_name,
          prisons.id              AS prison_id,
          COUNT(*)                AS total_count,
@@ -24,9 +23,8 @@ WITH visit_count_by_prison AS (
   FROM visits
   INNER JOIN prisons ON prisons.id = visits.prison_id
   GROUP BY prison_name, prisons.id, date
-)
-
-WITH rejected_visit_count_reason_date_and_prison AS (
+),
+rejected_visit_count_reason_date_and_prison AS (
   SELECT reason,
          prisons.name            AS prison_name,
          prisons.id              AS prison_id,
@@ -37,9 +35,8 @@ WITH rejected_visit_count_reason_date_and_prison AS (
   INNER JOIN rejection_reasons ON visits.id  = rejection_reasons.visit_id
   WHERE visits.processing_state = 'rejected'
   GROUP BY prison_name, prisons.id, reason, date
-)
-
-WITH visit_count_by_prison_and_date (
+),
+visit_count_by_prison_and_date AS (
   SELECT prisons.name            AS prison_name,
          prisons.id              AS prison_id,
          COUNT(*)                AS total_count,

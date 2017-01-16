@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170109180349) do
+ActiveRecord::Schema.define(version: 20161213154755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -461,36 +461,25 @@ ActiveRecord::Schema.define(version: 20170109180349) do
               unnest(rejections.reasons) AS reason
              FROM rejections
             GROUP BY rejections.visit_id, rejections.reasons
-          )
-   SELECT rejected.prison_name,
-      rejected.prison_id,
-      'total'::text AS reason,
-      round((((rejected.rejected_count)::numeric / (total.total_count)::numeric) * (100)::numeric), 2) AS percentage,
-      rejected.date
-     FROM ( SELECT prisons.name AS prison_name,
+          ), rejected_visits_count_by_prison AS (
+           SELECT prisons.name AS prison_name,
               prisons.id AS prison_id,
               (visits.created_at)::date AS date,
               count(*) AS rejected_count
              FROM (visits
                JOIN prisons ON ((prisons.id = visits.prison_id)))
             WHERE ((visits.processing_state)::text = 'rejected'::text)
-            GROUP BY prisons.name, prisons.id, (visits.created_at)::date) rejected,
-      ( SELECT prisons.name AS prison_name,
+            GROUP BY prisons.name, prisons.id, (visits.created_at)::date
+          ), visit_count_by_prison AS (
+           SELECT prisons.name AS prison_name,
               prisons.id AS prison_id,
               count(*) AS total_count,
               (visits.created_at)::date AS date
              FROM (visits
                JOIN prisons ON ((prisons.id = visits.prison_id)))
-            GROUP BY prisons.name, prisons.id, (visits.created_at)::date) total
-    WHERE ((rejected.prison_id = total.prison_id) AND (rejected.date = total.date))
-    GROUP BY rejected.prison_name, rejected.prison_id, 'total'::text, round((((rejected.rejected_count)::numeric / (total.total_count)::numeric) * (100)::numeric), 2), rejected.date
-  UNION
-   SELECT rejected.prison_name,
-      rejected.prison_id,
-      rejected.reason,
-      round((((rejected.rejected_count)::numeric / (total.total_count)::numeric) * (100)::numeric), 2) AS percentage,
-      rejected.date
-     FROM ( SELECT rejection_reasons.reason,
+            GROUP BY prisons.name, prisons.id, (visits.created_at)::date
+          ), rejected_visit_count_reason_date_and_prison AS (
+           SELECT rejection_reasons.reason,
               prisons.name AS prison_name,
               prisons.id AS prison_id,
               count(*) AS rejected_count,
@@ -499,14 +488,33 @@ ActiveRecord::Schema.define(version: 20170109180349) do
                JOIN prisons ON ((prisons.id = visits.prison_id)))
                JOIN rejection_reasons ON ((visits.id = rejection_reasons.visit_id)))
             WHERE ((visits.processing_state)::text = 'rejected'::text)
-            GROUP BY prisons.name, prisons.id, rejection_reasons.reason, (visits.created_at)::date) rejected,
-      ( SELECT prisons.name AS prison_name,
+            GROUP BY prisons.name, prisons.id, rejection_reasons.reason, (visits.created_at)::date
+          ), visit_count_by_prison_and_date AS (
+           SELECT prisons.name AS prison_name,
               prisons.id AS prison_id,
               count(*) AS total_count,
               (visits.created_at)::date AS date
              FROM (visits
                JOIN prisons ON ((prisons.id = visits.prison_id)))
-            GROUP BY prisons.name, prisons.id, (visits.created_at)::date) total
+            GROUP BY prisons.name, prisons.id, (visits.created_at)::date
+          )
+   SELECT rejected.prison_name,
+      rejected.prison_id,
+      'total'::text AS reason,
+      round((((rejected.rejected_count)::numeric / (total.total_count)::numeric) * (100)::numeric), 2) AS percentage,
+      rejected.date
+     FROM rejected_visits_count_by_prison rejected,
+      visit_count_by_prison total
+    WHERE ((rejected.prison_id = total.prison_id) AND (rejected.date = total.date))
+    GROUP BY rejected.prison_name, rejected.prison_id, 'total'::text, round((((rejected.rejected_count)::numeric / (total.total_count)::numeric) * (100)::numeric), 2), rejected.date
+  UNION
+   SELECT rejected.prison_name,
+      rejected.prison_id,
+      rejected.reason,
+      round((((rejected.rejected_count)::numeric / (total.total_count)::numeric) * (100)::numeric), 2) AS percentage,
+      rejected.date
+     FROM rejected_visit_count_reason_date_and_prison rejected,
+      visit_count_by_prison_and_date total
     WHERE (((rejected.prison_name)::text = (total.prison_name)::text) AND (rejected.date = total.date))
     GROUP BY rejected.prison_name, rejected.prison_id, rejected.reason, round((((rejected.rejected_count)::numeric / (total.total_count)::numeric) * (100)::numeric), 2), rejected.date;
   SQL

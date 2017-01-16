@@ -5,7 +5,6 @@
     el: '.js-Metrics',
     options: {
       'title':     'Percentiles distribution',
-      'legend':    { 'position': 'none' },
       'chartArea': { 'width': '65%', 'height': 300, 'left': 50 },
       'height':    350,
       'isStacked': true,
