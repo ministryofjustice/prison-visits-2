@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 class PrisonerValidation
-  UNKNOWN            = 'unknown'.freeze
-  PRISONER_NOT_EXIST = 'prisoner_does_not_exist'.freeze
+  UNKNOWN            = 'unknown'
+  PRISONER_NOT_EXIST = 'prisoner_does_not_exist'
 
   include ActiveModel::Validations
   validate :active_offender_exists

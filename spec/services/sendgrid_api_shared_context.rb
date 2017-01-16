@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.shared_context 'sendgrid shared tools' do
@@ -46,7 +47,8 @@ RSpec.shared_context 'sendgrid api responds normally' do
       with(query: hash_including(
         'api_key'   => 'test_smtp_password',
         'api_user'  => 'test_smtp_username',
-        'email'     => 'test@example.com')).
+        'email'     => 'test@example.com'
+      )).
       to_return(status: 200, body: body, headers: {})
   end
 end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_examples 'template checks' do
   it 'has no missing translations' do
     html = mail.html_part.body

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class StaffNomisCheckerFactory
   def self.for(visit)
     case visit.processing_state

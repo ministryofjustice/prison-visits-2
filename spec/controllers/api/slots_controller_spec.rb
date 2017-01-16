@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Api::SlotsController do
@@ -36,12 +37,12 @@ RSpec.describe Api::SlotsController do
     end
 
     it 'returns 200 OK' do
-      get :index, params
+      get :index, params: params
       expect(response).to have_http_status(:ok)
     end
 
     it 'lists available slots, as returned by SlotAvailability' do
-      get :index, params
+      get :index, params: params
       expect(parsed_body).to include(
         'slots' => [
           '2016-02-15T13:30/14:30',
@@ -57,7 +58,7 @@ RSpec.describe Api::SlotsController do
       expect(SlotAvailability).to receive(:new).
         with(hash_including(use_nomis_slots: false)).
         and_return(slot_availability)
-      get :index, params
+      get :index, params: params
     end
   end
 end

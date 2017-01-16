@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Prison::SwitchEstatesController, type: :controller do
@@ -8,11 +9,11 @@ RSpec.describe Prison::SwitchEstatesController, type: :controller do
     let(:other_estate) { estate2 }
     let(:estate_ids) { [other_estate.id] }
     subject do
-      post :create, estate_ids: estate_ids
+      post :create, params: { estate_ids: estate_ids }
     end
 
     context "when logged out" do
-      it { is_expected.to_not be_successful }
+      it { is_expected.not_to be_successful }
     end
 
     context "when logged in" do
@@ -41,7 +42,7 @@ RSpec.describe Prison::SwitchEstatesController, type: :controller do
         let(:estate_ids) { [] }
 
         it 'does not update the current selection' do
-          expect { subject }.to_not change { controller.current_estates }
+          expect { subject }.not_to change { controller.current_estates }
         end
       end
     end

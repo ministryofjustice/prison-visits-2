@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Nomis
   Error = Class.new(StandardError)
   DisabledError = Class.new(Error)
@@ -12,7 +13,7 @@ module Nomis
 
     def initialize
       unless self.class.enabled?
-        fail DisabledError, 'Nomis API is disabled'
+        raise DisabledError, 'Nomis API is disabled'
       end
 
       pool_size = Rails.configuration.connection_pool_size
@@ -20,7 +21,8 @@ module Nomis
         Nomis::Client.new(
           Rails.configuration.nomis_api_host,
           Rails.configuration.nomis_api_token,
-          Rails.configuration.nomis_api_key)
+          Rails.configuration.nomis_api_key
+        )
       end
     end
 
@@ -42,7 +44,8 @@ module Nomis
       response = @pool.with { |client|
         client.get(
           "/offenders/#{offender_id}/visits/available_dates",
-          start_date: start_date, end_date: end_date)
+          start_date: start_date, end_date: end_date
+        )
       }
 
       PrisonerAvailability.new(response).tap do |prisoner_availability|

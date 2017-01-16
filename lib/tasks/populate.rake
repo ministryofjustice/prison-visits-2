@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Metrics/AbcSize
 namespace :pvb do
@@ -51,7 +52,7 @@ namespace :pvb do
         slot_option_2:          slots.pop,
         locale:                 'en'
       )
-      rand(1..5).times.map do |i|
+      Array.new(rand(1..5)) do |i|
         visit.visitors.create!(
           visitor_attributes.merge(sort_index: i)
         )
@@ -72,7 +73,8 @@ namespace :pvb do
 
       closed = [true, false].sample
       visit.update!(
-        slot_granted: granted_slot, reference_no: 'none', closed: closed)
+        slot_granted: granted_slot, reference_no: 'none', closed: closed
+      )
       visit.accept!
     end
 
@@ -88,7 +90,8 @@ namespace :pvb do
         CancellationResponse.new(
           visit: visit,
           user: nil,
-          reason: Cancellation::REASONS.sample).cancel!
+          reason: Cancellation::REASONS.sample
+        ).cancel!
       else
         VisitorCancellationResponse.new(visit: visit).cancel!
       end

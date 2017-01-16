@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 class PrisonerAvailabilityValidation
   include NonPersistedModel
 
-  PRISONER_NOT_AVAILABLE = 'prisoner_not_available'.freeze
+  PRISONER_NOT_AVAILABLE = 'prisoner_not_available'
 
   attribute :offender, Nomis::Offender
   attribute :requested_dates, Array[Date]

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class PrisonSummaryMetricsPresenter
   def initialize(counts: nil,
     timings: nil,

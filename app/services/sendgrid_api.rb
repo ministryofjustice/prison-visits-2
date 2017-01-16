@@ -1,8 +1,8 @@
+# frozen_string_literal: true
 class SendgridApi
   RESCUABLE_ERRORS = [JSON::ParserError,
                       Excon::Errors::Error,
-                      Timeout::Error
-                     ].freeze
+                      Timeout::Error].freeze
 
   class << self
     def instance

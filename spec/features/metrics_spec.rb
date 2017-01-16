@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# frozen_string_literal: true
 require 'rails_helper'
 require_relative '../metrics/shared_examples_for_metrics'
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class BookingResponder
   class Accept < BookingRequestProcessor
     def process_request(message = nil)

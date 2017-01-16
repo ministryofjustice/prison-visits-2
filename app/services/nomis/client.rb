@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'excon'
 
 module Nomis
@@ -5,7 +6,7 @@ module Nomis
 
   class Client
     TIMEOUT = 2 # seconds
-    EXCON_INSTRUMENT_NAME = 'nomis_api'.freeze
+    EXCON_INSTRUMENT_NAME = 'nomis_api'
 
     def initialize(host, client_token, client_key)
       @host = host
@@ -16,7 +17,8 @@ module Nomis
         host, persistent: true,
               connect_timeout: TIMEOUT, read_timeout: TIMEOUT, write_timeout: TIMEOUT,
               instrumentor: ActiveSupport::Notifications,
-              instrumentor_name: EXCON_INSTRUMENT_NAME)
+              instrumentor_name: EXCON_INSTRUMENT_NAME
+      )
     end
 
     def get(route, params = {})

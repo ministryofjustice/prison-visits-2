@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 configurator = lambda do |mailer_klass, env_name, non_prod_default|
   url_value = Rails.env.production? ? ENV.fetch(env_name) : non_prod_default
 

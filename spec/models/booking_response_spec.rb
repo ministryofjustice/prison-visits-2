@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require 'maybe_date'
 
@@ -73,7 +74,7 @@ RSpec.describe BookingResponse, type: :model do
     context 'when not processable' do
       let(:processing_state) { 'rejected' }
       before do
-        is_expected.to_not be_valid
+        is_expected.not_to be_valid
       end
 
       specify { expect(subject.errors.full_messages).to eq(["Visit can't be processed"]) }
@@ -87,9 +88,9 @@ RSpec.describe BookingResponse, type: :model do
         is_expected.to be_invalid
         expect(subject.errors.full_messages).
           to eq([
-            I18n.t('must_reject_or_accept_visit',
-              scope: [:booking_response, :errors])
-          ])
+                  I18n.t('must_reject_or_accept_visit',
+                    scope: [:booking_response, :errors])
+                ])
       end
     end
 

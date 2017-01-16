@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Prison::MessagesController < ApplicationController
   before_action :authorize_prison_request
   before_action :authenticate_user
@@ -24,7 +25,7 @@ private
                where(estates: { id: accessible_estates }).
                find(params[:visit_id])
   end
-  alias_method :visit, :load_visit
+  alias visit load_visit
 
   def message_params
     params.require(:message).permit(:body).

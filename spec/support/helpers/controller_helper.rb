@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ControllerHelper
   def login_user(user, current_estates:, available_estates: [current_estates.first])
     orgs = available_estates.map(&:sso_organisation_name)

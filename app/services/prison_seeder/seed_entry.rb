@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class PrisonSeeder::SeedEntry
   DEFAULT_BOOKING_WINDOW = 28
   DEFAULT_LEAD_DAYS = 3
@@ -6,7 +7,7 @@ class PrisonSeeder::SeedEntry
   KEYS = %i[
     address adult_age booking_window email_address enabled lead_days name
     phone_no postcode slot_details translations weekend_processing
-  ]
+  ].freeze
 
   def initialize(hash)
     @hash = hash

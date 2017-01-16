@@ -1,5 +1,6 @@
+# frozen_string_literal: true
 class EstateSSOMapper
-  DIGITAL_ORG = 'digital.noms.moj'.freeze
+  DIGITAL_ORG = 'digital.noms.moj'
 
   def self.grouped_estates
     @grouped_estates ||= begin

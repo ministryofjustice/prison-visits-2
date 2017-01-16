@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 source 'https://rubygems.org'
 ruby '2.3.0'
 
@@ -26,13 +27,9 @@ gem 'govuk_frontend_toolkit', '>= 4.6.1'
 gem 'govuk_elements_rails', '>= 1.1.2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'rake'
 gem 'jwt'
 gem 'draper'
-
-# Fixed version as workaround for Rails version 4.2 expecting method
-# 'last_comment' to be defined. Review once we are using a different Rails
-# version
-gem 'rake', '< 11.0'
 
 # Fixed version as workaround for bug in 0.15.5
 # https://github.com/getsentry/raven-ruby/issues/460
@@ -51,7 +48,7 @@ group :development, :test do
   gem 'parser', '~> 2.3.0.pre.6'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails'
   gem 'rubocop'
   gem 'rubocop-rspec'
   gem 'awesome_print', require: 'ap'

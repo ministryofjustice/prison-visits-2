@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class StaffInfoController < ApplicationController
   rescue_from Excon::Errors::Error, with: :handle_excon_error
   # Raised when Excon tries to parse the URI.  Will be raised if there is
@@ -41,7 +42,7 @@ private
   end
 
   def not_found
-    fail ActionController::RoutingError, 'Not Found'
+    raise ActionController::RoutingError, 'Not Found'
   end
 
   def not_available
@@ -70,7 +71,8 @@ private
     @connection ||= Excon.new(
       Rails.configuration.staff_info_endpoint,
       persistent: true,
-      connect_timeout: TIMEOUT)
+      connect_timeout: TIMEOUT
+    )
   end
 
   def markdown(content)

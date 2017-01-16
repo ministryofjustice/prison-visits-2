@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_context 'booking response setup' do
   let(:principal_visitor) { visit.principal_visitor }
   let(:visit)             { create :visit_with_three_slots }

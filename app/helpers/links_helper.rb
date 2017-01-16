@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module LinksHelper
   def address_book
     Rails.configuration.address_book

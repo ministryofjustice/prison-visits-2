@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Rejection, model: true do
@@ -9,7 +10,7 @@ RSpec.describe Rejection, model: true do
   end
   let(:reasons) { [Rejection::SLOT_UNAVAILABLE] }
   let(:allowance_renews_on) do
-    { day: '12', month: '11', year:  '2017' }
+    { day: '12', month: '11', year: '2017' }
   end
 
   it { is_expected.to be_valid }
@@ -46,7 +47,7 @@ RSpec.describe Rejection, model: true do
         end
         context 'with an invalid accessible date' do
           let(:allowance_renews_on) do
-            { day: '12', month: '11', year:  '' }
+            { day: '12', month: '11', year: '' }
           end
           it 'is invalid' do
             expect(subject).to be_invalid
@@ -70,7 +71,7 @@ RSpec.describe Rejection, model: true do
         let(:reasons) { ['invalid_reason'] }
 
         it 'for an ivalid reason' do
-          expect(subject).to_not be_valid
+          expect(subject).not_to be_valid
           expect(subject.errors.full_messages_for(:reasons)).to eq(
             ['Reasons invalid_reason is not in the list']
           )

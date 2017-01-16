@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :pvb do
   desc 'Withdraw expired visits'
   task withdraw_expired_visits: :environment do
@@ -5,7 +6,7 @@ namespace :pvb do
     cli = HighLine.new
 
     estate_name = cli.ask("Estate name ('all' to cancel all visits): ")
-    estate = (estate_name == 'all') ? nil : Estate.find_by!(name: estate_name)
+    estate = estate_name == 'all' ? nil : Estate.find_by!(name: estate_name)
 
     requested_visits = Visit.with_processing_state(:requested)
 

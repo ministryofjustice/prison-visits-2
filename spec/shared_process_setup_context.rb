@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_context 'process request setup' do
   def sanitize_to_id(value)
     value.to_s.gsub(/\s/, "_").gsub(/[^-\w]/, "").downcase

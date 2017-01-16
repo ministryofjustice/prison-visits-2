@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Api
   class VisitsController < ApiController
     # When this app not longer handles all the booking steps it will probably be
@@ -25,7 +26,7 @@ module Api
 
       slots = params.fetch(:slot_options)
       unless slots.is_a?(Array) && slots.size >= 1
-        fail ParameterError, 'slot_options must contain >= slot'
+        raise ParameterError, 'slot_options must contain >= slot'
       end
       slots_step = SlotsStep.new(
         option_0: slots.fetch(0), # We expect at least 1 slot
@@ -81,7 +82,7 @@ module Api
 
     def fail_if_invalid(param, step)
       unless step.valid?
-        fail ParameterError,
+        raise ParameterError,
           "#{param} (#{step.errors.full_messages.join(', ')})"
       end
     end

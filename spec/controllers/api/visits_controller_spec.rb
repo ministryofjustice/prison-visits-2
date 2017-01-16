@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Api::VisitsController do
@@ -47,7 +48,7 @@ RSpec.describe Api::VisitsController do
       }
     }
 
-    specify do expect(post :create, params).to render_template(:show) end
+    specify do expect(post(:create, params)).to render_template(:show) end
 
     it 'creates a new visit booking request' do
       expect { post :create, params }.to change(Visit, :count).by(1)
@@ -120,7 +121,7 @@ RSpec.describe Api::VisitsController do
       }
     }
 
-    specify do expect(get :show, params).to render_template(:show) end
+    specify do expect(get(:show, params)).to render_template(:show) end
 
     it 'returns visit status' do
       get :show, params
@@ -188,7 +189,7 @@ RSpec.describe Api::VisitsController do
       double(Mail::Message, deliver_later: nil)
     }
 
-    specify do expect(delete :destroy, params).to render_template(:show) end
+    specify do expect(delete(:destroy, params: params)).to render_template(:show) end
 
     context 'with a booked visit' do
       let(:visit) { FactoryGirl.create(:booked_visit) }

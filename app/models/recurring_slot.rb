@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 TimeRange = Struct.new(:begin_hour, :begin_minute, :end_hour, :end_minute)
 
 class RecurringSlot < TimeRange
@@ -13,7 +14,7 @@ class RecurringSlot < TimeRange
 
   def self.parse(text_range)
     matches = text_range.match(PARSE_PATTERN)
-    fail ParseError, "Cannot parse '#{text_range}'" unless matches
+    raise ParseError, "Cannot parse '#{text_range}'" unless matches
     new(*matches[1, 4].map { |v| v.to_i(10) })
   end
 
@@ -21,7 +22,7 @@ class RecurringSlot < TimeRange
     super
 
     unless valid_hours? && valid_minutes? && ends_after_begins?
-      fail InvalidRange, 'Invalid range'
+      raise InvalidRange, 'Invalid range'
     end
   end
 
@@ -35,11 +36,11 @@ class RecurringSlot < TimeRange
 private
 
   def valid_hours?
-    [begin_hour, end_hour].all? { |h| (0..23).include?(h) }
+    [begin_hour, end_hour].all? { |h| (0..23).cover?(h) }
   end
 
   def valid_minutes?
-    [begin_minute, end_minute].all? { |m| (0..59).include?(m) }
+    [begin_minute, end_minute].all? { |m| (0..59).cover?(m) }
   end
 
   def ends_after_begins?

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Responsible for the relationship between identities and permissions retrieved
 # from SSO, and the internal Users and Estates. Also for additional information
 # returned from the SSO application which is stored in the user's session.
@@ -94,7 +95,7 @@ class SignonIdentity
     if estate_sso_mapper.admin?
       accessible_estates.take(1)
     else
-      accessible_estates || fail('Should never be nil')
+      accessible_estates || raise('Should never be nil')
     end
   end
 

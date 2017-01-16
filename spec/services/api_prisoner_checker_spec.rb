@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe ApiPrisonerChecker do
@@ -46,7 +47,7 @@ RSpec.describe ApiPrisonerChecker do
 
         describe 'when the offender is not found' do
           let(:offender) { Nomis::NullOffender.new(api_call_successful: true) }
-          it { is_expected.to_not be_valid }
+          it { is_expected.not_to be_valid }
         end
       end
 

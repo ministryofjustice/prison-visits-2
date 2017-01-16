@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Visit, type: :model do
@@ -52,7 +53,7 @@ RSpec.describe Visit, type: :model do
 
       context 'when the phone number is invalid' do
         let(:phone_no) { ' 07 00 11 22 33' }
-        it { is_expected.to_not be_valid }
+        it { is_expected.not_to be_valid }
       end
     end
   end
@@ -86,7 +87,7 @@ RSpec.describe Visit, type: :model do
 
       it 'does not bump updated_at field' do
         expect { confirm_nomis_cancelled }.
-          to_not change { cancellation.reload.updated_at }
+          not_to change { cancellation.reload.updated_at }
       end
     end
   end
@@ -142,7 +143,7 @@ RSpec.describe Visit, type: :model do
       it { should have_many(:visit_state_changes) }
 
       it 'is recorded after accepting' do
-        expect{
+        expect {
           subject.accept!
         }.to change {
           subject.visit_state_changes.booked.count
@@ -150,7 +151,7 @@ RSpec.describe Visit, type: :model do
       end
 
       it 'is recorded after rejection' do
-        expect{
+        expect {
           reject_visit subject
         }.to change {
           subject.visit_state_changes.rejected.count
@@ -158,7 +159,7 @@ RSpec.describe Visit, type: :model do
       end
 
       it 'is recorded after withdrawal' do
-        expect{
+        expect {
           subject.withdraw!
         }.to change {
           subject.visit_state_changes.withdrawn.count
@@ -167,7 +168,7 @@ RSpec.describe Visit, type: :model do
 
       it 'is recorded after cancellation' do
         subject.accept!
-        expect{
+        expect {
           subject.cancel!
         }.to change {
           subject.visit_state_changes.cancelled.count
@@ -262,7 +263,8 @@ RSpec.describe Visit, type: :model do
       before do
         FactoryGirl.create(
           :message,
-          visit: subject)
+          visit: subject
+        )
       end
 
       it { expect(subject.acceptance_message).to be_nil }
@@ -273,7 +275,8 @@ RSpec.describe Visit, type: :model do
         FactoryGirl.create(
           :message,
           visit: subject,
-          visit_state_change: subject.visit_state_changes.last)
+          visit_state_change: subject.visit_state_changes.last
+        )
       end
 
       it { expect(subject.acceptance_message).to eq(message) }
@@ -310,7 +313,8 @@ RSpec.describe Visit, type: :model do
         FactoryGirl.create(
           :message,
           visit: subject,
-          visit_state_change: subject.visit_state_changes.last)
+          visit_state_change: subject.visit_state_changes.last
+        )
       end
 
       it { expect(subject.rejection_message).to eq(message) }

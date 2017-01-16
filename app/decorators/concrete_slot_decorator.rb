@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ConcreteSlotDecorator < Draper::Decorator
   delegate_all
   RADIO_BUTTON_OPTIONS = {
@@ -26,7 +27,8 @@ class ConcreteSlotDecorator < Draper::Decorator
         form_builder.radio_button(
           :slot_granted,
           iso8601,
-          RADIO_BUTTON_OPTIONS)
+          RADIO_BUTTON_OPTIONS
+        )
       )
       h.concat(label_text)
 
@@ -74,7 +76,8 @@ private
 
   def label_text
     @label_key ||= I18n.t(
-      '.choice_html', options_for_label_key).html_safe
+      '.choice_html', options_for_label_key
+    ).html_safe
   end
 
   def options_for_label_key

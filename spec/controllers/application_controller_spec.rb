@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "rails_helper"
 require 'nomis/client'
 
@@ -22,8 +23,8 @@ RSpec.describe ApplicationController, type: :controller do
     context 'with an invalid locale' do
       it 'defaults to en' do
         expect {
-          get :index, locale: 'ent'
-        }.to_not raise_error
+          get :index, params: { locale: 'ent' }
+        }.not_to raise_error
       end
     end
   end

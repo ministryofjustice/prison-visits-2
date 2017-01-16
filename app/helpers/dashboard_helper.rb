@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module DashboardHelper
   def timeline_event_html_class(event)
     classes = ['timeline__entry', "timeline__entry--#{event.state}"]

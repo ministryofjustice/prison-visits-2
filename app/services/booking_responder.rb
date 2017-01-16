@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class BookingResponder
   delegate :visit, to: :booking_response
 

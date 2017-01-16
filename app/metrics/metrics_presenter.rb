@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class MetricsPresenter
   def initialize(counts:, overdue_counts:, percentiles:, rejections:, timings:)
     @counts = counts

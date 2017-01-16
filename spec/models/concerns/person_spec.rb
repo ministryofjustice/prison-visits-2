@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Person do
@@ -23,7 +24,7 @@ RSpec.describe Person do
     end
   end
 
-  it { is_expected.to_not be_persisted }
+  it { is_expected.not_to be_persisted }
 
   describe 'minimum_date_of_birth' do
     it 'gives a day of 1st' do

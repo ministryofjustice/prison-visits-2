@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe SlotDetailsParser do
@@ -52,10 +53,10 @@ RSpec.describe SlotDetailsParser do
       it 'lists slots for each anomalous date' do
         expect(parsed.anomalous_slots).to eq(
           Date.new(2014, 12, 24) => [
-            RecurringSlot.new(14, 0, 16, 00)
+            RecurringSlot.new(14, 0, 16, 0o0)
           ],
           Date.new(2014, 12, 31) => [
-            RecurringSlot.new(14, 0, 16, 00)
+            RecurringSlot.new(14, 0, 16, 0o0)
           ]
         )
       end

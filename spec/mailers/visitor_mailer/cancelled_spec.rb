@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require 'mailers/shared_mailer_examples'
 
@@ -23,7 +24,8 @@ RSpec.describe VisitorMailer, '.cancelled' do
     prison_name = visit.prison_name
     expect(mail.subject).
       to match(
-        /CANCELLED: Your #{prison_name} prison visit for Monday 12 October/)
+        /CANCELLED: Your #{prison_name} prison visit for Monday 12 October/
+      )
   end
 
   context 'when the slot is no longer available' do

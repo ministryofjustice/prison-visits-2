@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Temporarily disable the logger until the recent Sentries are debugged and
 # fixed.
 

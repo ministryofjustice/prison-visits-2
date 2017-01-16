@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require 'nomis/client'
 
@@ -79,7 +80,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
           end
         end
 
-        it { is_expected.to_not be_unknown_result }
+        it { is_expected.not_to be_unknown_result }
       end
 
       context 'for the dates that are unavailable' do
@@ -97,7 +98,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
           end
         end
 
-        it { is_expected.to_not be_unknown_result }
+        it { is_expected.not_to be_unknown_result }
       end
     end
 
@@ -116,7 +117,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
         # in the past. Another validator will be responsible for that.
         it 'returns all the dates' do
           expect_any_instance_of(Nomis::Api).
-            to_not receive(:offender_visiting_availability)
+            not_to receive(:offender_visiting_availability)
 
           subject.valid?
 
@@ -125,7 +126,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
           end
         end
 
-        it { is_expected.to_not be_unknown_result }
+        it { is_expected.not_to be_unknown_result }
       end
 
       context 'with some dates in the past' do
@@ -150,7 +151,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
             to eq(described_class::PRISONER_NOT_AVAILABLE)
         end
 
-        it { is_expected.to_not be_unknown_result }
+        it { is_expected.not_to be_unknown_result }
       end
     end
 

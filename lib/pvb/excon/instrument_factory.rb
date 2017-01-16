@@ -1,12 +1,13 @@
+# frozen_string_literal: true
 require 'pvb/excon/instrument'
 
 module PVB
   module Excon
     class InstrumentFactory
-      REQUEST  = 'nomis_api.request'.freeze
-      RETRY    = 'nomis_api.retry'.freeze
-      RESPONSE = 'nomis_api.response'.freeze
-      ERROR    = 'nomis_api.error'.freeze
+      REQUEST  = 'nomis_api.request'
+      RETRY    = 'nomis_api.retry'
+      RESPONSE = 'nomis_api.response'
+      ERROR    = 'nomis_api.error'
 
       class << self
         def for(event, *args)

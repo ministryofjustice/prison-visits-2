@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class SlotDetailsParser
   def parse(raw)
     SlotDetails.new(

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Rails.application.config.holidays = [
   Date.new(2015,  1,  1), # New Year’s Day
   Date.new(2015,  4,  3), # Good Friday

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 sentry_dsn = ENV['SENTRY_DSN']
 
 if sentry_dsn

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "rails_helper"
 
 RSpec.describe AccessibleDate do
@@ -14,7 +15,7 @@ RSpec.describe AccessibleDate do
     context 'with an invalid date' do
       let(:attributes) { { year: '2017', month: '13', day: '25' } }
 
-      it { is_expected.to_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     context 'with no date parts set' do

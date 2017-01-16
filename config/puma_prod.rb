@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'yaml'
 db_pool = YAML.load_file('config/database.yml')['production']['pool']
 

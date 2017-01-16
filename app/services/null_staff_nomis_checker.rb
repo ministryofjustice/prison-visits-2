@@ -1,5 +1,6 @@
+# frozen_string_literal: true
 class NullStaffNomisChecker
-  NO_CHECK_REQUIRED = 'no_check_required'.freeze
+  NO_CHECK_REQUIRED = 'no_check_required'
 
   def prisoner_existance_status
     NO_CHECK_REQUIRED

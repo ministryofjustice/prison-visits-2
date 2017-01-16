@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require_relative './metrics_support'
 
 module PercentileSupport
   include MetricsSupport
 
-  CENTILES = [99, 95, 90, 75, 50, 25]
+  CENTILES = [99, 95, 90, 75, 50, 25].freeze
 
   def centiles
     CENTILES

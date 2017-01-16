@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require 'mailers/shared_mailer_examples'
 
@@ -26,6 +27,7 @@ RSpec.describe VisitorMailer, '.request_acknowledged' do
     visit.update locale: 'cy'
     expect(mail.subject).
       to match(
-        /mae eich cais i ymweld ar Dydd Llun 12 Hydref wedi cyrraedd/)
+        /mae eich cais i ymweld ar Dydd Llun 12 Hydref wedi cyrraedd/
+      )
   end
 end

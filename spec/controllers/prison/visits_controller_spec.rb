@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require_relative '../untrusted_examples'
 
@@ -7,12 +8,12 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
   describe '#process_visit' do
     subject do
-      get :process_visit, id: visit.id, locale: 'en'
+      get :process_visit, params: { id: visit.id, locale: 'en' }
     end
 
     context 'when is processable' do
       context 'and there is no logged in user' do
-        it { is_expected.to_not be_successful }
+        it { is_expected.not_to be_successful }
       end
 
       context 'and there is a logged in user' do
@@ -38,10 +39,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
   describe '#update' do
     subject do
-      put :update,
-        id: visit.id,
-        visit: booking_response,
-        locale: 'en'
+      put :update, { id: visit.id, visit: booking_response, locale: 'en' }
     end
 
     let(:booking_response) { { slot_granted: visit.slots.first.to_s } }
@@ -49,7 +47,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     it_behaves_like 'disallows untrusted ips'
 
     context 'and there is no logged in user' do
-      it { is_expected.to_not be_successful }
+      it { is_expected.not_to be_successful }
     end
 
     context 'and there is a logged in user' do
@@ -73,7 +71,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
   end
 
   describe '#show' do
-    subject { get :show, id: visit.id }
+    subject { get :show, { id: visit.id } }
     let(:user) { FactoryGirl.create(:user) }
 
     it_behaves_like 'disallows untrusted ips'
@@ -88,7 +86,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     end
 
     context "when logged out" do
-      it { is_expected.to_not be_successful }
+      it { is_expected.not_to be_successful }
     end
   end
 
@@ -98,10 +96,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     let(:cancellation_reason) { 'slot_unavailable' }
 
     subject do
-      delete :cancel,
-        id: visit.id,
-        cancellation_reason: cancellation_reason,
-        locale: 'en'
+      delete :cancel, params: { id: visit.id, cancellation_reason: cancellation_reason, locale: 'en' }
     end
 
     it_behaves_like 'disallows untrusted ips'
@@ -134,7 +129,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     end
 
     context "when there isn't a user logged in" do
-      it { is_expected.to_not be_successful }
+      it { is_expected.not_to be_successful }
     end
   end
 
@@ -142,7 +137,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     let(:cancellation) { FactoryGirl.create(:cancellation) }
     let(:visit) { cancellation.visit }
 
-    subject { post :nomis_cancelled, id: visit.id }
+    subject { post :nomis_cancelled, { id: visit.id } }
 
     it_behaves_like 'disallows untrusted ips'
 
@@ -157,7 +152,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     end
 
     context "when signed out" do
-      it { is_expected.to_not be_successful }
+      it { is_expected.not_to be_successful }
     end
   end
 end

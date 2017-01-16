@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module FeaturesHelper
   def enter_prisoner_information(options = {})
     options = {

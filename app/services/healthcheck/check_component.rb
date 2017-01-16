@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Healthcheck
   module CheckComponent
     attr_reader :report

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module LogstashSidekiqLogger
   class Formatter < Logger::Formatter
     def call(_severity, _time, _program_name, message)

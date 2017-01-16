@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 class Metrics
   class << self
     def log(message)
-      fail 'Block required' unless block_given?
+      raise 'Block required' unless block_given?
 
       started_at = Time.now.utc
       result = yield

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Visit < ActiveRecord::Base
   extend FreshnessCalculations
   include PrincipalVisitor
@@ -116,7 +117,7 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
   delegate :first_name, :last_name, :full_name, :anonymized_name,
     :date_of_birth, to: :principal_visitor, prefix: :visitor
 
-  alias_method :processable?, :requested?
+  alias processable? requested?
 
   def slots
     [slot_option_0, slot_option_1, slot_option_2].
@@ -139,14 +140,16 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
     messages.
       where.not(visit_state_change_id: nil).
       find_by(
-        visit_state_change_id: visit_state_changes.booked.pluck(:id).first)
+        visit_state_change_id: visit_state_changes.booked.pluck(:id).first
+      )
   end
 
   def rejection_message
     messages.
       where.not(visit_state_change_id: nil).
       find_by(
-        visit_state_change_id: visit_state_changes.rejected.pluck(:id).first)
+        visit_state_change_id: visit_state_changes.rejected.pluck(:id).first
+      )
   end
 
   def last_visit_state

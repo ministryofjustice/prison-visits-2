@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe PrisonerValidation, type: :model do
@@ -12,7 +13,7 @@ RSpec.describe PrisonerValidation, type: :model do
     end
 
     it 'the result is unknown' do
-      is_expected.to_not be_valid
+      is_expected.not_to be_valid
       expect(subject.errors[:base]).to eq(['unknown'])
     end
   end
@@ -24,7 +25,7 @@ RSpec.describe PrisonerValidation, type: :model do
 
     context 'and the API does not find a match' do
       let(:offender) { Nomis::NullOffender.new }
-      it { is_expected.to_not be_valid }
+      it { is_expected.not_to be_valid }
     end
   end
 end

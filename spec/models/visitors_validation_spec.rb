@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe VisitorsValidation do
@@ -25,7 +26,7 @@ RSpec.describe VisitorsValidation do
     context 'when the lead visitor is a minor' do
       let(:lead_dob) { 17.years.ago.to_date }
 
-      it { is_expected.to_not be_valid }
+      it { is_expected.not_to be_valid }
 
       it "has 'lead_visitor_age' as an error key" do
         subject.valid?
@@ -34,9 +35,9 @@ RSpec.describe VisitorsValidation do
     end
 
     context 'when there are too many visitors' do
-      let(:dobs) { 7.times.map { 1.day.ago.to_date } }
+      let(:dobs) { Array.new(7) { 1.day.ago.to_date } }
 
-      it { is_expected.to_not be_valid }
+      it { is_expected.not_to be_valid }
 
       it "has 'too_many_visitors' as an error key" do
         subject.valid?
@@ -46,12 +47,12 @@ RSpec.describe VisitorsValidation do
 
     context 'when there are too many adults' do
       let(:dobs) do
-        (Prison::MAX_ADULTS + 1).times.map {
+        Array.new((Prison::MAX_ADULTS + 1)) {
           prison.adult_age.years.ago.to_date
         }
       end
 
-      it { is_expected.to_not be_valid }
+      it { is_expected.not_to be_valid }
 
       it "has 'too_many_adults' as an error key" do
         subject.valid?

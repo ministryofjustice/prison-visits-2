@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 task(:stats).prerequisites.unshift task('pvb:statsetup')
 
 namespace :pvb do

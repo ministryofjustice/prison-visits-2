@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Prison::DashboardsController < ApplicationController
   NUMBER_VISITS = 101
 
@@ -56,7 +57,8 @@ private
     estate_query = EstateVisitQuery.new(estates)
     @processed_visits ||= estate_query.processed(
       prisoner_number: prisoner_number,
-      limit: NUMBER_VISITS)
+      limit: NUMBER_VISITS
+    )
 
     if @processed_visits.size == NUMBER_VISITS
       @processed_visits.pop # Show only 100 most recent visits

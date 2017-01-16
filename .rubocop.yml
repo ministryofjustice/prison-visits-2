@@ -16,7 +16,6 @@ AllCops:
     - 'lib/tasks/brakeman.rake'
     - 'lib/tasks/elasticsearch.rake'
     - 'spec/dummy/db/**/*'
-  RunRailsCops: true
 
 # private/protected/public
 Style/AccessModifierIndentation:
@@ -133,3 +132,6 @@ Rails/Delegate:
   Enabled: false
 
 require: rubocop-rspec
+
+Rails:
+  Enabled: true

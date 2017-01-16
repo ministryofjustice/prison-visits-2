@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require_relative 'shared_examples_for_metrics'
 
@@ -20,21 +21,20 @@ RSpec.describe Rejections do
 
       it 'calculates percentages of all rejections by prison' do
         expect(described_class.fetch_and_format).to be ==
-          { 'Lunar Penal Colony' =>
-            {
-              'no_allowance' => 20.0,
-              'slot_unavailable' => 10.0,
-              'visitor_banned' => 10.0,
-              'total' => 40.0
-            },
-            'Martian Penal Colony' =>
-            {
-              'no_allowance' => 20.0,
-              'slot_unavailable' => 10.0,
-              'visitor_banned' => 10.0,
-              'total' => 40.0
-            }
-        }
+                                                    { 'Lunar Penal Colony' =>
+                                                      {
+                                                        'no_allowance' => 20.0,
+                                                        'slot_unavailable' => 10.0,
+                                                        'visitor_banned' => 10.0,
+                                                        'total' => 40.0
+                                                      },
+                                                      'Martian Penal Colony' =>
+                                                      {
+                                                        'no_allowance' => 20.0,
+                                                        'slot_unavailable' => 10.0,
+                                                        'visitor_banned' => 10.0,
+                                                        'total' => 40.0
+                                                      } }
       end
     end
   end
@@ -53,20 +53,18 @@ RSpec.describe Rejections do
 
       it 'counts visits and groups by prison, year, calendar week and visit state' do
         expect(described_class.fetch_and_format).to be ==
-          { 'Lunar Penal Colony' =>
-            {
-              2016 =>
-              { 5 =>
-                {
-                  'no_allowance' => 20.00,
-                  'slot_unavailable' => 10.00,
-                  'visitor_banned' => 10.00,
-                  'no_adult' => 10.00,
-                  'total' => 50.00
-                }
-              }
-            }
-        }
+                                                    { 'Lunar Penal Colony' =>
+                                                      {
+                                                        2016 =>
+                                                        { 5 =>
+                                                          {
+                                                            'no_allowance' => 20.00,
+                                                            'slot_unavailable' => 10.00,
+                                                            'visitor_banned' => 10.00,
+                                                            'no_adult' => 10.00,
+                                                            'total' => 50.00
+                                                          } }
+                                                      } }
       end
 
       context 'when there are visits outside of the date range' do
@@ -78,20 +76,18 @@ RSpec.describe Rejections do
 
         it 'the count is not changed for the target week' do
           expect(described_class.fetch_and_format).to be ==
-            { 'Lunar Penal Colony' =>
-              {
-                2016 =>
-                { 5 =>
-                  {
-                    'no_allowance' => 20.00,
-                    'slot_unavailable' => 10.00,
-                    'visitor_banned' => 10.00,
-                    'no_adult' => 10.00,
-                    'total' => 50.00
-                  }
-                }
-              }
-          }
+                                                      { 'Lunar Penal Colony' =>
+                                                        {
+                                                          2016 =>
+                                                          { 5 =>
+                                                            {
+                                                              'no_allowance' => 20.00,
+                                                              'slot_unavailable' => 10.00,
+                                                              'visitor_banned' => 10.00,
+                                                              'no_adult' => 10.00,
+                                                              'total' => 50.00
+                                                            } }
+                                                        } }
         end
       end
     end

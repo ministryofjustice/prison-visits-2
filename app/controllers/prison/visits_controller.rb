@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Prison::VisitsController < ApplicationController
   include BookingResponseContext
   before_action :authorize_prison_request
@@ -42,7 +43,8 @@ class Prison::VisitsController < ApplicationController
              includes(
                :visitors,
                messages: :user,
-               visit_state_changes: :processed_by).
+               visit_state_changes: :processed_by
+             ).
              find(load_visit.id).decorate
     @message = Message.new
   end
@@ -72,7 +74,8 @@ private
       CancellationResponse.new(
         visit: load_visit,
         user: current_user,
-        reason: params[:cancellation_reason])
+        reason: params[:cancellation_reason]
+      )
   end
 
   def cancellation_reason_set

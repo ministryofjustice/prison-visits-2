@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CancellationResponse
   attr_reader :visit, :user, :reason
 

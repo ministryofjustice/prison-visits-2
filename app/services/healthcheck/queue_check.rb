@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Healthcheck
   class QueueCheck
     include CheckComponent

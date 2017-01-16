@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe LogstashSidekiqLogger::Formatter do
@@ -65,7 +66,8 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
           payload: {
             job: double(arguments: ['VisitorMailer', 'cancelled', visit, 'foo'],
                         queue_name: 'mailers')
-          })
+          }
+        )
       end
 
       before do
@@ -96,7 +98,8 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
               'queue_name' => 'mailers',
               'job_status' => 'completed',
               'active_job_duration' => 1234,
-              'total_duration' => 2944)
+              'total_duration' => 2944
+            )
           expect(logged_message['message']).
             to match(Regexp.quote('[completed] (2944.0 ms)'))
         end
@@ -137,7 +140,8 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
               'job_status' => 'to_be_retried',
               'active_job_duration' => 1234,
               'total_duration' => 2945,
-              "retry_count" => 0)
+              "retry_count" => 0
+            )
           expect(logged_message['message']).
             to match(Regexp.quote('[to_be_retried] (2945.0 ms)'))
         end
@@ -165,7 +169,8 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
               'job_status' => 'failed',
               'active_job_duration' => 1234,
               'total_duration' => 2945,
-              "retry_count" => 0)
+              "retry_count" => 0
+            )
           expect(logged_message['message']).
             to match(Regexp.quote('[failed] (2945.0 ms)'))
         end

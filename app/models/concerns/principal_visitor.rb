@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module PrincipalVisitor
   extend ActiveSupport::Concern
   def principal_visitor

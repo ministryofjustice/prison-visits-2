@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ErrorsController < ApplicationController
   SUPPORTED_ERRORS = {
     404 => :'404',
@@ -5,7 +6,7 @@ class ErrorsController < ApplicationController
     422 => :'503', # Invalid Authenticity Token
     500 => :'500',
     503 => :'503'
-  }
+  }.freeze
 
   # Otherwise erroring POST requests can fail the CSRF check when rendering the
   # error page...
@@ -26,7 +27,7 @@ class ErrorsController < ApplicationController
   end
 
   def test
-    fail 'This is an test exception'
+    raise 'This is an test exception'
   end
 
 private

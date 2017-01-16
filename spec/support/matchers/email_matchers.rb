@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec::Matchers.define :receive_email do
   match do |address|
     emails =

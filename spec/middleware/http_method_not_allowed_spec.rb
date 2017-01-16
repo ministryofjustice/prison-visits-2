@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe HttpMethodNotAllowed do
@@ -19,7 +20,7 @@ RSpec.describe HttpMethodNotAllowed do
       let(:request_method) { 'webdav' }
 
       it 'does not let the request go through' do
-        expect(app).to_not receive(:call)
+        expect(app).not_to receive(:call)
         subject
       end
 

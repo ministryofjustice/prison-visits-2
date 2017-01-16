@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class FeedbackSubmission < ActiveRecord::Base
   belongs_to :prison
 

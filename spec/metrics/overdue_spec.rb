@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require_relative 'shared_examples_for_metrics'
 
@@ -29,16 +30,13 @@ RSpec.describe Overdue do
     describe Overdue::CountOverdueVisitsByPrison do
       it 'counts all overdue visits and group by prison' do
         expect(described_class.fetch_and_format).to be ==
-          { 'Lunar Penal Colony' =>
-            { 'booked' => 2,
-              'rejected' => 1,
-              'requested' => 1
-            },
-            'Martian Penal Colony' =>
-            { 'booked' => 1,
-              'rejected' => 1
-            }
-        }
+                                                    { 'Lunar Penal Colony' =>
+                                                      { 'booked' => 2,
+                                                        'rejected' => 1,
+                                                        'requested' => 1 },
+                                                      'Martian Penal Colony' =>
+                                                      { 'booked' => 1,
+                                                        'rejected' => 1 } }
       end
     end
   end
@@ -47,50 +45,48 @@ RSpec.describe Overdue do
     describe Overdue::CountOverdueVisitsByPrisonAndCalendarWeek do
       it 'counts visits and groups by prison, year, calendar week and visit state' do
         expect(described_class.fetch_and_format).to be ==
-          { 'Lunar Penal Colony' =>
-            {
-              2015 => {
-                53 => {
-                  'requested' => 1
-                }
-              },
-              2016 => {
-                5 => {
-                  'rejected' => 1,
-                  'booked' => 2
-                }
-              }
-            },
-            'Martian Penal Colony' =>
-            {
-              2016 => {
-                5 => {
-                  'rejected' => 1,
-                  'booked' => 1
-                }
-              }
-            }
-        }
+                                                    { 'Lunar Penal Colony' =>
+                                                      {
+                                                        2015 => {
+                                                          53 => {
+                                                            'requested' => 1
+                                                          }
+                                                        },
+                                                        2016 => {
+                                                          5 => {
+                                                            'rejected' => 1,
+                                                            'booked' => 2
+                                                          }
+                                                        }
+                                                      },
+                                                      'Martian Penal Colony' =>
+                                                      {
+                                                        2016 => {
+                                                          5 => {
+                                                            'rejected' => 1,
+                                                            'booked' => 1
+                                                          }
+                                                        }
+                                                      } }
       end
 
       context 'and aggregated across all prisons' do
         it 'counts visits and groups by year, calendar week and visit state' do
           expect(described_class.fetch_and_format(:concatenate)).to be ==
-            { 'all' =>
-              {
-                2015 => {
-                  53 => {
-                    'requested' => 1
-                  }
-                },
-                2016 => {
-                  5 => {
-                    'rejected' => 2,
-                    'booked' => 3
-                  }
-                }
-              }
-          }
+                                                                    { 'all' =>
+                                                                      {
+                                                                        2015 => {
+                                                                          53 => {
+                                                                            'requested' => 1
+                                                                          }
+                                                                        },
+                                                                        2016 => {
+                                                                          5 => {
+                                                                            'rejected' => 2,
+                                                                            'booked' => 3
+                                                                          }
+                                                                        }
+                                                                      } }
         end
       end
     end
@@ -98,56 +94,54 @@ RSpec.describe Overdue do
     describe Overdue::CountOverdueVisitsByPrisonAndCalendarDate do
       it 'counts visits and groups by prison, year, calendar week and visit state' do
         expect(described_class.fetch_and_format).to be ==
-          { 'Lunar Penal Colony' =>
-            {
-              2016 => {
-                1 => {
-                  1 => {
-                    'requested' => 1
-                  }
-                },
-                2 => {
-                  1 => {
-                    'rejected' => 1,
-                    'booked' => 2
-                  }
-                }
-              }
-            },
-            'Martian Penal Colony' =>
-            {
-              2016 => {
-                2 => {
-                  1 => {
-                    'rejected' => 1,
-                    'booked' => 1
-                  }
-                }
-              }
-            }
-        }
+                                                    { 'Lunar Penal Colony' =>
+                                                      {
+                                                        2016 => {
+                                                          1 => {
+                                                            1 => {
+                                                              'requested' => 1
+                                                            }
+                                                          },
+                                                          2 => {
+                                                            1 => {
+                                                              'rejected' => 1,
+                                                              'booked' => 2
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      'Martian Penal Colony' =>
+                                                      {
+                                                        2016 => {
+                                                          2 => {
+                                                            1 => {
+                                                              'rejected' => 1,
+                                                              'booked' => 1
+                                                            }
+                                                          }
+                                                        }
+                                                      } }
       end
 
       context 'and aggregated across all prisons' do
         it 'counts visits and groups by year, calendar week and visit state' do
           expect(described_class.fetch_and_format(:concatenate)).to be ==
-            { 'all' =>
-              {
-                2016 => {
-                  1 => {
-                    1 => {
-                      'requested' => 1
-                    }
-                  },
-                  2 => {
-                    1 => {
-                      'rejected' => 2,
-                      'booked' => 3
-                    }
-                  }
-                }
-              }
-          }
+                                                                    { 'all' =>
+                                                                      {
+                                                                        2016 => {
+                                                                          1 => {
+                                                                            1 => {
+                                                                              'requested' => 1
+                                                                            }
+                                                                          },
+                                                                          2 => {
+                                                                            1 => {
+                                                                              'rejected' => 2,
+                                                                              'booked' => 3
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      } }
         end
       end
     end
