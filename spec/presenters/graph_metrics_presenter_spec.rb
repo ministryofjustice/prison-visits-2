@@ -56,7 +56,7 @@ RSpec.describe GraphMetricsPresenter do
         refresh_views
       end
 
-      it 'returns timeseries for of visits per processing state only for the given prison' do
+      it 'returns timeseries for visits per processing state only for the given prison' do
         expect(subject.visits_per_processing_state_for(prison).size).to eq(1)
       end
     end
@@ -130,7 +130,7 @@ RSpec.describe GraphMetricsPresenter do
         refresh_views
       end
 
-      it "returns the formted overdue and timely visits by date for the given prison" do
+      it "returns the formatted overdue and timely visits by date for the given prison" do
         timely_and_overdue = subject.timely_and_overdue_for(prison).first
         expect(timely_and_overdue.timely).to eq(2)
         expect(timely_and_overdue.overdue).to eq(3)
@@ -152,7 +152,7 @@ RSpec.describe GraphMetricsPresenter do
         refresh_views
       end
 
-      it "returns the formted overdue and timely visits by date" do
+      it "returns the formatted overdue and timely visits by date" do
         expect(subject.timely_and_overdue.first.as_json).to eq(timely:  BigDecimal.new(2),
                                                                overdue: BigDecimal.new(3),
                                                                date:    Time.zone.today)

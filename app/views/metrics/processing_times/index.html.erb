@@ -11,7 +11,7 @@
 <hr/>
 <h2 class="heading-medium"><%= t('.prisons') %></h2>
 <div  class="grid-row">
-  <% @prisons.object.in_groups_of(@prisons.slab_size, nil) do |prisons| %>
+  <% @prisons.object.in_groups_of(@prisons.slab_size, false) do |prisons| %>
     <div  class="column-one-third">
       <ul>
         <% prisons.each do |prison| %>
