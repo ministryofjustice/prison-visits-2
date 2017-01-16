@@ -12,6 +12,8 @@
   <![endif]-->
 <% end %>
 
+<% yield :metrics %>
+
 <% content_for :cookie_message do %>
   <%= t('.cookies_intro') %>
 <% end %>
@@ -108,6 +110,7 @@
     ga('send', 'pageview');
   </script>
   <%= javascript_include_tag('application') %>
+  <%= yield :metrics %>
   <% if Rails.env == 'test' %>
     <script>
       moj.log = function(){}; // Silence hiring banner
