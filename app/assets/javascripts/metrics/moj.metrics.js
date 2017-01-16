@@ -8,7 +8,11 @@
       'chartArea': { 'width': '65%', 'height': 300, 'left': 80 },
       'height':    350,
       'isStacked': true,
-      'vAxis': { 'title': 'Number of days' }
+      'vAxis': { 'title': 'Number of days' },
+      'explorer': {
+        'axis': 'horizontal',
+        'actions': ['dragToZoom', 'rightClickToReset']
+      }
     },
     init: function () {
       google.charts.load('current', {'packages':['corechart', 'bar']});
