@@ -222,6 +222,7 @@ en:
     processing_times:
       index:
         processing_turnaround_times: Processing Turnaround Time For All Prisons
+        prisons: Prisons
       show:
         processing_turnaround_time_for: "Processing Turnaround Time For %{prison_name}"
         processing_turnaround_times_link: Processing Turnaround Time For All Prisons

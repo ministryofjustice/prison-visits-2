@@ -51,6 +51,7 @@
 
       var options = {
         'title': 'Rejection Reasons Percentages (Click and drag to zoom in, right click to reset)',
+        'colors': ['#005EA5','#28A197', '#006435', '#FFBF48', '#F47738', '#B58840', '#B10D1E', '#F499BE', '#6F71AF', '#0A0C0C', '#6F777B'],
         'chartArea': { 'width': '65%', 'height': 300, 'left': 80 },
         'height': 400,
         'explorer': {
