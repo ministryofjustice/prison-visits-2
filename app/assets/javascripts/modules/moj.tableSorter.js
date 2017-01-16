@@ -9,9 +9,9 @@
     init: function () {
 
       $('.tablesorter').tablesorter({
-        cssIcon: 'icon-closed',
-        cssIconAsc: 'icon-closed',
-        cssIconDesc: 'icon-closed'
+        cssAsc: 'tablesorter-header-asc',
+        cssDesc: 'tablesorter-header-desc',
+        cssNone: 'tablesorter-header-none'
       });
 
     }
