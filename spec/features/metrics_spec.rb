@@ -2,7 +2,7 @@
 require 'rails_helper'
 require_relative '../metrics/shared_examples_for_metrics'
 
-RSpec.xfeature 'Metrics', js: true do
+RSpec.feature 'Metrics', js: true do
   include ActiveJobHelper
   let(:sso_response) do
     {
