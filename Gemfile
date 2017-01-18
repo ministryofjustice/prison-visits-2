@@ -28,6 +28,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jwt'
 gem 'draper'
+gem 'mailgun_rails'
 
 # Fixed version as workaround for Rails version 4.2 expecting method
 # 'last_comment' to be defined. Review once we are using a different Rails

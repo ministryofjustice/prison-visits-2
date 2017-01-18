@@ -14,6 +14,12 @@
     "HEROKU_PARENT_APP_NAME": {
       "required": true
     },
+    "MAILGUN_API_KEY": {
+      "required": true
+    },
+    "MAILGUN_DOMAIN": {
+      "required": true
+    },
     "LANG": {
       "required": true
     },
