@@ -89,7 +89,7 @@ RSpec.describe Nomis::Api do
     end
 
     it 'logs the number of available dates' do
-      expect(subject.dates.count).to eq(Instrumentation.custom_log_items[:visit_available_count])
+      expect(subject.dates.count).to eq(Instrumentation.custom_log_items[:offender_visiting_availability])
     end
 
     it 'returns empty list of available dates if there is no availability', vcr: { cassette_name: 'offender_visiting_availability-noavailability' } do
@@ -115,7 +115,7 @@ RSpec.describe Nomis::Api do
     end
 
     it 'logs the number of available slots' do
-      expect(subject.count).to eq(Instrumentation.custom_log_items[:available_slots_count])
+      expect(subject.count).to eq(Instrumentation.custom_log_items[:slot_visiting_availability])
     end
   end
 end

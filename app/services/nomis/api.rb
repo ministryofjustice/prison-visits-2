@@ -47,7 +47,7 @@ module Nomis
 
       PrisonerAvailability.new(response).tap do |prisoner_availability|
         Instrumentation.append_to_log(
-          visit_available_count: prisoner_availability.dates.size
+          offender_visiting_availability: prisoner_availability.dates.size
         )
       end
     end
@@ -61,7 +61,7 @@ module Nomis
         )
       }
       concrete_slots = response['slots'].map { |s| ConcreteSlot.parse(s) }
-      Instrumentation.append_to_log(available_slots_count: concrete_slots.size)
+      Instrumentation.append_to_log(slot_visiting_availability: concrete_slots.size)
 
       concrete_slots
     end
