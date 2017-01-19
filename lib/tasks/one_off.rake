@@ -103,6 +103,8 @@ namespace :pvb do
 
   desc 'Check prisoner availability for requested visits'
   task check_prisoner_availability: :environment do
+    require 'instrumentation'
+
     pool = ConnectionPool.new(size: 5, timeout: 60) do
       Nomis::Client.new(Rails.configuration.nomis_api_host,
         Rails.configuration.nomis_api_token,
