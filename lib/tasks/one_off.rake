@@ -48,35 +48,50 @@ namespace :pvb do
 
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Lint/AssignmentInCondition
-  # rubocop:disable Style/RescueModifier
-  def check_prisoner_details(client, number, dob)
+  # rubocop:disable Metrics/AbcSize
+  def check_prisoner_availability(client, visit)
     RequestStore.store[:custom_log_items] = {}
-    log = { noms_id: number }
 
+    log = {}
     begin
       response = client.get('/lookup/active_offender',
-        noms_id: number,
-        date_of_birth: dob)
+        noms_id: visit.pnumber,
+        date_of_birth: visit.pdob)
 
-      log[:found] = !!response['found']
+      if !!response['found']
+        offender_id = response['offender']['id']
+        potential_dates = visit.slots.
+                          select { |s| s.to_date >= Time.zone.today }.
+                          map(&:to_date)
+
+        response = client.get(
+          "/offenders/#{offender_id}/visits/available_dates",
+          start_date: potential_dates.min, end_date: potential_dates.max)
+
+        log[:prisoner_availability] = sprintf('%2.0f', response['dates'].size)
+      else
+        log[:found] = false
+      end
     rescue Nomis::APIError => e
       log[:error] = e.message
     end
-
-    log[:timing] = RequestStore.store[:custom_log_items][:api]
+    log[:timing] = sprintf('%8.04f', RequestStore.store[:custom_log_items][:api])
+    log[:visit] = visit.id
+    log[:prison] = visit.pname
     log
   end
 
-  def new_worker(pool, queue, thread_number)
+  def new_worker(pool, queue, task)
     Thread.new do
-      request_id = "check_prisoner_details_#{thread_number}"
-      RequestStore.store[:request_id] = request_id
-
       begin
-        while job = queue.pop(true) rescue nil
-          number, dob = job
+        while data = begin
+                       queue.pop(true)
+                     rescue
+                       nil
+                     end
           pool.with do |client|
-            STDOUT.print check_prisoner_details(client, number, dob).to_json + "\n"
+            RequestStore.store[:custom_log_items] = {}
+            STDOUT.print task.call(client, data).to_json + "\n"
           end
         end
       rescue ThreadError => e
@@ -85,46 +100,32 @@ namespace :pvb do
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength
-  # rubocop:enable Lint/AssignmentInCondition
-  # rubocop:enable Style/RescueModifier
 
-  desc 'Check vists prisoner details in Nomis'
-  task check_prisoner_details: :environment do
-    require 'highline'
-    require 'instrumentation'
-
-    cli = HighLine.new
-
-    to_private_key = lambda do |str|
-      der = Base64.decode64(str)
-      OpenSSL::PKey::EC.new(der)
-    end
-
-    nomis_key = cli.ask('Nomis api key: ', to_private_key) { |q|
-      q.echo = '*'
-    }
-
-    nomis_token = cli.ask('Nomis token: ') { |q| q.echo = '*' }
-
-    nomis_host = cli.ask('Nomis host: ')
-    days_to_check = cli.ask('Number of days to check: ', Integer)
-
-    data = Prisoner.
-           where('created_at > ?', days_to_check.days.ago).
-           pluck(:number, :date_of_birth).
-           uniq
-
-    queue = Queue.new
-    data.each do |pair| queue << pair end
-    STDOUT.puts "Checking #{queue.size} prisoners"
-    STDOUT.print "\n"
-
+  desc 'Check prisoner availability for requested visits'
+  task check_prisoner_availability: :environment do
     pool = ConnectionPool.new(size: 5, timeout: 60) do
-      Nomis::Client.new(nomis_host, nomis_token, nomis_key)
+      Nomis::Client.new(Rails.configuration.nomis_api_host,
+        Rails.configuration.nomis_api_token,
+        Rails.configuration.nomis_api_key)
+    end
+    queue = Queue.new
+    task = ->(client, visit) { check_prisoner_availability(client, visit) }
+
+    Visit.select('visits.*',
+      'prisoners.number pnumber',
+      'prisoners.date_of_birth pdob',
+      'prisons.name pname').
+      joins(:prisoner, :prison).
+      where(processing_state: 'requested').
+      order('prisons.name').
+      find_in_batches do |batch|
+      batch.each { |pair| queue << pair }
     end
 
-    workers = 1.upto(10).map { |i| new_worker(pool, queue, i) }
+    workers = 10.times.map { new_worker(pool, queue, task) }
     workers.map(&:join)
   end
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Lint/AssignmentInCondition
+  # rubocop:enable Metrics/AbcSize
 end
