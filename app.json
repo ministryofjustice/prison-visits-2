@@ -23,7 +23,13 @@
     "MOJSSO_URL": {
       "required": true
     },
-    "PRISON_ESTATE_IPS": {
+    "NOMIS_API_HOST": {
+      "required": true
+    },
+    "NOMIS_API_KEY": {
+      "required": true
+    },
+    "NOMIS_API_TOKEN": {
       "required": true
     },
     "PUBLIC_SERVICE_URL": {
