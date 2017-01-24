@@ -10,4 +10,5 @@ json.prison do
   json.adult_age @prison.adult_age
   json.closed @prison.closed
   json.private @prison.private
+  json.enabled @prison.enabled
 end
