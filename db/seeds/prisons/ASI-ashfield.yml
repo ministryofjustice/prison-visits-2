@@ -2,5 +2,5 @@
 name: Ashfield
 nomis_id: ASI
 enabled: false
-private: false
+private: true
 closed: false

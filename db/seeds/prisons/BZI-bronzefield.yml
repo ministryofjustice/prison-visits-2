@@ -2,5 +2,5 @@
 name: Bronzefield
 nomis_id: BZI
 enabled: false
-private: false
+private: true
 closed: false
