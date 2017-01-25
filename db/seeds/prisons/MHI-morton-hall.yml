@@ -2,3 +2,5 @@
 name: Morton Hall
 nomis_id: MHI
 enabled: false
+private: false
+closed: false

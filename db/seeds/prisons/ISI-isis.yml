@@ -2,3 +2,5 @@
 name: Isis
 nomis_id: ISI
 enabled: false
+private: false
+closed: false

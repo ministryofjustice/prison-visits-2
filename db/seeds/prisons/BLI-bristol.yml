@@ -8,6 +8,8 @@ postcode: BS7 8PS
 email_address: visitsbooking.westmidlands@noms.gsi.gov.uk
 phone_no: 0300 060 6510
 enabled: true
+private: false
+closed: false
 recurring:
   mon:
   - 1400-1600

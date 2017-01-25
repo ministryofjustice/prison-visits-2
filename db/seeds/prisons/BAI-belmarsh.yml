@@ -9,6 +9,8 @@ postcode: SE28 0EB
 email_address: belmarsh.visits@hmps.gsi.gov.uk
 phone_no: 020 8331 4768
 enabled: true
+private: false
+closed: false
 booking_window: 21
 lead_days: 3
 recurring:

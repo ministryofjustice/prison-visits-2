@@ -9,6 +9,8 @@ postcode: WV10 7PU
 email_address: visitsbooking.westmidlands@noms.gsi.gov.uk
 phone_no: 0300 060 6502
 enabled: true
+private: false
+closed: false
 recurring:
   mon:
   - 1400-1630

@@ -7,6 +7,8 @@ postcode: NG13 9FQ
 email_address: socialvisits.whatton@hmps.gsi.gov.uk
 phone_no: 01949 803564
 enabled: true
+private: false
+closed: false
 recurring:
   fri:
   - 1415-1615

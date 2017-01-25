@@ -7,6 +7,8 @@ postcode: GU23 7LJ
 email_address: socialvisits.send@hmps.gsi.gov.uk
 phone_no: 01483 471033
 enabled: true
+private: false
+closed: false
 recurring:
   thu:
   - 1400-1545

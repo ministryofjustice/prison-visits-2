@@ -13,6 +13,8 @@ translations:
 email_address: socialvisits.usk@hmps.gsi.gov.uk
 phone_no: 01291 671730
 enabled: true
+private: false
+closed: false
 recurring:
   mon:
   - 1700-1900

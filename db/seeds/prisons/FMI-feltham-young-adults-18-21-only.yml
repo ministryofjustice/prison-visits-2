@@ -7,6 +7,8 @@ postcode: TW13 4ND
 email_address: socialvisits.feltham@hmps.gsi.gov.uk
 phone_no: 020 8844 5400
 enabled: true
+private: false
+closed: false
 recurring:
   mon:
   - 1330-1500

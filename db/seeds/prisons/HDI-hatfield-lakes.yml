@@ -7,6 +7,8 @@ postcode: DN7 6El
 email_address: socialvisitshatfield@hmps.gsi.gov.uk
 phone_no: 01405 746611
 enabled: true
+private: false
+closed: false
 recurring:
   thu:
   - 1400-1600

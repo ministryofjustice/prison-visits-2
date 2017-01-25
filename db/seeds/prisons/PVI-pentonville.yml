@@ -7,6 +7,8 @@ postcode: N7 8TT
 email_address: socialvisits.pentonville@hmps.gsi.gov.uk
 phone_no: 020 70237251
 enabled: true
+private: false
+closed: false
 adult age: 11
 recurring:
   mon:

@@ -8,6 +8,8 @@ postcode: HU9 5LS
 email_address: socialvisits.hull@hmps.gsi.gov.uk
 phone_no: 01482 282016
 enabled: true
+private: false
+closed: false
 recurring:
   mon:
   - 0930-1130

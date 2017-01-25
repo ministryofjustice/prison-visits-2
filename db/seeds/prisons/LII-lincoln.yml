@@ -7,6 +7,8 @@ postcode: LN2 4BD
 email_address: lincolnsocialvisits@hmps.gsi.gov.uk
 phone_no: 01522 663172
 enabled: true
+private: false
+closed: false
 recurring:
   sat:
   - 0900-1100

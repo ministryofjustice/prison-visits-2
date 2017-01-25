@@ -1,17 +1,11 @@
 module Api
   class PrisonsController < ApiController
     def index
-      @prisons = scope.all
+      @prisons = Prison.order(name: :asc).all
     end
 
     def show
-      @prison = scope.find(params[:id])
-    end
-
-  private
-
-    def scope
-      Prison.enabled
+      @prison = Prison.find(params[:id])
     end
   end
 end

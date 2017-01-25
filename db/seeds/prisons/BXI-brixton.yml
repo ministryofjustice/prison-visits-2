@@ -7,6 +7,8 @@ postcode: SW2 5XF
 email_address: socialvisits.brixton@hmps.gsi.gov.uk
 phone_no: 020 8678 1433
 enabled: true
+private: false
+closed: false
 recurring:
   tue:
   - 0830-0930

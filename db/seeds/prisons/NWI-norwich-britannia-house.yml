@@ -7,6 +7,8 @@ postcode: NR1 4LU
 email_address: socialvisits.norwich@hmps.gsi.gov.uk
 phone_no: 01603 708795
 enabled: true
+private: false
+closed: false
 recurring:
   mon:
   - 0930-1130

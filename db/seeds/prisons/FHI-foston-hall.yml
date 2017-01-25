@@ -9,6 +9,8 @@ postcode: DE65 5DN
 email_address: socialvisits.fostonhall@hmps.gsi.gov.uk
 phone_no: 01283 584357
 enabled: true
+private: false
+closed: false
 recurring:
   mon:
   - 1400-1600

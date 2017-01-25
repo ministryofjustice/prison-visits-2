@@ -7,6 +7,8 @@ postcode: SK9 4HR
 email_address: socialvisits.styal@hmps.gsi.gov.uk
 phone_no: 01625553195
 enabled: true
+private: false
+closed: false
 recurring:
   mon:
   - 1345-1545

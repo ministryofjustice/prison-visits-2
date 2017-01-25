@@ -8,6 +8,8 @@ postcode: ST16 3AW
 email_address: visitsbooking.westmidlands@noms.gsi.gov.uk
 phone_no: 0300 060 6505
 enabled: true
+private: false
+closed: false
 recurring:
   wed:
   - 1400-1600

@@ -2,3 +2,5 @@
 name: Prescoed
 nomis_id: UPI
 enabled: false
+private: false
+closed: false

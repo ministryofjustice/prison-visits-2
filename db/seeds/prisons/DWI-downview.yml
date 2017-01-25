@@ -9,6 +9,8 @@ postcode: SM2 5PD
 email_address: socialvisits.downview@hmps.gsi.gov.uk
 phone_no: 020 8196 6359
 enabled: true
+private: false
+closed: false
 recurring:
   thu:
   - 1400-1600

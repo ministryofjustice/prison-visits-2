@@ -7,7 +7,9 @@ address: |-
 postcode: N7 0NU
 email_address: socialvisits.holloway@hmps.gsi.gov.uk
 phone_no: 020 7979 4751
-enabled: true
+enabled: false
+closed: true
+private: false
 recurring:
   mon:
   - 1430-1530

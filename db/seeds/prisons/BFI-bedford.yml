@@ -7,6 +7,8 @@ postcode: MK40 1HG
 email_address: socialvisits.bedford@hmps.gsi.gov.uk
 phone_no: 01234 373196
 enabled: true
+private: false
+closed: false
 booking_window: 14
 recurring:
   mon:

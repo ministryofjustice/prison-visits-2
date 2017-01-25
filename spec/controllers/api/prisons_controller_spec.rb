@@ -16,6 +16,17 @@ RSpec.describe Api::PrisonsController do
     )
   }
 
+  let!(:disabled_prison) {
+    create(
+      :prison,
+      enabled: false,
+      estate: estate,
+      name: 'A Disabled Prison',
+      postcode: 'XL1 1AA',
+      translations: { 'cy' => { 'name' => 'Some Welsh' } }
+    )
+  }
+
   let(:estate) { create(:estate, nomis_id: 'LNX', name: 'Moon') }
 
   render_views
@@ -28,10 +39,13 @@ RSpec.describe Api::PrisonsController do
       expect(response).to have_http_status(:ok)
     end
 
-    it 'returns the id and name of each enabled prison' do
+    it 'returns the id and name of each prison' do
       get :index, params
       expect(parsed_body).to include(
-        'prisons' => [include('id' => prison.id, 'name' => 'Luna')]
+        'prisons' => [
+          include('id' => disabled_prison.id, 'name' => 'A Disabled Prison'),
+          include('id' => prison.id, 'name' => 'Luna')
+        ]
       )
     end
 
@@ -39,6 +53,7 @@ RSpec.describe Api::PrisonsController do
       get :index, params
       expect(parsed_body).to include(
         'prisons' => [
+          include('prison_url' => "http://test.host/api/prisons/#{disabled_prison.id}"),
           include('prison_url' => "http://test.host/api/prisons/#{prison.id}")
         ]
       )
@@ -48,7 +63,9 @@ RSpec.describe Api::PrisonsController do
       request.env['HTTP_ACCEPT_LANGUAGE'] = 'cy'
       get :index, params
       expect(parsed_body).to include(
-        'prisons' => [include('name' => 'Lleuad')]
+        'prisons' => [
+          include('name' => 'Some Welsh'), include('name' => 'Lleuad')
+        ]
       )
     end
 
@@ -73,9 +90,11 @@ RSpec.describe Api::PrisonsController do
         'prison' => include(
           'id' => prison.id,
           'name' => 'Luna',
+          'closed' => false,
+          'private' => false,
           'postcode' => 'XL1 1AA',
           'prison_finder_url' =>
-            'http://www.justice.gov.uk/contacts/prison-finder/moon'
+          'http://www.justice.gov.uk/contacts/prison-finder/moon'
         )
       )
     end

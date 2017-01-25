@@ -8,6 +8,8 @@ postcode: DH1 5YD
 email_address: SocialVisitsBooking.Frankland@hmps.gsi.gov.uk
 phone_no: 01913 765048
 enabled: true
+private: false
+closed: false
 booking_window: 28
 lead_days: 3
 recurring:

@@ -8,4 +8,7 @@ json.prison do
   json.prison_finder_url link_directory.prison_finder(@prison)
   json.max_visitors Prison::MAX_VISITORS
   json.adult_age @prison.adult_age
+  json.closed @prison.closed
+  json.private @prison.private
+  json.enabled @prison.enabled
 end

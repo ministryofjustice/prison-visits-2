@@ -9,6 +9,8 @@ postcode: XM4 4AA
 email_address: mars@hmps.gsi.gov.uk
 phone_no: 0115 4960111
 enabled: true
+private: false
+closed: false
 recurring:
   thu:
   - 1400-1600

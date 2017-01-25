@@ -7,6 +7,8 @@ postcode: WF4 4XX
 email_address: socialvisits.newhall@hmps.gsi.gov.uk
 phone_no: 01924 803219
 enabled: true
+private: false
+closed: false
 recurring:
   sat:
   - 1400-1600
