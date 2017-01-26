@@ -34,6 +34,8 @@ BRI:
 BSI:
   name: Brinsford
   group: apvu.noms.moj
+BWI:
+  name: Berwyn
 BXI:
   name: Brixton
 BZI:
@@ -50,6 +52,8 @@ CWI:
   name: Channings Wood
 DAI:
   name: Dartmoor
+DGI:
+  name: Dovegate
 DHI:
   name: Drake Hall
   group: apvu.noms.moj
@@ -242,6 +246,8 @@ SWI:
   name: Swansea
 TCI:
   name: Thorn Cross
+TSI:
+  name: Thameside
 UKI:
   name: Usk
   finder_slug: usk-prescoed-usk
