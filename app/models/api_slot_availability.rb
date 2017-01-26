@@ -1,4 +1,4 @@
-class SlotAvailability
+class ApiSlotAvailability
   attr_reader :slots
 
   def initialize(prison:, use_nomis_slots: false)

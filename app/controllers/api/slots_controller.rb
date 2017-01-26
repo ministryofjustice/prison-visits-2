@@ -3,7 +3,7 @@ module Api
     def index
       prison = Prison.find(params.fetch(:prison_id))
 
-      slot_availability = SlotAvailability.new(
+      slot_availability = ApiSlotAvailability.new(
         prison: prison,
         use_nomis_slots: false
       )

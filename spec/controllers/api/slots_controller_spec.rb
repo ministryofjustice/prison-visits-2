@@ -28,11 +28,11 @@ RSpec.describe Api::SlotsController do
     }
 
     let(:slot_availability) {
-      instance_double(SlotAvailability, restrict_by_prisoner: nil, slots: slots)
+      instance_double(ApiSlotAvailability, restrict_by_prisoner: nil, slots: slots)
     }
 
     before do
-      allow(SlotAvailability).to receive(:new).and_return(slot_availability)
+      allow(ApiSlotAvailability).to receive(:new).and_return(slot_availability)
     end
 
     it 'returns 200 OK' do
@@ -54,7 +54,7 @@ RSpec.describe Api::SlotsController do
     it 'ignores requests nomis slots from SlotAvailability' do
       params[:use_nomis_slots] = 'true'
 
-      expect(SlotAvailability).to receive(:new).
+      expect(ApiSlotAvailability).to receive(:new).
         with(hash_including(use_nomis_slots: false)).
         and_return(slot_availability)
       get :index, params

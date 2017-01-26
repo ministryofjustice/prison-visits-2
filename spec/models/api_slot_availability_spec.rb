@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SlotAvailability, type: :model do
+RSpec.describe ApiSlotAvailability, type: :model do
   subject { described_class.new(prison: prison) }
 
   let!(:prison) { create(:prison) }
@@ -60,7 +60,6 @@ RSpec.describe SlotAvailability, type: :model do
       subject { described_class.new(prison: prison, use_nomis_slots: true) }
 
       context 'and the prison slots feature is disabled' do
-
         it 'fetches slot availability from the prison defaults' do
           expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
         end
@@ -74,7 +73,7 @@ RSpec.describe SlotAvailability, type: :model do
             and_return(true)
         end
 
-        it 'can request slots from NOMIS' do
+        it 'requests slots from NOMIS' do
           expect(Nomis::Api.instance).to receive(:fetch_bookable_slots).
             with(
               prison: prison,
