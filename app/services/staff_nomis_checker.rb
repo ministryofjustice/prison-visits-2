@@ -32,11 +32,17 @@ class StaffNomisChecker
   end
 
   def errors_for(slot)
-    return [] unless prisoner_availability_enabled? && offender.valid?
+    errors = []
 
-    [
-      prisoner_availability_validation.date_error(slot.to_date)
-    ].compact
+    if prisoner_availability_enabled? && offender.valid?
+      errors << prisoner_availability_validation.date_error(slot.to_date)
+    end
+
+    if slot_availability_enabled?
+      errors << slot_availability_validation.slot_error(slot)
+    end
+
+    errors.compact
   end
 
   def prisoner_availability_enabled?
@@ -64,6 +70,19 @@ private
       PrisonerAvailabilityValidation.new(
         offender: offender,
         requested_dates: @visit.slots.map(&:to_date)).tap(&:valid?)
+  end
+
+  def slot_availability_validation
+    @slot_availability_validation ||=
+      SlotAvailabilityValidation.new(visit: @visit).tap(&:valid?)
+  end
+
+  def slot_availability_enabled?
+    @nomis_api_enabled &&
+      Rails.configuration.nomis_staff_slot_availability_enabled &&
+      Rails.
+        configuration.
+        prisons_with_slot_availability.include?(@visit.prison_name)
   end
 
   def offender
