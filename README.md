@@ -225,6 +225,17 @@ prisoner availability.
 
 (Optional) By default it is false.
 
+### `NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED`
+
+If `true` then the Nomis API will be used to check the slots availability when
+staff process a visit.
+
+### `PRISONS_WITH_SLOT_AVAILABILITY`
+
+Comma (,) separated list of prisons that have Nomis slot availability enabled.
+
+Defaults to none by default.
+
 #### `PRISON_ESTATE_IPS`
 
 A semicolon- or comma-separated list of IP addresses or CIDR ranges. Users on

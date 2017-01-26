@@ -99,5 +99,11 @@ module PrisonVisits
     config.nomis_public_prisoner_availability_enabled =
       config.nomis_public_prisoner_check_enabled &&
       ENV['NOMIS_PUBLIC_PRISONER_AVAILABILITY_ENABLED'].try(:downcase) == 'true'
+
+    config.nomis_staff_slot_availability_enabled =
+      ENV['NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED'].try(:downcase) == 'true'
+
+    config.prisons_with_slot_availability =
+      ENV['PRISONS_WITH_SLOT_AVAILABILITY']&.split(',')&.map(&:strip) || []
   end
 end
