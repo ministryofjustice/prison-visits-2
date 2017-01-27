@@ -4,7 +4,6 @@
     <caption class="visuallyhidden"><%= t('.table_caption') %></caption>
     <thead>
       <tr>
-        <th scope="col"></th>
         <th scope="col"><%= t('prisoner_number', scope: :shared) %></th>
         <th scope="col"><%= t('prisoner_name', scope: :shared) %></th>
         <th scope="col"><%= t('dob', scope: :shared) %></th>
@@ -17,13 +16,6 @@
     <tbody>
       <% @cancellations.each do |visit| %>
         <tr>
-          <td>
-            <a href="#" class="open-close js-RevealNextRow" title="<%= t('open_close', scope: :shared) %>" data-section="inbox cancellations" data-prison="<%= visit.prison_name %>">
-              <i class="icon icon-closed">
-                <span class="visuallyhidden"><%= t('open_close', scope: :shared) %></span>
-              </i>
-            </a>
-          </td>
           <td aria-label="<%= t('prisoner_number', scope: :shared) %>"><%= visit.prisoner_number %></td>
           <td class="long" aria-label="<%= t('prisoner_name', scope: :shared) %>"><%= visit.prisoner_full_name %></td>
           <td class="long" aria-label="<%= t('dob', scope: :shared) %>"><%= visit.prisoner_date_of_birth.to_s(:short_nomis) %></td>

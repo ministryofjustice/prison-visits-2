@@ -7,7 +7,6 @@
     <caption class="visuallyhidden"><%= t('title', scope: [:prison, :dashboards, :inbox]).capitalize %> - <%= t('requested_on', scope: :shared).downcase %><%= date.to_s(:short) %></caption>
     <thead>
       <tr>
-        <th scope="col" data-sorter="false"><span class="visuallyhidden"><%= t('open_close', scope: :shared) %></span></th>
         <th scope="col" data-sorter="false"><%= t('prisoner_number', scope: :shared) %></th>
         <th scope="col" data-sorter="false"><%= t('prisoner_name', scope: :shared) %></th>
         <th scope="col" data-sorter="false"><%= t('dob', scope: :shared) %></th>
@@ -21,7 +20,6 @@
     <tbody>
       <% booking.each do |visit| %>
         <%= render 'request_summary_row', visit: visit %>
-        <%= render 'request_details_row', visit: visit %>
       <% end %>
     </tbody>
   </table>
