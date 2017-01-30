@@ -2,7 +2,8 @@ module Nomis
   class ApiSlot
     include NonPersistedModel
 
-    attribute :time, ConcreteSlot, coercer: ->(t) { ConcreteSlot.parse(t) }
+    attribute :time, ConcreteSlot,
+      coercer: ->(t) { ApiSlotNormaliser.new(t).slot }
     attribute :capacity, Integer
     attribute :max_groups, Integer
     attribute :max_adults, Integer
