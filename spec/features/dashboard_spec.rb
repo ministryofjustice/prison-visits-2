@@ -41,14 +41,14 @@ RSpec.feature 'Using the dashboard' do
         click_button 'Update'
       end
 
-      expect(page).to have_css('.navigation', 'Inbox 0')
+      expect(page).to have_css('.navigation', text: 'Inbox 0')
 
       within '.prison-switcher-form' do
         select 'Swansea', from: 'Select one or more prisons'
         click_button 'Update'
       end
 
-      expect(page).to have_css('.navigation', 'Inbox 1')
+      expect(page).to have_css('.navigation', text: 'Inbox 1')
     end
   end
 
@@ -109,7 +109,7 @@ RSpec.feature 'Using the dashboard' do
       fill_in 'Please type your message', with: 'Sandals not allowed'
       click_button 'Send email'
 
-      expect(page).to have_css('.message', 'Sandals not allowed')
+      expect(page).to have_css('.message', text: 'Sandals not allowed')
 
       find('.summary', text: 'Issue with the prisoner').click
       choose 'Prisoner has moved prisons'

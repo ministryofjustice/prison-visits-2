@@ -12,7 +12,7 @@ RSpec.describe Prison::SwitchEstatesController, type: :controller do
     end
 
     context "when logged out" do
-      it { is_expected.to_not be_successful }
+      it { is_expected.not_to be_successful }
     end
 
     context "when logged in" do
@@ -41,7 +41,7 @@ RSpec.describe Prison::SwitchEstatesController, type: :controller do
         let(:estate_ids) { [] }
 
         it 'does not update the current selection' do
-          expect { subject }.to_not change { controller.current_estates }
+          expect { subject }.not_to change { controller.current_estates }
         end
       end
     end

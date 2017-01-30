@@ -1,50 +1,12 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "0e98734f1d2a0fdb30d31e821b8ab492552002e66c1678a1df33488145be1a37",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/prison/visits_controller.rb",
-      "line": 12,
-      "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(visit_page(BookingResponse.new(:visit => load_visit).visit))",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Prison::VisitsController",
-        "method": "process_visit"
-      },
-      "user_input": "BookingResponse.new(:visit => load_visit).visit",
-      "confidence": "Weak",
-      "note": ""
-    },
-    {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "4bc61047faecb30d90c9112eab4626ac184f777f4a7b34c29659a933e7caab04",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/prison/visits_controller.rb",
-      "line": 22,
-      "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(visit_page(BookingResponse.new(booking_response_params).visit))",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Prison::VisitsController",
-        "method": "update"
-      },
-      "user_input": "BookingResponse.new(booking_response_params).visit",
-      "confidence": "Weak",
-      "note": ""
-    },
-    {
       "warning_type": "Cross Site Scripting",
       "warning_code": 2,
       "fingerprint": "000ec2b11dfa993c085c2bd6603794de8567c67c0c41f3b5dbc4cb95d5186163",
       "message": "Unescaped parameter value",
       "file": "app/views/staff_info/show.html.erb",
-      "line": 3,
+      "line": 7,
       "link": "http://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "markdown(fetch(params.values_at(:page, :format).compact.join(\".\")).body)",
       "render_path": [{"type":"controller","class":"StaffInfoController","method":"show","line":22,"file":"app/controllers/staff_info_controller.rb"}],
@@ -57,139 +19,24 @@
       "note": ""
     },
     {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "a9c7da07bef903ef75214122da61d8eb8a761a53e65d0ec5f6257a3b56d7e892",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/prison/visits_controller.rb",
-      "line": 11,
-      "link": "http://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(visit_page(BookingResponse.new(:visit => visit).visit))",
+      "warning_type": "Cross-Site Request Forgery",
+      "warning_code": 7,
+      "fingerprint": "87074659972ebc5f250131619ac95c44d9b4d73ae2dc8b6930de50633f2898c2",
+      "message": "'protect_from_forgery' should be called in Api::ApiController",
+      "file": "app/controllers/api/api_controller.rb",
+      "line": 4,
+      "link": "http://brakemanscanner.org/docs/warning_types/cross-site_request_forgery/",
+      "code": null,
       "render_path": null,
       "location": {
-        "type": "method",
-        "class": "Prison::VisitsController",
-        "method": "process_visit"
+        "type": "controller",
+        "controller": "Api::ApiController"
       },
-      "user_input": "BookingResponse.new(:visit => visit).visit",
-      "confidence": "Weak",
-      "note": ""
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "2b3a1157063993c962dd2b41351e4e24a0f2be5a63f818f13ee2d8a5b964f3f2",
-      "message": "Render path contains parameter value",
-      "file": "app/controllers/errors_controller.rb",
-      "line": 22,
-      "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => { 404 => :\"404\", 406 => :\"404\", 500 => :\"500\", 503 => :\"503\" }.fetch((params[:status_code] or env[\"PATH_INFO\"][(1..-1)]).to_i), { :status => ((params[:status_code] or env[\"PATH_INFO\"][(1..-1)])), :format => :html })",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "ErrorsController",
-        "method": "show"
-      },
-      "user_input": "params[:status_code]",
-      "confidence": "Weak",
-      "note": "The controller has a lookup table of acceptable render templates"
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "8c390dff3f40970d84fbba866e35c1f62e8ea4629c767e5df706bf873bc39f40",
-      "message": "Render path contains parameter value",
-      "file": "app/controllers/errors_controller.rb",
-      "line": 20,
-      "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => { 404 => :\"404\", 406 => :\"404\", 500 => :\"500\", 503 => :\"503\" }.fetch(params.fetch(:status_code).to_i), { :status => params.fetch(:status_code).to_i, :format => :html })",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "ErrorsController",
-        "method": "show"
-      },
-      "user_input": "params.fetch(:status_code)",
-      "confidence": "Weak",
-      "note": "The controller has a lookup table of acceptable render templates"
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "c598eec54ac508f70f6b8ec3509e6d2d65910784da867ef6ceb57c171b86841c",
-      "message": "Render path contains parameter value",
-      "file": "app/controllers/booking_requests_controller.rb",
-      "line": 9,
-      "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => StepsProcessor.new(params, I18n.locale).step_name, {})",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "BookingRequestsController",
-        "method": "index"
-      },
-      "user_input": "params",
-      "confidence": "Weak",
-      "note": ""
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "015a6adc921578bfdf0715ef6b2db543495d7b41674cfc8e630c05583b978282",
-      "message": "Render path contains parameter value",
-      "file": "app/controllers/booking_requests_controller.rb",
-      "line": 19,
-      "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => StepsProcessor.new(params, I18n.locale).step_name, {})",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "BookingRequestsController",
-        "method": "create"
-      },
-      "user_input": "params",
-      "confidence": "Weak",
-      "note": ""
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "3e1ca88e6b07a45804b114d81f45036e4c4b12be8c226e89830bc4a9353945b1",
-      "message": "Render path contains parameter value",
-      "file": "app/controllers/booking_requests_controller.rb",
-      "line": 7,
-      "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => StepsProcessor.new(params, I18n.locale).step_name, {})",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "BookingRequestsController",
-        "method": "index"
-      },
-      "user_input": "params",
-      "confidence": "Weak",
-      "note": ""
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "b5852135689f2e61e4c23a95b16aca8996328d398556d06d40c1a6f0d7d26a75",
-      "message": "Render path contains parameter value",
-      "file": "app/controllers/booking_requests_controller.rb",
-      "line": 14,
-      "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => StepsProcessor.new(params, I18n.locale).step_name, {})",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "BookingRequestsController",
-        "method": "create"
-      },
-      "user_input": "params",
-      "confidence": "Weak",
-      "note": ""
+      "user_input": null,
+      "confidence": "High",
+      "note": "Not needed as the API has no concept of a session, is public data, and is IP locked"
     }
   ],
-  "updated": "2016-06-15 14:01:34 +0100",
-  "brakeman_version": "3.1.3"
+  "updated": "2017-01-31 13:59:52 +0000",
+  "brakeman_version": "3.4.1"
 }

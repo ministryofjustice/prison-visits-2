@@ -84,7 +84,7 @@ RSpec.describe ApplicationHelper do
       end
 
       it 'does not add an active class' do
-        is_expected.to_not match('class="active"')
+        is_expected.not_to match('class="active"')
       end
     end
   end

@@ -93,10 +93,10 @@ RSpec.describe ApiSlotAvailability, type: :model do
         end
         it 'falls back to hard-coded slots if NOMIS call fails' do
           allow(Nomis::Api.instance).to receive(:fetch_bookable_slots).
-            and_raise(Excon::Errors::Error, 'Fail')
+                                          and_raise(Excon::Error, 'Fail')
           expect(Rails.logger).to receive(:warn).with(
-            'Error calling the NOMIS API: #<Excon::Errors::Error: Fail>'
-          )
+            'Error calling the NOMIS API: #<Excon::Error: Fail>'
+                                  )
 
           expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
         end
@@ -141,7 +141,7 @@ RSpec.describe ApiSlotAvailability, type: :model do
         allow(Nomis::Api.instance).to receive(:lookup_active_offender).
           and_raise(Excon::Errors::Error, 'Lookup error')
         expect(Rails.logger).to receive(:warn).with(
-          'Error calling the NOMIS API: #<Excon::Errors::Error: Lookup error>'
+          'Error calling the NOMIS API: #<Excon::Error: Lookup error>'
         )
 
         subject.restrict_by_prisoner(prisoner_params)

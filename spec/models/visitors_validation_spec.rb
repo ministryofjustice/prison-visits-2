@@ -25,7 +25,7 @@ RSpec.describe VisitorsValidation do
     context 'when the lead visitor is a minor' do
       let(:lead_dob) { 17.years.ago.to_date }
 
-      it { is_expected.to_not be_valid }
+      it { is_expected.not_to be_valid }
 
       it "has 'lead_visitor_age' as an error key" do
         subject.valid?
@@ -36,7 +36,7 @@ RSpec.describe VisitorsValidation do
     context 'when there are too many visitors' do
       let(:dobs) { 7.times.map { 1.day.ago.to_date } }
 
-      it { is_expected.to_not be_valid }
+      it { is_expected.not_to be_valid }
 
       it "has 'too_many_visitors' as an error key" do
         subject.valid?
@@ -51,7 +51,7 @@ RSpec.describe VisitorsValidation do
         }
       end
 
-      it { is_expected.to_not be_valid }
+      it { is_expected.not_to be_valid }
 
       it "has 'too_many_adults' as an error key" do
         subject.valid?

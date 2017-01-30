@@ -52,7 +52,7 @@ RSpec.describe Visit, type: :model do
 
       context 'when the phone number is invalid' do
         let(:phone_no) { ' 07 00 11 22 33' }
-        it { is_expected.to_not be_valid }
+        it { is_expected.not_to be_valid }
       end
     end
   end
@@ -86,7 +86,7 @@ RSpec.describe Visit, type: :model do
 
       it 'does not bump updated_at field' do
         expect { confirm_nomis_cancelled }.
-          to_not change { cancellation.reload.updated_at }
+          not_to change { cancellation.reload.updated_at }
       end
     end
   end
