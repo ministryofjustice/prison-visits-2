@@ -10,6 +10,7 @@
         <th scope="col"><%= t('visit_date', scope: :shared) %></th>
         <th scope="col"><%= t('cancelled', scope: :shared) %></th>
         <th scope="col"><%= t('prison', scope: :shared) %></th>
+        <th scope="col"><%= t('reference_number', scope: :shared) %></th>
         <th scope="col" class="col-actions"><%= t('actions', scope: :shared) %></th>
       </tr>
     </thead>
@@ -22,6 +23,7 @@
           <td aria-label="<%= t('visit_date', scope: :shared) %>"><%= format_visit_slot_date_for_staff(visit) %></td>
           <td aria-label="<%= t('cancelled', scope: :shared) %>"><%= visit.cancellation.created_at.to_s(:short) %></td>
           <td aria-label="<%= t('prison', scope: :shared) %>"><%= visit.prison_name %></td>
+          <td aria-label="<%= t('reference_number', scope: :shared) %>"><%= visit.reference_no %></td>
           <td aria-label="<%= t('actions', scope: :shared) %>">
           <%=
             form_for(
