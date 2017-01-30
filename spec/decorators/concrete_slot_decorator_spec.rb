@@ -7,7 +7,9 @@ RSpec.describe ConcreteSlotDecorator do
     double(StaffNomisChecker,
       errors_for: slot_errors,
       prisoner_availability_unknown?: false,
-      prisoner_availability_enabled?: true)
+      slot_availability_unknown?: false,
+      prisoner_availability_enabled?: true,
+      slot_availability_enabled?: true)
   end
 
   subject do
@@ -31,37 +33,75 @@ RSpec.describe ConcreteSlotDecorator do
       Capybara.string(subject.slot_picker(form_builder))
     end
 
-    context 'when a prisoner is available' do
-      it 'renders the checkbox' do
-        expect(html_fragment).to have_css('label.block-label.date-box')
-        expect(html_fragment).to have_css('span.date-box__number', text: '1')
-        expect(html_fragment).to have_css('span.date-box__day',    text: 'Friday')
-        expect(html_fragment).to have_text('23 October 2015 14:00–15:30')
+    describe 'prisoner availability' do
+      context 'when a prisoner is available' do
+        it 'renders the checkbox' do
+          expect(html_fragment).to have_css('label.block-label.date-box')
+          expect(html_fragment).to have_css('span.date-box__number', text: '1')
+          expect(html_fragment).to have_css('span.date-box__day',    text: 'Friday')
+          expect(html_fragment).to have_text('23 October 2015 14:00–15:30')
+        end
+      end
+
+      context 'when a prisoner is not available' do
+        let(:slot_errors) { ['prisoner_not_available'] }
+
+        it 'renders the checkbox' do
+          expect(html_fragment).to have_css('label.block-label.date-box.date-box--error')
+          expect(html_fragment).to have_css('span.date-box__number', text: '1')
+          expect(html_fragment).to have_css('span.date-box__day',    text: 'Friday')
+          expect(html_fragment).to have_text('23 October 2015 14:00–15:30')
+          expect(html_fragment).to have_css('span.colour--error', text: 'Prisoner unavailable')
+        end
+      end
+
+      context 'when the api is disabled' do
+        before do
+          expect(nomis_checker).to receive(:prisoner_availability_enabled?).and_return(false)
+        end
+
+        it 'renders the checkbox without errors' do
+          expect(html_fragment).to have_css('label.block-label.date-box')
+          expect(html_fragment).to have_css('span.date-box__number', text: '1')
+          expect(html_fragment).to have_css('span.date-box__day',    text: 'Friday')
+          expect(html_fragment).to have_text('23 October 2015 14:00–15:30')
+        end
       end
     end
 
-    context 'when a prisoner is not available' do
-      let(:slot_errors) { ['prisoner_not_available'] }
-
-      it 'renders the chexbox' do
-        expect(html_fragment).to have_css('label.block-label.date-box.date-box--error')
-        expect(html_fragment).to have_css('span.date-box__number', text: '1')
-        expect(html_fragment).to have_css('span.date-box__day',    text: 'Friday')
-        expect(html_fragment).to have_text('23 October 2015 14:00–15:30')
-        expect(html_fragment).to have_css('span.colour--error', text: 'Prisoner unavailable')
-      end
-    end
-
-    context 'when the api is disabled' do
-      before do
-        expect(nomis_checker).to receive(:prisoner_availability_enabled?).and_return(false)
+    describe 'slot availability' do
+      context 'when a slot is available' do
+        it 'renders the checkbox' do
+          expect(html_fragment).to have_css('label.block-label.date-box')
+          expect(html_fragment).to have_css('span.date-box__number', text: '1')
+          expect(html_fragment).to have_css('span.date-box__day',    text: 'Friday')
+          expect(html_fragment).to have_text('23 October 2015 14:00–15:30')
+        end
       end
 
-      it 'renders the checkbox without errors' do
-        expect(html_fragment).to have_css('label.block-label.date-box')
-        expect(html_fragment).to have_css('span.date-box__number', text: '1')
-        expect(html_fragment).to have_css('span.date-box__day',    text: 'Friday')
-        expect(html_fragment).to have_text('23 October 2015 14:00–15:30')
+      context 'when a slot is not available' do
+        let(:slot_errors) { ['slot_not_available'] }
+
+        it 'renders the chexbox' do
+          expect(html_fragment).to have_css('label.block-label.date-box.date-box--error')
+          expect(html_fragment).to have_css('span.date-box__number', text: '1')
+          expect(html_fragment).to have_css('span.date-box__day',    text: 'Friday')
+          expect(html_fragment).to have_text('23 October 2015 14:00–15:30')
+          expect(html_fragment).to have_css('span.colour--error', text: 'Slot unavailable')
+        end
+      end
+
+      context 'when the api is disabled' do
+        before do
+          expect(nomis_checker).to receive(:slot_availability_enabled?).and_return(false)
+        end
+
+        it 'renders the checkbox without errors' do
+          expect(html_fragment).to have_css('label.block-label.date-box')
+          expect(html_fragment).to have_css('span.date-box__number', text: '1')
+          expect(html_fragment).to have_css('span.date-box__day',    text: 'Friday')
+          expect(html_fragment).to have_text('23 October 2015 14:00–15:30')
+        end
       end
     end
   end

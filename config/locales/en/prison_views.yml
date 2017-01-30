@@ -107,7 +107,9 @@ en:
         submit: Process
         email_preview: Preview Email
         prisoner_available: Prisoner available
+        slot_available: Slot available
         prisoner_not_available: Prisoner unavailable
+        slot_not_available: Slot unavailable
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name

@@ -13,6 +13,9 @@ RSpec.describe StaffNomisChecker do
   before do
     allow(Nomis::Api).to receive(:enabled?).and_return(api_enabled)
     allow(instance).to receive(:offender).and_return(offender)
+    allow(Rails.configuration).
+      to receive(:prisons_with_slot_availability).
+      and_return(%w[Pentonville Cardiff])
   end
 
   describe '#prisoner_existance_status' do
@@ -114,6 +117,56 @@ RSpec.describe StaffNomisChecker do
     end
   end
 
+  describe '#slot_availability_unknown?' do
+    subject { instance.slot_availability_unknown? }
+
+    context 'when the nomis api is disabled' do
+      let(:api_enabled) { false }
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the api is enabled and the flag is disabled' do
+      let(:api_enabled) { true }
+
+      before do
+        allow(Rails.configuration).
+          to receive(:nomis_staff_slot_availability_enabled).
+          and_return(false)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context "when the feature is enabled" do
+      before do
+        allow(Rails.configuration).
+          to receive(:nomis_staff_slot_availability_enabled).
+          and_return(true)
+      end
+
+      context 'when the validator returns unknown' do
+        before do
+          allow_any_instance_of(SlotAvailabilityValidation).
+            to receive(:unknown_result?).and_return(true)
+        end
+
+        it { is_expected.to eq(true) }
+      end
+
+      context 'when the validator returns not unknown' do
+        before do
+          allow_any_instance_of(SlotAvailabilityValidation).
+            to receive(:valid?)
+          allow_any_instance_of(SlotAvailabilityValidation).
+            to receive(:unknown_result?).and_return(false)
+        end
+
+        it { is_expected.to eq(false) }
+      end
+    end
+  end
+
   describe '#errors_for' do
     subject { instance.errors_for(slot) }
     let(:slot) { visit.slots.first }
@@ -134,7 +187,7 @@ RSpec.describe StaffNomisChecker do
       context 'prisoner availability' do
         before do
           allow_any_instance_of(SlotAvailabilityValidation).
-            to receive(:slot_error).and_return(nil)
+            to receive(:valid?).and_return(true)
         end
 
         context 'prisoner availability flag is disabled' do
@@ -219,6 +272,10 @@ RSpec.describe StaffNomisChecker do
 
           describe 'due to the prison not being enabled' do
             before do
+              allow(Rails.configuration).
+                to receive(:nomis_staff_slot_availability_enabled).
+                and_return(true)
+
               expect(Rails.configuration).
                 to receive(:prisons_with_slot_availability).
                 and_return([])
@@ -230,6 +287,10 @@ RSpec.describe StaffNomisChecker do
 
         context 'with slot availability enabled' do
           before do
+            allow(Rails.configuration).
+              to receive(:nomis_staff_slot_availability_enabled).
+              and_return(true)
+
             expect(validator).
               to receive(:slot_error).
               with(visit.slots.first).

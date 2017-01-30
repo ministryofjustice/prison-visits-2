@@ -31,6 +31,11 @@ class StaffNomisChecker
       prisoner_availability_validation.unknown_result?
   end
 
+  def slot_availability_unknown?
+    slot_availability_enabled? &&
+      slot_availability_validation.unknown_result?
+  end
+
   def errors_for(slot)
     errors = []
 
@@ -54,6 +59,14 @@ class StaffNomisChecker
     @visit.slots.all? { |slot| errors_for(slot).any? }
   end
 
+  def slot_availability_enabled?
+    @nomis_api_enabled &&
+      Rails.configuration.nomis_staff_slot_availability_enabled &&
+      Rails.
+        configuration.
+        prisons_with_slot_availability.include?(@visit.prison_name)
+  end
+
 private
 
   def prisoner_check_enabled?
@@ -75,14 +88,6 @@ private
   def slot_availability_validation
     @slot_availability_validation ||=
       SlotAvailabilityValidation.new(visit: @visit).tap(&:valid?)
-  end
-
-  def slot_availability_enabled?
-    @nomis_api_enabled &&
-      Rails.configuration.nomis_staff_slot_availability_enabled &&
-      Rails.
-        configuration.
-        prisons_with_slot_availability.include?(@visit.prison_name)
   end
 
   def offender
