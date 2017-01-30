@@ -1,7 +1,7 @@
 .date-box {
   background: $white;
   border: 1px solid $border-colour;
-  height: 125px;
+  height: 130px;
   min-height: 60px;
   overflow: hidden;
   position: relative;
@@ -24,6 +24,13 @@
   }
   .date-box__day {
     @include bold-19;
+  }
+  .date-box__message {
+    display: block;
+    padding: 5px 0 0;
+  }
+  .date-box__message ~ .date-box__message {
+    padding: 0;
   }
   &.selected {
     .date-box__number {

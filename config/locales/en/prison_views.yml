@@ -176,6 +176,7 @@ en:
         closed_visit: This is a closed visit
         none_available: None of the chosen times are available
         prisoner_availability_unknown: You must check NOMIS to verify prisoner availability
+        slot_availability_unknown: You must check NOMIS to verify slot availability
       issue_with_prisoner_section:
         visiting_allowance: Visiting allowance
         no_allowance: Prisoner does not have any visiting allowance

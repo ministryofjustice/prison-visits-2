@@ -31,7 +31,6 @@ class ConcreteSlotDecorator < Draper::Decorator
       h.concat(label_text)
 
       if prisoner_available?
-        h.concat(h.content_tag('br'))
         h.concat(
           h.content_tag(
             :span,
@@ -39,13 +38,12 @@ class ConcreteSlotDecorator < Draper::Decorator
               '.prisoner_available',
               scope: %w[prison visits process_visit]
             ),
-            class: 'bold-xsmall colour--verified'
+            class: 'date-box__message bold-xsmall colour--verified'
           )
         )
       end
 
       if slot_available?
-        h.concat(h.content_tag('br'))
         h.concat(
           h.content_tag(
             :span,
@@ -53,7 +51,7 @@ class ConcreteSlotDecorator < Draper::Decorator
               '.slot_available',
               scope: %w[prison visits process_visit]
             ),
-            class: 'bold-xsmall colour--verified'
+            class: 'date-box__message bold-xsmall colour--verified'
           )
         )
       end
