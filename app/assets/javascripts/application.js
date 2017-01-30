@@ -27,12 +27,11 @@
 //= require modules/moj.RevealAdditional
 //= require modules/moj.checkbox-summary
 //= require modules/moj.datepicker
-//= require modules/moj.RevealNextRow
 //= require modules/moj.emailPreview
 //= require modules/moj.multiSelect
 //= require modules/moj.tableSorter
 
-(function () {
+(function() {
   'use strict';
   delete moj.Modules.devs;
   var selectionButtons = new GOVUK.SelectionButtons("label input[type='radio'], label input[type='checkbox']");
