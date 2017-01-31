@@ -8,9 +8,10 @@
         <th scope="col"><%= t('prisoner_name', scope: :shared) %></th>
         <th scope="col"><%= t('dob', scope: :shared) %></th>
         <th scope="col"><%= t('visit_date', scope: :shared) %></th>
+        <th scope="col"><%= t('time_slot', scope: :shared) %></th>
         <th scope="col"><%= t('cancelled', scope: :shared) %></th>
         <th scope="col"><%= t('prison', scope: :shared) %></th>
-        <th scope="col"><%= t('reference_number', scope: :shared) %></th>
+        <th scope="col"><%= t('reference', scope: :shared) %></th>
         <th scope="col" class="col-actions"><%= t('actions', scope: :shared) %></th>
       </tr>
     </thead>
@@ -21,6 +22,7 @@
           <td class="long" aria-label="<%= t('prisoner_name', scope: :shared) %>"><%= visit.prisoner_full_name %></td>
           <td class="long" aria-label="<%= t('dob', scope: :shared) %>"><%= visit.prisoner_date_of_birth.to_s(:short_nomis) %></td>
           <td aria-label="<%= t('visit_date', scope: :shared) %>"><%= format_visit_slot_date_for_staff(visit) %></td>
+          <td aria-label="<%= t('time_slot', scope: :shared) %>"><%= format_visit_slot_times_for_staff(visit) %></td>
           <td aria-label="<%= t('cancelled', scope: :shared) %>"><%= visit.cancellation.created_at.to_s(:short) %></td>
           <td aria-label="<%= t('prison', scope: :shared) %>"><%= visit.prison_name %></td>
           <td aria-label="<%= t('reference_number', scope: :shared) %>"><%= visit.reference_no %></td>
