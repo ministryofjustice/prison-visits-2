@@ -41,7 +41,7 @@ RSpec.feature 'Using the dashboard' do
         click_button 'Update'
       end
 
-      # TODO this test was being masked due to the omission of the
+      # TODO: This test was being masked due to the omission of the
       # 'text:' key in the have_css calls. This was causing the test to issue a
       # warning and not execute.
       # Needs to be un-(xit)ted and debugged because it currently fails.

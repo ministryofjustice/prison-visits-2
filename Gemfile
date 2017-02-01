@@ -32,7 +32,7 @@ gem 'draper'
 # Fixed version as workaround for Rails version 4.2 expecting method
 # 'last_comment' to be defined. Review once we are using a different Rails
 # version
-gem 'rake', '< 11.0'
+gem 'rake'
 
 gem 'sentry-raven'
 gem 'sidekiq'
