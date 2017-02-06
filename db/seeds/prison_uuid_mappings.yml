@@ -15,6 +15,7 @@ BNI-bullingdon-convicted-only.yml: 11b3613e-105c-48da-9f98-85678059785f
 BNI-bullingdon-remand-only.yml: 8c920312-ea31-45a2-aec8-e18d642567d6
 BRI-bure.yml: ff6eb0ca-da69-4495-ac9d-b383e01371eb
 BSI-brinsford.yml: 2f1e5335-90a0-4bb0-9b74-0cb3f67dfad8
+BWI-berwyn.yml: 4051e8ab-1b73-4dab-a788-f103865cf24f
 BXI-brixton.yml: e5a76c9d-d565-4b4b-8d10-58ce3b05f730
 BZI-bronzefield.yml: 3ba78f1a-af9f-491c-b7b6-364fc1616bf6
 CDI-chelmsford.yml: 6114c49b-0fb2-403d-bac3-b960767adf0d
@@ -23,6 +24,7 @@ CKI-cookham-wood.yml: 4464d460-6307-4085-bd76-7ea8d64f3c86
 CLI-coldingley.yml: a207122a-8ac8-4afe-821f-35a421a2fb52
 CWI-channings-wood.yml: 4d4c2f39-a7a1-4295-9cd1-f4ab416f4508
 DAI-dartmoor.yml: 21c6d486-280d-4426-a1e4-7b264613dcc7
+DGI-dovegate.yml: f3c29be8-1d1d-47b8-bd4d-3310e891808b
 DHI-drake-hall.yml: 4b806557-96fb-493b-90b4-b6257db84820
 DMI-durham.yml: a534c5dc-4268-4eff-b128-f4913a67c190
 DNI-doncaster.yml: 6fb6bdb0-8f88-4e04-900e-30bf0f6fe091
@@ -114,6 +116,7 @@ STI-styal.yml: 09bb3094-0e0f-4b40-9ba9-bcc132d54d1d
 SUI-sudbury.yml: f18ca4d5-8cdc-4aa0-97e6-83d04e1e983c
 SWI-swansea.yml: 7f71f041-11d0-4df2-958c-819940504fd3
 TCI-thorn-cross.yml: 89f59683-9046-41f0-822e-ae6bc7af1e43
+TSI-thameside.yml: 8ac2641a-77dd-4c82-99ac-4201b2c85711
 UKI-usk.yml: 664ca96b-b4c9-4602-8fbe-cef5218c455e
 UPI-prescoed.yml: 8fcf570c-3562-4b01-9a0b-26b1c461c50d
 WCI-winchester-convicted-only.yml: ea94276d-b563-4e15-8140-9676a48ca528
