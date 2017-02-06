@@ -10,6 +10,10 @@ module PVB
     private
 
       attr_accessor :start, :finish, :payload
+
+      def api_call_error
+        "#{RequestStore.store[:nomis_api_name]}_error"
+      end
     end
   end
 end
