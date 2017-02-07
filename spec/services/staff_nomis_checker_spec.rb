@@ -14,7 +14,7 @@ RSpec.describe StaffNomisChecker do
     allow(Nomis::Api).to receive(:enabled?).and_return(api_enabled)
     allow(instance).to receive(:offender).and_return(offender)
     allow(Rails.configuration).
-      to receive(:prisons_with_slot_availability).
+      to receive(:staff_prisons_with_slot_availability).
       and_return(%w[Pentonville Cardiff])
   end
 
@@ -277,7 +277,7 @@ RSpec.describe StaffNomisChecker do
                 and_return(true)
 
               expect(Rails.configuration).
-                to receive(:prisons_with_slot_availability).
+                to receive(:staff_prisons_with_slot_availability).
                 and_return([])
             end
 

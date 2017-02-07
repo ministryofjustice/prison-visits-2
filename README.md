@@ -230,9 +230,10 @@ prisoner availability.
 If `true` then the Nomis API will be used to check the slots availability when
 staff process a visit.
 
-### `PRISONS_WITH_SLOT_AVAILABILITY`
+### `STAFF_PRISONS_WITH_SLOT_AVAILABILITY`
 
-Comma (,) separated list of prisons that have Nomis slot availability enabled.
+Comma (,) separated list of prisons that have Nomis slot availability enabled
+for staff.
 
 Defaults to none by default.
 

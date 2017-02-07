@@ -64,7 +64,7 @@ class StaffNomisChecker
       Rails.configuration.nomis_staff_slot_availability_enabled &&
       Rails.
         configuration.
-        prisons_with_slot_availability.include?(@visit.prison_name)
+        staff_prisons_with_slot_availability.include?(@visit.prison_name)
   end
 
 private
