@@ -1,5 +1,5 @@
 module Api
-  class SlotsController < ApiController
+  class AvailableSlotsController < ApiController
     def index
       prison = Prison.find(params.fetch(:prison_id))
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::SlotsController do
+RSpec.describe Api::AvailableSlotsController do
   let(:parsed_body) {
     JSON.parse(response.body)
   }
