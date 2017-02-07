@@ -64,4 +64,12 @@ RSpec.describe ConcreteSlot do
       expect(subject.duration).to eq(5400)
     end
   end
+
+  describe '<=>' do
+    let(:other) { described_class.new(2015, 10, 23, 14, 0, 15, 45) }
+
+    it 'uses to_s comparision' do
+      expect(subject).to be < other
+    end
+  end
 end

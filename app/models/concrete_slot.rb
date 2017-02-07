@@ -1,6 +1,8 @@
 ConcreteSlot = Struct.new(
   :year, :month, :day, :begin_hour, :begin_minute, :end_hour, :end_minute
 ) do
+  include Comparable
+
   def self.parse(str)
     m = str.match(%r{
       \A (\d\d\d\d) - (\d\d) - (\d\d) T (\d\d) : (\d\d) / (\d\d) : (\d\d) \z
@@ -44,5 +46,9 @@ ConcreteSlot = Struct.new(
 
   def duration
     (end_at - begin_at).to_i
+  end
+
+  def <=>(other)
+    to_s <=> other.to_s
   end
 end
