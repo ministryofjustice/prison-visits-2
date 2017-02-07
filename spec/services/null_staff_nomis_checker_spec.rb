@@ -20,8 +20,4 @@ RSpec.describe NullStaffNomisChecker do
   describe '#prisoner_availability_enabled?' do
     it { expect(subject.prisoner_availability_enabled?).to eq(false) }
   end
-
-  describe '#slots_unavailable?' do
-    it { expect(subject.slots_unavailable?).to eq(false) }
-  end
 end
