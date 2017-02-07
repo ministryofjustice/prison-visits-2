@@ -312,27 +312,4 @@ RSpec.describe StaffNomisChecker do
       end
     end
   end
-
-  describe '#slots_unavailable?' do
-    subject { instance.slots_unavailable? }
-
-    before do
-      allow(instance).
-        to receive(:errors_for).
-        with(anything).
-        and_return([:error])
-    end
-
-    describe 'when one of the slots is available' do
-      before do
-        expect(instance).to receive(:errors_for).with(visit.slots.first).and_return([])
-      end
-
-      it { is_expected.to eq(false) }
-    end
-
-    describe 'when none of the slots is available' do
-      it { is_expected.to eq(true) }
-    end
-  end
 end

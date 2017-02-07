@@ -55,10 +55,6 @@ class StaffNomisChecker
       Rails.configuration.nomis_staff_prisoner_availability_enabled
   end
 
-  def slots_unavailable?
-    @visit.slots.all? { |slot| errors_for(slot).any? }
-  end
-
   def slot_availability_enabled?
     @nomis_api_enabled &&
       Rails.configuration.nomis_staff_slot_availability_enabled &&
