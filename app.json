@@ -17,6 +17,9 @@
     "LANG": {
       "required": true
     },
+    "PRISON_ESTATE_IPS": {
+      "required": true
+    },
     "NOMIS_STAFF_PRISONER_CHECK_ENABLED": {
       "required": true
     },
