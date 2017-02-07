@@ -20,4 +20,8 @@ class NullStaffNomisChecker
   def prisoner_availability_enabled?
     false
   end
+
+  def slots_unavailable?
+    false
+  end
 end
