@@ -1,4 +1,4 @@
-class SlotAvailability
+class ApiSlotAvailability
   attr_reader :slots
 
   def initialize(prison:, use_nomis_slots: false)
@@ -41,7 +41,7 @@ private
   end
 
   def nomis_slots(prison)
-    return nil unless public_prisoner_availability_enabled?
+    return nil if !Nomis::Api.enabled? || !public_prison_slots_enabled?(prison)
 
     Nomis::Api.instance.fetch_bookable_slots(
       prison: prison,
@@ -51,6 +51,10 @@ private
   rescue Excon::Errors::Error => e
     Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
     nil
+  end
+
+  def public_prison_slots_enabled?(_prison)
+    false
   end
 
   def public_prisoner_availability_enabled?

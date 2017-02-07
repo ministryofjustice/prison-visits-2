@@ -49,6 +49,7 @@ namespace :pvb do
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Lint/AssignmentInCondition
   # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/PerceivedComplexity
   def check_prisoner_availability(client, visit)
     RequestStore.store[:custom_log_items] = {}
 
@@ -61,7 +62,7 @@ namespace :pvb do
       if !!response['found']
         offender_id = response['offender']['id']
         potential_dates = visit.slots.
-                          select { |s| s.to_date >= Time.zone.today }.
+                          select { |s| s.to_date > Time.zone.today }.
                           map(&:to_date)
 
         response = client.get(
@@ -81,6 +82,42 @@ namespace :pvb do
     log
   end
 
+  def check_slot_availability(client, visit)
+    retry_count = 0
+    # API has a bug where the start date is not inclusive and must be later than
+    # today, this means that we can only check slots 2 days from today so if the
+    # API fails it could be because of that.
+    current_slots = visit.slots.select { |s| s.to_date > 1.day.from_now.to_date }
+
+    return if current_slots.empty?
+
+    begin
+      response = client.get(
+        "/prison/#{visit.nomis_id}/slots",
+        start_date: current_slots.min.to_date,
+        end_date: current_slots.max.to_date)
+
+      availability = Nomis::SlotAvailability.new(response)
+
+      if availability.none? { |slot| slot.in?(current_slots) }
+        SlotAvailabilityCounter.inc_unavailable_visit
+      end
+    rescue Nomis::APIError => e
+      if retry_count < 5
+        if e =~ /Exception/
+          retry_count += 1
+          SlotAvailabilityCounter.inc_api_failure
+          retry
+        else
+          SlotAvailabilityCounter.inc_bad_range
+        end
+      else
+        SlotAvailabilityCounter.inc_hard_failures
+      end
+    end
+    nil
+  end
+
   def new_worker(pool, queue, task)
     Thread.new do
       begin
@@ -91,7 +128,10 @@ namespace :pvb do
                      end
           pool.with do |client|
             RequestStore.store[:custom_log_items] = {}
-            STDOUT.print task.call(client, data).to_json + "\n"
+            msg = task.call(client, data)
+            if msg
+              STDOUT.print msg.to_json + "\n"
+            end
           end
         end
       rescue ThreadError => e
@@ -127,7 +167,85 @@ namespace :pvb do
     workers = 10.times.map { new_worker(pool, queue, task) }
     workers.map(&:join)
   end
+
+  desc 'Check slot availability for requested visits'
+  task check_slot_availability: :environment do
+    require 'instrumentation'
+    require 'highline'
+
+    cli = HighLine.new
+
+    estate_name = cli.ask('Estate name: ')
+
+    pool = ConnectionPool.new(size: 2, timeout: 60) do
+      Nomis::Client.new(Rails.configuration.nomis_api_host,
+        Rails.configuration.nomis_api_token,
+        Rails.configuration.nomis_api_key)
+    end
+    queue = Queue.new
+    task = ->(client, visit) { check_slot_availability(client, visit) }
+
+    visits = Visit.select('visits.*', 'estates.nomis_id nomis_id').
+             joins(prison: :estate).
+             where(processing_state: 'requested').
+             where(estates: { name: estate_name })
+
+    non_expired = visits.select { |visit|
+      visit.slots.all? { |s| s.to_date > Time.zone.today }
+    }
+
+    non_expired.each do |visit| queue << visit end
+
+    workers = 2.times.map { new_worker(pool, queue, task) }
+    workers.map(&:join)
+
+    STDOUT.puts "Prison: #{estate_name}"
+    STDOUT.puts "Visits checked: #{non_expired.size}"
+    STDOUT.puts \
+      "Visits unavailable: #{SlotAvailabilityCounter.unavailable_visits}"
+    STDOUT.puts "Retries: #{SlotAvailabilityCounter.retries}"
+    STDOUT.puts "Bad range: #{SlotAvailabilityCounter.bad_range}"
+    STDOUT.puts "Unchecked: #{SlotAvailabilityCounter.hard_failures}"
+  end
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Lint/AssignmentInCondition
   # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/PerceivedComplexity
+end
+
+class SlotAvailabilityCounter
+  @unavailable_visits = 0
+  @retries = 0
+  @hard_failures = 0
+  @bad_range = 0
+
+  @mutex = Mutex.new
+
+  class << self
+    attr_reader :retries, :hard_failures, :unavailable_visits, :bad_range
+  end
+
+  def self.inc_unavailable_visit
+    @mutex.synchronize do
+      @unavailable_visits += 1
+    end
+  end
+
+  def self.inc_retries
+    @mutex.synchronize do
+      @retries += 1
+    end
+  end
+
+  def self.inc_hard_failures
+    @mutex.synchronize do
+      @hard_failures += 1
+    end
+  end
+
+  def self.inc_bad_range
+    @mutex.synchronize do
+      @bad_range += 1
+    end
+  end
 end

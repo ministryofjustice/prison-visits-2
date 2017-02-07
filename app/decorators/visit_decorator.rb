@@ -6,6 +6,7 @@ class VisitDecorator < Draper::Decorator
     :prisoner_existance_error,
     :prisoner_availability_unknown?,
     :slots_unavailable?,
+    :slot_availability_unknown?,
     to: :nomis_checker
 
   def prisoner_details_incorrect

@@ -2,26 +2,32 @@ require 'rails_helper'
 
 RSpec.describe StaffNomisChecker do
   let(:instance) { described_class.new(visit) }
-  let(:visit)    { build_stubbed(:visit, prisoner: prisoner) }
+
+  # Enabled for slot availability
+  let(:prison)   { build_stubbed(:prison, name: 'Pentonville') }
+  let(:visit)    { build_stubbed(:visit, prisoner: prisoner, prison: prison) }
   let(:prisoner) { build_stubbed(:prisoner) }
   let(:offender) { Nomis::Offender.new(id: prisoner.number) }
-  let(:enabled)  { true }
+  let(:api_enabled) { true }
 
   before do
-    allow(Nomis::Api).to receive(:enabled?).and_return(enabled)
+    allow(Nomis::Api).to receive(:enabled?).and_return(api_enabled)
     allow(instance).to receive(:offender).and_return(offender)
+    allow(Rails.configuration).
+      to receive(:prisons_with_slot_availability).
+      and_return(%w[Pentonville Cardiff])
   end
 
   describe '#prisoner_existance_status' do
     subject { instance.prisoner_existance_status }
 
     describe 'when the nomis api is not live' do
-      let(:enabled) { false }
+      let(:api_enabled) { false }
       it { is_expected.to eq('not_live') }
     end
 
     describe 'api is configured and the check is disabled for staff' do
-      let(:enabled) { true }
+      let(:api_enabled) { true }
 
       before do
         allow(Rails.configuration).
@@ -73,13 +79,13 @@ RSpec.describe StaffNomisChecker do
     subject { instance.prisoner_availability_unknown? }
 
     context 'when the nomis api is disabled' do
-      let(:enabled) { false }
+      let(:api_enabled) { false }
 
       it { is_expected.to eq(false) }
     end
 
     context 'when the api is enabled and the flag is disabled' do
-      let(:enabled) { true }
+      let(:api_enabled) { true }
 
       before do
         allow(Rails.configuration).
@@ -111,70 +117,198 @@ RSpec.describe StaffNomisChecker do
     end
   end
 
+  describe '#slot_availability_unknown?' do
+    subject { instance.slot_availability_unknown? }
+
+    context 'when the nomis api is disabled' do
+      let(:api_enabled) { false }
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the api is enabled and the flag is disabled' do
+      let(:api_enabled) { true }
+
+      before do
+        allow(Rails.configuration).
+          to receive(:nomis_staff_slot_availability_enabled).
+          and_return(false)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context "when the feature is enabled" do
+      before do
+        allow(Rails.configuration).
+          to receive(:nomis_staff_slot_availability_enabled).
+          and_return(true)
+      end
+
+      context 'when the validator returns unknown' do
+        before do
+          allow_any_instance_of(SlotAvailabilityValidation).
+            to receive(:unknown_result?).and_return(true)
+        end
+
+        it { is_expected.to eq(true) }
+      end
+
+      context 'when the validator returns not unknown' do
+        before do
+          allow_any_instance_of(SlotAvailabilityValidation).
+            to receive(:valid?)
+          allow_any_instance_of(SlotAvailabilityValidation).
+            to receive(:unknown_result?).and_return(false)
+        end
+
+        it { is_expected.to eq(false) }
+      end
+    end
+  end
+
   describe '#errors_for' do
     subject { instance.errors_for(slot) }
     let(:slot) { visit.slots.first }
 
     context 'when the nomis api is not enabled' do
-      let(:enabled) { false }
-
-      it { is_expected.to be_empty }
-    end
-
-    context 'when the api is enabled and the flag is disabled' do
-      let(:enabled) { true }
-
-      before do
-        allow(Rails.configuration).
-          to receive(:nomis_staff_prisoner_availability_enabled).
-          and_return(false)
-      end
+      let(:api_enabled) { false }
 
       it { is_expected.to be_empty }
     end
 
     context 'when the nomis api is enabled' do
-      let(:enabled) { true }
+      let(:api_enabled) { true }
 
       before do
         allow(instance).to receive(:offender).and_return(offender)
       end
 
-      context 'and a valid offender' do
-        let(:offender) { Nomis::Offender.new(id: '1234') }
-
-        let(:validator) do
-          double(PrisonerAvailabilityValidation, valid?: false)
-        end
-
+      context 'prisoner availability' do
         before do
-          allow(PrisonerAvailabilityValidation).
-            to receive(:new).
-            with(offender: offender, requested_dates: visit.slots.map(&:to_date)).
-            and_return(validator)
-
-          expect(validator).
-            to receive(:date_error).with(visit.slots.first.to_date).
-            and_return(message)
+          allow_any_instance_of(SlotAvailabilityValidation).
+            to receive(:valid?).and_return(true)
         end
 
-        context 'with an error' do
-          let(:message) { PrisonerAvailabilityValidation::PRISONER_NOT_AVAILABLE }
-
-          it { is_expected.to eq([message]) }
-        end
-
-        context 'with no errors' do
-          let(:message) { nil }
+        context 'prisoner availability flag is disabled' do
+          before do
+            allow(Rails.configuration).
+              to receive(:nomis_staff_prisoner_availability_enabled).
+              and_return(false)
+          end
 
           it { is_expected.to be_empty }
         end
+
+        context 'and a valid offender' do
+          let(:offender) { Nomis::Offender.new(id: '1234') }
+
+          let(:validator) do
+            double(PrisonerAvailabilityValidation, valid?: false)
+          end
+
+          before do
+            allow(PrisonerAvailabilityValidation).
+              to receive(:new).
+              with(offender: offender, requested_dates: visit.slots.map(&:to_date)).
+              and_return(validator)
+
+            expect(validator).
+              to receive(:date_error).with(visit.slots.first.to_date).
+              and_return(message)
+          end
+
+          context 'with an error' do
+            let(:message) { PrisonerAvailabilityValidation::PRISONER_NOT_AVAILABLE }
+
+            it { is_expected.to eq([message]) }
+          end
+
+          context 'with no errors' do
+            let(:message) { nil }
+
+            it { is_expected.to be_empty }
+          end
+        end
+
+        context 'a null offender' do
+          let(:offender) { Nomis::NullOffender.new }
+
+          it { is_expected.to eq([]) }
+        end
       end
 
-      context 'a null offender' do
+      context 'slot availability' do
         let(:offender) { Nomis::NullOffender.new }
+        let(:validator) { double(SlotAvailabilityValidation, valid?: false) }
 
-        it { is_expected.to eq([]) }
+        before do
+          allow_any_instance_of(PrisonerAvailabilityValidation).
+            to receive(:date_error).and_return(nil)
+
+          allow(SlotAvailabilityValidation).
+            to receive(:new).
+            with(visit: visit).
+            and_return(validator)
+        end
+
+        context 'with slot availability disabled' do
+          before do
+            allow(validator).
+              to receive(:slot_error).
+              with(visit.slots.first).
+              and_return(anything)
+          end
+
+          describe 'due to the staff availability being disabled' do
+            before do
+              expect(Rails.configuration).
+                to receive(:nomis_staff_slot_availability_enabled).
+                and_return(false)
+            end
+
+            it { is_expected.to eq([]) }
+          end
+
+          describe 'due to the prison not being enabled' do
+            before do
+              allow(Rails.configuration).
+                to receive(:nomis_staff_slot_availability_enabled).
+                and_return(true)
+
+              expect(Rails.configuration).
+                to receive(:prisons_with_slot_availability).
+                and_return([])
+            end
+
+            it { is_expected.to eq([]) }
+          end
+        end
+
+        context 'with slot availability enabled' do
+          before do
+            allow(Rails.configuration).
+              to receive(:nomis_staff_slot_availability_enabled).
+              and_return(true)
+
+            expect(validator).
+              to receive(:slot_error).
+              with(visit.slots.first).
+              and_return(message)
+          end
+
+          context 'with no errors' do
+            let(:message) { nil }
+
+            it { is_expected.to eq([]) }
+          end
+
+          context 'with an error' do
+            let(:message) { SlotAvailabilityValidation::SLOT_NOT_AVAILABLE }
+
+            it { is_expected.to eq([message]) }
+          end
+        end
       end
     end
   end

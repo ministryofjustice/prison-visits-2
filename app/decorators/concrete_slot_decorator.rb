@@ -31,7 +31,6 @@ class ConcreteSlotDecorator < Draper::Decorator
       h.concat(label_text)
 
       if prisoner_available?
-        h.concat(h.content_tag('br'))
         h.concat(
           h.content_tag(
             :span,
@@ -39,7 +38,20 @@ class ConcreteSlotDecorator < Draper::Decorator
               '.prisoner_available',
               scope: %w[prison visits process_visit]
             ),
-            class: 'bold-xsmall colour--verified'
+            class: 'date-box__message bold-xsmall colour--verified'
+          )
+        )
+      end
+
+      if slot_available?
+        h.concat(
+          h.content_tag(
+            :span,
+            I18n.t(
+              '.slot_available',
+              scope: %w[prison visits process_visit]
+            ),
+            class: 'date-box__message bold-xsmall colour--verified'
           )
         )
       end
@@ -70,6 +82,12 @@ private
       errors.none? do |e|
         e == PrisonerAvailabilityValidation::PRISONER_NOT_AVAILABLE
       end
+  end
+
+  def slot_available?
+    nomis_checker.slot_availability_enabled? &&
+      !nomis_checker.slot_availability_unknown? &&
+      errors.none? { |e| e == SlotAvailabilityValidation::SLOT_NOT_AVAILABLE }
   end
 
   def label_text

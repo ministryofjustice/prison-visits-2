@@ -19,7 +19,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
       subject.valid?
     end
 
-    it 'adds an unknown error for each date' do
+    it "doesn't add errors to the dates" do
       requested_dates.each do |date|
         expect(subject.errors[date.to_s]).to be_empty
       end

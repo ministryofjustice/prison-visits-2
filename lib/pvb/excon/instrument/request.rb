@@ -5,10 +5,14 @@ module PVB
         include Instrument
 
         def process
-          Instrumentation.incr(:api_request_count)
-          Instrumentation.append_to_log(category => total_time)
+          # Store the name of the api to instrument the outcome of the api call
+          RequestStore.store[:nomis_api_name] = payload[:path].split('/').last
+
+          instrument_request
           Rails.logger.info "#{message} - %.2fms" % [time_in_ms]
         end
+
+      private
 
         def time_in_ms
           (finish - start) * 1000
@@ -24,6 +28,13 @@ module PVB
 
         def total_time
           Instrumentation.custom_log_items[category].to_i + time_in_ms
+        end
+
+        def instrument_request
+          # Set to false initialially, error instrumenter reverses this
+          Instrumentation.append_to_log(api_call_error => false)
+          Instrumentation.incr(:api_request_count)
+          Instrumentation.append_to_log(category => total_time)
         end
       end
     end

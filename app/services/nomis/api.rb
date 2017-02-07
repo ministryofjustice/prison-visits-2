@@ -55,15 +55,15 @@ module Nomis
     def fetch_bookable_slots(prison:, start_date:, end_date:)
       response = @pool.with { |client|
         client.get(
-          "/prison/#{prison.nomis_id}/free_slots",
+          "/prison/#{prison.nomis_id}/slots",
           start_date: start_date,
-          end_date: end_date
-        )
+          end_date: end_date)
       }
-      concrete_slots = response['slots'].map { |s| ConcreteSlot.parse(s) }
-      Instrumentation.append_to_log(slot_visiting_availability: concrete_slots.size)
 
-      concrete_slots
+      SlotAvailability.new(response).tap do |slot_availability|
+        Instrumentation.append_to_log(
+          slot_visiting_availability: slot_availability.slots.size)
+      end
     end
 
   private

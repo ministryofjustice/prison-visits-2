@@ -1,6 +1,8 @@
 ConcreteSlot = Struct.new(
   :year, :month, :day, :begin_hour, :begin_minute, :end_hour, :end_minute
 ) do
+  include Comparable
+
   def self.parse(str)
     m = str.match(%r{
       \A (\d\d\d\d) - (\d\d) - (\d\d) T (\d\d) : (\d\d) / (\d\d) : (\d\d) \z
@@ -10,6 +12,11 @@ ConcreteSlot = Struct.new(
     else
       fail ArgumentError, %{cannot parse "#{str}"}
     end
+  end
+
+  def self.parse_times(begin_at, end_at)
+    new(begin_at.year, begin_at.mon, begin_at.day, begin_at.hour, begin_at.min,
+      end_at.hour, end_at.min)
   end
 
   def iso8601
@@ -44,5 +51,9 @@ ConcreteSlot = Struct.new(
 
   def duration
     (end_at - begin_at).to_i
+  end
+
+  def <=>(other)
+    to_s <=> other.to_s
   end
 end
