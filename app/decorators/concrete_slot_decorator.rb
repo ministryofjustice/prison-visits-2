@@ -57,7 +57,6 @@ class ConcreteSlotDecorator < Draper::Decorator
       end
 
       errors.each do |error|
-        h.concat(h.content_tag('br'))
         h.concat(
           h.content_tag(
             :span,
