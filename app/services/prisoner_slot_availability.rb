@@ -1,5 +1,4 @@
 class PrisonerSlotAvailability
-
   PRISONER_UNAVAILABLE = 'prisoner_unavailable'.freeze
 
   def initialize(prison, offender, start_date, end_date)
@@ -11,11 +10,7 @@ class PrisonerSlotAvailability
   end
 
   def slots
-    if !offender.valid?
-      return all_slots_available_enforced
-    end
-
-    if load_offender_availabilities && api_error
+    if !offender.valid? || (load_offender_availabilities && api_error)
       return all_slots_available_enforced
     end
 
@@ -28,7 +23,8 @@ class PrisonerSlotAvailability
     end
   end
 
-  private
+private
+
   attr_accessor :prison, :offender, :start_date, :end_date, :api_error
 
   def all_slots_available_enforced
@@ -47,7 +43,7 @@ class PrisonerSlotAvailability
     Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
     []
   end
-  alias :load_offender_availabilities :offender_availabilities
+  alias_method :load_offender_availabilities, :offender_availabilities
 
   def prison_slots
     @prison_slots ||= AvailableSlotEnumerator.new(

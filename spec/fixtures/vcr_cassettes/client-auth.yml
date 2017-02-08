@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://172.22.16.2:8080/nomisapi/lookup/active_offender?date_of_birth=1976-06-12&noms_id=A1459AE
+    uri: http://151.237.239.116:4888/nomisapi/lookup/active_offender?date_of_birth=1976-06-12&noms_id=A1459AE
     body:
       encoding: US-ASCII
       string: ''
