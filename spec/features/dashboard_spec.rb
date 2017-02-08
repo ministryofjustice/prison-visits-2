@@ -52,6 +52,34 @@ RSpec.feature 'Using the dashboard' do
     end
   end
 
+  context 'searching a visit' do
+    before do
+      allow(Nomis::Api).to receive(:enabled?).and_return(false)
+    end
+
+    let!(:processed_visit) do
+      create(:visit, prison: swansea_prison)
+    end
+
+    let!(:requested_visit) do
+      create(:visit, prison: swansea_prison, prisoner: processed_visit.prisoner)
+    end
+
+    before do
+      accept_visit(processed_visit, processed_visit.slots.first)
+
+      visit prison_inbox_path
+    end
+
+    it 'displays the search results' do
+      fill_in 'Search', with: processed_visit.prisoner_number
+      find('.button.search').click
+
+      expect(page).to have_css("td a[href='#{prison_visit_process_path(requested_visit, locale: :en)}']")
+      expect(page).to have_css("td a[href='#{prison_visit_path(processed_visit, locale: :en)}']")
+    end
+  end
+
   context 'searching a visit and cancelling it' do
     before do
       allow(Nomis::Api).to receive(:enabled?).and_return(false)
