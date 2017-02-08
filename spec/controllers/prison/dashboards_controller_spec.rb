@@ -21,7 +21,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
     end
 
     context "when logged out" do
-      it { is_expected.to_not be_successful }
+      it { is_expected.not_to be_successful }
     end
   end
 
@@ -30,7 +30,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
     subject { get :processed, estate_id: estate.finder_slug }
 
     context "when logged out" do
-      it { is_expected.to_not be_successful }
+      it { is_expected.not_to be_successful }
     end
 
     context "when logged in" do
@@ -112,7 +112,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
     context "when logged out" do
       let(:visit_date) { nil }
 
-      it { is_expected.to_not be_successful }
+      it { is_expected.not_to be_successful }
     end
 
     context "when logged in" do
@@ -144,7 +144,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
       describe 'with an invalid date' do
         let(:visit_date) { '2010913' }
 
-        it { expect { subject }.to_not raise_error }
+        it { expect { subject }.not_to raise_error }
       end
 
       describe 'date supplied' do

@@ -19,28 +19,26 @@ gem 'premailer-rails'
 gem 'puma'
 gem 'redcarpet'
 gem 'request_store'
-gem 'sass-rails', '~> 5.0'
-gem 'scenic', '>= 1.2.0'
+gem 'sass-rails'
+gem 'scenic'
 gem 'govuk_template', '~> 0.17.0'
 gem 'govuk_frontend_toolkit', '>= 4.6.1'
 gem 'govuk_elements_rails', '>= 1.1.2'
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '5.0.5'
 gem 'jwt'
 gem 'draper'
 
 # Fixed version as workaround for Rails version 4.2 expecting method
 # 'last_comment' to be defined. Review once we are using a different Rails
 # version
-gem 'rake', '< 11.0'
+gem 'rake'
 
-# Fixed version as workaround for bug in 0.15.5
-# https://github.com/getsentry/raven-ruby/issues/460
 gem 'sentry-raven'
 gem 'sidekiq'
 gem 'state_machines-activerecord'
 gem 'string_scrubber'
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 gem 'uri_template'
 gem 'virtus'
 gem 'zendesk_api'
@@ -48,7 +46,7 @@ gem 'zendesk_api'
 group :development, :test do
   gem 'brakeman'
   gem 'byebug'
-  gem 'parser', '~> 2.3.0.pre.6'
+  gem 'parser'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.0'
