@@ -82,6 +82,8 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    domain_name (0.5.20160615)
+      unf (>= 0.0.5, < 1.0.0)
     draper (2.1.0)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
@@ -120,6 +122,8 @@ GEM
     hashie (3.4.3)
     highline (1.7.8)
     htmlentities (4.3.4)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
     i18n (0.7.0)
     ice_nine (0.11.1)
     inflection (1.0.0)
@@ -146,6 +150,10 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    mailgun_rails (0.8.0)
+      actionmailer (>= 3.2.13)
+      json (>= 1.7.7)
+      rest-client (>= 1.6.7)
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -156,6 +164,7 @@ GEM
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     netaddr (1.5.0)
+    netrc (0.11.0)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
@@ -230,6 +239,10 @@ GEM
     redcarpet (3.3.4)
     redis (3.2.2)
     request_store (1.3.1)
+    rest-client (2.0.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
@@ -326,6 +339,9 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.2)
     uri_template (0.6.0)
     vcr (3.0.1)
     virtus (1.0.5)
@@ -377,6 +393,7 @@ DEPENDENCIES
   launchy
   lograge
   logstash-event
+  mailgun_rails
   netaddr
   omniauth-oauth2 (= 1.3.1)
   parser (~> 2.3.0.pre.6)
@@ -414,4 +431,4 @@ RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.13.0
+   1.13.6
