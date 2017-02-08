@@ -64,7 +64,7 @@ class ConcreteSlotDecorator < Draper::Decorator
               ".#{error}",
               scope: %w[prison visits process_visit]
             ),
-            class: 'bold-xsmall colour--error'
+            class: 'date-box__message bold-xsmall colour--error'
           )
         )
       end
