@@ -94,7 +94,7 @@ namespace :pvb do
     begin
       response = client.get(
         "/prison/#{visit.nomis_id}/slots",
-        start_date: current_slots.min.to_date,
+        start_date: current_slots.min.to_date - 1.day, # API bug workaround
         end_date: current_slots.max.to_date)
 
       availability = Nomis::SlotAvailability.new(response)
