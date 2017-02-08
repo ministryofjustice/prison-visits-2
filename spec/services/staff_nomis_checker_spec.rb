@@ -312,4 +312,63 @@ RSpec.describe StaffNomisChecker do
       end
     end
   end
+
+  describe '#slots_unavailable?' do
+    subject { instance.slots_unavailable? }
+
+    describe 'when the slots have expired' do
+      before do
+        now = Date.current
+        allow(visit).
+          to receive(:slots).
+          and_return([
+            ConcreteSlot.new(2015, 10, 5, 11, 30, 12, 30),
+            ConcreteSlot.new(now.year, now.month, now.day, 14, 30, 15, 30)
+          ])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    describe 'when the slots are unavailable' do
+      before do
+        allow(instance).
+          to receive(:errors_for).
+          with(anything).
+          and_return([SlotAvailabilityValidation::SLOT_NOT_AVAILABLE])
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    describe 'when a future slot is available' do
+      let(:slot1) do
+        date = Date.current + 3.days
+        ConcreteSlot.new(date.year, date.month, date.day, 12, 0, 13, 0)
+      end
+
+      let(:slot2) do
+        date = Date.current + 2.days
+        ConcreteSlot.new(date.year, date.month, date.day, 12, 0, 13, 0)
+      end
+
+      let(:slot3) do
+        date = Date.current - 2.days
+        ConcreteSlot.new(date.year, date.month, date.day, 12, 0, 13, 0)
+      end
+
+      before do
+        allow(visit).to receive(:slots).and_return([slot1, slot2, slot3])
+
+        allow(instance).to receive(:errors_for).with(slot1).and_return([])
+
+        allow(instance).
+          to receive(:errors_for).
+          with(slot2).
+          and_return([SlotAvailabilityValidation::SLOT_NOT_AVAILABLE])
+      end
+
+      it { is_expected.to eq(false) }
+    end
+  end
 end
