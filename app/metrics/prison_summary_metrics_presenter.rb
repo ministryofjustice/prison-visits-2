@@ -2,14 +2,12 @@ class PrisonSummaryMetricsPresenter
   def initialize(counts: nil,
     timings: nil,
     percentiles: nil,
-    overdue_count: nil,
-    rejections: nil)
+    overdue_count: nil)
 
     @counts = counts
     @timings = timings
     @percentiles = percentiles
     @overdue_count = overdue_count
-    @rejections = rejections
   end
 
   def processed_on_time
@@ -44,10 +42,14 @@ class PrisonSummaryMetricsPresenter
     @overdue_count['requested'] || 0
   end
 
-  def percent_rejected(reason)
-    return '0' unless @rejections
+  def percent_rejected
+    return '0.0' if total_visits == 0
 
-    @rejections.fetch(reason, 0).to_s
+    rejected = BigDecimal.new(visits_in_state('rejected'))
+    total = BigDecimal.new(total_visits)
+
+    percentage = (rejected / total) * 100
+    percentage.truncate(2)
   end
 
 private

@@ -5,15 +5,13 @@ RSpec.describe PrisonSummaryMetricsPresenter do
   let(:counts) { nil }
   let(:percentiles) { nil }
   let(:overdue_count) { nil }
-  let(:rejections) { nil }
 
   let(:instance) do
     described_class.new(
       timings: timings,
       counts: counts,
       percentiles: percentiles,
-      overdue_count: overdue_count,
-      rejections: rejections
+      overdue_count: overdue_count
     )
   end
 
@@ -200,27 +198,15 @@ RSpec.describe PrisonSummaryMetricsPresenter do
   end
 
   describe '#percent_rejected' do
-    let(:name) { 'total' }
-    subject { instance.percent_rejected(name) }
+    subject { instance.percent_rejected }
 
     context 'no data for the prison' do
-      let(:rejections) { nil }
-
-      it { is_expected.to eq('0') }
+      it { is_expected.to eq('0.0') }
     end
 
-    context 'no data for the specific metric' do
-      let(:rejections) { { 'something' => 3 } }
-
-      it { is_expected.to eq('0') }
-    end
-
-    context 'with a present metric' do
-      let(:rejections) do
-        { name => BigDecimal.new(0.4, 2) }
-      end
-
-      it { is_expected.to eq('0.4') }
+    context 'with a rejected visits' do
+      let(:counts) { { 'booked' => 6, 'rejected' => 4 } }
+      it { is_expected.to eq(40) }
     end
   end
 end
