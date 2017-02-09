@@ -87,7 +87,7 @@ private
 
   def flatten_weekly_count(data, year, week)
     data.each_with_object({}) do |(name, value), hash|
-      hash[name] = value[year][week]
+      hash[name] = value[year][week] if value[year].try(:[], week)
     end
   end
 
