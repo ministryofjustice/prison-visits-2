@@ -68,26 +68,18 @@ private
     flatten_weekly_count(overdue, date.year, date.cweek)
   end
 
-  def week_rejections(date)
-    rejections = Rejections::RejectionPercentageByPrisonAndCalendarWeek.
-                 where(year: date.year, week: date.cweek).fetch_and_format
-
-    flatten_weekly_count(rejections, date.year, date.cweek)
-  end
-
   def weekly_counts(date)
     {
       counts: week_counts(date),
       overdue_counts: week_overdue_counts(date),
       percentiles: week_percentiles(date),
-      rejections: week_rejections(date),
       timings: week_timings(date)
     }
   end
 
   def flatten_weekly_count(data, year, week)
     data.each_with_object({}) do |(name, value), hash|
-      hash[name] = value[year][week]
+      hash[name] = value[year][week] if value[year].try(:[], week)
     end
   end
 
@@ -96,7 +88,6 @@ private
       counts: Counters::CountVisitsByPrisonAndState.fetch_and_format,
       overdue_counts: Overdue::CountOverdueVisitsByPrison.fetch_and_format,
       percentiles: Percentiles::DistributionByPrison.fetch_and_format,
-      rejections: Rejections::RejectionPercentageByPrison.fetch_and_format,
       timings: Timings::TimelyAndOverdue.fetch_and_format
     }
   end

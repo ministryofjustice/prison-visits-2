@@ -17,6 +17,7 @@ RSpec.describe MetricsController, type: :controller do
       let(:range) { 'weekly' }
       before do
         create(:visit, created_at: 1.week.ago)
+        create(:rejected_visit, created_at: 1.year.ago)
       end
       it { is_expected.to be_successful }
     end

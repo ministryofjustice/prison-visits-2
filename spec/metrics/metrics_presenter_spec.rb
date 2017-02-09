@@ -4,7 +4,6 @@ RSpec.describe MetricsPresenter do
   let(:counts) { {} }
   let(:overdue_counts) { {} }
   let(:percentiles) { {} }
-  let(:rejections) { {} }
   let(:timings) { {} }
   let(:prison_name) { 'Cardiff' }
 
@@ -13,7 +12,6 @@ RSpec.describe MetricsPresenter do
       counts: counts,
       overdue_counts: overdue_counts,
       percentiles: percentiles,
-      rejections: rejections,
       timings: timings
     )
   end
@@ -66,14 +64,14 @@ RSpec.describe MetricsPresenter do
 
   describe '#percent_rejected' do
     let(:name) { 'total' }
-    subject { instance.percent_rejected(prison_name, name) }
+    subject { instance.percent_rejected(prison_name) }
 
     before do
       allow_any_instance_of(PrisonSummaryMetricsPresenter).
-        to receive(:percent_rejected).with(name).and_return(0.38)
+        to receive(:percent_rejected).and_return(38)
     end
 
-    it { is_expected.to eq(0.38) }
+    it { is_expected.to eq(38) }
   end
 
   describe '#summary_for' do
@@ -110,12 +108,6 @@ RSpec.describe MetricsPresenter do
         'other' => 'bar'
       }
     end
-    let(:rejections) do
-      {
-        name => 'Prison rejections',
-        'other' => 'bar'
-      }
-    end
     let(:timings) do
       {
         name => 'Prison timings',
@@ -129,8 +121,7 @@ RSpec.describe MetricsPresenter do
     before do
       expect(PrisonSummaryMetricsPresenter).to receive(:new).
         with(counts: 'Prison counts', overdue_count: 'Prison overdue count',
-             percentiles: 'Prison percentiles', rejections: 'Prison rejections',
-             timings: 'Prison timings').
+             percentiles: 'Prison percentiles', timings: 'Prison timings').
         and_call_original
     end
 
