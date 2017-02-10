@@ -1,12 +1,13 @@
 class PrisonerSlotAvailability
   PRISONER_UNAVAILABLE = 'prisoner_unavailable'.freeze
 
-  def initialize(prison, offender, start_date, end_date)
-    self.prison     = prison
-    self.offender   = offender
-    self.start_date = start_date
-    self.end_date   = end_date
-    self.api_error  = false
+  def initialize(prison, noms_id, date_of_birth, start_date, end_date)
+    self.prison        = prison
+    self.noms_id       = noms_id
+    self.date_of_birth = date_of_birth
+    self.start_date    = start_date
+    self.end_date      = end_date
+    self.api_error     = false
   end
 
   def slots
@@ -25,7 +26,13 @@ class PrisonerSlotAvailability
 
 private
 
-  attr_accessor :prison, :offender, :start_date, :end_date, :api_error
+  attr_accessor :prison, :noms_id, :date_of_birth, :start_date, :end_date, :api_error
+
+  def offender
+    @offender ||= Nomis::Api.instance.lookup_active_offender(
+      noms_id: noms_id, date_of_birth: date_of_birth
+    )
+  end
 
   def all_slots_available_enforced
     results = Hash.new { |h, slot| h[slot] = [] }
