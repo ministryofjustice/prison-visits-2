@@ -23,7 +23,7 @@ RSpec.describe ApplicationController, type: :controller do
       it 'defaults to en' do
         expect {
           get :index, locale: 'ent'
-        }.not_to raise_error
+        }.to_not raise_error
       end
     end
   end

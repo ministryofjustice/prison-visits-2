@@ -70,7 +70,7 @@ RSpec.describe Rejection, model: true do
         let(:reasons) { ['invalid_reason'] }
 
         it 'for an ivalid reason' do
-          expect(subject).not_to be_valid
+          expect(subject).to_not be_valid
           expect(subject.errors.full_messages_for(:reasons)).to eq(
             ['Reasons invalid_reason is not in the list']
           )

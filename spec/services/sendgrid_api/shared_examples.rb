@@ -23,7 +23,7 @@ RSpec.shared_examples 'error handling' do
 
       it 'rescues, logs the error and returns false' do
         check_error_log_message_contains(/Timeout/)
-        expect(Raven).not_to receive(:capture_exception)
+        expect(Raven).to_not receive(:capture_exception)
 
         expect(subject).to be_falsey
       end

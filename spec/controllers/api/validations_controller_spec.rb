@@ -52,7 +52,7 @@ RSpec.describe Api::ValidationsController do
     context 'when the prison_id is missing' do
       let(:prison_id) { nil }
 
-      it { is_expected.not_to be_successful }
+      it { is_expected.to_not be_successful }
 
       it 'returns a body' do
         subject

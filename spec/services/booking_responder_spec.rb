@@ -44,7 +44,7 @@ RSpec.describe BookingResponder do
         booking_response.visit.slot_granted = Rejection::SLOT_UNAVAILABLE
         expect(booking_response).to be_valid
 
-        expect(BookingResponder::Accept).not_to receive(:new)
+        expect(BookingResponder::Accept).to_not receive(:new)
         expect(BookingResponder::Reject).to receive(:new).
           and_return(reject_processor)
         allow(VisitorMailer).to receive(:rejected).
@@ -70,8 +70,8 @@ RSpec.describe BookingResponder do
     end
 
     it 'does not call any processor' do
-      expect(BookingResponder::Accept).not_to receive(:new).with(any_args)
-      expect(BookingResponder::Reject).not_to receive(:new).with(any_args)
+      expect(BookingResponder::Accept).to_not receive(:new).with(any_args)
+      expect(BookingResponder::Reject).to_not receive(:new).with(any_args)
       subject.respond!
     end
   end
