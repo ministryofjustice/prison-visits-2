@@ -94,7 +94,7 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
           end
         end
 
-        it { is_expected.not_to be_unknown_result }
+        it { is_expected.to_not be_unknown_result }
       end
 
       context 'for the slots that are unavailable' do
@@ -112,7 +112,7 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
           end
         end
 
-        it { is_expected.not_to be_unknown_result }
+        it { is_expected.to_not be_unknown_result }
       end
     end
 
@@ -139,7 +139,7 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
         # communicate that the prisoner is unavailable just because the date is
         # in the past. Another validator will be responsible for that.
         it 'returns all the slots' do
-          expect_any_instance_of(Nomis::Api).not_to receive(:fetch_bookable_slots)
+          expect_any_instance_of(Nomis::Api).to_not receive(:fetch_bookable_slots)
 
           subject.valid?
 
@@ -148,7 +148,7 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
           end
         end
 
-        it { is_expected.not_to be_unknown_result }
+        it { is_expected.to_not be_unknown_result }
       end
 
       context 'with dates in the past or too far in the future' do
@@ -180,7 +180,7 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
             to eq(described_class::SLOT_NOT_AVAILABLE)
         end
 
-        it { is_expected.not_to be_unknown_result }
+        it { is_expected.to_not be_unknown_result }
       end
     end
   end

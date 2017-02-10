@@ -46,7 +46,7 @@ RSpec.describe ApiPrisonerChecker do
 
         describe 'when the offender is not found' do
           let(:offender) { Nomis::NullOffender.new(api_call_successful: true) }
-          it { is_expected.not_to be_valid }
+          it { is_expected.to_not be_valid }
         end
       end
 

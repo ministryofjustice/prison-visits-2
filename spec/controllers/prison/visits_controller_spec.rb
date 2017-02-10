@@ -12,7 +12,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
     context 'when is processable' do
       context 'and there is no logged in user' do
-        it { is_expected.not_to be_successful }
+        it { is_expected.to_not be_successful }
       end
 
       context 'and there is a logged in user' do
@@ -49,7 +49,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     it_behaves_like 'disallows untrusted ips'
 
     context 'and there is no logged in user' do
-      it { is_expected.not_to be_successful }
+      it { is_expected.to_not be_successful }
     end
 
     context 'and there is a logged in user' do
@@ -88,7 +88,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     end
 
     context "when logged out" do
-      it { is_expected.not_to be_successful }
+      it { is_expected.to_not be_successful }
     end
   end
 
@@ -134,7 +134,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     end
 
     context "when there isn't a user logged in" do
-      it { is_expected.not_to be_successful }
+      it { is_expected.to_not be_successful }
     end
   end
 
@@ -157,7 +157,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     end
 
     context "when signed out" do
-      it { is_expected.not_to be_successful }
+      it { is_expected.to_not be_successful }
     end
   end
 end

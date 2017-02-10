@@ -33,13 +33,13 @@ RSpec.describe Prison::MessagesController do
         it 'renders the visit show page' do
           expect {
             expect(subject).to render_template('prison/visits/show')
-          }.not_to change { visit.reload.messages.count }
+          }.to_not change { visit.reload.messages.count }
         end
       end
     end
 
     context "when logged out" do
-      it { is_expected.not_to be_successful }
+      it { is_expected.to_not be_successful }
     end
   end
 end

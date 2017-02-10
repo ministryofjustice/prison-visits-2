@@ -42,7 +42,7 @@ RSpec.describe EstateSSOMapper do
 
       it 'includes apvu estates' do
         is_expected.to include(brinsford)
-        is_expected.not_to include(other_estate)
+        is_expected.to_not include(other_estate)
       end
     end
 
@@ -62,7 +62,7 @@ RSpec.describe EstateSSOMapper do
 
       it 'includes sheppey cluster estates' do
         is_expected.to include(elmley)
-        is_expected.not_to include(other_estate)
+        is_expected.to_not include(other_estate)
       end
     end
 
@@ -82,7 +82,7 @@ RSpec.describe EstateSSOMapper do
 
       it 'includes grendon and spring hill estates' do
         is_expected.to include(grendon)
-        is_expected.not_to include(other_estate)
+        is_expected.to_not include(other_estate)
       end
     end
 
@@ -102,7 +102,7 @@ RSpec.describe EstateSSOMapper do
 
       it 'includes isle of wight estates' do
         is_expected.to include(iow_parkhurst)
-        is_expected.not_to include(other_estate)
+        is_expected.to_not include(other_estate)
       end
     end
 
@@ -113,7 +113,7 @@ RSpec.describe EstateSSOMapper do
 
       it 'includes the combined orgs' do
         is_expected.to contain_exactly(estate1, estate2)
-        is_expected.not_to include(other_estate)
+        is_expected.to_not include(other_estate)
       end
     end
 
