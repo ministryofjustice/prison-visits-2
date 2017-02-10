@@ -59,7 +59,7 @@ RSpec.describe Nomis::Client do
     it 'raises an APIError if an unexpected exception is raised containing request information' do
       expect {
         subject.get(path, params)
-      }.to raise_error(Nomis::APIError, 'Exception Excon::Error::Timeout calling GET /nomisapi/lookup/active_offender: Request Timeout')
+      }.to raise_error(Nomis::APIError, 'Exception Excon::Errors::Timeout calling GET /nomisapi/lookup/active_offender: Request Timeout')
     end
   end
 
