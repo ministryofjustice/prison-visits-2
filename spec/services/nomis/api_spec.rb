@@ -47,7 +47,7 @@ RSpec.describe Nomis::Api do
     it 'returns NullOffender if an ApiError is raised' do
       allow_any_instance_of(Nomis::Client).to receive(:get).and_raise(Nomis::APIError)
       expect(offender).to be_instance_of(Nomis::NullOffender)
-      expect(offender).not_to be_api_call_successful
+      expect(offender).to_not be_api_call_successful
     end
 
     it 'logs the lookup result, api lookup time' do

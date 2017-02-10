@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - excon/0.54.0
+      - excon/0.49.0
       Accept:
       - application/json
       Authorization:
@@ -41,7 +41,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - excon/0.54.0
+      - excon/0.49.0
       Accept:
       - application/json
       Authorization:
@@ -74,7 +74,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - excon/0.54.0
+      - excon/0.49.0
       Accept:
       - application/json
       Authorization:
@@ -107,7 +107,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - excon/0.54.0
+      - excon/0.49.0
       Accept:
       - application/json
       Authorization:
@@ -140,7 +140,7 @@ http_interactions:
       string: ''
     headers:
       User-Agent:
-      - excon/0.54.0
+      - excon/0.49.0
       Accept:
       - application/json
       Authorization:
