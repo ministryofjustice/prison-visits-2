@@ -11,7 +11,7 @@ class PrisonerSlotAvailability
   end
 
   def slots
-    if !offender.valid? || (load_offender_availabilities && api_error)
+    if enforce_all_available_slots?
       return all_slots_available_enforced
     end
 
@@ -41,6 +41,13 @@ private
     end
   end
 
+  def prison_slots
+    @prison_slots ||= AvailableSlotEnumerator.new(
+      start_date, end_date, prison.recurring_slots,
+      prison.anomalous_slots, prison.unbookable_dates
+    ).to_a
+  end
+
   def offender_availabilities
     @offender_availabilities ||= Nomis::Api.instance.offender_visiting_availability(
       offender_id: offender.id, start_date: start_date, end_date: end_date
@@ -52,21 +59,19 @@ private
   end
   alias_method :load_offender_availabilities, :offender_availabilities
 
-  def prison_slots
-    @prison_slots ||= AvailableSlotEnumerator.new(
-      prison.first_bookable_date(Date.current),
-      prison.last_bookable_date(60.days.from_now),
-      prison.recurring_slots,
-      prison.anomalous_slots,
-      prison.unbookable_dates
-    ).to_a
-  end
-
   def offender_availabilities_dates
     @offender_availabilities_dates ||= offender_availabilities[:dates]
   end
 
-  def enforce_all_slot_available?
-    !offender.valid? || api_error
+  def enforce_all_available_slots?
+    !offender.valid? || (load_offender_availabilities && api_error)
+  end
+
+  def start_date
+    prison.first_bookable_date(Date.current)
+  end
+
+  def end_date
+    prison.last_bookable_date(60.days.from_now)
   end
 end

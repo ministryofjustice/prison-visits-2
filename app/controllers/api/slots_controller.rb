@@ -1,6 +1,5 @@
 module Api
   class SlotsController < ApiController
-
     def index
       prison = Prison.enabled.find(params.require(:prison_id))
       @slots = PrisonerSlotAvailability.new(

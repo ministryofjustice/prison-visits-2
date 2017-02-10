@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Api::SlotsController do
-
   render_views
 
   let(:parsed_body) { JSON.parse(response.body) }
@@ -16,13 +15,13 @@ RSpec.describe Api::SlotsController do
         prisoner_number: prisoner.number,
         date_of_birth:   prisoner.date_of_birth,
         start_date:      '2016-02-15',
-        end_date:        '2016-04-15',
+        end_date:        '2016-04-15'
       }
     }
 
     let(:slots) {
       [
-        { '2016-02-15T13:30/14:30' => true},
+        { '2016-02-15T13:30/14:30' => true },
         { '2016-03-22T13:30/14:30' => false },
         { '2016-04-29T13:30/14:30' => false }
       ]
@@ -40,6 +39,5 @@ RSpec.describe Api::SlotsController do
       get :index, params
       expect(parsed_body).to eq('slots' => slots)
     end
-
   end
 end

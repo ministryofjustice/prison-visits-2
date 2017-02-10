@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe PrisonerSlotAvailability do
-  let(:prison)     { create(:prison) }
-  let(:offender_id)   { 'A1410AE' }
-  let(:date_of_birth)   { '1960-06-01' }
+  let(:prison) { create(:prison) }
+  let(:offender_id) { 'A1410AE' }
+  let(:date_of_birth) { '1960-06-01' }
   let(:start_date) { '2017-02-10' }
   let(:end_date)   { '2017-04-11' }
 
@@ -38,7 +38,7 @@ RSpec.describe PrisonerSlotAvailability do
           ConcreteSlot.new(2017, 4, 4, 9,   0, 10, 0).to_s  => [],
           ConcreteSlot.new(2017, 4, 10, 14, 0, 16, 10).to_s => [],
           ConcreteSlot.new(2017, 4, 11, 9,  0, 10, 0).to_s  => [],
-          ConcreteSlot.new(2017, 4, 11, 14, 0, 16, 10).to_s => ["prisoner_unavailable"],
+          ConcreteSlot.new(2017, 4, 11, 14, 0, 16, 10).to_s => ["prisoner_unavailable"]
         )
       end
     end
@@ -70,7 +70,7 @@ RSpec.describe PrisonerSlotAvailability do
           ConcreteSlot.new(2017, 4, 4, 9,   0, 10, 0).to_s  => [],
           ConcreteSlot.new(2017, 4, 10, 14, 0, 16, 10).to_s => [],
           ConcreteSlot.new(2017, 4, 11, 9,  0, 10, 0).to_s  => [],
-          ConcreteSlot.new(2017, 4, 11, 14, 0, 16, 10).to_s => [],
+          ConcreteSlot.new(2017, 4, 11, 14, 0, 16, 10).to_s => []
         )
       end
     end
@@ -105,7 +105,7 @@ RSpec.describe PrisonerSlotAvailability do
           ConcreteSlot.new(2017, 4, 4, 9,   0, 10, 0).to_s  => [],
           ConcreteSlot.new(2017, 4, 10, 14, 0, 16, 10).to_s => [],
           ConcreteSlot.new(2017, 4, 11, 9,  0, 10, 0).to_s  => [],
-          ConcreteSlot.new(2017, 4, 11, 14, 0, 16, 10).to_s => [],
+          ConcreteSlot.new(2017, 4, 11, 14, 0, 16, 10).to_s => []
         )
       end
     end
