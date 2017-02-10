@@ -6,14 +6,17 @@ RSpec.describe Api::SlotsController do
 
   let(:parsed_body) { JSON.parse(response.body) }
   let(:prisoner)    { create(:prisoner) }
+  let(:prison)      { create(:prison) }
+
   describe '#index' do
     let(:params) {
       {
         format: :json,
-        noms_id: prisoner.number,
-        date_of_birth: prisoner.date_of_birth,
-        start_date: '2016-02-15',
-        end_date: '2016-04-15',
+        prison_id:       prison.id,
+        prisoner_number: prisoner.number,
+        date_of_birth:   prisoner.date_of_birth,
+        start_date:      '2016-02-15',
+        end_date:        '2016-04-15',
       }
     }
 
