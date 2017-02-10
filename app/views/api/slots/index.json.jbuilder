@@ -1,0 +1,1 @@
+json.slots @slots

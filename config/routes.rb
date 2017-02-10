@@ -70,7 +70,7 @@ Rails.application.routes.draw do
     resources :feedback,        only: %i[ create ]
     resources :prisons,         only: %i[ index show ]
     resources :available_slots, only: %i[ index ]
-    resources :slots,           only: %i[ index ], controller: 'available_slots'
+    resources :slots,           only: %i[ index ]
     resources :visits,          only: %i[ create show destroy ]
     post '/validations/prisoner', to: 'validations#prisoner'
     post '/validations/visitors', to: 'validations#visitors'
