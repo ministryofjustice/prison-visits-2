@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   root to: 'staff_info#index'
 
   match 'exception', to: 'errors#test', via: %i[ get post ]
