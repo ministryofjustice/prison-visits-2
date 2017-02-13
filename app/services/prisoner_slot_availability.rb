@@ -66,12 +66,4 @@ private
   def enforce_all_available_slots?
     !offender.valid? || (load_offender_availabilities && api_error)
   end
-
-  def start_date
-    prison.first_bookable_date(Date.current)
-  end
-
-  def end_date
-    prison.last_bookable_date(60.days.from_now)
-  end
 end

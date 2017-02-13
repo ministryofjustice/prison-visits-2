@@ -1,11 +1,11 @@
 require "rails_helper"
 
 RSpec.describe PrisonerSlotAvailability do
-  let(:prison) { create(:prison) }
-  let(:offender_id) { 'A1410AE' }
+  let(:prison)        { create(:prison) }
+  let(:offender_id)   { 'A1410AE' }
   let(:date_of_birth) { '1960-06-01' }
-  let(:start_date) { '2017-02-10' }
-  let(:end_date)   { '2017-04-11' }
+  let(:start_date)    { Date.parse('2017-02-10') }
+  let(:end_date)      { Date.parse('2017-04-11') }
 
   subject do
     described_class.new(prison, offender_id, date_of_birth, start_date, end_date)
@@ -15,6 +15,9 @@ RSpec.describe PrisonerSlotAvailability do
     describe 'when the offender is valid' do
       it 'returns a hash with unavailability reasons' do
         expect(subject.slots).to eq(
+          ConcreteSlot.new(2017, 2, 13, 14, 0, 16, 10).to_s => [],
+          ConcreteSlot.new(2017, 2, 14, 9,  0, 10, 00).to_s => [],
+          ConcreteSlot.new(2017, 2, 14, 14, 0, 16, 10).to_s => ["prisoner_unavailable"],
           ConcreteSlot.new(2017, 2, 20, 14, 0, 16, 10).to_s => [],
           ConcreteSlot.new(2017, 2, 21, 14, 0, 16, 10).to_s => ["prisoner_unavailable"],
           ConcreteSlot.new(2017, 2, 21, 9,  0, 10, 0).to_s  => [],
@@ -47,6 +50,10 @@ RSpec.describe PrisonerSlotAvailability do
       let(:offender_id) { 'does_not_exists' }
       it 'all slots should be available' do
         expect(subject.slots).to eq(
+          ConcreteSlot.new(2017, 2, 13, 14, 0, 16, 10).to_s => [],
+          ConcreteSlot.new(2017, 2, 14, 9,  0, 10, 00).to_s => [],
+          ConcreteSlot.new(2017, 2, 14, 14, 0, 16, 10).to_s => [],
+          ConcreteSlot.new(2017, 2, 20, 14, 0, 16, 10).to_s => [],
           ConcreteSlot.new(2017, 2, 20, 14, 0, 16, 10).to_s => [],
           ConcreteSlot.new(2017, 2, 21, 14, 0, 16, 10).to_s => [],
           ConcreteSlot.new(2017, 2, 21, 9,  0, 10, 0).to_s  => [],
@@ -82,6 +89,10 @@ RSpec.describe PrisonerSlotAvailability do
 
       it 'all slots should be available' do
         expect(subject.slots).to eq(
+          ConcreteSlot.new(2017, 2, 13, 14, 0, 16, 10).to_s => [],
+          ConcreteSlot.new(2017, 2, 14, 9,  0, 10, 00).to_s => [],
+          ConcreteSlot.new(2017, 2, 14, 14, 0, 16, 10).to_s => [],
+          ConcreteSlot.new(2017, 2, 20, 14, 0, 16, 10).to_s => [],
           ConcreteSlot.new(2017, 2, 20, 14, 0, 16, 10).to_s => [],
           ConcreteSlot.new(2017, 2, 21, 14, 0, 16, 10).to_s => [],
           ConcreteSlot.new(2017, 2, 21, 9,  0, 10, 0).to_s  => [],
