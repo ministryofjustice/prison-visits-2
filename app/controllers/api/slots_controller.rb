@@ -18,11 +18,11 @@ module Api
     end
 
     def start_date
-      params.require(:start_date)
+      Date.parse(params.require(:start_date))
     end
 
     def end_date
-      params.require(:end_date)
+      Date.parse(params.require(:end_date))
     end
   end
 end
