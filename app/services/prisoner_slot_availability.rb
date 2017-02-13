@@ -12,7 +12,7 @@ class PrisonerSlotAvailability
 
   def slots
     if enforce_all_available_slots?
-      return all_slots_available_enforced
+      return all_slots_available
     end
 
     results = Hash.new { |h, slot| h[slot] = [] }
@@ -34,7 +34,7 @@ private
     )
   end
 
-  def all_slots_available_enforced
+  def all_slots_available
     results = Hash.new { |h, slot| h[slot] = [] }
     prison_slots.each_with_object(results) do |slot, slots_with_availabilities|
       slots_with_availabilities[slot.to_s]
