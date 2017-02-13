@@ -6,39 +6,26 @@ RSpec.describe Percentiles do
     include_examples 'create and process visits timed by seconds'
 
     describe Percentiles::Distribution do
-      it 'returns the 99% 95% 90% 75% 50% 25% times' do
+      it 'returns the 95% 50% times' do
         expect(described_class.fetch_and_format).to be ==
           {
-            99 => 55,
             95 => 55,
-            90 => 34,
-            75 => 21,
-            50 => 5,
-            25 => 2
+            50 => 5
           }
       end
     end
-
     describe Percentiles::DistributionByPrison do
-      it 'returns the 99% 95% 90% 75% 50% 25% times' do
+      it 'returns the 95% 50% times' do
         expect(described_class.fetch_and_format).to be ==
           { 'Lunar Penal Colony' =>
             {
-              99 => 55,
               95 => 55,
-              90 => 34,
-              75 => 21,
-              50 => 5,
-              25 => 2
+              50 => 5
             },
             'Martian Penal Colony' =>
             {
-              99 => 55,
               95 => 55,
-              90 => 34,
-              75 => 21,
-              50 => 5,
-              25 => 2
+              50 => 5
             }
         }
       end
@@ -61,28 +48,16 @@ RSpec.describe Percentiles do
               { 5 =>
                 {
                   95 => 777_600,
-                  99 => 777_600,
-                  90 => 777_600,
-                  75 => 777_600,
-                  50 => 432_000,
-                  25 => 259_200
+                  50 => 432_000
                 },
                 6 =>
                 {
-                  99 => 777_600,
                   95 => 777_600,
-                  90 => 777_600,
-                  75 => 777_600,
-                  50 => 432_000,
-                  25 => 259_200
+                  50 => 432_000
                 },
                 7 => {
-                  99 => 777_600,
                   95 => 777_600,
-                  90 => 777_600,
-                  50 => 432_000,
-                  75 => 777_600,
-                  25 => 259_200
+                  50 => 432_000
                 }
               }
             }
@@ -102,29 +77,17 @@ RSpec.describe Percentiles do
                 2016 =>
                 { 5 =>
                   {
-                    99 => 777_600,
                     95 => 777_600,
-                    90 => 777_600,
-                    75 => 777_600,
-                    50 => 432_000,
-                    25 => 259_200
+                    50 => 432_000
                   },
                   6 =>
                   {
-                    99 => 777_600,
                     95 => 777_600,
-                    90 => 777_600,
-                    75 => 777_600,
-                    50 => 432_000,
-                    25 => 259_200
+                    50 => 432_000
                   },
                   7 => {
-                    99 => 777_600,
                     95 => 777_600,
-                    90 => 777_600,
-                    75 => 777_600,
-                    50 => 432_000,
-                    25 => 259_200
+                    50 => 432_000
                   }
                 }
               }
@@ -137,7 +100,7 @@ RSpec.describe Percentiles do
           luna_visits_with_dates
         end
 
-        it 'calculates distribution and groups by prison, nested calendar date and visit state' do
+        it 'calculates distribution and groups by prison, nested calendar date' do
           expect(described_class.fetch_and_format).to be ==
             { 'Lunar Penal Colony' =>
               {
@@ -146,29 +109,17 @@ RSpec.describe Percentiles do
                   {
                     1 =>
                     {
-                      99 => 777_600,
                       95 => 777_600,
-                      90 => 777_600,
-                      75 => 777_600,
-                      50 => 432_000,
-                      25 => 259_200
+                      50 => 432_000
                     },
                     8 =>
                     {
-                      99 => 777_600,
                       95 => 777_600,
-                      90 => 777_600,
-                      75 => 777_600,
-                      50 => 432_000,
-                      25 => 259_200
+                      50 => 432_000
                     },
                     15 => {
-                      99 => 777_600,
                       95 => 777_600,
-                      90 => 777_600,
-                      75 => 777_600,
-                      50 => 432_000,
-                      25 => 259_200
+                      50 => 432_000
                     }
                   }
                 }
@@ -182,7 +133,7 @@ RSpec.describe Percentiles do
             luna_visits_with_dates
           end
 
-          it 'counts visits and groups by year, calendar week and visit state' do
+          it 'counts visits and groups by calendar date' do
             expect(described_class.fetch_and_format(:concatenate)).to be ==
               { 'all' =>
                 {
@@ -191,29 +142,17 @@ RSpec.describe Percentiles do
                     {
                       1 =>
                       {
-                        99 => 777_600,
                         95 => 777_600,
-                        90 => 777_600,
-                        75 => 777_600,
-                        50 => 432_000,
-                        25 => 259_200
+                        50 => 432_000
                       },
                       8 =>
                       {
-                        99 => 777_600,
                         95 => 777_600,
-                        90 => 777_600,
-                        75 => 777_600,
-                        50 => 432_000,
-                        25 => 259_200
+                        50 => 432_000
                       },
                       15 => {
-                        99 => 777_600,
                         95 => 777_600,
-                        90 => 777_600,
-                        75 => 777_600,
-                        50 => 432_000,
-                        25 => 259_200
+                        50 => 432_000
                       }
                     }
                   }
