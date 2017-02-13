@@ -3,11 +3,7 @@ require_relative './metrics_support'
 module PercentileSupport
   include MetricsSupport
 
-  CENTILES = [99, 95, 90, 75, 50, 25]
-
-  def centiles
-    CENTILES
-  end
+  CENTILES = [95, 50].freeze
 
   def fetch_and_format(aggregate = nil)
     ordered_counters.each_with_object({}) do |values, result|
@@ -23,6 +19,6 @@ module PercentileSupport
 private
 
   def hash_centiles(result)
-    Hash[centiles.zip(result)]
+    Hash[CENTILES.zip(result)]
   end
 end
