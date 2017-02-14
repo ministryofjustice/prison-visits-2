@@ -48,6 +48,8 @@ gem 'zendesk_api'
 group :development, :test do
   gem 'brakeman'
   gem 'byebug'
+  gem 'jasmine-jquery-rails'
+  gem 'jasmine-rails'
   gem 'parser', '~> 2.3.0.pre.6'
   gem 'pry-byebug'
   gem 'pry-rails'
