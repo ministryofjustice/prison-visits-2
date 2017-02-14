@@ -16,13 +16,13 @@ class PrisonerSlotAvailability
       return all_slots_available
     end
 
-    results = Hash[prison_slots.map { |slot| [slot.to_s, []] }]
-    results.each do |slot, _unavailability_reasons|
-      unless offender_availabilities_dates.delete(slot.to_date)
-        results[slot] << PRISONER_UNAVAILABLE
+    all_slots_available.each do |slot, unavailability_reasons|
+      unless offender_availabilities_dates.include?(slot.to_date)
+        unavailability_reasons << PRISONER_UNAVAILABLE
       end
     end
-    results
+
+    all_slots_available
   end
 
 private
@@ -36,10 +36,7 @@ private
   end
 
   def all_slots_available
-    results = Hash.new { |h, slot| h[slot] = [] }
-    prison_slots.each_with_object(results) do |slot, slots_with_availabilities|
-      slots_with_availabilities[slot.to_s]
-    end
+    @all_slots_available ||= Hash[prison_slots.map { |slot| [slot.to_s, []] }]
   end
 
   def prison_slots
