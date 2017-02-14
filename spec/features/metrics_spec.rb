@@ -98,6 +98,11 @@ RSpec.feature 'Metrics', js: true do
         # These will track the spec in spec/metrics/rejections_spec.rb
         expect(page).to have_selector('.luna-total', text: 10)
       end
+
+      it 'downloads a csv' do
+        click_on 'Download confirmed bookings CSV'
+        expect(page.response_headers['Content-Type']).to eq('text/csv')
+      end
     end
   end
 
