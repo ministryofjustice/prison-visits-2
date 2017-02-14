@@ -12,9 +12,7 @@ class PrisonerSlotAvailability
   end
 
   def slots
-    if enforce_all_available_slots?
-      return all_slots
-    end
+    return all_slots if enforce_all_available_slots?
 
     results = all_slots.deep_dup.each { |slot, unavailability_reasons|
       unless offender_availabilities_dates.include?(slot.to_date)

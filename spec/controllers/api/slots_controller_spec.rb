@@ -21,9 +21,9 @@ RSpec.describe Api::SlotsController do
 
     let(:slots) {
       [
-        { '2016-02-15T13:30/14:30' => true },
-        { '2016-03-22T13:30/14:30' => false },
-        { '2016-04-29T13:30/14:30' => false }
+        { '2016-02-15T13:30/14:30' => [] },
+        { '2016-03-22T13:30/14:30' => ['prisoner_unavailable'] },
+        { '2016-04-29T13:30/14:30' => ['prisoner_unavailable'] }
       ]
     }
 
