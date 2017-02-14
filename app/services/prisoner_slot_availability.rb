@@ -1,12 +1,8 @@
 class PrisonerSlotAvailability
   PRISONER_UNAVAILABLE = 'prisoner_unavailable'.freeze
 
-  def initialize(
-        prison,
-        noms_id,
-        date_of_birth,
-        date_range=Time.zone.today.to_date..28.days.from_now
-      )
+  def initialize(prison, noms_id, date_of_birth,
+    date_range = Time.zone.today.to_date..28.days.from_now)
     self.prison        = prison
     self.noms_id       = noms_id
     self.date_of_birth = date_of_birth
@@ -20,13 +16,13 @@ class PrisonerSlotAvailability
       return all_slots_available
     end
 
-    results = Hash.new { |h, slot| h[slot] = [] }
-    prison_slots.each_with_object(results) do |slot, slots_with_availabilities|
-      slots_with_availabilities[slot.to_s]
+    results = Hash[prison_slots.map { |slot| [slot.to_s, []] }]
+    results.each do |slot, _unavailability_reasons|
       unless offender_availabilities_dates.delete(slot.to_date)
-        slots_with_availabilities[slot.to_s] << PRISONER_UNAVAILABLE
+        results[slot] << PRISONER_UNAVAILABLE
       end
     end
+    results
   end
 
 private

@@ -49,34 +49,34 @@ RSpec.describe PrisonerSlotAvailability do
       describe 'when the offender is valid' do
         it 'returns a hash with unavailability reasons' do
           expect(subject.slots).to eq(
-                                     ConcreteSlot.new(2017, 2, 13, 14, 0, 16, 10).to_s => [],
-                                     ConcreteSlot.new(2017, 2, 14, 9,  0, 10, 00).to_s => [],
-                                     ConcreteSlot.new(2017, 2, 14, 14, 0, 16, 10).to_s => ["prisoner_unavailable"],
-                                     ConcreteSlot.new(2017, 2, 20, 14, 0, 16, 10).to_s => [],
-                                     ConcreteSlot.new(2017, 2, 21, 14, 0, 16, 10).to_s => ["prisoner_unavailable"],
-                                     ConcreteSlot.new(2017, 2, 21, 9,  0, 10, 0).to_s  => [],
-                                     ConcreteSlot.new(2017, 2, 27, 14, 0, 16, 10).to_s => [],
-                                     ConcreteSlot.new(2017, 2, 28, 14, 0, 16, 10).to_s => ["prisoner_unavailable"],
-                                     ConcreteSlot.new(2017, 2, 28, 9,  0, 10, 0).to_s  => [],
-                                     ConcreteSlot.new(2017, 3, 13, 14, 0, 16, 10).to_s => [],
-                                     ConcreteSlot.new(2017, 3, 14, 14, 0, 16, 10).to_s => ["prisoner_unavailable"],
-                                     ConcreteSlot.new(2017, 3, 14, 9,  0, 10, 0).to_s  => [],
-                                     ConcreteSlot.new(2017, 3, 20, 14, 0, 16, 10).to_s => [],
-                                     ConcreteSlot.new(2017, 3, 21, 14, 0, 16, 10).to_s => ["prisoner_unavailable"],
-                                     ConcreteSlot.new(2017, 3, 21, 9,  0, 10, 0).to_s  => [],
-                                     ConcreteSlot.new(2017, 3, 27, 14, 0, 16, 10).to_s => [],
-                                     ConcreteSlot.new(2017, 3, 28, 14, 0, 16, 10).to_s => ["prisoner_unavailable"],
-                                     ConcreteSlot.new(2017, 3, 28, 9,  0, 10, 0).to_s  => [],
-                                     ConcreteSlot.new(2017, 3, 6, 14,  0, 16, 10).to_s => [],
-                                     ConcreteSlot.new(2017, 3, 7, 14,  0, 16, 10).to_s => ["prisoner_unavailable"],
-                                     ConcreteSlot.new(2017, 3, 7, 9,   0, 10, 0).to_s  => [],
-                                     ConcreteSlot.new(2017, 4, 3, 14,  0, 16, 10).to_s => [],
-                                     ConcreteSlot.new(2017, 4, 4, 14,  0, 16, 10).to_s => ["prisoner_unavailable"],
-                                     ConcreteSlot.new(2017, 4, 4, 9,   0, 10, 0).to_s  => [],
-                                     ConcreteSlot.new(2017, 4, 10, 14, 0, 16, 10).to_s => [],
-                                     ConcreteSlot.new(2017, 4, 11, 9,  0, 10, 0).to_s  => [],
-                                     ConcreteSlot.new(2017, 4, 11, 14, 0, 16, 10).to_s => ["prisoner_unavailable"]
-                                   )
+            ConcreteSlot.new(2017, 2, 13, 14, 0, 16, 10).to_s => [],
+            ConcreteSlot.new(2017, 2, 14, 9,  0, 10, 00).to_s => [],
+            ConcreteSlot.new(2017, 2, 14, 14, 0, 16, 10).to_s => ["prisoner_unavailable"],
+            ConcreteSlot.new(2017, 2, 20, 14, 0, 16, 10).to_s => [],
+            ConcreteSlot.new(2017, 2, 21, 14, 0, 16, 10).to_s => ["prisoner_unavailable"],
+            ConcreteSlot.new(2017, 2, 21, 9,  0, 10, 0).to_s  => [],
+            ConcreteSlot.new(2017, 2, 27, 14, 0, 16, 10).to_s => [],
+            ConcreteSlot.new(2017, 2, 28, 14, 0, 16, 10).to_s => ["prisoner_unavailable"],
+            ConcreteSlot.new(2017, 2, 28, 9,  0, 10, 0).to_s  => [],
+            ConcreteSlot.new(2017, 3, 13, 14, 0, 16, 10).to_s => [],
+            ConcreteSlot.new(2017, 3, 14, 14, 0, 16, 10).to_s => ["prisoner_unavailable"],
+            ConcreteSlot.new(2017, 3, 14, 9,  0, 10, 0).to_s  => [],
+            ConcreteSlot.new(2017, 3, 20, 14, 0, 16, 10).to_s => [],
+            ConcreteSlot.new(2017, 3, 21, 14, 0, 16, 10).to_s => ["prisoner_unavailable"],
+            ConcreteSlot.new(2017, 3, 21, 9,  0, 10, 0).to_s  => [],
+            ConcreteSlot.new(2017, 3, 27, 14, 0, 16, 10).to_s => [],
+            ConcreteSlot.new(2017, 3, 28, 14, 0, 16, 10).to_s => ["prisoner_unavailable"],
+            ConcreteSlot.new(2017, 3, 28, 9,  0, 10, 0).to_s  => [],
+            ConcreteSlot.new(2017, 3, 6, 14,  0, 16, 10).to_s => [],
+            ConcreteSlot.new(2017, 3, 7, 14,  0, 16, 10).to_s => ["prisoner_unavailable"],
+            ConcreteSlot.new(2017, 3, 7, 9,   0, 10, 0).to_s  => [],
+            ConcreteSlot.new(2017, 4, 3, 14,  0, 16, 10).to_s => [],
+            ConcreteSlot.new(2017, 4, 4, 14,  0, 16, 10).to_s => ["prisoner_unavailable"],
+            ConcreteSlot.new(2017, 4, 4, 9,   0, 10, 0).to_s  => [],
+            ConcreteSlot.new(2017, 4, 10, 14, 0, 16, 10).to_s => [],
+            ConcreteSlot.new(2017, 4, 11, 9,  0, 10, 0).to_s  => [],
+            ConcreteSlot.new(2017, 4, 11, 14, 0, 16, 10).to_s => ["prisoner_unavailable"]
+          )
         end
       end
 
@@ -87,7 +87,6 @@ RSpec.describe PrisonerSlotAvailability do
         end
       end
 
-
       describe 'with an API::Error' do
         before do
           allow(Nomis::Api.instance).to receive(:offender_visiting_availability).and_raise(Nomis::APIError)
@@ -97,7 +96,6 @@ RSpec.describe PrisonerSlotAvailability do
           expect(subject.slots).to eq(all_slots_available)
         end
       end
-
     end
 
     describe 'without nomis public prisoner check enabled' do
