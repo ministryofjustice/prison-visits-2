@@ -13,16 +13,16 @@ class PrisonerSlotAvailability
 
   def slots
     if enforce_all_available_slots?
-      return all_slots_available
+      return all_slots
     end
 
-    all_slots_available.each do |slot, unavailability_reasons|
+    results = all_slots.deep_dup.each { |slot, unavailability_reasons|
       unless offender_availabilities_dates.include?(slot.to_date)
         unavailability_reasons << PRISONER_UNAVAILABLE
       end
-    end
+    }
 
-    all_slots_available
+    results
   end
 
 private
@@ -35,8 +35,8 @@ private
     )
   end
 
-  def all_slots_available
-    @all_slots_available ||= Hash[prison_slots.map { |slot| [slot.to_s, []] }]
+  def all_slots
+    @all_slots ||= Hash[prison_slots.map { |slot| [slot.to_s, []] }]
   end
 
   def prison_slots
@@ -68,6 +68,7 @@ private
   end
 
   def nomis_public_prisoner_availability_enabled?
-    Rails.configuration.nomis_public_prisoner_availability_enabled
+    Nomis::Api.enabled? &&
+      Rails.configuration.nomis_public_prisoner_availability_enabled
   end
 end
