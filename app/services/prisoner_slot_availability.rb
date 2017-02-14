@@ -1,12 +1,17 @@
 class PrisonerSlotAvailability
   PRISONER_UNAVAILABLE = 'prisoner_unavailable'.freeze
 
-  def initialize(prison, noms_id, date_of_birth, start_date, end_date)
+  def initialize(
+        prison,
+        noms_id,
+        date_of_birth,
+        date_range=Time.zone.today.to_date..28.days.from_now
+      )
     self.prison        = prison
     self.noms_id       = noms_id
     self.date_of_birth = date_of_birth
-    self.start_date    = start_date
-    self.end_date      = end_date
+    self.start_date    = date_range.min
+    self.end_date      = date_range.max
     self.api_error     = false
   end
 
@@ -64,6 +69,12 @@ private
   end
 
   def enforce_all_available_slots?
-    !offender.valid? || (load_offender_availabilities && api_error)
+    !nomis_public_prisoner_availability_enabled? ||
+      !offender.valid? ||
+      (load_offender_availabilities && api_error)
+  end
+
+  def nomis_public_prisoner_availability_enabled?
+    Rails.configuration.nomis_public_prisoner_availability_enabled
   end
 end
