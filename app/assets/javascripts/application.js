@@ -21,6 +21,7 @@
 // Candidates for re-usable components
 //= require modules/moj.analytics
 //= require modules/moj.autocomplete
+//= require modules/moj.clearRadioButtons
 //= require modules/moj.hijacks
 //= require modules/moj.submit-once
 //= require modules/moj.Conditional
