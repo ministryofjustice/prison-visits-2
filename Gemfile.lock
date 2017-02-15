@@ -404,7 +404,7 @@ DEPENDENCIES
   rspec-rails (~> 3.0)
   rubocop
   rubocop-rspec
-  sass-rails (~> 5.0)
+  sass-rails
   scenic (>= 1.2.0)
   sentry-raven
   shoulda-matchers
@@ -413,7 +413,7 @@ DEPENDENCIES
   simplecov-rcov
   state_machines-activerecord
   string_scrubber
-  uglifier (>= 1.3.0)
+  uglifier
   uri_template
   vcr
   virtus
