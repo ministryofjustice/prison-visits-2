@@ -44,12 +44,6 @@
           <%= t('.prisoner_details_incorrect') %>
         </label>
       <% end %>
-      <%= error_container(rf, :reasons) do %>
-        <label class="block-label">
-          <%= rf.object.checkbox_for(:prisoner_out_of_prison, class: 'js-Conditional') %>
-          <%= t('.prisoner_out_of_prison') %>
-        </label>
-      <% end %>
     </div>
     <div class="column-one-third">
       <%= error_container(rf, :reasons) do %>
@@ -70,12 +64,6 @@
         <label class="block-label">
           <%= rf.object.checkbox_for(:child_protection_issues, class: 'js-Conditional') %>
           <%= t('.child_protection_issues') %>
-        </label>
-      <% end %>
-      <%= error_container(rf, :reasons) do %>
-        <label class="block-label">
-          <%= rf.object.checkbox_for(:prisoner_banned, class: 'js-Conditional') %>
-          <%= t('.prisoner_banned') %>
         </label>
       <% end %>
     </div>

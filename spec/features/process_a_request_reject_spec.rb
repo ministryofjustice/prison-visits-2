@@ -106,30 +106,6 @@ RSpec.feature 'Processing a request', js: true do
         and_body(/has moved prison/)
     end
 
-    scenario 'rejecting a booking when the prisoner is banned and out of prison' do
-      check 'Prisoner banned'
-      check 'Prisoner out of prison'
-
-      click_button 'Process'
-
-      expect(page).to have_text('Thank you for processing the visit')
-
-      vst.reload
-      expect(vst.rejection_reasons).to include('prisoner_banned')
-      expect(vst.rejection_reasons).to include('prisoner_out_of_prison')
-      expect(vst).to be_rejected
-
-      expect(contact_email_address).
-        to receive_email.
-        with_subject(/Your visit to #{prison.name} is NOT booked/).
-        and_body(/prisoner is banned/)
-
-      expect(contact_email_address).
-        to receive_email.
-        with_subject(/Your visit to #{prison.name} is NOT booked/).
-        and_body(/prisoner is out of prison/)
-    end
-
     scenario 'rejecting a booking when no visitors are on the contact list' do
       vst.visitors.each_with_index do |_visitor, i|
         check "visit[visitors_attributes][#{i}][not_on_list]"
