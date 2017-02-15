@@ -100,10 +100,6 @@ en:
         <a href="http://www.gov.uk/find-prisoner">find a prisoner</a> service
       prisoner_released_html:
         the prisoner has been released - hopefully they will contact you soon
-      prisoner_banned_html:
-        the prisoner is banned from visits
-      prisoner_out_of_prison_html:
-        the prisoner is out of prison
       restricted_reason:
         the prisoner has a restriction
       duplicate_visit_request_html:
