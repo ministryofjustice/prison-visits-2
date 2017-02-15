@@ -20,3 +20,4 @@
 .env
 TAGS
 .byebug_history
+.ruby-gemset

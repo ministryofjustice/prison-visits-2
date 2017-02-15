@@ -19,7 +19,7 @@ RSpec.describe HttpMethodNotAllowed do
       let(:request_method) { 'webdav' }
 
       it 'does not let the request go through' do
-        expect(app).to_not receive(:call)
+        expect(app).not_to receive(:call)
         subject
       end
 
