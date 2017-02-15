@@ -12,6 +12,9 @@ class Rejection < ActiveRecord::Base
     'prisoner_non_association'.freeze
   CHILD_PROTECTION_ISSUES =
     'child_protection_issues'.freeze
+  PRISONER_BANNED = 'prisoner_banned'.freeze
+  PRISONER_OUT_OF_PRISON =
+    'prisoner_out_of_prison'.freeze
 
   REASONS = [
     CHILD_PROTECTION_ISSUES,
@@ -24,7 +27,9 @@ class Rejection < ActiveRecord::Base
     SLOT_UNAVAILABLE,
     BANNED,
     NOT_ON_THE_LIST,
-    'duplicate_visit_request'
+    'duplicate_visit_request',
+    PRISONER_BANNED,
+    PRISONER_OUT_OF_PRISON
   ].freeze
 
   belongs_to :visit, inverse_of: :rejection

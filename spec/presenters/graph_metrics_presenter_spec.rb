@@ -276,7 +276,9 @@ RSpec.describe GraphMetricsPresenter do
                                    prisoner_released:          10.61,
                                    slot_unavailable:           12.12,
                                    visitor_banned:             13.64,
-                                   visitor_not_on_list:        15.15)
+                                   visitor_not_on_list:        15.15,
+                                   prisoner_banned:            0,
+                                   prisoner_out_of_prison:     0)
       end
     end
   end
