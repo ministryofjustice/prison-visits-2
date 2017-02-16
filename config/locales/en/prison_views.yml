@@ -37,6 +37,7 @@ en:
         send: Send
     dashboards:
       banner:
+        beta: BETA
         beta_html: |
           <span>This is a new service – <a href='%{link}' target='_blank' rel='external'>your feedback<span class='visuallyhidden'> (link opens in a new browser window)</span></a> will help us to improve it.</span>
       cancellations:
@@ -52,6 +53,7 @@ en:
         staff_guide: Service guide
         visitor_cancellations: Visitor cancellations
         current: "Current prison:"
+        click_to_search: Click to search
       prison_switcher:
         prison_switcher: Select one or more prisons
         switch_estate: Update
@@ -78,6 +80,9 @@ en:
         search_list: Search to generate print lists
         download_csv_html: |
           Download CSV <span class="visuallyhidden">(link opens in a new browser window)</span>
+        no_bookings: No bookings
+        no_cancellations: No cancellations
+        cancelled_visits: Cancelled visits
       search:
         cancellations: Cancellations
         processed: Processed
@@ -110,6 +115,7 @@ en:
         slot_available: Slot available
         prisoner_not_available: Prisoner unavailable
         slot_not_available: Slot unavailable
+        add_a_message: Add a message
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
@@ -158,12 +164,15 @@ en:
         prisoner_released: Prisoner has been released
         prisoner_non_association: Prisoner has a non-association
         child_protection_issues: Prisoner has child protection measures
+        issue_with_prisoner: Issue with the prisoner
       cancel_date:
         booked_in_error: Visit was booked in error
         slot_unavailable: Visit slot no longer available
         capacity_issues: Capacity issues in the visit hall
+        issue_with_date: Issue with the date
       cancel_visitor:
         visitor_banned: Visitor is banned
+        issue_with_visitor: Issue with a visitor
       other_section:
         title: Other
         duplicate_visit_request: Duplicate visit request
