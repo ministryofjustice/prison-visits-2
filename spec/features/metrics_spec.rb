@@ -84,12 +84,6 @@ RSpec.feature 'Metrics', js: true do
       it 'has the correct rejection percentages' do
         # These will track the spec in spec/metrics/rejections_spec.rb
         expect(page).to have_selector('.luna-total', text: 10)
-        expect(page).to have_selector('.luna-rejected', text: 5)
-        expect(page).to have_selector('.luna-total-rejected', text: 50.00)
-        expect(page).to have_selector('.luna-no-allowance', text: 20.00)
-        expect(page).to have_selector('.luna-visitor-banned', text: 10.00)
-        expect(page).to have_selector('.luna-slot-unavailable', text: 10.00)
-        expect(page).to have_selector('.luna-no-adult', text: 10.00)
       end
     end
 
@@ -103,12 +97,11 @@ RSpec.feature 'Metrics', js: true do
       it 'has the correct rejection percentages' do
         # These will track the spec in spec/metrics/rejections_spec.rb
         expect(page).to have_selector('.luna-total', text: 10)
-        expect(page).to have_selector('.luna-rejected', text: 5)
-        expect(page).to have_selector('.luna-total-rejected', text: 50.00)
-        expect(page).to have_selector('.luna-no-allowance', text: 20.00)
-        expect(page).to have_selector('.luna-visitor-banned', text: 10.00)
-        expect(page).to have_selector('.luna-slot-unavailable', text: 10.00)
-        expect(page).to have_selector('.luna-no-adult', text: 10.00)
+      end
+
+      it 'downloads a csv' do
+        click_on 'Download confirmed bookings CSV'
+        expect(page.response_headers['Content-Type']).to eq('text/csv')
       end
     end
   end

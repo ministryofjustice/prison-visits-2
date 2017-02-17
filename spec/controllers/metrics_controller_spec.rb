@@ -17,17 +17,12 @@ RSpec.describe MetricsController, type: :controller do
       let(:range) { 'weekly' }
       before do
         create(:visit, created_at: 1.week.ago)
+        create(:rejected_visit, created_at: 1.year.ago)
       end
       it { is_expected.to be_successful }
     end
 
     it_behaves_like 'disallows untrusted ips'
-  end
-
-  describe 'show' do
-    let(:prison) { create :prison }
-    subject { get :show, id: prison.id, locale: 'en' }
-    it { is_expected.to be_successful }
   end
 
   describe 'confirmed_bookings' do

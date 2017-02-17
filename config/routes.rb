@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   root to: 'staff_info#index'
 
   match 'exception', to: 'errors#test', via: %i[ get post ]
@@ -19,11 +20,10 @@ Rails.application.routes.draw do
     get '/', to: redirect('/')
 
     resource :metrics, only: [] do
-      resources(
-        :processing_times, only: [:index, :show], controller: 'metrics/processing_times'
-      )
+      resources :processing_times,
+        only: [:index, :show],
+        controller: 'metrics/processing_times'
     end
-    resources :metrics, only: [:index, :show]
 
     scope controller: :metrics do
       get 'metrics', action: :index

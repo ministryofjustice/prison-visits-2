@@ -15,14 +15,7 @@
       <td>Confirmed</td>
       <td>Median days</td>
       <td>95th percentile days</td>
-      <td>Overall</td>
-      <td>No slot</td>
-      <td>Not on contact list</td>
-      <td>No VOs left</td>
-      <td>Prisoner moved</td>
-      <td>Visitor banned</td>
-      <td>Prisoner details incorrect</td>
-      <td>No adult present</td>
+      <td>Percent rejected</td>
     </tr>
     <% @prisons.each do |prison| %>
       <tr class="<%= cycle('odd', 'even') %>">
@@ -51,28 +44,7 @@
           <%= dataset.end_to_end_percentile(prison.name, '95th') %>
         </td>
         <td class="narrow left-border <%= prison.finder_slug -%>-total-rejected">
-          <%= dataset.percent_rejected(prison.name, 'total') %>
-        </td>
-        <td class="narrow <%= prison.finder_slug -%>-slot-unavailable">
-          <%= dataset.percent_rejected(prison.name, 'slot_unavailable') %>
-        </td>
-        <td class="narrow <%= prison.finder_slug -%>-visitor-not-on-list">
-          <%= dataset.percent_rejected(prison.name, 'visitor_not_on_list') %>
-        </td>
-        <td class="narrow <%= prison.finder_slug -%>-no-allowance">
-          <%= dataset.percent_rejected(prison.name, 'no_allowance') %>
-        </td>
-        <td class="narrow <%= prison.finder_slug -%>-prisoner-moved">
-          <%= dataset.percent_rejected(prison.name, 'prisoner_moved') %>
-        </td>
-        <td class="narrow <%= prison.finder_slug -%>-visitor-banned">
-          <%= dataset.percent_rejected(prison.name, 'visitor_banned') %>
-        </td>
-        <td class="narrow <%= prison.finder_slug -%>-prisoner-details-incorrect">
-          <%= dataset.percent_rejected(prison.name, 'prisoner_details_incorrect') %>
-        </td>
-        <td class="narrow <%= prison.finder_slug -%>-no-adult">
-          <%= dataset.percent_rejected(prison.name, 'no_adult') %>
+          <%= dataset.percent_rejected(prison.name) %>
         </td>
       </tr>
     <% end %>

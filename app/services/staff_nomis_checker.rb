@@ -63,6 +63,13 @@ class StaffNomisChecker
         staff_prisons_with_slot_availability.include?(@visit.prison_name)
   end
 
+  def slots_unavailable?
+    @visit.slots.all? do |s|
+      s.to_date <= Date.current ||
+        errors_for(s).include?(SlotAvailabilityValidation::SLOT_NOT_AVAILABLE)
+    end
+  end
+
 private
 
   def prisoner_check_enabled?

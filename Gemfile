@@ -22,23 +22,21 @@ gem 'request_store'
 gem 'sass-rails'
 gem 'scenic'
 gem 'govuk_template', '~> 0.17.0'
-gem 'govuk_frontend_toolkit', '>= 4.6.1'
-gem 'govuk_elements_rails', '>= 1.1.2'
+gem 'govuk_frontend_toolkit', '~> 4.6.1'
+gem 'govuk_elements_rails', '~> 1.1.2'
 gem 'jquery-rails'
-gem 'jquery-ui-rails', '5.0.5'
+gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'jwt'
 gem 'draper'
-
-# Fixed version as workaround for Rails version 4.2 expecting method
-# 'last_comment' to be defined. Review once we are using a different Rails
-# version
 gem 'rake'
 
 gem 'sentry-raven'
 gem 'sidekiq'
 gem 'state_machines-activerecord'
 gem 'string_scrubber'
-gem 'uglifier'
+
+# Newer versions break ie8 js
+gem 'uglifier', '~> 2.7.2'
 gem 'uri_template'
 gem 'virtus'
 gem 'zendesk_api'
@@ -46,6 +44,8 @@ gem 'zendesk_api'
 group :development, :test do
   gem 'brakeman'
   gem 'byebug'
+  gem 'jasmine-jquery-rails'
+  gem 'jasmine-rails'
   gem 'parser'
   gem 'pry-byebug'
   gem 'pry-rails'
