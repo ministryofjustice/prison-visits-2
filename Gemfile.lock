@@ -300,8 +300,9 @@ GEM
     tilt (2.0.6)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (3.0.4)
-      execjs (>= 0.3.0, < 3)
+    uglifier (2.7.2)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
     unicode-display_width (1.1.3)
     uri_template (0.7.0)
     vcr (3.0.3)
@@ -382,7 +383,7 @@ DEPENDENCIES
   simplecov-rcov
   state_machines-activerecord
   string_scrubber
-  uglifier
+  uglifier (~> 2.7.2)
   uri_template
   vcr
   virtus
