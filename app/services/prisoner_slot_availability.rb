@@ -69,4 +69,9 @@ private
     Nomis::Api.enabled? &&
       Rails.configuration.nomis_public_prisoner_availability_enabled
   end
+
+  def end_date
+    # ensures the range does not go over the 28 days constraint
+    @end_date ||= [@end_date, start_date + 28.days].min
+  end
 end
