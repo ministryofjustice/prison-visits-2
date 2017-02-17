@@ -73,7 +73,7 @@ RSpec.describe BookingResponse, type: :model do
     context 'when not processable' do
       let(:processing_state) { 'rejected' }
       before do
-        is_expected.to_not be_valid
+        is_expected.not_to be_valid
       end
 
       specify { expect(subject.errors.full_messages).to eq(["Visit can't be processed"]) }

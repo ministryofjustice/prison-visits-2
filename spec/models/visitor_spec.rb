@@ -16,7 +16,7 @@ RSpec.describe Visitor do
         instance.banned_until = Date.tomorrow
       end
 
-      it { is_expected.to_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     context 'when it is banned and is banned until yesterday' do
@@ -25,7 +25,7 @@ RSpec.describe Visitor do
         instance.banned_until = Date.yesterday
       end
 
-      it { is_expected.to_not be_valid }
+      it { is_expected.not_to be_valid }
     end
 
     context 'when the banned until date is invalid' do
@@ -37,13 +37,13 @@ RSpec.describe Visitor do
       context 'with a bogus date' do
         let(:banned_until) { { day: 30, month: 11, year: 1.year.from_now.year } }
 
-        it { is_expected.to_not be_valid }
+        it { is_expected.not_to be_valid }
       end
 
       context 'with a date missing the year' do
         let(:banned_until) { { day: 30, month: 11, year: nil } }
 
-        it { is_expected.to_not be_valid }
+        it { is_expected.not_to be_valid }
       end
     end
   end
