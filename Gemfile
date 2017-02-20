@@ -4,7 +4,7 @@ ruby '2.3.0'
 gem 'rails', '~> 4.2.3'
 
 gem 'connection_pool'
-gem 'base32-crockford', require: false
+gem 'base32-crockford', require: 'base32/crockford'
 gem 'excon'
 gem 'highline', require: false
 gem 'jbuilder'

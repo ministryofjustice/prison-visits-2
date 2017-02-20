@@ -48,9 +48,10 @@ RSpec.describe BookingRequestCreator do
   end
 
   context 'creating records' do
-    it 'creates a Visit record with the specified locale' do
+    it 'creates a Visit record with the specified locale and a human_id' do
       visit = subject.create!(prisoner_step, visitors_step, slots_step, :cy)
       expect(visit.locale).to eq('cy')
+      expect(visit.human_id).not_to be_nil
     end
 
     it 'creates a Visitor record' do
