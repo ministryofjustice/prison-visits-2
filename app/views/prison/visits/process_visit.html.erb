@@ -45,7 +45,7 @@
       <hr/>
       <div class="grid-row">
         <div class="column-one-half">
-          <h2 class="bold-medium">Add a message</h2>
+          <h2 class="bold-medium"><%= t('.add_a_message') %></h2>
           <%= fields_for :message, @visit.messages.first || @visit.messages.new do |mf| %>
             <%= mf.hidden_field :user_id, value: current_user.id %>
             <%= single_field mf, :body, :text_area, class: 'form-control form-control-full-width', rows: 4 %>
