@@ -193,6 +193,8 @@ en:
         prisoner_moved: Prisoner has moved prisons
         prisoner_released: Prisoner has been released
         prisoner_non_association: Prisoner has a non-association
+        prisoner_banned: Prisoner banned from receiving visits
+        prisoner_out_of_prison: Prisoner on external movement
         child_protection_issues: Prisoner has child protection measures
         no_allowance_tell_more: >-
           You can also tell the visitor more about the VO status:
