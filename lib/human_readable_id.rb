@@ -1,5 +1,6 @@
 class HumanReadableId
-  MAX_NUMBER = Base32::Crockford.decode('ZZZZZZZZ') # Largest 8 digit number
+  ID_LENGTH = 8
+  MAX_NUMBER = Base32::Crockford.decode('Z' * ID_LENGTH) # Largest 8 digit number
 
   def self.update_unique_id(klass, primary_key, column)
     ActiveRecord::Base.transaction(requires_new: true) do
@@ -16,6 +17,10 @@ class HumanReadableId
 
   def self.generate_id
     random_number = SecureRandom.random_number(MAX_NUMBER)
-    yield Base32::Crockford.encode(random_number, length: 8)
+    yield Base32::Crockford.encode(random_number, length: ID_LENGTH)
+  end
+
+  def self.human_readable?(id)
+    id.size <= ID_LENGTH
   end
 end
