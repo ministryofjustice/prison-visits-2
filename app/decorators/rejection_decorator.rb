@@ -3,7 +3,9 @@ class RejectionDecorator < Draper::Decorator
 
   RESTRICTON_REASONS = [
     Rejection::PRISONER_NON_ASSOCIATION,
-    Rejection::CHILD_PROTECTION_ISSUES
+    Rejection::CHILD_PROTECTION_ISSUES,
+    Rejection::PRISONER_BANNED,
+    Rejection::PRISONER_OUT_OF_PRISON
   ].freeze
 
   def allowance_renews_on

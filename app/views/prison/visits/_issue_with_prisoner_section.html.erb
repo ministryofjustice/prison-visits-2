@@ -28,12 +28,6 @@
     <div class="column-one-third">
       <%= error_container(rf, :reasons) do %>
         <label class="block-label">
-          <%= rf.object.checkbox_for(:prisoner_released, class: 'js-Conditional') %>
-          <%= t('.prisoner_released') %>
-        </label>
-      <% end %>
-      <%= error_container(rf, :reasons) do %>
-        <label class="block-label">
           <%=
           check_box_tag(
             'visit[rejection_attributes][reasons][]',
@@ -44,8 +38,6 @@
           <%= t('.prisoner_details_incorrect') %>
         </label>
       <% end %>
-    </div>
-    <div class="column-one-third">
       <%= error_container(rf, :reasons) do %>
         <label class="block-label">
           <%= rf.object.checkbox_for(:prisoner_non_association, class: 'js-Conditional') %>
@@ -54,16 +46,38 @@
       <% end %>
       <%= error_container(rf, :reasons) do %>
         <label class="block-label">
+          <%= rf.object.checkbox_for(:prisoner_out_of_prison, class: 'js-Conditional') %>
+          <%= t('.prisoner_out_of_prison') %>
+        </label>
+      <% end %>
+    </div>
+
+    <div class="column-one-third">
+      <%= error_container(rf, :reasons) do %>
+        <label class="block-label">
           <%= rf.object.checkbox_for(:prisoner_moved, class: 'js-Conditional') %>
           <%= t('.prisoner_moved') %>
         </label>
       <% end %>
-    </div>
-    <div class="column-one-third">
       <%= error_container(rf, :reasons) do %>
         <label class="block-label">
           <%= rf.object.checkbox_for(:child_protection_issues, class: 'js-Conditional') %>
           <%= t('.child_protection_issues') %>
+        </label>
+      <% end %>
+    </div>
+
+    <div class="column-one-third">
+      <%= error_container(rf, :reasons) do %>
+        <label class="block-label">
+          <%= rf.object.checkbox_for(:prisoner_released, class: 'js-Conditional') %>
+          <%= t('.prisoner_released') %>
+        </label>
+      <% end %>
+      <%= error_container(rf, :reasons) do %>
+        <label class="block-label">
+          <%= rf.object.checkbox_for(:prisoner_banned, class: 'js-Conditional') %>
+          <%= t('.prisoner_banned') %>
         </label>
       <% end %>
     </div>
