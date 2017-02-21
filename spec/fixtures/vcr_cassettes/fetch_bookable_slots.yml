@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://172.22.16.2:8080/nomisapi/prison/LEI/slots?end_date=2017-02-20&start_date=2017-02-01
+    uri: http://151.237.239.116:4888/nomisapi/prison/LEI/slots?end_date=2017-02-20&start_date=2017-02-01
     body:
       encoding: US-ASCII
       string: ''
@@ -33,6 +33,6 @@ http_interactions:
       string: '{"slots":[{"time":"2017-02-02T10:30/11:30","capacity":150,"max_groups":30,"max_adults":90,"groups_booked":0,"visitors_booked":0,"adults_booked":0},
         {"time":"2017-02-02T14:00/15:00","capacity":150,"max_groups":30,"max_adults":90,"groups_booked":0,"visitors_booked":0,"adults_booked":0},
         {"time":"2017-02-02T15:30/16:30","capacity":150,"max_groups":30,"max_adults":90,"groups_booked":0,"visitors_booked":0,"adults_booked":0}]}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 30 Jan 2017 10:29:25 GMT
 recorded_with: VCR 3.0.1

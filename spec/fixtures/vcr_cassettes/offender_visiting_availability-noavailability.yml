@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://172.22.16.2:8080/nomisapi/offenders/1055847/visits/available_dates?end_date=2016-05-21&start_date=2016-05-01
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1055847/visits/available_dates?end_date=2016-05-21&start_date=2016-05-01
     body:
       encoding: US-ASCII
       string: ''
