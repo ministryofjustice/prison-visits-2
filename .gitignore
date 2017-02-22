@@ -20,4 +20,5 @@
 .env
 TAGS
 .byebug_history
+dump.rdb
 .ruby-gemset
