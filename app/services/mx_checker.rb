@@ -1,3 +1,5 @@
+require 'resolv'
+
 class MxChecker
   def initialize(resolver = ::Resolv::DNS.new)
     @resolver = resolver

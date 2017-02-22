@@ -16,7 +16,7 @@ class LinkDirectory
   end
 
   def visit_status(visit, locale: 'en')
-    @status_template.expand(visit_id: visit.id, locale: locale)
+    @status_template.expand(visit_id: visit.human_id, locale: locale)
   end
 
   def feedback_submission(locale: 'en')

@@ -21,6 +21,14 @@ RSpec.describe LinkDirectory do
     end
   end
 
+  describe '#visit_status' do
+    it 'generates a visit status link' do
+      visit = build_stubbed(:visit, human_id: 'FOOBAR')
+      expect(subject.visit_status(visit)).
+        to eq('http://localhost:4000/en/visits/FOOBAR')
+    end
+  end
+
   it 'generates feedback links' do
     expect(subject.feedback_submission).
       to eq('http://localhost:4000/en/feedback/new')
