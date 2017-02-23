@@ -113,14 +113,14 @@ RSpec.describe Api::VisitsController do
   end
 
   describe 'show' do
-    let(:params) {
+    let(:params) do
       {
         format: :json,
-        id: visit.id
+        id: visit.human_id
       }
-    }
+    end
 
-    specify do expect(get :show, params).to render_template(:show) end
+    it { expect(get :show, params).to render_template(:show) }
 
     it 'returns visit status' do
       get :show, params
@@ -174,13 +174,24 @@ RSpec.describe Api::VisitsController do
       expect(response).to have_http_status(:not_found)
       expect(parsed_body['message']).to eq('Not found')
     end
+
+    context 'with a guid' do
+      let(:params) do
+        {
+          format: :json,
+          id: visit.id
+        }
+      end
+
+      it { expect(get :show, params).to render_template(:show) }
+    end
   end
 
   describe 'destroy' do
     let(:params) {
       {
         format: :json,
-        id: visit.id
+        id: visit.human_id
       }
     }
 

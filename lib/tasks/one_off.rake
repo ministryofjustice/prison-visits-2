@@ -207,6 +207,21 @@ namespace :pvb do
     STDOUT.puts "Bad range: #{SlotAvailabilityCounter.bad_range}"
     STDOUT.puts "Unchecked: #{SlotAvailabilityCounter.hard_failures}"
   end
+
+  desc 'Populate visits friendly id'
+  task populate_visits_human_id: :environment do
+    require 'human_readable_id'
+
+    query = Visit.where(human_id: nil).limit(1000)
+    batch = query.pluck(:id)
+    while batch.any?
+      batch.each do |id|
+        HumanReadableId.update_unique_id(Visit, id, :human_id)
+      end
+
+      batch = query.pluck(:id)
+    end
+  end
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Lint/AssignmentInCondition
   # rubocop:enable Metrics/AbcSize

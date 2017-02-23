@@ -1,3 +1,5 @@
+require 'human_readable_id'
+
 module Api
   class VisitsController < ApiController
     # When this app not longer handles all the booking steps it will probably be
@@ -76,7 +78,15 @@ module Api
     end
 
     def visit
-      @_visit ||= Visit.find(params[:id])
+      # TODO: Delete the PK (id) lookup after people stop clicking on emails
+      # using the guids ids.
+      @_visit ||= begin
+                    if HumanReadableId.human_readable?(params[:id])
+                      Visit.find_by!(human_id: params[:id])
+                    else
+                      Visit.find(params[:id])
+                    end
+                  end
     end
 
     def fail_if_invalid(param, step)
