@@ -69,7 +69,7 @@ RSpec.describe HealthcheckController, type: :controller do
     end
 
     it 'returns an HTTP Bad Gateway status' do
-      expect(response).to have_http_status(:bad_gateway)
+      expect(response).to have_http_status(:service_unavailable)
     end
   end
 
