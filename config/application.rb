@@ -105,5 +105,8 @@ module PrisonVisits
 
     config.staff_prisons_with_slot_availability =
       ENV['STAFF_PRISONS_WITH_SLOT_AVAILABILITY']&.split(',')&.map(&:strip) || []
+
+    config.public_prisons_with_slot_availability =
+      ENV['PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY']&.split(',')&.map(&:strip) || []
   end
 end

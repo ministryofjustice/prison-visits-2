@@ -1,5 +1,6 @@
-class PrisonerSlotAvailability
+class SlotAvailability
   PRISONER_UNAVAILABLE = 'prisoner_unavailable'.freeze
+  PRISON_UNAVAILABLE   = 'prison_unavailable'.freeze
 
   def initialize(prison, noms_id, date_of_birth,
     date_range = Time.zone.today.to_date..28.days.from_now)
@@ -11,17 +12,24 @@ class PrisonerSlotAvailability
     self.api_error     = false
   end
 
+  # rubocop:disable Metrics/MethodLength
   def slots
+    return all_slots unless live_availability_enabled?
     return all_slots if enforce_all_available_slots?
 
     results = all_slots.deep_dup.each { |slot, unavailability_reasons|
-      unless offender_availabilities_dates.include?(slot.to_date)
+      slot_date = slot.to_date
+      unless offender_availabilities_dates.include?(slot_date)
         unavailability_reasons << PRISONER_UNAVAILABLE
       end
-    }
 
+      unless bookable_prison_slots.include?(slot)
+        unavailability_reasons << PRISON_UNAVAILABLE
+      end
+    }
     results
   end
+# rubocop:enable Metrics/MethodLength
 
 private
 
@@ -39,6 +47,15 @@ private
 
   def prison_slots
     @prison_slots ||= prison.available_slots(start_date).to_a
+  end
+
+  def bookable_prison_slots
+    @bookable_prison_slots ||=
+      begin
+        api_slot_availability = ApiSlotAvailability.new(
+          prison: prison, use_nomis_slots: true)
+        api_slot_availability.slots.map(&:time)
+      end
   end
 
   def offender_availabilities
@@ -70,5 +87,11 @@ private
   def end_date
     # ensures the range does not go over the 28 days constraint
     @end_date ||= [@end_date, start_date + 28.days].min
+  end
+
+  def live_availability_enabled?
+    Rails.configuration.public_prisons_with_slot_availability.include?(
+      prison.name
+    )
   end
 end
