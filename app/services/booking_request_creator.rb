@@ -1,3 +1,5 @@
+require 'human_readable_id'
+
 class BookingRequestCreator
   def create!(prisoner_step, visitors_step, slots_step, locale)
     create_visit(prisoner_step, visitors_step, slots_step, locale).tap { |visit|
@@ -10,8 +12,9 @@ private
   def create_visit(prisoner_step, visitors_step, slots_step, locale)
     ActiveRecord::Base.transaction do
       visit = build_visit(prisoner_step, visitors_step, slots_step, locale)
-
       visit.save!
+      human_id = HumanReadableId.update_unique_id(Visit, visit.id, :human_id)
+      visit.human_id = human_id
       create_visitors(visitors_step, visit)
       visit
     end

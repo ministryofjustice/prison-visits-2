@@ -24,7 +24,8 @@ class BookingResponse
         :slot_granted,
         :slot_option_0,
         :slot_option_1,
-        :slot_option_2
+        :slot_option_2,
+        :human_id
       ],
       methods: [
         :principal_visitor_id

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213110434) do
+ActiveRecord::Schema.define(version: 20170220141458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -164,8 +164,10 @@ ActiveRecord::Schema.define(version: 20170213110434) do
     t.boolean  "closed"
     t.uuid     "prisoner_id",                                             null: false
     t.string   "locale",                  limit: 2,                       null: false
+    t.string   "human_id"
   end
 
+  add_index "visits", ["human_id"], name: "index_visits_on_human_id", unique: true, using: :btree
   add_index "visits", ["prison_id"], name: "index_visits_on_prison_id", using: :btree
 
   add_foreign_key "cancellations", "visits"
