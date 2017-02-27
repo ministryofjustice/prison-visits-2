@@ -1,5 +1,5 @@
 module PVB
-  module Excon
+  module Instrumentations
     module Instrument
       def initialize(start, finish, payload)
         self.start   = start
@@ -18,7 +18,8 @@ module PVB
   end
 end
 
-require 'pvb/excon/instrument/request'
-require 'pvb/excon/instrument/retry'
-require 'pvb/excon/instrument/response'
-require 'pvb/excon/instrument/error'
+require 'pvb/instrumentations/excon/request'
+require 'pvb/instrumentations/excon/retry'
+require 'pvb/instrumentations/excon/response'
+require 'pvb/instrumentations/excon/error'
+require 'pvb/instrumentations/faraday/request'

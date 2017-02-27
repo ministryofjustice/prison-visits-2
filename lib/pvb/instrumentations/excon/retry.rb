@@ -1,6 +1,6 @@
 module PVB
-  module Excon
-    module Instrument
+  module Instrumentations
+    module Excon
       class Retry < Request
         def process
           Instrumentation.incr(:api_retry_count)

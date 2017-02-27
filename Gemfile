@@ -31,7 +31,10 @@ gem 'jwt'
 gem 'draper'
 gem 'rake'
 
-gem 'sentry-raven'
+gem 'sentry-raven',
+  github: 'StupidCodeFactory/raven-ruby',
+  branch: 'allow-faraday-customisation'
+
 gem 'sidekiq'
 gem 'state_machines-activerecord'
 gem 'string_scrubber'

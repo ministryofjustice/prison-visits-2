@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe PVB::Excon::Instrument::Error do
+RSpec.describe PVB::Instrumentations::Excon::Error do
   let(:nowish)           { Time.zone.now }
   let(:start)            { nowish }
   let(:finish)           { nowish + 0.5 }

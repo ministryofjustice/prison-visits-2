@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/StupidCodeFactory/raven-ruby.git
+  revision: 0eb4422d903aca2b56670f50b13e114ad84e8495
+  branch: allow-faraday-customisation
+  specs:
+    sentry-raven (2.3.1)
+      faraday (>= 0.7.6, < 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -262,8 +270,6 @@ GEM
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
     scrub_rb (1.0.1)
-    sentry-raven (2.3.0)
-      faraday (>= 0.7.6, < 1.0)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
     sidekiq (4.2.9)
@@ -378,7 +384,7 @@ DEPENDENCIES
   rubocop-rspec
   sass-rails
   scenic
-  sentry-raven
+  sentry-raven!
   shoulda-matchers
   sidekiq
   simplecov
@@ -396,4 +402,4 @@ RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.14.3
+   1.14.5

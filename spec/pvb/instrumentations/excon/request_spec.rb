@@ -1,7 +1,6 @@
 require "rails_helper"
-require 'pvb/excon/instrument'
 
-RSpec.describe PVB::Excon::Instrument::Request do
+RSpec.describe PVB::Instrumentations::Excon::Request do
   include_context 'pvb instrumentation'
 
   describe '#process' do
