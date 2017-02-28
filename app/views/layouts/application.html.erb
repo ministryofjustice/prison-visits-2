@@ -45,6 +45,7 @@
 
 <% content_for :content do %>
   <main id="content">
+    <a target="_blank" href="#" class="feedback-link"><%= t('.feedback') %></a>
     <%= yield :banner %>
     <%= yield :navigation %>
     <% if content_for?(:header) %>
