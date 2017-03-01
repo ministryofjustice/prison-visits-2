@@ -67,3 +67,7 @@
   <%= t('.feedback_html',
         url: link_directory.feedback_submission(locale: I18n.locale)) %>
 </p>
+
+<p>
+  <small><%= t('visit_id', scope: [:visitor_mailer, :booked]) %> <%= @visit.human_id %></small>
+</p>

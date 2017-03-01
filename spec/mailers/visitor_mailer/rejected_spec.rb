@@ -32,15 +32,14 @@ RSpec.describe VisitorMailer, '.rejected' do
     end
 
     it 'uses the locale of the visit' do
-      pending('Wait for Welsh translation')
-      visit.update locale: 'cy'
+      visit.update! locale: 'cy'
       expect(mail.subject).
         to match(
-          /nid oedd yn bosib trefnu eich ymweliad ar Dydd Llun 12 Hydref/)
+          /NID yw eich ymweliad â Charchar #{visit.prison_name} wedi cael ei drefnu/)
     end
 
-    it 'includes the visit id' do
-      expect(mail.body.encoded).to match(visit.id)
+    it 'includes the visit human_id' do
+      expect(mail.body.encoded).to match(visit.human_id)
     end
 
     context 'includes information about banned visitors' do
