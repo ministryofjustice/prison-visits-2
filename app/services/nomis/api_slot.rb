@@ -11,7 +11,7 @@ module Nomis
     attribute :visitors_booked, Integer
     attribute :adults_booked, Integer
 
-    delegate :to_s, :to_date, :begin_at, to: :time
+    delegate :to_s, :to_date, to: :time
 
     def <=>(other)
       to_s <=> other.to_s
