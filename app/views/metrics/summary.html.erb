@@ -2,59 +2,17 @@
   <%= stylesheet_link_tag 'metrics' %>
 <% end %>
 
-<h1>
-  Weekly performance indicators for
-  <%= @prison.name %>
+<%= render 'metrics/content_for_head' %>
+
+<h3>
+  <%= link_to 'All prisons metrics', action: :index %>
+</h3>
+
+<h1 class="heading-medium">
+  <%= t('.processing_turnaround_time_for', prison_name: @prison.name) %>
 </h1>
-<h2>
-  Summary for
-  <%= @date.beginning_of_week.to_s(:long) %>
-  to
-  <%= @date.end_of_week.to_s(:long) %>
-</h2>
-<table id="overall-performance">
-  <tr>
-    <th>
-      Under 3 days
-    </th>
-    <th>
-      Over 3 days
-    </th>
-    <th>
-      Status
-    </th>
-  </tr>
-  <tr>
-    <td>
-      <%= @summary.processed_on_time %>
-    </td>
-    <td>
-      <%= @summary.processed_overdue %>
-    </td>
-    <td>
-      <%= image_for_performance_score(@summary.end_to_end_percentile('95th').to_f) %>
-    </td>
-  </tr>
-  <tr>
-    <th>
-      Median
-    </th>
-    <th>
-      Total
-    </th>
-    <th>
-      Waiting
-    </th>
-  </tr>
-  <tr>
-    <td>
-      <%= @summary.end_to_end_percentile('50th') %>
-    </td>
-    <td>
-      <%= @summary.total_visits %>
-    </td>
-    <td>
-      <%= @summary.visits_in_state('requested') %>
-    </td>
-  </tr>
-</table>
+
+<%= content_tag :div, '', { class: 'js-Metrics',              data: { percentiles: @graphs_presenter.percentiles_by_day_for(@prison) } } %>
+<%= content_tag :div, '', { class: 'js-VisitsCounts',         data: { visit_counts: @graphs_presenter.visits_per_processing_state_for(@prison) } } %>
+<%= content_tag :div, '', { class: 'js-TimelyVisitsCount',    data: { visit_counts: @graphs_presenter.timely_and_overdue_for(@prison) } } %>
+<%= content_tag :div, '', { class: 'js-RejectionPercentages', data: { rejections_percentages: @graphs_presenter.rejection_percentages_for(@prison) } } %>

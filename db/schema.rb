@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220141458) do
+ActiveRecord::Schema.define(version: 20170302081707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -344,28 +344,6 @@ ActiveRecord::Schema.define(version: 20170220141458) do
     GROUP BY prisons.name, vsc.visit_state, (date_part('week'::text, v.created_at))::integer, (date_part('isoyear'::text, v.created_at))::integer;
   SQL
 
-  create_view :timely_and_overdues,  sql_definition: <<-SQL
-      SELECT count(*) AS count,
-      'overdue'::text AS status,
-      vsc.visit_state,
-      prisons.name AS prison_name
-     FROM ((visits v
-       JOIN prisons ON ((prisons.id = v.prison_id)))
-       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text <> 'requested'::text))))
-    WHERE ((date_part('epoch'::text, (vsc.created_at - v.created_at)) > (259200)::double precision) AND ((vsc.visit_state)::text = (v.processing_state)::text))
-    GROUP BY prisons.name, vsc.visit_state
-  UNION
-   SELECT count(*) AS count,
-      'timely'::text AS status,
-      vsc.visit_state,
-      prisons.name AS prison_name
-     FROM ((visits v
-       JOIN prisons ON ((prisons.id = v.prison_id)))
-       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text <> 'requested'::text))))
-    WHERE ((date_part('epoch'::text, (vsc.created_at - v.created_at)) < (259200)::double precision) AND ((vsc.visit_state)::text = (v.processing_state)::text))
-    GROUP BY prisons.name, vsc.visit_state;
-  SQL
-
   create_view :visit_counts_by_prison_state_date_and_timely, materialized: true,  sql_definition: <<-SQL
       WITH visits_timely AS (
            SELECT prisons.name AS prison_name,
@@ -521,6 +499,17 @@ ActiveRecord::Schema.define(version: 20170220141458) do
        JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
        JOIN prisons ON ((prisons.id = v.prison_id)))
     GROUP BY prisons.name, (date_part('day'::text, v.created_at))::integer, (date_part('month'::text, v.created_at))::integer, (date_part('year'::text, v.created_at))::integer;
+  SQL
+
+  create_view :timely_and_overdues,  sql_definition: <<-SQL
+      SELECT count(*) AS count,
+      'overdue'::text AS status,
+      prisons.name AS prison_name
+     FROM ((visits v
+       JOIN prisons ON ((prisons.id = v.prison_id)))
+       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text <> 'requested'::text))))
+    WHERE ((date_part('epoch'::text, (vsc.created_at - v.created_at)) > (259200)::double precision) AND ((vsc.visit_state)::text = (v.processing_state)::text))
+    GROUP BY prisons.name;
   SQL
 
 end

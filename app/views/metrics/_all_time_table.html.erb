@@ -1,0 +1,42 @@
+<div class="table-wrap">
+  <table>
+    <thead>
+    <tr>
+      <th></th>
+      <th colspan="5">Number of visits</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr>
+      <td class="prison-name">Prison name</td>
+      <td>Total</td>
+      <td>Waiting</td>
+      <td>Overdue</td>
+      <td>Rejected</td>
+      <td>Confirmed</td>
+    </tr>
+    <% @prisons.each do |prison| %>
+      <tr class="<%= cycle('odd', 'even') %>">
+        <td class="prison-name">
+          <%= link_to(prison.name, prison_metrics_summary_path(prison)) %>
+        </td>
+        <td class="left-border <%= prison.finder_slug -%>-total">
+          <%= @dataset.total_visits(prison.name) %>
+        </td>
+        <td class="<%= prison.finder_slug -%>-waiting">
+          <%= @dataset.visits_in_state(prison.name, 'requested') %>
+        </td>
+        <td class="<%= prison.finder_slug -%>-overdue">
+          <%= @dataset.overdue_count(prison.name) %>
+        </td>
+        <td class="<%= prison.finder_slug -%>-rejected">
+          <%= @dataset.visits_in_state(prison.name, 'rejected') %>
+        </td>
+        <td>
+          <%= @dataset.visits_in_state(prison.name, 'booked') %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

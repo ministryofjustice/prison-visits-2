@@ -4,7 +4,7 @@ module Timings
   class TimelyAndOverdue < ActiveRecord::Base
     extend CounterSupport
     def self.ordered_counters
-      pluck(:prison_name, :status, :visit_state, :count)
+      pluck(:prison_name, :status, :count)
     end
   end
 

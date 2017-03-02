@@ -3,47 +3,9 @@ require 'rails_helper'
 RSpec.describe PrisonSummaryMetricsPresenter do
   let(:timings) { nil }
   let(:counts) { nil }
-  let(:percentiles) { nil }
-  let(:overdue_count) { nil }
 
   let(:instance) do
-    described_class.new(
-      timings: timings,
-      counts: counts,
-      percentiles: percentiles,
-      overdue_count: overdue_count
-    )
-  end
-
-  describe '#processed_on_time' do
-    subject { instance.processed_on_time }
-
-    context 'no prison data' do
-      let(:timmings) { nil }
-
-      it { is_expected.to eq(0) }
-    end
-
-    context 'no "on time" data' do
-      let(:timings) do
-        {
-          'overdue' => { 'booked' => 3, 'rejected' => 1 }
-        }
-      end
-
-      it { is_expected.to eq(0) }
-    end
-
-    context 'with "on time" data' do
-      let(:timings) do
-        {
-          'timely' => { 'booked' => 1, 'rejected' => 2 },
-          'overdue' => { 'booked' => 3, 'rejected' => 1 }
-        }
-      end
-
-      it { is_expected.to eq(3) }
-    end
+    described_class.new(timings: timings, counts: counts)
   end
 
   describe '#processed_overdue' do
@@ -57,9 +19,7 @@ RSpec.describe PrisonSummaryMetricsPresenter do
 
     context 'no "overdue" data' do
       let(:timings) do
-        {
-          'timely' => { 'booked' => 3, 'rejected' => 1 }
-        }
+        {}
       end
 
       it { is_expected.to eq(0) }
@@ -67,10 +27,7 @@ RSpec.describe PrisonSummaryMetricsPresenter do
 
     context 'with "overdue" data' do
       let(:timings) do
-        {
-          'timely' => { 'booked' => 1, 'rejected' => 2 },
-          'overdue' => { 'booked' => 3, 'rejected' => 1 }
-        }
+        { 'overdue' => 4 }
       end
 
       it { is_expected.to eq(4) }
@@ -118,82 +75,6 @@ RSpec.describe PrisonSummaryMetricsPresenter do
       end
 
       it { is_expected.to eq(1) }
-    end
-  end
-
-  describe '#overdue_count' do
-    subject { instance.overdue_count }
-
-    context 'no prison data' do
-      let(:overdue_count) { nil }
-
-      it { is_expected.to eq(0) }
-    end
-
-    context 'with prison data' do
-      context 'with overdue visits' do
-        let(:overdue_count) { { 'requested' => 5 } }
-
-        it { is_expected.to eq(5) }
-      end
-
-      context 'with no overdue visits' do
-        let(:overdue_count) { { 'booked' => 5 } }
-
-        it { is_expected.to eq(0) }
-      end
-    end
-  end
-
-  describe '#end_to_end_percentile' do
-    let(:percentile) { nil }
-    subject { instance.end_to_end_percentile(percentile) }
-
-    context 'no prison data' do
-      let(:percentiles) { nil }
-
-      it { is_expected.to eq(0) }
-    end
-
-    context 'with percentiles' do
-      let(:percentiles) do
-        { 99 => 518_400,
-          95 => 432_000,
-          90 => 345_600,
-          75 => 259_200,
-          50 => 172_800,
-          25 => 86_400 }
-      end
-
-      context '99th percentile' do
-        let(:percentile) { '99th' }
-        it { is_expected.to eq('6.00') }
-      end
-
-      context '95th percentile' do
-        let(:percentile) { '95th' }
-        it { is_expected.to eq('5.00') }
-      end
-
-      context '90th percentile' do
-        let(:percentile) { '90th' }
-        it { is_expected.to eq('4.00') }
-      end
-
-      context '75th percentile' do
-        let(:percentile) { '75th' }
-        it { is_expected.to eq('3.00') }
-      end
-
-      context '50th percentile' do
-        let(:percentile) { '50th' }
-        it { is_expected.to eq('2.00') }
-      end
-
-      context '25th percentile' do
-        let(:percentile) { '25th' }
-        it { is_expected.to eq('1.00') }
-      end
     end
   end
 
