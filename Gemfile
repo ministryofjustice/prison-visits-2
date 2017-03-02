@@ -44,6 +44,9 @@ gem 'uglifier', '~> 2.7.2'
 gem 'uri_template'
 gem 'virtus'
 gem 'zendesk_api'
+gem 'pvb-instrumentation',
+    git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
+    ref: 'f1b4891d3282658679045bd16cbcdc6df626ef90'
 
 group :development, :test do
   gem 'brakeman'
