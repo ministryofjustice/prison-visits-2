@@ -10,7 +10,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
   let(:offender) { Nomis::Offender.new(id: '123') }
   let(:date1) { 2.days.from_now.to_date }
   let(:date2) { 1.day.from_now.to_date }
-  let(:date3) { Date.current }
+  let(:date3) { 3.days.from_now.to_date }
   let(:requested_dates) { [date1, date2, date3] }
 
   describe 'when the NOMIS API is disabled' do
@@ -59,8 +59,8 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
         expect_any_instance_of(Nomis::Api).
           to receive(:offender_visiting_availability).
           with(offender_id: offender.id,
-               start_date: date3,
-               end_date: date1).
+               start_date: date2,
+               end_date: date3).
           and_return(Nomis::PrisonerAvailability.new(dates: dates))
 
         subject.valid?

@@ -54,8 +54,11 @@ private
   end
 
   def valid_requested_slots
-    @valid_slots ||= visit.slots.select { |slot|
-      slot.to_date.between?(1.day.from_now.to_date, 60.days.from_now.to_date)
-    }
+    @valid_slots ||=
+      begin
+        min = Date.tomorrow
+        max = 60.days.from_now.to_date
+        visit.slots.select { |slot| slot.to_date.between?(min, max) }
+      end
   end
 end
