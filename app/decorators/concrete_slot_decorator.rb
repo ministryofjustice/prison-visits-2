@@ -76,6 +76,7 @@ class ConcreteSlotDecorator < Draper::Decorator
 private
 
   def prisoner_available?
+    object.to_date.future? &&
     nomis_checker.prisoner_availability_enabled? &&
       !nomis_checker.prisoner_availability_unknown? &&
       errors.none? do |e|
@@ -84,6 +85,7 @@ private
   end
 
   def slot_available?
+    object.to_date.future? &&
     nomis_checker.slot_availability_enabled? &&
       !nomis_checker.slot_availability_unknown? &&
       errors.none? { |e| e == SlotAvailabilityValidation::SLOT_NOT_AVAILABLE }

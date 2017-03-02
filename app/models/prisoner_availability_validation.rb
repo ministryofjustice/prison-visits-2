@@ -56,8 +56,11 @@ private
   end
 
   def valid_requested_dates
-    @valid_dates ||= requested_dates.select { |date|
-      date >= Date.current && date <= 60.days.from_now.to_date
-    }
+    @valid_dates ||=
+      begin
+        min = Date.tomorrow
+        max = 60.days.from_now.to_date
+        requested_dates.select { |date| date.between?(min, max) }
+      end
   end
 end
