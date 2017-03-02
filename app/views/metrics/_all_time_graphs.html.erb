@@ -1,0 +1,4 @@
+<%= content_tag :div, '', { class: 'js-Metrics',              data: { percentiles: @graphs_presenter.percentiles_by_day } } %>
+<%= content_tag :div, '', { class: 'js-VisitsCounts',         data: { visit_counts: @graphs_presenter.visits_per_processing_state } } %>
+<%= content_tag :div, '', { class: 'js-TimelyVisitsCount',    data: { visit_counts: @graphs_presenter.timely_and_overdue } } %>
+<%= content_tag :div, '', { class: 'js-RejectionPercentages', data: { rejections_percentages: @graphs_presenter.rejection_percentages } } %>

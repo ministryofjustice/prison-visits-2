@@ -21,35 +21,12 @@ RSpec.describe Timings do
 
   describe Timings::TimelyAndOverdue do
     context 'that are not organized by date' do
-      it 'counts all timely and overdue visits and group by prison' do
+      it 'counts all overdue visits and group by prison' do
         expect(described_class.fetch_and_format).to be ==
-          { 'Lunar Penal Colony' =>
-            {
-              'timely' => {
-                'booked' => 1,
-                'rejected' => 1,
-                'cancelled' => 1,
-                'withdrawn' => 1
-              },
-              'overdue' => {
-                'booked' => 1,
-                'rejected' => 1,
-                'cancelled' => 1,
-                'withdrawn' => 1
-              }
-            },
-            'Martian Penal Colony' =>
-            {
-              'timely' => {
-                'booked' => 1,
-                'rejected' => 1
-              },
-              'overdue' => {
-                'booked' => 1,
-                'rejected' => 1
-              }
-            }
-        }
+          {
+            'Lunar Penal Colony' => { 'overdue' => 4 },
+            'Martian Penal Colony' => { 'overdue' => 2 }
+          }
       end
     end
 

@@ -2,18 +2,11 @@ require 'rails_helper'
 
 RSpec.describe MetricsPresenter do
   let(:counts) { {} }
-  let(:overdue_counts) { {} }
-  let(:percentiles) { {} }
   let(:timings) { {} }
   let(:prison_name) { 'Cardiff' }
 
   let(:instance) do
-    described_class.new(
-      counts: counts,
-      overdue_counts: overdue_counts,
-      percentiles: percentiles,
-      timings: timings
-    )
+    described_class.new(counts: counts, timings: timings)
   end
 
   describe '#total_visits' do
@@ -48,18 +41,6 @@ RSpec.describe MetricsPresenter do
     end
 
     it { is_expected.to eq(2) }
-  end
-
-  describe '#end_to_end_percentile' do
-    let(:percentile) { '99th' }
-    subject { instance.end_to_end_percentile(prison_name, percentile) }
-
-    before do
-      allow_any_instance_of(PrisonSummaryMetricsPresenter).
-        to receive(:end_to_end_percentile).with(percentile).and_return(1)
-    end
-
-    it { is_expected.to eq(1) }
   end
 
   describe '#percent_rejected' do
@@ -120,8 +101,7 @@ RSpec.describe MetricsPresenter do
 
     before do
       expect(PrisonSummaryMetricsPresenter).to receive(:new).
-        with(counts: 'Prison counts', overdue_count: 'Prison overdue count',
-             percentiles: 'Prison percentiles', timings: 'Prison timings').
+        with(counts: 'Prison counts', timings: 'Prison timings').
         and_call_original
     end
 

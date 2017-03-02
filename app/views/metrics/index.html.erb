@@ -2,24 +2,13 @@
   <%= stylesheet_link_tag 'metrics' %>
 <% end %>
 
-<% if @start_date %>
-  <h1>
-    From
-    <%= @start_date.beginning_of_week.to_s(:short) %>
-    to
-    <%= @start_date.end_of_week.to_s(:short) %>
-  </h1>
-  <h3>
-    <%= link_to('View this data for all time', range: 'all_time') %>
-    <%= link_to('Download confirmed bookings CSV', action: 'confirmed_bookings', format: :csv) %>
-  </h3>
-<% else %>
-  <h1>
-    All time
-  </h1>
-  <h3>
-    <%= link_to('View this data for the past week', range: 'week') %>
-    <%= link_to('Download confirmed bookings CSV', action: 'confirmed_bookings', format: :csv) %>
-  </h3>
-<% end %>
-<%= render partial: 'all_prisons', locals: { dataset: @dataset } %>
+<%= render 'content_for_head' %>
+
+<h1>
+  All time
+</h1>
+<h3>
+  <%= link_to 'Download confirmed bookings CSV', action: 'confirmed_bookings', format: :csv  %>
+</h3>
+<%= render 'all_time_graphs' %>
+<%= render 'all_time_table' %>

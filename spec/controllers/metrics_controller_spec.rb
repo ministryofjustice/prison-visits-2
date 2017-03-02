@@ -25,12 +25,6 @@ RSpec.describe MetricsController, type: :controller do
     it_behaves_like 'disallows untrusted ips'
   end
 
-  describe 'confirmed_bookings' do
-    let(:params) { { locale: 'en', format: 'csv' } }
-    subject { get :confirmed_bookings, params }
-    it { is_expected.to be_successful }
-  end
-
   describe 'summary' do
     let(:prison) { create(:prison) }
     subject { get :summary, prison_id: prison.to_param, locale: 'en' }

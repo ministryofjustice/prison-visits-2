@@ -1,8 +1,6 @@
 class MetricsPresenter
-  def initialize(counts:, overdue_counts:, percentiles:, timings:)
+  def initialize(counts:, timings:)
     @counts = counts
-    @overdue_counts = overdue_counts
-    @percentiles = percentiles
     @timings = timings
     @summaries = {}
   end
@@ -19,10 +17,6 @@ class MetricsPresenter
     summary_for(prison_name).processed_overdue
   end
 
-  def end_to_end_percentile(prison_name, percentile)
-    summary_for(prison_name).end_to_end_percentile(percentile)
-  end
-
   def percent_rejected(prison_name)
     summary_for(prison_name).percent_rejected
   end
@@ -33,13 +27,9 @@ class MetricsPresenter
 
   def build_summary_for(prison_name)
     counts = @counts[prison_name]
-    overdue_count = @overdue_counts[prison_name]
-    percentiles = @percentiles[prison_name]
     timings = @timings[prison_name]
 
     PrisonSummaryMetricsPresenter.new(counts: counts,
-                                      overdue_count: overdue_count,
-                                      percentiles: percentiles,
                                       timings: timings)
   end
 end
