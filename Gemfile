@@ -45,8 +45,8 @@ gem 'uri_template'
 gem 'virtus'
 gem 'zendesk_api'
 gem 'pvb-instrumentation',
-    git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
-    ref: '7e1e60d299174fb542a1eff73d20b7fcdc36309e'
+  git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
+  ref: '7e1e60d299174fb542a1eff73d20b7fcdc36309e'
 # gem 'pvb-instrumentation', path: '../pvb-instrumentation'
 
 group :development, :test do
