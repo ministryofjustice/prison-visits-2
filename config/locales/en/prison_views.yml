@@ -113,9 +113,9 @@ en:
         submit: Process
         email_preview: Preview Email
         prisoner_available: Prisoner available
-        slot_available: Slot available
+        slot_available: Space available
         prisoner_not_available: Prisoner unavailable
-        slot_not_available: Slot unavailable
+        slot_not_available: Fully booked
         add_a_message: Add a message
       prisoner_details:
         title: Prisoner details
