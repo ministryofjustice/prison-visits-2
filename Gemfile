@@ -44,10 +44,10 @@ gem 'uglifier', '~> 2.7.2'
 gem 'uri_template'
 gem 'virtus'
 gem 'zendesk_api'
-# gem 'pvb-instrumentation',
-#     git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
-#     ref: 'f1b4891d3282658679045bd16cbcdc6df626ef90'
-gem 'pvb-instrumentation', path: '../pvb-instrumentation'
+gem 'pvb-instrumentation',
+    git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
+    ref: '7e1e60d299174fb542a1eff73d20b7fcdc36309e'
+# gem 'pvb-instrumentation', path: '../pvb-instrumentation'
 
 group :development, :test do
   gem 'brakeman'

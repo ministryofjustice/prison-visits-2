@@ -6,8 +6,10 @@ GIT
     sentry-raven (2.3.1)
       faraday (>= 0.7.6, < 1.0)
 
-PATH
-  remote: ../pvb-instrumentation
+GIT
+  remote: https://github.com/ministryofjustice/pvb-instrumentation.git
+  revision: 7e1e60d299174fb542a1eff73d20b7fcdc36309e
+  ref: 7e1e60d299174fb542a1eff73d20b7fcdc36309e
   specs:
     pvb-instrumentation (0.1.0)
       activesupport (~> 4.2)
