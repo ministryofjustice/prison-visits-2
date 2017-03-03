@@ -32,7 +32,7 @@ gem 'draper'
 gem 'rake'
 
 gem 'sentry-raven',
-  github: 'StupidCodeFactory/raven-ruby',
+  git: 'https://github.com/StupidCodeFactory/raven-ruby.git',
   branch: 'allow-faraday-customisation'
 
 gem 'sidekiq'
@@ -44,9 +44,10 @@ gem 'uglifier', '~> 2.7.2'
 gem 'uri_template'
 gem 'virtus'
 gem 'zendesk_api'
-gem 'pvb-instrumentation',
-    git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
-    ref: 'f1b4891d3282658679045bd16cbcdc6df626ef90'
+# gem 'pvb-instrumentation',
+#     git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
+#     ref: 'f1b4891d3282658679045bd16cbcdc6df626ef90'
+gem 'pvb-instrumentation', path: '../pvb-instrumentation'
 
 group :development, :test do
   gem 'brakeman'

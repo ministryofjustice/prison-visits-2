@@ -1,4 +1,4 @@
-require 'pvb/instrumentation/registry'
+require 'pvb/instrumentation'
 
 PVB::Instrumentation.configure do |config|
   config.logger = Rails.logger

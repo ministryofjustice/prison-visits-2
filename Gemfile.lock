@@ -1,13 +1,13 @@
 GIT
-  remote: git://github.com/StupidCodeFactory/raven-ruby.git
+  remote: https://github.com/StupidCodeFactory/raven-ruby.git
   revision: 0eb4422d903aca2b56670f50b13e114ad84e8495
   branch: allow-faraday-customisation
   specs:
     sentry-raven (2.3.1)
       faraday (>= 0.7.6, < 1.0)
-  remote: https://github.com/ministryofjustice/pvb-instrumentation.git
-  revision: f1b4891d3282658679045bd16cbcdc6df626ef90
-  ref: f1b4891d3282658679045bd16cbcdc6df626ef90
+
+PATH
+  remote: ../pvb-instrumentation
   specs:
     pvb-instrumentation (0.1.0)
       activesupport (~> 4.2)
