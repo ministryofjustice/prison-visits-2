@@ -8,8 +8,8 @@ GIT
 
 GIT
   remote: https://github.com/ministryofjustice/pvb-instrumentation.git
-  revision: 7e1e60d299174fb542a1eff73d20b7fcdc36309e
-  ref: 7e1e60d299174fb542a1eff73d20b7fcdc36309e
+  revision: c7fb0fc2599c6507a321b93052a35c1538605040
+  ref: c7fb0fc2599c6507a321b93052a35c1538605040
   specs:
     pvb-instrumentation (0.1.0)
       activesupport (~> 4.2)
