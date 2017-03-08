@@ -24,12 +24,12 @@ RSpec.describe SlotAvailability do
 
   def all_slots_available
     tuples = [
-      "2017-02-13T14:00/16:10",
-      "2017-02-14T09:00/10:00",
-      "2017-02-14T14:00/16:10",
-      "2017-02-20T14:00/16:10",
-      "2017-02-21T09:00/10:00",
-      "2017-02-21T14:00/16:10"
+       "2017-02-27T14:00/16:10",
+       "2017-02-28T09:00/10:00",
+       "2017-02-28T14:00/16:10",
+       "2017-03-06T14:00/16:10",
+       "2017-03-07T09:00/10:00",
+       "2017-03-07T14:00/16:10"
     ].map { |slot| [slot, []] }
     Hash[tuples]
   end
@@ -37,7 +37,7 @@ RSpec.describe SlotAvailability do
   let(:bookable_slots) do
     Nomis::SlotAvailability.new(
       slots: all_slots_available.keys.map.with_index { |slot, _i|
-        next if '2017-02-20T14:00/16:10' == slot
+        next if '2017-02-28T09:00/10:00' == slot
         { "time": slot, "capacity": 150, "max_groups": 30, "max_adults": 90, "groups_booked": 0, "visitors_booked": 0, "adults_booked": 0 }
       }.compact
     )
@@ -68,12 +68,14 @@ RSpec.describe SlotAvailability do
           end
 
           it 'returns a hash with unavailability reasons' do
-            expect(subject.slots).to eq("2017-02-13T14:00/16:10" => [],
-                                        "2017-02-14T09:00/10:00" => ['prisoner_unavailable'],
-                                        "2017-02-14T14:00/16:10" => ['prisoner_unavailable'],
-                                        "2017-02-20T14:00/16:10" => ['prison_unavailable'],
-                                        "2017-02-21T09:00/10:00" => [],
-                                        "2017-02-21T14:00/16:10" => [])
+            expect(subject.slots).to eq(
+                                       "2017-02-27T14:00/16:10" => [],
+                                       "2017-02-28T09:00/10:00" => ["prisoner_unavailable"],
+                                       "2017-02-28T14:00/16:10" => [],
+                                       "2017-03-06T14:00/16:10" => [],
+                                       "2017-03-07T09:00/10:00" => [],
+                                       "2017-03-07T14:00/16:10" => [],
+                                     )
           end
         end
 

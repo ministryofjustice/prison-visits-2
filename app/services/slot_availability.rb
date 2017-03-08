@@ -12,12 +12,24 @@ class SlotAvailability
     self.api_error     = false
   end
 
-  # rubocop:disable Metrics/MethodLength
   def slots
     return all_slots unless live_availability_enabled?
-    return all_slots if enforce_all_available_slots?
+    return all_slots unless nomis_public_prisoner_availability_enabled?
+    return all_slots unless offender.valid?
 
-    results = all_slots.deep_dup.each { |slot, unavailability_reasons|
+    load_offender_availabilities
+
+    return all_slots if api_error
+
+    slots_and_unavailabiltiy_reasons
+  end
+
+private
+
+  attr_accessor :prison, :noms_id, :date_of_birth, :start_date, :end_date, :api_error
+
+  def slots_and_unavailabiltiy_reasons
+    all_slots.deep_dup.each { |slot, unavailability_reasons|
       slot_date = slot.to_date
       unless offender_availabilities_dates.include?(slot_date)
         unavailability_reasons << PRISONER_UNAVAILABLE
@@ -27,13 +39,7 @@ class SlotAvailability
         unavailability_reasons << PRISON_UNAVAILABLE
       end
     }
-    results
   end
-# rubocop:enable Metrics/MethodLength
-
-private
-
-  attr_accessor :prison, :noms_id, :date_of_birth, :start_date, :end_date, :api_error
 
   def offender
     @offender ||= Nomis::Api.instance.lookup_active_offender(
@@ -46,7 +52,7 @@ private
   end
 
   def prison_slots
-    @prison_slots ||= prison.available_slots(start_date).to_a
+    @prison_slots ||= prison.available_slots(start_date)
   end
 
   def bookable_prison_slots
@@ -71,12 +77,6 @@ private
 
   def offender_availabilities_dates
     @offender_availabilities_dates ||= offender_availabilities[:dates]
-  end
-
-  def enforce_all_available_slots?
-    !nomis_public_prisoner_availability_enabled? ||
-      !offender.valid? ||
-      (load_offender_availabilities && api_error)
   end
 
   def nomis_public_prisoner_availability_enabled?
