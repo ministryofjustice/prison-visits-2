@@ -4,14 +4,17 @@ require 'nomis/client'
 RSpec.describe PrisonerAvailabilityValidation, type: :model do
   subject do
     described_class.new(offender: offender,
-                        requested_dates: requested_dates)
+                        requested_slots: requested_slots)
   end
 
   let(:offender) { Nomis::Offender.new(id: '123') }
   let(:date1) { 2.days.from_now.to_date }
+  let(:slot1) { ConcreteSlot.new(date1.year, date1.month, date1.day, 10, 0, 11, 0) }
   let(:date2) { 1.day.from_now.to_date }
+  let(:slot2) { ConcreteSlot.new(date2.year, date2.month, date2.day, 10, 0, 11, 0) }
   let(:date3) { 3.days.from_now.to_date }
-  let(:requested_dates) { [date1, date2, date3] }
+  let(:slot3) { ConcreteSlot.new(date3.year, date3.month, date3.day, 10, 0, 11, 0) }
+  let(:requested_slots) { [slot1, slot2, slot3] }
 
   describe 'when the NOMIS API is disabled' do
     before do
@@ -20,8 +23,8 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
     end
 
     it "doesn't add errors to the dates" do
-      requested_dates.each do |date|
-        expect(subject.errors[date.to_s]).to be_empty
+      requested_slots.each do |slot|
+        expect(subject.errors[slot.to_s]).to be_empty
       end
     end
 
@@ -37,11 +40,11 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
           to receive(:get).and_raise(Nomis::APIError)
       end
 
-      it 'adds no errors for any date' do
+      it 'adds no errors for any slot' do
         is_expected.to be_valid
 
-        requested_dates.each do |date|
-          expect(subject.errors[date.to_s]).to be_empty
+        requested_slots.each do |slot|
+          expect(subject.errors[slot.to_s]).to be_empty
         end
       end
 
@@ -52,30 +55,56 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
       end
     end
 
-    context 'and working correctly with valid dates' do
+    context 'and working correctly with some unavailable slots' do
+      let(:date1_availability) do
+        Nomis::PrisonerDateAvailability.new(
+          date: slot1.to_date,
+          banned: false,
+          out_of_vo: false,
+          external_movement: false,
+          existing_visits: [])
+      end
+
+      let(:date2_availability) do
+        Nomis::PrisonerDateAvailability.new(
+          date: slot2.to_date,
+          banned: true,
+          out_of_vo: false,
+          external_movement: false,
+          existing_visits: [])
+      end
+
+      let(:date3_availability) do
+        Nomis::PrisonerDateAvailability.new(
+          date: slot3.to_date,
+          banned: false,
+          out_of_vo: false,
+          external_movement: false,
+          existing_visits: [])
+      end
+
       before do
         allow(Nomis::Api).to receive(:enabled?).and_return(true)
 
+        availability = Nomis::PrisonerDetailedAvailability.new(
+          dates: [date1_availability, date2_availability, date3_availability])
         expect_any_instance_of(Nomis::Api).
-          to receive(:offender_visiting_availability).
+          to receive(:offender_visiting_detailed_availability).
           with(offender_id: offender.id,
-               start_date: date2,
-               end_date: date3).
-          and_return(Nomis::PrisonerAvailability.new(dates: dates))
+               slots: [slot1, slot2, slot3]).
+          and_return(availability)
 
         subject.valid?
       end
 
-      context 'for the dates that are available' do
-        let(:dates) { [date1] }
-
-        it 'does not add an error to the date' do
-          expect(subject.errors[date1.to_s]).to be_blank
+      context 'for the slots that are available' do
+        it 'does not add an error to the slot' do
+          expect(subject.errors[slot1.to_s]).to be_empty
         end
 
-        context '#date_error' do
+        context '#slot_errors' do
           it 'returns nothing' do
-            expect(subject.date_error(date1)).to be_nil
+            expect(subject.slot_errors(slot1)).to be_empty
           end
         end
 
@@ -83,17 +112,15 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
       end
 
       context 'for the dates that are unavailable' do
-        let(:dates) { [date1, date3] }
-
-        it 'adds an error to the missing date' do
-          expect(subject.errors[date2.to_s]).
-            to eq([described_class::PRISONER_NOT_AVAILABLE])
+        it 'adds an error to the slot' do
+          expect(subject.errors[slot2.to_s]).
+            to eq([Nomis::PrisonerDateAvailability::BANNED])
         end
 
-        context '#date_error' do
-          it 'returns the prisoner not available message' do
-            expect(subject.date_error(date2)).
-              to eq(described_class::PRISONER_NOT_AVAILABLE)
+        context '#slot_errors' do
+          it 'returns the prisoner availability error' do
+            expect(subject.slot_errors(slot2)).
+              to eq([Nomis::PrisonerDateAvailability::BANNED])
           end
         end
 
@@ -113,15 +140,15 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
 
         # We return the dates as valid because it doesn't make sense to
         # communicate that the prisoner is unavailable just because the date is
-        # in the past. Another validator will be responsible for that.
-        it 'returns all the dates' do
+        # in the past. Another validator should be responsible for that.
+        it 'does not add errors to the slots' do
           expect_any_instance_of(Nomis::Api).
-            not_to receive(:offender_visiting_availability)
+            not_to receive(:offender_visiting_detailed_availability)
 
           subject.valid?
 
-          requested_dates.each do |date|
-            expect(subject.date_error(date)).to be_nil
+          requested_slots.each do |slot|
+            expect(subject.slot_errors(slot)).to be_empty
           end
         end
 
@@ -131,23 +158,25 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
       context 'with some dates in the past' do
         let(:date1) { 1.day.ago.to_date }
         let(:date2) { 61.days.from_now.to_date }
+        let(:availability3) do
+          Nomis::PrisonerDateAvailability.new(date: date3, banned: true)
+        end
 
         before do
           expect_any_instance_of(Nomis::Api).
-            to receive(:offender_visiting_availability).
+            to receive(:offender_visiting_detailed_availability).
             with(offender_id: offender.id,
-                 start_date: date3,
-                 end_date: date3).
-            and_return(Nomis::PrisonerAvailability.new(dates: []))
+                 slots: [slot3]).
+            and_return(Nomis::PrisonerDetailedAvailability.new(dates: [availability3]))
         end
 
         it 'filters out invalid dates' do
           subject.valid?
 
-          expect(subject.date_error(date1)).to be_nil
-          expect(subject.date_error(date2)).to be_nil
-          expect(subject.date_error(date3)).
-            to eq(described_class::PRISONER_NOT_AVAILABLE)
+          expect(subject.slot_errors(slot1)).to be_empty
+          expect(subject.slot_errors(slot2)).to be_empty
+          expect(subject.slot_errors(slot3)).
+            to eq([Nomis::PrisonerDateAvailability::BANNED])
         end
 
         it { is_expected.not_to be_unknown_result }
