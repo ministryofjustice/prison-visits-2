@@ -40,7 +40,9 @@ class StaffNomisChecker
     errors = []
 
     if prisoner_availability_enabled? && offender.valid?
-      errors << prisoner_availability_validation.date_error(slot.to_date)
+      prisoner_availability_validation.slot_errors(slot).each do |error|
+        errors << error
+      end
     end
 
     if slot_availability_enabled?
@@ -85,7 +87,7 @@ private
     @prisoner_availability_validation ||=
       PrisonerAvailabilityValidation.new(
         offender: offender,
-        requested_dates: @visit.slots.map(&:to_date)).tap(&:valid?)
+        requested_slots: @visit.slots).tap(&:valid?)
   end
 
   def slot_availability_validation

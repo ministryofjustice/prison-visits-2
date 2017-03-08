@@ -210,22 +210,22 @@ RSpec.describe StaffNomisChecker do
           before do
             allow(PrisonerAvailabilityValidation).
               to receive(:new).
-              with(offender: offender, requested_dates: visit.slots.map(&:to_date)).
+              with(offender: offender, requested_slots: visit.slots).
               and_return(validator)
 
             expect(validator).
-              to receive(:date_error).with(visit.slots.first.to_date).
-              and_return(message)
+              to receive(:slot_errors).with(visit.slots.first).
+              and_return(messages)
           end
 
           context 'with an error' do
-            let(:message) { PrisonerAvailabilityValidation::PRISONER_NOT_AVAILABLE }
+            let(:messages) { [Nomis::PrisonerDateAvailability::BANNED] }
 
-            it { is_expected.to eq([message]) }
+            it { is_expected.to eq(messages) }
           end
 
           context 'with no errors' do
-            let(:message) { nil }
+            let(:messages) { [] }
 
             it { is_expected.to be_empty }
           end
@@ -244,7 +244,7 @@ RSpec.describe StaffNomisChecker do
 
         before do
           allow_any_instance_of(PrisonerAvailabilityValidation).
-            to receive(:date_error).and_return(nil)
+            to receive(:slot_errors).and_return([])
 
           allow(SlotAvailabilityValidation).
             to receive(:new).
