@@ -4,16 +4,18 @@ RSpec.describe SlotAvailability do
   let(:prison)        { create(:prison) }
   let(:offender_id)   { 'A1410AE' }
   let(:date_of_birth) { '1960-06-01' }
-  let(:start_date)    { Date.parse('2017-02-10') }
-  let(:end_date)      { Date.parse('2017-02-21') }
+  let(:start_date)    { Date.parse('2017-02-01') }
+  let(:end_date)      { Date.parse('2017-03-01') }
 
   let(:prisoner_availability) do
     {
       dates: [
         Date.new(2017, 2, 13),
+        Date.new(2017, 2, 14),
         Date.new(2017, 2, 20),
         Date.new(2017, 2, 21),
-        Date.new(2017, 2, 27)
+        Date.new(2017, 2, 27),
+        Date.new(2017, 2, 28)
       ]
     }
   end
@@ -23,14 +25,7 @@ RSpec.describe SlotAvailability do
   end
 
   def all_slots_available
-    tuples = [
-       "2017-02-27T14:00/16:10",
-       "2017-02-28T09:00/10:00",
-       "2017-02-28T14:00/16:10",
-       "2017-03-06T14:00/16:10",
-       "2017-03-07T09:00/10:00",
-       "2017-03-07T14:00/16:10"
-    ].map { |slot| [slot, []] }
+    tuples = prison.available_slots.map { |slot| [slot.to_s, []] }
     Hash[tuples]
   end
 
@@ -49,15 +44,14 @@ RSpec.describe SlotAvailability do
                                     and_return(Nomis::Offender.new(id: 1_055_206))
   end
 
-  after do
-    travel_back
-  end
+  after do travel_back end
 
   describe '#slots' do
     describe 'with prison in trial' do
       before do
         Rails.configuration.public_prisons_with_slot_availability << prison.name
       end
+
       describe 'with nomis public prisoner check enabled' do
         describe 'when the offender is valid' do
           before do
@@ -69,12 +63,17 @@ RSpec.describe SlotAvailability do
 
           it 'returns a hash with unavailability reasons' do
             expect(subject.slots).to eq(
-                                       "2017-02-27T14:00/16:10" => [],
-                                       "2017-02-28T09:00/10:00" => ["prisoner_unavailable"],
-                                       "2017-02-28T14:00/16:10" => [],
-                                       "2017-03-06T14:00/16:10" => [],
-                                       "2017-03-07T09:00/10:00" => [],
-                                       "2017-03-07T14:00/16:10" => [],
+              "2017-02-07T09:00/10:00" => ['prisoner_unavailable'],
+              "2017-02-07T14:00/16:10" => ['prisoner_unavailable'],
+              "2017-02-13T14:00/16:10" => [],
+              "2017-02-14T09:00/10:00" => [],
+              "2017-02-14T14:00/16:10" => [],
+              "2017-02-20T14:00/16:10" => [],
+              "2017-02-21T09:00/10:00" => [],
+              "2017-02-21T14:00/16:10" => [],
+              "2017-02-27T14:00/16:10" => [],
+              "2017-02-28T09:00/10:00" => ['prison_unavailable'],
+              "2017-02-28T14:00/16:10" => []
                                      )
           end
         end
