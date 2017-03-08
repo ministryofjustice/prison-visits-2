@@ -35,7 +35,7 @@ http_interactions:
   recorded_at: Thu, 01 Dec 2016 13:52:14 GMT
 - request:
     method: get
-    uri: http://151.237.239.116:4888/nomisapi/offenders/1055827/visits/available_dates?end_date=2016-12-12&start_date=2016-12-12
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1055827/visits/unavailability?dates=2016-12-12
     body:
       encoding: US-ASCII
       string: ''
@@ -63,7 +63,7 @@ http_interactions:
       - Thu, 01 Dec 2016 13:52:10 GMT
     body:
       encoding: UTF-8
-      string: '{"dates":["2016-12-12"]}'
+      string: '{"2016-12-12":{"banned":false,"out_of_vo":false,"external_movement":false,"existing_visits":[]}}'
     http_version:
   recorded_at: Thu, 01 Dec 2016 13:52:15 GMT
 - request:
@@ -101,7 +101,7 @@ http_interactions:
   recorded_at: Thu, 01 Dec 2016 13:52:15 GMT
 - request:
     method: get
-    uri: http://151.237.239.116:4888/nomisapi/offenders/1055827/visits/available_dates?end_date=2016-12-12&start_date=2016-12-12
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1055827/visits/unavailability?dates=2016-12-12
     body:
       encoding: US-ASCII
       string: ''
@@ -129,7 +129,7 @@ http_interactions:
       - Thu, 01 Dec 2016 13:52:11 GMT
     body:
       encoding: UTF-8
-      string: '{"dates":["2016-12-12"]}'
+      string: '{"2016-12-12":{"banned":false,"out_of_vo":false,"external_movement":false,"existing_visits":[]}}'
     http_version:
   recorded_at: Thu, 01 Dec 2016 13:52:15 GMT
 - request:
