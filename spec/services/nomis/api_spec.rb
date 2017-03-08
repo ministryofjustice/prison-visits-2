@@ -99,6 +99,31 @@ RSpec.describe Nomis::Api do
     end
   end
 
+  describe 'offender_visiting_detailed_availability', vcr: { cassette_name: 'offender_visiting_detailed_availability' } do
+    let(:slot1) { ConcreteSlot.new(2017, 3, 14, 10, 0, 11, 0) }
+    let(:slot2) { ConcreteSlot.new(2017, 3, 21, 10, 0, 11, 0) }
+    let(:slot3) { ConcreteSlot.new(2017, 3, 22, 10, 0, 11, 0) }
+    let(:params) do
+      {
+        offender_id: 1_055_827,
+        slots: [slot1, slot2, slot3]
+      }
+    end
+
+    subject { super().offender_visiting_detailed_availability(params) }
+
+    it 'returns availability info containing a list of available dates' do
+      expect(subject).to be_kind_of(Nomis::PrisonerDetailedAvailability)
+      expect(subject.dates.map(&:date)).
+        to contain_exactly(slot1.to_date, slot2.to_date, slot3.to_date)
+    end
+
+    it 'logs the number of available slots' do
+      subject
+      expect(PVB::Instrumentation.custom_log_items[:offender_visiting_availability]).to eq(2)
+    end
+  end
+
   describe 'fetch_bookable_slots', vcr: { cassette_name: 'fetch_bookable_slots' } do
     let(:params) {
       {
