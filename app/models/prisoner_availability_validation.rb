@@ -1,6 +1,13 @@
 class PrisonerAvailabilityValidation
   include NonPersistedModel
 
+  PRISONER_ERRORS = [
+    Nomis::PrisonerDateAvailability::BANNED,
+    Nomis::PrisonerDateAvailability::OUT_OF_VO,
+    Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT,
+    Nomis::PrisonerDateAvailability::BOOKED_VISIT
+  ].freeze
+
   attribute :offender, Nomis::Offender
   attribute :requested_slots, Array[ConcreteSlot]
 

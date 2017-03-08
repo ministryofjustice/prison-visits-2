@@ -80,7 +80,7 @@ private
     nomis_checker.prisoner_availability_enabled? &&
       !nomis_checker.prisoner_availability_unknown? &&
       errors.none? do |e|
-        e == PrisonerAvailabilityValidation::PRISONER_NOT_AVAILABLE
+        PrisonerAvailabilityValidation::PRISONER_ERRORS.include?(e)
       end
   end
 

@@ -114,7 +114,10 @@ en:
         email_preview: Preview Email
         prisoner_available: Prisoner available
         slot_available: Space available
-        prisoner_not_available: Prisoner unavailable
+        prisoner_banned: Prisoner banned
+        out_of_vo: No VO allowance
+        external movement: External movement
+        booked_visit: Booked on another visit
         slot_not_available: Fully booked
         add_a_message: Add a message
       prisoner_details:

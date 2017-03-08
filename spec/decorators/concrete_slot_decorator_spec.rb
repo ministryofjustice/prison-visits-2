@@ -46,14 +46,14 @@ RSpec.describe ConcreteSlotDecorator do
 
       context 'when a prisoner is not available' do
         context 'with a date in the future' do
-          let(:slot_errors) { ['prisoner_not_available'] }
+          let(:slot_errors) { ['prisoner_banned'] }
 
           it 'renders the checkbox with errors' do
             expect(html_fragment).to have_css('label.block-label.date-box.date-box--error')
             expect(html_fragment).to have_css('span.date-box__number', text: '1')
             expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
             expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
-            expect(html_fragment).to have_css('span.colour--error', text: 'Prisoner unavailable')
+            expect(html_fragment).to have_css('span.colour--error', text: 'Prisoner banned')
           end
         end
 
