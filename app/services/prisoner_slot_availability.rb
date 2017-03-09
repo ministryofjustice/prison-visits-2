@@ -38,10 +38,7 @@ private
   end
 
   def prison_slots
-    @prison_slots ||= AvailableSlotEnumerator.new(
-      start_date, end_date, prison.recurring_slots,
-      prison.anomalous_slots, prison.unbookable_dates
-    ).to_a
+    @prison_slots ||= prison.available_slots(start_date).to_a
   end
 
   def offender_availabilities
