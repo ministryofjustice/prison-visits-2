@@ -56,11 +56,14 @@ RSpec.describe Nomis::PrisonerDateAvailability do
         it { is_expected.to be_empty }
       end
 
-      context "same as the slot" do
+      context "overlaping the requested slot" do
+        let(:existing_booked_slot) do
+          ConcreteSlot.new(date.year, date.month, date.day, 15, 15, 16, 15)
+        end
         let(:existing_visits) do
           [
             {
-              'slot' => slot.to_s,
+              'slot' => existing_booked_slot.to_s,
               'id' => '123'
             }
           ]
