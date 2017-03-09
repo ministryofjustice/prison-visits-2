@@ -11,7 +11,7 @@ module Nomis
     attribute :banned, Boolean
     attribute :out_of_vo, Boolean
     attribute :external_movement, Boolean
-    attribute :existing_visits, Array
+    attribute :existing_visits, Array[AvailabilityVisit]
 
     def available?(slot)
       unavailable_reasons(slot).empty?
@@ -29,7 +29,7 @@ module Nomis
   private
 
     def booked_visit?(slot)
-      existing_visits.any? { |visit| visit['slot'] == slot.to_s }
+      existing_visits.any? { |visit| visit.slot == slot }
     end
   end
 end
