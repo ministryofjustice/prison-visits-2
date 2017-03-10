@@ -31,9 +31,7 @@ gem 'jwt'
 gem 'draper'
 gem 'rake'
 
-gem 'sentry-raven',
-  git: 'https://github.com/StupidCodeFactory/raven-ruby.git',
-  branch: 'allow-faraday-customisation'
+gem 'sentry-raven', '~> 2.4.0'
 
 gem 'sidekiq'
 gem 'state_machines-activerecord'
@@ -46,7 +44,7 @@ gem 'virtus'
 gem 'zendesk_api'
 gem 'pvb-instrumentation',
   git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
-  ref: 'c7fb0fc2599c6507a321b93052a35c1538605040'
+  ref: '639bd30e211846a0d76c1d869b376fa2b4c30568'
 # gem 'pvb-instrumentation', path: '../pvb-instrumentation'
 
 group :development, :test do
