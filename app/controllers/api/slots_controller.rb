@@ -14,7 +14,7 @@ module Api
     end
 
     def date_of_birth
-      params.require(:prisoner_number)
+      params.require(:prisoner_dob)
     end
 
     def start_date

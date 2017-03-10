@@ -13,7 +13,7 @@ RSpec.describe Api::SlotsController do
         format: :json,
         prison_id:       prison.id,
         prisoner_number: prisoner.number,
-        date_of_birth:   prisoner.date_of_birth,
+        prisoner_dob:    prisoner.date_of_birth,
         start_date:      '2016-02-15',
         end_date:        '2016-04-15'
       }
