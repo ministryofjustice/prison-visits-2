@@ -1,5 +1,7 @@
-PATH
-  remote: ../pvb-instrumentation
+GIT
+  remote: https://github.com/ministryofjustice/pvb-instrumentation.git
+  revision: 639bd30e211846a0d76c1d869b376fa2b4c30568
+  ref: 639bd30e211846a0d76c1d869b376fa2b4c30568
   specs:
     pvb-instrumentation (0.1.0)
       activesupport (~> 4.2)

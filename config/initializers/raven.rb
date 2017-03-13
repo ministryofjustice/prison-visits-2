@@ -6,8 +6,8 @@ if sentry_dsn
   Raven.configure do |config|
     config.dsn = sentry_dsn
     config.processors -= [Raven::Processor::PostData]
-    config.faraday_builder = proc { |buidler|
-      buidler.request :instrumentation, name: 'faraday.raven'
+    config.faraday_builder = proc { |builder|
+      builder.request :instrumentation, name: 'faraday.raven'
     }
   end
 else
