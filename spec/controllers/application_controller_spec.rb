@@ -33,8 +33,8 @@ RSpec.describe ApplicationController, type: :controller do
       WebMock.stub_request(:get, /\w/).
         to_raise(Excon::Errors::Timeout.new('Request Timeout'))
       post :create
-      expect(Instrumentation.custom_log_items[:api_request_count]).to eq(1)
-      expect(Instrumentation.custom_log_items[:api_error_count]).to eq(1)
+      expect(PVB::Instrumentation.custom_log_items[:api_request_count]).to eq(1)
+      expect(PVB::Instrumentation.custom_log_items[:api_error_count]).to eq(1)
     end
   end
 
@@ -64,9 +64,9 @@ RSpec.describe ApplicationController, type: :controller do
     it 'appends the current estate id, request uuid to and user id logs' do
       login_user(user, current_estates: [estate])
       get :index
-      expect(Instrumentation.custom_log_items[:request_id]).to eq(uuid)
-      expect(Instrumentation.custom_log_items[:estate_ids]).to eq([estate.id])
-      expect(Instrumentation.custom_log_items[:user_id]).to eq(user.id)
+      expect(PVB::Instrumentation.custom_log_items[:request_id]).to eq(uuid)
+      expect(PVB::Instrumentation.custom_log_items[:estate_ids]).to eq([estate.id])
+      expect(PVB::Instrumentation.custom_log_items[:user_id]).to eq(user.id)
     end
 
     it 'returns the default estate if a current_estate is not set' do

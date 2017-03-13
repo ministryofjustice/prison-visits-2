@@ -52,8 +52,8 @@ RSpec.describe Nomis::Api do
 
     it 'logs the lookup result, api lookup time' do
       offender
-      expect(Instrumentation.custom_log_items[:api]).to be > 1
-      expect(Instrumentation.custom_log_items[:valid_offender_lookup]).to be true
+      expect(PVB::Instrumentation.custom_log_items[:api]).to be > 1
+      expect(PVB::Instrumentation.custom_log_items[:valid_offender_lookup]).to be true
     end
 
     describe 'with no matching offender', vcr: { cassette_name: 'lookup_active_offender-nomatch' } do
@@ -67,7 +67,7 @@ RSpec.describe Nomis::Api do
 
       it 'logs the offender was unsucessful' do
         offender
-        expect(Instrumentation.custom_log_items[:valid_offender_lookup]).to be false
+        expect(PVB::Instrumentation.custom_log_items[:valid_offender_lookup]).to be false
       end
     end
   end
@@ -89,7 +89,7 @@ RSpec.describe Nomis::Api do
     end
 
     it 'logs the number of available dates' do
-      expect(subject.dates.count).to eq(Instrumentation.custom_log_items[:offender_visiting_availability])
+      expect(subject.dates.count).to eq(PVB::Instrumentation.custom_log_items[:offender_visiting_availability])
     end
 
     it 'returns empty list of available dates if there is no availability', vcr: { cassette_name: 'offender_visiting_availability-noavailability' } do
@@ -115,7 +115,7 @@ RSpec.describe Nomis::Api do
     end
 
     it 'logs the number of available slots' do
-      expect(subject.count).to eq(Instrumentation.custom_log_items[:slot_visiting_availability])
+      expect(subject.count).to eq(PVB::Instrumentation.custom_log_items[:slot_visiting_availability])
     end
   end
 end

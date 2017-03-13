@@ -31,7 +31,7 @@ module Nomis
       }
 
       build_offender(response).tap do
-        Instrumentation.append_to_log(valid_offender_lookup: !!response['found'])
+        PVB::Instrumentation.append_to_log(valid_offender_lookup: !!response['found'])
       end
     rescue APIError => e
       Raven.capture_exception(e, fingerprint: %w[nomis api_error])
@@ -46,7 +46,7 @@ module Nomis
       }
 
       PrisonerAvailability.new(response).tap do |prisoner_availability|
-        Instrumentation.append_to_log(
+        PVB::Instrumentation.append_to_log(
           offender_visiting_availability: prisoner_availability.dates.size
         )
       end
@@ -61,7 +61,7 @@ module Nomis
       }
 
       SlotAvailability.new(response).tap do |slot_availability|
-        Instrumentation.append_to_log(
+        PVB::Instrumentation.append_to_log(
           slot_visiting_availability: slot_availability.slots.size)
       end
     end
