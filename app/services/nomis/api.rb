@@ -52,6 +52,21 @@ module Nomis
       end
     end
 
+    def offender_visiting_detailed_availability(offender_id:, slots:)
+      response = @pool.with { |client|
+        client.get(
+          "offenders/#{offender_id}/visits/unavailability",
+          dates: slots.map(&:to_date).join(','))
+      }
+
+      PrisonerDetailedAvailability.build(response).tap do |availability|
+        available_slots = slots.select { |slot| availability.available?(slot) }
+
+        PVB::Instrumentation.append_to_log(
+          offender_visiting_availability: available_slots.size)
+      end
+    end
+
     def fetch_bookable_slots(prison:, start_date:, end_date:)
       response = @pool.with { |client|
         client.get(

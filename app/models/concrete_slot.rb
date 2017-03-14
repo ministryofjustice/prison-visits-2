@@ -56,4 +56,8 @@ ConcreteSlot = Struct.new(
   def <=>(other)
     to_s <=> other.to_s
   end
+
+  def overlaps?(other)
+    end_at > other.begin_at
+  end
 end

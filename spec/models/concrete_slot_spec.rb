@@ -72,4 +72,26 @@ RSpec.describe ConcreteSlot do
       expect(subject).to be < other
     end
   end
+
+  describe 'overlaps?' do
+    subject { super().overlaps?(other_slot) }
+
+    context 'when the start time is before the end time' do
+      let(:other_slot) { described_class.new(2015, 10, 23, 15, 15, 16, 15) }
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when the start time is the same as the end time' do
+      let(:other_slot) { described_class.new(2015, 10, 23, 15, 30, 16, 30) }
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the start time is after the end time' do
+      let(:other_slot) { described_class.new(2015, 10, 23, 15, 45, 16, 45) }
+
+      it { is_expected.to eq(false) }
+    end
+  end
 end

@@ -1,18 +1,24 @@
 class PrisonerAvailabilityValidation
   include NonPersistedModel
 
-  PRISONER_NOT_AVAILABLE = 'prisoner_not_available'.freeze
+  PRISONER_ERRORS = [
+    Nomis::PrisonerDateAvailability::BANNED,
+    Nomis::PrisonerDateAvailability::OUT_OF_VO,
+    Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT,
+    Nomis::PrisonerDateAvailability::BOOKED_VISIT
+  ].freeze
 
   attribute :offender, Nomis::Offender
-  attribute :requested_dates, Array[Date]
+  attribute :requested_slots, Array[ConcreteSlot]
 
   validate :slots_availability
 
-  def date_error(date)
-    errors[date.to_s].first
+  def slot_errors(slot)
+    errors[slot.to_s]
   end
 
   def unknown_result?
+    return false if valid_requested_slots.none?
     !Nomis::Api.enabled? || offender_availability.nil? || api_error
   end
 
@@ -21,22 +27,21 @@ private
   attr_reader :api_error
 
   def slots_availability
-    valid_requested_dates.each do |requested_date|
-      error_message = error_message_for_slot(requested_date)
-      errors[requested_date.to_s] << error_message if error_message
+    valid_requested_slots.each do |requested_slot|
+      error_messages_for_slot(requested_slot).each do |message|
+        errors[requested_slot.to_s] << message
+      end
     end
   end
 
-  def error_message_for_slot(date)
-    return if unknown_result?
+  def error_messages_for_slot(slot)
+    return [] if unknown_result? || !valid_slot?(slot)
 
-    PRISONER_NOT_AVAILABLE unless offender_availability.include?(date)
+    offender_availability.error_messages_for_slot(slot)
   end
 
   def offender_availability
     return nil unless offender.valid?
-    # Don't want to show prisoner unavailable errors for invalid dates
-    return requested_dates unless valid_requested_dates.any?
 
     @offender_availability ||= load_offender_availability
   end
@@ -44,23 +49,21 @@ private
   def load_offender_availability
     return nil if @api_error
 
-    Nomis::Api.instance.offender_visiting_availability(
+    Nomis::Api.instance.offender_visiting_detailed_availability(
       offender_id: offender.id,
-      start_date:  valid_requested_dates.min,
-      end_date:    valid_requested_dates.max
-    ).dates
+      slots: valid_requested_slots
+    )
   rescue Nomis::APIError => e
     @api_error = true
     Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
     nil
   end
 
-  def valid_requested_dates
-    @valid_dates ||=
-      begin
-        min = Date.tomorrow
-        max = 60.days.from_now.to_date
-        requested_dates.select { |date| date.between?(min, max) }
-      end
+  def valid_requested_slots
+    @valid_slots ||= requested_slots.select { |slot| valid_slot?(slot) }
+  end
+
+  def valid_slot?(slot)
+    slot.to_date.between?(Date.tomorrow, 60.days.from_now.to_date)
   end
 end
