@@ -4,41 +4,38 @@ class SlotAvailability
 
   def initialize(prison, noms_id, date_of_birth,
     date_range = Time.zone.today.to_date..28.days.from_now)
-    self.prison        = prison
-    self.noms_id       = noms_id
-    self.date_of_birth = date_of_birth
-    self.start_date    = date_range.min
-    self.end_date      = date_range.max
-    self.api_error     = false
+    @prison = prison
+    @noms_id = noms_id
+    @date_of_birth = date_of_birth
+    @start_date = date_range.min
+    @end_date = calculate_end_date(date_range)
+    @offender_availability_error = false
   end
 
   def slots
-    return all_slots unless live_availability_enabled?
-    return all_slots unless nomis_public_prisoner_availability_enabled?
-    return all_slots unless offender.valid?
-
-    load_offender_availabilities
-
-    return all_slots if api_error
+    load_offender_availabilities if nomis_public_prisoner_availability_enabled? && offender.valid?
 
     slots_and_unavailabiltiy_reasons
   end
 
 private
 
-  attr_accessor :prison, :noms_id, :date_of_birth, :start_date, :end_date, :api_error
+  attr_reader :prison, :noms_id, :date_of_birth,
+    :start_date, :end_date, :offender_availability_error
 
   def slots_and_unavailabiltiy_reasons
-    all_slots.deep_dup.each { |slot, unavailability_reasons|
-      slot_date = slot.to_date
-      unless offender_availabilities_dates.include?(slot_date)
+    all_slots.deep_dup.each do |slot, unavailability_reasons|
+      if nomis_public_prisoner_availability_enabled? &&
+          offender.valid? &&
+          !offender_availability_error &&
+          !offender_availabilities_dates.include?(slot.to_date)
         unavailability_reasons << PRISONER_UNAVAILABLE
       end
 
-      unless bookable_prison_slots.include?(slot)
+      if live_availability_enabled? && !bookable_prison_slots.include?(slot)
         unavailability_reasons << PRISON_UNAVAILABLE
       end
-    }
+    end
   end
 
   def offender
@@ -69,7 +66,7 @@ private
       offender_id: offender.id, start_date: start_date, end_date: end_date
     )
   rescue Nomis::APIError => e
-    self.api_error = true
+    @offender_availability_error = true
     Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
     []
   end
@@ -84,9 +81,9 @@ private
       Rails.configuration.nomis_public_prisoner_availability_enabled
   end
 
-  def end_date
+  def calculate_end_date(date_range)
     # ensures the range does not go over the 28 days constraint
-    @end_date ||= [@end_date, start_date + 28.days].min
+    [date_range.min + 28.days, date_range.max].min
   end
 
   def live_availability_enabled?
