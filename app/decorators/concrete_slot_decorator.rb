@@ -16,6 +16,9 @@ class ConcreteSlotDecorator < Draper::Decorator
     if errors.any?
       html_classes << ' date-box--error'
     end
+    if slot_in_past?
+      html_classes << ' disabled'
+    end
     h.concat(
       form_builder.label(
         :slot_granted,
@@ -27,7 +30,8 @@ class ConcreteSlotDecorator < Draper::Decorator
           form_builder.radio_button(
             :slot_granted,
             iso8601,
-            RADIO_BUTTON_OPTIONS)
+            radio_options
+          )
         )
         h.concat(label_text)
       }
@@ -93,6 +97,16 @@ private
     nomis_checker.slot_availability_enabled? &&
       !nomis_checker.slot_availability_unknown? &&
       errors.none? { |e| e == SlotAvailabilityValidation::SLOT_NOT_AVAILABLE }
+  end
+
+  def radio_options
+    options = {}
+    options[:disabled] = 'disabled' if slot_in_past?
+    options.merge(RADIO_BUTTON_OPTIONS)
+  end
+
+  def slot_in_past?
+    !object.to_date.future?
   end
 
   def label_text

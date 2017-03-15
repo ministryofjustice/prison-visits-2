@@ -30,6 +30,12 @@
       color: $white;
     }
   }
+  &.disabled {
+    @include opacity(0.6);
+    &:hover {
+      border-color: $border-colour;
+    }
+  }
 }
 
 .date-box__message {
