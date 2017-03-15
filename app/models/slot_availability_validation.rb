@@ -3,7 +3,8 @@ class SlotAvailabilityValidation
 
   SLOT_NOT_AVAILABLE = 'slot_not_available'.freeze
 
-  attribute :visit, Visit
+  attribute :requested_slots, Array[ConcreteSlot]
+  attribute :prison, Prison
 
   validate :slots_availability
 
@@ -34,7 +35,7 @@ private
 
   def prison_availability
     # Don't want to show prisoner unavailable errors for invalid dates
-    return visit.slots if valid_requested_slots.none?
+    return requested_slots if valid_requested_slots.none?
 
     @prison_availability ||= load_prison_availability
   end
@@ -43,7 +44,7 @@ private
     return nil if @api_error
 
     Nomis::Api.instance.fetch_bookable_slots(
-      prison:   visit.prison,
+      prison:   prison,
       start_date:  valid_requested_slots.min.to_date,
       end_date:    valid_requested_slots.max.to_date).
       slots
@@ -58,7 +59,7 @@ private
       begin
         min = Date.tomorrow
         max = 60.days.from_now.to_date
-        visit.slots.select { |slot| slot.to_date.between?(min, max) }
+        requested_slots.select { |slot| slot.to_date.between?(min, max) }
       end
   end
 end
