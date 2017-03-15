@@ -31,32 +31,23 @@ RSpec.describe SlotAvailability do
     Hash[tuples]
   end
 
-  def build_available_slot(slot)
-    {
-      "time": slot,
-      "capacity": 150,
-      "max_groups": 30,
-      "max_adults": 90,
-      "groups_booked": 0,
-      "visitors_booked": 0,
-      "adults_booked": 0
-    }
-  end
-
   def bookable_slots_times
     all_slots_available.
       keys.
-      reject { |slot| slot == unavailable_slot }.
-      map { |slot| build_available_slot(slot) }
+      reject { |slot| slot == unavailable_slot }
   end
 
-  let(:bookable_slots) do
-    Nomis::SlotAvailability.new(slots: bookable_slots_times )
+  let(:slot_availability) do
+    double(SlotAvailabilityValidation, valid?: false)
   end
 
   before do
     allow(Nomis::Api.instance).to receive(:lookup_active_offender).
       and_return(Nomis::Offender.new(id: 1_055_206))
+
+    allow(slot_availability).to receive(:slot_error) do |slot|
+      bookable_slots_times.include?(slot) ? nil : 'error'
+    end
   end
 
   around(:each) do |ex|
@@ -80,9 +71,9 @@ RSpec.describe SlotAvailability do
               to receive(:offender_visiting_availability).
               and_return(prisoner_availability)
 
-            expect(ApiSlotAvailability).
+            expect(SlotAvailabilityValidation).
               to receive(:new).
-              and_return(double(ApiSlotAvailability, slots: bookable_slots))
+              and_return(slot_availability)
           end
 
           it 'returns a hash with unavailability reasons' do
@@ -108,9 +99,9 @@ RSpec.describe SlotAvailability do
               to receive(:lookup_active_offender).
               and_return(Nomis::NullOffender.new)
 
-            expect(ApiSlotAvailability).
+            expect(SlotAvailabilityValidation).
               to receive(:new).
-              and_return(double(ApiSlotAvailability, slots: bookable_slots))
+              and_return(slot_availability)
           end
 
           it 'applies the prison availability only' do
@@ -134,9 +125,9 @@ RSpec.describe SlotAvailability do
             allow(Nomis::Api.instance).
               to receive(:offender_visiting_availability).
               and_raise(Nomis::APIError)
-            expect(ApiSlotAvailability).
+            expect(SlotAvailabilityValidation).
               to receive(:new).
-              and_return(double(ApiSlotAvailability, slots: bookable_slots))
+              and_return(slot_availability)
           end
 
           it 'applies the prison availability only' do
@@ -162,25 +153,25 @@ RSpec.describe SlotAvailability do
             to receive(:nomis_public_prisoner_availability_enabled).
             and_return(false)
 
-          expect(ApiSlotAvailability).
+          expect(SlotAvailabilityValidation).
             to receive(:new).
-            and_return(double(ApiSlotAvailability, slots: bookable_slots))
+            and_return(slot_availability)
         end
 
         it 'applies the prison availability' do
-            expect(subject.slots).to eq(
-              "2017-02-07T09:00/10:00" => [],
-              "2017-02-07T14:00/16:10" => [],
-              "2017-02-13T14:00/16:10" => [],
-              "2017-02-14T09:00/10:00" => [],
-              "2017-02-14T14:00/16:10" => [],
-              "2017-02-20T14:00/16:10" => [],
-              "2017-02-21T09:00/10:00" => [],
-              "2017-02-21T14:00/16:10" => [],
-              "2017-02-27T14:00/16:10" => [],
-              "2017-02-28T09:00/10:00" => ['prison_unavailable'],
-              "2017-02-28T14:00/16:10" => []
-            )
+          expect(subject.slots).to eq(
+            "2017-02-07T09:00/10:00" => [],
+            "2017-02-07T14:00/16:10" => [],
+            "2017-02-13T14:00/16:10" => [],
+            "2017-02-14T09:00/10:00" => [],
+            "2017-02-14T14:00/16:10" => [],
+            "2017-02-20T14:00/16:10" => [],
+            "2017-02-21T09:00/10:00" => [],
+            "2017-02-21T14:00/16:10" => [],
+            "2017-02-27T14:00/16:10" => [],
+            "2017-02-28T09:00/10:00" => ['prison_unavailable'],
+            "2017-02-28T14:00/16:10" => []
+          )
         end
       end
     end

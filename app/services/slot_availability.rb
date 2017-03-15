@@ -9,33 +9,32 @@ class SlotAvailability
     @date_of_birth = date_of_birth
     @start_date = date_range.min
     @end_date = calculate_end_date(date_range)
-    @offender_availability_error = false
   end
 
   def slots
-    load_offender_availabilities if nomis_public_prisoner_availability_enabled? && offender.valid?
+    all_slots.deep_dup.each do |slot, unavailability_reasons|
+      if prisoner_unavailable?(slot)
+        unavailability_reasons << PRISONER_UNAVAILABLE
+      end
 
-    slots_and_unavailabiltiy_reasons
+      if prison_unavailable?(slot)
+        unavailability_reasons << PRISON_UNAVAILABLE
+      end
+    end
   end
 
 private
 
-  attr_reader :prison, :noms_id, :date_of_birth,
-    :start_date, :end_date, :offender_availability_error
+  attr_reader :prison, :noms_id, :date_of_birth, :start_date, :end_date
 
-  def slots_and_unavailabiltiy_reasons
-    all_slots.deep_dup.each do |slot, unavailability_reasons|
-      if nomis_public_prisoner_availability_enabled? &&
-          offender.valid? &&
-          !offender_availability_error &&
-          !offender_availabilities_dates.include?(slot.to_date)
-        unavailability_reasons << PRISONER_UNAVAILABLE
-      end
+  def prisoner_unavailable?(slot)
+    nomis_public_prisoner_availability_enabled? &&
+      offender.valid? &&
+      !offender_availability_dates.include?(slot.to_date)
+  end
 
-      if live_availability_enabled? && !bookable_prison_slots.include?(slot)
-        unavailability_reasons << PRISON_UNAVAILABLE
-      end
-    end
+  def prison_unavailable?(slot)
+    live_availability_enabled? && slot_availability.slot_error(slot)
   end
 
   def offender
@@ -52,28 +51,28 @@ private
     @prison_slots ||= prison.available_slots(start_date)
   end
 
-  def bookable_prison_slots
-    @bookable_prison_slots ||=
+  def slot_availability
+    @slot_availability ||= SlotAvailabilityValidation.new(
+      prison: prison,
+      requested_slots: prison_slots).tap(&:valid?)
+  end
+
+  def offender_availability
+    @offender_availability ||=
       begin
-        api_slot_availability = ApiSlotAvailability.new(
-          prison: prison, use_nomis_slots: true)
-        api_slot_availability.slots.map(&:time)
+        Nomis::Api.instance.offender_visiting_availability(
+          offender_id: offender.id,
+          start_date: start_date,
+          end_date: end_date)
+      rescue Nomis::APIError => e
+        Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
+
+        { dates: all_slots.keys.map { |k| ConcreteSlot.parse(k).to_date }.uniq }
       end
   end
 
-  def offender_availabilities
-    @offender_availabilities ||= Nomis::Api.instance.offender_visiting_availability(
-      offender_id: offender.id, start_date: start_date, end_date: end_date
-    )
-  rescue Nomis::APIError => e
-    @offender_availability_error = true
-    Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
-    []
-  end
-  alias_method :load_offender_availabilities, :offender_availabilities
-
-  def offender_availabilities_dates
-    @offender_availabilities_dates ||= offender_availabilities[:dates]
+  def offender_availability_dates
+    @offender_availability_dates ||= offender_availability[:dates]
   end
 
   def nomis_public_prisoner_availability_enabled?
