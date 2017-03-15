@@ -9,7 +9,7 @@
   background-color: $colour--requested;
   color: $white;
 }
-.tag--booked {
+.tag--booked, .tag--verified {
   background-color: $colour--verified;
   color: $white;
 }

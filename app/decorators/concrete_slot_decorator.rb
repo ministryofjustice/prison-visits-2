@@ -38,7 +38,7 @@ class ConcreteSlotDecorator < Draper::Decorator
               '.prisoner_available',
               scope: %w[prison visits process_visit]
             ),
-            class: 'date-box__message bold-xsmall colour--verified'
+            class: 'date-box__message bold-xsmall tag tag--verified'
           )
         )
       end
@@ -51,7 +51,7 @@ class ConcreteSlotDecorator < Draper::Decorator
               '.slot_available',
               scope: %w[prison visits process_visit]
             ),
-            class: 'date-box__message bold-xsmall colour--verified'
+            class: 'date-box__message bold-xsmall tag tag--verified'
           )
         )
       end
@@ -64,7 +64,7 @@ class ConcreteSlotDecorator < Draper::Decorator
               ".#{error}",
               scope: %w[prison visits process_visit]
             ),
-            class: 'date-box__message bold-xsmall colour--error'
+            class: 'date-box__message bold-xsmall tag tag--error'
           )
         )
       end
