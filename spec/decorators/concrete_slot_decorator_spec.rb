@@ -53,7 +53,7 @@ RSpec.describe ConcreteSlotDecorator do
             expect(html_fragment).to have_css('span.date-box__number', text: '1')
             expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
             expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
-            expect(html_fragment).to have_css('span.colour--error', text: 'Visits banned')
+            expect(html_fragment).to have_css('span.tag--error', text: 'Visits banned')
           end
         end
 
@@ -65,8 +65,8 @@ RSpec.describe ConcreteSlotDecorator do
             expect(html_fragment).to have_css('span.date-box__number', text: '1')
             expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
             expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
-            expect(html_fragment).not_to have_css('span.colour--error')
-            expect(html_fragment).not_to have_css('span.colour--verified')
+            expect(html_fragment).not_to have_css('span.tag--error')
+            expect(html_fragment).not_to have_css('span.tag--verified')
           end
         end
       end
@@ -104,7 +104,7 @@ RSpec.describe ConcreteSlotDecorator do
             expect(html_fragment).to have_css('span.date-box__number', text: '1')
             expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
             expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
-            expect(html_fragment).to have_css('span.colour--error', text: 'Fully booked')
+            expect(html_fragment).to have_css('span.tag--error', text: 'Fully booked')
           end
         end
 
@@ -116,8 +116,8 @@ RSpec.describe ConcreteSlotDecorator do
             expect(html_fragment).to have_css('span.date-box__number', text: '1')
             expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
             expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
-            expect(html_fragment).not_to have_css('span.colour--error')
-            expect(html_fragment).not_to have_css('span.colour--verified')
+            expect(html_fragment).not_to have_css('span.tag--error')
+            expect(html_fragment).not_to have_css('span.tag--verified')
           end
         end
       end
