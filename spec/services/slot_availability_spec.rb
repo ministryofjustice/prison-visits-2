@@ -176,7 +176,7 @@ RSpec.describe SlotAvailability do
       end
     end
 
-    describe 'with a prison not is trial' do
+    describe 'with a prison not in the trial' do
       describe 'and prisoner availability enabled' do
         before do
           allow(Nomis::Api.instance).
