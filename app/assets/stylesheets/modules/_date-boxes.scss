@@ -44,6 +44,12 @@
   margin: 5px 5px 0 0;
 }
 
+.date-box__message {
+  @extend .tag;
+  display: inline-block;
+  margin: 5px 5px 0 0;
+}
+
 .date-box--error {
   .date-box__number {
     background: $colour--error;
