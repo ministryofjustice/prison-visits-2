@@ -92,7 +92,10 @@ private
 
   def slot_availability_validation
     @slot_availability_validation ||=
-      SlotAvailabilityValidation.new(visit: @visit).tap(&:valid?)
+      SlotAvailabilityValidation.new(
+        prison: @visit.prison,
+        requested_slots: @visit.slots).
+      tap(&:valid?)
   end
 
   def offender

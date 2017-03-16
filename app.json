@@ -38,6 +38,12 @@
     "NOMIS_PUBLIC_PRISONER_AVAILABILITY_ENABLED": {
       "required": true
     },
+    "STAFF_PRISONS_WITH_SLOT_AVAILABILITY": {
+      "required": true
+    },
+    "PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY": {
+      "required": true
+    },
     "MOJSSO_SECRET": {
       "required": true
     },

@@ -248,7 +248,8 @@ RSpec.describe StaffNomisChecker do
 
           allow(SlotAvailabilityValidation).
             to receive(:new).
-            with(visit: visit).
+            with(prison: prison,
+                 requested_slots: visit.slots).
             and_return(validator)
         end
 

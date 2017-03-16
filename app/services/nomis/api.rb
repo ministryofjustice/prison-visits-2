@@ -75,7 +75,7 @@ module Nomis
           end_date: end_date)
       }
 
-      SlotAvailability.new(response).tap do |slot_availability|
+      Nomis::SlotAvailability.new(response).tap do |slot_availability|
         PVB::Instrumentation.append_to_log(
           slot_visiting_availability: slot_availability.slots.size)
       end

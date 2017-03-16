@@ -28,11 +28,11 @@ RSpec.describe Api::SlotsController do
     }
 
     let(:prisoner_slot_availability) {
-      double(PrisonerSlotAvailability, slots: slots)
+      double(SlotAvailability, slots: slots)
     }
 
     before do
-      expect(PrisonerSlotAvailability).to receive(:new).and_return(prisoner_slot_availability)
+      expect(SlotAvailability).to receive(:new).and_return(prisoner_slot_availability)
     end
 
     it 'returns the list of slots with there availabilities' do

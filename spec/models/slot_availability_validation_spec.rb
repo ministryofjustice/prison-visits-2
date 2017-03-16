@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe SlotAvailabilityValidation, type: :model do
-  subject { described_class.new(visit: visit) }
+  subject do
+    described_class.new(prison: prison, requested_slots: requested_slots)
+  end
 
   let(:prison) { build_stubbed(:prison) }
-  let(:visit) { build_stubbed(:visit, prison: prison) }
   let(:slot1) do
     date = 6.days.from_now.to_date
     ConcreteSlot.new(date.year, date.month, date.day, 14, 30, 15, 30)
@@ -22,10 +23,6 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
     available_slots.map do |slot|
       { 'time' => slot.to_s, 'max_adults' => anything }
     end
-  end
-
-  before do
-    allow(visit).to receive(:slots).and_return(requested_slots)
   end
 
   describe 'when the NOMIS API is disabled' do
