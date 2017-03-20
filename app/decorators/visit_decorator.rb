@@ -7,12 +7,15 @@ class VisitDecorator < Draper::Decorator
     :prisoner_availability_unknown?,
     :slot_availability_unknown?,
     :slots_unavailable?,
+    :no_allowance?,
+    :prisoner_banned?,
+    :prisoner_out_of_prison?,
     to: :nomis_checker
 
-  def prisoner_details_incorrect
+  def prisoner_details_incorrect?
     (
-      rejection &&
-      rejection.reasons.include?(Rejection::PRISONER_DETAILS_INCORRECT)
+      object.rejection &&
+      object.rejection.reasons.include?(Rejection::PRISONER_DETAILS_INCORRECT)
     ) || prisoner_existance_status == StaffNomisChecker::INVALID
   end
 
@@ -26,7 +29,9 @@ class VisitDecorator < Draper::Decorator
   end
 
   def rejection
-    @rejection ||= (object.rejection || object.build_rejection).decorate
+    @rejection ||= (object.rejection || object.build_rejection).decorate.tap do |rej|
+      rej.apply_nomis_reasons(self)
+    end
   end
 
   def principal_visitor

@@ -372,4 +372,58 @@ RSpec.describe StaffNomisChecker do
       it { is_expected.to eq(false) }
     end
   end
+
+  context 'prisoner not available for any of the slots' do
+    before do
+      allow(instance).to receive(:prisoner_availability_validation).
+        and_return(validator)
+    end
+
+    let(:validator) do
+      double('PrisonerAvailabilityValidation', slot_errors: [
+        Nomis::PrisonerDateAvailability::BANNED,
+        Nomis::PrisonerDateAvailability::OUT_OF_VO,
+        Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT,
+        Nomis::PrisonerDateAvailability::BOOKED_VISIT
+      ])
+    end
+
+    context 'some slots are available' do
+      before do
+        allow(instance).to receive(:slots_unavailable?).and_return(false)
+      end
+
+      # do not check relevant boxes
+      it 'no_allowance? is false' do
+        expect(instance.no_allowance?).to eq(false)
+      end
+
+      it 'prisoner_banned? is false' do
+        expect(instance.prisoner_banned?).to eq(false)
+      end
+
+      it 'prisoner_out_of_prison? is false' do
+        expect(instance.prisoner_out_of_prison?).to eq(false)
+      end
+    end
+
+    context 'no slots are available' do
+      before do
+        allow(instance).to receive(:slots_unavailable?).and_return(true)
+      end
+
+      # check relevant boxes
+      it 'no_allowance? is true' do
+        expect(instance.no_allowance?).to eq(true)
+      end
+
+      it 'prisoner_banned? is true' do
+        expect(instance.prisoner_banned?).to eq(true)
+      end
+
+      it 'prisoner_out_of_prison? is true' do
+        expect(instance.prisoner_out_of_prison?).to eq(true)
+      end
+    end
+  end
 end

@@ -4,7 +4,7 @@ RSpec.describe VisitDecorator do
   let(:visit) { create(:visit) }
   subject(:instance) { described_class.decorate(visit) }
 
-  describe '#prisoner_details_incorrect' do
+  describe '#prisoner_details_incorrect?' do
     context 'when a user overrides the NOMIS validation' do
       before do
         visit.build_rejection(reasons: reasons)
@@ -12,7 +12,7 @@ RSpec.describe VisitDecorator do
 
       context 'details are overriden as incorrect' do
         let(:reasons) { [Rejection::PRISONER_DETAILS_INCORRECT] }
-        it {  expect(subject.prisoner_details_incorrect).to be true }
+        it {  expect(subject.prisoner_details_incorrect?).to be true }
       end
 
       context 'fallback to validate against NOMIS' do
@@ -22,7 +22,7 @@ RSpec.describe VisitDecorator do
         it 'queries nomis API' do
           expect(StaffNomisChecker).to receive(:new).and_return(nomis_chekcer)
           expect(nomis_chekcer).to receive(:prisoner_existance_status)
-          subject.prisoner_details_incorrect
+          subject.prisoner_details_incorrect?
         end
       end
     end

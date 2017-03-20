@@ -28,13 +28,7 @@
     <div class="column-one-third">
       <%= error_container(rf, :reasons) do %>
         <label class="block-label">
-          <%=
-          check_box_tag(
-            'visit[rejection_attributes][reasons][]',
-            :prisoner_details_incorrect,
-            @visit.prisoner_details_incorrect
-          )
-          %>
+          <%= rf.object.checkbox_for(:prisoner_details_incorrect, class: 'js-Conditional') %>
           <%= t('.prisoner_details_incorrect') %>
         </label>
       <% end %>

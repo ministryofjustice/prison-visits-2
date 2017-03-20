@@ -19,6 +19,7 @@
 *.DS_Store
 .env
 TAGS
+tags
 .byebug_history
 dump.rdb
 .ruby-gemset

@@ -67,6 +67,19 @@ class RejectionDecorator < Draper::Decorator
     )
   end
 
+  def apply_nomis_reasons(visit_decorator)
+    reasons << Rejection::NO_ALLOWANCE if visit_decorator.no_allowance?
+    reasons << Rejection::PRISONER_BANNED if visit_decorator.prisoner_banned?
+
+    if visit_decorator.prisoner_details_incorrect?
+      reasons << Rejection::PRISONER_DETAILS_INCORRECT
+    end
+
+    if visit_decorator.prisoner_out_of_prison?
+      reasons << Rejection::PRISONER_OUT_OF_PRISON
+    end
+  end
+
 private
 
   def slot_unavailable_explanation
