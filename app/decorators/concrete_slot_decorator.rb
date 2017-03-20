@@ -22,7 +22,7 @@ class ConcreteSlotDecorator < Draper::Decorator
         class: html_classes,
         value: iso8601,
         data: { target: 'selected_slot_details' }
-      ) do
+      ) {
         h.concat(
           form_builder.radio_button(
             :slot_granted,
@@ -30,7 +30,7 @@ class ConcreteSlotDecorator < Draper::Decorator
             RADIO_BUTTON_OPTIONS)
         )
         h.concat(label_text)
-      end
+      }
     )
 
     if prisoner_available?
@@ -71,8 +71,8 @@ class ConcreteSlotDecorator < Draper::Decorator
         )
       )
     end
-    nil
 
+    nil
   end
 # rubocop:enable Metrics/MethodLength
 # rubocop:enable Metrics/AbcSize

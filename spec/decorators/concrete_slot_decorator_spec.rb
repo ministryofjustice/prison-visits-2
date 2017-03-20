@@ -22,7 +22,11 @@ RSpec.describe ConcreteSlotDecorator do
     )
   end
 
-  describe '#label_for' do
+  before do
+    subject.h.output_buffer = ""
+  end
+
+  describe '#slot_picker' do
     let(:form_builder)  do
       ActionView::Helpers::FormBuilder.new(:visit, visit, subject.h, {})
     end
@@ -31,7 +35,8 @@ RSpec.describe ConcreteSlotDecorator do
       ConcreteSlot.new(date.year, date.month, date.day, 14, 0, 15, 30)
     end
     let(:html_fragment) do
-      Capybara.string(subject.slot_picker(form_builder))
+      subject.slot_picker(form_builder)
+      Capybara.string(h.output_buffer)
     end
 
     describe 'prisoner availability' do
