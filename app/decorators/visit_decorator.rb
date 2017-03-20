@@ -29,7 +29,10 @@ class VisitDecorator < Draper::Decorator
   end
 
   def rejection
-    @rejection ||= (object.rejection || object.build_rejection).decorate.tap do |rej|
+    return @rejection if @rejection
+    return @rejection = object.rejection.decorate if object.rejection
+
+    @rejection = object.build_rejection.decorate.tap do |rej|
       rej.apply_nomis_reasons(self)
     end
   end

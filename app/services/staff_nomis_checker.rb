@@ -91,7 +91,7 @@ class StaffNomisChecker
 private
 
   def error_in_any_slot?(error)
-    @visit.slots.map { |s| errors_for(s) } .flatten.any? { |e| e == error }
+    @visit.slots.flat_map { |s| errors_for(s) } .include?(error)
   end
 
   def prisoner_check_enabled?
