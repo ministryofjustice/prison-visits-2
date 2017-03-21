@@ -30,6 +30,18 @@
       color: $white;
     }
   }
+  &.disabled {
+    @include opacity(0.6);
+    &:hover {
+      border-color: $border-colour;
+    }
+  }
+}
+
+.date-box__message {
+  @extend .tag;
+  display: inline-block;
+  margin: 5px 5px 0 0;
 }
 
 .date-box__message {

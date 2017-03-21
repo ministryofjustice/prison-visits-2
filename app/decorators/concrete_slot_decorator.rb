@@ -11,15 +11,10 @@ class ConcreteSlotDecorator < Draper::Decorator
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   def slot_picker(form_builder)
-    html_classes = 'block-label date-box'
-
-    if errors.any?
-      html_classes << ' date-box--error'
-    end
     h.concat(
       form_builder.label(
         :slot_granted,
-        class: html_classes,
+        class: label_classes,
         value: iso8601,
         data: { target: 'selected_slot_details' }
       ) {
@@ -27,7 +22,8 @@ class ConcreteSlotDecorator < Draper::Decorator
           form_builder.radio_button(
             :slot_granted,
             iso8601,
-            RADIO_BUTTON_OPTIONS)
+            radio_options
+          )
         )
         h.concat(label_text)
       }
@@ -95,9 +91,33 @@ private
       errors.none? { |e| e == SlotAvailabilityValidation::SLOT_NOT_AVAILABLE }
   end
 
+  def radio_options
+    options = {}
+    options[:disabled] = 'disabled' if slot_in_past?
+    options.merge(RADIO_BUTTON_OPTIONS)
+  end
+
+  def slot_in_past?
+    !object.to_date.future?
+  end
+
   def label_text
     @label_key ||= I18n.t(
       '.choice_html', options_for_label_key).html_safe
+  end
+
+  def label_classes
+    classes = 'block-label date-box'
+
+    if errors.any?
+      classes << ' date-box--error'
+    end
+
+    if slot_in_past?
+      classes << ' disabled'
+    end
+
+    classes
   end
 
   def options_for_label_key
