@@ -11,18 +11,10 @@ class ConcreteSlotDecorator < Draper::Decorator
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   def slot_picker(form_builder)
-    html_classes = 'block-label date-box'
-
-    if errors.any?
-      html_classes << ' date-box--error'
-    end
-    if slot_in_past?
-      html_classes << ' disabled'
-    end
     h.concat(
       form_builder.label(
         :slot_granted,
-        class: html_classes,
+        class: label_classes,
         value: iso8601,
         data: { target: 'selected_slot_details' }
       ) {
@@ -112,6 +104,20 @@ private
   def label_text
     @label_key ||= I18n.t(
       '.choice_html', options_for_label_key).html_safe
+  end
+
+  def label_classes
+    classes = 'block-label date-box'
+
+    if errors.any?
+      classes << ' date-box--error'
+    end
+
+    if slot_in_past?
+      classes << ' disabled'
+    end
+
+    classes
   end
 
   def options_for_label_key
