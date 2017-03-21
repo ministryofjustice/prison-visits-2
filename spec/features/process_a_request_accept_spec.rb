@@ -48,7 +48,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
       expect(page).to have_text('Visit details')
 
       expect(page).to have_content("The prisoner date of birth and number have been verified.")
-      expect(page).to have_css('.choose-date .colour--verified', text: 'Prisoner available')
+      expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
 
       choose_date
 

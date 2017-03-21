@@ -16,59 +16,63 @@ class ConcreteSlotDecorator < Draper::Decorator
     if errors.any?
       html_classes << ' date-box--error'
     end
-    form_builder.label(
-      :slot_granted,
-      class: html_classes,
-      value: iso8601,
-      data: { target: 'selected_slot_details' }
-    ) do
+    h.concat(
+      form_builder.label(
+        :slot_granted,
+        class: html_classes,
+        value: iso8601,
+        data: { target: 'selected_slot_details' }
+      ) {
+        h.concat(
+          form_builder.radio_button(
+            :slot_granted,
+            iso8601,
+            RADIO_BUTTON_OPTIONS)
+        )
+        h.concat(label_text)
+      }
+    )
+
+    if prisoner_available?
       h.concat(
-        form_builder.radio_button(
-          :slot_granted,
-          iso8601,
-          RADIO_BUTTON_OPTIONS)
+        h.content_tag(
+          :span,
+          I18n.t(
+            '.prisoner_available',
+            scope: %w[prison visits process_visit]
+          ),
+          class: 'date-box__message bold-xsmall tag tag--verified'
+        )
       )
-      h.concat(label_text)
-
-      if prisoner_available?
-        h.concat(
-          h.content_tag(
-            :span,
-            I18n.t(
-              '.prisoner_available',
-              scope: %w[prison visits process_visit]
-            ),
-            class: 'date-box__message bold-xsmall colour--verified'
-          )
-        )
-      end
-
-      if slot_available?
-        h.concat(
-          h.content_tag(
-            :span,
-            I18n.t(
-              '.slot_available',
-              scope: %w[prison visits process_visit]
-            ),
-            class: 'date-box__message bold-xsmall colour--verified'
-          )
-        )
-      end
-
-      errors.each do |error|
-        h.concat(
-          h.content_tag(
-            :span,
-            I18n.t(
-              ".#{error}",
-              scope: %w[prison visits process_visit]
-            ),
-            class: 'date-box__message bold-xsmall colour--error'
-          )
-        )
-      end
     end
+
+    if slot_available?
+      h.concat(
+        h.content_tag(
+          :span,
+          I18n.t(
+            '.slot_available',
+            scope: %w[prison visits process_visit]
+          ),
+          class: 'date-box__message bold-xsmall tag tag--verified'
+        )
+      )
+    end
+
+    errors.each do |error|
+      h.concat(
+        h.content_tag(
+          :span,
+          I18n.t(
+            ".#{error}",
+            scope: %w[prison visits process_visit]
+          ),
+          class: 'date-box__message bold-xsmall tag tag--error'
+        )
+      )
+    end
+
+    nil
   end
 # rubocop:enable Metrics/MethodLength
 # rubocop:enable Metrics/AbcSize

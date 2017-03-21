@@ -1,8 +1,7 @@
 .date-box {
   background: $white;
   border: 1px solid $border-colour;
-  height: 130px;
-  min-height: 60px;
+  height: 100px;
   overflow: hidden;
   position: relative;
   padding: 10px 10px 10px 70px;
@@ -15,7 +14,7 @@
     font-weight: bold;
     height: 100%;
     left: 10px;
-    line-height: 105px;
+    line-height: 100px;
     margin: -10px 0 0 -10px;
     position: absolute;
     text-align: center;
@@ -25,19 +24,18 @@
   .date-box__day {
     @include bold-19;
   }
-  .date-box__message {
-    display: block;
-    padding: 5px 0 0;
-  }
-  .date-box__message ~ .date-box__message {
-    padding: 0;
-  }
   &.selected {
     .date-box__number {
       background: #1B567D;
       color: $white;
     }
   }
+}
+
+.date-box__message {
+  @extend .tag;
+  display: inline-block;
+  margin: 5px 5px 0 0;
 }
 
 .date-box--error {
