@@ -17,6 +17,28 @@ RSpec.describe RejectionDecorator do
 
   subject { described_class.decorate(rejection) }
 
+  describe '#checkbox_for' do
+    let(:visit_decorator) do
+      double('VisitDecorator', prisoner_details_incorrect?: false)
+    end
+
+    let(:nomis_checker) do
+      double('NomisChecker', error_in_any_slot?: true)
+    end
+
+    context 'no_allowance' do
+      let(:checkbox) do
+        Capybara.string(subject.checkbox_for(:no_allowance))
+      end
+
+      before { subject.apply_nomis_reasons(visit_decorator, nomis_checker) }
+
+      it 'is not checked' do
+        expect(checkbox.checked?).to eq(false)
+      end
+    end
+  end
+
   describe '#formatted_reasons' do
     before do
       rejection.reasons = reasons
