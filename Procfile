@@ -1,2 +1,2 @@
-web: bin/rails server -p $PORT
+web: bundle exec puma -C config/puma_heroku.rb
 worker: bundle exec sidekiq -c 5
