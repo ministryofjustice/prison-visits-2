@@ -19,6 +19,7 @@
 //= require src/moj.TimeoutPrompt
 
 // Candidates for re-usable components
+//= require mapshim
 //= require modules/moj.analytics
 //= require modules/moj.autocomplete
 //= require modules/moj.clearRadioButtons
