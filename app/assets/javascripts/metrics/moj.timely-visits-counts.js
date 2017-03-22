@@ -1,11 +1,13 @@
-(function () {
+(function() {
   'use strict';
 
   moj.Metrics.TimelyVisitsCount = {
     el: '.js-TimelyVisitsCount',
 
-    init: function () {
-      google.charts.load('current', {'packages':['corechart']});
+    init: function() {
+      google.charts.load('current', {
+        'packages': ['corechart']
+      });
       google.charts.setOnLoadCallback($.proxy(this.drawCharts, this));
 
       this.$el = $(this.el);
@@ -15,11 +17,11 @@
       var visitCounts = this.$el.data('visit-counts');
       var data = new google.visualization.DataTable();
 
-      data.addColumn('date',   'Date')
+      data.addColumn('date', 'Date')
       data.addColumn('number', 'Timely')
       data.addColumn('number', 'Overdue')
 
-      visitCounts.forEach(function(visitCount, i) {
+      $.each(visitCounts, function(visitCount, i) {
         var date = new Date();
         date.setTime(Date.parse(visitCount.date));
         var row = [
@@ -33,7 +35,11 @@
 
       var options = {
         'title': 'Timely and Overdue visit counts (Click and drag to zoom in, right click to reset)',
-        'chartArea': { 'width': '75%', 'height': 300, 'left': 80 },
+        'chartArea': {
+          'width': '75%',
+          'height': 300,
+          'left': 80
+        },
         'height': 400,
         'explorer': {
           'axis': 'horizontal',
