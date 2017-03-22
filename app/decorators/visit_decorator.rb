@@ -7,9 +7,6 @@ class VisitDecorator < Draper::Decorator
     :prisoner_availability_unknown?,
     :slot_availability_unknown?,
     :slots_unavailable?,
-    :no_allowance?,
-    :prisoner_banned?,
-    :prisoner_out_of_prison?,
     to: :nomis_checker
 
   def prisoner_details_incorrect?
@@ -33,7 +30,7 @@ class VisitDecorator < Draper::Decorator
     return @rejection = object.rejection.decorate if object.rejection
 
     @rejection = object.build_rejection.decorate.tap do |rej|
-      rej.apply_nomis_reasons(self)
+      rej.apply_nomis_reasons(self, nomis_checker)
     end
   end
 

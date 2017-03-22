@@ -67,20 +67,33 @@ class RejectionDecorator < Draper::Decorator
     )
   end
 
-  def apply_nomis_reasons(visit_decorator)
-    reasons << Rejection::NO_ALLOWANCE if visit_decorator.no_allowance?
-    reasons << Rejection::PRISONER_BANNED if visit_decorator.prisoner_banned?
+  def apply_nomis_reasons(visit_decorator, nomis_checker)
+    reasons << Rejection::NO_ALLOWANCE if no_allowance?(nomis_checker)
+    reasons << Rejection::PRISONER_BANNED if prisoner_banned?(nomis_checker)
 
     if visit_decorator.prisoner_details_incorrect?
       reasons << Rejection::PRISONER_DETAILS_INCORRECT
     end
 
-    if visit_decorator.prisoner_out_of_prison?
+    if prisoner_out_of_prison?(nomis_checker)
       reasons << Rejection::PRISONER_OUT_OF_PRISON
     end
   end
 
 private
+
+  def no_allowance?(nomis_checker)
+    nomis_checker.error_in_any_slot?(Nomis::PrisonerDateAvailability::OUT_OF_VO)
+  end
+
+  def prisoner_banned?(nomis_checker)
+    nomis_checker.error_in_any_slot?(Nomis::PrisonerDateAvailability::BANNED)
+  end
+
+  def prisoner_out_of_prison?(nomis_checker)
+    nomis_checker.error_in_any_slot?(
+      Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT)
+  end
 
   def slot_unavailable_explanation
     h.t(

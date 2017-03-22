@@ -73,26 +73,12 @@ class StaffNomisChecker
     end
   end
 
-  def no_allowance?
+  def error_in_any_slot?(error)
     return false unless slots_unavailable?
-    error_in_any_slot?(Nomis::PrisonerDateAvailability::OUT_OF_VO)
-  end
-
-  def prisoner_banned?
-    return false unless slots_unavailable?
-    error_in_any_slot?(Nomis::PrisonerDateAvailability::BANNED)
-  end
-
-  def prisoner_out_of_prison?
-    return false unless slots_unavailable?
-    error_in_any_slot?(Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT)
+    @visit.slots.flat_map { |s| errors_for(s) } .include?(error)
   end
 
 private
-
-  def error_in_any_slot?(error)
-    @visit.slots.flat_map { |s| errors_for(s) } .include?(error)
-  end
 
   def prisoner_check_enabled?
     @nomis_api_enabled &&

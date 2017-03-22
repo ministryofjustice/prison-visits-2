@@ -148,4 +148,34 @@ RSpec.describe RejectionDecorator do
       end
     end
   end
+
+  describe '#apply_nomis_reasons' do
+    let(:visit_decorator) do
+      double('VisitDecorator', prisoner_details_incorrect?: true)
+    end
+
+    let(:nomis_checker) do
+      double('StaffNomisChecker', error_in_any_slot?: true)
+    end
+
+    before do
+      subject.apply_nomis_reasons(visit_decorator, nomis_checker)
+    end
+
+    it 'reasons include No allowance' do
+      expect(subject.reasons).to include(Rejection::NO_ALLOWANCE)
+    end
+
+    it 'reasons include Prisoner banned' do
+      expect(subject.reasons).to include(Rejection::PRISONER_BANNED)
+    end
+
+    it 'reasons include Prisoner details incorrect' do
+      expect(subject.reasons).to include(Rejection::PRISONER_DETAILS_INCORRECT)
+    end
+
+    it 'reasons include Prisoner out of prison' do
+      expect(subject.reasons).to include(Rejection::PRISONER_OUT_OF_PRISON)
+    end
+  end
 end
