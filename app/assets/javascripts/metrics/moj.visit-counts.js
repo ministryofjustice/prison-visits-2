@@ -1,11 +1,13 @@
-(function () {
+(function() {
   'use strict';
 
   moj.Metrics.VisitCounts = {
     el: '.js-VisitsCounts',
 
-    init: function () {
-      google.charts.load('current', {'packages':['corechart']});
+    init: function() {
+      google.charts.load('current', {
+        'packages': ['corechart']
+      });
       google.charts.setOnLoadCallback($.proxy(this.drawCharts, this));
 
       this.$el = $(this.el);
@@ -15,12 +17,12 @@
       var visitCounts = this.$el.data('visit-counts');
       var data = new google.visualization.DataTable();
 
-      data.addColumn('date',   'Date')
+      data.addColumn('date', 'Date')
       data.addColumn('number', 'Booked')
       data.addColumn('number', 'Cancelled')
       data.addColumn('number', 'Rejected')
       data.addColumn('number', 'Withdrawn')
-      visitCounts.forEach(function(visitCount, i) {
+      $.each(visitCounts, function(visitCount, i) {
         var date = new Date();
         date.setTime(Date.parse(visitCount.date));
         var row = [
@@ -36,7 +38,11 @@
 
       var options = {
         'title': 'Visits by processing states (Click and drag to zoom in, right click to reset)',
-        'chartArea': { 'width': '75%', 'height': 300, 'left': 80 },
+        'chartArea': {
+          'width': '75%',
+          'height': 300,
+          'left': 80
+        },
         'height': 400,
         'explorer': {
           'axis': 'horizontal',

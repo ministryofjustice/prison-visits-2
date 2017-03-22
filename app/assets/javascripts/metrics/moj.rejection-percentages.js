@@ -1,11 +1,13 @@
-(function () {
+(function() {
   'use strict';
 
   moj.Metrics.RejectionPercentage = {
     el: '.js-RejectionPercentages',
 
-    init: function () {
-      google.charts.load('current', {'packages':['corechart']});
+    init: function() {
+      google.charts.load('current', {
+        'packages': ['corechart']
+      });
       google.charts.setOnLoadCallback($.proxy(this.drawCharts, this));
 
       this.$el = $(this.el);
@@ -13,9 +15,9 @@
     drawCharts: function() {
 
       var rejectionPercentages = this.$el.data('rejections-percentages');
-      var data                 = new google.visualization.DataTable();
+      var data = new google.visualization.DataTable();
 
-      data.addColumn('date',   'Date')
+      data.addColumn('date', 'Date')
       data.addColumn('number', 'No allowance')
       data.addColumn('number', 'Visitor not on list')
       data.addColumn('number', 'Visitor banned')
@@ -30,7 +32,7 @@
       data.addColumn('number', 'Prisoner banned')
       data.addColumn('number', 'Prisoner out of prison')
 
-      rejectionPercentages.forEach(function(rejectionPercentage) {
+      $.each(rejectionPercentages, function(rejectionPercentage) {
         var date = new Date();
         date.setTime(Date.parse(rejectionPercentage.date))
         var row = [
@@ -55,8 +57,12 @@
 
       var options = {
         'title': 'Rejection Reasons Percentages (Click and drag to zoom in, right click to reset)',
-        'colors': ['#005EA5','#28A197', '#006435', '#FFBF48', '#F47738', '#B58840', '#B10D1E', '#F499BE', '#6F71AF', '#0A0C0C', '#6F777B', '#D53880', '#41BBF9'],
-        'chartArea': { 'width': '65%', 'height': 300, 'left': 80 },
+        'colors': ['#005EA5', '#28A197', '#006435', '#FFBF48', '#F47738', '#B58840', '#B10D1E', '#F499BE', '#6F71AF', '#0A0C0C', '#6F777B', '#D53880', '#41BBF9'],
+        'chartArea': {
+          'width': '65%',
+          'height': 300,
+          'left': 80
+        },
         'height': 400,
         'explorer': {
           'axis': 'horizontal',

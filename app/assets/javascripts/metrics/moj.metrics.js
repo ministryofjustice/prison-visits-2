@@ -1,21 +1,29 @@
-(function () {
+(function() {
   'use strict';
 
   moj.Metrics.Percentiles = {
     el: '.js-Metrics',
     options: {
-      'title':     'Percentiles distribution',
-      'chartArea': { 'width': '65%', 'height': 300, 'left': 80 },
-      'height':    350,
+      'title': 'Percentiles distribution',
+      'chartArea': {
+        'width': '65%',
+        'height': 300,
+        'left': 80
+      },
+      'height': 350,
       'isStacked': true,
-      'vAxis': { 'title': 'Number of days' },
+      'vAxis': {
+        'title': 'Number of days'
+      },
       'explorer': {
         'axis': 'horizontal',
         'actions': ['dragToZoom', 'rightClickToReset']
       }
     },
-    init: function () {
-      google.charts.load('current', {'packages':['corechart', 'bar']});
+    init: function() {
+      google.charts.load('current', {
+        'packages': ['corechart', 'bar']
+      });
       google.charts.setOnLoadCallback($.proxy(this.drawCharts, this));
 
       this.$el = $(this.el);
@@ -23,7 +31,7 @@
     parseData: function() {
       var percentiles = this.$el.data('percentiles');
 
-      percentiles = percentiles.map(function name(e) {
+      percentiles = $.map(percentiles, function name(e) {
         var date = new Date();
         date.setTime(Date.parse(e.date))
         e.date = date;
@@ -31,14 +39,19 @@
       });
 
       var data = new google.visualization.arrayToDataTable([
-        [
-          {type: 'datetime', label: 'Day'},
-          {type: 'number',   label: 'Median'},
-          {type: 'number',   label: '95th Percentile'}
-        ]
+        [{
+          type: 'datetime',
+          label: 'Day'
+        }, {
+          type: 'number',
+          label: 'Median'
+        }, {
+          type: 'number',
+          label: '95th Percentile'
+        }]
       ]);
 
-      data.addRows(percentiles.map(function(dataRow) {
+      data.addRows($.map(percentiles, function(dataRow) {
         return [dataRow.date, dataRow.median, dataRow.ninety_fifth_percentile];
       }));
 
