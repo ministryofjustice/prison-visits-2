@@ -17,28 +17,6 @@ RSpec.describe RejectionDecorator do
 
   subject { described_class.decorate(rejection) }
 
-  describe '#checkbox_for' do
-    let(:visit_decorator) do
-      double('VisitDecorator', prisoner_details_incorrect?: false)
-    end
-
-    let(:nomis_checker) do
-      double('NomisChecker', error_in_any_slot?: true)
-    end
-
-    context 'no_allowance' do
-      let(:checkbox) do
-        Capybara.string(subject.checkbox_for(:no_allowance))
-      end
-
-      before { subject.apply_nomis_reasons(visit_decorator, nomis_checker) }
-
-      it 'is not checked' do
-        expect(checkbox.checked?).to eq(false)
-      end
-    end
-  end
-
   describe '#formatted_reasons' do
     before do
       rejection.reasons = reasons
@@ -171,33 +149,91 @@ RSpec.describe RejectionDecorator do
     end
   end
 
-  describe '#apply_nomis_reasons' do
+  describe 'prisoner unvisitable checkboxes' do
     let(:visit_decorator) do
-      double('VisitDecorator', prisoner_details_incorrect?: true)
+      double('VisitDecorator', prisoner_details_incorrect?: details_incorrect)
     end
 
     let(:nomis_checker) do
-      double('StaffNomisChecker', error_in_any_slot?: true)
+      double('StaffNomisChecker')
     end
 
     before do
+      allow(nomis_checker).to receive(:error_in_any_slot?).and_return(false)
+      allow(nomis_checker).to receive(:error_in_any_slot?).with(nomis_reason).
+        and_return(true)
+
       subject.apply_nomis_reasons(visit_decorator, nomis_checker)
     end
 
-    it 'reasons include No allowance' do
-      expect(subject.reasons).to include(Rejection::NO_ALLOWANCE)
+    shared_examples_for :unchecked do |checkbox_name|
+      let(:checkbox) do
+        subject.checkbox_for(checkbox_name)
+      end
+
+      it "#{checkbox_name} is not checked" do
+        expect(/checked="checked"/ =~ checkbox).to eq(nil)
+      end
     end
 
-    it 'reasons include Prisoner banned' do
-      expect(subject.reasons).to include(Rejection::PRISONER_BANNED)
+    shared_examples_for :checked do |checkbox_name|
+      let(:checkbox) do
+        subject.checkbox_for(checkbox_name)
+      end
+
+      it "#{checkbox_name} is checked" do
+        expect(/checked="checked"/ =~ checkbox).not_to eq(nil)
+      end
     end
 
-    it 'reasons include Prisoner details incorrect' do
-      expect(subject.reasons).to include(Rejection::PRISONER_DETAILS_INCORRECT)
+    context 'no unvisitable reasons' do
+      let(:details_incorrect) { false }
+      let(:nomis_reason) { nil }
+
+      it_behaves_like :unchecked, :prisoner_details_incorrect
+      it_behaves_like :unchecked, :no_allowance
+      it_behaves_like :unchecked, :prisoner_banned
+      it_behaves_like :unchecked, :prisoner_out_of_prison
     end
 
-    it 'reasons include Prisoner out of prison' do
-      expect(subject.reasons).to include(Rejection::PRISONER_OUT_OF_PRISON)
+    context 'prisoner details incorrect' do
+      let(:details_incorrect) { true }
+      let(:nomis_reason) { nil }
+
+      it_behaves_like :checked, :prisoner_details_incorrect
+      it_behaves_like :unchecked, :no_allowance
+      it_behaves_like :unchecked, :prisoner_banned
+      it_behaves_like :unchecked, :prisoner_out_of_prison
+    end
+
+    context 'no allowance' do
+      let(:details_incorrect) { false }
+      let(:nomis_reason) { Nomis::PrisonerDateAvailability::OUT_OF_VO }
+
+      it_behaves_like :unchecked, :prisoner_details_incorrect
+      it_behaves_like :checked, :no_allowance
+      it_behaves_like :unchecked, :prisoner_banned
+      it_behaves_like :unchecked, :prisoner_out_of_prison
+    end
+
+    context 'prisoner banned' do
+      let(:details_incorrect) { false }
+      let(:nomis_reason) { Nomis::PrisonerDateAvailability::BANNED }
+
+      it_behaves_like :unchecked, :prisoner_details_incorrect
+      it_behaves_like :unchecked, :no_allowance
+      it_behaves_like :checked, :prisoner_banned
+      it_behaves_like :unchecked, :prisoner_out_of_prison
+    end
+
+    context 'prisoner out of prison' do
+      let(:details_incorrect) { false }
+      let(:nomis_reason) { Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT }
+
+      it_behaves_like :unchecked, :prisoner_details_incorrect
+      it_behaves_like :unchecked, :no_allowance
+      it_behaves_like :unchecked, :prisoner_banned
+      it_behaves_like :checked, :prisoner_out_of_prison
     end
   end
 end

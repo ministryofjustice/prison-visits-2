@@ -18,6 +18,7 @@
 .transifexrc
 *.DS_Store
 .env
+.env-*
 TAGS
 tags
 .byebug_history
