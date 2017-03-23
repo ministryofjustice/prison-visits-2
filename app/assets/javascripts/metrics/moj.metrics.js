@@ -31,7 +31,7 @@
     parseData: function() {
       var percentiles = this.$el.data('percentiles');
 
-      percentiles = $.map(percentiles, function name(e) {
+      percentiles = percentiles.map(function name(e) {
         var date = new Date();
         date.setTime(Date.parse(e.date))
         e.date = date;
@@ -51,7 +51,7 @@
         }]
       ]);
 
-      data.addRows($.map(percentiles, function(dataRow) {
+      data.addRows(percentiles.map(function(dataRow) {
         return [dataRow.date, dataRow.median, dataRow.ninety_fifth_percentile];
       }));
 
