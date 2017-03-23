@@ -32,7 +32,7 @@
       data.addColumn('number', 'Prisoner banned')
       data.addColumn('number', 'Prisoner out of prison')
 
-      $.each(rejectionPercentages, function(rejectionPercentage) {
+      rejectionPercentages.forEach(function(rejectionPercentage) {
         var date = new Date();
         date.setTime(Date.parse(rejectionPercentage.date))
         var row = [

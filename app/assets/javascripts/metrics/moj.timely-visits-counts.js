@@ -21,7 +21,7 @@
       data.addColumn('number', 'Timely')
       data.addColumn('number', 'Overdue')
 
-      $.each(visitCounts, function(visitCount, i) {
+      visitCounts.forEach(function(visitCount, i) {
         var date = new Date();
         date.setTime(Date.parse(visitCount.date));
         var row = [
