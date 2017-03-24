@@ -22,7 +22,7 @@
       data.addColumn('number', 'Cancelled')
       data.addColumn('number', 'Rejected')
       data.addColumn('number', 'Withdrawn')
-      $.each(visitCounts, function(visitCount, i) {
+      visitCounts.forEach(function(visitCount, i) {
         var date = new Date();
         date.setTime(Date.parse(visitCount.date));
         var row = [
