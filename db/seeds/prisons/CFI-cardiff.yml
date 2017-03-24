@@ -38,3 +38,5 @@ recurring:
   - 1330-1430
   sun:
   - 1330-1430
+unbookable:
+- 2017-04-10
