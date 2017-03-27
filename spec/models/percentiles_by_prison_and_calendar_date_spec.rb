@@ -19,7 +19,7 @@ RSpec.describe PercentilesByPrisonAndCalendarDate, type: :model do
   subject { described_class.first }
 
   before do
-    travel_to(processed_within_a_day_visits.first.created_at. + 6.hours) do
+    travel_to(processed_within_a_day_visits.first.created_at + 6.hours) do
       processed_within_a_day_visits.each do |visit|
         accept_visit(visit, visit.slots.first)
       end
