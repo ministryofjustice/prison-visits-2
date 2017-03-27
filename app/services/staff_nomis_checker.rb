@@ -23,6 +23,10 @@ class StaffNomisChecker
     end
   end
 
+  def prisoner_details_incorrect?
+    prisoner_existance_status == INVALID
+  end
+
   def prisoner_existance_error
     prisoner_validation.errors[:base].first
   end
@@ -73,9 +77,16 @@ class StaffNomisChecker
     end
   end
 
-  def error_in_any_slot?(error)
-    return false unless slots_unavailable?
-    @visit.slots.flat_map { |s| errors_for(s) } .include?(error)
+  def no_allowance?(slot)
+    errors_for(slot).include?(Nomis::PrisonerDateAvailability::OUT_OF_VO)
+  end
+
+  def prisoner_banned?(slot)
+    errors_for(slot).include?(Nomis::PrisonerDateAvailability::BANNED)
+  end
+
+  def prisoner_out_of_prison?(slot)
+    errors_for(slot).include?(Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT)
   end
 
 private

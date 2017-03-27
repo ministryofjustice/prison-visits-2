@@ -9,13 +9,6 @@ class VisitDecorator < Draper::Decorator
     :slots_unavailable?,
     to: :nomis_checker
 
-  def prisoner_details_incorrect?
-    (
-      object.rejection &&
-      object.rejection.reasons.include?(Rejection::PRISONER_DETAILS_INCORRECT)
-    ) || prisoner_existance_status == StaffNomisChecker::INVALID
-  end
-
   def slots
     @slots ||= object.slots.map.with_index { |slot, i|
       ConcreteSlotDecorator.decorate(
@@ -26,12 +19,15 @@ class VisitDecorator < Draper::Decorator
   end
 
   def rejection
-    return @rejection if @rejection
-    return @rejection = object.rejection.decorate if object.rejection
-
-    @rejection = object.build_rejection.decorate.tap do |rej|
-      rej.apply_nomis_reasons(self, nomis_checker)
-    end
+    @rejection ||= begin
+                     if object.rejection
+                       object.rejection.decorate
+                     else
+                       object.build_rejection.decorate.tap do |rej|
+                         rej.apply_nomis_reasons(nomis_checker)
+                       end
+                     end
+                   end
   end
 
   def principal_visitor
@@ -40,7 +36,7 @@ class VisitDecorator < Draper::Decorator
 
   def additional_visitors
     @additional_visitors ||= VisitorDecorator.
-                             decorate_collection(object.additional_visitors)
+                               decorate_collection(object.additional_visitors)
   end
 
   def processed_at

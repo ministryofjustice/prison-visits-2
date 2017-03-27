@@ -67,32 +67,41 @@ class RejectionDecorator < Draper::Decorator
     )
   end
 
-  def apply_nomis_reasons(visit_decorator, nomis_checker)
-    reasons << Rejection::NO_ALLOWANCE if no_allowance?(nomis_checker)
-    reasons << Rejection::PRISONER_BANNED if prisoner_banned?(nomis_checker)
-
-    if visit_decorator.prisoner_details_incorrect?
-      reasons << Rejection::PRISONER_DETAILS_INCORRECT
+  def apply_nomis_reasons(nomis_checker)
+    if unbookable?(nomis_checker)
+      reasons << Rejection::NO_ALLOWANCE if no_allowance?(nomis_checker)
+      reasons << Rejection::PRISONER_BANNED if prisoner_banned?(nomis_checker)
+      if prisoner_out_of_prison?(nomis_checker)
+        reasons << Rejection::PRISONER_OUT_OF_PRISON
+      end
     end
 
-    if prisoner_out_of_prison?(nomis_checker)
-      reasons << Rejection::PRISONER_OUT_OF_PRISON
+    if nomis_checker.prisoner_details_incorrect?
+      reasons << Rejection::PRISONER_DETAILS_INCORRECT
     end
   end
 
 private
 
+  def unbookable?(nomis_checker)
+    future_slots.any? &&
+      future_slots.all? { |slot| nomis_checker.errors_for(slot).any? }
+  end
+
   def no_allowance?(nomis_checker)
-    nomis_checker.error_in_any_slot?(Nomis::PrisonerDateAvailability::OUT_OF_VO)
+    visit.slots.any? { |slot| nomis_checker.no_allowance?(slot) }
   end
 
   def prisoner_banned?(nomis_checker)
-    nomis_checker.error_in_any_slot?(Nomis::PrisonerDateAvailability::BANNED)
+    visit.slots.any? { |slot| nomis_checker.prisoner_banned?(slot) }
   end
 
   def prisoner_out_of_prison?(nomis_checker)
-    nomis_checker.error_in_any_slot?(
-      Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT)
+    visit.slots.any? { |slot| nomis_checker.prisoner_out_of_prison?(slot) }
+  end
+
+  def future_slots
+    @future_slots ||= visit.slots.select { |slot| slot.to_date.future? }
   end
 
   def slot_unavailable_explanation
