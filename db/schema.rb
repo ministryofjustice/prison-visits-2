@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302081707) do
+ActiveRecord::Schema.define(version: 20170327084830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -371,22 +371,6 @@ ActiveRecord::Schema.define(version: 20170302081707) do
     GROUP BY v.prison_name, v.prison_id, v.processing_state, v.timely, (v.created_at)::date;
   SQL
 
-  create_view :percentiles_by_prison_and_calendar_dates, materialized: true,  sql_definition: <<-SQL
-      SELECT prisons.name AS prison_name,
-      prisons.id AS prison_id,
-      (v.created_at)::date AS date,
-      percentile_disc((ARRAY[0.95, 0.5])::double precision[]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles
-     FROM ((visits v
-       JOIN ( SELECT max(visit_state_changes.created_at) AS created_at,
-              visit_state_changes.visit_id,
-              visit_state_changes.visit_state
-             FROM visit_state_changes
-            GROUP BY visit_state_changes.visit_id, visit_state_changes.visit_state) vsc ON ((v.id = vsc.visit_id)))
-       JOIN prisons ON ((prisons.id = v.prison_id)))
-    WHERE ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[]))
-    GROUP BY prisons.name, prisons.id, (v.created_at)::date;
-  SQL
-
   create_view :percentiles_by_calendar_dates, materialized: true,  sql_definition: <<-SQL
       SELECT (v.created_at)::date AS date,
       percentile_disc((ARRAY[0.95, 0.5])::double precision[]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles
@@ -510,6 +494,22 @@ ActiveRecord::Schema.define(version: 20170302081707) do
        JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text <> 'requested'::text))))
     WHERE ((date_part('epoch'::text, (vsc.created_at - v.created_at)) > (259200)::double precision) AND ((vsc.visit_state)::text = (v.processing_state)::text))
     GROUP BY prisons.name;
+  SQL
+
+  create_view :percentiles_by_prison_and_calendar_dates, materialized: true,  sql_definition: <<-SQL
+      SELECT prisons.name AS prison_name,
+      prisons.id AS prison_id,
+      (timezone('Europe/London'::text, (v.created_at)::timestamp with time zone))::date AS date,
+      percentile_disc((ARRAY[0.95, 0.5])::double precision[]) WITHIN GROUP (ORDER BY (round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer) AS percentiles
+     FROM ((visits v
+       JOIN ( SELECT max(visit_state_changes.created_at) AS created_at,
+              visit_state_changes.visit_id,
+              visit_state_changes.visit_state
+             FROM visit_state_changes
+            GROUP BY visit_state_changes.visit_id, visit_state_changes.visit_state) vsc ON ((v.id = vsc.visit_id)))
+       JOIN prisons ON ((prisons.id = v.prison_id)))
+    WHERE ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[]))
+    GROUP BY prisons.name, prisons.id, (timezone('Europe/London'::text, (v.created_at)::timestamp with time zone))::date;
   SQL
 
 end
