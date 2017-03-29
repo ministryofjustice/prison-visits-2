@@ -1,3 +1,4 @@
+# Gets prisoner and slot availability details from NOMIS.
 class StaffNomisChecker
   VALID    = 'valid'.freeze
   INVALID  = 'invalid'.freeze
@@ -20,6 +21,10 @@ class StaffNomisChecker
     else
       INVALID
     end
+  end
+
+  def prisoner_details_incorrect?
+    prisoner_existance_status == INVALID
   end
 
   def prisoner_existance_error
@@ -70,6 +75,18 @@ class StaffNomisChecker
       s.to_date <= Date.current ||
         errors_for(s).include?(SlotAvailabilityValidation::SLOT_NOT_AVAILABLE)
     end
+  end
+
+  def no_allowance?(slot)
+    errors_for(slot).include?(Nomis::PrisonerDateAvailability::OUT_OF_VO)
+  end
+
+  def prisoner_banned?(slot)
+    errors_for(slot).include?(Nomis::PrisonerDateAvailability::BANNED)
+  end
+
+  def prisoner_out_of_prison?(slot)
+    errors_for(slot).include?(Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT)
   end
 
 private
