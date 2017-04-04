@@ -12,5 +12,13 @@ module Nomis
     attribute :approved_visitor, Boolean
     attribute :active, Boolean
     attribute :restrictions, Array[ContactRestriction]
+
+    def approved?
+      approved_visitor
+    end
+
+    def active?
+      active
+    end
   end
 end

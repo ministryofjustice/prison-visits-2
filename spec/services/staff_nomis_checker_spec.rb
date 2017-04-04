@@ -460,4 +460,57 @@ RSpec.describe StaffNomisChecker do
       it { is_expected.to eq(false) }
     end
   end
+
+  describe '#contact_list_unknown?' do
+    subject { instance.contact_list_unknown? }
+
+    context 'when prisoner check is enabled' do
+      before do
+        expect(Rails.configuration).
+          to receive(:nomis_staff_prisoner_check_enabled).
+          and_return(true)
+      end
+
+      context 'the contact list is known' do
+        before do
+          expect_any_instance_of(PrisonerContactList).
+            to receive(:unknown_result?).and_return(false)
+        end
+
+        it { is_expected.to eq(false) }
+      end
+
+      context 'the contact list is unknown' do
+        before do
+          expect_any_instance_of(PrisonerContactList).
+            to receive(:unknown_result?).and_return(true)
+        end
+
+        it { is_expected.to eq(true) }
+      end
+    end
+
+    context 'when the prisoner check is disabled' do
+      before do
+        expect(Rails.configuration).
+          to receive(:nomis_staff_prisoner_check_enabled).
+          and_return(false)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+  end
+
+  describe '#approved_contacts' do
+    subject { instance.approved_contacts }
+
+    let(:approved_contacts) { double }
+
+    it 'returns the prisoner approved contacts' do
+      expect_any_instance_of(PrisonerContactList).
+        to receive(:approved).and_return(approved_contacts)
+
+      is_expected.to eq(approved_contacts)
+    end
+  end
 end

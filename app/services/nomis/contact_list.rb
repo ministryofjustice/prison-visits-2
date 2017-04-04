@@ -8,5 +8,9 @@ module Nomis
     attribute :contacts, Array[Contact], coercer: lambda { |cts|
       cts.map { |c| Contact.new(c) }
     }
+
+    def approved
+      select { |contact| contact.approved? && contact.active? }
+    end
   end
 end
