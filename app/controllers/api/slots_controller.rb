@@ -1,10 +1,16 @@
 module Api
   class SlotsController < ApiController
+    TIMEBOX_LIMIT = 2
+
     def index
       prison = Prison.enabled.find(params.require(:prison_id))
-      @slots = SlotAvailability.new(
-        prison, prisoner_number, date_of_birth, start_date..end_date
-      ).slots
+      slot_availability = SlotAvailability.new(
+        prison, prisoner_number, date_of_birth, start_date..end_date)
+      timebox = Timebox.new(TIMEBOX_LIMIT)
+
+      @slots = timebox.run(-> { slot_availability.all_slots }) {
+        slot_availability.slots
+      }
     end
 
   private

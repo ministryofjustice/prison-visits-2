@@ -27,17 +27,40 @@ RSpec.describe Api::SlotsController do
       ]
     }
 
+    let(:all_slots) {
+      [
+        { '2016-02-15T13:30/14:30' => [] },
+        { '2016-03-22T13:30/14:30' => [] },
+        { '2016-04-29T13:30/14:30' => [] }
+      ]
+    }
+
     let(:prisoner_slot_availability) {
-      double(SlotAvailability, slots: slots)
+      double(SlotAvailability, slots: slots, all_slots: all_slots)
     }
 
     before do
-      expect(SlotAvailability).to receive(:new).and_return(prisoner_slot_availability)
+      expect(SlotAvailability).to receive(:new).
+        and_return(prisoner_slot_availability)
     end
 
-    it 'returns the list of slots with there availabilities' do
-      get :index, params
-      expect(parsed_body).to eq('slots' => slots)
+    context 'response within permitted time limit' do
+      it 'returns the list of slots with their availabilities' do
+        get :index, params
+        expect(parsed_body).to eq('slots' => slots)
+      end
+    end
+
+    context 'response outside permitted time limit' do
+      before do
+        allow_any_instance_of(Timebox).to receive(:seconds_expired?).
+          and_return(true)
+      end
+
+      it 'returns the list of slots without their availabilities' do
+        get :index, params
+        expect(parsed_body).to eq('slots' => all_slots)
+      end
     end
   end
 end
