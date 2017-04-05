@@ -8,7 +8,7 @@ class Timebox
   end
 
   def run(fallback_block)
-    return fallback(fallback_block) if seconds_remaining <= 0.0
+    return fallback(fallback_block) if seconds_expired?
 
     Timeout.timeout(seconds_remaining) { yield }.tap do
       PVB::Instrumentation.append_to_log(timebox_exceeded: false)
@@ -21,11 +21,16 @@ class Timebox
 private
 
   def fallback(block)
-    PVB::Instrumentation.append_to_log(timebox_exceeded: true)
-    block.call
+    block.call.tap do
+      PVB::Instrumentation.append_to_log(timebox_exceeded: true)
+    end
   end
 
   def seconds_remaining
     @deadline - Time.now.to_f
+  end
+
+  def seconds_expired?
+    seconds_remaining <= 0.0
   end
 end

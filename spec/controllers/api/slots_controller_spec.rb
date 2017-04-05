@@ -53,8 +53,8 @@ RSpec.describe Api::SlotsController do
 
     context 'response outside permitted time limit' do
       before do
-        allow_any_instance_of(Timebox).to receive(:seconds_remaining).
-          and_return(-1)
+        allow_any_instance_of(Timebox).to receive(:seconds_expired?).
+          and_return(true)
       end
 
       it 'returns the list of slots without their availabilities' do
