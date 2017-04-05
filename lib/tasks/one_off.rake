@@ -170,7 +170,6 @@ namespace :pvb do
 
   desc 'Check slot availability for requested visits'
   task check_slot_availability: :environment do
-    require 'instrumentation'
     require 'highline'
 
     cli = HighLine.new
