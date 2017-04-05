@@ -19,7 +19,10 @@ RSpec.describe Timebox do
       end
 
       it 'appends to log' do
-        expect(PVB::Instrumentation).to receive(:append_to_log).with(timebox_exceeded: false)
+        expect(PVB::Instrumentation).to receive(:append_to_log).
+          with(timebox_exceeded: false)
+        expect(PVB::Instrumentation).not_to receive(:append_to_log).
+          with(timebox_exceeded: true)
         result
       end
     end
@@ -32,7 +35,26 @@ RSpec.describe Timebox do
       end
 
       it 'appends to log' do
-        expect(PVB::Instrumentation).to receive(:append_to_log).with(timebox_exceeded: true)
+        expect(PVB::Instrumentation).to receive(:append_to_log).
+          with(timebox_exceeded: true)
+        expect(PVB::Instrumentation).not_to receive(:append_to_log).
+          with(timebox_exceeded: false)
+        result
+      end
+    end
+
+    context 'time has already expired' do
+      subject { described_class.new(0.1, Time.now.to_f - 1) }
+
+      it 'returns fallback value' do
+        expect(result).to eq(:fellback)
+      end
+
+      it 'appends to log' do
+        expect(PVB::Instrumentation).to receive(:append_to_log).
+          with(timebox_exceeded: true)
+        expect(PVB::Instrumentation).not_to receive(:append_to_log).
+          with(timebox_exceeded: false)
         result
       end
     end
@@ -47,8 +69,11 @@ RSpec.describe Timebox do
           :finished
         }
 
+        result3 = timebox.run(-> { :fellback }) { :finished }
+
         expect(result1).to eq(:finished)
         expect(result2).to eq(:fellback)
+        expect(result3).to eq(:fellback)
       end
     end
   end
