@@ -213,38 +213,20 @@ RSpec.describe SlotAvailability do
   end
 
   describe '#all_slots' do
-    describe 'with prison in the slot availability trial' do
-      before do
-        allow(Rails.configuration).
-          to receive(:public_prisons_with_slot_availability).
-          and_return([prison.name])
-      end
-
-      describe 'with nomis public prisoner check enabled' do
-        describe 'when the offender is valid' do
-          before do
-            allow(Nomis::Api.instance).
-              to receive(:offender_visiting_availability).
-              and_return(prisoner_availability)
-          end
-
-          it 'returns a hash without unavailability reasons' do
-            expect(subject.all_slots).to eq(
-              "2017-02-07T09:00/10:00" => [],
-              "2017-02-07T14:00/16:10" => [],
-              "2017-02-13T14:00/16:10" => [],
-              "2017-02-14T09:00/10:00" => [],
-              "2017-02-14T14:00/16:10" => [],
-              "2017-02-20T14:00/16:10" => [],
-              "2017-02-21T09:00/10:00" => [],
-              "2017-02-21T14:00/16:10" => [],
-              "2017-02-27T14:00/16:10" => [],
-              "2017-02-28T09:00/10:00" => [],
-              "2017-02-28T14:00/16:10" => []
-            )
-          end
-        end
-      end
+    it 'returns a hash without unavailability reasons' do
+      expect(subject.all_slots).to eq(
+        "2017-02-07T09:00/10:00" => [],
+        "2017-02-07T14:00/16:10" => [],
+        "2017-02-13T14:00/16:10" => [],
+        "2017-02-14T09:00/10:00" => [],
+        "2017-02-14T14:00/16:10" => [],
+        "2017-02-20T14:00/16:10" => [],
+        "2017-02-21T09:00/10:00" => [],
+        "2017-02-21T14:00/16:10" => [],
+        "2017-02-27T14:00/16:10" => [],
+        "2017-02-28T09:00/10:00" => [],
+        "2017-02-28T14:00/16:10" => []
+      )
     end
   end
 end
