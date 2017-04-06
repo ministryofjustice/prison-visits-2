@@ -23,6 +23,10 @@ class SlotAvailability
     end
   end
 
+  def all_slots
+    @all_slots ||= Hash[prison_slots.map { |slot| [slot.to_s, []] }]
+  end
+
 private
 
   attr_reader :prison, :noms_id, :date_of_birth, :start_date, :end_date
@@ -41,10 +45,6 @@ private
     @offender ||= Nomis::Api.instance.lookup_active_offender(
       noms_id: noms_id, date_of_birth: date_of_birth
     )
-  end
-
-  def all_slots
-    @all_slots ||= Hash[prison_slots.map { |slot| [slot.to_s, []] }]
   end
 
   def prison_slots
