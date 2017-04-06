@@ -2,6 +2,8 @@ module Api
   ParameterError = Class.new(StandardError)
 
   class ApiController < ActionController::Base
+    TIMEBOX_LIMIT = 2
+
     skip_before_action :verify_authenticity_token
     before_action :set_locale
     before_action :store_request_id

@@ -59,5 +59,17 @@ RSpec.describe Api::AvailableSlotsController do
         and_return(slot_availability)
       get :index, params
     end
+
+    context 'response outside permitted time limit' do
+      before do
+        allow_any_instance_of(Timebox).to receive(:seconds_expired?).
+          and_return(true)
+      end
+
+      it 'returns 200 OK' do
+        get :index, params
+        expect(response).to have_http_status(:ok)
+      end
+    end
   end
 end
