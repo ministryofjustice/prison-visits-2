@@ -89,6 +89,13 @@ class StaffNomisChecker
     errors_for(slot).include?(Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT)
   end
 
+  def contact_list_enabled?
+    prisoner_check_enabled? &&
+      Rails.
+        configuration.
+        staff_prisons_with_nomis_contact_list.include?(@visit.prison_name)
+  end
+
   def contact_list_unknown?
     prisoner_check_enabled? &&
       prisoner_contact_list.unknown_result?
@@ -108,7 +115,6 @@ private
     @nomis_api_enabled &&
       Rails.configuration.nomis_staff_prisoner_check_enabled
   end
-  alias_method :contact_list_enabled?, :prisoner_check_enabled?
 
   def prisoner_validation
     @prisoner_validation ||= PrisonerValidation.new(offender).tap(&:valid?)

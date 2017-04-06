@@ -189,6 +189,44 @@ RSpec.describe StaffNomisChecker do
     end
   end
 
+  describe '#contact_list_enabled?' do
+    subject { instance.contact_list_enabled? }
+
+    context 'when the prisoner check is disabled' do
+      before do
+        expect(instance).to receive(:prisoner_check_enabled?).and_return(false)
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when the prisoner check is enabled' do
+      before do
+        expect(instance).to receive(:prisoner_check_enabled?).and_return(true)
+      end
+
+      context 'and the prison is in the list' do
+        before do
+          expect(Rails.configuration).
+            to receive(:staff_prisons_with_nomis_contact_list).
+            and_return([visit.prison_name])
+        end
+
+        it { is_expected.to eq(true) }
+      end
+
+      context 'and the prison is not in the list' do
+        before do
+          expect(Rails.configuration).
+            to receive(:staff_prisons_with_nomis_contact_list).
+            and_return([])
+        end
+
+        it { is_expected.to eq(false) }
+      end
+    end
+  end
+
   describe '#errors_for' do
     subject { instance.errors_for(slot) }
     let(:slot) { visit.slots.first }

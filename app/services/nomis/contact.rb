@@ -20,5 +20,13 @@ module Nomis
     def active?
       active
     end
+
+    def banned?
+      restrictions.any?(&:banned?)
+    end
+
+    def banned_until
+      restrictions.find(&:banned?)&.expiry_date
+    end
   end
 end

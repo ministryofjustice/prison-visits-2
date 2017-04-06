@@ -5,9 +5,7 @@ module Nomis
 
     delegate :each, to: :contacts
 
-    attribute :contacts, Array[Contact], coercer: lambda { |cts|
-      cts.map { |c| Contact.new(c) }
-    }
+    attribute :contacts, Array[Contact]
 
     def approved
       select { |contact| contact.approved? && contact.active? }
