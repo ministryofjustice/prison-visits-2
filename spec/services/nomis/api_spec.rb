@@ -143,4 +143,46 @@ RSpec.describe Nomis::Api do
       expect(subject.count).to eq(PVB::Instrumentation.custom_log_items[:slot_visiting_availability])
     end
   end
+
+  describe 'fetch_contact_list', vcr: { cassette_name: 'fetch_contact_list' } do
+    let(:params) do
+      {
+        offender_id: 1_057_307
+      }
+    end
+
+    let(:first_contact) do
+      Nomis::Contact.new(
+        id: 12_588,
+        given_name: 'BILLY',
+        surname: 'JONES',
+        date_of_birth: '1970-01-01',
+        gender: { code: "M", desc: "Male" },
+        active: true,
+        approved_visitor: true,
+        relationship_type: { code: "FRI", desc: "Friend" },
+        contact_type: {
+          code: "S",
+          desc: "Social/ Family"
+        },
+        restrictions: [
+          {
+            effective_date: '2017-03-02',
+            expiry_date: '2017-04-02',
+            type: { code: "BAN", desc: "Banned" }
+          }
+        ]
+      )
+    end
+
+    subject { super().fetch_contact_list(params) }
+
+    it 'returns an array of contacts' do
+      expect(subject.count).to eq(4)
+    end
+
+    it 'parses the contacts' do
+      expect(subject.first.id).to eq(first_contact.id)
+    end
+  end
 end

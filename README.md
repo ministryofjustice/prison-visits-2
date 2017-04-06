@@ -253,6 +253,11 @@ for a visit are available at the requested prison.
 A comma separated list of prisons for which PVB2 API will return slots along with their live availability: check which slots
 are available at the requested prison.
 
+#### `STAFF_PRISONS_WITH_NOMIS_CONTACT_LIST` ####
+
+A comma separated list of prisons for which PVB2 API will display the nomis
+contact list.
+
 #### `PRISON_ESTATE_IPS` ####
 
 A semicolon- or comma-separated list of IP addresses or CIDR ranges. Users on

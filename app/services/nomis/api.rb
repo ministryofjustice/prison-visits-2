@@ -81,6 +81,14 @@ module Nomis
       end
     end
 
+    def fetch_contact_list(offender_id:)
+      response = @pool.with { |client|
+        client.get("offenders/#{offender_id}/visits/contact_list")
+      }
+
+      Nomis::ContactList.new(response)
+    end
+
   private
 
     def build_offender(response)
