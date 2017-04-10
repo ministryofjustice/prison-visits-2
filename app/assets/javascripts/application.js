@@ -10,6 +10,7 @@
 //= require moj
 //= require jquery-ui-autocomplete
 //= require modernizr-custom
+//= require dest/respond.min
 //= require jquery-ui/datepicker
 
 // Candidates for re-usable components
