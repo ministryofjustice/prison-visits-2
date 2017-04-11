@@ -1,7 +1,5 @@
 module Api
   class SlotsController < ApiController
-    TIMEBOX_LIMIT = 2
-
     def index
       prison = Prison.enabled.find(params.require(:prison_id))
       slot_availability = SlotAvailability.new(

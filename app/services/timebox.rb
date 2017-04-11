@@ -1,13 +1,13 @@
 # Runs provided block within the time limit or else returns the result of the
-# fallback block. run may be called multiple times; the original time limit
-# being applied to all runs collectively.
+# optional fallback block. run may be called multiple times; the original time
+# limit being applied to all runs collectively.
 # Time limit may be an integer or a float.
 class Timebox
   def initialize(time_limit_seconds, start_time = Time.now.to_f)
     @deadline = start_time + time_limit_seconds
   end
 
-  def run(fallback_block)
+  def run(fallback_block = nil)
     return fallback(fallback_block) if seconds_expired?
 
     Timeout.timeout(seconds_remaining) { yield }.tap do
@@ -21,9 +21,9 @@ class Timebox
 private
 
   def fallback(block)
-    block.call.tap do
-      PVB::Instrumentation.append_to_log(timebox_exceeded: true)
-    end
+    result = block.nil? ? nil : block.call
+    PVB::Instrumentation.append_to_log(timebox_exceeded: true)
+    result
   end
 
   def seconds_remaining
