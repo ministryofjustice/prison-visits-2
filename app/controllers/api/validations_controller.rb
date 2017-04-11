@@ -2,13 +2,16 @@ module Api
   class ValidationsController < ApiController
     def prisoner
       date, noms_id = validate_prisoner_parameters(params)
-      checker = ApiPrisonerChecker.new(noms_id: noms_id, date_of_birth: date)
 
-      if checker.valid?
-        response = { valid: true }
-      else
-        response = { valid: false, errors: [checker.error] }
-      end
+      response = Timebox.new(TIMEBOX_LIMIT).run(-> { { valid: true } }) {
+        checker = ApiPrisonerChecker.new(noms_id: noms_id, date_of_birth: date)
+
+        if checker.valid?
+          { valid: true }
+        else
+          { valid: false, errors: [checker.error] }
+        end
+      }
 
       render status: 200, json: { validation: response }
     end
