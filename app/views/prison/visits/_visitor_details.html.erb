@@ -1,104 +1,49 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
+
+<p class="bold-small push-top"><%= t('.lead_visitor') %></p>
+
 <div class="grid-row">
-  <div class="column-full">
-    <%= content_tag :div, class: 'visitor-card', id: dom_id(@visit.principal_visitor) do %>
-      <h3 class="bold-small"><%= t('lead_visitor', scope: :shared) %></h3>
-      <div class="grid-row">
-        <div class="column-one-quarter">
-          <dl>
-            <dt><%= t('.name') %></dt>
-            <dd><%= @visit.principal_visitor.full_name %></dd>
-          </dl>
-        </div>
-        <div class="column-one-quarter">
-          <dl>
-            <dt><%= t('.dob') %></dt>
-            <dd><%= @visit.principal_visitor.date_of_birth.to_s(:short_nomis) %> (<%= @visit.principal_visitor.age %>)</dd>
-          </dl>
-        </div>
-        <div class="column-one-quarter">
-          <dl>
-            <dt><%= t('.email') %></dt>
-            <dd><%= @visit.contact_email_address %></dd>
-          </dl>
-        </div>
-        <div class="column-one-quarter">
-          <dl>
-            <dt><%= t('.phone_no') %></dt>
-            <dd><%= @visit.contact_phone_no %></dd>
-          </dl>
-        </div>
-        <%= f.fields_for :visitors, @visit.principal_visitor do |vf| %>
-          <%= vf.hidden_field :id %>
-          <div class="column-one-quarter">
-            <%= vf.label :not_on_list, class: 'form-checkbox' do %>
-              <%= vf.check_box :not_on_list, data: { checkbox_summary_text: @visit.principal_visitor.anonymized_name } %>
-              <%= t('.visitor_not_on_list') %>
-            <% end %>
-          </div>
-          <div class="column-one-quarter">
-            <%= single_field vf, :banned, :check_box, :no_block %>
-          </div>
-          <div class="column-one-half push-top--half">
-            <%= vf.fields_for :banned_until, vf.object.banned_until do |bu| %>
-              <%= composite_field(vf, :banned_until) do %>
-                <% accessible_date_options.each do |field_name, field_options| %>
-                  <div class="datefield form-group form-group-<%= field_name %>">
-                    <%= bu.label field_name %>
-                    <%= bu.number_field field_name, field_options.merge( class: 'form-control', aria: { describedby: 'allowance_renews_on' }) %>
-                  </div>
-                <% end %>
-              <% end %>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+  <div class="column-one-quarter">
+    <div><span class="bold-xsmall"><%= t('.contact_name') %></span><br><span class="font-xsmall"><%= @visit.principal_visitor.full_name %></span></div>
   </div>
-
-  <% @visit.additional_visitors.each_with_index do |visitor, index| %>
-    <div class="column-one-half">
-      <%= content_tag :div, class: 'visitor-card', id: dom_id(visitor) do %>
-        <h3 class="bold-small"><%= t('visitor_no', n: index + 2, scope: :shared) %></h3>
-        <div class="grid-row">
-          <div class="column-one-half">
-            <dl>
-              <dt><%= t('.name') %></dt>
-              <dd><%= visitor.full_name %></dd>
-            </dl>
-          </div>
-          <div class="column-one-half">
-            <dl>
-              <dt><%= t('.dob') %></dt>
-              <dd><%= visitor.date_of_birth.to_s(:short_nomis) %> (<%= visitor.age %>)</dd>
-            </dl>
-          </div>
-          <div class="column-full">
-            <div class="push-top--half">
-              <%= f.fields_for :visitors, visitor do |vf| %>
-                <%= vf.hidden_field :id %>
-                <%= vf.label :not_on_list, class: 'form-checkbox' do %>
-                  <%= vf.check_box :not_on_list, data: { checkbox_summary_text: visitor.anonymized_name } %>
-                  <%= t('.visitor_not_on_list') %>
-                <% end %>
-
-                <%= single_field vf, :banned, :check_box, :no_block %>
-
-                <%= vf.fields_for :banned_until, vf.object.banned_until do |bu| %>
-                  <%= composite_field(bu, :banned_until) do %>
-                    <% accessible_date_options.each do |field_name, field_options| %>
-                      <div class="datefield form-group form-group-<%= field_name %>">
-                        <%= bu.label field_name %>
-                        <%= bu.number_field field_name, field_options.merge( class: 'form-control', aria: { describedby: 'allowance_renews_on' }) %>
-                      </div>
-                    <% end %>
-                  <% end %>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
+  <div class="column-one-quarter">
+    <div><span class="bold-xsmall"><%= t('.dob') %></span><br><span class="font-xsmall"><%= @visit.principal_visitor.date_of_birth.to_s(:short_nomis) %></span></div>
+  </div>
+  <div class="column-one-quarter">
+    <div><span class="bold-xsmall"><%= t('.phone_no') %></span><br><span class="font-xsmall"><%= @visit.contact_phone_no %></span></div>
+  </div>
+  <div class="column-one-quarter">
+    <div><span class="bold-xsmall"><%= t('.email') %></span><br><span class="font-xsmall"><%= @visit.contact_email_address %></span></div>
+  </div>
 </div>
+
+<% if !@visit.contact_list_enabled? %>
+  <div class="notice push-bottom push-top">
+    <i class="icon icon-important">
+      <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>
+    </i>
+    <strong class="bold-small"><%= t('.nomis_api_down') %></strong>
+  </div>
+<% end %>
+
+<ul class="visitor-contact-list push-top js-visitorList <% if @visit.contact_list_enabled? %>nomis-enabled<% end %>">
+  <li class="header bold-xsmall">
+    <div class="wrapper">
+      <div class="column"><%= t('.visitor_details') %></div>
+      <% if @visit.contact_list_enabled? %>
+        <div class="column column--large"><%= t('.validate_from_nomis') %></div>
+      <% end %>
+      <div class="column column--small"><%= t('.not_on_list') %></div>
+      <div class="column column--small"><%= t('.visitor_banned') %></div>
+      <div class="column column--large"><%= t('.banned_date') %></div>
+    </div>
+  </li>
+  <%= f.fields_for :visitors, @visit.principal_visitor do |vf| %>
+    <%= render 'visitor_contact', f: f, v: @visit.principal_visitor, vf: vf %>
+  <% end %>
+  <% @visit.additional_visitors.each_with_index do |visitor, index| %>
+    <%= f.fields_for :visitors, visitor do |vf| %>
+      <%= render 'visitor_contact', f: f, v: visitor, vf: vf %>
+    <% end %>
+  <% end %>
+</ul>
