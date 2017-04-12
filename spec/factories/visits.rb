@@ -10,7 +10,7 @@ FactoryGirl.define do
     contact_phone_no '07900112233'
 
     sequence :human_id do |n|
-      n.to_s
+      'VISIT' + ('%03d' % n)
     end
 
     slot_option_0 do |v|

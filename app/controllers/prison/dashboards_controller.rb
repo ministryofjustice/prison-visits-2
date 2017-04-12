@@ -30,32 +30,27 @@ class Prison::DashboardsController < ApplicationController
   end
 
   def search
-    prisoner_number = params[:prisoner_number]
-
-    requested_visits(estates: accessible_estates,
-                     prisoner_number: prisoner_number)
-    cancellations(estates: accessible_estates,
-                  prisoner_number: prisoner_number)
-    processed_visits(estates: accessible_estates,
-                     prisoner_number: prisoner_number)
+    query = params[:query]
+    requested_visits(estates: accessible_estates, query: query)
+    cancellations(estates: accessible_estates, query: query)
+    processed_visits(estates: accessible_estates, query: query)
   end
 
 private
 
-  def requested_visits(estates:, prisoner_number: nil)
+  def requested_visits(estates:, query: nil)
     @requested_visits ||=
-      load_requested_visits(estates, prisoner_number: prisoner_number)
+      estate_query(estates).requested(query: query)
   end
 
-  def cancellations(estates:, prisoner_number: nil)
+  def cancellations(estates:, query: nil)
     @cancellations ||=
-      load_visitor_cancellations(estates, prisoner_number: prisoner_number)
+      estate_query(estates).cancelled(query: query)
   end
 
-  def processed_visits(estates:, prisoner_number: nil)
-    estate_query = EstateVisitQuery.new(estates)
-    @processed_visits ||= estate_query.processed(
-      prisoner_number: prisoner_number,
+  def processed_visits(estates:, query: nil)
+    @processed_visits ||= estate_query(estates).processed(
+      query: query,
       limit: NUMBER_VISITS)
 
     if @processed_visits.size == NUMBER_VISITS
@@ -66,39 +61,14 @@ private
     end
   end
 
+  def estate_query(estates)
+    @estate_query ||= EstateVisitQuery.new(estates)
+  end
+
   def parse_date(date)
     Date.parse(date) unless date.blank?
   rescue ArgumentError
     flash[:notice] = t('invalid_date', scope: [:prison, :flash])
     nil
-  end
-
-  def load_visitor_cancellations(estates, prisoner_number: nil)
-    visits = Visit.preload(:prisoner, :visitors, :cancellation).
-             joins(:cancellation).
-             from_estates(estates).
-             where(cancellations: { nomis_cancelled: false }).
-             order('created_at asc')
-
-    if prisoner_number.present?
-      number = Prisoner.normalise_number(prisoner_number)
-      visits = visits.joins(:prisoner).where(prisoners: { number: number })
-    end
-
-    visits.to_a
-  end
-
-  def load_requested_visits(estates, prisoner_number: nil)
-    visits = Visit.preload(:prisoner, :visitors).
-             with_processing_state(:requested).
-             from_estates(estates).
-             order('created_at asc')
-
-    if prisoner_number.present?
-      number = Prisoner.normalise_number(prisoner_number)
-      visits = visits.joins(:prisoner).where(prisoners: { number: number })
-    end
-
-    visits.to_a
   end
 end

@@ -8,7 +8,7 @@
             <%= t('filter_form_hint', scope: :shared) %>
           </span>
         <% end %>
-        <%= text_field_tag 'prisoner_number', params[:prisoner_number], class: 'form-control' %>
+        <%= text_field_tag 'prisoner_number', params[:query], class: 'form-control' %>
         <%= submit_tag t('search', scope: :shared), name: nil, class: 'button' %>
         <br/>
         <%= link_to t('reset', scope: :shared), @search_path, {:class => 'reset', :title => t('reset', scope: :shared)} %>

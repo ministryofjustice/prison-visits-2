@@ -14,18 +14,35 @@ class EstateVisitQuery
     grouped_visits(visits)
   end
 
-  def processed(limit:, prisoner_number:)
+  def processed(limit:, query:)
     visits = Visit.preload(:prisoner, :visitors).
              processed.
              from_estates(@estates).
              order('visits.updated_at desc').limit(limit)
 
-    if prisoner_number.present?
-      number = Prisoner.normalise_number(prisoner_number)
-      visits = visits.joins(:prisoner).where(prisoners: { number: number })
-    end
+    return visits.to_a unless query
+    by_prisoner_number(query, visits) + by_human_id(query, visits)
+  end
 
-    visits.to_a
+  def requested(query: nil)
+    visits = Visit.preload(:prisoner, :visitors).
+             with_processing_state(:requested).
+             from_estates(@estates).
+             order('created_at asc')
+
+    return visits.to_a unless query
+    by_prisoner_number(query, visits) + by_human_id(query, visits)
+  end
+
+  def cancelled(query: nil)
+    visits = Visit.preload(:prisoner, :visitors, :cancellation).
+             joins(:cancellation).
+             from_estates(@estates).
+             where(cancellations: { nomis_cancelled: false }).
+             order('created_at asc')
+
+    return visits.to_a unless query
+    by_prisoner_number(query, visits) + by_human_id(query, visits)
   end
 
   def inbox_count
@@ -51,5 +68,15 @@ private
                                                   group_by(&:slot_granted)
         end
       end
+  end
+
+  def by_prisoner_number(number, visits)
+    number = Prisoner.normalise_number(number)
+    visits.joins(:prisoner).where(prisoners: { number: number }).to_a
+  end
+
+  def by_human_id(id, visits)
+    id = Prisoner.normalise_number(id)
+    visits.by_human_id(id).to_a
   end
 end

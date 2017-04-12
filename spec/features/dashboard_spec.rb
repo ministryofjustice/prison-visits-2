@@ -69,18 +69,43 @@ RSpec.feature 'Using the dashboard' do
       create(:visit, prison: swansea_prison, prisoner: processed_visit.prisoner)
     end
 
+    let!(:cancelled_visit) do
+      create(:visit, :pending_nomis_cancellation, prison: swansea_prison,
+                                                  prisoner: processed_visit.prisoner)
+    end
+
     before do
       accept_visit(processed_visit, processed_visit.slots.first)
-
       visit prison_inbox_path
     end
 
-    it 'displays the search results' do
+    it 'finds by prisoner number' do
       fill_in 'Search', with: processed_visit.prisoner_number
       find('.button.search').click
 
       expect(page).to have_css("td a[href='#{prison_visit_process_path(requested_visit, locale: :en)}']")
       expect(page).to have_css("td a[href='#{prison_visit_path(processed_visit, locale: :en)}']")
+    end
+
+    it 'finds processed visit by human ID' do
+      fill_in 'Search', with: processed_visit.human_id
+      find('.button.search').click
+
+      expect(page).to have_css("td a[href='#{prison_visit_path(processed_visit, locale: :en)}']")
+    end
+
+    it 'finds requested visit by human ID' do
+      fill_in 'Search', with: requested_visit.human_id
+      find('.button.search').click
+
+      expect(page).to have_css("td a[href='#{prison_visit_process_path(requested_visit, locale: :en)}']")
+    end
+
+    it 'finds cancelled visit by human ID' do
+      fill_in 'Search', with: cancelled_visit.human_id
+      find('.button.search').click
+
+      expect(page).to have_css("form#edit_visit_#{cancelled_visit.id}")
     end
   end
 
