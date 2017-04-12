@@ -29,6 +29,7 @@
 //= require modules/moj.emailPreview
 //= require modules/moj.multiSelect
 //= require modules/moj.tableSorter
+//= require modules/moj.matchVisitors
 
 (function() {
   'use strict';
