@@ -49,12 +49,13 @@
           'actions': ['dragToZoom', 'rightClickToReset'],
           'zoomDelta': 18
         },
+        'isStacked': 'percent',
         'vAxis': {
           'title': 'Number of visits'
         }
       };
 
-      var chart = new google.visualization.AreaChart(this.$el.get(0));
+      var chart = new google.visualization.ColumnChart(this.$el.get(0));
       chart.draw(data, options);
     }
 
