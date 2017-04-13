@@ -7,16 +7,10 @@ module ApplicationHelper
     Kramdown::Document.new(source).to_html.html_safe
   end
 
-  def javascript_i18n
-    {
-      days: I18n.t('date.day_names'),
-      months: I18n.t('date.month_names').drop(1),
-      abbrMonths: I18n.t('date.abbr_month_names').drop(1),
-      am: I18n.t('time.am'),
-      pm: I18n.t('time.pm'),
-      hour: I18n.t('time.hour'),
-      minute: I18n.t('time.minute')
-    }
+  def ga_tracking_data
+    data = { ga_tracking_id: config_item(:ga_id) }
+    data[:hit_type_page] = @step_name if @step_name
+    data
   end
 
   def alternative_locales
