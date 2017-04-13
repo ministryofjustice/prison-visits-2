@@ -8,15 +8,9 @@
 //= require govuk_toolkit
 //= require govuk/selection-buttons
 //= require moj
-//= require handlebars
-//= require lodash
 //= require jquery-ui-autocomplete
 //= require modernizr-custom
-//= require dest/respond.min
 //= require jquery-ui/datepicker
-
-// MOJ elements
-//= require src/moj.TimeoutPrompt
 
 // Candidates for re-usable components
 //= require mapshim
