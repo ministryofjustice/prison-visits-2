@@ -1,4 +1,12 @@
 <li id="<%= dom_id(v)  %>" data-visitor='{"first_name": "<%= v.first_name %>", "last_name": "<%= v.last_name %>", "dob": "<%= v.date_of_birth %>"}'>
+  <div class="error push-bottom">
+    <%= vf.label :banned, class: '' do %>
+      <%= field_error(vf,:banned) %>
+    <% end %>
+    <%= vf.label :banned_until, class: '' do %>
+      <%= field_error(vf,:banned_until) %>
+    <% end %>
+  </div>
   <div class="wrapper">
     <div class="column">
       <div class="name">
@@ -32,18 +40,24 @@
       <% end %>
     </div>
     <div class="column column--small">
-      <%= single_field vf, :banned, :check_box, :no_block %>
+      <%= error_container(vf,:banned) do %>
+        <%= vf.label :banned, class: '' do %>
+          <%= vf.check_box :banned %>
+        <% end %>
+      <% end %>
     </div>
     <div class="column column--large">
-      <%= vf.fields_for :banned_until, v.object.banned_until do |bu| %>
-        <div class="form-date">
-          <% accessible_date_options.each do |field_name, field_options| %>
-            <div class="datefield form-group form-group-<%= field_name %>">
-              <%= bu.label field_name %>
-              <%= bu.number_field field_name, field_options.merge( class: 'form-control') %>
-            </div>
-          <% end %>
-        </div>
+      <%= error_container(vf,:banned_until) do %>
+        <%= vf.fields_for :banned_until, v.object.banned_until do |bu| %>
+          <div class="form-date">
+            <% accessible_date_options.each do |field_name, field_options| %>
+              <div class="datefield form-group form-group-<%= field_name %>">
+                <%= bu.label field_name %>
+                <%= bu.number_field field_name, field_options.merge( class: 'form-control') %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>
