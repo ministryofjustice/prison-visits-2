@@ -278,7 +278,7 @@ en:
     visitor_no: Visitor %{n}
     warning: Warning
     no_adult: There must be at least one adult visitor
-    no_allowance: The prisoner has not got any visiting allowance left for the dates chosen
+    no_allowance: Prisoner had no visiting allowance. Allowance renewed on %{vo_date}
     prisoner_details_incorrect: The visitor hasn’t given correct information for the prisoner
     prisoner_moved: The prisoner is no longer at the prison
     slot_unavailable: None of the dates and times chosen were available

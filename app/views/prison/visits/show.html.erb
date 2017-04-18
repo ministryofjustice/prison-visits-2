@@ -35,7 +35,11 @@
       </div>
       <ul class="list list-bullet">
         <% @visit.rejection.reasons.each do |reason| %>
-            <li><%= t(reason, scope: :shared) %></li>
+            <% if reason = 'no_allowance' %>
+              <li><%= t(reason, vo_date: @visit.allowance_renews_on.to_s(:short_nomis), scope: :shared) %></li>
+            <% else %>
+              <li><%= t(reason, scope: :shared) %></li>
+            <% end %>
         <% end %>
       </ul>
     </div>
