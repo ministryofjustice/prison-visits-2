@@ -10,7 +10,7 @@
         <span class="font-xsmall">(<%= v.age %>)</span>
       </div>
     </div>
-    <% if @visit.contact_list_enabled? %>
+    <% if !@visit.contact_list_unknown? && @visit.contact_list_enabled? %>
       <div class="column column--large">
         <select class="form-control js-contactList">
           <option data-contact='{"uid": "0"}' value="0"><%= t('.please_select') %></option>
@@ -32,9 +32,7 @@
       <% end %>
     </div>
     <div class="column column--small">
-      <%= vf.label :banned, class: '' do %>
-      <%= vf.check_box :banned %>
-      <% end %>
+      <%= single_field vf, :banned, :check_box, :no_block %>
     </div>
     <div class="column column--large">
       <%= vf.fields_for :banned_until, v.object.banned_until do |bu| %>
