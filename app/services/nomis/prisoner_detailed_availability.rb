@@ -7,6 +7,9 @@ module Nomis
     }
 
     def self.build(attrs)
+      # TODO: Remove once it has been debugged
+      debug_response(attrs)
+
       new_attrs = attrs.each_with_object(dates: []) do |(date, info), list|
         availability = info.deep_dup
         availability['date'] = date
@@ -29,6 +32,13 @@ module Nomis
     def availability_for(slot)
       dates.find do |date_availability|
         date_availability.date == slot.to_date
+      end
+    end
+
+    # :nocov:
+    def self.debug_response(attrs)
+      if attrs.values.any? { |v| v == true }
+        Raven.extra_context(nomis_api_response: attrs)
       end
     end
   end
