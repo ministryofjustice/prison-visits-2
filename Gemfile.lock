@@ -270,7 +270,6 @@ GEM
     scenic (1.3.0)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
-    scrub_rb (1.0.1)
     secure_headers (3.6.2)
       useragent
     sentry-raven (2.4.0)
