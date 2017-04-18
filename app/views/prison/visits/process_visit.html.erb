@@ -60,7 +60,7 @@
 
   <div class="form-group">
     <hr>
-    <% if @visit.contact_list_enabled? %>
+    <% if !@visit.contact_list_unknown? %>
       <div class="notice push-bottom visuallyhidden js-noAdults">
         <i class="icon icon-important">
           <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>

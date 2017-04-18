@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<% if !@visit.contact_list_enabled? %>
+<% if @visit.contact_list_unknown? && @visit.contact_list_enabled? %>
   <div class="notice push-bottom push-top">
     <i class="icon icon-important">
       <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>
@@ -26,11 +26,11 @@
   </div>
 <% end %>
 
-<ul class="visitor-contact-list push-top js-visitorList <% if @visit.contact_list_enabled? %>nomis-enabled<% end %>">
+<ul class="visitor-contact-list push-top js-visitorList <% if !@visit.contact_list_unknown? && @visit.contact_list_enabled? %>nomis-enabled<% end %>">
   <li class="header bold-xsmall">
     <div class="wrapper">
       <div class="column"><%= t('.visitor_details') %></div>
-      <% if @visit.contact_list_enabled? %>
+      <% if !@visit.contact_list_unknown? && @visit.contact_list_enabled? %>
         <div class="column column--large"><%= t('.validate_from_nomis') %></div>
       <% end %>
       <div class="column column--small"><%= t('.not_on_list') %></div>
