@@ -110,7 +110,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
         fill_in 'Reference number', with: '12345678'
 
         within "#visitor_#{visitor.id}" do
-          check 'Visitor is banned'
+          find('input[type="checkbox"][id*="banned"]').click
           fill_in 'Day', with: banned_until.day
           fill_in 'Month', with: banned_until.month
           fill_in 'Year', with: banned_until.year
