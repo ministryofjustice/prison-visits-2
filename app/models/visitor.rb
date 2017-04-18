@@ -26,7 +26,7 @@ class Visitor < ActiveRecord::Base
 
   def banned_when_banned_until
     if banned_until && !banned?
-      errors.add(:banned, 'must be selected when the banned until date is set')
+      errors.add(:banned, 'Banned must be selected when the banned until date is set')
     end
   end
 
@@ -34,7 +34,7 @@ class Visitor < ActiveRecord::Base
     return unless banned_until.is_a?(Date)
 
     if banned_until_changed? && banned_until <= Date.current
-      errors.add(:banned_until, 'must be a future date')
+      errors.add(:banned_until, 'Banned until date must be in the future')
     end
   end
 
