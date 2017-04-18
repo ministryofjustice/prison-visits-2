@@ -10,13 +10,10 @@ module Nomis
       Rails.configuration.nomis_api_host != nil
     end
 
-    def initialize
-      unless self.class.enabled?
-        fail DisabledError, 'Nomis API is disabled'
-      end
-
-      pool_size = Rails.configuration.connection_pool_size
-      @pool = ConnectionPool.new(size: pool_size, timeout: 1) do
+    def self.pool
+      @pool ||= ConnectionPool.new(
+        size: Rails.configuration.connection_pool_size,
+        timeout: 1) do
         Nomis::Client.new(
           Rails.configuration.nomis_api_host,
           Rails.configuration.nomis_api_token,
@@ -24,8 +21,14 @@ module Nomis
       end
     end
 
+    def initialize
+      unless self.class.enabled?
+        fail DisabledError, 'Nomis API is disabled'
+      end
+    end
+
     def lookup_active_offender(noms_id:, date_of_birth:)
-      response = @pool.with { |client|
+      response = self.class.pool.with { |client|
         client.get('/lookup/active_offender',
           noms_id: noms_id, date_of_birth: date_of_birth)
       }
@@ -39,7 +42,7 @@ module Nomis
     end
 
     def offender_visiting_availability(offender_id:, start_date:, end_date:)
-      response = @pool.with { |client|
+      response = self.class.pool.with { |client|
         client.get(
           "/offenders/#{offender_id}/visits/available_dates",
           start_date: start_date, end_date: end_date)
@@ -53,7 +56,7 @@ module Nomis
     end
 
     def offender_visiting_detailed_availability(offender_id:, slots:)
-      response = @pool.with { |client|
+      response = self.class.pool.with { |client|
         client.get(
           "offenders/#{offender_id}/visits/unavailability",
           dates: slots.map(&:to_date).join(','))
@@ -68,7 +71,7 @@ module Nomis
     end
 
     def fetch_bookable_slots(prison:, start_date:, end_date:)
-      response = @pool.with { |client|
+      response = self.class.pool.with { |client|
         client.get(
           "/prison/#{prison.nomis_id}/slots",
           start_date: start_date,
@@ -82,7 +85,7 @@ module Nomis
     end
 
     def fetch_contact_list(offender_id:)
-      response = @pool.with { |client|
+      response = self.class.pool.with { |client|
         client.get("offenders/#{offender_id}/visits/contact_list")
       }
 
