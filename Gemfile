@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.3.0'
 
 gem 'rails', '~> 4.2.3'
+gem 'sprockets-rails', '~> 3.1.1'
 
 gem 'connection_pool'
 gem 'base32-crockford', require: 'base32/crockford'
@@ -53,7 +54,7 @@ group :development, :test do
   gem 'brakeman'
   gem 'byebug'
   gem 'jasmine-jquery-rails'
-  gem 'jasmine-rails'
+  gem 'jasmine'
   gem 'parser'
   gem 'pry-byebug'
   gem 'pry-rails'

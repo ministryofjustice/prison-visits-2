@@ -8,18 +8,14 @@
 //= require govuk_toolkit
 //= require govuk/selection-buttons
 //= require moj
-//= require handlebars
-//= require lodash
 //= require jquery-ui-autocomplete
 //= require modernizr-custom
 //= require dest/respond.min
 //= require jquery-ui/datepicker
 
-// MOJ elements
-//= require src/moj.TimeoutPrompt
-
 // Candidates for re-usable components
 //= require mapshim
+//= require filtershim
 //= require modules/moj.analytics
 //= require modules/moj.AsyncGA
 //= require modules/moj.autocomplete
@@ -33,6 +29,7 @@
 //= require modules/moj.emailPreview
 //= require modules/moj.multiSelect
 //= require modules/moj.tableSorter
+//= require modules/moj.matchVisitors
 
 (function() {
   'use strict';

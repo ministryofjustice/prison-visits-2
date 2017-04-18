@@ -116,10 +116,12 @@ en:
         slot_available: Space available
         prisoner_banned: Visits banned
         out_of_vo: No visiting allowance
-        external movement: Prisoner on movement
+        external_movement: Prisoner on movement
         booked_visit: Booked on another visit
         slot_not_available: Fully booked
         add_a_message: Add a message
+        no_adults: This visit will be rejected as none of the visitors are adults
+        not_all_processed: Make sure all visitors have been processed to continue
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
@@ -128,6 +130,7 @@ en:
         prison_name: Prison name
         prisoner_does_not_exist_text: The prisoner date of birth and number do not match.
         unknown_text: "The check couldn't take place due to a system error, please verify manually"
+        verified: Verified
         verified_html: |
           The prisoner date of birth and number have been verified. <br>Please check the prisoner name.
       validate_prisoner_details:
@@ -190,6 +193,7 @@ en:
         none_available: None of the chosen times are available
         prisoner_availability_unknown: You must check NOMIS to verify prisoner availability
         slot_availability_unknown: You must check NOMIS to verify slot availability
+        closed: Closed
       issue_with_prisoner_section:
         visiting_allowance: Visiting allowance
         no_allowance: Prisoner does not have any visiting allowance
@@ -208,9 +212,12 @@ en:
         allowance_renews_on: Date visiting allowance will be renewed
         allowance_renews_on_hint: eg 28 04 1996
       visitor_details:
-        title: Visitor details
-        visitor_not_on_list: Visitor is not on the contact list
-        visitor_banned: Visitor is banned
+        title: Contact list
+        lead_visitor: Lead visitor
+        contact_name: Contact name
+        not_on_list: Not on contact list
+        visitor_banned: Banned
+        banned_date: Banned until date
         name: "Name"
         dob: "Date of birth (age)"
         email: "Email address"
@@ -218,6 +225,9 @@ en:
         banned: Visitor is banned
         banned_until: Banned until
         banned_until_hint: eg 28 04 1996
+        visitor_details: Visitor details
+        validate_from_nomis: Validate visitor from NOMIS
+        nomis_api_down: We can’t show the NOMIS contact list right now. Please check all visitors in NOMIS.
       visitor_detail:
         title: Visitor details
         not_listed: Not listed
@@ -227,8 +237,11 @@ en:
         dob: "Date of birth (age)"
         email: "Email address"
         phone_no: "Phone no"
+      visitor_contact:
+        please_select: Please select a contact
       duplicate_request:
         title: Other
+        duplicate_visit_request: Duplicate visit request
   staff_info:
     not_available:
       staff_info_service_unavailable: >-

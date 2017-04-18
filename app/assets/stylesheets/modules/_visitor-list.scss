@@ -1,0 +1,45 @@
+.visitor-contact-list {
+  li {
+    padding: $gutter-half 0;
+    vertical-align: middle;
+    border-bottom: 1px solid $border-colour;
+    font-size: 16px;
+    select {
+      width: 80%;
+    }
+  }
+  .header {
+    border-bottom: 1px solid $border-colour;
+    border-top: 1px solid $border-colour;
+    padding: $gutter-half 0;
+  }
+  .wrapper {
+    @extend .grid-row;
+  }
+  .column {
+    width: 20%;
+    float: left;
+    padding: 0 $gutter-half;
+    box-sizing: border-box;
+    &.column--large {
+      width: 30%;
+    }
+    &.column--small {
+      width: 25%;
+    }
+    @include media(mobile) {
+      width: 100% !important;
+      .block-label {
+        float: none;
+      }
+    }
+  }
+  .name, .dob {
+    font-weight: bold;
+  }
+  &.nomis-enabled {
+    .column--small {
+      width: 10%;
+    }
+  }
+}
