@@ -20,7 +20,11 @@
       <div class="grid-row">
         <div class="column-two-thirds">
           <div class="tag tag--requested tag--heading"><%= t('requested', scope: 'shared') %>: <br><%= @visit.created_at.to_date.to_s(:short_nomis) %> - <%= @visit.created_at.to_s(:time) %></div>
-          ID: <%= @visit.human_id %> TODO: Formatting
+        </div>
+        <div class="column-one-third">
+          <% if @visit.human_id -%>
+            <div class="text-secondary">ID: <%= @visit.human_id %></div>
+          <% end %>
         </div>
       </div>
     </div>
