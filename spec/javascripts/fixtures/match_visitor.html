@@ -1,243 +1,245 @@
 <ul class="visitor-contact-list push-top js-visitorList nomis-enabled">
-  <li class="header bold-xsmall">
-    <div class="wrapper">
-      <div class="column">Visitor details</div>
-        <div class="column column--large">Validate visitor from NOMIS</div>
-      <div class="column column--small">Not on contact list</div>
-      <div class="column column--small">Banned</div>
-      <div class="column column--large">Banned until date</div>
-    </div>
-  </li>
-
-    <li data-visitor="{&quot;first_name&quot;: &quot;lkj&quot;, &quot;last_name&quot;: &quot;lkj&quot;, &quot;dob&quot;: &quot;1971-01-01&quot;}">
-  <div class="wrapper">
-    <div class="column">
-      <div class="name">
-        <input type="hidden" value="2b570969-0462-4e1b-8df7-dc21336d02a3" name="visit[visitors_attributes][0][id]" id="visit_visitors_attributes_0_id">
-        lkj lkj
+   <li class="header bold-xsmall">
+      <div class="wrapper">
+         <div class="column">Visitor details</div>
+         <div class="column column--large">Validate visitor from NOMIS</div>
+         <div class="column column--small">Not on contact list</div>
+         <div class="column column--small">Banned</div>
+         <div class="column column--large">Banned until date</div>
       </div>
-      <div class="dob">
-        01/01/1971
-        <span class="font-xsmall">(46)</span>
+   </li>
+   <li data-visitor="{&quot;first_name&quot;: &quot;lkj&quot;, &quot;last_name&quot;: &quot;lkj&quot;, &quot;dob&quot;: &quot;1971-01-01&quot;}">
+      <div class="wrapper">
+         <div class="column">
+            <div class="name">
+               <input type="hidden" value="2b570969-0462-4e1b-8df7-dc21336d02a3" name="visit[visitors_attributes][0][id]" id="visit_visitors_attributes_0_id">
+               lkj lkj
+            </div>
+            <div class="dob">
+               01/01/1971
+               <span class="font-xsmall">(46)</span>
+            </div>
+         </div>
+         <div class="column column--large">
+            <select class="form-control js-contactList">
+               <option data-contact="{&quot;uid&quot;: &quot;0&quot;}" value="0">Please select a contact</option>
+               <option data-contact="{
+                  &quot;uid&quot;:&quot;12588&quot;,
+                  &quot;banned&quot;: &quot;true&quot;,
+                  &quot;banned_until&quot;: &quot;&quot;}" value="12588">
+                  BILLY JONES - 01/01/1970
+               </option>
+               <option data-contact="{
+                  &quot;uid&quot;:&quot;13428&quot;,
+                  &quot;banned&quot;: &quot;false&quot;,
+                  &quot;banned_until&quot;: &quot;&quot;}" value="13428">
+                  IRMA ITSU - 03/04/1975
+               </option>
+            </select>
+         </div>
+         <div class="column column--small">
+            <label class="" for="visit_visitors_attributes_0_not_on_list">
+            <input name="visit[visitors_attributes][0][not_on_list]" type="hidden" value="0"><input data-checkbox-summary-text="lkj l" type="checkbox" value="1" name="visit[visitors_attributes][0][not_on_list]" id="visit_visitors_attributes_0_not_on_list">
+            </label>
+         </div>
+         <div class="column column--small">
+            <label class="" for="visit_visitors_attributes_0_banned">
+            <input name="visit[visitors_attributes][0][banned]" type="hidden" value="0"><input type="checkbox" value="1" name="visit[visitors_attributes][0][banned]" id="visit_visitors_attributes_0_banned">
+            </label>
+         </div>
+         <div class="column column--large">
+            <div class="form-date">
+               <div class="datefield form-group form-group-day">
+                  <label for="visit_visitors_attributes_0_banned_until_day">Day</label>
+                  <input min="1" max="31" class="form-control" type="number" name="visit[visitors_attributes][0][banned_until][day]" id="visit_visitors_attributes_0_banned_until_day">
+               </div>
+               <div class="datefield form-group form-group-month">
+                  <label for="visit_visitors_attributes_0_banned_until_month">Month</label>
+                  <input min="1" max="12" class="form-control" type="number" name="visit[visitors_attributes][0][banned_until][month]" id="visit_visitors_attributes_0_banned_until_month">
+               </div>
+               <div class="datefield form-group form-group-year">
+                  <label for="visit_visitors_attributes_0_banned_until_year">Year</label>
+                  <input min="2017" class="form-control" type="number" name="visit[visitors_attributes][0][banned_until][year]" id="visit_visitors_attributes_0_banned_until_year">
+               </div>
+            </div>
+         </div>
       </div>
-    </div>
-      <div class="column column--large">
-        <select class="form-control js-contactList">
-          <option data-contact="{&quot;uid&quot;: &quot;0&quot;}" value="0">Please select a contact</option>
-            <option data-contact="{
-                &quot;uid&quot;:&quot;12588&quot;,
-                &quot;banned&quot;: &quot;false&quot;,
-                &quot;banned_until&quot;: &quot;&quot;}" value="12588">
-              BILLY JONES - 01/01/1970
-            </option>
-            <option data-contact="{
-                &quot;uid&quot;:&quot;13428&quot;,
-                &quot;banned&quot;: &quot;false&quot;,
-                &quot;banned_until&quot;: &quot;&quot;}" value="13428">
-              IRMA ITSU - 03/04/1975
-            </option>
-        </select>
+   </li>
+   <li data-visitor="{&quot;first_name&quot;: &quot;Jim&quot;, &quot;last_name&quot;: &quot;Smith&quot;, &quot;dob&quot;: &quot;1989-01-01&quot;}">
+      <div class="wrapper">
+         <div class="column">
+            <div class="name">
+               <input type="hidden" value="021f7213-5402-47f7-bef7-8ee6dae558c0" name="visit[visitors_attributes][1][id]" id="visit_visitors_attributes_1_id">
+               Jim Smith
+            </div>
+            <div class="dob">
+               01/01/1989
+               <span class="font-xsmall">(28)</span>
+            </div>
+         </div>
+         <div class="column column--large">
+            <select class="form-control js-contactList">
+               <option data-contact="{&quot;uid&quot;: &quot;0&quot;}" value="0">Please select a contact</option>
+               <option data-contact="{
+                  &quot;uid&quot;:&quot;12588&quot;,
+                  &quot;banned&quot;: &quot;true&quot;,
+                  &quot;banned_until&quot;: &quot;&quot;}" value="12588">
+                  BILLY JONES - 01/01/1970
+               </option>
+               <option data-contact="{
+                  &quot;uid&quot;:&quot;13428&quot;,
+                  &quot;banned&quot;: &quot;false&quot;,
+                  &quot;banned_until&quot;: &quot;&quot;}" value="13428">
+                  IRMA ITSU - 03/04/1975
+               </option>
+            </select>
+         </div>
+         <div class="column column--small">
+            <label class="" for="visit_visitors_attributes_1_not_on_list">
+            <input name="visit[visitors_attributes][1][not_on_list]" type="hidden" value="0"><input data-checkbox-summary-text="Jim S" type="checkbox" value="1" name="visit[visitors_attributes][1][not_on_list]" id="visit_visitors_attributes_1_not_on_list">
+            </label>
+         </div>
+         <div class="column column--small">
+            <label class="" for="visit_visitors_attributes_1_banned">
+            <input name="visit[visitors_attributes][1][banned]" type="hidden" value="0"><input type="checkbox" value="1" name="visit[visitors_attributes][1][banned]" id="visit_visitors_attributes_1_banned">
+            </label>
+         </div>
+         <div class="column column--large">
+            <div class="form-date">
+               <div class="datefield form-group form-group-day">
+                  <label for="visit_visitors_attributes_1_banned_until_day">Day</label>
+                  <input min="1" max="31" class="form-control" type="number" name="visit[visitors_attributes][1][banned_until][day]" id="visit_visitors_attributes_1_banned_until_day">
+               </div>
+               <div class="datefield form-group form-group-month">
+                  <label for="visit_visitors_attributes_1_banned_until_month">Month</label>
+                  <input min="1" max="12" class="form-control" type="number" name="visit[visitors_attributes][1][banned_until][month]" id="visit_visitors_attributes_1_banned_until_month">
+               </div>
+               <div class="datefield form-group form-group-year">
+                  <label for="visit_visitors_attributes_1_banned_until_year">Year</label>
+                  <input min="2017" class="form-control" type="number" name="visit[visitors_attributes][1][banned_until][year]" id="visit_visitors_attributes_1_banned_until_year">
+               </div>
+            </div>
+         </div>
       </div>
-    <div class="column column--small">
-      <label class="" for="visit_visitors_attributes_0_not_on_list">
-      <input name="visit[visitors_attributes][0][not_on_list]" type="hidden" value="0"><input data-checkbox-summary-text="lkj l" type="checkbox" value="1" name="visit[visitors_attributes][0][not_on_list]" id="visit_visitors_attributes_0_not_on_list">
-</label>    </div>
-    <div class="column column--small">
-      <label class="" for="visit_visitors_attributes_0_banned">
-      <input name="visit[visitors_attributes][0][banned]" type="hidden" value="0"><input type="checkbox" value="1" name="visit[visitors_attributes][0][banned]" id="visit_visitors_attributes_0_banned">
-</label>    </div>
-    <div class="column column--large">
-
-        <div class="form-date">
-            <div class="datefield form-group form-group-day">
-              <label for="visit_visitors_attributes_0_banned_until_day">Day</label>
-              <input min="1" max="31" class="form-control" type="number" name="visit[visitors_attributes][0][banned_until][day]" id="visit_visitors_attributes_0_banned_until_day">
+   </li>
+   <li data-visitor="{&quot;first_name&quot;: &quot;Jane&quot;, &quot;last_name&quot;: &quot;Smith&quot;, &quot;dob&quot;: &quot;1990-01-01&quot;}">
+      <div class="wrapper">
+         <div class="column">
+            <div class="name">
+               <input type="hidden" value="869b192a-367f-4b0e-8148-38b4d18ed35c" name="visit[visitors_attributes][2][id]" id="visit_visitors_attributes_2_id">
+               Jane Smith
             </div>
-            <div class="datefield form-group form-group-month">
-              <label for="visit_visitors_attributes_0_banned_until_month">Month</label>
-              <input min="1" max="12" class="form-control" type="number" name="visit[visitors_attributes][0][banned_until][month]" id="visit_visitors_attributes_0_banned_until_month">
+            <div class="dob">
+               01/01/1990
+               <span class="font-xsmall">(27)</span>
             </div>
-            <div class="datefield form-group form-group-year">
-              <label for="visit_visitors_attributes_0_banned_until_year">Year</label>
-              <input min="2017" class="form-control" type="number" name="visit[visitors_attributes][0][banned_until][year]" id="visit_visitors_attributes_0_banned_until_year">
+         </div>
+         <div class="column column--large">
+            <select class="form-control js-contactList">
+               <option data-contact="{&quot;uid&quot;: &quot;0&quot;}" value="0">Please select a contact</option>
+               <option data-contact="{
+                  &quot;uid&quot;:&quot;12588&quot;,
+                  &quot;banned&quot;: &quot;true&quot;,
+                  &quot;banned_until&quot;: &quot;&quot;}" value="12588">
+                  BILLY JONES - 01/01/1970
+               </option>
+               <option data-contact="{
+                  &quot;uid&quot;:&quot;13428&quot;,
+                  &quot;banned&quot;: &quot;false&quot;,
+                  &quot;banned_until&quot;: &quot;&quot;}" value="13428">
+                  IRMA ITSU - 03/04/1975
+               </option>
+            </select>
+         </div>
+         <div class="column column--small">
+            <label class="" for="visit_visitors_attributes_2_not_on_list">
+            <input name="visit[visitors_attributes][2][not_on_list]" type="hidden" value="0"><input data-checkbox-summary-text="Jane S" type="checkbox" value="1" name="visit[visitors_attributes][2][not_on_list]" id="visit_visitors_attributes_2_not_on_list">
+            </label>
+         </div>
+         <div class="column column--small">
+            <label class="" for="visit_visitors_attributes_2_banned">
+            <input name="visit[visitors_attributes][2][banned]" type="hidden" value="0"><input type="checkbox" value="1" name="visit[visitors_attributes][2][banned]" id="visit_visitors_attributes_2_banned">
+            </label>
+         </div>
+         <div class="column column--large">
+            <div class="form-date">
+               <div class="datefield form-group form-group-day">
+                  <label for="visit_visitors_attributes_2_banned_until_day">Day</label>
+                  <input min="1" max="31" class="form-control" type="number" name="visit[visitors_attributes][2][banned_until][day]" id="visit_visitors_attributes_2_banned_until_day">
+               </div>
+               <div class="datefield form-group form-group-month">
+                  <label for="visit_visitors_attributes_2_banned_until_month">Month</label>
+                  <input min="1" max="12" class="form-control" type="number" name="visit[visitors_attributes][2][banned_until][month]" id="visit_visitors_attributes_2_banned_until_month">
+               </div>
+               <div class="datefield form-group form-group-year">
+                  <label for="visit_visitors_attributes_2_banned_until_year">Year</label>
+                  <input min="2017" class="form-control" type="number" name="visit[visitors_attributes][2][banned_until][year]" id="visit_visitors_attributes_2_banned_until_year">
+               </div>
             </div>
-        </div>
-    </div>
-  </div>
-</li>
-
-
-      <li data-visitor="{&quot;first_name&quot;: &quot;Jim&quot;, &quot;last_name&quot;: &quot;Smith&quot;, &quot;dob&quot;: &quot;1989-01-01&quot;}">
-  <div class="wrapper">
-    <div class="column">
-      <div class="name">
-        <input type="hidden" value="021f7213-5402-47f7-bef7-8ee6dae558c0" name="visit[visitors_attributes][1][id]" id="visit_visitors_attributes_1_id">
-        Jim Smith
+         </div>
       </div>
-      <div class="dob">
-        01/01/1989
-        <span class="font-xsmall">(28)</span>
+   </li>
+   <li data-visitor="{&quot;first_name&quot;: &quot;Bob&quot;, &quot;last_name&quot;: &quot;Smith&quot;, &quot;dob&quot;: &quot;2010-01-01&quot;}">
+      <div class="wrapper">
+         <div class="column">
+            <div class="name">
+               <input type="hidden" value="7c963df4-c7b6-4f58-9b79-1ac65fd424e2" name="visit[visitors_attributes][3][id]" id="visit_visitors_attributes_3_id">
+               Bob Smith
+            </div>
+            <div class="dob">
+               01/01/2010
+               <span class="font-xsmall">(7)</span>
+            </div>
+         </div>
+         <div class="column column--large">
+            <select class="form-control js-contactList">
+               <option data-contact="{&quot;uid&quot;: &quot;0&quot;}" value="0">Please select a contact</option>
+               <option data-contact="{
+                  &quot;uid&quot;:&quot;12588&quot;,
+                  &quot;banned&quot;: &quot;true&quot;,
+                  &quot;banned_until&quot;: &quot;&quot;}" value="12588">
+                  BILLY JONES - 01/01/1970
+               </option>
+               <option data-contact="{
+                  &quot;uid&quot;:&quot;13428&quot;,
+                  &quot;banned&quot;: &quot;false&quot;,
+                  &quot;banned_until&quot;: &quot;&quot;}" value="13428">
+                  IRMA ITSU - 03/04/1975
+               </option>
+            </select>
+         </div>
+         <div class="column column--small">
+            <label class="" for="visit_visitors_attributes_3_not_on_list">
+            <input name="visit[visitors_attributes][3][not_on_list]" type="hidden" value="0"><input data-checkbox-summary-text="Bob S" type="checkbox" value="1" name="visit[visitors_attributes][3][not_on_list]" id="visit_visitors_attributes_3_not_on_list">
+            </label>
+         </div>
+         <div class="column column--small">
+            <label class="" for="visit_visitors_attributes_3_banned">
+            <input name="visit[visitors_attributes][3][banned]" type="hidden" value="0"><input type="checkbox" value="1" name="visit[visitors_attributes][3][banned]" id="visit_visitors_attributes_3_banned">
+            </label>
+         </div>
+         <div class="column column--large">
+            <div class="form-date">
+               <div class="datefield form-group form-group-day">
+                  <label for="visit_visitors_attributes_3_banned_until_day">Day</label>
+                  <input min="1" max="31" class="form-control" type="number" name="visit[visitors_attributes][3][banned_until][day]" id="visit_visitors_attributes_3_banned_until_day">
+               </div>
+               <div class="datefield form-group form-group-month">
+                  <label for="visit_visitors_attributes_3_banned_until_month">Month</label>
+                  <input min="1" max="12" class="form-control" type="number" name="visit[visitors_attributes][3][banned_until][month]" id="visit_visitors_attributes_3_banned_until_month">
+               </div>
+               <div class="datefield form-group form-group-year">
+                  <label for="visit_visitors_attributes_3_banned_until_year">Year</label>
+                  <input min="2017" class="form-control" type="number" name="visit[visitors_attributes][3][banned_until][year]" id="visit_visitors_attributes_3_banned_until_year">
+               </div>
+            </div>
+         </div>
       </div>
-    </div>
-      <div class="column column--large">
-        <select class="form-control js-contactList">
-          <option data-contact="{&quot;uid&quot;: &quot;0&quot;}" value="0">Please select a contact</option>
-            <option data-contact="{
-                &quot;uid&quot;:&quot;12588&quot;,
-                &quot;banned&quot;: &quot;false&quot;,
-                &quot;banned_until&quot;: &quot;&quot;}" value="12588">
-              BILLY JONES - 01/01/1970
-            </option>
-            <option data-contact="{
-                &quot;uid&quot;:&quot;13428&quot;,
-                &quot;banned&quot;: &quot;false&quot;,
-                &quot;banned_until&quot;: &quot;&quot;}" value="13428">
-              IRMA ITSU - 03/04/1975
-            </option>
-        </select>
-      </div>
-    <div class="column column--small">
-      <label class="" for="visit_visitors_attributes_1_not_on_list">
-      <input name="visit[visitors_attributes][1][not_on_list]" type="hidden" value="0"><input data-checkbox-summary-text="Jim S" type="checkbox" value="1" name="visit[visitors_attributes][1][not_on_list]" id="visit_visitors_attributes_1_not_on_list">
-</label>    </div>
-    <div class="column column--small">
-      <label class="" for="visit_visitors_attributes_1_banned">
-      <input name="visit[visitors_attributes][1][banned]" type="hidden" value="0"><input type="checkbox" value="1" name="visit[visitors_attributes][1][banned]" id="visit_visitors_attributes_1_banned">
-</label>    </div>
-    <div class="column column--large">
-
-        <div class="form-date">
-            <div class="datefield form-group form-group-day">
-              <label for="visit_visitors_attributes_1_banned_until_day">Day</label>
-              <input min="1" max="31" class="form-control" type="number" name="visit[visitors_attributes][1][banned_until][day]" id="visit_visitors_attributes_1_banned_until_day">
-            </div>
-            <div class="datefield form-group form-group-month">
-              <label for="visit_visitors_attributes_1_banned_until_month">Month</label>
-              <input min="1" max="12" class="form-control" type="number" name="visit[visitors_attributes][1][banned_until][month]" id="visit_visitors_attributes_1_banned_until_month">
-            </div>
-            <div class="datefield form-group form-group-year">
-              <label for="visit_visitors_attributes_1_banned_until_year">Year</label>
-              <input min="2017" class="form-control" type="number" name="visit[visitors_attributes][1][banned_until][year]" id="visit_visitors_attributes_1_banned_until_year">
-            </div>
-        </div>
-    </div>
-  </div>
-</li>
-
-
-      <li data-visitor="{&quot;first_name&quot;: &quot;Jane&quot;, &quot;last_name&quot;: &quot;Smith&quot;, &quot;dob&quot;: &quot;1990-01-01&quot;}">
-  <div class="wrapper">
-    <div class="column">
-      <div class="name">
-        <input type="hidden" value="869b192a-367f-4b0e-8148-38b4d18ed35c" name="visit[visitors_attributes][2][id]" id="visit_visitors_attributes_2_id">
-        Jane Smith
-      </div>
-      <div class="dob">
-        01/01/1990
-        <span class="font-xsmall">(27)</span>
-      </div>
-    </div>
-      <div class="column column--large">
-        <select class="form-control js-contactList">
-          <option data-contact="{&quot;uid&quot;: &quot;0&quot;}" value="0">Please select a contact</option>
-            <option data-contact="{
-                &quot;uid&quot;:&quot;12588&quot;,
-                &quot;banned&quot;: &quot;false&quot;,
-                &quot;banned_until&quot;: &quot;&quot;}" value="12588">
-              BILLY JONES - 01/01/1970
-            </option>
-            <option data-contact="{
-                &quot;uid&quot;:&quot;13428&quot;,
-                &quot;banned&quot;: &quot;false&quot;,
-                &quot;banned_until&quot;: &quot;&quot;}" value="13428">
-              IRMA ITSU - 03/04/1975
-            </option>
-        </select>
-      </div>
-    <div class="column column--small">
-      <label class="" for="visit_visitors_attributes_2_not_on_list">
-      <input name="visit[visitors_attributes][2][not_on_list]" type="hidden" value="0"><input data-checkbox-summary-text="Jane S" type="checkbox" value="1" name="visit[visitors_attributes][2][not_on_list]" id="visit_visitors_attributes_2_not_on_list">
-</label>    </div>
-    <div class="column column--small">
-      <label class="" for="visit_visitors_attributes_2_banned">
-      <input name="visit[visitors_attributes][2][banned]" type="hidden" value="0"><input type="checkbox" value="1" name="visit[visitors_attributes][2][banned]" id="visit_visitors_attributes_2_banned">
-</label>    </div>
-    <div class="column column--large">
-
-        <div class="form-date">
-            <div class="datefield form-group form-group-day">
-              <label for="visit_visitors_attributes_2_banned_until_day">Day</label>
-              <input min="1" max="31" class="form-control" type="number" name="visit[visitors_attributes][2][banned_until][day]" id="visit_visitors_attributes_2_banned_until_day">
-            </div>
-            <div class="datefield form-group form-group-month">
-              <label for="visit_visitors_attributes_2_banned_until_month">Month</label>
-              <input min="1" max="12" class="form-control" type="number" name="visit[visitors_attributes][2][banned_until][month]" id="visit_visitors_attributes_2_banned_until_month">
-            </div>
-            <div class="datefield form-group form-group-year">
-              <label for="visit_visitors_attributes_2_banned_until_year">Year</label>
-              <input min="2017" class="form-control" type="number" name="visit[visitors_attributes][2][banned_until][year]" id="visit_visitors_attributes_2_banned_until_year">
-            </div>
-        </div>
-    </div>
-  </div>
-</li>
-
-
-      <li data-visitor="{&quot;first_name&quot;: &quot;Bob&quot;, &quot;last_name&quot;: &quot;Smith&quot;, &quot;dob&quot;: &quot;2010-01-01&quot;}">
-  <div class="wrapper">
-    <div class="column">
-      <div class="name">
-        <input type="hidden" value="7c963df4-c7b6-4f58-9b79-1ac65fd424e2" name="visit[visitors_attributes][3][id]" id="visit_visitors_attributes_3_id">
-        Bob Smith
-      </div>
-      <div class="dob">
-        01/01/2010
-        <span class="font-xsmall">(7)</span>
-      </div>
-    </div>
-      <div class="column column--large">
-        <select class="form-control js-contactList">
-          <option data-contact="{&quot;uid&quot;: &quot;0&quot;}" value="0">Please select a contact</option>
-            <option data-contact="{
-                &quot;uid&quot;:&quot;12588&quot;,
-                &quot;banned&quot;: &quot;false&quot;,
-                &quot;banned_until&quot;: &quot;&quot;}" value="12588">
-              BILLY JONES - 01/01/1970
-            </option>
-            <option data-contact="{
-                &quot;uid&quot;:&quot;13428&quot;,
-                &quot;banned&quot;: &quot;false&quot;,
-                &quot;banned_until&quot;: &quot;&quot;}" value="13428">
-              IRMA ITSU - 03/04/1975
-            </option>
-        </select>
-      </div>
-    <div class="column column--small">
-      <label class="" for="visit_visitors_attributes_3_not_on_list">
-      <input name="visit[visitors_attributes][3][not_on_list]" type="hidden" value="0"><input data-checkbox-summary-text="Bob S" type="checkbox" value="1" name="visit[visitors_attributes][3][not_on_list]" id="visit_visitors_attributes_3_not_on_list">
-</label>    </div>
-    <div class="column column--small">
-      <label class="" for="visit_visitors_attributes_3_banned">
-      <input name="visit[visitors_attributes][3][banned]" type="hidden" value="0"><input type="checkbox" value="1" name="visit[visitors_attributes][3][banned]" id="visit_visitors_attributes_3_banned">
-</label>    </div>
-    <div class="column column--large">
-
-        <div class="form-date">
-            <div class="datefield form-group form-group-day">
-              <label for="visit_visitors_attributes_3_banned_until_day">Day</label>
-              <input min="1" max="31" class="form-control" type="number" name="visit[visitors_attributes][3][banned_until][day]" id="visit_visitors_attributes_3_banned_until_day">
-            </div>
-            <div class="datefield form-group form-group-month">
-              <label for="visit_visitors_attributes_3_banned_until_month">Month</label>
-              <input min="1" max="12" class="form-control" type="number" name="visit[visitors_attributes][3][banned_until][month]" id="visit_visitors_attributes_3_banned_until_month">
-            </div>
-            <div class="datefield form-group form-group-year">
-              <label for="visit_visitors_attributes_3_banned_until_year">Year</label>
-              <input min="2017" class="form-control" type="number" name="visit[visitors_attributes][3][banned_until][year]" id="visit_visitors_attributes_3_banned_until_year">
-            </div>
-        </div>
-    </div>
-  </div>
-</li>
-
+   </li>
 </ul>
+<div class="notice push-bottom js-noAdults">
+   <i class="icon icon-important">
+   <span class="visuallyhidden">Warning</span>
+   </i>
+   <strong class="bold-small">This visit will be rejected as none of the visitors are adults</strong>
+</div>

@@ -116,7 +116,7 @@ en:
         slot_available: Space available
         prisoner_banned: Visits banned
         out_of_vo: No visiting allowance
-        external movement: Prisoner on movement
+        external_movement: Prisoner on movement
         booked_visit: Booked on another visit
         slot_not_available: Fully booked
         add_a_message: Add a message

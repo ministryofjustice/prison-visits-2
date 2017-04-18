@@ -17,7 +17,7 @@
           adding = this.value == '0' ? true : false;
         self.updateSelectLists();
         self.setNoContactCheckbox(this, adding);
-        self.processVisitor(parent, !adding);
+        self.processVisitor(parent);
         self.checkStatus();
         if (self.isBanned(contactData)) {
           self.setBanned(parent, self.isBanned(contactData));
@@ -29,7 +29,7 @@
         var $this = $(this),
           parent = self.findParent($this),
           isChecked = $this.is(':checked');
-        self.processVisitor(parent, isChecked);
+        self.processVisitor(parent);
         self.checkStatus();
       });
 
@@ -48,7 +48,7 @@
     },
 
     // Set visitor as processed to true or false
-    processVisitor: function(el, processed) {
+    processVisitor: function(el) {
       var select = false,
         noContact = false;
       select = $(el).find('select option:selected').val();
@@ -206,11 +206,13 @@
     // Show the element
     showMessage: function(el) {
       el.show().removeClass('visuallyhidden');
+      return el;
     },
 
     // Hide the element
     hideMessage: function(el) {
       el.hide();
+      return el;
     }
 
   };
