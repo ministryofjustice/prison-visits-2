@@ -1,5 +1,5 @@
 <li id="<%= dom_id(v)  %>" data-visitor='{"first_name": "<%= v.first_name %>", "last_name": "<%= v.last_name %>", "dob": "<%= v.date_of_birth %>"}'>
-  <div class="error push-bottom">
+  <div class="error">
     <%= vf.label :banned, class: '' do %>
       <%= field_error(vf,:banned) %>
     <% end %>

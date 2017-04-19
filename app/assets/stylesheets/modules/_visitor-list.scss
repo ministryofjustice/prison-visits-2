@@ -1,6 +1,6 @@
 .visitor-contact-list {
   li {
-    padding: $gutter-half 0;
+    padding: $gutter-half 0 0;
     vertical-align: middle;
     border-bottom: 1px solid $border-colour;
     font-size: 16px;
@@ -41,5 +41,8 @@
     .column--small {
       width: 10%;
     }
+  }
+  .error .validation-message {
+    margin-bottom: 15px;
   }
 }
