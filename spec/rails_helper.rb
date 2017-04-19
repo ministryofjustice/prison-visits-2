@@ -13,6 +13,11 @@ require 'support/helpers/controller_helper'
 
 WebMock.disable_net_connect!(allow: 'codeclimate.com', allow_localhost: true)
 
+
+Capybara.register_driver :poltergeist_debug do |app|
+  Capybara::Poltergeist::Driver.new(app, :inspector => true, logger: STDOUT, phantomjs_logger: STDOUT)
+end
+
 Capybara.javascript_driver = :poltergeist
 Capybara.default_max_wait_time = 3
 Capybara.asset_host = 'http://localhost:3000'

@@ -98,25 +98,15 @@
 <% end %>
 
 <% content_for :body_end do %>
-  <script>
-    var javascript_i18n = <%= raw(javascript_i18n.to_json) %>;
-  </script>
-  <script>
+  <%= content_tag :div, nil, class: "js-AsyncGA", data: ga_tracking_data %>
+  <%= hashed_javascript_tag do %>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', '<%= config_item :ga_id %>', 'service.gov.uk');
-    ga('send', 'pageview');
-  </script>
+  <% end %>
   <%= javascript_include_tag('application') %>
   <%= yield :metrics %>
-  <% if Rails.env == 'test' %>
-    <script>
-      moj.log = function(){}; // Silence hiring banner
-    </script>
-  <% end %>
 <% end %>
 
 <%= render(template: 'layouts/govuk_template') %>
