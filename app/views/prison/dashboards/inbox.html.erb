@@ -13,3 +13,8 @@
 <% else %>
   <p class="lede"><%= t('no_visits', scope: :shared) %></p>
 <% end %>
+<script>
+  var pvb = {
+    'user_email': '<%= current_user.email %>'
+  };
+</script>
