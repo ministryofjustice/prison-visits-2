@@ -1,6 +1,8 @@
 // Vendor assets
 //= require jquery
 //= require jquery_ujs
+//= require handlebars
+//= require lodash
 //= require vendor/chosen.jquery
 //= require vendor/jquery.tablesorter
 
@@ -9,8 +11,6 @@
 //= require vendor/polyfills/bind
 //= require govuk/selection-buttons
 //= require moj
-//= require handlebars
-//= require lodash
 //= require jquery-ui-autocomplete
 //= require modernizr-custom
 //= require dest/respond.min
@@ -38,7 +38,9 @@
 (function() {
   'use strict';
   delete moj.Modules.devs;
-  var selectionButtons = new GOVUK.SelectionButtons("label input[type='radio'], label input[type='checkbox']");
+  if($("label input[type='radio'], label input[type='checkbox']").length > 0) {
+    var selectionButtons = new GOVUK.SelectionButtons("label input[type='radio'], label input[type='checkbox']");
+  }
   moj.init();
 
 }());
