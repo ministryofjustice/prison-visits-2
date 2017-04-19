@@ -6,6 +6,7 @@
 
 // GOVUK modules
 //= require govuk_toolkit
+//= require vendor/polyfills/bind
 //= require govuk/selection-buttons
 //= require moj
 //= require handlebars
