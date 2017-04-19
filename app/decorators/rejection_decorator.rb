@@ -22,6 +22,7 @@ class RejectionDecorator < Draper::Decorator
   end
 
   def checkbox_for(reason, html_options = {})
+    html_options[:id] = h.send :sanitize_to_id, "visit_rejection_attributes_reasons_" + reason.to_s
     h.check_box_tag(
       'visit[rejection_attributes][reasons][]',
       reason,

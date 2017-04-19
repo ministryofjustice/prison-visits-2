@@ -9,7 +9,6 @@
 // GOVUK modules
 //= require govuk_toolkit
 //= require vendor/polyfills/bind
-//= require govuk/selection-buttons
 //= require moj
 //= require jquery-ui-autocomplete
 //= require modernizr-custom
@@ -38,9 +37,7 @@
 (function() {
   'use strict';
   delete moj.Modules.devs;
-  if($("label input[type='radio'], label input[type='checkbox']").length > 0) {
-    var selectionButtons = new GOVUK.SelectionButtons("label input[type='radio'], label input[type='checkbox']");
-  }
+  var selectionButtons = new GOVUK.SelectionButtons("label input[type='radio'], label input[type='checkbox']");
   moj.init();
 
 }());
