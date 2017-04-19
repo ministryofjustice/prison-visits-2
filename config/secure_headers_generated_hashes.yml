@@ -1,0 +1,6 @@
+---
+scripts:
+  app/views/layouts/application.html.erb:
+  - "'sha256-WT8UUx/EtndaqJpxxW6OFg9IDgtc+oXjp4HCyxj/qNE='"
+  - "'sha256-TjVUxOF8nzu+lzOBOOcev6hCszkoJSo3dn7OV1UkMrw='"
+styles: {}

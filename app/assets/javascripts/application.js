@@ -1,17 +1,17 @@
 // Vendor assets
 //= require jquery
 //= require jquery_ujs
+//= require handlebars
+//= require lodash
 //= require vendor/chosen.jquery
 //= require vendor/jquery.tablesorter
 
 // GOVUK modules
 //= require govuk_toolkit
-//= require govuk/selection-buttons
+//= require vendor/polyfills/bind
 //= require moj
-//= require handlebars
-//= require lodash
 //= require jquery-ui-autocomplete
-//= require vendor/modernizr.custom.85598
+//= require modernizr-custom
 //= require dest/respond.min
 //= require jquery-ui/datepicker
 
@@ -21,6 +21,7 @@
 // Candidates for re-usable components
 //= require mapshim
 //= require modules/moj.analytics
+//= require modules/moj.AsyncGA
 //= require modules/moj.autocomplete
 //= require modules/moj.clearRadioButtons
 //= require modules/moj.hijacks
