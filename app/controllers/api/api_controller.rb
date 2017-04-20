@@ -2,12 +2,14 @@ module Api
   ParameterError = Class.new(StandardError)
 
   class ApiController < ActionController::Base
-    TIMEBOX_LIMIT = 2
+    API_SLA = 2.seconds
 
     skip_before_action :verify_authenticity_token
     before_action :set_locale
     before_action :store_request_id
     before_action :enforce_json
+
+    around_action :set_and_check_deadline
 
     rescue_from ActionController::ParameterMissing do |e|
       render_error 422, "Missing parameter: #{e.param}"
@@ -26,6 +28,13 @@ module Api
     end
 
   private
+
+    def set_and_check_deadline
+      RequestStore.store[:deadline] = Time.zone.now + API_SLA
+      yield
+      elapsed = RequestStore.store[:deadline] - Time.zone.now
+      PVB::Instrumentation.append_to_log(deadline_exceeded: elapsed < 0)
+    end
 
     def set_locale
       I18n.locale = request.headers['Accept-Language']

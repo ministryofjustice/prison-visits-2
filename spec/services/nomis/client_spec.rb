@@ -47,9 +47,21 @@ RSpec.describe Nomis::Client do
     end
   end
 
+  context 'when there is a timeout' do
+    before do
+      WebMock.stub_request(:get, /\w/).to_timeout
+    end
+
+    it 'raises an Nomis::TimeoutError if a timeout occurs' do
+      expect {
+        subject.get(path, params)
+      }.to raise_error(Nomis::APIError)
+    end
+  end
+
   context 'when there is an unexpected exception' do
     let(:error) do
-      Excon::Errors::Timeout.new('Request Timeout')
+      Excon::Errors::SocketError.new(StandardError.new('Socket error'))
     end
 
     before do
@@ -59,7 +71,7 @@ RSpec.describe Nomis::Client do
     it 'raises an APIError if an unexpected exception is raised containing request information' do
       expect {
         subject.get(path, params)
-      }.to raise_error(Nomis::APIError, 'Exception Excon::Error::Timeout calling GET /nomisapi/lookup/active_offender: Request Timeout')
+      }.to raise_error(Nomis::APIError)
     end
   end
 

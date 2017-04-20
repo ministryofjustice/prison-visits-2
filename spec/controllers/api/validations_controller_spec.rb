@@ -108,18 +108,6 @@ RSpec.describe Api::ValidationsController do
         post :prisoner, params
         expect(parsed_body['validation']).to eq('valid' => true)
       end
-
-      context 'response outside permitted time limit' do
-        before do
-          allow_any_instance_of(Timebox).to receive(:seconds_expired?).
-            and_return(true)
-        end
-
-        it 'returns valid' do
-          post :prisoner, params
-          expect(parsed_body['validation']).to eq('valid' => true)
-        end
-      end
     end
 
     context 'when the prisoner does not exist' do

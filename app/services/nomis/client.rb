@@ -1,4 +1,6 @@
 require 'excon'
+require 'excon/middleware/custom_idempotent'
+require 'excon/middleware/deadline'
 
 module Nomis
   APIError = Class.new(StandardError)
@@ -15,6 +17,7 @@ module Nomis
       @connection = Excon.new(
         host, persistent: true,
               connect_timeout: TIMEOUT, read_timeout: TIMEOUT, write_timeout: TIMEOUT,
+              middlewares: excon_middlewares,
               instrumentor: ActiveSupport::Notifications,
               instrumentor_name: EXCON_INSTRUMENT_NAME)
     end
@@ -42,6 +45,7 @@ module Nomis
         path: path,
         expects: [200],
         idempotent: idempotent,
+        deadline: RequestStore.store[:deadline],
         retry_limit: 2,
         headers: {
           'Accept' => 'application/json',
@@ -106,6 +110,21 @@ module Nomis
 
     def excon_fingerprint
       %w[nomis excon]
+    end
+
+    def excon_middlewares
+      # Replace Idempotent middleware with our version that doesn't retry on
+      # timeout
+      middlewares = Excon.defaults[:middlewares].map { |middleware|
+        if middleware == Excon::Middleware::Idempotent
+          Excon::Middleware::CustomIdempotent
+        else
+          middleware
+        end
+      }
+
+      # Allows us to pass the overall deadline that the request has to meet
+      middlewares.unshift(Excon::Middleware::Deadline)
     end
   end
 end
