@@ -1,7 +1,19 @@
 require 'excon'
+require 'excon/middleware/custom_idempotent'
+require 'excon/middleware/deadline'
 
 module Nomis
   APIError = Class.new(StandardError)
+
+  class TimeoutError < StandardError
+    def initialize(original_error)
+      @original_error = original_error
+    end
+
+    def message
+      @original_error.message
+    end
+  end
 
   class Client
     TIMEOUT = 2 # seconds
@@ -43,6 +55,7 @@ module Nomis
         path: path,
         expects: [200],
         idempotent: idempotent,
+        deadline: RequestStore.store[:deadline],
         retry_limit: 2,
         headers: {
           'Accept' => 'application/json',
@@ -71,7 +84,11 @@ module Nomis
         "Unexpected status #{e.response.status} calling #{api_method}: #{error}"
     rescue Excon::Errors::Error => e
       Raven.capture_exception(e, fingerprint: excon_fingerprint)
-      raise APIError, "Exception #{e.class} calling #{api_method}: #{e}"
+      if timeout_or_deadline_not_met?(e)
+        raise TimeoutError, e
+      else
+        raise APIError, "Exception #{e.class} calling #{api_method}: #{e}"
+      end
     end
     # rubocop:enable Metrics/MethodLength
     # rubocop:enable Metrics/AbcSize
@@ -122,6 +139,10 @@ module Nomis
 
       # Allows us to pass the overall deadline that the request has to meet
       middlewares.unshift(Excon::Middleware::Deadline)
+    end
+
+    def timeout_or_deadline_not_met?(error)
+      error.is_a?(Excon::Errors::Timeout) || error.is_a?(Excon::Errors::DeadlineError)
     end
   end
 end

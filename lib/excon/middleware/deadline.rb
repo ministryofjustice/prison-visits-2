@@ -2,13 +2,13 @@
 
 module Excon
   module Errors
-    class DeadlineError < StandardError
+    class DeadlineError < Error
       def initialize(deadline, exceeded_by)
         @deadline = deadline
         @exceeded_by = exceeded_by
       end
 
-      def to_s
+      def message
         "Deadline exceeded by #{@exceeded_by.abs}, \
 expected to have completed by #{@deadline.to_s(:iso8601)}"
       end
