@@ -15,6 +15,7 @@ module Nomis
       @connection = Excon.new(
         host, persistent: true,
               connect_timeout: TIMEOUT, read_timeout: TIMEOUT, write_timeout: TIMEOUT,
+              middlewares: excon_middlewares,
               instrumentor: ActiveSupport::Notifications,
               instrumentor_name: EXCON_INSTRUMENT_NAME)
     end
@@ -106,6 +107,21 @@ module Nomis
 
     def excon_fingerprint
       %w[nomis excon]
+    end
+
+    def excon_middlewares
+      # Replace Idempotent middleware with our version that doesn't retry on
+      # timeout
+      middlewares = Excon.defaults[:middlewares].map do |middleware|
+        if middleware == Excon::Middleware::Idempotent
+          Excon::Middleware::CustomIdempotent
+        else
+          middleware
+        end
+      end
+
+      # Allows us to pass the overall deadline that the request has to meet
+      middlewares.unshift(Excon::Middleware::Deadline)
     end
   end
 end

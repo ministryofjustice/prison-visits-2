@@ -3,20 +3,15 @@ require 'excon/middleware/custom_idempotent'
 
 RSpec.describe Excon::Middleware::CustomIdempotent do
   let(:connection) do
-    Excon.new('http://127.0.0.1:9292')
-  end
-
-  around do |ex|
-    old_middlewares = Excon.defaults[:middlewares].dup
-    Excon.defaults[:middlewares].map! do |middleware|
+    middlewares = Excon.defaults[:middlewares].map do |middleware|
       if middleware == Excon::Middleware::Idempotent
         described_class
       else
         middleware
       end
     end
-    ex.run
-    Excon.defaults[:middlewares] = old_middlewares
+
+    Excon.new('http://127.0.0.1:9292', middlewares: middlewares)
   end
 
   it "Non-idempotent call with an erroring socket"do

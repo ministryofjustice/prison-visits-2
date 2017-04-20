@@ -2,16 +2,10 @@ require 'rails_helper'
 require 'excon/middleware/deadline'
 
 RSpec.describe Excon::Middleware::Deadline do
-  around do |ex|
-    old_middlewares = Excon.defaults[:middlewares].dup
-    unless Excon.defaults[:middlewares].include?(described_class)
-      Excon.defaults[:middlewares].unshift(described_class)
-    end
-    ex.run
-    Excon.defaults[:middlewares] = old_middlewares
+  let(:connection) do
+    middlewares = Excon.defaults[:middlewares].unshift(described_class)
+    Excon.new('http://127.0.0.1:9292', middlewares: middlewares)
   end
-
-  let(:connection) { Excon.new('http://127.0.0.1:9292') }
 
   let!(:deadline) { 2.seconds.from_now }
 
