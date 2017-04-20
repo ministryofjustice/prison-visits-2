@@ -2,7 +2,7 @@ module Api
   class ValidationsController < ApiController
     def prisoner
       date, noms_id = validate_prisoner_parameters(params)
-
+      Rails.logger.error params
       response = Timebox.new(TIMEBOX_LIMIT).run(-> { { valid: true } }) {
         checker = ApiPrisonerChecker.new(noms_id: noms_id, date_of_birth: date)
 
