@@ -3,13 +3,13 @@ require 'excon/middleware/custom_idempotent'
 
 RSpec.describe Excon::Middleware::CustomIdempotent do
   let(:connection) do
-    middlewares = Excon.defaults[:middlewares].map do |middleware|
+    middlewares = Excon.defaults[:middlewares].map { |middleware|
       if middleware == Excon::Middleware::Idempotent
         described_class
       else
         middleware
       end
-    end
+    }
 
     Excon.new('http://127.0.0.1:9292', middlewares: middlewares)
   end

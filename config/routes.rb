@@ -63,7 +63,6 @@ Rails.application.routes.draw do
   namespace :api, format: false do
     resources :feedback,        only: %i[ create ]
     resources :prisons,         only: %i[ index show ]
-    resources :available_slots, only: %i[ index ]
     resources :slots,           only: %i[ index ]
     resources :visits,          only: %i[ create show destroy ]
     post '/validations/prisoner', to: 'validations#prisoner'

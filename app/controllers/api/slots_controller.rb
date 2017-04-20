@@ -4,11 +4,8 @@ module Api
       prison = Prison.enabled.find(params.require(:prison_id))
       slot_availability = SlotAvailability.new(
         prison, prisoner_number, date_of_birth, start_date..end_date)
-      timebox = Timebox.new(TIMEBOX_LIMIT)
 
-      @slots = timebox.run(-> { slot_availability.all_slots }) {
-        slot_availability.slots
-      }
+      @slots = slot_availability.slots
     end
 
   private

@@ -5,16 +5,6 @@ require 'excon/middleware/deadline'
 module Nomis
   APIError = Class.new(StandardError)
 
-  class TimeoutError < StandardError
-    def initialize(original_error)
-      @original_error = original_error
-    end
-
-    def message
-      @original_error.message
-    end
-  end
-
   class Client
     TIMEOUT = 2 # seconds
     EXCON_INSTRUMENT_NAME = 'nomis_api'.freeze
@@ -84,11 +74,7 @@ module Nomis
         "Unexpected status #{e.response.status} calling #{api_method}: #{error}"
     rescue Excon::Errors::Error => e
       Raven.capture_exception(e, fingerprint: excon_fingerprint)
-      if timeout_or_deadline_not_met?(e)
-        raise TimeoutError, e
-      else
-        raise APIError, "Exception #{e.class} calling #{api_method}: #{e}"
-      end
+      raise APIError, "Exception #{e.class} calling #{api_method}: #{e}"
     end
     # rubocop:enable Metrics/MethodLength
     # rubocop:enable Metrics/AbcSize
@@ -129,20 +115,16 @@ module Nomis
     def excon_middlewares
       # Replace Idempotent middleware with our version that doesn't retry on
       # timeout
-      middlewares = Excon.defaults[:middlewares].map do |middleware|
+      middlewares = Excon.defaults[:middlewares].map { |middleware|
         if middleware == Excon::Middleware::Idempotent
           Excon::Middleware::CustomIdempotent
         else
           middleware
         end
-      end
+      }
 
       # Allows us to pass the overall deadline that the request has to meet
       middlewares.unshift(Excon::Middleware::Deadline)
-    end
-
-    def timeout_or_deadline_not_met?(error)
-      error.is_a?(Excon::Errors::Timeout) || error.is_a?(Excon::Errors::DeadlineError)
     end
   end
 end

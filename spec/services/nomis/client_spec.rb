@@ -55,7 +55,7 @@ RSpec.describe Nomis::Client do
     it 'raises an Nomis::TimeoutError if a timeout occurs' do
       expect {
         subject.get(path, params)
-      }.to raise_error(Nomis::TimeoutError, /Timeout/)
+      }.to raise_error(Nomis::APIError)
     end
   end
 
