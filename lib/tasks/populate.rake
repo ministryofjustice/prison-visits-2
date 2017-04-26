@@ -52,6 +52,7 @@ namespace :pvb do
         locale:                 'en',
         created_at: (1..20).to_a.sample.days.ago
       )
+      HumanReadableId.update_unique_id(Visit, visit.id, :human_id)
       rand(1..5).times.map do |i|
         visit.visitors.create!(
           visitor_attributes.merge(sort_index: i)
@@ -121,6 +122,8 @@ namespace :pvb do
 
     desc 'populate visits for review apps or dev environments'
     task visits: :environment do
+      require 'human_readable_id'
+
       %w[Sudbury Pentonville Usk Aylesbury].each do |prison_name|
         prison = Prison.find_by!(name: prison_name)
         visits = 0.upto(ENV.fetch('COUNT', 14).to_i).map { |_i|
