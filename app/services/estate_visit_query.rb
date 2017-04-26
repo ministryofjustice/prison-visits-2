@@ -20,8 +20,8 @@ class EstateVisitQuery
              from_estates(@estates).
              order('visits.updated_at desc').limit(limit)
 
-    return visits.to_a unless query
-    by_prisoner_number(query, visits) + by_human_id(query, visits)
+    visits = search(visits, query) if query
+    visits.to_a
   end
 
   def requested(query: nil)
@@ -30,8 +30,8 @@ class EstateVisitQuery
              from_estates(@estates).
              order('created_at asc')
 
-    return visits.to_a unless query
-    by_prisoner_number(query, visits) + by_human_id(query, visits)
+    visits = search(visits, query) if query
+    visits.to_a
   end
 
   def cancelled(query: nil)
@@ -41,8 +41,8 @@ class EstateVisitQuery
              where(cancellations: { nomis_cancelled: false }).
              order('created_at asc')
 
-    return visits.to_a unless query
-    by_prisoner_number(query, visits) + by_human_id(query, visits)
+    visits = search(visits, query) if query
+    visits.to_a
   end
 
   def inbox_count
@@ -55,7 +55,7 @@ class EstateVisitQuery
 private
 
   # Returns a nested hash like:
-  # { 'Cardiff' => { 'booked' => { concrete_slot1 => [ v1, v2] }}}
+  # { 'Cardiff' => { 'booked' => { concrete_slot1 => [v1, v2] }}}
   def grouped_visits(visits)
     visits.
       group_by(&:prison_name).
@@ -70,13 +70,11 @@ private
       end
   end
 
-  def by_prisoner_number(number, visits)
-    number = Prisoner.normalise_number(number)
-    visits.joins(:prisoner).where(prisoners: { number: number }).to_a
-  end
-
-  def by_human_id(id, visits)
-    id = Prisoner.normalise_number(id)
-    visits.by_human_id(id).to_a
+  def search(visits, query)
+    normalised = query.upcase.strip
+    # TODO: Can be rewritten when we are on Rails 5
+    visits.
+      joins(:prisoner).
+      where('prisoners.number = :value OR visits.human_id = :value', value: normalised)
   end
 end
