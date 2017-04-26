@@ -55,8 +55,6 @@ cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
       with_processing_state(:requested, :cancelled)
   }
 
-  scope :by_human_id, ->(human_id) { where(human_id: human_id) }
-
   accepts_nested_attributes_for :messages, :rejection, reject_if: :all_blank
   accepts_nested_attributes_for :visitors, update_only: true
   state_machine :processing_state, initial: :requested do
