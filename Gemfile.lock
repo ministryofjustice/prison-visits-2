@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/ministryofjustice/pvb-instrumentation.git
-  revision: 639bd30e211846a0d76c1d869b376fa2b4c30568
-  ref: 639bd30e211846a0d76c1d869b376fa2b4c30568
+  revision: 08efd49e795ff4ac9845059fd3da23ab8331a02d
+  tag: v0.1.1
   specs:
-    pvb-instrumentation (0.1.0)
+    pvb-instrumentation (0.1.1)
       activesupport (~> 4.2)
       request_store (~> 1.3.2)
 
@@ -410,4 +410,4 @@ RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.14.5
+   1.14.6
