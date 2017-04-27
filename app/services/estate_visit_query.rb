@@ -14,17 +14,34 @@ class EstateVisitQuery
     grouped_visits(visits)
   end
 
-  def processed(limit:, prisoner_number:)
+  def processed(limit:, query:)
     visits = Visit.preload(:prisoner, :visitors).
              processed.
              from_estates(@estates).
              order('visits.updated_at desc').limit(limit)
 
-    if prisoner_number.present?
-      number = Prisoner.normalise_number(prisoner_number)
-      visits = visits.joins(:prisoner).where(prisoners: { number: number })
-    end
+    visits = search(visits, query) if query
+    visits.to_a
+  end
 
+  def requested(query: nil)
+    visits = Visit.preload(:prisoner, :visitors).
+             with_processing_state(:requested).
+             from_estates(@estates).
+             order('created_at asc')
+
+    visits = search(visits, query) if query
+    visits.to_a
+  end
+
+  def cancelled(query: nil)
+    visits = Visit.preload(:prisoner, :visitors, :cancellation).
+             joins(:cancellation).
+             from_estates(@estates).
+             where(cancellations: { nomis_cancelled: false }).
+             order('created_at asc')
+
+    visits = search(visits, query) if query
     visits.to_a
   end
 
@@ -38,7 +55,7 @@ class EstateVisitQuery
 private
 
   # Returns a nested hash like:
-  # { 'Cardiff' => { 'booked' => { concrete_slot1 => [ v1, v2] }}}
+  # { 'Cardiff' => { 'booked' => { concrete_slot1 => [v1, v2] }}}
   def grouped_visits(visits)
     visits.
       group_by(&:prison_name).
@@ -51,5 +68,13 @@ private
                                                   group_by(&:slot_granted)
         end
       end
+  end
+
+  def search(visits, query)
+    normalised = query.upcase.strip
+    # TODO: Can be rewritten when we are on Rails 5
+    visits.
+      joins(:prisoner).
+      where('prisoners.number = :value OR visits.human_id = :value', value: normalised)
   end
 end

@@ -1,6 +1,6 @@
 <%= render 'navigation' %>
 <% content_for :header do %>
-  <%= t('.title', prisoner_number: params[:prisoner_number]) %>
+  <%= t('.title', prisoner_number: params[:query]) %>
 <% end %>
 
 <h3 class="heading-medium"><%= t('.cancellations') %></h3>

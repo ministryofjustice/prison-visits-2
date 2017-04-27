@@ -57,7 +57,7 @@ RSpec.describe EstateVisitQuery do
 
   describe '#processed' do
     subject(:processed) do
-      instance.processed(limit: limit, prisoner_number: prisoner_number)
+      instance.processed(limit: limit, query: prisoner_number)
     end
 
     let(:limit) { 10 }
@@ -105,6 +105,70 @@ RSpec.describe EstateVisitQuery do
         end
       end
     end
+  end
+
+  shared_examples_for :finds_all do
+    context 'with no query' do
+      let(:query) { nil }
+
+      it 'returns all requested' do
+        expect(subject).to eq([visit1, visit2])
+      end
+    end
+  end
+
+  shared_examples_for :finds_by_prisoner_number do
+    context 'with prisoner number query' do
+      let(:query) { visit1.prisoner.number }
+
+      it 'returns only those matching prisoner number' do
+        expect(subject).to eq([visit1])
+      end
+    end
+  end
+
+  shared_examples_for :finds_by_human_id do
+    context 'with human ID query' do
+      let(:query) { visit2.human_id }
+
+      it 'returns only those matching human ID' do
+        expect(subject).to eq([visit2])
+      end
+    end
+  end
+
+  describe '#requested' do
+    subject do
+      instance.requested(query: query)
+    end
+
+    let!(:visit1) do
+      FactoryGirl.create(:visit, :requested, prison: prison)
+    end
+    let!(:visit2) do
+      FactoryGirl.create(:visit, :requested, prison: prison)
+    end
+
+    it_behaves_like :finds_all
+    it_behaves_like :finds_by_prisoner_number
+    it_behaves_like :finds_by_human_id
+  end
+
+  describe '#cancelled' do
+    subject do
+      instance.cancelled(query: query)
+    end
+
+    let!(:visit1) do
+      FactoryGirl.create(:visit, :pending_nomis_cancellation, prison: prison)
+    end
+    let!(:visit2) do
+      FactoryGirl.create(:visit, :pending_nomis_cancellation, prison: prison)
+    end
+
+    it_behaves_like :finds_all
+    it_behaves_like :finds_by_prisoner_number
+    it_behaves_like :finds_by_human_id
   end
 
   describe '#inbox_count' do
