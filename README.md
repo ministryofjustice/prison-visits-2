@@ -256,7 +256,7 @@ are available at the requested prison.
 #### `STAFF_PRISONS_WITH_NOMIS_CONTACT_LIST` ####
 
 A comma separated list of prisons for which PVB2 API will display the nomis
-contact list.
+contact list on the process visit page.
 
 #### `PRISON_ESTATE_IPS` ####
 
