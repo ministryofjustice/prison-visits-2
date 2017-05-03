@@ -1,21 +1,5 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
-
-<p class="bold-small push-top"><%= t('.lead_visitor') %></p>
-
-<div class="grid-row">
-  <div class="column-one-quarter">
-    <div><span class="bold-xsmall"><%= t('.contact_name') %></span><br><span class="font-xsmall"><%= @visit.principal_visitor.full_name %></span></div>
-  </div>
-  <div class="column-one-quarter">
-    <div><span class="bold-xsmall"><%= t('.dob') %></span><br><span class="font-xsmall"><%= @visit.principal_visitor.date_of_birth.to_s(:short_nomis) %></span></div>
-  </div>
-  <div class="column-one-quarter">
-    <div><span class="bold-xsmall"><%= t('.phone_no') %></span><br><span class="font-xsmall"><%= @visit.contact_phone_no %></span></div>
-  </div>
-  <div class="column-one-quarter">
-    <div><span class="bold-xsmall"><%= t('.email') %></span><br><span class="font-xsmall"><%= @visit.contact_email_address %></span></div>
-  </div>
-</div>
+<p><%= t('.help_text') %></p>
 
 <% if @visit.contact_list_unknown? && @visit.contact_list_enabled? %>
   <div class="notice push-bottom push-top">
@@ -27,17 +11,6 @@
 <% end %>
 
 <ul class="visitor-contact-list push-top js-visitorList <% if !@visit.contact_list_unknown? && @visit.contact_list_enabled? %>nomis-enabled<% end %>">
-  <li class="header bold-xsmall">
-    <div class="wrapper">
-      <div class="column"><%= t('.visitor_details') %></div>
-      <% if !@visit.contact_list_unknown? && @visit.contact_list_enabled? %>
-        <div class="column column--large"><%= t('.validate_from_nomis') %></div>
-      <% end %>
-      <div class="column column--small"><%= t('.not_on_list') %></div>
-      <div class="column column--small"><%= t('.visitor_banned') %></div>
-      <div class="column column--large"><%= t('.banned_date') %></div>
-    </div>
-  </li>
   <%= f.fields_for :visitors, @visit.principal_visitor do |vf| %>
     <%= render 'visitor_contact', f: f, v: @visit.principal_visitor, vf: vf %>
   <% end %>

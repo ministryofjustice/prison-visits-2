@@ -11,53 +11,40 @@
     <div class="column">
       <div class="name">
         <%= vf.hidden_field :id %>
-        <%= v.full_name %>
+        <span class="bold-small"><%= v.full_name %></span> - <%= v.date_of_birth.to_s(:short_nomis) %>
+        <span class="font-small">(<%= v.age %>)</span>
       </div>
-      <div class="dob">
-        <%= v.date_of_birth.to_s(:short_nomis) %>
-        <span class="font-xsmall">(<%= v.age %>)</span>
-      </div>
+      <% if @visit.principal_visitor == v %>
+        <p>
+        <a href="mailto:<%= @visit.contact_email_address %>"><%= @visit.contact_email_address %></a>
+        </br/>
+        <%= @visit.contact_phone_no %></p>
+      <% end %>
     </div>
-    <% if !@visit.contact_list_unknown? && @visit.contact_list_enabled? %>
-      <div class="column column--large">
-        <select class="form-control js-contactList">
+    <div class="column column--large">
+      <% if !@visit.contact_list_unknown? && @visit.contact_list_enabled? %>
+        <div class="form-group">
+          <label for="nomis_contacts_<%= dom_id(v) %>" class="form-label"><%= t('.nomis_list') %></label>
+          <select class="form-control js-contactList" name="nomis_contacts_<%= dom_id(v) %>" id="nomis_contacts_<%= dom_id(v) %>">
           <option data-contact='{"uid": "0"}' value="0"><%= t('.please_select') %></option>
           <% @visit.approved_contacts.each do |visitor| %>
             <option data-contact='{
                 "uid":"<%= visitor.id %>",
-                "banned": "<%= visitor.banned? %>",
-                "banned_until": "<%= visitor.banned_until %>"}'
+                "banned": "<%= visitor.banned? %>"
                 value="<%= visitor.id %>">
               <%= visitor.given_name %> <%= visitor.surname %> - <%= visitor.date_of_birth.to_s(:short_nomis) %>
             </option>
           <% end %>
-        </select>
-      </div>
-    <% end %>
-    <div class="column column--small">
-      <%= vf.label :not_on_list, class: '' do %>
-      <%= vf.check_box :not_on_list, data: { checkbox_summary_text: v.anonymized_name } %>
+          </select>
+        </div>
       <% end %>
-    </div>
-    <div class="column column--small">
-      <%= error_container(vf,:banned) do %>
-        <%= vf.label :banned, class: '' do %>
-          <%= vf.check_box :banned %>
-        <% end %>
+      <%= vf.label :not_on_list, class: 'form-group' do %>
+        <%= vf.check_box :not_on_list, data: { checkbox_summary_text: v.anonymized_name } %>
+        <%= t('.not_on_list') %>
       <% end %>
-    </div>
-    <div class="column column--large">
-      <%= error_container(vf,:banned_until) do %>
-        <%= vf.fields_for :banned_until, v.object.banned_until do |bu| %>
-          <div class="form-date">
-            <% accessible_date_options.each do |field_name, field_options| %>
-              <div class="datefield form-group form-group-<%= field_name %>">
-                <%= bu.label field_name %>
-                <%= bu.number_field field_name, field_options.merge( class: 'form-control') %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
+      <%= vf.label :banned, class: 'form-group' do %>
+        <%= vf.check_box :banned %>
+        <%= t('.banned') %>
       <% end %>
     </div>
   </div>

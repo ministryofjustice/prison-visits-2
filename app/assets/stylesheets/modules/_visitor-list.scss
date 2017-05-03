@@ -1,11 +1,11 @@
 .visitor-contact-list {
   li {
-    padding: $gutter-half 0 0;
+    border: 1px solid $border-colour;
+    margin: $gutter 0;
+    padding: $gutter-half $gutter-half 0;
     vertical-align: middle;
-    border-bottom: 1px solid $border-colour;
-    font-size: 16px;
     select {
-      width: 80%;
+      width: 100%;
     }
   }
   .header {
@@ -16,17 +16,15 @@
   .wrapper {
     @extend .grid-row;
   }
+  .name {
+    margin-bottom: $gutter-half;
+  }
   .column {
-    width: 20%;
+    width: 50%;
     float: left;
     padding: 0 $gutter-half;
     box-sizing: border-box;
-    &.column--large {
-      width: 30%;
-    }
-    &.column--small {
-      width: 25%;
-    }
+
     @include media(mobile) {
       width: 100% !important;
       .block-label {
@@ -34,15 +32,15 @@
       }
     }
   }
-  .name, .dob {
-    font-weight: bold;
+}
+
+.js-noAdults {
+  + .js-notAllProcessed {
+    margin-top: $gutter;
   }
-  &.nomis-enabled {
-    .column--small {
-      width: 10%;
-    }
+  &.visuallyhidden {
+    + .js-notAllProcessed {
+    margin-top: 0;
   }
-  .error .validation-message {
-    margin-bottom: 15px;
   }
 }

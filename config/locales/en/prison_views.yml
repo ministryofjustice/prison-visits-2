@@ -212,21 +212,8 @@ en:
         allowance_renews_on: Date visiting allowance will be renewed
         allowance_renews_on_hint: eg 28 04 1996
       visitor_details:
-        title: Contact list
-        lead_visitor: Lead visitor
-        contact_name: Contact name
-        not_on_list: Not on contact list
-        visitor_banned: Banned
-        banned_date: Banned until date
-        name: "Name"
-        dob: "Date of birth (age)"
-        email: "Email address"
-        phone_no: "Phone no"
-        banned: Visitor is banned
-        banned_until: Banned until
-        banned_until_hint: eg 28 04 1996
-        visitor_details: Visitor details
-        validate_from_nomis: Validate visitor from NOMIS
+        title: Visitor details
+        help_text: Match each visitor to a name on the prisoner’s contact list.
         nomis_api_down: We can’t show the NOMIS contact list right now. Please check all visitors in NOMIS.
       visitor_detail:
         title: Visitor details
@@ -238,7 +225,14 @@ en:
         email: "Email address"
         phone_no: "Phone no"
       visitor_contact:
+        visitor_banned: Banned
+        banned_date: Banned until date
+        banned: Visitor is banned
+        banned_until: Banned until
+        banned_until_hint: eg 28 04 1996
+        not_on_list: Not on contact list
         please_select: Please select a contact
+        nomis_list: Match to contact list
       duplicate_request:
         title: Other
         duplicate_visit_request: Duplicate visit request

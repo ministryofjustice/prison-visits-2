@@ -21,7 +21,6 @@
         self.checkStatus();
         if (self.isBanned(contactData)) {
           self.setBanned(parent, self.isBanned(contactData));
-          self.setBannedUntil(parent, contactData.banned_until);
         }
       });
 
@@ -195,14 +194,6 @@
       el.find('input[type="checkbox"][id*="banned"]').prop('checked', selected).trigger('change');
     },
 
-    // Set the banned until date input values
-    setBannedUntil: function(el, date) {
-      var dateObj = date ? date.split('-') : [null, null, null];
-      el.find('input[id*="banned_until_day"]').val(dateObj[2]);
-      el.find('input[id*="banned_until_month"]').val(dateObj[1]);
-      el.find('input[id*="banned_until_year"]').val(dateObj[0]);
-    },
-
     // Show the element
     showMessage: function(el) {
       el.show().removeClass('visuallyhidden');
@@ -210,7 +201,7 @@
 
     // Hide the element
     hideMessage: function(el) {
-      el.hide();
+      el.hide().addClass('visuallyhidden');
     }
 
   };
