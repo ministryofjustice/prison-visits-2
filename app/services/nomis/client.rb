@@ -1,5 +1,6 @@
 require 'excon'
 require 'excon/middleware/custom_idempotent'
+require 'excon/middleware/custom_instrumentor'
 require 'excon/middleware/deadline'
 
 module Nomis
@@ -112,19 +113,21 @@ module Nomis
       %w[nomis excon]
     end
 
+    # Custom middlewares for:
+    # - Setting an overall deadline
+    # - Modifying the Idempotent middleware so that it doesn't retry Timeouts
+    # - Modify the Instrumentor middleware so that it doesn't error on the
+    # response call and put it at the start of the stack so that it measures the
+    # time taken to read the response.
     def excon_middlewares
-      # Replace Idempotent middleware with our version that doesn't retry on
-      # timeout
-      middlewares = Excon.defaults[:middlewares].map { |middleware|
-        if middleware == Excon::Middleware::Idempotent
-          Excon::Middleware::CustomIdempotent
-        else
-          middleware
-        end
-      }
-
-      # Allows us to pass the overall deadline that the request has to meet
-      middlewares.unshift(Excon::Middleware::Deadline)
+      [
+        Excon::Middleware::CustomInstrumentor,
+        Excon::Middleware::Mock,
+        Excon::Middleware::Deadline,
+        Excon::Middleware::ResponseParser,
+        Excon::Middleware::Expects,
+        Excon::Middleware::CustomIdempotent
+      ]
     end
   end
 end
