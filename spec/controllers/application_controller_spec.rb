@@ -33,7 +33,8 @@ RSpec.describe ApplicationController, type: :controller do
       WebMock.stub_request(:get, /\w/).to_return(status: 500)
       post :create
       expect(PVB::Instrumentation.custom_log_items[:api_request_count]).to eq(1)
-      expect(PVB::Instrumentation.custom_log_items[:api_error_count]).to eq(1)
+      expect(PVB::Instrumentation.custom_log_items[:api_retry_count]).to eq(1)
+      expect(PVB::Instrumentation.custom_log_items[:api_error_count]).to eq(2)
     end
   end
 
