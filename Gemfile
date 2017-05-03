@@ -44,7 +44,7 @@ gem 'virtus'
 gem 'zendesk_api'
 gem 'pvb-instrumentation',
   git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
-  tag: 'v0.1.1'
+  tag: 'v0.1.2'
 # gem 'pvb-instrumentation', path: '../pvb-instrumentation'
 
 gem 'secure_headers'
