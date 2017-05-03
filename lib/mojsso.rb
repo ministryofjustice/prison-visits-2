@@ -27,6 +27,12 @@ module OmniAuth
       def raw_info
         @raw_info ||= access_token.get('/api/user_details').parsed
       end
+
+      # As suggested here: https://github.com/intridea/omniauth-oauth2/commit/26152673224aca5c3e918bcc83075dbb0659717f#commitcomment-19809835
+      # Other link about the issue: https://github.com/intridea/omniauth-oauth2/issues/81
+      def callback_url
+        full_host + script_name + callback_path
+      end
     end
   end
 end
