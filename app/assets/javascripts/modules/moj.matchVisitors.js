@@ -6,16 +6,16 @@
     init: function() {
       var self = this;
 
-      this.$el = $('.js-visitorList');
-      this.$noAdultMessage = $('.js-noAdults');
-      this.$notAllMessage = $('.js-notAllProcessed');
+      this.$el = $('.js-visitorList.nomis-enabled');
+      this.$noAdultMessage = this.$el.find('.js-noAdults');
+      this.$notAllMessage = this.$el.find('.js-notAllProcessed');
       this.totalVisitors = this.$el.find('select').length;
 
       this.$el.on('change', 'select', function() {
         var contactData = $(this).find(':selected').data('contact'),
           parent = self.findParent(this),
           adding = this.value == '0' ? true : false;
-        self.updateSelectLists();
+        self.updateSelectLists(this);
         self.setNoContactCheckbox(this, adding);
         self.processVisitor(parent, !adding);
         self.checkStatus();
@@ -154,9 +154,9 @@
     },
 
     // Enable/disable visitor options in the contact list
-    updateSelectLists: function() {
+    updateSelectLists: function(el) {
       var self = this,
-        options = this.$el.find('select').not(this).find('option').not(':first');
+        options = this.$el.find('select').not(el).find('option').not(':first');
 
       $.each(options, function(i, obj) {
         var contact = $(obj).data('contact');
