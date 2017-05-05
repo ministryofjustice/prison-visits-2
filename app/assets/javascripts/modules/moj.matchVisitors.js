@@ -15,8 +15,8 @@
         var contactData = $(this).find(':selected').data('contact'),
           parent = self.findParent(this),
           adding = this.value == '0' ? true : false;
-        self.updateSelectLists(this);
-        self.setNoContactCheckbox(this, adding);
+        self.toggleSelectOptions(this);
+        self.toggleCheckbox(this, adding);
         self.processVisitor(parent, !adding);
         self.checkStatus();
         if (self.isBanned(contactData)) {
@@ -36,17 +36,15 @@
         var $this = $(this),
           parent = self.findParent($this),
           isChecked = $this.is(':checked');
-        self.processBanned(parent, isChecked);
+        self.setVisitorBanned(parent, isChecked);
         self.checkStatus();
       });
     },
 
-    // Find the parent list item
     findParent: function(el) {
       return $(el).parents('li');
     },
 
-    // Set visitor as processed to true or false
     processVisitor: function(el, processed) {
       var select = false,
         noContact = false;
@@ -60,28 +58,23 @@
       }
     },
 
-    // Return the number of processed visitors
-    processedNumber: function() {
+    getProcessed: function() {
       return this.$el.find('[data-processed="true"]').length;
     },
 
-    // Set the visitor banned true/false
-    processBanned: function(el, banned) {
+    setVisitorBanned: function(el, banned) {
       $(el).attr('data-banned', banned);
     },
 
-    // Return visitor banned true/false
-    isVisitorBanned: function(el) {
+    isBanned: function(el) {
       return $(el).attr('data-banned') == 'true';
     },
 
-    // Check the status of adult and processed visitors
     checkStatus: function() {
       this.checkAdultStatus();
       this.checkTotalStatus();
     },
 
-    // Check the total number of adults and show/hide warning
     checkAdultStatus: function() {
       function isBigEnough(value) {
         return function(element, index, array) {
@@ -91,25 +84,23 @@
       var adultNumber = this.getAges().filter(isBigEnough(18));
       var noAdults = adultNumber < 1 ? true : false;
 
-      if (noAdults && this.processedNumber() >= 1) {
-        this.showMessage(this.$noAdultMessage);
+      if (noAdults && this.getProcessed() >= 1) {
+        this.showEl(this.$noAdultMessage);
       } else {
-        this.hideMessage(this.$noAdultMessage);
+        this.hideEl(this.$noAdultMessage);
       }
     },
 
-    // Check the total number of visitors processed and show/hide warning
     checkTotalStatus: function() {
-      var unprocessed = this.processedNumber() < this.totalVisitors ? true : false;
+      var unprocessed = this.getProcessed() < this.totalVisitors ? true : false;
 
       if (unprocessed) {
-        this.showMessage(this.$notAllMessage);
+        this.showEl(this.$notAllMessage);
       } else {
-        this.hideMessage(this.$notAllMessage);
+        this.hideEl(this.$notAllMessage);
       }
     },
 
-    // Get the ages of all selected NOMIS contacts
     getAges: function() {
       var self = this,
         ages = [];
@@ -122,28 +113,25 @@
       return ages;
     },
 
-    // Calculate the age from a date of birth
     calcAge: function(dob) {
       var ageDifMs = new Date() - dob.getTime(), //Date.now() - dob.getTime(),
         ageDate = new Date(ageDifMs);
       return Math.abs(ageDate.getUTCFullYear() - 1970);
     },
 
-    // Build array of all list items of selected visitors
     getListItems: function() {
       var self = this,
         arr = $('select option:selected').map(function() {
           var parent = self.findParent(this);
 
-          if (this.value != 0 && !self.isVisitorBanned(parent)) {
+          if (this.value != 0 && !self.isBanned(parent)) {
             return parent;
           }
         }).get();
       return arr;
     },
 
-    // Build an array of chosen visitor values (IDs)
-    getChosenValues: function() {
+    getVisitorIDs: function() {
       var self = this,
         arr = $('select').map(function() {
           if (this.value !== '0') {
@@ -153,15 +141,14 @@
       return arr;
     },
 
-    // Enable/disable visitor options in the contact list
-    updateSelectLists: function(el) {
+    toggleSelectOptions: function(el) {
       var self = this,
         options = this.$el.find('select').not(el).find('option').not(':first');
 
       $.each(options, function(i, obj) {
         var contact = $(obj).data('contact');
 
-        if ($.inArray(contact.uid, self.getChosenValues()) !== -1) {
+        if ($.inArray(contact.uid, self.getVisitorIDs()) !== -1) {
           $(obj).prop('disabled', 'disabled');
         } else {
           $(obj).prop('disabled', null);
@@ -169,38 +156,32 @@
       });
     },
 
-    // Find the relating checkbox
-    getNoContactCheckbox: function(el) {
+    getCheckbox: function(el) {
       var parent = this.findParent(el);
       return parent.find('input[id*="not_on_list"]');
     },
 
-    // Enable/disable the 'not on contact list' checkbox
-    setNoContactCheckbox: function(el, disable) {
-      var checkbox = this.getNoContactCheckbox(el);
+    toggleCheckbox: function(el, disable) {
+      var checkbox = this.getCheckbox(el);
       checkbox.prop('disabled', !disable);
       if (!disable) {
         checkbox.prop('checked', disable);
       }
     },
 
-    // Return true/false
     isBanned: function(contact) {
       return contact.banned == 'true';
     },
 
-    // Auto check the banned checkbox
     setBanned: function(el, selected) {
       el.find('input[type="checkbox"][id*="banned"]').prop('checked', selected).trigger('change');
     },
 
-    // Show the element
-    showMessage: function(el) {
+    showEl: function(el) {
       el.show().removeClass('visuallyhidden');
     },
 
-    // Hide the element
-    hideMessage: function(el) {
+    hideEl: function(el) {
       el.hide().addClass('visuallyhidden');
     }
 
