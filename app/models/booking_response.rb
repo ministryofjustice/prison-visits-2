@@ -8,7 +8,6 @@ class BookingResponse
 
   validate :validate_visit_is_processable
   validate :visit_or_rejection_validity
-  validate :visitors_validity
 
   after_validation :check_for_banned_visitors
   after_validation :check_for_unlisted_visitors
@@ -44,14 +43,6 @@ class BookingResponse
 # rubocop:enable Metrics/AbcSize
 
 private
-
-  def visitors_validity
-    visit.visitors.each(&:valid?)
-
-    if visit.visitors.any? { |v| v.errors.any? }
-      errors.add(:visit, :visitors_invalid)
-    end
-  end
 
   # rubocop:disable Metrics/MethodLength
   def rejection_attributes
