@@ -12,8 +12,7 @@ gem 'kramdown'
 gem 'lograge'
 gem 'logstash-event'
 gem 'netaddr'
-# Pinned to 1.3.1 due to https://github.com/intridea/omniauth-oauth2/issues/81
-gem 'omniauth-oauth2', '1.3.1'
+gem 'omniauth-oauth2'
 gem 'pg'
 gem 'phonelib'
 gem 'premailer-rails'
@@ -44,7 +43,7 @@ gem 'virtus'
 gem 'zendesk_api'
 gem 'pvb-instrumentation',
   git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
-  tag: 'v0.1.1'
+  tag: 'v0.1.2'
 # gem 'pvb-instrumentation', path: '../pvb-instrumentation'
 
 gem 'secure_headers'
