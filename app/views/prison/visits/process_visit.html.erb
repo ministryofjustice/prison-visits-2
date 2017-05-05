@@ -37,25 +37,6 @@
   <hr/>
   <%= render 'visitor_details', f: f %>
 
-  <div class="form-group">
-    <% if !@visit.contact_list_unknown? %>
-      <div class="notice visuallyhidden js-noAdults">
-        <i class="icon icon-important">
-          <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>
-        </i>
-        <strong class="bold-small"><%= t('.no_adults') %></strong>
-      </div>
-      <div class="notice js-notAllProcessed">
-        <i class="icon icon-important">
-          <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>
-        </i>
-        <strong class="bold-small"><%= t('.not_all_processed') %></strong>
-      </div>
-    <% end %>
-    <!-- <hr/> -->
-  </div>
-
-
   <div class="form-group push-top">
     <%= f.fields_for :rejection, @visit.rejection do |rf| %>
       <%= render 'duplicate_request', f: rf %>

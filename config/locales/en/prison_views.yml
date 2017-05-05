@@ -120,8 +120,6 @@ en:
         booked_visit: Booked on another visit
         slot_not_available: Fully booked
         add_a_message: Add a message
-        no_adults: This visit will be rejected as none of the visitors are adults
-        not_all_processed: Make sure all visitors have been processed to continue
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
@@ -215,6 +213,8 @@ en:
         title: Visitor details
         help_text: Match each visitor to a name on the prisoner’s contact list.
         nomis_api_down: We can’t show the NOMIS contact list right now. Please check all visitors in NOMIS.
+        no_adults: This visit will be rejected as none of the visitors are adults
+        not_all_processed: Make sure all visitors have been processed to continue
       visitor_detail:
         title: Visitor details
         not_listed: Not listed

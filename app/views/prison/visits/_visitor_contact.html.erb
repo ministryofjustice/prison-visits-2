@@ -21,7 +21,7 @@
         <%= @visit.contact_phone_no %></p>
       <% end %>
     </div>
-    <div class="column column--large">
+    <div class="column">
       <% if !@visit.contact_list_unknown? && @visit.contact_list_enabled? %>
         <div class="form-group">
           <label for="nomis_contacts_<%= dom_id(v) %>" class="form-label"><%= t('.nomis_list') %></label>
@@ -31,6 +31,7 @@
             <option data-contact='{
                 "uid":"<%= visitor.id %>",
                 "banned": "<%= visitor.banned? %>"
+                }'
                 value="<%= visitor.id %>">
               <%= visitor.given_name %> <%= visitor.surname %> - <%= visitor.date_of_birth.to_s(:short_nomis) %>
             </option>

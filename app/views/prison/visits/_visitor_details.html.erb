@@ -1,5 +1,7 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
-<p><%= t('.help_text') %></p>
+<% if !@visit.contact_list_unknown? && @visit.contact_list_enabled? %>
+  <p><%= t('.help_text') %></p>
+<% end %>
 
 <% if @visit.contact_list_unknown? && @visit.contact_list_enabled? %>
   <div class="notice push-bottom push-top">
@@ -10,13 +12,31 @@
   </div>
 <% end %>
 
-<ul class="visitor-contact-list push-top js-visitorList <% if !@visit.contact_list_unknown? && @visit.contact_list_enabled? %>nomis-enabled<% end %>">
-  <%= f.fields_for :visitors, @visit.principal_visitor do |vf| %>
-    <%= render 'visitor_contact', f: f, v: @visit.principal_visitor, vf: vf %>
-  <% end %>
-  <% @visit.additional_visitors.each_with_index do |visitor, index| %>
-    <%= f.fields_for :visitors, visitor do |vf| %>
-      <%= render 'visitor_contact', f: f, v: visitor, vf: vf %>
+<div class="js-visitorList <% if !@visit.contact_list_unknown? && @visit.contact_list_enabled? %>nomis-enabled<% end %>">
+  <ul class="visitor-contact-list push-top">
+    <%= f.fields_for :visitors, @visit.principal_visitor do |vf| %>
+      <%= render 'visitor_contact', f: f, v: @visit.principal_visitor, vf: vf %>
     <% end %>
-  <% end %>
-</ul>
+    <% @visit.additional_visitors.each_with_index do |visitor, index| %>
+      <%= f.fields_for :visitors, visitor do |vf| %>
+        <%= render 'visitor_contact', f: f, v: visitor, vf: vf %>
+      <% end %>
+    <% end %>
+  </ul>
+  <div class="form-group">
+    <% if !@visit.contact_list_unknown? %>
+      <div class="notice visuallyhidden js-noAdults">
+        <i class="icon icon-important">
+          <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>
+        </i>
+        <strong class="bold-small"><%= t('.no_adults') %></strong>
+      </div>
+      <div class="notice js-notAllProcessed">
+        <i class="icon icon-important">
+          <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>
+        </i>
+        <strong class="bold-small"><%= t('.not_all_processed') %></strong>
+      </div>
+    <% end %>
+  </div>
+</div>
