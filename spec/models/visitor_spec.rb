@@ -9,7 +9,6 @@ RSpec.describe Visitor do
   it { is_expected.to validate_presence_of(:last_name) }
   it { is_expected.to validate_presence_of(:date_of_birth) }
 
-
   describe '#allowed?' do
     subject { instance.allowed? }
 
