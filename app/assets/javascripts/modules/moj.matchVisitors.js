@@ -3,6 +3,9 @@
 
   moj.Modules.MatchVisitors = {
 
+    notContactCheckbox: 'input[id*="not_on_list"]',
+    bannedCheckbox: 'input[type="checkbox"][id*="banned"]',
+
     init: function() {
       var self = this;
 
@@ -24,7 +27,7 @@
         }
       });
 
-      this.$el.on('change', 'input[id*="not_on_list"]', function() {
+      this.$el.on('change', this.notContactCheckbox, function() {
         var $this = $(this),
           parent = self.findParent($this),
           isChecked = $this.is(':checked');
@@ -32,7 +35,7 @@
         self.checkStatus();
       });
 
-      this.$el.on('change', 'input[type="checkbox"][id*="banned"]', function() {
+      this.$el.on('change', this.bannedCheckbox, function() {
         var $this = $(this),
           parent = self.findParent($this),
           isChecked = $this.is(':checked');
@@ -49,7 +52,7 @@
       var select = false,
         noContact = false;
       select = $(el).find('select option:selected').val();
-      noContact = $(el).find('input[id*="not_on_list"]').is(':checked');
+      noContact = $(el).find(this.notContactCheckbox).is(':checked');
 
       if (select == '0' && noContact == false) {
         $(el).attr('data-processed', false);
@@ -158,7 +161,7 @@
 
     getCheckbox: function(el) {
       var parent = this.findParent(el);
-      return parent.find('input[id*="not_on_list"]');
+      return parent.find(this.notContactCheckbox);
     },
 
     toggleCheckbox: function(el, disable) {
@@ -174,7 +177,7 @@
     },
 
     setBanned: function(el, selected) {
-      el.find('input[type="checkbox"][id*="banned"]').prop('checked', selected).trigger('change');
+      el.find(this.bannedCheckbox).prop('checked', selected).trigger('change');
     },
 
     showEl: function(el) {
