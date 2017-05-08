@@ -1,6 +1,4 @@
 // Vendor
-@import "dist/stylesheets/moj.slot-picker.ap";
-@import "dist/stylesheets/moj.date-slider.ap";
 @import "jquery-ui/core";
 @import "jquery-ui/theme";
 @import "jquery-ui/datepicker";
@@ -80,5 +78,4 @@
 
 // Candidates for re-usable components
 @import "responsive";
-@import "components/moj.autocomplete";
 @import "components/govuk.chosen";
