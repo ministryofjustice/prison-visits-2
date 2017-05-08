@@ -3,45 +3,58 @@
 
   moj.Modules.MatchVisitors = {
 
-    notContactCheckbox: 'input[id*="not_on_list"]',
-    bannedCheckbox: 'input[type="checkbox"][id*="banned"]',
-
     init: function() {
-      var self = this;
+      this.cacheEls();
+      this.bindEvents();
+    },
+
+    cacheEls: function() {
+      this.notContactCheckbox = 'input[id*="not_on_list"]';
+      this.bannedCheckbox = 'input[type="checkbox"][id*="banned"]';
 
       this.$el = $('.js-visitorList.nomis-enabled');
       this.$noAdultMessage = this.$el.find('.js-noAdults');
       this.$notAllMessage = this.$el.find('.js-notAllProcessed');
       this.totalVisitors = this.$el.find('select').length;
+    },
 
-      this.$el.on('change', 'select', function() {
-        var contactData = $(this).find(':selected').data('contact'),
-          parent = self.findParent(this),
-          adding = this.value == '0' ? true : false;
-        self.toggleSelectOptions(this);
-        self.toggleCheckbox(this, adding);
-        self.processVisitor(parent, !adding);
-        self.checkStatus();
-        if (self.isBanned(contactData)) {
-          self.setBanned(parent, self.isBanned(contactData));
-        }
-      });
+    bindEvents: function() {
+      this.$el.find('select').on('change', $.proxy(this.changeSelect, this));
+      this.$el.find(this.notContactCheckbox).on('change', $.proxy(this.changeNotOnList, this));
+      this.$el.find(this.bannedCheckbox).on('change', $.proxy(this.banned, this));
+    },
 
-      this.$el.on('change', this.notContactCheckbox, function() {
-        var $this = $(this),
-          parent = self.findParent($this),
-          isChecked = $this.is(':checked');
-        self.processVisitor(parent, isChecked);
-        self.checkStatus();
-      });
+    changeSelect: function(e) {
+      var el = e.currentTarget,
+        contactData = $(el).find(':selected').data('contact'),
+        adding = el.value == '0' ? true : false,
+        parent = this.findParent(el);
 
-      this.$el.on('change', this.bannedCheckbox, function() {
-        var $this = $(this),
-          parent = self.findParent($this),
-          isChecked = $this.is(':checked');
-        self.setVisitorBanned(parent, isChecked);
-        self.checkStatus();
-      });
+      this.toggleSelectOptions(el);
+      this.toggleCheckbox(el, adding);
+      this.processVisitor(parent, !adding);
+      this.checkStatus();
+      if (this.isBanned(contactData)) {
+        this.setBanned(parent, this.isBanned(contactData));
+      }
+    },
+
+    changeNotOnList: function(e) {
+      var el = $(e.currentTarget),
+        parent = this.findParent(el),
+        isChecked = el.is(':checked');
+
+      this.processVisitor(parent, isChecked);
+      this.checkStatus();
+    },
+
+    changeBanned: function(e) {
+      var el = $(e.currentTarget),
+        parent = this.findParent(el),
+        isChecked = el.is(':checked');
+
+      this.setVisitorBanned(parent, isChecked);
+      this.checkStatus();
     },
 
     findParent: function(el) {
