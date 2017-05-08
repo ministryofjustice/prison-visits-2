@@ -174,13 +174,25 @@ namespace :pvb do
 
     cli = HighLine.new
 
-    estate_name = cli.ask('Estate name: ')
+    estate_name = cli.ask("Estate name or 'all': ")
 
     pool = ConnectionPool.new(size: 2, timeout: 60) do
       Nomis::Client.new(Rails.configuration.nomis_api_host,
         Rails.configuration.nomis_api_token,
         Rails.configuration.nomis_api_key)
     end
+
+    if estate_name == 'all'
+      Estate.find_each do |estate|
+        check_estate_slot_availability(pool, estate.name)
+        SlotAvailabilityCounter.reset
+      end
+    else
+      check_estate_slot_availability(pool, estate_name)
+    end
+  end
+
+  def check_estate_slot_availability(pool, estate_name)
     queue = Queue.new
     task = ->(client, visit) { check_slot_availability(client, visit) }
 
@@ -198,13 +210,14 @@ namespace :pvb do
     workers = 2.times.map { new_worker(pool, queue, task) }
     workers.map(&:join)
 
-    STDOUT.puts "Prison: #{estate_name}"
+    STDOUT.puts "Estate: #{estate_name}"
     STDOUT.puts "Visits checked: #{non_expired.size}"
     STDOUT.puts \
       "Visits unavailable: #{SlotAvailabilityCounter.unavailable_visits}"
     STDOUT.puts "Retries: #{SlotAvailabilityCounter.retries}"
     STDOUT.puts "Bad range: #{SlotAvailabilityCounter.bad_range}"
     STDOUT.puts "Unchecked: #{SlotAvailabilityCounter.hard_failures}"
+    STDOUT.puts ''
   end
 
   desc 'Populate visits friendly id'
@@ -261,5 +274,12 @@ class SlotAvailabilityCounter
     @mutex.synchronize do
       @bad_range += 1
     end
+  end
+
+  def self.reset
+    @unavailable_visits = 0
+    @retries = 0
+    @hard_failures = 0
+    @bad_range = 0
   end
 end
