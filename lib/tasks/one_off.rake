@@ -174,7 +174,7 @@ namespace :pvb do
 
     cli = HighLine.new
 
-    estate_name = cli.ask("Estate name or 'all': ")
+    prison_name = cli.ask("Prison name or 'all': ")
 
     pool = ConnectionPool.new(size: 2, timeout: 60) do
       Nomis::Client.new(Rails.configuration.nomis_api_host,
@@ -182,24 +182,29 @@ namespace :pvb do
         Rails.configuration.nomis_api_key)
     end
 
-    if estate_name == 'all'
-      Estate.find_each do |estate|
-        check_estate_slot_availability(pool, estate.name)
+    if prison_name == 'all'
+      Prison.enabled.pluck('name').sort.each do |name|
+        if Rails.
+            configuration.
+            staff_prisons_with_slot_availability.include?(name)
+          next
+        end
+        check_estate_slot_availability(pool, name)
         SlotAvailabilityCounter.reset
       end
     else
-      check_estate_slot_availability(pool, estate_name)
+      check_estate_slot_availability(pool, prison_name)
     end
   end
 
-  def check_estate_slot_availability(pool, estate_name)
+  def check_estate_slot_availability(pool, prison_name)
     queue = Queue.new
     task = ->(client, visit) { check_slot_availability(client, visit) }
 
     visits = Visit.select('visits.*', 'estates.nomis_id nomis_id').
              joins(prison: :estate).
              where(processing_state: 'requested').
-             where(estates: { name: estate_name })
+             where(prisons: { name: prison_name })
 
     non_expired = visits.select { |visit|
       visit.slots.all? { |s| s.to_date > Time.zone.today }
@@ -210,7 +215,7 @@ namespace :pvb do
     workers = 2.times.map { new_worker(pool, queue, task) }
     workers.map(&:join)
 
-    STDOUT.puts "Estate: #{estate_name}"
+    STDOUT.puts "Prison: #{prison_name}"
     STDOUT.puts "Visits checked: #{non_expired.size}"
     STDOUT.puts \
       "Visits unavailable: #{SlotAvailabilityCounter.unavailable_visits}"
