@@ -34,8 +34,8 @@
       this.toggleCheckbox(el, adding);
       this.processVisitor(parent, !adding);
       this.checkStatus();
-      if (this.isVisitorBanned(contactData)) {
-        this.setBanned(parent, this.isVisitorBanned(contactData));
+      if (this.isContactBanned(contactData)) {
+        this.setBanned(parent, this.isContactBanned(contactData));
       }
     },
 
@@ -120,7 +120,7 @@
     getAges: function() {
       var self = this,
         ages = [];
-      $.each(this.getListItems(), function(i, obj) {
+      $.each(this.getSelectedVisitors(), function(i, obj) {
         var data = $(obj).data('visitor'),
           dob = data.dob.split('-'),
           age = self.calcAge(new Date(dob[0], dob[1], dob[2]));
@@ -135,26 +135,26 @@
       return Math.abs(ageDate.getUTCFullYear() - 1970);
     },
 
-    getListItems: function() {
+    getSelectedVisitors: function() {
       var self = this,
-        arr = this.$el.find('select option:selected').map(function() {
+        listItemsArray = this.$el.find('select option:selected').map(function() {
           var parent = self.findParent(this);
 
           if (this.value != 0 && !self.isVisitorBanned(parent)) {
             return parent;
           }
         }).get();
-      return arr;
+      return listItemsArray;
     },
 
     getVisitorIDs: function() {
       var self = this,
-        arr = $('select').map(function() {
+        visitorIDArray = $('select').map(function() {
           if (this.value !== '0') {
             return this.value
           }
         }).get();
-      return arr;
+      return visitorIDArray;
     },
 
     toggleSelectOptions: function(el) {
@@ -185,7 +185,7 @@
       }
     },
 
-    isBanned: function(contact) {
+    isContactBanned: function(contact) {
       return contact.banned == 'true';
     },
 
