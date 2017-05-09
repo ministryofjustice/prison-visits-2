@@ -34,8 +34,8 @@
       this.toggleCheckbox(el, adding);
       this.processVisitor(parent, !adding);
       this.checkStatus();
-      if (this.isBanned(contactData)) {
-        this.setBanned(parent, this.isBanned(contactData));
+      if (this.isVisitorBanned(contactData)) {
+        this.setBanned(parent, this.isVisitorBanned(contactData));
       }
     },
 
@@ -82,7 +82,7 @@
       $(el).attr('data-banned', banned);
     },
 
-    isBanned: function(el) {
+    isVisitorBanned: function(el) {
       return $(el).attr('data-banned') == 'true';
     },
 
@@ -140,7 +140,7 @@
         arr = $('select option:selected').map(function() {
           var parent = self.findParent(this);
 
-          if (this.value != 0 && !self.isBanned(parent)) {
+        if (this.value != 0 && !self.isVisitorBanned(parent)) {
             return parent;
           }
         }).get();
