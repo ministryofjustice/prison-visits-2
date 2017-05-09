@@ -137,10 +137,10 @@
 
     getListItems: function() {
       var self = this,
-        arr = $('select option:selected').map(function() {
+        arr = this.$el.find('select option:selected').map(function() {
           var parent = self.findParent(this);
 
-        if (this.value != 0 && !self.isVisitorBanned(parent)) {
+          if (this.value != 0 && !self.isVisitorBanned(parent)) {
             return parent;
           }
         }).get();
