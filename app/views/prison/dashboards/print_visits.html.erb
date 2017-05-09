@@ -24,7 +24,7 @@
 <% if @visit_date %>
   <% if @data.any? %>
     <%= link_to t('.download_csv_html'), prison_print_visits_path(visit_date: params[:visit_date] ,format: :csv) %>
-    <a class="push-left--half hidden--print" href="javascript:print()"><%= t('.print') %></a>
+    <a class="push-left--half hidden--print print-link" href="#"><%= t('.print') %></a>
 
     <% @data.each do |prison_name, grouped_visits| %>
       <h2 class="heading-large"><%= prison_name %></h2>
