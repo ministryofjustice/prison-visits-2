@@ -21,7 +21,7 @@
     bindEvents: function() {
       this.$el.find('select').on('change', $.proxy(this.changeSelect, this));
       this.$el.find(this.notContactCheckbox).on('change', $.proxy(this.changeNotOnList, this));
-      this.$el.find(this.bannedCheckbox).on('change', $.proxy(this.banned, this));
+      this.$el.find(this.bannedCheckbox).on('change', $.proxy(this.changeBanned, this));
     },
 
     changeSelect: function(e) {
