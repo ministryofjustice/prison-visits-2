@@ -83,7 +83,6 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
     context 'disallowed visitors' do
       let(:visitor) { create(:visitor, visit: vst) }
-      let(:banned_until) { 3.days.from_now.to_date }
 
       before do
         visitor.save!
@@ -95,25 +94,12 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
         fill_in 'Reference number', with: '12345678'
 
-        # Fill in the banned until but not checking the banned checkbox
-        within "#visitor_#{visitor.id}" do
-          fill_in 'Day', with: banned_until.day
-          fill_in 'Month', with: banned_until.month
-          fill_in 'Year', with: banned_until.year
-        end
-
-        click_button 'Process'
-        expect(page).to have_css("#visitor_#{visitor.id}", text: /banned until date is set/)
-
         choose_date
 
         fill_in 'Reference number', with: '12345678'
 
         within "#visitor_#{visitor.id}" do
-          check 'Visitor is banned'
-          fill_in 'Day', with: banned_until.day
-          fill_in 'Month', with: banned_until.month
-          fill_in 'Year', with: banned_until.year
+          find('input[type="checkbox"][id*="banned"]').click
         end
 
         click_button 'Process'
@@ -127,13 +113,12 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
         within "#visitor_#{visitor.id}" do
           expect(page).to have_text('Banned')
-          expect(page).to have_text(banned_until.to_s(:short_nomis))
         end
 
         expect(contact_email_address).
           to receive_email.
           with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
-          and_body(/cannot attend as they are currently banned until/)
+          and_body(/cannot attend as they are currently banned/)
       end
 
       scenario 'accepting a booking while indicating a visitor is not on the list' do

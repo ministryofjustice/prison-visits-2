@@ -18,6 +18,7 @@
 
 // Candidates for re-usable components
 //= require mapshim
+//= require filtershim
 //= require modules/moj.analytics
 //= require modules/moj.AsyncGA
 //= require modules/moj.clearRadioButtons
@@ -28,6 +29,7 @@
 //= require modules/moj.emailPreview
 //= require modules/moj.multiSelect
 //= require modules/moj.tableSorter
+//= require modules/moj.matchVisitors
 
 (function() {
   'use strict';

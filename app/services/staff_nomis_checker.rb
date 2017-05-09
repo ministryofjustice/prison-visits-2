@@ -97,7 +97,7 @@ class StaffNomisChecker
   end
 
   def contact_list_unknown?
-    prisoner_check_enabled? &&
+    contact_list_enabled? &&
       prisoner_contact_list.unknown_result?
   end
 

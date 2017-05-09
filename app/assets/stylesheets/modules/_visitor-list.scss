@@ -1,0 +1,46 @@
+.visitor-contact-list {
+  li {
+    border: 1px solid $border-colour;
+    margin: $gutter 0;
+    padding: $gutter-half $gutter-half 0;
+    vertical-align: middle;
+    select {
+      width: 100%;
+    }
+  }
+  .header {
+    border-bottom: 1px solid $border-colour;
+    border-top: 1px solid $border-colour;
+    padding: $gutter-half 0;
+  }
+  .wrapper {
+    @extend .grid-row;
+  }
+  .name {
+    margin-bottom: $gutter-half;
+  }
+  .column {
+    width: 50%;
+    float: left;
+    padding: 0 $gutter-half;
+    box-sizing: border-box;
+
+    @include media(mobile) {
+      width: 100% !important;
+      .block-label {
+        float: none;
+      }
+    }
+  }
+}
+
+.js-noAdults {
+  + .js-notAllProcessed {
+    margin-top: $gutter;
+  }
+  &.visuallyhidden {
+    + .js-notAllProcessed {
+    margin-top: 0;
+  }
+  }
+}

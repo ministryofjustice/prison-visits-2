@@ -502,10 +502,10 @@ RSpec.describe StaffNomisChecker do
   describe '#contact_list_unknown?' do
     subject { instance.contact_list_unknown? }
 
-    context 'when prisoner check is enabled' do
+    context 'when contact list is enabled' do
       before do
-        expect(Rails.configuration).
-          to receive(:nomis_staff_prisoner_check_enabled).
+        expect(instance).
+          to receive(:contact_list_enabled?).
           and_return(true)
       end
 
@@ -530,8 +530,8 @@ RSpec.describe StaffNomisChecker do
 
     context 'when the prisoner check is disabled' do
       before do
-        expect(Rails.configuration).
-          to receive(:nomis_staff_prisoner_check_enabled).
+        expect(instance).
+          to receive(:contact_list_enabled?).
           and_return(false)
       end
 

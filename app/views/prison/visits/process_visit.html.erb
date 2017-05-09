@@ -27,25 +27,24 @@
       </div>
     </div>
   </div>
-  <hr>
+  <hr/>
   <%= render 'prisoner_details' %>
   <%= f.fields_for :rejection, @visit.rejection do |rf| %>
     <%= render 'issue_with_prisoner_section', rf: rf %>
-    <hr>
+    <hr/>
   <% end %>
   <%= render 'visit_date_section', f: f %>
-  <hr>
+  <hr/>
   <%= render 'visitor_details', f: f %>
-  <hr>
-  <div class="form-group">
+
+  <div class="form-group push-top">
     <%= f.fields_for :rejection, @visit.rejection do |rf| %>
       <%= render 'duplicate_request', f: rf %>
     <% end %>
   </div>
 
   <% if current_user -%>
-    <div class="form-group">
-      <hr/>
+    <div class="form-group push-top">
       <div class="grid-row">
         <div class="column-one-half">
           <h2 class="bold-medium"><%= t('.add_a_message') %></h2>
@@ -59,7 +58,7 @@
   <% end -%>
 
   <div class="form-group">
-    <hr>
+    <hr/>
     <%= f.submit t('.submit'), class: 'button button-primary' %>
     <div class="push-top">
       <%= link_to t('.email_preview'), prison_visit_email_preview_path(@booking_response.visit), class: 'js-LinkPreview', target: '_blank' %>
