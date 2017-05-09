@@ -32,6 +32,8 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
   config.include BookingResponseHelper
   config.include ControllerHelper, type: :controller
+  config.include ConfigurationHelpers
+  config.include ServiceHelpers
 
   config.infer_spec_type_from_file_location!
 
