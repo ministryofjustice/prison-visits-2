@@ -27,7 +27,7 @@
     changeSelect: function(e) {
       var el = e.currentTarget,
         contactData = $(el).find(':selected').data('contact'),
-        adding = el.value == '0' ? true : false,
+        adding = el.value == '0',
         parent = this.findParent(el);
 
       this.toggleSelectOptions(el);
@@ -98,7 +98,7 @@
         }
       }
       var adultNumber = this.getAges().filter(isBigEnough(18));
-      var noAdults = adultNumber < 1 ? true : false;
+      var noAdults = adultNumber < 1;
 
       if (noAdults && this.getProcessed() >= 1) {
         this.showEl(this.$noAdultMessage);
@@ -108,7 +108,7 @@
     },
 
     checkTotalStatus: function() {
-      var unprocessed = this.getProcessed() < this.totalVisitors ? true : false;
+      var unprocessed = this.getProcessed() < this.totalVisitors;
 
       if (unprocessed) {
         this.showEl(this.$notAllMessage);
