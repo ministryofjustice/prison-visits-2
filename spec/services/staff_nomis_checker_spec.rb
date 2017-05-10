@@ -430,7 +430,7 @@ RSpec.describe StaffNomisChecker do
           end
         end
 
-        context 'and the prison is in the comma separated list STAFF_PRISONS_WITH_NOMIS_CONTACT_LIST' do
+        context 'and the prison is not in the comma separated list STAFF_PRISONS_WITH_NOMIS_CONTACT_LIST' do
           it { is_expected.to_not be_contact_list_unknown }
         end
       end
