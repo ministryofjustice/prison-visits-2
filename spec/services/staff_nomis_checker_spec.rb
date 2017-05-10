@@ -10,18 +10,18 @@ RSpec.describe StaffNomisChecker do
   let(:offender) { Nomis::Offender.new(id: prisoner.number) }
 
   describe 'When the API is disabled' do
-    before { switch_off_api }
+    before do switch_off_api end
 
     describe '#prisoner_existance_status' do
       it { expect(subject.prisoner_existance_status).to eq('not_live') }
     end
 
     describe '#prisoner_availability_unknown?' do
-      it { is_expected.to_not be_prisoner_availability_unknown }
+      it { is_expected.not_to be_prisoner_availability_unknown }
     end
 
     describe '#slot_availability_unknown?' do
-      it { is_expected.to_not be_slot_availability_unknown }
+      it { is_expected.not_to be_slot_availability_unknown }
     end
 
     describe '#errors_for' do
@@ -30,9 +30,7 @@ RSpec.describe StaffNomisChecker do
   end
 
   describe 'When the API is enabled' do
-
     describe '#prisoner_existance_status' do
-
       describe 'api is configured and the check is disabled for staff' do
         before do
           switch_off(:nomis_staff_prisoner_check_enabled)
@@ -87,7 +85,7 @@ RSpec.describe StaffNomisChecker do
       context 'when is anything else other than valid' do
         let(:prisoner_status) { false }
 
-        it { is_expected.to_not be_prisoner_details_incorrect }
+        it { is_expected.not_to be_prisoner_details_incorrect }
       end
     end
 
@@ -105,19 +103,17 @@ RSpec.describe StaffNomisChecker do
 
     describe '#prisoner_availability_unknown?' do
       context 'with NOMIS_STAFF_PRISONER_AVAILABILITY_ENABLED is disabled' do
-
         before do
           switch_off(:nomis_staff_prisoner_availability_enabled)
         end
 
-        it { is_expected.to_not be_prisoner_availability_unknown }
+        it { is_expected.not_to be_prisoner_availability_unknown }
       end
 
       context 'with NOMIS_STAFF_PRISONER_AVAILABILITY_ENABLED is enabled' do
-
         let(:prisoner_availability_validation) do
           double(PrisonerAvailabilityValidation,
-                 valid?: false, unknown_result?: unknown_result)
+            valid?: false, unknown_result?: unknown_result)
         end
 
         before do
@@ -134,7 +130,7 @@ RSpec.describe StaffNomisChecker do
         context 'when the validator returns not unknown' do
           let(:unknown_result) { false }
 
-          it { is_expected.to_not be_prisoner_availability_unknown }
+          it { is_expected.not_to be_prisoner_availability_unknown }
         end
       end
     end
@@ -144,7 +140,6 @@ RSpec.describe StaffNomisChecker do
 
       context 'prisoner availability' do
         context 'when NOMIS_STAFF_PRISONER_AVAILABILITY_ENABLED' do
-
           context 'is disabled' do
             before do
               switch_off(:nomis_staff_prisoner_availability_enabled)
@@ -234,7 +229,7 @@ RSpec.describe StaffNomisChecker do
             context 'with no errors' do
               let(:message) { nil }
 
-              it { expect(subject.errors_for(slot)).to be_empty}
+              it { expect(subject.errors_for(slot)).to be_empty }
             end
 
             context 'with an error' do
@@ -300,7 +295,7 @@ RSpec.describe StaffNomisChecker do
                  and_return([SlotAvailabilityValidation::SLOT_NOT_AVAILABLE])
         end
 
-        it { is_expected.to_not be_slots_unavailable }
+        it { is_expected.not_to be_slots_unavailable }
       end
     end
 
@@ -320,7 +315,7 @@ RSpec.describe StaffNomisChecker do
       context "when there isn't a no vo error" do
         let(:errors) { [] }
 
-        it { is_expected.to_not be_no_allowance(slot) }
+        it { is_expected.not_to be_no_allowance(slot) }
       end
     end
 
@@ -340,7 +335,7 @@ RSpec.describe StaffNomisChecker do
       context "when there isn't prisoner banned error" do
         let(:errors) { [] }
 
-        it { is_expected.to_not be_prisoner_banned(slot) }
+        it { is_expected.not_to be_prisoner_banned(slot) }
       end
     end
 
@@ -360,18 +355,17 @@ RSpec.describe StaffNomisChecker do
       context "when there isn't prisoner out of prison error" do
         let(:errors) { [] }
 
-        it { is_expected.to_not be_prisoner_out_of_prison(slot) }
+        it { is_expected.not_to be_prisoner_out_of_prison(slot) }
       end
     end
 
     describe '#contact_list_enabled?' do
-
       context 'when NOMIS_STAFF_PRISONER_CHECK_ENABLED is disabled' do
         before do
           switch_off(:nomis_staff_prisoner_check_enabled)
         end
 
-        it { is_expected.to_not be_contact_list_enabled }
+        it { is_expected.not_to be_contact_list_enabled }
       end
 
       context 'when NOMIS_STAFF_PRISONER_CHECK_ENABLED is enabled' do
@@ -389,14 +383,12 @@ RSpec.describe StaffNomisChecker do
         context 'and the prison is not in the the comma separated list STAFF_PRISONS_WITH_NOMIS_CONTACT_LIST' do
           let(:contact_list_enabled_prisons) { [] }
 
-          it { is_expected.to_not be_contact_list_enabled }
+          it { is_expected.not_to be_contact_list_enabled }
         end
       end
     end
 
-
     describe '#contact_list_unknown?' do
-
       context 'with NOMIS_STAFF_PRISONER_CHECK_ENABLED switched ON' do
         let(:contact_list) do
           instance_double(PrisonerContactList)
@@ -413,7 +405,7 @@ RSpec.describe StaffNomisChecker do
             mock_service_with(PrisonerContactList, contact_list)
           end
 
-          it { is_expected.to_not be_contact_list_unknown }
+          it { is_expected.not_to be_contact_list_unknown }
 
           context 'and the contact list returns an API error' do
             let(:contact_list_api_error) { true }
@@ -423,7 +415,7 @@ RSpec.describe StaffNomisChecker do
         end
 
         context 'and the prison is not in the comma separated list STAFF_PRISONS_WITH_NOMIS_CONTACT_LIST' do
-          it { is_expected.to_not be_contact_list_unknown }
+          it { is_expected.not_to be_contact_list_unknown }
         end
       end
 
@@ -432,7 +424,7 @@ RSpec.describe StaffNomisChecker do
           switch_off :nomis_staff_prisoner_check_enabled
         end
 
-        it { is_expected.to_not be_contact_list_unknown }
+        it { is_expected.not_to be_contact_list_unknown }
       end
     end
 
