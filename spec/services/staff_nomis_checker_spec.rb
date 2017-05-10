@@ -406,16 +406,18 @@ RSpec.describe StaffNomisChecker do
     describe '#contact_list_unknown?' do
 
       context 'with NOMIS_STAFF_PRISONER_CHECK_ENABLED switched ON' do
-        let(:contact_list_api_error) { false }
         let(:contact_list) do
-          instance_double(PrisonerContactList, unknown_result?: contact_list_api_error)
+          instance_double(PrisonerContactList)
         end
 
         context 'and the prison is in the comma separated list STAFF_PRISONS_WITH_NOMIS_CONTACT_LIST' do
+          let(:contact_list_api_error) { false }
+
           before do
             switch_on(:nomis_staff_prisoner_check_enabled)
             mock_nomis_with(:lookup_active_offender, offender)
             switch_feature_flag_with(:staff_prisons_with_nomis_contact_list, [visit.prison_name])
+            expect(contact_list).to receive(:unknown_result?).and_return(contact_list_api_error)
             mock_service_with(PrisonerContactList, contact_list)
           end
 
@@ -429,7 +431,7 @@ RSpec.describe StaffNomisChecker do
         end
 
         context 'and the prison is in the comma separated list STAFF_PRISONS_WITH_NOMIS_CONTACT_LIST' do
-          it ''
+          it { is_expected.to_not be_contact_list_unknown }
         end
       end
 
