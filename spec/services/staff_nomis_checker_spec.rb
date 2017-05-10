@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe StaffNomisChecker do
-  subject(:instance) { described_class.new(visit) }
+  subject { described_class.new(visit) }
 
   # Enabled for slot availability
   let(:prison)   { build_stubbed(:prison, name: 'Pentonville') }
