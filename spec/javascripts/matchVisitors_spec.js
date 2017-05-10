@@ -43,7 +43,7 @@ describe('Match visitor to NOMIS', function() {
 
     beforeEach(function() {
       $('#visitors-fixture li:eq(0) select').val('12588').trigger('change');
-      $('#visitors-fixture li:eq(0) select').val('0').trigger('change');
+      $('#visitors-fixture li:eq(0) select').val('').trigger('change');
     });
 
     it('should enable all other select options with value 125888', function() {

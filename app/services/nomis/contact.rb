@@ -2,7 +2,7 @@ module Nomis
   class Contact
     include NonPersistedModel
 
-    attribute :id
+    attribute :id, Integer
     attribute :given_name
     attribute :surname
     attribute :date_of_birth, Date

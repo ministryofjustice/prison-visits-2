@@ -27,7 +27,7 @@
     changeSelect: function(e) {
       var el = e.currentTarget,
         contactData = $(el).find(':selected').data('contact'),
-        adding = el.value == '0',
+        adding = el.value == '',
         parent = this.findParent(el);
 
       this.toggleSelectOptions(el);
@@ -67,7 +67,7 @@
       select = $(el).find('select option:selected').val();
       noContact = $(el).find(this.notContactCheckbox).is(':checked');
 
-      if (select == '0' && noContact == false) {
+      if (select == '' && noContact == false) {
         $(el).attr('data-processed', false);
       } else {
         $(el).attr('data-processed', true);
@@ -140,7 +140,7 @@
         listItemsArray = this.$el.find('select option:selected').map(function() {
           var parent = self.findParent(this);
 
-          if (this.value != 0 && !self.isVisitorBanned(parent)) {
+          if (this.value != '' && !self.isVisitorBanned(parent)) {
             return parent;
           }
         }).get();
@@ -150,7 +150,7 @@
     getVisitorIDs: function() {
       var self = this,
         visitorIDArray = $('select').map(function() {
-          if (this.value !== '0') {
+          if (this.value !== '') {
             return this.value
           }
         }).get();
@@ -164,7 +164,7 @@
       $.each(options, function(i, obj) {
         var contact = $(obj).data('contact');
 
-        if ($.inArray(contact.uid, self.getVisitorIDs()) !== -1) {
+        if ($.inArray(contact.uid.toString(), self.getVisitorIDs()) !== -1) {
           $(obj).prop('disabled', 'disabled');
         } else {
           $(obj).prop('disabled', null);

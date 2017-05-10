@@ -38,6 +38,7 @@ private
       ],
       visitors_attributes:  [
         :id,
+        :nomis_id,
         :banned,
         :not_on_list,
         banned_until: [:day, :month, :year]

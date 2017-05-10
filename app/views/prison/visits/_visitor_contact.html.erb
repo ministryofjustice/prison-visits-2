@@ -24,19 +24,15 @@
     <div class="column">
       <% if !@visit.contact_list_unknown? && @visit.contact_list_enabled? %>
         <div class="form-group">
-          <label for="nomis_contacts_<%= dom_id(v) %>" class="form-label"><%= t('.nomis_list') %></label>
-          <select class="form-control js-contactList" name="nomis_contacts_<%= dom_id(v) %>" id="nomis_contacts_<%= dom_id(v) %>">
-          <option data-contact='{"uid": "0"}' value="0"><%= t('.please_select') %></option>
-          <% @visit.approved_contacts.each do |visitor| %>
-            <option data-contact='{
-                "uid":"<%= visitor.id %>",
-                "banned": "<%= visitor.banned? %>"
-                }'
-                value="<%= visitor.id %>">
-              <%= visitor.given_name %> <%= visitor.surname %> - <%= visitor.date_of_birth.to_s(:short_nomis) %>
-            </option>
+          <%= vf.label :nomis_id, t('.nomis_list'), class: 'form-label' %>
+          <%= vf.select :nomis_id, nil, {}, { class: 'form-control js-contactList' } do %>
+            <option data-contact='{"uid": ""}' value=""><%= t('.please_select') %></option>
+            <% @visit.approved_contacts.each do |contact| %>
+              <%= content_tag :option, value: contact.id, selected: contact.id == v.nomis_id, 'data-contact': { uid: contact.id, banned: contact.banned? }.to_json do -%>
+                <%= contact.given_name %> <%= contact.surname %> - <%= contact.date_of_birth.to_s(:short_nomis) %>
+              <% end -%>
+            <% end %>
           <% end %>
-          </select>
         </div>
       <% end %>
       <%= vf.label :not_on_list, class: 'form-group' do %>
