@@ -73,7 +73,7 @@ RSpec.describe StaffNomisChecker do
 
     describe '#prisoner_details_incorrect?' do
       before do
-        expect(instance).
+        expect(subject).
           to receive(:prisoner_existance_status).
                and_return(prisoner_status)
       end
@@ -99,7 +99,7 @@ RSpec.describe StaffNomisChecker do
       end
 
       it 'is the error from the prisoner validation' do
-        expect(instance.prisoner_existance_error).to eq('prisoner_does_not_exist')
+        expect(subject.prisoner_existance_error).to eq('prisoner_does_not_exist')
       end
     end
 
@@ -248,8 +248,6 @@ RSpec.describe StaffNomisChecker do
     end
 
     describe '#slots_unavailable?' do
-      subject { instance.slots_unavailable? }
-
       describe 'when the slots have expired' do
         before do
           now = Date.current
@@ -261,18 +259,18 @@ RSpec.describe StaffNomisChecker do
                             ])
         end
 
-        it { is_expected.to eq(true) }
+        it { is_expected.to be_slots_unavailable }
       end
 
       describe 'when the slots are unavailable' do
         before do
-          allow(instance).
+          allow(subject).
             to receive(:errors_for).
                  with(anything).
                  and_return([SlotAvailabilityValidation::SLOT_NOT_AVAILABLE])
         end
 
-        it { is_expected.to eq(true) }
+        it { is_expected.to be_slots_unavailable }
       end
 
       describe 'when a future slot is available' do
@@ -294,81 +292,75 @@ RSpec.describe StaffNomisChecker do
         before do
           allow(visit).to receive(:slots).and_return([slot1, slot2, slot3])
 
-          allow(instance).to receive(:errors_for).with(slot1).and_return([])
+          allow(subject).to receive(:errors_for).with(slot1).and_return([])
 
-          allow(instance).
+          allow(subject).
             to receive(:errors_for).
                  with(slot2).
                  and_return([SlotAvailabilityValidation::SLOT_NOT_AVAILABLE])
         end
 
-        it { is_expected.to eq(false) }
+        it { is_expected.to_not be_slots_unavailable }
       end
     end
 
     describe '#no_allowance?' do
       let(:slot) { ConcreteSlot.new(2015, 11, 6, 18, 0, 19, 0) }
 
-      subject { instance.no_allowance?(slot) }
-
       before do
-        expect(instance).to receive(:errors_for).with(slot).and_return(errors)
+        is_expected.to receive(:errors_for).with(slot).and_return(errors)
       end
 
       context 'when there is no vo error' do
         let(:errors) { [Nomis::PrisonerDateAvailability::OUT_OF_VO] }
 
-        it { is_expected.to eq(true) }
+        it { is_expected.to be_no_allowance(slot) }
       end
 
       context "when there isn't a no vo error" do
         let(:errors) { [] }
 
-        it { is_expected.to eq(false) }
+        it { is_expected.to_not be_no_allowance(slot) }
       end
     end
 
     describe '#prisoner_banned?' do
       let(:slot) { ConcreteSlot.new(2015, 11, 6, 18, 0, 19, 0) }
 
-      subject { instance.prisoner_banned?(slot) }
-
       before do
-        expect(instance).to receive(:errors_for).with(slot).and_return(errors)
+        is_expected.to receive(:errors_for).with(slot).and_return(errors)
       end
 
       context 'when there is a prisoner banned error' do
         let(:errors) { [Nomis::PrisonerDateAvailability::BANNED] }
 
-        it { is_expected.to eq(true) }
+        it { is_expected.to be_prisoner_banned(slot) }
       end
 
       context "when there isn't prisoner banned error" do
         let(:errors) { [] }
 
-        it { is_expected.to eq(false) }
+        it { is_expected.to_not be_prisoner_banned(slot) }
       end
     end
 
     describe '#prisoner_out_of_prison?' do
       let(:slot) { ConcreteSlot.new(2015, 11, 6, 18, 0, 19, 0) }
 
-      subject { instance.prisoner_out_of_prison?(slot) }
-
       before do
-        expect(instance).to receive(:errors_for).with(slot).and_return(errors)
+        is_expected.to receive(:errors_for).with(slot).and_return(errors)
       end
 
       context 'when there is a prisoner out of prison error' do
         let(:errors) { [Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT] }
 
-        it { is_expected.to eq(true) }
+        it { is_expected.to be_prisoner_out_of_prison(slot) }
       end
 
       context "when there isn't prisoner out of prison error" do
         let(:errors) { [] }
 
-        it { is_expected.to eq(false) }
+        it { is_expected.to_not be_prisoner_out_of_prison(slot) }
       end
     end
 
