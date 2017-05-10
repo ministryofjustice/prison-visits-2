@@ -1,3 +1,5 @@
+require 'nomis/client'
+
 module Nomis
   Error = Class.new(StandardError)
   DisabledError = Class.new(Error)
@@ -24,18 +26,31 @@ module Nomis
       end
     end
 
+    # rubocop:disable Metrics/MethodLength
     def lookup_active_offender(noms_id:, date_of_birth:)
       response = @pool.with { |client|
         client.get('/lookup/active_offender',
           noms_id: noms_id, date_of_birth: date_of_birth)
       }
 
-      build_offender(response).tap do
+      build_offender(response).tap do |offender|
         PVB::Instrumentation.append_to_log(valid_offender_lookup: !!response['found'])
+        offender.noms_id = noms_id
       end
     rescue APIError => e
       Raven.capture_exception(e, fingerprint: %w[nomis api_error])
       NullOffender.new(api_call_successful: false)
+    end
+    # rubocop:enable Metrics/MethodLength
+
+    def lookup_offender_location(noms_id:)
+      response = @pool.with { |client|
+        client.get("/offenders/#{noms_id}/location")
+      }
+
+      Nomis::Establishment.new(response['establishment']).tap do |establishment|
+        PVB::Instrumentation.append_to_log(lookup_offender_location: establishment.code)
+      end
     end
 
     def offender_visiting_availability(offender_id:, start_date:, end_date:)

@@ -1,13 +1,11 @@
-module Nomis
-  class Offender
-    include NonPersistedModel
+class Nomis::Offender
+  include NonPersistedModel
 
-    attribute :id
+  attribute :id
+  attribute :noms_id
+  validates_presence_of :id, :noms_id
 
-    validates_presence_of :id
-
-    def api_call_successful?
-      true
-    end
+  def api_call_successful?
+    true
   end
 end

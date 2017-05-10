@@ -53,6 +53,6 @@ private
   end
 
   def nomis_checker
-    @nomis_checker ||= StaffNomisCheckerFactory.for(object)
+    @nomis_checker ||= StaffNomisChecker.new(object)
   end
 end

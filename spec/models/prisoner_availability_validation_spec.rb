@@ -7,7 +7,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
                         requested_slots: requested_slots)
   end
 
-  let(:offender) { Nomis::Offender.new(id: '123') }
+  let(:offender) { Nomis::Offender.new(id: '123', noms_id: 'some_prisoner_number') }
   let(:date1) { 2.days.from_now.to_date }
   let(:slot1) { ConcreteSlot.new(date1.year, date1.month, date1.day, 10, 0, 11, 0) }
   let(:date2) { 1.day.from_now.to_date }

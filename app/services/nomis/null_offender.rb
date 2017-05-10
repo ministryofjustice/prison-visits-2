@@ -1,5 +1,3 @@
-require 'nomis/offender'
-
 module Nomis
   class NullOffender < Offender
     attribute :api_call_successful, Boolean
