@@ -1,0 +1,230 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://151.237.239.116:4888/nomisapi/lookup/active_offender?date_of_birth=1971-11-11&noms_id=A1484AE
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.56.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - a378ccc8-b37e-424b-a074-897664d1b708
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.1
+      Date:
+      - Mon, 12 Jun 2017 10:31:00 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - total=3, db=1
+      Url-Template:
+      - "/lookup/active_offender"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"found":true,"offender":{"id":1057307}}'
+    http_version: 
+  recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
+- request:
+    method: get
+    uri: http://151.237.239.116:4888/nomisapi/offenders/A1484AE/location
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.56.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - a378ccc8-b37e-424b-a074-897664d1b708
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.1
+      Date:
+      - Mon, 12 Jun 2017 10:31:00 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - total=2, db=0
+      Url-Template:
+      - "/offenders/{noms_id}/location"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"}}'
+    http_version: 
+  recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
+- request:
+    method: get
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/unavailability?dates=2017-06-20
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.56.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - a378ccc8-b37e-424b-a074-897664d1b708
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.1
+      Date:
+      - Mon, 12 Jun 2017 10:31:01 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - total=47, db=47
+      Url-Template:
+      - "/offenders/{offender_id}/visits/unavailability"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"2017-06-20":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
+    http_version: 
+  recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
+- request:
+    method: get
+    uri: http://151.237.239.116:4888/nomisapi/prison/LEI/slots?end_date=2017-06-20&start_date=2017-06-20
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.56.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - a378ccc8-b37e-424b-a074-897664d1b708
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.1
+      Date:
+      - Mon, 12 Jun 2017 10:31:01 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - total=4, db=3
+      Url-Template:
+      - "/prison/{prison_id}/slots"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"slots":[{"time":"2017-06-20T10:00\/11:00","capacity":100,"max_groups":100,"max_adults":100,"groups_booked":1,"visitors_booked":2,"adults_booked":2},{"time":"2017-06-20T14:00\/16:00","capacity":100,"max_groups":3,"max_adults":10,"groups_booked":0,"visitors_booked":0,"adults_booked":0}]}'
+    http_version: 
+  recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
+- request:
+    method: get
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/contact_list
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.56.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - a378ccc8-b37e-424b-a074-897664d1b708
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.1
+      Date:
+      - Mon, 12 Jun 2017 10:31:01 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - total=5, db=5
+      Url-Template:
+      - "/offenders/{offender_id}/visits/contact_list"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"contacts":[{"id":12588,"given_name":"BILLY","surname":"JONES","date_of_birth":"1970-01-01","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social\/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13428,"given_name":"IRMA","middle_names":"CHRISTINE","surname":"ITSU","date_of_birth":"1975-04-03","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"WIFE","desc":"Wife"},"contact_type":{"code":"S","desc":"Social\/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13429,"given_name":"ISAIAH","surname":"ITSU","date_of_birth":"1981-11-16","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"BRO","desc":"Brother"},"contact_type":{"code":"S","desc":"Social\/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":13432,"given_name":"SHAY","surname":"DEE","date_of_birth":"1978-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]}]}'
+    http_version: 
+  recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
+- request:
+    method: post
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/booking
+    body:
+      encoding: UTF-8
+      string: '{"lead_contact":13428,"other_visitors":[],"slot":"2017-06-20T10:00/11:00","override_restrictions":false,"client_unique_ref":"302e944c-bcb8-4900-951b-9961634cf72a"}'
+    headers:
+      User-Agent:
+      - excon/0.56.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - 35df7503-9674-466f-8b95-1b6bf5297b90
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 409
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.1
+      Date:
+      - Mon, 12 Jun 2017 10:31:01 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - total=4, db=3
+      Url-Template:
+      - "/offenders/{offender_id}/visits/booking"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"message":"Duplicate post"}}'
+    http_version: 
+  recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
+recorded_with: VCR 3.0.3

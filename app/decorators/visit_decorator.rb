@@ -58,6 +58,12 @@ class VisitDecorator < Draper::Decorator
       class: 'form-control js-contactList')
   end
 
+  def nomis_offender_id
+    if Nomis::Feature.prisoner_check_enabled?
+      nomis_checker.offender.id
+    end
+  end
+
 private
 
   def options_for_contact_list(selected_noms_id)

@@ -10,6 +10,10 @@
   <% end %>
   <%= f.hidden_field :prison_id  %>
 
+  <%= f.fields_for :prisoner, @visit.prisoner do |pf| %>
+    <%= pf.hidden_field :nomis_offender_id, value: @visit.nomis_offender_id %>
+  <% end %>
+
   <div class="grid-row push-top">
     <div class="column-one-third">
       <h1 class="bold-large float-left"><%= t('.title') %></h1>
@@ -35,26 +39,28 @@
   <hr/>
   <%= render 'visitor_details', f: f %>
 
-  <div class="form-group push-top">
-    <%= f.fields_for :rejection, @visit.rejection do |rf| %>
-      <%= render 'duplicate_request', f: rf %>
-    <% end %>
-  </div>
 
-  <div class="form-group push-top">
+  <div class="form-group">
+    <hr>
     <div class="grid-row">
+      <div class="column-one-half">
+        <%= f.fields_for :rejection, @visit.rejection do |rf| %>
+          <%= render 'duplicate_request', f: rf %>
+        <% end %>
+      </div>
       <div class="column-one-half">
         <h2 class="bold-medium"><%= t('.add_a_message') %></h2>
         <%= fields_for :message, @message || @visit.messages.new do |mf| %>
           <%= mf.hidden_field :user_id, value: current_user.id %>
-          <%= single_field mf, :body, :text_area, class: 'form-control form-control-full-width', rows: 4 %>
+          <label for="message_body" class="form-label"><%= t('.body') %></label>
+          <%= mf.text_area(:body, class: 'form-control form-control-full-width', rows: 4) %>
         <% end %>
       </div>
     </div>
   </div>
 
   <div class="form-group">
-    <hr/>
+    <hr />
     <div id="rejection-message">
       <div class="notice push-bottom">
         <i class="icon icon-information">
@@ -63,10 +69,38 @@
         <strong class="bold-small"><%= t('.rejection_warning') %></strong>
       </div>
     </div>
-    <%= f.submit t('.submit'), class: 'button button-primary' %>
-    <div class="push-top">
-      <%= link_to t('.email_preview'), prison_visit_email_preview_path(@visit), class: 'js-LinkPreview', target: '_blank' %>
-    </div>
+    <% if Nomis::Feature.book_to_nomis_enabled?(@visit.prison_name) %>
+      <div class="panel" id="nomis-opt-out">
+        <% if book_to_nomis_config.possible_to_book? %>
+          <p>
+            <%= t(".book_to_nomis_opted_in_by_default_html") %>
+          </p>
+          <%= hidden_field_tag :book_to_nomis_opted_in, true %>
+          <label class="block-label push-bottom">
+            <%= check_box_tag :book_to_nomis_opted_in, false, !book_to_nomis_config.opted_in? %>
+            <%= t('.dont_book_to_nomis') %>
+          </label>
+        <% else %>
+          <p>
+            <%= t(".book_to_nomis_not_possible") %>
+          </p>
+        <% end %>
+        <div id="rejection-message-opposite">
+          <div class="grid-row">
+            <div class="column-one-half">
+              <div id="selected_slot_details" class="">
+                <%= single_field f, :reference_no, :text_field, class: 'form-control' %>
+                <%= single_field f, :closed, :check_box  %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 
+  <div class="form-group">
+    <p><%= link_to t('.email_preview'), prison_visit_email_preview_path(@visit), class: 'js-LinkPreview', target: '_blank' %></p>
+    <p><%= f.submit t('.submit'), class: 'button button-primary' %></p>
+  </div>
 <% end %>

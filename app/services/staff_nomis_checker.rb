@@ -90,6 +90,13 @@ class StaffNomisChecker
     prisoner_contact_list.approved
   end
 
+  def offender
+    @offender ||= Nomis::Api.instance.lookup_active_offender(
+      noms_id:       @visit.prisoner_number,
+      date_of_birth: @visit.prisoner.date_of_birth
+    )
+  end
+
 private
 
   def prisoner_validation_errors
@@ -121,12 +128,5 @@ private
         prison: @visit.prison,
         requested_slots: @visit.slots).
       tap(&:valid?)
-  end
-
-  def offender
-    @offender ||= Nomis::Api.instance.lookup_active_offender(
-      noms_id:       @visit.prisoner_number,
-      date_of_birth: @visit.prisoner.date_of_birth
-    )
   end
 end

@@ -58,18 +58,29 @@
 
     actuate: function($el){
       var $conditionalEl = this.conditionals($el.data('rejectionEl'));
+      var $conditionalOppositeEl = this.conditionals($el.data('rejectionEl')+'-opposite');
 
       if(this.selected.length > 0){
-        $conditionalEl.show();
-        $conditionalEl.attr('aria-expanded', 'true').attr('aria-hidden', 'false');
+        this.show($conditionalEl);
+        this.hide($conditionalOppositeEl);
       } else {
-        $conditionalEl.hide();
-        $conditionalEl.attr('aria-expanded', 'false').attr('aria-hidden', 'true');
+        this.hide($conditionalEl);
+        this.show($conditionalOppositeEl);
       }
     },
 
     conditionals: function(string) {
       return $(string ? '#' + string.split(',').join(',#') : null);
+    },
+
+    show: function($el){
+      $el.show();
+      $el.attr('aria-expanded', 'true').attr('aria-hidden', 'false');
+    },
+
+    hide: function($el){
+      $el.hide();
+      $el.attr('aria-expanded', 'false').attr('aria-hidden', 'true');
     }
   };
 }());

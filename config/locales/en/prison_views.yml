@@ -14,7 +14,8 @@ en:
       digital_takeup: Digital takeup
   prison:
     flash:
-      already_processed: Visit can't be processed
+      already_processed_html: |
+        Visit can't be processed
       process_thank_you: Thank you for processing the visit
       visit_cancelled: The visit has been cancelled
       already_cancelled: The visit is no longer cancellable
@@ -25,9 +26,23 @@ en:
       message_create_error: Your message couldn't be saved
       message_created: Message created
       no_cancellation_reason: Please provide a cancellation reason
-      process_required: Please either reject or accept the booking
+      process_required_html: |
+        <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
+          This visit wasn't booked.
+        </h1>
+        <p>Please either reject or accept the booking</p>
       at_least_one_estate: You must select at least one estate
       invalid_estate_selection: You don't access to these estates
+      nomis_validation_error_html: |
+        <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
+          This visit wasn't booked.
+        </h1>
+        <p>Choose a rejection reason to reject the visit or <a href="#nomis-opt-out">book this visit anyway</a>.</p>
+      nomis_api_error_html: |
+        <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
+          We can't connect to NOMIS right now.
+        </h1>
+        <p>Try again later, or <a href="#nomis-opt-out">book this visit without recording to NOMIS</a>.</p>
     feedbacks:
       new:
         title: Contact us
@@ -123,6 +138,15 @@ en:
         slot_not_available: Fully booked
         add_a_message: Add a message
         rejection_warning: This visit will be rejected and an email will be sent to the lead visitor
+        book_to_nomis_opted_in_by_default:
+          If the visit is booked successfully, it will be copied to NOMIS.
+        book_to_nomis_not_possible:
+          We can't copy this visit to NOMIS right now. If the visit is booked successfully, please record it manually.
+        dont_book_to_nomis: Don't automatically copy this visit to NOMIS
+        reference_no: Reference number
+        reference_no_hint: eg Last 8 digits of VO number or “none” for remand
+        closed_visit: This is a closed visit
+        none_available: None of the chosen times are available
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
@@ -193,7 +217,7 @@ en:
         choice_html: |
           <span class="date-box__number">%{n}</span><span class="date-box__day">%{day}</span><br>%{date} <br>%{time}
         reference_no: Reference number
-        reference_no_hint: eg Last 8 digits of VO number or “none” for remand
+        reference_no_hint: eg Last 8 digits of VO number or "none" for remand
         closed_visit: This is a closed visit
         none_available: None of the chosen times are available
         prisoner_availability_unknown: You must check NOMIS to verify prisoner availability
