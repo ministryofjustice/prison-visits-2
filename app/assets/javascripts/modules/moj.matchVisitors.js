@@ -6,6 +6,7 @@
     init: function() {
       this.cacheEls();
       this.bindEvents();
+      this.onRender();
     },
 
     cacheEls: function() {
@@ -22,6 +23,28 @@
       this.$el.find('select').on('change', $.proxy(this.changeSelect, this));
       this.$el.find(this.notContactCheckbox).on('change', $.proxy(this.changeNotOnList, this));
       this.$el.find(this.bannedCheckbox).on('change', $.proxy(this.changeBanned, this));
+    },
+
+    onRender: function(){
+      var self = this;
+
+      $.each(this.$el.find('select'), function(i,obj){
+        var $obj = $(obj),
+          option = $obj.find('option:selected'),
+          contact = option.data('contact'),
+          val = $obj.val(),
+          parent = self.findParent(obj);
+
+        if(val == contact.uid && val != ''){
+          self.toggleSelectOptions($obj);
+          self.toggleCheckbox($obj, val == '');
+          option.prop('disabled', null);
+        }
+
+        self.processVisitor(parent, !val == '');
+      });
+
+      this.checkStatus();
     },
 
     changeSelect: function(e) {
@@ -159,11 +182,10 @@
 
     toggleSelectOptions: function(el) {
       var self = this,
-        options = this.$el.find('select').not(el).find('option').not(':first');
+        options = this.$el.find('select').not(el).find('option').not(':first').not(':selected');
 
       $.each(options, function(i, obj) {
         var contact = $(obj).data('contact');
-
         if ($.inArray(contact.uid.toString(), self.getVisitorIDs()) !== -1) {
           $(obj).prop('disabled', 'disabled');
         } else {
