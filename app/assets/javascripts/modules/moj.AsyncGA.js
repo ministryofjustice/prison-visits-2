@@ -13,9 +13,9 @@
       window.ga('create', gaTrackingId, 'service.gov.uk');
 
       if (hitTypePage) {
-        window.ga('send', 'page_view', location.pathname + '#' + hitTypePage);
+        window.ga('send', 'pageview', location.pathname + '#' + hitTypePage);
       } else {
-        window.ga('send', 'page_view');
+        window.ga('send', 'pageview');
       }
     }
   };
