@@ -85,14 +85,6 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
         let(:prisoner_number) { 'Z9999ZZ' }
 
-        before do
-          vst.update!(
-            slot_option_0: slot_zero.iso8601,
-            slot_option_1: slot_one.iso8601,
-            slot_option_2: nil
-          )
-        end
-
         it 'informs staff prisoner details are invalid' do
           visit prison_visit_process_path(vst, locale: 'en')
           expect(page).to have_content("The prisoner date of birth and number do not match.")
