@@ -6,13 +6,13 @@ class PrisonerContactList
   end
 
   def unknown_result?
-    contact_list.nil?
+    !contact_list.api_call_successful?
   end
 
 private
 
   def contact_list
-    return nil unless @offender.valid?
+    return empty_contact_list unless @offender.valid?
 
     @contact_list ||= load_contact_list
   end
@@ -24,6 +24,10 @@ private
   rescue Nomis::APIError => e
     @api_error = true
     Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
-    nil
+    empty_contact_list
+  end
+
+  def empty_contact_list
+    @empty_contact_list ||= Nomis::ContactList.new(api_call_successful: false)
   end
 end
