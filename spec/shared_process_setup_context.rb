@@ -28,11 +28,12 @@ RSpec.shared_context 'process request setup' do
         number: prisoner_number,
         first_name: 'Oscar',
         last_name: 'Wilde',
-        date_of_birth: Date.parse('1976-06-12')
+        date_of_birth: Date.parse(prisoner_dob)
       )
     )
   }
   let(:prisoner_number) { 'A1459AE' }
+  let(:prisoner_dob) { '1976-06-12' }
 
   let(:sso_response) do
     {
