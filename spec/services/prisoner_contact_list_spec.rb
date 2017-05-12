@@ -31,7 +31,6 @@ RSpec.describe PrisonerContactList, type: :model do
 
   describe '#approved' do
     context 'when the api returns no error' do
-
       let(:contact_list) { Nomis::ContactList.new }
 
       before do
@@ -51,7 +50,6 @@ RSpec.describe PrisonerContactList, type: :model do
       it 'returns an empty contact list' do
         expect(subject.approved).to eq([])
       end
-
     end
   end
 end

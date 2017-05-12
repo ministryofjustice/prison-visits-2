@@ -6,9 +6,13 @@ module Nomis
     delegate :each, to: :contacts
 
     attribute :contacts, Array[Contact]
-
+    attribute :api_call_successful, Boolean, default: true
     def approved
       select { |contact| contact.approved? && contact.active? }
+    end
+
+    def api_call_successful?
+      @api_call_successful
     end
   end
 end
