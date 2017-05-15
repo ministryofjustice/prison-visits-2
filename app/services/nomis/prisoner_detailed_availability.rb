@@ -21,6 +21,7 @@ module Nomis
     end
 
     def error_messages_for_slot(slot)
+      sentry_debugging_context(slot)
       availability_for(slot).unavailable_reasons(slot)
     end
 
@@ -30,6 +31,14 @@ module Nomis
       dates.find do |date_availability|
         date_availability.date == slot.to_date
       end
+    end
+
+    # :nocov:
+    def sentry_debugging_context(slot)
+      Raven.extra_context(
+        slot: slot,
+        dates: dates
+      )
     end
   end
 end
