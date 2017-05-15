@@ -6,11 +6,6 @@ RSpec.feature 'Processing a request', js: true do
 
   include_context 'process request setup'
 
-  before do
-    # We keep getting random /favicon.ico not found errors
-    Capybara.raise_server_errors = false
-  end
-
   describe 'unprocessable visit request' do
     before do
       visit prison_visit_process_path(vst, locale: 'en')
