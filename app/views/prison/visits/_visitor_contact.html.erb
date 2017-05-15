@@ -29,7 +29,7 @@
             <option data-contact='{"uid": ""}' value=""><%= t('.please_select') %></option>
             <% @visit.approved_contacts.each do |contact| %>
               <%= content_tag :option, { value: contact.id, selected: contact.id == v.nomis_id, 'data-contact': { uid: contact.id, banned: contact.banned? }.to_json } do -%>
-                <%= contact.given_name %> <%= contact.surname %> - <%= contact.date_of_birth.to_s(:short_nomis) %>
+                <%= contact.given_name %> <%= contact.surname %> - <%= contact.date_of_birth&.to_s(:short_nomis) %>
               <% end -%>
             <% end %>
           <% end %>
