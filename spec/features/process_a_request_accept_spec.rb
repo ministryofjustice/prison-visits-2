@@ -46,7 +46,6 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
       preview_window = window_opened_by {
         click_link 'Preview Email'
-        sleep 1
       }
 
       within_window preview_window do
