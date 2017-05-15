@@ -7,9 +7,6 @@ module Nomis
     }
 
     def self.build(attrs)
-      # TODO: Remove once it has been debugged
-      debug_response(attrs)
-
       new_attrs = attrs.each_with_object(dates: []) do |(date, info), list|
         availability = info.deep_dup
         availability['date'] = date
@@ -24,6 +21,7 @@ module Nomis
     end
 
     def error_messages_for_slot(slot)
+      sentry_debugging_context(slot)
       availability_for(slot).unavailable_reasons(slot)
     end
 
@@ -36,10 +34,11 @@ module Nomis
     end
 
     # :nocov:
-    def self.debug_response(attrs)
-      if attrs.values.any? { |v| v == true }
-        Raven.extra_context(nomis_api_response: attrs)
-      end
+    def sentry_debugging_context(slot)
+      Raven.extra_context(
+        slot: slot,
+        dates: dates
+      )
     end
   end
 end
