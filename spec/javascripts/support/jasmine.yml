@@ -8,9 +8,9 @@
 # src_files:
 #   - lib/source1.js
 #   - lib/source2.js
-#   - 'dist/**/*.js'
 #
 src_files:
+  - assets/javascripts/raven-3.14.2.min.js
   - assets/application.js
   - assets/jasmine-jquery.js
 

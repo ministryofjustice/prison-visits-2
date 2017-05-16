@@ -3,6 +3,7 @@
 //= require jquery_ujs
 //= require vendor/chosen.jquery
 //= require vendor/jquery.tablesorter
+//= require raven-3.14.2.min.js
 
 // GOVUK modules
 //= require govuk_toolkit
@@ -14,7 +15,8 @@
 //= require dest/respond.min
 //= require jquery-ui/datepicker
 
-// MOJ elements
+// Raven / Sentry
+//= require modules/moj.sentry
 
 // Candidates for re-usable components
 //= require mapshim

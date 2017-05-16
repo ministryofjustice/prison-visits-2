@@ -328,6 +328,10 @@ If specified this will configure Rails' `config.asset_host`, resulting in all as
 
 If specified, exceptions will be sent to the given Sentry project.
 
+#### `SENTRY_JS_DSN` (optional)
+
+If specified, Javascript exceptions will be sent to the given Sentry project.
+
 #### Files to be created on deployment ####
 
 ##### `META` #####

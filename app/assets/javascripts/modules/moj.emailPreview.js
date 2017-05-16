@@ -16,12 +16,12 @@
       event.preventDefault();
 
       // not all browsers support PUT and DELETE
-      // The form contains _method input which will be 
-      // picked up by Rack::MethodOverride and translated into 
+      // The form contains _method input which will be
+      // picked up by Rack::MethodOverride and translated into
       // the corresponding HTTP verb.
       var ajaxOptions = {
         url:    event.target.href,
-        method: 'POST', 
+        method: 'POST',
         data:   $(this.el).serialize()
       };
 

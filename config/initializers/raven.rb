@@ -1,4 +1,4 @@
-sentry_dsn = ENV['SENTRY_DSN']
+sentry_dsn = Rails.configuration.sentry_dsn
 
 if sentry_dsn
   require 'raven'
