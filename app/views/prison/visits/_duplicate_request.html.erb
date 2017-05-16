@@ -4,7 +4,7 @@
 
 <%= error_container f, :reasons do %>
   <label class="block-label">
-    <%= f.object.checkbox_for :duplicate_visit_request %>
+    <%= f.object.checkbox_for :duplicate_visit_request, class: 'js-Rejection', 'data-rejection-el': 'rejection-message' %>
     <%= t('.duplicate_visit_request') %>
   </label>
 <% end %>

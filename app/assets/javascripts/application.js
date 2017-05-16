@@ -32,6 +32,7 @@
 //= require modules/moj.multiSelect
 //= require modules/moj.tableSorter
 //= require modules/moj.matchVisitors
+//= require modules/moj.Rejection
 
 (function() {
   'use strict';

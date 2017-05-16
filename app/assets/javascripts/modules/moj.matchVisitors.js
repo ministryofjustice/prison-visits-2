@@ -125,9 +125,12 @@
 
       if (noAdults && this.getProcessed() >= 1) {
         this.showEl(this.$noAdultMessage);
+        moj.Modules.Rejection.addToSelected(this.$el);
       } else {
         this.hideEl(this.$noAdultMessage);
+        moj.Modules.Rejection.removeFromSelected(this.$el);
       }
+      moj.Modules.Rejection.actuate(this.$el);
     },
 
     checkTotalStatus: function() {

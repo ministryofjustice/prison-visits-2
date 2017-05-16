@@ -57,8 +57,17 @@
     </div>
   <% end -%>
 
+
   <div class="form-group">
     <hr/>
+    <div id="rejection-message">
+      <div class="notice push-bottom">
+        <i class="icon icon-important">
+          <span class="visuallyhidden">Warning</span>
+        </i>
+        <strong class="bold-small"><%= t('.rejection_warning') %></strong>
+      </div>
+    </div>
     <%= f.submit t('.submit'), class: 'button button-primary' %>
     <div class="push-top">
       <%= link_to t('.email_preview'), prison_visit_email_preview_path(@visit), class: 'js-LinkPreview', target: '_blank' %>

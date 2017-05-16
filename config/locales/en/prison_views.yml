@@ -120,6 +120,7 @@ en:
         booked_visit: Booked on another visit
         slot_not_available: Fully booked
         add_a_message: Add a message
+        rejection_warning: This visit will not be booked because a rejection has been selected
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
