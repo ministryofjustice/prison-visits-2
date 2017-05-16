@@ -1,0 +1,38 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://151.237.239.116:4888/nomisapi/offenders/A1459AE/location
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.55.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Apache-Coyote/1.1
+      Server-Timing:
+      - total=9, db=5
+      Url-Template:
+      - "/offenders/{noms_id}/location"
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 13 Apr 2017 16:03:10 GMT
+    body:
+      encoding: ASCII-8BIT
+      string: '{"establishment":{"code":"ISI","desc":"ISIS HMP\/YOI"}}'
+    http_version: 
+  recorded_at: Thu, 13 Apr 2017 16:03:10 GMT
+recorded_with: VCR 3.0.3
