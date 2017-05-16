@@ -5,6 +5,10 @@ class StaffNomisChecker
   UNKNOWN  = 'unknown'.freeze
   NOT_LIVE = 'not_live'.freeze
 
+  LOCATION_VALID    = 'location_valid'.freeze
+  LOCATION_INVALID  = 'location_invalid'.freeze
+  LOCATION_UNKNOWN  = 'location_unknown'.freeze
+
   def initialize(visit)
     @visit = visit
     @nomis_api_enabled = Nomis::Api.enabled?
@@ -16,8 +20,8 @@ class StaffNomisChecker
     case prisoner_existance_error
     when nil
       VALID
-    when UNKNOWN
-      UNKNOWN
+    when UNKNOWN, LOCATION_INVALID, LOCATION_UNKNOWN
+      prisoner_existance_error
     else
       INVALID
     end
@@ -28,7 +32,8 @@ class StaffNomisChecker
   end
 
   def prisoner_existance_error
-    prisoner_validation.errors[:base].first
+    return prisoner_validation_errors.first if prisoner_validation_errors.first
+    return LOCATION_INVALID if prisoner_moved?
   end
 
   def prisoner_availability_unknown?
@@ -87,12 +92,20 @@ class StaffNomisChecker
 
 private
 
+  def prisoner_validation_errors
+    @prisoner_validation_errors ||= prisoner_validation.errors.full_messages.sort
+  end
+
   def prisoner_contact_list
     @prisoner_contact_list ||= PrisonerContactList.new(offender)
   end
 
   def prisoner_validation
     @prisoner_validation ||= PrisonerValidation.new(offender).tap(&:valid?)
+  end
+
+  def prisoner_moved?
+    @prisoner_moved ||= !prisoner_validation.prisoner_located_at?(@visit.prison.nomis_id)
   end
 
   def prisoner_availability_validation

@@ -60,6 +60,7 @@ group :development, :test do
   gem 'rubocop'
   gem 'rubocop-rspec'
   gem 'awesome_print', require: 'ap'
+  gem 'spring-commands-rspec'
 end
 
 group :test do
