@@ -9,11 +9,9 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
   context 'with visitor contact list', vcr: { cassette_name: 'process_happy_path_with_contact_list' } do
     # Leicester has contact list enabled in 'test'
     let(:prison) do
-      create(:prison,
+      FactoryGirl.create(:prison,
         name: 'Leicester',
-        email_address: prison_email_address,
-        estate: create(:estate, nomis_id: 'LEI')
-            )
+        email_address: prison_email_address)
     end
     let(:prisoner_number) { 'A1484AE' }
     let(:prisoner_dob) { '11-11-1971' }
@@ -34,7 +32,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
       # Renders the form again
       expect(page).to have_text('Visit details')
 
-      expect(page).to have_content("The prisoner date of birth, prisoner number and prison name have been verified.")
+      expect(page).to have_content("The prisoner date of birth and number have been verified.")
       expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
 
       choose_date
@@ -79,12 +77,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
     around do |ex|
       travel_to(Date.new(2016, 12, 1)) { ex.run }
     end
-    let(:prison) do
-      create(:prison,
-        name: 'ISIS HMP/YOI',
-        estate: create(:estate, nomis_id: 'ISI')
-            )
-    end
+
     context "validating prisoner informations - sad paths" do
       context "and the prisoner's informations are not valid", vcr: { cassette_name: 'lookup_active_offender-nomatch' } do
         let(:slot_zero) { ConcreteSlot.new(2016, 5, 1, 10, 30, 11, 30) }
@@ -112,8 +105,8 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
       # Renders the form again
       expect(page).to have_text('Visit details')
-      expect(page).to have_content("The prisoner date of birth, prisoner number and prison name have been verified.")
-      expect(page).to have_css('.column-one-quarter:nth-child(4) .tag--booked', text: 'Verified')
+
+      expect(page).to have_content("The prisoner date of birth and number have been verified.")
       expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
 
       choose_date
@@ -141,7 +134,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
       expect(contact_email_address).
         to receive_email.
         with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
-        and_body(/Your visit to #{prison.name} is now successfully confirmed/)
+        and_body(/Your visit to Reading Gaol is now successfully confirmed/)
 
       visit prison_visit_path(vst, locale: 'en')
       expect(page).to have_css('span', text: 'by joe@example.com')

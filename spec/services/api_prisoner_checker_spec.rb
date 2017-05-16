@@ -11,16 +11,22 @@ RSpec.describe ApiPrisonerChecker do
   describe '#valid?' do
     context 'when the api is disabled' do
       before do
-        switch_off_api
+        allow(Nomis::Api).to receive(:enabled?).and_return(false)
       end
 
       it { is_expected.to be_valid }
     end
 
     context 'when the api is enabled' do
+      before do
+        allow(Nomis::Api).to receive(:enabled?).and_return(true)
+      end
+
       context 'and the check is disabled for public' do
         before do
-          switch_off(:nomis_public_prisoner_check_enabled)
+          allow(Rails.configuration).
+            to receive(:nomis_public_prisoner_check_enabled).
+            and_return(false)
         end
 
         it { is_expected.to be_valid }
@@ -28,28 +34,14 @@ RSpec.describe ApiPrisonerChecker do
 
       context 'and the api is working' do
         before do
-          switch_on(:nomis_public_prisoner_check_enabled)
-          mock_nomis_with(:lookup_active_offender, offender)
+          expect(Nomis::Api.instance).
+            to receive(:lookup_active_offender).
+            and_return(offender)
         end
 
         describe 'when the offender is found' do
-          let(:offender) { Nomis::Offender.new(id: 'some_id', noms_id: 'a_noms_id') }
-
-          describe 'and the establishment is valid' do
-            let(:establishment) { Nomis::Establishment.new(code: 'a_code') }
-            before do
-              mock_nomis_with(:lookup_offender_location, establishment)
-            end
-
-            it { is_expected.to be_valid }
-          end
-
-          describe 'and the establishment is valid' do
-            before do
-              simulate_api_error_for(:lookup_offender_location)
-            end
-            it { is_expected.not_to be_valid }
-          end
+          let(:offender) { Nomis::Offender.new(id: '1234') }
+          it { is_expected.to be_valid }
         end
 
         describe 'when the offender is not found' do

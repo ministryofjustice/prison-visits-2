@@ -6,7 +6,7 @@ RSpec.describe SlotAvailability do
   let(:date_of_birth) { '1960-06-01' }
   let(:start_date)    { Date.parse('2017-02-01') }
   let(:end_date)      { Date.parse('2017-03-01') }
-  let(:offender)      { Nomis::Offender.new(id: 1_055_206, noms_id: 'prisoner_number') }
+
   let(:prisoner_availability) do
     {
       dates: [
@@ -38,10 +38,13 @@ RSpec.describe SlotAvailability do
   end
 
   let(:slot_availability) do
-    instance_double(SlotAvailabilityValidation, valid?: false)
+    double(SlotAvailabilityValidation, valid?: false)
   end
 
   before do
+    allow(Nomis::Api.instance).to receive(:lookup_active_offender).
+      and_return(Nomis::Offender.new(id: 1_055_206))
+
     allow(slot_availability).to receive(:slot_error) do |slot|
       bookable_slots_times.include?(slot) ? nil : 'error'
     end
@@ -56,16 +59,21 @@ RSpec.describe SlotAvailability do
   describe '#slots' do
     describe 'with prison in the slot availability trial' do
       before do
-        switch_feature_flag_with(:public_prisons_with_slot_availability, [prison.name])
-        mock_service_with(SlotAvailabilityValidation, slot_availability)
+        allow(Rails.configuration).
+          to receive(:public_prisons_with_slot_availability).
+          and_return([prison.name])
       end
 
       describe 'with nomis public prisoner check enabled' do
-        before do mock_nomis_with(:lookup_active_offender, offender) end
-
         describe 'when the offender is valid' do
           before do
-            mock_nomis_with(:offender_visiting_availability, prisoner_availability)
+            allow(Nomis::Api.instance).
+              to receive(:offender_visiting_availability).
+              and_return(prisoner_availability)
+
+            expect(SlotAvailabilityValidation).
+              to receive(:new).
+              and_return(slot_availability)
           end
 
           it 'returns a hash with unavailability reasons' do
@@ -86,7 +94,15 @@ RSpec.describe SlotAvailability do
         end
 
         describe 'with a null offender' do
-          let(:offender) { Nomis::NullOffender.new }
+          before do
+            expect(Nomis::Api.instance).
+              to receive(:lookup_active_offender).
+              and_return(Nomis::NullOffender.new)
+
+            expect(SlotAvailabilityValidation).
+              to receive(:new).
+              and_return(slot_availability)
+          end
 
           it 'applies the prison availability only' do
             expect(subject.slots).to eq(
@@ -106,7 +122,12 @@ RSpec.describe SlotAvailability do
 
         describe 'with an API::Error when querying the offender availability' do
           before do
-            simulate_api_error_for(:offender_visiting_availability)
+            allow(Nomis::Api.instance).
+              to receive(:offender_visiting_availability).
+              and_raise(Nomis::APIError)
+            expect(SlotAvailabilityValidation).
+              to receive(:new).
+              and_return(slot_availability)
           end
 
           it 'applies the prison availability only' do
@@ -128,7 +149,13 @@ RSpec.describe SlotAvailability do
 
       describe 'without nomis public prisoner check enabled' do
         before do
-          switch_off(:nomis_public_prisoner_availability_enabled)
+          allow(Rails.configuration).
+            to receive(:nomis_public_prisoner_availability_enabled).
+            and_return(false)
+
+          expect(SlotAvailabilityValidation).
+            to receive(:new).
+            and_return(slot_availability)
         end
 
         it 'applies the prison availability' do
@@ -152,8 +179,9 @@ RSpec.describe SlotAvailability do
     describe 'with a prison not in the trial' do
       describe 'and prisoner availability enabled' do
         before do
-          mock_nomis_with(:lookup_active_offender, offender)
-          mock_nomis_with(:offender_visiting_availability, prisoner_availability)
+          allow(Nomis::Api.instance).
+            to receive(:offender_visiting_availability).
+            and_return(prisoner_availability)
         end
 
         it 'applies the prisoner availability' do
@@ -174,7 +202,9 @@ RSpec.describe SlotAvailability do
 
       describe 'and prisoner availability disabled' do
         before do
-          switch_off(:nomis_public_prisoner_availability_enabled)
+          allow(Rails.configuration).
+            to receive(:nomis_public_prisoner_availability_enabled).
+            and_return(false)
         end
 
         it { expect(subject.slots).to eq(all_slots_available) }

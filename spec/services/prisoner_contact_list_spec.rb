@@ -1,10 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe PrisonerContactList, type: :model do
-  let(:offender) do
-    Nomis::Offender.new(id: 1, noms_id: 'prisoner_number')
-  end
-
+  let(:offender) { Nomis::Offender.new(id: 1) }
   subject { described_class.new(offender) }
 
   context '#unknown_result?' do
