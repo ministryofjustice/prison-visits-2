@@ -40,11 +40,11 @@ RSpec.describe Prison::VisitsController, type: :controller do
     subject do
       put :update,
         id: visit.id,
-        visit: booking_response,
+        visit: staff_response,
         locale: 'en'
     end
 
-    let(:booking_response) { { slot_granted: visit.slots.first.to_s } }
+    let(:staff_response) { { slot_granted: visit.slots.first.to_s } }
 
     it_behaves_like 'disallows untrusted ips'
 
@@ -60,12 +60,12 @@ RSpec.describe Prison::VisitsController, type: :controller do
       end
 
       context 'when invalid' do
-        let(:booking_response) { { slot_granted: '' } }
+        let(:staff_response) { { slot_granted: '' } }
         it { is_expected.to render_template('process_visit') }
       end
 
       context 'when valid' do
-        let(:booking_response) { { slot_granted: visit.slots.first.to_s, reference_no: 'none' } }
+        let(:staff_response) { { slot_granted: visit.slots.first.to_s, reference_no: 'none' } }
 
         it { is_expected.to redirect_to(prison_inbox_path) }
       end

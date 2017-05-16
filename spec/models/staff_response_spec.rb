@@ -1,8 +1,8 @@
 require 'rails_helper'
 require 'maybe_date'
 
-RSpec.describe BookingResponse, type: :model do
-  include_context 'booking response setup'
+RSpec.describe StaffResponse, type: :model do
+  include_context 'staff response setup'
 
   subject { described_class.new(visit: Visit.new(params)) }
 
@@ -65,7 +65,7 @@ RSpec.describe BookingResponse, type: :model do
     end
   end
 
-  describe 'validating a booking response' do
+  describe 'validating a staff response' do
     context 'when processable' do
       it { is_expected.to be_valid }
     end
@@ -88,7 +88,7 @@ RSpec.describe BookingResponse, type: :model do
         expect(subject.errors.full_messages).
           to eq([
             I18n.t('must_reject_or_accept_visit',
-              scope: [:booking_response, :errors])
+              scope: [:staff_response, :errors])
           ])
       end
     end

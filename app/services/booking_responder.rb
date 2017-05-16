@@ -1,8 +1,8 @@
 class BookingResponder
-  delegate :visit, to: :booking_response
+  delegate :visit, to: :staff_response
 
-  def initialize(booking_response, message = nil)
-    @booking_response = booking_response
+  def initialize(staff_response, message = nil)
+    @staff_response = staff_response
     @message = message
   end
 
@@ -15,13 +15,13 @@ class BookingResponder
 
   def visitor_mailer
     @visitor_mailer ||= VisitorMailer.send(
-      email, booking_response.email_attrs, message_attributes
+      email, staff_response.email_attrs, message_attributes
     )
   end
 
 private
 
-  attr_reader :booking_response, :message
+  attr_reader :staff_response, :message
 
   def send_notifications
     visitor_mailer.deliver_later
@@ -33,7 +33,7 @@ private
         BookingResponder::Accept
       else
         BookingResponder::Reject
-      end.new(booking_response)
+      end.new(staff_response)
     end
   end
 

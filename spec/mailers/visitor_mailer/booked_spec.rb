@@ -5,13 +5,13 @@ RSpec.describe VisitorMailer, '.booked' do
   let(:visit) { create(:booked_visit) }
   let!(:visitor) { create(:visitor, :banned, visit: visit, banned_until: banned_until) }
   let(:banned_until) { 3.days.from_now.to_date }
-  let(:booking_response) do
-    BookingResponse.new(visit: visit, user: create(:user))
+  let(:staff_response) do
+    StaffResponse.new(visit: visit, user: create(:user))
   end
-  let(:mail) { described_class.booked(booking_response.email_attrs, message_attributes) }
+  let(:mail) { described_class.booked(staff_response.email_attrs, message_attributes) }
   let(:message_attributes) { nil }
   before do
-    booking_response.valid?
+    staff_response.valid?
     ActionMailer::Base.deliveries.clear
   end
 

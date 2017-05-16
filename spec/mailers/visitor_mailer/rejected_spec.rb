@@ -5,12 +5,12 @@ require 'mailers/shared_mailer_examples'
 RSpec.describe VisitorMailer, '.rejected' do
   let(:visit) { create :visit }
   let(:reason) { 'slot_unavailable' }
-  let(:booking_response) do
-    BookingResponse.new(
+  let(:staff_response) do
+    StaffResponse.new(
       visit:     visit
     )
   end
-  let(:mail) { described_class.rejected(booking_response.email_attrs, message_attributes) }
+  let(:mail) { described_class.rejected(staff_response.email_attrs, message_attributes) }
   let(:body) { mail.html_part.body }
   let(:message_attributes) { nil }
 
