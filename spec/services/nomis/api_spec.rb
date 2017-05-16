@@ -37,7 +37,6 @@ RSpec.describe Nomis::Api do
     it 'returns and offender if the data matches' do
       expect(offender).to be_kind_of(Nomis::Offender)
       expect(offender.id).to eq(1_055_827)
-      expect(offender.noms_id).to eq('A1459AE')
     end
 
     it 'returns NullOffender if the data does not match', vcr: { cassette_name: 'lookup_active_offender-nomatch' } do
@@ -70,30 +69,6 @@ RSpec.describe Nomis::Api do
         offender
         expect(PVB::Instrumentation.custom_log_items[:valid_offender_lookup]).to be false
       end
-    end
-  end
-
-  describe '#lookup_offender_location' do
-    let(:establishment) { subject.lookup_offender_location(noms_id: noms_id) }
-
-    context 'when found', vcr: { cassette_name: :lookup_offender_location } do
-      let(:noms_id) { 'A1459AE' }
-
-      it 'returns a Location' do
-        expect(establishment).to be_valid
-      end
-    end
-
-    context 'with an unknown offender', vcr: { cassette_name: :lookup_offender_location_for_unknown_offender } do
-      let(:noms_id) { 'A1459BE' }
-
-      it { expect { establishment }.to raise_error(Nomis::APIError) }
-    end
-
-    context 'with an invalid nomis_id', vcr: { cassette_name: :lookup_offender_location_for_bogus_offender } do
-      let(:noms_id) { 'BOGUS' }
-
-      it { expect { establishment }.to raise_error(Nomis::APIError) }
     end
   end
 

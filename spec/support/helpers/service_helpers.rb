@@ -1,6 +1,6 @@
 module ServiceHelpers
   def switch_off_api
-    allow(Nomis::Api).to receive(:enabled?).and_return(false)
+    expect(Nomis::Api).to receive(:enabled?).and_return(false)
   end
 
   def mock_service_with(klass, double_or_spy)
