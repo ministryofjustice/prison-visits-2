@@ -1,16 +1,16 @@
 require "rails_helper"
 
 RSpec.describe BookingResponder::BookingRequestProcessor do
-  include_context 'booking response setup'
+  include_context 'staff response setup'
 
-  let(:booking_response) { BookingResponse.new(visit: visit, user: create(:user)) }
+  let(:staff_response) { StaffResponse.new(visit: visit, user: create(:user)) }
   let(:message)          { build(:message, body: 'A staff message') }
   before do
     visit.assign_attributes(params)
-    expect(booking_response).to be_valid
+    expect(staff_response).to be_valid
   end
 
-  subject { described_class.new(booking_response) }
+  subject { described_class.new(staff_response) }
 
   it '#process_request' do
     expect {
@@ -23,6 +23,6 @@ RSpec.describe BookingResponder::BookingRequestProcessor do
       visit.messages.find_by(body: message.body)
     }.from(nil).to(message)
 
-    expect(visit.last_visit_state.processed_by).to eq(booking_response.user)
+    expect(visit.last_visit_state.processed_by).to eq(staff_response.user)
   end
 end

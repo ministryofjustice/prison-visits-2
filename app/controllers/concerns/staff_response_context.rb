@@ -1,4 +1,4 @@
-module BookingResponseContext
+module StaffResponseContext
   extend ActiveSupport::Concern
 
 private

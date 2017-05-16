@@ -1,8 +1,8 @@
-module BookingResponseHelper
+module StaffResponseHelper
   def accept_visit(visit, slot)
     visit.slot_granted = slot
     BookingResponder::Accept.new(
-      BookingResponse.new(visit: visit)
+      StaffResponse.new(visit: visit)
     ).process_request
     visit
   end
@@ -18,10 +18,10 @@ module BookingResponseHelper
   end
 
   def reject_visit(visit, reasons = [Rejection::SLOT_UNAVAILABLE])
-    booking_response = BookingResponse.new(visit: visit)
-    booking_response.valid?
-    booking_response.visit.rejection.reasons += reasons
-    BookingResponder.new(booking_response).respond!
+    staff_response = StaffResponse.new(visit: visit)
+    staff_response.valid?
+    staff_response.visit.rejection.reasons += reasons
+    BookingResponder.new(staff_response).respond!
   end
 
   def withdraw_visit(visit)

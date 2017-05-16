@@ -104,7 +104,7 @@ namespace :pvb do
 
       visit.assign_attributes(attributes)
       BookingResponder::Reject.new(
-        BookingResponse.new(visit: visit)
+        StaffResponse.new(visit: visit)
       ).process_request
       fake_processing_time(visit.reload)
     end

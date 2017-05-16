@@ -1,14 +1,14 @@
 require 'action_mailer/inline_preview_interceptor'
 
 class Prison::EmailPreviewsController < ApplicationController
-  include BookingResponseContext
+  include StaffResponseContext
 
   def update
-    if booking_response.valid?
+    if staff_response.valid?
       render html: email_preview
     else
       render(
-        text: booking_response.
+        text: staff_response.
           errors.full_messages.to_sentence,
         status: :not_acceptable
       )
@@ -23,16 +23,16 @@ private
                        html_part.body.decoded.html_safe
   end
 
-  def booking_response
-    @booking_response ||= begin
+  def staff_response
+    @staff_response ||= begin
       visit = load_visit
       visit.assign_attributes(visit_params)
-      BookingResponse.new(visit: visit)
+      StaffResponse.new(visit: visit)
     end
   end
 
   def visitor_mailer
     @visitor_mailer ||=
-      BookingResponder.new(booking_response, message).visitor_mailer
+      BookingResponder.new(staff_response, message).visitor_mailer
   end
 end

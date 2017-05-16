@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.shared_context 'accepting a request' do
   before do
-    booking_response.selection = 'slot_0'
-    booking_response.reference_no = '1337807'
+    staff_response.selection = 'slot_0'
+    staff_response.reference_no = '1337807'
   end
 
   it 'changes the status of the visit to booked' do
@@ -15,12 +15,12 @@ RSpec.shared_context 'accepting a request' do
   end
 
   it 'marks the visit as closed' do
-    booking_response.closed_visit = true
+    staff_response.closed_visit = true
     expect(visit_after_responding).to be_closed
   end
 
   it 'marks the visit as not closed' do
-    booking_response.closed_visit = false
+    staff_response.closed_visit = false
     expect(visit_after_responding).not_to be_closed
   end
 
@@ -33,7 +33,7 @@ RSpec.shared_context 'accepting a request' do
 
   context 'with the first slot' do
     before do
-      booking_response.selection = 'slot_0'
+      staff_response.selection = 'slot_0'
     end
 
     it 'assigns the selected slot' do
@@ -44,7 +44,7 @@ RSpec.shared_context 'accepting a request' do
 
   context 'with the second slot' do
     before do
-      booking_response.selection = 'slot_1'
+      staff_response.selection = 'slot_1'
     end
 
     it 'assigns the selected slot' do
@@ -55,7 +55,7 @@ RSpec.shared_context 'accepting a request' do
 
   context 'with the third slot' do
     before do
-      booking_response.selection = 'slot_2'
+      staff_response.selection = 'slot_2'
     end
 
     it 'assigns the selected slot' do

@@ -1,19 +1,19 @@
 require "rails_helper"
 
 RSpec.describe BookingResponder::Reject do
-  include_context 'booking response setup'
+  include_context 'staff response setup'
 
   before do
     params[:slot_granted] = visit.slot_option_0
     params[:rejection_attributes][:reasons] = [Rejection::NO_ALLOWANCE]
 
     visit.assign_attributes(params)
-    booking_response.valid?
+    staff_response.valid?
   end
 
-  let(:booking_response) { BookingResponse.new(visit: visit) }
+  let(:staff_response) { StaffResponse.new(visit: visit) }
 
-  subject { described_class.new(booking_response) }
+  subject { described_class.new(staff_response) }
 
   describe '#process_visit' do
     it 'process the visit' do

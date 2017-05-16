@@ -30,7 +30,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.include FactoryGirl::Syntax::Methods
   config.include ActiveSupport::Testing::TimeHelpers
-  config.include BookingResponseHelper
+  config.include StaffResponseHelper
   config.include ControllerHelper, type: :controller
   config.include ConfigurationHelpers
   config.include ServiceHelpers

@@ -1,4 +1,4 @@
-class BookingResponse
+class StaffResponse
   include ActiveModel::Model
   include ActiveModel::Validations::Callbacks
   ADULT_AGE = 18
@@ -78,7 +78,7 @@ private
       errors.add(
         :base,
         I18n.t('must_reject_or_accept_visit',
-          scope: [:booking_response, :errors])
+          scope: [:staff_response, :errors])
       )
     end
   end

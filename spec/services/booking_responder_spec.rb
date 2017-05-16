@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe BookingResponder do
-  subject { described_class.new(booking_response, message) }
+  subject { described_class.new(staff_response, message) }
 
   let(:visit)            { create(:visit_with_three_slots) }
-  let(:booking_response) { BookingResponse.new(visit: visit) }
+  let(:staff_response) { StaffResponse.new(visit: visit) }
   let(:message)          { nil }
 
   describe 'with a requested visit' do
@@ -18,8 +18,8 @@ RSpec.describe BookingResponder do
 
     context 'when a booking is bookable' do
       before do
-        booking_response.visit.slot_granted = visit.slot_option_0
-        expect(booking_response).to be_valid
+        staff_response.visit.slot_granted = visit.slot_option_0
+        expect(staff_response).to be_valid
 
         expect(BookingResponder::Accept).to receive(:new).
           and_return(accept_processor)
@@ -35,14 +35,14 @@ RSpec.describe BookingResponder do
       it 'sends the booked emails to prison and visitors' do
         subject.respond!
         expect(VisitorMailer).to have_received(:booked).
-          with(booking_response.email_attrs, message_attributes)
+          with(staff_response.email_attrs, message_attributes)
       end
     end
 
     context 'when a booking is not bookable' do
       before do
-        booking_response.visit.slot_granted = Rejection::SLOT_UNAVAILABLE
-        expect(booking_response).to be_valid
+        staff_response.visit.slot_granted = Rejection::SLOT_UNAVAILABLE
+        expect(staff_response).to be_valid
 
         expect(BookingResponder::Accept).not_to receive(:new)
         expect(BookingResponder::Reject).to receive(:new).
@@ -59,7 +59,7 @@ RSpec.describe BookingResponder do
       it 'sends the booked emails to prison and visitors' do
         subject.respond!
         expect(VisitorMailer).to have_received(:rejected).
-          with(booking_response.email_attrs, message_attributes)
+          with(staff_response.email_attrs, message_attributes)
       end
     end
   end

@@ -1,4 +1,4 @@
-RSpec.shared_context 'booking response setup' do
+RSpec.shared_context 'staff response setup' do
   let(:principal_visitor) { visit.principal_visitor }
   let(:visit)             { create :visit_with_three_slots }
   let(:slot_granted)      { visit.slot_option_0 }

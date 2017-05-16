@@ -1,13 +1,13 @@
 class Prison::VisitsController < ApplicationController
-  include BookingResponseContext
+  include StaffResponseContext
   before_action :authorize_prison_request
   before_action :authenticate_user
   before_action :cancellation_reason_set, only: :cancel
   before_action :visit_is_processable, only: [:process_visit, :update]
 
   def process_visit
-    @visit            = load_visit.decorate
-    @booking_response = BookingResponse.new(visit: @visit)
+    @visit = load_visit.decorate
+    @staff_response = StaffResponse.new(visit: @visit)
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -15,10 +15,10 @@ class Prison::VisitsController < ApplicationController
   def update
     @visit = load_visit
     @visit.assign_attributes(visit_params)
-    @booking_response = BookingResponse.new(visit: @visit, user: current_user)
+    @staff_response = StaffResponse.new(visit: @visit, user: current_user)
 
-    if @booking_response.valid?
-      BookingResponder.new(@booking_response, message).respond!
+    if @staff_response.valid?
+      BookingResponder.new(@staff_response, message).respond!
       flash[:notice] = t('process_thank_you', scope: [:prison, :flash])
       redirect_to prison_inbox_path
     else
