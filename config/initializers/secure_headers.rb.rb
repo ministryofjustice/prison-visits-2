@@ -19,7 +19,7 @@ SecureHeaders::Configuration.default do |config|
   # So we can send JS errors to Sentry
   sentry_js_dsn = Rails.configuration.sentry_js_dsn
 
-  if sentry_js_dsn
+  if sentry_js_dsn.present?
     if sentry_js_dsn =~ URI.regexp(%w[http https])
       config.csp[:connect_src] = [URI.parse(sentry_js_dsn).host]
     else
