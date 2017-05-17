@@ -93,7 +93,7 @@ class StaffNomisChecker
 private
 
   def prisoner_validation_errors
-    @prisoner_validation_errors ||= prisoner_validation.errors.full_messages.sort
+    @prisoner_validation_errors ||= prisoner_validation.errors.full_messages
   end
 
   def prisoner_contact_list
