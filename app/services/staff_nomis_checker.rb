@@ -11,7 +11,7 @@ class StaffNomisChecker
   end
 
   def prisoner_existance_status
-    return NOT_LIVE unless prisoner_check_enabled?
+    return NOT_LIVE unless Nomis::Feature.prisoner_check_enabled?
 
     case prisoner_existance_error
     when nil
@@ -32,42 +32,29 @@ class StaffNomisChecker
   end
 
   def prisoner_availability_unknown?
-    prisoner_availability_enabled? &&
+    Nomis::Feature.prisoner_availability_enabled? &&
       prisoner_availability_validation.unknown_result?
   end
 
   def slot_availability_unknown?
-    slot_availability_enabled? &&
+    Nomis::Feature.slot_availability_enabled?(@visit) &&
       slot_availability_validation.unknown_result?
   end
 
   def errors_for(slot)
     errors = []
 
-    if prisoner_availability_enabled? && offender.valid?
+    if Nomis::Feature.prisoner_availability_enabled? && offender.valid?
       prisoner_availability_validation.slot_errors(slot).each do |error|
         errors << error
       end
     end
 
-    if slot_availability_enabled?
+    if Nomis::Feature.slot_availability_enabled?(@visit)
       errors << slot_availability_validation.slot_error(slot)
     end
 
     errors.compact
-  end
-
-  def prisoner_availability_enabled?
-    @nomis_api_enabled &&
-      Rails.configuration.nomis_staff_prisoner_availability_enabled
-  end
-
-  def slot_availability_enabled?
-    @nomis_api_enabled &&
-      Rails.configuration.nomis_staff_slot_availability_enabled &&
-      Rails.
-        configuration.
-        staff_prisons_with_slot_availability.include?(@visit.prison_name)
   end
 
   def slots_unavailable?
@@ -89,15 +76,8 @@ class StaffNomisChecker
     errors_for(slot).include?(Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT)
   end
 
-  def contact_list_enabled?
-    prisoner_check_enabled? &&
-      Rails.
-        configuration.
-        staff_prisons_with_nomis_contact_list.include?(@visit.prison_name)
-  end
-
   def contact_list_unknown?
-    contact_list_enabled? &&
+    Nomis::Feature.contact_list_enabled?(@visit) &&
       prisoner_contact_list.unknown_result?
   end
 
@@ -109,11 +89,6 @@ private
 
   def prisoner_contact_list
     @prisoner_contact_list ||= PrisonerContactList.new(offender)
-  end
-
-  def prisoner_check_enabled?
-    @nomis_api_enabled &&
-      Rails.configuration.nomis_staff_prisoner_check_enabled
   end
 
   def prisoner_validation

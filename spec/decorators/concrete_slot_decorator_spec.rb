@@ -16,6 +16,7 @@ RSpec.describe ConcreteSlotDecorator do
     described_class.decorate(
       slot,
       context: {
+        visit: visit,
         nomis_checker: nomis_checker,
         index: 0
       }
@@ -79,7 +80,7 @@ RSpec.describe ConcreteSlotDecorator do
 
       context 'when the api is disabled' do
         before do
-          expect(nomis_checker).to receive(:prisoner_availability_enabled?).and_return(false)
+          switch_on :nomis_staff_prisoner_availability_enabled
         end
 
         it 'renders the checkbox without errors' do
@@ -131,7 +132,8 @@ RSpec.describe ConcreteSlotDecorator do
 
       context 'when the api is disabled' do
         before do
-          expect(nomis_checker).to receive(:slot_availability_enabled?).and_return(false)
+          switch_on :nomis_staff_slot_availability_enabled
+          switch_feature_flag_with(:staff_prisons_with_slot_availability, [visit.prison_name])
         end
 
         it 'renders the checkbox without errors' do

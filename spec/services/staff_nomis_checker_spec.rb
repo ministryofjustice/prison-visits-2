@@ -10,7 +10,9 @@ RSpec.describe StaffNomisChecker do
   let(:offender) { Nomis::Offender.new(id: prisoner.number) }
 
   describe 'When the API is disabled' do
-    before do switch_off_api end
+    before do
+      switch_off_api
+    end
 
     describe '#prisoner_existance_status' do
       it { expect(subject.prisoner_existance_status).to eq('not_live') }
@@ -39,7 +41,7 @@ RSpec.describe StaffNomisChecker do
         it { expect(subject.prisoner_existance_status).to eq('not_live') }
       end
 
-      describe 'when the nomis api is live' do
+      describe 'when the prisoner check is enabled' do
         let(:validator) do
           double(PrisonerValidation, valid?: true, errors: { base: errors })
         end
@@ -73,7 +75,7 @@ RSpec.describe StaffNomisChecker do
       before do
         expect(subject).
           to receive(:prisoner_existance_status).
-               and_return(prisoner_status)
+          and_return(prisoner_status)
       end
 
       context 'when the prisoner status is invalid' do
@@ -102,7 +104,7 @@ RSpec.describe StaffNomisChecker do
     end
 
     describe '#prisoner_availability_unknown?' do
-      context 'with NOMIS_STAFF_PRISONER_AVAILABILITY_ENABLED is disabled' do
+      context 'with the feature disabled' do
         before do
           switch_off(:nomis_staff_prisoner_availability_enabled)
         end
@@ -110,7 +112,7 @@ RSpec.describe StaffNomisChecker do
         it { is_expected.not_to be_prisoner_availability_unknown }
       end
 
-      context 'with NOMIS_STAFF_PRISONER_AVAILABILITY_ENABLED is enabled' do
+      context 'with the featured is enabled' do
         let(:prisoner_availability_validation) do
           double(PrisonerAvailabilityValidation,
             valid?: false, unknown_result?: unknown_result)
@@ -356,35 +358,6 @@ RSpec.describe StaffNomisChecker do
         let(:errors) { [] }
 
         it { is_expected.not_to be_prisoner_out_of_prison(slot) }
-      end
-    end
-
-    describe '#contact_list_enabled?' do
-      context 'when NOMIS_STAFF_PRISONER_CHECK_ENABLED is disabled' do
-        before do
-          switch_off(:nomis_staff_prisoner_check_enabled)
-        end
-
-        it { is_expected.not_to be_contact_list_enabled }
-      end
-
-      context 'when NOMIS_STAFF_PRISONER_CHECK_ENABLED is enabled' do
-        before do
-          switch_on(:nomis_staff_prisoner_check_enabled)
-          switch_feature_flag_with(:staff_prisons_with_nomis_contact_list, contact_list_enabled_prisons)
-        end
-
-        context 'and the prison is in the comma separated list STAFF_PRISONS_WITH_NOMIS_CONTACT_LIST' do
-          let(:contact_list_enabled_prisons) { [visit.prison_name] }
-
-          it { is_expected.to be_contact_list_enabled }
-        end
-
-        context 'and the prison is not in the the comma separated list STAFF_PRISONS_WITH_NOMIS_CONTACT_LIST' do
-          let(:contact_list_enabled_prisons) { [] }
-
-          it { is_expected.not_to be_contact_list_enabled }
-        end
       end
     end
 

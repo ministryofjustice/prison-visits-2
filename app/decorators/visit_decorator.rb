@@ -9,14 +9,13 @@ class VisitDecorator < Draper::Decorator
     :slots_unavailable?,
     :contact_list_unknown?,
     :approved_contacts,
-    :contact_list_enabled?,
     to: :nomis_checker
 
   def slots
     @slots ||= object.slots.map.with_index { |slot, i|
       ConcreteSlotDecorator.decorate(
         slot,
-        context: { index: i, nomis_checker: nomis_checker }
+        context: { index: i, visit: object, nomis_checker: nomis_checker }
       )
     }
   end

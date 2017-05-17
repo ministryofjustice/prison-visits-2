@@ -77,7 +77,7 @@ private
 
   def prisoner_available?
     object.to_date.future? &&
-    nomis_checker.prisoner_availability_enabled? &&
+    Nomis::Feature.prisoner_availability_enabled? &&
       !nomis_checker.prisoner_availability_unknown? &&
       errors.none? do |e|
         PrisonerAvailabilityValidation::PRISONER_ERRORS.include?(e)
@@ -86,7 +86,7 @@ private
 
   def slot_available?
     object.to_date.future? &&
-    nomis_checker.slot_availability_enabled? &&
+    Nomis::Feature.slot_availability_enabled?(visit) &&
       !nomis_checker.slot_availability_unknown? &&
       errors.none? { |e| e == SlotAvailabilityValidation::SLOT_NOT_AVAILABLE }
   end
@@ -136,6 +136,10 @@ private
 
   def nomis_checker
     context[:nomis_checker]
+  end
+
+  def visit
+    context[:visit]
   end
 
   def index
