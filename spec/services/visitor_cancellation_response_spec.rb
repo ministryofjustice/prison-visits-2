@@ -10,6 +10,7 @@ RSpec.describe VisitorCancellationResponse do
 
     context "when it can't be withdrawn" do
       let(:visit) { FactoryGirl.create(:withdrawn_visit) }
+
       it { is_expected.to eq(false) }
     end
 
@@ -21,6 +22,7 @@ RSpec.describe VisitorCancellationResponse do
             prison: prison,
             slot_granted: prison.available_slots.first)
         end
+
         it { is_expected.to eq(true) }
       end
 
@@ -30,6 +32,7 @@ RSpec.describe VisitorCancellationResponse do
             :booked_visit,
             slot_granted: ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0))
         end
+
         it { is_expected.to eq(false) }
       end
     end

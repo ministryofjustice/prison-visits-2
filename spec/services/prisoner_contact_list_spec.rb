@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PrisonerContactList, type: :model do
   let(:offender) { Nomis::Offender.new(id: 1) }
+
   subject { described_class.new(offender) }
 
   context '#unknown_result?' do
@@ -21,6 +22,7 @@ RSpec.describe PrisonerContactList, type: :model do
 
     context "when the api returns no error" do
       let(:contact_list) { Nomis::ContactList.new }
+
       before do
         mock_nomis_with(:fetch_contact_list, contact_list)
       end

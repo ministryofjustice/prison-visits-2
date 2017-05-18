@@ -25,12 +25,12 @@ gem 'govuk_template'
 gem 'govuk_frontend_toolkit'
 gem 'govuk_elements_rails'
 gem 'jquery-rails'
-gem 'jquery-ui-rails
+gem 'jquery-ui-rails'
 gem 'jwt'
 gem 'draper'
 gem 'rake'
 
-gem 'sentry-raven', '~> 2.4.0'
+gem 'sentry-raven'
 
 gem 'sidekiq'
 gem 'state_machines-activerecord'
@@ -56,7 +56,7 @@ group :development, :test do
   gem 'parser'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails'
   gem 'rubocop'
   gem 'rubocop-rspec'
   gem 'awesome_print', require: 'ap'

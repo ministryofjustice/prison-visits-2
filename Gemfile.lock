@@ -385,14 +385,14 @@ DEPENDENCIES
   rake
   redcarpet
   request_store
-  rspec-rails (~> 3.0)
+  rspec-rails
   rubocop
   rubocop-rspec
   sass-rails
   scenic
   secure_headers
   selenium-webdriver (= 2.53.4)
-  sentry-raven (~> 2.4.0)
+  sentry-raven
   shoulda-matchers
   sidekiq
   simplecov

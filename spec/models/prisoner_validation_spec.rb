@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PrisonerValidation, type: :model do
   let(:offender) { Nomis::Offender.new(id: 'someid') }
+
   subject do
     described_class.new(offender)
   end
@@ -24,6 +25,7 @@ RSpec.describe PrisonerValidation, type: :model do
 
     context 'and the API does not find a match' do
       let(:offender) { Nomis::NullOffender.new }
+
       it { is_expected.not_to be_valid }
     end
   end

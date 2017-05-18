@@ -17,7 +17,7 @@ RSpec.describe SendgridApi, '#spam_reported?' do
     include_examples 'sendgrid pool timeouts'
 
     context 'when there is no spam report' do
-      it_should_behave_like 'there is nothing to report'
+      it_behaves_like 'there is nothing to report'
     end
 
     context 'when there is a spam report' do
@@ -29,7 +29,7 @@ RSpec.describe SendgridApi, '#spam_reported?' do
         }].to_json
       }
 
-      it_should_behave_like 'there is something to report'
+      it_behaves_like 'there is something to report'
     end
   end
 

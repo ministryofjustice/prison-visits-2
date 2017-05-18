@@ -18,7 +18,7 @@ AllCops:
     - 'spec/dummy/db/**/*'
 
   DisplayCopNames: true
-    
+
 Rails:
   Enabled: true
 
@@ -65,6 +65,9 @@ Style/FormatString:
 Style/GuardClause:
   Enabled: false
 
+Style/SymbolArray:
+  Enabled: false
+
 Style/SymbolProc:
   Exclude:
     - 'spec/factories/**/*'
@@ -72,6 +75,9 @@ Style/SymbolProc:
 # You can't use attr_reader to define a foo? method from @foo.
 Style/TrivialAccessors:
   AllowPredicates: true
+
+Style/FileName:
+  Enabled: false
 
 # Default is 100
 Metrics/ClassLength:
@@ -284,6 +290,9 @@ Lint/UselessAccessModifier:
   Enabled: false
 
 Lint/IneffectiveAccessModifier:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
   Enabled: false
 
 require: rubocop-rspec

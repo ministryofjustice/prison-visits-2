@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe AccessibleDate do
   let(:attributes) { { year: '2017', month: '12', day: '25' } }
+
   subject { described_class.new(attributes) }
 
   it { is_expected.to be_valid }
@@ -19,6 +20,7 @@ RSpec.describe AccessibleDate do
 
     context 'with no date parts set' do
       let(:attributes) { { year: '', month: '', day: '' } }
+
       it { is_expected.to be_valid }
     end
   end
@@ -29,6 +31,7 @@ RSpec.describe AccessibleDate do
     end
     context 'with no date parts set' do
       let(:attributes) { { year: '', month: '', day: '' } }
+
       it 'returns nil' do
         expect(subject.to_date).to be_nil
       end

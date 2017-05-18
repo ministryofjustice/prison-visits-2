@@ -76,6 +76,7 @@ RSpec.describe Nomis::PrisonerDateAvailability do
 
   describe '#available?' do
     subject { instance.available?(slot) }
+
     let(:slot) { ConcreteSlot.new(2017, 1, 1, 10, 30, 11, 30) }
 
     context 'with no unavailable_reasons' do
