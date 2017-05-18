@@ -5,7 +5,7 @@
         <div class="bold-small push-bottom--half"><%= t('.visiting_allowance') %></div>
         <%= error_container(rf, :reasons) do %>
           <div class="multiple-choice">
-            <%= rf.object.checkbox_for :no_allowance, id: :no_allowance, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
+            <%= rf.object.checkbox_for :no_allowance, id: :no_allowance, class: 'js-Rejection', 'data-rejection-el': 'rejection-message' %>
             <%= rf.label t('.no_allowance'), for: :no_allowance %>
           </div>
         <% end %>
@@ -43,7 +43,6 @@
           <%= rf.object.checkbox_for(:prisoner_out_of_prison, id: :prisoner_out_of_prison, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
           <%= rf.label t('.prisoner_out_of_prison'), for: :prisoner_out_of_prison %>
         </div>
-
       <% end %>
     </div>
 
