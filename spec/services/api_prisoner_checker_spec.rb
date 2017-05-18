@@ -33,6 +33,7 @@ RSpec.describe ApiPrisonerChecker do
         end
 
         describe 'when the offender is found' do
+
           let(:offender) { Nomis::Offender.new(id: 'some_id', noms_id: 'a_noms_id') }
 
           describe 'and the establishment is valid' do

@@ -107,7 +107,7 @@ private
   end
 
   def label_classes
-    classes = 'block-label date-box'
+    classes = 'date-box__label'
 
     if errors.any?
       classes << ' date-box--error'
