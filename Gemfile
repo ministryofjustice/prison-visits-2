@@ -56,7 +56,7 @@ group :development, :test do
   gem 'parser'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails', '~> 3.6'
   gem 'rubocop'
   gem 'rubocop-rspec'
   gem 'awesome_print', require: 'ap'
