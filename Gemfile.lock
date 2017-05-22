@@ -271,7 +271,7 @@ GEM
       railties (>= 4.0.0)
     secure_headers (3.6.4)
       useragent
-    selenium-webdriver (2.53.4)
+    selenium-webdriver (3.4.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
@@ -389,7 +389,7 @@ DEPENDENCIES
   sass-rails
   scenic
   secure_headers
-  selenium-webdriver (= 2.53.4)
+  selenium-webdriver (= 3.4.0)
   sentry-raven (~> 2.4.0)
   shoulda-matchers
   sidekiq
