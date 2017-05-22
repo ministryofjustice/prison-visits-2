@@ -85,16 +85,18 @@ private
     label_class = options.delete(:no_block) ? 'form-checkbox' : 'block-label'
 
     error_container(form, name) {
-      join(
-        form.label(name, class: label_class) {
-          join(
-            form.public_send(field_method, name, *options),
-            t(".#{name}"),
-            field_hint(name),
-            field_error(form, name)
-          )
-        }
-      )
+      content_tag(:div, class: 'multiple-choice'){
+        join(
+          form.public_send(field_method, name, *options),
+          form.label(name, class: label_class) {
+            join(
+              t(".#{name}"),
+              field_hint(name),
+              field_error(form, name)
+            )
+          }
+        )
+      }
     }
   end
 

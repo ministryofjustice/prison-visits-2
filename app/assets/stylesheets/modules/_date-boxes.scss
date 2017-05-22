@@ -1,39 +1,52 @@
 .date-box {
-  background: $white;
-  border: 1px solid $border-colour;
-  height: 100px;
-  overflow: hidden;
-  position: relative;
-  padding: 10px 10px 10px 70px;
-  width: 100%;
-  @include core-16;
-  @include prefix(box-sizing, border-box);
-  .date-box__number {
-    background: $border-colour;
-    font-size: 48px;
-    font-weight: bold;
-    height: 100%;
-    left: 10px;
-    line-height: 100px;
-    margin: -10px 0 0 -10px;
-    position: absolute;
-    text-align: center;
-    top: 10px;
-    width: 55px;
+  margin: 0;
+  padding: 0;
+  input {
+    @extend .visuallyhidden;
+    z-index: -99;
   }
-  .date-box__day {
-    @include bold-19;
-  }
-  &.selected {
-    .date-box__number {
-      background: #1B567D;
-      color: $white;
+  .date-box__label {
+    background: $white;
+    border: 1px solid $border-colour;
+    // cursor: pointer;
+    display: block;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+    padding: 10px 10px 10px 70px;
+    width: 100%;
+    @include core-16;
+    @include prefix(box-sizing, border-box);
+    &:before, &:after {
+      display: none;
     }
-  }
-  &.disabled {
-    @include opacity(0.6);
-    &:hover {
-      border-color: $border-colour;
+    .date-box__number {
+      background: $border-colour;
+      font-size: 48px;
+      font-weight: bold;
+      height: 100%;
+      left: 10px;
+      line-height: 100px;
+      margin: -10px 0 0 -10px;
+      position: absolute;
+      text-align: center;
+      top: 10px;
+      width: 55px;
+    }
+    .date-box__day {
+      @include bold-19;
+    }
+    &.selected {
+      .date-box__number {
+        background: #1B567D;
+        color: $white;
+      }
+    }
+    &.disabled {
+      @include opacity(0.6);
+      &:hover {
+        border-color: $border-colour;
+      }
     }
   }
 }

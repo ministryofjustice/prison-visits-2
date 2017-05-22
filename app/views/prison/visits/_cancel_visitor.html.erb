@@ -5,10 +5,12 @@
       <div class="grid-row">
         <fieldset>
           <div class="column-one-third">
-            <label for="cancellation_reason_visitor_banned" class="block-label">
-              <%= radio_button_tag 'cancellation_reason', :visitor_banned, false %>
-              <%= t(".visitor_banned") %>
-            </label>
+            <div class="multiple-choice">
+            <%= radio_button_tag 'cancellation_reason', :visitor_banned, false %>
+              <label for="cancellation_reason_visitor_banned">
+                <%= t(".visitor_banned") %>
+              </label>
+            </div>
           </div>
         </fieldset>
       </div>

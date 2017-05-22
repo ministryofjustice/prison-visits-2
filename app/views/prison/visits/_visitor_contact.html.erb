@@ -35,14 +35,18 @@
           <% end %>
         </div>
       <% end %>
-      <%= vf.label :not_on_list, class: 'form-group' do %>
+      <div class="multiple-choice form-group">
         <%= vf.check_box :not_on_list, data: { checkbox_summary_text: v.anonymized_name } %>
-        <%= t('.not_on_list') %>
-      <% end %>
-      <%= vf.label :banned, class: 'form-group' do %>
+        <%= vf.label :not_on_list do %>
+          <%= t('.not_on_list') %>
+        <% end %>
+      </div>
+      <div class="multiple-choice form-group">
         <%= vf.check_box :banned %>
-        <%= t('.banned') %>
-      <% end %>
+        <%= vf.label :banned do %>
+          <%= t('.banned') %>
+        <% end %>
+      </div>
     </div>
   </div>
 </li>

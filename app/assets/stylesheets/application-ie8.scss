@@ -1,2 +1,10 @@
 $is-ie: true;
 $ie-version: 8;
+
+@import "application";
+
+.multiple-choice {
+  input {
+    @include opacity(1);
+  }
+}

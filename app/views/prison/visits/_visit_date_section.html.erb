@@ -25,7 +25,9 @@
 
     <% f.object.slots.each do |slot| %>
       <div class="column-one-third">
-        <%= slot.slot_picker(f) %>
+        <div class="multiple-choice date-box">
+          <%= slot.slot_picker(f) %>
+        </div>
       </div>
     <% end %>
   <% end %>
@@ -39,10 +41,13 @@
 
   <div class="column-two-thirds push-top push-bottom--half">
       <%= error_container f, :slot_granted do %>
-      <label class="block-label">
-        <%= f.radio_button :slot_granted, Rejection::SLOT_UNAVAILABLE, { checked: @visit.slots_unavailable?, class: 'js-Conditional' }%>
-        <%= t('.none_available') %>
-      </label>
+      <div class="multiple-choice">
+        <%= f.radio_button :slot_granted, Rejection::SLOT_UNAVAILABLE, { checked: @visit.slots_unavailable?, id: 'no_slot_available', class: 'js-Conditional' }%>
+        <%= f.label :slot_granted, t('.none_available'), for: 'no_slot_available' %>
+        <!-- <label>
+          <%= t('.none_available') %>
+        </label> -->
+      </div>
     <% end %>
   </div>
 </div>

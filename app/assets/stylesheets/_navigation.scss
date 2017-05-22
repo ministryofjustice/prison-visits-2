@@ -38,8 +38,11 @@
         border-right: none;
       }
       .button.search {
+        background-image: image-url('icon-search.png');
+        background-repeat: no-repeat;
+        background-position: center;
         box-shadow: none;
-        height: 37px;
+        height: 39px;
         float: left;
         width: 40px;
       }

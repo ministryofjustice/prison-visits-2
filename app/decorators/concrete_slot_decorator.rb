@@ -11,6 +11,13 @@ class ConcreteSlotDecorator < Draper::Decorator
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   def slot_picker(form_builder)
+    # h.concat(
+    #   form_builder.radio_button(
+    #     :slot_granted,
+    #     iso8601,
+    #     radio_options
+    #   )
+    # )
     h.concat(
       form_builder.label(
         :slot_granted,
@@ -107,7 +114,7 @@ private
   end
 
   def label_classes
-    classes = 'block-label date-box'
+    classes = 'date-box__label'
 
     if errors.any?
       classes << ' date-box--error'
