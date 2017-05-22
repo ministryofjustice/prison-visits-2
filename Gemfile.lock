@@ -73,7 +73,7 @@ GEM
     connection_pool (2.2.1)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
-    css_parser (1.4.8)
+    css_parser (1.5.0)
       addressable
     database_cleaner (1.6.1)
     descendants_tracker (0.0.4)
@@ -179,10 +179,11 @@ GEM
     phantomjs (2.1.1.0)
     phonelib (0.6.11)
     powerpack (0.1.1)
-    premailer (1.9.2)
-      css_parser (>= 1.4.8)
+    premailer (1.10.4)
+      addressable
+      css_parser (>= 1.4.10)
       htmlentities (>= 4.0.0)
-    premailer-rails (1.9.5)
+    premailer-rails (1.9.6)
       actionmailer (>= 3, < 6)
       premailer (~> 1.7, >= 1.7.9)
     pry (0.10.4)
