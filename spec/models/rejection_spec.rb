@@ -7,6 +7,7 @@ RSpec.describe Rejection, model: true do
       allowance_renews_on: allowance_renews_on
     )
   end
+
   let(:reasons) { [Rejection::SLOT_UNAVAILABLE] }
   let(:allowance_renews_on) do
     { day: '12', month: '11', year:  '2017' }
@@ -32,6 +33,7 @@ RSpec.describe Rejection, model: true do
     context 'validate allowance renews on date' do
       context 'rejection for no allowance' do
         let(:reasons) { [described_class::NO_ALLOWANCE] }
+
         context 'with a valid date' do
           it 'is valid' do
             expect(subject).to be_valid
@@ -48,6 +50,7 @@ RSpec.describe Rejection, model: true do
           let(:allowance_renews_on) do
             { day: '12', month: '11', year:  '' }
           end
+
           it 'is invalid' do
             expect(subject).to be_invalid
           end

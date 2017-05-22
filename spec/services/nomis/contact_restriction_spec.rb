@@ -16,11 +16,13 @@ RSpec.describe Nomis::ContactRestriction do
 
     context 'with a banned restriction type' do
       let(:type) { { code: "BAN", desc: "Banned" } }
+
       it { is_expected.to eq(true) }
     end
 
     context 'with not a banned restriction type ' do
       let(:type) { { code: "CLO", desc: "Closed" } }
+
       it { is_expected.to eq(false) }
     end
   end

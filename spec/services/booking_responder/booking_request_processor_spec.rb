@@ -5,6 +5,7 @@ RSpec.describe BookingResponder::BookingRequestProcessor do
 
   let(:staff_response) { StaffResponse.new(visit: visit, user: create(:user)) }
   let(:message)          { build(:message, body: 'A staff message') }
+
   before do
     visit.assign_attributes(params)
     expect(staff_response).to be_valid

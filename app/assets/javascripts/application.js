@@ -13,7 +13,7 @@
 //= require lodash
 //= require modernizr-custom
 //= require dest/respond.min
-//= require jquery-ui/datepicker
+//= require jquery-ui/widgets/datepicker
 
 // Raven / Sentry
 //= require modules/moj.sentry

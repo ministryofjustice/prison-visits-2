@@ -4,6 +4,7 @@ RSpec.describe Healthcheck::SmtpCheck do
   subject {
     described_class.new('SMTP connection', smtp_settings: smtp_settings)
   }
+
   let(:smtp_settings) { { address: 'smtp.example.com', port: 587 } }
 
   it 'connects to the specified host and port' do

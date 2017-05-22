@@ -4,6 +4,7 @@ RSpec.describe HttpMethodNotAllowed do
   describe '#call' do
     let(:env) { { 'REQUEST_METHOD' => request_method } }
     let(:app) { double('App') }
+
     subject { described_class.new(app).call(env) }
 
     context 'when is an allowed method' do

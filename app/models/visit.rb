@@ -31,29 +31,29 @@ class Visit < ActiveRecord::Base
   delegate :allowance_will_renew?, :allowance_renews_on,
     to: :rejection
 
-  scope :from_estates, lambda { |estates|
+  scope :from_estates, (lambda { |estates|
     joins(prison: :estate).where(estates: { id: estates.map(&:id) })
-  }
+  })
 
-  scope :processed, lambda {
-    joins(<<-EOS).
-LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
+  scope :processed, (lambda {
+    joins(<<~EOS).
+      LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
     EOS
-      where(<<-EOS, nomis_cancelled: true).
-cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
+      where(<<~EOS, nomis_cancelled: true).
+        cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
     EOS
       without_processing_state(:requested)
-  }
+  })
 
-  scope :ready_for_processing, lambda {
-    joins(<<-EOS).
-LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
+  scope :ready_for_processing, (lambda {
+    joins(<<~EOS).
+      LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
     EOS
-      where(<<-EOS, nomis_cancelled: false).
-cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
+      where(<<~EOS, nomis_cancelled: false).
+        cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
     EOS
       with_processing_state(:requested, :cancelled)
-  }
+  })
 
   accepts_nested_attributes_for :messages, :rejection, reject_if: :all_blank
   accepts_nested_attributes_for :visitors, update_only: true

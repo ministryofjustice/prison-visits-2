@@ -10,11 +10,13 @@ RSpec.describe MetricsController, type: :controller do
 
     context 'with no range' do
       let(:range) { 'all_time' }
+
       it { is_expected.to be_successful }
     end
 
     context "with a range" do
       let(:range) { 'weekly' }
+
       before do
         create(:visit, created_at: 1.week.ago)
         create(:rejected_visit, created_at: 1.year.ago)
@@ -27,7 +29,9 @@ RSpec.describe MetricsController, type: :controller do
 
   describe 'summary' do
     let(:prison) { create(:prison) }
+
     subject { get :summary, prison_id: prison.to_param, locale: 'en' }
+
     it { is_expected.to be_successful }
   end
 end

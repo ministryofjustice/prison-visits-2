@@ -18,7 +18,7 @@ class Prison::SwitchEstatesController < ApplicationController
 private
 
   def verify_switch_estates
-    if params[:estate_ids].nil? || params[:estate_ids].empty?
+    if params[:estate_ids].blank?
       flash[:notice] = t('at_least_one_estate', scope: [:prison, :flash])
       redirect_to :back
     end

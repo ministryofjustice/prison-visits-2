@@ -22,6 +22,7 @@ RSpec.describe MetricsPresenter do
 
   describe '#visits_in_state' do
     let(:state) { 'requested' }
+
     subject { instance.visits_in_state(prison_name, state) }
 
     before do
@@ -45,6 +46,7 @@ RSpec.describe MetricsPresenter do
 
   describe '#percent_rejected' do
     let(:name) { 'total' }
+
     subject { instance.percent_rejected(prison_name) }
 
     before do
@@ -57,6 +59,7 @@ RSpec.describe MetricsPresenter do
 
   describe '#summary_for' do
     let(:name) { 'Cardiff' }
+
     subject { instance.summary_for(name) }
 
     it { is_expected.to be_instance_of(PrisonSummaryMetricsPresenter) }

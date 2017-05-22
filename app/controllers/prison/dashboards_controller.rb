@@ -66,7 +66,7 @@ private
   end
 
   def parse_date(date)
-    Date.parse(date) unless date.blank?
+    Date.parse(date) if date.present?
   rescue ArgumentError
     flash[:notice] = t('invalid_date', scope: [:prison, :flash])
     nil
