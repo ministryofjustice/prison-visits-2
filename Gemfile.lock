@@ -196,7 +196,7 @@ GEM
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     public_suffix (2.0.5)
-    puma (3.7.0)
+    puma (3.8.2)
     rack (1.6.8)
     rack-protection (1.5.3)
       rack
