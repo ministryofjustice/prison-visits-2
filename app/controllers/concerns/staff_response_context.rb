@@ -25,6 +25,12 @@ private
     params[:id] || params[:visit_id]
   end
 
+  def booking_responder
+    visit = load_visit
+    visit.assign_attributes(visit_params)
+    BookingResponder.new(visit, user: current_user, message: message)
+  end
+
   # rubocop:disable Metrics/MethodLength
   def visit_params
     params.require(:visit).permit(

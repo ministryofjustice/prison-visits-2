@@ -4,6 +4,8 @@ class BookingResponder
       super do
         visit.rejection = nil
         visit.accept!
+
+        BookingResponse.new(success: true)
       end
     end
   end

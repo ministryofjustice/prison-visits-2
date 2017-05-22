@@ -1,23 +1,26 @@
 class BookingResponder
   class BookingRequestProcessor
     def initialize(staff_response)
-      @staff_response = staff_response
+      self.staff_response = staff_response
     end
 
     def process_request(message_for_visitor = nil)
       ActiveRecord::Base.transaction do
-        yield if block_given?
+        self.booking_response = yield if block_given?
+
         if message_for_visitor
           create_message(message_for_visitor, visit.last_visit_state)
         end
 
         record_visitor_or_user
       end
+
+      booking_response
     end
 
   private
 
-    attr_reader :staff_response
+    attr_accessor :staff_response, :booking_response
 
     delegate :visit, to: :staff_response
     delegate :rejection, to: :visit

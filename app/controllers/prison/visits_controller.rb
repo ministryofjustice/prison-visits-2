@@ -7,29 +7,20 @@ class Prison::VisitsController < ApplicationController
 
   def process_visit
     @visit = load_visit.decorate
-    @staff_response = StaffResponse.new(visit: @visit)
   end
 
-  # rubocop:disable Metrics/MethodLength
-  # rubocop:disable Metrics/AbcSize
   def update
-    @visit = load_visit
-    @visit.assign_attributes(visit_params)
-    @staff_response = StaffResponse.new(visit: @visit, user: current_user)
-
-    if @staff_response.valid?
-      BookingResponder.new(@staff_response, message).respond!
+    booking_response = booking_responder.respond!
+    if booking_response.success?
       flash[:notice] = t('process_thank_you', scope: [:prison, :flash])
       redirect_to prison_inbox_path
     else
       # Always decorate object last once they've been mutated
-      @visit = @visit.decorate
+      @visit = load_visit.decorate
       flash[:alert] = t('process_required', scope: [:prison, :flash])
       render :process_visit
     end
   end
-  # rubocop:enable Metrics/MethodLength
-  # rubocop:enable Metrics/AbcSize
 
   def nomis_cancelled
     load_visit.confirm_nomis_cancelled
