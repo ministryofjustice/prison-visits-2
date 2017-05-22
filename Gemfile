@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.3.0'
 
-gem 'rails', '~> 4.2.3'
+gem 'rails', '~> 4.2.8'
 
 gem 'connection_pool'
 gem 'base32-crockford', require: 'base32/crockford'
