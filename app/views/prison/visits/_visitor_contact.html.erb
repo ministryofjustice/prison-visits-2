@@ -22,7 +22,7 @@
       <% end %>
     </div>
     <div class="column">
-      <% if !@visit.contact_list_unknown? && @visit.contact_list_enabled? %>
+      <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>
         <div class="form-group">
           <%= vf.label :nomis_id, t('.nomis_list'), class: 'form-label' %>
           <%= vf.select :nomis_id, nil, {}, { class: 'form-control js-contactList' } do %>
