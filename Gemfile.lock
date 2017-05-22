@@ -76,7 +76,7 @@ GEM
       safe_yaml (~> 1.0.0)
     css_parser (1.4.8)
       addressable
-    database_cleaner (1.5.3)
+    database_cleaner (1.6.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.3)
