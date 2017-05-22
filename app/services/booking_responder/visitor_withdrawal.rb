@@ -1,7 +1,11 @@
 class BookingResponder
   class VisitorWithdrawal < BookingRequestProcessor
     def process_request
-      super { visit.withdraw! }
+      super do
+        visit.withdraw!
+
+        BookingResponse.new(success: true)
+      end
     end
   end
 end

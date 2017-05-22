@@ -86,9 +86,7 @@ FactoryGirl.define do
     factory :rejected_visit do
       rejection_attributes do { reasons: [Rejection::SLOT_UNAVAILABLE] } end
       after :create do |visit|
-        staff_request = StaffResponse.new(visit: visit)
-        staff_request.valid?
-        BookingResponder.new(staff_request).respond!
+        BookingResponder.new(visit).respond!
       end
     end
 

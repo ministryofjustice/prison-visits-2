@@ -1,16 +1,20 @@
 class BookingResponder
   delegate :visit, to: :staff_response
 
-  def initialize(staff_response, message = nil)
-    @staff_response = staff_response
-    @message = message
+  def initialize(visit, user: nil, message: nil)
+    self.staff_response = StaffResponse.new(visit: visit, user: user)
+    self.message = message
   end
 
   def respond!
-    return unless visit.requested?
-    processor.process_request(message)
+    unless staff_response.valid?
+      return BookingResponse.new(success: false)
+    end
 
-    send_notifications
+    booking_response = processor.process_request(message)
+
+    send_notifications if booking_response.success?
+    booking_response
   end
 
   def visitor_mailer
@@ -21,7 +25,7 @@ class BookingResponder
 
 private
 
-  attr_reader :staff_response, :message
+  attr_accessor :staff_response, :message
 
   def send_notifications
     visitor_mailer.deliver_later

@@ -1,9 +1,9 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
-<% if !@visit.contact_list_unknown? && @visit.contact_list_enabled? %>
+<% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>
   <p><%= t('.help_text') %></p>
 <% end %>
 
-<% if @visit.contact_list_unknown? && @visit.contact_list_enabled? %>
+<% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>
   <div class="notice push-bottom push-top">
     <i class="icon icon-important">
       <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>
@@ -12,7 +12,7 @@
   </div>
 <% end %>
 
-<div class="js-visitorList <% if !@visit.contact_list_unknown? && @visit.contact_list_enabled? %>nomis-enabled<% end %>">
+<div class="js-visitorList <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>nomis-enabled<% end %>">
   <ul class="visitor-contact-list push-top">
     <%= f.fields_for :visitors, @visit.principal_visitor do |vf| %>
       <%= render 'visitor_contact', f: f, v: @visit.principal_visitor, vf: vf %>
@@ -24,7 +24,7 @@
     <% end %>
   </ul>
   <div class="form-group">
-    <% if !@visit.contact_list_unknown? %>
+    <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>
       <div class="notice visuallyhidden js-noAdults">
         <i class="icon icon-important">
           <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>

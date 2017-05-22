@@ -10,29 +10,17 @@ RSpec.shared_examples 'create rejections without dates' do
     make_visits(mars)
   end
 
-  def reject_visit(staff_response)
-    staff_response.valid?
-    BookingResponder.new(staff_response).respond!
+  def reject_visit(visit)
+    BookingResponder.new(visit).respond!
   end
 
   def make_visits(prison)
     create_list(:booked_visit, 6, prison: prison)
 
-    reject_visit StaffResponse.new(
-      visit: create(:visit, prison: prison, rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
-
-    )
-
-    reject_visit StaffResponse.new(
-      visit: create(:visit, prison: prison, rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
-    )
-
-    reject_visit StaffResponse.new(
-      visit: create(:visit, prison: prison, rejection_attributes: { reasons: ['slot_unavailable'] })
-    )
-    reject_visit StaffResponse.new(
-      visit: create(:visit, prison: prison, rejection_attributes: { reasons: ['visitor_banned'] })
-    )
+    reject_visit create(:visit, prison: prison, rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
+    reject_visit create(:visit, prison: prison, rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
+    reject_visit create(:visit, prison: prison, rejection_attributes: { reasons: ['slot_unavailable'] })
+    reject_visit create(:visit, prison: prison, rejection_attributes: { reasons: ['visitor_banned'] })
   end
 end
 
@@ -50,51 +38,18 @@ RSpec.shared_examples 'create rejections with dates' do
     make_visits(mars)
   end
 
-  def reject_visit(staff_response)
-    BookingResponder.new(staff_response).respond!
+  def reject_visit(visit)
+    BookingResponder.new(visit).respond!
   end
 
   def make_visits(prison)
     create_list(:booked_visit, 5, created_at: Time.zone.local(2016, 2, 1), prison: prison)
 
-    reject_visit StaffResponse.new(
-      visit: create(:visit,
-        prison:     prison,
-        created_at: Time.zone.local(2016, 2, 1),
-        rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] }
-                   )
-    )
-
-    reject_visit StaffResponse.new(
-      visit: create(:visit,
-        prison:     prison,
-        created_at: Time.zone.local(2016, 2, 2),
-        rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] }
-                   )
-    )
-
-    reject_visit StaffResponse.new(
-      visit: create(:visit,
-        prison:     prison,
-        created_at: Time.zone.local(2016, 2, 3),
-        rejection_attributes: { reasons: ['slot_unavailable'] }
-                   )
-    )
-    reject_visit StaffResponse.new(
-      visit: create(:visit,
-        prison:     prison,
-        created_at: Time.zone.local(2016, 2, 4),
-        rejection_attributes: { reasons: ['visitor_banned'] }
-                   )
-    )
-
-    reject_visit StaffResponse.new(
-      visit: create(:visit,
-        prison:     prison,
-        created_at: Time.zone.local(2016, 2, 4),
-        rejection_attributes: { reasons: ['no_adult'] }
-                   )
-    )
+    reject_visit create(:visit, prison: prison, created_at: Time.zone.local(2016, 2, 1), rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
+    reject_visit create(:visit, prison: prison, created_at: Time.zone.local(2016, 2, 2), rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
+    reject_visit create(:visit, prison: prison, created_at: Time.zone.local(2016, 2, 3), rejection_attributes: { reasons: ['slot_unavailable'] })
+    reject_visit create(:visit, prison: prison, created_at: Time.zone.local(2016, 2, 4), rejection_attributes: { reasons: ['visitor_banned'] })
+    reject_visit create(:visit, prison: prison, created_at: Time.zone.local(2016, 2, 4), rejection_attributes: { reasons: ['no_adult'] })
   end
 end
 

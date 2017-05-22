@@ -7,6 +7,8 @@ class BookingResponder
         visit.reference_no = nil
         clean_up_allowance_renews_on
         visit.reject!
+
+        BookingResponse.new(success: true)
       end
     end
 

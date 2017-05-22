@@ -6,6 +6,8 @@ class BookingResponder
         Cancellation.create!(visit: visit,
                              reason: staff_response.reason,
                              nomis_cancelled: true)
+
+        BookingResponse.new(success: true)
       end
     end
   end

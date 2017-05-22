@@ -33,6 +33,6 @@ private
 
   def visitor_mailer
     @visitor_mailer ||=
-      BookingResponder.new(staff_response, message).visitor_mailer
+      BookingResponder.new(staff_response.visit, message: message).visitor_mailer
   end
 end
