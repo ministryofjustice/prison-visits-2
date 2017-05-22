@@ -37,7 +37,7 @@ class StaffNomisChecker
   end
 
   def slot_availability_unknown?
-    Nomis::Feature.slot_availability_enabled?(@visit) &&
+    Nomis::Feature.slot_availability_enabled?(@visit.prison_name) &&
       slot_availability_validation.unknown_result?
   end
 
@@ -50,7 +50,7 @@ class StaffNomisChecker
       end
     end
 
-    if Nomis::Feature.slot_availability_enabled?(@visit)
+    if Nomis::Feature.slot_availability_enabled?(@visit.prison_name)
       errors << slot_availability_validation.slot_error(slot)
     end
 
@@ -77,7 +77,7 @@ class StaffNomisChecker
   end
 
   def contact_list_unknown?
-    Nomis::Feature.contact_list_enabled?(@visit) &&
+    Nomis::Feature.contact_list_enabled?(@visit.prison_name) &&
       prisoner_contact_list.unknown_result?
   end
 

@@ -86,7 +86,7 @@ private
 
   def slot_available?
     object.to_date.future? &&
-    Nomis::Feature.slot_availability_enabled?(visit) &&
+      Nomis::Feature.slot_availability_enabled?(visit.prison_name) &&
       !nomis_checker.slot_availability_unknown? &&
       errors.none? { |e| e == SlotAvailabilityValidation::SLOT_NOT_AVAILABLE }
   end
