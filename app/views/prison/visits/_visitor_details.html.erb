@@ -3,7 +3,7 @@
   <p><%= t('.help_text') %></p>
 <% end %>
 
-<% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>
+<% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && @visit.contact_list_unknown? %>
   <div class="notice push-bottom push-top">
     <i class="icon icon-information">
       <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>
