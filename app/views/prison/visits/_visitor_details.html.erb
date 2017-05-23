@@ -5,7 +5,7 @@
 
 <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>
   <div class="notice push-bottom push-top">
-    <i class="icon icon-important">
+    <i class="icon icon-information">
       <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>
     </i>
     <strong class="bold-small"><%= t('.nomis_api_down') %></strong>
@@ -25,14 +25,8 @@
   </ul>
   <div class="form-group">
     <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>
-      <div class="notice visuallyhidden js-noAdults">
-        <i class="icon icon-important">
-          <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>
-        </i>
-        <strong class="bold-small"><%= t('.no_adults') %></strong>
-      </div>
       <div class="notice js-notAllProcessed">
-        <i class="icon icon-important">
+        <i class="icon icon-information">
           <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>
         </i>
         <strong class="bold-small"><%= t('.not_all_processed') %></strong>

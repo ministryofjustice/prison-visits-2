@@ -120,7 +120,7 @@ en:
         booked_visit: Booked on another visit
         slot_not_available: Fully booked
         add_a_message: Add a message
-        rejection_warning: This visit will not be booked because a rejection has been selected
+        rejection_warning: This visit will be rejected and an email will be sent to the lead visitor
       prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
@@ -215,7 +215,7 @@ en:
         help_text: Match each visitor to a name on the prisoner’s contact list.
         nomis_api_down: We can’t show the NOMIS contact list right now. Please check all visitors in NOMIS.
         no_adults: This visit will be rejected as none of the visitors are adults
-        not_all_processed: Make sure all visitors have been processed to continue
+        not_all_processed: Make sure all visitors have been processed
       visitor_detail:
         title: Visitor details
         not_listed: Not listed
