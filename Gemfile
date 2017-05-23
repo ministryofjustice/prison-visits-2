@@ -30,7 +30,7 @@ gem 'jwt'
 gem 'draper'
 gem 'rake'
 
-gem 'sentry-raven', '~> 2.4.0'
+gem 'sentry-raven', '~> 2.5.0'
 
 gem 'sidekiq'
 gem 'state_machines-activerecord'
