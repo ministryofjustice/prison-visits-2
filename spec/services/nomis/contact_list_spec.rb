@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Nomis::ContactList do
   let(:approved_active) do
@@ -29,8 +29,10 @@ RSpec.describe Nomis::ContactList do
   describe '#approved' do
     subject { instance.approved }
 
-    it 'returns approved and active contacts' do
-      expect(subject.map(&:id)).to eq([approved_active.id])
+    it 'returns only approved contacts regardless of active or inactive' do
+      expect(subject.size).to eq(2)
+      expect(subject.map(&:id)).to include(approved_active.id)
+      expect(subject.map(&:id)).to include(approved_inactive.id)
     end
   end
 end
