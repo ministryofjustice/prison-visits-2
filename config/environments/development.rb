@@ -10,10 +10,7 @@ Rails.application.configure do
     { address: 'localhost', port: 1025, domain: 'localhost' }
   config.active_support.deprecation = :log
   config.active_record.migration_error = :page_load
-  config.assets.debug = false
-
-  config.assets.js_compressor = Uglifier.new(screw_ie8: true)
-  config.serve_static_files = true
+  config.assets.debug = true
 
   config.assets.digest = true
   config.assets.raise_runtime_errors = true
