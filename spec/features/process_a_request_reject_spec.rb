@@ -126,7 +126,7 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     scenario 'rejecting a booking when no visitors are on the contact list' do
-      vst.visitors.each_with_index do |visitor, i|
+      vst.visitors.each do |visitor|
         within "#visitor_#{visitor.id}" do
           check 'Not on contact list', visible: false
         end
@@ -148,7 +148,7 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     scenario 'rejecting a booking when all visitors are banned' do
-      vst.visitors.each_with_index do |visitor, i|
+      vst.visitors.each do |visitor|
         within "#visitor_#{visitor.id}" do
           check 'Visitor is banned', visible: false
         end
