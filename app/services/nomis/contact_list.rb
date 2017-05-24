@@ -7,8 +7,9 @@ module Nomis
 
     attribute :contacts, Array[Contact]
     attribute :api_call_successful, Boolean, default: true
+
     def approved
-      select { |contact| contact.approved? && contact.active? }
+      select(&:approved?)
     end
 
     def api_call_successful?

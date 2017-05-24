@@ -17,10 +17,6 @@ module Nomis
       approved_visitor
     end
 
-    def active?
-      active
-    end
-
     def banned?
       restrictions.any?(&:banned?)
     end
