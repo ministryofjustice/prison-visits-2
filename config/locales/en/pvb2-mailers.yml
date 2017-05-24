@@ -130,6 +130,9 @@ en:
       first_visit:
         If this is the prisoner's first visit (reception visit), then you need
         to contact the prison to book.
+      lead_visitor_rejected:
+        Please note, as your visit hasn't been booked, none of the visitors on
+        your booking request will be able to visit the prison.
       any_questions_html:
         If you have any questions, visit the
         <a href="%{url}">prison website</a> or call the prison on

@@ -15,6 +15,18 @@ RSpec.describe Rejection, model: true do
 
   it { is_expected.to be_valid }
 
+  describe 'after_validation' do
+    before do
+      subject.visit = create(:visit)
+    end
+    let(:reasons) { [Rejection::SLOT_UNAVAILABLE] * 2 }
+
+    it 'dedups reasons' do
+      expect {
+        subject.save!
+      }.to change { subject.reasons  }.from(reasons).to([Rejection::SLOT_UNAVAILABLE])
+    end
+  end
   describe 'validation' do
     it 'enforces no more than one per visit' do
       visit = create(:visit)

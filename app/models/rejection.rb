@@ -37,6 +37,9 @@ class Rejection < ActiveRecord::Base
   validates :reasons, presence: true
   validate :validate_allowance_renews_on_date
 
+  before_save do
+    reasons.uniq!
+  end
   # TODO: Delete me when the column has dropped
   def self.columns
     super.reject { |c| c.name == 'reason' }

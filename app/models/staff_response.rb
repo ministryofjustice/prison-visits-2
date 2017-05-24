@@ -6,6 +6,8 @@ class StaffResponse
   attr_writer :validate_visitors_nomis_ready
 
   before_validation :check_slot_available
+  before_validation :check_lead_visitor_not_banned
+  before_validation :check_lead_visitor_on_list
 
   validate :validate_visit_is_processable
   validate :visit_or_rejection_validity
@@ -162,5 +164,17 @@ privileged_allowance_expires_on])
     end
 
     errors.add(:base, :visitors_invalid) if invalid_visitors.any?
+  end
+
+  def check_lead_visitor_not_banned
+    if visit.principal_visitor.banned?
+      rejection.reasons << Rejection::BANNED
+    end
+  end
+
+  def check_lead_visitor_on_list
+    if visit.principal_visitor.not_on_list?
+      rejection.reasons << Rejection::NOT_ON_THE_LIST
+    end
   end
 end

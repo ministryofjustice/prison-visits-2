@@ -190,7 +190,7 @@ RSpec.describe StaffResponse, type: :model do
         it { is_expected.to be_valid }
 
         it 'is has a rejection for visitor not on the list' do
-          expect(subject.visit.rejection.reasons).to eq([Rejection::NOT_ON_THE_LIST, Rejection::NO_ADULT])
+          expect(subject.visit.rejection.reasons).to include(Rejection::NOT_ON_THE_LIST)
         end
       end
 
@@ -208,7 +208,7 @@ RSpec.describe StaffResponse, type: :model do
         it { is_expected.to be_valid }
 
         it 'has a rejection for visitor banned' do
-          expect(subject.visit.rejection.reasons).to eq([Rejection::BANNED, Rejection::NO_ADULT])
+          expect(subject.visit.rejection.reasons).to include(Rejection::BANNED)
         end
       end
     end
@@ -223,7 +223,36 @@ RSpec.describe StaffResponse, type: :model do
       end
 
       it 'has a rejection for no adult' do
-        expect(subject.visit.rejection.reasons).to eq([Rejection::NO_ADULT])
+        expect(subject.visit.rejection.reasons).to include(Rejection::NO_ADULT)
+      end
+    end
+
+    describe 'check lead visitor is not banned and on the list' do
+      let!(:other_visitor) { create(:visitor, visit: visit) }
+      let(:slot_granted) { nil }
+
+      context 'when the lead visitor is not on the list' do
+        before do
+          params[:visitors_attributes]['0'][:not_on_list] = true
+          params[:visitors_attributes]['1'] = other_visitor.attributes.slice('id', 'banned', 'not_on_list')
+          is_expected.to be_valid
+        end
+
+        it 'is rejected for not having lead visitor on the list' do
+          expect(subject.visit.rejection.reasons).to include(Rejection::NOT_ON_THE_LIST)
+        end
+      end
+
+      context 'when the lead visitor is banned' do
+        before do
+          params[:visitors_attributes]['0'][:banned] = true
+          params[:visitors_attributes]['1'] = other_visitor.attributes.slice('id', 'banned', 'not_on_list')
+          is_expected.to be_valid
+        end
+
+        it 'is rejected for having lead visitor banned' do
+          expect(subject.visit.rejection.reasons).to include(Rejection::BANNED)
+        end
       end
     end
   end

@@ -98,6 +98,8 @@ RSpec.describe Visit, type: :model do
   end
 
   describe 'state' do
+    subject { create(:visit_with_two_visitors) }
+
     it 'is requested initially' do
       expect(subject).to be_requested
     end
@@ -287,6 +289,8 @@ RSpec.describe Visit, type: :model do
   end
 
   describe '#rejection_message' do
+    subject { create(:visit_with_two_visitors) }
+
     before do
       reject_visit subject
     end
