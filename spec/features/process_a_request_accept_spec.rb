@@ -166,7 +166,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
         fill_in 'Reference number', with: '12345678'
 
         within "#visitor_#{visitor.id}" do
-          find('input[type="checkbox"][id*="banned"]').click
+          check 'Visitor is banned', visible: false
         end
 
         click_button 'Process'
@@ -193,7 +193,10 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
         choose_date
         fill_in 'Reference number', with: '12345678'
-        check 'visit[visitors_attributes][1][not_on_list]'
+
+        within "#visitor_#{visitor.id}" do
+          check 'Not on contact list', visible: false
+        end
 
         click_button 'Process'
 
