@@ -19,7 +19,7 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     scenario 'rejecting a booking with no available slot' do
-      choose 'None of the chosen times are available'
+      choose 'None of the chosen times are available', visible: false
 
       fill_in 'Message (optional)', with: 'A staff message'
 
@@ -49,7 +49,7 @@ RSpec.feature 'Processing a request', js: true do
     scenario 'a booking when the prisoner has no visiting allowance' do
       allowance_renewal = 2.days.from_now.to_date
 
-      check 'Prisoner does not have any visiting allowance'
+      check 'Prisoner does not have any visiting allowance', visible: false
 
       within '.issue-with-prisoner' do
         fill_in 'Day',   with: allowance_renewal.day
@@ -73,7 +73,7 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     scenario 'rejecting a booking with incorrect prisoner details' do
-      check 'Prisoner details are incorrect'
+      check 'Prisoner details are incorrect', visible: false
 
       click_button 'Process'
 
@@ -90,7 +90,7 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     scenario 'rejecting a booking when the prisoner has moved' do
-      check 'Prisoner has moved prisons'
+      check 'Prisoner has moved prisons', visible: false
 
       click_button 'Process'
 
@@ -107,8 +107,8 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     scenario 'rejecting a booking when the prisoner is banned and out of prison' do
-      check 'Prisoner banned from receiving visits'
-      check 'Prisoner on external movement'
+      check 'Prisoner banned from receiving visits', visible: false
+      check 'Prisoner on external movement', visible: false
 
       click_button 'Process'
 
@@ -126,8 +126,10 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     scenario 'rejecting a booking when no visitors are on the contact list' do
-      vst.visitors.each_with_index do |_visitor, i|
-        check "visit[visitors_attributes][#{i}][not_on_list]"
+      vst.visitors.each_with_index do |visitor, i|
+        within "#visitor_#{visitor.id}" do
+          check 'Not on contact list', visible: false
+        end
       end
 
       click_button 'Process'
@@ -146,8 +148,10 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     scenario 'rejecting a booking when all visitors are banned' do
-      vst.visitors.each_with_index do |_, i|
-        check "visit[visitors_attributes][#{i}][banned]"
+      vst.visitors.each_with_index do |visitor, i|
+        within "#visitor_#{visitor.id}" do
+          check 'Visitor is banned', visible: false
+        end
       end
 
       click_button 'Process'
