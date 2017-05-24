@@ -40,7 +40,7 @@
   <div class="column-two-thirds push-top push-bottom--half">
       <%= error_container f, :slot_granted do %>
       <label class="block-label">
-        <%= f.radio_button :slot_granted, Rejection::SLOT_UNAVAILABLE, { checked: @visit.slots_unavailable?, class: 'js-Conditional' }%>
+        <%= f.radio_button :slot_granted, Rejection::SLOT_UNAVAILABLE, { checked: @visit.slots_unavailable?, class: 'js-Conditional js-Rejection', 'data-rejection-el': 'rejection-message' }%>
         <%= t('.none_available') %>
       </label>
     <% end %>

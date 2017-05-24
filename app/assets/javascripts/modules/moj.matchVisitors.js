@@ -14,7 +14,6 @@
       this.bannedCheckbox = 'input[type="checkbox"][id*="banned"]';
 
       this.$el = $('.js-visitorList.nomis-enabled');
-      this.$noAdultMessage = this.$el.find('.js-noAdults');
       this.$notAllMessage = this.$el.find('.js-notAllProcessed');
       this.totalVisitors = this.$el.find('select').length;
     },
@@ -124,10 +123,11 @@
       var noAdults = adultNumber < 1;
 
       if (noAdults && this.getProcessed() >= 1) {
-        this.showEl(this.$noAdultMessage);
+        moj.Modules.Rejection.addToSelected(this.$el);
       } else {
-        this.hideEl(this.$noAdultMessage);
+        moj.Modules.Rejection.removeFromSelected(this.$el);
       }
+      moj.Modules.Rejection.actuate(this.$el);
     },
 
     checkTotalStatus: function() {
