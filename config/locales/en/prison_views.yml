@@ -127,11 +127,15 @@ en:
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
         prison_name: Prison name
+        location_invalid: Not verified
+        location_unknown: Unknown
+        location_invalid_text: The prisoner is not registered at this prison.
+        location_unknown_text: Check NOMIS to verify prisoner location.
         prisoner_does_not_exist_text: The prisoner date of birth and number do not match.
         unknown_text: "The check couldn't take place due to a system error, please verify manually"
         verified: Verified
         verified_html: |
-          The prisoner date of birth and number have been verified. <br>Please check the prisoner name.
+          The prisoner date of birth, prisoner number and prison name have been verified. <br>Please check the prisoner name.
       validate_prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name

@@ -7,14 +7,14 @@
     </i>
     <strong class="bold-small"><%= t('.verified_html') %></strong>
   </div>
-<% when StaffNomisChecker::INVALID %>
+<% when StaffNomisChecker::INVALID, StaffNomisChecker::LOCATION_INVALID %>
   <div class="notice push-top">
     <i class="icon icon-information">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
     <strong class="bold-small"><%= t(".#{@visit.prisoner_existance_error}_text") %></strong>
   </div>
-<% when StaffNomisChecker::UNKNOWN %>
+<% when StaffNomisChecker::UNKNOWN, StaffNomisChecker::LOCATION_UNKNOWN %>
   <div class="notice push-top">
     <i class="icon icon-important">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
@@ -22,6 +22,8 @@
     <strong class="bold-small"><%= t(".#{@visit.prisoner_existance_error}_text") %></strong>
   </div>
 <% end %>
+
+
 <div class="grid-row push-top">
   <div class="column-one-quarter">
     <span class="text-secondary"><%= t('.prisoner_name') %></span>
@@ -30,25 +32,44 @@
   <div class="column-one-quarter">
     <span class="text-secondary"><%= t('.prisoner_dob') %></span>
     <div class="bold-small"><%= @visit.prisoner_date_of_birth.to_s(:short_nomis) %></div>
+
     <% case @visit.prisoner_existance_status %>
-    <% when StaffNomisChecker::VALID %>
+    <% when StaffNomisChecker::VALID, StaffNomisChecker::LOCATION_INVALID %>
       <div class="tag tag--booked font-xsmall"><%= t('.verified') %></div>
-    <% when StaffNomisChecker::INVALID %>
+    <% when StaffNomisChecker::INVALID, StaffNomisChecker::LOCATION_INVALID %>
       <div class="tag tag--error font-xsmall"><%= t(".#{@visit.prisoner_existance_status}") %></div>
     <% end %>
+
   </div>
   <div class="column-one-quarter">
     <span class="text-secondary"><%= t('.prisoner_number') %></span>
     <div class="bold-small"><%= @visit.prisoner_number %></div>
+
     <% case @visit.prisoner_existance_status %>
-    <% when StaffNomisChecker::VALID  %>
+    <% when StaffNomisChecker::VALID, StaffNomisChecker::LOCATION_INVALID  %>
       <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
     <% when StaffNomisChecker::INVALID %>
       <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_existance_status}") %></div>
     <% end %>
+
   </div>
   <div class="column-one-quarter">
     <span class="text-secondary"><%= t('.prison_name') %></span>
+
     <div class="bold-small"><%= @visit.prison_name %></div>
+    <% case @visit.prisoner_existance_status %>
+    <% when StaffNomisChecker::VALID %>
+      <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
+    <% when StaffNomisChecker::LOCATION_INVALID %>
+      <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_existance_status}") %></div>
+    <% when StaffNomisChecker::LOCATION_UNKNOWN %>
+      <div class="notice push-top">
+        <i class="icon icon-important">
+          <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
+        </i>
+        <strong class="bold-small"><%= t(".#{@visit.prisoner_existance_status}") %></strong>
+      </div>
+    <% end %>
+
   </div>
 </div>

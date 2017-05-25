@@ -5,9 +5,9 @@ RSpec.feature 'Using the dashboard' do
     OmniAuth.config.add_mock(:mojsso, sso_response)
   end
 
-  let(:cardiff) { FactoryGirl.create(:estate, name: 'Cardiff') }
-  let(:swansea) { FactoryGirl.create(:estate, name: 'Swansea') }
-  let(:swansea_prison) { FactoryGirl.create(:prison, estate: swansea) }
+  let(:cardiff)        { create(:estate, name: 'Cardiff') }
+  let(:swansea)        { create(:estate, name: 'Swansea') }
+  let(:swansea_prison) { create(:prison, estate: swansea) }
   let(:sso_response) do
     {
       'uid' => '1234-1234-1234-1234',
@@ -129,6 +129,10 @@ RSpec.feature 'Using the dashboard' do
     end
 
     it 'sends a message and cancels the visit' do
+      allow(StaffNomisChecker).
+        to receive(:new).and_return(
+          double(StaffNomisChecker, prisoner_existance_status: StaffNomisChecker::VALID, location_verified?: true))
+
       fill_in 'Search', with: vst.prisoner_number
       find('.button.search').click
       click_link 'View'

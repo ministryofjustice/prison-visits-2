@@ -12,16 +12,16 @@ RSpec.describe Api::ValidationsController do
   end
 
   describe 'visitors' do
-    let!(:prison) { FactoryGirl.create(:prison) }
+    let!(:prison)   { FactoryGirl.create(:prison) }
     let(:prison_id) { prison.id }
-    let(:lead_dob) { '1990-01-01' }
-    let(:dobs) { [lead_dob] }
+    let(:lead_dob)  { '1990-01-01' }
+    let(:dobs)      { [lead_dob] }
 
     let(:params) do
       {
         lead_date_of_birth: lead_dob,
-        dates_of_birth: dobs,
-        prison_id: prison_id
+        dates_of_birth:     dobs,
+        prison_id:          prison_id
       }
     end
 
@@ -99,11 +99,16 @@ RSpec.describe Api::ValidationsController do
     }
 
     context 'when the prisoner exists' do
-      let(:offender) { Nomis::Offender.new(id: 123) }
+      let(:prisoner_validation) do
+        ApiPrisonerChecker
+      end
 
       it 'returns valid' do
-        expect(Nomis::Api.instance).to receive(:lookup_active_offender).
-          and_return(offender)
+        expect(ApiPrisonerChecker).
+          to receive(:new).with(
+            noms_id: params[:number],
+            date_of_birth: Date.parse(params[:date_of_birth])
+             ).and_return(double(ApiPrisonerChecker, 'valid?' => true))
 
         post :prisoner, params
         expect(parsed_body['validation']).to eq('valid' => true)
@@ -132,14 +137,6 @@ RSpec.describe Api::ValidationsController do
       post :prisoner, params
       expect(response.status).to eq(422)
       expect(parsed_body['message']).to eq('Invalid parameter: date_of_birth')
-    end
-
-    it 'returns valid if the NOMIS API is disabled' do
-      allow(Nomis::Api).to receive(:enabled?).and_return(false)
-      expect_any_instance_of(Nomis::Api).not_to receive(:lookup_active_offender)
-
-      post :prisoner, params
-      expect(parsed_body['validation']['valid']).to eq(true)
     end
 
     it 'returns valid if the NOMIS API cannot be contacted' do
