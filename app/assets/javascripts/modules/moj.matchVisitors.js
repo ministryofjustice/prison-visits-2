@@ -13,7 +13,7 @@
       this.notContactCheckbox = 'input[id*="not_on_list"]';
       this.bannedCheckbox = 'input[type="checkbox"][id*="banned"]';
 
-      this.$el = $('.js-visitorList.nomis-enabled');
+      this.$el = $('.js-visitorList');
       this.$notAllMessage = this.$el.find('.js-notAllProcessed');
       this.totalVisitors = this.$el.find('select').length;
     },
