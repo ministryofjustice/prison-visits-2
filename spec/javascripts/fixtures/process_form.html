@@ -169,158 +169,132 @@
   <hr>
   <h2 class="bold-medium">Visitor details</h2>
   <p>Match each visitor to a name on the prisoner’s contact list.</p>
-  <div class="js-visitorList nomis-enabled" data-rejection-el="rejection-message">
-    <ul class="visitor-contact-list push-top">
-      <li id="visitor_fafc1d93-f6f1-4f1e-83c7-a7d967089385" data-visitor="{&quot;first_name&quot;: &quot;Jane&quot;, &quot;last_name&quot;: &quot;Smith&quot;, &quot;dob&quot;: &quot;1970-01-01&quot;}" data-banned="false" data-processed="true">
-        <div class="error">
-          <label class="" for="visit_visitors_attributes_0_banned">
-          </label>    <label class="" for="visit_visitors_attributes_0_banned_until">
+  <div id="visitors-fixture" class="js-visitorList nomis-enabled" data-rejection-el="rejection-message">
+  <ul class="visitor-contact-list push-top">
+    <li id="visitor_d0482cf9-7bea-4453-b3be-d6b45e3cc951" data-visitor="{&quot;first_name&quot;: &quot;Tom&quot;, &quot;last_name&quot;: &quot;Smith&quot;, &quot;dob&quot;: &quot;1970-01-01&quot;}" data-processed="false">
+      <div class="wrapper">
+        <div class="column">
+          <div class="name">
+            <input type="hidden" value="d0482cf9-7bea-4453-b3be-d6b45e3cc951" name="visit[visitors_attributes][0][id]" id="visit_visitors_attributes_0_id">
+            <span class="bold-small">Tom Smith</span> - 01/01/1970
+            <span class="font-small">(47)</span>
+          </div>
+          <p>
+            <a href="mailto:tom@example.com">tom@example.com</a>
+            <br>
+            1234567890
+          </p>
+        </div>
+        <div class="column">
+          <div class="form-group">
+            <label for="visit_visitors_attributes_0_nomis_id" class="form-label">Match to contact list</label>
+            <select class="form-control js-contactList" name="visit[visitors_attributes][0][nomis_id]" id="visit_visitors_attributes_0_nomis_id">
+              <option data-contact="{&quot;uid&quot;: &quot;0&quot;}" value="">Please select a contact</option>
+              <option data-contact="{
+                &quot;uid&quot;:&quot;12588&quot;,
+                &quot;banned&quot;: &quot;true&quot;
+                }" value="12588" selected>
+                BILLY JONES - 01/01/1970
+              </option>
+              <option data-contact="{
+                &quot;uid&quot;:&quot;13428&quot;,
+                &quot;banned&quot;: &quot;false&quot;
+                }" value="13428">
+                IRMA ITSU - 03/04/1975
+              </option>
+            </select>
+          </div>
+          <label class="form-group" for="visit_visitors_attributes_0_not_on_list">
+          <input name="visit[visitors_attributes][0][not_on_list]" type="hidden" value="0"><input data-checkbox-summary-text="Tom S" type="checkbox" value="1" name="visit[visitors_attributes][0][not_on_list]" id="visit_visitors_attributes_0_not_on_list">
+          Not on contact list
+          </label>
+          <label class="form-group" for="visit_visitors_attributes_0_banned">
+          <input name="visit[visitors_attributes][0][banned]" type="hidden" value="0">
+          <input type="checkbox" value="1" name="visit[visitors_attributes][0][banned]" id="visit_visitors_attributes_0_banned">
+          Visitor is banned
           </label>
         </div>
-        <div class="wrapper">
-          <div class="column">
-            <div class="name">
-              <input type="hidden" value="fafc1d93-f6f1-4f1e-83c7-a7d967089385" name="visit[visitors_attributes][0][id]" id="visit_visitors_attributes_0_id">
-              <span class="bold-small">Jane Smith</span> - 01/01/1970
-              <span class="font-small">(47)</span>
-            </div>
-            <p>
-              <a href="mailto:jane@gmail.com">jane@gmail.com</a>
-              <br>
-              1234567890
-            </p>
-          </div>
-          <div class="column">
-            <div class="form-group">
-              <label for="nomis_contacts_visitor_fafc1d93-f6f1-4f1e-83c7-a7d967089385" class="form-label">Match to contact list</label>
-              <select class="form-control js-contactList" name="nomis_contacts_visitor_fafc1d93-f6f1-4f1e-83c7-a7d967089385" id="nomis_contacts_visitor_fafc1d93-f6f1-4f1e-83c7-a7d967089385">
-                <option data-contact="{&quot;uid&quot;: &quot;0&quot;}" value="0">Please select a contact</option>
-                <option data-contact="{
-                  &quot;uid&quot;:&quot;12588&quot;,
-                  &quot;banned&quot;: &quot;false&quot;
-                  }" value="12588">
-                  BILLY JONES - 01/01/1970
-                </option>
-                <option data-contact="{
-                  &quot;uid&quot;:&quot;13428&quot;,
-                  &quot;banned&quot;: &quot;false&quot;
-                  }" value="13428">
-                  IRMA ITSU - 03/04/1975
-                </option>
-              </select>
-            </div>
-            <label class="form-group" for="visit_visitors_attributes_0_not_on_list">
-            <input name="visit[visitors_attributes][0][not_on_list]" type="hidden" value="0"><input data-checkbox-summary-text="Jane S" type="checkbox" value="1" name="visit[visitors_attributes][0][not_on_list]" id="visit_visitors_attributes_0_not_on_list" disabled="">
-            Not on contact list
-            </label>      <label class="form-group" for="visit_visitors_attributes_0_banned">
-            <input name="visit[visitors_attributes][0][banned]" type="hidden" value="0"><input type="checkbox" value="1" name="visit[visitors_attributes][0][banned]" id="visit_visitors_attributes_0_banned">
-            Visitor is banned
-            </label>
-          </div>
-        </div>
-      </li>
-      <li id="visitor_d26e6699-83ca-4e56-bdb2-76fe4952c7c7" data-visitor="{&quot;first_name&quot;: &quot;Jim&quot;, &quot;last_name&quot;: &quot;Smith&quot;, &quot;dob&quot;: &quot;1999-09-01&quot;}" data-banned="false" data-processed="true">
-        <div class="error">
-          <label class="" for="visit_visitors_attributes_1_banned">
-          </label>    <label class="" for="visit_visitors_attributes_1_banned_until">
-          </label>
-        </div>
-        <div class="wrapper">
-          <div class="column">
-            <div class="name">
-              <input type="hidden" value="d26e6699-83ca-4e56-bdb2-76fe4952c7c7" name="visit[visitors_attributes][1][id]" id="visit_visitors_attributes_1_id">
-              <span class="bold-small">Jim Smith</span> - 01/09/1999
-              <span class="font-small">(17)</span>
-            </div>
-          </div>
-          <div class="column">
-            <div class="form-group">
-              <label for="nomis_contacts_visitor_d26e6699-83ca-4e56-bdb2-76fe4952c7c7" class="form-label">Match to contact list</label>
-              <select class="form-control js-contactList" name="nomis_contacts_visitor_d26e6699-83ca-4e56-bdb2-76fe4952c7c7" id="nomis_contacts_visitor_d26e6699-83ca-4e56-bdb2-76fe4952c7c7">
-                <option data-contact="{&quot;uid&quot;: &quot;0&quot;}" value="0">Please select a contact</option>
-                <option data-contact="{
-                  &quot;uid&quot;:&quot;12588&quot;,
-                  &quot;banned&quot;: &quot;false&quot;
-                  }" value="12588" disabled="">
-                  BILLY JONES - 01/01/1970
-                </option>
-                <option data-contact="{
-                  &quot;uid&quot;:&quot;13428&quot;,
-                  &quot;banned&quot;: &quot;false&quot;
-                  }" value="13428">
-                  IRMA ITSU - 03/04/1975
-                </option>
-              </select>
-            </div>
-            <label class="form-group selected" for="visit_visitors_attributes_1_not_on_list">
-            <input name="visit[visitors_attributes][1][not_on_list]" type="hidden" value="0"><input data-checkbox-summary-text="Jim S" type="checkbox" value="1" name="visit[visitors_attributes][1][not_on_list]" id="visit_visitors_attributes_1_not_on_list">
-            Not on contact list
-            </label>      <label class="form-group" for="visit_visitors_attributes_1_banned">
-            <input name="visit[visitors_attributes][1][banned]" type="hidden" value="0"><input type="checkbox" value="1" name="visit[visitors_attributes][1][banned]" id="visit_visitors_attributes_1_banned">
-            Visitor is banned
-            </label>
-          </div>
-        </div>
-      </li>
-      <li id="visitor_f011a052-e5d1-4aee-84fe-c38fcc81adfe" data-visitor="{&quot;first_name&quot;: &quot;Bob&quot;, &quot;last_name&quot;: &quot;Smith&quot;, &quot;dob&quot;: &quot;2005-12-29&quot;}" data-banned="false" data-processed="true">
-        <div class="error">
-          <label class="" for="visit_visitors_attributes_2_banned">
-          </label>    <label class="" for="visit_visitors_attributes_2_banned_until">
-          </label>
-        </div>
-        <div class="wrapper">
-          <div class="column">
-            <div class="name">
-              <input type="hidden" value="f011a052-e5d1-4aee-84fe-c38fcc81adfe" name="visit[visitors_attributes][2][id]" id="visit_visitors_attributes_2_id">
-              <span class="bold-small">Bob Smith</span> - 29/12/2005
-              <span class="font-small">(11)</span>
-            </div>
-          </div>
-          <div class="column">
-            <div class="form-group">
-              <label for="nomis_contacts_visitor_f011a052-e5d1-4aee-84fe-c38fcc81adfe" class="form-label">Match to contact list</label>
-              <select class="form-control js-contactList" name="nomis_contacts_visitor_f011a052-e5d1-4aee-84fe-c38fcc81adfe" id="nomis_contacts_visitor_f011a052-e5d1-4aee-84fe-c38fcc81adfe">
-                <option data-contact="{&quot;uid&quot;: &quot;0&quot;}" value="0">Please select a contact</option>
-                <option data-contact="{
-                  &quot;uid&quot;:&quot;12588&quot;,
-                  &quot;banned&quot;: &quot;false&quot;
-                  }" value="12588" disabled="">
-                  BILLY JONES - 01/01/1970
-                </option>
-                <option data-contact="{
-                  &quot;uid&quot;:&quot;13428&quot;,
-                  &quot;banned&quot;: &quot;false&quot;
-                  }" value="13428">
-                  IRMA ITSU - 03/04/1975
-                </option>
-              </select>
-            </div>
-            <label class="form-group selected" for="visit_visitors_attributes_2_not_on_list">
-            <input name="visit[visitors_attributes][2][not_on_list]" type="hidden" value="0"><input data-checkbox-summary-text="Bob S" type="checkbox" value="1" name="visit[visitors_attributes][2][not_on_list]" id="visit_visitors_attributes_2_not_on_list">
-            Not on contact list
-            </label>      <label class="form-group" for="visit_visitors_attributes_2_banned">
-            <input name="visit[visitors_attributes][2][banned]" type="hidden" value="0"><input type="checkbox" value="1" name="visit[visitors_attributes][2][banned]" id="visit_visitors_attributes_2_banned">
-            Visitor is banned
-            </label>
-          </div>
-        </div>
-      </li>
-    </ul>
-    <div class="form-group">
-      <div class="notice js-noAdults visuallyhidden" style="display: none;">
-        <i class="icon icon-important">
-        <span class="visuallyhidden">Warning</span>
-        </i>
-        <strong class="bold-small">This visit will be rejected as none of the visitors are adults</strong>
       </div>
-      <div class="notice js-notAllProcessed visuallyhidden" style="display: none;">
-        <i class="icon icon-important">
-        <span class="visuallyhidden">Warning</span>
-        </i>
-        <strong class="bold-small">Make sure all visitors have been processed to continue</strong>
+    </li>
+    <li id="visitor_f1f7b645-c57f-4926-bfba-a29e4e45542e" data-visitor="{&quot;first_name&quot;: &quot;Jane&quot;, &quot;last_name&quot;: &quot;Smith&quot;, &quot;dob&quot;: &quot;1999-01-01&quot;}">
+      <div class="wrapper">
+        <div class="column">
+          <div class="name">
+            <input type="hidden" value="f1f7b645-c57f-4926-bfba-a29e4e45542e" name="visit[visitors_attributes][1][id]" id="visit_visitors_attributes_1_id">
+            <span class="bold-small">Jane Smith</span> - 01/01/1999
+            <span class="font-small">(18)</span>
+          </div>
+        </div>
+        <div class="column">
+          <div class="form-group">
+            <label for="visit_visitors_attributes_1_nomis_id" class="form-label">Match to contact list</label>
+            <select class="form-control js-contactList" name="visit[visitors_attributes][1][nomis_id]" id="visit_visitors_attributes_1_nomis_id">
+              <option data-contact="{&quot;uid&quot;: &quot;0&quot;}" value="">Please select a contact</option>
+              <option data-contact="{
+                &quot;uid&quot;:&quot;12588&quot;,
+                &quot;banned&quot;: &quot;true&quot;
+                }" value="12588">
+                BILLY JONES - 01/01/1970
+              </option>
+              <option data-contact="{
+                &quot;uid&quot;:&quot;13428&quot;,
+                &quot;banned&quot;: &quot;false&quot;
+                }" value="13428">
+                IRMA ITSU - 03/04/1975
+              </option>
+            </select>
+          </div>
+          <label class="form-group" for="visit_visitors_attributes_1_not_on_list">
+          <input name="visit[visitors_attributes][1][not_on_list]" type="hidden" value="0"><input data-checkbox-summary-text="Jane S" type="checkbox" value="1" name="visit[visitors_attributes][1][not_on_list]" id="visit_visitors_attributes_1_not_on_list">
+          Not on contact list
+          </label>      <label class="form-group" for="visit_visitors_attributes_1_banned">
+          <input name="visit[visitors_attributes][1][banned]" type="hidden" value="0"><input type="checkbox" value="1" name="visit[visitors_attributes][1][banned]" id="visit_visitors_attributes_1_banned">
+          Visitor is banned
+          </label>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+    <li id="visitor_8fe3312c-a83d-4785-b438-4b039f3c8640" data-visitor="{&quot;first_name&quot;: &quot;Shane&quot;, &quot;last_name&quot;: &quot;Smith&quot;, &quot;dob&quot;: &quot;1980-03-01&quot;}">
+      <div class="wrapper">
+        <div class="column">
+          <div class="name">
+            <input type="hidden" value="8fe3312c-a83d-4785-b438-4b039f3c8640" name="visit[visitors_attributes][2][id]" id="visit_visitors_attributes_2_id">
+            <span class="bold-small">Shane Smith</span> - 01/03/1980
+            <span class="font-small">(37)</span>
+          </div>
+        </div>
+        <div class="column">
+          <div class="form-group">
+            <label for="visit_visitors_attributes_2_nomis_id" class="form-label">Match to contact list</label>
+            <select class="form-control js-contactList" name="visit[visitors_attributes][2][nomis_id]" id="visit_visitors_attributes_2_nomis_id">
+              <option data-contact="{&quot;uid&quot;: &quot;0&quot;}" value="">Please select a contact</option>
+              <option data-contact="{
+                &quot;uid&quot;:&quot;12588&quot;,
+                &quot;banned&quot;: &quot;true&quot;
+                }" value="12588">
+                BILLY JONES - 01/01/1970
+              </option>
+              <option data-contact="{
+                &quot;uid&quot;:&quot;13428&quot;,
+                &quot;banned&quot;: &quot;false&quot;
+                }" value="13428">
+                IRMA ITSU - 03/04/1975
+              </option>
+            </select>
+          </div>
+          <label class="form-group" for="visit_visitors_attributes_2_not_on_list">
+          <input name="visit[visitors_attributes][2][not_on_list]" type="hidden" value="0"><input data-checkbox-summary-text="Shane S" type="checkbox" value="1" name="visit[visitors_attributes][2][not_on_list]" id="visit_visitors_attributes_2_not_on_list">
+          Not on contact list
+          </label>      <label class="form-group" for="visit_visitors_attributes_2_banned">
+          <input name="visit[visitors_attributes][2][banned]" type="hidden" value="0"><input type="checkbox" value="1" name="visit[visitors_attributes][2][banned]" id="visit_visitors_attributes_2_banned">
+          Visitor is banned
+          </label>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
   <div class="form-group push-top">
     <h2 class="bold-medium">
       Other
@@ -343,7 +317,7 @@
   </div>
   <div class="form-group">
     <hr>
-    <div id="rejection-message" aria-expanded="false" aria-hidden="true" style="display: none;">
+    <div id="rejection-message">
       <div class="notice push-bottom">
         <i class="icon icon-important">
         <span class="visuallyhidden">Warning</span>
