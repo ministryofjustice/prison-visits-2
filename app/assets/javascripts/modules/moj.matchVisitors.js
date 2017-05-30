@@ -41,9 +41,9 @@
         }
 
         self.processVisitor(parent, !val == '');
+        self.checkStatus();
       });
 
-      this.checkStatus();
     },
 
     changeSelect: function(e) {
