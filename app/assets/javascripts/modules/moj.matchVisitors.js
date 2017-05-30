@@ -91,8 +91,10 @@
 
       if (select == '' && noContact == false) {
         $(el).attr('data-processed', false);
+        $(el).data('valid', false);
       } else {
         $(el).attr('data-processed', true);
+        $(el).data('valid', !noContact);
       }
     },
 
@@ -101,36 +103,31 @@
     },
 
     setVisitorBanned: function(el, banned) {
-      $(el).attr('data-banned', banned);
+      $(el).data('banned', banned);
     },
 
     isVisitorBanned: function(el) {
-      return $(el).attr('data-banned') == 'true';
+      return $(el).data('banned');
     },
 
     checkStatus: function() {
-      this.checkAdultStatus();
-      this.checkTotalStatus();
+      this.checkLeadVisitorStatus();
+      this.checkTotalVisitors();
     },
 
-    checkAdultStatus: function() {
-      function isBigEnough(value) {
-        return function(element, index, array) {
-          return (element >= value);
-        }
-      }
-      var adultNumber = this.getAges().filter(isBigEnough(18));
-      var noAdults = adultNumber < 1;
+    checkLeadVisitorStatus: function() {
+      var visitor = this.getLeadVisitor(),
+        visitorValid = !this.isVisitorBanned(visitor) && visitor.data('valid')? true : false;
 
-      if (noAdults && this.getProcessed() >= 1) {
-        moj.Modules.Rejection.addToSelected(this.$el);
-      } else {
+      if (visitorValid) {
         moj.Modules.Rejection.removeFromSelected(this.$el);
+      } else {
+        moj.Modules.Rejection.addToSelected(this.$el);
       }
       moj.Modules.Rejection.actuate(this.$el);
     },
 
-    checkTotalStatus: function() {
+    checkTotalVisitors: function() {
       var unprocessed = this.getProcessed() < this.totalVisitors;
 
       if (unprocessed) {
@@ -221,6 +218,10 @@
 
     hideEl: function(el) {
       el.hide().addClass('visuallyhidden');
+    },
+
+    getLeadVisitor: function(){
+      return this.$el.find('.visitor-contact-list li').eq(0);
     }
 
   };
