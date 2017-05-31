@@ -14,7 +14,7 @@
 //= require jquery-ui-autocomplete
 //= require modernizr-custom
 //= require dest/respond.min
-//= require jquery-ui/widgets/datepicker
+//= require jquery-ui/datepicker
 
 // Raven / Sentry
 //= require modules/moj.sentry
