@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'logstash_sidekiq_logger/formatter'
 
 RSpec.describe LogstashSidekiqLogger::Formatter do
   let(:visit) { FactoryGirl.create(:visit) }

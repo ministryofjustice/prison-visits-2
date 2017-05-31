@@ -104,7 +104,7 @@ namespace :pvb do
       end
     rescue Nomis::APIError => e
       if retry_count < 5
-        if e.match?(/Exception/)
+        if e =~ /Exception/
           retry_count += 1
           SlotAvailabilityCounter.inc_api_failure
           retry
