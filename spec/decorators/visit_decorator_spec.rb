@@ -7,9 +7,7 @@ RSpec.describe VisitDecorator do
 
   describe '#slots'do
     it 'are decorated object' do
-      subject.slots.each do |slot|
-        expect(slot).to be_decorated
-      end
+      expect(subject.slots).to all(be_decorated)
     end
   end
 

@@ -9,10 +9,9 @@ RSpec.describe ErrorHandler do
         'PATH_INFO' => '/500'
       }
     end
+    let(:show_action) { double('Show action', call: true) }
 
     subject { described_class.call(env) }
-
-    let(:show_action) { double('Show action', call: true) }
 
     before do
       expect(ErrorsController).
