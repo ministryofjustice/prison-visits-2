@@ -3,6 +3,9 @@ machine:
     version:
       2.4.1
 
+dependencies:
+  cache_directories:
+    - ~/rvm_binaries
 test:
   override:
     - bundle exec rake
