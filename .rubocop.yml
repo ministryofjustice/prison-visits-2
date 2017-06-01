@@ -16,7 +16,7 @@ AllCops:
     - 'lib/tasks/brakeman.rake'
     - 'lib/tasks/elasticsearch.rake'
     - 'spec/dummy/db/**/*'
-
+  TargetRubyVersion: 2.1
   DisplayCopNames: true
 
 Rails:
