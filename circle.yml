@@ -1,13 +1,7 @@
 machine:
   post:
-      - "echo Removing project .rvmrc, contents were: &&
-          cat $CIRCLE_PROJECT_REPONAME/.rvmrc"
-      - "rm $CIRCLE_PROJECT_REPONAME/.rvmrc"
-
-      - "echo Removing project .ruby-version, contents were: &&
-        cat $CIRCLE_PROJECT_REPONAME/.ruby-version"
-      - "rm $CIRCLE_PROJECT_REPONAME/.ruby-version"
-
+      - rm $CIRCLE_PROJECT_REPONAME/.rvmrc
+      - rm $CIRCLE_PROJECT_REPONAME/.ruby-version
       - |
         if [[ -e ~/rvm_binaries/ruby-2.4.1.tar.bz2 ]]
         then
