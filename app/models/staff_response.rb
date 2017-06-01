@@ -17,15 +17,14 @@ class StaffResponse
   # rubocop:disable Metrics/AbcSize
   def email_attrs
     attrs = visit.serializable_hash(
-      except: [
-        :created_at,
-        :updated_at,
-        :slot_granted,
-        :slot_option_0,
-        :slot_option_1,
-        :slot_option_2,
-        :human_id
-      ],
+      except: %i[
+created_at
+updated_at
+slot_granted
+slot_option_0
+slot_option_1
+slot_option_2
+human_id],
       methods: [
         :principal_visitor_id
       ]
@@ -49,10 +48,9 @@ private
     return unless visit.rejection&.valid?
     @rejection_attributes ||= begin
       attrs = visit.rejection.serializable_hash(
-        except: [
-          :created_at, :updated_at, :allowance_renews_on,
-          :privileged_allowance_expires_on
-        ])
+        except: %i[
+created_at updated_at allowance_renews_on
+privileged_allowance_expires_on])
 
       attrs['allowance_renews_on'] =
         rejection.allowance_renews_on.to_s
@@ -78,7 +76,7 @@ private
       errors.add(
         :base,
         I18n.t('must_reject_or_accept_visit',
-          scope: [:staff_response, :errors])
+          scope: %i[staff_response errors])
       )
     end
   end

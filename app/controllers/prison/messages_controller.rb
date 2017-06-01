@@ -7,12 +7,12 @@ class Prison::MessagesController < ApplicationController
     @message = Message.create_and_send_email(message_params)
 
     if @message.persisted?
-      flash[:notice] = t('message_created', scope: [:prison, :flash])
+      flash[:notice] = t('message_created', scope: %i[prison flash])
       redirect_to prison_visit_path(@visit)
     else
       @visit = @visit.decorate
 
-      flash[:notice] = t('message_create_error', scope: [:prison, :flash])
+      flash[:notice] = t('message_create_error', scope: %i[prison flash])
       render 'prison/visits/show'
     end
   end

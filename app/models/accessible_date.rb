@@ -26,7 +26,7 @@ private
   def parsable?
     return unless any_date_part?
     unless any_date_part? && DateCoercer.coerce(serializable_hash).is_a?(Date)
-      i18n_scope = [:activemodel, :errors, :messages]
+      i18n_scope = %i[activemodel errors messages]
       errors.add(:year,  I18n.t('invalid', scope: i18n_scope))
       errors.add(:month, I18n.t('invalid', scope: i18n_scope))
       errors.add(:day,   I18n.t('invalid', scope: i18n_scope))

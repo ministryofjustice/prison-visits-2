@@ -27,11 +27,11 @@ RSpec.describe WeeklyMetricsConfirmedCsvExporter do
       week1 = week_ago.beginning_of_week.to_date.to_s
       week2 = two_weeks_ago.beginning_of_week.to_date.to_s
 
-      expect(subject).to eq(<<-CSV)
-Prison,#{week1},#{week2}
-A Prison,1,0
-B Prison,0,1
-C Prison,0,0
+      expect(subject).to eq(<<~CSV)
+        Prison,#{week1},#{week2}
+        A Prison,1,0
+        B Prison,0,1
+        C Prison,0,0
 CSV
     end
   end
