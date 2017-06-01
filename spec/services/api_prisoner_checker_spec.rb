@@ -37,6 +37,7 @@ RSpec.describe ApiPrisonerChecker do
 
           describe 'and the establishment is valid' do
             let(:establishment) { Nomis::Establishment.new(code: 'a_code') }
+
             before do
               mock_nomis_with(:lookup_offender_location, establishment)
             end
@@ -54,6 +55,7 @@ RSpec.describe ApiPrisonerChecker do
 
         describe 'when the offender is not found' do
           let(:offender) { Nomis::NullOffender.new(api_call_successful: true) }
+
           it { is_expected.not_to be_valid }
         end
       end

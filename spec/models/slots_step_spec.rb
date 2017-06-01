@@ -69,6 +69,7 @@ RSpec.describe SlotsStep, type: :model do
 
     describe '#slots' do
       subject { instance.slots }
+
       let(:option) { '2015-01-02T09:00/10:00' }
 
       before do

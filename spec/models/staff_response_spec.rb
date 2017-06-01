@@ -72,6 +72,7 @@ RSpec.describe StaffResponse, type: :model do
 
     context 'when not processable' do
       let(:processing_state) { 'rejected' }
+
       before do
         is_expected.not_to be_valid
       end
@@ -134,6 +135,7 @@ RSpec.describe StaffResponse, type: :model do
       context 'when all visitor are banned' do
         let!(:unlisted_visitor) { create(:visitor, visit: visit) }
         let(:slot_granted)      { '' }
+
         before do
           unlisted_visitor.banned = true
           params[:visitors_attributes]['1'] = unlisted_visitor.attributes.slice('id', 'banned', 'not_on_list')
@@ -151,6 +153,7 @@ RSpec.describe StaffResponse, type: :model do
 
     context 'without allowed adult visitors' do
       let!(:minor_visitor) { create(:visitor, date_of_birth: 17.years.ago, visit: visit) }
+
       before do
         params[:visitors_attributes]['0'][:banned] = true
         params[:visitors_attributes]['1'] = minor_visitor.attributes.slice('id', 'banned', 'not_on_list')

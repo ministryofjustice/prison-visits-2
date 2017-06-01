@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe VisitDecorator do
   let(:visit) { create(:visit) }
+
   subject(:instance) { described_class.decorate(visit) }
 
   describe '#slots'do

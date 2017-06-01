@@ -67,6 +67,7 @@ RSpec.describe StaffNomisChecker do
 
             describe 'with an invalid location' do
               let(:establishment) { Nomis::Establishment.new(code: 'CCC', api_call_successful: true) }
+
               before do
                 mock_nomis_with(:lookup_offender_location, establishment)
               end
@@ -97,6 +98,7 @@ RSpec.describe StaffNomisChecker do
 
         describe "and the API is unavailable" do
           let(:offender) { Nomis::NullOffender.new(api_call_successful: false) }
+
           it { expect(subject.prisoner_existance_status).to eq('unknown') }
         end
       end

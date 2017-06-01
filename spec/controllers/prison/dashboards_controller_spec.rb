@@ -4,12 +4,14 @@ require_relative '../untrusted_examples'
 RSpec.describe Prison::DashboardsController, type: :controller do
   let(:estate) { FactoryGirl.create(:estate) }
   let(:user) { FactoryGirl.create(:user) }
+
   subject { get :inbox, estate_id: estate.finder_slug }
 
   it_behaves_like 'disallows untrusted ips'
 
   describe '#inbox' do
     let(:prison) { FactoryGirl.create(:prison, estate: estate) }
+
     subject { get :inbox, estate_id: estate.finder_slug }
 
     context "when logged in" do
@@ -27,6 +29,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
   describe '#processed' do
     let(:prison) { FactoryGirl.create(:prison, estate: estate) }
+
     subject { get :processed, estate_id: estate.finder_slug }
 
     context "when logged out" do
@@ -58,6 +61,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
   describe '#search' do
     let(:prison) { FactoryGirl.create(:prison, estate: estate) }
+
     subject { get :search, estate_id: estate.finder_slug }
 
     context "when logged in" do
@@ -84,6 +88,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
       context 'filtering processed visits by prisoner number' do
         subject { get :processed, estate_id: estate.finder_slug }
+
         subject do
           get :search,
             estate_id: estate.finder_slug,
