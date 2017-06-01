@@ -1,4 +1,4 @@
-class ZendeskTicketsJob < ApplicationJob
+class ZendeskTicketsJob < ActiveJob::Base
   queue_as :zendesk
 
   # Custom ticket fields configured in the MOJ Digital Zendesk account
