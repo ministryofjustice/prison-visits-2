@@ -38,7 +38,7 @@ namespace :pvb do
       end
 
     VisitStateChange.
-      includes(visit: [:cancellation, :visitors]).
+      includes(visit: %i[cancellation visitors]).
       where(visit_state: 'cancelled',
             'cancellations.reason': Cancellation::VISITOR_CANCELLED).
       find_each do |vs|
