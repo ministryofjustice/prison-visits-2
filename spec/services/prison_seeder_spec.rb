@@ -60,6 +60,7 @@ RSpec.describe PrisonSeeder do
     end
 
     let(:filename_to_uuid_map) { {} }
+
     subject { described_class.new(filename_to_uuid_map) }
 
     it 'raises an exception on import' do
@@ -75,6 +76,7 @@ RSpec.describe PrisonSeeder do
     end
 
     subject { described_class.new(filename_to_uuid_map) }
+
     let(:filename_to_uuid_map) { { filename => uuid } }
 
     it 'creates a new prison record' do

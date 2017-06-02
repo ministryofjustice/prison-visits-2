@@ -23,26 +23,31 @@ RSpec.describe EmailChecker do
   context 'with invalid address' do
     context 'with empty string' do
       let(:address) { '' }
+
       it_behaves_like 'an invalid address', 'malformed'
     end
 
     context 'with domain only' do
       let(:address) { '@test.example.com' }
+
       it_behaves_like 'an invalid address', 'unparseable'
     end
 
     context 'with local part only' do
       let(:address) { 'jimmy.harris' }
+
       it_behaves_like 'an invalid address', 'malformed'
     end
 
     context 'with dot at start of domain' do
       let(:address) { 'user@.test.example.com' }
+
       it_behaves_like 'an invalid address', 'domain_dot'
     end
 
     context 'with dot at end of domain' do
       let(:address) { 'user@test.example.com.' }
+
       it_behaves_like 'an invalid address', 'unparseable'
     end
   end

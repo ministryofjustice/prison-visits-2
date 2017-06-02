@@ -4,6 +4,7 @@ RSpec.describe PrisonerValidation, type: :model do
   let(:offender) do
     Nomis::Offender.new(id: 'someid', noms_id: 'some_noms_id')
   end
+
   subject do
     described_class.new(offender)
   end
@@ -60,6 +61,7 @@ RSpec.describe PrisonerValidation, type: :model do
 
     describe 'with a successful API call' do
       let(:success) { false }
+
       it { is_expected.not_to be_valid }
     end
   end

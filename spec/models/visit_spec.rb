@@ -47,11 +47,13 @@ RSpec.describe Visit, type: :model do
 
       context 'when the phone number is valid' do
         let(:phone_no) { '079 00 11 22 33' }
+
         it { is_expected.to be_valid }
       end
 
       context 'when the phone number is invalid' do
         let(:phone_no) { ' 07 00 11 22 33' }
+
         it { is_expected.not_to be_valid }
       end
     end

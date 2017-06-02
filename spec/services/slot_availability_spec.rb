@@ -22,6 +22,10 @@ RSpec.describe SlotAvailability do
 
   let(:unavailable_slot) { '2017-02-28T09:00/10:00' }
 
+  let(:slot_availability) do
+    instance_double(SlotAvailabilityValidation, valid?: false)
+  end
+
   subject do
     described_class.new(prison, offender_id, date_of_birth, start_date..end_date)
   end
@@ -35,10 +39,6 @@ RSpec.describe SlotAvailability do
     all_slots_available.
       keys.
       reject { |slot| slot == unavailable_slot }
-  end
-
-  let(:slot_availability) do
-    instance_double(SlotAvailabilityValidation, valid?: false)
   end
 
   before do

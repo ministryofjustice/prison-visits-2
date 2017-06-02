@@ -7,6 +7,7 @@ RSpec.describe Prison::SwitchEstatesController, type: :controller do
     let(:estate2)      { create(:estate) }
     let(:other_estate) { estate2 }
     let(:estate_ids) { [other_estate.id] }
+
     subject do
       post :create, estate_ids: estate_ids
     end

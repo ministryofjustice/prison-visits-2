@@ -85,6 +85,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
         estate: create(:estate, nomis_id: 'ISI')
             )
     end
+
     context "validating prisoner informations - sad paths" do
       context "and the prisoner's informations are not valid", vcr: { cassette_name: 'lookup_active_offender-nomatch' } do
         let(:slot_zero) { ConcreteSlot.new(2016, 5, 1, 10, 30, 11, 30) }

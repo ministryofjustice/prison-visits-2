@@ -6,6 +6,7 @@ RSpec.describe AvailableSlotEnumerator do
       begin_on, end_on, recurring_slots, anomalous_slots, unbookable_dates
     )
   }
+
   let(:begin_on) { Date.new(2015, 10, 1) } # Thursday
   let(:end_on) { Date.new(2015, 10, 5) } # Monday
   let(:unbookable_dates) { [] }

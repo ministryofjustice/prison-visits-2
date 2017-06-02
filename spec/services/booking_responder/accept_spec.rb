@@ -11,6 +11,8 @@ RSpec.describe BookingResponder::Accept do
     create_list(:visitor, 2, visit: visit)
   end
 
+  let(:staff_response) { StaffResponse.new(visit: visit) }
+
   before do
     unlisted_visitors.each do |uv|
       uv.not_on_list = true
@@ -21,8 +23,6 @@ RSpec.describe BookingResponder::Accept do
       params[:visitors_attributes][params[:visitors_attributes].size] = bv.attributes.slice('id', 'banned', 'not_on_list')
     end
   end
-
-  let(:staff_response) { StaffResponse.new(visit: visit) }
 
   subject { described_class.new(staff_response) }
 

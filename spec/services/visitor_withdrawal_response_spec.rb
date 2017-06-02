@@ -10,6 +10,7 @@ RSpec.describe VisitorWithdrawalResponse do
 
     context "when it can't be withdrawn" do
       let(:visit) { FactoryGirl.create(:withdrawn_visit) }
+
       it { is_expected.to eq(false) }
     end
 

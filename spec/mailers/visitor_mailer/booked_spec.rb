@@ -10,6 +10,7 @@ RSpec.describe VisitorMailer, '.booked' do
   end
   let(:mail) { described_class.booked(staff_response.email_attrs, message_attributes) }
   let(:message_attributes) { nil }
+
   before do
     staff_response.valid?
     ActionMailer::Base.deliveries.clear
