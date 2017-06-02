@@ -21,9 +21,6 @@ RSpec.describe SlotAvailability do
   end
 
   let(:unavailable_slot) { '2017-02-28T09:00/10:00' }
-  let(:slot_availability) do
-    double(SlotAvailabilityValidation, valid?: false)
-  end
 
   let(:slot_availability) do
     instance_double(SlotAvailabilityValidation, valid?: false)

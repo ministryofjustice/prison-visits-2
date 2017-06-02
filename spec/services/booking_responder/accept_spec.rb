@@ -12,8 +12,6 @@ RSpec.describe BookingResponder::Accept do
   end
   let(:staff_response) { StaffResponse.new(visit: visit) }
 
-  let(:staff_response) { StaffResponse.new(visit: visit) }
-
   before do
     unlisted_visitors.each do |uv|
       uv.not_on_list = true
