@@ -31,11 +31,11 @@ class Visit < ActiveRecord::Base
   delegate :allowance_will_renew?, :allowance_renews_on,
     to: :rejection
 
-  scope :from_estates, (lambda { |estates|
+  scope :from_estates, lambda { |estates|
     joins(prison: :estate).where(estates: { id: estates.map(&:id) })
-  })
+  }
 
-  scope :processed, -> {
+  scope :processed, lambda {
     joins(<<~EOS).
       LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
     EOS
@@ -45,7 +45,7 @@ class Visit < ActiveRecord::Base
       without_processing_state(:requested)
   }
 
-  scope :ready_for_processing, -> {
+  scope :ready_for_processing, lambda {
     joins(<<~EOS).
       LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
     EOS
