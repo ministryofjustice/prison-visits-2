@@ -84,7 +84,7 @@ module Nomis
     def params_options(method, params)
       return {} if params.empty?
 
-      if method == :get || method == :delete
+      if %i[get delete].include?(method)
         { query: params }
         # else
         #   {

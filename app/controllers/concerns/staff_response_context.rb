@@ -39,7 +39,7 @@ private
       :principal_visitor_id, :processing_state, :id,
       visitor_ids: [],
       rejection_attributes: [
-        allowance_renews_on: [:day, :month, :year],
+        allowance_renews_on: %i[day month year],
         reasons: []
       ],
       visitors_attributes:  [
@@ -47,7 +47,7 @@ private
         :nomis_id,
         :banned,
         :not_on_list,
-        banned_until: [:day, :month, :year]
+        banned_until: %i[day month year]
       ]
     )
   end

@@ -3,7 +3,7 @@ class Prison::VisitsController < ApplicationController
   before_action :authorize_prison_request
   before_action :authenticate_user
   before_action :cancellation_reason_set, only: :cancel
-  before_action :visit_is_processable, only: [:process_visit, :update]
+  before_action :visit_is_processable, only: %i[process_visit update]
 
   def process_visit
     @visit = load_visit.decorate
@@ -12,19 +12,19 @@ class Prison::VisitsController < ApplicationController
   def update
     booking_response = booking_responder.respond!
     if booking_response.success?
-      flash[:notice] = t('process_thank_you', scope: [:prison, :flash])
+      flash[:notice] = t('process_thank_you', scope: %i[prison flash])
       redirect_to prison_inbox_path
     else
       # Always decorate object last once they've been mutated
       @visit = load_visit.decorate
-      flash[:alert] = t('process_required', scope: [:prison, :flash])
+      flash[:alert] = t('process_required', scope: %i[prison flash])
       render :process_visit
     end
   end
 
   def nomis_cancelled
     load_visit.confirm_nomis_cancelled
-    flash[:notice] = t('nomis_cancellation_confirmed', scope: [:prison, :flash])
+    flash[:notice] = t('nomis_cancellation_confirmed', scope: %i[prison flash])
     redirect_to prison_inbox_path
   end
 
@@ -41,9 +41,9 @@ class Prison::VisitsController < ApplicationController
   def cancel
     if cancellation_response.can_cancel?
       cancellation_response.cancel!
-      flash[:notice] = t('visit_cancelled', scope: [:prison, :flash])
+      flash[:notice] = t('visit_cancelled', scope: %i[prison flash])
     else
-      flash[:notice] = t('already_cancelled', scope: [:prison, :flash])
+      flash[:notice] = t('already_cancelled', scope: %i[prison flash])
     end
 
     redirect_to action: :show
@@ -53,7 +53,7 @@ private
 
   def visit_is_processable
     unless load_visit.processable?
-      flash[:notice] = t('already_processed', scope: [:prison, :flash])
+      flash[:notice] = t('already_processed', scope: %i[prison flash])
       redirect_to prison_inbox_path
     end
   end
@@ -68,7 +68,7 @@ private
 
   def cancellation_reason_set
     unless params[:cancellation_reason]
-      flash[:notice] = t('no_cancellation_reason', scope: [:prison, :flash])
+      flash[:notice] = t('no_cancellation_reason', scope: %i[prison flash])
       redirect_to action: :show
     end
   end

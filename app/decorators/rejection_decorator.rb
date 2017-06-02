@@ -53,11 +53,11 @@ class RejectionDecorator < Draper::Decorator
       h.t('visitor_banned_until_html',
         name: visitor.anonymized_name.titleize,
         banned_until: visitor.banned_until.to_s(:short_nomis),
-        scope: [:visitor_mailer, :rejected])
+        scope: %i[visitor_mailer rejected])
     else
       h.t('visitor_banned_html',
         name: visitor.anonymized_name.titleize,
-        scope: [:visitor_mailer, :rejected])
+        scope: %i[visitor_mailer rejected])
     end
   end
 
@@ -65,7 +65,7 @@ class RejectionDecorator < Draper::Decorator
     h.t(
       'visitor_not_on_list_html',
       visitors: visit.unlisted_visitors.map(&:anonymized_name).to_sentence,
-      scope: [:visitor_mailer, :rejected]
+      scope: %i[visitor_mailer rejected]
     )
   end
 
@@ -111,7 +111,7 @@ private
       'slot_unavailable_html',
       prisoner: visit.prisoner_anonymized_name,
       prison:   visit.prison_name,
-      scope:   [:visitor_mailer, :rejected]
+      scope:   %i[visitor_mailer rejected]
     )
   end
 
@@ -123,7 +123,7 @@ private
           end
     h.t(
       key,
-      scope: [:visitor_mailer, :rejected],
+      scope: %i[visitor_mailer rejected],
       date: h.format_date_without_year(object.allowance_renews_on)
     )
   end
@@ -150,7 +150,7 @@ private
       visitor_rejection_reasons
     else
       Rejection::Reason.new(
-        explanation: h.t("#{reason}_html", scope: [:visitor_mailer, :rejected])
+        explanation: h.t("#{reason}_html", scope: %i[visitor_mailer rejected])
       )
     end
   end
@@ -163,7 +163,7 @@ private
   end
 
   def translated_restricted_reason
-    explanation = h.t('restricted_reason', scope: [:visitor_mailer, :rejected])
+    explanation = h.t('restricted_reason', scope: %i[visitor_mailer rejected])
     Rejection::Reason.new(explanation: explanation)
   end
 end
