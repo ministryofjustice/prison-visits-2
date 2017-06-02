@@ -18,9 +18,9 @@ class Prison < ActiveRecord::Base
     to: :parsed_slot_details
   delegate :finder_slug, :nomis_id, to: :estate
 
-  scope :enabled, lambda {
+  scope :enabled, (lambda {
     where(enabled: true).order(name: :asc)
-  }
+  })
 
   def available_slots(today = Time.zone.today)
     AvailableSlotEnumerator.new(

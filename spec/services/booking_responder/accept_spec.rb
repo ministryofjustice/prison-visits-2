@@ -10,7 +10,6 @@ RSpec.describe BookingResponder::Accept do
   let!(:banned_visitors) do
     create_list(:visitor, 2, visit: visit)
   end
-
   let(:staff_response) { StaffResponse.new(visit: visit) }
 
   before do

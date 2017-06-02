@@ -36,20 +36,22 @@ class Visit < ActiveRecord::Base
   }
 
   scope :processed, lambda {
-    joins('LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id').
-      where(
-        'cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled',
-        nomis_cancelled: true
-      ).
+    joins(<<~EOS).
+      LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
+    EOS
+      where(<<~EOS, nomis_cancelled: true).
+        cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
+    EOS
       without_processing_state(:requested)
   }
 
   scope :ready_for_processing, lambda {
-    joins('LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id').
-      where(
-        'cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled',
-        nomis_cancelled: false
-      ).
+    joins(<<~EOS).
+      LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
+    EOS
+      where(<<~EOS, nomis_cancelled: false).
+        cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
+    EOS
       with_processing_state(:requested, :cancelled)
   }
 

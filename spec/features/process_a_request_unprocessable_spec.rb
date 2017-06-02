@@ -60,13 +60,13 @@ RSpec.feature 'Processing a request', js: true do
         Capybara.using_session('window1') do
           visit prison_visit_process_path(vst, locale: 'en')
 
-          check 'Prisoner details are incorrect'
+          check 'Prisoner details are incorrect', visible: false
         end
 
         Capybara.using_session('window2') do
           visit prison_visit_process_path(vst, locale: 'en')
 
-          check 'Prisoner details are incorrect'
+          check 'Prisoner details are incorrect', visible: false
         end
 
         Capybara.using_session('window1') do

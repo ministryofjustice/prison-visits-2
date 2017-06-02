@@ -5,30 +5,40 @@
       <div class="grid-row">
         <fieldset>
           <div class="column-one-third">
-            <label for="cancellation_reason_prisoner_vos" class="block-label">
+            <div class="multiple-choice">
               <%= radio_button_tag 'cancellation_reason', :prisoner_vos, false %>
-              <%= t(".prisoner_vos") %>
-            </label>
-            <label for="cancellation_reason_prisoner_non_association" class="block-label">
+              <label for="cancellation_reason_prisoner_vos">
+                <%= t(".prisoner_vos") %>
+              </label>
+            </div>
+            <div class="multiple-choice">
               <%= radio_button_tag 'cancellation_reason', :prisoner_non_association, false %>
-              <%= t(".prisoner_non_association") %>
-            </label>
+              <label for="cancellation_reason_prisoner_non_association">
+                <%= t(".prisoner_non_association") %>
+              </label>
+            </div>
           </div>
           <div class="column-one-third">
-            <label for="cancellation_reason_prisoner_moved" class="block-label">
+            <div class="multiple-choice">
               <%= radio_button_tag 'cancellation_reason', :prisoner_moved, false %>
-              <%= t(".prisoner_moved") %>
-            </label>
-            <label for="cancellation_reason_child_protection_issues" class="block-label">
+              <label for="cancellation_reason_prisoner_moved">
+                <%= t(".prisoner_moved") %>
+              </label>
+            </div>
+            <div class="multiple-choice">
               <%= radio_button_tag 'cancellation_reason', :child_protection_issues, false %>
-              <%= t(".child_protection_issues") %>
-            </label>
+              <label for="cancellation_reason_child_protection_issues">
+                <%= t(".child_protection_issues") %>
+              </label>
+            </div>
           </div>
           <div class="column-one-third">
-            <label for="cancellation_reason_prisoner_released" class="block-label">
+            <div class="multiple-choice">
               <%= radio_button_tag 'cancellation_reason', :prisoner_released, false %>
-              <%= t(".prisoner_released") %>
-            </label>
+              <label for="cancellation_reason_prisoner_released">
+                <%= t(".prisoner_released") %>
+              </label>
+            </div>
           </div>
         </fieldset>
       </div>
