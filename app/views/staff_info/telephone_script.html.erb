@@ -1,0 +1,11 @@
+<% if current_user %>
+<%= render 'prison/dashboards/navigation' %>
+<% end %>
+<section class = "grid-row staff-info">
+  <div class="column-two-thirds">
+    <%= t('.telephone_script_html') %>
+  </div>
+  <div class="column-one-third">
+    <%= render 'navigation' %>
+  </div>
+</section>

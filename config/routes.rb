@@ -70,5 +70,6 @@ Rails.application.routes.draw do
   end
 
   get '/staff', to: 'staff_info#index'
-  get '/staff/:page', to: 'staff_info#show'
+  get '/staff/downloads', to: 'staff_info#downloads'
+  get '/staff/telephone_script', to: 'staff_info#telephone_script'
 end

@@ -242,9 +242,141 @@ en:
         title: Other
         duplicate_visit_request: Duplicate visit request
   staff_info:
+    navigation:
+      navigation_html: |
+        <h3 class="heading-medium">Staff informations</h3>
+        <ul class="list">
+          <li><a href="/">Home</a></li>
+          <li><a href="%{metrics_path}">Stats</a></li>
+          <li><a href="%{contact_path}">Contact us</a></li>
+          <li><a href="%{downloads_path}">Downloads</a></li>
+          <li><a href="%{telephone_path}">Telephone script</a></li>
+        </ul>
+    index:
+      index_html: |
+        <h1 class="heading-xlarge">Information for visit booking staff</h1>
+        <div class="grid-row">
+          <div class="column-one-third">
+            <h2>
+              <a href="https://staff.prisonvisits.service.gov.uk/en/metrics">Stats</a>
+            </h2>
+            <p>Find out how prisons are getting on with the service</p>
+          </div>
+          <div class="column-one-third">
+            <h2>
+              <a href="/prison/feedbacks/new">Contact Us</a>
+            </h2>
+            <p>If you need any help or something changed</p>
+          </div>
+        </div>
+        <div class="grid-row">
+          <div class="column-one-third">
+            <h2>
+              <a href="/staff/downloads">Downloads</a>
+            </h2>
+            <p>Posters and leaflets for your prison</p>
+          </div>
+          <div class="column-one-third">
+            <h2>
+              <a href="/staff/telephone_script">Telephone script</a>
+            </h2>
+            <p>A guide for promoting Prison Visits Booking and helping those less able to use digital services</p>
+          </div>
+        </div>
     not_available:
       staff_info_service_unavailable: >-
         Staff info service is temporarily unavailable. Please check back later.
+    downloads:
+      downloads_html: |
+        <h1 class="heading-xlarge">Downloads</h1>
+        <h2 class="heading-medium"><abbr title="Portable Document Format">PDF</abbr> file downloads</h2>
+        <p>
+          <a href="/posters-amended.pdf" target="_blank">Visits poster (colour)</a>
+        </p>
+        <p>
+          <a href="/leaflets.pdf" target="_blank">Visits leaflet</a>
+        </p>
+    telephone_script:
+      telephone_script_html: |
+        <h1 class="heading-xlarge">Telephone script</h1>
+        <h2 class="heading-medium">Notes for Visits Booking Staff</h2>
+        <p>The purpose of having this conversation with our callers is:</p>
+        <ul class="list list-bullet">
+          <li>to highlight the benefits of using the online booking service https://www.gov.uk/prison-visits</li>
+          <li>to identify callers who need assistance or show unwillingness to use the digital service</li>
+        </ul>
+        <h2 class="heading-medium">Conversation Flow Chart</h2>
+        <p><img src="/conversation_flow_chart.jpg" alt="conversation flow chart"></p>
+        <h2 class="heading-medium">Conversation hints</h2>
+        <ol class="list list-number">
+          <li>
+            <p><span class="bold-small">Did you know you can book a visit online? The online booking service lets you book up to a month in advance. It shows you availability for each day and you can choose up to three visit slots.</span></p>
+          </li>
+          <li>
+            <p><span class="bold-small"><a name="question2"></a>Are you interested in trying the online service? I can talk you through it so that you can use it on your own next time. It only takes a few minutes and then I'll be able to confirm your booking while we're on the phone.</span></p>
+            <ul class="list list-bullet">
+              <li>If <span class="bold-small">YES</span>
+                <ul class="list list-bullet">
+                  <li>Read out the link to the service: www.gov.uk/prison-visits. They'll need to type it into the address bar on their browser.</li>
+                  <li>You can then talk them through the booking steps and when you receive their request email, process it straight away. Tell them confirmation can take up to three working days.</li>
+                </ul>
+              </li>
+              <li>If <span class="bold-small">NO</span>
+                <ul>
+                  <li>Explain you can book their visit for them over the phone, but move on to question 3 unless they are adamant.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p><span class="bold-small">Is there anything that stopped you using the online service today?</span></p>
+            <p>Potential answers and how to respond:</p>
+            <ul class="list list-bullet">
+              <li><p><span class="bold-small">"I get instant confirmation by booking over the phone."</span></p>
+                <ul class="list list-bullet">
+                  <li>With the online service, you don't have to wait to get through to someone on the phone, and you can do it any time - even from your smartphone.</li>
+                  <li>It lets you choose three preferred visit dates and times, and soon you'll be able to see when days are fully booked or unavailable, so you're more likely to get the date you want.</li>
+                </ul>
+              </li>
+              <li><p><span class="bold-small">"I prefer speaking to a person."</span></p>
+                <ul class="list list-bullet">
+                  <li>The service is easy to use and really doesn't take long. If you book online, you won't have to wait to get through to someone to help with your booking.</li>
+                </ul>
+              </li>
+              <li><p><span class="bold-small">"I don't have a computer/smartphone/internet connection."</span></p>
+                <ul class="list list-bullet">
+                  <li>Did you know you can get free internet access on the computers at your local library?</li>
+                  <li>Tell the user they'll need to know the prison number of the person they're visiting, plus the names and dates of birth of any other visitors when they book online.</li>
+                </ul>
+              </li>
+              <li><p><span class="bold-small">"I'm not very confident doing things online."</span></p>
+                <ul class="list list-bullet">
+                <li>Do you have friends or family who can use the internet? You can get them to book online for you. Or would you like me to talk you through it now so that you can use it on your own next time? (If yes, follow steps in <a href="#question2">question 2</a>).
+                </li>
+                  <li>If you're interested in getting more confident with computers, your local council or library might run computer training courses, or you can find them at organisations like Age UK.</li>
+                </ul>
+              </li>
+              <li><p><span class="bold-small">"I have trouble with reading/writing."</span></p>
+                <ul class="list list-bullet">
+                  <li>Do you have friends or family who can book online for you?</li>
+                  <li>If you're interested in improving your reading or writing, your local library, college or adult education centre might offer literacy services, or you could contact organisations like the Literacy Trust.</li>
+                </ul>
+              </li>
+              <li><p><span class="bold-small">"My English isn't very good and I can explain myself better on the phone."</span></p>
+                <ul class="list list-bullet">
+                  <li>The service is written in Plain English so should be easy to understand. Would you like me to talk you through it now so that you can use it on your own next time? (If yes, follow steps in <a href="#question2">question 2</a>).</li>
+                  <li>If you're interested in improving your English, your local library, college or adult education centre might offer literacy services, or you could contact organisations like the Literacy Trust.</li>
+                </ul>
+              </li>
+              <li><p><span class="bold-small">"I'm concerned about online security and don't want my personal details to go missing."</span></p>
+                <ul class="list list-bullet">
+                  <li>Our online service is very secure. We only use your email addresses for booking requests and we never share your information.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ol>
+        <p>If the user is not interested in using the online service now, process the booking for them over the phone but emphasise the benefits of using the online service next time.</p>
   sessions:
     create:
       cannot_sign_in: You cannot be signed in

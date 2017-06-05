@@ -32,7 +32,6 @@
                 <input class="button-link" type="submit" value="<%= t('.sign_out') %>">
               <% end %>
             </li>
-            <%= nav_link t('.staff_guide'), '/staff/staffuiguide.md' %>
           </ul>
         <% else %>
           <ul id="proposition-links" class="header__menu__proposition-links">
@@ -78,22 +77,16 @@
 <% content_for :footer_support_links do %>
   <ul>
     <li>
-      <%= link_to(t('.staff_guide'), '/staff/staffuiguide.md') %>
-    </li>
-    <li>
-      <%= link_to(t('.recent_changes'), '/staff/changes.md') %>
-    </li>
-    <li>
       <%= link_to(t('.stats'), metrics_path) %>
     </li>
     <li>
       <%= link_to(t('.contact_us'), new_prison_feedback_path) %>
     </li>
     <li>
-      <%= link_to(t('.downloads'), '/staff/downloads.md') %>
+      <%= link_to(t('.downloads'), '/staff/downloads') %>
     </li>
     <li>
-      <%= link_to(t('.telephone'), '/staff/telephone-script.md') %>
+      <%= link_to(t('.telephone'), '/staff/telephone_script') %>
     </li>
   </ul>
 <% end %>

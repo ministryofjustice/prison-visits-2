@@ -10,7 +10,6 @@ class StaffInfoController < ApplicationController
   skip_before_action :store_current_location
 
   def index
-    @content = fetch('/').body
   end
 
   # rubocop:disable Metrics/AbcSize
@@ -26,6 +25,12 @@ class StaffInfoController < ApplicationController
     end
   end
 # rubocop:enable Metrics/AbcSize
+
+  def downloads
+  end
+
+  def telephone_script
+  end
 
 private
 
