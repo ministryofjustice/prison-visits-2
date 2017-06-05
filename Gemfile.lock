@@ -324,6 +324,7 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicode-display_width (1.2.1)
+    uri_template (0.7.0)
     useragent (0.16.8)
     vcr (3.0.3)
     virtus (1.0.5)
@@ -404,6 +405,7 @@ DEPENDENCIES
   state_machines-activerecord
   string_scrubber
   uglifier (~> 2.7.2)
+  uri_template
   vcr
   virtus
   webmock
