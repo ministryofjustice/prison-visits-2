@@ -1,8 +1,8 @@
 require 'rails_helper'
 require_relative 'untrusted_examples'
 
-RSpec.describe StaffInfoController, type: :controller do
-  describe '#show' do
+RSpec.describe TelephoneScriptsController, type: :controller  do
+  describe '#index' do
     subject { get :show }
 
     it { expect(response.status).to eq(200) }

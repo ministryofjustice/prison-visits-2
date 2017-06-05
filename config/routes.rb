@@ -73,5 +73,4 @@ Rails.application.routes.draw do
     resources :downloads, only: :index
     resource :telephone_script, only: :show
   end
-
 end
