@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
-  root to: 'staff_info#index'
+  root to: 'staff_info#show'
 
   match 'exception', to: 'errors#test', via: %i[ get post ]
 
@@ -69,7 +69,9 @@ Rails.application.routes.draw do
     post '/validations/visitors', to: 'validations#visitors'
   end
 
-  get '/staff', to: 'staff_info#index'
-  get '/staff/downloads', to: 'staff_info#downloads'
-  get '/staff/telephone_script', to: 'staff_info#telephone_script'
+  resource :staff, only: :show, controller: 'staff_info' do
+    resources :downloads, only: :index
+    resource :telephone_script, only: :show
+  end
+
 end

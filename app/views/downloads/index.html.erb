@@ -1,0 +1,19 @@
+<% if current_user %>
+  <%= render 'prison/dashboards/navigation' %>
+<% end %>
+<section class = "grid-row staff-info">
+  <div class="column-two-thirds">
+    <h1 class="heading-xlarge">Downloads</h1>
+    <h2 class="heading-medium"><abbr title="Portable Document Format">PDF</abbr> file downloads</h2>
+    <p>
+      <a href="/posters-amended.pdf" target="_blank">Visits poster (colour)</a>
+    </p>
+    <p>
+      <a href="/leaflets.pdf" target="_blank">Visits leaflet</a>
+    </p>
+  </div>
+
+  <div class="column-one-third">
+    <%= render 'navigation' %>
+  </div>
+</section>

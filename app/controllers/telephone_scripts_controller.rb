@@ -1,0 +1,3 @@
+class TelephoneScriptsController < ApplicationController
+  include PrisonRestrictionController
+end
