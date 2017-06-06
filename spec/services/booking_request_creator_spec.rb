@@ -54,12 +54,19 @@ RSpec.describe BookingRequestCreator do
       expect(visit.human_id).not_to be_nil
     end
 
-    it 'creates a Visitor record' do
-      expect {
-        subject.create!(prisoner_step, visitors_step, slots_step, :en)
-      }.to change { Visitor.count }.by(2)
-    end
+    describe 'visitors' do
+      it 'creates the lead visitor' do
+        expect {
+          subject.create!(prisoner_step, visitors_step, slots_step, :en)
+        }.to change { LeadVisitor.count }.by(1)
+      end
 
+      it 'creates the remainder as simple visitor' do
+        expect {
+          subject.create!(prisoner_step, visitors_step, slots_step, :en)
+        }.to change { Visitor.count }.by(2)
+      end
+    end
     it 'creates a Prisoner record' do
       expect {
         subject.create!(prisoner_step, visitors_step, slots_step, :en)

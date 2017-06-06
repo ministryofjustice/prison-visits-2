@@ -7,6 +7,10 @@ RSpec.describe Visit, type: :model do
     double(Mail::Message, deliver_later: nil)
   end
 
+  describe 'associations' do
+    it { is_expected.to have_one(:lead_visitor) }
+  end
+
   describe 'transitions' do
     context 'transitioning from requested to rejected' do
       it 'can not be saved without a rejection' do

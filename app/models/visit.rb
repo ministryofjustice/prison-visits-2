@@ -4,7 +4,7 @@ class Visit < ActiveRecord::Base
   belongs_to :prison
   belongs_to :prisoner
   has_many :visitors, dependent: :destroy
-
+  has_one :lead_visitor
   has_many :visit_state_changes, dependent: :destroy
   has_many :messages
   has_one :rejection, dependent: :destroy, inverse_of: :visit
