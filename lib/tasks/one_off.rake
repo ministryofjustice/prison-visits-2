@@ -1,3 +1,9 @@
+namespace :db do
+  desc 'migrate lead_visitor'
+  task migrate_lead_visitor: :environment do
+    Visitor.where(sort_index: 0).update_all(type: 'LeadVisitor')
+  end
+end
 namespace :pvb do
   desc 'Withdraw expired visits'
   task withdraw_expired_visits: :environment do
