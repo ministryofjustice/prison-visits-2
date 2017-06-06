@@ -25,14 +25,7 @@
       <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>
         <div class="form-group">
           <%= vf.label :nomis_id, t('.nomis_list'), class: 'form-label' %>
-          <%= vf.select :nomis_id, nil, {}, { class: 'form-control js-contactList' } do %>
-            <option data-contact='{"uid": ""}' value=""><%= t('.please_select') %></option>
-            <% @visit.approved_contacts.each do |contact| %>
-              <%= content_tag :option, { value: contact.id, selected: contact.id == v.nomis_id, 'data-contact': { uid: contact.id, banned: contact.banned? }.to_json } do -%>
-                <%= contact.given_name %> <%= contact.surname %> - <%= contact.date_of_birth&.to_s(:short_nomis) %>
-              <% end -%>
-            <% end %>
-          <% end %>
+          <%= @visit.contact_list(vf, v) %>
         </div>
       <% end %>
       <div class="multiple-choice form-group">
