@@ -1,3 +1,9 @@
+namespace :db do
+  desc 'migrate lead_visitor'
+  task migrate_lead_visitor: :environment do
+    Visitor.where(sort_index: 0).update_all(type: 'LeadVisitor')
+  end
+end
 namespace :pvb do
   desc 'Withdraw expired visits'
   task withdraw_expired_visits: :environment do
@@ -27,23 +33,6 @@ namespace :pvb do
     end
 
     STDOUT.puts "Done. Withdrawn #{withdrawn_count} expired visits."
-  end
-
-  desc 'Backpopulate visitors on visit state changes'
-  task backpopulate_visitors: :environment do
-    VisitStateChange.
-      where(visit_state: 'withdrawn').
-      includes(visit: :visitors).find_each do |vs|
-        vs.update_column(:visitor_id, vs.visit.principal_visitor.id)
-      end
-
-    VisitStateChange.
-      includes(visit: %i[cancellation visitors]).
-      where(visit_state: 'cancelled',
-            'cancellations.reason': Cancellation::VISITOR_CANCELLED).
-      find_each do |vs|
-      vs.update_column(:visitor_id, vs.visit.principal_visitor.id)
-    end
   end
 
   # rubocop:disable Metrics/MethodLength

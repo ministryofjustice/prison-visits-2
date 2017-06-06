@@ -1,20 +1,20 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
 <div class="grid-row">
   <div class="column-full">
-    <%= content_tag :div, class: 'visitor-card', id: dom_id(@visit.principal_visitor) do %>
+    <%= content_tag :div, class: 'visitor-card', id: dom_id(@visit.lead_visitor) do %>
       <div class="grid-row">
         <div class="column-one-quarter">
           <h3 class="bold-small"><%= t('lead_visitor', scope: :shared) %></h3>
         </div>
         <div class="column-one-quarter push-bottom--half">
-          <% if @visit.principal_visitor.banned %>
+          <% if @visit.lead_visitor.banned %>
             <span class="tag tag--error font-xsmall text-center">
               <%= t('.banned') %>
-              <% if @visit.principal_visitor.banned_until? %>
-                <%= t('.until') %> <%= @visit.principal_visitor.banned_until.to_date.to_s(:short_nomis) %>
+              <% if @visit.lead_visitor.banned_until? %>
+                <%= t('.until') %> <%= @visit.lead_visitor.banned_until.to_date.to_s(:short_nomis) %>
               <% end %>
             </span>
-          <% elsif @visit.principal_visitor.not_on_list %>
+          <% elsif @visit.lead_visitor.not_on_list %>
             <span class="tag tag--warning font-xsmall text-center">
               <%= t('.not_listed') %>
             </span>
@@ -29,13 +29,13 @@
         <div class="column-one-quarter">
           <dl>
             <dt><%= t('.name') %></dt>
-            <dd><%= @visit.principal_visitor.full_name %></dd>
+            <dd><%= @visit.lead_visitor.full_name %></dd>
           </dl>
         </div>
         <div class="column-one-quarter">
           <dl>
             <dt><%= t('.dob') %></dt>
-            <dd><%= @visit.principal_visitor.date_of_birth.to_s(:short_nomis) %> (<%= @visit.principal_visitor.age %>)</dd>
+            <dd><%= @visit.lead_visitor.date_of_birth.to_s(:short_nomis) %> (<%= @visit.lead_visitor.age %>)</dd>
           </dl>
         </div>
         <div class="column-one-quarter">

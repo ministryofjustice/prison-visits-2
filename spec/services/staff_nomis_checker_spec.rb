@@ -174,6 +174,10 @@ RSpec.describe StaffNomisChecker do
       let(:slot) { visit.slots.first }
 
       context 'prisoner availability' do
+        before do
+          switch_off(:nomis_staff_slot_availability_enabled)
+        end
+
         context 'when NOMIS_STAFF_PRISONER_AVAILABILITY_ENABLED' do
           context 'is disabled' do
             before do

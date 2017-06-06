@@ -1,6 +1,7 @@
 class VisitDecorator < Draper::Decorator
   delegate_all
   decorates_association :rejection
+  decorates_association :lead_visitor
   NO_VISITORS_IN_NOMIS = 'no_visitor_in_nomis'.freeze
 
   delegate :prisoner_existance_status,
@@ -31,10 +32,6 @@ class VisitDecorator < Draper::Decorator
                        end
                      end
                    end
-  end
-
-  def principal_visitor
-    @principal_visitor ||= object.principal_visitor.decorate
   end
 
   def additional_visitors

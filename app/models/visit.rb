@@ -1,6 +1,6 @@
 class Visit < ActiveRecord::Base
   extend FreshnessCalculations
-  include PrincipalVisitor
+
   belongs_to :prison
   belongs_to :prisoner
   has_many :visitors, dependent: :destroy
@@ -114,7 +114,7 @@ class Visit < ActiveRecord::Base
     :number, :date_of_birth, to: :prisoner, prefix: true
 
   delegate :first_name, :last_name, :full_name, :anonymized_name,
-    :date_of_birth, to: :principal_visitor, prefix: :visitor
+    :date_of_birth, to: :lead_visitor, prefix: :visitor
 
   alias_method :processable?, :requested?
 
@@ -154,7 +154,7 @@ class Visit < ActiveRecord::Base
   end
 
   def additional_visitors
-    @additional_visitors ||= visitors.reject { |v| v == principal_visitor }
+    @additional_visitors ||= visitors.reject { |v| v == lead_visitor }
   end
 
 private

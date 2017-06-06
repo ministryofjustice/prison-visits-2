@@ -12,6 +12,7 @@ en:
             visit:
               already_processed: can't be processed
             base:
+              already_processed: "can't be processed"
               visitors_invalid: visitor selection is invalid
         prisoner_step:
           attributes:
@@ -32,6 +33,10 @@ en:
       messages:
         blank: "is required"
       models:
+        lead_visitor:
+          attributes:
+            date_of_birth:
+              is_not_an_adult: must be older than 18 years old.
         rejection:
           invalid_reason: "%{reason} is not in the list"
         prison:
