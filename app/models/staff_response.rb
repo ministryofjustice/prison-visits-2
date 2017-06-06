@@ -3,11 +3,13 @@ class StaffResponse
   include ActiveModel::Validations::Callbacks
   ADULT_AGE = 18
   attr_accessor :visit, :user
+  attr_writer :validate_visitors_nomis_ready
 
   before_validation :check_slot_available
 
   validate :validate_visit_is_processable
   validate :visit_or_rejection_validity
+  validate :visitors_selection
 
   after_validation :check_for_banned_visitors
   after_validation :check_for_unlisted_visitors
@@ -18,13 +20,13 @@ class StaffResponse
   def email_attrs
     attrs = visit.serializable_hash(
       except: %i[
-created_at
-updated_at
-slot_granted
-slot_option_0
-slot_option_1
-slot_option_2
-human_id],
+        created_at
+        updated_at
+        slot_granted
+        slot_option_0
+        slot_option_1
+        slot_option_2
+        human_id],
       methods: [
         :principal_visitor_id
       ]
@@ -38,8 +40,19 @@ human_id],
     attrs['visitors_attributes']  = visitors_attributes  if visitors_attributes
     attrs
   end
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
+
+  def validate_visitors_nomis_ready=(val)
+    # TODO: Changes in Rails 5 to `ActiveRecord::Type::Boolean.new.cast(string)`
+    @validate_visitors_nomis_ready ||= ActiveRecord::Type::Boolean.
+      new.
+      type_cast_from_database(val)
+  end
+
+  def validate_visitors_nomis_ready?
+    @validate_visitors_nomis_ready
+  end
 
 private
 
@@ -61,12 +74,12 @@ privileged_allowance_expires_on])
 
   def visitors_attributes
     @visitors_attributes ||= begin
-      attrs = {}
-      visit.visitors.each_with_object(attrs).with_index do |(visitor, attri), i|
-        attri[i.to_s] = visitor.attributes.slice('id', 'not_on_list', 'banned')
-        attri[i.to_s]['banned_until'] = visitor.banned_until.to_s
+      fields = %w[id not_on_list banned]
+
+      visit.visitors.each_with_object({}).with_index do |(visitor, attrs), i|
+        attrs[i.to_s] = visitor.attributes.slice(*fields)
+        attrs[i.to_s]['banned_until'] = visitor.banned_until.to_s
       end
-      attrs
     end
   end
 
@@ -137,5 +150,19 @@ privileged_allowance_expires_on])
     unless rejection.reasons.include?(Rejection::NO_ALLOWANCE)
       rejection.allowance_renews_on = nil
     end
+  end
+
+  def visitors_selection
+    return unless validate_visitors_nomis_ready?
+
+    invalid_visitors = visit.visitors.select { |visitor|
+      visitor.nomis_id.present? == visitor.not_on_list?
+    }
+
+    invalid_visitors.each do |v|
+      v.errors.add :base, :unprocessed_contact_list
+    end
+
+    errors.add(:base, :visitors_invalid) if invalid_visitors.any?
   end
 end
