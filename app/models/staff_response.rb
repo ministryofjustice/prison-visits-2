@@ -17,16 +17,14 @@ class StaffResponse
   # rubocop:disable Metrics/AbcSize
   def email_attrs
     attrs = visit.serializable_hash(
-      except: %i[
-created_at
-updated_at
-slot_granted
-slot_option_0
-slot_option_1
-slot_option_2
-human_id],
-      methods: [
-        :principal_visitor_id
+      except: [
+        :created_at,
+        :updated_at,
+        :slot_granted,
+        :slot_option_0,
+        :slot_option_1,
+        :slot_option_2,
+        :human_id
       ]
     ).merge(
       'slot_option_0' => visit.slot_option_0.to_s,
@@ -38,36 +36,36 @@ human_id],
     attrs['visitors_attributes']  = visitors_attributes  if visitors_attributes
     attrs
   end
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 
-private
+  private
 
   # rubocop:disable Metrics/MethodLength
   def rejection_attributes
     return unless visit.rejection&.valid?
     @rejection_attributes ||= begin
-      attrs = visit.rejection.serializable_hash(
-        except: %i[
+                                attrs = visit.rejection.serializable_hash(
+                                  except: %i[
 created_at updated_at allowance_renews_on
 privileged_allowance_expires_on])
 
-      attrs['allowance_renews_on'] =
-        rejection.allowance_renews_on.to_s
-      attrs
-    end
+                                attrs['allowance_renews_on'] =
+                                  rejection.allowance_renews_on.to_s
+                                attrs
+                              end
   end
   # rubocop:enable Metrics/MethodLength
 
   def visitors_attributes
     @visitors_attributes ||= begin
-      attrs = {}
-      visit.visitors.each_with_object(attrs).with_index do |(visitor, attri), i|
-        attri[i.to_s] = visitor.attributes.slice('id', 'not_on_list', 'banned')
-        attri[i.to_s]['banned_until'] = visitor.banned_until.to_s
-      end
-      attrs
-    end
+                               attrs = {}
+                               visit.visitors.each_with_object(attrs).with_index do |(visitor, attri), i|
+                                 attri[i.to_s] = visitor.attributes.slice('id', 'not_on_list', 'banned')
+                                 attri[i.to_s]['banned_until'] = visitor.banned_until.to_s
+                               end
+                               attrs
+                             end
   end
 
   def visit_or_rejection_validity
@@ -76,7 +74,7 @@ privileged_allowance_expires_on])
       errors.add(
         :base,
         I18n.t('must_reject_or_accept_visit',
-          scope: %i[staff_response errors])
+               scope: %i[staff_response errors])
       )
     end
   end

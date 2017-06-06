@@ -35,23 +35,6 @@ namespace :pvb do
     STDOUT.puts "Done. Withdrawn #{withdrawn_count} expired visits."
   end
 
-  desc 'Backpopulate visitors on visit state changes'
-  task backpopulate_visitors: :environment do
-    VisitStateChange.
-      where(visit_state: 'withdrawn').
-      includes(visit: :visitors).find_each do |vs|
-        vs.update_column(:visitor_id, vs.visit.principal_visitor.id)
-      end
-
-    VisitStateChange.
-      includes(visit: %i[cancellation visitors]).
-      where(visit_state: 'cancelled',
-            'cancellations.reason': Cancellation::VISITOR_CANCELLED).
-      find_each do |vs|
-      vs.update_column(:visitor_id, vs.visit.principal_visitor.id)
-    end
-  end
-
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Lint/AssignmentInCondition
   # rubocop:disable Metrics/AbcSize

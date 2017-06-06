@@ -342,7 +342,7 @@ RSpec.describe Visit, type: :model do
         subject.visitors = [visitor1, visitor2]
       end
 
-      it 'returns a list without the principal visitor' do
+      it 'returns a list without the lead visitor' do
         expect(subject.additional_visitors).to eq([visitor2])
       end
     end

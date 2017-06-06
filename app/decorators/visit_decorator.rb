@@ -1,6 +1,7 @@
 class VisitDecorator < Draper::Decorator
   delegate_all
   decorates_association :rejection
+  decorates_association :lead_visitor
 
   delegate :prisoner_existance_status,
     :prisoner_existance_error,
@@ -30,10 +31,6 @@ class VisitDecorator < Draper::Decorator
                        end
                      end
                    end
-  end
-
-  def principal_visitor
-    @principal_visitor ||= object.principal_visitor.decorate
   end
 
   def additional_visitors

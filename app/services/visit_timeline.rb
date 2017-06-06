@@ -43,7 +43,7 @@ private
       state: 'requested',
       created_at: @visit.created_at,
       last: last,
-      user: @visit.principal_visitor
+      user: @visit.lead_visitor
     )
   end
 

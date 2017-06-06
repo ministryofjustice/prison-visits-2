@@ -14,8 +14,8 @@
 
 <div class="js-visitorList <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>nomis-enabled<% end %>" data-rejection-el="rejection-message">
   <ul class="visitor-contact-list push-top">
-    <%= f.fields_for :visitors, @visit.principal_visitor do |vf| %>
-      <%= render 'visitor_contact', f: f, v: @visit.principal_visitor, vf: vf %>
+    <%= f.fields_for :visitors, @visit.lead_visitor do |vf| %>
+      <%= render 'visitor_contact', f: f, v: @visit.lead_visitor, vf: vf %>
     <% end %>
     <% @visit.additional_visitors.each_with_index do |visitor, index| %>
       <%= f.fields_for :visitors, visitor do |vf| %>
