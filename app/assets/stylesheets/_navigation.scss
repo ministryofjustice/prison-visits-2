@@ -21,10 +21,16 @@
       }
     }
     form.search {
+      background-color: $white;
       padding-top: 6px;
       position: relative;
       .form-label {
-        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 6px;
+        text-indent: 15px;
+        line-height: 40px;
+        z-index: 5;
       }
       .search-input-wrapper {
         float: left;
@@ -32,19 +38,32 @@
         padding-right: 40px;
         margin-right: -40px;
         box-sizing: border-box;
-      }
-      input#query {
-        width: 60%;
-        border-right: none;
+        input {
+          width: 100%;
+          background-color: transparent;
+          border-right: none;
+          position: relative;
+          z-index: 10;
+          &:focus {
+            background-color: $white;
+          }
+        }
+        &.focus {
+          input {
+            background-color: $white;
+          }
+        }
       }
       .button.search {
         background-image: image-url('icon-search.png');
         background-repeat: no-repeat;
         background-position: center;
         box-shadow: none;
-        height: 39px;
+        border: none;
+        height: 22px;
         float: left;
-        width: 40px;
+        padding: 19px 19px 20px;
+        width: 30px;
       }
       .search-icon {
         height: 16px;

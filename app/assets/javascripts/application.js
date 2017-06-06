@@ -35,11 +35,11 @@
 //= require modules/moj.matchVisitors
 //= require modules/moj.Rejection
 //= require modules/moj.autocomplete
+//= require modules/moj.searchPlaceholder
 
 (function() {
   'use strict';
   delete moj.Modules.devs;
   var selectionButtons = new GOVUK.SelectionButtons("input[type='radio'], input[type='checkbox']");
   moj.init();
-
 }());
