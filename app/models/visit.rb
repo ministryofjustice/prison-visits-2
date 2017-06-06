@@ -11,7 +11,7 @@ class Visit < ActiveRecord::Base
   has_one :cancellation, dependent: :destroy
 
   validates :prison,
-    :prisoner,
+            :prisoner,
     :contact_email_address,
     :contact_phone_no,
     :slot_option_0,

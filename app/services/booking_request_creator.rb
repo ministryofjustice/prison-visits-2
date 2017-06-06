@@ -42,7 +42,7 @@ private
         sort_index:    sort_index
       }
       if sort_index.zero?
-        visit.build_lead_visitor!(attributes)
+        visit.create_lead_visitor!(attributes)
       else
         visit.visitors.create!(attributes)
       end

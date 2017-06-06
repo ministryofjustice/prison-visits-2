@@ -20,7 +20,7 @@ FactoryGirl.define do
     locale 'en'
 
     after(:create) do |v|
-      create :lead_visitor, visit: v
+      create :visitor, visit: v
     end
 
     trait :requested do

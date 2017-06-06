@@ -324,13 +324,10 @@ RSpec.describe Visit, type: :model do
   end
 
   describe '#additional_visitors' do
-    let(:visitor1) { FactoryGirl.build_stubbed(:visitor) }
-    let(:visitor2) { FactoryGirl.build_stubbed(:visitor) }
+    let(:visitor1) { create(:lead_visitor, visit: subject) }
+    let(:visitor2) { create(:visitor) }
 
-    describe 'when there is one visitor' do
-      before do
-        subject.visitors = [visitor1]
-      end
+    describe 'when there is only one visitor' do
 
       it 'returns an empty list' do
         expect(subject.additional_visitors).to be_empty
