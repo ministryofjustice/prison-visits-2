@@ -20,7 +20,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
     let(:visitor) { vst.visitors.first }
 
     around do |ex|
-      travel_to(Date.new(2017, 5, 10)) { ex.run }
+      travel_to(Date.new(2017, 6, 5)) { ex.run }
     end
 
     before do
@@ -41,6 +41,8 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
       fill_in 'Reference number',   with: '12345678'
       fill_in 'Message (optional)', with: 'A staff message'
+
+      click_button 'Process'
 
       within "#visitor_#{visitor.id}" do
         select 'IRMA ITSU - 03/04/1975', from: 'Match to contact list'

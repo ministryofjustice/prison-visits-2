@@ -17,6 +17,7 @@ class Prison::VisitsController < ApplicationController
     else
       # Always decorate object last once they've been mutated
       @visit = load_visit.decorate
+      @message = message
       flash[:alert] = t('process_required', scope: %i[prison flash])
       render :process_visit
     end
