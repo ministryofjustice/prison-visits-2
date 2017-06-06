@@ -13,11 +13,11 @@
     <div class="request-row-details push-top">
       <dl>
         <dt><%= t('lead_visitor', scope: :shared) %></dt>
-        <dd><%= render 'visitor_full_name_with_status', visitor: visit.principal_visitor %></dd>
+        <dd><%= render 'visitor_full_name_with_status', visitor: visit.lead_visitor %></dd>
       </dl>
       <dl>
         <dt><%= t('dob', scope: :shared) %> (<%= t('age', scope: :shared) %>)</dt>
-        <dd><%= visit.principal_visitor.date_of_birth.to_s(:short_nomis) %> (<%= visit.principal_visitor.age %>)</dd>
+        <dd><%= visit.lead_visitor.date_of_birth.to_s(:short_nomis) %> (<%= visit.lead_visitor.age %>)</dd>
       </dl>
       <dl>
         <dt><%= t('email_address', scope: :shared) %></dt>

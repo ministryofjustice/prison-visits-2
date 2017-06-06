@@ -6,7 +6,6 @@
   <%= f.hidden_field :slot_option_1  %>
   <%= f.hidden_field :slot_option_2  %>
   <%= f.hidden_field :prisoner_id  %>
-  <%= f.hidden_field :principal_visitor_id  %>
   <% @visit.visitors.each do |visitor| %>
     <%= hidden_field_tag 'visit[visitor_ids][]', visitor.id  %>
   <% end %>

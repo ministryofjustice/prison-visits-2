@@ -132,18 +132,18 @@ ActiveRecord::Schema.define(version: 20170606112343) do
   add_index "visit_state_changes", ["visit_id"], name: "index_visit_state_changes_on_visit_id", using: :btree
 
   create_table "visitors", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "visit_id",                          null: false
-    t.string   "first_name",                        null: false
-    t.string   "last_name",                         null: false
-    t.date     "date_of_birth",                     null: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.integer  "sort_index",                        null: false
+    t.uuid     "visit_id",                      null: false
+    t.string   "first_name",                    null: false
+    t.string   "last_name",                     null: false
+    t.date     "date_of_birth",                 null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "sort_index",                    null: false
     t.boolean  "banned",        default: false
     t.boolean  "not_on_list",   default: false
     t.date     "banned_until"
     t.integer  "nomis_id"
-    t.string   "type",          default: "Visitor", null: false
+    t.string   "type"
   end
 
   add_index "visitors", ["visit_id", "sort_index"], name: "index_visitors_on_visit_id_and_sort_index", unique: true, using: :btree
