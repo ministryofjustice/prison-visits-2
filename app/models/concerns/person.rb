@@ -6,9 +6,7 @@ module Person
   included do
     validates :first_name, presence: true, name: true
     validates :last_name, presence: true, name: true
-    validates :date_of_birth,
-      presence: true,
-      inclusion: {
+    validates :date_of_birth, inclusion: {
         in: ->(p) { p.minimum_date_of_birth..p.maximum_date_of_birth }
       }
   end
