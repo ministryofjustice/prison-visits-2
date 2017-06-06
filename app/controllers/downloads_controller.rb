@@ -1,3 +1,3 @@
 class DownloadsController < ApplicationController
-  include PrisonRestrictionController
+  include PrisonRestriction
 end

@@ -1,3 +1,3 @@
 class TelephoneScriptsController < ApplicationController
-  include PrisonRestrictionController
+  include PrisonRestriction
 end

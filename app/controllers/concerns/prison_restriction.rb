@@ -1,4 +1,4 @@
-module PrisonRestrictionController
+module PrisonRestriction
   extend ActiveSupport::Concern
 
   included do

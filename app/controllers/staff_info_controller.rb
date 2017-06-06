@@ -1,3 +1,3 @@
 class StaffInfoController < ApplicationController
-  include PrisonRestrictionController
+  include PrisonRestriction
 end
