@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170509114346) do
+ActiveRecord::Schema.define(version: 20170606112343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(version: 20170509114346) do
     t.boolean  "not_on_list",   default: false
     t.date     "banned_until"
     t.integer  "nomis_id"
+    t.string   "type"
   end
 
   add_index "visitors", ["visit_id", "sort_index"], name: "index_visitors_on_visit_id_and_sort_index", unique: true, using: :btree

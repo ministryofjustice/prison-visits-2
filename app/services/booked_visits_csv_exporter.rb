@@ -47,7 +47,7 @@ private
       'Closed visit' => visit.closed?,
       'Lead visitor' => visit.visitor_full_name,
       'Lead visitor dob' => visit.visitor_date_of_birth,
-      'Lead visitor allowed?' => visit.principal_visitor.allowed?,
+      'Lead visitor allowed?' => visit.lead_visitor.allowed?,
       'Phone number' => visit.contact_phone_no,
       'Email address' => visit.contact_email_address
     }

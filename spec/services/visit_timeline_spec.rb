@@ -13,7 +13,7 @@ RSpec.describe VisitTimeline do
         expect(event.state).to eq('requested')
         expect(event.created_at).to eq(visit.created_at)
         expect(event.last).to eq(true)
-        expect(event.user_name).to eq(visit.principal_visitor.full_name)
+        expect(event.user_name).to eq(visit.lead_visitor.full_name)
       end
     end
 
@@ -53,13 +53,13 @@ RSpec.describe VisitTimeline do
     describe 'for a withdrawn visit' do
       before do
         visit.withdraw
-        VisitStateChange.last.update!(visitor: visit.principal_visitor)
+        VisitStateChange.last.update!(visitor: visit.lead_visitor)
         visit.reload
       end
 
       it 'records the user name from the visitor for the withdraw event' do
         _, withdrawn = events
-        expect(withdrawn.user_name).to eq(visit.principal_visitor.full_name)
+        expect(withdrawn.user_name).to eq(visit.lead_visitor.full_name)
       end
     end
   end

@@ -14,7 +14,7 @@ class VisitorWithdrawalResponse
   end
 
   def visitor
-    visit.principal_visitor
+    visit.lead_visitor
   end
 
 private

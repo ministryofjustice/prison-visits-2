@@ -7,6 +7,10 @@ RSpec.describe Visit, type: :model do
     double(Mail::Message, deliver_later: nil)
   end
 
+  describe 'associations' do
+    it { is_expected.to have_one(:lead_visitor) }
+  end
+
   describe 'transitions' do
     context 'transitioning from requested to rejected' do
       it 'can not be saved without a rejection' do
@@ -320,13 +324,10 @@ RSpec.describe Visit, type: :model do
   end
 
   describe '#additional_visitors' do
-    let(:visitor1) { FactoryGirl.build_stubbed(:visitor) }
-    let(:visitor2) { FactoryGirl.build_stubbed(:visitor) }
+    let(:visitor1) { create(:lead_visitor, visit: subject) }
+    let(:visitor2) { create(:visitor) }
 
-    describe 'when there is one visitor' do
-      before do
-        subject.visitors = [visitor1]
-      end
+    describe 'when there is only one visitor' do
 
       it 'returns an empty list' do
         expect(subject.additional_visitors).to be_empty
@@ -338,7 +339,7 @@ RSpec.describe Visit, type: :model do
         subject.visitors = [visitor1, visitor2]
       end
 
-      it 'returns a list without the principal visitor' do
+      it 'returns a list without the lead visitor' do
         expect(subject.additional_visitors).to eq([visitor2])
       end
     end
