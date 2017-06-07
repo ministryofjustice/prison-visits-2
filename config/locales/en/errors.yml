@@ -38,7 +38,7 @@ en:
           duplicate_unbookable_date: An unbookable date may not be duplicated
           unbookable_and_anomalous_conflict: An unbookable date may not also be anomalous
         visitor:
-          unprocessed_contact_list: Visitor wasn't processed
+          unprocessed_contact_list: Process this visitor to continue
   email_checker:
     errors:
       unparseable: "is not a valid address"
