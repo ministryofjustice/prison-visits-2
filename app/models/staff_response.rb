@@ -58,15 +58,15 @@ private
   def rejection_attributes
     return unless visit.rejection&.valid?
     @rejection_attributes ||= begin
-                                attrs = visit.rejection.serializable_hash(
-                                  except: %i[
+      attrs = visit.rejection.serializable_hash(
+        except: %i[
 created_at updated_at allowance_renews_on
 privileged_allowance_expires_on])
 
-                                attrs['allowance_renews_on'] =
-                                  rejection.allowance_renews_on.to_s
-                                attrs
-                              end
+      attrs['allowance_renews_on'] =
+        rejection.allowance_renews_on.to_s
+      attrs
+    end
   end
   # rubocop:enable Metrics/MethodLength
 
