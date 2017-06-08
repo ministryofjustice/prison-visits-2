@@ -70,6 +70,7 @@ group :test do
   gem 'ffaker'
   gem 'fuubar'
   gem 'launchy'
+  gem 'rspec-collection_matchers'
   gem 'selenium-webdriver', '2.53.4'
   gem 'simplecov'
   gem 'simplecov-rcov'

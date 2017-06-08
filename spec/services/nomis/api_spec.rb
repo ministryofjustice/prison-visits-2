@@ -203,11 +203,11 @@ RSpec.describe Nomis::Api do
     subject { super().fetch_contact_list(params) }
 
     it 'returns an array of contacts' do
-      expect(subject.count).to eq(4)
+      expect(subject).to have_exactly(4).items
     end
 
     it 'parses the contacts' do
-      expect(subject.first.id).to eq(first_contact.id)
+      expect(subject.map(&:id)).to include(first_contact.id)
     end
   end
 end

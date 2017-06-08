@@ -50,3 +50,4 @@ en:
   staff_response:
     errors:
       must_reject_or_accept_visit: "A visit must either be accepted by choosing a date or at least one rejection reason"
+  no_visitor_in_nomis: No record of this visitor in NOMIS

@@ -7,10 +7,10 @@
 
       <li class="float-right text-right">
         <%= form_tag prison_search_path, method: :get, enforce_utf8: false, class: 'form search' do -%>
-            <div class="search-input-wrapper">
-              <%= label_tag "query", class: "form-label" do -%>
-                <%= t('search', scope: :shared) %>
-              <% end %>
+            <%= label_tag "query", class: "form-label" do -%>
+              <%= t('search', scope: :shared) %>
+            <% end %>
+            <div class="js-searchPlaceholder search-input-wrapper <%= 'focus' if params[:query].present? %>">
               <%= text_field_tag 'query', params[:query], class: 'form-control' %>
             </div>
             <%= button_tag(type: 'submit', class: 'button search', title: t('search', scope: 'shared')) do -%>
