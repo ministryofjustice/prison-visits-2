@@ -230,7 +230,6 @@ GEM
     rainbow (2.2.2)
       rake
     rake (12.0.0)
-    redcarpet (3.4.0)
     redis (3.3.3)
     request_store (1.3.2)
     rspec-collection_matchers (1.1.3)
@@ -393,7 +392,6 @@ DEPENDENCIES
   pvb-instrumentation!
   rails (~> 4.2.8)
   rake
-  redcarpet
   request_store
   rspec-collection_matchers
   rspec-rails

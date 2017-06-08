@@ -73,10 +73,6 @@
 @import "modules/feedback";
 @import "modules/visitor-list";
 
-// Override resets on element styling
-// for staff info pages
-@import "staff-info";
-
 // Candidates for re-usable components
 @import "responsive";
 @import "components/moj.autocomplete";
