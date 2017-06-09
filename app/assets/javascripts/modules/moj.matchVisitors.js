@@ -29,7 +29,7 @@
 
       $.each(this.$el.find('select'), function(i,obj){
         var $obj = $(obj),
-          option = $obj.find('option:selected'),
+          option = $obj.find('option').slice(1),
           contact = option.data('contact'),
           val = $obj.val(),
           parent = self.findParent(obj);
