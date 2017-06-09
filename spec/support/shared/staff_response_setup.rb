@@ -6,6 +6,7 @@ RSpec.shared_context 'staff response setup' do
   let(:visitor_fields)    { %w[id not_on_list banned] }
   let(:params) do
     {
+      id:                   visit.id,
       slot_option_0:        visit.slot_option_0,
       slot_option_1:        visit.slot_option_1,
       slot_option_2:        visit.slot_option_2,
@@ -21,6 +22,7 @@ RSpec.shared_context 'staff response setup' do
           day: '', month: '', year: ''
         }
       },
+      lead_visitor_attributes: { 'id' => visit.lead_visitor.id },
       visitors_attributes:  {
         '0' => lead_visitor.attributes.slice(*visitor_fields).
           merge('banned_until' => principal_visitor.banned_until.to_s)

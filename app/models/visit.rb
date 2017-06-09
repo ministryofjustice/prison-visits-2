@@ -31,6 +31,8 @@ class Visit < ActiveRecord::Base
   delegate :allowance_will_renew?, :allowance_renews_on,
     to: :rejection
 
+  accepts_nested_attributes_for :lead_visitor
+
   scope :from_estates, lambda { |estates|
     joins(prison: :estate).where(estates: { id: estates.map(&:id) })
   }
