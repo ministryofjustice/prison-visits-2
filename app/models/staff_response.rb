@@ -151,13 +151,13 @@ privileged_allowance_expires_on])
   end
 
   def check_lead_visitor_not_banned
-    if visit.principal_visitor.banned?
+    if visit.lead_visitor.banned?
       rejection.reasons << Rejection::BANNED
     end
   end
 
   def check_lead_visitor_on_list
-    if visit.principal_visitor.not_on_list?
+    if visit.lead_visitor.not_on_list?
       rejection.reasons << Rejection::NOT_ON_THE_LIST
     end
   end

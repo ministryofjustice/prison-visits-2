@@ -27,7 +27,7 @@
   <p><i><%= @message.body %></i></p>
 <% end %>
 
-<% unless @visit.principal_visitor.allowed? %>
+<% unless @visit.lead_visitor.allowed? %>
   <p><%= t('.lead_visitor_rejected') %></p>
 <% end %>
 
