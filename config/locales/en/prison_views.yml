@@ -89,6 +89,7 @@ en:
         processed: Processed
         requests: Requests
         title: Search results for '%{prisoner_number}'
+        search_total: Displaying %{number} results
     visits:
       calendar:
         today: Today

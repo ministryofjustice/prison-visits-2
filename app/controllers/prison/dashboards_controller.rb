@@ -34,6 +34,9 @@ class Prison::DashboardsController < ApplicationController
     requested_visits(estates: accessible_estates, query: query)
     cancellations(estates: accessible_estates, query: query)
     processed_visits(estates: accessible_estates, query: query)
+    @search_total = @cancellations.size +
+                    @requested_visits.size +
+                    @processed_visits.size
   end
 
 private
