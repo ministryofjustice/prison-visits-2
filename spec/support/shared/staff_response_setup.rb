@@ -22,11 +22,9 @@ RSpec.shared_context 'staff response setup' do
           day: '', month: '', year: ''
         }
       },
-      lead_visitor_attributes: { 'id' => visit.lead_visitor.id },
-      visitors_attributes:  {
-        '0' => lead_visitor.attributes.slice(*visitor_fields).
-          merge('banned_until' => principal_visitor.banned_until.to_s)
-      }
+      lead_visitor_attributes: visit.
+        lead_visitor.attributes.slice('id', 'banned', 'not_on_list', 'type'),
+      visitors_attributes:  {}
     }
   end
 

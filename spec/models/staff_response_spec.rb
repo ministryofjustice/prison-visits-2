@@ -183,7 +183,7 @@ RSpec.describe StaffResponse, type: :model do
         before do
           unlisted_visitor.not_on_list = true
           params[:visitors_attributes]['1'] = unlisted_visitor.attributes.slice(*visitor_fields)
-          params[:visitors_attributes]['0'][:not_on_list] = true
+          params[:lead_visitor_attributes]['not_on_list'] = true
           subject.valid?
         end
 
@@ -201,7 +201,7 @@ RSpec.describe StaffResponse, type: :model do
         before do
           unlisted_visitor.banned = true
           params[:visitors_attributes]['1'] = unlisted_visitor.attributes.slice(*visitor_fields)
-          params[:visitors_attributes]['0'][:banned] = true
+          params[:lead_visitor_attributes]['banned'] = true
           subject.valid?
         end
 
@@ -213,27 +213,13 @@ RSpec.describe StaffResponse, type: :model do
       end
     end
 
-    context 'without allowed adult visitors' do
-      let!(:minor_visitor) { create(:visitor, date_of_birth: 17.years.ago, visit: visit) }
-
-      before do
-        params[:visitors_attributes]['0'][:banned] = true
-        params[:visitors_attributes]['1'] = minor_visitor.attributes.slice(*visitor_fields)
-        subject.valid?
-      end
-
-      it 'has a rejection for no adult' do
-        expect(subject.visit.rejection.reasons).to include(Rejection::NO_ADULT)
-      end
-    end
-
     describe 'check lead visitor is not banned and on the list' do
       let!(:other_visitor) { create(:visitor, visit: visit) }
       let(:slot_granted) { nil }
 
       context 'when the lead visitor is not on the list' do
         before do
-          params[:visitors_attributes]['0'][:not_on_list] = true
+          params[:lead_visitor_attributes]['not_on_list'] = true
           params[:visitors_attributes]['1'] = other_visitor.attributes.slice('id', 'banned', 'not_on_list')
           is_expected.to be_valid
         end
@@ -245,8 +231,9 @@ RSpec.describe StaffResponse, type: :model do
 
       context 'when the lead visitor is banned' do
         before do
-          params[:visitors_attributes]['0'][:banned] = true
-          params[:visitors_attributes]['1'] = other_visitor.attributes.slice('id', 'banned', 'not_on_list')
+          params[:lead_visitor_attributes]['banned'] = true
+          params[:visitors_attributes]['1'] = other_visitor.attributes.slice('id', 'banned', 'not_on_list', 'type')
+
           is_expected.to be_valid
         end
 
@@ -260,7 +247,7 @@ RSpec.describe StaffResponse, type: :model do
   describe '#email_attrs' do
     let(:expected_params) do
       {
-        'id'                     => nil,
+        'id'                     => visit.id,
         'prison_id'              => visit.prison.id,
         'contact_email_address'  => nil,
         'contact_phone_no'       => nil,
@@ -307,7 +294,7 @@ RSpec.describe StaffResponse, type: :model do
 
         expected_params['rejection_attributes'] = {
           'id'                              => nil,
-          'visit_id'                        => nil,
+          'visit_id'                        => visit.id,
           'reasons'                         => [Rejection::NO_ALLOWANCE],
           'allowance_renews_on'             => allowance_renew_date.to_s
         }
