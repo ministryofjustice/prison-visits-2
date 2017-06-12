@@ -125,11 +125,9 @@ RSpec.feature 'Processing a request', js: true do
         and_body(/the prisoner has a restriction/)
     end
 
-    scenario 'rejecting a booking when no visitors are on the contact list' do
-      vst.visitors.each do |visitor|
-        within "#visitor_#{visitor.id}" do
-          check 'Not on contact list', visible: false
-        end
+    scenario 'rejecting a booking when the lead visitor is not on the contact list' do
+      within "#visitor_#{vst.lead_visitor.id}" do
+        check 'Not on contact list', visible: false
       end
 
       click_button 'Process'
@@ -147,11 +145,9 @@ RSpec.feature 'Processing a request', js: true do
         and_body(/prisoner's contact list/)
     end
 
-    scenario 'rejecting a booking when all visitors are banned' do
-      vst.visitors.each do |visitor|
-        within "#visitor_#{visitor.id}" do
-          check 'Visitor is banned', visible: false
-        end
+    scenario 'rejecting a booking when the lead is visitor is banned' do
+      within "#visitor_#{vst.lead_visitor.id}" do
+        check 'Visitor is banned', visible: false
       end
 
       click_button 'Process'

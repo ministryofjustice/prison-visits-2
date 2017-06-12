@@ -38,7 +38,7 @@ class RejectionDecorator < Draper::Decorator
     if object.reasons.any? { |r| r.in? RESTRICTON_REASONS }
       result << translated_restricted_reason
     end
-
+    byebug
     non_restricted_reasons = object.reasons - RESTRICTON_REASONS
 
     non_restricted_reasons.each do |reason|

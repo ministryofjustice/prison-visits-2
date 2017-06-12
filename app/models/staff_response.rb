@@ -37,6 +37,7 @@ class StaffResponse
     )
     attrs['rejection_attributes'] = rejection_attributes if rejection_attributes
     attrs['visitors_attributes']  = visitors_attributes  if visitors_attributes
+    attrs['lead_visitor_attributes']  = lead_visitor_attributes
     attrs
   end
   # rubocop:enable Metrics/MethodLength
@@ -73,13 +74,18 @@ privileged_allowance_expires_on])
 
   def visitors_attributes
     @visitors_attributes ||= begin
-      fields = %w[id not_on_list banned]
+      fields = %w[id not_on_list banned type]
 
       visit.visitors.each_with_object({}).with_index do |(visitor, attrs), i|
         attrs[i.to_s] = visitor.attributes.slice(*fields)
         attrs[i.to_s]['banned_until'] = visitor.banned_until.to_s
       end
     end
+  end
+  def lead_visitor_attributes
+    attrs = visit.lead_visitor.attributes.slice('id', 'not_on_list', 'banned', 'type')
+    attrs['banned_until'] = visit.lead_visitor.banned_until.to_s
+    attrs
   end
 
   def visit_or_rejection_validity
