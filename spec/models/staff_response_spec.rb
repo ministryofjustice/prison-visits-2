@@ -69,6 +69,22 @@ RSpec.describe StaffResponse, type: :model do
     end
   end
 
+  describe '#check_lead_visitor_in_visitors' do
+    before do
+      params[:lead_visitor_attributes]['banned'] = true
+    end
+
+    it 'adds the lead visitor to the visitors list' do
+      expect {
+        subject.valid?
+      }.to change {
+        subject.visit.visitors.detect do |v|
+          v.is_a?(LeadVisitor)
+        end.banned?
+      }.from(false).to(true)
+    end
+  end
+
   describe 'validating a staff response' do
     context 'when processable' do
       it { is_expected.to be_valid }

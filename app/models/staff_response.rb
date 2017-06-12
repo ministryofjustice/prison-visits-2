@@ -5,6 +5,7 @@ class StaffResponse
   attr_accessor :visit, :user
   attr_writer :validate_visitors_nomis_ready
 
+  before_validation :ensure_lead_visitor_up_to_date
   before_validation :check_slot_available
   before_validation :check_lead_visitor_not_banned
   before_validation :check_lead_visitor_on_list
@@ -166,5 +167,10 @@ privileged_allowance_expires_on])
     if visit.lead_visitor.not_on_list?
       rejection.reasons << Rejection::NOT_ON_THE_LIST
     end
+  end
+
+  def ensure_lead_visitor_up_to_date
+    lead_visitor_idx = visit.visitors.index(visit.lead_visitor)
+    visit.visitors[lead_visitor_idx].attributes = visit.lead_visitor.attributes
   end
 end
