@@ -35,8 +35,7 @@ private
 
   def create_visitors(visitors_step, visit)
     visitors_step.visitors.each_with_index do |visitor, sort_index|
-      attributes = attributes_for_visitor(visitor)
-      attributes[:sort_index] = sort_index
+      attributes = attributes_for_visitor(visitor, sort_index)
       if sort_index.zero?
         visit.create_lead_visitor!(attributes)
       else
@@ -54,11 +53,12 @@ private
     )
   end
 
-  def attributes_for_visitor(visitor)
+  def attributes_for_visitor(visitor, sort_index)
     {
       first_name:    visitor.first_name,
       last_name:     visitor.last_name,
-      date_of_birth: visitor.date_of_birth
+      date_of_birth: visitor.date_of_birth,
+      sort_index:    sort_index
     }
   end
 end
