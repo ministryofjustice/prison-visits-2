@@ -285,7 +285,7 @@ RSpec.describe StaffResponse, type: :model do
           'banned'       => visit.lead_visitor.banned,
           'banned_until' => ''
         },
-        'visitors_attributes'    => visit.visitors.each_with_object({}).with_index do |(visitor, h), i|
+        'visitors_attributes' => visit.visitors.each_with_object({}).with_index do |(visitor, h), i|
           h[i.to_s] = visitor.slice(*visitor_fields)
           h[i.to_s]['banned_until'] = visitor.banned_until.to_s
           h
