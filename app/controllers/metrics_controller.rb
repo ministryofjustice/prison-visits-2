@@ -20,8 +20,7 @@ class MetricsController < ApplicationController
     @prison = Prison.find(params[:prison_id])
   end
 
-  def digital_takeup
-  end
+  def digital_takeup; end
 
 private
 
