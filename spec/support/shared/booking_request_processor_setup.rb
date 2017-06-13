@@ -1,8 +1,8 @@
 RSpec.shared_context 'staff response setup' do
-  let(:lead_visitor) { visit.lead_visitor }
-  let(:visit)             { create :visit_with_three_slots }
-  let(:slot_granted)      { visit.slot_option_0 }
-  let(:processing_state)  { 'requested' }
+  let(:lead_visitor)     { visit.lead_visitor }
+  let(:visit)            { create :visit_with_three_slots }
+  let(:slot_granted)     { visit.slot_option_0 }
+  let(:processing_state) { 'requested' }
   let(:params) do
     {
       slot_option_0:        visit.slot_option_0,
