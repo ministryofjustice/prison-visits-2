@@ -120,8 +120,8 @@ RSpec.describe StaffResponse, type: :model do
 
       context 'and a visitor is on the list and not have a nomis id' do
         before do
-          params[:visitors_attributes]['0'][:nomis_id] = nil
-          params[:visitors_attributes]['0'][:not_on_list] = nil
+          params[:lead_visitor_attributes]['nomis_id'] = nil
+          params[:lead_visitor_attributes]['not_on_list'] = nil
         end
 
         it 'is invalid' do
@@ -140,8 +140,8 @@ RSpec.describe StaffResponse, type: :model do
 
       context 'and a visitor is not on the list and has a nomis id' do
         before do
-          params[:visitors_attributes]['0'][:nomis_id] = 12_345
-          params[:visitors_attributes]['0'][:not_on_list] = true
+          params[:lead_visitor_attributes]['nomis_id'] = 12_345
+          params[:lead_visitor_attributes]['not_on_list'] = true
         end
 
         it 'is invalid' do
@@ -160,8 +160,8 @@ RSpec.describe StaffResponse, type: :model do
 
       context 'and a visitor is on the list and has a nomis id' do
         before do
-          params[:visitors_attributes]['0'][:nomis_id] = 12_345
-          params[:visitors_attributes]['0'][:not_on_list] = nil
+          params[:lead_visitor_attributes]['nomis_id'] = 12_345
+          params[:lead_visitor_attributes]['not_on_list'] = nil
         end
 
         it 'is valid' do

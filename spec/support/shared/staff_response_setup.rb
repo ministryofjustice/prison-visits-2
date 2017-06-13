@@ -3,7 +3,7 @@ RSpec.shared_context 'staff response setup' do
   let(:visit)             { create :visit_with_three_slots }
   let(:slot_granted)      { visit.slot_option_0 }
   let(:processing_state)  { 'requested' }
-  let(:visitor_fields)    { %w[id not_on_list banned] }
+  let(:visitor_fields)    { %w[id not_on_list banned type] }
   let(:params) do
     {
       id:                   visit.id,
