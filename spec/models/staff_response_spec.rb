@@ -280,6 +280,7 @@ RSpec.describe StaffResponse, type: :model do
         'slot_granted'           => visit.slot_option_0,
         'lead_visitor_attributes' => {
           'id'           => visit.lead_visitor.id,
+          'type'         => visit.lead_visitor.type,
           'not_on_list'  => visit.lead_visitor.not_on_list,
           'banned'       => visit.lead_visitor.banned,
           'banned_until' => ''
