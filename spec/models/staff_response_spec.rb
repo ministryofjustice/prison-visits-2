@@ -278,7 +278,12 @@ RSpec.describe StaffResponse, type: :model do
         'slot_option_1'          => visit.slot_option_1,
         'slot_option_2'          => visit.slot_option_2,
         'slot_granted'           => visit.slot_option_0,
-        'lead_visitor_attributes' => visit.lead_visitor.slice('id', 'not_on_list', 'banned', 'type'),
+        'lead_visitor_attributes' => {
+          'id'           => visit.lead_visitor.id,
+          'not_on_list'  => visit.lead_visitor.not_on_list,
+          'banned'       => visit.lead_visitor.banned,
+          'banned_until' => ''
+        },
         'visitors_attributes'    => visit.visitors.each_with_object({}).with_index do |(visitor, h), i|
           h[i.to_s] = visitor.slice(*visitor_fields)
           h[i.to_s]['banned_until'] = visitor.banned_until.to_s
@@ -308,11 +313,16 @@ RSpec.describe StaffResponse, type: :model do
           month: allowance_renew_date.month,
           year:  allowance_renew_date.year
         }
-
+        expected_params['lead_visitor_attributes'] = {
+          'id'                              => visit.lead_visitor.id,
+          'not_on_list'                     => visit.lead_visitor.not_on_list,
+          'banned'                          => visit.lead_visitor.banned,
+          'type'                            => 'LeadVisitor',
+          'banned_until'                    => ''
+        }
         expected_params['rejection_attributes'] = {
           'id'                              => nil,
           'visit_id'                        => visit.id,
-          'type'                            => 'LeadVisitor',
           'reasons'                         => [Rejection::NO_ALLOWANCE],
           'allowance_renews_on'             => allowance_renew_date.to_s
         }

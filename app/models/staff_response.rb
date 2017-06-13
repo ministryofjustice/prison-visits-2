@@ -38,7 +38,7 @@ class StaffResponse
     )
     attrs['rejection_attributes'] = rejection_attributes if rejection_attributes
     attrs['visitors_attributes']  = visitors_attributes  if visitors_attributes
-    attrs['lead_visitor_attributes']  = lead_visitor_attributes
+    attrs['lead_visitor_attributes'] = lead_visitor_attributes
     attrs
   end
   # rubocop:enable Metrics/MethodLength
