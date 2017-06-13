@@ -2,7 +2,7 @@ namespace :db do
   desc 'migrate lead_visitor'
   task migrate_lead_visitor: :environment do
     Visitor.where(sort_index: 0).find_in_batches do |group|
-      visitor_ids =  group.map(&:id)
+      visitor_ids = group.map(&:id)
       Visitor.where(id: visitor_ids).update_all(type: 'LeadVisitor')
       sleep 1
     end
