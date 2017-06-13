@@ -45,5 +45,56 @@ RSpec.describe FeedbackSubmission do
         end
       end
     end
+
+    context 'prisoner_number' do
+
+      context 'is absent' do
+        it 'no error on field' do
+          subject.valid?
+          expect(subject.errors).not_to have_key(:prisoner_number)
+        end
+      end
+
+      context 'is invalid'do
+        it 'error on the field' do
+          subject.prisoner_number = 'bobbins'
+          subject.valid?
+          expect(subject.errors).to have_key(:prisoner_number)
+        end
+      end
+
+      context 'is valid' do
+        it 'no error on field' do
+          subject.prisoner_number = 'A1234BC'
+          subject.valid?
+          expect(subject.errors).not_to have_key(:prisoner_number)
+        end
+      end
+    end
+
+    context 'prisoner_date_of_birth' do
+      context 'is absent' do
+        it 'no error on field' do
+          subject.valid?
+          expect(subject.errors).not_to have_key(:prisoner_date_of_birth)
+        end
+      end
+
+      context 'is invalid'do
+        it 'error on the field' do
+          subject.prisoner_date_of_birth = Date.new(1066, 1, 1)
+          subject.valid?
+          expect(subject.errors).to have_key(:prisoner_date_of_birth)
+        end
+      end
+
+      context 'is valid' do
+        it 'no error on field' do
+          subject.prisoner_date_of_birth = Date.today - 30.years
+          subject.valid?
+          expect(subject.errors).not_to have_key(:prisoner_date_of_birth)
+        end
+      end
+    end
   end
 end

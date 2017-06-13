@@ -11,7 +11,8 @@ module Api
     def feedback_params
       params.
         require(:feedback).
-        permit(:referrer, :body, :email_address, :user_agent).
+        permit(:referrer, :body, :email_address, :user_agent, :prison_id,
+               :prisoner_number, :prisoner_date_of_birth).
         merge(submitted_by_staff: false)
     end
   end
