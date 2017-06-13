@@ -9,6 +9,7 @@ SecureHeaders::Configuration.default do |config|
       "'self'",
       'www.google-analytics.com',
       'www.gstatic.com',
+      'https://docs.google.com',
       "'unsafe-eval'",
       "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='",  # govuk
       "'sha256-G29/qSW/JHHANtFhlrZVDZW1HOkCDRc78ggbqwwIJ2g='",  # govuk

@@ -5,12 +5,13 @@
     el: '.js-RejectionPercentages',
 
     init: function() {
-      google.charts.load('current', {
-        'packages': ['corechart']
-      });
-      google.charts.setOnLoadCallback($.proxy(this.drawCharts, this));
-
       this.$el = $(this.el);
+      if(this.$el.length > 0){
+        google.charts.load('current', {
+          'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback($.proxy(this.drawCharts, this));
+      }
     },
     drawCharts: function() {
 

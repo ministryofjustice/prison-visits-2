@@ -1,0 +1,10 @@
+<h1 class="heading-xlarge">
+  Digital take-up
+</h1>
+
+<% content_for :metrics do %>
+  <%= javascript_include_tag '//www.gstatic.com/charts/loader.js' %>
+  <%= javascript_include_tag 'metrics' %>
+<% end %>
+
+<div class="js-DigitalTakeup" id="digital-takeup"></div>

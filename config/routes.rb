@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       get 'metrics/:prison_id/summary',
         action: :summary,
         as: :prison_metrics_summary
+      get 'metrics/digital_takeup', action: :digital_takeup
     end
 
     namespace :prison do
