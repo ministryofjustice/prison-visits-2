@@ -78,9 +78,9 @@ RSpec.describe StaffResponse, type: :model do
       expect {
         subject.valid?
       }.to change {
-        subject.visit.visitors.detect do |v|
+        subject.visit.visitors.detect { |v|
           v.is_a?(LeadVisitor)
-        end.banned?
+        }.banned?
       }.from(false).to(true)
     end
   end

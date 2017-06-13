@@ -83,6 +83,7 @@ privileged_allowance_expires_on])
       end
     end
   end
+
   def lead_visitor_attributes
     attrs = visit.lead_visitor.attributes.slice('id', 'not_on_list', 'banned', 'type')
     attrs['banned_until'] = visit.lead_visitor.banned_until.to_s
