@@ -20,6 +20,10 @@
         </br/>
         <%= @visit.contact_phone_no %></p>
       <% end %>
+
+      <% vf.object.errors.full_messages.each do |error_msg| %>
+        <p class="error-message"><%= error_msg %></p>
+      <% end %>
     </div>
     <div class="column">
       <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>

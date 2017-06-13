@@ -28,7 +28,10 @@ private
   def booking_responder
     visit = load_visit
     visit.assign_attributes(visit_params)
-    BookingResponder.new(visit, user: current_user, message: message)
+    BookingResponder.new(visit,
+      user: current_user,
+      message: message,
+      options: booking_responder_opts)
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -52,4 +55,8 @@ private
     )
   end
   # rubocop:enable Metrics/MethodLength
+
+  def booking_responder_opts
+    { validate_visitors_nomis_ready: params[:validate_visitors_nomis_ready] }
+  end
 end

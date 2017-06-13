@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe BookingResponder do
-  subject { described_class.new(visit, message: message) }
+  subject { described_class.new(visit, message: message, options: options) }
 
   let(:visit)            { create(:visit_with_three_slots) }
-  let(:staff_response) { StaffResponse.new(visit: visit) }
+  let(:staff_response)   { StaffResponse.new(visit: visit) }
   let(:message)          { nil }
+  let(:options)          { { validate_visitors_nomis_ready: nil } }
 
   describe 'with a requested visit' do
     let(:accept_processor) { spy(BookingResponder::Accept) }
