@@ -47,7 +47,6 @@ RSpec.describe FeedbackSubmission do
     end
 
     context 'prisoner_number' do
-
       context 'is absent' do
         it 'no error on field' do
           subject.valid?
@@ -90,7 +89,7 @@ RSpec.describe FeedbackSubmission do
 
       context 'is valid' do
         it 'no error on field' do
-          subject.prisoner_date_of_birth = Date.today - 30.years
+          subject.prisoner_date_of_birth = Time.zone.today - 30.years
           subject.valid?
           expect(subject.errors).not_to have_key(:prisoner_date_of_birth)
         end

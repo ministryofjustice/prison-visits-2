@@ -18,6 +18,22 @@ RSpec.describe ZendeskTicketsJob, type: :job do
   let(:submitted_by_staff) { false }
   let(:prison) { FactoryGirl.create(:prison) }
 
+  let(:url_custom_field) do
+    { id: ZendeskTicketsJob::URL_FIELD, value: 'ref' }
+  end
+
+  let(:browser_custom_field) do
+    { id: ZendeskTicketsJob::BROWSER_FIELD, value: 'Mozilla' }
+  end
+
+  let(:service_custom_field) do
+    { id: ZendeskTicketsJob::SERVICE_FIELD, value: 'prison_visits' }
+  end
+
+  let(:prison_custom_field) do
+    { id: ZendeskTicketsJob::PRISON_FIELD, value: prison.name }
+  end
+
   before do
     Rails.configuration.zendesk_client = client
   end
@@ -38,22 +54,6 @@ RSpec.describe ZendeskTicketsJob, type: :job do
       and_return(ticket)
     expect(ticket).to receive(:save!).once
     subject.perform_now(feedback)
-  end
-
-  let(:url_custom_field) do
-    { id: ZendeskTicketsJob::URL_FIELD, value: 'ref' }
-  end
-
-  let(:browser_custom_field) do
-    { id: ZendeskTicketsJob::BROWSER_FIELD, value: 'Mozilla' }
-  end
-
-  let(:service_custom_field) do
-    { id: ZendeskTicketsJob::SERVICE_FIELD, value: 'prison_visits' }
-  end
-
-  let(:prison_custom_field) do
-    { id: ZendeskTicketsJob::PRISON_FIELD, value: prison.name }
   end
 
   describe 'when email not provided' do
@@ -135,7 +135,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
       end
 
       let(:prisoner_num) { 'A1234BC' }
-      let(:prisoner_dob) { Date.today - 30.years }
+      let(:prisoner_dob) { Time.zone.today - 30.years }
 
       it 'creates a ticket with feedback and custom fields' do
         expect(ZendeskAPI::Ticket).
