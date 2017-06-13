@@ -27,6 +27,10 @@
   <p><i><%= @message.body %></i></p>
 <% end %>
 
+<% unless @visit.lead_visitor.allowed? %>
+  <p><%= t('.lead_visitor_rejected') %></p>
+<% end %>
+
 <p><%= t('.any_questions_html',
          url: link_directory.prison_finder(@visit.prison),
          phone_no: @visit.prison_phone_no) %></p>

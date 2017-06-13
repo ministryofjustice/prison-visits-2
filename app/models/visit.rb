@@ -1,10 +1,10 @@
 class Visit < ActiveRecord::Base
   extend FreshnessCalculations
-  include PrincipalVisitor
+
   belongs_to :prison
   belongs_to :prisoner
   has_many :visitors, dependent: :destroy
-
+  has_one :lead_visitor
   has_many :visit_state_changes, dependent: :destroy
   has_many :messages
   has_one :rejection, dependent: :destroy, inverse_of: :visit
@@ -30,6 +30,8 @@ class Visit < ActiveRecord::Base
   delegate :reason, to: :cancellation, prefix: true
   delegate :allowance_will_renew?, :allowance_renews_on,
     to: :rejection
+
+  accepts_nested_attributes_for :lead_visitor
 
   scope :from_estates, lambda { |estates|
     joins(prison: :estate).where(estates: { id: estates.map(&:id) })
@@ -114,7 +116,7 @@ class Visit < ActiveRecord::Base
     :number, :date_of_birth, to: :prisoner, prefix: true
 
   delegate :first_name, :last_name, :full_name, :anonymized_name,
-    :date_of_birth, to: :principal_visitor, prefix: :visitor
+    :date_of_birth, to: :lead_visitor, prefix: :visitor
 
   alias_method :processable?, :requested?
 
@@ -154,7 +156,7 @@ class Visit < ActiveRecord::Base
   end
 
   def additional_visitors
-    @additional_visitors ||= visitors.reject { |v| v == principal_visitor }
+    @additional_visitors ||= visitors.reject { |v| v == lead_visitor }
   end
 
 private

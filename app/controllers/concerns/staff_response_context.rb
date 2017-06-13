@@ -39,11 +39,17 @@ private
     params.require(:visit).permit(
       :reference_no, :slot_granted, :closed, :slot_option_0,
       :slot_option_1, :slot_option_2, :prison_id, :prisoner_id,
-      :principal_visitor_id, :processing_state, :id,
-      visitor_ids: [],
+      :processing_state, :id,
       rejection_attributes: [
         allowance_renews_on: %i[day month year],
         reasons: []
+      ],
+      lead_visitor_attributes: [
+        :id,
+        :nomis_id,
+        :banned,
+        :not_on_list,
+        banned_until: %i[day month year]
       ],
       visitors_attributes:  [
         :id,

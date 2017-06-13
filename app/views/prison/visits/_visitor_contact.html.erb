@@ -1,9 +1,9 @@
 <li id="<%= dom_id(v)  %>" data-visitor='{"first_name": "<%= v.first_name %>", "last_name": "<%= v.last_name %>", "dob": "<%= v.date_of_birth %>"}' data-banned="false" data-processed="false">
   <div class="error">
-    <%= vf.label :banned, class: '' do %>
+    <%= vf.label :banned do %>
       <%= field_error(vf,:banned) %>
     <% end %>
-    <%= vf.label :banned_until, class: '' do %>
+    <%= vf.label :banned_until do %>
       <%= field_error(vf,:banned_until) %>
     <% end %>
   </div>
@@ -14,7 +14,7 @@
         <span class="bold-small"><%= v.full_name %></span> - <%= v.date_of_birth.to_s(:short_nomis) %>
         <span class="font-small">(<%= v.age %>)</span>
       </div>
-      <% if @visit.principal_visitor == v %>
+      <% if @visit.lead_visitor == v %>
         <p>
         <a href="mailto:<%= @visit.contact_email_address %>"><%= @visit.contact_email_address %></a>
         </br/>
