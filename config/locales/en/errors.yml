@@ -54,3 +54,11 @@ en:
     errors:
       must_reject_or_accept_visit: "A visit must either be accepted by choosing a date or at least one rejection reason"
   no_visitor_in_nomis: No record of this visitor in NOMIS
+
+  age_validator:
+    errors:
+      range: "must be less than %{max} years ago"
+ 
+  prisoner_number_validator:
+    errors:
+      format: has an invalid format

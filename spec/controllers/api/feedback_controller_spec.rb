@@ -20,7 +20,10 @@ RSpec.describe Api::FeedbackController, type: :controller do
           body: body,
           email_address: 'john@example.com',
           user_agent: 'browser user agent',
-          referrer: 'The referrer'
+          referrer: 'The referrer',
+          prison_id: 'ddd',
+          prisoner_number: 'A1234BC',
+          prisoner_date_of_birth: '1990-01-01'
         }
       }
     }
@@ -44,7 +47,7 @@ RSpec.describe Api::FeedbackController, type: :controller do
       expect(response.body).to eq('{}')
     end
 
-    describe 'with invalid data' do
+    describe 'with blank body' do
       let(:body) { nil }
 
       it 'does not send to ZenDesk' do
