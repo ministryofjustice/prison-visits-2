@@ -9,7 +9,8 @@ private
 
   def check_range(record, attribute, value)
     if value < minimum_date_of_birth
-      record.errors.add(attribute, "cannot be more than #{MAX_AGE} years ago")
+      record.errors.add(attribute,
+        I18n.t('age_validator.errors.range', max: MAX_AGE))
     end
   end
 

@@ -11,7 +11,7 @@ class FeedbackSubmission < ActiveRecord::Base
 private
 
   def strip_email_address
-    self.email_address = email_address.strip if email_address.present?
+    self.email_address = email_address&.strip
   end
 
   def email_format

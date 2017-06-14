@@ -58,7 +58,8 @@ RSpec.describe FeedbackSubmission do
         it 'error on the field' do
           subject.prisoner_number = 'bobbins'
           subject.valid?
-          expect(subject.errors).to have_key(:prisoner_number)
+          expect(subject.errors.full_messages_for(:prisoner_number)).
+            to eq(['Prisoner number has an invalid format'])
         end
       end
 
@@ -83,7 +84,8 @@ RSpec.describe FeedbackSubmission do
         it 'error on the field' do
           subject.prisoner_date_of_birth = Date.new(1066, 1, 1)
           subject.valid?
-          expect(subject.errors).to have_key(:prisoner_date_of_birth)
+          expect(subject.errors.full_messages_for(:prisoner_date_of_birth)).
+            to eq(['Prisoner date of birth must be less than 120 years ago'])
         end
       end
 

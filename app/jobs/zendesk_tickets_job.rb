@@ -2,12 +2,12 @@ class ZendeskTicketsJob < ActiveJob::Base
   queue_as :zendesk
 
   # Custom ticket field IDs as configured in the MOJ Digital Zendesk account
-  URL_FIELD = '23730083'
-  SERVICE_FIELD = '23757677'
-  BROWSER_FIELD = '23791776'
-  PRISON_FIELD = '23984153'
-  PRISONER_NUM_FIELD = '114094604912'
-  PRISONER_DOB_FIELD = '114094604972'
+  URL_FIELD = '23730083'.freeze
+  SERVICE_FIELD = '23757677'.freeze
+  BROWSER_FIELD = '23791776'.freeze
+  PRISON_FIELD = '23984153'.freeze
+  PRISONER_NUM_FIELD = '114094604912'.freeze
+  PRISONER_DOB_FIELD = '114094604972'.freeze
 
   def perform(feedback)
     unless Rails.configuration.try(:zendesk_client)
