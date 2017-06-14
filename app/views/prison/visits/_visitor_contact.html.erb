@@ -1,49 +1,36 @@
-<li id="<%= dom_id(v)  %>" data-visitor='{"first_name": "<%= v.first_name %>", "last_name": "<%= v.last_name %>", "dob": "<%= v.date_of_birth %>"}' data-banned="false" data-processed="false">
-  <div class="error">
-    <%= vf.label :banned do %>
-      <%= field_error(vf,:banned) %>
-    <% end %>
-    <%= vf.label :banned_until do %>
-      <%= field_error(vf,:banned_until) %>
+<div class="error">
+  <%= vf.label :banned, field_error(vf,:banned) %>
+  <%= vf.label :banned_until, field_error(vf,:banned_until) %>
+</div>
+<div class="wrapper">
+  <div class="column">
+    <div class="name">
+      <%= vf.hidden_field :id %>
+      <span class="bold-small"><%= v.full_name %></span> - <%= v.date_of_birth %>
+      <span class="font-small">(<%= v.age %>)</span>
+    </div>
+    <%= v.contact_details %>
+    <% vf.object.errors.full_messages.each do |error_msg| %>
+      <p class="error-message"><%= error_msg %></p>
     <% end %>
   </div>
-  <div class="wrapper">
-    <div class="column">
-      <div class="name">
-        <%= vf.hidden_field :id %>
-        <span class="bold-small"><%= v.full_name %></span> - <%= v.date_of_birth.to_s(:short_nomis) %>
-        <span class="font-small">(<%= v.age %>)</span>
-      </div>
-      <% if @visit.lead_visitor == v %>
-        <p>
-        <a href="mailto:<%= @visit.contact_email_address %>"><%= @visit.contact_email_address %></a>
-        </br/>
-        <%= @visit.contact_phone_no %></p>
-      <% end %>
+  <div class="column">
 
-      <% vf.object.errors.full_messages.each do |error_msg| %>
-        <p class="error-message"><%= error_msg %></p>
-      <% end %>
+    <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>
+      <div class="form-group">
+        <%= vf.label :nomis_id, t('.nomis_list'), class: 'form-label' %>
+        <%= @visit.contact_list(vf, v) %>
+      </div>
+
+    <% end %>
+
+    <div class="multiple-choice form-group">
+      <%= vf.check_box :not_on_list, data: { checkbox_summary_text: v.anonymized_name } %>
+      <%= vf.label :not_on_list, t('.not_on_list') %>
     </div>
-    <div class="column">
-      <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>
-        <div class="form-group">
-          <%= vf.label :nomis_id, t('.nomis_list'), class: 'form-label' %>
-          <%= @visit.contact_list(vf, v) %>
-        </div>
-      <% end %>
-      <div class="multiple-choice form-group">
-        <%= vf.check_box :not_on_list, data: { checkbox_summary_text: v.anonymized_name } %>
-        <%= vf.label :not_on_list do %>
-          <%= t('.not_on_list') %>
-        <% end %>
-      </div>
-      <div class="multiple-choice form-group">
-        <%= vf.check_box :banned %>
-        <%= vf.label :banned do %>
-          <%= t('.banned') %>
-        <% end %>
-      </div>
+    <div class="multiple-choice form-group">
+      <%= vf.check_box :banned %>
+      <%= vf.label :banned, t('.banned') %>
     </div>
   </div>
-</li>
+</div>

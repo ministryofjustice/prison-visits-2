@@ -1,5 +1,6 @@
 class VisitDecorator < Draper::Decorator
   delegate_all
+  decorate_collection :visitors
   decorates_association :rejection
   decorates_association :lead_visitor
   NO_VISITORS_IN_NOMIS = 'no_visitor_in_nomis'.freeze

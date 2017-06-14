@@ -45,7 +45,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
       click_button 'Process'
 
-      within "#visitor_#{visitor.id}" do
+      within "#lead_visitor_#{visitor.id}" do
         expect(page).to have_content("Process this visitor to continue")
         select 'IRMA ITSU - 03/04/1975', from: 'Match to contact list'
       end
