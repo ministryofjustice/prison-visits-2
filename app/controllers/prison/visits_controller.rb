@@ -6,7 +6,8 @@ class Prison::VisitsController < ApplicationController
   before_action :visit_is_processable, only: %i[process_visit update]
 
   def process_visit
-    @visit = load_visit.decorate
+    @visit    = load_visit.decorate
+    @visitors = @visit.visitors.decorate
   end
 
   def update
@@ -17,6 +18,7 @@ class Prison::VisitsController < ApplicationController
     else
       # Always decorate object last once they've been mutated
       @visit = load_visit.decorate
+      @visitors = @visit.visitors.decorate
       @message = message
       flash[:alert] = t('process_required', scope: %i[prison flash])
       render :process_visit
