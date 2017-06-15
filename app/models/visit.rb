@@ -157,6 +157,10 @@ class Visit < ActiveRecord::Base
     @additional_visitors ||= visitors.reject { |v| v == principal_visitor }
   end
 
+  def allowed_additional_visitors
+    additional_visitors.select(&:allowed?)
+  end
+
 private
 
   def not_allowed_visitor_ids

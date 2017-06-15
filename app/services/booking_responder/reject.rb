@@ -8,7 +8,7 @@ class BookingResponder
         clean_up_allowance_renews_on
         visit.reject!
 
-        BookingResponse.new(success: true)
+        BookingResponse.successful
       end
     end
 

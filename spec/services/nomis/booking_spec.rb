@@ -12,7 +12,7 @@ RSpec.describe Nomis::Booking do
       end
     end
 
-    describe 'with a succesful response' do
+    describe 'with a successful response' do
       let(:visit_id) { 12_345 }
       let(:response) { { 'visit_id' => visit_id } }
 

@@ -7,7 +7,7 @@ class BookingResponder
                              reason: staff_response.reason,
                              nomis_cancelled: true)
 
-        BookingResponse.new(success: true)
+        BookingResponse.successful
       end
     end
   end
