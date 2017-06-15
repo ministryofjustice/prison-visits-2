@@ -6,6 +6,7 @@
 
     init: function() {
       this.$el = $(this.el);
+      this.i18n = this.$el.data('i18n');
       if(this.$el.length > 0){
         google.charts.load('current', {
           'packages': ['corechart']
@@ -16,11 +17,34 @@
 
     drawCharts: function() {
       var queryString = encodeURIComponent('select B, F, G');
-      var URL = 'https://docs.google.com/spreadsheets/d/1JSuPGZ0WAVRyZe8ZUBZ4VuBjUea3AIpqXscKVUY0tRc/gviz/tq?tq='+queryString,
-        query = new google.visualization.Query(URL);
+      var URL = 'https://docs.google.com/spreadsheets/d/1JSuPGZ0WAVRyZe8ZUBZ4VuBjUea3AIpqXscKVUY0tRc/gviz/tq?tq=',
+        query = new google.visualization.Query(URL+queryString);
 
-      // query.send(this.handleQueryResponse, this);
+      var dateQueryString = encodeURIComponent('select D2:E2'),
+        dateQuery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1JSuPGZ0WAVRyZe8ZUBZ4VuBjUea3AIpqXscKVUY0tRc/gviz/tq?range=D2:E2');
+
       query.send($.proxy(this.handleQueryResponse, this));
+      dateQuery.send($.proxy(this.handleDates, this));
+    },
+
+    handleDates: function(response){
+      var data = response.getDataTable(),
+        startDate = data.getValue(0, 0),
+        endDate = data.getValue(0, 1);
+
+      var dateRange = $('<p/>', {
+          class: 'font-small',
+          html: this.formatDate(startDate)+' - '+this.formatDate(endDate)
+      });
+
+      dateRange.insertBefore(this.$el[0]);
+    },
+
+    formatDate: function(date){
+      var day = date.getDate(),
+        month = this.i18n.months[date.getMonth()],
+        year = date.getFullYear();
+      return day+' '+month+' '+year;
     },
 
     handleQueryResponse: function(response){
