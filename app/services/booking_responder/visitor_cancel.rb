@@ -7,7 +7,7 @@ class BookingResponder
                              reason: Cancellation::VISITOR_CANCELLED,
                              nomis_cancelled: false)
 
-        BookingResponse.new(success: true)
+        BookingResponse.successful
       end
     end
   end
