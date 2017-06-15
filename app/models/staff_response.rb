@@ -26,6 +26,7 @@ class StaffResponse
         slot_option_0
         slot_option_1
         slot_option_2
+        nomis_id
         human_id],
       methods: [
         :principal_visitor_id
