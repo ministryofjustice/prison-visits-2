@@ -62,12 +62,13 @@ ActiveRecord::Schema.define(version: 20170608082243) do
   end
 
   create_table "prisoners", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "first_name",    null: false
-    t.string   "last_name",     null: false
-    t.date     "date_of_birth", null: false
-    t.string   "number",        null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string   "first_name",        null: false
+    t.string   "last_name",         null: false
+    t.date     "date_of_birth",     null: false
+    t.string   "number",            null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "nomis_offender_id"
   end
 
   create_table "prisons", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
@@ -168,6 +169,7 @@ ActiveRecord::Schema.define(version: 20170608082243) do
     t.uuid     "prisoner_id",                                             null: false
     t.string   "locale",                  limit: 2,                       null: false
     t.string   "human_id"
+    t.integer  "nomis_id"
   end
 
   add_index "visits", ["human_id"], name: "index_visits_on_human_id", unique: true, using: :btree
