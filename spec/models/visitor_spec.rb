@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Visitor do
-  subject(:instance) { described_class.new }
+  subject(:instance) { FactoryGirl.build(:visitor) }
 
   it { is_expected.to belong_to(:visit) }
   it { is_expected.to validate_presence_of(:visit) }

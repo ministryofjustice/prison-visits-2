@@ -1,6 +1,7 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
 <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>
   <p><%= t('.help_text') %></p>
+  <%= hidden_field_tag :validate_visitors_nomis_ready, true %>
 <% end %>
 
 <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && @visit.contact_list_unknown? %>

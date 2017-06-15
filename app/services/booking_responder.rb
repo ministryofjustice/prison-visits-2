@@ -1,8 +1,12 @@
 class BookingResponder
   delegate :visit, to: :staff_response
 
-  def initialize(visit, user: nil, message: nil)
-    self.staff_response = StaffResponse.new(visit: visit, user: user)
+  def initialize(visit, user: nil, message: nil, options: {})
+    self.staff_response = StaffResponse.new(
+      visit: visit,
+      user: user,
+      validate_visitors_nomis_ready: options[:validate_visitors_nomis_ready])
+
     self.message = message
   end
 

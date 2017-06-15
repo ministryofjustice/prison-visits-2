@@ -24,5 +24,13 @@ module Nomis
         configuration.
         staff_prisons_with_slot_availability.include?(prison_name)
     end
+
+    def self.book_to_nomis_enabled?(prison_name)
+      Nomis::Api.enabled? &&
+        Rails.configuration.nomis_staff_book_to_nomis_enabled &&
+        Rails.
+        configuration.
+        staff_prisons_with_book_to_nomis.include?(prison_name)
+    end
   end
 end

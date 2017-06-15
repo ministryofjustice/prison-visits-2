@@ -1,0 +1,40 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/booking
+    body:
+      encoding: UTF-8
+      string: '{"lead_contact":12588,"other_contacts":[13428],"slot":"2017-05-15T10:00/16:00","override_restrictions":false}'
+    headers:
+      User-Agent:
+      - excon/0.55.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - ''
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      Url-Template:
+      - "/offenders/{offender_id}/visits/booking"
+      Server-Timing:
+      - total=6
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 11 May 2017 12:27:36 GMT
+      Connection:
+      - close
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"message":"Overlapping visit"}}'
+    http_version: 
+  recorded_at: Thu, 11 May 2017 12:27:34 GMT
+recorded_with: VCR 3.0.3
