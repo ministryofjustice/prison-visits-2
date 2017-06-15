@@ -25,6 +25,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
     before do
       switch_feature_flag_with(:staff_prisons_with_nomis_contact_list, [prison.name])
+      switch_feature_flag_with(:staff_prisons_with_slot_availability, [])
     end
 
     scenario 'accepting a booking' do

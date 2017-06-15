@@ -19,17 +19,15 @@ class StaffResponse
   # rubocop:disable Metrics/AbcSize
   def email_attrs
     attrs = visit.serializable_hash(
-      except: %i[
-        created_at
-        updated_at
-        slot_granted
-        slot_option_0
-        slot_option_1
-        slot_option_2
-        nomis_id
-        human_id],
-      methods: [
-        :principal_visitor_id
+      except: [
+        :created_at,
+        :updated_at,
+        :slot_granted,
+        :slot_option_0,
+        :slot_option_1,
+        :slot_option_2,
+        :nomis_id,
+        :human_id
       ]
     ).merge(
       'slot_option_0' => visit.slot_option_0.to_s,
