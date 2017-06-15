@@ -281,7 +281,7 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    sentry-raven (2.5.2)
+    sentry-raven (2.5.3)
       faraday (>= 0.7.6, < 1.0)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
