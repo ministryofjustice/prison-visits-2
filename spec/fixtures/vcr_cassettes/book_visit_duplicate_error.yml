@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/booking
+    body:
+      encoding: UTF-8
+      string: '{"lead_contact":12588,"other_contacts":[13428],"slot":"2017-05-15T10:00/16:00","override_restrictions":false,"client_unique_ref":"visit_id_1234"}'
+    headers:
+      User-Agent:
+      - excon/0.55.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - ''
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 409
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.0
+      Date:
+      - Wed, 31 May 2017 12:59:33 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Url-Template:
+      - "/offenders/{offender_id}/visits/booking"
+      Server-Timing:
+      - total=11
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"message":"Duplicate post"}}'
+    http_version: 
+  recorded_at: Wed, 31 May 2017 12:59:33 GMT
+recorded_with: VCR 3.0.3
