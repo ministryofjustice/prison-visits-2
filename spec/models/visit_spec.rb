@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Visit, type: :model do
-  subject { build(:visit) }
+  subject { build(:visit, visitors: [build(:visitor)]) }
 
   let(:mailing) do
     double(Mail::Message, deliver_later: nil)

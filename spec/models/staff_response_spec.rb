@@ -190,7 +190,21 @@ RSpec.describe StaffResponse, type: :model do
         it { is_expected.to be_valid }
 
         it 'is has a rejection for visitor not on the list' do
-          expect(subject.visit.rejection.reasons).to eq([Rejection::NOT_ON_THE_LIST, Rejection::NO_ADULT])
+          expect(subject.visit.rejection.reasons).to eq([Rejection::NOT_ON_THE_LIST])
+        end
+      end
+
+      context 'when the lead visitor is not on the list' do
+        before do
+          params[:visitors_attributes]['0']['not_on_list'] = true
+          params[:visitors_attributes]['1'] = other_visitor.attributes.slice('id', 'banned', 'not_on_list')
+          subject.valid?
+        end
+
+        let(:other_visitor) { build(:visitor, visit: visit) }
+
+        it 'is rejected for not having lead visitor on the list' do
+          expect(subject.visit.rejection.reasons).to include(Rejection::NOT_ON_THE_LIST)
         end
       end
 
@@ -208,22 +222,8 @@ RSpec.describe StaffResponse, type: :model do
         it { is_expected.to be_valid }
 
         it 'has a rejection for visitor banned' do
-          expect(subject.visit.rejection.reasons).to eq([Rejection::BANNED, Rejection::NO_ADULT])
+          expect(subject.visit.rejection.reasons).to eq([Rejection::NOT_ON_THE_LIST, Rejection::BANNED])
         end
-      end
-    end
-
-    context 'without allowed adult visitors' do
-      let!(:minor_visitor) { create(:visitor, date_of_birth: 17.years.ago, visit: visit) }
-
-      before do
-        params[:visitors_attributes]['0'][:banned] = true
-        params[:visitors_attributes]['1'] = minor_visitor.attributes.slice(*visitor_fields)
-        subject.valid?
-      end
-
-      it 'has a rejection for no adult' do
-        expect(subject.visit.rejection.reasons).to eq([Rejection::NO_ADULT])
       end
     end
   end
