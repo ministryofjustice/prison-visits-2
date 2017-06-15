@@ -258,6 +258,14 @@ are available at the requested prison.
 A comma separated list of prisons for which PVB2 API will display the nomis
 contact list on the process visit page.
 
+#### `NOMIS_STAFF_BOOK_TO_NOMIS_ENABLED`
+
+If `true` then the Nomis API will be used to book a visit.
+
+### `STAFF_PRISONS_WITH_BOOK_TO_NOMIS` ###
+
+A comma separated list of prisons for which the book to nomis API is enabled
+
 #### `PRISON_ESTATE_IPS` ####
 
 A semicolon- or comma-separated list of IP addresses or CIDR ranges. Users on
