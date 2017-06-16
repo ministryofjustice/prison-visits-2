@@ -5,6 +5,59 @@ RSpec.describe Prison::VisitsController, type: :controller do
   let(:visit) { FactoryGirl.create(:visit) }
   let(:estate) { visit.prison.estate }
 
+  describe '#process_visit' do
+    let(:nowish) { 1.day.ago }
+
+    subject { response }
+
+    context 'when is processable' do
+      context 'and there is no logged in user' do
+        before do
+          get :process_visit, id: visit.id, locale: 'en'
+        end
+
+        it { is_expected.not_to be_successful }
+      end
+
+      context 'and there is a logged in user' do
+        let(:user)                { create(:user) }
+        let(:processing_time_key) { "processing_time-#{visit.id}-#{user.id}"  }
+        let(:parsed_cookie)       { cookies[processing_time_key] }
+
+        before do
+          travel_to nowish do
+            login_user(user, current_estates: [estate])
+            get :process_visit, id: visit.id, locale: 'en'
+          end
+        end
+
+        it { is_expected.to render_template('process_visit') }
+
+        it 'sets the processing time cookie' do
+          expect(parsed_cookie).to eq(nowish.to_i)
+        end
+
+        describe 'when re-displaying the page' do
+          it 'does not override the start time' do
+            expect {
+              get :process_visit, id: visit.id, locale: 'en'
+            }.not_to change { cookies[processing_time_key] }
+          end
+        end
+      end
+    end
+
+    context 'when is unprocessble' do
+      before do
+        login_user(create(:user), current_estates: [estate])
+        get :process_visit, id: visit.id, locale: 'en'
+      end
+      let!(:visit) { create(:booked_visit) }
+
+      it { is_expected.to redirect_to(prison_inbox_path) }
+    end
+  end
+
   describe '#update' do
     subject do
       put :update,
@@ -22,10 +75,13 @@ RSpec.describe Prison::VisitsController, type: :controller do
     end
 
     context 'and there is a logged in user' do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user)                { create(:user) }
+      let(:nowish)              { Time.zone.now }
+      let(:processing_time_key) { "processing_time-#{visit.id}-#{user.id}" }
 
       before do
         login_user(user, current_estates: [estate])
+        request.cookies[processing_time_key] = nowish - 2.minutes
       end
 
       context 'when invalid' do
@@ -36,7 +92,14 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
       context 'when valid' do
         let(:staff_response) { { slot_granted: visit.slots.first.to_s, reference_no: 'none' } }
+        let(:google_tracker) { instance_double(GATracker) }
 
+        before do
+          expect(GATracker).
+            to receive(:new).and_return(google_tracker)
+          expect(google_tracker).
+            to receive(:send_event)
+        end
         it { is_expected.to redirect_to(prison_inbox_path) }
       end
 
