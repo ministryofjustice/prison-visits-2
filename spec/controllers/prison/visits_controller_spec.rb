@@ -6,9 +6,18 @@ RSpec.describe Prison::VisitsController, type: :controller do
   let(:estate) { visit.prison.estate }
 
   describe '#process_visit' do
+<<<<<<< HEAD
     let(:nowish) { 1.day.ago }
 
     subject { response }
+=======
+    let(:nowish) { Time.zone.now }
+    subject do
+      travel_to nowish do
+        get :process_visit, id: visit.id, locale: 'en'
+      end
+    end
+>>>>>>> record processing start time by logged in user
 
     context 'when is processable' do
       context 'and there is no logged in user' do
@@ -32,6 +41,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
         end
 
         it { is_expected.to render_template('process_visit') }
+<<<<<<< HEAD
 
         it 'sets the processing time cookie' do
           expect(parsed_cookie).to eq(nowish.to_i)
@@ -44,6 +54,13 @@ RSpec.describe Prison::VisitsController, type: :controller do
             }.not_to change { cookies[processing_time_key] }
           end
         end
+=======
+        it {
+          ap cookies
+          expect(JSON.parse(cookies[described_class::PROCESSING_TIME_KEY])).
+            to eq({ processing_by: user.id, started_at: nowish.to_i })
+        }
+>>>>>>> record processing start time by logged in user
       end
     end
 
