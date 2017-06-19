@@ -6,6 +6,7 @@ class StaffResponse
   attr_writer :validate_visitors_nomis_ready
 
   before_validation :check_slot_available
+  before_validation :check_principal_visitor
 
   validate :validate_visit_is_processable
   validate :visit_or_rejection_validity
@@ -13,8 +14,10 @@ class StaffResponse
 
   after_validation :check_for_banned_visitors
   after_validation :check_for_unlisted_visitors
-  after_validation :check_at_least_one_adult_visitor
+
   after_validation :clear_allowance_renews_on_date
+  after_validation :sanitise_reasons
+
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   def email_attrs
@@ -85,8 +88,8 @@ privileged_allowance_expires_on])
   end
 
   def visit_or_rejection_validity
-    case [visit.slot_granted?, rejection.valid?, at_least_one_valid_visitor?]
-    when [true, true, true], [false, false, true]
+    case [visit.slot_granted?, rejection.valid?]
+    when [true, true], [false, false]
       errors.add(
         :base,
         I18n.t('must_reject_or_accept_visit',
@@ -99,17 +102,11 @@ privileged_allowance_expires_on])
     @rejection ||= @visit.rejection || @visit.build_rejection
   end
 
-  def check_at_least_one_adult_visitor
-    unless at_least_one_valid_visitor?
-      rejection.reasons << Rejection::NO_ADULT
+  def check_principal_visitor
+    if principal_visitor.banned? || principal_visitor.not_on_list? ||
+           principal_visitor.age < ADULT_AGE
+      rejection.reasons << Rejection::NOT_ON_THE_LIST
     end
-  end
-
-  def at_least_one_valid_visitor?
-    visit.visitors.
-      reject(&:not_on_list?).
-      reject(&:banned?).
-      any? { |visitor| visitor.age >= ADULT_AGE }
   end
 
   def check_slot_available
@@ -120,17 +117,11 @@ privileged_allowance_expires_on])
   end
 
   def check_for_banned_visitors
-    return if at_least_one_valid_visitor?
-    if all_visitor_banned?
-      rejection.reasons << Rejection::BANNED
-    end
+    rejection.reasons << Rejection::BANNED if all_visitor_banned?
   end
 
   def check_for_unlisted_visitors
-    return if at_least_one_valid_visitor?
-    if all_visitor_not_on_list?
-      rejection.reasons << Rejection::NOT_ON_THE_LIST
-    end
+    rejection.reasons << Rejection::NOT_ON_THE_LIST if all_visitor_not_on_list?
   end
 
   def all_visitor_banned?
@@ -165,5 +156,13 @@ privileged_allowance_expires_on])
     end
 
     errors.add(:base, :visitors_invalid) if invalid_visitors.any?
+  end
+
+  def principal_visitor
+    visit.principal_visitor
+  end
+
+  def sanitise_reasons
+    rejection.reasons.uniq!
   end
 end
