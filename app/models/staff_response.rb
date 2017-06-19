@@ -117,15 +117,11 @@ privileged_allowance_expires_on])
   end
 
   def check_for_banned_visitors
-    if all_visitor_banned?
-      rejection.reasons << Rejection::BANNED
-    end
+    rejection.reasons << Rejection::BANNED if all_visitor_banned?
   end
 
   def check_for_unlisted_visitors
-    if all_visitor_not_on_list?
-      rejection.reasons << Rejection::NOT_ON_THE_LIST
-    end
+    rejection.reasons << Rejection::NOT_ON_THE_LIST if all_visitor_not_on_list?
   end
 
   def all_visitor_banned?
