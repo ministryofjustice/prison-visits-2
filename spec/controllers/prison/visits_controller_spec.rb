@@ -7,6 +7,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
   describe '#process_visit' do
 <<<<<<< HEAD
+<<<<<<< HEAD
     let(:nowish) { 1.day.ago }
 
     subject { response }
@@ -19,6 +20,10 @@ RSpec.describe Prison::VisitsController, type: :controller do
     end
 >>>>>>> record processing start time by logged in user
 
+=======
+    let(:nowish) { 1.day.ago }
+    subject { response }
+>>>>>>> WIP
     context 'when is processable' do
       context 'and there is no logged in user' do
         before do
@@ -42,12 +47,16 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
         it { is_expected.to render_template('process_visit') }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> WIP
 
         it 'sets the processing time cookie' do
           expect(parsed_cookie).to eq(nowish.to_i)
         end
 
         describe 'when re-displaying the page' do
+<<<<<<< HEAD
           it 'does not override the start time' do
             expect {
               get :process_visit, id: visit.id, locale: 'en'
@@ -61,6 +70,15 @@ RSpec.describe Prison::VisitsController, type: :controller do
             to eq({ processing_by: user.id, started_at: nowish.to_i })
         }
 >>>>>>> record processing start time by logged in user
+=======
+
+          it 'does not override the start time' do
+            expect {
+              get :process_visit, id: visit.id, locale: 'en'
+            }.to_not change { cookies[processing_time_key] }
+          end
+        end
+>>>>>>> WIP
       end
     end
 
