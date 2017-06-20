@@ -2,7 +2,7 @@ SecureHeaders::Configuration.default do |config|
   config.csp = {
     default_src: ["'self'"],
     font_src: ["'self'", 'data:'],
-    img_src: ["'self'", 'data:'],
+    img_src: ["'self'", 'data:', 'www.google-analytics.com'],
     style_src: ["'self'", 'www.gstatic.com'],
     connect_src: ["'self'"],
     script_src: [
