@@ -6,7 +6,7 @@ class Prison::VisitsController < ApplicationController
   before_action :visit_is_processable, only: %i[process_visit update]
 
   def process_visit
-    @visit = load_visit.decorate
+    @visit = decorate_visit(memoised_visit)
   end
 
   def update
@@ -16,26 +16,27 @@ class Prison::VisitsController < ApplicationController
       redirect_to prison_inbox_path
     else
       # Always decorate object last once they've been mutated
-      @visit = load_visit.decorate
       @message = message
       flash[:alert] = t('process_required', scope: %i[prison flash])
+      @visit = decorate_visit(memoised_visit)
       render :process_visit
     end
   end
 
   def nomis_cancelled
-    load_visit.confirm_nomis_cancelled
+    memoised_visit.confirm_nomis_cancelled
     flash[:notice] = t('nomis_cancellation_confirmed', scope: %i[prison flash])
     redirect_to prison_inbox_path
   end
 
   def show
-    @visit = Visit.
+    visit = Visit.
              includes(
                :visitors,
                messages: :user,
                visit_state_changes: :processed_by).
-             find(load_visit.id).decorate
+             find(memoised_visit.id)
+    @visit = decorate_visit(visit)
     @message = Message.new
   end
 
@@ -53,7 +54,7 @@ class Prison::VisitsController < ApplicationController
 private
 
   def visit_is_processable
-    unless load_visit.processable?
+    unless memoised_visit.processable?
       flash[:notice] = t('already_processed', scope: %i[prison flash])
       redirect_to prison_inbox_path
     end
@@ -62,7 +63,7 @@ private
   def cancellation_response
     @_cancellation_response ||=
       CancellationResponse.new(
-        visit: load_visit,
+        visit: memoised_visit,
         user: current_user,
         reason: params[:cancellation_reason])
   end

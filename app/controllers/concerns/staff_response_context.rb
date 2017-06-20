@@ -3,8 +3,17 @@ module StaffResponseContext
 
 private
 
-  def load_visit
-    @visit ||= scoped_visit
+  def memoised_visit
+    @_visit ||= scoped_visit
+  end
+
+  def decorate_visit(visit)
+    @_decorated_visit ||=
+      visit.decorate(context: { staff_nomis_checker: staff_nomis_checker })
+  end
+
+  def staff_nomis_checker
+    @staff_nomis_checker ||= StaffNomisChecker.new(memoised_visit)
   end
 
   def message
@@ -26,9 +35,9 @@ private
   end
 
   def booking_responder
-    visit = load_visit
-    visit.assign_attributes(visit_params)
-    BookingResponder.new(visit,
+    memoised_visit.assign_attributes(visit_params)
+
+    BookingResponder.new(memoised_visit,
       user: current_user,
       message: message,
       options: booking_responder_opts)
