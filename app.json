@@ -112,6 +112,9 @@
     },
     "ZENDESK_USERNAME": {
       "required": true
+    },
+    "GA_TRACKING_ID": {
+      "required": true
     }
   },
   "formation": {
