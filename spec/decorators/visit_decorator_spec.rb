@@ -2,8 +2,11 @@ require 'rails_helper'
 
 RSpec.describe VisitDecorator do
   let(:visit) { create(:visit) }
+  let(:checker) { instance_double(StaffNomisChecker) }
 
-  subject { described_class.decorate(visit) }
+  subject do
+    described_class.decorate(visit, context: { staff_nomis_checker: checker })
+  end
 
   describe '#slots'do
     it 'are decorated object' do
@@ -40,17 +43,15 @@ RSpec.describe VisitDecorator do
     end
 
     let(:selected)     { contacts.last }
-    let(:contact_list) { instance_double(Nomis::ContactList, approved: contacts) }
     let(:offender)     { Nomis::Offender.new(id: 'some_id', noms_id: 'noms_id') }
     let(:html)         { Capybara.string(subject.contact_list(form_builder, selected&.id)) }
 
-    before do
-      mock_nomis_with(:lookup_active_offender, offender)
-      mock_service_with(PrisonerContactList, contact_list)
-    end
-
     context 'with contacts' do
       let(:contacts) { build_list(:contact, 4) }
+
+      before do
+        expect(checker).to receive(:approved_contacts).twice.and_return(contacts)
+      end
 
       it 'return the contact list dropdown' do
         Nomis::ContactDecorator.decorate_collection(contacts).each do |contact|
@@ -65,6 +66,10 @@ RSpec.describe VisitDecorator do
 
     context 'without contact' do
       let(:contacts) { [] }
+
+      before do
+        expect(checker).to receive(:approved_contacts).and_return(contacts)
+      end
 
       it 'returns a message that i do not yet have' do
         expect(html).to have_css('p', text: 'No record of this visitor in NOMIS')

@@ -25,10 +25,9 @@ private
 
   def staff_response
     @staff_response ||= begin
-      visit = load_visit
-      visit.assign_attributes(visit_params)
+      memoised_visit.assign_attributes(visit_params)
       StaffResponse.new(
-        visit: visit,
+        visit: memoised_visit,
         validate_visitors_nomis_ready: params[:validate_visitors_nomis_ready])
     end
   end

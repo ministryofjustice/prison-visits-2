@@ -78,6 +78,6 @@ private
   end
 
   def nomis_checker
-    @nomis_checker ||= StaffNomisChecker.new(object)
+    context[:staff_nomis_checker]
   end
 end
