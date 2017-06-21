@@ -6,7 +6,9 @@ module StaffResponseContext
       BookToNomisConfig.new(
         staff_nomis_checker,
         memoised_visit.prison_name,
-        params[:book_to_nomis_opted_in])
+        params[:book_to_nomis_opted_in],
+        @booking_response&.already_booked_in_nomis?
+      )
   end
 
 private

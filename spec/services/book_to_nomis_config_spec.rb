@@ -4,9 +4,10 @@ RSpec.describe BookToNomisConfig do
   let(:checker) { instance_double(StaffNomisChecker) }
   let(:prison_name) { build_stubbed(:prison).name }
   let(:opted_in) { true }
+  let(:already_booked_in_nomis) { true }
 
   subject do
-    described_class.new(checker, prison_name, opted_in)
+    described_class.new(checker, prison_name, opted_in, already_booked_in_nomis)
   end
 
   describe '#opted_in?' do
@@ -79,8 +80,13 @@ RSpec.describe BookToNomisConfig do
     end
   end
 
+  shared_context 'not booked in NOMIS' do
+    let(:already_booked_in_nomis) { false }
+  end
+
   describe '#book_to_nomis_possible?' do
     context 'when all the checks return true' do
+      include_context 'not booked in NOMIS'
       include_context 'book to nomis enabled'
       include_context 'prisoner exists'
       include_context 'prisoner availability working'
@@ -91,6 +97,7 @@ RSpec.describe BookToNomisConfig do
     end
 
     context 'when the prisoner does not exist' do
+      include_context 'not booked in NOMIS'
       include_context 'book to nomis enabled'
       include_context 'prisoner availability working'
       include_context 'slot availability working'
@@ -106,6 +113,7 @@ RSpec.describe BookToNomisConfig do
     end
 
     context 'when all the prisoner availability is not working' do
+      include_context 'not booked in NOMIS'
       include_context 'book to nomis enabled'
       include_context 'prisoner exists'
       include_context 'slot availability working'
@@ -130,6 +138,7 @@ RSpec.describe BookToNomisConfig do
     end
 
     context 'when all the slot availability is not working' do
+      include_context 'not booked in NOMIS'
       include_context 'book to nomis enabled'
       include_context 'prisoner exists'
       include_context 'prisoner availability working'
@@ -157,6 +166,7 @@ RSpec.describe BookToNomisConfig do
     end
 
     context 'when the contact list is not working' do
+      include_context 'not booked in NOMIS'
       include_context 'book to nomis enabled'
       include_context 'prisoner exists'
       include_context 'prisoner availability working'
@@ -181,6 +191,18 @@ RSpec.describe BookToNomisConfig do
 
         it { is_expected.not_to be_possible_to_book }
       end
+    end
+
+    context 'when the visit is already in NOMIS' do
+      include_context 'book to nomis enabled'
+      include_context 'prisoner exists'
+      include_context 'prisoner availability working'
+      include_context 'slot availability working'
+      include_context 'contact list working'
+
+      let(:already_booked_in_nomis) { true }
+
+      it { is_expected.not_to be_possible_to_book }
     end
   end
 end

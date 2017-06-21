@@ -69,33 +69,9 @@
         <strong class="bold-small"><%= t('.rejection_warning') %></strong>
       </div>
     </div>
+
     <% if Nomis::Feature.book_to_nomis_enabled?(@visit.prison_name) %>
-      <div class="panel" id="nomis-opt-out">
-        <% if book_to_nomis_config.possible_to_book? %>
-          <p>
-            <%= t(".book_to_nomis_opted_in_by_default_html") %>
-          </p>
-          <%= hidden_field_tag :book_to_nomis_opted_in, true %>
-          <label class="block-label push-bottom">
-            <%= check_box_tag :book_to_nomis_opted_in, false, !book_to_nomis_config.opted_in? %>
-            <%= t('.dont_book_to_nomis') %>
-          </label>
-        <% else %>
-          <p>
-            <%= t(".book_to_nomis_not_possible") %>
-          </p>
-        <% end %>
-        <div id="rejection-message-opposite">
-          <div class="grid-row">
-            <div class="column-one-half">
-              <div id="selected_slot_details" class="">
-                <%= single_field f, :reference_no, :text_field, class: 'form-control' %>
-                <%= single_field f, :closed, :check_box  %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <%= render 'book_to_nomis_opt_in', f: f %>
     <% end %>
   </div>
 

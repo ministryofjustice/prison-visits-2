@@ -1,5 +1,5 @@
 class CreateNomisVisit
-  ALREADY_PROCESSED = 'Duplicate post'.freeze
+  ALREADY_BOOKED_IN_NOMIS = 'Duplicate post'.freeze
 
   def initialize(visit)
     self.visit = visit
@@ -30,12 +30,12 @@ private
   def build_booking_response
     return BookingResponse.nomis_api_error if api_error
     return BookingResponse.successful if booking.visit_id
-    return BookingResponse.already_processed if already_processed?
+    return BookingResponse.already_booked_in_nomis if already_booked_in_nomis?
     BookingResponse.nomis_validation_error
   end
 
-  def already_processed?
-    booking.error_message == ALREADY_PROCESSED
+  def already_booked_in_nomis?
+    booking.error_message == ALREADY_BOOKED_IN_NOMIS
   end
 
   def offender_id

@@ -81,7 +81,19 @@ RSpec.feature 'Processing a request', js: true do
 
       click_button 'Process'
 
-      expect(page).to have_css('.error-summary', text: "Visit can't be processed")
+      expect(page).to have_css('.error-summary', text: "Please find the visit in NOMIS and make sure these visit details match before processing.")
+
+      choose_date
+
+      within "#visitor_#{visitor.id}" do
+        select 'IRMA ITSU - 03/04/1975', from: 'Match to contact list'
+      end
+
+      expect(page).to have_css('#nomis-opt-out', text: "This visit won't be booked to NOMIS as it already exists")
+
+      click_button 'Process'
+
+      expect(page).to have_css('.notification', text: "Thank you for processing the visit")
     end
   end
 end

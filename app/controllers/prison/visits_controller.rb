@@ -9,11 +9,11 @@ class Prison::VisitsController < ApplicationController
   before_action :visit_is_processable, only: :update
 
   def update
-    booking_response = booking_responder.respond!
+    @booking_response = booking_responder.respond!
 
-    booking_response_flash(booking_response)
+    booking_response_flash(@booking_response)
 
-    if booking_response.success? || booking_response.already_processed?
+    if @booking_response.success? || @booking_response.already_processed?
       redirect_to prison_inbox_path
     else
       # Always decorate object last once they've been mutated

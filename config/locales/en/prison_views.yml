@@ -38,6 +38,11 @@ en:
           This visit wasn't booked.
         </h1>
         <p>Choose a rejection reason to reject the visit or <a href="#nomis-opt-out">book this visit anyway</a>.</p>
+      already_booked_in_nomis_html:
+        <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
+          This visit is already booked in NOMIS.
+        </h1>
+        <p>Please find the visit in NOMIS and make sure these visit details match before processing.</p>
       nomis_api_error_html: |
         <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
           We can't connect to NOMIS right now.
@@ -107,6 +112,16 @@ en:
         title: Search results for '%{prisoner_number}'
         search_total: Displaying %{number} results
     visits:
+      book_to_nomis_opt_in: 
+        already_booked_in_nomis: This visit won't be booked to NOMIS as it already exists
+        book_to_nomis_opted_in_by_default:
+          If the visit is booked successfully, it will be copied to NOMIS.
+        dont_book_to_nomis: Don't automatically copy this visit to NOMIS
+        book_to_nomis_not_possible:
+          We can't copy this visit to NOMIS right now. If the visit is booked successfully, please record it manually.
+        reference_no: Reference number
+        reference_no_hint: eg Last 8 digits of VO number or “none” for remand
+        closed_visit: This is a closed visit
       calendar:
         today: Today
       requested:
@@ -138,14 +153,6 @@ en:
         slot_not_available: Fully booked
         add_a_message: Add a message
         rejection_warning: This visit will be rejected and an email will be sent to the lead visitor
-        book_to_nomis_opted_in_by_default:
-          If the visit is booked successfully, it will be copied to NOMIS.
-        book_to_nomis_not_possible:
-          We can't copy this visit to NOMIS right now. If the visit is booked successfully, please record it manually.
-        dont_book_to_nomis: Don't automatically copy this visit to NOMIS
-        reference_no: Reference number
-        reference_no_hint: eg Last 8 digits of VO number or “none” for remand
-        closed_visit: This is a closed visit
         none_available: None of the chosen times are available
       prisoner_details:
         title: Prisoner details

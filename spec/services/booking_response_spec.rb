@@ -27,6 +27,13 @@ RSpec.describe BookingResponse do
     it { expect(subject).to be_already_processed }
   end
 
+  describe '.already_booked_in_nomis' do
+    subject { described_class.already_booked_in_nomis }
+
+    it { expect(subject.message).to eq(described_class::ALREADY_BOOKED_IN_NOMIS_ERROR) }
+    it { expect(subject).to be_already_booked_in_nomis }
+  end
+
   describe '.nomis_validation_error' do
     subject { described_class.nomis_validation_error }
 

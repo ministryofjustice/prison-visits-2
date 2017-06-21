@@ -1,6 +1,6 @@
 <%= render 'prison/dashboards/navigation' %>
 
-<% if @visit.processable? %>
+<% if @visit.processable? || (@booking_response.present? && !@booking_response.success?) %>
   <%= render 'prison/visits/requested', visit: @visit %>
 <% else %>
   <%= render 'prison/visits/processed', visit: @visit %>
