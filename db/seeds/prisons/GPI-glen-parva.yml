@@ -6,23 +6,6 @@ address: |-
 postcode: LE8 4TN
 email_address: socialvisits.glenparva@hmps.gsi.gov.uk
 phone_no: 0116 228 4366
-enabled: true
+enabled: false
+closed: true
 private: false
-closed: false
-recurring:
-  mon:
-  - 1400-1545
-  sat:
-  - 1400-1545
-  sun:
-  - 1400-1545
-  thu:
-  - 1400-1545
-  tue:
-  - 1400-1545
-  wed:
-  - 1400-1545
-unbookable:
-- 2016-12-25
-- 2017-01-01
-- 2017-01-02
