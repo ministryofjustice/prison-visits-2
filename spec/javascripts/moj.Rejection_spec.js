@@ -21,8 +21,8 @@ describe('Check if a visit will be rejected', function() {
       expect(moj.Modules.Rejection.bindEvents).toHaveBeenCalled();
     });
 
-    it('should hide the rejection warning message', function(){
-      expect($('#rejection-message')).toBeHidden();
+    it('should show the rejection warning message', function(){
+      expect($('#rejection-message')).toBeVisible();
     });
 
     it('js-Rejection data attribute element should be on the page', function(){
@@ -70,6 +70,29 @@ describe('Check if a visit will be rejected', function() {
 
     afterEach(function(){
       moj.Modules.Rejection.selected = [];
+    });
+
+  });
+
+  describe('On rejecting the lead visitor', function(){
+
+    beforeEach(function(){
+      moj.Modules.Rejection.selected = [];
+      moj.Modules.MatchVisitors.init();
+      $('#visitors-fixture li:eq(0) select').val('12588').trigger('change');
+    });
+
+    it('should show the rejection warning message', function(){
+      expect($('#rejection-message')).toBeVisible();
+    });
+
+    describe('unchecking the banned checkbox', function(){
+
+      it('should hide the rejection warning message', function(){
+        $('#visit_visitors_attributes_0_banned').prop('checked', false).trigger('change');
+        expect($('#rejection-message')).toBeHidden();
+      });
+
     });
 
   });

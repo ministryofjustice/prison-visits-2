@@ -1,11 +1,40 @@
 <% if current_user %>
   <%= render 'prison/dashboards/navigation' %>
 <% end %>
-<section class = "grid-row staff-info">
-  <div class="column-two-thirds">
-    <%= raw(@content) %>
+<h1 class="heading-xlarge">Information for visit booking staff</h1>
+<div class="grid-row">
+  <div class="column-one-third">
+    <h2>
+      <%= link_to 'Stats', metrics_path %>
+    </h2>
+    <p>Find out how prisons are getting on with the service</p>
   </div>
   <div class="column-one-third">
-    <%= raw(@nav) %>
+    <h2>
+      <a href="/en/metrics/digital_takeup">Digital takeup</a>
+    </h2>
+    <p>Find out how many visits are booked online or by telephone</p>
   </div>
-</section>
+</div>
+<div class="grid-row">
+  <div class="column-one-third">
+    <h2>
+      <%= link_to 'Contact Us', new_prison_feedback_path %>
+    </h2>
+    <p>If you need any help or something changed</p>
+  </div>
+  <div class="column-one-third">
+    <h2>
+      <a href="/staff/telephone_script">Telephone script</a>
+    </h2>
+    <p>A guide for promoting Prison Visits Booking and helping those less able to use digital services</p>
+  </div>
+</div>
+<div class="grid-row">
+  <div class="column-one-third">
+    <h2>
+      <a href="/staff/downloads">Downloads</a>
+    </h2>
+    <p>Posters and leaflets for your prison</p>
+  </div>
+</div>

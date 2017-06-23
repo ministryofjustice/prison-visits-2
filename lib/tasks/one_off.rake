@@ -38,7 +38,7 @@ namespace :pvb do
       end
 
     VisitStateChange.
-      includes(visit: [:cancellation, :visitors]).
+      includes(visit: %i[cancellation visitors]).
       where(visit_state: 'cancelled',
             'cancellations.reason': Cancellation::VISITOR_CANCELLED).
       find_each do |vs|
@@ -104,7 +104,7 @@ namespace :pvb do
       end
     rescue Nomis::APIError => e
       if retry_count < 5
-        if e =~ /Exception/
+        if e.class.name.match?(/Exception/)
           retry_count += 1
           SlotAvailabilityCounter.inc_api_failure
           retry

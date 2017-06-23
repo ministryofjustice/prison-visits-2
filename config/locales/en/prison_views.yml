@@ -11,6 +11,7 @@ en:
       staff_guide: Service guide
       stats: Stats
       telephone: Telephone script
+      digital_takeup: Digital takeup
   prison:
     flash:
       already_processed: Visit can't be processed
@@ -89,6 +90,7 @@ en:
         processed: Processed
         requests: Requests
         title: Search results for '%{prisoner_number}'
+        search_total: Displaying %{number} results
     visits:
       calendar:
         today: Today
@@ -242,9 +244,8 @@ en:
         title: Other
         duplicate_visit_request: Duplicate visit request
   staff_info:
-    not_available:
-      staff_info_service_unavailable: >-
-        Staff info service is temporarily unavailable. Please check back later.
+    telephone_script:
+      telephone_script_html: |
   sessions:
     create:
       cannot_sign_in: You cannot be signed in

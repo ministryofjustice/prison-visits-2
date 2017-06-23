@@ -10,6 +10,7 @@ RSpec.describe EstateVisitQuery do
     subject(:visits_to_print_by_slot) do
       instance.visits_to_print_by_slot(date)
     end
+
     let(:other_prison) { other_prison_visit.prison }
     let(:estates) { [prison.estate, other_prison.estate] }
 
@@ -100,6 +101,7 @@ RSpec.describe EstateVisitQuery do
 
       context 'providing a prisoner number' do
         let(:prisoner_number) { booked.prisoner.number.downcase + ' ' }
+
         it 'returns processed visits matching the prisoner number' do
           is_expected.to eq([booked])
         end

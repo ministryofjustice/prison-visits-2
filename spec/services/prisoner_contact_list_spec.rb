@@ -24,6 +24,7 @@ RSpec.describe PrisonerContactList, type: :model do
 
     context "when the api returns no error" do
       let(:contact_list) { Nomis::ContactList.new }
+
       before do
         mock_nomis_with(:fetch_contact_list, contact_list)
       end

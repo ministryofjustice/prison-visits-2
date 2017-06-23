@@ -13,6 +13,7 @@ RSpec.describe GraphMetricsPresenter do
 
   describe 'Percentiles Statistics' do
     let(:visits) { create_list(:visit, 10, prison: prison) }
+
     before do
       travel_to(visits.first.created_at + 2.days) do
         visits[0..8].each do |visit|

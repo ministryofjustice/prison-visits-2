@@ -25,14 +25,18 @@ private
 
   def staff_response
     @staff_response ||= begin
-      visit = load_visit
-      visit.assign_attributes(visit_params)
-      StaffResponse.new(visit: visit)
+      memoised_visit.assign_attributes(visit_params)
+      StaffResponse.new(
+        visit: memoised_visit,
+        validate_visitors_nomis_ready: params[:validate_visitors_nomis_ready])
     end
   end
 
   def visitor_mailer
-    @visitor_mailer ||=
-      BookingResponder.new(staff_response.visit, message: message).visitor_mailer
+    responder = BookingResponder.new(
+      staff_response.visit,
+      message: message,
+      options: booking_responder_opts)
+    responder.visitor_mailer
   end
 end

@@ -32,6 +32,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
         login_user(user, current_estates: [estate])
       end
       let!(:visit) { FactoryGirl.create(:booked_visit) }
+
       it { is_expected.to redirect_to(prison_inbox_path) }
     end
   end
@@ -61,6 +62,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
       context 'when invalid' do
         let(:staff_response) { { slot_granted: '' } }
+
         it { is_expected.to render_template('process_visit') }
       end
 
@@ -74,6 +76,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
   describe '#show' do
     subject { get :show, id: visit.id }
+
     let(:user) { FactoryGirl.create(:user) }
 
     it_behaves_like 'disallows untrusted ips'

@@ -4,7 +4,7 @@ class BookingResponder
       super do
         visit.withdraw!
 
-        BookingResponse.new(success: true)
+        BookingResponse.successful
       end
     end
   end

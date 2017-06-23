@@ -203,11 +203,80 @@ RSpec.describe Nomis::Api do
     subject { super().fetch_contact_list(params) }
 
     it 'returns an array of contacts' do
-      expect(subject.count).to eq(4)
+      expect(subject).to have_exactly(4).items
     end
 
     it 'parses the contacts' do
-      expect(subject.first.id).to eq(first_contact.id)
+      expect(subject.map(&:id)).to include(first_contact.id)
+    end
+  end
+
+  describe 'book_visit' do
+    let(:params) do
+      {
+        lead_contact: 12_588,
+        other_contacts: [13_428],
+        slot: '2017-05-15T10:00/16:00',
+        override_restrictions: false,
+        client_unique_ref: 'visit_id_1234'
+      }
+    end
+
+    let(:offender_id) { 1_057_307 }
+
+    subject { super().book_visit(offender_id: offender_id, params: params) }
+
+    describe 'idempotency' do
+      context 'with a client unique ref', vcr: { cassette_name: 'book_visit_happy_retry' } do
+        before do
+          params[:client_unique_ref] = 'visit_id_1234'
+        end
+
+        it 'retries the request on failure' do
+          expect(subject.visit_id).to eq(5_467)
+          expect(PVB::Instrumentation.custom_log_items[:book_to_nomis_success]).to eq(true)
+        end
+      end
+
+      context 'without a client unique ref', vcr: { cassette_name: 'book_visit_error_no_retry' } do
+        before do
+          params.delete(:client_unique_ref)
+        end
+
+        it 'does not retry the request on failure' do
+          expect { subject }.to raise_error(Nomis::APIError)
+        end
+      end
+    end
+
+    context 'happy path', vcr: { cassette_name: 'book_visit_happy_path' } do
+      it 'returns the visit_id' do
+        expect(subject.visit_id).to eq(5_467)
+      end
+
+      it 'instruments the outcome of the call' do
+        expect { subject }.
+          to change { PVB::Instrumentation.custom_log_items[:book_to_nomis_success] }.
+          to eq(true)
+      end
+    end
+
+    context 'validation error', vcr: { cassette_name: 'book_visit_validation_error' } do
+      it 'records the error message' do
+        expect(subject.error_message).to eq('Overlapping visit')
+      end
+
+      it 'instruments the outcome of the call' do
+        expect { subject }.
+          to change { PVB::Instrumentation.custom_log_items[:book_to_nomis_success] }.
+          to eq(false)
+      end
+    end
+
+    context 'duplicate post', vcr: { cassette_name: 'book_visit_duplicate_error' } do
+      it 'records the error message' do
+        expect(subject.error_message).to eq('Duplicate post')
+      end
     end
   end
 end

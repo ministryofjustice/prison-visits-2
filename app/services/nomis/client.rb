@@ -9,6 +9,7 @@ module Nomis
   class Client
     TIMEOUT = 2 # seconds
     EXCON_INSTRUMENT_NAME = 'nomis_api'.freeze
+    JSON_MIME_TYPE = 'application/json'.freeze
 
     def initialize(host, client_token, client_key)
       @host = host
@@ -27,9 +28,9 @@ module Nomis
       request(:get, route, params, idempotent: true)
     end
 
-  # def post(route, params)
-  #   request(:post, route, params)
-  # end
+    def post(route, params, idempotent:)
+      request(:post, route, params, idempotent: idempotent)
+    end
 
   private
 
@@ -44,12 +45,12 @@ module Nomis
       options = {
         method: method,
         path: path,
-        expects: [200],
+        expects: http_method_expects(method),
         idempotent: idempotent,
         deadline: RequestStore.store[:deadline],
         retry_limit: 2,
         headers: {
-          'Accept' => 'application/json',
+          'Accept' => JSON_MIME_TYPE,
           'Authorization' => auth_header,
           'X-Request-Id' => RequestStore.store[:request_id]
         }
@@ -80,17 +81,27 @@ module Nomis
     # rubocop:enable Metrics/MethodLength
     # rubocop:enable Metrics/AbcSize
 
+    def http_method_expects(method)
+      if method == :get
+        [200]
+      else
+        # TODO: Change 400 to 422 when api is updated.
+        # Currently it returns 400 for validation errors.
+        [200, 400, 409]
+      end
+    end
+
     # Returns excon options which put params in either the query string or body.
     def params_options(method, params)
       return {} if params.empty?
 
-      if method == :get || method == :delete
+      if method == :post
+        {
+          body: params.to_json,
+          headers: { 'Content-Type' => JSON_MIME_TYPE }
+        }
+      else
         { query: params }
-        # else
-        #   {
-        #     body: params.to_json,
-        #     headers: { 'Content-Type' => 'application/json' }
-        #   }
       end
     end
 

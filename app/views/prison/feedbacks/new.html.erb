@@ -24,7 +24,7 @@
     <%= single_field(f, :prison_id, :select,
       Prison.all.map { |p| [p.name, p.id] },
       { prompt: t('.prison_id_prompt') },
-      { class: 'js-autocomplete' }) %>
+      { class: 'form-control js-autocomplete' }) %>
   </fieldset>
 
   <%= f.submit t('.send'), class: 'button button-primary' %>

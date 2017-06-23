@@ -4,10 +4,10 @@
       <div class="column-one-half">
         <div class="bold-small push-bottom--half"><%= t('.visiting_allowance') %></div>
         <%= error_container(rf, :reasons) do %>
-          <label class="form-checkbox">
-            <%= rf.object.checkbox_for(:no_allowance, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
-            <%= t('.no_allowance') %>
-          </label>
+          <div class="multiple-choice">
+            <%= rf.object.checkbox_for :no_allowance, id: :no_allowance, class: 'js-Rejection', 'data-rejection-el': 'rejection-message' %>
+            <%= rf.label t('.no_allowance'), for: :no_allowance %>
+          </div>
         <% end %>
       </div>
       <div class="column-one-half">
@@ -27,52 +27,52 @@
   <div class="grid-row push-top">
     <div class="column-one-third">
       <%= error_container(rf, :reasons) do %>
-        <label class="block-label">
-          <%= rf.object.checkbox_for(:prisoner_details_incorrect, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
-          <%= t('.prisoner_details_incorrect') %>
-        </label>
+        <div class="multiple-choice">
+          <%= rf.object.checkbox_for(:prisoner_details_incorrect, id: :prisoner_details_incorrect, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
+          <%= rf.label t('.prisoner_details_incorrect'), for: :prisoner_details_incorrect %>
+        </div>
       <% end %>
       <%= error_container(rf, :reasons) do %>
-        <label class="block-label">
-          <%= rf.object.checkbox_for(:prisoner_non_association, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
-          <%= t('.prisoner_non_association') %>
-        </label>
+        <div class="multiple-choice">
+          <%= rf.object.checkbox_for(:prisoner_non_association, id: :prisoner_non_association, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
+          <%= rf.label t('.prisoner_non_association'), for: :prisoner_non_association %>
+        </div>
       <% end %>
       <%= error_container(rf, :reasons) do %>
-        <label class="block-label">
-          <%= rf.object.checkbox_for(:prisoner_out_of_prison, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
-          <%= t('.prisoner_out_of_prison') %>
-        </label>
-      <% end %>
-    </div>
-
-    <div class="column-one-third">
-      <%= error_container(rf, :reasons) do %>
-        <label class="block-label">
-          <%= rf.object.checkbox_for(:prisoner_moved, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
-          <%= t('.prisoner_moved') %>
-        </label>
-      <% end %>
-      <%= error_container(rf, :reasons) do %>
-        <label class="block-label">
-          <%= rf.object.checkbox_for(:child_protection_issues, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
-          <%= t('.child_protection_issues') %>
-        </label>
+        <div class="multiple-choice">
+          <%= rf.object.checkbox_for(:prisoner_out_of_prison, id: :prisoner_out_of_prison, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
+          <%= rf.label t('.prisoner_out_of_prison'), for: :prisoner_out_of_prison %>
+        </div>
       <% end %>
     </div>
 
     <div class="column-one-third">
       <%= error_container(rf, :reasons) do %>
-        <label class="block-label">
-          <%= rf.object.checkbox_for(:prisoner_released, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
-          <%= t('.prisoner_released') %>
-        </label>
+        <div class="multiple-choice">
+          <%= rf.object.checkbox_for(:prisoner_moved, id: :prisoner_moved, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
+          <%= rf.label t('.prisoner_moved'), for: :prisoner_moved %>
+        </div>
       <% end %>
       <%= error_container(rf, :reasons) do %>
-        <label class="block-label">
-          <%= rf.object.checkbox_for(:prisoner_banned, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
-          <%= t('.prisoner_banned') %>
-        </label>
+        <div class="multiple-choice">
+          <%= rf.object.checkbox_for(:child_protection_issues, id: :child_protection_issues, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
+          <%= rf.label t('.child_protection_issues'), for: :child_protection_issues %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="column-one-third">
+      <%= error_container(rf, :reasons) do %>
+        <div class="multiple-choice">
+          <%= rf.object.checkbox_for(:prisoner_released, id: :prisoner_released, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
+          <%= rf.label t('.prisoner_released'), for: :prisoner_released %>
+        </div>
+      <% end %>
+      <%= error_container(rf, :reasons) do %>
+        <div class="multiple-choice">
+          <%= rf.object.checkbox_for(:prisoner_banned, id: :prisoner_banned, class: 'js-Rejection', 'data-rejection-el': 'rejection-message') %>
+          <%= rf.label t('.prisoner_banned'), for: :prisoner_banned %>
+        </div>
       <% end %>
     </div>
   </div>

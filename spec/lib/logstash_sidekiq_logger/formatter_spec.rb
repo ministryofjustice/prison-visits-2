@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'logstash_sidekiq_logger/formatter'
 
 RSpec.describe LogstashSidekiqLogger::Formatter do
   let(:visit) { FactoryGirl.create(:visit) }
@@ -40,6 +41,7 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
 
   describe '#call' do
     subject(:call) { formatter.call(anything, anything, anything, message) }
+
     let(:logged_message) do
       raw_message = call
       raw_message ? JSON.parse(raw_message.chomp) : nil

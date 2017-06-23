@@ -11,6 +11,7 @@ en:
           attributes:
             visit:
               already_processed: can't be processed
+            base:
               visitors_invalid: visitor selection is invalid
         prisoner_step:
           attributes:
@@ -36,6 +37,8 @@ en:
         prison:
           duplicate_unbookable_date: An unbookable date may not be duplicated
           unbookable_and_anomalous_conflict: An unbookable date may not also be anomalous
+        visitor:
+          unprocessed_contact_list: Process this visitor to continue
   email_checker:
     errors:
       unparseable: "is not a valid address"
@@ -50,3 +53,12 @@ en:
   staff_response:
     errors:
       must_reject_or_accept_visit: "A visit must either be accepted by choosing a date or at least one rejection reason"
+  no_visitor_in_nomis: No record of this visitor in NOMIS
+
+  age_validator:
+    errors:
+      range: "must be less than %{max} years ago"
+ 
+  prisoner_number_validator:
+    errors:
+      format: has an invalid format

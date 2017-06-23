@@ -1,12 +1,16 @@
 class BookingResponder
   class BookingRequestProcessor
-    def initialize(staff_response)
+    attr_reader :options
+
+    def initialize(staff_response, options = {})
       self.staff_response = staff_response
+      self.options = options
     end
 
     def process_request(message_for_visitor = nil)
       ActiveRecord::Base.transaction do
         self.booking_response = yield if block_given?
+        raise ActiveRecord::Rollback unless booking_response.success?
 
         if message_for_visitor
           create_message(message_for_visitor, visit.last_visit_state)
@@ -21,6 +25,7 @@ class BookingResponder
   private
 
     attr_accessor :staff_response, :booking_response
+    attr_writer :options
 
     delegate :visit, to: :staff_response
     delegate :rejection, to: :visit

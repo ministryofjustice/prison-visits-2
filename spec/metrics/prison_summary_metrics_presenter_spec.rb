@@ -57,6 +57,7 @@ RSpec.describe PrisonSummaryMetricsPresenter do
 
   describe '#visits_in_state' do
     let(:state) { nil }
+
     subject { instance.visits_in_state(state) }
 
     context 'no prison data' do
@@ -87,6 +88,7 @@ RSpec.describe PrisonSummaryMetricsPresenter do
 
     context 'with a rejected visits' do
       let(:counts) { { 'booked' => 6, 'rejected' => 4 } }
+
       it { is_expected.to eq(40) }
     end
   end

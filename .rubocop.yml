@@ -18,17 +18,17 @@ AllCops:
     - 'spec/dummy/db/**/*'
 
   DisplayCopNames: true
-    
+
 Rails:
   Enabled: true
 
 # private/protected/public
-Style/AccessModifierIndentation:
+Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
 
 # Just indent parameters by two spaces. It's less volatile if methods change,
 # and there's less busy work lining things up.
-Style/AlignParameters:
+Layout/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 
 Style/AsciiComments:
@@ -48,11 +48,11 @@ Style/CollectionMethods:
     reduce: 'inject'
 
 # Chain methods with trailing dots.
-Style/DotPosition:
+Layout/DotPosition:
   EnforcedStyle: trailing
 
 # The holidays file has extra spaces for ease of reading and comparison
-Style/ExtraSpacing:
+Layout/ExtraSpacing:
   Exclude:
     - 'config/initializers/holidays.rb'
 
@@ -65,6 +65,9 @@ Style/FormatString:
 Style/GuardClause:
   Enabled: false
 
+Style/SymbolArray:
+  Enabled: false
+
 Style/SymbolProc:
   Exclude:
     - 'spec/factories/**/*'
@@ -72,6 +75,9 @@ Style/SymbolProc:
 # You can't use attr_reader to define a foo? method from @foo.
 Style/TrivialAccessors:
   AllowPredicates: true
+
+Style/FileName:
+  Enabled: false
 
 # Default is 100
 Metrics/ClassLength:
@@ -211,13 +217,18 @@ Rails/OutputSafety:
 Rails/SkipsModelValidations:
   Enabled: false
 
+Rails/ApplicationRecord:
+  Enabled: false
+Rails/ApplicationJob:
+  Enabled: false
+
 Security/YAMLLoad:
   Enabled: false
 
 Style/Alias:
   Enabled: false
 
-Style/ClosingParenthesisIndentation:
+Layout/ClosingParenthesisIndentation:
   Enabled: false
 
 Style/ConditionalAssignment:
@@ -226,28 +237,28 @@ Style/ConditionalAssignment:
 Style/EmptyCaseCondition:
   Enabled: false
 
-Style/ExtraSpacing:
+Layout/ExtraSpacing:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Style/IndentArray:
+Layout/IndentArray:
   Enabled: false
 
-Style/MultilineArrayBraceLayout:
+Layout/MultilineArrayBraceLayout:
   Enabled: false
 
-Style/MultilineHashBraceLayout:
+Layout/MultilineHashBraceLayout:
   Enabled: false
 
-Style/MultilineMethodCallBraceLayout:
+Layout/MultilineMethodCallBraceLayout:
   Enabled: false
 
-Style/MultilineMethodCallIndentation:
+Layout/MultilineMethodCallIndentation:
   Enabled: false
 
-Style/MultilineOperationIndentation:
+Layout/MultilineOperationIndentation:
   Enabled: false
 
 Style/MutableConstant:
@@ -265,13 +276,13 @@ Style/NumericPredicate:
 Style/SignalException:
   Enabled: false
 
-Style/SpaceAroundKeyword:
+Layout/SpaceAroundKeyword:
   Enabled: false
 
-Style/SpaceBeforeBlockBraces:
+Layout/SpaceBeforeBlockBraces:
   Enabled: false
 
-Style/SpaceInsidePercentLiteralDelimiters:
+Layout/SpaceInsidePercentLiteralDelimiters:
   Enabled: false
 
 Style/TernaryParentheses:
@@ -284,6 +295,9 @@ Lint/UselessAccessModifier:
   Enabled: false
 
 Lint/IneffectiveAccessModifier:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
   Enabled: false
 
 require: rubocop-rspec

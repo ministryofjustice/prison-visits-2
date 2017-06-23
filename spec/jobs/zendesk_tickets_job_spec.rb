@@ -12,9 +12,27 @@ RSpec.describe ZendeskTicketsJob, type: :job do
       submitted_by_staff: submitted_by_staff
     )
   }
+
   let(:client) { double(ZendeskAPI::Client) }
   let(:ticket) { double(ZendeskAPI::Ticket, save!: nil) }
   let(:submitted_by_staff) { false }
+  let(:prison) { FactoryGirl.create(:prison) }
+
+  let(:url_custom_field) do
+    { id: ZendeskTicketsJob::URL_FIELD, value: 'ref' }
+  end
+
+  let(:browser_custom_field) do
+    { id: ZendeskTicketsJob::BROWSER_FIELD, value: 'Mozilla' }
+  end
+
+  let(:service_custom_field) do
+    { id: ZendeskTicketsJob::SERVICE_FIELD, value: 'prison_visits' }
+  end
+
+  let(:prison_custom_field) do
+    { id: ZendeskTicketsJob::PRISON_FIELD, value: prison.name }
+  end
 
   before do
     Rails.configuration.zendesk_client = client
@@ -55,9 +73,9 @@ RSpec.describe ZendeskTicketsJob, type: :job do
           description: 'text',
           requester: { email: 'feedback@email.test.host', name: 'Unknown' },
           custom_fields: [
-            { id: '23730083', value: 'ref' },
-            { id: '23791776', value: 'Mozilla' },
-            { id: '23757677', value: 'prison_visits' }
+            url_custom_field,
+            browser_custom_field,
+            service_custom_field
           ]
         ).and_return(ticket)
       subject.perform_now(feedback)
@@ -65,8 +83,6 @@ RSpec.describe ZendeskTicketsJob, type: :job do
   end
 
   context 'when feedback is associated to a prison' do
-    let(:prison) { FactoryGirl.create(:prison) }
-
     before do
       feedback.prison = prison
     end
@@ -79,10 +95,10 @@ RSpec.describe ZendeskTicketsJob, type: :job do
           description: 'text',
           requester: { email: 'email@example.com', name: 'Unknown' },
           custom_fields: [
-            { id: '23730083', value: 'ref' },
-            { id: '23791776', value: 'Mozilla' },
-            { id: '23984153', value: prison.name },
-            { id: '23757677', value: 'prison_visits' }
+            url_custom_field,
+            browser_custom_field,
+            prison_custom_field,
+            service_custom_field
           ]
         ).and_return(ticket)
       subject.perform_now(feedback)
@@ -92,20 +108,54 @@ RSpec.describe ZendeskTicketsJob, type: :job do
   context 'when is submitted by the public' do
     let(:submitted_by_staff) { false }
 
-    it 'creates a ticket with feedback and custom fields' do
-      expect(ZendeskAPI::Ticket).
-        to receive(:new).
-        with(
-          client,
-          description: 'text',
-          requester: { email: 'email@example.com', name: 'Unknown' },
-          custom_fields: [
-            { id: '23730083', value: 'ref' },
-            { id: '23791776', value: 'Mozilla' },
-            { id: '23757677', value: 'prison_visits' }
-          ]
-        ).and_return(ticket)
-      subject.perform_now(feedback)
+    context 'with no prisoner fields filled in' do
+      it 'creates a ticket with feedback and custom fields' do
+        expect(ZendeskAPI::Ticket).
+          to receive(:new).
+          with(
+            client,
+            description: 'text',
+            requester: { email: 'email@example.com', name: 'Unknown' },
+            custom_fields: [
+              url_custom_field,
+              browser_custom_field,
+              service_custom_field
+            ]
+          ).and_return(ticket)
+
+        subject.perform_now(feedback)
+      end
+    end
+
+    context 'with prisoner fields filled in' do
+      before do
+        feedback.prison = prison
+        feedback.prisoner_number = prisoner_num
+        feedback.prisoner_date_of_birth = prisoner_dob
+      end
+
+      let(:prisoner_num) { 'A1234BC' }
+      let(:prisoner_dob) { Time.zone.today - 30.years }
+
+      it 'creates a ticket with feedback and custom fields' do
+        expect(ZendeskAPI::Ticket).
+          to receive(:new).
+          with(
+            client,
+            description: 'text',
+            requester: { email: 'email@example.com', name: 'Unknown' },
+            custom_fields: [
+              url_custom_field,
+              browser_custom_field,
+              prison_custom_field,
+              service_custom_field,
+              { id: ZendeskTicketsJob::PRISONER_NUM_FIELD, value: prisoner_num },
+              { id: ZendeskTicketsJob::PRISONER_DOB_FIELD, value: prisoner_dob }
+            ]
+          ).and_return(ticket)
+
+        subject.perform_now(feedback)
+      end
     end
   end
 
@@ -121,8 +171,8 @@ RSpec.describe ZendeskTicketsJob, type: :job do
           requester: { email: 'email@example.com', name: 'Unknown' },
           tags: ['staff.prison.visits'],
           custom_fields: [
-            { id: '23730083', value: 'ref' },
-            { id: '23791776', value: 'Mozilla' }
+            url_custom_field,
+            browser_custom_field
           ]
         ).and_return(ticket)
       subject.perform_now(feedback)

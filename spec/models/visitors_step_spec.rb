@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe VisitorsStep do
   let(:prison) { build(:prison) }
+
   subject { described_class.new(prison: prison) }
 
   describe "email_address=" do

@@ -8,9 +8,10 @@
 // GOVUK modules
 //= require govuk_toolkit
 //= require vendor/polyfills/bind
-//= require govuk/selection-buttons
+//= require details.polyfill
 //= require moj
 //= require lodash
+//= require jquery-ui-autocomplete
 //= require modernizr-custom
 //= require dest/respond.min
 //= require jquery-ui/datepicker
@@ -33,11 +34,12 @@
 //= require modules/moj.tableSorter
 //= require modules/moj.matchVisitors
 //= require modules/moj.Rejection
+//= require modules/moj.autocomplete
+//= require modules/moj.searchPlaceholder
 
 (function() {
   'use strict';
   delete moj.Modules.devs;
-  var selectionButtons = new GOVUK.SelectionButtons("label input[type='radio'], label input[type='checkbox']");
+  var selectionButtons = new GOVUK.SelectionButtons("input[type='radio'], input[type='checkbox']");
   moj.init();
-
 }());

@@ -34,6 +34,9 @@ class Prison::DashboardsController < ApplicationController
     requested_visits(estates: accessible_estates, query: query)
     cancellations(estates: accessible_estates, query: query)
     processed_visits(estates: accessible_estates, query: query)
+    @search_total = @cancellations.size +
+                    @requested_visits.size +
+                    @processed_visits.size
   end
 
 private
@@ -66,9 +69,9 @@ private
   end
 
   def parse_date(date)
-    Date.parse(date) unless date.blank?
+    Date.parse(date) if date.present?
   rescue ArgumentError
-    flash[:notice] = t('invalid_date', scope: [:prison, :flash])
+    flash[:notice] = t('invalid_date', scope: %i[prison flash])
     nil
   end
 end

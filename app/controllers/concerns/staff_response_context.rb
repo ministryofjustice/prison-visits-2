@@ -3,8 +3,17 @@ module StaffResponseContext
 
 private
 
-  def load_visit
-    @visit ||= scoped_visit
+  def memoised_visit
+    @_visit ||= scoped_visit
+  end
+
+  def decorate_visit(visit)
+    @_decorated_visit ||=
+      visit.decorate(context: { staff_nomis_checker: staff_nomis_checker })
+  end
+
+  def staff_nomis_checker
+    @staff_nomis_checker ||= StaffNomisChecker.new(memoised_visit)
   end
 
   def message
@@ -26,9 +35,12 @@ private
   end
 
   def booking_responder
-    visit = load_visit
-    visit.assign_attributes(visit_params)
-    BookingResponder.new(visit, user: current_user, message: message)
+    memoised_visit.assign_attributes(visit_params)
+
+    BookingResponder.new(memoised_visit,
+      user: current_user,
+      message: message,
+      options: booking_responder_opts)
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -39,7 +51,7 @@ private
       :principal_visitor_id, :processing_state, :id,
       visitor_ids: [],
       rejection_attributes: [
-        allowance_renews_on: [:day, :month, :year],
+        allowance_renews_on: %i[day month year],
         reasons: []
       ],
       visitors_attributes:  [
@@ -47,9 +59,13 @@ private
         :nomis_id,
         :banned,
         :not_on_list,
-        banned_until: [:day, :month, :year]
+        banned_until: %i[day month year]
       ]
     )
   end
   # rubocop:enable Metrics/MethodLength
+
+  def booking_responder_opts
+    { validate_visitors_nomis_ready: params[:validate_visitors_nomis_ready] }
+  end
 end

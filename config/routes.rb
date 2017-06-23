@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
-  root to: 'staff_info#index'
+  root to: 'staff_info#show'
 
   match 'exception', to: 'errors#test', via: %i[ get post ]
 
@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       get 'metrics/:prison_id/summary',
         action: :summary,
         as: :prison_metrics_summary
+      get 'metrics/digital_takeup', action: :digital_takeup
     end
 
     namespace :prison do
@@ -69,6 +70,8 @@ Rails.application.routes.draw do
     post '/validations/visitors', to: 'validations#visitors'
   end
 
-  get '/staff', to: 'staff_info#index'
-  get '/staff/:page', to: 'staff_info#show'
+  resource :staff, only: :show, controller: 'staff_info' do
+    resources :downloads, only: :index
+    resource :telephone_script, only: :show
+  end
 end

@@ -42,7 +42,7 @@ RSpec.describe ConcreteSlotDecorator do
     describe 'prisoner availability' do
       context 'when a prisoner is available' do
         it 'renders the checkbox without errors ' do
-          expect(html_fragment).to have_css('label.block-label.date-box')
+          expect(html_fragment).to have_css('label.date-box__label')
           expect(html_fragment).to have_css('span.date-box__number', text: '1')
           expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
           expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
@@ -55,7 +55,7 @@ RSpec.describe ConcreteSlotDecorator do
           let(:slot_errors) { ['prisoner_banned'] }
 
           it 'renders the checkbox with errors' do
-            expect(html_fragment).to have_css('label.block-label.date-box.date-box--error')
+            expect(html_fragment).to have_css('label.date-box__label.date-box--error')
             expect(html_fragment).to have_css('span.date-box__number', text: '1')
             expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
             expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
@@ -67,7 +67,7 @@ RSpec.describe ConcreteSlotDecorator do
           let(:date) { Date.yesterday }
 
           it 'renders the checkbox neither verified or errors' do
-            expect(html_fragment).to have_css('label.block-label.date-box.date-box')
+            expect(html_fragment).to have_css('label.date-box__label')
             expect(html_fragment).to have_css('span.date-box__number', text: '1')
             expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
             expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
@@ -83,7 +83,7 @@ RSpec.describe ConcreteSlotDecorator do
         end
 
         it 'renders the checkbox without errors' do
-          expect(html_fragment).to have_css('label.block-label.date-box')
+          expect(html_fragment).to have_css('label.date-box__label')
           expect(html_fragment).to have_css('span.date-box__number', text: '1')
           expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
           expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
@@ -100,7 +100,7 @@ RSpec.describe ConcreteSlotDecorator do
 
         context 'when a slot is available' do
           it 'renders the checkbox' do
-            expect(html_fragment).to have_css('label.block-label.date-box')
+            expect(html_fragment).to have_css('label.date-box__label')
             expect(html_fragment).to have_css('span.date-box__number', text: '1')
             expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
             expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
@@ -112,7 +112,7 @@ RSpec.describe ConcreteSlotDecorator do
             let(:slot_errors) { ['slot_not_available'] }
 
             it 'renders the checkbox' do
-              expect(html_fragment).to have_css('label.block-label.date-box.date-box--error')
+              expect(html_fragment).to have_css('label.date-box__label.date-box--error')
               expect(html_fragment).to have_css('span.date-box__number', text: '1')
               expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
               expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
@@ -124,7 +124,7 @@ RSpec.describe ConcreteSlotDecorator do
             let(:date) { Date.yesterday }
 
             it 'renders the checkbox neither verified or errors' do
-              expect(html_fragment).to have_css('label.block-label.date-box.date-box.disabled')
+              expect(html_fragment).to have_css('label.date-box__label.disabled')
               expect(html_fragment).to have_css('span.date-box__number', text: '1')
               expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
               expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
@@ -143,7 +143,7 @@ RSpec.describe ConcreteSlotDecorator do
         end
 
         it 'renders the checkbox without errors' do
-          expect(html_fragment).to have_css('label.block-label.date-box')
+          expect(html_fragment).to have_css('label.date-box__label')
           expect(html_fragment).to have_css('span.date-box__number', text: '1')
           expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
           expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")

@@ -3,8 +3,8 @@
 </h2>
 
 <%= error_container f, :reasons do %>
-  <label class="block-label">
-    <%= f.object.checkbox_for :duplicate_visit_request, class: 'js-Rejection', 'data-rejection-el': 'rejection-message' %>
-    <%= t('.duplicate_visit_request') %>
-  </label>
+  <div class="multiple-choice">
+    <%= f.object.checkbox_for :duplicate_visit_request, id: :duplicate_visit_request, class: 'js-Rejection', 'data-rejection-el': 'rejection-message' %>
+    <%= f.label t('.duplicate_visit_request'), for: :duplicate_visit_request %>
+  </div>
 <% end %>

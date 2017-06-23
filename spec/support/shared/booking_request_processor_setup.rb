@@ -3,6 +3,7 @@ RSpec.shared_context 'staff response setup' do
   let(:visit)             { create :visit_with_three_slots }
   let(:slot_granted)      { visit.slot_option_0 }
   let(:processing_state)  { 'requested' }
+  let(:visitor_fields)    { %w[id not_on_list banned] }
   let(:params) do
     {
       slot_option_0:        visit.slot_option_0,
@@ -22,10 +23,12 @@ RSpec.shared_context 'staff response setup' do
         }
       },
       visitors_attributes:  {
-        '0' => visit.principal_visitor.attributes.slice('id', 'banned', 'not_on_list')
+        '0' => principal_visitor.attributes.slice(*visitor_fields).
+          merge('banned_until' => principal_visitor.banned_until.to_s)
       }
     }
   end
 
   let(:user) { create(:user) }
+  let(:validate_visitors_nomis_ready) { nil }
 end

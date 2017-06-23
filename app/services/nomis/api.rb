@@ -104,6 +104,21 @@ module Nomis
       Nomis::ContactList.new(response)
     end
 
+    def book_visit(offender_id:, params:)
+      idempotent = params.key?(:client_unique_ref)
+
+      response = @pool.with { |client|
+        client.post(
+          "offenders/#{offender_id}/visits/booking", params, idempotent: idempotent)
+      }
+
+      Nomis::Booking.build(response).tap do |booking|
+        PVB::Instrumentation.append_to_log(
+          book_to_nomis_success: booking.visit_id.present?
+        )
+      end
+    end
+
   private
 
     def build_offender(response)

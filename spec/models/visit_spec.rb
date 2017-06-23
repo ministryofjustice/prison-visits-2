@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Visit, type: :model do
-  subject { build(:visit) }
+  subject { build(:visit, visitors: [build(:visitor)]) }
 
   let(:mailing) do
     double(Mail::Message, deliver_later: nil)
@@ -47,11 +47,13 @@ RSpec.describe Visit, type: :model do
 
       context 'when the phone number is valid' do
         let(:phone_no) { '079 00 11 22 33' }
+
         it { is_expected.to be_valid }
       end
 
       context 'when the phone number is invalid' do
         let(:phone_no) { ' 07 00 11 22 33' }
+
         it { is_expected.not_to be_valid }
       end
     end
@@ -338,6 +340,32 @@ RSpec.describe Visit, type: :model do
 
       it 'returns a list without the principal visitor' do
         expect(subject.additional_visitors).to eq([visitor2])
+      end
+    end
+  end
+
+  describe '#allowed_additional_visitors' do
+    let(:visitor1) { FactoryGirl.build_stubbed(:visitor) }
+    let(:visitor2) { FactoryGirl.build_stubbed(:visitor) }
+    let(:visitor3) { FactoryGirl.build_stubbed(:visitor, banned: true) }
+
+    describe 'when there is one visitor' do
+      before do
+        subject.visitors = [visitor1]
+      end
+
+      it 'returns an empty list' do
+        expect(subject.allowed_additional_visitors).to be_empty
+      end
+    end
+
+    describe 'when there is more than one visitor' do
+      before do
+        subject.visitors = [visitor1, visitor2, visitor3]
+      end
+
+      it 'returns a list without the principal visitor' do
+        expect(subject.allowed_additional_visitors).to eq([visitor2])
       end
     end
   end

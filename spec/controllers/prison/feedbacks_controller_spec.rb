@@ -4,6 +4,7 @@ require_relative '../untrusted_examples'
 RSpec.describe Prison::FeedbacksController, type: :controller do
   describe '#new' do
     subject { get :new }
+
     it_behaves_like 'disallows untrusted ips'
 
     before do

@@ -20,7 +20,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
     let(:visitor) { vst.visitors.first }
 
     around do |ex|
-      travel_to(Date.new(2017, 5, 10)) { ex.run }
+      travel_to(Date.new(2017, 6, 5)) { ex.run }
     end
 
     before do
@@ -42,7 +42,10 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
       fill_in 'Reference number',   with: '12345678'
       fill_in 'Message (optional)', with: 'A staff message'
 
+      click_button 'Process'
+
       within "#visitor_#{visitor.id}" do
+        expect(page).to have_content("Process this visitor to continue")
         select 'IRMA ITSU - 03/04/1975', from: 'Match to contact list'
       end
 
@@ -85,6 +88,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
         estate: create(:estate, nomis_id: 'ISI')
             )
     end
+
     context "validating prisoner informations - sad paths" do
       context "and the prisoner's informations are not valid", vcr: { cassette_name: 'lookup_active_offender-nomatch' } do
         let(:slot_zero) { ConcreteSlot.new(2016, 5, 1, 10, 30, 11, 30) }
@@ -165,7 +169,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
         fill_in 'Reference number', with: '12345678'
 
         within "#visitor_#{visitor.id}" do
-          find('input[type="checkbox"][id*="banned"]').click
+          check 'Visitor is banned', visible: false
         end
 
         click_button 'Process'
@@ -192,7 +196,10 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
         choose_date
         fill_in 'Reference number', with: '12345678'
-        check 'visit[visitors_attributes][1][not_on_list]'
+
+        within "#visitor_#{visitor.id}" do
+          check 'Not on contact list', visible: false
+        end
 
         click_button 'Process'
 

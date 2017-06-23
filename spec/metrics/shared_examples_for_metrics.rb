@@ -1,4 +1,4 @@
-RSpec.shared_examples 'create rejections without dates' do
+RSpec.shared_context 'create rejections without dates' do
   let(:luna) { create(:prison, name: 'Lunar Penal Colony') }
   let(:mars) { create(:prison, name: 'Martian Penal Colony') }
 
@@ -24,7 +24,7 @@ RSpec.shared_examples 'create rejections without dates' do
   end
 end
 
-RSpec.shared_examples 'create rejections with dates' do
+RSpec.shared_context 'create rejections with dates' do
   let(:luna_estate) { create(:estate, finder_slug: 'luna') }
   let(:mars_estate) { create(:estate, finder_slug: 'mars') }
   let(:luna) { create(:prison, name: 'Lunar Penal Colony', estate: luna_estate) }
@@ -53,7 +53,7 @@ RSpec.shared_examples 'create rejections with dates' do
   end
 end
 
-RSpec.shared_examples 'create visits without dates' do
+RSpec.shared_context 'create visits without dates' do
   let(:luna) { create(:prison, name: 'Lunar Penal Colony') }
   let(:mars) { create(:prison, name: 'Martian Penal Colony') }
 
@@ -66,14 +66,14 @@ RSpec.shared_examples 'create visits without dates' do
   end
 
   def make_visits(prison)
-    [:visit, :booked_visit, :rejected_visit,
-     :cancelled_visit, :withdrawn_visit].each do |visit_type|
+    %i[visit booked_visit rejected_visit
+       cancelled_visit withdrawn_visit].each do |visit_type|
       create(visit_type, prison: prison)
     end
   end
 end
 
-RSpec.shared_examples 'create visits with dates' do
+RSpec.shared_context 'create visits with dates' do
   # Most of the time these don't matter.  I've included them here to make it
   # easier to target the TDs in the metrics table.
   let(:luna_estate) { create(:estate, finder_slug: 'luna') }
@@ -194,7 +194,7 @@ RSpec.shared_examples 'create visits with dates' do
   end
 end
 
-RSpec.shared_examples 'create and process visits timed by seconds' do
+RSpec.shared_context 'create and process visits timed by seconds' do
   let(:luna) { create(:prison, name: 'Lunar Penal Colony') }
   let(:mars) { create(:prison, name: 'Martian Penal Colony') }
 
@@ -215,7 +215,7 @@ RSpec.shared_examples 'create and process visits timed by seconds' do
   end
 end
 
-RSpec.shared_examples 'create and process visits with dates' do
+RSpec.shared_context 'create and process visits with dates' do
   let(:luna) { create(:prison, name: 'Lunar Penal Colony') }
   let(:mars) { create(:prison, name: 'Martian Penal Colony') }
 

@@ -102,6 +102,11 @@ en:
         the prisoner has been released - hopefully they will contact you soon
       restricted_reason:
         the prisoner has a restriction
+      duplicate_visit_request_single_html:
+        <p>We haven't booked your visit to %{prisoner} at %{prison_name} because
+        you've already requested a visit for the same date and time at this prison.</p>
+        <p>We've sent you a separate email about your other visit request.
+        Please click the link in that email to check the status of your request.</p>
       duplicate_visit_request_html:
         you've already requested a visit with these details and we've already
         sent you an email response - please clink on the link in our original

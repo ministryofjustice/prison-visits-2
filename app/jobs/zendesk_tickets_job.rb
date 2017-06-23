@@ -1,11 +1,13 @@
 class ZendeskTicketsJob < ActiveJob::Base
   queue_as :zendesk
 
-  # Custom ticket fields configured in the MOJ Digital Zendesk account
-  URL_FIELD = '23730083'
-  SERVICE_FIELD = '23757677'
-  BROWSER_FIELD = '23791776'
-  PRISON_FIELD = '23984153'
+  # Custom ticket field IDs as configured in the MOJ Digital Zendesk account
+  URL_FIELD = '23730083'.freeze
+  SERVICE_FIELD = '23757677'.freeze
+  BROWSER_FIELD = '23791776'.freeze
+  PRISON_FIELD = '23984153'.freeze
+  PRISONER_NUM_FIELD = '114094604912'.freeze
+  PRISONER_DOB_FIELD = '114094604972'.freeze
 
   def perform(feedback)
     unless Rails.configuration.try(:zendesk_client)
@@ -58,19 +60,33 @@ private
 
   def staff_custom_fields(feedback)
     attrs = [
-      { id: URL_FIELD, value: feedback.referrer },
-      { id: BROWSER_FIELD, value: feedback.user_agent }
+      as_hash(URL_FIELD, feedback.referrer),
+      as_hash(BROWSER_FIELD, feedback.user_agent)
     ]
 
     if feedback.prison_id
-      attrs << { id: PRISON_FIELD, value: feedback.prison.name }
+      attrs << as_hash(PRISON_FIELD, feedback.prison.name)
     end
 
     attrs
   end
 
   def public_custom_fields(feedback)
-    service_field = { id: SERVICE_FIELD, value: 'prison_visits' }
-    staff_custom_fields(feedback) << service_field
+    fields = staff_custom_fields(feedback)
+    fields << as_hash(SERVICE_FIELD, 'prison_visits')
+
+    if feedback.prisoner_number
+      fields << as_hash(PRISONER_NUM_FIELD, feedback.prisoner_number)
+    end
+
+    if feedback.prisoner_date_of_birth
+      fields << as_hash(PRISONER_DOB_FIELD, feedback.prisoner_date_of_birth)
+    end
+
+    fields
+  end
+
+  def as_hash(id, value)
+    { id: id, value: value }
   end
 end

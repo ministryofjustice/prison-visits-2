@@ -17,7 +17,7 @@ RSpec.describe SendgridApi, '#bounced?' do
     include_examples 'sendgrid pool timeouts'
 
     context 'when there is no bounce' do
-      it_should_behave_like 'there is nothing to report'
+      it_behaves_like 'there is nothing to report'
     end
 
     context 'when there is a bounce' do
@@ -28,7 +28,7 @@ RSpec.describe SendgridApi, '#bounced?' do
            email: 'test@example.com' }].to_json
       }
 
-      it_should_behave_like 'there is something to report'
+      it_behaves_like 'there is something to report'
     end
   end
 

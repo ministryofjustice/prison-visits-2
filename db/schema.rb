@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170509114346) do
+ActiveRecord::Schema.define(version: 20170608082243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,14 +40,16 @@ ActiveRecord::Schema.define(version: 20170509114346) do
   add_index "estates", ["name"], name: "index_estates_on_name", unique: true, using: :btree
 
   create_table "feedback_submissions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.text     "body",                               null: false
+    t.text     "body",                                   null: false
     t.string   "email_address"
     t.string   "referrer"
     t.string   "user_agent"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.uuid     "prison_id"
-    t.boolean  "submitted_by_staff", default: false, null: false
+    t.boolean  "submitted_by_staff",     default: false, null: false
+    t.string   "prisoner_number"
+    t.date     "prisoner_date_of_birth"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -60,12 +62,13 @@ ActiveRecord::Schema.define(version: 20170509114346) do
   end
 
   create_table "prisoners", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "first_name",    null: false
-    t.string   "last_name",     null: false
-    t.date     "date_of_birth", null: false
-    t.string   "number",        null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string   "first_name",        null: false
+    t.string   "last_name",         null: false
+    t.date     "date_of_birth",     null: false
+    t.string   "number",            null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "nomis_offender_id"
   end
 
   create_table "prisons", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
@@ -166,6 +169,7 @@ ActiveRecord::Schema.define(version: 20170509114346) do
     t.uuid     "prisoner_id",                                             null: false
     t.string   "locale",                  limit: 2,                       null: false
     t.string   "human_id"
+    t.integer  "nomis_id"
   end
 
   add_index "visits", ["human_id"], name: "index_visits_on_human_id", unique: true, using: :btree
