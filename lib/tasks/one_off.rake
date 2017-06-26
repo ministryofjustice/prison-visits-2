@@ -1,4 +1,18 @@
 namespace :pvb do
+
+  desc 'Merge Isle Of Wight Prisons'
+  task merge_iow: :environment do
+    albany    = Estate.find_by!(nomis_id: 'ALI').prisons.first
+    parkhurst = Estate.find_by!(nomis_id: 'IWI').prisons.first
+    FeedbackSubmission.where(prison_id: albany.id).find_in_batches do |feebback_submissions|
+      FeedbackSubmission.where(id: feebback_submissions.map(&:id)).update_all(prison_id: parkhurst.id)
+    end
+
+    Visit.where(prison_id: albany.id).find_in_batches do |visits|
+      Visit.where(id: visits.map(&:id)).update_all(prison_id: parkhurst.id)
+    end
+  end
+
   desc 'Withdraw expired visits'
   task withdraw_expired_visits: :environment do
     require 'highline'
