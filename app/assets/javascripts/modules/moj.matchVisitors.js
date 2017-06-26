@@ -125,6 +125,7 @@
         moj.Modules.Rejection.addToSelected(this.$el);
       }
       moj.Modules.Rejection.actuate(this.$el);
+      moj.Modules.BookToNomis.render();
     },
 
     checkTotalVisitors: function() {

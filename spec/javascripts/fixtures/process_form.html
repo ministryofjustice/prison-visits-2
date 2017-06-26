@@ -14,32 +14,34 @@
       </div>
     </div>
   </div>
-  <hr>
-  <h2 class="bold-medium">Prisoner details</h2>
-  <div class="notice push-top">
-    <i class="icon icon-information">
-    <span class="visuallyhidden">Warning</span>
-    </i>
-    <strong class="bold-small">The prisoner date of birth and number have been verified. <br>Please check the prisoner name.</strong>
-  </div>
-  <div class="grid-row push-top">
-    <div class="column-one-quarter">
-      <span class="text-secondary">Prisoner name</span>
-      <div class="bold-small">Dave Smith</div>
+  <div class="prisoner-details">
+    <hr>
+    <h2 class="bold-medium">Prisoner details</h2>
+    <div class="notice push-top">
+      <i class="icon icon-information">
+      <span class="visuallyhidden">Warning</span>
+      </i>
+      <strong class="bold-small">The prisoner date of birth and number have been verified. <br>Please check the prisoner name.</strong>
     </div>
-    <div class="column-one-quarter">
-      <span class="text-secondary">Prisoner D.O.B</span>
-      <div class="bold-small">11/11/1971</div>
-      <div class="tag tag--booked font-xsmall">Verified</div>
-    </div>
-    <div class="column-one-quarter">
-      <span class="text-secondary">Prisoner no.</span>
-      <div class="bold-small">A1484AE</div>
-      <div class="font-xsmall tag tag--booked">Verified</div>
-    </div>
-    <div class="column-one-quarter">
-      <span class="text-secondary">Prison name</span>
-      <div class="bold-small">Pentonville</div>
+    <div class="grid-row push-top">
+      <div class="column-one-quarter">
+        <span class="text-secondary">Prisoner name</span>
+        <div class="bold-small">Dave Smith</div>
+      </div>
+      <div class="column-one-quarter">
+        <span class="text-secondary">Prisoner D.O.B</span>
+        <div class="bold-small">11/11/1971</div>
+        <div class="tag tag--booked font-xsmall">Verified</div>
+      </div>
+      <div class="column-one-quarter">
+        <span class="text-secondary">Prisoner no.</span>
+        <div class="bold-small">A1484AE</div>
+        <div class="font-xsmall tag tag--booked">Verified</div>
+      </div>
+      <div class="column-one-quarter">
+        <span class="text-secondary">Prison name</span>
+        <div class="bold-small">Pentonville</div>
+      </div>
     </div>
   </div>
   <div class="issue-with-prisoner">
@@ -146,12 +148,6 @@
       <div class="column-one-third">
         <label class="block-label date-box" data-target="selected_slot_details" for="visit_slot_granted_2017-05-20t14001600"><input class="js-Conditional" data-conditional-el="selected_slot_details" data-conditional-val="slot_option_0,slot_option_1,slot_option2" type="radio" value="2017-05-20T14:00/16:00" name="visit[slot_granted]" id="visit_slot_granted_2017-05-20t14001600" aria-controls="selected_slot_details"><span class="date-box__number">3</span><span class="date-box__day">Saturday</span><br>20 May 2017 <br>14:00–16:00
         </label><span class="date-box__message bold-xsmall tag tag--verified">Prisoner available</span>
-      </div>
-    </div>
-    <div class="column-one-half">
-      <div id="selected_slot_details" class="panel panel-border-narrow" aria-expanded="true" aria-hidden="false" style="display: block;">
-        <div class="form-group"><label class="form-label" for="visit_reference_no">Reference number<span class="form-hint">eg Last 8 digits of VO number or “none” for remand</span></label><input class="form-control" type="text" name="visit[reference_no]" id="visit_reference_no"></div>
-        <div class="form-group"><label class="block-label" for="visit_closed"><input name="visit[closed]" type="hidden" value="0"><input type="checkbox" value="1" name="visit[closed]" id="visit_closed">Closed</label></div>
       </div>
     </div>
     <div class="column-two-thirds push-top push-bottom--half">
@@ -294,27 +290,28 @@
     </li>
   </ul>
 </div>
-
-  <div class="form-group push-top">
-    <h2 class="bold-medium">
-      Other
-    </h2>
-    <div class="form-group">
-      <label class="block-label">
-      <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_duplicate_visit_request" value="duplicate_visit_request" class="js-Rejection" data-rejection-el="rejection-message">
-      Duplicate visit request
-      </label>
-    </div>
-  </div>
-  <div class="form-group push-top">
-    <div class="grid-row">
-      <div class="column-one-half">
-        <h2 class="bold-medium">Add a message</h2>
-        <input value="5eba707f-b758-4c6c-8b75-7693a75ac821" type="hidden" name="message[user_id]" id="message_user_id">
-        <div class="form-group"><label class="form-label" for="message_body">Message (optional)</label><textarea class="form-control form-control-full-width" rows="4" name="message[body]" id="message_body"></textarea></div>
+  <div class="other-details">
+    <div class="form-group push-top">
+      <h2 class="bold-medium">
+        Other
+      </h2>
+      <div class="form-group">
+        <label class="block-label">
+        <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_duplicate_visit_request" value="duplicate_visit_request" class="js-Rejection" data-rejection-el="rejection-message">
+        Duplicate visit request
+        </label>
       </div>
     </div>
-  </div>
+    <div class="form-group push-top">
+      <div class="grid-row">
+        <div class="column-one-half">
+          <h2 class="bold-medium">Add a message</h2>
+          <input value="5eba707f-b758-4c6c-8b75-7693a75ac821" type="hidden" name="message[user_id]" id="message_user_id">
+          <div class="form-group"><label class="form-label" for="message_body">Message (optional)</label><textarea class="form-control form-control-full-width" rows="4" name="message[body]" id="message_body"></textarea></div>
+        </div>
+      </div>
+    </div>
+    </div>
   <div class="form-group">
     <hr>
     <div id="rejection-message">
@@ -323,6 +320,26 @@
         <span class="visuallyhidden">Warning</span>
         </i>
         <strong class="bold-small">This visit will be rejected</strong>
+      </div>
+    </div>
+    <div class="panel" id="nomis-opt-out">
+      <p>If the visit is booked successfully, it will be copied to NOMIS.</p>
+      <fieldset>
+        <div class="multiple-choice push-bottom">
+          <input type="checkbox" name="book_to_nomis_opted_in" id="book_to_nomis_opt_in" value="false" class="js-BookToNomis" data-el="booktonomis-message">
+          <label for="book_to_nomis_opt_in">Don't automatically copy this visit to NOMIS</label>
+        </div>
+      </fieldset>
+
+      <div id="booktonomis-message">
+        <div class="grid-row">
+          <div class="column-one-half">
+            <div id="selected_slot_details">
+              <div class="form-group"><label class="form-label" for="visit_reference_no">Reference number<span class="form-hint">eg Last 8 digits of VO number or “none” for remand</span></label><input class="form-control" type="text" name="visit[reference_no]" id="visit_reference_no"></div>
+              <div class="form-group"><div class="multiple-choice"><input name="visit[closed]" type="hidden" value="0"><input type="checkbox" value="1" name="visit[closed]" id="visit_closed"><label class="block-label" for="visit_closed"><span class="translation_missing" title="translation missing: en.prison.visits.book_to_nomis_opt_in.closed">Closed</span></label></div></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <input type="submit" name="commit" value="Process" class="button button-primary">

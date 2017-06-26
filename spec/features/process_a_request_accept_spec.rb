@@ -55,7 +55,8 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
           select 'IRMA ITSU - 03/04/1975', from: 'Match to contact list'
         end
 
-        expect(page).to have_unchecked_field("Don't automatically copy this visit to NOMIS")
+        expect(page).to have_unchecked_field("Don't automatically copy this visit to NOMIS", visible: false)
+
         click_button 'Process'
 
         expect(page).to have_css('.notification', text: 'Thank you for processing the visit')
@@ -82,7 +83,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
           select 'IRMA ITSU - 03/04/1975', from: 'Match to contact list'
         end
 
-        check "Don't automatically copy this visit to NOMIS"
+        check "Don't automatically copy this visit to NOMIS", visible: false
 
         fill_in 'Reference number',   with: '12345678'
 

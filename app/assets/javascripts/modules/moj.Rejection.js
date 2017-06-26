@@ -4,9 +4,8 @@
   moj.Modules.Rejection = {
     el: '.js-Rejection',
 
-    selected: [],
-
     init: function () {
+      this.selected = [];
       this.cacheEls();
       this.bindEvents();
     },
@@ -42,6 +41,10 @@
       this.isChecked($el)? this.addToSelected($el) : this.removeFromSelected($el);
     },
 
+    isRejected: function(){
+      return this.selected.length > 0;
+    },
+
     isChecked: function($el){
       return $el.prop('checked');
     },
@@ -58,15 +61,13 @@
 
     actuate: function($el){
       var $conditionalEl = this.conditionals($el.data('rejectionEl'));
-      var $conditionalOppositeEl = this.conditionals($el.data('rejectionEl')+'-opposite');
 
       if(this.selected.length > 0){
         this.show($conditionalEl);
-        this.hide($conditionalOppositeEl);
       } else {
         this.hide($conditionalEl);
-        this.show($conditionalOppositeEl);
       }
+      moj.Modules.BookToNomis.render();
     },
 
     conditionals: function(string) {
