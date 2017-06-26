@@ -27,7 +27,19 @@ RSpec.describe Api::PrisonsController do
     )
   }
 
+  let!(:ali_prison) {
+    create(
+      :prison,
+      enabled: false,
+      estate: ali_estate,
+      name: 'Isle Of Wight - Albany',
+      postcode: 'XL1 1AA',
+      translations: { 'cy' => { 'name' => 'Some Welsh' } }
+    )
+  }
+
   let(:estate) { create(:estate, nomis_id: 'LNX', name: 'Moon') }
+  let(:ali_estate) { create(:estate, nomis_id: 'ALI', name: 'Isle Of Wight - Albany') }
 
   render_views
 
