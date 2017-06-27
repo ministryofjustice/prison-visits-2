@@ -51,7 +51,7 @@
           <div class="bold-small push-bottom--half">Visiting allowance</div>
           <div class="form-group">
             <label class="form-checkbox">
-            <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_" value="no_allowance" class="js-Rejection" data-rejection-el="rejection-message">
+            <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_" value="no_allowance" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
             Prisoner does not have any visiting allowance
             </label>
           </div>
@@ -86,19 +86,19 @@
       <div class="column-one-third">
         <div class="form-group">
           <label class="block-label">
-          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_details_incorrect" value="prisoner_details_incorrect" class="js-Rejection" data-rejection-el="rejection-message">
+          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_details_incorrect" value="prisoner_details_incorrect" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
           Prisoner details are incorrect
           </label>
         </div>
         <div class="form-group">
           <label class="block-label">
-          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_non_association" value="prisoner_non_association" class="js-Rejection" data-rejection-el="rejection-message">
+          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_non_association" value="prisoner_non_association" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
           Prisoner has a non-association
           </label>
         </div>
         <div class="form-group">
           <label class="block-label">
-          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_out_of_prison" value="prisoner_out_of_prison" class="js-Rejection" data-rejection-el="rejection-message">
+          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_out_of_prison" value="prisoner_out_of_prison" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
           Prisoner on external movement
           </label>
         </div>
@@ -106,13 +106,13 @@
       <div class="column-one-third">
         <div class="form-group">
           <label class="block-label">
-          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_moved" value="prisoner_moved" class="js-Rejection" data-rejection-el="rejection-message">
+          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_moved" value="prisoner_moved" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
           Prisoner has moved prisons
           </label>
         </div>
         <div class="form-group">
           <label class="block-label">
-          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_child_protection_issues" value="child_protection_issues" class="js-Rejection" data-rejection-el="rejection-message">
+          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_child_protection_issues" value="child_protection_issues" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
           Prisoner has child protection measures
           </label>
         </div>
@@ -120,13 +120,13 @@
       <div class="column-one-third">
         <div class="form-group">
           <label class="block-label">
-          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_released" value="prisoner_released" class="js-Rejection" data-rejection-el="rejection-message">
+          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_released" value="prisoner_released" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
           Prisoner has been released
           </label>
         </div>
         <div class="form-group">
           <label class="block-label">
-          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_banned" value="prisoner_banned" class="js-Rejection" data-rejection-el="rejection-message">
+          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_banned" value="prisoner_banned" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
           Prisoner banned from receiving visits
           </label>
         </div>
@@ -153,7 +153,7 @@
     <div class="column-two-thirds push-top push-bottom--half">
       <div class="form-group">
         <label class="block-label">
-        <input class="js-Conditional js-Rejection" data-rejection-el="rejection-message" type="radio" value="slot_unavailable" name="visit[slot_granted]" id="visit_slot_granted_slot_unavailable">
+        <input class="js-Conditional js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out" type="radio" value="slot_unavailable" name="visit[slot_granted]" id="visit_slot_granted_slot_unavailable">
         None of the chosen times are available
         </label>
       </div>
@@ -165,7 +165,7 @@
   <hr>
   <h2 class="bold-medium">Visitor details</h2>
   <p>Match each visitor to a name on the prisoner’s contact list.</p>
-  <div id="visitors-fixture" class="js-visitorList nomis-enabled" data-rejection-el="rejection-message">
+  <div id="visitors-fixture" class="js-visitorList nomis-enabled" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
   <ul class="visitor-contact-list push-top">
     <li id="visitor_d0482cf9-7bea-4453-b3be-d6b45e3cc951" data-visitor="{&quot;first_name&quot;: &quot;Tom&quot;, &quot;last_name&quot;: &quot;Smith&quot;, &quot;dob&quot;: &quot;1970-01-01&quot;}" data-processed="false">
       <div class="wrapper">
@@ -297,7 +297,7 @@
       </h2>
       <div class="form-group">
         <label class="block-label">
-        <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_duplicate_visit_request" value="duplicate_visit_request" class="js-Rejection" data-rejection-el="rejection-message">
+        <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_duplicate_visit_request" value="duplicate_visit_request" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
         Duplicate visit request
         </label>
       </div>

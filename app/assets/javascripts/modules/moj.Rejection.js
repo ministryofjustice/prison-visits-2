@@ -60,12 +60,15 @@
     },
 
     actuate: function($el){
-      var $conditionalEl = this.conditionals($el.data('rejectionEl'));
+      var $rejectionEl = this.conditionals($el.data('rejectionEl')),
+        $successEl = this.conditionals($el.data('successEl'));
 
       if(this.selected.length > 0){
-        this.show($conditionalEl);
+        this.show($rejectionEl);
+        this.hide($successEl);
       } else {
-        this.hide($conditionalEl);
+        this.hide($rejectionEl);
+        this.show($successEl);
       }
       moj.Modules.BookToNomis.render();
     },

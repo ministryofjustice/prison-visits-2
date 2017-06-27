@@ -44,7 +44,7 @@
   <div class="column-two-thirds push-top push-bottom--half">
     <%= error_container f, :slot_granted do %>
       <div class="multiple-choice">
-        <%= f.radio_button :slot_granted, Rejection::SLOT_UNAVAILABLE, { checked: @visit.slots_unavailable?, id: 'no_slot_available', class: 'js-Conditional js-Rejection', 'data-rejection-el': 'rejection-message' }%>
+        <%= f.radio_button :slot_granted, Rejection::SLOT_UNAVAILABLE, { checked: @visit.slots_unavailable?, id: 'no_slot_available', class: 'js-Conditional js-Rejection', 'data-rejection-el': 'rejection-message', 'data-success-el': 'nomis-opt-out' }%>
         <%= f.label :slot_granted, t('.none_available'), for: 'no_slot_available' %>
       </div>
     <% end %>

@@ -13,7 +13,7 @@
   </div>
 <% end %>
 
-<div class="js-visitorList <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>nomis-enabled<% end %>" data-rejection-el="rejection-message">
+<div class="js-visitorList <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>nomis-enabled<% end %>" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
   <ul class="visitor-contact-list push-top">
     <%= f.fields_for :visitors, @visit.principal_visitor do |vf| %>
       <%= render 'visitor_contact', f: f, v: @visit.principal_visitor, vf: vf %>
