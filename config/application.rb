@@ -86,6 +86,8 @@ module PrisonVisits
     config.connection_pool_size =
       config.database_configuration[Rails.env]['pool'] || 5
 
+    config.pvb_team_email = ENV['PVB_TEAM_EMAIL']
+
     config.nomis_staff_prisoner_check_enabled =
       ENV['NOMIS_STAFF_PRISONER_CHECK_ENABLED']&.downcase == 'true'
 
