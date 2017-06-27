@@ -42,6 +42,6 @@ http_interactions:
       encoding: ASCII-8BIT
       string: !binary |-
         R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
-    http_version: 
+    http_version:
   recorded_at: Fri, 30 Jun 2017 13:52:27 GMT
 recorded_with: VCR 3.0.3
