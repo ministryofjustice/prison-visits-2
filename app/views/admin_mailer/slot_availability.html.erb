@@ -1,0 +1,10 @@
+<p>Prisons slot availability - <%= Date.today %></p>
+
+<% @availability.each do |prison_name, data| %>
+  <p>
+    <%= prison_name %><br>
+    <% data.each do |key, count| %>
+      <%= key %>: <%= count %><br>
+    <% end %>
+  </p>
+<% end %>

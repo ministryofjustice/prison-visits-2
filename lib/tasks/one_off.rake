@@ -210,10 +210,12 @@ namespace :pvb do
           next
         end
         check_estate_slot_availability(pool, name)
+        output_slot_availability_results(name)
         SlotAvailabilityCounter.reset
       end
     else
       check_estate_slot_availability(pool, prison_name)
+      output_slot_availability_results(prison_name)
     end
   end
 
@@ -230,34 +232,25 @@ namespace :pvb do
       visit.slots.all? { |s| s.to_date > Time.zone.today }
     }
 
-    non_expired.each do |visit| queue << visit end
+    SlotAvailabilityCounter.visits_checked = non_expired.size
+
+    non_expired.each do |visit|
+      queue << visit
+    end
 
     workers = 2.times.map { new_worker(pool, queue, task) }
     workers.map(&:join)
+  end
 
+  def output_slot_availability_results(prison_name)
     STDOUT.puts "Prison: #{prison_name}"
-    STDOUT.puts "Visits checked: #{non_expired.size}"
+    STDOUT.puts "Visits checked: #{SlotAvailabilityCounter.visits_checked}"
     STDOUT.puts \
       "Visits unavailable: #{SlotAvailabilityCounter.unavailable_visits}"
     STDOUT.puts "Retries: #{SlotAvailabilityCounter.retries}"
     STDOUT.puts "Bad range: #{SlotAvailabilityCounter.bad_range}"
     STDOUT.puts "Unchecked: #{SlotAvailabilityCounter.hard_failures}"
     STDOUT.puts ''
-  end
-
-  desc 'Populate visits friendly id'
-  task populate_visits_human_id: :environment do
-    require 'human_readable_id'
-
-    query = Visit.where(human_id: nil).limit(1000)
-    batch = query.pluck(:id)
-    while batch.any?
-      batch.each do |id|
-        HumanReadableId.update_unique_id(Visit, id, :human_id)
-      end
-
-      batch = query.pluck(:id)
-    end
   end
 
   desc 'Rename IoW SSO organisation name'
@@ -274,10 +267,43 @@ namespace :pvb do
       albany.destroy!
     end
   end
+
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Lint/AssignmentInCondition
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/PerceivedComplexity
+
+  desc 'Email slot availability for outstanding prisons'
+  task email_slot_availability: :environment do
+    pool = ConnectionPool.new(size: 2, timeout: 60) do
+      Nomis::Client.new(Rails.configuration.nomis_api_host,
+        Rails.configuration.nomis_api_token,
+        Rails.configuration.nomis_api_key)
+    end
+
+    prison_data = {}
+
+    Prison.enabled.pluck('name').sort.each do |name|
+      if Rails.
+          configuration.
+          staff_prisons_with_slot_availability.include?(name)
+        next
+      end
+      check_estate_slot_availability(pool, name)
+
+      prison_data[name] = {
+        visits_checked: SlotAvailabilityCounter.visits_checked,
+        unavailable_visits: SlotAvailabilityCounter.unavailable_visits,
+        retries: SlotAvailabilityCounter.retries,
+        hard_failures: SlotAvailabilityCounter.retries,
+        bad_range: SlotAvailabilityCounter.bad_range
+      }
+
+      SlotAvailabilityCounter.reset
+    end
+
+    AdminMailer.slot_availability(prison_data).deliver_now!
+  end
 end
 
 class SlotAvailabilityCounter
@@ -285,11 +311,13 @@ class SlotAvailabilityCounter
   @retries = 0
   @hard_failures = 0
   @bad_range = 0
+  @visits_checked = 0
 
   @mutex = Mutex.new
 
   class << self
     attr_reader :retries, :hard_failures, :unavailable_visits, :bad_range
+    attr_accessor :visits_checked
   end
 
   def self.inc_unavailable_visit
@@ -321,5 +349,6 @@ class SlotAvailabilityCounter
     @retries = 0
     @hard_failures = 0
     @bad_range = 0
+    @visits_checked = 0
   end
 end

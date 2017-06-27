@@ -340,6 +340,10 @@ If specified, exceptions will be sent to the given Sentry project.
 
 If specified, Javascript exceptions will be sent to the given Sentry project.
 
+#### `PVB_TEAM_EMAIL` ####
+
+Email address used in the admin mailer.
+
 #### Files to be created on deployment ####
 
 ##### `META` #####
