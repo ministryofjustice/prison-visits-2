@@ -206,7 +206,8 @@
     },
 
     isContactBanned: function(contact) {
-      return contact.banned == 'true';
+      var isBanned = contact? contact.banned == 'true' : false;
+      return isBanned;
     },
 
     setBanned: function(el, selected) {
