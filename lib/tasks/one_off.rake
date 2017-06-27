@@ -1,4 +1,24 @@
 namespace :pvb do
+  desc 'Merge Isle Of Wight Prisons'
+  task merge_iow: :environment do
+    albany    = Estate.find_by!(nomis_id: 'ALI').prisons.first
+    parkhurst = Estate.find_by!(nomis_id: 'IWI').prisons.first
+
+    while FeedbackSubmission.where(prison_id: albany.id).any?
+      FeedbackSubmission.
+        where(prison_id: albany.id).
+        limit(1000).
+        update_all(prison_id: parkhurst.id)
+    end
+
+    while Visit.where(prison_id: albany.id).any?
+      Visit.
+        where(prison_id: albany.id).
+        limit(1000).
+        update_all(prison_id: parkhurst.id)
+    end
+  end
+
   desc 'Withdraw expired visits'
   task withdraw_expired_visits: :environment do
     require 'highline'
@@ -237,6 +257,21 @@ namespace :pvb do
       end
 
       batch = query.pluck(:id)
+    end
+  end
+
+  desc 'Rename IoW SSO organisation name'
+  task rename_iow_sso_org_name: :environment do
+    iow = Estate.find_by!(nomis_id: 'IWI')
+    iow.update!(sso_organisation_name: 'isle_of_wight.prisons.noms.moj')
+  end
+
+  desc 'Delete Albany'
+  task delete_albany: :environment do
+    albany = Estate.find_by!(nomis_id: 'ALI')
+    Estate.transaction do
+      albany.prisons.destroy_all
+      albany.destroy!
     end
   end
   # rubocop:enable Metrics/MethodLength
