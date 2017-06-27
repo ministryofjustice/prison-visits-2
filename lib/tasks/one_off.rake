@@ -1,6 +1,6 @@
 namespace :pvb do
-  desc 'Merge Isle Of Wight Prisons'
-  task merge_iow: :environment do
+  desc 'Update prison_id foreign keys from ALI to IWI'
+  task update_ali_to_iwi_foreign_keys: :environment do
     albany    = Estate.find_by!(nomis_id: 'ALI').prisons.first
     parkhurst = Estate.find_by!(nomis_id: 'IWI').prisons.first
 
