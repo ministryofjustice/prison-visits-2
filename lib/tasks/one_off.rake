@@ -1,5 +1,4 @@
 namespace :pvb do
-
   desc 'Merge Isle Of Wight Prisons'
   task merge_iow: :environment do
     albany    = Estate.find_by!(nomis_id: 'ALI').prisons.first
