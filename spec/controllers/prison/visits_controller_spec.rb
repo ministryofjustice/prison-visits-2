@@ -136,6 +136,16 @@ RSpec.describe Prison::VisitsController, type: :controller do
             to receive(:send_event)
         end
         it { is_expected.to redirect_to(prison_inbox_path) }
+
+        it 'tracks the visit processing time' do
+          expect(GoogleApiClient).
+            to receive(:new).and_return(google_tracker)
+          expect(google_tracker).
+            to receive(:ga_event).
+                 with(request.user_agent, request.ip, user, estate.prisons.first, 120)
+
+          subject
+        end
       end
 
       context 'with book to nomis related error' do
