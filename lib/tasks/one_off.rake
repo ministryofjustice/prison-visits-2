@@ -113,7 +113,7 @@ namespace :pvb do
 
     begin
       response = client.get(
-        "/prison/#{visit.nomis_id}/slots",
+        "/prison/#{visit.prison.nomis_id}/slots",
         start_date: current_slots.min.to_date - 1.day, # API bug workaround
         end_date: current_slots.max.to_date)
 
@@ -223,8 +223,8 @@ namespace :pvb do
     queue = Queue.new
     task = ->(client, visit) { check_slot_availability(client, visit) }
 
-    visits = Visit.select('visits.*', 'estates.nomis_id nomis_id').
-             joins(prison: :estate).
+    visits = Visit.
+             includes(:prison).
              where(processing_state: 'requested').
              where(prisons: { name: prison_name })
 
