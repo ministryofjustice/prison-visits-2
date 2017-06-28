@@ -53,3 +53,7 @@ p small {
 h1, h2 {
   font: bold 24px Helvetica, Arial, sans-serif;
 }
+
+h3, h4 {
+  font: bold 19px Helvetica, Arial, sans-serif;
+}
