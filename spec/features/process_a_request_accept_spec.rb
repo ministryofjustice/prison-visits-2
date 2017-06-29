@@ -32,9 +32,8 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
       click_button 'Process'
 
       # Renders the form again
-      expect(page).to have_text('Visit details')
-
-      expect(page).to have_content("The prisoner date of birth, prisoner number and prison name have been verified.")
+      expect(page).to have_css('form h1', text: 'Visit details')
+      expect(page).to have_css('form .bold-small', text: "The prisoner date of birth, prisoner number and prison name have been verified.")
       expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
 
       choose_date
@@ -45,7 +44,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
       click_button 'Process'
 
       within "#visitor_#{visitor.id}" do
-        expect(page).to have_content("Process this visitor to continue")
+        expect(page).to have_css('.error-message', text: "Process this visitor to continue")
         select 'IRMA ITSU - 03/04/1975', from: 'Match to contact list'
       end
 
@@ -60,7 +59,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
       click_button 'Process'
 
-      expect(page).to have_text('Thank you for processing the visit')
+      expect(page).to have_css('#content .notification', text: 'Thank you for processing the visit')
 
       vst.reload
       visitor.reload
@@ -85,9 +84,8 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
       click_button 'Process'
 
       # Renders the form again
-      expect(page).to have_text('Visit details')
-
-      expect(page).to have_content("The prisoner date of birth, prisoner number and prison name have been verified.")
+      expect(page).to have_css('form h1', text: 'Visit details')
+      expect(page).to have_css('form .bold-small', text: "The prisoner date of birth, prisoner number and prison name have been verified.")
       expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
 
       choose_date
@@ -97,7 +95,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
       click_button 'Process'
 
-      expect(page).to have_content("We can’t show the NOMIS contact list right now. Please check all visitors in NOMIS")
+      expect(page).to have_css('form .notice', text: "We can’t show the NOMIS contact list right now. Please check all visitors in NOMIS")
     end
   end
 
@@ -121,14 +119,14 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
         it 'informs staff prisoner details are invalid' do
           visit prison_visit_process_path(vst, locale: 'en')
-          expect(page).to have_content("The prisoner date of birth and number do not match.")
+          expect(page).to have_css('form .notice', text: "The prisoner date of birth and number do not match.")
         end
       end
 
       context "when the NOMIS API has an error", vcr: { cassette_name: 'lookup_active_offender-error' } do
         it 'informs staff that the the check had a problem' do
           visit prison_visit_process_path(vst, locale: 'en')
-          expect(page).to have_content("The check couldn't take place due to a system error, please verify manually")
+          expect(page).to have_css('form .notice', text: "The check couldn't take place due to a system error, please verify manually")
         end
       end
     end
@@ -138,8 +136,8 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
       click_button 'Process'
 
       # Renders the form again
-      expect(page).to have_text('Visit details')
-      expect(page).to have_content("The prisoner date of birth, prisoner number and prison name have been verified.")
+      expect(page).to have_css('form h1', text: 'Visit details')
+      expect(page).to have_css('form .bold-small', text: "The prisoner date of birth, prisoner number and prison name have been verified.")
       expect(page).to have_css('.column-one-quarter:nth-child(4) .tag--booked', text: 'Verified')
       expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
 
@@ -159,7 +157,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
       click_button 'Process'
 
-      expect(page).to have_text('Thank you for processing the visit')
+      expect(page).to have_css('#content .notification', text: 'Thank you for processing the visit')
 
       vst.reload
       expect(vst).to be_booked
@@ -197,7 +195,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
         click_button 'Process'
 
-        expect(page).to have_text('Thank you for processing the visit')
+        expect(page).to have_css('#content .notification', text: 'Thank you for processing the visit')
 
         visit prison_visit_path(vst)
 
@@ -205,7 +203,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
         expect(page).to have_css('div.text-secondary', text: 'Ref: 12345678')
 
         within "#visitor_#{visitor.id}" do
-          expect(page).to have_text('Banned')
+          expect(page).to have_css('.tag--error', text: 'Banned')
         end
 
         expect(contact_email_address).
@@ -226,7 +224,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
         click_button 'Process'
 
-        expect(page).to have_text('Thank you for processing the visit')
+        expect(page).to have_css('#content .notification', text: 'Thank you for processing the visit')
 
         vst.reload
         expect(vst).to be_booked
