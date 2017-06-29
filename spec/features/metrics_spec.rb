@@ -67,7 +67,7 @@ RSpec.feature 'Metrics', js: true do
       end
 
       it 'downloads a csv', driver: :rack_test do
-        click_on 'Download confirmed bookings CSV'
+        click_on 'Download latest confirmed bookings (CSV)'
         expect(page.response_headers['Content-Type']).to eq('text/csv')
       end
     end
