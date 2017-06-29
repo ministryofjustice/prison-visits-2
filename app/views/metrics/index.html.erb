@@ -4,11 +4,15 @@
 
 <%= render 'content_for_head' %>
 
-<h1>
-  All time
+<h1 class="heading-xlarge">
+  Visit booking stats
 </h1>
-<h3>
-  <%= link_to 'Download confirmed bookings CSV', action: 'confirmed_bookings', format: :csv  %>
-</h3>
+<p>This page shows visit processing statistics across all prisons.</p>
+<p class="push-bottom">Click and drag a section of each graph to zoom in, and right click to reset the graph. </p>
+
+<h4 class="heading-small">Weekly confirmed bookings</h4>
+<p>
+  <%= link_to 'Download latest confirmed bookings (CSV)', action: 'confirmed_bookings', format: :csv  %>
+</p>
 <%= render 'all_time_graphs' %>
 <%= render 'all_time_table' %>
