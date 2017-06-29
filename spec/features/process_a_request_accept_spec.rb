@@ -6,7 +6,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
   include_context 'process request setup'
 
-  context 'with visitor contact list', vcr: { cassette_name: 'process_happy_path_with_contact_list' } do
+  context 'with visitor contact list' do
     # Leicester has contact list enabled in 'test'
     let(:prison) do
       create(:prison,
@@ -27,7 +27,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
       switch_feature_flag_with(:staff_prisons_with_nomis_contact_list, [prison.name])
     end
 
-    scenario 'accepting a booking' do
+    scenario 'accepting a booking', vcr: { cassette_name: 'process_happy_path_with_contact_list' } do
       visit prison_visit_process_path(vst, locale: 'en')
       click_button 'Process'
 
@@ -75,6 +75,29 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
       visit prison_visit_path(vst, locale: 'en')
       expect(page).to have_css('span', text: 'by joe@example.com')
+    end
+
+    scenario 'accepting a booking but contact list fails', vcr: {
+      cassette_name: 'process_contact_list_fails',
+      allow_playback_repeats: true
+    } do
+      visit prison_visit_process_path(vst, locale: 'en')
+      click_button 'Process'
+
+      # Renders the form again
+      expect(page).to have_text('Visit details')
+
+      expect(page).to have_content("The prisoner date of birth, prisoner number and prison name have been verified.")
+      expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
+
+      choose_date
+
+      fill_in 'Reference number',   with: '12345678'
+      fill_in 'Message (optional)', with: 'A staff message'
+
+      click_button 'Process'
+
+      expect(page).to have_content("We can’t show the NOMIS contact list right now. Please check all visitors in NOMIS")
     end
   end
 
@@ -214,51 +237,6 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
           with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
           and_body(/cannot attend as they are not on the prisoner's contact list/)
       end
-    end
-  end
-
-  context 'contact list fails', vcr: {
-    cassette_name: 'process_contact_list_fails',
-    allow_playback_repeats: true
-  } do
-    # Leicester has contact list enabled in 'test'
-    let(:prison) do
-      create(:prison,
-        name: 'Leicester',
-        email_address: prison_email_address,
-        estate: create(:estate, nomis_id: 'LEI')
-            )
-    end
-    let(:prisoner_number) { 'A1484AE' }
-    let(:prisoner_dob) { '11-11-1971' }
-    let(:visitor) { vst.visitors.first }
-
-    around do |ex|
-      travel_to(Date.new(2017, 6, 5)) { ex.run }
-    end
-
-    before do
-      switch_feature_flag_with(:staff_prisons_with_nomis_contact_list, [prison.name])
-    end
-
-    scenario 'accepting a booking' do
-      visit prison_visit_process_path(vst, locale: 'en')
-      click_button 'Process'
-
-      # Renders the form again
-      expect(page).to have_text('Visit details')
-
-      expect(page).to have_content("The prisoner date of birth, prisoner number and prison name have been verified.")
-      expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
-
-      choose_date
-
-      fill_in 'Reference number',   with: '12345678'
-      fill_in 'Message (optional)', with: 'A staff message'
-
-      click_button 'Process'
-
-      expect(page).to have_content("We can’t show the NOMIS contact list right now. Please check all visitors in NOMIS")
     end
   end
 end
