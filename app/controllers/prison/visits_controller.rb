@@ -11,9 +11,6 @@ class Prison::VisitsController < ApplicationController
 
   def update
     @booking_response = booking_responder.respond!
-
-    booking_response_flash(@booking_response)
-
     if @booking_response.success? || @booking_response.already_processed?
       redirect_to prison_inbox_path
     else
@@ -89,7 +86,7 @@ private
   end
 
   def track_visit_process
-    ga_tracker.send_event if booking_response.success?
+    ga_tracker.send_event if @booking_response.success?
   end
 
   def ga_tracker
