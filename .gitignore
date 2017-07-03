@@ -24,3 +24,5 @@ tags
 .byebug_history
 dump.rdb
 .ruby-gemset
+.wercker
+docker*
