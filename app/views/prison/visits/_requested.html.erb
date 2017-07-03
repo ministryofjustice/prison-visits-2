@@ -1,5 +1,3 @@
-<%= render 'prison/dashboards/navigation' %>
-
 <%= form_for @visit, url: prison_visit_path(@visit), method: :put, html: { class: 'js-SubmitOnce no-form-group js-EmailPreview' } do |f| %>
   <%= f.hidden_field :id  %>
   <%= f.hidden_field :slot_option_0  %>

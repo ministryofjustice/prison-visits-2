@@ -28,7 +28,13 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
     end
 
     scenario 'accepting a booking', vcr: { cassette_name: 'process_happy_path_with_contact_list' } do
-      visit prison_visit_process_path(vst, locale: 'en')
+      # Create the visit before we go to the inbox
+      vst
+
+      visit prison_inbox_path
+      # The most recent requested visit
+      all('tr:not(.hidden-row)').last.click_link('View')
+
       click_button 'Process'
 
       # Renders the form again
@@ -80,7 +86,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
       cassette_name: 'process_contact_list_fails',
       allow_playback_repeats: true
     } do
-      visit prison_visit_process_path(vst, locale: 'en')
+      visit prison_visit_path(vst, locale: 'en')
       click_button 'Process'
 
       # Renders the form again
@@ -118,21 +124,21 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
         let(:prisoner_number) { 'Z9999ZZ' }
 
         it 'informs staff prisoner details are invalid' do
-          visit prison_visit_process_path(vst, locale: 'en')
+          visit prison_visit_path(vst, locale: 'en')
           expect(page).to have_css('form .notice', text: "The prisoner date of birth and number do not match.")
         end
       end
 
       context "when the NOMIS API has an error", vcr: { cassette_name: 'lookup_active_offender-error' } do
         it 'informs staff that the the check had a problem' do
-          visit prison_visit_process_path(vst, locale: 'en')
+          visit prison_visit_path(vst, locale: 'en')
           expect(page).to have_css('form .notice', text: "The check couldn't take place due to a system error, please verify manually")
         end
       end
     end
 
     scenario 'accepting a booking' do
-      visit prison_visit_process_path(vst, locale: 'en')
+      visit prison_visit_path(vst, locale: 'en')
       click_button 'Process'
 
       # Renders the form again
@@ -177,7 +183,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
       before do
         visitor.save!
-        visit prison_visit_process_path(vst, locale: 'en')
+        visit prison_visit_path(vst, locale: 'en')
       end
 
       scenario 'accepting a booking while banning a visitor' do
@@ -197,7 +203,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
 
         expect(page).to have_css('#content .notification', text: 'Thank you for processing the visit')
 
-        visit prison_visit_path(vst)
+        visit prison_visit_path(vst, locale: 'en')
 
         expect(page).to have_css('div.tag--heading', text: 'Booked')
         expect(page).to have_css('div.text-secondary', text: 'Ref: 12345678')
@@ -213,7 +219,7 @@ RSpec.feature 'Processing a request - Acceptance', js: true do
       end
 
       scenario 'accepting a booking while indicating a visitor is not on the list' do
-        visit prison_visit_process_path(vst, locale: 'en')
+        visit prison_visit_path(vst, locale: 'en')
 
         choose_date
         fill_in 'Reference number', with: '12345678'
