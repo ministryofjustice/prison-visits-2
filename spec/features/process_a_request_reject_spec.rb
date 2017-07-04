@@ -15,7 +15,7 @@ RSpec.feature 'Processing a request', js: true do
 
   describe 'rejecting', vcr: { cassette_name: 'process_booking_happy_path' } do
     before do
-      visit prison_visit_process_path(vst, locale: 'en')
+      visit prison_visit_path(vst, locale: 'en')
     end
 
     scenario 'rejecting a booking with no available slot' do

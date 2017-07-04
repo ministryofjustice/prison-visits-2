@@ -83,7 +83,7 @@ RSpec.feature 'Using the dashboard' do
       fill_in 'Search', with: processed_visit.prisoner_number
       find('.button.search').click
 
-      expect(page).to have_css("td a[href='#{prison_visit_process_path(requested_visit, locale: :en)}']")
+      expect(page).to have_css("td a[href='#{prison_visit_path(requested_visit, locale: :en)}']")
       expect(page).to have_css("td a[href='#{prison_visit_path(processed_visit, locale: :en)}']")
     end
 
@@ -98,7 +98,7 @@ RSpec.feature 'Using the dashboard' do
       fill_in 'Search', with: requested_visit.human_id
       find('.button.search').click
 
-      expect(page).to have_css("td a[href='#{prison_visit_process_path(requested_visit, locale: :en)}']")
+      expect(page).to have_css("td a[href='#{prison_visit_path(requested_visit, locale: :en)}']")
     end
 
     it 'finds cancelled visit by human ID' do
@@ -148,7 +148,7 @@ RSpec.feature 'Using the dashboard' do
       choose 'Prisoner has moved prisons'
       click_button 'Cancel visit', match: :first
 
-      visit prison_visit_path(vst)
+      visit prison_visit_path(vst, locale: 'en')
       within '.timeline' do
         expect(page).to have_css('span', text: 'joe@example.com')
       end

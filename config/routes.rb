@@ -29,14 +29,20 @@ Rails.application.routes.draw do
     end
 
     namespace :prison do
-      scope controller: :visits do
-        # Linked from the prison emails
-        get '/visits/:id', action: :process_visit, as: :visit_process
+      resources :visits, only: %i[show update] do
+        member do
+          post 'nomis_cancelled'
+          post 'cancel'
+        end
+
+        resources :messages, only: :create
+        resource :email_preview, only: :update
       end
     end
   end
 
   namespace :prison do
+    ### deprecated, for backwards compatibility. Delete soon after deploying
     resources :visits, only: %i[show update] do
       member do
         post 'nomis_cancelled'
@@ -49,6 +55,7 @@ Rails.application.routes.draw do
     resources :visits, only: [] do
       resource :email_preview, only: :update
     end
+    #######
 
     scope controller: :dashboards do
       get '/inbox', action: :inbox, as: 'inbox'

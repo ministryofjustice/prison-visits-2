@@ -94,7 +94,7 @@ en:
     visits:
       calendar:
         today: Today
-      process_visit:
+      requested:
         title: Visit details
         introduction_html: |
           <p>Make sure you:</p>
@@ -149,7 +149,7 @@ en:
         unknown_text: You must check NOMIS to verify prisoner date of birth and number.
       shared:
         what_we_will_tell: What we’ll tell the visitor
-      show:
+      processed:
         title: Visit details
         ref: Ref
         closed_visit: This is a closed visit

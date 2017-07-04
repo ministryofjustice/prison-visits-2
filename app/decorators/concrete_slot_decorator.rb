@@ -35,7 +35,7 @@ class ConcreteSlotDecorator < Draper::Decorator
           :span,
           I18n.t(
             '.prisoner_available',
-            scope: %w[prison visits process_visit]
+            scope: %w[prison visits requested]
           ),
           class: 'date-box__message bold-xsmall tag tag--verified'
         )
@@ -48,7 +48,7 @@ class ConcreteSlotDecorator < Draper::Decorator
           :span,
           I18n.t(
             '.slot_available',
-            scope: %w[prison visits process_visit]
+            scope: %w[prison visits requested]
           ),
           class: 'date-box__message bold-xsmall tag tag--verified'
         )
@@ -61,7 +61,7 @@ class ConcreteSlotDecorator < Draper::Decorator
           :span,
           I18n.t(
             ".#{error}",
-            scope: %w[prison visits process_visit]
+            scope: %w[prison visits requested]
           ),
           class: 'date-box__message bold-xsmall tag tag--error'
         )

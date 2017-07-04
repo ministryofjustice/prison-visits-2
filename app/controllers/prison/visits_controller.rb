@@ -3,11 +3,7 @@ class Prison::VisitsController < ApplicationController
   before_action :authorize_prison_request
   before_action :authenticate_user
   before_action :cancellation_reason_set, only: :cancel
-  before_action :visit_is_processable, only: %i[process_visit update]
-
-  def process_visit
-    @visit = decorate_visit(memoised_visit)
-  end
+  before_action :visit_is_processable, only: :update
 
   def update
     booking_response = booking_responder.respond!
@@ -19,7 +15,7 @@ class Prison::VisitsController < ApplicationController
       @message = message
       flash[:alert] = t('process_required', scope: %i[prison flash])
       @visit = decorate_visit(memoised_visit)
-      render :process_visit
+      render :show
     end
   end
 
