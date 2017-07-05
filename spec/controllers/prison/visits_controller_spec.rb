@@ -91,7 +91,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     let(:user)   { create(:user) }
 
     context 'security' do
-      before { get :show, id: 1 }
+      subject { get :show, id: 1 }
       it_behaves_like 'disallows untrusted ips'
     end
 
