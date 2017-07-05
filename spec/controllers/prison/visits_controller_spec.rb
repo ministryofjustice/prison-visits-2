@@ -5,93 +5,6 @@ RSpec.describe Prison::VisitsController, type: :controller do
   let(:visit) { FactoryGirl.create(:visit) }
   let(:estate) { visit.prison.estate }
 
-  describe '#process_visit' do
-<<<<<<< HEAD
-<<<<<<< HEAD
-    let(:nowish) { 1.day.ago }
-
-    subject { response }
-=======
-    let(:nowish) { Time.zone.now }
-    subject do
-      travel_to nowish do
-        get :process_visit, id: visit.id, locale: 'en'
-      end
-    end
->>>>>>> record processing start time by logged in user
-
-=======
-    let(:nowish) { 1.day.ago }
-    subject { response }
->>>>>>> WIP
-    context 'when is processable' do
-      context 'and there is no logged in user' do
-        before do
-          get :process_visit, id: visit.id, locale: 'en'
-        end
-
-        it { is_expected.not_to be_successful }
-      end
-
-      context 'and there is a logged in user' do
-        let(:user)                { create(:user) }
-        let(:processing_time_key) { "processing_time-#{visit.id}-#{user.id}"  }
-        let(:parsed_cookie)       { cookies[processing_time_key] }
-
-        before do
-          travel_to nowish do
-            login_user(user, current_estates: [estate])
-            get :process_visit, id: visit.id, locale: 'en'
-          end
-        end
-
-        it { is_expected.to render_template('process_visit') }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> WIP
-
-        it 'sets the processing time cookie' do
-          expect(parsed_cookie).to eq(nowish.to_i)
-        end
-
-        describe 'when re-displaying the page' do
-<<<<<<< HEAD
-          it 'does not override the start time' do
-            expect {
-              get :process_visit, id: visit.id, locale: 'en'
-            }.not_to change { cookies[processing_time_key] }
-          end
-        end
-=======
-        it {
-          ap cookies
-          expect(JSON.parse(cookies[described_class::PROCESSING_TIME_KEY])).
-            to eq({ processing_by: user.id, started_at: nowish.to_i })
-        }
->>>>>>> record processing start time by logged in user
-=======
-
-          it 'does not override the start time' do
-            expect {
-              get :process_visit, id: visit.id, locale: 'en'
-            }.to_not change { cookies[processing_time_key] }
-          end
-        end
->>>>>>> WIP
-      end
-    end
-
-    context 'when is unprocessble' do
-      before do
-        login_user(create(:user), current_estates: [estate])
-        get :process_visit, id: visit.id, locale: 'en'
-      end
-      let!(:visit) { create(:booked_visit) }
-
-      it { is_expected.to redirect_to(prison_inbox_path) }
-    end
-  end
 
   describe '#update' do
     subject do
@@ -137,15 +50,6 @@ RSpec.describe Prison::VisitsController, type: :controller do
         end
         it { is_expected.to redirect_to(prison_inbox_path) }
 
-        it 'tracks the visit processing time' do
-          expect(GoogleApiClient).
-            to receive(:new).and_return(google_tracker)
-          expect(google_tracker).
-            to receive(:ga_event).
-                 with(request.user_agent, request.ip, user, estate.prisons.first, 120)
-
-          subject
-        end
       end
 
       context 'with book to nomis related error' do
@@ -182,23 +86,39 @@ RSpec.describe Prison::VisitsController, type: :controller do
   end
 
   describe '#show' do
-    subject { get :show, id: visit.id }
 
-    let(:user) { FactoryGirl.create(:user) }
+    let(:nowish) { Time.zone.now }
+    let(:user)   { create(:user) }
 
     it_behaves_like 'disallows untrusted ips'
 
     context "when logged in" do
+
       before do
-        login_user(user, current_estates: [estate])
+        travel_to nowish do
+          login_user(user, current_estates: [estate])
+          get :show, id: visit.id
+        end
       end
 
-      it { is_expected.to render_template('show') }
-      it { is_expected.to be_successful }
+      it { expect(response).to render_template('show') }
+      it { expect(response).to be_successful }
+
+      context 'with a processable visit' do
+        let(:processing_time_key) { "processing_time-#{visit.id}-#{user.id}"  }
+        let(:parsed_cookie)       { cookies[processing_time_key] }
+
+        it "sets the visit processing time cookie" do
+          expect(parsed_cookie).to eq(nowish.to_i)
+        end
+      end
     end
 
     context "when logged out" do
-      it { is_expected.not_to be_successful }
+
+      before { get :show, id: visit.id }
+
+      it { expect(response).not_to be_successful }
     end
   end
 

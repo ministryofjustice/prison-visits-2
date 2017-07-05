@@ -7,15 +7,19 @@ class Prison::VisitsController < ApplicationController
   before_action :authenticate_user
   before_action :cancellation_reason_set, only: :cancel
   before_action :visit_is_processable, only: :update
+  before_action :set_visit_processing_time_cookie, only: :show
   after_action  :track_visit_process, only: :update
 
   def update
     @booking_response = booking_responder.respond!
+
+    booking_response_flash(@booking_response)
+
     if @booking_response.success? || @booking_response.already_processed?
       redirect_to prison_inbox_path
     else
-      @message = message # Always decorate object last once they've been mutated
-      flash[:alert] = t('process_required', scope: %i[prison flash])
+      # Always decorate object last once they've been mutated
+      @message = message
       @visit = decorate_visit(memoised_visit)
       render :show
     end
@@ -87,6 +91,11 @@ private
 
   def track_visit_process
     ga_tracker.send_event if @booking_response.success?
+  end
+
+  def set_visit_processing_time_cookie
+    return unless memoised_visit.processable?
+    ga_tracker.set_visit_processing_time_cookie
   end
 
   def ga_tracker
