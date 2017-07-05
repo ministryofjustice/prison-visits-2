@@ -90,7 +90,10 @@ RSpec.describe Prison::VisitsController, type: :controller do
     let(:nowish) { Time.zone.now }
     let(:user)   { create(:user) }
 
-    it_behaves_like 'disallows untrusted ips'
+    context 'security' do
+      before { get :show, id: 1 }
+      it_behaves_like 'disallows untrusted ips'
+    end
 
     context "when logged in" do
 
