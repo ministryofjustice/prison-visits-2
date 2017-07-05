@@ -1,19 +1,23 @@
 class Prison::VisitsController < ApplicationController
   include StaffResponseContext
+
+  helper_method :book_to_nomis_config
+
   before_action :authorize_prison_request
   before_action :authenticate_user
   before_action :cancellation_reason_set, only: :cancel
   before_action :visit_is_processable, only: :update
 
   def update
-    booking_response = booking_responder.respond!
-    if booking_response.success?
-      flash[:notice] = t('process_thank_you', scope: %i[prison flash])
+    @booking_response = booking_responder.respond!
+
+    booking_response_flash(@booking_response)
+
+    if @booking_response.success? || @booking_response.already_processed?
       redirect_to prison_inbox_path
     else
       # Always decorate object last once they've been mutated
       @message = message
-      flash[:alert] = t('process_required', scope: %i[prison flash])
       @visit = decorate_visit(memoised_visit)
       render :show
     end
@@ -49,9 +53,17 @@ class Prison::VisitsController < ApplicationController
 
 private
 
+  def booking_response_flash(booking_response)
+    if booking_response.success?
+      flash[:notice] = t('process_thank_you', scope: [:prison, :flash])
+    else
+      flash[:alert] = t("#{booking_response.message}_html", scope: [:prison, :flash])
+    end
+  end
+
   def visit_is_processable
     unless memoised_visit.processable?
-      flash[:notice] = t('already_processed', scope: %i[prison flash])
+      flash[:notice] = t('already_processed_html', scope: %i[prison flash])
       redirect_to prison_inbox_path
     end
   end

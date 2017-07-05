@@ -69,7 +69,7 @@ RSpec.describe CreateNomisVisit do
       let(:booking) { Nomis::Booking.new(error_message: error_message) }
 
       it { expect(subject.execute).not_to be_success }
-      it { expect(subject.execute).to have_attributes(message: BookingResponse::ALREADY_PROCESSED_ERROR) }
+      it { expect(subject.execute).to have_attributes(message: BookingResponse::ALREADY_BOOKED_IN_NOMIS_ERROR) }
     end
   end
 

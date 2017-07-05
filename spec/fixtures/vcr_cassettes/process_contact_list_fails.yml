@@ -76,7 +76,7 @@ http_interactions:
   recorded_at: Sun, 04 Jun 2017 23:00:00 GMT
 - request:
     method: get
-    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/unavailability?dates=2017-06-12
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/unavailability?dates=2017-06-27
     body:
       encoding: US-ASCII
       string: ''
@@ -108,7 +108,7 @@ http_interactions:
       - "/offenders/{offender_id}/visits/unavailability"
     body:
       encoding: ASCII-8BIT
-      string: '{"2017-06-12":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
+      string: '{"2017-06-27":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
     http_version: 
   recorded_at: Sun, 04 Jun 2017 23:00:00 GMT
 - request:
@@ -227,7 +227,7 @@ http_interactions:
   recorded_at: Sun, 04 Jun 2017 23:00:00 GMT
 - request:
     method: get
-    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/unavailability?dates=2017-06-12
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/unavailability?dates=2017-06-27
     body:
       encoding: US-ASCII
       string: ''
@@ -259,7 +259,7 @@ http_interactions:
       - "/offenders/{offender_id}/visits/unavailability"
     body:
       encoding: ASCII-8BIT
-      string: '{"2017-06-12":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
+      string: '{"2017-06-27":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
     http_version: 
   recorded_at: Sun, 04 Jun 2017 23:00:00 GMT
 - request:
@@ -378,7 +378,7 @@ http_interactions:
   recorded_at: Sun, 04 Jun 2017 23:00:00 GMT
 - request:
     method: get
-    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/unavailability?dates=2017-06-12
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/unavailability?dates=2017-06-27
     body:
       encoding: US-ASCII
       string: ''
@@ -410,7 +410,7 @@ http_interactions:
       - "/offenders/{offender_id}/visits/unavailability"
     body:
       encoding: ASCII-8BIT
-      string: '{"2017-06-12":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
+      string: '{"2017-06-27":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
     http_version: 
   recorded_at: Sun, 04 Jun 2017 23:00:00 GMT
 - request:

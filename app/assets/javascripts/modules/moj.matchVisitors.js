@@ -125,6 +125,7 @@
         moj.Modules.Rejection.addToSelected(this.$el);
       }
       moj.Modules.Rejection.actuate(this.$el);
+      moj.Modules.BookToNomis.render();
     },
 
     checkTotalVisitors: function() {
@@ -205,7 +206,8 @@
     },
 
     isContactBanned: function(contact) {
-      return contact.banned == 'true';
+      var isBanned = contact? contact.banned == 'true' : false;
+      return isBanned;
     },
 
     setBanned: function(el, selected) {

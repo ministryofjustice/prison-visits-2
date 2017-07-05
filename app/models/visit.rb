@@ -1,6 +1,7 @@
 class Visit < ActiveRecord::Base
   extend FreshnessCalculations
   include PrincipalVisitor
+
   belongs_to :prison
   belongs_to :prisoner
   has_many :visitors, dependent: :destroy
@@ -57,6 +58,7 @@ class Visit < ActiveRecord::Base
 
   accepts_nested_attributes_for :messages, :rejection, reject_if: :all_blank
   accepts_nested_attributes_for :visitors, update_only: true
+  accepts_nested_attributes_for :prisoner, update_only: true
   state_machine :processing_state, initial: :requested do
     after_transition do |visit|
       visit.visit_state_changes <<

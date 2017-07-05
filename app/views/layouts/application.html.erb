@@ -64,9 +64,9 @@
     <% end %>
 
     <% if alert.present? %>
-        <p class="notification">
-            <%= alert %>
-        </p>
+      <div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
+        <%= alert.html_safe %>
+      </div>
     <% end %>
     <%= yield :prison_switcher %>
 

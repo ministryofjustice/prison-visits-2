@@ -6,7 +6,7 @@ RSpec.describe BookingResponder do
   let(:visit)            { create(:visit_with_three_slots) }
   let(:staff_response)   { StaffResponse.new(visit: visit) }
   let(:message)          { nil }
-  let(:options)          { { validate_visitors_nomis_ready: nil } }
+  let(:options)          { { validate_visitors_nomis_ready: nil, persist_to_nomis: 'false' } }
 
   describe 'with a requested visit' do
     let(:accept_processor) { spy(BookingResponder::Accept) }
@@ -19,10 +19,11 @@ RSpec.describe BookingResponder do
 
     context 'when a booking is bookable' do
       before do
-        staff_response.visit.slot_granted = visit.slot_option_0
-        expect(staff_response).to be_valid
+        visit.slot_granted = visit.slot_option_0
 
-        expect(BookingResponder::Accept).to receive(:new).
+        expect(BookingResponder::Accept).
+          to receive(:new).
+          with(instance_of(StaffResponse), hash_including(persist_to_nomis: false)).
           and_return(accept_processor)
         allow(VisitorMailer).to receive(:booked).
           and_return(visitor_mailer)
@@ -42,8 +43,7 @@ RSpec.describe BookingResponder do
 
     context 'when a booking is not bookable' do
       before do
-        staff_response.visit.slot_granted = Rejection::SLOT_UNAVAILABLE
-        expect(staff_response).to be_valid
+        visit.slot_granted = Rejection::SLOT_UNAVAILABLE
 
         expect(BookingResponder::Accept).not_to receive(:new)
         expect(BookingResponder::Reject).to receive(:new).
@@ -52,7 +52,7 @@ RSpec.describe BookingResponder do
           and_return(visitor_mailer)
       end
 
-      it 'accepts the booking' do
+      it 'rejects the booking' do
         subject.respond!
         expect(reject_processor).to have_received(:process_request)
       end

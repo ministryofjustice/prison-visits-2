@@ -7,6 +7,7 @@ module Nomis
 
     def self.build(response)
       if response.key?('error')
+
         new(error_message: response['error']['message'])
       else
         new(visit_id: response['visit_id'])

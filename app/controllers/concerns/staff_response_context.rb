@@ -1,6 +1,16 @@
 module StaffResponseContext
   extend ActiveSupport::Concern
 
+  def book_to_nomis_config
+    @book_to_nomis_config ||=
+      BookToNomisConfig.new(
+        staff_nomis_checker,
+        memoised_visit.prison_name,
+        params[:book_to_nomis_opted_in],
+        @booking_response&.already_booked_in_nomis?
+      )
+  end
+
 private
 
   def memoised_visit
@@ -59,13 +69,21 @@ private
         :nomis_id,
         :banned,
         :not_on_list,
-        banned_until: %i[day month year]
-      ]
+        banned_until: [:day, :month, :year]
+      ],
+      prisoner_attributes: [:nomis_offender_id]
     )
   end
   # rubocop:enable Metrics/MethodLength
 
   def booking_responder_opts
-    { validate_visitors_nomis_ready: params[:validate_visitors_nomis_ready] }
+    {
+      validate_visitors_nomis_ready: params[:validate_visitors_nomis_ready],
+      persist_to_nomis: persist_to_nomis
+    }
+  end
+
+  def persist_to_nomis
+    params[:book_to_nomis_opted_in]
   end
 end

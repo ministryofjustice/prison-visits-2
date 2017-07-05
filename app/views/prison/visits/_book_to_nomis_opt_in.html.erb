@@ -1,0 +1,35 @@
+<div class="panel" id="nomis-opt-out">
+  <% if book_to_nomis_config.possible_to_book? %>
+    <p>
+      <%= t(".book_to_nomis_opted_in_by_default") %>
+    </p>
+    <%= hidden_field_tag :book_to_nomis_opted_in, true %>
+    <fieldset>
+      <div class="multiple-choice push-bottom">
+        <%= check_box_tag :book_to_nomis_opted_in, false, !book_to_nomis_config.opted_in?, class: 'js-BookToNomis', 'data-el': 'booktonomis-message', id: 'book_to_nomis_opt_in' %>
+        <label for="book_to_nomis_opt_in"><%= t('.dont_book_to_nomis') %></label>
+      </div>
+    </fieldset>
+  <% else %>
+    <% if book_to_nomis_config.already_booked_in_nomis? %>
+      <p>
+        <%= t(".already_booked_in_nomis") %>
+      </p>
+    <% else %>
+      <p>
+        <%= t(".book_to_nomis_not_possible") %>
+      </p>
+    <% end %>
+  <% end %>
+
+  <div id="booktonomis-message" class="push-top">
+    <div class="grid-row">
+      <div class="column-one-half">
+        <div id="selected_slot_details" class="">
+          <%= single_field f, :reference_no, :text_field, class: 'form-control' %>
+          <%= single_field f, :closed, :check_box  %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,9 +4,8 @@
   moj.Modules.Rejection = {
     el: '.js-Rejection',
 
-    selected: [],
-
     init: function () {
+      this.selected = [];
       this.cacheEls();
       this.bindEvents();
     },
@@ -42,6 +41,10 @@
       this.isChecked($el)? this.addToSelected($el) : this.removeFromSelected($el);
     },
 
+    isRejected: function(){
+      return this.selected.length > 0;
+    },
+
     isChecked: function($el){
       return $el.prop('checked');
     },
@@ -57,19 +60,31 @@
     },
 
     actuate: function($el){
-      var $conditionalEl = this.conditionals($el.data('rejectionEl'));
+      var $rejectionEl = this.conditionals($el.data('rejectionEl')),
+        $successEl = this.conditionals($el.data('successEl'));
 
       if(this.selected.length > 0){
-        $conditionalEl.show();
-        $conditionalEl.attr('aria-expanded', 'true').attr('aria-hidden', 'false');
+        this.show($rejectionEl);
+        this.hide($successEl);
       } else {
-        $conditionalEl.hide();
-        $conditionalEl.attr('aria-expanded', 'false').attr('aria-hidden', 'true');
+        this.hide($rejectionEl);
+        this.show($successEl);
       }
+      moj.Modules.BookToNomis.render();
     },
 
     conditionals: function(string) {
       return $(string ? '#' + string.split(',').join(',#') : null);
+    },
+
+    show: function($el){
+      $el.show();
+      $el.attr('aria-expanded', 'true').attr('aria-hidden', 'false');
+    },
+
+    hide: function($el){
+      $el.hide();
+      $el.attr('aria-expanded', 'false').attr('aria-hidden', 'true');
     }
   };
 }());

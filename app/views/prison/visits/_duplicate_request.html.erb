@@ -4,7 +4,11 @@
 
 <%= error_container f, :reasons do %>
   <div class="multiple-choice">
-    <%= f.object.checkbox_for :duplicate_visit_request, id: :duplicate_visit_request, class: 'js-Rejection', 'data-rejection-el': 'rejection-message' %>
+    <%= f.object.checkbox_for :duplicate_visit_request,
+      id: :duplicate_visit_request,
+      class: 'js-Rejection',
+      'data-rejection-el': 'rejection-message',
+      'data-success-el': 'nomis-opt-out' %>
     <%= f.label t('.duplicate_visit_request'), for: :duplicate_visit_request %>
   </div>
 <% end %>

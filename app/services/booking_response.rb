@@ -1,5 +1,6 @@
 class BookingResponse
   ALREADY_PROCESSED_ERROR = 'already_processed'.freeze
+  ALREADY_BOOKED_IN_NOMIS_ERROR = 'already_booked_in_nomis'.freeze
   PROCESS_REQUIRED_ERROR = 'process_required'.freeze
   NOMIS_VALIDATION_ERROR = 'nomis_validation_error'.freeze
   NOMIS_API_ERROR = 'nomis_api_error'.freeze
@@ -27,6 +28,10 @@ class BookingResponse
     new(ALREADY_PROCESSED_ERROR)
   end
 
+  def self.already_booked_in_nomis
+    new(ALREADY_BOOKED_IN_NOMIS_ERROR)
+  end
+
   def initialize(message)
     self.message = message
   end
@@ -37,6 +42,10 @@ class BookingResponse
 
   def already_processed?
     message == ALREADY_PROCESSED_ERROR
+  end
+
+  def already_booked_in_nomis?
+    message == ALREADY_BOOKED_IN_NOMIS_ERROR
   end
 
 private

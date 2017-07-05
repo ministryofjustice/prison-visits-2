@@ -8,11 +8,12 @@ class BookingResponder
       validate_visitors_nomis_ready: options[:validate_visitors_nomis_ready])
 
     self.message = message
+    self.persist_to_nomis = options[:persist_to_nomis]
   end
 
   def respond!
     unless staff_response.valid?
-      return BookingResponse.new(success: false)
+      return BookingResponse.process_required
     end
 
     booking_response = processor.process_request(message)
@@ -41,7 +42,7 @@ private
         BookingResponder::Accept
       else
         BookingResponder::Reject
-      end.new(staff_response)
+      end.new(staff_response, processor_opts)
     end
   end
 
@@ -56,5 +57,18 @@ private
   def bookable?
     (visit.rejection.nil? || visit.rejection.invalid?) &&
       visit.slot_granted?
+  end
+
+  def persist_to_nomis=(val)
+    # TODO: Changes in Rails 5 to `ActiveRecord::Type::Boolean.new.cast(string)`
+    @persist_to_nomis = ActiveRecord::Type::Boolean.new.type_cast_from_database(val)
+  end
+
+  def persist_to_nomis?
+    !!@persist_to_nomis
+  end
+
+  def processor_opts
+    { persist_to_nomis: persist_to_nomis? }
   end
 end

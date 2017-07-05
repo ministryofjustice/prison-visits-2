@@ -44,6 +44,10 @@ describe('Check if a visit will be rejected', function() {
       expect($('#visit_rejection_attributes_reasons_prisoner_details_incorrect')).toBeChecked();
     });
 
+    it('should hide the NOMIS opt out checkbox', function() {
+      expect($('#nomis-opt-out')).not.toBeVisible();
+    });
+
     it('should show the rejection warning message', function() {
       expect($('#rejection-message')).toBeVisible();
     });
@@ -56,6 +60,10 @@ describe('Check if a visit will be rejected', function() {
 
       beforeEach(function(){
         $('#visit_rejection_attributes_reasons_prisoner_details_incorrect').trigger('click');
+      });
+
+      it('should show the NOMIS opt out checkbox', function() {
+        expect($('#nomis-opt-out')).toBeVisible();
       });
 
       it('should hide the rejection warning message', function(){
@@ -80,6 +88,10 @@ describe('Check if a visit will be rejected', function() {
       moj.Modules.Rejection.selected = [];
       moj.Modules.MatchVisitors.init();
       $('#visitors-fixture li:eq(0) select').val('12588').trigger('change');
+    });
+
+    it('should hide the NOMIS opt out checkbox', function() {
+      expect($('#nomis-opt-out')).not.toBeVisible();
     });
 
     it('should show the rejection warning message', function(){
