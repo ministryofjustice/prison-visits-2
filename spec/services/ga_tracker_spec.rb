@@ -42,7 +42,7 @@ RSpec.describe GATracker do
             utl: user.id,
             cd1: "slot_unavailable"
           ),
-          headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => 'excon/0.57.0' }
+          headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
            )
       expect(cookies[processing_time_key]).to be_nil
     end
