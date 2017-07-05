@@ -5,7 +5,6 @@ RSpec.describe Prison::VisitsController, type: :controller do
   let(:visit) { FactoryGirl.create(:visit) }
   let(:estate) { visit.prison.estate }
 
-
   describe '#update' do
     subject do
       put :update,
@@ -49,7 +48,6 @@ RSpec.describe Prison::VisitsController, type: :controller do
             to receive(:send_event)
         end
         it { is_expected.to redirect_to(prison_inbox_path) }
-
       end
 
       context 'with book to nomis related error' do
@@ -86,17 +84,16 @@ RSpec.describe Prison::VisitsController, type: :controller do
   end
 
   describe '#show' do
-
     let(:nowish) { Time.zone.now }
     let(:user)   { create(:user) }
 
     context 'security' do
       subject { get :show, id: 1 }
+
       it_behaves_like 'disallows untrusted ips'
     end
 
     context "when logged in" do
-
       before do
         travel_to nowish do
           login_user(user, current_estates: [estate])
@@ -118,8 +115,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     end
 
     context "when logged out" do
-
-      before { get :show, id: visit.id }
+      before do get :show, id: visit.id end
 
       it { expect(response).not_to be_successful }
     end
