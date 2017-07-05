@@ -1,52 +1,73 @@
 class GATracker
-
   ENDPOINT = URI.parse('https://www.google-analytics.com/collect').freeze
 
-  def initialize(user, prison)
-    self.user_agent      = request.user_agent
-    self.ip              = request.ip
+  def initialize(user, visit, cookies, request)
+    self.user            = user
+    self.visit           = visit
+    self.prison          = visit.prison
+    self.cookies         = cookies
+    self.request         = request
     self.web_property_id = Rails.application.config.ga_id
   end
 
-  def send_event(request)
-    data = payload_data(user, prison, value)
+  def set_visit_processing_time_cookie
+    cookies[processing_time_key] ||= {
+      value: Time.zone.now.to_i, expires: 1.week.from_now
+    }
+  end
+
+  def send_event
     client.post(
       path: ENDPOINT.path,
       headers: {
-        'Content-Type' => 'application/x-www-form-urlencoded',
+        'Content-Type' => 'application/x-www-form-urlencoded'
 
       },
-      body: URI.encode_www_form(data)
+      body: URI.encode_www_form(payload_data)
     )
+    delete_visit_processing_time_cookie
   end
 
-  private
-  attr_accessor :web_property_id, :user_agent, :ip
+private
+
+  attr_accessor :web_property_id, :user, :prison, :visit, :cookies, :request
 
   def client
     @client ||= Excon.new(ENDPOINT.to_s, persistent: true)
   end
 
   def value
-    (Time.zone.now - start_time).to_i
-  end
-  def start_time
-    request.cookies
+    return -1 unless start_time
+    (Time.zone.now - start_time).to_i * 1000
   end
 
-  def payload_data(user_agent, ip, user, prison, value)
+  def start_time
+    Time.zone.at(cookies[processing_time_key])
+  rescue
+    nil
+  end
+
+  def ip
+    request.remote_ip
+  end
+
+  def user_agent
+    request.user_agent
+  end
+
+  def payload_data
     {
-      v:   1,
-      uip: ip,
-      tid: web_property_id,
-      cid: SecureRandom.base64,
-      ua:  user_agent,
-      t:   'timing',
-      utc: prison.name,
-      utv: 'Process',
-      utt: value,
-      utl: user.id
+      v: 1, uip: ip, tid: web_property_id, cid: cookies['_ga'] || SecureRandom.base64,
+      ua:  user_agent, t: 'timing', utc: prison.name, utv: visit.processing_state,
+      utt: value, utl: user.id, cd1: visit.rejection&.reasons&.sort&.join('-') || ''
     }
   end
 
+  def processing_time_key
+    "processing_time-#{visit.id}-#{user.id}"
+  end
+
+  def delete_visit_processing_time_cookie
+    cookies.delete(processing_time_key)
+  end
 end
