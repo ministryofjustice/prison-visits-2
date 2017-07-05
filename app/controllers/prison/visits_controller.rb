@@ -85,10 +85,6 @@ private
     end
   end
 
-  def start_tracking_visit_process
-    ga_tracker.set_visit_processing_time_cookie
-  end
-
   def track_visit_process
     ga_tracker.send_event if @booking_response.success?
   end
