@@ -17,6 +17,7 @@ class GATracker
   end
 
   def send_event
+    return unless value
     client.post(
       path: ENDPOINT.path,
       headers: {
@@ -37,7 +38,7 @@ private
   end
 
   def value
-    return -1 unless start_time
+    return unless start_time
     (Time.zone.now - start_time).to_i * 1000
   end
 
