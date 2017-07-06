@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170608082243) do
+ActiveRecord::Schema.define(version: 20170706150304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,7 +99,6 @@ ActiveRecord::Schema.define(version: 20170608082243) do
     t.uuid "visit_id", null: false
     t.date "allowance_renews_on"
     t.date "privileged_allowance_expires_on"
-    t.string "reason"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "reasons", default: [], array: true
