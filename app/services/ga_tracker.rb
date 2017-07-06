@@ -19,12 +19,9 @@ class GATracker
   def send_event
     return unless value
     client.post(
-      path: ENDPOINT.path,
-      headers: {
-        'Content-Type' => 'application/x-www-form-urlencoded'
-
-      },
-      body: URI.encode_www_form(payload_data)
+      path:    ENDPOINT.path,
+      headers: { 'Content-Type' => 'application/x-www-form-urlencoded' },
+      body:    URI.encode_www_form(payload_data)
     )
     delete_visit_processing_time_cookie
   end
