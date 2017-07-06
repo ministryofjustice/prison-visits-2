@@ -16,7 +16,9 @@ class RejectionDecorator < Draper::Decorator
             date_to_accessible_date(object.allowance_renews_on)
           )
         else
-          AccessibleDate.new
+          AccessibleDate.from_multi_parameters(
+            allowance_renews_on_before_type_cast
+          )
         end
       end
   end

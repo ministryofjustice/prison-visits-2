@@ -134,6 +134,14 @@ RSpec.describe RejectionDecorator do
       it 'has the correct date' do
         expect(subject.allowance_renews_on.to_date).to eq(allowance_renews_on)
       end
+
+      context 'with an invalid date' do
+        let(:allowance_renews_on) { { 1 => 1, 2 => 2, 3 => nil } }
+
+        it 'retains the date pars' do
+          expect(subject.allowance_renews_on).to have_attributes({ year: 1, month: 2, day: nil })
+        end
+      end
     end
 
     context 'with no date' do
@@ -145,14 +153,6 @@ RSpec.describe RejectionDecorator do
 
       it 'is nil' do
         expect(subject.allowance_renews_on.to_date).to eq(nil)
-      end
-    end
-
-    context 'with an invalid date' do
-      let(:allowance_renews_on) { { 1 => 1, 2 => 2, 3 => nil } }
-
-      it 'retains the date pars' do
-        expect(subject.allowance_renews_on).to have_attributes({ year: 1, month: 2, day: nil })
       end
     end
   end
