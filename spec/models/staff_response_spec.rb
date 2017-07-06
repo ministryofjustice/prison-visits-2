@@ -63,14 +63,6 @@ RSpec.describe StaffResponse, type: :model do
         end
       end
 
-      context 'given an invalid date' do
-
-        it 'does not convert to a date' do
-          multi_params_date['allowance_renews_on(1i)'] = ''
-          is_expected.to be_invalid
-          expect(subject.visit.rejection.allowance_renews_on).to eq(multi_param_date)
-        end
-      end
     end
   end
 
@@ -283,7 +275,7 @@ RSpec.describe StaffResponse, type: :model do
 
       before do
         params[:rejection_attributes][:reasons] = [Rejection::NO_ALLOWANCE]
-        params[:rejection_attributes].merge(multi_params_date)
+        params[:rejection_attributes].merge!(multi_params_date)
 
         expected_params['rejection_attributes'] = {
           'id'                              => nil,
