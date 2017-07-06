@@ -35,7 +35,6 @@ class Rejection < ActiveRecord::Base
 
   validate :validate_reasons
   validates :reasons, presence: true
-  validate :validate_allowance_renews_on_date
 
   # TODO: Delete me when the column has dropped
   def self.columns
@@ -46,24 +45,7 @@ class Rejection < ActiveRecord::Base
     allowance_renews_on.is_a?(Date)
   end
 
-  def allowance_renews_on=(accessible_date)
-    date = AccessibleDate.new(accessible_date)
-    if date.valid?
-      super(date.to_date)
-    else
-      super(accessible_date)
-    end
-  rescue
-    super DateCoercer.coerce(accessible_date)
-  end
-
 private
-
-  def validate_allowance_renews_on_date
-    if no_allowance? && !acceptable_allowance_renews_on_date?
-      errors.add(:allowance_renews_on, :invalid)
-    end
-  end
 
   def validate_reasons
     reasons.each do |r|
@@ -76,13 +58,5 @@ private
         )
       )
     end
-  end
-
-  def acceptable_allowance_renews_on_date?
-    allowance_renews_on.is_a?(Date) || allowance_renews_on.nil?
-  end
-
-  def no_allowance?
-    reasons.include?(Rejection::NO_ALLOWANCE)
   end
 end

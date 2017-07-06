@@ -61,7 +61,9 @@ private
       :principal_visitor_id, :processing_state, :id,
       visitor_ids: [],
       rejection_attributes: [
-        allowance_renews_on: %i[day month year],
+        "allowance_renews_on(1i)",
+        "allowance_renews_on(2i)",
+        "allowance_renews_on(3i)",
         reasons: []
       ],
       visitors_attributes:  [
