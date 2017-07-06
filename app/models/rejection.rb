@@ -35,12 +35,18 @@ class Rejection < ActiveRecord::Base
 
   validate :validate_reasons
   validates :reasons, presence: true
-
+  validate :validate_allowance_renews_on_date
   def allowance_will_renew?
     allowance_renews_on.is_a?(Date)
   end
 
 private
+
+  def validate_allowance_renews_on_date
+    if no_allowance? && !acceptable_allowance_renews_on_date?
+      errors.add(:allowance_renews_on, :invalid)
+    end
+  end
 
   def validate_reasons
     reasons.each do |r|
@@ -53,5 +59,19 @@ private
         )
       )
     end
+  end
+
+  def acceptable_allowance_renews_on_date?
+    allowance_renews_on.is_a?(Date) || as_accessible_date.valid?
+  end
+
+  def no_allowance?
+    reasons.include?(Rejection::NO_ALLOWANCE)
+  end
+
+  def as_accessible_date
+    AccessibleDate.from_multi_parameters(
+      allowance_renews_on_before_type_cast
+    )
   end
 end

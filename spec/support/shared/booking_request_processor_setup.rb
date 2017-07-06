@@ -17,11 +17,7 @@ RSpec.shared_context 'staff response setup' do
       visitor_ids:          visit.visitor_ids,
       reference_no:         'A1234BC',
       closed:               [true, false].sample,
-      rejection_attributes: {
-        allowance_renews_on: {
-          day: '', month: '', year: ''
-        }
-      },
+      rejection_attributes: {},
       visitors_attributes:  {
         '0' => principal_visitor.attributes.slice(*visitor_fields).
           merge('banned_until' => principal_visitor.banned_until.to_s)
