@@ -83,7 +83,6 @@ GEM
       safe_yaml (~> 1.0.0)
     css_parser (1.5.0)
       addressable
-    database_cleaner (1.6.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.3)
@@ -107,9 +106,6 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffaker (2.6.0)
     ffi (1.9.18)
-    fuubar (2.2.0)
-      rspec-core (~> 3.0)
-      ruby-progressbar (~> 1.4)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     govuk_elements_rails (3.0.2)
@@ -225,10 +221,6 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 5.1.2)
       sprockets-rails (>= 2.0.0)
-    rails-controller-testing (1.0.2)
-      actionpack (~> 5.x, >= 5.0.1)
-      actionview (~> 5.x, >= 5.0.1)
-      activesupport (~> 5.x)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -376,12 +368,10 @@ DEPENDENCIES
   byebug
   capybara
   connection_pool
-  database_cleaner
   draper
   excon
   factory_girl_rails
   ffaker
-  fuubar
   govuk_elements_rails
   govuk_frontend_toolkit
   govuk_template
@@ -407,7 +397,6 @@ DEPENDENCIES
   puma
   pvb-instrumentation!
   rails (~> 5.1)
-  rails-controller-testing
   rake
   request_store
   rspec-collection_matchers
