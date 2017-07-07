@@ -1,4 +1,4 @@
-class AlterVisitChangeSpellingOfCanceledToCancelled < ActiveRecord::Migration
+class AlterVisitChangeSpellingOfCanceledToCancelled < ActiveRecord::Migration[4.2]
   def up
     execute <<-SQL
       UPDATE visits SET processing_state = 'cancelled'

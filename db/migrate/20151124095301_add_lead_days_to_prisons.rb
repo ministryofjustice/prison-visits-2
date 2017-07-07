@@ -1,4 +1,4 @@
-class AddLeadDaysToPrisons < ActiveRecord::Migration
+class AddLeadDaysToPrisons < ActiveRecord::Migration[4.2]
   def up
     add_column :prisons, :lead_days, :integer
     execute 'UPDATE prisons SET lead_days = 3'

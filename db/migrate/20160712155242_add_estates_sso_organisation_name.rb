@@ -1,4 +1,4 @@
-class AddEstatesSsoOrganisationName < ActiveRecord::Migration
+class AddEstatesSsoOrganisationName < ActiveRecord::Migration[4.2]
   def change
     add_column :estates, :sso_organisation_name, :string
   end

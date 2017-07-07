@@ -2,6 +2,7 @@ module PercentileSerialisation
   extend ActiveSupport::Concern
 
   def as_json(*_args)
+    byebug
     {
       date: date,
       ninety_fifth_percentile: (percentiles.first.to_f / 1.day.to_f),

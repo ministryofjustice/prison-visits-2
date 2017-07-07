@@ -1,4 +1,4 @@
-class AddDatetimesForTrackingMetricsToVisit < ActiveRecord::Migration
+class AddDatetimesForTrackingMetricsToVisit < ActiveRecord::Migration[4.2]
   def change
     add_column :visits, :accepted_at, :datetime, index: true
     add_column :visits, :rejected_at, :datetime, index: true

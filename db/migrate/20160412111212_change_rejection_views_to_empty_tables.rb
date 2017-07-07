@@ -1,4 +1,4 @@
-class ChangeRejectionViewsToEmptyTables < ActiveRecord::Migration
+class ChangeRejectionViewsToEmptyTables < ActiveRecord::Migration[4.2]
   def change
     drop_view :rejection_percentages
     drop_view :rejection_percentage_by_prisons

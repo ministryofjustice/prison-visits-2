@@ -1,4 +1,4 @@
-class CreateAdditionalVisitors < ActiveRecord::Migration
+class CreateAdditionalVisitors < ActiveRecord::Migration[4.2]
   def change
     create_table :additional_visitors do |t|
       t.references :visit, index: true, foreign_key: true, null: false

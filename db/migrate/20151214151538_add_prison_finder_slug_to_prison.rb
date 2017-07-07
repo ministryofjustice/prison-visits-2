@@ -1,4 +1,4 @@
-class AddPrisonFinderSlugToPrison < ActiveRecord::Migration
+class AddPrisonFinderSlugToPrison < ActiveRecord::Migration[4.2]
   def up
     add_column :prisons, :finder_slug, :string
     execute <<-SQL

@@ -1,4 +1,4 @@
-class AddVisitorIdToVisitStateChanges < ActiveRecord::Migration
+class AddVisitorIdToVisitStateChanges < ActiveRecord::Migration[4.2]
   def up
     add_reference :visit_state_changes, :visitor, type: :uuid, foreign_key: true
     execute <<-EOS

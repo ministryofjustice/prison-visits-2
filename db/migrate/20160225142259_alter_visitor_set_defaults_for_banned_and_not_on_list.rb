@@ -1,4 +1,4 @@
-class AlterVisitorSetDefaultsForBannedAndNotOnList < ActiveRecord::Migration
+class AlterVisitorSetDefaultsForBannedAndNotOnList < ActiveRecord::Migration[4.2]
   def change
     change_column_default :visitors, :banned, false
     change_column_default :visitors, :not_on_list, false

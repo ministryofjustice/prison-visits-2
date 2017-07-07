@@ -1,4 +1,4 @@
-class AddAdultAgeToPrison < ActiveRecord::Migration
+class AddAdultAgeToPrison < ActiveRecord::Migration[4.2]
   def up
     add_column :prisons, :adult_age, :integer
     execute 'UPDATE prisons SET adult_age = 18'

@@ -1,4 +1,4 @@
-class AddTranslationsToPrisons < ActiveRecord::Migration
+class AddTranslationsToPrisons < ActiveRecord::Migration[4.2]
   def up
     add_column :prisons, :translations, :json
     execute <<-SQL

@@ -1,4 +1,4 @@
-class ReplaceAdditionalVisitorsWithTableThatUsesUuidPrimaryKey < ActiveRecord::Migration
+class ReplaceAdditionalVisitorsWithTableThatUsesUuidPrimaryKey < ActiveRecord::Migration[4.2]
   def change
     create_table :additional_visitors, id: :uuid do |t|
       t.uuid :visit_id, index: true, foreign_key: true, null: false

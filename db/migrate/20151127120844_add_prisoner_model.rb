@@ -1,4 +1,4 @@
-class AddPrisonerModel < ActiveRecord::Migration
+class AddPrisonerModel < ActiveRecord::Migration[4.2]
   def up
     create_table :prisoners, id: :uuid do |t|
       t.string :first_name, null: false
