@@ -15,7 +15,7 @@ class ErrorsController < ApplicationController
   def show
     append_to_log(original_fullpath: request.original_fullpath)
 
-    status_code = env['PATH_INFO'][1..-1]
+    status_code = request.env['PATH_INFO'][1..-1]
 
     # Explicity protect against rendering an unexpected template (although such
     # a situation should not be possible with a correct routes definition)
