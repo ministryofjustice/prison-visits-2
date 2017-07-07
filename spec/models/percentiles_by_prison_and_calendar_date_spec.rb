@@ -41,7 +41,6 @@ RSpec.describe PercentilesByPrisonAndCalendarDate, type: :model do
 
   describe '#as_json' do
     it "serialises percentalise" do
-      byebug
       as_json = subject.as_json
       expect(as_json[:date]).to eq(Time.zone.today)
       expect(as_json[:ninety_fifth_percentile]).to be_within(0.1).of(2)
