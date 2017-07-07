@@ -5,9 +5,7 @@ RSpec.describe ErrorsController do
 
   %w[ 404 406 422 500 503 ].each do |status_code|
     it "renders #{status_code} page with the given status" do
-      allow(controller).
-        to receive(:env).and_return('PATH_INFO' => "/#{status_code}")
-
+      request.set_header 'PATH_INFO', "/#{status_code}"
       get :show
       expect(response.status).to eq(status_code.to_i)
     end
