@@ -75,5 +75,5 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem 'shoulda-matchers'
-  # gem 'rails-controller-testing'
+  gem 'rails-controller-testing'
 end

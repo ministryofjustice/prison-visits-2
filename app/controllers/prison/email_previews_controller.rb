@@ -8,7 +8,7 @@ class Prison::EmailPreviewsController < ApplicationController
       render html: email_preview
     else
       render(
-        text: staff_response.
+        body: staff_response.
           errors.full_messages.to_sentence,
         status: :not_acceptable
       )
