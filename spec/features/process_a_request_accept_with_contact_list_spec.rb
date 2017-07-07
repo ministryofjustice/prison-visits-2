@@ -27,7 +27,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
     vst.update!(slot_option_0: '2017-06-27T14:00/16:00')
   end
 
-  context 'with book to nomis enabled', vcr: { cassette_name: 'process_happy_path_with_contact_list' } do
+  context 'with book to nomis enabled' do
     before do
       switch_on :nomis_staff_book_to_nomis_enabled
       switch_feature_flag_with(:staff_prisons_with_book_to_nomis, [prison.name])
@@ -39,7 +39,6 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
     scenario 'accepting a booking', vcr: { cassette_name: 'book_to_nomis' } do
       visit prison_visit_path(vst, locale: 'en')
 
-      # Renders the form again
       expect(page).to have_css('h1', text: 'Visit details')
 
       expect(page).to have_css('.notice', text: 'The prisoner date of birth, prisoner number and prison name have been verified.')
@@ -64,10 +63,9 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       expect(vst.nomis_id).to eq(5493)
     end
 
-    scenario 'opting out of booking to nomis' do
+    scenario 'opting out of booking to nomis', vcr: { cassette_name: 'process_happy_path_with_contact_list' } do
       visit prison_visit_path(vst, locale: 'en')
 
-      # Renders the form again
       expect(page).to have_css('h1', text: 'Visit details')
 
       expect(page).to have_css('.notice', text: 'The prisoner date of birth, prisoner number and prison name have been verified.')
@@ -108,7 +106,6 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       # The most recent requested visit
       all('tr:not(.hidden-row)').last.click_link('View')
 
-      # Renders the form again
       expect(page).to have_css('form h1', text: 'Visit details')
       expect(page).to have_css('form .bold-small', text: "The prisoner date of birth, prisoner number and prison name have been verified.")
       expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
@@ -150,24 +147,8 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       and_body(/Your visit to Leicester is now successfully confirmed/)
     end
 
-    scenario 'accepting a booking but contact list fails', vcr: {
-      cassette_name: 'process_contact_list_fails',
-      allow_playback_repeats: true
-    } do
+    scenario 'accepting a booking but contact list fails', vcr: { cassette_name: 'process_contact_list_fails' } do
       visit prison_visit_path(vst, locale: 'en')
-      click_button 'Process'
-
-      # Renders the form again
-      expect(page).to have_css('form h1', text: 'Visit details')
-      expect(page).to have_css('form .bold-small', text: "The prisoner date of birth, prisoner number and prison name have been verified.")
-      expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
-
-      choose_date
-
-      fill_in 'Reference number',   with: '12345678'
-      fill_in 'Message (optional)', with: 'A staff message'
-
-      click_button 'Process'
 
       expect(page).to have_css('form .notice', text: "We can’t show the NOMIS contact list right now. Please check all visitors in NOMIS")
     end
