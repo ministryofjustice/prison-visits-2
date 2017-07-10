@@ -5,38 +5,6 @@ RSpec.describe Prison::VisitsController, type: :controller do
   let(:visit) { FactoryGirl.create(:visit) }
   let(:estate) { visit.prison.estate }
 
-  describe '#process_visit' do
-    subject do
-      get :process_visit, params: { id: visit.id, locale: 'en' }
-    end
-
-    context 'when is processable' do
-      context 'and there is no logged in user' do
-        it { is_expected.not_to be_successful }
-      end
-
-      context 'and there is a logged in user' do
-        let(:user) { FactoryGirl.create(:user) }
-
-        before do
-          login_user(user, current_estates: [estate])
-        end
-
-        it { is_expected.to render_template('process_visit') }
-      end
-    end
-
-    context 'when is unprocessble' do
-      before do
-        user = FactoryGirl.create(:user)
-        login_user(user, current_estates: [estate])
-      end
-      let!(:visit) { FactoryGirl.create(:booked_visit) }
-
-      it { is_expected.to redirect_to(prison_inbox_path) }
-    end
-  end
-
   describe '#update' do
     subject do
       put :update, params: {

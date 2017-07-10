@@ -60,8 +60,7 @@ private
   end
 
   def persist_to_nomis=(val)
-    # TODO: Changes in Rails 5 to `ActiveRecord::Type::Boolean.new.cast(string)`
-    @persist_to_nomis = ActiveRecord::Type::Boolean.new.type_cast_from_database(val)
+    @persist_to_nomis = ActiveRecord::Type::Boolean.new.cast(val)
   end
 
   def persist_to_nomis?
