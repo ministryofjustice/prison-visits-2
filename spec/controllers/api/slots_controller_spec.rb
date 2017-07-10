@@ -37,7 +37,7 @@ RSpec.describe Api::SlotsController do
     end
 
     it 'returns the list of slots with their availabilities' do
-      get :index, params
+      get :index, params: params
       expect(parsed_body).to eq('slots' => slots)
     end
   end

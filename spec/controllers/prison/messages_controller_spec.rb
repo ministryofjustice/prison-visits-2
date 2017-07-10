@@ -4,7 +4,7 @@ require_relative '../untrusted_examples'
 RSpec.describe Prison::MessagesController do
   describe '#create' do
     subject do
-      post :create, message: { body: message_body }, visit_id: visit.id
+      post :create, params: { message: { body: message_body }, visit_id: visit.id }
     end
 
     let(:prison) { FactoryGirl.create(:prison, estate: estate) }

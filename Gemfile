@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.4.1'
 
-gem 'rails', '~> 4.2.9'
+gem 'rails', '~> 5.1'
 
 gem 'connection_pool'
 gem 'base32-crockford', require: 'base32/crockford'
@@ -41,10 +41,10 @@ gem 'uglifier', '~> 2.7.2'
 gem 'uri_template'
 gem 'virtus'
 gem 'zendesk_api'
-gem 'pvb-instrumentation',
-  git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
-  tag: 'v0.1.2'
-# gem 'pvb-instrumentation', path: '../pvb-instrumentation'
+# gem 'pvb-instrumentation',
+  # git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
+  # tag: 'v0.1.2'
+gem 'pvb-instrumentation', path: '../pvb-instrumentation'
 
 gem 'secure_headers'
 
@@ -77,4 +77,5 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem 'shoulda-matchers'
+  gem 'rails-controller-testing'
 end

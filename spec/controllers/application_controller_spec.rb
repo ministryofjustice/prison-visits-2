@@ -22,7 +22,7 @@ RSpec.describe ApplicationController, type: :controller do
     context 'with an invalid locale' do
       it 'defaults to en' do
         expect {
-          get :index, locale: 'ent'
+          get :index, params: { locale: 'ent' }
         }.not_to raise_error
       end
     end

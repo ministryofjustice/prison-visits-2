@@ -18,7 +18,7 @@ RSpec.describe Prison::FeedbacksController, type: :controller do
   end
 
   describe '#create' do
-    subject { post :create, feedback_submission: feedback_params }
+    subject { post :create, params: { feedback_submission: feedback_params } }
 
     let(:feedback_params) do
       {

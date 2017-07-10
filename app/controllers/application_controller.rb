@@ -110,4 +110,8 @@ private
       append_to_log(user_id: current_user.id)
     end
   end
+
+  def env
+    request.env
+  end
 end

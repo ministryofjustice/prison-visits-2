@@ -9,7 +9,7 @@ class ErrorsController < ApplicationController
 
   # Otherwise erroring POST requests can fail the CSRF check when rendering the
   # error page...
-  skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token, raise: false
   before_action :set_html_format, only: :show
 
   def show

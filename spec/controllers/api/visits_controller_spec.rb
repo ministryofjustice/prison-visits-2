@@ -47,10 +47,10 @@ RSpec.describe Api::VisitsController do
       }
     }
 
-    specify do expect(post :create, params).to render_template(:show) end
+    specify do expect(post :create, params: params).to render_template(:show) end
 
     it 'creates a new visit booking request' do
-      expect { post :create, params }.to change(Visit, :count).by(1)
+      expect { post :create, params: params }.to change(Visit, :count).by(1)
 
       expect(response).to have_http_status(:ok)
       expect(parsed_body['visit']).to have_key('id')
@@ -59,13 +59,13 @@ RSpec.describe Api::VisitsController do
 
     it 'sets the locale of the visit if Accept-Language header sent' do
       request.headers['Accept-Language'] = 'cy'
-      expect { post :create, params }.to change(Visit, :count).by(1)
+      expect { post :create, params: params }.to change(Visit, :count).by(1)
       expect(Visit.last.locale).to eq('cy')
     end
 
     it 'fails if a (top-level) parameter is missing' do
       params.delete(:contact_email_address)
-      post :create, params
+      post :create, params: params
       expect(response).to have_http_status(:unprocessable_entity)
       expect(parsed_body['message']).
         to eq('Missing parameter: contact_email_address')
@@ -73,7 +73,7 @@ RSpec.describe Api::VisitsController do
 
     it 'fails if the prisoner is invalid' do
       params[:prisoner][:first_name] = nil
-      post :create, params
+      post :create, params: params
       expect(response).to have_http_status(:unprocessable_entity)
       expect(parsed_body['message']).
         to eq('Invalid parameter: prisoner (First name is required)')
@@ -81,7 +81,7 @@ RSpec.describe Api::VisitsController do
 
     it 'fails if the visitors are invalid' do
       params[:visitors][0][:first_name] = nil
-      post :create, params
+      post :create, params: params
       expect(response).to have_http_status(:unprocessable_entity)
       expect(parsed_body['message']).
         to eq('Invalid parameter: visitors ()')
@@ -89,7 +89,7 @@ RSpec.describe Api::VisitsController do
 
     it 'fails if slot_options is not an array' do
       params[:slot_options] = 'string'
-      post :create, params
+      post :create, params: params
       expect(response).to have_http_status(:unprocessable_entity)
       expect(parsed_body['message']).
         to eq('Invalid parameter: slot_options must contain >= slot')
@@ -97,7 +97,7 @@ RSpec.describe Api::VisitsController do
 
     it 'fails if slot_options does not contain at least 1 slot' do
       params[:slot_options] = 'string'
-      post :create, params
+      post :create, params: params
       expect(response).to have_http_status(:unprocessable_entity)
       expect(parsed_body['message']).
         to eq('Invalid parameter: slot_options must contain >= slot')
@@ -105,7 +105,7 @@ RSpec.describe Api::VisitsController do
 
     it 'returns an error if the slot does not exist' do
       params[:slot_options] = ['2016-02-15T04:00/04:30']
-      post :create, params
+      post :create, params: params
       expect(response).to have_http_status(:unprocessable_entity)
       expect(parsed_body['message']).
         to match(/Invalid parameter: slot_options \(Option 0/)
@@ -120,10 +120,10 @@ RSpec.describe Api::VisitsController do
       }
     end
 
-    it { expect(get :show, params).to render_template(:show) }
+    it { expect(get :show, params: params).to render_template(:show) }
 
     it 'returns visit status' do
-      get :show, params
+      get :show, params: params
       expect(response).to have_http_status(:ok)
       expect(parsed_body['visit']['processing_state']).to eq('requested')
     end
@@ -137,7 +137,7 @@ RSpec.describe Api::VisitsController do
       end
 
       it 'returns visit status' do
-        get :show, params
+        get :show, params: params
         expect(response).to have_http_status(:ok)
         expect(parsed_body['visit']['can_cancel']).to eq(false)
       end
@@ -152,7 +152,7 @@ RSpec.describe Api::VisitsController do
       end
 
       it 'returns visit status' do
-        get :show, params
+        get :show, params: params
         expect(response).to have_http_status(:ok)
         expect(parsed_body['visit']['can_withdraw']).to eq(false)
       end
@@ -162,7 +162,7 @@ RSpec.describe Api::VisitsController do
       let!(:message) { FactoryGirl.create(:message, visit: visit) }
 
       it 'returns a list of messages' do
-        get :show, params
+        get :show, params: params
         expect(parsed_body['visit']['messages']).
           to eq([{ 'body' => message.body }])
       end
@@ -170,7 +170,7 @@ RSpec.describe Api::VisitsController do
 
     it 'fails if the visit does not exist' do
       params[:id] = '123'
-      get :show, params
+      get :show, params: params
       expect(response).to have_http_status(:not_found)
       expect(parsed_body['message']).to eq('Not found')
     end
@@ -183,7 +183,7 @@ RSpec.describe Api::VisitsController do
         }
       end
 
-      it { expect(get :show, params).to render_template(:show) }
+      it { expect(get :show, params: params).to render_template(:show) }
     end
   end
 
@@ -199,13 +199,13 @@ RSpec.describe Api::VisitsController do
       double(Mail::Message, deliver_later: nil)
     }
 
-    specify do expect(delete :destroy, params).to render_template(:show) end
+    specify do expect(delete :destroy, params: params).to render_template(:show) end
 
     context 'with a booked visit' do
       let(:visit) { FactoryGirl.create(:booked_visit) }
 
       it 'cancels a visit request' do
-        delete :destroy, params
+        delete :destroy, params: params
         expect(response).to have_http_status(:ok)
         expect(parsed_body['visit']['processing_state']).to eq('cancelled')
       end
@@ -213,24 +213,24 @@ RSpec.describe Api::VisitsController do
 
     context 'with a requested visit' do
       it 'withdraws the requested visit' do
-        delete :destroy, params
+        delete :destroy, params: params
         expect(response).to have_http_status(:ok)
         expect(parsed_body['visit']['processing_state']).to eq('withdrawn')
       end
 
       it 'fails if the visit does not exist' do
         params[:id] = '123'
-        delete :destroy, params
+        delete :destroy, params: params
         expect(response).to have_http_status(:not_found)
         expect(parsed_body['message']).to eq('Not found')
       end
 
       it 'is idempotent' do
-        delete :destroy, params
+        delete :destroy, params: params
         expect(response).to have_http_status(:ok)
         expect(assigns(:visit).visit_state_changes.size).to eq(1)
 
-        delete :destroy, params
+        delete :destroy, params: params
         expect(response).to have_http_status(:ok)
         expect(assigns(:visit).visit_state_changes.size).to eq(1)
       end

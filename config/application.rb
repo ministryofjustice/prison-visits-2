@@ -25,8 +25,6 @@ module PrisonVisits
 
     config.time_zone = 'London'
 
-    config.active_record.raise_in_transactional_callbacks = true
-
     # The last 3 errors can be removed with Rails 5. See Rails PR #19632
     config.action_dispatch.rescue_responses.merge!(
       'StateMachines::InvalidTransition' => :unprocessable_entity,
@@ -51,8 +49,7 @@ module PrisonVisits
       event.payload[:custom_log_items]
     end
 
-    config.middleware.insert_before ActionDispatch::ParamsParser,
-      HttpMethodNotAllowed
+    config.middleware.insert_before Rack::Head, HttpMethodNotAllowed
 
     config.sendgrid_api_user = ENV['SMTP_USERNAME']
     config.sendgrid_api_key = ENV['SMTP_PASSWORD']

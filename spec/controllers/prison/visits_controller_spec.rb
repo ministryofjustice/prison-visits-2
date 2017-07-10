@@ -5,12 +5,45 @@ RSpec.describe Prison::VisitsController, type: :controller do
   let(:visit) { FactoryGirl.create(:visit) }
   let(:estate) { visit.prison.estate }
 
+  describe '#process_visit' do
+    subject do
+      get :process_visit, params: { id: visit.id, locale: 'en' }
+    end
+
+    context 'when is processable' do
+      context 'and there is no logged in user' do
+        it { is_expected.not_to be_successful }
+      end
+
+      context 'and there is a logged in user' do
+        let(:user) { FactoryGirl.create(:user) }
+
+        before do
+          login_user(user, current_estates: [estate])
+        end
+
+        it { is_expected.to render_template('process_visit') }
+      end
+    end
+
+    context 'when is unprocessble' do
+      before do
+        user = FactoryGirl.create(:user)
+        login_user(user, current_estates: [estate])
+      end
+      let!(:visit) { FactoryGirl.create(:booked_visit) }
+
+      it { is_expected.to redirect_to(prison_inbox_path) }
+    end
+  end
+
   describe '#update' do
     subject do
-      put :update,
+      put :update, params: {
         id: visit.id,
         visit: staff_response,
         locale: 'en'
+      }
     end
 
     let(:staff_response) { { slot_granted: visit.slots.first.to_s } }
@@ -127,10 +160,11 @@ RSpec.describe Prison::VisitsController, type: :controller do
     let(:cancellation_reason) { 'slot_unavailable' }
 
     subject do
-      delete :cancel,
+      delete :cancel, params: {
         id: visit.id,
         cancellation_reason: cancellation_reason,
         locale: 'en'
+      }
     end
 
     it_behaves_like 'disallows untrusted ips'
@@ -171,7 +205,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     let(:cancellation) { FactoryGirl.create(:cancellation) }
     let(:visit) { cancellation.visit }
 
-    subject { post :nomis_cancelled, id: visit.id }
+    subject { post :nomis_cancelled, params: { id: visit.id } }
 
     it_behaves_like 'disallows untrusted ips'
 

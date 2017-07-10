@@ -12,7 +12,7 @@ class Prison::SwitchEstatesController < ApplicationController
       # This should never happen
       flash[:notice] = t('invalid_estate_selection', scope: %i[prison flash])
     end
-    redirect_to :back
+    redirect_back fallback_location: root_path
   end
 
 private
@@ -20,7 +20,7 @@ private
   def verify_switch_estates
     if params[:estate_ids].blank?
       flash[:notice] = t('at_least_one_estate', scope: %i[prison flash])
-      redirect_to :back
+      redirect_back fallback_location: root_path
     end
   end
 end

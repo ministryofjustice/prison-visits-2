@@ -80,12 +80,12 @@ RSpec.describe Api::PrisonsController do
     let(:params) { { id: prison.id, format: :json } }
 
     it 'returns 200 OK' do
-      get :show, params
+      get :show, params: params
       expect(response).to have_http_status(:ok)
     end
 
     it 'returns prison details' do
-      get :show, params
+      get :show, params: params
       expect(parsed_body).to include(
         'prison' => include(
           'id' => prison.id,
@@ -101,7 +101,7 @@ RSpec.describe Api::PrisonsController do
 
     it 'localises prison details on Accept-Language header' do
       request.env['HTTP_ACCEPT_LANGUAGE'] = 'cy'
-      get :show, params
+      get :show, params: params
       expect(parsed_body).to include(
         'prison' => include('name' => 'Lleuad')
       )

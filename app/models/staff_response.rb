@@ -52,7 +52,7 @@ class StaffResponse
     # TODO: Changes in Rails 5 to `ActiveRecord::Type::Boolean.new.cast(string)`
     @validate_visitors_nomis_ready ||= ActiveRecord::Type::Boolean.
       new.
-      type_cast_from_database(val)
+      cast(val)
   end
 
   def validate_visitors_nomis_ready?

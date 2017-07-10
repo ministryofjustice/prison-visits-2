@@ -5,14 +5,14 @@ RSpec.describe Prison::DashboardsController, type: :controller do
   let(:estate) { FactoryGirl.create(:estate) }
   let(:user) { FactoryGirl.create(:user) }
 
-  subject { get :inbox, estate_id: estate.finder_slug }
+  subject { get :inbox, params: { estate_id: estate.finder_slug } }
 
   it_behaves_like 'disallows untrusted ips'
 
   describe '#inbox' do
     let(:prison) { FactoryGirl.create(:prison, estate: estate) }
 
-    subject { get :inbox, estate_id: estate.finder_slug }
+    subject { get :inbox, params: { estate_id: estate.finder_slug } }
 
     context "when logged in" do
       before do
@@ -30,7 +30,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
   describe '#processed' do
     let(:prison) { FactoryGirl.create(:prison, estate: estate) }
 
-    subject { get :processed, estate_id: estate.finder_slug }
+    subject { get :processed, params: { estate_id: estate.finder_slug } }
 
     context "when logged out" do
       it { is_expected.not_to be_successful }
@@ -62,7 +62,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
   describe '#search' do
     let(:prison) { FactoryGirl.create(:prison, estate: estate) }
 
-    subject { get :search, estate_id: estate.finder_slug }
+    subject { get :search, params: { estate_id: estate.finder_slug } }
 
     context "when logged in" do
       before do
@@ -73,9 +73,10 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
       context 'filtering requested visits by prisoner number' do
         subject do
-          get :search,
+          get :search, params: {
             estate_id: estate.finder_slug,
             prisoner_number: visit.prisoner_number
+          }
         end
 
         let!(:visit) { FactoryGirl.create(:visit, prison: prison) }
@@ -87,12 +88,13 @@ RSpec.describe Prison::DashboardsController, type: :controller do
       end
 
       context 'filtering processed visits by prisoner number' do
-        subject { get :processed, estate_id: estate.finder_slug }
+        subject { get :processed, params: { estate_id: estate.finder_slug } }
 
         subject do
-          get :search,
+          get :search, params: {
             estate_id: estate.finder_slug,
             prisoner_number: visit.prisoner_number
+          }
         end
 
         let!(:visit) { FactoryGirl.create(:booked_visit, prison: prison) }
@@ -111,7 +113,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
     let(:slot_granted2) { '2016-01-01T12:00/14:00' }
 
     subject do
-      get :print_visits, estate_id: estate.finder_slug, visit_date: visit_date
+      get :print_visits, params: { estate_id: estate.finder_slug, visit_date: visit_date }
     end
 
     context "when logged out" do
@@ -165,10 +167,11 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
         context 'as a csv' do
           subject do
-            get :print_visits,
+            get :print_visits, params: {
               estate_id: estate.finder_slug,
               visit_date: visit_date,
               format: :csv
+            }
           end
 
           it { is_expected.to be_successful }

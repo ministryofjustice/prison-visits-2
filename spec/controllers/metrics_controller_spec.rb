@@ -6,7 +6,7 @@ RSpec.describe MetricsController, type: :controller do
     let(:range) { nil }
     let(:params) { { range: range, locale: 'en' } }
 
-    subject { get :index, params }
+    subject { get :index, params: params }
 
     context 'with no range' do
       let(:range) { 'all_time' }
@@ -30,7 +30,7 @@ RSpec.describe MetricsController, type: :controller do
   describe 'summary' do
     let(:prison) { create(:prison) }
 
-    subject { get :summary, prison_id: prison.to_param, locale: 'en' }
+    subject { get :summary, params: { prison_id: prison.to_param, locale: 'en' } }
 
     it { is_expected.to be_successful }
   end
