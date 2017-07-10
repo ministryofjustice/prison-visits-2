@@ -152,15 +152,21 @@ RSpec.describe Prison::VisitsController, type: :controller do
       end
 
       context 'when the visit is already cancelled' do
-        let(:visit) { FactoryGirl.create(:cancelled_visit) }
+        let(:visit) { create(:cancelled_visit) }
 
-        it { is_expected.to redirect_to(prison_visit_path(visit)) }
+        it 'redirect to the visit show page setting the already cancelled flash message' do
+          is_expected.to redirect_to(prison_visit_path(visit))
+          expect(flash.notice).to eq("The visit is no longer cancellable")
+        end
       end
 
       context 'when there is no cancellation reason' do
         let(:cancellation_reason) { nil }
 
-        it { is_expected.to redirect_to(prison_visit_path(visit)) }
+        it 'redirect to the visit show page setting the no cancellation reason flash message' do
+           is_expected.to redirect_to(prison_visit_path(visit))
+           expect(flash.notice).to eq("Please provide a cancellation reason")
+         end
       end
     end
 

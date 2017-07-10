@@ -79,7 +79,7 @@ private
   end
 
   def cancellation_reason_set
-    unless params[:cancellation_reason]
+    unless params[:cancellation_reason].present?
       flash[:notice] = t('no_cancellation_reason', scope: %i[prison flash])
       redirect_to action: :show
     end
