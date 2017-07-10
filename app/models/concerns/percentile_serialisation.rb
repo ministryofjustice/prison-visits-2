@@ -5,7 +5,7 @@ module PercentileSerialisation
     {
       date: date,
       ninety_fifth_percentile: (percentiles.first.to_f / 1.day.to_f),
-      median: (percentiles.last.to_f / 1. day.to_f)
+      median: (percentiles.last.to_f / 1.day.to_f)
     }
   end
 end
