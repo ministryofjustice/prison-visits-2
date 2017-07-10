@@ -164,9 +164,9 @@ RSpec.describe Prison::VisitsController, type: :controller do
         let(:cancellation_reason) { nil }
 
         it 'redirect to the visit show page setting the no cancellation reason flash message' do
-           is_expected.to redirect_to(prison_visit_path(visit))
-           expect(flash.notice).to eq("Please provide a cancellation reason")
-         end
+          is_expected.to redirect_to(prison_visit_path(visit))
+          expect(flash.notice).to eq("Please provide a cancellation reason")
+        end
       end
     end
 

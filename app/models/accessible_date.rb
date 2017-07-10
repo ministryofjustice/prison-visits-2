@@ -23,7 +23,7 @@ class AccessibleDate
 
   def self.from_multi_parameters(before_type_cast_value)
     return new unless before_type_cast_value.respond_to?(:values_at)
-    new(Hash[[:year, :month, :day].zip(before_type_cast_value.values_at(1 ,2 ,3))])
+    new(Hash[[:year, :month, :day].zip(before_type_cast_value.values_at(1, 2, 3))])
   end
 
 private
