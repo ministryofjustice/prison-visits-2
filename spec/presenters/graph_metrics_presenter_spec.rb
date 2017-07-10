@@ -33,7 +33,7 @@ RSpec.describe GraphMetricsPresenter do
       it 'returns the distributions of time to process a request' do
         nineteenth = subject.percentiles_by_day.first.percentiles.first / 86_400
         median     = subject.percentiles_by_day.first.percentiles.last / 86_400
-        expect(nineteenth).to eq(5)
+        expect(nineteenth).to be_within(1).of(5)
         expect(median).to be_within(1).of(1)
       end
     end
