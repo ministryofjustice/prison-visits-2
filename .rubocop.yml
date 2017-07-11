@@ -37,6 +37,13 @@ Style/AsciiComments:
 # Use Weirich style
 Style/BlockDelimiters:
   EnforcedStyle: semantic
+  FunctionalMethods:
+    - before
+    - let
+    - let!
+    - subject
+    - watch
+    - expect
 
 # Allow ===. It's useful.
 Style/CaseEquality:

@@ -22,10 +22,13 @@ RSpec.describe Prison::VisitsController, type: :controller do
     end
 
     context 'and there is a logged in user' do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user)                { create(:user) }
+      let(:nowish)              { Time.zone.now }
+      let(:processing_time_key) { "processing_time-#{visit.id}-#{user.id}" }
 
       before do
         login_user(user, current_estates: [estate])
+        request.cookies[processing_time_key] = nowish - 2.minutes
       end
 
       context 'when invalid' do
@@ -36,7 +39,14 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
       context 'when valid' do
         let(:staff_response) { { slot_granted: visit.slots.first.to_s, reference_no: 'none' } }
+        let(:google_tracker) { instance_double(GATracker) }
 
+        before do
+          expect(GATracker).
+            to receive(:new).and_return(google_tracker)
+          expect(google_tracker).
+            to receive(:send_event)
+        end
         it { is_expected.to redirect_to(prison_inbox_path) }
       end
 
@@ -74,23 +84,40 @@ RSpec.describe Prison::VisitsController, type: :controller do
   end
 
   describe '#show' do
-    subject { get :show, id: visit.id }
+    let(:nowish) { Time.zone.now }
+    let(:user)   { create(:user) }
 
-    let(:user) { FactoryGirl.create(:user) }
+    context 'security' do
+      subject { get :show, id: 1 }
 
-    it_behaves_like 'disallows untrusted ips'
+      it_behaves_like 'disallows untrusted ips'
+    end
 
     context "when logged in" do
       before do
-        login_user(user, current_estates: [estate])
+        travel_to nowish do
+          login_user(user, current_estates: [estate])
+          get :show, id: visit.id
+        end
       end
 
-      it { is_expected.to render_template('show') }
-      it { is_expected.to be_successful }
+      it { expect(response).to render_template('show') }
+      it { expect(response).to be_successful }
+
+      context 'with a processable visit' do
+        let(:processing_time_key) { "processing_time-#{visit.id}-#{user.id}"  }
+        let(:parsed_cookie)       { cookies[processing_time_key] }
+
+        it "sets the visit processing time cookie" do
+          expect(parsed_cookie).to eq(nowish.to_i)
+        end
+      end
     end
 
     context "when logged out" do
-      it { is_expected.not_to be_successful }
+      before do get :show, id: visit.id end
+
+      it { expect(response).not_to be_successful }
     end
   end
 

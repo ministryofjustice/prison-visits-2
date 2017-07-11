@@ -65,7 +65,7 @@ RSpec.describe BookingResponder do
     end
   end
 
-  describe 'with a not requested visit' do
+  describe 'with a withdrawn visit' do
     before do
       visit.withdraw!
     end

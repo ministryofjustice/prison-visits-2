@@ -7,6 +7,8 @@ class Prison::VisitsController < ApplicationController
   before_action :authenticate_user
   before_action :cancellation_reason_set, only: :cancel
   before_action :visit_is_processable, only: :update
+  before_action :set_visit_processing_time_cookie, only: :show
+  after_action  :track_visit_process, only: :update
 
   def update
     @booking_response = booking_responder.respond!
@@ -81,5 +83,18 @@ private
       flash[:notice] = t('no_cancellation_reason', scope: %i[prison flash])
       redirect_to action: :show
     end
+  end
+
+  def track_visit_process
+    ga_tracker.send_event if @booking_response.success?
+  end
+
+  def set_visit_processing_time_cookie
+    return unless memoised_visit.processable?
+    ga_tracker.set_visit_processing_time_cookie
+  end
+
+  def ga_tracker
+    @tracker ||= GATracker.new(current_user, memoised_visit, cookies, request)
   end
 end
