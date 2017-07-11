@@ -66,7 +66,7 @@ RSpec.describe CreateNomisVisit do
 
     describe 'duplicate post' do
       let(:error_message) { 'Duplicate post' }
-      let(:booking) { Nomis::Booking.new(error_message: error_message) }
+      let(:booking) { Nomis::Booking.new(error_messages: [error_message]) }
 
       it { expect(subject.execute).not_to be_success }
       it { expect(subject.execute).to have_attributes(message: BookingResponse::ALREADY_BOOKED_IN_NOMIS_ERROR) }

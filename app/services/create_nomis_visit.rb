@@ -35,7 +35,7 @@ private
   end
 
   def already_booked_in_nomis?
-    booking.error_message == ALREADY_BOOKED_IN_NOMIS
+    booking.error_messages.include?(ALREADY_BOOKED_IN_NOMIS)
   end
 
   def offender_id

@@ -34,7 +34,7 @@ http_interactions:
       - close
     body:
       encoding: ASCII-8BIT
-      string: '{"error":{"message":"Overlapping visit"}}'
-    http_version: 
+      string: '{"errors":[{"message":"Overlapping visit"}]}'
+    http_version:
   recorded_at: Thu, 11 May 2017 12:27:34 GMT
 recorded_with: VCR 3.0.3

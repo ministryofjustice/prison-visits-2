@@ -263,7 +263,7 @@ RSpec.describe Nomis::Api do
 
     context 'validation error', vcr: { cassette_name: 'book_visit_validation_error' } do
       it 'records the error message' do
-        expect(subject.error_message).to eq('Overlapping visit')
+        expect(subject.error_messages).to eq(['Overlapping visit'])
       end
 
       it 'instruments the outcome of the call' do
@@ -275,7 +275,7 @@ RSpec.describe Nomis::Api do
 
     context 'duplicate post', vcr: { cassette_name: 'book_visit_duplicate_error' } do
       it 'records the error message' do
-        expect(subject.error_message).to eq('Duplicate post')
+        expect(subject.error_messages).to eq(['Duplicate post'])
       end
     end
   end
