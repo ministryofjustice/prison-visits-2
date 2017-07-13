@@ -110,6 +110,9 @@ module PrisonVisits
     config.staff_prisons_with_nomis_contact_list =
       ENV['STAFF_PRISONS_WITH_NOMIS_CONTACT_LIST']&.split(',')&.map(&:strip) || []
 
+    config.nomis_staff_offender_restrictions_enabled =
+      ENV['NOMIS_STAFF_OFFENDER_RESTRICTIONS_ENABLED']&.downcase == 'true'
+
     config.nomis_staff_book_to_nomis_enabled =
       ENV['NOMIS_STAFF_BOOK_TO_NOMIS_ENABLED']&.downcase == 'true'
 

@@ -32,5 +32,10 @@ module Nomis
         configuration.
         staff_prisons_with_book_to_nomis.include?(prison_name)
     end
+
+    def self.offender_restrictions_enabled?
+      prisoner_check_enabled? &&
+        Rails.configuration.nomis_staff_offender_restrictions_enabled
+    end
   end
 end
