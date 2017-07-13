@@ -12,6 +12,11 @@ en:
       stats: Stats
       telephone: Telephone script
       digital_takeup: Digital takeup
+      unsupported_content_html: |
+        <div class="unsupported-content">
+          <h1 class="heading-xlarge">Use a different browser</h1>
+          <p class="lede">This service no longer supports this version of Internet Explorer. Please use Chrome or Firefox to process bookings.</p>
+        </div>
   prison:
     flash:
       already_processed_html: |
@@ -112,7 +117,7 @@ en:
         title: Search results for '%{prisoner_number}'
         search_total: Displaying %{number} results
     visits:
-      book_to_nomis_opt_in: 
+      book_to_nomis_opt_in:
         already_booked_in_nomis: This visit won't be booked to NOMIS as it already exists
         book_to_nomis_opted_in_by_default:
           If the visit is booked successfully, it will be copied to NOMIS.
@@ -284,11 +289,11 @@ en:
       percentiles_distribution_title: Percentiles distribution
       percentiles_distribution: This graph shows the 95th percentile and median visit processing times for all prisons.
       processing_states_title: Visits by processing states
-      processing_states: The graph below shows total processed visits for all prisons, broken down by processing state. 
+      processing_states: The graph below shows total processed visits for all prisons, broken down by processing state.
       timely_overdue_visits_title: Timely and overdue visits
       timely_overdue_visits: The graph below shows the number of timely (processed within 3 days) and overdue visits for all prisons.
       rejection_reasons_title: Rejection reasons
-      rejection_reasons_percentages: The graph below shows total rejected visits for all prisons, broken down by rejection reason. 
+      rejection_reasons_percentages: The graph below shows total rejected visits for all prisons, broken down by rejection reason.
   shared:
     age: Age
     actions: Actions

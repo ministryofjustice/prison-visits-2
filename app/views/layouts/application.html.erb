@@ -12,7 +12,9 @@
     <%= stylesheet_link_tag('application-ie8', media: 'all') %>
   <![endif]-->
 <% end %>
-<%= content_tag :div, nil, class: "js-AsyncGA", data: ga_tracking_data %>
+<!--[if gte IE 9]><!-->
+  <%= content_tag :div, nil, class: "js-AsyncGA", data: ga_tracking_data %>
+<!--<![endif]-->
 
 <% yield :metrics %>
 
@@ -45,6 +47,11 @@
 <% end %>
 
 <% content_for :content do %>
+
+  <!--[if lte IE 8]>
+    <%= t('.unsupported_content_html') %>
+  <![endif]-->
+
   <main id="content">
     <a target="_blank" href="https://www.surveymonkey.co.uk/r/36LDWKD" class="feedback-link"><%= t('.feedback') %></a>
     <%= yield :banner %>
