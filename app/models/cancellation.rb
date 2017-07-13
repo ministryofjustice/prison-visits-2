@@ -17,5 +17,5 @@ class Cancellation < ActiveRecord::Base
 
   belongs_to :visit
 
-  validates :reason, inclusion: { in: REASONS }, allow_blank: true
+  validates :reason, inclusion: { in: REASONS }
 end

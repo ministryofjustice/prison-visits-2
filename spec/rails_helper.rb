@@ -32,11 +32,27 @@ RSpec.configure do |config|
   config.include ServiceHelpers
 
   config.infer_spec_type_from_file_location!
-  config.use_transactional_fixtures = true
+
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation, except: %w(public.ar_internal_metadata))
+  end
 
   config.before(:each) do
     I18n.locale = I18n.default_locale
     RequestStore.clear!
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, js: true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
   end
 end
 
