@@ -31,7 +31,6 @@ private
   attr_reader :opted_in
 
   def opted_in=(val)
-    # TODO: Changes in Rails 5 to `ActiveRecord::Type::Boolean.new.cast(string)`
     @opted_in = ActiveRecord::Type::Boolean.new.cast(val)
   end
 
