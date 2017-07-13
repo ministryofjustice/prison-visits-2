@@ -71,7 +71,7 @@ group :test do
   gem 'fuubar'
   gem 'launchy'
   gem 'rspec-collection_matchers'
-  gem 'selenium-webdriver', '2.53.4'
+  gem 'selenium-webdriver', '3.4.4'
   gem 'simplecov'
   gem 'simplecov-rcov'
   gem 'vcr'
