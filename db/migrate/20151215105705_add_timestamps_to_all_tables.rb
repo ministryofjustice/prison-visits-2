@@ -1,4 +1,4 @@
-class AddTimestampsToAllTables < ActiveRecord::Migration
+class AddTimestampsToAllTables < ActiveRecord::Migration[4.2]
   TABLES = %i[ feedback_submissions prisoners rejections ]
   COLUMNS = %i[ created_at updated_at ]
 

@@ -1,4 +1,4 @@
-class ExtractEstateToTable < ActiveRecord::Migration
+class ExtractEstateToTable < ActiveRecord::Migration[4.2]
   def up
     create_table :estates, id: :uuid do |t|
       t.string :name, null: false

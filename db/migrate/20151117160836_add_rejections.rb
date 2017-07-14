@@ -1,4 +1,4 @@
-class AddRejections < ActiveRecord::Migration
+class AddRejections < ActiveRecord::Migration[4.2]
   def change
     create_table :rejections, id: :uuid do |t|
       t.uuid :visit_id, null: false

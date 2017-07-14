@@ -1,4 +1,4 @@
-class MoveNomisIdToEstate < ActiveRecord::Migration
+class MoveNomisIdToEstate < ActiveRecord::Migration[4.2]
   def up
     add_column :estates, :nomis_id, :string, limit: 3
     add_column :estates, :finder_slug, :string

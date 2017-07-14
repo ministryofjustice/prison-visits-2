@@ -1,4 +1,4 @@
-class MoveVisitorModel < ActiveRecord::Migration
+class MoveVisitorModel < ActiveRecord::Migration[4.2]
   def up
     rename_table :additional_visitors, :visitors
     add_column :visitors, :sort_index, :integer, null: false

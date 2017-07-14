@@ -1,4 +1,4 @@
-class ReplaceVisitsWithTableThatUsesUuidPrimaryKey < ActiveRecord::Migration
+class ReplaceVisitsWithTableThatUsesUuidPrimaryKey < ActiveRecord::Migration[4.2]
   def change
     create_table :visits, id: :uuid do |t|
       t.uuid :prison_id, index: true, foreign_key: true, null: false

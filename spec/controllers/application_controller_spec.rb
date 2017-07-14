@@ -22,7 +22,7 @@ RSpec.describe ApplicationController, type: :controller do
     context 'with an invalid locale' do
       it 'defaults to en' do
         expect {
-          get :index, locale: 'ent'
+          get :index, params: { locale: 'ent' }
         }.not_to raise_error
       end
     end
@@ -47,7 +47,13 @@ RSpec.describe ApplicationController, type: :controller do
     let(:uuid) { 'some-uuid' }
 
     before do
-      allow(controller.request).to receive(:uuid).and_return(uuid)
+      # ugly hack to ensure the uuid is returned
+      # there is currently no way to set headers on controller test with Rails 5.1
+      # and the request object accessible from rspec-rails is a different
+      # instance than the on the ApplicationController has access to during the test,
+      # so it not possible to only stub this request.
+      allow_any_instance_of(ActionDispatch::TestRequest).to receive(:uuid).and_return(uuid)
+
       login_user(user, current_estates: [estate], available_estates: [estate])
     end
 

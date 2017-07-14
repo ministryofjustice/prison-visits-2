@@ -1,4 +1,4 @@
-class ReplacePrisonsWithTableThatUsesUuidPrimaryKey < ActiveRecord::Migration
+class ReplacePrisonsWithTableThatUsesUuidPrimaryKey < ActiveRecord::Migration[4.2]
   def change
     create_table :prisons, id: :uuid do |t|
       t.string :name, null: false

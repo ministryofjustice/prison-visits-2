@@ -101,7 +101,7 @@ private
 
   def log_current_estates
     if current_estates
-      append_to_log(estate_ids: current_estates.map(&:id))
+      PVB::Instrumentation.append_to_log(estate_ids: current_estates.map(&:id))
     end
   end
 

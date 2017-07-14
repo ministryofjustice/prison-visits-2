@@ -36,25 +36,8 @@ class Rejection < ActiveRecord::Base
   validate :validate_reasons
   validates :reasons, presence: true
   validate :validate_allowance_renews_on_date
-
-  # TODO: Delete me when the column has dropped
-  def self.columns
-    super.reject { |c| c.name == 'reason' }
-  end
-
   def allowance_will_renew?
     allowance_renews_on.is_a?(Date)
-  end
-
-  def allowance_renews_on=(accessible_date)
-    date = AccessibleDate.new(accessible_date)
-    if date.valid?
-      super(date.to_date)
-    else
-      super(accessible_date)
-    end
-  rescue
-    super DateCoercer.coerce(accessible_date)
   end
 
 private
@@ -79,10 +62,16 @@ private
   end
 
   def acceptable_allowance_renews_on_date?
-    allowance_renews_on.is_a?(Date) || allowance_renews_on.nil?
+    allowance_renews_on.is_a?(Date) || as_accessible_date.valid?
   end
 
   def no_allowance?
     reasons.include?(Rejection::NO_ALLOWANCE)
+  end
+
+  def as_accessible_date
+    AccessibleDate.from_multi_parameters(
+      allowance_renews_on_before_type_cast
+    )
   end
 end

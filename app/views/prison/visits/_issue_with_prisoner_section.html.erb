@@ -17,10 +17,10 @@
       <div class="column-one-half">
         <%= rf.fields_for :allowance_renews_on, rf.object.allowance_renews_on do |af| %>
           <%= composite_field(rf, :allowance_renews_on) do %>
-            <% accessible_date_options.each do |field_name, field_options| %>
+            <% accessible_date_options.each_with_index do |(field_name, field_options), i| %>
               <div class="datefield form-group form-group-<%= field_name %>">
                 <%= af.label field_name %>
-                <%= af.number_field field_name, field_options.merge( class: 'form-control', aria: { describedby: 'allowance_renews_on' }) %>
+                <%= af.number_field field_name, field_options.merge( class: 'form-control', aria: { describedby: 'allowance_renews_on' }, name: "visit[rejection_attributes][allowance_renews_on(#{3 - i}i)]") %>
               </div>
             <% end %>
           <% end %>

@@ -1,4 +1,4 @@
-class AddLocaleToVisit < ActiveRecord::Migration
+class AddLocaleToVisit < ActiveRecord::Migration[4.2]
   def up
     add_column :visits, :locale, :string, limit: 2
     execute <<-SQL

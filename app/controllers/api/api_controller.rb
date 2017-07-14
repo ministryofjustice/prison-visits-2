@@ -4,7 +4,7 @@ module Api
   class ApiController < ActionController::Base
     API_SLA = 2.seconds
 
-    skip_before_action :verify_authenticity_token
+    skip_before_action :verify_authenticity_token, raise: false
     before_action :set_locale
     before_action :store_request_id
     before_action :enforce_json

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
   describe '#create' do
-    subject(:create) { get :create, provider: 'mojsso' }
+    subject(:create) { get :create, params: { provider: 'mojsso' } }
 
     let(:auth_hash) { { 'info' => anything } }
     let(:sso_data) do

@@ -7,7 +7,7 @@ RSpec.describe GATracker do
   let(:visit)               { create(:visit) }
   let(:processing_time_key) { "processing_time-#{visit.id}-#{user.id}"  }
   let(:request)             { ActionDispatch::TestRequest.new('REMOTE_ADDR' => ip, 'HTTP_USER_AGENT' => user_agent) }
-  let(:cookies)             { ActionDispatch::Cookies::CookieJar.build(request) }
+  let(:cookies)             { ActionDispatch::Cookies::CookieJar.build(request, {}) }
   let(:nowish)              { Time.zone.now }
   let(:web_property_id)     { "UA-96772907-2" }
 

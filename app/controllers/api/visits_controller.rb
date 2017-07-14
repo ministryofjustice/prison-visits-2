@@ -10,12 +10,12 @@ module Api
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/MethodLength
     def create
-      prison = Prison.find_by!(id: params.fetch(:prison_id))
+      prison = Prison.find_by!(id: params.to_unsafe_h.fetch(:prison_id))
 
-      prisoner_step = PrisonerStep.new(params.fetch(:prisoner))
+      prisoner_step = PrisonerStep.new(params.to_unsafe_h.fetch(:prisoner))
       prisoner_step.prison_id = prison.id
 
-      visitors = params.fetch(:visitors).map { |v|
+      visitors = params.to_unsafe_h.fetch(:visitors).map { |v|
         VisitorsStep::Visitor.new(v)
       }
       visitors_step = VisitorsStep.new(
@@ -25,7 +25,7 @@ module Api
         prison: prison
       )
 
-      slots = params.fetch(:slot_options)
+      slots = params.to_unsafe_h.fetch(:slot_options)
       unless slots.is_a?(Array) && slots.size >= 1
         fail ParameterError, 'slot_options must contain >= slot'
       end

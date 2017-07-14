@@ -10,19 +10,19 @@ RSpec.describe StaffResponse, type: :model do
       validate_visitors_nomis_ready: validate_visitors_nomis_ready)
   end
 
-  describe 'accessible dates' do
+  describe 'multi_param dates' do
     let(:tomorrow)     { Date.current }
     let(:slot_granted) { nil }
-    let(:accessible_date) do
+    let(:multi_params_date) do
       {
-        'day'   => tomorrow.day,
-        'month' => tomorrow.month,
-        'year'  => tomorrow.year
+        'allowance_renews_on(1i)' => tomorrow.year.to_s,
+        'allowance_renews_on(2i)' => tomorrow.month.to_s,
+        'allowance_renews_on(3i)' => tomorrow.day.to_s
       }
     end
 
     before do
-      params[:rejection_attributes][:allowance_renews_on] = accessible_date
+      params[:rejection_attributes].merge!(multi_params_date)
     end
 
     context 'given a booking is not rejected for no allowance' do
@@ -49,21 +49,17 @@ RSpec.describe StaffResponse, type: :model do
       end
 
       context 'given not date was set' do
-        let(:accessible_date) do
-          { 'day' => '', 'month' => '', 'year' => '' }
+        let(:multi_params_date) do
+          {
+            'allowance_renews_on(1i)' => '',
+            'allowance_renews_on(2i)' => '',
+            'allowance_renews_on(3i)' => ''
+          }
         end
 
         it 'clears the date' do
           is_expected.to be_valid
           expect(subject.visit.rejection.allowance_renews_on).to eq(nil)
-        end
-      end
-
-      context 'given an invalid date' do
-        it 'does not convert to a date' do
-          accessible_date['year'] = ''
-          is_expected.to be_invalid
-          expect(subject.visit.rejection.allowance_renews_on).to eq(accessible_date)
         end
       end
     end
@@ -93,9 +89,9 @@ RSpec.describe StaffResponse, type: :model do
         is_expected.to be_invalid
         expect(subject.errors.full_messages).
           to eq([
-            I18n.t('must_reject_or_accept_visit',
-              scope: %i[staff_response errors])
-          ])
+                  I18n.t('must_reject_or_accept_visit',
+                    scope: %i[staff_response errors])
+                ])
       end
     end
 
@@ -115,7 +111,7 @@ RSpec.describe StaffResponse, type: :model do
             to include(
               I18n.t('visitors_invalid',
                 scope: %i[activemodel errors models staff_response attributes base])
-          )
+               )
 
           expect(subject.visit.visitors.first.errors[:base]).
             to include("Process this visitor to continue")
@@ -135,7 +131,7 @@ RSpec.describe StaffResponse, type: :model do
             to include(
               I18n.t('visitors_invalid',
                 scope: %i[activemodel errors models staff_response attributes base])
-          )
+               )
 
           expect(subject.visit.visitors.first.errors[:base]).
             to include("Process this visitor to continue")
@@ -268,14 +264,17 @@ RSpec.describe StaffResponse, type: :model do
     describe 'when rejected' do
       let(:slot_granted)                     { '' }
       let(:allowance_renew_date)             { 2.weeks.from_now.to_date }
+      let(:multi_params_date) do
+        {
+          'allowance_renews_on(1i)' => allowance_renew_date.year.to_s,
+          'allowance_renews_on(2i)' => allowance_renew_date.month.to_s,
+          'allowance_renews_on(3i)' => allowance_renew_date.day.to_s
+        }
+      end
 
       before do
         params[:rejection_attributes][:reasons] = [Rejection::NO_ALLOWANCE]
-        params[:rejection_attributes][:allowance_renews_on] = {
-          day:   allowance_renew_date.day,
-          month: allowance_renew_date.month,
-          year:  allowance_renew_date.year
-        }
+        params[:rejection_attributes].merge!(multi_params_date)
 
         expected_params['rejection_attributes'] = {
           'id'                              => nil,

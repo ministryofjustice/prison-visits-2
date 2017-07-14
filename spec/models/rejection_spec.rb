@@ -46,12 +46,18 @@ RSpec.describe Rejection, model: true do
             expect(subject).to be_valid
           end
         end
+
         context 'with an invalid accessible date' do
-          let(:allowance_renews_on) do
-            { day: '12', month: '11', year:  '' }
+          let(:allowance_renews_on_attributes) do
+            {
+              'allowance_renews_on(1i)' => '',
+              'allowance_renews_on(2i)' => '',
+              'allowance_renews_on(3i)' => '1'
+            }
           end
 
           it 'is invalid' do
+            subject.assign_attributes(allowance_renews_on_attributes)
             expect(subject).to be_invalid
           end
         end

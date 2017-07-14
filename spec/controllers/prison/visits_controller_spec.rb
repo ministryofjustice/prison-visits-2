@@ -7,10 +7,11 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
   describe '#update' do
     subject do
-      put :update,
+      put :update, params: {
         id: visit.id,
         visit: staff_response,
         locale: 'en'
+      }
     end
 
     let(:staff_response) { { slot_granted: visit.slots.first.to_s } }
@@ -88,7 +89,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     let(:user)   { create(:user) }
 
     context 'security' do
-      subject { get :show, id: 1 }
+      subject { get :show, params: { id: 1 } }
 
       it_behaves_like 'disallows untrusted ips'
     end
@@ -97,7 +98,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
       before do
         travel_to nowish do
           login_user(user, current_estates: [estate])
-          get :show, id: visit.id
+          get :show, params: { id: visit.id }
         end
       end
 
@@ -109,13 +110,13 @@ RSpec.describe Prison::VisitsController, type: :controller do
         let(:parsed_cookie)       { cookies[processing_time_key] }
 
         it "sets the visit processing time cookie" do
-          expect(parsed_cookie).to eq(nowish.to_i)
+          expect(parsed_cookie).to eq(nowish.to_i.to_s)
         end
       end
     end
 
     context "when logged out" do
-      before do get :show, id: visit.id end
+      before do get :show, params: { id: visit.id } end
 
       it { expect(response).not_to be_successful }
     end
@@ -127,10 +128,11 @@ RSpec.describe Prison::VisitsController, type: :controller do
     let(:cancellation_reason) { 'slot_unavailable' }
 
     subject do
-      delete :cancel,
+      delete :cancel, params: {
         id: visit.id,
         cancellation_reason: cancellation_reason,
         locale: 'en'
+      }
     end
 
     it_behaves_like 'disallows untrusted ips'
@@ -150,15 +152,21 @@ RSpec.describe Prison::VisitsController, type: :controller do
       end
 
       context 'when the visit is already cancelled' do
-        let(:visit) { FactoryGirl.create(:cancelled_visit) }
+        let(:visit) { create(:cancelled_visit) }
 
-        it { is_expected.to redirect_to(prison_visit_path(visit)) }
+        it 'redirect to the visit show page setting the already cancelled flash message' do
+          is_expected.to redirect_to(prison_visit_path(visit))
+          expect(flash.notice).to eq("The visit is no longer cancellable")
+        end
       end
 
       context 'when there is no cancellation reason' do
         let(:cancellation_reason) { nil }
 
-        it { is_expected.to redirect_to(prison_visit_path(visit)) }
+        it 'redirect to the visit show page setting the no cancellation reason flash message' do
+          is_expected.to redirect_to(prison_visit_path(visit))
+          expect(flash.notice).to eq("Please provide a cancellation reason")
+        end
       end
     end
 
@@ -171,7 +179,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     let(:cancellation) { FactoryGirl.create(:cancellation) }
     let(:visit) { cancellation.visit }
 
-    subject { post :nomis_cancelled, id: visit.id }
+    subject { post :nomis_cancelled, params: { id: visit.id } }
 
     it_behaves_like 'disallows untrusted ips'
 

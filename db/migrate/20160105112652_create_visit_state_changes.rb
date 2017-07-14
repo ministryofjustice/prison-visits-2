@@ -1,4 +1,4 @@
-class CreateVisitStateChanges < ActiveRecord::Migration
+class CreateVisitStateChanges < ActiveRecord::Migration[4.2]
   def change
     create_table :visit_state_changes, id: :uuid do |t|
       t.string :visit_state

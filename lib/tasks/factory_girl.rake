@@ -9,7 +9,7 @@ namespace :factory_girl do
         DatabaseCleaner.clean
       end
     else
-      sh 'rake db:test:prepare factory_girl:lint RAILS_ENV=test'
+      sh 'rake db:environment:set[test] db:test:prepare factory_girl:lint'
     end
   end
 end

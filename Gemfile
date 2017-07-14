@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.4.1'
 
-gem 'rails', '~> 4.2.9'
+gem 'rails', '~> 5.1'
 
 gem 'connection_pool'
 gem 'base32-crockford', require: 'base32/crockford'
@@ -43,7 +43,7 @@ gem 'virtus'
 gem 'zendesk_api'
 gem 'pvb-instrumentation',
   git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
-  tag: 'v0.1.2'
+  tag: 'v1.0.0'
 # gem 'pvb-instrumentation', path: '../pvb-instrumentation'
 
 gem 'secure_headers'
@@ -65,10 +65,8 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'ffaker'
-  gem 'fuubar'
   gem 'launchy'
   gem 'rspec-collection_matchers'
   gem 'selenium-webdriver', '2.53.4'
@@ -77,4 +75,6 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem 'shoulda-matchers'
+  gem 'database_cleaner'
+  gem 'rails-controller-testing'
 end
