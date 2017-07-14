@@ -110,7 +110,7 @@ GEM
     govuk_frontend_toolkit (6.0.4)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_template (0.22.2)
+    govuk_template (0.22.3)
       rails (>= 3.1)
     hashdiff (0.3.4)
     hashie (3.5.5)
