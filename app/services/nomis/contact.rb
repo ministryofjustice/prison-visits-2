@@ -11,7 +11,7 @@ module Nomis
     attribute :contact_type, Hash[Symbol => String]
     attribute :approved_visitor, Boolean
     attribute :active, Boolean
-    attribute :restrictions, Array[ContactRestriction]
+    attribute :restrictions, Array[Restriction]
 
     def approved?
       approved_visitor

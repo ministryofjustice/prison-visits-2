@@ -338,6 +338,43 @@ http_interactions:
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/restrictions
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.57.1
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.1
+      Date:
+      - Thu, 13 Jul 2017 14:40:37 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - total=6, db=5
+      Url-Template:
+      - "/offenders/{offender_id}/visits"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"restrictions":[{"type":{"code":"BAN","desc":"Banned"},"effective_date":"2017-06-01","expiry_date":"2017-07-01"},{"type":{"code":"CLOSED","desc":"Closed"},"effective_date":"2017-06-01"}]}'
+    http_version:
+  recorded_at: Thu, 13 Jul 2017 14:40:38 GMT
+- request:
+    method: get
     uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/contact_list
     body:
       encoding: US-ASCII
@@ -376,43 +413,6 @@ http_interactions:
         Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":13432,"given_name":"SHAY","surname":"DEE","date_of_birth":"1978-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]}]}'
     http_version:
   recorded_at: Sun, 04 Jun 2017 23:00:00 GMT
-- request:
-    method: get
-    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/restrictions
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - excon/0.57.1
-      Accept:
-      - application/json
-      Authorization:
-      - ''
-      X-Request-Id:
-      - ''
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Server:
-      - nginx/1.13.1
-      Date:
-      - Thu, 13 Jul 2017 14:40:37 GMT
-      Content-Type:
-      - application/json
-      Connection:
-      - keep-alive
-      Server-Timing:
-      - total=6, db=5
-      Url-Template:
-      - "/offenders/{offender_id}/visits"
-    body:
-      encoding: ASCII-8BIT
-      string: '{"restrictions":[]}'
-    http_version: 
-  recorded_at: Thu, 13 Jul 2017 14:40:38 GMT
 - request:
     method: post
     uri: https://www.google-analytics.com/collect
@@ -458,3 +458,4 @@ http_interactions:
     http_version:
   recorded_at: Sun, 04 Jun 2017 23:00:00 GMT
 recorded_with: VCR 3.0.3
+

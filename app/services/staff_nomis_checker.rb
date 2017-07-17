@@ -47,19 +47,9 @@ class StaffNomisChecker
   end
 
   def errors_for(slot)
-    errors = []
-
-    if Nomis::Feature.prisoner_availability_enabled? && offender.valid?
-      prisoner_availability_validation.slot_errors(slot).each do |error|
-        errors << error
-      end
-    end
-
-    if Nomis::Feature.slot_availability_enabled?(@visit.prison_name)
-      errors << slot_availability_validation.slot_error(slot)
-    end
-
-    errors.compact
+    prisoner_availability_errors(slot) +
+      slot_availability_errors(slot) +
+      prisoner_restrictions(slot)
   end
 
   def slots_unavailable?
@@ -99,12 +89,40 @@ class StaffNomisChecker
 
 private
 
+  def prisoner_restrictions(slot)
+    if Nomis::Feature.offender_restrictions_enabled? && offender.valid?
+      prisoner_restriction_list.on_slot(slot)
+    else
+      []
+    end
+  end
+
+  def prisoner_availability_errors(slot)
+    if Nomis::Feature.prisoner_availability_enabled? && offender.valid?
+      prisoner_availability_validation.slot_errors(slot)
+    else
+      []
+    end
+  end
+
+  def slot_availability_errors(slot)
+    if Nomis::Feature.slot_availability_enabled?(@visit.prison_name)
+      [slot_availability_validation.slot_error(slot)].compact
+    else
+      []
+    end
+  end
+
   def prisoner_validation_errors
     @prisoner_validation_errors ||= prisoner_validation.errors.full_messages
   end
 
   def prisoner_contact_list
     @prisoner_contact_list ||= PrisonerContactList.new(offender)
+  end
+
+  def prisoner_restriction_list
+    @prisoner_restriction_list ||= PrisonerRestrictionList.new(offender)
   end
 
   def prisoner_validation

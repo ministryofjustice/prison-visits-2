@@ -156,6 +156,7 @@ en:
         external movement: Prisoner on movement
         booked_visit: Booked on another visit
         slot_not_available: Fully booked
+        closed: Closed restriction
         add_a_message: Add a message
         rejection_warning: This visit will be rejected and an email will be sent to the lead visitor
         none_available: None of the chosen times are available

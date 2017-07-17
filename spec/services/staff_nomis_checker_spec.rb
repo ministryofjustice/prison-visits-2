@@ -175,7 +175,18 @@ RSpec.describe StaffNomisChecker do
     describe '#errors_for' do
       let(:slot) { visit.slots.first }
 
+      # TODO: Cleanup after global test config for feature flags has
+      # been removed from cong/test.rb
+      before do
+        switch_off(:nomis_staff_prisoner_availability_enabled)
+        switch_off(:nomis_staff_prisoner_check_enabled)
+      end
+
       context 'prisoner availability' do
+        before do
+          switch_off(:nomis_staff_prisoner_check_enabled)
+        end
+
         context 'when NOMIS_STAFF_PRISONER_AVAILABILITY_ENABLED' do
           context 'is disabled' do
             before do
@@ -223,13 +234,6 @@ RSpec.describe StaffNomisChecker do
       end
 
       context 'slot availability' do
-        let(:offender) { Nomis::NullOffender.new }
-
-        before do
-          switch_on(:nomis_staff_prisoner_availability_enabled)
-          mock_nomis_with(:lookup_active_offender, offender)
-        end
-
         context 'with NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED switched OFF' do
           before do
             switch_off :nomis_staff_slot_availability_enabled
@@ -272,6 +276,57 @@ RSpec.describe StaffNomisChecker do
               let(:message) { SlotAvailabilityValidation::SLOT_NOT_AVAILABLE }
 
               it { expect(subject.errors_for(slot)).to eq([message]) }
+            end
+          end
+        end
+      end
+
+      context 'prisoner restrictions' do
+        before do
+          switch_on(:nomis_staff_prisoner_check_enabled)
+        end
+
+        context 'when NOMIS_STAFF_OFFENDER_RESTRICTIONS_ENABLED' do
+          context 'is disabled' do
+            before do
+              switch_off(:nomis_staff_offender_restrictions_enabled)
+            end
+
+            it { expect(subject.errors_for(slot)).to be_empty }
+          end
+
+          context 'is enabled' do
+            before do
+              switch_on(:nomis_staff_offender_restrictions_enabled)
+              mock_nomis_with(:lookup_active_offender, offender)
+            end
+
+            context 'with a valid offender' do
+              let(:prisoner_restrictions_list) do
+                instance_double(PrisonerRestrictionList, on_slot: messages)
+              end
+
+              before do
+                mock_service_with(PrisonerRestrictionList, prisoner_restrictions_list)
+              end
+
+              context 'with an error' do
+                let(:messages) { [Nomis::Restriction::CLOSED_NAME] }
+
+                it { expect(subject.errors_for(slot)).to eq(messages) }
+              end
+
+              context 'with no errors' do
+                let(:messages) { [] }
+
+                it { expect(subject.errors_for(slot)).to be_empty }
+              end
+            end
+
+            context 'a null offender' do
+              let(:offender) { Nomis::NullOffender.new }
+
+              it { expect(subject.errors_for(slot)).to be_empty }
             end
           end
         end
