@@ -7,6 +7,32 @@ RSpec.describe PrisonerRestrictionList do
 
   subject { described_class.new(offender) }
 
+  context '#unknown_result?' do
+    context "when it's a null offender" do
+      let(:offender) { Nomis::NullOffender.new }
+
+      it { is_expected.to be_unknown_result }
+    end
+
+    context "when the api returns an error" do
+      before do
+        simulate_api_error_for(:fetch_offender_restrictions)
+      end
+
+      it { is_expected.to be_unknown_result }
+    end
+
+    context "when the api returns no error" do
+      let(:offender_restrictions) { Nomis::OffenderRestrictions.new }
+
+      before do
+        mock_nomis_with(:fetch_offender_restrictions, offender_restrictions)
+      end
+
+      it { is_expected.not_to be_unknown_result }
+    end
+  end
+
   describe '#on_slot' do
     let(:slot_date) { Time.zone.today }
     let(:slot) do

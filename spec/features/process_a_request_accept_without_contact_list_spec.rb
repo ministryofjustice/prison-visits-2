@@ -153,6 +153,24 @@ RSpec.feature 'Processing a request - Acceptance without the contact list enable
           with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
           and_body(/cannot attend as they are not on the prisoner's contact list/)
       end
+
+      scenario 'accepting a booking when the prisoner restrictions api fails', vcr: { cassette_name: 'offender_restrictions_api_failure' } do
+        switch_on :nomis_staff_prisoner_check_enabled
+        switch_on :nomis_staff_offender_restrictions_enabled
+
+        visit prison_visit_path(vst, locale: 'en')
+
+        expect(page).to have_css('form .notice', text: "We can’t show the NOMIS prisoner restrictions right now. Please check all prisoner restrictions in NOMIS")
+        choose_date
+        fill_in 'Reference number', with: '12345678'
+
+        click_button 'Process'
+
+        expect(page).to have_css('#content .notification', text: 'Thank you for processing the visit')
+
+        vst.reload
+        expect(vst).to be_booked
+      end
     end
   end
 end

@@ -46,6 +46,11 @@ class StaffNomisChecker
       slot_availability_validation.unknown_result?
   end
 
+  def prisoner_restrictions_unknown?
+    Nomis::Feature.offender_restrictions_enabled? &&
+      prisoner_restriction_list.unknown_result?
+  end
+
   def errors_for(slot)
     prisoner_availability_errors(slot) +
       slot_availability_errors(slot) +

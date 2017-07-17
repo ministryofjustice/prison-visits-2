@@ -26,6 +26,10 @@ RSpec.describe StaffNomisChecker do
       it { is_expected.not_to be_slot_availability_unknown }
     end
 
+    describe '#prisoner_restrictions_unknown?' do
+      it { is_expected.not_to be_prisoner_restrictions_unknown }
+    end
+
     describe '#errors_for' do
       it { expect(subject.errors_for(visit.slots.first)).to be_empty }
     end
@@ -174,13 +178,6 @@ RSpec.describe StaffNomisChecker do
 
     describe '#errors_for' do
       let(:slot) { visit.slots.first }
-
-      # TODO: Cleanup after global test config for feature flags has
-      # been removed from cong/test.rb
-      before do
-        switch_off(:nomis_staff_prisoner_availability_enabled)
-        switch_off(:nomis_staff_prisoner_check_enabled)
-      end
 
       context 'prisoner availability' do
         before do
@@ -487,6 +484,40 @@ RSpec.describe StaffNomisChecker do
         end
 
         it { is_expected.not_to be_contact_list_unknown }
+      end
+    end
+
+    describe '#prisoner_restrictions_unknown?' do
+      context 'with NOMIS_STAFF_OFFENDER_RESTRICTION_ENABLED switched ON' do
+        let(:restrictions_list) do
+          instance_double(PrisonerRestrictionList)
+        end
+
+        let(:offender_restrictions_api_error) { false }
+
+        before do
+          switch_on(:nomis_staff_prisoner_check_enabled)
+          switch_on(:nomis_staff_offender_restrictions_enabled)
+          mock_nomis_with(:lookup_active_offender, offender)
+          expect(restrictions_list).to receive(:unknown_result?).and_return(offender_restrictions_api_error)
+          mock_service_with(PrisonerRestrictionList, restrictions_list)
+        end
+
+        it { is_expected.not_to be_prisoner_restrictions_unknown }
+
+        context 'and the offender restrictions returns an API error' do
+          let(:offender_restrictions_api_error) { true }
+
+          it { is_expected.to be_prisoner_restrictions_unknown }
+        end
+      end
+
+      context 'with NOMIS_STAFF_PRISONER_CHECK_ENABLED switched OFF' do
+        before do
+          switch_off :nomis_staff_prisoner_check_enabled
+        end
+
+        it { is_expected.not_to be_prisoner_restrictions_unknown }
       end
     end
 

@@ -3,10 +3,14 @@ class PrisonerRestrictionList
     @offender = offender
   end
 
+  def unknown_result?
+    !offender_restrictions.api_call_successful?
+  end
+
   def on_slot(slot)
     offender_restrictions.
       select(&:closed?).
-      select { |restriction| restriction.effective?(slot.to_date) }.
+      select { |restriction| restriction.effective_at?(slot.to_date) }.
       map(&:name)
   end
 
