@@ -8,3 +8,11 @@ $ie-version: 8;
     @include opacity(1);
   }
 }
+
+.unsupported-content {
+  margin: 0 auto;
+  width: $site-width;
+}
+#content, #footer {
+  display: none;
+}
