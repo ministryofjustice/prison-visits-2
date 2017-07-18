@@ -33,7 +33,7 @@ RSpec.describe StaffNomisChecker do
 
   describe 'When the API is enabled' do
     describe '#prisoner_existance_status' do
-      describe 'api is configured and the check is disabled for staff' do
+      describe 'api is enabled and the check is disabled for staff' do
         before do
           switch_off(:nomis_staff_prisoner_check_enabled)
         end
@@ -43,6 +43,7 @@ RSpec.describe StaffNomisChecker do
 
       describe 'when the nomis api is live' do
         before do
+          switch_on :nomis_staff_prisoner_check_enabled
           mock_nomis_with(:lookup_active_offender, offender)
         end
 
@@ -152,6 +153,7 @@ RSpec.describe StaffNomisChecker do
         end
 
         before do
+          switch_on(:nomis_staff_prisoner_availability_enabled)
           mock_nomis_with(:lookup_active_offender, offender)
           mock_service_with(PrisonerAvailabilityValidation, prisoner_availability_validation)
         end
@@ -224,6 +226,7 @@ RSpec.describe StaffNomisChecker do
         let(:offender) { Nomis::NullOffender.new }
 
         before do
+          switch_on(:nomis_staff_prisoner_availability_enabled)
           mock_nomis_with(:lookup_active_offender, offender)
         end
 

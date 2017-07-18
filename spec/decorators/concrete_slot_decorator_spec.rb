@@ -40,46 +40,52 @@ RSpec.describe ConcreteSlotDecorator do
     end
 
     describe 'prisoner availability' do
-      context 'when a prisoner is available' do
-        it 'renders the checkbox without errors ' do
-          expect(html_fragment).to have_css('label.date-box__label')
-          expect(html_fragment).to have_css('span.date-box__number', text: '1')
-          expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
-          expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
-          expect(html_fragment).not_to have_css("input[disabled='disabled']")
-        end
-      end
-
-      context 'when a prisoner is not available' do
-        context 'with a date in the future' do
-          let(:slot_errors) { ['prisoner_banned'] }
-
-          it 'renders the checkbox with errors' do
-            expect(html_fragment).to have_css('label.date-box__label.date-box--error')
-            expect(html_fragment).to have_css('span.date-box__number', text: '1')
-            expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
-            expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
-            expect(html_fragment).to have_css('span.tag--error', text: 'Visits banned')
-          end
+      context 'when the api is enabled' do
+        before do
+          switch_on :nomis_staff_prisoner_availability_enabled
         end
 
-        context 'for a date in the past' do
-          let(:date) { Date.yesterday }
-
-          it 'renders the checkbox neither verified or errors' do
+        context 'when a prisoner is available' do
+          it 'renders the checkbox without errors ' do
             expect(html_fragment).to have_css('label.date-box__label')
             expect(html_fragment).to have_css('span.date-box__number', text: '1')
             expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
             expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
-            expect(html_fragment).not_to have_css('span.tag--error')
-            expect(html_fragment).not_to have_css('span.tag--verified')
+            expect(html_fragment).not_to have_css("input[disabled='disabled']")
+          end
+        end
+
+        context 'when a prisoner is not available' do
+          context 'with a date in the future' do
+            let(:slot_errors) { ['prisoner_banned'] }
+
+            it 'renders the checkbox with errors' do
+              expect(html_fragment).to have_css('label.date-box__label.date-box--error')
+              expect(html_fragment).to have_css('span.date-box__number', text: '1')
+              expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
+              expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
+              expect(html_fragment).to have_css('span.tag--error', text: 'Visits banned')
+            end
+          end
+
+          context 'for a date in the past' do
+            let(:date) { Date.yesterday }
+
+            it 'renders the checkbox neither verified or errors' do
+              expect(html_fragment).to have_css('label.date-box__label')
+              expect(html_fragment).to have_css('span.date-box__number', text: '1')
+              expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
+              expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
+              expect(html_fragment).not_to have_css('span.tag--error')
+              expect(html_fragment).not_to have_css('span.tag--verified')
+            end
           end
         end
       end
 
       context 'when the api is disabled' do
         before do
-          switch_on :nomis_staff_prisoner_availability_enabled
+          switch_off :nomis_staff_prisoner_availability_enabled
         end
 
         it 'renders the checkbox without errors' do
