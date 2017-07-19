@@ -67,6 +67,8 @@ RSpec.feature 'Processing a request', js: true do
       switch_on :nomis_staff_slot_availability_enabled
       switch_feature_flag_with(:staff_prisons_with_slot_availability, [prison.name])
 
+      switch_on :nomis_staff_offender_restrictions_enabled
+
       vst.update!(slot_option_0: '2017-06-20T10:00/11:00')
     end
 
