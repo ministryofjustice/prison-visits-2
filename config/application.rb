@@ -25,13 +25,9 @@ module PrisonVisits
 
     config.time_zone = 'London'
 
-    # The last 3 errors can be removed with Rails 5. See Rails PR #19632
-    config.action_dispatch.rescue_responses.merge!(
-      'StateMachines::InvalidTransition' => :unprocessable_entity,
-      'ActionController::ParameterMissing' => :bad_request,
-      'Rack::Utils::ParameterTypeError' => :bad_request,
-      'Rack::Utils::InvalidParameterError' => :bad_request
-    )
+    config.
+      action_dispatch.
+      rescue_responses['StateMachines::InvalidTransition'] = :unprocessable_entity
 
     config.ga_id = ENV['GA_TRACKING_ID']
 

@@ -73,6 +73,7 @@ private
   def search(visits, query)
     normalised = query.upcase.strip
     # TODO: Can be rewritten when we are on Rails 5
+    # Not yet, there is an open Rails issue that prevents this: #24055
     visits.
       joins(:prisoner).
       where('prisoners.number = :value OR visits.human_id = :value', value: normalised)
