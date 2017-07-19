@@ -5,7 +5,7 @@ class ConcreteSlotDecorator < Draper::Decorator
     data: {
       'conditional-el'  => 'selected_slot_details',
       'conditional-val' => 'slot_option_0,slot_option_1,slot_option2'
-    }
+    }.freeze
   }.freeze
 
   # rubocop:disable Metrics/MethodLength
@@ -92,9 +92,10 @@ private
   end
 
   def radio_options
-    options = {}
+    options = RADIO_BUTTON_OPTIONS.deep_dup
     options[:disabled] = 'disabled' if slot_in_past?
-    options.merge(RADIO_BUTTON_OPTIONS)
+    options[:class] << ' js-closedRestriction' if closed_restriction?
+    options
   end
 
   def slot_in_past?
@@ -132,6 +133,10 @@ private
 
   def errors
     @errors ||= nomis_checker.errors_for(object)
+  end
+
+  def closed_restriction?
+    errors.any? { |e| e == Nomis::Restriction::CLOSED_NAME }
   end
 
   def nomis_checker
