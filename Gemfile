@@ -69,7 +69,7 @@ group :test do
   gem 'ffaker'
   gem 'launchy'
   gem 'rspec-collection_matchers'
-  gem 'selenium-webdriver', '2.53.4'
+  gem 'selenium-webdriver'
   gem 'simplecov'
   gem 'simplecov-rcov'
   gem 'vcr'

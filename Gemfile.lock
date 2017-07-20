@@ -292,10 +292,9 @@ GEM
       railties (>= 4.0.0)
     secure_headers (3.6.5)
       useragent
-    selenium-webdriver (2.53.4)
+    selenium-webdriver (3.4.4)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
-      websocket (~> 1.0)
     sentry-raven (2.6.0)
       faraday (>= 0.7.6, < 1.0)
     shoulda-matchers (3.1.2)
@@ -355,7 +354,6 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
-    websocket (1.2.4)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -418,7 +416,7 @@ DEPENDENCIES
   sass-rails
   scenic
   secure_headers
-  selenium-webdriver (= 2.53.4)
+  selenium-webdriver
   sentry-raven
   shoulda-matchers
   sidekiq
@@ -438,4 +436,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.15.1
+   1.15.2
