@@ -40,7 +40,7 @@ private
   end
 
   def start_time
-    Time.zone.at(cookies[processing_time_key])
+    Time.zone.at(Integer(cookies[processing_time_key]))
   rescue
     nil
   end
