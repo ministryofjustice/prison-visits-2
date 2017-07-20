@@ -4,8 +4,6 @@
   moj.Modules.BookToNomis = {
     el: '.js-BookToNomis',
 
-    selected: [],
-
     init: function () {
       this.cacheEls();
       this.bindEvents();
@@ -18,16 +16,16 @@
 
     cacheEls: function () {
       this.$el = $(this.el);
-      this.$conditionalEl = this.$el.data('el');
+      this.conditionalElName = this.$el.data('el');
     },
 
     render: function () {
-      var $el = $('#'+this.$conditionalEl);
+      var $el = $('#'+this.conditionalElName);
       if(moj.Modules.Rejection.isRejected() || this.$el.length > 0 && !this.$el.is(':checked')){
-        $el.hide();
+        $el.hide().addClass('visually-hidden');
         $el.attr('aria-expanded', 'false').attr('aria-hidden', 'true');
       } else {
-        $el.show();
+        $el.show().removeClass('visually-hidden');
         $el.attr('aria-expanded', 'true').attr('aria-hidden', 'false');
       }
     }

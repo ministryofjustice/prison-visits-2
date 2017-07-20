@@ -138,15 +138,15 @@
   <div class="grid-row push-top choose-date">
     <div class="form-group">
       <div class="column-one-third">
-        <label class="block-label date-box disabled" data-target="selected_slot_details" for="visit_slot_granted_2017-05-13t09151115"><input disabled="disabled" class="js-Conditional" data-conditional-el="selected_slot_details" data-conditional-val="slot_option_0,slot_option_1,slot_option2" type="radio" value="2017-05-13T09:15/11:15" name="visit[slot_granted]" id="visit_slot_granted_2017-05-13t09151115" aria-controls="selected_slot_details"><span class="date-box__number">1</span><span class="date-box__day">Saturday</span><br>13 May 2017 <br>09:15–11:15
+        <label class="disabled" data-target="selected_slot_details" for="visit_slot_granted_2017-05-13t09151115"><input disabled="disabled" class="js-Conditional" data-conditional-el="selected_slot_details" data-conditional-val="slot_option_0,slot_option_1,slot_option2" type="radio" value="2017-05-13T09:15/11:15" name="visit[slot_granted]" id="visit_slot_granted_2017-05-13t09151115" aria-controls="selected_slot_details"><span class="date-box__number">1</span><span class="date-box__day">Saturday</span><br>13 May 2017 <br>09:15–11:15
         </label>
       </div>
       <div class="column-one-third">
-        <label class="block-label date-box selected" data-target="selected_slot_details" for="visit_slot_granted_2017-05-27t09151115"><input class="js-Conditional" data-conditional-el="selected_slot_details" data-conditional-val="slot_option_0,slot_option_1,slot_option2" type="radio" value="2017-05-27T09:15/11:15" name="visit[slot_granted]" id="visit_slot_granted_2017-05-27t09151115" aria-controls="selected_slot_details"><span class="date-box__number">2</span><span class="date-box__day">Saturday</span><br>27 May 2017 <br>09:15–11:15
+        <label class="selected" data-target="selected_slot_details" for="visit_slot_granted_2017-05-27t09151115"><input class="js-Conditional js-closedRestriction" data-conditional-el="selected_slot_details" data-conditional-val="slot_option_0,slot_option_1,slot_option2" type="radio" value="2017-05-27T09:15/11:15" name="visit[slot_granted]" id="visit_slot_granted_2017-05-27t09151115" aria-controls="selected_slot_details"><span class="date-box__number">2</span><span class="date-box__day">Saturday</span><br>27 May 2017 <br>09:15–11:15
         </label><span class="date-box__message bold-xsmall tag tag--verified">Prisoner available</span>
       </div>
       <div class="column-one-third">
-        <label class="block-label date-box" data-target="selected_slot_details" for="visit_slot_granted_2017-05-20t14001600"><input class="js-Conditional" data-conditional-el="selected_slot_details" data-conditional-val="slot_option_0,slot_option_1,slot_option2" type="radio" value="2017-05-20T14:00/16:00" name="visit[slot_granted]" id="visit_slot_granted_2017-05-20t14001600" aria-controls="selected_slot_details"><span class="date-box__number">3</span><span class="date-box__day">Saturday</span><br>20 May 2017 <br>14:00–16:00
+        <label class="" data-target="selected_slot_details" for="visit_slot_granted_2017-05-20t14001600"><input class="js-Conditional" data-conditional-el="selected_slot_details" data-conditional-val="slot_option_0,slot_option_1,slot_option2" type="radio" value="2017-05-20T14:00/16:00" name="visit[slot_granted]" id="visit_slot_granted_2017-05-20t14001600" aria-controls="selected_slot_details"><span class="date-box__number">3</span><span class="date-box__day">Saturday</span><br>20 May 2017 <br>14:00–16:00
         </label><span class="date-box__message bold-xsmall tag tag--verified">Prisoner available</span>
       </div>
     </div>
@@ -330,6 +330,10 @@
           <label for="book_to_nomis_opt_in">Don't automatically copy this visit to NOMIS</label>
         </div>
       </fieldset>
+
+      <div id="closed-visits" class="visually-hidden">
+        <strong class="bold-small">This is a closed visit. Book manually into NOMIS.</strong>
+      </div>
 
       <div id="booktonomis-message">
         <div class="grid-row">
