@@ -23,12 +23,14 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
 
   before do
     switch_feature_flag_with(:staff_prisons_with_nomis_contact_list, [prison.name])
-
     vst.update!(slot_option_0: '2017-06-27T14:00/16:00')
   end
 
   context 'with book to nomis enabled' do
     before do
+      switch_on :nomis_staff_prisoner_check_enabled
+      switch_on :nomis_staff_prisoner_availability_enabled
+
       switch_on :nomis_staff_book_to_nomis_enabled
       switch_feature_flag_with(:staff_prisons_with_book_to_nomis, [prison.name])
 
@@ -37,6 +39,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
     end
 
     scenario 'accepting a booking', vcr: { cassette_name: 'book_to_nomis' } do
+      switch_feature_flag_with(:staff_prisons_with_nomis_contact_list, [prison.name])
       visit prison_visit_path(vst, locale: 'en')
 
       expect(page).to have_css('h1', text: 'Visit details')
@@ -96,6 +99,9 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
   context 'without book to nomis enabled' do
     before do
       switch_off :nomis_staff_book_to_nomis_enabled
+
+      switch_on :nomis_staff_prisoner_check_enabled
+      switch_on :nomis_staff_prisoner_availability_enabled
     end
 
     scenario 'accepting a booking', vcr: { cassette_name: 'process_happy_path_with_contact_list' } do

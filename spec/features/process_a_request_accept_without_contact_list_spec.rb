@@ -22,6 +22,10 @@ RSpec.feature 'Processing a request - Acceptance without the contact list enable
     end
 
     context "validating prisoner informations - sad paths" do
+      before do
+        switch_on :nomis_staff_prisoner_check_enabled
+      end
+
       context "and the prisoner's informations are not valid", vcr: { cassette_name: 'lookup_active_offender-nomatch' } do
         let(:slot_zero) { ConcreteSlot.new(2016, 5, 1, 10, 30, 11, 30) }
         let(:slot_one) { ConcreteSlot.new(2016, 5, 21, 10, 30, 11, 30) }
@@ -43,6 +47,9 @@ RSpec.feature 'Processing a request - Acceptance without the contact list enable
     end
 
     scenario 'accepting a booking' do
+      switch_on :nomis_staff_prisoner_check_enabled
+      switch_on :nomis_staff_prisoner_availability_enabled
+
       visit prison_visit_path(vst, locale: 'en')
       click_button 'Process'
 

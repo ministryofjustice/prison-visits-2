@@ -25,9 +25,16 @@ Rails.application.configure do
   config.nomis_api_token = nil
   config.nomis_api_key = nil
 
-  config.nomis_staff_prisoner_check_enabled = true
-  config.nomis_public_prisoner_check_enabled = true
-
-  config.nomis_staff_prisoner_availability_enabled = true
-  config.nomis_public_prisoner_availability_enabled = true
+  # Set feature flags to nil to prevent them being set by local .env
+  # and to ensure tests pass wherever they are run from.
+  config.nomis_staff_prisoner_check_enabled = nil
+  config.nomis_public_prisoner_check_enabled = nil
+  config.nomis_staff_prisoner_availability_enabled = nil
+  config.nomis_public_prisoner_availability_enabled = nil
+  config.nomis_staff_slot_availability_enabled = nil
+  config.staff_prisons_with_slot_availability = nil
+  config.public_prisons_with_slot_availability = nil
+  config.staff_prisons_with_nomis_contact_list = nil
+  config.nomis_staff_book_to_nomis_enabled = nil
+  config.staff_prisons_with_book_to_nomis = nil
 end

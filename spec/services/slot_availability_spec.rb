@@ -61,7 +61,10 @@ RSpec.describe SlotAvailability do
       end
 
       describe 'with nomis public prisoner check enabled' do
-        before do mock_nomis_with(:lookup_active_offender, offender) end
+        before do
+          switch_on :nomis_public_prisoner_availability_enabled
+          mock_nomis_with(:lookup_active_offender, offender)
+        end
 
         describe 'when the offender is valid' do
           before do
@@ -127,10 +130,6 @@ RSpec.describe SlotAvailability do
       end
 
       describe 'without nomis public prisoner check enabled' do
-        before do
-          switch_off(:nomis_public_prisoner_availability_enabled)
-        end
-
         it 'applies the prison availability' do
           expect(subject.slots).to eq(
             "2017-02-07T09:00/10:00" => [],
@@ -150,8 +149,13 @@ RSpec.describe SlotAvailability do
     end
 
     describe 'with a prison not in the trial' do
+      before do
+        switch_feature_flag_with(:public_prisons_with_slot_availability, [])
+      end
+
       describe 'and prisoner availability enabled' do
         before do
+          switch_on :nomis_public_prisoner_availability_enabled
           mock_nomis_with(:lookup_active_offender, offender)
           mock_nomis_with(:offender_visiting_availability, prisoner_availability)
         end

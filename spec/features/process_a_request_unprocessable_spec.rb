@@ -59,6 +59,8 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     before do
+      switch_on :nomis_staff_prisoner_availability_enabled
+      switch_on :nomis_staff_prisoner_check_enabled
       switch_feature_flag_with(:staff_prisons_with_nomis_contact_list, [vst.prison_name])
 
       switch_on :nomis_staff_book_to_nomis_enabled
@@ -74,7 +76,6 @@ RSpec.feature 'Processing a request', js: true do
       visit prison_visit_path(vst, locale: 'en')
 
       choose_date
-
       within "#visitor_#{visitor.id}" do
         select 'IRMA ITSU - 03/04/1975', from: 'Match to contact list'
       end
