@@ -100,7 +100,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
     scenario 'available date the prisoner has a closed restriction', vcr: { cassette_name: 'closed_restriction' } do
       visit prison_visit_path(vst, locale: 'en')
 
-      expect(page).to have_css('.choose-date .tag--error', text: 'Closed restriction')
+      expect(page).to have_css('.choose-date .tag--error', text: 'Closed visit restriction')
 
       choose_date
 
@@ -108,7 +108,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
         select 'IRMA ITSU - 03/04/1975', from: 'Match to contact list'
       end
 
-      expect(page).to have_css('.panel', text: "This is a closed visit. Book manually into NOMIS.")
+      expect(page).to have_css('.panel', text: "This is a closed visit. Book this visit into NOMIS, then enter the reference number")
 
       click_button 'Process'
       expect(page).to have_css('.notification', text: 'Thank you for processing the visit')

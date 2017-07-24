@@ -53,7 +53,7 @@ RSpec.describe ConcreteSlotDecorator do
             expect(html_fragment).to have_css('span.date-box__number', text: '1')
             expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
             expect(html_fragment).to have_css('span.tag--verified',    text: 'Prisoner available')
-            expect(html_fragment).to have_css('span.tag--error',       text: 'Closed restriction')
+            expect(html_fragment).to have_css('span.tag--error',       text: 'Closed visit restriction')
             expect(html_fragment).to have_css('input.js-closedRestriction')
             expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
           end

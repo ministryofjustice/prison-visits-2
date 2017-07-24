@@ -126,7 +126,8 @@ en:
           We can't copy this visit to NOMIS right now. If the visit is booked successfully, please record it manually.
         reference_no: Reference number
         reference_no_hint: eg Last 8 digits of VO number or “none” for remand
-        closed_visit: This is a closed visit
+        closed_visit: This is a closed visit.
+        closed_book_to_nomis: Book this visit into NOMIS, then enter the reference number below.
       calendar:
         today: Today
       requested:
@@ -156,7 +157,7 @@ en:
         external movement: Prisoner on movement
         booked_visit: Booked on another visit
         slot_not_available: Fully booked
-        closed: Closed restriction
+        closed: Closed visit restriction
         add_a_message: Add a message
         rejection_warning: This visit will be rejected and an email will be sent to the lead visitor
         none_available: None of the chosen times are available
