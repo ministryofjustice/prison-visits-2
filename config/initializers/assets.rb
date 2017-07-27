@@ -5,6 +5,7 @@ Rails.application.config.assets.precompile += %w[
   email.css
   *.png
   *.svg
+  *.jpg
   favicon.ico
   metrics.css
   metrics.js
