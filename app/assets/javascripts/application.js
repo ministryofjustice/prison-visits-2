@@ -1,5 +1,5 @@
 // Vendor assets
-//= require jquery
+//= require jquery2
 //= require jquery_ujs
 //= require vendor/chosen.jquery
 //= require vendor/jquery.tablesorter
