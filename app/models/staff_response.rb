@@ -106,6 +106,7 @@ privileged_allowance_expires_on])
     if principal_visitor.banned? || principal_visitor.not_on_list? ||
            principal_visitor.age < ADULT_AGE
       rejection.reasons << Rejection::NOT_ON_THE_LIST
+      visit.slot_granted = nil
     end
   end
 
