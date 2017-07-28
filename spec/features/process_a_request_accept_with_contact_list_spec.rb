@@ -36,6 +36,8 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
 
       switch_on :nomis_staff_slot_availability_enabled
       switch_feature_flag_with(:staff_prisons_with_slot_availability, [prison.name])
+
+      switch_on :nomis_staff_offender_restrictions_enabled
     end
 
     scenario 'accepting a booking', vcr: { cassette_name: 'book_to_nomis' } do
@@ -88,6 +90,27 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
 
       click_button 'Process'
 
+      expect(page).to have_css('.notification', text: 'Thank you for processing the visit')
+
+      vst.reload
+      expect(vst).to be_booked
+      expect(vst.nomis_id).to be_nil
+    end
+
+    scenario 'available date the prisoner has a closed restriction', vcr: { cassette_name: 'closed_restriction' } do
+      visit prison_visit_path(vst, locale: 'en')
+
+      expect(page).to have_css('.choose-date .tag--error', text: 'Closed visit restriction')
+
+      choose_date
+
+      within "#visitor_#{visitor.id}" do
+        select 'IRMA ITSU - 03/04/1975', from: 'Match to contact list'
+      end
+
+      expect(page).to have_css('.panel', text: "This is a closed visit. Book this visit into NOMIS, then enter the reference number")
+
+      click_button 'Process'
       expect(page).to have_css('.notification', text: 'Thank you for processing the visit')
 
       vst.reload

@@ -37,6 +37,7 @@
 //= require modules/moj.autocomplete
 //= require modules/moj.searchPlaceholder
 //= require modules/moj.BookToNomis
+//= require modules/moj.closedRestriction
 
 (function() {
   'use strict';

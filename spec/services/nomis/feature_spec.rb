@@ -15,7 +15,39 @@ RSpec.describe Nomis::Feature do
   end
 
   describe 'when the api is enabled' do
-    describe '.contact_list_enabled' do
+    describe '.offender_restrictions_enabled?' do
+      context 'with the prisoner check disabled' do
+        before do
+          switch_off :nomis_staff_prisoner_check_enabled
+        end
+
+        it { expect(described_class).not_to be_offender_restrictions_enabled }
+      end
+
+      context 'with the prisoner check enabled' do
+        before do
+          switch_on :nomis_staff_prisoner_check_enabled
+        end
+
+        context 'with the offender restrictions enabled' do
+          before do
+            switch_on :nomis_staff_offender_restrictions_enabled
+          end
+
+          it { expect(described_class).to be_offender_restrictions_enabled }
+        end
+
+        context 'with the offender restrictions disabled' do
+          before do
+            switch_off :nomis_staff_offender_restrictions_enabled
+          end
+
+          it { expect(described_class).not_to be_offender_restrictions_enabled }
+        end
+      end
+    end
+
+    describe '.contact_list_enabled?' do
       context 'with the prisoner check disabled' do
         before do
           switch_off :nomis_staff_prisoner_check_enabled

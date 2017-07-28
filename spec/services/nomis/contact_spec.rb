@@ -33,10 +33,10 @@ RSpec.describe Nomis::Contact do
     context 'with other type of restrictions' do
       let(:restrictions) do
         [
-          Nomis::ContactRestriction.new(
+          Nomis::Restriction.new(
             effective_date: '2017-03-02',
             expiry_date: '2017-04-02',
-            type: { code: "CLO", desc: "Closed" })
+            type: { code: "CLOSED", desc: "Closed" })
         ]
       end
 
@@ -46,7 +46,7 @@ RSpec.describe Nomis::Contact do
     context 'with a banned restriction' do
       let(:restrictions) do
         [
-          Nomis::ContactRestriction.new(
+          Nomis::Restriction.new(
             effective_date: '2017-03-02',
             expiry_date: '2017-04-02',
             type: { code: "BAN", desc: "Banned" })
@@ -64,7 +64,7 @@ RSpec.describe Nomis::Contact do
       let(:expiry_date) { Date.parse('2017-04-02') }
       let(:restrictions) do
         [
-          Nomis::ContactRestriction.new(
+          Nomis::Restriction.new(
             effective_date: '2017-03-02',
             expiry_date: expiry_date,
             type: { code: "BAN", desc: "Banned" })
@@ -77,7 +77,7 @@ RSpec.describe Nomis::Contact do
     context 'with a banned restriction with no expiry' do
       let(:restrictions) do
         [
-          Nomis::ContactRestriction.new(
+          Nomis::Restriction.new(
             effective_date: '2017-03-02',
             expiry_date: nil,
             type: { code: "BAN", desc: "Banned" })
@@ -90,10 +90,10 @@ RSpec.describe Nomis::Contact do
     context 'with no banned restriction' do
       let(:restrictions) do
         [
-          Nomis::ContactRestriction.new(
+          Nomis::Restriction.new(
             effective_date: '2017-03-02',
             expiry_date: '2017-04-02',
-            type: { code: "CLO", desc: "Closed" })
+            type: { code: "CLOSED", desc: "Closed" })
         ]
       end
 

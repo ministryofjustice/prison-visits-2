@@ -8,10 +8,8 @@ class BookToNomisConfig
 
   def possible_to_book?
     Nomis::Feature.book_to_nomis_enabled?(prison_name) &&
-      prisoner_existance_valid? &&
-      prisoner_availability_working? &&
       slot_availability_working? &&
-      contact_list_working? &&
+      prisoner_checks_working? &&
       !already_booked_in_nomis?
   end
 
@@ -51,5 +49,17 @@ private
   def contact_list_working?
     Nomis::Feature.contact_list_enabled?(prison_name) &&
       !staff_nomis_checker.contact_list_unknown?
+  end
+
+  def offender_restrictions_working?
+    Nomis::Feature.offender_restrictions_enabled? &&
+      !staff_nomis_checker.prisoner_restrictions_unknown?
+  end
+
+  def prisoner_checks_working?
+    prisoner_existance_valid? &&
+    prisoner_availability_working? &&
+    contact_list_working? &&
+    offender_restrictions_working?
   end
 end

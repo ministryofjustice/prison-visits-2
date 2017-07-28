@@ -258,6 +258,12 @@ are available at the requested prison.
 A comma separated list of prisons for which PVB2 API will display the nomis
 contact list on the process visit page.
 
+#### `NOMIS_STAFF_OFFENDER_RESTRICTIONS_ENABLED`
+
+If `true` then the process visit page will query the offender restrictions api.
+
+(Optional) By default it is false.
+
 #### `NOMIS_STAFF_BOOK_TO_NOMIS_ENABLED`
 
 If `true` then the Nomis API will be used to book a visit.

@@ -7,7 +7,6 @@
     </i>
     <strong class="bold-small"><%= t('.prisoner_availability_unknown') %></strong>
   </div>
-
 <% end %>
 
 <% if @visit.slot_availability_unknown? %>
@@ -17,12 +16,19 @@
     </i>
     <strong class="bold-small"><%= t('.slot_availability_unknown') %></strong>
   </div>
+<% end %>
 
+<% if @visit.prisoner_restrictions_unknown? %>
+  <div class="notice push-top">
+    <i class="icon icon-important">
+      <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
+    </i>
+    <strong class="bold-small"><%= t('.prisoner_restrictions_unknown') %></strong>
+  </div>
 <% end %>
 
 <div class="grid-row push-top choose-date">
   <%= error_container(f, :slot_granted) do %>
-
     <% f.object.slots.each do |slot| %>
       <div class="column-one-third">
         <div class="multiple-choice date-box">
