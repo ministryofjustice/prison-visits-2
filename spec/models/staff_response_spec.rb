@@ -170,6 +170,20 @@ RSpec.describe StaffResponse, type: :model do
       end
     end
 
+    context 'when the lead visitor is not on the list' do
+      before do
+        params[:visitors_attributes]['0']['not_on_list'] = true
+        params[:visitors_attributes]['1'] = other_visitor.attributes.slice('id', 'banned', 'not_on_list')
+      end
+
+      let(:other_visitor) { build(:visitor, visit: visit) }
+
+      it 'is rejected for not having lead visitor on the list' do
+        expect(subject).to be_valid
+        expect(subject.visit.rejection.reasons).to include(Rejection::NOT_ON_THE_LIST)
+      end
+    end
+
     context 'no slot granted' do
       let(:slot_granted) { '' }
 
@@ -187,20 +201,6 @@ RSpec.describe StaffResponse, type: :model do
 
         it 'is has a rejection for visitor not on the list' do
           expect(subject.visit.rejection.reasons).to eq([Rejection::NOT_ON_THE_LIST])
-        end
-      end
-
-      context 'when the lead visitor is not on the list' do
-        before do
-          params[:visitors_attributes]['0']['not_on_list'] = true
-          params[:visitors_attributes]['1'] = other_visitor.attributes.slice('id', 'banned', 'not_on_list')
-          subject.valid?
-        end
-
-        let(:other_visitor) { build(:visitor, visit: visit) }
-
-        it 'is rejected for not having lead visitor on the list' do
-          expect(subject.visit.rejection.reasons).to include(Rejection::NOT_ON_THE_LIST)
         end
       end
 

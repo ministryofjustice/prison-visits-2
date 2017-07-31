@@ -168,5 +168,21 @@ RSpec.feature 'Processing a request', js: true do
         with_subject(/Your visit to #{prison.name} is NOT booked/).
         and_body(/banned from visiting/)
     end
+
+    scenario "rejecting a visit by indicating the lead visitor can't attend" do
+      choose_date
+
+      within "#visitor_#{vst.principal_visitor.id}" do
+        check 'Not on contact list'
+      end
+
+      click_button 'Process'
+
+      expect(page).to have_text('Thank you for processing the visit')
+
+      vst.reload
+      expect(vst).to be_rejected
+      expect(vst.visitors.first).to be_not_on_list
+    end
   end
 end
