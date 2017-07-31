@@ -218,7 +218,7 @@ RSpec.describe StaffResponse, type: :model do
         it { is_expected.to be_valid }
 
         it 'has a rejection for visitor banned' do
-          expect(subject.visit.rejection.reasons).to eq([Rejection::NOT_ON_THE_LIST, Rejection::BANNED])
+          expect(subject.visit.rejection.reasons).to eq([Rejection::BANNED])
         end
       end
     end
