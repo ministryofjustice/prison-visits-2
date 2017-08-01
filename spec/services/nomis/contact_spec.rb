@@ -100,4 +100,24 @@ RSpec.describe Nomis::Contact do
       it { is_expected.to eq(nil) }
     end
   end
+
+  describe '#<=>' do
+    it 'returns 1 when first contact is greater than the second' do
+      first_contact = described_class.new(surname: "Jones", given_name: "Grace")
+      second_contact = described_class.new(surname: "Jones", given_name: "Billy")
+      expect(first_contact <=> second_contact).to eq(1)
+    end
+
+    it 'returns -1 when the first contact is lesser than the second' do
+      first_contact = described_class.new(surname: "Franklin", given_name: "Adam")
+      second_contact = described_class.new(surname: "Poppins", given_name: "Jeff")
+      expect(first_contact <=> second_contact).to eq(-1)
+    end
+
+    it 'returns 0 when the first contact matches the second' do
+      first_contact = described_class.new(surname: "Smith", given_name: "John")
+      second_contact = described_class.new(surname: "Smith", given_name: "John")
+      expect(first_contact <=> second_contact).to eq(0)
+    end
+  end
 end

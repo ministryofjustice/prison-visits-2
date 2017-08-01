@@ -2,19 +2,19 @@ require 'rails_helper'
 
 RSpec.describe Nomis::ContactList do
   let(:approved_active) do
-    Nomis::Contact.new(id: 1, active: true, approved_visitor: true)
+    Nomis::Contact.new(id: 1, active: true, surname: "Janklin", given_name: "Dave", approved_visitor: true)
   end
 
   let(:disapproved_active) do
-    Nomis::Contact.new(id: 2, active: true, approved_visitor: false)
+    Nomis::Contact.new(id: 2, active: true, surname: "Buster", given_name: "Kristen", approved_visitor: false)
   end
 
   let(:approved_inactive) do
-    Nomis::Contact.new(id: 3, active: false, approved_visitor: true)
+    Nomis::Contact.new(id: 3, active: false, surname: "Zoomer", given_name: "Pete", approved_visitor: true)
   end
 
   let(:disapproved_inactive) do
-    Nomis::Contact.new(id: 4, active: false, approved_visitor: false)
+    Nomis::Contact.new(id: 4, active: false, surname: "Buster", given_name: "Kate", approved_visitor: false)
   end
 
   subject(:instance) do
@@ -32,5 +32,10 @@ RSpec.describe Nomis::ContactList do
       expect(subject.map(&:id)).to include(approved_active.id)
       expect(subject.map(&:id)).to include(approved_inactive.id)
     end
+  end
+
+  it 'returns an alphabetically ordered list of contacts, by surname and then first name' do
+    contacts = subject.map{ |k, _| [k[:surname], k[:given_name]] }
+    expect(contacts).to eq [%w[Buster Kate], %w[Buster Kristen], %w[Janklin Dave], %w[Zoomer Pete]]
   end
 end
