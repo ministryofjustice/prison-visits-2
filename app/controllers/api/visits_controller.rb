@@ -6,36 +6,7 @@ module Api
     # worth refactoring this code. However, to minimize code divergence between
     # the apps until that point, for now this method simply populates each
     # processor step and uses the BookingRequestCreator to create the visit.
-    #
-    # rubocop:disable Metrics/AbcSize
-    # rubocop:disable Metrics/MethodLength
     def create
-      prison = Prison.find_by!(id: params.to_unsafe_h.fetch(:prison_id))
-
-      prisoner_step = PrisonerStep.new(params.to_unsafe_h.fetch(:prisoner))
-      prisoner_step.prison_id = prison.id
-
-      visitors = params.to_unsafe_h.fetch(:visitors).map { |v|
-        VisitorsStep::Visitor.new(v)
-      }
-      visitors_step = VisitorsStep.new(
-        email_address: params.fetch(:contact_email_address),
-        phone_no: params.fetch(:contact_phone_no),
-        visitors: visitors,
-        prison: prison
-      )
-
-      slots = params.to_unsafe_h.fetch(:slot_options)
-      unless slots.is_a?(Array) && slots.size >= 1
-        fail ParameterError, 'slot_options must contain >= slot'
-      end
-      slots_step = SlotsStep.new(
-        option_0: slots.fetch(0), # We expect at least 1 slot
-        option_1: slots.fetch(1, nil),
-        option_2: slots.fetch(2, nil),
-        prison: prison
-      )
-
       # This is admitedly not great, but it will do until we remove the steps
       # from the app, at which point it will make make sense to implement
       # validation on this API call properly
@@ -67,6 +38,18 @@ module Api
 
   private
 
+    def sanitised_params
+      @sanitised_params ||=
+        params.permit(
+          :prison_id,
+          :contact_email_address,
+          :contact_phone_no,
+          slot_options: [],
+          prisoner: %i[first_name last_name date_of_birth number],
+          visitors: %i[first_name last_name date_of_birth]
+      )
+    end
+
     def visitor_cancellation_response
       @_visitor_cancellation_response ||=
         VisitorCancellationResponse.new(visit: visit)
@@ -93,6 +76,55 @@ module Api
       unless step.valid?
         fail ParameterError,
           "#{param} (#{step.errors.full_messages.join(', ')})"
+      end
+    end
+
+    def prison
+      @_prison = Prison.find_by!(id: sanitised_params.require(:prison_id))
+    end
+
+    def prisoner_step
+      @_prisoner_step ||=
+        PrisonerStep.new(
+          sanitised_params.require(:prisoner).
+          merge(prison_id: prison.id)
+        )
+    end
+
+    def visitors_step
+      @visitors_step ||= begin
+        VisitorsStep.new(
+          email_address: sanitised_params.require(:contact_email_address),
+          phone_no: sanitised_params.require(:contact_phone_no),
+          visitors: visitors,
+          prison: prison
+        )
+      end
+    end
+
+    def slots_step
+      @_slots_step ||= begin
+        SlotsStep.new(
+          option_0: slots.fetch(0), # We expect at least 1 slot
+          option_1: slots.fetch(1, nil),
+          option_2: slots.fetch(2, nil),
+          prison: prison
+        )
+      end
+    end
+
+    def visitors
+      @_visitors =
+        sanitised_params.require(:visitors).map { |v| VisitorsStep::Visitor.new(v) }
+    end
+
+    def slots
+      @_slots = begin
+        sanitised_params[:slot_options].tap do |obj|
+          unless obj.is_a?(Array) && obj.size >= 1
+            fail ParameterError, 'slot_options must contain >= slot'
+          end
+        end
       end
     end
   end
