@@ -96,7 +96,7 @@ GEM
       request_store (~> 1.0)
     equalizer (0.0.11)
     erubi (1.6.1)
-    excon (0.57.1)
+    excon (0.58.0)
     execjs (2.7.0)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
