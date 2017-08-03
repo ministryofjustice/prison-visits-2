@@ -30,4 +30,9 @@ Rails.application.configure do
   config.mx_checker = MxChecker.new
 
   config.active_job.queue_adapter = :sidekiq
+
+  service_url = URI.parse(ENV.fetch('STAFF_SERVICE_URL'))
+
+  config.action_controller.default_url_options = { host: service_url.hostname }
+  config.action_controller.asset_host = service_url.hostname
 end
