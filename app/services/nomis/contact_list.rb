@@ -5,7 +5,10 @@ module Nomis
 
     delegate :each, to: :contacts
 
-    attribute :contacts, Array[Contact]
+    attribute :contacts,
+      Array[Contact],
+      coercer: ->(contacts) { contacts.map { |s| Contact.new(s) }.sort }
+
     attribute :api_call_successful, Boolean, default: true
 
     def approved

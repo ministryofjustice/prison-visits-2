@@ -1,6 +1,7 @@
 module Nomis
   class Contact
     include NonPersistedModel
+    include Comparable
 
     attribute :id, Integer
     attribute :given_name
@@ -23,6 +24,10 @@ module Nomis
 
     def banned_until
       restrictions.find(&:banned?)&.expiry_date
+    end
+
+    def <=>(other)
+      [surname, given_name] <=> [other.surname, other.given_name]
     end
   end
 end
