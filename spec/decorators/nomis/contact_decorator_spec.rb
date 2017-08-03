@@ -6,7 +6,7 @@ RSpec.describe Nomis::ContactDecorator do
   subject { described_class.decorate(contact)  }
 
   describe '#full_name_and_dob' do
-    let(:full_name) { "#{contact.given_name} #{contact.surname}" }
+    let(:full_name) { "#{contact.surname}, #{contact.given_name}" }
 
     context 'with a dob' do
       it { expect(subject.full_name_and_dob).to eq(full_name + ' - ' + contact.date_of_birth.to_s(:short_nomis)) }
