@@ -68,12 +68,6 @@ module PrisonVisits
       end
     }
 
-    unless Rails.env.test?
-      config.nomis_api_host = ENV.fetch('NOMIS_API_HOST', nil)
-      config.nomis_api_token = ENV.fetch('NOMIS_API_TOKEN', nil)
-      config.nomis_api_key = read_key.call(ENV.fetch('NOMIS_API_KEY', ''))
-    end
-
     config.staff_info_endpoint = ENV.fetch('STAFF_INFO_ENDPOINT', nil)
 
     config.connection_pool_size =
@@ -81,42 +75,69 @@ module PrisonVisits
 
     config.pvb_team_email = ENV['PVB_TEAM_EMAIL']
 
-    config.nomis_staff_prisoner_check_enabled =
-      ENV['NOMIS_STAFF_PRISONER_CHECK_ENABLED']&.downcase == 'true'
+    feature_flag_value = proc do |&config|
+      Rails.env.test? ? nil : config.call
+    end
 
-    config.nomis_public_prisoner_check_enabled =
+    config.nomis_api_host = feature_flag_value.call do
+      ENV.fetch('NOMIS_API_HOST', nil)
+    end
+
+    config.nomis_api_token = feature_flag_value.call do
+      ENV.fetch('NOMIS_API_TOKEN', nil)
+    end
+
+    config.nomis_api_key = feature_flag_value.call do
+      read_key.call(ENV.fetch('NOMIS_API_KEY', ''))
+    end
+
+    config.nomis_staff_prisoner_check_enabled = feature_flag_value.call do
+      ENV['NOMIS_STAFF_PRISONER_CHECK_ENABLED']&.downcase == 'true'
+    end
+
+    config.nomis_public_prisoner_check_enabled = feature_flag_value.call do
       ENV['NOMIS_PUBLIC_PRISONER_CHECK_ENABLED']&.downcase == 'true'
+    end
 
     # Prisoner availability depends on the prisoner check flag because to check
     # the availability we need to call the api used in the prisoner check to get
     # the offender id.
-    config.nomis_staff_prisoner_availability_enabled =
+    config.nomis_staff_prisoner_availability_enabled = feature_flag_value.call do
       config.nomis_staff_prisoner_check_enabled &&
       ENV['NOMIS_STAFF_PRISONER_AVAILABILITY_ENABLED']&.downcase == 'true'
+    end
 
-    config.nomis_public_prisoner_availability_enabled =
+    config.nomis_public_prisoner_availability_enabled = feature_flag_value.call do
       config.nomis_public_prisoner_check_enabled &&
       ENV['NOMIS_PUBLIC_PRISONER_AVAILABILITY_ENABLED']&.downcase == 'true'
+    end
 
-    config.nomis_staff_slot_availability_enabled =
+    config.nomis_staff_slot_availability_enabled = feature_flag_value.call do
       ENV['NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED']&.downcase == 'true'
+    end
 
-    config.staff_prisons_with_slot_availability =
+    config.staff_prisons_with_slot_availability = feature_flag_value.call do
       ENV['STAFF_PRISONS_WITH_SLOT_AVAILABILITY']&.split(',')&.map(&:strip) || []
+    end
 
-    config.public_prisons_with_slot_availability =
+    config.public_prisons_with_slot_availability = feature_flag_value.call do
       ENV['PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY']&.split(',')&.map(&:strip) || []
+    end
 
-    config.staff_prisons_with_nomis_contact_list =
+    config.staff_prisons_with_nomis_contact_list = feature_flag_value.call do
       ENV['STAFF_PRISONS_WITH_NOMIS_CONTACT_LIST']&.split(',')&.map(&:strip) || []
+    end
 
-    config.nomis_staff_offender_restrictions_enabled =
+    config.nomis_staff_offender_restrictions_enabled = feature_flag_value.call do
       ENV['NOMIS_STAFF_OFFENDER_RESTRICTIONS_ENABLED']&.downcase == 'true'
+    end
 
-    config.nomis_staff_book_to_nomis_enabled =
+    config.nomis_staff_book_to_nomis_enabled = feature_flag_value.call do
       ENV['NOMIS_STAFF_BOOK_TO_NOMIS_ENABLED']&.downcase == 'true'
+    end
 
-    config.staff_prisons_with_book_to_nomis =
+    config.staff_prisons_with_book_to_nomis = feature_flag_value.call do
       ENV['STAFF_PRISONS_WITH_BOOK_TO_NOMIS']&.split(',')&.map(&:strip) || []
+    end
   end
 end
