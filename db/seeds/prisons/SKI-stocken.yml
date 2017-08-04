@@ -9,8 +9,8 @@ phone_no: 01780 795156
 enabled: true
 private: false
 closed: false
-recurring:
-  fri:
+recurring:  
+  thu:
   - 1345-1545
   sat:
   - 0915-1115
@@ -21,11 +21,4 @@ recurring:
   wed:
   - 1345-1545
 unbookable:
-- 2016-12-25
-- 2016-12-26
-- 2017-01-01
 anomalous:
-  2016-12-27:
-  - 1345-1545
-  2017-01-02:
-  - 1345-1545
