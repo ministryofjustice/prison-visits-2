@@ -35,20 +35,12 @@
     <%= render 'issue_with_prisoner_section', rf: rf %>
     <hr/>
   <% end %>
+  <%= render 'visitor_details', f: f %>
   <%= render 'visit_date_section', f: f %>
   <hr/>
-  <%= render 'visitor_details', f: f %>
-
-
   <div class="form-group">
-    <hr>
-    <div class="grid-row">
-      <div class="column-one-half">
-        <%= f.fields_for :rejection, @visit.rejection do |rf| %>
-          <%= render 'duplicate_request', f: rf %>
-        <% end %>
-      </div>
-      <div class="column-one-half">
+    <div class="grid-row push-top">
+      <div class="column-two-thirds">
         <h2 class="bold-medium"><%= t('.add_a_message') %></h2>
         <%= fields_for :message, @message || @visit.messages.new do |mf| %>
           <%= mf.hidden_field :user_id, value: current_user.id %>
@@ -57,8 +49,14 @@
         <% end %>
       </div>
     </div>
+    <div class="grid-row push-top">
+      <div class="column-one-half">
+        <%= f.fields_for :rejection, @visit.rejection do |rf| %>
+          <%= render 'duplicate_request', f: rf %>
+        <% end %>
+      </div>
+    </div>
   </div>
-
   <div class="form-group">
     <hr />
     <div id="rejection-message">
@@ -69,12 +67,10 @@
         <strong class="bold-small"><%= t('.rejection_warning') %></strong>
       </div>
     </div>
-
     <% if Nomis::Feature.book_to_nomis_enabled?(@visit.prison_name) %>
       <%= render 'book_to_nomis_opt_in', f: f %>
     <% end %>
   </div>
-
   <div class="form-group">
     <p><%= link_to t('.email_preview'), prison_visit_email_preview_path(@visit), class: 'js-LinkPreview', target: '_blank' %></p>
     <p><%= f.submit t('.submit'), class: 'button button-primary' %></p>
