@@ -297,7 +297,7 @@ GEM
     selenium-webdriver (3.4.4)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
-    sentry-raven (2.6.2)
+    sentry-raven (2.6.3)
       faraday (>= 0.7.6, < 1.0)
     shoulda-matchers (3.1.2)
       activesupport (>= 4.0.0)
