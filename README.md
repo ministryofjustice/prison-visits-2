@@ -253,9 +253,9 @@ for a visit are available at the requested prison.
 A comma separated list of prisons for which PVB2 API will return slots along with their live availability: check which slots
 are available at the requested prison.
 
-#### `STAFF_PRISONS_WITH_NOMIS_CONTACT_LIST` ####
+#### `STAFF_PRISONS_WITHOUT_NOMIS_CONTACT_LIST` ####
 
-A comma separated list of prisons for which PVB2 API will display the nomis
+A comma separated list of prisons for which PVB2 API will *not* display the nomis
 contact list on the process visit page.
 
 #### `NOMIS_STAFF_OFFENDER_RESTRICTIONS_ENABLED`

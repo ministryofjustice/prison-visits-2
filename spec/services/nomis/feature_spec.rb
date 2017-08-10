@@ -59,7 +59,7 @@ RSpec.describe Nomis::Feature do
       context 'with the prisoner check enabled and the visit prison disabled' do
         before do
           switch_on :nomis_staff_prisoner_check_enabled
-          switch_feature_flag_with(:staff_prisons_with_nomis_contact_list, [])
+          switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, [])
         end
 
         it { expect(described_class.contact_list_enabled?(prison_name)).to eq(false) }
@@ -68,7 +68,7 @@ RSpec.describe Nomis::Feature do
       context 'with the prisoner check enabled and the visit prison enabled' do
         before do
           switch_on :nomis_staff_prisoner_check_enabled
-          switch_feature_flag_with(:staff_prisons_with_nomis_contact_list, [prison_name])
+          switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, [prison_name])
         end
 
         it { expect(described_class.contact_list_enabled?(prison_name)).to eq(true) }
