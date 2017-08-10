@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Nomis::Feature do
   subject { described_class }
+
   let(:prison_name) { 'Pentonville' }
 
   describe 'when the api is disabled' do
@@ -54,7 +55,7 @@ RSpec.describe Nomis::Feature do
           switch_off :nomis_staff_prisoner_check_enabled
         end
 
-        it { is_expected.to_not be_contact_list_enabled anything }
+        it { is_expected.not_to be_contact_list_enabled anything }
       end
 
       context 'with the prisoner check enabled' do
@@ -63,7 +64,7 @@ RSpec.describe Nomis::Feature do
         context  'and the visit prison disabled' do
           before { switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, [prison_name]) }
 
-          it { is_expected.to_not be_contact_list_enabled prison_name }
+          it { is_expected.not_to be_contact_list_enabled prison_name }
         end
 
         context 'and the visit prison enabled' do
