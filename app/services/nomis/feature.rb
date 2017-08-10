@@ -4,7 +4,7 @@ module Nomis
       prisoner_check_enabled? &&
         Rails.
         configuration.
-        staff_prisons_with_nomis_contact_list.include?(prison_name)
+        staff_prisons_without_nomis_contact_list.exclude?(prison_name)
     end
 
     def self.prisoner_check_enabled?

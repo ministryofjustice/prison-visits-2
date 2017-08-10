@@ -7,7 +7,7 @@ RSpec.feature 'Processing a request - Acceptance without the contact list enable
   include_context 'process request setup'
 
   before do
-    switch_feature_flag_with(:staff_prisons_with_nomis_contact_list, [])
+    switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, [])
   end
 
   context 'accepting', vcr: { cassette_name: 'process_booking_happy_path' } do
