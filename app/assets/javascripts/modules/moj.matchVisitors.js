@@ -180,11 +180,11 @@
 
     toggleSelectOptions: function(el) {
       var self = this,
-        options = this.$el.find('select').not(el).find('option').not(':first').not(':selected');
+        options = this.$el.find('select').not(el).find('option').not(':selected');
 
       $.each(options, function(i, obj) {
-        var contact = $(obj).data('contact');
-        if ($.inArray(contact.uid.toString(), self.getVisitorIDs()) !== -1) {
+        var contact = obj.value? $(obj).data('contact') : null;
+        if (contact && $.inArray(contact.uid.toString(), self.getVisitorIDs()) !== -1) {
           $(obj).prop('disabled', 'disabled');
         } else {
           $(obj).prop('disabled', null);
