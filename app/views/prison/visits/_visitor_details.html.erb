@@ -26,11 +26,14 @@
   </ul>
   <div class="form-group">
     <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>
-      <div class="notice js-notAllProcessed">
-        <i class="icon icon-information">
-          <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>
-        </i>
-        <strong class="bold-small"><%= t('.not_all_processed') %></strong>
+      <div class="js-notAllProcessed">
+        <div class="notice">
+          <i class="icon icon-information">
+            <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>
+          </i>
+          <strong class="bold-small"><%= t('.not_all_processed') %></strong>
+        </div>
+        <hr>
       </div>
     <% end %>
   </div>
