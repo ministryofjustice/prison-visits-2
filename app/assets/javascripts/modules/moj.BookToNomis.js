@@ -19,7 +19,7 @@
       this.conditionalElName = this.$el.data('el');
     },
 
-    render: function () {
+    actuate: function () {
       var $el = $('#'+this.conditionalElName);
       if(moj.Modules.Rejection.isRejected() || this.$el.length > 0 && !this.$el.is(':checked')){
         $el.hide().addClass('visually-hidden');
@@ -27,6 +27,12 @@
       } else {
         $el.show().removeClass('visually-hidden');
         $el.attr('aria-expanded', 'true').attr('aria-hidden', 'false');
+      }
+    },
+
+    render: function(){
+      if(this.$el){
+        this.actuate();
       }
     }
 

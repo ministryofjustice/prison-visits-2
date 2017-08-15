@@ -1,8 +1,9 @@
-url_value = if Rails.env.production?
-              ENV.fetch('PUBLIC_SERVICE_URL')
-            else
-              'http://localhost:4000'
-            end
+# rubocop:disable Style/MultilineTernaryOperator
+env_name = 'PUBLIC_SERVICE_URL'
+url_value = Rails.env.production? ?
+              ENV.fetch(env_name) :
+              ENV.fetch(env_name, 'http://localhost:4000')
+# rubocop:enable Style/MultilineTernaryOperator
 
 service_url = URI.parse(url_value)
 

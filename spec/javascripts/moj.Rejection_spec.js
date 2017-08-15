@@ -37,6 +37,7 @@ describe('Check if a visit will be rejected', function() {
 
     beforeEach(function() {
       moj.Modules.Rejection.init();
+      moj.Modules.MatchVisitors.init();
       $('#visit_rejection_attributes_reasons_prisoner_details_incorrect').trigger('click');
     });
 
@@ -56,18 +57,23 @@ describe('Check if a visit will be rejected', function() {
       expect(moj.Modules.Rejection.selected).toContain($('#visit_rejection_attributes_reasons_prisoner_details_incorrect'));
     });
 
+    it('should hide all the contact list selects', function(){
+      expect($('#visitors-fixture li:eq(0) select')).toBeHidden();
+      expect($('#visitors-fixture li:eq(1) select')).toBeHidden();
+    });
+
     describe('and then unselecting a checkbox', function(){
 
       beforeEach(function(){
         $('#visit_rejection_attributes_reasons_prisoner_details_incorrect').trigger('click');
       });
 
-      it('should show the NOMIS opt out checkbox', function() {
-        expect($('#nomis-opt-out')).toBeVisible();
+      it('should hide the NOMIS opt out checkbox', function() {
+        expect($('#nomis-opt-out')).toBeHidden();
       });
 
-      it('should hide the rejection warning message', function(){
-        expect($('#rejection-message')).toBeHidden();
+      it('should show the rejection warning message', function(){
+        expect($('#rejection-message')).toBeVisible();
       });
 
       it('should remove the element from the `selected` array', function(){
@@ -91,7 +97,7 @@ describe('Check if a visit will be rejected', function() {
     });
 
     it('should hide the NOMIS opt out checkbox', function() {
-      expect($('#nomis-opt-out')).not.toBeVisible();
+      expect($('#nomis-opt-out')).toBeHidden();
     });
 
     it('should show the rejection warning message', function(){
@@ -101,7 +107,7 @@ describe('Check if a visit will be rejected', function() {
     describe('unchecking the banned checkbox', function(){
 
       it('should hide the rejection warning message', function(){
-        $('#visit_visitors_attributes_0_banned').prop('checked', false).trigger('change');
+        $('#visit_visitors_attributes_0_banned').prop('checked', null).trigger('change');
         expect($('#rejection-message')).toBeHidden();
       });
 
