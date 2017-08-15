@@ -3,6 +3,8 @@
 
   moj.Modules.Rejection = {
     el: '.js-Rejection',
+    rejectionEl: 'rejection-message',
+    successEl: 'nomis-opt-out',
 
     init: function () {
       this.selected = [];
@@ -25,6 +27,7 @@
         var $el = $(el);
         self.addRemove($el);
         self.actuate($el);
+        moj.Modules.MatchVisitors.check();
       });
     },
 
@@ -35,6 +38,7 @@
       }
       this.addRemove($el);
       this.actuate($(e.currentTarget));
+      moj.Modules.MatchVisitors.check();
     },
 
     addRemove: function($el){
@@ -60,21 +64,26 @@
     },
 
     actuate: function($el){
-      var $rejectionEl = this.conditionals($el.data('rejectionEl')),
-        $successEl = this.conditionals($el.data('successEl'));
-
-      if(this.selected.length > 0){
-        this.show($rejectionEl);
-        this.hide($successEl);
+      if(this.isRejected()){
+        this.showRejection();
       } else {
-        this.hide($rejectionEl);
-        this.show($successEl);
+        this.hideRejection();
       }
       moj.Modules.BookToNomis.render();
     },
 
     conditionals: function(string) {
       return $(string ? '#' + string.split(',').join(',#') : null);
+    },
+
+    showRejection: function(){
+      this.show($('#'+this.rejectionEl));
+      this.hide($('#'+this.successEl));
+    },
+
+    hideRejection: function(){
+      this.hide($('#'+this.rejectionEl));
+      this.show($('#'+this.successEl));
     },
 
     show: function($el){
