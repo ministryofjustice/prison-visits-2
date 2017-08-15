@@ -239,7 +239,6 @@ en:
         prisoner_restrictions_unknown: We can’t show the NOMIS prisoner restrictions right now. Please check all prisoner restrictions in NOMIS
         closed: Closed
       issue_with_prisoner_section:
-        visiting_allowance: Visiting allowance
         no_allowance: Prisoner does not have any visiting allowance
         prisoner_details_incorrect: Prisoner details are incorrect
         prisoner_moved: Prisoner has moved prisons
