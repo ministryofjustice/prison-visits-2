@@ -24,4 +24,3 @@ tags
 .byebug_history
 dump.rdb
 .ruby-gemset
-config/database.yml
