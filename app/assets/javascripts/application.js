@@ -32,11 +32,11 @@
 //= require modules/moj.emailPreview
 //= require modules/moj.multiSelect
 //= require modules/moj.tableSorter
+//= require modules/moj.BookToNomis
 //= require modules/moj.Rejection
 //= require modules/moj.matchVisitors
 //= require modules/moj.autocomplete
 //= require modules/moj.searchPlaceholder
-//= require modules/moj.BookToNomis
 //= require modules/moj.closedRestriction
 
 (function() {
