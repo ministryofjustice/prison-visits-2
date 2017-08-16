@@ -62,7 +62,7 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     base32-crockford (0.1.0)
-    brakeman (3.7.0)
+    brakeman (3.7.1)
     builder (3.2.3)
     byebug (9.0.6)
     capybara (2.15.1)
