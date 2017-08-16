@@ -22,16 +22,29 @@ module ContactListMatcherBehaviour
   end
 
   def contacts_with_data
-    contacts.map do |contact|
-      [contact, {  data: { contact: contact } }]
-    end
+    contacts_with_data ||=
+      begin
+        if contacts.empty?
+          [no_match]
+        else
+          contacts.map do |contact|
+            [contact, {  data: { contact: contact } }]
+          end
+        end
+      end
   end
 
   def any?
     contacts.any?
   end
 
-private
+  private
 
   attr_accessor :scores_and_contacts
+  def no_match
+    [
+      OpenStruct.new(
+        full_name_and_dob: I18n.t('contact_list_matcher_behaviour.none'))
+    ]
+  end
 end

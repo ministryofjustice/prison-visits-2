@@ -43,7 +43,7 @@ RSpec.describe VisitorDecorator do
         end
 
         it 'has preselected the matched contact' do
-          expect(html).to have_select('Match to contact list', selected: exact_match.full_name_and_dob)
+          expect(html).to have_select("Match to prisoner's contact list", selected: exact_match.full_name_and_dob)
         end
       end
 
@@ -70,15 +70,11 @@ RSpec.describe VisitorDecorator do
 
         context 'with no partially matched contact details' do
           it 'has no nearest match' do
-            nomis_contacts.each do |nomis_contact|
-              expect(html).not_to have_css('select optgroup[label="Nearest matches"] option', text: nomis_contact.full_name_and_dob)
-            end
+            expect(html).to have_css('select optgroup[label="Nearest matches"] option[disabled]', text: 'None')
           end
 
           it 'has no exact match' do
-            nomis_contacts.each do |nomis_contact|
-              expect(html).not_to have_css('select optgroup[label="Exact matches"] option', text: nomis_contact.full_name_and_dob)
-            end
+            expect(html).to have_css('select optgroup[label="Exact matches"] option[disabled]', text: 'None')
           end
 
           it 'has others' do

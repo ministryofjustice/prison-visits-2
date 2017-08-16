@@ -1,4 +1,6 @@
 en:
+  contact_list_matcher_behaviour:
+    none: None
   layouts:
     application:
       contact_us: Contact us
@@ -296,7 +298,7 @@ en:
       not_on_list:
         not_on_list: Not on contact list
       contact_list:
-        nomis_list: Match to contact list
+        nomis_list: "Match to prisoner's contact list"
       duplicate_request:
         title: Other
         duplicate_visit_request: Duplicate visit request
