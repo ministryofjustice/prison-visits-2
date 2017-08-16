@@ -1,4 +1,8 @@
-box: pvbteam/ruby:2.4.1
+box:
+  id: pvbteam/prison-visits-2
+  username: $USERNAME
+  password: $PASSWORD
+
 no-response-timeout: 30
 services:
   - id: postgres:9.4
@@ -6,6 +10,8 @@ services:
     env:
       POSTGRES_PASSWORD: password
       POSTGRES_USERNAME: postgres
+  - id: redis:alpine
+
 dev:
   steps:
     - bundle-install:
@@ -22,16 +28,14 @@ build:
     - script:
         name: run tests
         code: |
-          Xvfb :99 &
           export RAILS_ENV=test
-          export DISPLAY=:99
-          export DATABASE_URL=postgres://$POSTGRES_ENV_POSTGRES_USERNAME:$POSTGRES_ENV_POSTGRES_PASSWORD@$POSTGRES_PORT_5432_TCP_ADDR:$POSTGRES_PORT_5432_TCP_PORT/moj_sso_development
-          bundle exec rake db:create db:schema:load
-          bundle exec rake
+          export DATABASE_URL=postgres://$POSTGRES_ENV_POSTGRES_USERNAME:$POSTGRES_ENV_POSTGRES_PASSWORD@$POSTGRES_PORT_5432_TCP_ADDR:$POSTGRES_PORT_5432_TCP_PORT/moj_sso_test
+          bin/rake db:create db:schema:load
+          xvfb-run bin/rake
     - internal/docker-push:
         username: $USERNAME
         password: $PASSWORD
-        tag: latest,$WERCKER_GIT_BRANCH-$WERCKER_BUILD_ID
+        tag: latest,$WERCKER_GIT_COMMIT
         repository: pvbteam/prison-visits-2
         working-dir: $WERCKER_SOURCE_DIR
   after-steps:
