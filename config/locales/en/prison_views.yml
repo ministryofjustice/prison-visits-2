@@ -273,11 +273,14 @@ en:
       visitor_contact:
         visitor_banned: Banned
         banned_date: Banned until date
-        banned: Visitor is banned
         banned_until: Banned until
         banned_until_hint: eg 28 04 1996
-        not_on_list: Not on contact list
         please_select: Please select a contact
+      banned:
+        banned: Visitor is banned
+      not_on_list:
+        not_on_list: Not on contact list
+      contact_list:
         nomis_list: Match to contact list
       duplicate_request:
         title: Other

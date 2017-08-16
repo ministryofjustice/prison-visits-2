@@ -1,7 +1,6 @@
 class VisitDecorator < Draper::Decorator
   delegate_all
   decorates_association :rejection
-  NO_VISITORS_IN_NOMIS = 'no_visitor_in_nomis'.freeze
 
   delegate :prisoner_existance_status,
     :prisoner_existance_error,
@@ -47,18 +46,6 @@ class VisitDecorator < Draper::Decorator
     @processed_at ||= last_visit_state_change&.created_at || object.created_at
   end
 
-  def contact_list(visitor_form_builder, selected_noms_id)
-    return I18n.t(".#{NO_VISITORS_IN_NOMIS}") if approved_contacts.empty?
-    visitor_form_builder.select(
-      :nomis_id, options_for_contact_list(selected_noms_id),
-      {
-        prompt: I18n.t(
-          '.please_select', scope: [
-            :prison, :visits, :visitor_contact])
-      },
-      class: 'form-control js-contactList')
-  end
-
   def nomis_offender_id
     if Nomis::Feature.prisoner_check_enabled?
       nomis_checker.offender.id
@@ -66,19 +53,6 @@ class VisitDecorator < Draper::Decorator
   end
 
 private
-
-  def options_for_contact_list(selected_noms_id)
-    h.options_for_select(
-      Nomis::ContactDecorator.decorate_collection(approved_contacts).map { |contact|
-        [
-          contact.full_name_and_dob,
-          contact.id,
-          data: { contact: contact.to_data_attributes }
-        ]
-      },
-      selected_noms_id
-    )
-  end
 
   def last_visit_state_change
     object.visit_state_changes.max_by(&:created_at)
