@@ -64,7 +64,7 @@ GEM
     base32-crockford (0.1.0)
     brakeman (3.7.2)
     builder (3.2.3)
-    byebug (9.0.6)
+    byebug (9.1.0)
     capybara (2.15.1)
       addressable
       mini_mime (>= 0.1.3)
