@@ -9,6 +9,7 @@ phone_no: 020 8844 5400
 enabled: true
 private: false
 closed: false
+adult_age: 10
 recurring:
   mon:
   - 1330-1430
