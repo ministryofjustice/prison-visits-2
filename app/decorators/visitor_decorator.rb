@@ -7,14 +7,11 @@ class VisitorDecorator < Draper::Decorator
   def contact_list(form_build, contact_list)
     contact_list         = Nomis::ContactDecorator.decorate_collection(contact_list)
     contact_list_matcher = ContactListMatcher.new(contact_list, object)
-    matched              = !contact_list_matcher.exact_matches.empty?
-    if matched
-      selected_noms_id = contact_list_matcher.exact_matches.contacts.first.id
-    end
+    exact_matches        = contact_list_matcher.exact_matches
 
-    return I18n.t(".#{NO_VISITORS_IN_NOMIS}") if contact_list_matcher.empty?
+    return I18n.t(".#{NO_VISITORS_IN_NOMIS}") unless contact_list_matcher.any?
 
-    h.render 'prison/visits/contact_list', vf: form_build, matched: matched do
+    h.render 'prison/visits/contact_list', vf: form_build, matched: exact_matches.any? do
       form_build.select(
         :nomis_id,
         h.option_groups_from_collection_for_select(
@@ -23,7 +20,7 @@ class VisitorDecorator < Draper::Decorator
           :category,
           ->(contact) { contact.first.id  },
           ->(contact) { contact.first.full_name_and_dob },
-          selected: selected_noms_id
+          selected: exact_matches.contact_id
         ),
         { prompt: I18n.t(
           '.please_select', scope: [

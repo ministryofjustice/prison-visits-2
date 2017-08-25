@@ -37,15 +37,15 @@ RSpec.describe ContactListMatcher do
 
   subject { described_class.new(contact_list, visitor) }
 
-  describe '#empty?' do
+  describe '#any?' do
     context 'whithout any contact' do
       let(:contact_list) { [] }
 
-      it { is_expected.to be_empty }
+      it { is_expected.not_to be_any }
     end
 
     context 'with contacts' do
-      it { is_expected.not_to be_empty }
+      it { is_expected.to be_any }
     end
   end
 

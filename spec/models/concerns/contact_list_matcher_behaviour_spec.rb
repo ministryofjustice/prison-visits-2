@@ -13,7 +13,7 @@ RSpec.describe ContactListMatcherBehaviour do
     TestMatcher.new
   end
 
-  describe '#catergory' do
+  describe '#category' do
     it 'returns the model name humanized' do
       expect(subject.category).to eq('Test matcher')
     end
@@ -55,15 +55,15 @@ RSpec.describe ContactListMatcherBehaviour do
     end
   end
 
-  describe '#empty?' do
+  describe '#any?' do
     context 'without any contacts' do
-      it { is_expected.to be_empty }
+      it { is_expected.not_to be_any }
     end
 
     context 'with a contact' do
       before { subject.add 1, 'Jez' }
 
-      it { is_expected.not_to be_empty }
+      it { is_expected.to be_any }
     end
   end
 end

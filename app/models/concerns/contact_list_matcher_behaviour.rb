@@ -22,13 +22,13 @@ module ContactListMatcherBehaviour
   end
 
   def contacts_with_data
-    (scores_and_contacts.sort.map(&:last).reduce(:+) || []).map do |contact|
+    contacts.map do |contact|
       [contact, {  data: { contact: contact } }]
     end
   end
 
-  def empty?
-    contacts.empty?
+  def any?
+    contacts.any?
   end
 
 private

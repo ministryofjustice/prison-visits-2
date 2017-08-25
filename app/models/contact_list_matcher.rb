@@ -18,8 +18,8 @@ class ContactListMatcher
     @exact_matches ||= ContactListMatcher::ExactMatches.new
   end
 
-  def empty?
-    matches.all?(&:empty?)
+  def any?
+    matches.any?(&:any?)
   end
 
 private
