@@ -163,7 +163,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"found":true,"offender":{"id":1055827}}'
-    http_version: 
+    http_version:
   recorded_at: Thu, 01 Dec 2016 13:52:16 GMT
 - request:
     method: get
@@ -196,7 +196,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"establishment":{"code":"ISI","desc":"ISIS HMP\/YOI"}}'
-    http_version: 
+    http_version:
   recorded_at: Thu, 01 Dec 2016 00:00:00 GMT
 - request:
     method: get
@@ -229,7 +229,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"establishment":{"code":"ISI","desc":"ISIS HMP\/YOI"}}'
-    http_version: 
+    http_version:
   recorded_at: Thu, 01 Dec 2016 00:00:00 GMT
 - request:
     method: get
@@ -262,7 +262,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"establishment":{"code":"ISI","desc":"ISIS HMP\/YOI"}}'
-    http_version: 
+    http_version:
   recorded_at: Thu, 01 Dec 2016 00:00:00 GMT
 - request:
     method: post
@@ -306,7 +306,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: !binary |-
         R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
-    http_version: 
+    http_version:
   recorded_at: Thu, 01 Dec 2016 00:00:00 GMT
 - request:
     method: get
@@ -343,6 +343,43 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"contacts":[]}'
-    http_version: 
+    http_version:
+  recorded_at: Thu, 01 Dec 2016 00:00:00 GMT
+- request:
+    method: get
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1055827/visits/contact_list
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.58.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - '0337802f-d634-40c1-843c-1eb2d1ad6ee1'
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.3
+      Date:
+      - Tue, 29 Aug 2017 13:23:58 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - total=59, db=58
+      Url-Template:
+      - "/offenders/{offender_id}/visits"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"contacts":[]}'
+    http_version:
   recorded_at: Thu, 01 Dec 2016 00:00:00 GMT
 recorded_with: VCR 3.0.3

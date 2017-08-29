@@ -472,7 +472,6 @@ RSpec.describe StaffNomisChecker do
           it { is_expected.not_to be_contact_list_unknown }
         end
       end
-
     end
 
     describe '#prisoner_restrictions_unknown?' do

@@ -20,7 +20,7 @@ module Nomis
     end
 
     def self.offender_restrictions_enabled?
-       Nomis::Api.enabled? && config.nomis_staff_offender_restrictions_enabled
+      Nomis::Api.enabled? && config.nomis_staff_offender_restrictions_enabled
     end
 
     def self.config
