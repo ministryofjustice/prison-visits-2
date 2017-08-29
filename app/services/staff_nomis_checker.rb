@@ -11,12 +11,10 @@ class StaffNomisChecker
 
   def initialize(visit)
     @visit = visit
-    @nomis_api_enabled = Nomis::Api.enabled?
   end
 
   def prisoner_existance_status
-    return NOT_LIVE unless Nomis::Feature.prisoner_check_enabled?
-
+    return NOT_LIVE unless Nomis::Api.enabled?
     case prisoner_existance_error
     when nil
       VALID

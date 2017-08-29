@@ -37,14 +37,6 @@ RSpec.describe StaffNomisChecker do
 
   describe 'When the API is enabled' do
     describe '#prisoner_existance_status' do
-      describe 'api is enabled and the check is disabled for staff' do
-        before do
-          switch_off(:nomis_staff_prisoner_check_enabled)
-        end
-
-        it { expect(subject.prisoner_existance_status).to eq('not_live') }
-      end
-
       describe 'when the nomis api is live' do
         before do
           switch_on :nomis_staff_prisoner_check_enabled
@@ -457,7 +449,6 @@ RSpec.describe StaffNomisChecker do
           let(:contact_list_api_error) { false }
 
           before do
-            switch_on(:nomis_staff_prisoner_check_enabled)
             mock_nomis_with(:lookup_active_offender, offender)
             switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, [])
             expect(contact_list).to receive(:unknown_result?).and_return(contact_list_api_error)
@@ -482,13 +473,6 @@ RSpec.describe StaffNomisChecker do
         end
       end
 
-      context 'with NOMIS_STAFF_PRISONER_CHECK_ENABLED switched OFF' do
-        before do
-          switch_off :nomis_staff_prisoner_check_enabled
-        end
-
-        it { is_expected.not_to be_contact_list_unknown }
-      end
     end
 
     describe '#prisoner_restrictions_unknown?' do
@@ -500,7 +484,6 @@ RSpec.describe StaffNomisChecker do
         let(:offender_restrictions_api_error) { false }
 
         before do
-          switch_on(:nomis_staff_prisoner_check_enabled)
           switch_on(:nomis_staff_offender_restrictions_enabled)
           mock_nomis_with(:lookup_active_offender, offender)
           expect(restrictions_list).to receive(:unknown_result?).and_return(offender_restrictions_api_error)
@@ -514,14 +497,6 @@ RSpec.describe StaffNomisChecker do
 
           it { is_expected.to be_prisoner_restrictions_unknown }
         end
-      end
-
-      context 'with NOMIS_STAFF_PRISONER_CHECK_ENABLED switched OFF' do
-        before do
-          switch_off :nomis_staff_prisoner_check_enabled
-        end
-
-        it { is_expected.not_to be_prisoner_restrictions_unknown }
       end
     end
 
