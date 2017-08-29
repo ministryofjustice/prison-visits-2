@@ -15,26 +15,25 @@ RSpec.describe VisitDecorator do
   end
 
   describe '#nomis_offender_id' do
-    context 'when the lookup is disabled' do
-      before do
-        switch_off(:nomis_staff_prisoner_check_enabled)
-      end
-
-      it 'returns nil' do
-        expect(subject.nomis_offender_id).to be_nil
-      end
-    end
-
-    context 'when the lookup is enabled' do
+    context 'when the Nomis::Api is enabled' do
       let(:offender) { double(Nomis::Offender, id: 1234) }
 
       before do
-        switch_on(:nomis_staff_prisoner_check_enabled)
         expect(checker).to receive(:offender).and_return(offender)
       end
 
       it 'returns the offender id' do
         expect(subject.nomis_offender_id).to eq(offender.id)
+      end
+    end
+
+    context 'when the Nomis::Api is disabled' do
+      before do
+        switch_off_api
+      end
+      it 'does not call the API' do
+        expect(checker).to_not receive(:offender)
+        subject.nomis_offender_id
       end
     end
   end

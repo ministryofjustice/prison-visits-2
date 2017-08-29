@@ -60,9 +60,7 @@ class VisitDecorator < Draper::Decorator
   end
 
   def nomis_offender_id
-    if Nomis::Feature.prisoner_check_enabled?
-      nomis_checker.offender.id
-    end
+    nomis_checker.offender.id if Nomis::Api.enabled?
   end
 
 private
