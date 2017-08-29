@@ -10,86 +10,49 @@ RSpec.describe Nomis::Feature do
       switch_off_api
     end
 
+    it { is_expected.to_not be_contact_list_enabled(anything) }
     it { expect(described_class.contact_list_enabled?(anything)).to eq(false) }
-    it { expect(described_class.prisoner_check_enabled?).to eq(false) }
     it { expect(described_class.prisoner_availability_enabled?).to eq(false) }
     it { expect(described_class.slot_availability_enabled?(anything)).to eq(false) }
   end
 
   describe 'when the api is enabled' do
-    describe '.offender_restrictions_enabled?' do
-      context 'with the prisoner check disabled' do
+
+    it { expect(described_class).not_to be_offender_restrictions_enabled }
+
+    context 'with the prisoner check enabled' do
+      before do
+        switch_on :nomis_staff_prisoner_check_enabled
+      end
+
+      context 'with the offender restrictions enabled' do
         before do
-          switch_off :nomis_staff_prisoner_check_enabled
+          switch_on :nomis_staff_offender_restrictions_enabled
+        end
+
+        it { expect(described_class).to be_offender_restrictions_enabled }
+      end
+
+      context 'with the offender restrictions disabled' do
+        before do
+          switch_off :nomis_staff_offender_restrictions_enabled
         end
 
         it { expect(described_class).not_to be_offender_restrictions_enabled }
       end
-
-      context 'with the prisoner check enabled' do
-        before do
-          switch_on :nomis_staff_prisoner_check_enabled
-        end
-
-        context 'with the offender restrictions enabled' do
-          before do
-            switch_on :nomis_staff_offender_restrictions_enabled
-          end
-
-          it { expect(described_class).to be_offender_restrictions_enabled }
-        end
-
-        context 'with the offender restrictions disabled' do
-          before do
-            switch_off :nomis_staff_offender_restrictions_enabled
-          end
-
-          it { expect(described_class).not_to be_offender_restrictions_enabled }
-        end
-      end
     end
 
     describe '.contact_list_enabled?' do
-      context 'with the prisoner check disabled' do
-        before do
-          switch_off :nomis_staff_prisoner_check_enabled
-        end
+      context  'when disabled for a given prison' do
+        before { switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, [prison_name]) }
 
-        it { is_expected.not_to be_contact_list_enabled anything }
+        it { is_expected.not_to be_contact_list_enabled prison_name }
       end
 
-      context 'with the prisoner check enabled' do
-        before { switch_on :nomis_staff_prisoner_check_enabled }
+      context 'when enabled for a given prison' do
+        before { switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, []) }
 
-        context  'and the visit prison disabled' do
-          before { switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, [prison_name]) }
-
-          it { is_expected.not_to be_contact_list_enabled prison_name }
-        end
-
-        context 'and the visit prison enabled' do
-          before { switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, []) }
-
-          it { is_expected.to be_contact_list_enabled prison_name }
-        end
-      end
-    end
-
-    describe '.prisoner_check_enabled?' do
-      context 'when the prisoner check is disabled' do
-        before do
-          switch_off :nomis_staff_prisoner_check_enabled
-        end
-
-        it { expect(described_class.prisoner_check_enabled?).to eq(false) }
-      end
-
-      context 'when the prisoner check enabled' do
-        before do
-          switch_on :nomis_staff_prisoner_check_enabled
-        end
-
-        it { expect(described_class.prisoner_check_enabled?).to eq(true) }
+        it { is_expected.to be_contact_list_enabled prison_name }
       end
     end
 
