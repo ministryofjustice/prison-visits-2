@@ -1,6 +1,7 @@
 module Nomis
   class Contact
     include NonPersistedModel
+    include Comparable
 
     attribute :id, Integer
     attribute :given_name
@@ -11,7 +12,7 @@ module Nomis
     attribute :contact_type, Hash[Symbol => String]
     attribute :approved_visitor, Boolean
     attribute :active, Boolean
-    attribute :restrictions, Array[ContactRestriction]
+    attribute :restrictions, Array[Restriction]
 
     def approved?
       approved_visitor
@@ -23,6 +24,10 @@ module Nomis
 
     def banned_until
       restrictions.find(&:banned?)&.expiry_date
+    end
+
+    def <=>(other)
+      [surname, given_name] <=> [other.surname, other.given_name]
     end
   end
 end

@@ -33,10 +33,10 @@ RSpec.describe Nomis::Contact do
     context 'with other type of restrictions' do
       let(:restrictions) do
         [
-          Nomis::ContactRestriction.new(
+          Nomis::Restriction.new(
             effective_date: '2017-03-02',
             expiry_date: '2017-04-02',
-            type: { code: "CLO", desc: "Closed" })
+            type: { code: "CLOSED", desc: "Closed" })
         ]
       end
 
@@ -46,7 +46,7 @@ RSpec.describe Nomis::Contact do
     context 'with a banned restriction' do
       let(:restrictions) do
         [
-          Nomis::ContactRestriction.new(
+          Nomis::Restriction.new(
             effective_date: '2017-03-02',
             expiry_date: '2017-04-02',
             type: { code: "BAN", desc: "Banned" })
@@ -64,7 +64,7 @@ RSpec.describe Nomis::Contact do
       let(:expiry_date) { Date.parse('2017-04-02') }
       let(:restrictions) do
         [
-          Nomis::ContactRestriction.new(
+          Nomis::Restriction.new(
             effective_date: '2017-03-02',
             expiry_date: expiry_date,
             type: { code: "BAN", desc: "Banned" })
@@ -77,7 +77,7 @@ RSpec.describe Nomis::Contact do
     context 'with a banned restriction with no expiry' do
       let(:restrictions) do
         [
-          Nomis::ContactRestriction.new(
+          Nomis::Restriction.new(
             effective_date: '2017-03-02',
             expiry_date: nil,
             type: { code: "BAN", desc: "Banned" })
@@ -90,14 +90,34 @@ RSpec.describe Nomis::Contact do
     context 'with no banned restriction' do
       let(:restrictions) do
         [
-          Nomis::ContactRestriction.new(
+          Nomis::Restriction.new(
             effective_date: '2017-03-02',
             expiry_date: '2017-04-02',
-            type: { code: "CLO", desc: "Closed" })
+            type: { code: "CLOSED", desc: "Closed" })
         ]
       end
 
       it { is_expected.to eq(nil) }
+    end
+  end
+
+  describe '#<=>' do
+    it 'returns 1 when first contact is greater than the second' do
+      first_contact = described_class.new(surname: "Jones", given_name: "Grace")
+      second_contact = described_class.new(surname: "Jones", given_name: "Billy")
+      expect(first_contact <=> second_contact).to eq(1)
+    end
+
+    it 'returns -1 when the first contact is lesser than the second' do
+      first_contact = described_class.new(surname: "Franklin", given_name: "Adam")
+      second_contact = described_class.new(surname: "Poppins", given_name: "Jeff")
+      expect(first_contact <=> second_contact).to eq(-1)
+    end
+
+    it 'returns 0 when the first contact matches the second' do
+      first_contact = described_class.new(surname: "Smith", given_name: "John")
+      second_contact = described_class.new(surname: "Smith", given_name: "John")
+      expect(first_contact <=> second_contact).to eq(0)
     end
   end
 end

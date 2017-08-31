@@ -1,0 +1,56 @@
+box:
+  id: pvbteam/prison-visits-2
+  username: $USERNAME
+  password: $PASSWORD
+
+no-response-timeout: 30
+services:
+  - id: postgres:9.4
+    name: postgres
+    env:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USERNAME: postgres
+  - id: redis:alpine
+
+dev:
+  steps:
+    - bundle-install:
+        jobs: 4
+    - internal/watch:
+        name: start server
+        code: |
+          pwd
+          ./run-test.sh
+build:
+  steps:
+    - bundle-install:
+        jobs: 4
+    - script:
+        name: run tests
+        code: |
+          export RAILS_ENV=test
+          export DATABASE_URL=postgres://$POSTGRES_ENV_POSTGRES_USERNAME:$POSTGRES_ENV_POSTGRES_PASSWORD@$POSTGRES_PORT_5432_TCP_ADDR:$POSTGRES_PORT_5432_TCP_PORT/moj_sso_test
+          bin/rake db:create db:schema:load
+          xvfb-run bin/rake
+    - internal/docker-push:
+        username: $USERNAME
+        password: $PASSWORD
+        tag: latest,$WERCKER_GIT_COMMIT
+        repository: pvbteam/prison-visits-2
+        working-dir: $WERCKER_SOURCE_DIR
+  after-steps:
+    - script:
+        name: Trigger Integration Tests
+        code: |
+          if [[ $WERCKER_RESULT == "passed" ]]; then
+            INTEGRATION_TEST_BRANCH=master
+            curl "https://app.wercker.com/api/v3/runs" \
+              -H "Content-Type: application/json" \
+              -H "Authorization: Bearer $WERCKER_API_TOKEN" \
+              -X POST \
+              -d "{\"pipelineId\": \"598c71f0962b2c0100f778e1\", \"branch\": \"$INTEGRATION_TEST_BRANCH\", \"envVars\": [{\"key\": \"TARGET_GIT_REPOSITORY\", \"value\": \"$WERCKER_GIT_REPOSITORY\"}, {\"key\": \"TARGET_GIT_REPOSITORY_COMMIT\", \"value\": \"$WERCKER_GIT_COMMIT\"}]}"
+              curl "https://api.github.com/repos/$WERCKER_GIT_OWNER/$WERCKER_GIT_REPOSITORY/statuses/$WERCKER_GIT_COMMIT?access_token=$GITHUB_ACCESS_TOKEN" \
+            -H "Content-Type: application/json" \
+            -X POST \
+            -d "{\"state\": \"pending\", \"description\": \"Integration Tests\", \"target_url\": \"$WERCKER_RUN_URL\", \"context\": \"wercker/integration-tests\"}"
+          fi

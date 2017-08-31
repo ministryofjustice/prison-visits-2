@@ -3,6 +3,8 @@
 
   moj.Modules.MatchVisitors = {
 
+    enabled: true,
+
     init: function() {
       this.cacheEls();
       this.bindEvents();
@@ -55,10 +57,10 @@
       this.toggleSelectOptions(el);
       this.toggleCheckbox(el, adding);
       this.processVisitor(parent, !adding);
-      this.checkStatus();
       if (this.isContactBanned(contactData)) {
         this.setBanned(parent, this.isContactBanned(contactData));
       }
+      this.checkStatus();
     },
 
     changeNotOnList: function(e) {
@@ -120,18 +122,17 @@
         visitorValid = !this.isVisitorBanned(visitor) && visitor.data('valid')? true : false;
 
       if (visitorValid) {
-        moj.Modules.Rejection.removeFromSelected(this.$el);
+        moj.Modules.Rejection.hideRejection();
       } else {
-        moj.Modules.Rejection.addToSelected(this.$el);
+        moj.Modules.Rejection.showRejection();
       }
-      moj.Modules.Rejection.actuate(this.$el);
       moj.Modules.BookToNomis.render();
     },
 
     checkTotalVisitors: function() {
       var unprocessed = this.getProcessed() < this.totalVisitors;
 
-      if (unprocessed) {
+      if (unprocessed && this.enabled) {
         this.showEl(this.$notAllMessage);
       } else {
         this.hideEl(this.$notAllMessage);
@@ -180,11 +181,11 @@
 
     toggleSelectOptions: function(el) {
       var self = this,
-        options = this.$el.find('select').not(el).find('option').not(':first').not(':selected');
+        options = this.$el.find('select').not(el).find('option').not(':selected');
 
       $.each(options, function(i, obj) {
-        var contact = $(obj).data('contact');
-        if ($.inArray(contact.uid.toString(), self.getVisitorIDs()) !== -1) {
+        var contact = obj.value? $(obj).data('contact') : null;
+        if (contact && $.inArray(contact.uid.toString(), self.getVisitorIDs()) !== -1) {
           $(obj).prop('disabled', 'disabled');
         } else {
           $(obj).prop('disabled', null);
@@ -224,6 +225,33 @@
 
     getLeadVisitor: function(){
       return this.$el.find('.visitor-contact-list li').eq(0);
+    },
+
+    resetContact: function(el){
+      var notOnList = this.getCheckbox(el);
+      el.val(null).trigger('change');
+    },
+
+    resetContacts: function(){
+      var self = this;
+      $.each(this.$el.find('select'), function(i,obj){
+        var $this = $(obj);
+        self.resetContact($this);
+      });
+    },
+
+    check: function(){
+      if(moj.Modules.Rejection.isRejected()){
+        this.enabled = false;
+        this.resetContacts();
+        this.$el.find('.js-matchVisitor--select').hide().find('select').prop('disabled', 'disabled');
+        this.hideEl(this.$notAllMessage);
+      } else {
+        this.enabled = true;
+        this.$el.find('.js-matchVisitor--select').show().find('select').prop('disabled', null);
+        this.checkLeadVisitorStatus();
+        this.checkTotalVisitors();
+      }
     }
 
   };

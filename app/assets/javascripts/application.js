@@ -1,5 +1,5 @@
 // Vendor assets
-//= require jquery
+//= require jquery2
 //= require jquery_ujs
 //= require vendor/chosen.jquery
 //= require vendor/jquery.tablesorter
@@ -32,11 +32,12 @@
 //= require modules/moj.emailPreview
 //= require modules/moj.multiSelect
 //= require modules/moj.tableSorter
+//= require modules/moj.BookToNomis
 //= require modules/moj.Rejection
 //= require modules/moj.matchVisitors
 //= require modules/moj.autocomplete
 //= require modules/moj.searchPlaceholder
-//= require modules/moj.BookToNomis
+//= require modules/moj.closedRestriction
 
 (function() {
   'use strict';

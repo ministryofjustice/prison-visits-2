@@ -103,9 +103,12 @@ privileged_allowance_expires_on])
   end
 
   def check_principal_visitor
-    if principal_visitor.banned? || principal_visitor.not_on_list? ||
-           principal_visitor.age < ADULT_AGE
+    if principal_visitor.banned?
+      rejection.reasons << Rejection::BANNED
+      visit.slot_granted = nil
+    elsif principal_visitor.not_on_list?
       rejection.reasons << Rejection::NOT_ON_THE_LIST
+      visit.slot_granted = nil
     end
   end
 
@@ -146,6 +149,7 @@ privileged_allowance_expires_on])
 
   def visitors_selection
     return unless validate_visitors_nomis_ready?
+    return if rejection.valid?
 
     invalid_visitors = visit.visitors.select { |visitor|
       visitor.nomis_id.present? == visitor.not_on_list?

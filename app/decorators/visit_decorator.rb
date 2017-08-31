@@ -10,6 +10,7 @@ class VisitDecorator < Draper::Decorator
     :slots_unavailable?,
     :contact_list_unknown?,
     :approved_contacts,
+    :prisoner_restrictions_unknown?,
     to: :nomis_checker
 
   def slots

@@ -73,9 +73,7 @@ RSpec.describe StaffResponse, type: :model do
     context 'when not processable' do
       let(:processing_state) { 'rejected' }
 
-      before do
-        is_expected.not_to be_valid
-      end
+      before { is_expected.not_to be_valid }
 
       specify { expect(subject.errors.full_messages).to eq(["Visit can't be processed"]) }
     end
@@ -98,30 +96,21 @@ RSpec.describe StaffResponse, type: :model do
     context 'when visitors need to be ready for nomis' do
       let(:validate_visitors_nomis_ready) { 'true' }
 
+      context 'with a rejected visit' do
+        before do
+          params[:rejection_attributes][:reasons] = [Rejection::NO_ALLOWANCE]
+          params['slot_granted'] = ''
+        end
+
+        it 'does not require to process the visitors' do
+          is_expected.to be_valid
+        end
+      end
+
       context 'and a visitor is on the list and not have a nomis id' do
         before do
           params[:visitors_attributes]['0'][:nomis_id] = nil
           params[:visitors_attributes]['0'][:not_on_list] = nil
-        end
-
-        it 'is invalid' do
-          is_expected.to be_invalid
-
-          expect(subject.errors.full_messages).
-            to include(
-              I18n.t('visitors_invalid',
-                scope: %i[activemodel errors models staff_response attributes base])
-               )
-
-          expect(subject.visit.visitors.first.errors[:base]).
-            to include("Process this visitor to continue")
-        end
-      end
-
-      context 'and a visitor is not on the list and has a nomis id' do
-        before do
-          params[:visitors_attributes]['0'][:nomis_id] = 12_345
-          params[:visitors_attributes]['0'][:not_on_list] = true
         end
 
         it 'is invalid' do
@@ -170,6 +159,20 @@ RSpec.describe StaffResponse, type: :model do
       end
     end
 
+    context 'when the lead visitor is not on the list' do
+      before do
+        params[:visitors_attributes]['0']['not_on_list'] = true
+        params[:visitors_attributes]['1'] = other_visitor.attributes.slice('id', 'banned', 'not_on_list')
+      end
+
+      let(:other_visitor) { build(:visitor, visit: visit) }
+
+      it 'is rejected for not having lead visitor on the list' do
+        expect(subject).to be_valid
+        expect(subject.visit.rejection.reasons).to include(Rejection::NOT_ON_THE_LIST)
+      end
+    end
+
     context 'no slot granted' do
       let(:slot_granted) { '' }
 
@@ -190,20 +193,6 @@ RSpec.describe StaffResponse, type: :model do
         end
       end
 
-      context 'when the lead visitor is not on the list' do
-        before do
-          params[:visitors_attributes]['0']['not_on_list'] = true
-          params[:visitors_attributes]['1'] = other_visitor.attributes.slice('id', 'banned', 'not_on_list')
-          subject.valid?
-        end
-
-        let(:other_visitor) { build(:visitor, visit: visit) }
-
-        it 'is rejected for not having lead visitor on the list' do
-          expect(subject.visit.rejection.reasons).to include(Rejection::NOT_ON_THE_LIST)
-        end
-      end
-
       context 'when all visitor are banned' do
         let!(:unlisted_visitor) { create(:visitor, visit: visit) }
         let(:slot_granted)      { '' }
@@ -218,7 +207,7 @@ RSpec.describe StaffResponse, type: :model do
         it { is_expected.to be_valid }
 
         it 'has a rejection for visitor banned' do
-          expect(subject.visit.rejection.reasons).to eq([Rejection::NOT_ON_THE_LIST, Rejection::BANNED])
+          expect(subject.visit.rejection.reasons).to eq([Rejection::BANNED])
         end
       end
     end

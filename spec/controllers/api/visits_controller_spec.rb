@@ -47,7 +47,9 @@ RSpec.describe Api::VisitsController do
       }
     }
 
-    specify do expect(post :create, params: params).to render_template(:show) end
+    specify do
+      expect(post :create, params: params).to render_template(:show)
+    end
 
     it 'creates a new visit booking request' do
       expect { post :create, params: params }.to change(Visit, :count).by(1)
