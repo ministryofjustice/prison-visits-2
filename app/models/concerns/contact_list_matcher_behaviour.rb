@@ -18,7 +18,7 @@ module ContactListMatcherBehaviour
   end
 
   def contacts
-    scores_and_contacts.sort.map(&:last).reduce(:+) || []
+    scores_and_contacts.sort.reverse.map(&:last).reduce(:+) || []
   end
 
   def contacts_with_data
