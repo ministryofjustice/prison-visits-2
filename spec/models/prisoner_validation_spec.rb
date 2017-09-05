@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PrisonerValidation, type: :model do
   let(:offender) do
-    Nomis::Offender.new(id: 'someid', noms_id: 'some_noms_id')
+    Nomis::Offender.new(id: 'someid', noms_id: 'a1234bc')
   end
 
   subject do
@@ -12,13 +12,22 @@ RSpec.describe PrisonerValidation, type: :model do
   context 'when the API finds a match' do
     context 'with a prisoner number, dob' do
       before do
-        mock_nomis_with(:lookup_offender_location, establishement)
+        mock_nomis_with(:lookup_offender_location, establishment)
       end
 
       context 'and the location matches' do
-        let(:establishement) { Nomis::Establishment.new(code: 'BMI', api_call_successful: true) }
+        let(:establishment) { Nomis::Establishment.new(code: 'BMI', api_call_successful: true) }
 
         it { is_expected.to be_valid }
+
+        it 'calls the api with a normalised noms_id' do
+          expect_any_instance_of(Nomis::Api).
+            to receive(:lookup_offender_location).
+            with(noms_id: 'A1234BC').
+            and_return(establishment)
+
+          is_expected.to be_valid
+        end
 
         describe '#prisoner_located_at?' do
           describe 'when prison code matches' do
@@ -26,6 +35,7 @@ RSpec.describe PrisonerValidation, type: :model do
 
             it { is_expected.to be_prisoner_located_at(code) }
           end
+
           describe 'when prison code matches' do
             let(:code) { 'RANDOME_CODE' }
 
@@ -35,7 +45,7 @@ RSpec.describe PrisonerValidation, type: :model do
       end
 
       context 'and the location API call fails' do
-        let(:establishement) { Nomis::Establishment.new(api_call_successful: false) }
+        let(:establishment) { Nomis::Establishment.new(api_call_successful: false) }
 
         it 'is invalid an has a validation error for unknown state'do
           is_expected.not_to be_valid
