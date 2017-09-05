@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  host: postgres
+  url: <%= ENV["DATABASE_URL"] %>
   database: pvb2_development
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
