@@ -49,8 +49,4 @@ build:
               -H "Authorization: Bearer $WERCKER_API_TOKEN" \
               -X POST \
               -d "{\"pipelineId\": \"598c71f0962b2c0100f778e1\", \"branch\": \"$INTEGRATION_TEST_BRANCH\", \"envVars\": [{\"key\": \"TARGET_GIT_REPOSITORY\", \"value\": \"$WERCKER_GIT_REPOSITORY\"}, {\"key\": \"TARGET_GIT_REPOSITORY_COMMIT\", \"value\": \"$WERCKER_GIT_COMMIT\"}]}"
-              curl "https://api.github.com/repos/$WERCKER_GIT_OWNER/$WERCKER_GIT_REPOSITORY/statuses/$WERCKER_GIT_COMMIT?access_token=$GITHUB_ACCESS_TOKEN" \
-            -H "Content-Type: application/json" \
-            -X POST \
-            -d "{\"state\": \"pending\", \"description\": \"Integration Tests\", \"target_url\": \"$WERCKER_RUN_URL\", \"context\": \"wercker/integration-tests\"}"
           fi
