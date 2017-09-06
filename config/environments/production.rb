@@ -31,7 +31,11 @@ Rails.application.configure do
 
   config.active_job.queue_adapter = :sidekiq
 
-  service_url = URI.parse(ENV.fetch('STAFF_SERVICE_URL'))
+  service_url = if ENV['HEROKU_APP_NAME']
+                  URI.parse("https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com")
+                else
+                  URI.parse(ENV.fetch('STAFF_SERVICE_URL'))
+                end
 
   config.action_controller.default_url_options = { host: service_url.hostname }
   config.action_controller.asset_host = service_url.hostname
