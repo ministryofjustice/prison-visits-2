@@ -49,7 +49,7 @@ RSpec.describe ContactListMatcherBehaviour do
           expect{
             subject.add(1, contacts_one)
             subject.add(0.5, contacts_half_one)
-          }.to change { subject.contacts }.from([]).to(['Super Hans', 'Mark', 'Jez'])
+          }.to change { subject.contacts }.from([]).to(['Mark', 'Jez', 'Super Hans'])
         end
       end
     end
