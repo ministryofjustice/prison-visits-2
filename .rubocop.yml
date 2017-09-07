@@ -179,6 +179,9 @@ RSpec/ExampleLength:
 RSpec/HookArgument:
   Enabled: false
 
+RSpec/ExpectInHook:
+  Enabled: false
+
 RSpec/ImplicitExpect:
   Enabled: false
 

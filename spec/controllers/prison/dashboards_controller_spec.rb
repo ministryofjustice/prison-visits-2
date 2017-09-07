@@ -88,8 +88,6 @@ RSpec.describe Prison::DashboardsController, type: :controller do
       end
 
       context 'filtering processed visits by prisoner number' do
-        subject { get :processed, params: { estate_id: estate.finder_slug } }
-
         subject do
           get :search, params: {
             estate_id: estate.finder_slug,

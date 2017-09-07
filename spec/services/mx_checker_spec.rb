@@ -19,7 +19,7 @@ RSpec.describe MxChecker do
       end
 
       it 'is true' do
-        expect(subject.records?(domain)).to be_truthy
+        expect(subject.records?(domain)).to be true
       end
     end
 
@@ -31,7 +31,7 @@ RSpec.describe MxChecker do
       end
 
       it 'is true' do
-        expect(subject.records?(domain)).to be_truthy
+        expect(subject.records?(domain)).to be true
       end
     end
 
@@ -43,7 +43,7 @@ RSpec.describe MxChecker do
       end
 
       it 'is false' do
-        expect(subject.records?(domain)).to be_falsey
+        expect(subject.records?(domain)).to be false
       end
     end
   end
