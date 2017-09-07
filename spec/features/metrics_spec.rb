@@ -29,9 +29,6 @@ RSpec.feature 'Metrics', js: true do
   end
 
   context 'overdue' do
-    include_examples 'create visits with dates'
-    # Shared examples are booked within the first week of February, 2106. The
-    # controller tracks one week behind the current date.
     let(:date_today) { Time.zone.local(2016, 2, 8) }
     let!(:visits) do
       book_a_luna_visit_late
@@ -39,6 +36,10 @@ RSpec.feature 'Metrics', js: true do
       book_a_mars_visit_late
       luna_visit
     end
+
+    include_examples 'create visits with dates'
+    # Shared examples are booked within the first week of February, 2106. The
+    # controller tracks one week behind the current date.
 
     before do
       visit(metrics_path(locale: 'en', range: 'all_time'))
