@@ -29,11 +29,11 @@ RSpec.describe ConcreteSlot do
 
   describe 'on?' do
     it 'returns true if slots can be booked on requested date' do
-      expect(subject.on?(Date.new(2015, 10, 23))).to be_truthy
+      expect(subject.on?(Date.new(2015, 10, 23))).to be true
     end
 
     it 'returns false if slots cannot be booked on requested date' do
-      expect(subject.on?(Date.new(2015, 10, 24))).to be_falsey
+      expect(subject.on?(Date.new(2015, 10, 24))).to be false
     end
   end
 
