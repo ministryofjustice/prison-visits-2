@@ -119,7 +119,7 @@ GEM
     govuk_template (0.22.3)
       rails (>= 3.1)
     hashdiff (0.3.4)
-    hashie (3.5.5)
+    hashie (3.5.6)
     highline (1.7.8)
     htmlentities (4.3.4)
     i18n (0.8.6)
@@ -361,7 +361,7 @@ GEM
     websocket-extensions (0.1.2)
     xpath (2.1.0)
       nokogiri (~> 1.3)
-    zendesk_api (1.14.4)
+    zendesk_api (1.15.0)
       faraday (~> 0.9)
       hashie (>= 3.5.2, < 4.0.0)
       inflection
