@@ -1,0 +1,62 @@
+<h3 class="bold-medium push-top">Rejections verified by NOMIS</h3>
+<p>We have checked these rejection reasons in NOMIS and automatically ticked any that apply.</p>
+<div class="issue-with-prisoner">
+  <div class="grid-row push-top">
+    <div class="column-one-half">
+      <%= error_container(rf, :reasons) do %>
+        <div class="multiple-choice">
+          <%= rf.object.checkbox_for(:prisoner_details_incorrect,
+            id: :prisoner_details_incorrect,
+            class: 'js-Rejection',
+            'data-rejection-el': 'rejection-message',
+            'data-success-el': 'nomis-opt-out') %>
+          <%= rf.label t('.prisoner_details_incorrect'), for: :prisoner_details_incorrect %>
+        </div>
+      <% end %>
+      <%= error_container(rf, :reasons) do %>
+        <div class="multiple-choice" data-target="allowance-dates">
+          <%= rf.object.checkbox_for :no_allowance,
+            id: :no_allowance,
+            class: 'js-Rejection',
+            'data-rejection-el': 'rejection-message',
+            'data-success-el': 'nomis-opt-out' %>
+          <%= rf.label t('.no_allowance'), for: :no_allowance %>
+        </div>
+      <% end %>
+      <div class="panel panel-border-narrow js-hidden" id="allowance-dates">
+        <%= rf.fields_for :allowance_renews_on, rf.object.allowance_renews_on do |af| %>
+          <%= composite_field(rf, :allowance_renews_on) do %>
+            <% accessible_date_options.each_with_index do |(field_name, field_options), i| %>
+              <div class="datefield form-group form-group-<%= field_name %>">
+                <%= af.label field_name %>
+                <%= af.number_field field_name, field_options.merge( class: 'form-control', aria: { describedby: 'allowance_renews_on' }, name: "visit[rejection_attributes][allowance_renews_on(#{3 - i}i)]") %>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="column-one-half">
+      <%= error_container(rf, :reasons) do %>
+        <div class="multiple-choice">
+          <%= rf.object.checkbox_for(:prisoner_banned,
+            id: :prisoner_banned,
+            class: 'js-Rejection',
+            'data-rejection-el': 'rejection-message',
+            'data-success-el': 'nomis-opt-out') %>
+          <%= rf.label t('.prisoner_banned'), for: :prisoner_banned %>
+        </div>
+      <% end %>
+      <%= error_container(rf, :reasons) do %>
+        <div class="multiple-choice">
+          <%= rf.object.checkbox_for(:prisoner_out_of_prison,
+            id: :prisoner_out_of_prison,
+            class: 'js-Rejection',
+            'data-rejection-el': 'rejection-message',
+            'data-success-el': 'nomis-opt-out') %>
+          <%= rf.label t('.prisoner_out_of_prison'), for: :prisoner_out_of_prison %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

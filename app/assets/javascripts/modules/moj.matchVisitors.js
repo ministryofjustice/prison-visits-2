@@ -232,23 +232,12 @@
       el.val(null).trigger('change');
     },
 
-    resetContacts: function(){
-      var self = this;
-      $.each(this.$el.find('select'), function(i,obj){
-        var $this = $(obj);
-        self.resetContact($this);
-      });
-    },
-
     check: function(){
       if(moj.Modules.Rejection.isRejected()){
         this.enabled = false;
-        this.resetContacts();
-        this.$el.find('.js-matchVisitor--select').hide().find('select').prop('disabled', 'disabled');
         this.hideEl(this.$notAllMessage);
       } else {
         this.enabled = true;
-        this.$el.find('.js-matchVisitor--select').show().find('select').prop('disabled', null);
         this.checkLeadVisitorStatus();
         this.checkTotalVisitors();
       }

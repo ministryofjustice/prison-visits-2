@@ -12,22 +12,38 @@ class ConcreteSlotDecorator < Draper::Decorator
   # rubocop:disable Metrics/AbcSize
   def slot_picker(form_builder)
     h.concat(
-      form_builder.label(
-        :slot_granted,
-        class: label_classes,
-        value: iso8601,
-        data: { target: 'selected_slot_details' }
-      ) {
+      h.content_tag(
+        :div,
+        class: 'date-box'
+      ){
         h.concat(
-          form_builder.radio_button(
-            :slot_granted,
-            iso8601,
-            radio_options
-          )
+          h.content_tag(
+            :div,
+            class: 'multiple-choice'
+          ){
+            h.concat(
+              form_builder.radio_button(
+                :slot_granted,
+                iso8601,
+                radio_options
+              )
+            )
+            h.concat(
+              form_builder.label(
+                :slot_granted,
+                class: label_classes,
+                value: iso8601,
+                data: { target: 'selected_slot_details' }
+              ) {
+
+                h.concat(label_text)
+              }
+            )
+          }
         )
-        h.concat(label_text)
       }
     )
+
 
     if prisoner_available?
       h.concat(
@@ -37,7 +53,7 @@ class ConcreteSlotDecorator < Draper::Decorator
             '.prisoner_available',
             scope: %w[prison visits requested]
           ),
-          class: 'date-box__message bold-xsmall tag tag--verified'
+          class: 'date-box__message font-xsmall tag tag--verified'
         )
       )
     end
@@ -50,7 +66,7 @@ class ConcreteSlotDecorator < Draper::Decorator
             '.slot_available',
             scope: %w[prison visits requested]
           ),
-          class: 'date-box__message bold-xsmall tag tag--verified'
+          class: 'date-box__message font-xsmall tag tag--verified'
         )
       )
     end
@@ -63,7 +79,7 @@ class ConcreteSlotDecorator < Draper::Decorator
             ".#{error}",
             scope: %w[prison visits requested]
           ),
-          class: 'date-box__message bold-xsmall tag tag--error'
+          class: 'date-box__message font-xsmall tag tag--error'
         )
       )
     end
@@ -123,7 +139,6 @@ private
 
   def options_for_label_key
     {
-      n:    index + 1,
       day:  h.format_date_day(object),
       date: h.format_date_of_birth(object),
       time: h.format_slot_times(object),
