@@ -43,17 +43,17 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
     scenario 'accepting a booking', vcr: { cassette_name: 'book_to_nomis' } do
       visit prison_visit_path(vst, locale: 'en')
 
-      expect(page).to have_css('h1', text: 'Visit details')
+      expect(page).to have_css('h1', text: 'Check visit request')
 
       expect(page).to have_css('.notice', text: 'The prisoner date of birth, prisoner number and prison name have been verified.')
       expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
 
       choose_date
 
-      fill_in 'Message (optional)', with: 'A staff message'
+      fill_in 'This message will be included in the email sent to the visitor', with: 'A staff message'
 
       within "#visitor_#{visitor.id}" do
-        select 'ITSU, IRMA - 03/04/1975', from: 'Match to contact list'
+        select 'ITSU, IRMA - 03/04/1975', from: 'Match to prisoner\'s contact list'
       end
 
       expect(page).to have_unchecked_field("Don't automatically copy this visit to NOMIS", visible: false)
@@ -70,17 +70,17 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
     scenario 'opting out of booking to nomis', vcr: { cassette_name: 'process_happy_path_with_contact_list' } do
       visit prison_visit_path(vst, locale: 'en')
 
-      expect(page).to have_css('h1', text: 'Visit details')
+      expect(page).to have_css('h1', text: 'Check visit request')
 
       expect(page).to have_css('.notice', text: 'The prisoner date of birth, prisoner number and prison name have been verified.')
       expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
 
       choose_date
 
-      fill_in 'Message (optional)', with: 'A staff message'
+      fill_in 'This message will be included in the email sent to the visitor', with: 'A staff message'
 
       within "#visitor_#{visitor.id}" do
-        select 'ITSU, IRMA - 03/04/1975', from: 'Match to contact list'
+        select 'ITSU, IRMA - 03/04/1975', from: 'Match to prisoner\'s contact list'
       end
 
       check "Don't automatically copy this visit to NOMIS", visible: false
@@ -104,7 +104,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       choose_date
 
       within "#visitor_#{visitor.id}" do
-        select 'ITSU, IRMA - 03/04/1975', from: 'Match to contact list'
+        select 'ITSU, IRMA - 03/04/1975', from: 'Match to prisoner\'s contact list'
       end
 
       expect(page).to have_css('.panel', text: "This is a closed visit. Book this visit into NOMIS, then enter the reference number")
@@ -134,20 +134,20 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       # The most recent requested visit
       all('tr:not(.hidden-row)').last.click_link('View')
 
-      expect(page).to have_css('form h1', text: 'Visit details')
+      expect(page).to have_css('form h1', text: 'Check visit request')
       expect(page).to have_css('form .bold-small', text: "The prisoner date of birth, prisoner number and prison name have been verified.")
       expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
 
       choose_date
 
       fill_in 'Reference number',   with: '12345678'
-      fill_in 'Message (optional)', with: 'A staff message'
+      fill_in 'This message will be included in the email sent to the visitor', with: 'A staff message'
 
       click_button 'Process'
 
       within "#visitor_#{visitor.id}" do
         expect(page).to have_css('.error-message', text: "Process this visitor to continue")
-        select 'ITSU, IRMA - 03/04/1975', from: 'Match to contact list'
+        select 'ITSU, IRMA - 03/04/1975', from: 'Match to prisoner\'s contact list'
       end
 
       preview_window = window_opened_by {
