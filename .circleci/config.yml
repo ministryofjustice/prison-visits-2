@@ -26,7 +26,7 @@ jobs:
       - run: bundle exec rake db:schema:load
       - run: bundle exec rake
       - store_test_results:
-        path: test_results
+          path: test_results
 
 workflows:
   version: 2
