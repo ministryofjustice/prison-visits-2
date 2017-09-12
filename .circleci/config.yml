@@ -17,7 +17,7 @@ jobs:
           key: dependency-cache-{{ checksum "Gemfile.lock" }}
       - run:
           name: Install npm wee
-          command: run: bundle install --path vendor/bundle
+          command: bundle install --path vendor/bundle
       - save_cache:
           key: dependency-cache-{{ checksum "Gemfile.lock" }}
           paths:
