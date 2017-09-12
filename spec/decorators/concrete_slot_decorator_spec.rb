@@ -44,7 +44,6 @@ RSpec.describe ConcreteSlotDecorator do
         before do
           switch_on :nomis_staff_prisoner_availability_enabled
         end
-
         context 'with a closed restriction' do
           let(:slot_errors) { [Nomis::Restriction::CLOSED_NAME] }
 
