@@ -44,7 +44,6 @@ class ConcreteSlotDecorator < Draper::Decorator
       }
     )
 
-
     if prisoner_available?
       h.concat(
         h.content_tag(
@@ -160,9 +159,5 @@ private
 
   def visit
     context[:visit]
-  end
-
-  def index
-    context[:index]
   end
 end
