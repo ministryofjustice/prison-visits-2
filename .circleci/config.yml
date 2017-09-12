@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/prison-visits-2
+    # The primary container is an instance of the first list image listed. Your build commands run in this container.
+    docker:
+      - image: circleci/ruby:2.4.1-node
+        environment:
+          RAILS_ENV: test
+      - image: circleci/postgres:9.4.12-alpine
+    steps:
+      - checkout
+      - run:
+          name: Update npm
+          command: 'bundle'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: Install npm wee
+          command: run: bundle install --path vendor/bundle
+      - save_cache:
+          key: dependency-cache-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
+      - run: bundle exec rake
+      - store_test_results:
+        path: test_results
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
