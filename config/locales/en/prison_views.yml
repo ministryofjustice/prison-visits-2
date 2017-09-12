@@ -132,6 +132,7 @@ en:
         today: Today
       requested:
         title: Check visit request
+        visit_id: Visit ID
         introduction_html: |
           <p>Make sure you:</p>
           <ul class="list list-bullet">
@@ -239,12 +240,16 @@ en:
         prisoner_restrictions_unknown: We can’t show the NOMIS prisoner restrictions right now. Please check all prisoner restrictions in NOMIS
         closed: Closed
       rejection_nomis:
+        nomis_rejection_title: Rejections verified by NOMIS
+        nomis_rejection_intro: We have checked these rejection reasons in NOMIS and automatically ticked any that apply.
         prisoner_details_incorrect: Prisoner details are incorrect
         visiting_allowance: Visiting allowance
         no_allowance: Prisoner does not have any visiting allowance
         prisoner_banned: Prisoner banned from receiving visits
         prisoner_out_of_prison: Prisoner on external movement
       rejection_manual:
+        other_rejection_title: Other rejection reasons
+        other_rejection_intro: Please check these details in NOMIS and tick any that apply.
         prisoner_moved: Prisoner has moved prisons
         prisoner_released: Prisoner has been released
         no_allowance_tell_more: >-

@@ -53,7 +53,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       fill_in 'This message will be included in the email sent to the visitor', with: 'A staff message'
 
       within "#visitor_#{visitor.id}" do
-        select 'ITSU, IRMA - 03/04/1975', from: 'Match to prisoner\'s contact list'
+        select 'ITSU, IRMA - 03/04/1975', from: "Match to prisoner's contact list"
       end
 
       expect(page).to have_unchecked_field("Don't automatically copy this visit to NOMIS", visible: false)
@@ -80,7 +80,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       fill_in 'This message will be included in the email sent to the visitor', with: 'A staff message'
 
       within "#visitor_#{visitor.id}" do
-        select 'ITSU, IRMA - 03/04/1975', from: 'Match to prisoner\'s contact list'
+        select 'ITSU, IRMA - 03/04/1975', from: "Match to prisoner's contact list"
       end
 
       check "Don't automatically copy this visit to NOMIS", visible: false
@@ -104,7 +104,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       choose_date
 
       within "#visitor_#{visitor.id}" do
-        select 'ITSU, IRMA - 03/04/1975', from: 'Match to prisoner\'s contact list'
+        select 'ITSU, IRMA - 03/04/1975', from: "Match to prisoner's contact list"
       end
 
       expect(page).to have_css('.panel', text: "This is a closed visit. Book this visit into NOMIS, then enter the reference number")
@@ -147,7 +147,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
 
       within "#visitor_#{visitor.id}" do
         expect(page).to have_css('.error-message', text: "Process this visitor to continue")
-        select 'ITSU, IRMA - 03/04/1975', from: 'Match to prisoner\'s contact list'
+        select 'ITSU, IRMA - 03/04/1975', from: "Match to prisoner's contact list"
       end
 
       preview_window = window_opened_by {
