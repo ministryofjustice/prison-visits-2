@@ -1,0 +1,58 @@
+<h3 class="bold-medium push-top"><%= t('.other_rejection_title') %></h3>
+<p><%= t('.other_rejection_intro') %></p>
+<div class="grid-row">
+  <div class="column-one-half">
+    <%= error_container(rf, :reasons) do %>
+      <div class="multiple-choice">
+        <%= rf.object.checkbox_for(:prisoner_moved,
+          id: :prisoner_moved,
+          class: 'js-Rejection',
+          'data-rejection-el': 'rejection-message',
+          'data-success-el': 'nomis-opt-out') %>
+        <%= rf.label t('.prisoner_moved'), for: :prisoner_moved %>
+      </div>
+    <% end %>
+    <%= error_container(rf, :reasons) do %>
+      <div class="multiple-choice">
+        <%= rf.object.checkbox_for(:child_protection_issues,
+          id: :child_protection_issues,
+          class: 'js-Rejection',
+          'data-rejection-el': 'rejection-message',
+          'data-success-el': 'nomis-opt-out') %>
+        <%= rf.label t('.child_protection_issues'), for: :child_protection_issues %>
+      </div>
+    <% end %>
+    <%= error_container(rf, :reasons) do %>
+      <div class="multiple-choice">
+        <%= rf.object.checkbox_for :duplicate_visit_request,
+          id: :duplicate_visit_request,
+          class: 'js-Rejection',
+          'data-rejection-el': 'rejection-message',
+          'data-success-el': 'nomis-opt-out' %>
+        <%= rf.label t('.duplicate_visit_request'), for: :duplicate_visit_request %>
+      </div>
+    <% end %>
+  </div>
+  <div class="column-one-half">
+    <%= error_container(rf, :reasons) do %>
+      <div class="multiple-choice">
+        <%= rf.object.checkbox_for(:prisoner_released,
+          id: :prisoner_released,
+          class: 'js-Rejection',
+          'data-rejection-el': 'rejection-message',
+          'data-success-el': 'nomis-opt-out') %>
+        <%= rf.label t('.prisoner_released'), for: :prisoner_released %>
+      </div>
+    <% end %>
+    <%= error_container(rf, :reasons) do %>
+      <div class="multiple-choice">
+        <%= rf.object.checkbox_for(:prisoner_non_association,
+          id: :prisoner_non_association,
+          class: 'js-Rejection',
+          'data-rejection-el': 'rejection-message',
+          'data-success-el': 'nomis-opt-out') %>
+        <%= rf.label t('.prisoner_non_association'), for: :prisoner_non_association %>
+      </div>
+    <% end %>
+  </div>
+</div>

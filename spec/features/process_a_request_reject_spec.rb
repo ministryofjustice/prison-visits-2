@@ -22,7 +22,7 @@ RSpec.feature 'Processing a request', js: true do
     scenario 'rejecting a booking with no available slot' do
       choose 'None of the chosen times are available', visible: false
 
-      fill_in 'Message (optional)', with: 'A staff message'
+      fill_in 'This message will be included in the email sent to the visitor', with: 'A staff message'
 
       preview_window = window_opened_by {
         click_link 'Preview Email'

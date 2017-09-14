@@ -54,15 +54,15 @@ RSpec.feature 'Processing a request - Acceptance without the contact list enable
       click_button 'Process'
 
       # Renders the form again
-      expect(page).to have_css('form h1', text: 'Visit details')
+      expect(page).to have_css('form h1', text: 'Check visit request')
       expect(page).to have_css('form .bold-small', text: "The prisoner date of birth, prisoner number and prison name have been verified.")
-      expect(page).to have_css('.column-one-quarter:nth-child(4) .tag--booked', text: 'Verified')
+      expect(page).to have_css('.column-one-quarter:nth-child(4) .tag--booked', text: 'NOMIS verified')
       expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
 
       choose_date
 
       fill_in 'Reference number',   with: '12345678'
-      fill_in 'Message (optional)', with: 'A staff message'
+      fill_in 'This message will be included in the email sent to the visitor', with: 'A staff message'
 
       preview_window = window_opened_by {
         click_link 'Preview Email'

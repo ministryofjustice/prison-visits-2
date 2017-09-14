@@ -43,5 +43,7 @@
   'use strict';
   delete moj.Modules.devs;
   var selectionButtons = new GOVUK.SelectionButtons("input[type='radio'], input[type='checkbox']");
+  var showHideContent = new GOVUK.ShowHideContent();
+  showHideContent.init();
   moj.init();
 }());

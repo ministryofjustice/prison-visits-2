@@ -57,14 +57,10 @@ describe('Check if a visit will be rejected', function() {
       expect(moj.Modules.Rejection.selected).toContain($('#visit_rejection_attributes_reasons_prisoner_details_incorrect'));
     });
 
-    it('should hide all the contact list selects', function(){
-      expect($('#visitors-fixture li:eq(0) select')).toBeHidden();
-      expect($('#visitors-fixture li:eq(1) select')).toBeHidden();
-    });
-
     describe('and then unselecting a checkbox', function(){
 
       beforeEach(function(){
+        $('#visitors-fixture li:eq(0) select').val('12588').trigger('change');
         $('#visit_rejection_attributes_reasons_prisoner_details_incorrect').trigger('click');
       });
 

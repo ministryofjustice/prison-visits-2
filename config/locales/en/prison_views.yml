@@ -131,7 +131,8 @@ en:
       calendar:
         today: Today
       requested:
-        title: Visit details
+        title: Check visit request
+        visit_id: Visit ID
         introduction_html: |
           <p>Make sure you:</p>
           <ul class="list list-bullet">
@@ -147,18 +148,18 @@ en:
               with visitors’
             </li>
           </ul>
-        body: Message (optional)
         submit: Process
         email_preview: Preview Email
         prisoner_available: Prisoner available
         slot_available: Space available
         prisoner_banned: Visits banned
         out_of_vo: No visiting allowance
-        external movement: Prisoner on movement
+        external_movement: Prisoner on movement
         booked_visit: Booked on another visit
         slot_not_available: Fully booked
         closed: Closed visit restriction
-        add_a_message: Add a message
+        add_a_message: Message (optional)
+        body: This message will be included in the email sent to the visitor.
         rejection_warning: This visit will be rejected and an email will be sent to the lead visitor
         none_available: None of the chosen times are available
       prisoner_details:
@@ -173,7 +174,7 @@ en:
         location_unknown_text: Check NOMIS to verify prisoner location.
         prisoner_does_not_exist_text: The prisoner date of birth and number do not match.
         unknown_text: "The check couldn't take place due to a system error, please verify manually"
-        verified: Verified
+        verified: NOMIS verified
         verified_html: |
           The prisoner date of birth, prisoner number and prison name have been verified. <br>Please check the prisoner name.
       validate_prisoner_details:
@@ -225,11 +226,11 @@ en:
         issue_with_visitor: Issue with a visitor
       other_section:
         title: Other
-        duplicate_visit_request: Duplicate visit request
+
       visit_date_section:
         title: Visit date
         choice_html: |
-          <span class="date-box__number">%{n}</span><span class="date-box__day">%{day}</span><br>%{date} <br>%{time}
+          <span class="date-box__day bold-small">%{day}</span><br>%{date} <br>%{time}
         reference_no: Reference number
         reference_no_hint: eg Last 8 digits of VO number or "none" for remand
         closed_visit: This is a closed visit
@@ -238,16 +239,19 @@ en:
         slot_availability_unknown: You must check NOMIS to verify slot availability
         prisoner_restrictions_unknown: We can’t show the NOMIS prisoner restrictions right now. Please check all prisoner restrictions in NOMIS
         closed: Closed
-      issue_with_prisoner_section:
+      rejection_nomis:
+        nomis_rejection_title: Rejections verified by NOMIS
+        nomis_rejection_intro: We have checked these rejection reasons in NOMIS and automatically ticked any that apply.
+        prisoner_details_incorrect: Prisoner details are incorrect
         visiting_allowance: Visiting allowance
         no_allowance: Prisoner does not have any visiting allowance
-        prisoner_details_incorrect: Prisoner details are incorrect
-        prisoner_moved: Prisoner has moved prisons
-        prisoner_released: Prisoner has been released
-        prisoner_non_association: Prisoner has a non-association
         prisoner_banned: Prisoner banned from receiving visits
         prisoner_out_of_prison: Prisoner on external movement
-        child_protection_issues: Prisoner has child protection measures
+      rejection_manual:
+        other_rejection_title: Other rejection reasons
+        other_rejection_intro: Please check these details in NOMIS and tick any that apply.
+        prisoner_moved: Prisoner has moved prisons
+        prisoner_released: Prisoner has been released
         no_allowance_tell_more: >-
           You can also tell the visitor more about the VO status:
         allowance_will_renew: >-
@@ -255,6 +259,9 @@ en:
           be renewed:
         allowance_renews_on: Date visiting allowance will be renewed
         allowance_renews_on_hint: eg 28 04 1996
+        prisoner_non_association: Prisoner has a non-association
+        child_protection_issues: Prisoner has child protection measures
+        duplicate_visit_request: Duplicate visit request
       visitor_details:
         title: Visitor details
         help_text: Match each visitor to a name on the prisoner’s contact list.

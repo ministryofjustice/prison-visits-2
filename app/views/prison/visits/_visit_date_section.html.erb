@@ -31,9 +31,7 @@
   <%= error_container(f, :slot_granted) do %>
     <% f.object.slots.each do |slot| %>
       <div class="column-one-third">
-        <div class="multiple-choice date-box">
-          <%= slot.slot_picker(f) %>
-        </div>
+        <%= slot.slot_picker(f) %>
       </div>
     <% end %>
   <% end %>
