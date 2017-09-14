@@ -80,7 +80,7 @@ RSpec.feature 'Processing a request', js: true do
 
       choose_date
       within "#visitor_#{visitor.id}" do
-        select 'ITSU, IRMA - 03/04/1975', from: 'Match to contact list'
+        select 'ITSU, IRMA - 03/04/1975', from: "Match to prisoner's contact list"
       end
 
       click_button 'Process'
@@ -90,7 +90,7 @@ RSpec.feature 'Processing a request', js: true do
       choose_date
 
       within "#visitor_#{visitor.id}" do
-        select 'ITSU, IRMA - 03/04/1975', from: 'Match to contact list'
+        select 'ITSU, IRMA - 03/04/1975', from: "Match to prisoner's contact list"
       end
 
       expect(page).to have_css('#nomis-opt-out', text: "This visit won't be booked to NOMIS as it already exists")

@@ -15,51 +15,43 @@
   <% end %>
 
   <div class="grid-row push-top">
-    <div class="column-one-third">
+    <div class="column-one-half">
+      <div class="font-small text-secondary"><%= t('.visit_id') %>: <%= @visit.human_id %></div>
       <h1 class="bold-large float-left"><%= t('.title') %></h1>
     </div>
-    <div class="column-two-thirds">
+    <div class="column-one-half">
       <div class="grid-row">
         <div class="column-two-thirds">
           <div class="tag tag--requested tag--heading"><%= t('requested', scope: 'shared') %>: <br><%= @visit.created_at.to_date.to_s(:short_nomis) %> - <%= @visit.created_at.to_s(:time) %></div>
-        </div>
-        <div class="column-one-third">
-          <div class="text-secondary">ID: <%= @visit.human_id %></div>
         </div>
       </div>
     </div>
   </div>
   <hr/>
   <%= render 'prisoner_details' %>
-  <%= f.fields_for :rejection, @visit.rejection do |rf| %>
-    <%= render 'issue_with_prisoner_section', rf: rf %>
-    <hr/>
-  <% end %>
+  <hr/>
   <%= render 'visit_date_section', f: f %>
   <hr/>
   <%= render 'visitor_details', f: f %>
 
+  <%= f.fields_for :rejection, @visit.rejection do |rf| %>
+    <%= render 'rejection_nomis', rf: rf %>
+    <%= render 'rejection_manual', rf: rf %>
+  <% end %>
 
-  <div class="form-group">
-    <div class="grid-row">
-      <div class="column-one-half">
-        <%= f.fields_for :rejection, @visit.rejection do |rf| %>
-          <%= render 'duplicate_request', f: rf %>
-        <% end %>
-      </div>
-      <div class="column-one-half">
-        <h2 class="bold-medium"><%= t('.add_a_message') %></h2>
-        <%= fields_for :message, @message || @visit.messages.new do |mf| %>
-          <%= mf.hidden_field :user_id, value: current_user.id %>
-          <label for="message_body" class="form-label"><%= t('.body') %></label>
-          <%= mf.text_area(:body, class: 'form-control form-control-full-width', rows: 4) %>
-        <% end %>
-      </div>
+
+  <div class="grid-row push-top">
+    <div class="column-two-thirds">
+      <h2 class="bold-medium"><%= t('.add_a_message') %></h2>
+      <%= fields_for :message, @message || @visit.messages.new do |mf| %>
+        <%= mf.hidden_field :user_id, value: current_user.id %>
+        <label for="message_body" class="form-label"><%= t('.body') %></label>
+        <%= mf.text_area(:body, class: 'form-control form-control-full-width', rows: 4) %>
+      <% end %>
     </div>
   </div>
 
-  <div class="form-group">
-    <hr />
+  <div class="push-top">
     <div id="rejection-message">
       <div class="notice push-bottom">
         <i class="icon icon-information">
