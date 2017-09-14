@@ -33,18 +33,14 @@ RSpec.feature 'Using the dashboard' do
       FactoryGirl.create(:visit, prison: swansea_prison)
     end
 
-    xit do
+    it do
       visit prison_inbox_path
-
       within '.prison-switcher-form' do
         select 'Cardiff', from: 'Select one or more prisons'
+        unselect 'Swansea', from: 'Select one or more prisons'
         click_button 'Update'
       end
 
-      # TODO: This test was being masked due to the omission of the
-      # 'text:' key in the have_css calls. This was causing the test to issue a
-      # warning and not execute.
-      # Needs to be un-(xit)ted and debugged because it currently fails.
       expect(page).to have_css('.navigation', text: 'Inbox 0')
 
       within '.prison-switcher-form' do
