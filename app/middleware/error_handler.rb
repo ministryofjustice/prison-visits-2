@@ -4,6 +4,9 @@
 #
 # To stop the error bubbling out into an unstyled 500 page we need to modify the
 # 'env' to clear the query string before calling the action.
+
+# We really want to rescueing any error in this middleware
+# rubocop:disable Lint/RescueWithoutErrorClass
 class ErrorHandler
   def self.call(env)
     unless valid_query_string?(env['QUERY_STRING'])
@@ -23,3 +26,4 @@ class ErrorHandler
     false
   end
 end
+# rubocop:enable Lint/RescueWithoutErrorClass

@@ -18,6 +18,7 @@ class PrisonSeeder
     @filename_to_uuid_map = filename_to_uuid_map
   end
 
+  # rubocop:disable Lint/RescueWithoutErrorClass
   def import(path, hash)
     estate = Estate.find_by!(nomis_id: hash.fetch('nomis_id'))
     prison = Prison.find_or_initialize_by(id: uuid_for_path(path))
@@ -26,6 +27,7 @@ class PrisonSeeder
   rescue => err
     raise ImportFailure, "#{err} in #{path}"
   end
+# rubocop:enable Lint/RescueWithoutErrorClass
 
 private
 
@@ -33,11 +35,11 @@ private
     filename = File.basename(path)
 
     unless @filename_to_uuid_map.key?(filename)
-      fail MissingUuidMapping, <<-EOF.strip_heredoc
+      fail MissingUuidMapping, <<-MESSAGE.strip_heredoc
         #{filename} is missing a UUID mapping.
         Rerun `rake maintenance:prison_uuids`, commit the result and rerun
         `rake db:seed`.
-      EOF
+      MESSAGE
     end
 
     @filename_to_uuid_map.fetch(filename)

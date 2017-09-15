@@ -7,7 +7,7 @@ class Visit < ActiveRecord::Base
   has_many :visitors, dependent: :destroy
 
   has_many :visit_state_changes, dependent: :destroy
-  has_many :messages
+  has_many :messages, dependent: :destroy
   has_one :rejection, dependent: :destroy, inverse_of: :visit
   has_one :cancellation, dependent: :destroy
 
@@ -37,22 +37,22 @@ class Visit < ActiveRecord::Base
   }
 
   scope :processed, lambda {
-    joins(<<~EOS).
+    joins(<<~JOIN).
       LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
-    EOS
-      where(<<~EOS, nomis_cancelled: true).
+    JOIN
+      where(<<~WHERE, nomis_cancelled: true).
         cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
-    EOS
+    WHERE
       without_processing_state(:requested)
   }
 
   scope :ready_for_processing, lambda {
-    joins(<<~EOS).
+    joins(<<~JOIN).
       LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
-    EOS
-      where(<<~EOS, nomis_cancelled: false).
+    JOIN
+      where(<<~WHERE, nomis_cancelled: false).
         cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
-    EOS
+    WHERE
       with_processing_state(:requested, :cancelled)
   }
 

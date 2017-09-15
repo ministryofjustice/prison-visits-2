@@ -12,11 +12,8 @@ class Metrics::RejectionPercentage
   end
 
   def attributes
-    attrs = { date: date }
-    Rejection::REASONS.each do |reason|
-      attrs[reason.to_sym] = public_send(reason)
-      attrs
+    Rejection::REASONS.each_with_object(date: date) do |reason, obj|
+      obj[reason.to_sym] = public_send(reason)
     end
-    attrs
   end
 end
