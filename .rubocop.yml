@@ -1,3 +1,5 @@
+require: rubocop-rspec
+
 AllCops:
   # Exclude anything that isn't really part of our code.
   # rails_helper is excluded because it's full of solecisms, but it's mostly
@@ -310,4 +312,6 @@ Lint/IneffectiveAccessModifier:
 Lint/AmbiguousBlockAssociation:
   Enabled: false
 
-require: rubocop-rspec
+Capybara/FeatureMethods:
+  Enabled: false
+
