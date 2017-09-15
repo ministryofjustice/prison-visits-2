@@ -88,9 +88,9 @@ RSpec.describe SessionsController, type: :controller do
 
     it 'deletes the current user id from the session and redirects' do
       expect(destroy).
-        to redirect_to(<<-EOS.strip_heredoc)
+        to redirect_to(<<-URI.strip_heredoc)
           http://example.com/logout?redirect_to=#{CGI.escape(root_url)}
-      EOS
+      URI
       expect(session[:sso_data]).to be_nil
     end
   end

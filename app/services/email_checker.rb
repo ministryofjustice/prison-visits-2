@@ -45,7 +45,7 @@ private
   end
 
   def domain_dot_error?
-    domain && domain.start_with?('.')
+    domain&.start_with?('.')
   end
 
   def well_formed_address?

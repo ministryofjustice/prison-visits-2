@@ -104,6 +104,7 @@ private
     response.any?
   end
 
+  # rubocop:disable Lint/RescueWithoutErrorClass
   def call_api(method, action, data)
     return false unless enabled?
 
@@ -115,6 +116,7 @@ private
     Raven.capture_exception(e) unless ignore_error?(e)
     false
   end
+  # rubocop:enable Lint/RescueWithoutErrorClass
 
   def ignore_error?(error)
     RESCUABLE_ERRORS.any? { |error_klass| error.is_a?(error_klass) }

@@ -41,7 +41,7 @@ private
 
   def start_time
     Time.zone.at(Integer(cookies[processing_time_key]))
-  rescue
+  rescue TypeError, ArgumentError
     nil
   end
 

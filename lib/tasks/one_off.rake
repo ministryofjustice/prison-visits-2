@@ -44,7 +44,7 @@ namespace :pvb do
       begin
         while data = begin
                        queue.pop(true)
-                     rescue
+                     rescue ThreadError
                        nil
                      end
           pool.with do |client|
