@@ -51,7 +51,7 @@ private
   end
 
   def message_attributes
-    message && message.attributes.slice('id', 'body')
+    message&.attributes&.slice('id', 'body')
   end
 
   def bookable?

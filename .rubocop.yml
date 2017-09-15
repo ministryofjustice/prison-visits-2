@@ -83,7 +83,7 @@ Style/SymbolProc:
 Style/TrivialAccessors:
   AllowPredicates: true
 
-Style/FileName:
+Naming/FileName:
   Enabled: false
 
 # Default is 100

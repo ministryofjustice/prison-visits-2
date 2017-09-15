@@ -3,7 +3,6 @@ class StaffResponse
   include ActiveModel::Validations::Callbacks
   ADULT_AGE = 18
   attr_accessor :visit, :user
-  attr_writer :validate_visitors_nomis_ready
 
   before_validation :check_slot_available
   before_validation :check_principal_visitor
