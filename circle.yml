@@ -1,7 +1,7 @@
 machine:
   ruby:
     version:
-      2.4.1
+      2.4.2
   environment:
     PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/drivers"
 
