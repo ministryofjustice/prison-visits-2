@@ -1,19 +1,19 @@
 <form class="js-SubmitOnce no-form-group js-EmailPreview" id="process_visit" action="" accept-charset="UTF-8" method="post">
+
   <div class="grid-row push-top">
-    <div class="column-one-third">
-      <h1 class="bold-large float-left">Visit details</h1>
+    <div class="column-one-half">
+      <div class="font-small text-secondary">Visit ID: T9F3P0H9</div>
+      <h1 class="bold-large float-left">Check visit request</h1>
     </div>
-    <div class="column-two-thirds">
+    <div class="column-one-half">
       <div class="grid-row">
         <div class="column-two-thirds">
-          <div class="tag tag--requested tag--heading">Requested: <br>09/05/2017 - 11:07</div>
-        </div>
-        <div class="column-one-third">
-          <div class="text-secondary">ID: 88R71CVY</div>
+          <div class="tag tag--requested tag--heading">Requested: <br>18/09/2017 - 14:28</div>
         </div>
       </div>
     </div>
   </div>
+
   <div class="prisoner-details">
     <hr>
     <h2 class="bold-medium">Prisoner details</h2>
@@ -44,96 +44,9 @@
       </div>
     </div>
   </div>
-  <div class="issue-with-prisoner">
-    <div class="border-box push-top">
-      <div class="grid-row">
-        <div class="column-one-half">
-          <div class="bold-small push-bottom--half">Visiting allowance</div>
-          <div class="form-group">
-            <label class="form-checkbox">
-            <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_" value="no_allowance" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
-            Prisoner does not have any visiting allowance
-            </label>
-          </div>
-        </div>
-        <div class="column-one-half">
-          <div class="form-group">
-            <fieldset>
-              <legend>
-                <span class="form-label-bold">Date visiting allowance will be renewed</span>
-                <span class="form-hint">eg 28 04 1996</span>
-              </legend>
-              <div class="form-date">
-                <div class="datefield form-group form-group-day">
-                  <label for="visit_rejection_attributes_allowance_renews_on_day">Day</label>
-                  <input min="1" max="31" class="form-control" aria-describedby="allowance_renews_on" type="number" name="visit[rejection_attributes][allowance_renews_on][day]" id="visit_rejection_attributes_allowance_renews_on_day">
-                </div>
-                <div class="datefield form-group form-group-month">
-                  <label for="visit_rejection_attributes_allowance_renews_on_month">Month</label>
-                  <input min="1" max="12" class="form-control" aria-describedby="allowance_renews_on" type="number" name="visit[rejection_attributes][allowance_renews_on][month]" id="visit_rejection_attributes_allowance_renews_on_month">
-                </div>
-                <div class="datefield form-group form-group-year">
-                  <label for="visit_rejection_attributes_allowance_renews_on_year">Year</label>
-                  <input min="2017" class="form-control" aria-describedby="allowance_renews_on" type="number" name="visit[rejection_attributes][allowance_renews_on][year]" id="visit_rejection_attributes_allowance_renews_on_year">
-                </div>
-              </div>
-            </fieldset>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="grid-row push-top">
-      <div class="column-one-third">
-        <div class="form-group">
-          <label class="block-label">
-          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_details_incorrect" value="prisoner_details_incorrect" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
-          Prisoner details are incorrect
-          </label>
-        </div>
-        <div class="form-group">
-          <label class="block-label">
-          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_non_association" value="prisoner_non_association" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
-          Prisoner has a non-association
-          </label>
-        </div>
-        <div class="form-group">
-          <label class="block-label">
-          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_out_of_prison" value="prisoner_out_of_prison" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
-          Prisoner on external movement
-          </label>
-        </div>
-      </div>
-      <div class="column-one-third">
-        <div class="form-group">
-          <label class="block-label">
-          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_moved" value="prisoner_moved" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
-          Prisoner has moved prisons
-          </label>
-        </div>
-        <div class="form-group">
-          <label class="block-label">
-          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_child_protection_issues" value="child_protection_issues" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
-          Prisoner has child protection measures
-          </label>
-        </div>
-      </div>
-      <div class="column-one-third">
-        <div class="form-group">
-          <label class="block-label">
-          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_released" value="prisoner_released" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
-          Prisoner has been released
-          </label>
-        </div>
-        <div class="form-group">
-          <label class="block-label">
-          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_prisoner_banned" value="prisoner_banned" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
-          Prisoner banned from receiving visits
-          </label>
-        </div>
-      </div>
-    </div>
-  </div>
+
   <hr>
+
   <h2 class="bold-medium">Visit date</h2>
   <div class="grid-row push-top choose-date">
     <div class="form-group">
@@ -162,7 +75,9 @@
   <div class="js-clearRadioButtons">
     <a href="#" class="js-clearRadioButton" data-target="visit[slot_granted]">Clear selection</a>
   </div>
+
   <hr>
+
   <h2 class="bold-medium">Visitor details</h2>
   <p>Match each visitor to a name on the prisoner’s contact list.</p>
   <div id="visitors-fixture" class="js-visitorList nomis-enabled" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
@@ -289,66 +204,183 @@
       </div>
     </li>
   </ul>
-</div>
-  <div class="other-details">
-    <div class="form-group push-top">
-      <h2 class="bold-medium">
-        Other
-      </h2>
-      <div class="form-group">
-        <label class="block-label">
-        <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="visit_rejection_attributes_reasons_duplicate_visit_request" value="duplicate_visit_request" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
-        Duplicate visit request
-        </label>
+
+  <h3 class="bold-medium push-top">Rejections verified by NOMIS</h3>
+  <p>We have checked these rejection reasons in NOMIS and automatically ticked any that apply.</p>
+  <div class="issue-with-prisoner">
+    <div class="grid-row push-top">
+      <div class="column-one-half">
+        <div class="form-group">
+          <div class="multiple-choice">
+            <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="prisoner_details_incorrect" value="prisoner_details_incorrect" class="js-Rejection js-restrictionOverride" data-override="prisoner-details-incorrect" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
+            <label for="prisoner_details_incorrect">Prisoner details are incorrect</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="multiple-choice" data-target="allowance-dates">
+            <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="no_allowance" value="no_allowance" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out" aria-controls="allowance-dates" aria-expanded="false">
+            <label for="no_allowance">Prisoner does not have any visiting allowance</label>
+          </div>
+        </div>
+        <div class="panel panel-border-narrow js-hidden" id="allowance-dates" aria-hidden="true">
+          <div class="form-group">
+            <fieldset>
+              <legend>
+                <span class="form-label-bold">
+                  <span class="translation_missing" title="translation missing: en.prison.visits.rejection_nomis.allowance_renews_on">Allowance Renews On</span>
+                </span>
+              </legend>
+              <div class="form-date">
+                <div class="datefield form-group form-group-day">
+                  <label for="visit_rejection_attributes_allowance_renews_on_day">Day</label>
+                  <input min="1" max="31" class="form-control" aria-describedby="allowance_renews_on" name="visit[rejection_attributes][allowance_renews_on(3i)]" type="number" id="visit_rejection_attributes_allowance_renews_on_day">
+                </div>
+                <div class="datefield form-group form-group-month">
+                  <label for="visit_rejection_attributes_allowance_renews_on_month">Month</label>
+                  <input min="1" max="12" class="form-control" aria-describedby="allowance_renews_on" name="visit[rejection_attributes][allowance_renews_on(2i)]" type="number" id="visit_rejection_attributes_allowance_renews_on_month">
+                </div>
+                <div class="datefield form-group form-group-year">
+                  <label for="visit_rejection_attributes_allowance_renews_on_year">Year</label>
+                  <input min="2017" class="form-control" aria-describedby="allowance_renews_on" name="visit[rejection_attributes][allowance_renews_on(1i)]" type="number" id="visit_rejection_attributes_allowance_renews_on_year">
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="form-group push-top">
-      <div class="grid-row">
-        <div class="column-one-half">
-          <h2 class="bold-medium">Add a message</h2>
-          <input value="5eba707f-b758-4c6c-8b75-7693a75ac821" type="hidden" name="message[user_id]" id="message_user_id">
-          <div class="form-group"><label class="form-label" for="message_body">Message (optional)</label><textarea class="form-control form-control-full-width" rows="4" name="message[body]" id="message_body"></textarea></div>
+      <div class="column-one-half">
+        <div class="form-group">
+          <div class="multiple-choice">
+            <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="prisoner_banned" value="prisoner_banned" class="js-Rejection js-restrictionOverride" data-override="prisoner-banned" data-rejection-el="rejection-message" data-success-el="nomis-opt-out" checked="checked">
+            <label for="prisoner_banned">Prisoner banned from receiving visits</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="multiple-choice">
+            <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="prisoner_out_of_prison" value="prisoner_out_of_prison" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
+            <label for="prisoner_out_of_prison">Prisoner on external movement</label>
+          </div>
         </div>
       </div>
     </div>
-    </div>
-  <div class="form-group">
-    <hr>
-    <div id="rejection-message">
-      <div class="notice push-bottom">
-        <i class="icon icon-important">
-        <span class="visuallyhidden">Warning</span>
-        </i>
-        <strong class="bold-small">This visit will be rejected</strong>
+  </div>
+
+  <div class="notice push-top notification notification--grey" id="js-OverrideMessage">
+    <i class="icon icon-important">
+      <span class="visually-hidden">Warning</span>
+    </i>
+    <strong class="bold-small">
+      You are overriding these restrictions:
+      <ul class="list list-bullet font-small">
+        <li id="prisoner-details-incorrect">Prisoner details are incorrect</li>
+        <li id="prisoner-banned">Prisoner has been banned</li>
+      </ul>
+      Please update any incorrect restrictions in NOMIS.
+    </strong>
+  </div>
+
+  <h3 class="bold-medium push-top">Other rejection reasons</h3>
+  <p>Please check these details in NOMIS and tick any that apply.</p>
+  <div class="grid-row">
+    <div class="column-one-half">
+      <div class="form-group">
+        <div class="multiple-choice">
+          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="prisoner_moved" value="prisoner_moved" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
+          <label for="prisoner_moved">Prisoner has moved prisons</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="multiple-choice">
+          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="child_protection_issues" value="child_protection_issues" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
+          <label for="child_protection_issues">Prisoner has child protection measures</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="multiple-choice">
+          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="duplicate_visit_request" value="duplicate_visit_request" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
+          <label for="duplicate_visit_request">Duplicate visit request</label>
+        </div>
       </div>
     </div>
-    <div class="panel" id="nomis-opt-out">
-      <p>If the visit is booked successfully, it will be copied to NOMIS.</p>
+    <div class="column-one-half">
+      <div class="form-group">
+        <div class="multiple-choice">
+          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="prisoner_released" value="prisoner_released" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
+          <label for="prisoner_released">Prisoner has been released</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="multiple-choice">
+          <input type="checkbox" name="visit[rejection_attributes][reasons][]" id="prisoner_non_association" value="prisoner_non_association" class="js-Rejection" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
+          <label for="prisoner_non_association">Prisoner has a non-association</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="grid-row push-top">
+  <div class="column-two-thirds">
+    <h2 class="bold-medium">Message (optional)</h2>
+
+      <input value="5eba707f-b758-4c6c-8b75-7693a75ac821" type="hidden" name="message[user_id]" id="message_user_id">
+      <label for="message_body" class="form-label">This message will be included in the email sent to the visitor.</label>
+      <textarea class="form-control form-control-full-width" rows="4" name="message[body]" id="message_body"></textarea>
+  </div>
+</div>
+
+<div class="push-top">
+    <div id="rejection-message" aria-expanded="true" aria-hidden="false" style="display: block;">
+      <div class="notice push-bottom">
+        <i class="icon icon-information">
+          <span class="visuallyhidden">Warning</span>
+        </i>
+        <strong class="bold-small">This visit will be rejected and an email will be sent to the lead visitor</strong>
+      </div>
+    </div>
+
+      <div class="panel panel-border-narrow" id="nomis-opt-out" aria-expanded="false" aria-hidden="true" style="display: none;">
+  <div id="opt-out-check">
+      <p>
+        If the visit is booked successfully, it will be copied to NOMIS.
+      </p>
+      <input type="hidden" name="book_to_nomis_opted_in" id="book_to_nomis_opted_in" value="true">
       <fieldset>
         <div class="multiple-choice push-bottom">
           <input type="checkbox" name="book_to_nomis_opted_in" id="book_to_nomis_opt_in" value="false" class="js-BookToNomis" data-el="booktonomis-message">
           <label for="book_to_nomis_opt_in">Don't automatically copy this visit to NOMIS</label>
         </div>
       </fieldset>
+  </div>
 
-      <div id="closed-visits" class="visually-hidden">
-        <strong class="bold-small">This is a closed visit. Book manually into NOMIS.</strong>
-      </div>
-
-      <div id="booktonomis-message">
-        <div class="grid-row">
-          <div class="column-one-half">
-            <div id="selected_slot_details">
-              <div class="form-group"><label class="form-label" for="visit_reference_no">Reference number<span class="form-hint">eg Last 8 digits of VO number or “none” for remand</span></label><input class="form-control" type="text" name="visit[reference_no]" id="visit_reference_no"></div>
-              <div class="form-group"><div class="multiple-choice"><input name="visit[closed]" type="hidden" value="0"><input type="checkbox" value="1" name="visit[closed]" id="visit_closed"><label class="block-label" for="visit_closed"><span class="translation_missing" title="translation missing: en.prison.visits.book_to_nomis_opt_in.closed">Closed</span></label></div></div>
+  <div id="closed-visits" class="visually-hidden">
+    <p class="bold-small">This is a closed visit.</p>
+    <p>Book this visit into NOMIS, then enter the reference number below.</p>
+  </div>
+  <div id="booktonomis-message" class="push-top visually-hidden" aria-expanded="false" aria-hidden="true" style="display: none;">
+    <div class="grid-row">
+      <div class="column-one-half">
+        <div id="selected_slot_details" class="" aria-expanded="false" aria-hidden="true" style="display: none;">
+          <div class="form-group">
+            <label class="form-label" for="visit_reference_no">Reference number<span class="form-hint">eg Last 8 digits of VO number or “none” for remand</span></label>
+            <input class="form-control" type="text" name="visit[reference_no]" id="visit_reference_no">
+          </div>
+          <div class="form-group">
+            <div class="multiple-choice">
+              <input name="visit[closed]" type="hidden" value="0">
+              <input type="checkbox" value="1" name="visit[closed]" id="visit_closed">
+              <label class="block-label" for="visit_closed"><span class="translation_missing" title="translation missing: en.prison.visits.book_to_nomis_opt_in.closed">Closed</span></label>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <input type="submit" name="commit" value="Process" class="button button-primary">
-    <div class="push-top">
-      <a class="js-LinkPreview" target="_blank" href="/prison/visits/770d52de-26c1-422a-8dea-e27aead37337/email_preview?locale=en">Preview Email</a>
-    </div>
   </div>
+
+  <div class="form-group">
+    <p><a class="js-LinkPreview" target="_blank" href="/en/prison/visits/2af39d03-f1b3-45c7-ac01-3cd3fcaa2df5/email_preview">Preview Email</a></p>
+    <p><input type="submit" name="commit" value="Process" class="button button-primary" data-disable-with="Process"></p>
+  </div>
+
 </form>
