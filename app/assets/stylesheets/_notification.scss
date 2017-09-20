@@ -1,4 +1,16 @@
 .notification {
   border: 4px solid $button-colour;
   padding: $gutter-half;
+  &.notice {
+    .icon {
+      left: $gutter-half;
+      margin-top: 0;
+      top: $gutter-half;
+    }
+  }
+}
+
+.notification--grey {
+  background-color: $highlight-colour;
+  border-color: $border-colour;
 }
