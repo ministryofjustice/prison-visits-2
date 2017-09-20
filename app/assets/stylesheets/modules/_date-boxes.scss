@@ -24,3 +24,34 @@
     color: $white;
   }
 }
+
+.date-box--number {
+  padding: 0;
+  .date-box__label {
+    height: 100px;
+    padding: 10px 10px 10px 70px;
+    position: relative;
+    .date-box__number {
+      background: $border-colour;
+      font-size: 48px;
+      font-weight: bold;
+      height: 100%;
+      left: 10px;
+      line-height: 100px;
+      margin: -10px 0 0 -10px;
+      position: absolute;
+      text-align: center;
+      top: 10px;
+      width: 55px;
+    }
+    .date-box__day {
+      @include bold-19;
+    }
+    &.selected {
+      .date-box__number {
+        background: #1B567D;
+        color: $white;
+      }
+    }
+  }
+}
