@@ -209,19 +209,17 @@ en:
         by: >-
           by %{name}
         anonymous: Anonymous
-      cancel_prisoner:
+      cancel_visit:
         prisoner_vos: Issue with the prisoner’s visiting allowance (VOs)
         prisoner_moved: Prisoner has moved prisons
         prisoner_released: Prisoner has been released
         prisoner_non_association: Prisoner has a non-association
         child_protection_issues: Prisoner has child protection measures
         issue_with_prisoner: Issue with the prisoner
-      cancel_date:
         booked_in_error: Visit was booked in error
         slot_unavailable: Visit slot no longer available
         capacity_issues: Capacity issues in the visit hall
         issue_with_date: Issue with the date
-      cancel_visitor:
         visitor_banned: Visitor is banned
         issue_with_visitor: Issue with a visitor
       other_section:

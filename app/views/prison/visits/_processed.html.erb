@@ -64,11 +64,9 @@
 
 <%= form_tag cancel_prison_visit_path(@visit, locale: 'en'), class: 'form' do -%>
 
-  <%= render 'prison/visits/cancel_prisoner' %>
-
   <hr>
 
-  <h2 class="bold-medium"><%= t('.visit_date') %></h2>
+  <h2 class="bold-medium push-top"><%= t('.visit_date') %></h2>
   <div class="grid-row push-top">
     <% @visit.slots.each_with_index do |slot, i| %>
     <div class="column-one-third">
@@ -82,17 +80,17 @@
     </div>
     <% end %>
   </div>
-  <%= render 'prison/visits/cancel_date' %>
-
-  <hr>
 
   <%= render 'prison/visits/visitor_detail' %>
-  <%= render 'prison/visits/cancel_visitor' %>
+
+  <% if @visit.can_cancel? %>
+    <%= render 'prison/visits/cancel_visit' %>
+    <hr>
+  <% end %>
 
 <% end %> <!-- end form tag -->
-<hr>
 
-<div class="grid-row">
+<div class="grid-row push-top">
   <div class="column-two-thirds">
     <h3 class="bold-medium push-bottom" id="messages"><%= t('.messages') %></h3>
     <% if current_user %>
