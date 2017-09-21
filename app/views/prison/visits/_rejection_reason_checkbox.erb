@@ -1,5 +1,4 @@
-<%= rf.object.checkbox_for(id,
-  id: id,
-  'data-rejection-el': 'rejection-message',
-  'data-success-el': 'nomis-opt-out') %>
+<%= rf.object.checkbox_for(id, id: id, data: {
+    rejection_el: 'rejection-message', success_el: 'nomis-opt-out'
+  }) %>
 <%= rf.label t(".#{id}"), for: id %>

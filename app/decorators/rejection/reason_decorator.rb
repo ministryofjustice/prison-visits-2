@@ -2,7 +2,10 @@ class Rejection::ReasonDecorator < Draper::Decorator
   delegate_all
   def checkbox_for(reason, html_options = {})
     html_options[:id] = nil unless html_options.key?(:id)
-    has_reason = object.include?(reason.to_s)
+    reason     = reason.to_s
+    has_reason = object.include?(reason)
+
+    (html_options[:data] ||= {}).merge!(override: reason.dasherize)
 
     if has_reason
        html_options[:class] = html_options[:class] ||= ''
