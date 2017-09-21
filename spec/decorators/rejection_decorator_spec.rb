@@ -207,9 +207,6 @@ RSpec.describe RejectionDecorator do
         expect(checkbox).to_not have_css('[checked]')
       end
 
-      it "does not have instruct the JS to show any rejection messages upon selection" do
-        expect(checkbox).to_not have_css('.js-Rejection.js-restrictionOverride')
-      end
     end
 
     shared_examples_for :checked do |checkbox_name|
@@ -219,10 +216,6 @@ RSpec.describe RejectionDecorator do
 
       it "#{checkbox_name} is checked" do
         expect(checkbox).to have_css('[checked]')
-      end
-
-      it "add classes to instruct the JS to show rejection messages upon selection" do
-        expect(checkbox).to have_css('.js-Rejection.js-restrictionOverride')
       end
     end
 
