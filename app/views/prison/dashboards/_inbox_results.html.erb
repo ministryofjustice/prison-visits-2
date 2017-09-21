@@ -7,11 +7,9 @@
     <caption class="visuallyhidden"><%= t('title', scope: [:prison, :dashboards, :inbox]).capitalize %> - <%= t('requested_on', scope: :shared).downcase %><%= date.to_s(:short) %></caption>
     <thead>
       <tr>
-        <th scope="col" data-sorter="false"><%= t('prisoner_number', scope: :shared) %></th>
         <th scope="col" data-sorter="false"><%= t('prisoner_name', scope: :shared) %></th>
-        <th scope="col" data-sorter="false"><%= t('dob', scope: :shared) %></th>
         <th scope="col" data-date-format="ddmmyyyy"><%= t('visit_date', scope: :shared) %></th>
-        <th scope="col" data-sorter="false" class="col-time "><%= t('time_slot', scope: :shared) %></th>
+        <th scope="col"><%= t('visitor_name', scope: :shared) %></th>
         <th scope="col"><%= t('requested', scope: :shared) %></th>
         <th scope="col"><%= t('prison', scope: :shared) %></th>
         <th scope="col" data-sorter="false" class="col-actions"><%= t('actions', scope: :shared) %></th>
