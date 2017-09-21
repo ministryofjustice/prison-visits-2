@@ -7,8 +7,7 @@
         <div class="multiple-choice">
           <%= rf.object.checkbox_for(:prisoner_details_incorrect,
             id: :prisoner_details_incorrect,
-            class: 'js-Rejection js-restrictionOverride',
-            'data-override': 'prisoner-details-incorrect',
+            class: 'js-Rejection',
             'data-rejection-el': 'rejection-message',
             'data-success-el': 'nomis-opt-out') %>
           <%= rf.label t('.prisoner_details_incorrect'), for: :prisoner_details_incorrect %>
@@ -42,8 +41,7 @@
         <div class="multiple-choice">
           <%= rf.object.checkbox_for(:prisoner_banned,
             id: :prisoner_banned,
-            class: 'js-Rejection js-restrictionOverride',
-            'data-override': 'prisoner-banned',
+            class: 'js-Rejection',
             'data-rejection-el': 'rejection-message',
             'data-success-el': 'nomis-opt-out') %>
           <%= rf.label t('.prisoner_banned'), for: :prisoner_banned %>
