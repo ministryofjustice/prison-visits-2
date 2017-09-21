@@ -204,9 +204,8 @@ RSpec.describe RejectionDecorator do
       end
 
       it "#{checkbox_name} is not checked" do
-        expect(checkbox).to_not have_css('[checked]')
+        expect(checkbox).not_to have_css('[checked]')
       end
-
     end
 
     shared_examples_for :checked do |checkbox_name|
