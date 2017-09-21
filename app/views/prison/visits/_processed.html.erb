@@ -72,7 +72,7 @@
   <div class="grid-row push-top">
     <% @visit.slots.each_with_index do |slot, i| %>
     <div class="column-one-third">
-      <div class="date-box">
+      <div class="date-box date-box--number">
         <div class="date-box__label <%= 'selected' if @visit.slot_granted == slot.object %>">
           <span class="date-box__number"><%= i+1 %></span>
           <span class="date-box__day"><%= format_date_day(slot) %></span>
