@@ -28,10 +28,10 @@
 
     render: function(){
       var self = this;
-      this.$el.each(function(i,el){
-        var $el = $(el);
-        self.checkOverride($el);
-      });
+      // this.$el.each(function(i,el){
+      //   var $el = $(el);
+      // });
+      this.toggleOverrides();
     },
 
     triggerChange: function(e){
