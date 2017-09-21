@@ -19,8 +19,8 @@ RSpec.describe Rejection::ReasonDecorator do
       end
 
       context 'html_options' do
-        let(:html_options) { {class: 'extra_class'} }
-        
+        let(:html_options) { { class: 'extra_class' } }
+
         it 'preserves previously provided classes' do
           expect(checkbox).to have_css('.js-Rejection.js-restrictionOverride.extra_class')
         end
@@ -31,7 +31,7 @@ RSpec.describe Rejection::ReasonDecorator do
       let(:reason) { 'reason_not_included' }
 
       it "does not have instruct the JS to show any rejection messages upon selection" do
-        expect(checkbox).to_not have_css('.js-Rejection.js-restrictionOverride')
+        expect(checkbox).not_to have_css('.js-Rejection.js-restrictionOverride')
       end
     end
   end

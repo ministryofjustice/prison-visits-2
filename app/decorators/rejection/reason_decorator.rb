@@ -5,18 +5,14 @@ class Rejection::ReasonDecorator < Draper::Decorator
     reason     = reason.to_s
     has_reason = object.include?(reason)
 
-    (html_options[:data] ||= {}).merge!(override: reason.dasherize)
+    (html_options[:data] ||= {})[:override] = reason.dasherize
 
     if has_reason
-       html_options[:class] = html_options[:class] ||= ''
-       html_options[:class] += ' js-Rejection js-restrictionOverride'
+      html_options[:class] = html_options[:class] ||= ''
+      html_options[:class] += ' js-Rejection js-restrictionOverride'
     end
 
     h.check_box_tag(
-      'visit[rejection_attributes][reasons][]',
-      reason,
-      has_reason,
-      html_options
-    )
+      'visit[rejection_attributes][reasons][]', reason, has_reason, html_options)
   end
 end
