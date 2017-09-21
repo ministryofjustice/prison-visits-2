@@ -74,7 +74,7 @@ en:
         table_caption: List of visit cancellations
       navigation:
         inbox_html: |
-          Inbox <span class='badge badge--red'>%{inbox_count}</span>
+          Visit requests <span class='badge badge--red'>%{inbox_count}</span>
         processed: Processed visits
         print_visits: Print visits
         staff_guide: Service guide
@@ -95,7 +95,7 @@ en:
         no_visits: There are currently no visit requests
         process_link: View
         requests: Requests
-        title: Inbox
+        title: Requested visits
         visit_link_desc: visit request details for prisoner %{name} (no. %{number})
       print_visits:
         title: Print visits
@@ -344,6 +344,7 @@ en:
     visit_date: Visit date
     visitors: Visitors
     visitor_no: Visitor %{n}
+    visitor_name: Visitor name
     warning: Warning
     no_adult: There must be at least one adult visitor
     no_allowance: Prisoner had no visiting allowance.
