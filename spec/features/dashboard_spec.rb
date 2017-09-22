@@ -140,7 +140,6 @@ RSpec.feature 'Using the dashboard' do
 
       expect(page).to have_css('.message', text: 'Sandals not allowed')
 
-      find('.summary', text: 'Issue with the prisoner').click
       choose 'Prisoner has moved prisons'
       click_button 'Cancel visit', match: :first
 
