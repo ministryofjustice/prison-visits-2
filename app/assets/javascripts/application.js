@@ -34,6 +34,7 @@
 //= require modules/moj.tableSorter
 //= require modules/moj.BookToNomis
 //= require modules/moj.Rejection
+//= require modules/moj.restrictionOverrides
 //= require modules/moj.matchVisitors
 //= require modules/moj.autocomplete
 //= require modules/moj.searchPlaceholder
