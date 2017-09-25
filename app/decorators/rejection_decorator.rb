@@ -20,14 +20,8 @@ class RejectionDecorator < Draper::Decorator
   end
 
   def checkbox_for(reason, html_options = {})
-    html_options[:id] = nil unless html_options.key?(:id)
-
-    h.check_box_tag(
-      'visit[rejection_attributes][reasons][]',
-      reason,
-      object.reasons.include?(reason.to_s),
-      html_options
-    )
+    reasons_decorator = Rejection::ReasonDecorator.decorate(object.reasons)
+    reasons_decorator.checkbox_for(reason, html_options)
   end
 
   def formatted_reasons

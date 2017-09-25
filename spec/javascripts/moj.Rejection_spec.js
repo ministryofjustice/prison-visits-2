@@ -1,7 +1,10 @@
 describe('Check if a visit will be rejected', function() {
 
+  var $prisoner_details_incorrect;
+
   beforeEach(function() {
     loadFixtures('process_form.html');
+    $prisoner_details_incorrect = $('#prisoner_details_incorrect');
   });
 
   describe('On init', function(){
@@ -26,8 +29,7 @@ describe('Check if a visit will be rejected', function() {
     });
 
     it('js-Rejection data attribute element should be on the page', function(){
-      var $el = $('#visit_rejection_attributes_reasons_prisoner_details_incorrect'),
-        dataEl = moj.Modules.Rejection.conditionals($el.data('rejectionEl'));
+      var dataEl = moj.Modules.Rejection.conditionals($prisoner_details_incorrect.data('rejectionEl'));
       expect(dataEl).toBeInDOM();
     });
 
@@ -38,11 +40,11 @@ describe('Check if a visit will be rejected', function() {
     beforeEach(function() {
       moj.Modules.Rejection.init();
       moj.Modules.MatchVisitors.init();
-      $('#visit_rejection_attributes_reasons_prisoner_details_incorrect').trigger('click');
+      $prisoner_details_incorrect.trigger('click');
     });
 
     it('should check the prisoner details incorrect checkbox', function(){
-      expect($('#visit_rejection_attributes_reasons_prisoner_details_incorrect')).toBeChecked();
+      expect($prisoner_details_incorrect).toBeChecked();
     });
 
     it('should hide the NOMIS opt out checkbox', function() {
@@ -54,14 +56,14 @@ describe('Check if a visit will be rejected', function() {
     });
 
     it('should add checked element to the `selected` array', function(){
-      expect(moj.Modules.Rejection.selected).toContain($('#visit_rejection_attributes_reasons_prisoner_details_incorrect'));
+      expect(moj.Modules.Rejection.selected).toContain($prisoner_details_incorrect);
     });
 
     describe('and then unselecting a checkbox', function(){
 
       beforeEach(function(){
         $('#visitors-fixture li:eq(0) select').val('12588').trigger('change');
-        $('#visit_rejection_attributes_reasons_prisoner_details_incorrect').trigger('click');
+        $prisoner_details_incorrect.trigger('click');
       });
 
       it('should hide the NOMIS opt out checkbox', function() {
@@ -73,7 +75,7 @@ describe('Check if a visit will be rejected', function() {
       });
 
       it('should remove the element from the `selected` array', function(){
-        expect(moj.Modules.Rejection.selected).not.toContain($('#visit_rejection_attributes_reasons_prisoner_details_incorrect'));
+        expect(moj.Modules.Rejection.selected).not.toContain($prisoner_details_incorrect);
       });
 
     });
@@ -116,8 +118,7 @@ describe('Check if a visit will be rejected', function() {
     describe('isChecked', function(){
 
       it('should return a boolean state of a checkbox', function(){
-        var el = $('#visit_rejection_attributes_reasons_prisoner_details_incorrect');
-        expect(moj.Modules.Rejection.isChecked(el)).toBe(false);
+        expect(moj.Modules.Rejection.isChecked($prisoner_details_incorrect)).toBe(false);
       });
 
     });
@@ -125,8 +126,8 @@ describe('Check if a visit will be rejected', function() {
     describe('addToSelected', function(){
 
       it('should add element to the `selected` array', function(){
-        var el = $('#visit_rejection_attributes_reasons_prisoner_details_incorrect');
-        moj.Modules.Rejection.addToSelected(el);
+        var el = $('#prisoner_details_incorrect');
+        moj.Modules.Rejection.addToSelected($prisoner_details_incorrect);
         expect(moj.Modules.Rejection.selected).toContain(el);
       });
 
@@ -135,11 +136,10 @@ describe('Check if a visit will be rejected', function() {
     describe('removeFromSelected', function(){
 
       it('should remove element from the `selected` array', function(){
-        var el = $('#visit_rejection_attributes_reasons_prisoner_details_incorrect');
-        moj.Modules.Rejection.addToSelected(el);
-        expect(moj.Modules.Rejection.selected).toContain(el);
-        moj.Modules.Rejection.removeFromSelected(el);
-        expect(moj.Modules.Rejection.selected).not.toContain(el);
+        moj.Modules.Rejection.addToSelected($prisoner_details_incorrect);
+        expect(moj.Modules.Rejection.selected).toContain($prisoner_details_incorrect);
+        moj.Modules.Rejection.removeFromSelected($prisoner_details_incorrect);
+        expect(moj.Modules.Rejection.selected).not.toContain($prisoner_details_incorrect);
       });
 
     });
@@ -147,8 +147,8 @@ describe('Check if a visit will be rejected', function() {
     describe('conditionals', function(){
 
       it('should return an element object', function(){
-        var el = $('#visit_rejection_attributes_reasons_prisoner_details_incorrect').data('rejectionEl');
-        expect(typeof(moj.Modules.Rejection.conditionals(el))).toBe('object');
+        var rejectionEl = $prisoner_details_incorrect.data('rejectionEl');
+        expect(typeof(moj.Modules.Rejection.conditionals(rejectionEl))).toBe('object');
       });
 
     });

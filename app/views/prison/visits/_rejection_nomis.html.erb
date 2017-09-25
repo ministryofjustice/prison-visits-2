@@ -5,22 +5,12 @@
     <div class="column-one-half">
       <%= error_container(rf, :reasons) do %>
         <div class="multiple-choice">
-          <%= rf.object.checkbox_for(:prisoner_details_incorrect,
-            id: :prisoner_details_incorrect,
-            class: 'js-Rejection',
-            'data-rejection-el': 'rejection-message',
-            'data-success-el': 'nomis-opt-out') %>
-          <%= rf.label t('.prisoner_details_incorrect'), for: :prisoner_details_incorrect %>
+          <%= render 'rejection_reason', rf: rf, id: :prisoner_details_incorrect %>
         </div>
       <% end %>
       <%= error_container(rf, :reasons) do %>
         <div class="multiple-choice" data-target="allowance-dates">
-          <%= rf.object.checkbox_for :no_allowance,
-            id: :no_allowance,
-            class: 'js-Rejection',
-            'data-rejection-el': 'rejection-message',
-            'data-success-el': 'nomis-opt-out' %>
-          <%= rf.label t('.no_allowance'), for: :no_allowance %>
+          <%= render 'rejection_reason', rf: rf, id: :no_allowance %>
         </div>
       <% end %>
       <div class="panel panel-border-narrow js-hidden" id="allowance-dates">
@@ -39,24 +29,30 @@
     <div class="column-one-half">
       <%= error_container(rf, :reasons) do %>
         <div class="multiple-choice">
-          <%= rf.object.checkbox_for(:prisoner_banned,
-            id: :prisoner_banned,
-            class: 'js-Rejection',
-            'data-rejection-el': 'rejection-message',
-            'data-success-el': 'nomis-opt-out') %>
-          <%= rf.label t('.prisoner_banned'), for: :prisoner_banned %>
+          <%= render 'rejection_reason', rf: rf, id: :prisoner_banned %>
         </div>
       <% end %>
       <%= error_container(rf, :reasons) do %>
         <div class="multiple-choice">
-          <%= rf.object.checkbox_for(:prisoner_out_of_prison,
-            id: :prisoner_out_of_prison,
-            class: 'js-Rejection',
-            'data-rejection-el': 'rejection-message',
-            'data-success-el': 'nomis-opt-out') %>
-          <%= rf.label t('.prisoner_out_of_prison'), for: :prisoner_out_of_prison %>
+          <%= render 'rejection_reason', rf: rf, id: :prisoner_out_of_prison %>
         </div>
       <% end %>
     </div>
   </div>
+</div>
+
+<div class="notice push-top notification notification--grey" id="js-OverrideMessage">
+  <i class="icon icon-important">
+    <span class="visually-hidden"><%= t('.warning') %></span>
+  </i>
+  <strong class="bold-small">
+    <%= t('.overriding_restrictions') %>:
+    <ul class="list list-bullet font-small">
+      <li id="prisoner-details-incorrect"><%= t('.prisoner_details_incorrect') %></li>
+      <li id="prisoner-banned"><%= t('.prisoner_banned') %></li>
+      <li id="no-allowance"><%= t('.no_allowance') %>  </li>
+      <li id="prisoner-out-of-prison"><%= t('.prisoner_out_of_prison') %></li>
+    </ul>
+    <%= t('.update_nomis') %>
+  </strong>
 </div>
