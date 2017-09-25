@@ -5,12 +5,12 @@
     <div class="column-one-half">
       <%= error_container(rf, :reasons) do %>
         <div class="multiple-choice">
-          <%= render 'rejection_reason_checkbox', rf: rf, id: :prisoner_details_incorrect %>
+          <%= render 'rejection_reason', rf: rf, id: :prisoner_details_incorrect %>
         </div>
       <% end %>
       <%= error_container(rf, :reasons) do %>
         <div class="multiple-choice" data-target="allowance-dates">
-          <%= render 'rejection_reason_checkbox', rf: rf, id: :no_allowance %>
+          <%= render 'rejection_reason', rf: rf, id: :no_allowance %>
         </div>
       <% end %>
       <div class="panel panel-border-narrow js-hidden" id="allowance-dates">
@@ -29,12 +29,12 @@
     <div class="column-one-half">
       <%= error_container(rf, :reasons) do %>
         <div class="multiple-choice">
-          <%= render 'rejection_reason_checkbox', rf: rf, id: :prisoner_banned %>
+          <%= render 'rejection_reason', rf: rf, id: :prisoner_banned %>
         </div>
       <% end %>
       <%= error_container(rf, :reasons) do %>
         <div class="multiple-choice">
-          <%= render 'rejection_reason_checkbox', rf: rf, id: :prisoner_out_of_prison %>
+          <%= render 'rejection_reason', rf: rf, id: :prisoner_out_of_prison %>
         </div>
       <% end %>
     </div>
@@ -43,16 +43,16 @@
 
 <div class="notice push-top notification notification--grey" id="js-OverrideMessage">
   <i class="icon icon-important">
-    <span class="visually-hidden">Warning</span>
+    <span class="visually-hidden"><%= t('.warning') %></span>
   </i>
   <strong class="bold-small">
-    You are overriding these restrictions:
+    <%= t('.overriding_restrictions') %>:
     <ul class="list list-bullet font-small">
-      <li id="prisoner-details-incorrect">Prisoner details are incorrect</li>
-      <li id="prisoner-banned">Prisoner has been banned from receiving visits</li>
-      <li id="no-allowance">Prisoner has no visiting allowance</li>
-      <li id="prisoner-out-of-prison">Prisoner on external movement</li>
+      <li id="prisoner-details-incorrect"><%= t('.prisoner_details_incorrect') %></li>
+      <li id="prisoner-banned"><%= t('.prisoner_banned') %></li>
+      <li id="no-allowance"><%= t('.no_allowance') %>  </li>
+      <li id="prisoner-out-of-prison"><%= t('.prisoner_out_of_prison') %></li>
     </ul>
-    Please update any incorrect restrictions in NOMIS.
+    <%= t('.update_nomis') %>
   </strong>
 </div>
