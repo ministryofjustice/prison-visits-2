@@ -22,7 +22,7 @@ module ContactListMatcherBehaviour
   end
 
   def contacts_with_data
-    contacts_with_data ||=
+    @contacts_with_data ||=
       begin
         if contacts.empty?
           [no_match]
