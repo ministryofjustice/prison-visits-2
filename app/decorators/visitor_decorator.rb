@@ -21,7 +21,7 @@ class VisitorDecorator < Draper::Decorator
           :category,
           ->(contact) { contact.first.id  },
           ->(contact) { contact.first.full_name_and_dob },
-          { selected: selected_noms_id, disabled: [''] }
+          selected: selected_noms_id, disabled: ['']
         ),
         { prompt: I18n.t(
           '.please_select', scope: [

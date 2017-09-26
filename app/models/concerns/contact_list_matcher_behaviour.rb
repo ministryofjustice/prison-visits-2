@@ -38,7 +38,7 @@ module ContactListMatcherBehaviour
     contacts.any?
   end
 
-  private
+private
 
   attr_accessor :scores_and_contacts
   def no_match
