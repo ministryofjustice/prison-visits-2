@@ -35,7 +35,7 @@ build:
     - internal/docker-push:
         username: $USERNAME
         password: $PASSWORD
-        tag: latest,$WERCKER_GIT_COMMIT
+        tag: $WERCKER_GIT_BRANCH.$WERCKER_GIT_COMMIT
         repository: pvbteam/prison-visits-2
         working-dir: $WERCKER_SOURCE_DIR
   after-steps:
