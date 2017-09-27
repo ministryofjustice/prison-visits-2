@@ -51,7 +51,7 @@ private
 
   # rubocop:disable Metrics/MethodLength
   def matched_bucket_for(candidate)
-    visitor_full_name   = "#{visitor.first_name} #{visitor.last_name}".downcase
+    visitor_full_name   = visitor.full_name.downcase
     candidate_full_name = "#{candidate.given_name} #{candidate.surname}".downcase
     score               = DidYouMean::JaroWinkler.distance(
       visitor_full_name, candidate_full_name)
