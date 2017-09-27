@@ -14,6 +14,10 @@ module Nomis
     attribute :active, Boolean
     attribute :restrictions, Array[Restriction]
 
+    def full_name
+      "#{given_name} #{surname}".downcase
+    end
+
     def approved?
       approved_visitor
     end

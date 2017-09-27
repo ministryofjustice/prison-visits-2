@@ -49,12 +49,8 @@ private
     visitor.date_of_birth.to_date == contact.date_of_birth.to_date
   end
 
-  # rubocop:disable Metrics/MethodLength
   def matched_bucket_for(candidate)
-    visitor_full_name   = visitor.full_name.downcase
-    candidate_full_name = "#{candidate.given_name} #{candidate.surname}".downcase
-    score               = DidYouMean::JaroWinkler.distance(
-      visitor_full_name, candidate_full_name)
+    score = DidYouMean::JaroWinkler.distance(visitor_full_name, candidate.full_name)
     bucket = case
              when score == 1
                exact_matches
@@ -65,5 +61,8 @@ private
              end
     [score, bucket]
   end
-  # rubocop:enable Metrics/MethodLength
+
+  def visitor_full_name
+    visitor.full_name.downcase
+  end
 end

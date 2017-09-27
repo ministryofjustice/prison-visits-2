@@ -21,6 +21,12 @@ RSpec.describe Nomis::Contact do
     )
   end
 
+  describe '#full_name' do
+    it 'concatenate given_name and surname' do
+      expect(subject.full_name).to eq('billy jones')
+    end
+  end
+
   describe '#banned?' do
     subject { instance.banned? }
 
