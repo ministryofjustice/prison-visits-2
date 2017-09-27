@@ -14,7 +14,7 @@ namespace :pvb do
 
     begin
       response = client.get(
-        "/prison/#{visit.prison.nomis_id}/slots",
+        "/prison/#{visit.prison.estate.nomis_id}/slots",
         start_date: current_slots.min.to_date - 1.day, # API bug workaround
         end_date: current_slots.max.to_date)
 
