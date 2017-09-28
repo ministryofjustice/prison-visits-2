@@ -210,7 +210,7 @@ en:
           by %{name}
         anonymous: Anonymous
       cancel_visit:
-        title: Issue with visit booking
+        title: Cancel visit
         prisoner_vos: Issue with the prisoner’s visiting allowance (VOs)
         prisoner_moved: Prisoner has moved prisons
         prisoner_released: Prisoner has been released
