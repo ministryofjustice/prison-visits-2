@@ -28,8 +28,6 @@ module OmniAuth
         @raw_info ||= access_token.get('/api/user_details').parsed
       end
 
-
-
       # Without this login with sso breaks.
       # Fix as suggested here: https://github.com/intridea/omniauth-oauth2/commit/26152673224aca5c3e918bcc83075dbb0659717f#commitcomment-19809835
       # Other link about the issue: https://github.com/intridea/omniauth-oauth2/issues/81
@@ -42,7 +40,6 @@ module OmniAuth
       # Facebook, Dropbox, etc
       #
       # Detailed information can be found on the comments of the above links.
-
 
       # Latest investigation:
       #
