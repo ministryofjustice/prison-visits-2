@@ -1,3 +1,5 @@
+require 'did_you_mean'
+
 class ContactListMatcher
   NEAREST_MATCH_THRESHOLD = 0.90
   EXACT_MATCH_THRESHOLD   = 1

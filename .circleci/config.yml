@@ -1,0 +1,112 @@
+version: 2
+jobs:
+  build:
+    parallelism: 1
+    working_directory: ~/prison-visits-2
+    docker:
+      - image: circleci/ruby:latest-node-browsers
+        environment:
+          RAILS_ENV: test
+          PG_HOST: localhost
+          PG_USER: ubuntu
+          RAILS_ENV: test
+          RACK_ENV: test
+      - image: circleci/postgres:9.4.12-alpine
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: pvb2_test
+    steps:
+      - checkout
+      - restore_cache:
+          key: prison-visits-2-{{ checksum "Gemfile.lock" }}
+      - run: bundle config --delete disable_shared_gems
+      - run: bundle install
+      - run:
+          name: install firefox
+          command: |
+            if [[ $(command -v firefox) ]] && [[ $(firefox --version) == "Mozilla Firefox $FIREFOX_VERSION" ]]; then
+              echo "Skiping, Firefox $FIREFOX_VERSION already install."
+            else
+              wget -L "https://ftp.mozilla.org/pub/firefox/releases/$FIREFOX_VERSION/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.tar.bz2" -O "firefox-$FIREFOX_VERSION.tar.bz2"
+              sudo tar xjf "firefox-$FIREFOX_VERSION.tar.bz2" -C /opt
+            fi
+            [[ -L /usr/local/bin/firefox ]] || sudo ln -sf /opt/firefox/firefox /usr/bin/firefox
+      - run:
+          name: install geckodriver
+          command: |
+            if [[ $(command -v geckodriver) ]] && [[ $(geckodriver --version) =~ $GECKODRIVER_VERSION  ]]; then
+              echo "Skiping, geckodriver $GECKODRIVER_VERSION already install."
+            else
+              wget https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
+              sudo tar -zxvf geckodriver-v0.19.0-linux64.tar.gz -C /opt
+            fi
+            [[ -L /usr/local/bin/geckodriver ]] || sudo ln -sf /opt/geckodriver /usr/local/bin/geckodriver
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
+      - run: bundle exec rake
+      - save_cache:
+          key: prison-visits-2-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - store_test_results:
+          path: coverage
+      - store_artifacts:
+          path: screenshots
+          path: coverage
+
+
+  # The following section is an attempts to have circleci run our integration tests per branch
+  # It was abandonned because it was causing out of memory errors. Maybe this will be worth optimising in the future
+  # build:
+  #   working_directory: ~/prison-visits-2
+  #   docker:
+  #     - image: docker:17.09.0-ce-git
+  #   steps:
+  #     - checkout
+  #     - setup_remote_docker
+  #     - type: shell
+  #       name: Push application Docker image
+  #       command: |
+  #         docker login -u $DOCKER_USER -p $DOCKER_PASS
+  #         docker build -t "stupidcodefactory/prison-visits-2:${CIRCLE_BRANCH}" .
+  #         docker push "stupidcodefactory/prison-visits-2:${CIRCLE_BRANCH}"
+  # integration-tests:
+  #   working_directory: ~/prison-visits-2
+  #   docker:
+  #     - image: docker:17.09.0-ce-git
+  #     - image: postgres:9.4-alpine
+  #       name: db
+  #     - image: redis:alpine
+  #       name: redis
+  #     - image: stupidcodefactory/prison-visits-public:circleci2
+  #       name: public
+  #       environment:
+  #         RAILS_ENV: production
+  #         RACK_ENV: production
+  #         SSL_ON: 'false'
+  #         STAFF_SERVICE_URL: http://staff:3000
+  #         PRISON_VISITS_API: http://staff:3000
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Install Docker Compose
+  #         command: |
+  #           sudo curl -L "https://github.com/docker/compose/releases/download/1.16.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+  #     # - setup_remote_docker
+  #     - type: shell
+  #       name: run integration tests
+  #       command: |
+  #         docker-compose up -d
+  #         docker-compose exec staff rails db:setup
+  #         docker-compose run integration-tests bin/rspec
+# workflows:
+#    version: 2
+#    test-and-build:
+#      jobs:
+#        - build
+#        - test:
+#           requires:
+#             - build
+#        - test
+#        - integration-tests

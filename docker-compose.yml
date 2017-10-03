@@ -1,0 +1,53 @@
+version: "3"
+services:
+  db:
+    image: postgres:9.4-alpine
+  redis:
+    image: redis:alpine
+  staff:
+    image: stupidcodefactory/prison-visits-2:circleci2
+    environment:
+      RAILS_ENV:         production
+      RACK_ENV:          production
+      DATABASE_URL:      postgres://postgres@db:5432/
+      REDIS_URL:         redis://redis:6379/0
+      STAFF_SERVICE_URL: $STAFF_SERVICE_URL
+      MOJSSO_ID:         $MOJSSO_ID
+      NOMIS_API_HOST:    $NOMIS_API_HOST
+      NOMIS_API_KEY:     $NOMIS_API_KEY
+      NOMIS_API_TOKEN:   $NOMIS_API_TOKEN
+      SECRET_KEY_BASE:   $SECRET_KEY_BASE
+      SMTP_DOMAIN:       $SMTP_DOMAIN
+      SMTP_HOSTNAME:     $SMTP_HOSTNAME
+      SMTP_PASSWORD:     $SMTP_PASSWORD
+      SMTP_PORT:         $SMTP_PORT
+      SMTP_USERNAME:     $SMTP_USERNAME
+
+    entrypoint:
+      - bundle
+      - exec
+      - puma
+      - -b
+      - tcp://0.0.0.0:3000
+      - -C
+      - config/puma_prod.rb
+    ports:
+      - "3000:3000"
+  public:
+    image: stupidcodefactory/prison-visits-public:circleci2
+    environment:
+      RAILS_ENV:         production
+      RACK_ENV:          production
+      SSL_ON:            'false'
+      STAFF_SERVICE_URL: http://staff:3000
+      PRISON_VISITS_API: http://staff:3000
+    ports:
+      - "4000:3000"
+
+  integration-tests:
+    image: stupidcodefactory/prison-visits-integration-tests:circleci2
+    volumes:
+      - ./screenshots:/app/screenshots
+    depends_on:
+      - staff
+      - public
