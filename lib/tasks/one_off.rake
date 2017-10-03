@@ -14,7 +14,7 @@ namespace :pvb do
 
     begin
       response = client.get(
-        "/prison/#{visit.prison.nomis_id}/slots",
+        "/prison/#{visit.prison.estate.nomis_id}/slots",
         start_date: current_slots.min.to_date - 1.day, # API bug workaround
         end_date: current_slots.max.to_date)
 
@@ -119,6 +119,14 @@ namespace :pvb do
     end
 
     AdminMailer.slot_availability(prison_data).deliver_now!
+  end
+
+  desc 'Backfill Cancellation#reasons'
+  task backfill_cancellation_reasons: :environment do
+    Cancellation.where(reasons: []).in_batches(of: 1000) do |relation|
+      relation.update_all('reasons = cancellations.reason || ARRAY[]::varchar[]')
+      sleep(1)
+    end
   end
 end
 

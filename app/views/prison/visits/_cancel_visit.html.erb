@@ -1,0 +1,67 @@
+<h3 class="heading-medium"><%= t(".title") %></h3>
+
+<div class="grid-row">
+  <fieldset>
+    <div class="column-one-half">
+      <div class="multiple-choice">
+        <%= radio_button_tag 'cancellation_reason', :prisoner_vos, false %>
+        <label for="cancellation_reason_prisoner_vos">
+          <%= t(".prisoner_vos") %>
+        </label>
+      </div>
+      <div class="multiple-choice">
+        <%= radio_button_tag 'cancellation_reason', :prisoner_released, false %>
+        <label for="cancellation_reason_prisoner_released">
+          <%= t(".prisoner_released") %>
+        </label>
+      </div>
+      <div class="multiple-choice">
+        <%= radio_button_tag 'cancellation_reason', :child_protection_issues, false %>
+        <label for="cancellation_reason_child_protection_issues">
+          <%= t(".child_protection_issues") %>
+        </label>
+      </div>
+      <div class="multiple-choice">
+        <%= radio_button_tag 'cancellation_reason', :slot_unavailable, false %>
+        <label for="cancellation_reason_slot_unavailable">
+          <%= t(".slot_unavailable") %>
+        </label>
+      </div>
+      <div class="multiple-choice">
+        <%= radio_button_tag 'cancellation_reason', :visitor_banned, false %>
+        <label for="cancellation_reason_visitor_banned">
+          <%= t(".visitor_banned") %>
+        </label>
+      </div>
+    </div>
+    <div class="column-one-half">
+      <div class="multiple-choice">
+        <%= radio_button_tag 'cancellation_reason', :prisoner_moved, false %>
+        <label for="cancellation_reason_prisoner_moved">
+          <%= t(".prisoner_moved") %>
+        </label>
+      </div>
+      <div class="multiple-choice">
+        <%= radio_button_tag 'cancellation_reason', :prisoner_non_association, false %>
+        <label for="cancellation_reason_prisoner_non_association">
+          <%= t(".prisoner_non_association") %>
+        </label>
+      </div>
+      <div class="multiple-choice">
+        <%= radio_button_tag 'cancellation_reason', :booked_in_error, false %>
+        <label for="cancellation_reason_booked_in_error">
+          <%= t(".booked_in_error") %>
+        </label>
+      </div>
+      <div class="multiple-choice">
+        <%= radio_button_tag 'cancellation_reason', :capacity_issues, false %>
+        <label for="cancellation_reason_capacity_issues">
+          <%= t(".capacity_issues") %>
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+<div class='form-group push-top'>
+  <%= submit_tag t('cancel_visit', scope: :shared), class: 'button button-secondary' %>
+</div>
