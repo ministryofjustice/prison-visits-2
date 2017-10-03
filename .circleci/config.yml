@@ -45,7 +45,7 @@ jobs:
       # Run rspec in parallel
       - type: shell
         command: |
-          sudo Xvfb :7055
+          sudo Xvfb :7055 &
           run bundle exec rspec $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
       # Save test results for timing analysis
