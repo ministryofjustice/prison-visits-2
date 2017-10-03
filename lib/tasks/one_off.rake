@@ -122,7 +122,7 @@ namespace :pvb do
   end
 
   desc 'Backfill Cancellation#reasons'
-  task backfill_cancellation_reasons: :enviornment do
+  task backfill_cancellation_reasons: :environment do
     Cancellation.where(reasons: []).in_batches(of: 1000) do |relation|
       relation.update_all('reasons = cancellations.reason || ARRAY[]::varchar[]')
       sleep(1)
