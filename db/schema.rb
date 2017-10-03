@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170706150304) do
+ActiveRecord::Schema.define(version: 20170929084924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20170706150304) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "nomis_cancelled", default: false, null: false
+    t.string "reasons", default: [], array: true
     t.index ["visit_id"], name: "index_cancellations_on_visit_id", unique: true
   end
 

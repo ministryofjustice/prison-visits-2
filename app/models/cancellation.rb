@@ -17,5 +17,22 @@ class Cancellation < ActiveRecord::Base
 
   belongs_to :visit
 
+  validate :validate_reasons
+  validates :reasons, presence: true
   validates :reason, inclusion: { in: REASONS }
+
+private
+
+  def validate_reasons
+    reasons.each do |r|
+      next if REASONS.include?(r)
+      errors.add(
+        :reasons,
+        I18n.t(
+          'activerecord.errors.models.cancellation.invalid_reason',
+          reason: r
+        )
+      )
+    end
+  end
 end
