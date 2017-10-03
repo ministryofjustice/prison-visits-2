@@ -3,8 +3,9 @@ ruby '2.4.2'
 
 gem 'rails', '~> 5.1'
 
-gem 'connection_pool'
+gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'
+gem 'connection_pool'
 gem 'excon'
 gem 'highline', require: false
 gem 'jbuilder'

@@ -120,6 +120,14 @@ namespace :pvb do
 
     AdminMailer.slot_availability(prison_data).deliver_now!
   end
+
+  desc 'Backfill Cancellation#reasons'
+  task backfill_cancellation_reasons: :enviornment do
+    Cancellation.where(reasons: []).in_batches(of: 1000) do |relation|
+      relation.update_all('reasons = cancellations.reason || ARRAY[]::varchar[]')
+      sleep(1)
+    end
+  end
 end
 
 class SlotAvailabilityCounter
