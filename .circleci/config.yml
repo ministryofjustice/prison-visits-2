@@ -1,10 +1,10 @@
 version: 2
 jobs:
   build:
-    parallelism: 3
-    working_directory: ~/circleci-demo-ruby-rails
+    parallelism: 1
+    working_directory: ~/prison-visits-2
     docker:
-      - image: circleci/ruby-2.4.2-node
+      - image: circleci/ruby-2.4.1-node-browsers
         environment:
           RAILS_ENV: test
       - image: circleci/postgres:9.4.12-alpine
@@ -33,7 +33,7 @@ jobs:
         command: |
           bundle exec rspec --profile 10 \
                             --format RspecJunitFormatter \
-                            --out test_results/rspec.xml \
+                            --out coverage/rspec.xml \
                             --format progress \
                             $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
