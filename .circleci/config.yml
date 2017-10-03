@@ -1,3 +1,4 @@
+version: 2
 jobs:
   test:
     parallelism: 1
@@ -50,23 +51,21 @@ jobs:
       # Save test results for timing analysis
       - store_test_results:
           path: coverage
-  build:
-    working_directory: ~/prison-visits-2
-    docker:
-      - image: docker:17.05.0-ce-git
-    steps:
-      - checkout
-      - setup_remote_docker
-     - run:
-          name: Push application Docker image
-          command: |
-            docker tag app "prison-visits-2:${CIRCLE_SHA1}"
-            docker push "prison-visits-2:${CIRCLE_SHA1}"
+  # build:
+  #   working_directory: ~/prison-visits-2
+  #   docker:
+  #     - image: docker:17.05.0-ce-git
+  #   steps:
+  #     - checkout
+  #     - setup_remote_docker
+  #    - run:
+  #         name: Push application Docker image
+  #         command: |
+  #           docker tag app "prison-visits-2:${CIRCLE_SHA1}"
+  #           docker push "prison-visits-2:${CIRCLE_SHA1}"
 
 workflows:
   version: 2
   test-and-build:
     jobs:
       - test
-      - build:
-          requires: test
