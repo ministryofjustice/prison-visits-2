@@ -46,7 +46,7 @@ jobs:
       - type: shell
         command: |
           sudo Xvfb :7055 &
-          run bundle exec rspec $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+          bundle exec rspec $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
       # Save test results for timing analysis
       - store_test_results:
