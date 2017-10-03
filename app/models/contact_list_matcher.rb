@@ -63,6 +63,6 @@ private
   end
 
   def visitor_full_name
-    visitor.full_name.downcase
+    visitor.full_name.downcase.squish
   end
 end
