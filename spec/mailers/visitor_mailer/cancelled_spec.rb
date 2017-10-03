@@ -5,10 +5,11 @@ RSpec.describe VisitorMailer, '.cancelled' do
   let(:visit) { create(:cancelled_visit) }
   let(:mail) { described_class.cancelled(visit) }
   let(:reason) { 'slot_unavailable' }
+  let(:reasons) { [reason] }
 
   before do
     ActionMailer::Base.deliveries.clear
-    FactoryGirl.create(:cancellation, visit: visit, reason: reason)
+    FactoryGirl.create(:cancellation, visit: visit, reason: reason, reasons: reasons)
   end
 
   around do |example|
@@ -78,5 +79,12 @@ RSpec.describe VisitorMailer, '.cancelled' do
     let(:reason) { 'booked_in_error' }
 
     it { expect(mail.html_part.body).to match(/mistake booking this/) }
+  end
+
+  context 'when cancelled by more than one reason' do
+    let(:reasons) { %w[child_protection_issues visitor_banned] }
+
+    it { expect(mail.html_part.body).to match(/due to restrictions/) }
+    it { expect(mail.html_part.body).to match(/banned from visiting/) }
   end
 end

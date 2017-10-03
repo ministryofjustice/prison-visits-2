@@ -177,6 +177,7 @@ en:
       salutation: Dear %{name},
       intro:
         We're sorry to let you know we have cancelled your visit to %{prisoner} at %{prison} on %{date}.
+      cant_visit: You can't visit because
       slot_unavailable_html: >-
         <p>We’re sorry but the date and time you chose is no longer available.</p>
 
@@ -193,13 +194,11 @@ en:
         <p>We’re sorry but there are too many visitors scheduled for that time and we do not have enough space to sit everyone safely.</p>
 
         <p>To arrange another visit, go to <a href="%{service_url}">www.gov.uk/prison-visits</a> and choose new dates.</p>
-      child_protection_issues_html:
-        <p>We have cancelled your visit due to restrictions around this prisoner.</p>
       prisoner_moved_html: >-
         <p>We cancelled your visit because they have left this prison.</p>
 
         <p>If they haven’t been in touch recently, visit <a href="%{service_url}">www.gov.uk/find-prisoner</a>.This service will help you find them.</p>
-      prisoner_non_association_html: >-
+      restricted_reason_html: >-
         <p>We have cancelled your visit due to restrictions around this prisoner.</p>
 
         <p>You may be able to visit them at a later date.</p>
