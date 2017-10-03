@@ -1,0 +1,11 @@
+<p>
+  <%= t('intro',
+       date: format_slot_for_public(@visit.slot_granted),
+       prison: @visit.prison.name,
+       prisoner: @visit.prisoner_full_name,
+       scope: %i(visitor_mailer cancelled))
+  %>
+</p>
+
+<%= @cancellation.formatted_reasons.first.explanation %>
+

@@ -46,6 +46,8 @@ class VisitorMailer < ActionMailer::Base
 
   def cancelled(visit)
     I18n.locale = visit.locale
+
+    @cancellation = visit.cancellation.decorate
     mail_visitor visit,
       prison_name: visit.prison_name,
       date: format_date_without_year(visit.date)

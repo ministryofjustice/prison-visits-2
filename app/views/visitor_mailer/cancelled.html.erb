@@ -1,21 +1,9 @@
 <p><%= t('.salutation', name: @visit.visitor_first_name) %></p>
 
-<% case @visit.cancellation_reason %>
-<% when 'visitor_banned' %>
-  <%= t('.visitor_banned_html',
-        date: format_slot_for_public(@visit.slot_granted),
-        prison: @visit.prison.name,
-        prisoner: @visit.prisoner_full_name,
-        visitor_name: @visit.visitor_full_name) %>
-  <% else %>
-    <p>
-    <%= t('.intro',
-          date: format_slot_for_public(@visit.slot_granted),
-          prison: @visit.prison.name,
-          prisoner: @visit.prisoner_full_name) %>
-    </p>
-
-    <%= t(".#{@visit.cancellation_reason}_html", service_url: link_directory.public_service, prisoner: @visit.prisoner_full_name) %>
+<% if @cancellation.reasons.one? %>
+  <%= render 'single_cancellation_reason', reason: @cancellation.reasons.first %>
+<% else %>
+  <%= render 'multiple_cancellation_reasons' %>
 <% end %>
 
 <p><%= t('.any_questions_html',

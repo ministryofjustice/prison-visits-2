@@ -1,16 +1,19 @@
 class Cancellation < ActiveRecord::Base
-  VISITOR_CANCELLED = 'visitor_cancelled'
+  VISITOR_CANCELLED = 'visitor_cancelled'.freeze
+  CHILD_PROTECTION_ISSUES = 'child_protection_issues'.freeze
+  PRISONER_NON_ASSOCIATION = 'prisoner_non_association'.freeze
+  VISITOR_BANNED = 'visitor_banned'.freeze
 
-  STAFF_REASONS = %w[
-    booked_in_error
-    capacity_issues
-    child_protection_issues
-    prisoner_moved
-    prisoner_non_association
-    prisoner_released
-    prisoner_vos
-    slot_unavailable
-    visitor_banned
+  STAFF_REASONS = [
+    'booked_in_error',
+    'capacity_issues',
+    CHILD_PROTECTION_ISSUES,
+    'prisoner_moved',
+    PRISONER_NON_ASSOCIATION,
+    'prisoner_released',
+    'prisoner_vos',
+    'slot_unavailable',
+    VISITOR_BANNED
   ]
 
   REASONS = STAFF_REASONS + [VISITOR_CANCELLED]
