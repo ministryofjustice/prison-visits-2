@@ -35,7 +35,7 @@ jobs:
 
           wget https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
           tar -zxvf geckodriver-v0.19.0-linux64.tar.gz
-          mv geckodriver /usr/local/bin/
+          sudo mv geckodriver /usr/local/bin/
 
 
       # Database setup
