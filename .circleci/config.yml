@@ -30,6 +30,13 @@ jobs:
           key: rails-demo-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+      - type: shell
+        command: |
+
+          wget https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
+          tar -zxvf geckodriver-v0.19.0-linux64.tar.gz
+          mv geckodriver-v0.19.0-linux64/geckodriver /usr/local/bin/
+
 
       # Database setup
       - run: bundle exec rake db:create
