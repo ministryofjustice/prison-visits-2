@@ -29,9 +29,7 @@ jobs:
         command: |
           wget -L https://ftp.mozilla.org/pub/firefox/releases/56.0/linux-x86_64/en-US/firefox-56.0.tar.bz2 -O firefox.tar.bz2
           tar xjf firefox.tar.bz2
-          ls -la
           mv firefox /opt/firefox
-          ls -la /opt/
           sudo ln -s /opt/firefox/firefox /usr/local/bin/firefox
 
       # Store bundle cache
@@ -42,7 +40,6 @@ jobs:
 
       - type: shell
         command: |
-
           wget https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
           tar -zxvf geckodriver-v0.19.0-linux64.tar.gz
           sudo mv geckodriver /usr/local/bin/
@@ -55,6 +52,7 @@ jobs:
       # Run rspec in parallel
       - type: shell
         command: |
+          export PATH="/opt/firefox:$PATH"
           bundle exec rake
 
       # Save test results for timing analysis
