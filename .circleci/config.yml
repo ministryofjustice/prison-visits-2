@@ -27,7 +27,7 @@ jobs:
 
       - type: shell
         command:
-          wget https://ftp.mozilla.org/pub/firefox/releases/56.0/linux-x86_64/en-US/firefox-56.0.tar.bz2
+          wget "https://ftp.mozilla.org/pub/firefox/releases/56.0/linux-x86_64/en-US/firefox-56.0.tar.bz2"
           taf xjf firefox-56.0.tar.bz2
           ls -la
           mv firefox /opt/firefox
