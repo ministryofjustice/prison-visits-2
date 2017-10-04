@@ -18,8 +18,9 @@ jobs:
       - type: shell
         name: Push application Docker image
         command: |
-          docker tag "prison-visits-2:${CIRCLE_SHA1}" "prison-visits-2:${CIRCLE_SHA1}"
-          docker push "prison-visits-2:${CIRCLE_SHA1}"
+          docker login -u $DOCKER_USER -p $DOCKER_PASS
+          docker build -t "stupidcodefactory/prison-visits-2:${CIRCLE_BRANCH}" .
+          docker push "stupidcodefactory/prison-visits-2:${CIRCLE_BRANCH}"
 
 
   test:
