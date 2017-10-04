@@ -45,8 +45,7 @@ jobs:
       # Run rspec in parallel
       - type: shell
         command: |
-          sudo Xvfb &
-          # bundle exec rake
+          bundle exec rake
 
       # Save test results for timing analysis
       - store_test_results:
