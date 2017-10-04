@@ -25,11 +25,21 @@ jobs:
       # Bundle install dependencies
       - run: bundle install --path vendor/bundle
 
+      - type: shell
+        command:
+          wget https://ftp.mozilla.org/pub/firefox/releases/56.0/linux-x86_64/en-US/firefox-56.0.tar.bz2
+          taf xjf firefox-56.0.tar.bz2
+          ls -la
+          mv firefox /opt/firefox
+          ls -la /opt/
+          ln -s /opt/firefox/firefox /usr/local/bin/firefox
+
       # Store bundle cache
       - save_cache:
-          key: rails-demo-{{ checksum "Gemfile.lock" }}
+          key: prison-visits-2-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+
       - type: shell
         command: |
 

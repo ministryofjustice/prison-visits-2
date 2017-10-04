@@ -22,7 +22,7 @@ Capybara.register_driver :headless_chrome do |app|
     desired_capabilities: capabilities
 end
 
-Capybara.javascript_driver = :headless_chrome
+Capybara.javascript_driver = :selenium
 Capybara.default_max_wait_time = 4
 Capybara.wait_on_first_by_default = true
 Capybara.asset_host = 'http://localhost:3000'
