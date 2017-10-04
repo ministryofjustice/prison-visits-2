@@ -26,12 +26,14 @@ jobs:
       - run: bundle install --path vendor/bundle
 
       - type: shell
+        name: install firefox
         command: |
-          wget -L https://ftp.mozilla.org/pub/firefox/releases/56.0/linux-x86_64/en-US/firefox-56.0.tar.bz2 -O firefox.tar.bz2
-          tar xjf firefox.tar.bz2
-          mv ./firefox /opt/firefox
-          sudo rm -f /usr/bin/firefox
-          sudo ln -s /opt/firefox/firefox /usr/bin/firefox
+          wget -L "https://ftp.mozilla.org/pub/firefox/releases/$FIREFOX_VERSION/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.tar.bz2" -O "firefox-$FIREFOX_VERSION.tar.bz2"
+          tar xjf "firefox-$FIREFOX_VERSION.tar.bz2"
+          sudo rm -rf /opt/firefox
+          sudo mv firefox /opt/
+          sudo ln -sf /opt/firefox/firefox /usr/bin/firefox
+
 
       # Store bundle cache
       - save_cache:
@@ -51,16 +53,7 @@ jobs:
       - run: bundle exec rake db:schema:load
 
       # Run rspec in parallel
-      - type: shell
-        command: |
-          export PATH="/opt/firefox:$PATH"
-          firefox --version
-          geckodriver --version
-          which firefox
-          echo $PATH
-          ls -la /opt/firefox
-          /opt/firefox/firefox --version
-          bundle exec rake
+      - run: bundle exec rake
 
       # Save test results for timing analysis
       - store_test_results:
