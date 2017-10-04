@@ -71,7 +71,6 @@ group :test do
   gem 'launchy'
   gem 'rspec-collection_matchers'
   gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
   gem 'simplecov'
   gem 'simplecov-rcov'
   gem 'vcr'
