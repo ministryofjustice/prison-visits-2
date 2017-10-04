@@ -55,6 +55,11 @@ jobs:
           export PATH="/opt/firefox:$PATH"
           firefox --version
           geckodriver --version
+          which firefox
+          echo $PATH
+          ls -la /opt/firefox
+          firefox --version
+          /opt/firefox/firefox --version
           bundle exec rake
 
       # Save test results for timing analysis
