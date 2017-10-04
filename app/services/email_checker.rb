@@ -26,8 +26,8 @@ private
 
   def format_error
     return :unparseable unless parsed
-    return :domain_dot if domain_dot_error?
     return :malformed unless well_formed_address?
+    return :domain_dot if domain_dot_error?
   end
 
   def mx_records_error
@@ -45,7 +45,7 @@ private
   end
 
   def domain_dot_error?
-    domain&.start_with?('.')
+    domain.start_with?('.') || domain.match(/\.{2,}/)
   end
 
   def well_formed_address?
