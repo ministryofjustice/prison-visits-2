@@ -29,8 +29,9 @@ jobs:
         command: |
           wget -L https://ftp.mozilla.org/pub/firefox/releases/56.0/linux-x86_64/en-US/firefox-56.0.tar.bz2 -O firefox.tar.bz2
           tar xjf firefox.tar.bz2
-          mv firefox /opt/firefox
-          sudo ln -s /opt/firefox/firefox /usr/local/bin/firefox
+          mv ./firefox /opt/firefox
+          sudo rm -f /usr/bin/firefox
+          sudo ln -s /opt/firefox/firefox /usr/bin/firefox
 
       # Store bundle cache
       - save_cache:
@@ -58,7 +59,6 @@ jobs:
           which firefox
           echo $PATH
           ls -la /opt/firefox
-          firefox --version
           /opt/firefox/firefox --version
           bundle exec rake
 
