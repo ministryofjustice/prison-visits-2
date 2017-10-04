@@ -1,0 +1,8 @@
+<% if matched %>
+  <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
+<% end %>
+
+<div class="form-group js-matchVisitor--select">
+  <%= vf.label :nomis_id, t('.nomis_list'), class: 'form-label' %>
+  <%= yield %>
+</div>

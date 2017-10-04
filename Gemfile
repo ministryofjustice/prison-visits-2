@@ -5,6 +5,8 @@ gem 'rails', '~> 5.1'
 
 gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'
+gem 'did_you_mean', require: 'did_you_mean/jaro_winkler'
+gem 'draper'
 gem 'connection_pool'
 gem 'excon'
 gem 'highline', require: false
@@ -28,11 +30,10 @@ gem 'jquery-rails', '~> 4.2.0'
 gem 'jquery-ui-rails', '~> 5.0.5'
 
 gem 'jwt'
-gem 'draper'
 gem 'rake'
 
+gem 'secure_headers'
 gem 'sentry-raven'
-
 gem 'sidekiq'
 gem 'state_machines-activerecord'
 gem 'string_scrubber'
@@ -46,8 +47,6 @@ gem 'pvb-instrumentation',
   git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
   tag: 'v1.0.0'
 # gem 'pvb-instrumentation', path: '../pvb-instrumentation'
-
-gem 'secure_headers'
 
 group :development, :test do
   gem 'brakeman'

@@ -31,12 +31,12 @@
 
       $.each(this.$el.find('select'), function(i,obj){
         var $obj = $(obj),
-          option = $obj.find('option').slice(1),
+          option = $obj.find('option[data-contact]'),
           contact = option.data('contact'),
           val = $obj.val(),
           parent = self.findParent(obj);
 
-        if(val == contact.uid && val != ''){
+        if(val == contact.id && val != ''){
           self.toggleSelectOptions($obj);
           self.toggleCheckbox($obj, val == '');
           option.prop('disabled', null);
@@ -181,11 +181,11 @@
 
     toggleSelectOptions: function(el) {
       var self = this,
-        options = this.$el.find('select').not(el).find('option').not(':selected');
+        options = this.$el.find('select').not(el).find('option[data-contact]').not(':selected');
 
       $.each(options, function(i, obj) {
         var contact = obj.value? $(obj).data('contact') : null;
-        if (contact && $.inArray(contact.uid.toString(), self.getVisitorIDs()) !== -1) {
+        if (contact && $.inArray(contact.id.toString(), self.getVisitorIDs()) !== -1) {
           $(obj).prop('disabled', 'disabled');
         } else {
           $(obj).prop('disabled', null);

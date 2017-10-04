@@ -59,45 +59,4 @@ RSpec.describe VisitDecorator do
       end
     end
   end
-
-  describe '#contact_list' do
-    let(:visitor) { build(:visitor) }
-    let(:form_builder)  do
-      ActionView::Helpers::FormBuilder.new(:visit, visitor, subject.h, {})
-    end
-
-    let(:selected)     { contacts.last }
-    let(:offender)     { Nomis::Offender.new(id: 'some_id', noms_id: 'noms_id') }
-    let(:html)         { Capybara.string(subject.contact_list(form_builder, selected&.id)) }
-
-    context 'with contacts' do
-      let(:contacts) { build_list(:contact, 4) }
-
-      before do
-        expect(checker).to receive(:approved_contacts).twice.and_return(contacts)
-      end
-
-      it 'return the contact list dropdown' do
-        Nomis::ContactDecorator.decorate_collection(contacts).each do |contact|
-          if contact.id == selected.id
-            expect(html).to have_xpath("//select/option[@value='#{contact.id}'][@data-contact='#{contact.to_data_attributes.to_json}'][@selected]", text: contact.full_name_and_dob)
-          else
-            expect(html).to have_xpath("//option[@value='#{contact.id}'][@data-contact='#{contact.to_data_attributes.to_json}']", text: contact.full_name_and_dob)
-          end
-        end
-      end
-    end
-
-    context 'without contact' do
-      let(:contacts) { [] }
-
-      before do
-        expect(checker).to receive(:approved_contacts).and_return(contacts)
-      end
-
-      it 'returns a message that i do not yet have' do
-        expect(html).to have_css('p', text: 'No record of this visitor in NOMIS')
-      end
-    end
-  end
 end

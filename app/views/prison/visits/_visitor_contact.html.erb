@@ -27,23 +27,10 @@
     </div>
     <div class="column">
       <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>
-        <div class="form-group js-matchVisitor--select">
-          <%= vf.label :nomis_id, t('.nomis_list'), class: 'form-label' %>
-          <%= @visit.contact_list(vf, v) %>
-        </div>
+        <%= v.contact_list(vf, @visit.approved_contacts) %>
       <% end %>
-      <div class="multiple-choice form-group">
-        <%= vf.check_box :not_on_list, data: { checkbox_summary_text: v.anonymized_name } %>
-        <%= vf.label :not_on_list do %>
-          <%= t('.not_on_list') %>
-        <% end %>
-      </div>
-      <div class="multiple-choice form-group">
-        <%= vf.check_box :banned %>
-        <%= vf.label :banned do %>
-          <%= t('.banned') %>
-        <% end %>
-      </div>
+      <%= render 'prison/visits/not_on_list', vf: vf, v: v  %>
+      <%= render 'prison/visits/banned', vf: vf, v: v  %>
     </div>
   </div>
 </li>

@@ -1,0 +1,6 @@
+<div class="multiple-choice form-group">
+  <%= vf.check_box :not_on_list, data: { checkbox_summary_text: v.anonymized_name } %>
+  <%= vf.label :not_on_list do %>
+    <%= t('.not_on_list') %>
+  <% end %>
+</div>

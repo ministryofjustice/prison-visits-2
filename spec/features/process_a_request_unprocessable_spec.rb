@@ -76,11 +76,14 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     scenario 'trying to double book it in nomis' do
+      irma = vst.visitors.first
+      irma.update!(first_name: 'IRMA', last_name: 'itsu', date_of_birth: '03-04-1975')
+
       visit prison_visit_path(vst, locale: 'en')
 
       choose_date
       within "#visitor_#{visitor.id}" do
-        select 'ITSU, IRMA - 03/04/1975', from: "Match to prisoner's contact list"
+        select 'IRMA ITSU - 03/04/1975', from: "Match to prisoner's contact list"
       end
 
       click_button 'Process'
@@ -90,7 +93,7 @@ RSpec.feature 'Processing a request', js: true do
       choose_date
 
       within "#visitor_#{visitor.id}" do
-        select 'ITSU, IRMA - 03/04/1975', from: "Match to prisoner's contact list"
+        select 'IRMA ITSU - 03/04/1975', from: "Match to prisoner's contact list"
       end
 
       expect(page).to have_css('#nomis-opt-out', text: "This visit won't be booked to NOMIS as it already exists")
