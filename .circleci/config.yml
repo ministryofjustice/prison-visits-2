@@ -26,9 +26,9 @@ jobs:
       - run: bundle install --path vendor/bundle
 
       - type: shell
-        command:
-          wget -L "https://ftp.mozilla.org/pub/firefox/releases/56.0/linux-x86_64/en-US/firefox-56.0.tar.bz2" -O firefox.tar.bz2
-          taf xjf firefox.tar.bz2
+        command: |
+          wget -L https://ftp.mozilla.org/pub/firefox/releases/56.0/linux-x86_64/en-US/firefox-56.0.tar.bz2 -O firefox.tar.bz2
+          tar xjf firefox.tar.bz2
           ls -la
           mv firefox /opt/firefox
           ls -la /opt/
