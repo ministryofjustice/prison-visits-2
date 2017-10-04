@@ -1,0 +1,25 @@
+<h2 class="bold-medium"><%= t('title', scope: %i[prison visits prisoner_details]) %></h2>
+
+<div class="grid-row push-top">
+
+  <div class="column-one-quarter">
+    <span class="text-secondary"><%= t('prisoner_name', scope: %i[prison visits prisoner_details]) %></span>
+    <div class="bold-small"><%= @visit.prisoner_full_name %></div>
+  </div>
+
+  <div class="column-one-quarter">
+    <span class="text-secondary"><%= t('prisoner_dob', scope: %i[prison visits prisoner_details]) %></span>
+    <div class="bold-small"><%= @visit.prisoner_date_of_birth.to_s(:short_nomis) %></div>
+  </div>
+
+  <div class="column-one-quarter">
+    <span class="text-secondary"><%= t('prisoner_number', scope: %i[prison visits prisoner_details]) %></span>
+    <div class="bold-small"><%= @visit.prisoner_number %></div>
+  </div>
+
+  <div class="column-one-quarter">
+    <span class="text-secondary"><%= t('prison_name', scope: %i[prison visits prisoner_details]) %></span>
+    <div class="bold-small"><%= @visit.prison_name %></div>
+  </div>
+
+</div>

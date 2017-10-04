@@ -60,7 +60,7 @@
 </div>
 
 <hr>
-<%= render 'prison/visits/prisoner_details', visit: @visit %>
+<%= render 'prison/visits/processed_prisoner_details', visit: @visit %>
 
 <%= form_tag cancel_prison_visit_path(@visit, locale: 'en'), class: 'form' do -%>
 
