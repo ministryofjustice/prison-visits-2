@@ -32,7 +32,7 @@ jobs:
           ls -la
           mv firefox /opt/firefox
           ls -la /opt/
-          ln -s /opt/firefox/firefox /usr/local/bin/firefox
+          sudo ln -s /opt/firefox/firefox /usr/local/bin/firefox
 
       # Store bundle cache
       - save_cache:
