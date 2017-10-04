@@ -12,6 +12,15 @@ require 'support/helpers/controller_helper'
 
 WebMock.disable_net_connect!(allow: 'codeclimate.com', allow_localhost: true)
 
+Capybara.register_driver :headless_chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w(headless disable-gpu) }
+  )
+
+  Capybara::Selenium::Driver.new app,
+    browser: :chrome,
+    desired_capabilities: capabilities
+end
 
 Capybara.javascript_driver = :selenium
 Capybara.default_max_wait_time = 4
