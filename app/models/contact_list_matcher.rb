@@ -46,6 +46,7 @@ private
   end
 
   def match_date_of_birth?(contact)
+    return false if contact.date_of_birth.blank?
     visitor.date_of_birth.to_date == contact.date_of_birth.to_date
   end
 

@@ -69,6 +69,16 @@ RSpec.describe ContactListMatcher do
           expect(exact_matches.contacts.first).to eq(contact_list.first)
         end
 
+        context 'and with a contact without date of birth' do
+          before do
+            contact_list.first.date_of_birth = nil
+          end
+
+          it 'is on the other section' do
+            expect(others.contacts).to include(contact_list.first)
+          end
+        end
+
         context 'when a name is partially matched, about 2 typos' do
           before do
             visitor.first_name[-1] = visitor.first_name[-1].next
