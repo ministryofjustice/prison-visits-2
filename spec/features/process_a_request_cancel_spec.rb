@@ -6,6 +6,8 @@ RSpec.feature 'Processing a request', js: true do
 
   include_context 'process request setup'
 
+  before { switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, [vst.prison_name]) }
+
   describe 'cancelling' do
     before do
       vst.assign_attributes(slot_granted: vst.slot_option_0)

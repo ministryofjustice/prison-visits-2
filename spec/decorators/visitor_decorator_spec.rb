@@ -1,18 +1,18 @@
 require "rails_helper"
 
 RSpec.describe VisitorDecorator do
-  let(:visitor)              { create(:visitor) }
+  let(:visitor) { create(:visitor) }
 
   subject do
-    described_class.decorate(visitor)
+    described_class.decorate(visitor, context: { contact_list: nomis_contacts })
   end
 
-  describe '#contact_list' do
+  describe '#contact_list_matching' do
     let(:form_builder) do
       ActionView::Helpers::FormBuilder.new(:visit, subject, subject.h, {})
     end
 
-    let(:html) { Capybara.string(subject.contact_list(form_builder, nomis_contacts)) }
+    let(:html) { Capybara.string(subject.contact_list_matching(form_builder)) }
 
     context 'without contacts' do
       let(:nomis_contacts) { [] }

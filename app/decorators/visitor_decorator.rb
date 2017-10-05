@@ -4,8 +4,7 @@ class VisitorDecorator < Draper::Decorator
   NO_VISITORS_IN_NOMIS = 'no_visitor_in_nomis'.freeze
 
   # rubocop:disable Metrics/MethodLength
-  def contact_list(form_build, contact_list)
-    contact_list         = Nomis::ContactDecorator.decorate_collection(contact_list)
+  def contact_list_matching(form_build)
     contact_list_matcher = ContactListMatcher.new(contact_list, object)
     exact_matches        = contact_list_matcher.exact_matches
     selected_noms_id     = exact_matches.contact_id
@@ -31,5 +30,11 @@ class VisitorDecorator < Draper::Decorator
       )
     end
   end
-  # rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/MethodLength
+
+private
+
+  def contact_list
+    context[:contact_list]
+  end
 end

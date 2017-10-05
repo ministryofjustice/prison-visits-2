@@ -8,7 +8,6 @@ class VisitDecorator < Draper::Decorator
     :slot_availability_unknown?,
     :slots_unavailable?,
     :contact_list_unknown?,
-    :approved_contacts,
     :prisoner_restrictions_unknown?,
     to: :nomis_checker
 
@@ -34,12 +33,12 @@ class VisitDecorator < Draper::Decorator
   end
 
   def principal_visitor
-    @principal_visitor ||= object.principal_visitor.decorate
+    @principal_visitor ||= object.principal_visitor.decorate(visitor_context)
   end
 
   def additional_visitors
-    @additional_visitors ||= VisitorDecorator.
-                               decorate_collection(object.additional_visitors)
+    @additional_visitors ||=
+      VisitorDecorator.decorate_collection(object.additional_visitors, visitor_context)
   end
 
   def processed_at
@@ -58,5 +57,22 @@ private
 
   def nomis_checker
     context[:staff_nomis_checker]
+  end
+
+  def visitor_context
+    if contact_list_working?
+      { context: { contact_list: approved_contacts } }
+    else
+      {}
+    end
+  end
+
+  def approved_contacts
+    @approved_contacts ||=
+      Nomis::ContactDecorator.decorate_collection(nomis_checker.approved_contacts)
+  end
+
+  def contact_list_working?
+    Nomis::Feature.contact_list_enabled?(prison_name) && !contact_list_unknown?
   end
 end
