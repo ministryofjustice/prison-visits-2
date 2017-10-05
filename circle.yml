@@ -4,6 +4,7 @@ machine:
       2.4.2
   environment:
     PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/drivers"
+    RUBYGEMS_GEMDEPS: "-"
 
 test:
   override:
