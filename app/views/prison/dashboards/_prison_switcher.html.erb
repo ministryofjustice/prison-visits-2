@@ -2,7 +2,7 @@
   <div class="column-full">
     <% content_for :prison_switcher do %>
       <% if sso_identity.accessible_estates.size > 1 -%>
-        <%= form_tag prison_switch_estates_path, enforce_utf8: false, class: 'form prison-switcher-form' do -%>
+        <%= form_tag prison_switch_estates_path, enforce_utf8: false, class: 'form prison-switcher-form hidden--print' do -%>
           <%= label_tag "estate_ids", class: "form-label" do -%>
             <%= t('.prison_switcher') %>
           <% end %>
