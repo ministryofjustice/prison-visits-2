@@ -4,8 +4,7 @@ class BookingResponder
       super do
         visit.cancel!
         Cancellation.create!(visit: visit,
-                             reason: staff_response.reason,
-                             reasons: [staff_response.reason],
+                             reasons: staff_response.reasons,
                              nomis_cancelled: true)
 
         BookingResponse.successful

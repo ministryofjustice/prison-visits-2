@@ -7,12 +7,12 @@ module StaffResponseHelper
     visit
   end
 
-  def cancel_visit(visit, reason = Cancellation::VISITOR_CANCELLED)
+  def cancel_visit(visit, reasons = [Cancellation::VISITOR_CANCELLED])
     accept_visit(visit, visit.slots.first)
     CancellationResponse.new(
       visit: visit,
       user:   create(:user),
-      reason: reason
+      reasons: reasons
     ).cancel!
     visit
   end

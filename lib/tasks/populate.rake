@@ -114,7 +114,7 @@ namespace :pvb do
         CancellationResponse.new(
           visit: visit,
           user: nil,
-          reason: Cancellation::REASONS.sample).cancel!
+          reasons: [Cancellation::REASONS.sample]).cancel!
       else
         VisitorCancellationResponse.new(visit: visit).cancel!
       end

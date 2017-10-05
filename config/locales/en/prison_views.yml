@@ -202,6 +202,9 @@ en:
         no_messages: There are currently no messages.
         body: Please type your message
         visit_history: Visit history
+        cancelled_reason:
+          one: Cancellation reason
+          other: Cancellation reasons
       timeline:
         requested: Requested
         booked: Booked
@@ -356,6 +359,12 @@ en:
     visitor_name: Visitor name
     warning: Warning
     no_adult: There must be at least one adult visitor
+    prisoner_released: Prisoner released
+    booked_in_error: Booked in error
+    prisoner_vos: Prisoner had no visiting allowance
+    prisoner_non_association: Prisoner had no association
+    capacity_issues: Capacity issues
+    child_protection_issues: Child protection issues
     no_allowance: Prisoner had no visiting allowance.
     no_allowance_true: Prisoner has no visiting allowance. Allowance renews on %{vo_date}
     no_allowance_false: Prisoner had no visiting allowance. Allowance renewed on %{vo_date}

@@ -17,13 +17,6 @@ RSpec.describe Cancellation, model: true do
       }.to raise_exception(ActiveRecord::InvalidForeignKey)
     end
 
-    it 'checks the reason code is allowed' do
-      cancellation = FactoryGirl.build_stubbed(:cancellation)
-      cancellation.reason = 'random'
-      expect(cancellation).to be_invalid
-      expect(cancellation.errors[:reason]).to be_present
-    end
-
     describe '#reasons' do
       context 'with rejection reasons' do
         before do

@@ -51,9 +51,13 @@
     <div class="column-two-thirds push-top">
       <div class="panel panel-border-narrow">
         <div class="text-secondary">
-          <%= @visit.processing_state.capitalize %> reason
+          <%= t('.cancelled_reason', count: @visit.cancellation_reasons.size) %>
         </div>
-        <small class="font-xsmall"><%= t(@visit.cancellation_reason, scope: :shared) %></small>
+        <ul class="list list-bullet">
+          <% @visit.cancellation_reasons.each do |reason| %>
+            <li><%= t(reason, scope: :shared) %></li>
+          <% end %>
+        </ul>
       </div>
     </div>
   <% end %>
@@ -62,33 +66,30 @@
 <hr>
 <%= render 'prison/visits/processed_prisoner_details', visit: @visit %>
 
-<%= form_tag cancel_prison_visit_path(@visit, locale: 'en'), class: 'form' do -%>
+<hr>
 
-  <hr>
-
-  <h2 class="bold-medium push-top"><%= t('.visit_date') %></h2>
-  <div class="grid-row push-top">
-    <% @visit.slots.each_with_index do |slot, i| %>
-    <div class="column-one-third">
-      <div class="date-box date-box--number">
-        <div class="date-box__label <%= 'selected' if @visit.slot_granted == slot.object %>">
-          <span class="date-box__number"><%= i+1 %></span>
-          <span class="date-box__day"><%= format_date_day(slot) %></span>
-          <br><%= format_date_of_birth(slot) %> <br><%= format_slot_times(slot) %>
-        </div>
+<h2 class="bold-medium push-top"><%= t('.visit_date') %></h2>
+<div class="grid-row push-top">
+  <% @visit.slots.each_with_index do |slot, i| %>
+  <div class="column-one-third">
+    <div class="date-box date-box--number">
+      <div class="date-box__label <%= 'selected' if @visit.slot_granted == slot.object %>">
+        <span class="date-box__number"><%= i+1 %></span>
+        <span class="date-box__day"><%= format_date_day(slot) %></span>
+        <br><%= format_date_of_birth(slot) %> <br><%= format_slot_times(slot) %>
       </div>
     </div>
-    <% end %>
   </div>
-
-  <%= render 'prison/visits/visitor_detail' %>
-
-  <% if @visit.can_cancel? %>
-    <%= render 'prison/visits/cancel_visit' %>
-    <hr>
   <% end %>
+</div>
 
-<% end %> <!-- end form tag -->
+<%= render 'prison/visits/visitor_detail' %>
+
+<% if @visit.can_cancel? %>
+  <%= render 'prison/visits/cancel_visit' %>
+  <hr>
+<% end %>
+
 
 <div class="grid-row push-top">
   <div class="column-two-thirds">
