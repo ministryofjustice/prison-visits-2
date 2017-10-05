@@ -4,7 +4,7 @@ RSpec.describe BookingResponder::Cancel do
   subject(:instance) { described_class.new(cancellation_response) }
 
   let(:cancellation_response) do
-    CancellationResponse.new(visit: visit, user: user, reason: reason)
+    CancellationResponse.new(visit: visit, user: user, reasons: [reason])
   end
   let(:visit) { FactoryGirl.create(:booked_visit) }
   let(:reason) { 'booked_in_error' }
@@ -16,7 +16,6 @@ RSpec.describe BookingResponder::Cancel do
 
     visit.reload
     expect(visit).to be_cancelled
-    expect(visit.cancellation.reason).to eq(reason)
     expect(visit.cancellation.reasons).to eq([reason])
     expect(visit.cancellation.nomis_cancelled).to eq(true)
   end

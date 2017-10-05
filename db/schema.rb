@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170929084924) do
+ActiveRecord::Schema.define(version: 20171004152259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,11 +18,11 @@ ActiveRecord::Schema.define(version: 20170929084924) do
 
   create_table "cancellations", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid "visit_id", null: false
-    t.string "reason", null: false
+    t.string "reason"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "nomis_cancelled", default: false, null: false
-    t.string "reasons", default: [], array: true
+    t.string "reasons", default: [], null: false, array: true
     t.index ["visit_id"], name: "index_cancellations_on_visit_id", unique: true
   end
 

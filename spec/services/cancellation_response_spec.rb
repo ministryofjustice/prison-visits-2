@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CancellationResponse do
   subject(:instance) do
-    described_class.new(visit: visit, user: user, reason: reason)
+    described_class.new(visit: visit, user: user, reasons: [reason])
   end
 
   let(:user) { nil }

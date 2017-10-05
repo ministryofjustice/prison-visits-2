@@ -125,10 +125,6 @@ RSpec.feature 'Using the dashboard' do
     end
 
     it 'sends a message and cancels the visit' do
-      allow(StaffNomisChecker).
-        to receive(:new).and_return(
-          double(StaffNomisChecker, prisoner_existance_status: StaffNomisChecker::VALID, location_verified?: true))
-
       fill_in 'Search', with: vst.prisoner_number
       find('.button.search').click
       click_link 'View'
@@ -140,7 +136,7 @@ RSpec.feature 'Using the dashboard' do
 
       expect(page).to have_css('.message', text: 'Sandals not allowed')
 
-      choose 'Prisoner has moved prisons'
+      check 'Prisoner has moved prisons'
       click_button 'Cancel visit', match: :first
 
       visit prison_visit_path(vst, locale: 'en')

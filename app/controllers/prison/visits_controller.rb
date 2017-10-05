@@ -5,7 +5,7 @@ class Prison::VisitsController < ApplicationController
 
   before_action :authorize_prison_request
   before_action :authenticate_user
-  before_action :cancellation_reason_set, only: :cancel
+  before_action :cancellation_reasons_set, only: :cancel
   before_action :visit_is_processable, only: :update
   before_action :set_visit_processing_time_cookie, only: :show
   after_action  :track_visit_process, only: :update
@@ -75,11 +75,11 @@ private
       CancellationResponse.new(
         visit: memoised_visit,
         user: current_user,
-        reason: params[:cancellation_reason])
+        reasons: params[:cancellation_reasons])
   end
 
-  def cancellation_reason_set
-    if params[:cancellation_reason].blank?
+  def cancellation_reasons_set
+    if params[:cancellation_reasons].blank?
       flash[:notice] = t('no_cancellation_reason', scope: %i[prison flash])
       redirect_to action: :show
     end

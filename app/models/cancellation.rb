@@ -22,7 +22,11 @@ class Cancellation < ActiveRecord::Base
 
   validate :validate_reasons
   validates :reasons, presence: true
-  validates :reason, inclusion: { in: REASONS }
+
+  # TODO: Remove after column has been dropped.
+  def self.columns
+    super.reject { |r| r == 'reason' }
+  end
 
 private
 

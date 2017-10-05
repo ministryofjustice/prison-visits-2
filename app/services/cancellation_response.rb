@@ -1,14 +1,14 @@
 class CancellationResponse
-  attr_reader :visit, :user, :reason
+  attr_reader :visit, :user, :reasons
 
-  def initialize(visit:, user:, reason:)
+  def initialize(visit:, user:, reasons:)
     @visit = visit
     @user = user
-    @reason = reason
+    @reasons = reasons
   end
 
   def can_cancel?
-    @visit.can_cancel?
+    visit.can_cancel?
   end
 
   def cancel!

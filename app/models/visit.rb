@@ -28,7 +28,7 @@ class Visit < ActiveRecord::Base
   alias_attribute :first_date, :slot_option_0
 
   delegate :reasons, to: :rejection, prefix: true
-  delegate :reason, to: :cancellation, prefix: true
+  delegate :reasons, to: :cancellation, prefix: true
   delegate :allowance_will_renew?, :allowance_renews_on,
     to: :rejection
 

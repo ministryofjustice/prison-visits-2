@@ -125,12 +125,12 @@ RSpec.describe Prison::VisitsController, type: :controller do
   describe '#cancel' do
     let(:visit) { FactoryGirl.create(:booked_visit) }
     let(:mailing) { double(Mail::Message, deliver_later: nil) }
-    let(:cancellation_reason) { 'slot_unavailable' }
+    let(:cancellation_reasons) { ['slot_unavailable'] }
 
     subject do
       delete :cancel, params: {
         id: visit.id,
-        cancellation_reason: cancellation_reason,
+        cancellation_reasons: cancellation_reasons,
         locale: 'en'
       }
     end
@@ -160,8 +160,8 @@ RSpec.describe Prison::VisitsController, type: :controller do
         end
       end
 
-      context 'when there is no cancellation reason' do
-        let(:cancellation_reason) { nil }
+      context 'when there is no cancellation reasons' do
+        let(:cancellation_reasons) { [] }
 
         it 'redirect to the visit show page setting the no cancellation reason flash message' do
           is_expected.to redirect_to(prison_visit_path(visit))

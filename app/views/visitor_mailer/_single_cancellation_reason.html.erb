@@ -7,5 +7,5 @@
   %>
 </p>
 
-<%= @cancellation.formatted_reasons.first.explanation %>
-
+<p><%= t('cant_visit', scope: %i(visitor_mailer cancelled)) %> <%= @cancellation.formatted_reasons.first.explanation %></p>
+<p><%= t('arrange_html', scope: %i(visitor_mailer cancelled)) %></p>

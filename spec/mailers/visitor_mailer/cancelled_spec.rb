@@ -60,19 +60,19 @@ RSpec.describe VisitorMailer, '.cancelled' do
   context 'when there are capacity issues' do
     let(:reason) { 'capacity_issues' }
 
-    it { expect(mail.html_part.body).to match(/too many visitors/) }
+    it { expect(mail.html_part.body).to match(/fully booked/) }
   end
 
   context 'when there are child protection issues' do
     let(:reason) { 'child_protection_issues' }
 
-    it { expect(mail.html_part.body).to match(/due to restrictions/) }
+    it { expect(mail.html_part.body).to match(/there are restrictions/) }
   end
 
   context 'when non association issues' do
     let(:reason) { 'prisoner_non_association' }
 
-    it { expect(mail.html_part.body).to match(/due to restrictions/) }
+    it { expect(mail.html_part.body).to match(/there are restrictions/) }
   end
 
   context 'when booked in error' do
@@ -84,7 +84,7 @@ RSpec.describe VisitorMailer, '.cancelled' do
   context 'when cancelled by more than one reason' do
     let(:reasons) { %w[child_protection_issues visitor_banned] }
 
-    it { expect(mail.html_part.body).to match(/due to restrictions/) }
+    it { expect(mail.html_part.body).to match(/there are restrictions/) }
     it { expect(mail.html_part.body).to match(/banned from visiting/) }
   end
 end
