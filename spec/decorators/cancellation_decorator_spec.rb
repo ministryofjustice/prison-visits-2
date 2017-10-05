@@ -18,7 +18,7 @@ RSpec.describe CancellationDecorator do
         expect(
           subject.formatted_reasons.map(&:explanation)
         ).to eq([
-          "<p>We have cancelled your visit due to restrictions around this prisoner.<\/p>\n<p\>You may be able to visit them at a later date.<\/p>"
+          "there are restrictions around this prisoner. You may be able to visit them at a later date."
         ])
       end
     end
@@ -30,7 +30,7 @@ RSpec.describe CancellationDecorator do
         expect(
           subject.formatted_reasons.map(&:explanation)
         ).to eq([
-          "<p>We have cancelled your visit due to restrictions around this prisoner.<\/p>\n<p>You may be able to visit them at a later date.</p>"
+          "there are restrictions around this prisoner. You may be able to visit them at a later date."
         ])
       end
     end
@@ -42,7 +42,7 @@ RSpec.describe CancellationDecorator do
         expect(
           subject.formatted_reasons.map(&:explanation)
         ).to eq([
-          "<p>We have cancelled your visit because you have been banned from visiting this prison.<\/p>\n<p>We have sent you a letter explaining why we took this decision and giving you further details.</p>"
+          "you have been banned from visiting this prison. We’ve sent you a letter with further details."
         ])
       end
     end
@@ -57,7 +57,7 @@ RSpec.describe CancellationDecorator do
 
       it 'has a restricted and another restricted reasons' do
         expect(subject.formatted_reasons.map(&:explanation)).
-          to contain_exactly("<p>We have cancelled your visit due to restrictions around this prisoner.<\/p>\n<p>You may be able to visit them at a later date.<\/p>")
+          to contain_exactly("there are restrictions around this prisoner. You may be able to visit them at a later date.")
       end
     end
   end
