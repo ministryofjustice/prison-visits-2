@@ -25,7 +25,7 @@ class Cancellation < ActiveRecord::Base
 
   # TODO: Remove after column has been dropped.
   def self.columns
-    super.reject { |r| r == 'reason' }
+    super.reject { |r| r.name == 'reason' }
   end
 
 private
