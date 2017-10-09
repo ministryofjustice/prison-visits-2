@@ -6,12 +6,81 @@ RSpec.describe GATracker do
   let(:user)                { create :user }
   let(:visit)               { create(:visit) }
   let(:processing_time_key) { "processing_time-#{visit.id}-#{user.id}"  }
-  let(:request)             { ActionDispatch::TestRequest.new('REMOTE_ADDR' => ip, 'HTTP_USER_AGENT' => user_agent) }
+  let(:request)             do
+    ActionDispatch::TestRequest.new(
+      'REMOTE_ADDR' => ip,
+      'HTTP_USER_AGENT' => user_agent,
+      'action_dispatch.request.parameters' => { was_bookable: was_bookable }
+    )
+  end
+  let(:was_bookable)        { false }
   let(:cookies)             { ActionDispatch::Cookies::CookieJar.build(request, {}) }
   let(:nowish)              { Time.zone.now }
   let(:web_property_id)     { "UA-96772907-2" }
 
   subject { described_class.new(user, visit.reload, cookies, request)  }
+
+  describe '#send_unexpected_rejection_event' do
+    context "when the visit was bookable and it was rejected" do
+      let(:was_bookable) { 'true' }
+
+      before do
+        reject_visit visit
+        cookies['_ga'] = 'some_client_id'
+        switch_feature_flag_with :ga_id, web_property_id
+      end
+
+      it 'sends an event', vcr: { cassette_name: 'unexepcted_rejection_event' } do
+        subject.send_unexpected_rejection_event
+
+        expect(WebMock).
+          to have_requested(:post, GATracker::ENDPOINT).with(
+            body: URI.encode_www_form(
+              v: 1,
+              uip: ip,
+              tid: web_property_id,
+              cid: "some_client_id",
+              ua: user_agent,
+              t: "event",
+              ec: visit.prison.name,
+              ea: 'Manual rejection',
+              el: "slot_unavailable"
+            ),
+            headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
+        )
+      end
+    end
+
+    context "when the visit was not bookable and it was rejected" do
+      let(:was_bookable) { 'false' }
+
+      before do
+        reject_visit visit
+        cookies['_ga'] = 'some_client_id'
+        switch_feature_flag_with :ga_id, web_property_id
+      end
+
+      it 'sends an event', vcr: { cassette_name: 'unexepcted_rejection_event' } do
+        subject.send_unexpected_rejection_event
+
+        expect(WebMock).
+          not_to have_requested(:post, GATracker::ENDPOINT).with(
+            body: URI.encode_www_form(
+              v: 1,
+              uip: ip,
+              tid: web_property_id,
+              cid: "some_client_id",
+              ua: user_agent,
+              t: "event",
+              ec: visit.prison.name,
+              ea: 'Manual rejection',
+              el: "slot_unavailable"
+            ),
+            headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
+        )
+      end
+    end
+  end
 
   describe '#send_processing_timing' do
     before do
@@ -44,7 +113,7 @@ RSpec.describe GATracker do
             cd1: "slot_unavailable"
           ),
           headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
-           )
+      )
       expect(cookies[processing_time_key]).to be_nil
     end
   end
@@ -55,7 +124,7 @@ RSpec.describe GATracker do
         travel_to nowish do
           expect {
             subject.set_visit_processing_time_cookie
-          }.to change { cookies[processing_time_key]  }.from(nil).to(nowish.to_i)
+          }.to change { cookies[processing_time_key] }.from(nil).to(nowish.to_i)
         end
       end
     end

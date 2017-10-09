@@ -17,15 +17,12 @@ class GATracker
   end
 
   def send_unexpected_rejection_event
+    send_data(rejection_event_payload) if visit_rejected_unexpectedly?
   end
 
   def send_processing_timing
     return unless timing_value
-    client.post(
-      path:    ENDPOINT.path,
-      headers: { 'Content-Type' => 'application/x-www-form-urlencoded' },
-      body:    URI.encode_www_form(timing_payload_data)
-    )
+    send_data(timing_payload_data)
     delete_visit_processing_time_cookie
   end
 
@@ -35,6 +32,19 @@ private
 
   def client
     @client ||= Excon.new(ENDPOINT.to_s, persistent: true)
+  end
+
+  def send_data(payload)
+    client.post(
+      path:    ENDPOINT.path,
+      headers: { 'Content-Type' => 'application/x-www-form-urlencoded' },
+      body:    URI.encode_www_form(payload)
+    )
+  end
+
+  def visit_rejected_unexpectedly?
+    visit.rejected? &&
+      ActiveRecord::Type::Boolean.new.cast(request.params[:was_bookable])
   end
 
   def timing_value
@@ -62,6 +72,14 @@ private
       ua:  user_agent, t: 'timing', utc: prison.name, utv: visit.processing_state,
       utt: timing_value, utl: user.id,
       cd1: visit.rejection&.reasons&.sort&.join('-') || ''
+    }
+  end
+
+  def rejection_event_payload
+    {
+      v: 1, uip: ip, tid: web_property_id, cid: cookies['_ga'] || SecureRandom.base64,
+      ua:  user_agent, t: 'event', ec: prison.name, ea: 'Manual rejection',
+      el: visit.rejection.reasons.sort.join('-')
     }
   end
 
