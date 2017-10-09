@@ -13,7 +13,7 @@ RSpec.describe GATracker do
 
   subject { described_class.new(user, visit.reload, cookies, request)  }
 
-  describe '#send_event' do
+  describe '#send_processing_timing' do
     before do
       switch_feature_flag_with :ga_id, web_property_id
       cookies['_ga'] = 'some_client_id'
@@ -23,10 +23,11 @@ RSpec.describe GATracker do
       reject_visit visit
     end
 
-    it 'sends an event', vcr: { cassette_name: 'google_analytics' } do
+    it 'sends an event', vcr: { cassette_name: 'timing_google_analytics' } do
       travel_to nowish do
-        subject.send_event
+        subject.send_processing_timing
       end
+
       expect(WebMock).
         to have_requested(:post, GATracker::ENDPOINT).with(
           body: URI.encode_www_form(

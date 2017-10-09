@@ -16,12 +16,15 @@ class GATracker
     }
   end
 
-  def send_event
-    return unless value
+  def send_unexpected_rejection_event
+  end
+
+  def send_processing_timing
+    return unless timing_value
     client.post(
       path:    ENDPOINT.path,
       headers: { 'Content-Type' => 'application/x-www-form-urlencoded' },
-      body:    URI.encode_www_form(payload_data)
+      body:    URI.encode_www_form(timing_payload_data)
     )
     delete_visit_processing_time_cookie
   end
@@ -34,7 +37,7 @@ private
     @client ||= Excon.new(ENDPOINT.to_s, persistent: true)
   end
 
-  def value
+  def timing_value
     return unless start_time
     (Time.zone.now - start_time).to_i * 1000
   end
@@ -53,11 +56,12 @@ private
     request.user_agent
   end
 
-  def payload_data
+  def timing_payload_data
     {
       v: 1, uip: ip, tid: web_property_id, cid: cookies['_ga'] || SecureRandom.base64,
       ua:  user_agent, t: 'timing', utc: prison.name, utv: visit.processing_state,
-      utt: value, utl: user.id, cd1: visit.rejection&.reasons&.sort&.join('-') || ''
+      utt: timing_value, utl: user.id,
+      cd1: visit.rejection&.reasons&.sort&.join('-') || ''
     }
   end
 
