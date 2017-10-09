@@ -86,4 +86,58 @@ RSpec.describe VisitorDecorator do
       end
     end
   end
+
+  describe '#exact_match?' do
+    let(:nomis_contacts) do
+      build_list(:contact, 1).map do |nomis_contact|
+        Nomis::ContactDecorator.decorate(nomis_contact)
+      end
+    end
+
+    let(:contact) { nomis_contacts.first }
+
+    context 'when there is an exact match' do
+      before do
+        visitor.date_of_birth = contact.date_of_birth
+        visitor.first_name = contact.given_name
+        visitor.last_name  = contact.surname
+      end
+
+      it { expect(subject).to be_exact_match }
+    end
+
+    context 'where there is not an exact match' do
+      before do
+        visitor.date_of_birth = contact.date_of_birth
+        visitor.first_name = contact.given_name + "bob"
+        visitor.last_name  = contact.surname
+      end
+
+      it { expect(subject).not_to be_exact_match }
+    end
+  end
+
+  describe '#banned?' do
+    let(:nomis_contacts) do
+      [Nomis::ContactDecorator.decorate(contact)]
+    end
+
+    before do
+      visitor.date_of_birth = contact.date_of_birth
+      visitor.first_name = contact.given_name
+      visitor.last_name  = contact.surname
+    end
+
+    context 'when the visitor is banned' do
+      let(:contact) { build(:banned_contact) }
+
+      it { expect(subject).to be_banned }
+    end
+
+    context 'when the visitor is not banned' do
+      let(:contact) { build(:contact) }
+
+      it { expect(subject).not_to be_banned }
+    end
+  end
 end

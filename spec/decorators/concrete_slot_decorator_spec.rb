@@ -10,6 +10,10 @@ RSpec.describe ConcreteSlotDecorator do
       slot_availability_unknown?: false
     )
   end
+  let(:date) { Date.tomorrow }
+  let(:slot) do
+    ConcreteSlot.new(date.year, date.month, date.day, 14, 0, 15, 30)
+  end
 
   subject do
     described_class.decorate(
@@ -30,10 +34,7 @@ RSpec.describe ConcreteSlotDecorator do
     let(:form_builder)  do
       ActionView::Helpers::FormBuilder.new(:visit, visit, subject.h, {})
     end
-    let(:date) { Date.tomorrow }
-    let(:slot) do
-      ConcreteSlot.new(date.year, date.month, date.day, 14, 0, 15, 30)
-    end
+
     let(:html_fragment) do
       subject.slot_picker(form_builder)
       Capybara.string(h.output_buffer)
@@ -158,6 +159,51 @@ RSpec.describe ConcreteSlotDecorator do
           expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
           expect(html_fragment).to have_text("#{slot.to_date.strftime('%e %B %Y')} 14:00–15:30")
         end
+      end
+    end
+  end
+
+  describe '#bookable?' do
+    context 'when the prisoner is avaliable' do
+      before do
+        switch_on :nomis_staff_prisoner_availability_enabled
+      end
+
+      context 'when the slot is not avaliable' do
+        before do
+          switch_on :nomis_staff_slot_availability_enabled
+          switch_feature_flag_with(:staff_prisons_with_slot_availability, [visit.prison_name])
+        end
+
+        let(:slot_errors) { ['slot_not_available'] }
+
+        it { expect(subject).not_to be_bookable }
+      end
+
+      context 'when the slot is avaliable' do
+        before do
+          switch_on :nomis_staff_slot_availability_enabled
+          switch_feature_flag_with(:staff_prisons_with_slot_availability, [visit.prison_name])
+        end
+
+        it { expect(subject).to be_bookable }
+      end
+    end
+
+    context 'when the prisoner is not avaliable' do
+      before do
+        switch_on :nomis_staff_prisoner_availability_enabled
+      end
+
+      let(:slot_errors) { ['prisoner_banned'] }
+
+      context 'when the slot is avaliable' do
+        before do
+          switch_on :nomis_staff_slot_availability_enabled
+          switch_feature_flag_with(:staff_prisons_with_slot_availability, [visit.prison_name])
+        end
+
+        it { expect(subject).not_to be_bookable }
       end
     end
   end

@@ -59,4 +59,57 @@ RSpec.describe VisitDecorator do
       end
     end
   end
+
+  describe '#bookable?' do
+    context 'when there is a bookable slot' do
+      before do
+        expect(subject.slots.first).to receive(:bookable?).and_return(true)
+      end
+
+      context 'the contact list is working' do
+        before do
+          expect(Nomis::Feature).
+            to receive(:contact_list_enabled?).with(visit.prison_name).and_return(true)
+          expect(checker).to receive(:contact_list_unknown?).and_return(false)
+          allow(checker).to receive(:approved_contacts).and_return([])
+        end
+
+        context 'when there is an exact matched visitor is banned' do
+          before do
+            expect(subject.principal_visitor).to receive(:exact_match?).and_return(true)
+            expect(subject.principal_visitor).to receive(:banned?).and_return(true)
+          end
+
+          it { expect(subject).not_to be_bookable }
+        end
+
+        context 'when there is an unbanned exact match' do
+          before do
+            expect(subject.principal_visitor).to receive(:exact_match?).and_return(true)
+            expect(subject.principal_visitor).to receive(:banned?).and_return(false)
+          end
+
+          it { expect(subject).to be_bookable }
+        end
+
+        context 'when there is not an exact match' do
+          before do
+            expect(subject.principal_visitor).to receive(:exact_match?).and_return(false)
+          end
+
+          it { expect(subject).not_to be_bookable }
+        end
+      end
+
+      context 'when the contact list is not working' do
+        before do
+          expect(Nomis::Feature).
+            to receive(:contact_list_enabled?).with(visit.prison_name).and_return(true)
+          expect(checker).to receive(:contact_list_unknown?).and_return(true)
+        end
+
+        it { expect(subject).not_to be_bookable }
+      end
+    end
+  end
 end

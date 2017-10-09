@@ -85,8 +85,12 @@ class ConcreteSlotDecorator < Draper::Decorator
 
     nil
   end
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
+
+  def bookable?
+    prisoner_available? && slot_available?
+  end
 
 private
 

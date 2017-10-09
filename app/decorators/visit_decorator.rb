@@ -49,6 +49,13 @@ class VisitDecorator < Draper::Decorator
     nomis_checker.offender.id if Nomis::Api.enabled?
   end
 
+  def bookable?
+    slots.any?(&:bookable?) &&
+      contact_list_working? &&
+      principal_visitor.exact_match? &&
+      !principal_visitor.banned?
+  end
+
 private
 
   def last_visit_state_change
@@ -73,6 +80,7 @@ private
   end
 
   def contact_list_working?
-    Nomis::Feature.contact_list_enabled?(prison_name) && !contact_list_unknown?
+    @contact_list_working ||=
+      Nomis::Feature.contact_list_enabled?(prison_name) && !contact_list_unknown?
   end
 end
