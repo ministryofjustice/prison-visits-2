@@ -2,7 +2,10 @@ class ContactListMatcher::ExactMatches
   include ContactListMatcherBehaviour
 
   def contact_id
-    return unless any?
-    contacts.first.id
+    contact&.id
+  end
+
+  def contact
+    contacts&.first
   end
 end

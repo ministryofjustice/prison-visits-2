@@ -43,11 +43,11 @@ RSpec.describe Prison::VisitsController, type: :controller do
         let(:google_tracker) { instance_double(GATracker) }
 
         before do
-          expect(GATracker).
-            to receive(:new).and_return(google_tracker)
-          expect(google_tracker).
-            to receive(:send_event)
+          expect(GATracker).to receive(:new).and_return(google_tracker)
+          expect(google_tracker).to receive(:send_processing_timing)
+          expect(google_tracker).to receive(:send_unexpected_rejection_event)
         end
+
         it { is_expected.to redirect_to(prison_inbox_path) }
       end
 

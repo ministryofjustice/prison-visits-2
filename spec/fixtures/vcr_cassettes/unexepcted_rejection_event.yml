@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.google-analytics.com/collect
+    body:
+      encoding: US-ASCII
+      string: v=1&uip=13.155.105.104&tid=UA-96772907-2&cid=some_client_id&ua=some+user+agent+string&t=event&ec=Abshireshire+Open+Prison&ea=Manual+rejection&el=slot_unavailable&cd1=slot_unavailable
+    headers:
+      User-Agent:
+      - excon/0.58.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - "*"
+      Date:
+      - Mon, 09 Oct 2017 13:20:38 GMT
+      Pragma:
+      - no-cache
+      Expires:
+      - Fri, 01 Jan 1990 00:00:00 GMT
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Last-Modified:
+      - Sun, 17 May 1998 03:00:00 GMT
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - image/gif
+      Server:
+      - Golfe2
+      Content-Length:
+      - '35'
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="39,38,37,35"
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
+    http_version: 
+  recorded_at: Mon, 09 Oct 2017 13:21:27 GMT
+recorded_with: VCR 3.0.3

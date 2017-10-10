@@ -1,18 +1,18 @@
 require "rails_helper"
 
 RSpec.describe VisitorDecorator do
-  let(:visitor)              { create(:visitor) }
+  let(:visitor) { create(:visitor) }
 
   subject do
-    described_class.decorate(visitor)
+    described_class.decorate(visitor, context: { contact_list: nomis_contacts })
   end
 
-  describe '#contact_list' do
+  describe '#contact_list_matching' do
     let(:form_builder) do
       ActionView::Helpers::FormBuilder.new(:visit, subject, subject.h, {})
     end
 
-    let(:html) { Capybara.string(subject.contact_list(form_builder, nomis_contacts)) }
+    let(:html) { Capybara.string(subject.contact_list_matching(form_builder)) }
 
     context 'without contacts' do
       let(:nomis_contacts) { [] }
@@ -84,6 +84,60 @@ RSpec.describe VisitorDecorator do
           end
         end
       end
+    end
+  end
+
+  describe '#exact_match?' do
+    let(:nomis_contacts) do
+      build_list(:contact, 1).map do |nomis_contact|
+        Nomis::ContactDecorator.decorate(nomis_contact)
+      end
+    end
+
+    let(:contact) { nomis_contacts.first }
+
+    context 'when there is an exact match' do
+      before do
+        visitor.date_of_birth = contact.date_of_birth
+        visitor.first_name = contact.given_name
+        visitor.last_name  = contact.surname
+      end
+
+      it { expect(subject).to be_exact_match }
+    end
+
+    context 'where there is not an exact match' do
+      before do
+        visitor.date_of_birth = contact.date_of_birth
+        visitor.first_name = contact.given_name + "bob"
+        visitor.last_name  = contact.surname
+      end
+
+      it { expect(subject).not_to be_exact_match }
+    end
+  end
+
+  describe '#banned?' do
+    let(:nomis_contacts) do
+      [Nomis::ContactDecorator.decorate(contact)]
+    end
+
+    before do
+      visitor.date_of_birth = contact.date_of_birth
+      visitor.first_name = contact.given_name
+      visitor.last_name  = contact.surname
+    end
+
+    context 'when the visitor is banned' do
+      let(:contact) { build(:banned_contact) }
+
+      it { expect(subject).to be_banned }
+    end
+
+    context 'when the visitor is not banned' do
+      let(:contact) { build(:contact) }
+
+      it { expect(subject).not_to be_banned }
     end
   end
 end

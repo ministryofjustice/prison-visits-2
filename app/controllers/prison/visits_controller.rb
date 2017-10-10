@@ -86,7 +86,10 @@ private
   end
 
   def track_visit_process
-    ga_tracker.send_event if @booking_response.success?
+    if @booking_response.success?
+      ga_tracker.send_processing_timing
+      ga_tracker.send_unexpected_rejection_event
+    end
   end
 
   def set_visit_processing_time_cookie
