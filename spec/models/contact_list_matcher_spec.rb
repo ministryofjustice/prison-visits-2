@@ -17,7 +17,7 @@ end
 RSpec.describe ContactListMatcher do
   let(:fourties)     { build(:contact, date_of_birth: 43.years.ago)  }
   let(:thirties)     { build(:contact, date_of_birth: 34.years.ago)  }
-  let(:twenties)     { build(:contact, date_of_birth: 29.years.ago)  }
+  let(:twenties)     { build(:contact, date_of_birth: 29.years.ago, given_name: 'joseph', surname: 'silvermann')  }
   let(:contact_list) { [twenties, thirties, fourties] }
   let(:visitor)      { create(:visitor, date_of_birth: 19.years.ago) }
 
