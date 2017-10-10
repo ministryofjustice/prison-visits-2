@@ -47,6 +47,9 @@ gem 'pvb-instrumentation',
   tag: 'v1.0.0'
 # gem 'pvb-instrumentation', path: '../pvb-instrumentation'
 
+gem 'email_address_validation',
+  git: 'https://github.com/ministryofjustice/email_address_validation'
+
 group :development, :test do
   gem 'brakeman'
   gem 'byebug'

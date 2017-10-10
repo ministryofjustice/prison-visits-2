@@ -1,4 +1,5 @@
 require 'maybe_date'
+require 'email_address_validation'
 
 class VisitorsStep
   include NonPersistedModel
@@ -67,7 +68,7 @@ class VisitorsStep
 private
 
   def validate_email
-    checker = EmailChecker.new(email_address)
+    checker = EmailAddressValidation::Checker.new(email_address)
     unless checker.valid?
       errors.add :email_address, checker.message
     end
