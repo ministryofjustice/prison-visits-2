@@ -222,6 +222,7 @@ en:
         prisoner_non_association: Prisoner has a non-association
         child_protection_issues: Prisoner has child protection measures
         issue_with_prisoner: Issue with the prisoner
+        prisoner_cancelled: Prisoner cancelled the visit
         booked_in_error: Visit was booked in error
         slot_unavailable: Visit slot no longer available
         capacity_issues: Capacity issues in the visit hall
