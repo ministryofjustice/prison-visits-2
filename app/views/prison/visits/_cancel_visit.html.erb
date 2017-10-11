@@ -12,7 +12,7 @@
         <% end %>
       </div>
       <div class="column-one-half">
-        <% %i[prisoner_moved prisoner_non_association booked_in_error capacity_issues].each do |reason| %>
+        <% %i[prisoner_moved prisoner_non_association prisoner_cancelled booked_in_error capacity_issues].each do |reason| %>
           <div class="multiple-choice">
             <%= check_box_tag 'cancellation_reasons[]', reason, false, id: reason %>
             <%= label_tag reason, t(".#{reason}") %>

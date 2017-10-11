@@ -3,6 +3,7 @@ class Cancellation < ActiveRecord::Base
   CHILD_PROTECTION_ISSUES = 'child_protection_issues'.freeze
   PRISONER_NON_ASSOCIATION = 'prisoner_non_association'.freeze
   VISITOR_BANNED = 'visitor_banned'.freeze
+  PRISONER_CANCELLED = 'prisoner_cancelled'.freeze
 
   STAFF_REASONS = [
     'booked_in_error',
@@ -13,7 +14,8 @@ class Cancellation < ActiveRecord::Base
     'prisoner_released',
     'prisoner_vos',
     'slot_unavailable',
-    VISITOR_BANNED
+    VISITOR_BANNED,
+    PRISONER_CANCELLED
   ]
 
   REASONS = STAFF_REASONS + [VISITOR_CANCELLED]

@@ -195,6 +195,8 @@ en:
       prisoner_vos_html: >-
         there is a limit to how many visits a prisoner can have each month. %{prisoner} will have reached this limit by the date you’ve chosen,
         but you can arrange another visit after their visit allowance is renewed.
+      prisoner_cancelled_html: >-
+        they aren’t available at the date and time you requested.
       any_questions_html:
         If you have any questions, visit the <a href="%{url}">prison website</a> or call the prison on <strong>%{phone_no}</strong>.
       visit_id: "Visit ID:"
