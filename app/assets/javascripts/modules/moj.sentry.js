@@ -13,6 +13,11 @@
       window.onerror = function(error) {
         self.raven.captureException(error);
       }
+    },
+    capture: function(cb) {
+      Raven.context(function() {
+        cb();
+      })
     }
   }
 }());

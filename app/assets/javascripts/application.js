@@ -42,8 +42,13 @@
 (function() {
   'use strict';
   delete moj.Modules.devs;
-  var selectionButtons = new GOVUK.SelectionButtons("input[type='radio'], input[type='checkbox']");
-  var showHideContent = new GOVUK.ShowHideContent();
-  showHideContent.init();
-  moj.init();
+
+  moj.Modules.Sentry.capture(function() {
+    var selectionButtons = new GOVUK.SelectionButtons("input[type='radio'], input[type='checkbox']");
+    var showHideContent = new GOVUK.ShowHideContent();
+    showHideContent.init();
+    moj.init();
+  });
+
+
 }());
