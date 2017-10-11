@@ -8,7 +8,6 @@
 // GOVUK modules
 //= require govuk_toolkit
 //= require vendor/polyfills/bind
-//= require details.polyfill
 //= require moj
 //= require lodash
 //= require jquery-ui-autocomplete
