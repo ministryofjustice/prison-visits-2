@@ -1,4 +1,4 @@
-require 'did_you_mean'
+# require 'did_you_mean'
 
 class ContactListMatcher
   NEAREST_MATCH_THRESHOLD = 0.90
