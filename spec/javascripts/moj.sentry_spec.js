@@ -11,4 +11,18 @@ describe('Modules.Sentry', function() {
     });
   });
 
+  describe('...capture', function() {
+
+    var cb = jasmine.createSpy('cb');
+
+    beforeEach(function () {
+      spyOn(Raven, 'context').and.callThrough();
+      moj.Modules.Sentry.capture(cb);
+    });
+
+    it('call the function and wraps it in Raven.context', function() {
+      expect(Raven.context).toHaveBeenCalled();
+      expect(cb).toHaveBeenCalled();
+    });
+  })
 });
