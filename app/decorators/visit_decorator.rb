@@ -32,6 +32,10 @@ class VisitDecorator < Draper::Decorator
                    end
   end
 
+  def cancellation
+    @cancellation ||= (object.cancellation || build_cancellation).decorate
+  end
+
   def principal_visitor
     @principal_visitor ||= object.principal_visitor.decorate(visitor_context)
   end

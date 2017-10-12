@@ -5,7 +5,6 @@ class Prison::VisitsController < ApplicationController
 
   before_action :authorize_prison_request
   before_action :authenticate_user
-  before_action :cancellation_reasons_set, only: :cancel
   before_action :visit_is_processable, only: :update
   before_action :set_visit_processing_time_cookie, only: :show
   after_action  :track_visit_process, only: :update
@@ -42,17 +41,6 @@ class Prison::VisitsController < ApplicationController
     @message = Message.new
   end
 
-  def cancel
-    if cancellation_response.can_cancel?
-      cancellation_response.cancel!
-      flash[:notice] = t('visit_cancelled', scope: %i[prison flash])
-    else
-      flash[:notice] = t('already_cancelled', scope: %i[prison flash])
-    end
-
-    redirect_to action: :show
-  end
-
 private
 
   def booking_response_flash(booking_response)
@@ -67,21 +55,6 @@ private
     unless memoised_visit.processable?
       flash[:notice] = t('already_processed_html', scope: %i[prison flash])
       redirect_to prison_inbox_path
-    end
-  end
-
-  def cancellation_response
-    @_cancellation_response ||=
-      CancellationResponse.new(
-        visit: memoised_visit,
-        user: current_user,
-        reasons: params[:cancellation_reasons])
-  end
-
-  def cancellation_reasons_set
-    if params[:cancellation_reasons].blank?
-      flash[:notice] = t('no_cancellation_reason', scope: %i[prison flash])
-      redirect_to action: :show
     end
   end
 

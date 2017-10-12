@@ -1,5 +1,4 @@
 require 'rails_helper'
-require_relative '../untrusted_examples'
 
 RSpec.describe Prison::VisitsController, type: :controller do
   let(:visit) { FactoryBot.create(:visit) }
@@ -119,59 +118,6 @@ RSpec.describe Prison::VisitsController, type: :controller do
       before do get :show, params: { id: visit.id } end
 
       it { expect(response).not_to be_successful }
-    end
-  end
-
-  describe '#cancel' do
-    let(:visit) { FactoryBot.create(:booked_visit) }
-    let(:mailing) { double(Mail::Message, deliver_later: nil) }
-    let(:cancellation_reasons) { ['slot_unavailable'] }
-
-    subject do
-      delete :cancel, params: {
-        id: visit.id,
-        cancellation_reasons: cancellation_reasons,
-        locale: 'en'
-      }
-    end
-
-    it_behaves_like 'disallows untrusted ips'
-
-    context 'when there is a user logged in' do
-      let(:user) { FactoryBot.create(:user) }
-
-      before do
-        login_user(user, current_estates: [estate])
-      end
-
-      it { is_expected.to redirect_to(prison_visit_path(visit)) }
-
-      it 'cancels the visit' do
-        expect { subject }.
-          to change { visit.reload.processing_state }.to('cancelled')
-      end
-
-      context 'when the visit is already cancelled' do
-        let(:visit) { create(:cancelled_visit) }
-
-        it 'redirect to the visit show page setting the already cancelled flash message' do
-          is_expected.to redirect_to(prison_visit_path(visit))
-          expect(flash.notice).to eq("The visit is no longer cancellable")
-        end
-      end
-
-      context 'when there is no cancellation reasons' do
-        let(:cancellation_reasons) { [] }
-
-        it 'redirect to the visit show page setting the no cancellation reason flash message' do
-          is_expected.to redirect_to(prison_visit_path(visit))
-          expect(flash.notice).to eq("Please provide a cancellation reason")
-        end
-      end
-    end
-
-    context "when there isn't a user logged in" do
-      it { is_expected.not_to be_successful }
     end
   end
 

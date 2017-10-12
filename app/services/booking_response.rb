@@ -1,10 +1,19 @@
 class BookingResponse
-  ALREADY_PROCESSED_ERROR = 'already_processed'.freeze
+  # Cancel visit return codes
+  VISIT_NOT_FOUND           = 'visit_does_not_exist'.freeze
+  VISIT_ALREADY_CANCELLED   = 'visit_already_cancelled'.freeze
+  VISIT_COMPLETED           = 'visit_completed'.freeze
+  INVALID_CANCELLATION_CODE = 'invalid_cancellation_code'.freeze
+
+  # Book to Nomis return codes
+  ALREADY_PROCESSED_ERROR       = 'already_processed'.freeze
   ALREADY_BOOKED_IN_NOMIS_ERROR = 'already_booked_in_nomis'.freeze
-  PROCESS_REQUIRED_ERROR = 'process_required'.freeze
-  NOMIS_VALIDATION_ERROR = 'nomis_validation_error'.freeze
+  PROCESS_REQUIRED_ERROR        = 'process_required'.freeze
+  NOMIS_VALIDATION_ERROR        = 'nomis_validation_error'.freeze
+
+  # Generic return codes
   NOMIS_API_ERROR = 'nomis_api_error'.freeze
-  SUCCESS = 'success'.freeze
+  SUCCESS         = 'success'.freeze
 
   attr_reader :message
 
@@ -30,6 +39,22 @@ class BookingResponse
 
   def self.already_booked_in_nomis
     new(ALREADY_BOOKED_IN_NOMIS_ERROR)
+  end
+
+  def self.invalid_cancellation_code
+    new(INVALID_CANCELLATION_CODE)
+  end
+
+  def self.visit_not_found
+    new(VISIT_NOT_FOUND)
+  end
+
+  def self.visit_already_cancelled
+    new(VISIT_ALREADY_CANCELLED)
+  end
+
+  def self.visit_completed
+    new(VISIT_COMPLETED)
   end
 
   def initialize(message)
