@@ -11,7 +11,7 @@ private: false
 closed: false
 recurring:
   fri:
-  - 1415-1545
+  - 1345-1545
   sat:
   - 1345-1545
   sun:
