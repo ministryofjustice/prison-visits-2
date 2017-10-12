@@ -19,7 +19,6 @@ jobs:
       - checkout
       - restore_cache:
           key: prison-visits-2-{{ checksum "Gemfile.lock" }}
-      - run: bundle config --global disable_shared_gems false
       - run: bundle install
       - run:
           name: install firefox
