@@ -1,137 +1,144 @@
-<div class="grid-row push-top">
-  <div class="column-one-third">
-    <h1 class="bold-large"><%= t('.title') %></h1>
-  </div>
-  <div class="column-two-thirds">
-    <div class="grid-row">
-      <div class="column-one-third">
-        <div class="tag tag--requested tag--heading"><%= t('requested', scope: 'shared') %>: <br><%= @visit.created_at.to_date.to_s(:short_nomis) %> - <%= @visit.created_at.to_s(:time) %></div>
-      </div>
-      <div class="column-one-third">
-        <div class="tag tag--<%= @visit.processing_state %> tag--heading"><%= @visit.processing_state.capitalize %>: <br><%= @visit.processed_at.to_date.to_s(:short_nomis) %> - <%= @visit.processed_at.to_s(:time) %></div>
-      </div>
-      <div class="column-one-third">
-        <div class="text-secondary">ID: <%= @visit.human_id %></div>
-        <% if @visit.reference_no -%>
-          <div class="text-secondary"><%= t('.ref') %>: <%= @visit.reference_no %></div>
-        <% end %>
+<div class="hidden--print">
+  <div class="grid-row push-top">
+    <div class="column-one-third">
+      <h1 class="bold-large"><%= t('.title') %></h1>
+    </div>
+    <div class="column-two-thirds">
+      <div class="grid-row">
+        <div class="column-one-third">
+          <div class="tag tag--requested tag--heading"><%= t('requested', scope: 'shared') %>: <br><%= @visit.created_at.to_date.to_s(:short_nomis) %> - <%= @visit.created_at.to_s(:time) %></div>
+        </div>
+        <div class="column-one-third">
+          <div class="tag tag--<%= @visit.processing_state %> tag--heading"><%= @visit.processing_state.capitalize %>: <br><%= @visit.processed_at.to_date.to_s(:short_nomis) %> - <%= @visit.processed_at.to_s(:time) %></div>
+        </div>
+        <div class="column-one-third">
+          <div class="text-secondary">ID: <%= @visit.human_id %></div>
+          <% if @visit.reference_no -%>
+            <div class="text-secondary"><%= t('.ref') %>: <%= @visit.reference_no %></div>
+          <% end %>
+          <% if @visit.booked? %>
+            <a class="print-link" href="#">Print visit</a>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<% if @visit.closed? && @visit.booked? %>
-  <p class="panel panel-border-narrow font-xsmall">
-    <%= t('.closed_visit') %>
-  </p>
-<% end %>
+  <% if @visit.closed? && @visit.booked? %>
+    <p class="panel panel-border-narrow font-xsmall">
+      <%= t('.closed_visit') %>
+    </p>
+  <% end %>
 
-<div class="grid-row">
-  <% if @visit.rejected? %>
-    <div class="column-two-thirds push-top">
-      <div class="push-top text-secondary push-bottom--half">
-        <i class="icon icon-information align-vertical--middle"></i> Rejected reason(s)
-      </div>
-      <ul class="list list-bullet">
-        <% @visit.rejection.reasons.each do |reason| %>
-            <% if reason == 'no_allowance' %>
-              <% if @visit.allowance_renews_on %>
-                <li><%= t("#{reason}_#{@visit.allowance_renews_on.future?}", vo_date: @visit.allowance_renews_on.to_s(:short_nomis), scope: :shared) %></li>
+  <div class="grid-row">
+    <% if @visit.rejected? %>
+      <div class="column-two-thirds push-top">
+        <div class="push-top text-secondary push-bottom--half">
+          <i class="icon icon-information align-vertical--middle"></i> Rejected reason(s)
+        </div>
+        <ul class="list list-bullet">
+          <% @visit.rejection.reasons.each do |reason| %>
+              <% if reason == 'no_allowance' %>
+                <% if @visit.allowance_renews_on %>
+                  <li><%= t("#{reason}_#{@visit.allowance_renews_on.future?}", vo_date: @visit.allowance_renews_on.to_s(:short_nomis), scope: :shared) %></li>
+                <% else %>
+                  <li><%= t(reason, scope: :shared) %></li>
+                <% end %>
               <% else %>
                 <li><%= t(reason, scope: :shared) %></li>
               <% end %>
-            <% else %>
-              <li><%= t(reason, scope: :shared) %></li>
-            <% end %>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <% if @visit.cancelled? %>
-    <div class="column-two-thirds push-top">
-      <div class="panel panel-border-narrow">
-        <div class="text-secondary">
-          <%= t('.cancelled_reason', count: @visit.cancellation_reasons.size) %>
-        </div>
-        <ul class="list list-bullet">
-          <% @visit.cancellation_reasons.each do |reason| %>
-            <li><%= t(reason, scope: :shared) %></li>
           <% end %>
         </ul>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+    <% if @visit.cancelled? %>
+      <div class="column-two-thirds push-top">
+        <div class="panel panel-border-narrow">
+          <div class="text-secondary">
+            <%= t('.cancelled_reason', count: @visit.cancellation_reasons.size) %>
+          </div>
+          <ul class="list list-bullet">
+            <% @visit.cancellation_reasons.each do |reason| %>
+              <li><%= t(reason, scope: :shared) %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  </div>
 
-<hr>
-<%= render 'prison/visits/processed_prisoner_details', visit: @visit %>
+  <hr>
+  <%= render 'prison/visits/processed_prisoner_details', visit: @visit %>
 
-<hr>
+  <hr>
 
-<h2 class="bold-medium push-top"><%= t('.visit_date') %></h2>
-<div class="grid-row push-top">
-  <% @visit.slots.each_with_index do |slot, i| %>
-  <div class="column-one-third">
-    <div class="date-box date-box--number">
-      <div class="date-box__label <%= 'selected' if @visit.slot_granted == slot.object %>">
-        <span class="date-box__number"><%= i+1 %></span>
-        <span class="date-box__day"><%= format_date_day(slot) %></span>
-        <br><%= format_date_of_birth(slot) %> <br><%= format_slot_times(slot) %>
+  <h2 class="bold-medium push-top"><%= t('.visit_date') %></h2>
+  <div class="grid-row push-top">
+    <% @visit.slots.each_with_index do |slot, i| %>
+    <div class="column-one-third">
+      <div class="date-box date-box--number">
+        <div class="date-box__label <%= 'selected' if @visit.slot_granted == slot.object %>">
+          <span class="date-box__number"><%= i+1 %></span>
+          <span class="date-box__day"><%= format_date_day(slot) %></span>
+          <br><%= format_date_of_birth(slot) %> <br><%= format_slot_times(slot) %>
+        </div>
       </div>
     </div>
-  </div>
-  <% end %>
-</div>
-
-<%= render 'prison/visits/visitor_detail' %>
-
-<% if @visit.can_cancel? %>
-  <%= render 'prison/visits/cancel_visit' %>
-  <hr>
-<% end %>
-
-
-<div class="grid-row push-top">
-  <div class="column-two-thirds">
-    <% if current_user %>
-      <% if @visit.booked? %>
-        <details class="push-top">
-          <summary><span class="summary"><%= t('.send_a_message') %></span></summary>
-          <div class="panel panel-border-narrow">
-            <h3 class="bold-medium"><%= t('.send_a_message') %></h3>
-            <%= form_for [:prison, @visit, @message], html: { class: 'js-SubmitOnce  form' } do |f| -%>
-              <%= single_field(f, :body, :text_area, class: 'form-control form-control-full-width', rows: 4) %>
-              <div class="">
-                <%= f.submit t('.send_email'), class: 'button' %>
-              </div>
-            <% end -%>
-          </div>
-        </details>
-      <% else -%>
-        <div class="panel panel-border-narrow"><%= t('.message_not_allowed') %></div>
-      <% end -%>
     <% end %>
-    <% if @visit.messages.any? -%>
-      <% @visit.messages.each do |message| %>
-        <div class='messages push-top'>
-          <div class="message">
-            <div class="message-top">
-              <span class="bold-small"><%= message.user.email %></span>
-              <span class="dash">—</span>
-              <span class="datetime"><%= time_ago_in_words(message.created_at) %></span>
-            </div>
-            <p class="message-content"><%= message.body %></p>
-          </div>
-        </div>
-      <% end %>
-    <% else %>
-      <p><%= t('.no_messages') %></p>
-    <% end -%>
   </div>
 
-  <div class="column-one-third">
-    <h3 class="bold-medium push-bottom"><%= t('.visit_history') %></h3>
-    <%= render 'prison/visits/timeline' %>
+  <%= render 'prison/visits/visitor_detail' %>
+
+  <% if @visit.can_cancel? %>
+    <%= render 'prison/visits/cancel_visit' %>
+    <hr>
+  <% end %>
+
+
+  <div class="grid-row push-top">
+    <div class="column-two-thirds">
+      <% if current_user %>
+        <% if @visit.booked? %>
+          <details class="push-top">
+            <summary><span class="summary"><%= t('.send_a_message') %></span></summary>
+            <div class="panel panel-border-narrow">
+              <h3 class="bold-medium"><%= t('.send_a_message') %></h3>
+              <%= form_for [:prison, @visit, @message], html: { class: 'js-SubmitOnce  form' } do |f| -%>
+                <%= single_field(f, :body, :text_area, class: 'form-control form-control-full-width', rows: 4) %>
+                <div class="">
+                  <%= f.submit t('.send_email'), class: 'button' %>
+                </div>
+              <% end -%>
+            </div>
+          </details>
+        <% else -%>
+          <div class="panel panel-border-narrow"><%= t('.message_not_allowed') %></div>
+        <% end -%>
+      <% end %>
+      <% if @visit.messages.any? -%>
+        <% @visit.messages.each do |message| %>
+          <div class='messages push-top'>
+            <div class="message">
+              <div class="message-top">
+                <span class="bold-small"><%= message.user.email %></span>
+                <span class="dash">—</span>
+                <span class="datetime"><%= time_ago_in_words(message.created_at) %></span>
+              </div>
+              <p class="message-content"><%= message.body %></p>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p><%= t('.no_messages') %></p>
+      <% end -%>
+    </div>
+
+    <div class="column-one-third">
+      <h3 class="bold-medium push-bottom"><%= t('.visit_history') %></h3>
+      <%= render 'prison/visits/timeline' %>
+    </div>
   </div>
 </div>
-
+<div class="print-only">
+  <%= render 'prison/dashboards/print_details', visit: @visit %>
+</div>

@@ -1,0 +1,34 @@
+
+<div class="grid-row">
+  <div class="column-one-half">
+    <h3 class="heading-large">
+      <span class="heading-secondary">Prisoner</span>
+      <%= visit.prisoner_full_name %>
+    </h3>
+    <h3 class="heading-large">
+      <span class="heading-secondary">Prisoner number</span>
+      <%= visit.prisoner_number %>
+    </h3>
+  </div>
+  <div class="column-one-half">
+    <h3 class="heading-large">
+      <span class="heading-secondary">Cell location</span>
+      -
+    </h3>
+  </div>
+</div>
+<h3 class="heading-large">
+  <span class="heading-secondary">Visit date</span>
+  <%= format_visit_slot_date_for_staff(visit) %>
+</h3>
+<h3 class="heading-large">
+  <span class="heading-secondary">Visit time</span>
+  <%= format_visit_slot_times_for_staff(visit) %>
+</h3>
+<h3 class="heading-large">
+  <span class="heading-secondary">Visitor(s)</span>
+  <% visit.allowed_visitors.each do |visitor| %>
+    <%= visitor.full_name %><br>
+  <% end %>
+</h3>
+<p class="push-top">Visit ID: <%= visit.human_id %></p>

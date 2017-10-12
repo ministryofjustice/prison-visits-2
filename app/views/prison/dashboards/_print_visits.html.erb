@@ -6,32 +6,7 @@
   <%= render 'print_slot', slot: slot, visits: visits %>
   <% visits.each do |visit| %>
     <div class="page-break"></div>
-
-    <div class="grid-row">
-      <div class="column-one-half">
-        <h3 class="heading-large">
-          <span class="heading-secondary">Prisoner</span>
-          <%= visit.prisoner_full_name %>
-        </h3>
-      </div>
-      <div class="column-one-half">
-        <h3 class="heading-large">
-          <span class="heading-secondary">Cell location</span>
-          -
-        </h3>
-      </div>
-    </div>
-    <h3 class="heading-large">
-      <span class="heading-secondary">Visit date</span>
-      <%= format_date_without_year(@visit_date) %> - <%= format_slot_times(slot) %>
-    </h3>
-    <h3 class="heading-large">
-      <span class="heading-secondary">Visitor(s)</span>
-      <% visit.allowed_visitors.each do |visitor| %>
-        <%= visitor.full_name %><br>
-      <% end %>
-    </h3>
-    <p class="push-top">Visit ID: <%= visit.human_id %></p>
+    <%= render 'print_details', visit: visit %>
     <hr>
   <% end %>
 <% end -%>
