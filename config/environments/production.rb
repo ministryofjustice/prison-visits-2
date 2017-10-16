@@ -27,8 +27,6 @@ Rails.application.configure do
   config.lograge.logger = ActiveSupport::Logger.new \
     "#{Rails.root}/log/logstash_#{Rails.env}.json"
 
-  config.mx_checker = MxChecker.new
-
   config.active_job.queue_adapter = :sidekiq
 
   service_url = if ENV['HEROKU_APP_NAME']
@@ -39,4 +37,8 @@ Rails.application.configure do
 
   config.action_controller.default_url_options = { host: service_url.hostname }
   config.action_controller.asset_host = service_url.hostname
+
+  EmailAddressValidation.configure do |config|
+    config.mx_checker = MxChecker.new
+  end
 end

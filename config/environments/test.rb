@@ -13,8 +13,6 @@ Rails.application.configure do
   config.active_support.test_order = :random
   config.active_support.deprecation = :stderr
 
-  config.mx_checker = MxChecker::Dummy.new
-
   config.i18n.load_path =
     Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
 
@@ -22,4 +20,8 @@ Rails.application.configure do
   # credentials to avoid the possibility of leaking sensitive credentials or
   # returned data into VCR test output files.
   config.nomis_api_host = 'http://151.237.239.116:4888'
+
+  EmailAddressValidation.configure do |config|
+    config.mx_checker = MxChecker::Dummy.new
+  end
 end

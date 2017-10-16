@@ -33,8 +33,6 @@ Rails.application.configure do
   config.assets.digest = true
   config.assets.raise_runtime_errors = true
 
-  config.mx_checker = MxChecker::Dummy.new
-
   config.active_job.queue_adapter = :sidekiq
 
   config.i18n.load_path =
@@ -42,4 +40,8 @@ Rails.application.configure do
 
   config.nomis_api_host = ENV.fetch('NOMIS_API_HOST',
     'http://172.22.16.2:8080/')
+
+  EmailAddressValidation.configure do |config|
+    config.mx_checker = MxChecker::Dummy.new
+  end
 end
