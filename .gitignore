@@ -25,4 +25,3 @@ tags
 dump.rdb
 .ruby-gemset
 .wercker
-docker*

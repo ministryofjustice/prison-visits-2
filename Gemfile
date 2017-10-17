@@ -5,6 +5,7 @@ gem 'rails', '~> 5.1'
 
 gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'
+gem 'did_you_mean'
 gem 'draper'
 gem 'connection_pool'
 gem 'excon'
@@ -27,7 +28,6 @@ gem 'govuk_frontend_toolkit'
 gem 'govuk_elements_rails'
 gem 'jquery-rails', '~> 4.2.0'
 gem 'jquery-ui-rails', '~> 5.0.5'
-
 gem 'jwt'
 gem 'rake'
 
