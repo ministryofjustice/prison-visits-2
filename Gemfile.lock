@@ -85,7 +85,6 @@ GEM
     crass (1.0.2)
     css_parser (1.5.0)
       addressable
-    database_cleaner (1.6.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     did_you_mean (1.1.2)
@@ -384,7 +383,6 @@ DEPENDENCIES
   byebug
   capybara
   connection_pool
-  database_cleaner
   did_you_mean
   draper
   excon
