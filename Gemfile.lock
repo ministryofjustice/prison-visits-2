@@ -1,4 +1,14 @@
 GIT
+  remote: https://github.com/ministryofjustice/email_address_validation
+  revision: 6ba244a046b37bed02dca25271849513b200f056
+  ref: 6ba244a046b37bed02dca25271849513b200f056
+  specs:
+    email_address_validation (0.1.0)
+      activesupport (~> 5.1.4)
+      mail (~> 2.6.6)
+      rails (~> 5.0)
+
+GIT
   remote: https://github.com/ministryofjustice/pvb-instrumentation.git
   revision: a264627211f2bf68f4e388200b2a050fe9081504
   tag: v1.0.0
@@ -387,6 +397,7 @@ DEPENDENCIES
   database_cleaner
   did_you_mean
   draper
+  email_address_validation!
   excon
   factory_girl_rails
   ffaker
