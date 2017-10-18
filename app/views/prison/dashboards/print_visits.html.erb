@@ -28,8 +28,10 @@
         <%= link_to t('.download_csv_html'), prison_print_visits_path(visit_date: params[:visit_date] ,format: :csv) %>
       </span>
       <a class="push-left--half hidden--print print-link js-print-list" href="#"><%= t('.print') %></a>
-      <% @data.each do |prison_name, grouped_visits| %>
-        <div class="page-break"></div>
+      <% @data.each_with_index do |(prison_name, grouped_visits), index| %>
+        <% unless index.zero? %>
+          <div class="page-break"></div>
+        <% end %>
         <h2 class="heading-xlarge"><%= prison_name %></h2>
         <% if grouped_visits['booked'].nil? -%>
           <p class="lede push-top"><%= t('.no_bookings') %></p>
