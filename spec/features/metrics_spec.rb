@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require 'rails_helper'
 require_relative '../metrics/shared_examples_for_metrics'
 
