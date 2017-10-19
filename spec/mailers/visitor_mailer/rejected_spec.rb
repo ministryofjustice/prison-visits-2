@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require 'rails_helper'
 require 'mailers/shared_mailer_examples'
 
