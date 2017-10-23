@@ -22,8 +22,12 @@ module Counters
 
   class CountVisitsByPrisonAndCalendarWeek < ActiveRecord::Base
     extend CounterSupport
-    def self.ordered_counters
-      pluck(:prison_name, :year, :week, :processing_state, :count)
+    def self.ordered_counters(
+      year: Time.zone.now.year,
+      week: (Time.zone.today - 12.weeks).cweek
+        )
+      where('year = ? AND week > ?', year, week).
+        pluck(:prison_name, :year, :week, :processing_state, :count)
     end
   end
 
