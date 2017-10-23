@@ -620,4 +620,4 @@ To pull Welsh, use
 tx pull -l cy
 ```
 
-Then commit as usual.
+Then commit as usual
