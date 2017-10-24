@@ -1,6 +1,6 @@
 require 'yaml'
 db_pool = YAML.load_file('config/database.yml')['production']['pool']
-workers Integer(ENV['WEB_CONCURRENCY'] || 2)
+workers Integer(ENV['WEB_CONCURRENCY'] || 3)
 threads 0, db_pool
 
 preload_app!
