@@ -5,7 +5,7 @@ address: |-
   Devizes
 postcode: SN10 5TU
 email_address: eecmbookavisit@hmps.gsi.gov.uk
-phone_no: 01380 814264
+phone_no: 01380 814488
 enabled: true
 private: false
 closed: false
@@ -17,7 +17,3 @@ recurring:
   sat:
   - 0900-1045
   - 1400-1545
-unbookable:
-- 2016-12-25
-- 2016-12-26
-- 2017-01-01
