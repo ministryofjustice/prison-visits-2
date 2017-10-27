@@ -6,11 +6,28 @@ require 'excon/middleware/deadline'
 module Nomis
   APIError = Class.new(StandardError)
 
+  # This client is **NOT** thread safe. To be used with a connection pool. See below.
   class Client
     TIMEOUT = 2 # seconds
     EXCON_INSTRUMENT_NAME = 'nomis_api'.freeze
     JSON_MIME_TYPE = 'application/json'.freeze
 
+    # Sets `thread_safe_sockets` to `false` on the Excon connection. Setting
+    # to `false` disables Excon connection sockets cache for each thread.
+    #
+    # This cache means that there is a socket connection for every Excon
+    # connection object to the Nomis API for each Thread. This is to make an
+    # Excon connection thread safe.
+    #
+    # For example if Puma runs with 4 threads, and those threads reuse a
+    # connection pool of 4 Excon connections which means that effectively there can
+    # be up to 16 live connections to the Nomis API.
+    #
+    # This cache is unnecessary in our case since:
+    # - we ensure thread safety by using a connection pool
+    # - we end up opening more sockets than necessary (25 vs 5). If we only have
+    #   5 puma threads we only need 5 sockets
+    # - the cache has a memory leak when there are short lived threads.
     def initialize(host, client_token, client_key)
       @host = host
       @client_token = client_token
@@ -19,7 +36,7 @@ module Nomis
       @connection = Excon.new(
         host, persistent: true,
               connect_timeout: TIMEOUT, read_timeout: TIMEOUT, write_timeout: TIMEOUT,
-              middlewares: excon_middlewares,
+              middlewares: excon_middlewares, thread_safe_sockets: false,
               instrumentor: ActiveSupport::Notifications,
               instrumentor_name: EXCON_INSTRUMENT_NAME)
     end
