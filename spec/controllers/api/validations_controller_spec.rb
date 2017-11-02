@@ -12,7 +12,7 @@ RSpec.describe Api::ValidationsController do
   end
 
   describe 'visitors' do
-    let!(:prison)   { FactoryGirl.create(:prison) }
+    let!(:prison)   { FactoryBot.create(:prison) }
     let(:prison_id) { prison.id }
     let(:lead_dob)  { '1990-01-01' }
     let(:dobs)      { [lead_dob] }

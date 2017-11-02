@@ -161,7 +161,7 @@ RSpec.describe Api::VisitsController do
     end
 
     context 'with messages' do
-      let!(:message) { FactoryGirl.create(:message, visit: visit) }
+      let!(:message) { FactoryBot.create(:message, visit: visit) }
 
       it 'returns a list of messages' do
         get :show, params: params
@@ -204,7 +204,7 @@ RSpec.describe Api::VisitsController do
     specify do expect(delete :destroy, params: params).to render_template(:show) end
 
     context 'with a booked visit' do
-      let(:visit) { FactoryGirl.create(:booked_visit) }
+      let(:visit) { FactoryBot.create(:booked_visit) }
 
       it 'cancels a visit request' do
         delete :destroy, params: params

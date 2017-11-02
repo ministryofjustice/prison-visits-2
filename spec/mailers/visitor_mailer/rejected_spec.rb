@@ -99,7 +99,7 @@ RSpec.describe VisitorMailer, '.rejected' do
   end
 
   context 'with a rejection staff message' do
-    let(:message) { FactoryGirl.build_stubbed(:message) }
+    let(:message) { FactoryBot.build_stubbed(:message) }
     let(:message_attributes) { message.attributes.slice('body') }
 
     it 'displays the message' do

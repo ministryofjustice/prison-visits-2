@@ -6,7 +6,7 @@ RSpec.describe BookingResponder::VisitorCancel do
   let(:visitor_cancellation_response) do
     VisitorCancellationResponse.new(visit: visit)
   end
-  let(:visit) { FactoryGirl.create(:booked_visit) }
+  let(:visit) { FactoryBot.create(:booked_visit) }
   let(:reason) { Cancellation::VISITOR_CANCELLED }
 
   it 'cancels the visit and marks it as not cancelled in nomis' do

@@ -24,7 +24,7 @@ OmniAuth.config.test_mode = true
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include ActiveSupport::Testing::TimeHelpers
   config.include StaffResponseHelper
   config.include ControllerHelper, type: :controller

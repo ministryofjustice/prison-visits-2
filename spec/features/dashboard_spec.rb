@@ -30,7 +30,7 @@ RSpec.feature 'Using the dashboard' do
 
   context 'log in and switch inbox' do
     before do
-      FactoryGirl.create(:visit, prison: swansea_prison)
+      FactoryBot.create(:visit, prison: swansea_prison)
     end
 
     it do
@@ -111,7 +111,7 @@ RSpec.feature 'Using the dashboard' do
     end
 
     let(:vst) do
-      FactoryGirl.create(:booked_visit, prison: swansea_prison)
+      FactoryBot.create(:booked_visit, prison: swansea_prison)
     end
 
     before do

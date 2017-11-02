@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :prisoner do
     first_name do
       FFaker::Name.first_name

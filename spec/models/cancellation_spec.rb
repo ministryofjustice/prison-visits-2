@@ -1,19 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe Cancellation, model: true do
-  subject { FactoryGirl.build(:cancellation) }
+  subject { FactoryBot.build(:cancellation) }
 
   describe 'validation' do
     it 'enforces no more than one per visit' do
-      cancellation = FactoryGirl.create(:cancellation)
+      cancellation = FactoryBot.create(:cancellation)
       expect {
-        FactoryGirl.create(:cancellation, visit: cancellation.visit)
+        FactoryBot.create(:cancellation, visit: cancellation.visit)
       }.to raise_exception(ActiveRecord::RecordNotUnique)
     end
 
     it 'enforces the foreign key constraint' do
       expect {
-        FactoryGirl.create(:cancellation, visit_id: SecureRandom.uuid)
+        FactoryBot.create(:cancellation, visit_id: SecureRandom.uuid)
       }.to raise_exception(ActiveRecord::InvalidForeignKey)
     end
 
