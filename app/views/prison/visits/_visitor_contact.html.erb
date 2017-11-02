@@ -16,7 +16,7 @@
       </div>
       <% if @visit.principal_visitor == v %>
         <p>
-        <a href="mailto:<%= @visit.contact_email_address %>"><%= @visit.contact_email_address %></a>
+        <a href="mailto:<%= @visit.contact_email_address %>" class="wrap-text"><%= @visit.contact_email_address %></a>
         </br/>
         <%= @visit.contact_phone_no %></p>
       <% end %>
