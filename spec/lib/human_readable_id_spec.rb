@@ -5,7 +5,7 @@ RSpec.describe HumanReadableId do
   describe '.update_unique_id' do
     subject { described_class.update_unique_id(Visit, visit.id, :human_id) }
 
-    let(:visit) { FactoryGirl.create(:visit, human_id: nil) }
+    let(:visit) { FactoryBot.create(:visit, human_id: nil) }
 
     it 'generates and updates the record with a new id' do
       expect { subject }.to change { visit.reload.human_id }
@@ -22,7 +22,7 @@ RSpec.describe HumanReadableId do
     end
 
     context 'when a duplicate id is generated' do
-      let(:other_visit) { FactoryGirl.create(:visit, human_id: nil) }
+      let(:other_visit) { FactoryBot.create(:visit, human_id: nil) }
 
       before do
         described_class.update_unique_id(Visit, other_visit.id, :human_id)

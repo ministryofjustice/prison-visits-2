@@ -1,23 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe BookedVisitsCsvExporter do
-  let(:prison) { FactoryGirl.create(:prison) }
+  let(:prison) { FactoryBot.create(:prison) }
   let(:estates) { [prison.estate] }
 
   let!(:booked_visit) do
-    FactoryGirl.create(:booked_visit, prison: prison)
+    FactoryBot.create(:booked_visit, prison: prison)
   end
   let!(:cancelled_visit) do
-    FactoryGirl.create(:cancelled_visit, prison: prison)
+    FactoryBot.create(:cancelled_visit, prison: prison)
   end
   let!(:second_visitor) do
-    FactoryGirl.create(:visitor, visit: booked_visit, not_on_list: true)
+    FactoryBot.create(:visitor, visit: booked_visit, not_on_list: true)
   end
   let!(:third_visitor) do
-    FactoryGirl.create(:visitor, visit: booked_visit, banned: true)
+    FactoryBot.create(:visitor, visit: booked_visit, banned: true)
   end
   let!(:fourth_visitor) do
-    FactoryGirl.create(:visitor, visit: booked_visit)
+    FactoryBot.create(:visitor, visit: booked_visit)
   end
 
   let(:visit_date) { booked_visit.slot_granted.to_date }

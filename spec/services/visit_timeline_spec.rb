@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe VisitTimeline do
   let(:instance) { described_class.new(visit) }
-  let(:visit) { FactoryGirl.create(:visit) }
+  let(:visit) { FactoryBot.create(:visit) }
 
   describe '#events' do
     subject(:events) { instance.events }
@@ -18,7 +18,7 @@ RSpec.describe VisitTimeline do
     end
 
     describe 'for a staff cancelled visit' do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before do
         visit.accept

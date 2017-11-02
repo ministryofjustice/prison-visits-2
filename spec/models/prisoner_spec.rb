@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Prisoner, type: :model do
-  subject(:prisoner) { FactoryGirl.build(:prisoner, number: number) }
+  subject(:prisoner) { FactoryBot.build(:prisoner, number: number) }
 
   describe '#number' do
     context 'inconsistent value' do

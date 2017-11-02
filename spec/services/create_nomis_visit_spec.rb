@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe CreateNomisVisit do
-  let(:prisoner) { FactoryGirl.build_stubbed(:prisoner, nomis_offender_id: 12_345) }
-  let(:lead_visitor) { FactoryGirl.build_stubbed(:visitor, nomis_id: 1234, sort_index: 0) }
-  let(:additional_visitor) { FactoryGirl.build_stubbed(:visitor, nomis_id: 2345, sort_index: 1) }
-  let(:banned_visitor) { FactoryGirl.build_stubbed(:visitor, nomis_id: 2345, banned: true, sort_index: 2) }
+  let(:prisoner) { FactoryBot.build_stubbed(:prisoner, nomis_offender_id: 12_345) }
+  let(:lead_visitor) { FactoryBot.build_stubbed(:visitor, nomis_id: 1234, sort_index: 0) }
+  let(:additional_visitor) { FactoryBot.build_stubbed(:visitor, nomis_id: 2345, sort_index: 1) }
+  let(:banned_visitor) { FactoryBot.build_stubbed(:visitor, nomis_id: 2345, banned: true, sort_index: 2) }
 
   let(:visit) do
-    FactoryGirl.build_stubbed(:booked_visit,
+    FactoryBot.build_stubbed(:booked_visit,
       prisoner: prisoner,
       visitors: [lead_visitor, additional_visitor, banned_visitor])
   end

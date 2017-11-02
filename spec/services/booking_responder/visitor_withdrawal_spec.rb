@@ -6,7 +6,7 @@ RSpec.describe BookingResponder::VisitorWithdrawal do
   let(:visitor_withdrawal_response) do
     VisitorWithdrawalResponse.new(visit: visit)
   end
-  let(:visit) { FactoryGirl.create(:visit) }
+  let(:visit) { FactoryBot.create(:visit) }
 
   it 'withdraws the visit' do
     instance.process_request

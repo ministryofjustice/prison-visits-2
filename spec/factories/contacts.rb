@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :contact, class: Nomis::Contact do
     skip_create
     id                do rand(99_999) end

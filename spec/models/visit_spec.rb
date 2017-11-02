@@ -61,7 +61,7 @@ RSpec.describe Visit, type: :model do
 
   describe "#confirm_nomis_cancelled" do
     let(:cancellation) do
-      FactoryGirl.create(:cancellation,
+      FactoryBot.create(:cancellation,
         nomis_cancelled: nomis_cancelled,
         updated_at: 1.day.ago)
     end
@@ -254,7 +254,7 @@ RSpec.describe Visit, type: :model do
 
     context "when there is a message not owned by the visit" do
       before do
-        FactoryGirl.create(:message)
+        FactoryBot.create(:message)
       end
 
       it { expect(subject.acceptance_message).to be_nil }
@@ -262,7 +262,7 @@ RSpec.describe Visit, type: :model do
 
     context "when there is a one off message" do
       before do
-        FactoryGirl.create(
+        FactoryBot.create(
           :message,
           visit: subject)
       end
@@ -272,7 +272,7 @@ RSpec.describe Visit, type: :model do
 
     context "when there is an acceptance message" do
       let!(:message) do
-        FactoryGirl.create(
+        FactoryBot.create(
           :message,
           visit: subject,
           visit_state_change: subject.visit_state_changes.last)
@@ -293,7 +293,7 @@ RSpec.describe Visit, type: :model do
 
     context "when there is a message not owned by the visit" do
       before do
-        FactoryGirl.create(:message)
+        FactoryBot.create(:message)
       end
 
       it { expect(subject.acceptance_message).to be_nil }
@@ -301,7 +301,7 @@ RSpec.describe Visit, type: :model do
 
     context "when there is a one off message" do
       before do
-        FactoryGirl.create(:message, visit: subject)
+        FactoryBot.create(:message, visit: subject)
       end
 
       it { expect(subject.acceptance_message).to be_nil }
@@ -309,7 +309,7 @@ RSpec.describe Visit, type: :model do
 
     context "when there is a rejection message" do
       let!(:message) do
-        FactoryGirl.create(
+        FactoryBot.create(
           :message,
           visit: subject,
           visit_state_change: subject.visit_state_changes.last)
@@ -320,8 +320,8 @@ RSpec.describe Visit, type: :model do
   end
 
   describe '#additional_visitors' do
-    let(:visitor1) { FactoryGirl.build_stubbed(:visitor) }
-    let(:visitor2) { FactoryGirl.build_stubbed(:visitor) }
+    let(:visitor1) { FactoryBot.build_stubbed(:visitor) }
+    let(:visitor2) { FactoryBot.build_stubbed(:visitor) }
 
     describe 'when there is one visitor' do
       before do
@@ -345,9 +345,9 @@ RSpec.describe Visit, type: :model do
   end
 
   describe '#allowed_additional_visitors' do
-    let(:visitor1) { FactoryGirl.build_stubbed(:visitor) }
-    let(:visitor2) { FactoryGirl.build_stubbed(:visitor) }
-    let(:visitor3) { FactoryGirl.build_stubbed(:visitor, banned: true) }
+    let(:visitor1) { FactoryBot.build_stubbed(:visitor) }
+    let(:visitor2) { FactoryBot.build_stubbed(:visitor) }
+    let(:visitor3) { FactoryBot.build_stubbed(:visitor, banned: true) }
 
     describe 'when there is one visitor' do
       before do

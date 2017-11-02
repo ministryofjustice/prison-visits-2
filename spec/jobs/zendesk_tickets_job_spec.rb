@@ -16,7 +16,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
   let(:client) { double(ZendeskAPI::Client) }
   let(:ticket) { double(ZendeskAPI::Ticket, save!: nil) }
   let(:submitted_by_staff) { false }
-  let(:prison) { FactoryGirl.create(:prison) }
+  let(:prison) { FactoryBot.create(:prison) }
 
   let(:url_custom_field) do
     { id: ZendeskTicketsJob::URL_FIELD, value: 'ref' }
