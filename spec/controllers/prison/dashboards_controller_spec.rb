@@ -2,15 +2,15 @@ require 'rails_helper'
 require_relative '../untrusted_examples'
 
 RSpec.describe Prison::DashboardsController, type: :controller do
-  let(:estate) { FactoryGirl.create(:estate) }
-  let(:user) { FactoryGirl.create(:user) }
+  let(:estate) { FactoryBot.create(:estate) }
+  let(:user) { FactoryBot.create(:user) }
 
   subject { get :inbox, params: { estate_id: estate.finder_slug } }
 
   it_behaves_like 'disallows untrusted ips'
 
   describe '#inbox' do
-    let(:prison) { FactoryGirl.create(:prison, estate: estate) }
+    let(:prison) { FactoryBot.create(:prison, estate: estate) }
 
     subject { get :inbox, params: { estate_id: estate.finder_slug } }
 
@@ -28,7 +28,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
   end
 
   describe '#processed' do
-    let(:prison) { FactoryGirl.create(:prison, estate: estate) }
+    let(:prison) { FactoryBot.create(:prison, estate: estate) }
 
     subject { get :processed, params: { estate_id: estate.finder_slug } }
 
@@ -46,8 +46,8 @@ RSpec.describe Prison::DashboardsController, type: :controller do
       context 'when there are more processed visits than the default' do
         before do
           stub_const("#{described_class}::NUMBER_VISITS", 2)
-          FactoryGirl.create(:booked_visit, prison: prison)
-          FactoryGirl.create(:booked_visit, prison: prison)
+          FactoryBot.create(:booked_visit, prison: prison)
+          FactoryBot.create(:booked_visit, prison: prison)
         end
 
         it 'sets up the view to render only one visit' do
@@ -60,7 +60,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
   end
 
   describe '#search' do
-    let(:prison) { FactoryGirl.create(:prison, estate: estate) }
+    let(:prison) { FactoryBot.create(:prison, estate: estate) }
 
     subject { get :search, params: { estate_id: estate.finder_slug } }
 
@@ -79,7 +79,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
           }
         end
 
-        let!(:visit) { FactoryGirl.create(:visit, prison: prison) }
+        let!(:visit) { FactoryBot.create(:visit, prison: prison) }
 
         it 'returns the requested visit for that prisoner' do
           subject
@@ -95,7 +95,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
           }
         end
 
-        let!(:visit) { FactoryGirl.create(:booked_visit, prison: prison) }
+        let!(:visit) { FactoryBot.create(:booked_visit, prison: prison) }
 
         it 'returns the processed visit for that prisoner' do
           subject
@@ -106,7 +106,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
   end
 
   context '#print_visits' do
-    let(:prison) { FactoryGirl.create(:prison, estate: estate) }
+    let(:prison) { FactoryBot.create(:prison, estate: estate) }
     let(:slot_granted1) { '2016-01-01T09:00/10:00' }
     let(:slot_granted2) { '2016-01-01T12:00/14:00' }
 
@@ -126,13 +126,13 @@ RSpec.describe Prison::DashboardsController, type: :controller do
       end
 
       let!(:visit1) do
-        FactoryGirl.create(:booked_visit,
+        FactoryBot.create(:booked_visit,
           prison: prison,
           slot_granted: slot_granted1)
       end
 
       let!(:visit2) do
-        FactoryGirl.create(:booked_visit,
+        FactoryBot.create(:booked_visit,
           prison: prison,
           slot_granted: slot_granted2)
       end

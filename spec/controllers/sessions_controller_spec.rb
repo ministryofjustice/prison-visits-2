@@ -63,7 +63,7 @@ RSpec.describe SessionsController, type: :controller do
   describe '#destroy' do
     subject(:destroy) { delete :destroy }
 
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     let(:sso_data) do
       {

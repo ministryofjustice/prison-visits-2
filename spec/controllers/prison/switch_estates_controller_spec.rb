@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Prison::SwitchEstatesController, type: :controller do
   context '#create' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:estate) { FactoryGirl.create(:estate) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:estate) { FactoryBot.create(:estate) }
     let(:estate2)      { create(:estate) }
     let(:other_estate) { estate2 }
     let(:estate_ids) { [other_estate.id] }

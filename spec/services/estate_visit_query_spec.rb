@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe EstateVisitQuery do
   subject(:instance) { described_class.new(estates) }
 
-  let(:prison) { FactoryGirl.create(:prison) }
+  let(:prison) { FactoryBot.create(:prison) }
   let(:estates) { [prison.estate] }
 
   describe '#visits_to_print_by_slot' do
@@ -18,23 +18,23 @@ RSpec.describe EstateVisitQuery do
     let(:slot2) { ConcreteSlot.new(2016, 7, 19, 14, 30, 15, 30) }
     let(:date) { slot1.to_date }
     let!(:booked_visit1) do
-      FactoryGirl.create(
+      FactoryBot.create(
         :booked_visit,
         prison: prison,
         slot_granted: slot1)
     end
     let!(:booked_visit2) do
-      FactoryGirl.create(:booked_visit,
+      FactoryBot.create(:booked_visit,
         prison: prison,
         slot_granted: slot2)
     end
     let!(:cancelled_visit) do
-      FactoryGirl.create(:cancelled_visit,
+      FactoryBot.create(:cancelled_visit,
         prison: prison,
         slot_granted: slot1)
     end
     let!(:other_prison_visit) do
-      FactoryGirl.create(
+      FactoryBot.create(
         :booked_visit,
         slot_granted: slot1)
     end
@@ -66,25 +66,25 @@ RSpec.describe EstateVisitQuery do
 
     context 'with visits in all possible states' do
       let!(:requested) do
-        FactoryGirl.create(:visit, :requested, prison: prison)
+        FactoryBot.create(:visit, :requested, prison: prison)
       end
       let!(:withdrawn) do
-        FactoryGirl.create(:withdrawn_visit, prison: prison)
+        FactoryBot.create(:withdrawn_visit, prison: prison)
       end
       let!(:booked) do
-        FactoryGirl.create(:booked_visit, prison: prison)
+        FactoryBot.create(:booked_visit, prison: prison)
       end
       let!(:rejected) do
-        FactoryGirl.create(:rejected_visit, prison: prison)
+        FactoryBot.create(:rejected_visit, prison: prison)
       end
       let!(:nomis_cancelled) do
-        FactoryGirl.create(:visit,
+        FactoryBot.create(:visit,
           :nomis_cancelled,
           prison: prison,
           updated_at: 1.day.ago)
       end
       let!(:pending_nomis_cancellation) do
-        FactoryGirl.create(:visit, :pending_nomis_cancellation, prison: prison)
+        FactoryBot.create(:visit, :pending_nomis_cancellation, prison: prison)
       end
 
       it 'excludes visits pending nomis cancellation and requested visits' do
@@ -145,10 +145,10 @@ RSpec.describe EstateVisitQuery do
     end
 
     let!(:visit1) do
-      FactoryGirl.create(:visit, :requested, prison: prison)
+      FactoryBot.create(:visit, :requested, prison: prison)
     end
     let!(:visit2) do
-      FactoryGirl.create(:visit, :requested, prison: prison)
+      FactoryBot.create(:visit, :requested, prison: prison)
     end
 
     it_behaves_like :finds_all
@@ -162,10 +162,10 @@ RSpec.describe EstateVisitQuery do
     end
 
     let!(:visit1) do
-      FactoryGirl.create(:visit, :pending_nomis_cancellation, prison: prison)
+      FactoryBot.create(:visit, :pending_nomis_cancellation, prison: prison)
     end
     let!(:visit2) do
-      FactoryGirl.create(:visit, :pending_nomis_cancellation, prison: prison)
+      FactoryBot.create(:visit, :pending_nomis_cancellation, prison: prison)
     end
 
     it_behaves_like :finds_all
@@ -178,15 +178,15 @@ RSpec.describe EstateVisitQuery do
 
     context 'with visits in different estates' do
       before do
-        FactoryGirl.create(:visit, :requested, prison: prison)
-        FactoryGirl.create(:visit, :requested, prison: prison)
-        FactoryGirl.create(:booked_visit, prison: prison)
-        FactoryGirl.create(:rejected_visit, prison: prison)
-        FactoryGirl.create(:visit,
+        FactoryBot.create(:visit, :requested, prison: prison)
+        FactoryBot.create(:visit, :requested, prison: prison)
+        FactoryBot.create(:booked_visit, prison: prison)
+        FactoryBot.create(:rejected_visit, prison: prison)
+        FactoryBot.create(:visit,
           :nomis_cancelled,
           prison: prison,
           updated_at: 1.day.ago)
-        FactoryGirl.create(:visit, :pending_nomis_cancellation, prison: prison)
+        FactoryBot.create(:visit, :pending_nomis_cancellation, prison: prison)
       end
 
       it 'returns the count of the visits that are in the inbox' do

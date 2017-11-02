@@ -2,7 +2,7 @@ require 'rails_helper'
 require_relative '../untrusted_examples'
 
 RSpec.describe Prison::VisitsController, type: :controller do
-  let(:visit) { FactoryGirl.create(:visit) }
+  let(:visit) { FactoryBot.create(:visit) }
   let(:estate) { visit.prison.estate }
 
   describe '#update' do
@@ -123,7 +123,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
   end
 
   describe '#cancel' do
-    let(:visit) { FactoryGirl.create(:booked_visit) }
+    let(:visit) { FactoryBot.create(:booked_visit) }
     let(:mailing) { double(Mail::Message, deliver_later: nil) }
     let(:cancellation_reasons) { ['slot_unavailable'] }
 
@@ -138,7 +138,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     it_behaves_like 'disallows untrusted ips'
 
     context 'when there is a user logged in' do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before do
         login_user(user, current_estates: [estate])
@@ -176,7 +176,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
   end
 
   describe '#confirm_nomis_cancelled' do
-    let(:cancellation) { FactoryGirl.create(:cancellation) }
+    let(:cancellation) { FactoryBot.create(:cancellation) }
     let(:visit) { cancellation.visit }
 
     subject { post :nomis_cancelled, params: { id: visit.id } }
@@ -184,7 +184,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     it_behaves_like 'disallows untrusted ips'
 
     context 'when there is a user signed in' do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
 
       before do
         login_user(user, current_estates: [estate])

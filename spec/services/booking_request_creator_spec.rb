@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe BookingRequestCreator do
-  let!(:prison) { FactoryGirl.create(:prison) }
+  let!(:prison) { FactoryBot.create(:prison) }
   let(:prisoner_step) {
     PrisonerStep.new(
       prison_id: prison.id,

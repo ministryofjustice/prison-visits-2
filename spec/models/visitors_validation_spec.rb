@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe VisitorsValidation do
-  let(:prison) { FactoryGirl.create(:prison) }
+  let(:prison) { FactoryBot.create(:prison) }
 
   let(:lead_dob) { 18.years.ago.to_date }
   let(:dobs) { [lead_dob] }

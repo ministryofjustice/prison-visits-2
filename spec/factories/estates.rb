@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :estate do
     name do
       FFaker::AddressUK.city

@@ -6,10 +6,10 @@ RSpec.describe BookingResponder::Cancel do
   let(:cancellation_response) do
     CancellationResponse.new(visit: visit, user: user, reasons: [reason])
   end
-  let(:visit) { FactoryGirl.create(:booked_visit) }
+  let(:visit) { FactoryBot.create(:booked_visit) }
   let(:reason) { 'booked_in_error' }
 
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
 
   it 'cancels the visit and marks it as cancelled in nomis' do
     instance.process_request

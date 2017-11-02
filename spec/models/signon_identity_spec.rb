@@ -20,11 +20,11 @@ RSpec.describe SignonIdentity, type: :model do
 
     let(:org_name) { 'cardiff.noms' }
     let!(:estate) do
-      FactoryGirl.create(:estate, sso_organisation_name: org_name)
+      FactoryBot.create(:estate, sso_organisation_name: org_name)
     end
 
     context 'user has previously logged in' do
-      let!(:user) { FactoryGirl.create(:user, email: oauth_info['email']) }
+      let!(:user) { FactoryBot.create(:user, email: oauth_info['email']) }
 
       context 'has no permissions' do
         let(:permissions) { [] }
@@ -93,7 +93,7 @@ RSpec.describe SignonIdentity, type: :model do
   end
 
   describe 'saving and restoring from session data' do
-    let!(:user) { FactoryGirl.create(:user) }
+    let!(:user) { FactoryBot.create(:user) }
     let!(:serialization) do
       {
         'user_id' => user.id,
@@ -116,18 +116,18 @@ RSpec.describe SignonIdentity, type: :model do
   end
 
   describe 'instance' do
-    let!(:user) { FactoryGirl.create(:user) }
+    let!(:user) { FactoryBot.create(:user) }
     let!(:cardiff_org_name) { 'cardiff.noms' }
     let!(:cardiff_estate) do
-      FactoryGirl.create(:estate,
+      FactoryBot.create(:estate,
         sso_organisation_name: cardiff_org_name, nomis_id: 'CFI')
     end
     let!(:pentonville_estate) do
-      FactoryGirl.create(:estate, sso_organisation_name: 'pentonville.noms')
+      FactoryBot.create(:estate, sso_organisation_name: 'pentonville.noms')
     end
     let!(:swansea_org_name) { 'swansea.noms' }
     let!(:swansea_estate) do
-      FactoryGirl.create(:estate,
+      FactoryBot.create(:estate,
         sso_organisation_name: swansea_org_name, nomis_id: 'SWI')
     end
     let!(:orgs) { [swansea_org_name, cardiff_org_name] }

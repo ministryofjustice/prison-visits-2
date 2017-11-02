@@ -9,8 +9,8 @@ RSpec.describe Prison::FeedbacksController, type: :controller do
 
     before do
       login_user(
-        FactoryGirl.create(:user),
-        current_estates: [FactoryGirl.create(:estate)]
+        FactoryBot.create(:user),
+        current_estates: [FactoryBot.create(:estate)]
       )
     end
 
@@ -29,7 +29,7 @@ RSpec.describe Prison::FeedbacksController, type: :controller do
       }
     end
     let(:body) { 'My comment' }
-    let(:prison) { FactoryGirl.create(:prison) }
+    let(:prison) { FactoryBot.create(:prison) }
 
     it_behaves_like 'disallows untrusted ips'
 

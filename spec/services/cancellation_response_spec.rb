@@ -7,7 +7,7 @@ RSpec.describe CancellationResponse do
 
   let(:user) { nil }
   let(:reason) { Cancellation::VISITOR_CANCELLED }
-  let(:visit) { FactoryGirl.create(:booked_visit) }
+  let(:visit) { FactoryBot.create(:booked_visit) }
 
   describe '#can_cancel?' do
     subject(:can_cancel?) { instance.can_cancel? }

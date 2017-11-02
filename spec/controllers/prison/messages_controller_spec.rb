@@ -7,10 +7,10 @@ RSpec.describe Prison::MessagesController do
       post :create, params: { message: { body: message_body }, visit_id: visit.id }
     end
 
-    let(:prison) { FactoryGirl.create(:prison, estate: estate) }
-    let(:visit) { FactoryGirl.create(:visit, prison: prison) }
-    let(:user) { FactoryGirl.create(:user) }
-    let(:estate) { FactoryGirl.create(:estate) }
+    let(:prison) { FactoryBot.create(:prison, estate: estate) }
+    let(:visit) { FactoryBot.create(:visit, prison: prison) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:estate) { FactoryBot.create(:estate) }
 
     let(:message_body) { 'Hello' }
 

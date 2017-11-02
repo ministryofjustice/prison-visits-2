@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'logstash_sidekiq_logger/formatter'
 
 RSpec.describe LogstashSidekiqLogger::Formatter do
-  let(:visit) { FactoryGirl.create(:visit) }
+  let(:visit) { FactoryBot.create(:visit) }
   let(:formatter) { described_class.new }
   let(:done_message) { 'done: 2.944 sec' }
   let(:fail_message) { 'fail: 2.945 sec' }
