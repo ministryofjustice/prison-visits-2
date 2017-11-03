@@ -1,5 +1,6 @@
 class MetricsController < ApplicationController
   before_action :authorize_prison_request
+  before_action :authenticate_user, only: :send_confirmed_bookings
 
   def index
     @prisons = PrisonsDecorator.decorate(Prison.enabled.includes(:estate))
@@ -7,12 +8,11 @@ class MetricsController < ApplicationController
     @graphs_presenter = GraphMetricsPresenter.new
   end
 
-  def confirmed_bookings
-    exporter = WeeklyMetricsConfirmedCsvExporter.new(weeks: 12)
+  def send_confirmed_bookings
+    AdminMailer.confirmed_bookings(current_user.email).deliver_later
+    flash[:notice] = 'Check your email in a few minutes'
 
-    respond_to do |format|
-      format.csv { render csv: exporter, filename: 'weekly_booking_stats' }
-    end
+    redirect_to action: :index
   end
 
   def summary
