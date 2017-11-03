@@ -3,6 +3,7 @@ require_relative '../metrics/shared_examples_for_metrics'
 
 RSpec.feature 'Metrics', js: true do
   include ActiveJobHelper
+  let(:email_address) { 'joe@example.com' }
   let(:sso_response) do
     {
       'uid' => '1234-1234-1234-1234',
@@ -10,7 +11,7 @@ RSpec.feature 'Metrics', js: true do
       'info' => {
         'first_name' => 'Joe',
         'last_name' => 'Goldman',
-        'email' => 'joe@example.com',
+        'email' => email_address,
         'permissions' => [
           { 'organisation' => EstateSSOMapper::DIGITAL_ORG, roles: [] }
         ],
@@ -66,9 +67,12 @@ RSpec.feature 'Metrics', js: true do
         expect(page).to have_selector('.luna-total', text: 10)
       end
 
-      it 'downloads a csv', driver: :rack_test do
-        click_on 'Download latest confirmed bookings (CSV)'
-        expect(page.response_headers['Content-Type']).to eq('text/csv')
+      it 'sends en email with a csv attachment', driver: :rack_test do
+        click_on 'Email latest confirmed bookings (CSV)'
+        expect(email_address).
+          to receive_email.
+          with_subject(/Latest confirmed bookings \(CSV\)/).
+          with_attachment('confirmed_bookings.csv')
       end
     end
   end
