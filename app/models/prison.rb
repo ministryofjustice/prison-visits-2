@@ -1,6 +1,4 @@
 class Prison < ActiveRecord::Base
-  using Calendar
-
   MAX_VISITORS = 6
   MAX_ADULTS = 3
   LEAD_VISITOR_MIN_AGE = 18
@@ -89,8 +87,9 @@ private
   end
 
   def processing_day?(date)
-    return false if date.holiday?
-    weekend_processing? || date.weekday?
+    return true if weekend_processing? && date.on_weekend?
+
+    Rails.configuration.calendar.business_day?(date)
   end
 
   def validate_unbookable_dates
