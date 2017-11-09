@@ -14,6 +14,7 @@ class Rejection < ActiveRecord::Base
     'child_protection_issues'.freeze
   PRISONER_BANNED = 'prisoner_banned'.freeze
   PRISONER_OUT_OF_PRISON = 'prisoner_out_of_prison'.freeze
+  OTHER_REJECTION_REASON = 'other'.freeze
 
   REASONS = [
     CHILD_PROTECTION_ISSUES,
@@ -28,7 +29,8 @@ class Rejection < ActiveRecord::Base
     NOT_ON_THE_LIST,
     'duplicate_visit_request',
     PRISONER_BANNED,
-    PRISONER_OUT_OF_PRISON
+    PRISONER_OUT_OF_PRISON,
+    OTHER_REJECTION_REASON
   ].freeze
 
   belongs_to :visit, inverse_of: :rejection
@@ -36,11 +38,23 @@ class Rejection < ActiveRecord::Base
   validate :validate_reasons
   validates :reasons, presence: true
   validate :validate_allowance_renews_on_date
+  validates :rejection_reason_detail, presence: true, if: :other_reason?
+
+  before_create :sanitise_other_reason_field
+
   def allowance_will_renew?
     allowance_renews_on.is_a?(Date)
   end
 
 private
+
+  def sanitise_other_reason_field
+    self.rejection_reason_detail = nil if reasons.exclude?(OTHER_REJECTION_REASON)
+  end
+
+  def other_reason?
+    reasons.include?(Rejection::OTHER_REJECTION_REASON)
+  end
 
   def validate_allowance_renews_on_date
     if no_allowance? && !acceptable_allowance_renews_on_date?

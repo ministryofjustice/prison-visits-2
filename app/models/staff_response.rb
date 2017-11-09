@@ -66,7 +66,7 @@ private
       attrs = visit.rejection.serializable_hash(
         except: %i[
 created_at updated_at allowance_renews_on
-privileged_allowance_expires_on])
+privileged_allowance_expires_on rejection_reason_detail])
 
       attrs['allowance_renews_on'] =
         rejection.allowance_renews_on.to_s
@@ -148,7 +148,7 @@ privileged_allowance_expires_on])
 
   def visitors_selection
     return unless validate_visitors_nomis_ready?
-    return if rejection.valid?
+    return if rejection_reasons?
 
     invalid_visitors = visit.visitors.select { |visitor|
       visitor.nomis_id.present? == visitor.not_on_list?
@@ -167,5 +167,9 @@ privileged_allowance_expires_on])
 
   def sanitise_reasons
     rejection.reasons.uniq!
+  end
+
+  def rejection_reasons?
+    rejection.reasons.any?
   end
 end

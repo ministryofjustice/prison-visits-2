@@ -22,6 +22,7 @@ RSpec.describe Metrics::RejectionPercentage do
                                     visitor_banned:             0,
                                     visitor_not_on_list:        0,
                                     duplicate_visit_request:    0,
+                                    other:                      0,
                                     date:                       nil
                                    )
     end

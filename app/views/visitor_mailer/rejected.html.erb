@@ -1,14 +1,14 @@
 <p><%= t('.salutation', name: @visit.visitor_first_name) %></p>
 
-<% if @rejection.reasons.size == 1 %>
-  <%= render 'visitor_mailer/single_rejection' %>
-<% else %>
+<% if @rejection.email_formatted_reasons.size > 1 %>
   <%= render 'visitor_mailer/multiple_rejection' %>
+<% else %>
+  <%= render 'visitor_mailer/single_rejection' %>
 <% end %>
 
 <% if @visit.unlisted_visitors.any? && !@rejection.reasons.include?('visitor_not_on_list') %>
   <p>
-    <%= @rejection.visitor_not_on_list_explanation %>
+    <%= @rejection.email_visitor_not_on_list_explanation %>
   </p>
   <p><%= t('.update_list') %></p>
   <p><%= t('.first_visit') %></p>
@@ -17,7 +17,7 @@
 <% if @visit.banned_visitors.any? && !@rejection.reasons.include?('visitor_banned') %>
   <% @visit.banned_visitors.each do |v| %>
     <p>
-      <%= @rejection.visitor_banned_explanation(v) %>
+      <%= @rejection.email_visitor_banned_explanation(v) %>
     </p>
   <% end %>
 <% end %>

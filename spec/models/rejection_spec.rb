@@ -4,11 +4,13 @@ RSpec.describe Rejection, model: true do
   subject do
     described_class.new(
       reasons: reasons,
-      allowance_renews_on: allowance_renews_on
+      allowance_renews_on: allowance_renews_on,
+      rejection_reason_detail: rejection_reason_detail
     )
   end
 
   let(:reasons) { [Rejection::SLOT_UNAVAILABLE] }
+  let(:rejection_reason_detail) { nil }
   let(:allowance_renews_on) do
     { day: '12', month: '11', year:  '2017' }
   end
@@ -28,6 +30,36 @@ RSpec.describe Rejection, model: true do
       expect {
         described_class.create!(visit_id: SecureRandom.uuid, reasons: [described_class::NOT_ON_THE_LIST])
       }.to raise_exception(ActiveRecord::InvalidForeignKey)
+    end
+
+    context 'when rejecting a visit for any other reason' do
+      let(:reasons) { [described_class::OTHER_REJECTION_REASON] }
+
+      context 'with an explanation' do
+        let(:rejection_reason_detail) { 'some reason' }
+
+        it { is_expected.to be_valid }
+      end
+
+      context 'with no explanation' do
+        let(:rejection_reason_detail) { nil }
+
+        it { is_expected.to be_invalid }
+      end
+    end
+
+    context "when rejecting a visit for any reason except 'other' and there is text in other reason field" do
+      let(:reasons) { [Rejection::SLOT_UNAVAILABLE] }
+      let(:detail) { 'Some reason' }
+
+      before do
+        visit = create(:visit)
+        subject.assign_attributes(visit_id: visit.id, reasons: reasons, rejection_reason_detail: detail)
+      end
+
+      it 'does not save the text from the rejection reason field to the database' do
+        expect { subject.save! }.to change{ subject.rejection_reason_detail }.to(nil)
+      end
     end
 
     context 'when allowance renews on given date' do
