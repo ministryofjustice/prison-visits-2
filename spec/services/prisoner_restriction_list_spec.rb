@@ -7,7 +7,7 @@ RSpec.describe PrisonerRestrictionList do
 
   subject { described_class.new(offender) }
 
-  context '#unknown_result?' do
+  context 'with #unknown_result?' do
     context "when it's a null offender" do
       let(:offender) { Nomis::NullOffender.new }
 

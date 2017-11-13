@@ -2,7 +2,7 @@ require 'rails_helper'
 require_relative 'shared_examples_for_metrics'
 
 RSpec.describe Overdue do
-  include_examples 'create visits with dates'
+  include_examples 'when creating visits with dates'
 
   before do
     book_a_luna_visit_late
@@ -17,7 +17,7 @@ RSpec.describe Overdue do
     request_a_visit_that_remains_overdue
   end
 
-  context 'that are not organised by date' do
+  context 'when they are not organised by date' do
     describe Overdue::CountOverdueVisits do
       it 'counts all overdue visits' do
         expect(described_class.fetch_and_format).to eq('booked' => 3,
@@ -43,7 +43,7 @@ RSpec.describe Overdue do
     end
   end
 
-  context 'that are organized by date' do
+  context 'when they are organized by date' do
     describe Overdue::CountOverdueVisitsByPrisonAndCalendarWeek do
       it 'counts visits and groups by prison, year, calendar week and visit state' do
         expect(described_class.fetch_and_format).to be ==
@@ -73,7 +73,7 @@ RSpec.describe Overdue do
         }
       end
 
-      context 'and aggregated across all prisons' do
+      context 'when aggregated across all prisons' do
         it 'counts visits and groups by year, calendar week and visit state' do
           expect(described_class.fetch_and_format(:concatenate)).to be ==
             { 'all' =>
@@ -128,7 +128,7 @@ RSpec.describe Overdue do
         }
       end
 
-      context 'and aggregated across all prisons' do
+      context 'when aggregated across all prisons' do
         it 'counts visits and groups by year, calendar week and visit state' do
           expect(described_class.fetch_and_format(:concatenate)).to be ==
             { 'all' =>

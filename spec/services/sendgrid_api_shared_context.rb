@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.shared_context 'sendgrid shared tools' do
+RSpec.shared_context 'with sendgrid shared tools' do
   let(:logger) { Rails.logger }
   let(:body) { '[]' }
 
@@ -10,7 +10,7 @@ RSpec.shared_context 'sendgrid shared tools' do
   end
 end
 
-RSpec.shared_context 'sendgrid instance' do
+RSpec.shared_context 'with a sendgrid instance' do
   # SendgridApi is a singleton, since we are testing the disabling behaviour we
   # want to bypass the singletong so that state changes don't leak to other
   # specs
@@ -30,17 +30,17 @@ RSpec.shared_context 'sendgrid instance' do
   }
 end
 
-RSpec.shared_context 'sendgrid credentials are set' do
+RSpec.shared_context 'when sendgrid credentials are set' do
   let(:api_user) { 'test_smtp_username' }
   let(:api_key) { 'test_smtp_password' }
 end
 
-RSpec.shared_context 'sendgrid credentials are not set' do
+RSpec.shared_context 'when sendgrid credentials are not set' do
   let(:api_user) { nil }
   let(:api_key) { nil }
 end
 
-RSpec.shared_context 'sendgrid api responds normally' do
+RSpec.shared_context 'when sendgrid api responds normally' do
   before do
     stub_request(:any, %r{.+api\.sendgrid\.com/api/.+\.json}).
       with(query: hash_including(
@@ -51,14 +51,14 @@ RSpec.shared_context 'sendgrid api responds normally' do
   end
 end
 
-RSpec.shared_context 'sendgrid api raises an exception' do
+RSpec.shared_context 'when sendgrid api raises an exception' do
   before do
     stub_request(:any, %r{.*api\.sendgrid\.com/api/.+\.json}).
       to_raise(StandardError)
   end
 end
 
-RSpec.shared_context 'sendgrid timeout' do
+RSpec.shared_context 'when sendgrid times out' do
   before do
     stub_request(:any, %r{.*api\.sendgrid\.com/api/.+\.json}).
       to_raise(Excon::Errors::Timeout)

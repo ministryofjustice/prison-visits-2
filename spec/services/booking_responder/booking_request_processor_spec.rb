@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe BookingResponder::BookingRequestProcessor do
-  include_context 'staff response setup'
+  include_context 'with staff response setup'
 
   let(:staff_response) { StaffResponse.new(visit: visit, user: create(:user)) }
   let(:message)        { build(:message, body: 'A staff message') }
@@ -14,7 +14,7 @@ RSpec.describe BookingResponder::BookingRequestProcessor do
   subject { described_class.new(staff_response) }
 
   describe '#process_request' do
-    context 'happy path' do
+    context 'when a happy path' do
       let(:process_request) do
         subject.process_request(message) do
           visit.rejection = nil
@@ -40,7 +40,7 @@ RSpec.describe BookingResponder::BookingRequestProcessor do
       end
     end
 
-    context 'sad path' do
+    context 'when a sad path' do
       let(:process_request) do
         subject.process_request(message) do
           visit.rejection = nil

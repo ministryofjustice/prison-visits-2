@@ -130,7 +130,7 @@ RSpec.describe Api::VisitsController do
       expect(parsed_body['visit']['processing_state']).to eq('requested')
     end
 
-    context 'a passed visit' do
+    context 'with a passed visit' do
       let(:visit) do
         create(
           :booked_visit,
@@ -145,7 +145,7 @@ RSpec.describe Api::VisitsController do
       end
     end
 
-    context 'a booked visit' do
+    context 'with a booked visit' do
       let(:visit) do
         create(
           :booked_visit,

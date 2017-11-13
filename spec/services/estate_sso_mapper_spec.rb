@@ -26,7 +26,7 @@ RSpec.describe EstateSSOMapper do
   describe '#accessible_estates' do
     subject { instance.accessible_estates }
 
-    context 'for apvu' do
+    context 'when for apvu' do
       let!(:brinsford) do
         create(:estate,
           sso_organisation_name: 'brinsford.prisons.noms.moj',
@@ -46,7 +46,7 @@ RSpec.describe EstateSSOMapper do
       end
     end
 
-    context 'for sheppey cluster' do
+    context 'when it is for the sheppey cluster' do
       let!(:elmley) do
         create(:estate,
           sso_organisation_name: 'elmley.prisons.noms.moj',
@@ -66,7 +66,7 @@ RSpec.describe EstateSSOMapper do
       end
     end
 
-    context 'for grendon and springhill' do
+    context 'when for grendon and springhill' do
       let!(:grendon) do
         create(:estate,
           sso_organisation_name: 'grendon.prisons.noms.moj',
@@ -86,7 +86,7 @@ RSpec.describe EstateSSOMapper do
       end
     end
 
-    context 'for isle of wight' do
+    context 'when for isle of wight' do
       let!(:iow_parkhurst) do
         create(:estate,
           sso_organisation_name: 'isle_of_wight-parkhurst.prisons.noms.moj',
@@ -106,7 +106,7 @@ RSpec.describe EstateSSOMapper do
       end
     end
 
-    context 'combining orgs' do
+    context 'when combining orgs' do
       let(:estate1) { create(:estate) }
       let(:estate2) { create(:estate) }
       let(:orgs) { [estate1.sso_organisation_name, estate2.sso_organisation_name] }

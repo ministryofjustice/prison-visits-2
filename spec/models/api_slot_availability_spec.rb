@@ -59,13 +59,13 @@ RSpec.describe ApiSlotAvailability, type: :model do
     describe 'fetching available slots from NOMIS' do
       subject { described_class.new(prison: prison, use_nomis_slots: true) }
 
-      context 'and the prison slots feature is disabled' do
+      context 'when the prison slots feature is disabled' do
         it 'fetches slot availability from the prison defaults' do
           expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
         end
       end
 
-      context 'and the prison slots feature is enabled' do
+      context 'when the prison slots feature is enabled' do
         before do
           allow_any_instance_of(described_class).
             to receive(:public_prison_slots_enabled?).

@@ -4,7 +4,7 @@ require 'shared_process_setup_context'
 RSpec.feature 'Processing a request', js: true do
   include ActiveJobHelper
 
-  include_context 'process request setup'
+  include_context 'with a process request setup'
 
   around do |ex|
     # Prisoner availability is date dependent both on the responses from Nomis

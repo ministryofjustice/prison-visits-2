@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe BookingResponder::Accept do
-  include_context 'staff response setup'
+  include_context 'with staff response setup'
 
   let!(:unlisted_visitors) do
     create_list(:visitor, 2, visit: visit)

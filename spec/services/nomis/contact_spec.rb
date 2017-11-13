@@ -63,7 +63,7 @@ RSpec.describe Nomis::Contact do
     end
   end
 
-  context "#banned_until" do
+  context "when #banned_until" do
     subject { instance.banned_until }
 
     context 'with a banned restriction with an expiry date' do

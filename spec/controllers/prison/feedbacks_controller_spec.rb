@@ -33,7 +33,7 @@ RSpec.describe Prison::FeedbacksController, type: :controller do
 
     it_behaves_like 'disallows untrusted ips'
 
-    context 'is successful' do
+    context 'when it is successful' do
       it 'creates a feedback submission and enqueues it' do
         expect(ZendeskTicketsJob).to receive(:perform_later).once do |feedback|
           expect(feedback.email_address).to eq('john@example.com')
@@ -47,7 +47,7 @@ RSpec.describe Prison::FeedbacksController, type: :controller do
       it { is_expected.to redirect_to(prison_inbox_path) }
     end
 
-    context 'is unsuccessful' do
+    context 'when it is unsuccessful' do
       let(:body) { nil }
 
       it { is_expected.to render_template('new') }

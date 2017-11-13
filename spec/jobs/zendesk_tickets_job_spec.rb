@@ -38,7 +38,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
     Rails.configuration.zendesk_client = client
   end
 
-  context 'Zendesk is not configured' do
+  context 'when Zendesk is not configured' do
     it 'raises an error if Zendesk is not configured' do
       allow(Rails).to receive(:configuration).and_return(Class.new)
 

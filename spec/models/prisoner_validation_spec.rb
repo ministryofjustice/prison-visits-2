@@ -15,7 +15,7 @@ RSpec.describe PrisonerValidation, type: :model do
         mock_nomis_with(:lookup_offender_location, establishment)
       end
 
-      context 'and the location matches' do
+      context 'when the location matches' do
         let(:establishment) { Nomis::Establishment.new(code: 'BMI', api_call_successful: true) }
 
         it { is_expected.to be_valid }
@@ -44,7 +44,7 @@ RSpec.describe PrisonerValidation, type: :model do
         end
       end
 
-      context 'and the location API call fails' do
+      context 'when the location API call fails' do
         let(:establishment) { Nomis::Establishment.new(api_call_successful: false) }
 
         it 'is invalid an has a validation error for unknown state'do
@@ -55,7 +55,7 @@ RSpec.describe PrisonerValidation, type: :model do
     end
   end
 
-  context 'API does not find a match' do
+  context 'when the API does not find a match' do
     let(:offender) { Nomis::NullOffender.new(api_call_successful: success) }
 
     describe 'with a successful API call' do
@@ -69,7 +69,7 @@ RSpec.describe PrisonerValidation, type: :model do
       end
     end
 
-    context 'and the API does not find a match' do
+    context 'when the API does not find a match' do
       let(:offender) { Nomis::NullOffender.new }
 
       it { is_expected.not_to be_valid }

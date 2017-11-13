@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.shared_context 'accepting a request' do
+RSpec.shared_context 'when accepting a request' do
   before do
     staff_response.selection = 'slot_0'
     staff_response.reference_no = '1337807'

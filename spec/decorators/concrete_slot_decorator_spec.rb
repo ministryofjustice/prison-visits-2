@@ -79,7 +79,7 @@ RSpec.describe ConcreteSlotDecorator do
             end
           end
 
-          context 'for a date in the past' do
+          context 'when it is a date in the past' do
             let(:date) { Date.yesterday }
 
             it 'renders the checkbox neither verified or errors' do
@@ -133,7 +133,7 @@ RSpec.describe ConcreteSlotDecorator do
             end
           end
 
-          context 'wiht a date in the past' do
+          context 'with a date in the past' do
             let(:date) { Date.yesterday }
 
             it 'renders the checkbox neither verified or errors' do

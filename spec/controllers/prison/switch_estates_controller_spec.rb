@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Prison::SwitchEstatesController, type: :controller do
-  context '#create' do
+  context 'with #create' do
     let(:user) { FactoryBot.create(:user) }
     let(:estate) { FactoryBot.create(:estate) }
     let(:estate2)      { create(:estate) }

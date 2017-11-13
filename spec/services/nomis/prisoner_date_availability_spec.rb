@@ -36,14 +36,14 @@ RSpec.describe Nomis::PrisonerDateAvailability do
       it { is_expected.to eq([described_class::OUT_OF_VO]) }
     end
 
-    context 'on an external movement' do
+    context 'when on an external movement' do
       let(:external_movement) { true }
 
       it { is_expected.to eq([described_class::EXTERNAL_MOVEMENT]) }
     end
 
     context 'with existing visits' do
-      context "different from the slot" do
+      context "when different from the slot" do
         let(:existing_visits) do
           [
             {
@@ -56,7 +56,7 @@ RSpec.describe Nomis::PrisonerDateAvailability do
         it { is_expected.to be_empty }
       end
 
-      context "overlaping the requested slot" do
+      context "when overlaping the requested slot" do
         let(:existing_booked_slot) do
           ConcreteSlot.new(date.year, date.month, date.day, 15, 15, 16, 15)
         end

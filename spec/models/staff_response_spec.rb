@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'maybe_date'
 
 RSpec.describe StaffResponse, type: :model do
-  include_context 'staff response setup'
+  include_context 'with staff response setup'
 
   subject do
     described_class.new(
@@ -25,7 +25,7 @@ RSpec.describe StaffResponse, type: :model do
       params[:rejection_attributes].merge!(multi_params_date)
     end
 
-    context 'given a booking is not rejected for no allowance' do
+    context 'when a booking is not rejected for no allowance' do
       before do
         params[:rejection_attributes][:reasons] = [Rejection::SLOT_UNAVAILABLE]
       end
@@ -36,19 +36,19 @@ RSpec.describe StaffResponse, type: :model do
       end
     end
 
-    context 'given a booking is rejected for no available allowance' do
+    context 'when a booking is rejected for no available allowance' do
       before do
         params[:rejection_attributes][:reasons] = [Rejection::NO_ALLOWANCE]
       end
 
-      context 'given a valid renewal date' do
+      context 'when a valid renewal date' do
         it 'converts to a date' do
           is_expected.to be_valid
           expect(subject.visit.rejection.allowance_renews_on).to eq(tomorrow)
         end
       end
 
-      context 'given not date was set' do
+      context 'when no date was set' do
         let(:multi_params_date) do
           {
             'allowance_renews_on(1i)' => '',
@@ -107,7 +107,7 @@ RSpec.describe StaffResponse, type: :model do
         end
       end
 
-      context 'and a visitor is on the list and not have a nomis id' do
+      context 'when a visitor is on the list and not have a nomis id' do
         before do
           params[:visitors_attributes]['0'][:nomis_id] = nil
           params[:visitors_attributes]['0'][:not_on_list] = nil
@@ -127,7 +127,7 @@ RSpec.describe StaffResponse, type: :model do
         end
       end
 
-      context 'and a visitor is on the list and has a nomis id' do
+      context 'when a visitor is on the list and has a nomis id' do
         before do
           params[:visitors_attributes]['0'][:nomis_id] = 12_345
           params[:visitors_attributes]['0'][:not_on_list] = nil
@@ -141,7 +141,7 @@ RSpec.describe StaffResponse, type: :model do
       end
     end
 
-    context 'slot availability' do
+    context 'with slot availability' do
       before do subject.valid? end
 
       context 'when a slot is available' do
@@ -173,7 +173,7 @@ RSpec.describe StaffResponse, type: :model do
       end
     end
 
-    context 'no slot granted' do
+    context 'when no slot granted' do
       let(:slot_granted) { '' }
 
       context 'when all visitors are unlisted' do

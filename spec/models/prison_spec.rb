@@ -30,7 +30,7 @@ RSpec.describe Prison, type: :model do
     end
   end
 
-  context 'available slots and bookability' do
+  context 'with available slots and bookability' do
     before do
       #
       #    Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo

@@ -4,7 +4,7 @@ RSpec.describe DashboardHelper do
   describe '#timeline_event_html_class' do
     subject { helper.timeline_event_html_class(event) }
 
-    context 'for an event that is not the last event' do
+    context 'when an event that is not the last event' do
       let(:event) { double('event', last: false, state: 'requested') }
 
       it 'does not have the last html class' do
@@ -12,7 +12,7 @@ RSpec.describe DashboardHelper do
       end
     end
 
-    context 'for an event that is the last event' do
+    context 'when an event that is the last event' do
       let(:event) { double('event', last: true, state: 'requested') }
 
       it 'has the last html class' do
