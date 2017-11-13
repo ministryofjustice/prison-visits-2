@@ -56,7 +56,7 @@ RSpec.describe ContactListMatcherBehaviour do
   end
 
   describe '#any?' do
-    context 'without any contacts' do
+    context 'with no contacts' do
       it { is_expected.not_to be_any }
     end
 

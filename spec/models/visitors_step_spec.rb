@@ -217,7 +217,7 @@ RSpec.describe VisitorsStep do
     end
   end
 
-  context 'age-related validations' do
+  context 'with age-related validations' do
     let(:prison) { build(:prison, adult_age: 13) }
 
     around do |example|

@@ -14,7 +14,7 @@ RSpec.describe VisitorDecorator do
 
     let(:html) { Capybara.string(subject.contact_list_matching(form_builder)) }
 
-    context 'without contacts' do
+    context 'with no contacts' do
       let(:nomis_contacts) { [] }
 
       it 'returns a message that i do not yet have any' do
@@ -47,7 +47,7 @@ RSpec.describe VisitorDecorator do
         end
       end
 
-      context 'without an exact match' do
+      context 'with no exact match' do
         it 'does not shows the visitor has been successfully matched' do
           expect(html).not_to have_css('.font-xsmall.tag.tag--booked', text: 'Verified')
         end
@@ -106,7 +106,7 @@ RSpec.describe VisitorDecorator do
       it { expect(subject).to be_exact_match }
     end
 
-    context 'where there is not an exact match' do
+    context 'when there is not an exact match' do
       before do
         visitor.date_of_birth = contact.date_of_birth
         visitor.first_name = contact.given_name + "bob"

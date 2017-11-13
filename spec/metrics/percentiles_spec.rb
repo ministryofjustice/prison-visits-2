@@ -2,8 +2,8 @@ require 'rails_helper'
 require_relative 'shared_examples_for_metrics'
 
 RSpec.describe Percentiles do
-  context 'that are not organised by date' do
-    include_examples 'create and process visits timed by seconds'
+  context 'when they are not organised by date' do
+    include_examples 'when creating and processing visits timed by seconds'
 
     describe Percentiles::Distribution do
       it 'returns the 95% 50% times' do
@@ -32,8 +32,8 @@ RSpec.describe Percentiles do
     end
   end
 
-  context 'that are organized by date' do
-    include_examples 'create and process visits with dates'
+  context 'when they are organized by date' do
+    include_examples 'when creating and processing visits with dates'
 
     describe Percentiles::DistributionByPrisonAndCalendarWeek do
       before do
@@ -64,7 +64,7 @@ RSpec.describe Percentiles do
         }
       end
 
-      context 'and aggregated across all prisons' do
+      context 'when they are aggregated across all prisons' do
         before do
           mars_visits_with_dates
           luna_visits_with_dates
@@ -127,7 +127,7 @@ RSpec.describe Percentiles do
           }
         end
 
-        context 'and aggregated across all prisons' do
+        context 'when they are aggregated across all prisons' do
           before do
             mars_visits_with_dates
             luna_visits_with_dates

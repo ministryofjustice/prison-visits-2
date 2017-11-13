@@ -18,11 +18,11 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
     it_behaves_like 'disallows untrusted ips'
 
-    context 'and there is no logged in user' do
+    context 'when there is no logged in user' do
       it { is_expected.not_to be_successful }
     end
 
-    context 'and there is a logged in user' do
+    context 'when there is a logged in user' do
       let(:user)                { create(:user) }
       let(:nowish)              { Time.zone.now }
       let(:processing_time_key) { "processing_time-#{visit.id}-#{user.id}" }
@@ -88,7 +88,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     let(:nowish) { Time.zone.now }
     let(:user)   { create(:user) }
 
-    context 'security' do
+    context 'with security' do
       subject { get :show, params: { id: 1 } }
 
       it_behaves_like 'disallows untrusted ips'

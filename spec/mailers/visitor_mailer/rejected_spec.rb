@@ -24,7 +24,7 @@ RSpec.describe VisitorMailer, '.rejected' do
     ActionMailer::Base.deliveries.clear
   end
 
-  context 'always' do
+  context 'when always' do
     it 'sends an email reporting the rejection' do
       expect(mail.subject).
         to match(/Your visit to #{visit.prison_name} is NOT booked/)
@@ -41,7 +41,7 @@ RSpec.describe VisitorMailer, '.rejected' do
       expect(mail.body.encoded).to match(visit.human_id)
     end
 
-    context 'includes information about banned visitors' do
+    context 'when it includes information about banned visitors' do
       before do
         visit.visitors << build(
           :visitor,
@@ -70,7 +70,7 @@ RSpec.describe VisitorMailer, '.rejected' do
       end
     end
 
-    context 'includes information about not on list visitors' do
+    context 'when it includes information about not on list visitors' do
       before do
         visit.visitors << build(
           :visitor,
@@ -107,13 +107,13 @@ RSpec.describe VisitorMailer, '.rejected' do
     end
   end
 
-  context 'slot_unavailable' do
+  context 'when slot_unavailable' do
     let(:reason) { 'slot_unavailable' }
 
     include_examples 'template checks'
   end
 
-  context 'no_allowance' do
+  context 'with no_allowance' do
     include_examples 'template checks'
 
     before do
@@ -130,7 +130,7 @@ RSpec.describe VisitorMailer, '.rejected' do
     end
   end
 
-  context 'prisoner_details_incorrect' do
+  context 'when prisoner_details_incorrect' do
     let(:reason) { 'prisoner_details_incorrect' }
 
     include_examples 'template checks'
@@ -140,7 +140,7 @@ RSpec.describe VisitorMailer, '.rejected' do
     end
   end
 
-  context 'prisoner_moved' do
+  context 'when prisoner_moved' do
     let(:reason) { 'prisoner_moved' }
 
     include_examples 'template checks'
@@ -150,7 +150,7 @@ RSpec.describe VisitorMailer, '.rejected' do
     end
   end
 
-  context 'prisoner_released' do
+  context 'when prisoner_released' do
     let(:reason) { 'prisoner_released' }
 
     include_examples 'template checks'
@@ -160,7 +160,7 @@ RSpec.describe VisitorMailer, '.rejected' do
     end
   end
 
-  context 'prisoner_non_association' do
+  context 'when prisoner_non_association' do
     let(:reason) { 'prisoner_non_association' }
 
     include_examples 'template checks'
@@ -170,7 +170,7 @@ RSpec.describe VisitorMailer, '.rejected' do
     end
   end
 
-  context 'child_protection_issues' do
+  context 'when child_protection_issues' do
     let(:reason) { 'child_protection_issues' }
 
     include_examples 'template checks'
@@ -180,7 +180,7 @@ RSpec.describe VisitorMailer, '.rejected' do
     end
   end
 
-  context 'no_adult' do
+  context 'when no_adult' do
     let(:reason) { 'no_adult' }
 
     include_examples 'template checks'

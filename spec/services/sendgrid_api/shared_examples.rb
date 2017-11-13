@@ -1,12 +1,12 @@
 RSpec.shared_examples 'error handling' do
-  include_context 'sendgrid shared tools'
+  include_context 'with sendgrid shared tools'
 
-  include_context 'sendgrid credentials are set'
-  include_context 'sendgrid api responds normally'
+  include_context 'when sendgrid credentials are set'
+  include_context 'when sendgrid api responds normally'
 
-  context 'error handling' do
+  context 'when handling an error' do
     context 'when the API raises an exception' do
-      include_context 'sendgrid api raises an exception'
+      include_context 'when sendgrid api raises an exception'
 
       it 'rescues, logs the error and returns false' do
         check_error_log_message_contains(/StandardError/)
@@ -18,8 +18,8 @@ RSpec.shared_examples 'error handling' do
       end
     end
 
-    context 'when Sendgrid times outs' do
-      include_context 'sendgrid timeout'
+    context 'when sendgrid times out' do
+      include_context 'when sendgrid times out'
 
       it 'rescues, logs the error and returns false' do
         check_error_log_message_contains(/Timeout/)
@@ -50,8 +50,8 @@ RSpec.shared_examples 'error handling' do
 end
 
 RSpec.shared_examples 'error handling for missing credentials' do
-  context 'sendgrid credentials are not set' do
-    include_context 'sendgrid credentials are not set'
+  context 'when sendgrid credentials are not set' do
+    include_context 'when sendgrid credentials are not set'
 
     it 'rescues, logs the error and returns false' do
       expect(subject).to be_falsey

@@ -2,8 +2,8 @@ require 'rails_helper'
 require_relative 'shared_examples_for_metrics'
 
 RSpec.describe Counters do
-  context 'that are not organised by date' do
-    include_examples 'create visits without dates'
+  context 'when they are not organised by date' do
+    include_examples 'when creating visits without dates'
 
     describe Counters::CountVisits do
       it 'counts all visits' do
@@ -43,8 +43,8 @@ RSpec.describe Counters do
     end
   end
 
-  context 'that are organised by date' do
-    include_examples 'create visits with dates'
+  context 'when they are organised by date' do
+    include_examples 'when creating visits with dates'
 
     xdescribe Counters::CountVisitsByPrisonAndCalendarWeek do
       before do
@@ -78,7 +78,7 @@ RSpec.describe Counters do
         }
       end
 
-      context 'and aggregated across all prisons' do
+      context 'when they are aggregated across all prisons' do
         before do
           mars_visits_with_dates
           luna_visits_with_dates
@@ -147,7 +147,7 @@ RSpec.describe Counters do
         }
       end
 
-      context 'and aggregated across all prisons' do
+      context 'when aggregated across all prisons' do
         before do
           luna_visits_with_dates
           mars_visits_with_dates

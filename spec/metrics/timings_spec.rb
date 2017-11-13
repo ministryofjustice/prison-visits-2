@@ -2,7 +2,7 @@ require 'rails_helper'
 require_relative 'shared_examples_for_metrics'
 
 RSpec.describe Timings do
-  include_examples 'create visits with dates'
+  include_examples 'when creating visits with dates'
 
   before do
     book_a_luna_visit_late
@@ -20,7 +20,7 @@ RSpec.describe Timings do
   end
 
   describe Timings::TimelyAndOverdue do
-    context 'that are not organized by date' do
+    context 'when they are not organized by date' do
       it 'counts all overdue visits and group by prison' do
         expect(described_class.fetch_and_format).to be ==
           {
@@ -30,7 +30,7 @@ RSpec.describe Timings do
       end
     end
 
-    context 'that are organized by date' do
+    context 'when they are organized by date' do
       describe Timings::TimelyAndOverdueByCalendarWeek do
         it 'counts visits and groups by prison, year, calendar week and visit state' do
           expect(described_class.fetch_and_format).to be ==

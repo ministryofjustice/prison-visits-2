@@ -27,7 +27,7 @@ RSpec.feature 'Metrics', js: true do
     OmniAuth.config.add_mock(:mojsso, sso_response)
   end
 
-  context 'overdue' do
+  context 'when overdue' do
     let(:date_today) { Time.zone.local(2016, 2, 8) }
     let!(:visits) do
       book_a_luna_visit_late
@@ -36,7 +36,7 @@ RSpec.feature 'Metrics', js: true do
       luna_visit
     end
 
-    include_examples 'create visits with dates'
+    include_examples 'when creating visits with dates'
     # Shared examples are booked within the first week of February, 2106. The
     # controller tracks one week behind the current date.
 
@@ -51,10 +51,10 @@ RSpec.feature 'Metrics', js: true do
     end
   end
 
-  context 'rejections' do
-    include_examples 'create rejections with dates'
+  context 'with rejections' do
+    include_examples 'when creating rejections with dates'
 
-    context 'all time' do
+    context 'when all the time' do
       before do
         luna_visits_with_dates
 

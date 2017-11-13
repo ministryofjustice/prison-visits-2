@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe BookingResponder::Reject do
-  include_context 'staff response setup'
+  include_context 'with staff response setup'
 
   before do
     params[:slot_granted] = visit.slot_option_0

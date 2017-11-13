@@ -32,7 +32,7 @@ RSpec.describe Nomis::Restriction do
       it { expect(subject).not_to be_closed }
     end
 
-    context 'with not a banned restriction type ' do
+    context 'with no banned restriction types ' do
       let(:type) { { code: "CLOSED", desc: "Closed" } }
 
       it { expect(subject).to be_closed }
@@ -51,13 +51,13 @@ RSpec.describe Nomis::Restriction do
     context 'when the date is after the effective date' do
       let(:effective_date) { date - 1.week }
 
-      context 'and before the expiry date' do
+      context 'when before the expiry date' do
         let(:expiry_date) { date + 1.day }
 
         it { is_expected.to be_effective_at(date) }
       end
 
-      context 'and after the expiry date' do
+      context 'when after the expiry date' do
         let(:expiry_date) { date - 1.day }
 
         it { is_expected.not_to be_effective_at(date) }

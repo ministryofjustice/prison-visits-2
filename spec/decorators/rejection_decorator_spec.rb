@@ -22,7 +22,7 @@ RSpec.describe RejectionDecorator do
       rejection.reasons = reasons
     end
 
-    context 'containing slot_unavailable' do
+    context 'when containing slot_unavailable' do
       let(:reasons) { [Rejection::SLOT_UNAVAILABLE] }
 
       it 'has the correct explanation' do
@@ -33,7 +33,7 @@ RSpec.describe RejectionDecorator do
         ])
       end
 
-      context 'containing no_allowance' do
+      context 'when containing no_allowance' do
         let(:reasons) { [Rejection::NO_ALLOWANCE] }
 
         context 'with a date set' do
@@ -52,7 +52,7 @@ RSpec.describe RejectionDecorator do
           end
         end
 
-        context 'without a date' do
+        context 'with no a date' do
           it 'has the correct explanation' do
             expect(
               subject.formatted_reasons.map(&:explanation)
@@ -63,7 +63,7 @@ RSpec.describe RejectionDecorator do
         end
       end
 
-      context 'containing not_on_list' do
+      context 'when containing not_on_list' do
         let(:reasons) { [Rejection::NOT_ON_THE_LIST] }
 
         it 'has the correct explanation' do
@@ -75,7 +75,7 @@ RSpec.describe RejectionDecorator do
         end
       end
 
-      context 'containing banned' do
+      context 'when containing banned' do
         let(:reasons) { [Rejection::BANNED] }
 
         it 'has the correct explanation' do
@@ -87,7 +87,7 @@ RSpec.describe RejectionDecorator do
         end
       end
 
-      context 'containing both child protection issues and no association' do
+      context 'when containing both child protection issues and no association' do
         let(:reasons) do
           [
             Rejection::CHILD_PROTECTION_ISSUES,
@@ -102,7 +102,7 @@ RSpec.describe RejectionDecorator do
         end
       end
 
-      context 'containing both a no association and another non-restriction reason' do
+      context 'when containing both a no association and another non-restriction reason' do
         let(:reasons) do
           [
             Rejection::PRISONER_NON_ASSOCIATION,
@@ -218,7 +218,7 @@ RSpec.describe RejectionDecorator do
       end
     end
 
-    context 'no unvisitable reasons and bookable slots' do
+    context 'with no unvisitable reasons and bookable slots' do
       let(:visit_bookable) { true }
       let(:details_incorrect) { false }
       let(:no_allowance) { false }
@@ -235,7 +235,7 @@ RSpec.describe RejectionDecorator do
       it_behaves_like :unchecked, :prisoner_out_of_prison
     end
 
-    context 'no unvisitable reasons and unbookable slots' do
+    context 'with no unvisitable reasons and unbookable slots' do
       let(:visit_bookable) { false }
       let(:details_incorrect) { false }
       let(:no_allowance) { false }
@@ -252,7 +252,7 @@ RSpec.describe RejectionDecorator do
       it_behaves_like :unchecked, :prisoner_out_of_prison
     end
 
-    context 'prisoner details incorrect and bookable slots' do
+    context 'when prisoner details incorrect and bookable slots' do
       let(:visit_bookable) { true }
       let(:details_incorrect) { true }
 
@@ -263,7 +263,7 @@ RSpec.describe RejectionDecorator do
       it_behaves_like :checked, :prisoner_details_incorrect
     end
 
-    context 'prisoner details incorrect and unbookable slots' do
+    context 'when prisoner details incorrect and unbookable slots' do
       let(:visit_bookable) { false }
       let(:details_incorrect) { true }
 
@@ -274,7 +274,7 @@ RSpec.describe RejectionDecorator do
       it_behaves_like :checked, :prisoner_details_incorrect
     end
 
-    context 'no allowance and bookable slots' do
+    context 'with no allowance and bookable slots' do
       before do
         subject.apply_nomis_reasons(nomis_checker)
       end
@@ -285,7 +285,7 @@ RSpec.describe RejectionDecorator do
       it_behaves_like :unchecked, :no_allowance
     end
 
-    context 'no allowance and unbookable slots' do
+    context 'with no allowance and unbookable slots' do
       before do
         subject.apply_nomis_reasons(nomis_checker)
       end
@@ -296,7 +296,7 @@ RSpec.describe RejectionDecorator do
       it_behaves_like :checked, :no_allowance
     end
 
-    context 'prisoner banned and bookable slots' do
+    context 'when prisoner banned and bookable slots' do
       before do
         subject.apply_nomis_reasons(nomis_checker)
       end
@@ -307,7 +307,7 @@ RSpec.describe RejectionDecorator do
       it_behaves_like :unchecked, :prisoner_banned
     end
 
-    context 'prisoner banned and unbookable slots' do
+    context 'when prisoner banned and unbookable slots' do
       before do
         subject.apply_nomis_reasons(nomis_checker)
       end
@@ -318,7 +318,7 @@ RSpec.describe RejectionDecorator do
       it_behaves_like :checked, :prisoner_banned
     end
 
-    context 'prisoner out of prison and bookable slots' do
+    context 'when prisoner out of prison and bookable slots' do
       before do
         subject.apply_nomis_reasons(nomis_checker)
       end
@@ -329,7 +329,7 @@ RSpec.describe RejectionDecorator do
       it_behaves_like :unchecked, :prisoner_out_of_prison
     end
 
-    context 'prisoner out of prison and unbookable slots' do
+    context 'when prisoner out of prison and unbookable slots' do
       before do
         subject.apply_nomis_reasons(nomis_checker)
       end

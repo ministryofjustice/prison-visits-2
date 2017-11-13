@@ -66,7 +66,7 @@ RSpec.describe VisitDecorator do
         expect(subject.slots.first).to receive(:bookable?).and_return(true)
       end
 
-      context 'the contact list is working' do
+      context 'when the contact list is working' do
         before do
           expect(Nomis::Feature).
             to receive(:contact_list_enabled?).with(visit.prison_name).and_return(true)

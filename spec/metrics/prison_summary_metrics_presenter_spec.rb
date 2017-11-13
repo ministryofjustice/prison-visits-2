@@ -11,13 +11,13 @@ RSpec.describe PrisonSummaryMetricsPresenter do
   describe '#processed_overdue' do
     subject { instance.processed_overdue }
 
-    context 'no prison data' do
+    context 'with no prison data' do
       let(:timings) { nil }
 
       it { is_expected.to eq(0) }
     end
 
-    context 'no "overdue" data' do
+    context 'with no "overdue" data' do
       let(:timings) do
         {}
       end
@@ -37,7 +37,7 @@ RSpec.describe PrisonSummaryMetricsPresenter do
   describe '#total visits' do
     subject { instance.total_visits }
 
-    context 'no prison data' do
+    context 'with no prison data' do
       let(:counts) { nil }
 
       it { is_expected.to eq(0) }
@@ -60,7 +60,7 @@ RSpec.describe PrisonSummaryMetricsPresenter do
 
     subject { instance.visits_in_state(state) }
 
-    context 'no prison data' do
+    context 'with no prison data' do
       let(:counts) { nil }
 
       it { is_expected.to eq(0) }
@@ -82,7 +82,7 @@ RSpec.describe PrisonSummaryMetricsPresenter do
   describe '#percent_rejected' do
     subject { instance.percent_rejected }
 
-    context 'no data for the prison' do
+    context 'with no data for the prison' do
       it { is_expected.to eq('0.0') }
     end
 

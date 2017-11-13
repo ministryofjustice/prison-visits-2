@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe EstateSeeder do
-  context 'importing from disk' do
+  context 'when importing from disk' do
     let(:base_path) { Rails.root.join('spec', 'fixtures', 'seeds') }
 
     it 'creates estates' do
@@ -11,7 +11,7 @@ RSpec.describe EstateSeeder do
     end
   end
 
-  context 'successful import' do
+  context 'with a successful import' do
     let(:nomis_id) { 'LNX' }
     let(:hash) { { 'name' => 'Lunar Penal Colony' } }
 

@@ -23,7 +23,7 @@ RSpec.describe Cancellation, model: true do
           subject.reasons = reasons
         end
 
-        context 'and the reason does not exists' do
+        context 'when the reason does not exists' do
           let(:reasons) { ['invalid_reason'] }
 
           it 'for an invalid reason' do
@@ -34,7 +34,7 @@ RSpec.describe Cancellation, model: true do
           end
         end
 
-        context 'and the reason exists' do
+        context 'when the reason exists' do
           let(:reasons) do
             described_class::REASONS[0..rand(described_class::REASONS.length - 1)]
           end

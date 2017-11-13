@@ -11,7 +11,7 @@ RSpec.describe CancellationDecorator do
       cancellation.reasons = reasons
     end
 
-    context 'containing child protection' do
+    context 'when containing child protection' do
       let(:reasons) { [Cancellation::CHILD_PROTECTION_ISSUES] }
 
       it 'has the correct explanation' do
@@ -23,7 +23,7 @@ RSpec.describe CancellationDecorator do
       end
     end
 
-    context 'containing prisoner non association' do
+    context 'when containing prisoner non association' do
       let(:reasons) { [Cancellation::PRISONER_NON_ASSOCIATION] }
 
       it 'has the correct explanation' do
@@ -35,7 +35,7 @@ RSpec.describe CancellationDecorator do
       end
     end
 
-    context 'containing visitor banned' do
+    context 'when containing visitor banned' do
       let(:reasons) { [Cancellation::VISITOR_BANNED] }
 
       it 'has the correct explanation' do
@@ -47,7 +47,7 @@ RSpec.describe CancellationDecorator do
       end
     end
 
-    context 'containing both a no association and another non-restriction reason' do
+    context 'when containing both a no association and another non-restriction reason' do
       let(:reasons) do
         [
           Cancellation::PRISONER_NON_ASSOCIATION,

@@ -12,7 +12,7 @@ RSpec.describe Nomis::ContactDecorator do
       it { expect(subject.full_name_and_dob).to eq(full_name + ' - ' + contact.date_of_birth.to_s(:short_nomis)) }
     end
 
-    context 'without a dob' do
+    context 'with no dob' do
       before do
         contact.date_of_birth = nil
       end
