@@ -13,7 +13,7 @@ RSpec.describe CancelNomisVisit do
   end
 
   describe '#execute' do
-    context 'successful cancellation' do
+    context 'when successfully cancelling' do
       let(:params) do
         { comment: 'A cancellation message' }
       end
@@ -69,7 +69,7 @@ RSpec.describe CancelNomisVisit do
       end
     end
 
-    context 'unsucessfully cancellation' do
+    context 'when unsucessfully cancellation' do
       context 'with an unexpected error' do
         before do
           simulate_api_error_for :cancel_visit

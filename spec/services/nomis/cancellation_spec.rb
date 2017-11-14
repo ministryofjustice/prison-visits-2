@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Nomis::Cancellation do
   describe '.new' do
-    context 'without an error' do
+    context 'with no API error' do
       let(:attributes) { { message: 'success' } }
 
       it 'contains the message' do
@@ -10,7 +10,7 @@ RSpec.describe Nomis::Cancellation do
       end
     end
 
-    context 'with an error' do
+    context 'with an API error' do
       let(:attributes) { { 'error' => {  'message' => 'oh nooooo!'  } } }
 
       it 'contains the error message' do

@@ -71,7 +71,7 @@ RSpec.describe BookingResponder::Cancel do
       end
     end
 
-    context 'without book to nomis enabled' do
+    context 'when book to nomis is disabled' do
       before do
         switch_feature_off_for(:book_to_nomis_enabled?, visit.prison_name)
       end
