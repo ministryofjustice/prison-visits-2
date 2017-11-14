@@ -73,6 +73,21 @@ RSpec.describe Nomis::Api do
     end
   end
 
+  describe '#lookup_offender_details' do
+
+    context 'when found', vcr: { cassette_name: :lookup_offender_details } do
+      it 'serialises the response into an Offender'
+    end
+
+    context 'when not found found', vcr: { cassette_name: :lookup_offender_details_unknown_offender } do
+      it { is_expected.to raise_error(Nomis::APIError) }
+    end
+
+    context 'when given an invalid nomis id', vcr: { cassette_name: :lookup_offender_details_invalid_noms_id } do
+      it 'returns an invalid Offender'
+    end
+  end
+
   describe '#lookup_offender_location' do
     let(:establishment) { subject.lookup_offender_location(noms_id: noms_id) }
 
