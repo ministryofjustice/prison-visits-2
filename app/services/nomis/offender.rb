@@ -1,3 +1,5 @@
+require 'maybe_date'
+
 class Nomis::Offender
   include NonPersistedModel
 
@@ -10,5 +12,19 @@ class Nomis::Offender
 
   def api_call_successful?
     true
+  end
+
+  def iep_level
+    return unless details.valid?
+    details[:iep_level][:desc]
+  end
+
+private
+
+  def details
+    @details ||= Nomis::Api.instance.
+                   lookup_offender_details(noms_id: noms_id)
+  rescue Nomis::APIError
+    Nomis::Offender::Details.new(api_call_successful: false)
   end
 end

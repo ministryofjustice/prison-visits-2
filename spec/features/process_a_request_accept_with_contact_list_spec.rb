@@ -39,6 +39,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
 
       switch_on :nomis_staff_offender_restrictions_enabled
       switch_on :nomis_internal_location_enabled
+      switch_on :nomis_iep_level_enabled
     end
 
     scenario 'accepting a booking', vcr: { cassette_name: 'book_to_nomis' } do
@@ -49,6 +50,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       expect(page).to have_css('.notice', text: 'The prisoner date of birth, prisoner number and prison name have been verified.')
       expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
       expect(page).to have_css('.bold-small', text: 'LEI-H-1-003')
+      expect(page).to have_css('.bold-small', text: 'Standard')
 
       choose_date
 

@@ -35,7 +35,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"found":true,"offender":{"id":1057307}}'
-    http_version:
+    http_version: 
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -72,7 +72,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"}}'
-    http_version:
+    http_version: 
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -109,7 +109,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"2017-06-27":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
-    http_version:
+    http_version: 
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -146,7 +146,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"slots":[{"time":"2017-06-27T10:00\/11:00","capacity":100,"max_groups":100,"max_adults":100,"groups_booked":1,"visitors_booked":2,"adults_booked":2},{"time":"2017-06-27T14:00\/16:00","capacity":100,"max_groups":3,"max_adults":10,"groups_booked":1,"visitors_booked":2,"adults_booked":2}]}'
-    http_version:
+    http_version: 
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -186,7 +186,7 @@ http_interactions:
         Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13428,"given_name":"IRMA","middle_names":"CHRISTINE","surname":"ITSU","date_of_birth":"1975-04-03","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"WIFE","desc":"Wife"},"contact_type":{"code":"S","desc":"Social\/
         Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13429,"given_name":"ISAIAH","surname":"ITSU","date_of_birth":"1981-11-16","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"BRO","desc":"Brother"},"contact_type":{"code":"S","desc":"Social\/
         Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":13432,"given_name":"SHAY","surname":"DEE","date_of_birth":"1978-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]}]}'
-    http_version:
+    http_version: 
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -223,7 +223,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"found":true,"offender":{"id":1057307}}'
-    http_version:
+    http_version: 
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -260,7 +260,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"}}'
-    http_version:
+    http_version: 
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -297,7 +297,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"2017-06-27":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
-    http_version:
+    http_version: 
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -334,7 +334,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"slots":[{"time":"2017-06-27T10:00\/11:00","capacity":100,"max_groups":100,"max_adults":100,"groups_booked":1,"visitors_booked":2,"adults_booked":2},{"time":"2017-06-27T14:00\/16:00","capacity":100,"max_groups":3,"max_adults":10,"groups_booked":1,"visitors_booked":2,"adults_booked":2}]}'
-    http_version:
+    http_version: 
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -374,7 +374,7 @@ http_interactions:
         Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13428,"given_name":"IRMA","middle_names":"CHRISTINE","surname":"ITSU","date_of_birth":"1975-04-03","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"WIFE","desc":"Wife"},"contact_type":{"code":"S","desc":"Social\/
         Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13429,"given_name":"ISAIAH","surname":"ITSU","date_of_birth":"1981-11-16","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"BRO","desc":"Brother"},"contact_type":{"code":"S","desc":"Social\/
         Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":13432,"given_name":"SHAY","surname":"DEE","date_of_birth":"1978-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]}]}'
-    http_version:
+    http_version: 
   recorded_at: Sun, 04 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -455,6 +455,44 @@ http_interactions:
       encoding: ASCII-8BIT
       string: !binary |-
         R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
-    http_version:
+    http_version: 
   recorded_at: Sun, 04 Jun 2017 23:00:00 GMT
+- request:
+    method: get
+    uri: http://151.237.239.116:4888/nomisapi/offenders/A1484AE
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.58.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - 6e030a36-ddf7-4e6c-a49e-946af76ac9fa
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.3
+      Date:
+      - Wed, 29 Nov 2017 16:36:19 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - total=5, db=4
+      Url-Template:
+      - "/offenders/{noms_id}"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"given_name":"IZZY","surname":"ITSU","date_of_birth":"1971-11-11","aliases":[],"gender":{"code":"M","desc":"Male"},"convicted":true,"imprisonment_status":{"code":"UNK_SENT","desc":"Unknown
+        Sentenced"},"iep_level":{"code":"STD","desc":"Standard"}}'
+    http_version: 
+  recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 recorded_with: VCR 3.0.3

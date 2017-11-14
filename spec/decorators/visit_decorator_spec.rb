@@ -148,4 +148,11 @@ RSpec.describe VisitDecorator do
       end
     end
   end
+
+  describe '#offender_iep_level' do
+    it 'returns the IEP level' do
+      expect(offender).to receive(:iep_level).and_return('Standard')
+      expect(subject.offender_iep_level).to eq('Standard')
+    end
+  end
 end

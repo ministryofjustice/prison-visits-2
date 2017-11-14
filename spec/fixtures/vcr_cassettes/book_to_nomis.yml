@@ -262,4 +262,42 @@ http_interactions:
       string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"internal_location":"LEI-H-1-003"}'
     http_version: 
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
+- request:
+    method: get
+    uri: http://151.237.239.116:4888/nomisapi/offenders/A1484AE
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.58.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - eee980ad-1228-4758-819e-c763b9762bcf
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.3
+      Date:
+      - Wed, 29 Nov 2017 16:15:34 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - total=4, db=3
+      Url-Template:
+      - "/offenders/{noms_id}"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"given_name":"IZZY","surname":"ITSU","date_of_birth":"1971-11-11","aliases":[],"gender":{"code":"M","desc":"Male"},"convicted":true,"imprisonment_status":{"code":"UNK_SENT","desc":"Unknown
+        Sentenced"},"iep_level":{"code":"STD","desc":"Standard"}}'
+    http_version: 
+  recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 recorded_with: VCR 3.0.3
