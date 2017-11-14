@@ -43,6 +43,11 @@ module Nomis
     end
     # rubocop:enable Metrics/MethodLength
 
+    def lookup_offender_details(noms_id:)
+
+
+    end
+
     def lookup_offender_location(noms_id:)
       response = @pool.with { |client|
         client.get("/offenders/#{noms_id}/location")
