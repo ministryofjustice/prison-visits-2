@@ -47,7 +47,6 @@ module Nomis
       response = @pool.with { |client|
         client.get("/offenders/#{noms_id}")
       }
-
     end
 
     def lookup_offender_location(noms_id:)
