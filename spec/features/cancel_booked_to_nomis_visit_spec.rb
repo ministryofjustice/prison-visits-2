@@ -19,7 +19,7 @@ RSpec.shared_examples_for 'does not cancel the booking in nomis' do
 end
 
 RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
-  include_context 'process request setup'
+  include_context 'with a process request setup'
 
   def process_booking
     VCR.use_cassette 'book_to_nomis', allow_playback_repeats: true do
