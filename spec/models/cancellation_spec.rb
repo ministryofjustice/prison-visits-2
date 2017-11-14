@@ -4,7 +4,7 @@ RSpec.describe Cancellation, model: true do
   subject { FactoryBot.build(:cancellation) }
 
   describe 'validation' do
-    context 'clean up empty strings' do
+    context 'with empty strings' do
       before do
         subject.reasons = ['', described_class::PRISONER_VOS]
       end

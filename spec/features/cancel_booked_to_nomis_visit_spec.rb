@@ -122,7 +122,7 @@ RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
           with(body: { comment: nil, cancellation_code: "ADMIN" }.to_json)).not_to have_been_made.once
     end
 
-    context "And the prison has not yet been activated" do
+    context "when the prison has not yet been activated" do
       include_examples 'does not cancel the booking in nomis'
     end
   end

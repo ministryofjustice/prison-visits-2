@@ -126,7 +126,7 @@ RSpec.describe VisitDecorator do
       end
     end
 
-    context 'where this is no cancellation' do
+    context 'with no cancellation' do
       it 'builds a new cancellation' do
         expect {
           subject.cancellation
