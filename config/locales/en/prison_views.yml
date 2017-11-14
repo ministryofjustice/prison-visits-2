@@ -228,7 +228,7 @@ en:
         issue_with_date: Issue with the date
         visitor_banned: Visitor is banned
         issue_with_visitor: Issue with a visitor
-        cancel_to_nomis_warning: This booking will automatically be cancelled in NOMIS
+        cancel_to_nomis_warning: If the visit is processed successfully, it will be copied to NOMIS
         dont_cancel_to_nomis: "Don't automatically copy this cancellation to NOMIS"
       other_section:
         title: Other

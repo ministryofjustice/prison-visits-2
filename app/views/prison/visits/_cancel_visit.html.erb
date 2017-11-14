@@ -19,6 +19,9 @@
   <% end %>
   <% if @visit.nomis_id? %>
     <div class="form-group">
+      <p>
+        <%= t('.cancel_to_nomis_warning') %>
+      </p>
       <fieldset>
         <div class="panel panel-border-narrow">
           <div class="multiple-choice">
