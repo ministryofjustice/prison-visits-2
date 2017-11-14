@@ -19,7 +19,8 @@ jobs:
       - checkout
       - restore_cache:
           key: prison-visits-2-{{ checksum "Gemfile.lock" }}
-      - run: bundle install
+      - run: gem update bundler --no-doc
+      - run: bundle install --path vendor
       - run:
           name: install firefox
           command: |
