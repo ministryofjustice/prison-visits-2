@@ -24,6 +24,28 @@ RSpec.describe Nomis::Client do
     end
   end
 
+  describe '#with_timeout' do
+    it 'changes the requests timeout' do
+      allow(subject).to receive(:get)
+      expect(subject).to receive('timeout=').with(3)
+      expect(subject).to receive('timeout=').with(described_class::TIMEOUT)
+
+      subject.with_timeout(3) { subject.get(path, params) }
+    end
+
+    context 'with an API error' do
+      it 'resets the timeout to the default' do
+        allow(subject).to receive(:get).and_raise(StandardError)
+        expect(subject).to receive('timeout=').with(3)
+        expect(subject).to receive('timeout=').with(described_class::TIMEOUT)
+
+        expect {
+          subject.with_timeout(3) { subject.get(path, params) }
+        }.to raise_error(StandardError)
+      end
+    end
+  end
+
   context 'when there is an http status error' do
     let(:error) do
       Excon::Errors::HTTPStatusError.new('error',

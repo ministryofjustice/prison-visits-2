@@ -49,7 +49,20 @@ module Nomis
       request(:post, route, params, idempotent: idempotent)
     end
 
+    def with_timeout(new_timeout)
+      self.timeout = new_timeout
+      yield
+    ensure
+      self.timeout = TIMEOUT
+    end
+
   private
+
+    def timeout=(new_timeout)
+      @connection.data[:read_timeout] = new_timeout
+      @connection.data[:write_timeout] = new_timeout
+      @connection.data[:connect_timeout] = new_timeout
+    end
 
     # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/AbcSize

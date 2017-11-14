@@ -1,9 +1,10 @@
 require 'nomis/client'
 
 module Nomis
-  Error = Class.new(StandardError)
-  DisabledError = Class.new(Error)
-  NotFound = Class.new(Error)
+  Error              = Class.new(StandardError)
+  DisabledError      = Class.new(Error)
+  NotFound           = Class.new(Error)
+  BOOK_VISIT_TIMEOUT = 3
 
   class Api
     include Singleton
@@ -112,12 +113,14 @@ module Nomis
       Nomis::ContactList.new(response)
     end
 
+    # rubocop:disable Metrics/MethodLength
     def book_visit(offender_id:, params:)
       idempotent = params.key?(:client_unique_ref)
-
       response = @pool.with { |client|
-        client.post(
-          "offenders/#{offender_id}/visits/booking", params, idempotent: idempotent)
+        client.with_timeout(BOOK_VISIT_TIMEOUT) {
+          client.post(
+            "offenders/#{offender_id}/visits/booking", params, idempotent: idempotent)
+        }
       }
 
       Nomis::Booking.build(response).tap do |booking|
@@ -126,6 +129,7 @@ module Nomis
         )
       end
     end
+  # rubocop:enable Metrics/MethodLength
 
   private
 
