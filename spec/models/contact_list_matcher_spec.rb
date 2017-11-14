@@ -38,7 +38,7 @@ RSpec.describe ContactListMatcher do
   subject { described_class.new(contact_list, visitor) }
 
   describe '#any?' do
-    context 'whithout any contact' do
+    context 'with no contacts' do
       let(:contact_list) { [] }
 
       it { is_expected.not_to be_any }
@@ -55,11 +55,11 @@ RSpec.describe ContactListMatcher do
         visitor.date_of_birth = contact_list.first.date_of_birth
       end
 
-      context 'and the name does not match' do
+      context 'when the name does not match' do
         it_behaves_like 'no exact match nor near match'
       end
 
-      context 'and the name matches exactly' do
+      context 'when the name matches exactly' do
         before do
           visitor.first_name = contact_list.first.given_name
           visitor.last_name = contact_list.first.surname
@@ -69,7 +69,7 @@ RSpec.describe ContactListMatcher do
           expect(exact_matches.contacts.first).to eq(contact_list.first)
         end
 
-        context 'and with a contact without date of birth' do
+        context 'when with a contact without date of birth' do
           before do
             contact_list.first.date_of_birth = nil
           end

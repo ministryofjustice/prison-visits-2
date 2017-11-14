@@ -28,7 +28,7 @@ RSpec.feature 'Using the dashboard' do
     }
   end
 
-  context 'log in and switch inbox' do
+  context 'when logging in and switching inbox' do
     before do
       FactoryBot.create(:visit, prison: swansea_prison)
     end
@@ -52,7 +52,7 @@ RSpec.feature 'Using the dashboard' do
     end
   end
 
-  context 'searching a visit' do
+  context 'when searching for a visit' do
     before do
       allow(Nomis::Api).to receive(:enabled?).and_return(false)
     end
@@ -105,7 +105,7 @@ RSpec.feature 'Using the dashboard' do
     end
   end
 
-  context 'searching a visit and cancelling it' do
+  context 'when searching for a visit and cancelling it' do
     before do
       allow(Nomis::Api).to receive(:enabled?).and_return(false)
     end

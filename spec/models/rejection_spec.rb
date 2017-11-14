@@ -30,8 +30,8 @@ RSpec.describe Rejection, model: true do
       }.to raise_exception(ActiveRecord::InvalidForeignKey)
     end
 
-    context 'validate allowance renews on date' do
-      context 'rejection for no allowance' do
+    context 'when allowance renews on given date' do
+      context 'when rejected for no allowance' do
         let(:reasons) { [described_class::NO_ALLOWANCE] }
 
         context 'with a valid date' do
@@ -75,7 +75,7 @@ RSpec.describe Rejection, model: true do
         subject.reasons = reasons
       end
 
-      context 'and the reason does not exists' do
+      context 'when the reason does not exists' do
         let(:reasons) { ['invalid_reason'] }
 
         it 'for an ivalid reason' do
@@ -86,9 +86,10 @@ RSpec.describe Rejection, model: true do
         end
       end
 
-      context 'and the reason does not exists' do
-        it 'returns an of reasons' do
+      context 'when the reason does not exists' do
+        it 'returns an array of reasons' do
           expect(subject.reasons).to eq(reasons)
+          p reasons
         end
       end
     end

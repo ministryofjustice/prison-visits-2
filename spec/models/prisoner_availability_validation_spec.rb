@@ -34,7 +34,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
   end
 
   describe 'when the NOMIS API is enabled' do
-    context 'and the api returns an error' do
+    context 'when the api returns an error' do
       before do
         expect_any_instance_of(Nomis::Client).
           to receive(:get).and_raise(Nomis::APIError)
@@ -55,7 +55,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
       end
     end
 
-    context 'and working correctly with some unavailable slots' do
+    context 'when working correctly with some unavailable slots' do
       let(:date1_availability) do
         Nomis::PrisonerDateAvailability.new(
           date: slot1.to_date,
@@ -97,12 +97,12 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
         subject.valid?
       end
 
-      context 'for the slots that are available' do
+      context 'with slots that are available' do
         it 'does not add an error to the slot' do
           expect(subject.errors[slot1.to_s]).to be_empty
         end
 
-        context '#slot_errors' do
+        context 'with #slot_errors' do
           it 'returns nothing' do
             expect(subject.slot_errors(slot1)).to be_empty
           end
@@ -111,13 +111,13 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
         it { is_expected.not_to be_unknown_result }
       end
 
-      context 'for the dates that are unavailable' do
+      context 'with dates that are unavailable' do
         it 'adds an error to the slot' do
           expect(subject.errors[slot2.to_s]).
             to eq([Nomis::PrisonerDateAvailability::BANNED])
         end
 
-        context '#slot_errors' do
+        context 'with #slot_errors' do
           it 'returns the prisoner availability error' do
             expect(subject.slot_errors(slot2)).
               to eq([Nomis::PrisonerDateAvailability::BANNED])
@@ -128,7 +128,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
       end
     end
 
-    context 'and API enabled with invalid dates' do
+    context 'when the API is enabled and with invalid dates' do
       before do
         allow(Nomis::Api).to receive(:enabled?).and_return(true)
       end
@@ -183,7 +183,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
       end
     end
 
-    context 'and API enabled with invalid offender' do
+    context 'when the API is enabled and with invalid offender' do
       let(:offender) { Nomis::NullOffender.new }
 
       it { is_expected.to be_unknown_result }

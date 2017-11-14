@@ -91,7 +91,7 @@ RSpec.describe EstateVisitQuery do
         is_expected.to eq([rejected, booked, withdrawn, nomis_cancelled])
       end
 
-      context 'limiting the results' do
+      context 'when limiting the results' do
         let(:limit) { 2 }
 
         it 'returns the maximum number of records' do
@@ -99,7 +99,7 @@ RSpec.describe EstateVisitQuery do
         end
       end
 
-      context 'providing a prisoner number' do
+      context 'when providing a prisoner number' do
         let(:prisoner_number) { booked.prisoner.number.downcase + ' ' }
 
         it 'returns processed visits matching the prisoner number' do

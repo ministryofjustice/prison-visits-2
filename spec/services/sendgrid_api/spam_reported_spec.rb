@@ -3,15 +3,15 @@ require_relative '../sendgrid_api_shared_context'
 require_relative './shared_examples'
 
 RSpec.describe SendgridApi, '#spam_reported?' do
-  include_context 'sendgrid instance'
+  include_context 'with a sendgrid instance'
 
   subject {
     instance.spam_reported?('test@example.com')
   }
 
-  include_context 'sendgrid shared tools'
+  include_context 'with sendgrid shared tools'
 
-  context 'sendgrid credentials are set' do
+  context 'when sendgrid credentials are set' do
     include_examples 'error handling'
     include_examples 'there is a timeout'
     include_examples 'sendgrid pool timeouts'

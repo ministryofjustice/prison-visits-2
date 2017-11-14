@@ -4,13 +4,13 @@ require 'shared_process_setup_context'
 RSpec.feature 'Processing a request - Acceptance without the contact list enabled', js: true do
   include ActiveJobHelper
 
-  include_context 'process request setup'
+  include_context 'with a process request setup'
 
   before do
     switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, [prison.name])
   end
 
-  context 'accepting', vcr: { cassette_name: 'process_booking_happy_path' } do
+  context 'when accepting', vcr: { cassette_name: 'process_booking_happy_path' } do
     around do |ex|
       travel_to(Date.new(2016, 12, 1)) { ex.run }
     end
@@ -21,12 +21,12 @@ RSpec.feature 'Processing a request - Acceptance without the contact list enable
             )
     end
 
-    context "validating prisoner informations - sad paths" do
+    context "when validating prisoner informations - sad paths" do
       before do
         switch_on :nomis_staff_prisoner_check_enabled
       end
 
-      context "and the prisoner's informations are not valid", vcr: { cassette_name: 'lookup_active_offender-nomatch' } do
+      context "when the prisoner's informations are not valid", vcr: { cassette_name: 'lookup_active_offender-nomatch' } do
         let(:slot_zero) { ConcreteSlot.new(2016, 5, 1, 10, 30, 11, 30) }
         let(:slot_one) { ConcreteSlot.new(2016, 5, 21, 10, 30, 11, 30) }
 
@@ -90,7 +90,7 @@ RSpec.feature 'Processing a request - Acceptance without the contact list enable
       expect(page).to have_css('span', text: 'by joe@example.com')
     end
 
-    context 'disallowed visitors' do
+    context 'with disallowed visitors' do
       let(:visitor) { create(:visitor, visit: vst) }
 
       before do

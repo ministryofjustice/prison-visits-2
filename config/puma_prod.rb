@@ -1,12 +1,12 @@
 require 'yaml'
-db_pool = YAML.load_file('config/database.yml')['production']['pool']
+db_pool = Integer(ENV['RAILS_MAX_THREADS'] || 3)
 workers Integer(ENV['WEB_CONCURRENCY'] || 3)
 threads db_pool, db_pool
 
 preload_app!
 
 rackup      DefaultRackup
-port        3000
+port        ENV['PORT']     || 3000
 environment ENV['RACK_ENV'] || 'production'
 
 on_worker_boot do

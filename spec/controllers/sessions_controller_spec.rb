@@ -52,7 +52,7 @@ RSpec.describe SessionsController, type: :controller do
         end
       end
 
-      context 'without a redirect_path set on the session' do
+      context 'with no redirect_path set on the session' do
         it 'redirects to the inbox by default' do
           expect(create).to redirect_to(prison_inbox_path)
         end

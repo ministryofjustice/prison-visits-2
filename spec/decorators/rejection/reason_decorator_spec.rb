@@ -21,7 +21,7 @@ RSpec.describe Rejection::ReasonDecorator do
         expect(checkbox).to have_css(".js-restrictionOverride[data-override='#{reason.dasherize}']")
       end
 
-      context 'html_options' do
+      context 'with html_options' do
         let(:html_options) { { class: 'extra_class' } }
 
         it 'preserves previously provided classes' do

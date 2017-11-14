@@ -68,7 +68,7 @@ RSpec.describe DateHelper do
         slot_granted: slot_granted)
     end
 
-    context 'without a granted slot' do
+    context 'with no slot granted' do
       let(:slot_granted) { nil }
 
       it 'formats the preferred slot' do
@@ -95,7 +95,7 @@ RSpec.describe DateHelper do
         slot_granted: slot_granted)
     end
 
-    context 'without a granted slot' do
+    context 'with no slot granted' do
       let(:slot_granted) { nil }
 
       it 'formats the preferred slot' do

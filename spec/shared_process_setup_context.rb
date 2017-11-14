@@ -1,4 +1,4 @@
-RSpec.shared_context 'process request setup' do
+RSpec.shared_context 'with a process request setup' do
   def sanitize_to_id(value)
     value.to_s.gsub(/\s/, "_").gsub(/[^-\w]/, "").downcase
   end

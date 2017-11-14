@@ -182,7 +182,7 @@ RSpec.describe Nomis::Api do
       expect(subject).to have_exactly(2).items
     end
 
-    context 'restriction_parsing' do
+    context 'with restriction_parsing' do
       let(:expected_restriction) do
         Nomis::Restriction.new(
           type: { code: 'BAN', desc: 'Banned' },
@@ -271,7 +271,7 @@ RSpec.describe Nomis::Api do
         end
       end
 
-      context 'without a client unique ref', vcr: { cassette_name: 'book_visit_error_no_retry' } do
+      context 'with no unique client ref', vcr: { cassette_name: 'book_visit_error_no_retry' } do
         before do
           params.delete(:client_unique_ref)
         end
@@ -282,7 +282,7 @@ RSpec.describe Nomis::Api do
       end
     end
 
-    context 'happy path', vcr: { cassette_name: 'book_visit_happy_path' } do
+    context 'with a happy path', vcr: { cassette_name: 'book_visit_happy_path' } do
       it 'returns the visit_id' do
         expect(subject.visit_id).to eq(5_467)
       end
@@ -294,7 +294,7 @@ RSpec.describe Nomis::Api do
       end
     end
 
-    context 'validation error', vcr: { cassette_name: 'book_visit_validation_error' } do
+    context 'with a validation error', vcr: { cassette_name: 'book_visit_validation_error' } do
       it 'records the error message' do
         expect(subject.error_messages).to eq(['Overlapping visit'])
       end
@@ -306,7 +306,7 @@ RSpec.describe Nomis::Api do
       end
     end
 
-    context 'duplicate post', vcr: { cassette_name: 'book_visit_duplicate_error' } do
+    context 'with a duplicate post', vcr: { cassette_name: 'book_visit_duplicate_error' } do
       it 'records the error message' do
         expect(subject.error_messages).to eq(['Duplicate post'])
       end

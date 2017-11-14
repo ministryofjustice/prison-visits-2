@@ -29,7 +29,7 @@ RSpec.describe AgeCalculator do
     context 'when birthday is a leap year' do
       let(:dob) { Date.new(1980, 2, 29) }
 
-      context 'in a non-leap year' do
+      context 'when in a non-leap year' do
         it 'is correct on birthday eve' do
           expect(subject.age(dob, Date.new(1999, 2, 28))).to eq(18)
         end
@@ -39,7 +39,7 @@ RSpec.describe AgeCalculator do
         end
       end
 
-      context 'in a leap year' do
+      context 'when in a leap year' do
         it 'is correct on birthday' do
           expect(subject.age(dob, Date.new(2000, 2, 29))).to eq(20)
         end

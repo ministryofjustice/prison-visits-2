@@ -23,10 +23,10 @@ RSpec.describe SignonIdentity, type: :model do
       FactoryBot.create(:estate, sso_organisation_name: org_name)
     end
 
-    context 'user has previously logged in' do
+    context 'when a user has previously logged in' do
       let!(:user) { FactoryBot.create(:user, email: oauth_info['email']) }
 
-      context 'has no permissions' do
+      context 'when they have no permissions' do
         let(:permissions) { [] }
 
         it 'rejects the login attempt' do
@@ -34,7 +34,7 @@ RSpec.describe SignonIdentity, type: :model do
         end
       end
 
-      context 'has permissions to access only unknown-to-pvb organisations' do
+      context 'when they have permissions to access only unknown-to-pvb organisations' do
         let(:permissions) {
           [{ 'organisation' => 'not-an-estate', 'roles' => [] }]
         }
@@ -44,7 +44,7 @@ RSpec.describe SignonIdentity, type: :model do
         end
       end
 
-      context 'has permission to access an org linked to a pvb estate' do
+      context 'when they have permission to access an org linked to a pvb estate' do
         let(:permissions) {
           [{ 'organisation' => org_name, 'roles' => [] }]
         }
@@ -55,8 +55,8 @@ RSpec.describe SignonIdentity, type: :model do
       end
     end
 
-    context 'user has not previously logged in' do
-      context 'has no permissions' do
+    context 'with a user has not previously logged in' do
+      context 'with no permissions' do
         let(:permissions) { [] }
 
         it 'rejects the login attempt' do
@@ -64,7 +64,7 @@ RSpec.describe SignonIdentity, type: :model do
         end
       end
 
-      context 'has permissions to access only unknown-to-pvb organisations' do
+      context 'when they have permissions to access only unknown-to-pvb organisations' do
         let(:permissions) {
           [{ 'organisation' => 'random', 'roles' => [] }]
         }
@@ -74,7 +74,7 @@ RSpec.describe SignonIdentity, type: :model do
         end
       end
 
-      context 'has permission to access an org linked to a pvb estate' do
+      context 'when they have permission to access an org linked to a pvb estate' do
         let(:permissions) {
           [{ 'organisation' => org_name, 'roles' => [] }]
         }
@@ -157,7 +157,7 @@ RSpec.describe SignonIdentity, type: :model do
         to be false
     end
 
-    context '#default_estates' do
+    context 'with #default_estates' do
       it 'determines the default estates for a user' do
         expect(subject.default_estates).to contain_exactly(cardiff_estate, swansea_estate)
       end

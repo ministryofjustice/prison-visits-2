@@ -33,7 +33,7 @@ RSpec.describe PrisonSeeder do
     }
   }
 
-  context 'importing from disk' do
+  context 'when importing from disk' do
     before do
       create :estate, nomis_id: 'LNX'
       create :estate, nomis_id: 'MRX'
@@ -54,7 +54,7 @@ RSpec.describe PrisonSeeder do
     end
   end
 
-  context 'importing when the UUID is not mapped' do
+  context 'when importing and the UUID is not mapped' do
     before do
       create :estate, nomis_id: 'LNX'
     end
@@ -70,7 +70,7 @@ RSpec.describe PrisonSeeder do
     end
   end
 
-  context 'successful import' do
+  context 'with a successful import' do
     before do
       create :estate, nomis_id: 'LNX'
     end

@@ -8,7 +8,7 @@ RSpec.describe Visit, type: :model do
   end
 
   describe 'transitions' do
-    context 'transitioning from requested to rejected' do
+    context 'when transitioning from requested to rejected' do
       it 'can not be saved without a rejection' do
         expect {
           subject.reject!
@@ -140,7 +140,7 @@ RSpec.describe Visit, type: :model do
       expect(subject).not_to be_processable
     end
 
-    context '.visit_state_changes' do
+    context 'when .visit_state_changes' do
       it { should have_many(:visit_state_changes) }
 
       it 'is recorded after accepting' do

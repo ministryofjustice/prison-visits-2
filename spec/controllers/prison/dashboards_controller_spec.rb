@@ -71,7 +71,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
       it { is_expected.to be_successful }
 
-      context 'filtering requested visits by prisoner number' do
+      context 'when filtering requested visits by prisoner number' do
         subject do
           get :search, params: {
             estate_id: estate.finder_slug,
@@ -87,7 +87,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
         end
       end
 
-      context 'filtering processed visits by prisoner number' do
+      context 'when filtering processed visits by prisoner number' do
         subject do
           get :search, params: {
             estate_id: estate.finder_slug,
@@ -105,7 +105,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
     end
   end
 
-  context '#print_visits' do
+  context 'with #print_visits' do
     let(:prison) { FactoryBot.create(:prison, estate: estate) }
     let(:slot_granted1) { '2016-01-01T09:00/10:00' }
     let(:slot_granted2) { '2016-01-01T12:00/14:00' }
@@ -163,7 +163,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
           expect(assigns[:data][prison_name]['booked'][visit2.slot_granted].size).to eq(1)
         end
 
-        context 'as a csv' do
+        context 'when as a csv' do
           subject do
             get :print_visits, params: {
               estate_id: estate.finder_slug,

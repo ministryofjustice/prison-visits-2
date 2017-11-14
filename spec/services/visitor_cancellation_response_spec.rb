@@ -15,7 +15,7 @@ RSpec.describe VisitorCancellationResponse do
     end
 
     context 'when the visit is booked' do
-      context 'and has not yet started' do
+      context 'when this has not yet started' do
         let(:prison) { FactoryBot.create(:prison) }
         let(:visit) do
           FactoryBot.create(:booked_visit,
@@ -26,7 +26,7 @@ RSpec.describe VisitorCancellationResponse do
         it { is_expected.to eq(true) }
       end
 
-      context 'and has already started' do
+      context 'when it has already started' do
         let(:visit) do
           FactoryBot.create(
             :booked_visit,

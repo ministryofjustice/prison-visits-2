@@ -70,7 +70,7 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
 
     let(:date) { requested_slot.to_date }
 
-    context 'available on that day' do
+    context 'when available on that day' do
       let(:banned) { false }
       let(:out_of_vo) { false }
       let(:external_movement) { false }
@@ -79,7 +79,7 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
       it { is_expected.to be_empty }
     end
 
-    context 'unavailable on that day for all the reasons' do
+    context 'when unavailable on that day for all the reasons' do
       let(:banned) { true }
       let(:out_of_vo) { true }
       let(:external_movement) { true }

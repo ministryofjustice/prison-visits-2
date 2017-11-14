@@ -171,13 +171,13 @@ RSpec.describe StaffNomisChecker do
     describe '#errors_for' do
       let(:slot) { visit.slots.first }
 
-      context 'prisoner availability' do
+      context 'with prisoner availability' do
         before do
           switch_off(:nomis_staff_prisoner_check_enabled)
         end
 
         context 'when NOMIS_STAFF_PRISONER_AVAILABILITY_ENABLED' do
-          context 'is disabled' do
+          context 'when it is disabled' do
             before do
               switch_off(:nomis_staff_prisoner_availability_enabled)
             end
@@ -185,7 +185,7 @@ RSpec.describe StaffNomisChecker do
             it { expect(subject.errors_for(slot)).to be_empty }
           end
 
-          context 'is enabled' do
+          context 'when it is enabled' do
             before do
               switch_on(:nomis_staff_prisoner_availability_enabled)
               mock_nomis_with(:lookup_active_offender, offender)
@@ -213,7 +213,7 @@ RSpec.describe StaffNomisChecker do
               end
             end
 
-            context 'a null offender' do
+            context 'with a null offender' do
               let(:offender) { Nomis::NullOffender.new }
 
               it { expect(subject.errors_for(slot)).to be_empty }
@@ -222,7 +222,7 @@ RSpec.describe StaffNomisChecker do
         end
       end
 
-      context 'slot availability' do
+      context 'with slot availability' do
         context 'with NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED switched OFF' do
           before do
             switch_off :nomis_staff_slot_availability_enabled
@@ -270,13 +270,13 @@ RSpec.describe StaffNomisChecker do
         end
       end
 
-      context 'prisoner restrictions' do
+      context 'with prisoner restrictions' do
         before do
           switch_on(:nomis_staff_prisoner_check_enabled)
         end
 
         context 'when NOMIS_STAFF_OFFENDER_RESTRICTIONS_ENABLED' do
-          context 'is disabled' do
+          context 'when it is disabled' do
             before do
               switch_off(:nomis_staff_offender_restrictions_enabled)
             end
@@ -284,7 +284,7 @@ RSpec.describe StaffNomisChecker do
             it { expect(subject.errors_for(slot)).to be_empty }
           end
 
-          context 'is enabled' do
+          context 'when it is enabled' do
             before do
               switch_on(:nomis_staff_offender_restrictions_enabled)
               mock_nomis_with(:lookup_active_offender, offender)
@@ -312,7 +312,7 @@ RSpec.describe StaffNomisChecker do
               end
             end
 
-            context 'a null offender' do
+            context 'with a null offender' do
               let(:offender) { Nomis::NullOffender.new }
 
               it { expect(subject.errors_for(slot)).to be_empty }
@@ -445,7 +445,7 @@ RSpec.describe StaffNomisChecker do
           instance_double(PrisonerContactList)
         end
 
-        context 'and the prison is NOT in the comma separated list STAFF_PRISONS_WITHOUT_NOMIS_CONTACT_LIST' do
+        context 'when the prison is NOT in the comma separated list STAFF_PRISONS_WITHOUT_NOMIS_CONTACT_LIST' do
           let(:contact_list_api_error) { false }
 
           before do
@@ -457,14 +457,14 @@ RSpec.describe StaffNomisChecker do
 
           it { is_expected.not_to be_contact_list_unknown }
 
-          context 'and the contact list returns an API error' do
+          context 'when the contact list returns an API error' do
             let(:contact_list_api_error) { true }
 
             it { is_expected.to be_contact_list_unknown }
           end
         end
 
-        context 'and the prison is in the comma separated list STAFF_PRISONS_WITHOUT_NOMIS_CONTACT_LIST' do
+        context 'when the prison is in the comma separated list STAFF_PRISONS_WITHOUT_NOMIS_CONTACT_LIST' do
           before do
             switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, [visit.prison_name])
           end
@@ -491,7 +491,7 @@ RSpec.describe StaffNomisChecker do
 
         it { is_expected.not_to be_prisoner_restrictions_unknown }
 
-        context 'and the offender restrictions returns an API error' do
+        context 'when the offender restrictions returns an API error' do
           let(:offender_restrictions_api_error) { true }
 
           it { is_expected.to be_prisoner_restrictions_unknown }

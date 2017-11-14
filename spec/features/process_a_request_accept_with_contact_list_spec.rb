@@ -5,7 +5,7 @@ require 'shared_process_setup_context'
 RSpec.feature 'Processing a request - Acceptance with the contact list enabled', js: true do
   include ActiveJobHelper
 
-  include_context 'process request setup'
+  include_context 'with a process request setup'
 
   let(:prison) do
     create(:prison,
@@ -119,7 +119,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
     end
   end
 
-  context 'without book to nomis enabled' do
+  context 'when book to nomis is not enabled' do
     before do
       switch_off :nomis_staff_book_to_nomis_enabled
 

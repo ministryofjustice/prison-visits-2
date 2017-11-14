@@ -43,7 +43,7 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
   end
 
   describe 'when the NOMIS API is enabled' do
-    context 'and the api returns an error' do
+    context 'when the api returns an error' do
       before do
         expect_any_instance_of(Nomis::Client).
           to receive(:get).and_raise(Nomis::APIError)
@@ -64,7 +64,7 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
       end
     end
 
-    context 'and working correctly with valid slots' do
+    context 'when working correctly with valid slots' do
       before do
         allow(Nomis::Api).to receive(:enabled?).and_return(true)
 
@@ -78,14 +78,14 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
         subject.valid?
       end
 
-      context 'for the dates that are available' do
+      context 'with dates that are available' do
         let(:available_slots) { [slot1] }
 
         it 'does not add an error to the slot' do
           expect(subject.errors[slot1.to_s]).to be_blank
         end
 
-        context '#slot_error' do
+        context 'with a #slot_error' do
           it 'returns nothing' do
             expect(subject.slot_error(slot1)).to be_nil
           end
@@ -94,7 +94,7 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
         it { is_expected.not_to be_unknown_result }
       end
 
-      context 'for the slots that are unavailable' do
+      context 'when the slots that are unavailable' do
         let(:available_slots) { [slot1, slot3] }
 
         it 'adds an error to the missing slot' do
@@ -102,7 +102,7 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
             to eq([described_class::SLOT_NOT_AVAILABLE])
         end
 
-        context '#slot_error' do
+        context 'with a #slot_error' do
           it 'returns the slot not available message' do
             expect(subject.slot_error(slot2)).
               to eq(described_class::SLOT_NOT_AVAILABLE)
@@ -113,7 +113,7 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
       end
     end
 
-    context 'and API enabled with invalid dates' do
+    context 'when the API enabled and with invalid dates' do
       before do
         allow(Nomis::Api).to receive(:enabled?).and_return(true)
       end

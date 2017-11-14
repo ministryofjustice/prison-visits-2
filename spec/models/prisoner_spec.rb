@@ -4,7 +4,7 @@ RSpec.describe Prisoner, type: :model do
   subject(:prisoner) { FactoryBot.build(:prisoner, number: number) }
 
   describe '#number' do
-    context 'inconsistent value' do
+    context 'with an inconsistent value' do
       let(:number) { ' a1234Bc ' }
 
       it 'strips and uppercases the prisoner number on validation' do

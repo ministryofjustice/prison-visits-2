@@ -12,7 +12,7 @@ RSpec.describe OmniAuth::Strategies::Mojsso do
     described_class.new(app, 'client_id', 'secret')
   end
 
-  context 'methods' do
+  context 'when methods' do
     let(:uid) { double('uid') }
     let(:first_name) { double('first_name') }
     let(:last_name) { double('last_name') }
@@ -31,7 +31,7 @@ RSpec.describe OmniAuth::Strategies::Mojsso do
       }
     end
 
-    context '#info' do
+    context 'when #info' do
       before do
         allow(strategy).to receive(:raw_info).and_return(raw_info)
       end
@@ -46,7 +46,7 @@ RSpec.describe OmniAuth::Strategies::Mojsso do
       end
     end
 
-    context '#extra' do
+    context 'when #extra' do
       before do
         allow(strategy).to receive(:raw_info).and_return(raw_info)
       end
@@ -54,7 +54,7 @@ RSpec.describe OmniAuth::Strategies::Mojsso do
       it { expect(strategy.extra).to eq(raw_info: raw_info) }
     end
 
-    context '#uid' do
+    context 'when #uid' do
       before do
         allow(strategy).to receive(:raw_info).and_return(raw_info)
       end
@@ -62,7 +62,7 @@ RSpec.describe OmniAuth::Strategies::Mojsso do
       it { expect(strategy.uid).to eq(uid) }
     end
 
-    context '#raw_info' do
+    context 'when #raw_info' do
       let(:token) { double('token') }
       let(:api_response) { double('api_response') }
 

@@ -4,9 +4,9 @@ require 'shared_process_setup_context'
 RSpec.feature 'Processing a request', js: true do
   include ActiveJobHelper
 
-  include_context 'process request setup'
+  include_context 'with a process request setup'
 
-  context 'not booking to nomis' do
+  context 'when not booking to nomis' do
     before do
       switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, [])
     end
