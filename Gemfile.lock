@@ -308,7 +308,7 @@ GEM
     scenic (1.4.0)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
-    secure_headers (5.0.1)
+    secure_headers (5.0.2)
       useragent (>= 0.15.0)
     selenium-webdriver (3.7.0)
       childprocess (~> 0.5)
