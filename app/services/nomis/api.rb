@@ -44,7 +44,9 @@ module Nomis
     # rubocop:enable Metrics/MethodLength
 
     def lookup_offender_details(noms_id:)
-
+      response = @pool.with { |client|
+        client.get("/offenders/#{noms_id}")
+      }
 
     end
 
