@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Nomis::Restriction do
-  let(:type) { { code: "BAN", desc: "Banned" } }
+  let(:description) { 'Banned' }
+  let(:type) { { code: "BAN", desc: description } }
   let(:effective_date) { 3.days.ago.to_date }
   let(:expiry_date) { nil }
 
@@ -10,6 +11,8 @@ RSpec.describe Nomis::Restriction do
                         effective_date: effective_date,
                         expiry_date: expiry_date)
   end
+
+  it { expect(subject.description).to eq(description) }
 
   describe '#banned?' do
     context 'with a banned restriction type' do

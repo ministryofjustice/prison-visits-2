@@ -23,6 +23,12 @@ module Nomis
       Nomis::Api.enabled? && config.nomis_staff_offender_restrictions_enabled
     end
 
+    def self.offender_restrictions_info_enabled?(prison_name)
+      Nomis::Api.enabled? &&
+        offender_restrictions_enabled? &&
+        config.staff_prisons_with_prisoner_restrictions_info&.include?(prison_name)
+    end
+
     def self.config
       Rails.configuration
     end

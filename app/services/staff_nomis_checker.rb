@@ -52,7 +52,7 @@ class StaffNomisChecker
   def errors_for(slot)
     prisoner_availability_errors(slot) +
       slot_availability_errors(slot) +
-      prisoner_restrictions(slot)
+      slot_prisoner_restrictions(slot)
   end
 
   def slots_unavailable?
@@ -90,9 +90,18 @@ class StaffNomisChecker
     )
   end
 
+  def prisoner_restrictions
+    if Nomis::Feature.offender_restrictions_info_enabled?(@visit.prison_name) &&
+        offender.valid?
+      prisoner_restriction_list.active
+    else
+      []
+    end
+  end
+
 private
 
-  def prisoner_restrictions(slot)
+  def slot_prisoner_restrictions(slot)
     if Nomis::Feature.offender_restrictions_enabled? && offender.valid?
       prisoner_restriction_list.on_slot(slot)
     else

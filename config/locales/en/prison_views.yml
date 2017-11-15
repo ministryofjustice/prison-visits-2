@@ -166,6 +166,7 @@ en:
         none_available: None of the chosen times are available
       prisoner_details:
         title: Prisoner details
+        prisoner_restrictions_apply: Prisoner restrictions apply
         prisoner_name: Prisoner name
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
@@ -378,3 +379,4 @@ en:
     duplicate_visit_request: Duplicate visit request
     reference_number: Reference number
     clear_selection: Clear selection
+    to: to

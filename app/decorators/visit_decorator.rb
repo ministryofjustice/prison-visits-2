@@ -56,6 +56,12 @@ class VisitDecorator < Draper::Decorator
       !principal_visitor.banned?
   end
 
+  def prisoner_restrictions
+    @prisoner_restrictions ||=
+      PrisonerRestrictionDecorator.decorate_collection(
+        nomis_checker.prisoner_restrictions)
+  end
+
 private
 
   def last_visit_state_change
