@@ -10,11 +10,11 @@ enabled: true
 private: false
 closed: false
 recurring:
+  tue:
+  - 1400-1600
   wed:
   - 1400-1600
   thu:
-  - 1400-1600
-  fri:
   - 1400-1600
   sat:
   - 0915-1115
@@ -22,6 +22,5 @@ recurring:
   sun:
   - 0915-1115
   - 1400-1600
-anomalous:
-  2017-04-16:
-  - 1400-1600
+unbookable:
+- 2017-12-26
