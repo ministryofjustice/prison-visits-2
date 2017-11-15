@@ -305,8 +305,12 @@ RSpec.describe Nomis::Api do
                               with(
                                 "offenders/#{offender_id}/visits/booking",
                                 params,
-                                idempotent: true,
-                                timeout: Nomis::Api::BOOK_VISIT_TIMEOUT
+                                idempotent:      true,
+                                options: {
+                                  connect_timeout: Nomis::Api::BOOK_VISIT_TIMEOUT,
+                                  read_timeout:    Nomis::Api::BOOK_VISIT_TIMEOUT,
+                                  write_timeout:   Nomis::Api::BOOK_VISIT_TIMEOUT
+                                }
                               )
         end
       end

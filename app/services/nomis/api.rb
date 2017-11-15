@@ -1,9 +1,9 @@
 require 'nomis/client'
 
 module Nomis
-  Error              = Class.new(StandardError)
-  DisabledError      = Class.new(Error)
-  NotFound           = Class.new(Error)
+  Error = Class.new(StandardError)
+  DisabledError = Class.new(Error)
+  NotFound = Class.new(Error)
 
   class Api
     include Singleton
@@ -121,7 +121,7 @@ module Nomis
           "offenders/#{offender_id}/visits/booking",
           params,
           idempotent: idempotent,
-          timeout: Nomis::Api::BOOK_VISIT_TIMEOUT
+          options: book_visit_request_options
         )
       }
 
@@ -141,6 +141,14 @@ module Nomis
       else
         NullOffender.new(api_call_successful: true)
       end
+    end
+
+    def book_visit_request_options
+      {
+        connect_timeout: Nomis::Api::BOOK_VISIT_TIMEOUT,
+        read_timeout:    Nomis::Api::BOOK_VISIT_TIMEOUT,
+        write_timeout:   Nomis::Api::BOOK_VISIT_TIMEOUT
+      }
     end
   end
 end

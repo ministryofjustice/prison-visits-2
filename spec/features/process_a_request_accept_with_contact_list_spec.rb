@@ -1,4 +1,3 @@
-
 require 'rails_helper'
 require 'shared_process_setup_context'
 
