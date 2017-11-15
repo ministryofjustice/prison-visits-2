@@ -74,9 +74,15 @@ RSpec.describe Nomis::Api do
   end
 
   describe '#lookup_offender_details' do
+    let(:params) do
+      { noms_id: 'A1459AE' }
+    end
+    let(:offender_details) { described_class.instance.lookup_offender_details(params) }
 
     context 'when found', vcr: { cassette_name: :lookup_offender_details } do
-      it 'serialises the response into an'
+      it 'serialises the response into an Offender' do
+        expect(offender_details).to have_attributes({ bob: :bob })
+      end
     end
 
     context 'when not found found', vcr: { cassette_name: :lookup_offender_details_unknown_offender } do
