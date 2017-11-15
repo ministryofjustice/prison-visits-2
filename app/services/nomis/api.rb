@@ -4,11 +4,10 @@ module Nomis
   Error              = Class.new(StandardError)
   DisabledError      = Class.new(Error)
   NotFound           = Class.new(Error)
-  BOOK_VISIT_TIMEOUT = 3
 
   class Api
     include Singleton
-
+    BOOK_VISIT_TIMEOUT = 3
     def self.enabled?
       Rails.configuration.nomis_api_host != nil
     end
@@ -116,11 +115,14 @@ module Nomis
     # rubocop:disable Metrics/MethodLength
     def book_visit(offender_id:, params:)
       idempotent = params.key?(:client_unique_ref)
+
       response = @pool.with { |client|
-        client.with_timeout(BOOK_VISIT_TIMEOUT) {
-          client.post(
-            "offenders/#{offender_id}/visits/booking", params, idempotent: idempotent)
-        }
+        client.post(
+          "offenders/#{offender_id}/visits/booking",
+          params,
+          idempotent: idempotent,
+          timeout: Nomis::Api::BOOK_VISIT_TIMEOUT
+        )
       }
 
       Nomis::Booking.build(response).tap do |booking|

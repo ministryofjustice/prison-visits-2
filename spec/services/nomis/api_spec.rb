@@ -301,7 +301,13 @@ RSpec.describe Nomis::Api do
 
           described_class.instance.book_visit(offender_id: offender_id, params: params)
 
-          expect(client).to have_received('with_timeout').with(3)
+          expect(client).to have_received('post').
+                              with(
+                                "offenders/#{offender_id}/visits/booking",
+                                params,
+                                idempotent: true,
+                                timeout: Nomis::Api::BOOK_VISIT_TIMEOUT
+                              )
         end
       end
     end
