@@ -10,6 +10,7 @@ module Nomis
     attribute :type, Hash[Symbol => String]
     attribute :effective_date, Date
     attribute :expiry_date, Date
+    attribute :comment_text, String
 
     def banned?
       type[:code] == BANNED_CODE
@@ -25,6 +26,10 @@ module Nomis
 
     def name
       return CLOSED_NAME if closed?
+    end
+
+    def description
+      type[:desc]
     end
   end
 end

@@ -272,6 +272,10 @@ If `true` then the Nomis API will be used to book a visit.
 
 A comma separated list of prisons for which the book to nomis API is enabled
 
+### `STAFF_PRISONS_WITH_PRISONER_RESTRICTIONS_INFO` ###
+
+A comma separated list of prisons for which the prisoner restrictions is displayed
+
 #### `PRISON_ESTATE_IPS` ####
 
 A semicolon- or comma-separated list of IP addresses or CIDR ranges. Users on

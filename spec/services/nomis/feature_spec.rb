@@ -133,4 +133,36 @@ RSpec.describe Nomis::Feature do
       end
     end
   end
+
+  describe '.offender_restrictions_info_enabled?' do
+    context 'with offender restrictions disabled' do
+      before do
+        switch_off :nomis_staff_offender_restrictions_enabled
+      end
+
+      it { expect(described_class.offender_restrictions_info_enabled?(anything)).to eq(false) }
+    end
+
+    context 'with offender restrictions enabled' do
+      before do
+        switch_on :nomis_staff_offender_restrictions_enabled
+      end
+
+      context 'when the prison is not on the list for restrictions info' do
+        before do
+          switch_feature_flag_with(:staff_prisons_with_prisoner_restrictions_info, [])
+        end
+
+        it { expect(described_class.offender_restrictions_info_enabled?(anything)).to eq(false) }
+      end
+
+      context 'when the prison is not the list for restrictions info' do
+        before do
+          switch_feature_flag_with(:staff_prisons_with_prisoner_restrictions_info, [prison_name])
+        end
+
+        it { expect(described_class.offender_restrictions_info_enabled?(prison_name)).to eq(true) }
+      end
+    end
+  end
 end
