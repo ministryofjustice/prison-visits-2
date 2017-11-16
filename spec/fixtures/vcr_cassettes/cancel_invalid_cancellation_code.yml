@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: patch
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/booking/5467/cancel
+    body:
+      encoding: UTF-8
+      string: '{"cancellation_code":"POOBAR"}'
+    headers:
+      User-Agent:
+      - excon/0.58.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - ''
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.3
+      Date:
+      - Tue, 31 Oct 2017 14:10:09 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Url-Template:
+      - "/offenders/{offender_id}/visits"
+      Server-Timing:
+      - total=13
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"message":"Invalid cancellation code"}}'
+    http_version: 
+  recorded_at: Tue, 31 Oct 2017 14:10:09 GMT
+recorded_with: VCR 3.0.3

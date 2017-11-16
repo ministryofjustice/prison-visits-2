@@ -1,0 +1,196 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://151.237.239.116:4888/nomisapi/lookup/active_offender?date_of_birth=1971-11-11&noms_id=A1484AE
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.58.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - bb4cc2c8-4e9c-48ea-9568-f291209b4dd1
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.3
+      Date:
+      - Thu, 12 Oct 2017 10:35:09 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - total=3, db=1
+      Url-Template:
+      - "/lookup/active_offender"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"found":true,"offender":{"id":1057307}}'
+    http_version: 
+  recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
+- request:
+    method: get
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/contact_list
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.58.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - bb4cc2c8-4e9c-48ea-9568-f291209b4dd1
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.3
+      Date:
+      - Thu, 12 Oct 2017 10:35:09 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - total=4, db=4
+      Url-Template:
+      - "/offenders/{offender_id}/visits"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"contacts":[{"id":13432,"given_name":"SHAY","surname":"DEE","date_of_birth":"1978-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":13428,"given_name":"IRMA","middle_names":"CHRISTINE","surname":"ITSU","date_of_birth":"1975-04-03","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"WIFE","desc":"Wife"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13429,"given_name":"ISAIAH","surname":"ITSU","date_of_birth":"1981-11-16","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"BRO","desc":"Brother"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":12588,"given_name":"BILLY","surname":"JONES","date_of_birth":"1970-01-01","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]}]}'
+    http_version: 
+  recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
+- request:
+    method: get
+    uri: http://151.237.239.116:4888/nomisapi/lookup/active_offender?date_of_birth=1971-11-11&noms_id=A1484AE
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.58.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - 59e77250-8c1d-4bfa-be9f-5ca8ac8b40bb
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.3
+      Date:
+      - Thu, 12 Oct 2017 10:48:03 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - total=3, db=1
+      Url-Template:
+      - "/lookup/active_offender"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"found":true,"offender":{"id":1057307}}'
+    http_version: 
+  recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
+- request:
+    method: get
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/contact_list
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.58.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - 59e77250-8c1d-4bfa-be9f-5ca8ac8b40bb
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.3
+      Date:
+      - Thu, 12 Oct 2017 10:48:03 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Server-Timing:
+      - total=4, db=3
+      Url-Template:
+      - "/offenders/{offender_id}/visits"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"contacts":[{"id":13432,"given_name":"SHAY","surname":"DEE","date_of_birth":"1978-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":13428,"given_name":"IRMA","middle_names":"CHRISTINE","surname":"ITSU","date_of_birth":"1975-04-03","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"WIFE","desc":"Wife"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13429,"given_name":"ISAIAH","surname":"ITSU","date_of_birth":"1981-11-16","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"BRO","desc":"Brother"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":12588,"given_name":"BILLY","surname":"JONES","date_of_birth":"1970-01-01","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]}]}'
+    http_version: 
+  recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
+- request:
+    method: patch
+    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/booking/5493/cancel
+    body:
+      encoding: UTF-8
+      string: '{"comment":null,"cancellation_code":"ADMIN"}'
+    headers:
+      User-Agent:
+      - excon/0.58.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - 0d22454f-6acd-42c0-a6b3-39d7e5abd4a4
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      Server:
+      - nginx/1.13.3
+      Date:
+      - Wed, 18 Oct 2017 16:33:57 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Url-Template:
+      - "/offenders/{offender_id}/visits"
+      Server-Timing:
+      - total=29
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"message":"Visit already cancelled"}}'
+    http_version: 
+  recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
+recorded_with: VCR 3.0.3

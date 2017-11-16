@@ -1,26 +1,38 @@
-<%= form_tag cancel_prison_visit_path(@visit, locale: 'en'), class: 'form' do -%>
+<%= form_for [:prison, @visit, @visit.cancellation], class: 'form' do |f| -%>
+  <%= hidden_field_tag :cancel_to_nomis_optout, true %>
   <h3 class="heading-medium"><%= t(".title") %></h3>
+  <%= error_container(f, :reasons, class: 'form-group') do %>
+    <div class="grid-row">
+      <fieldset>
+        <% f.object.staff_cancellation_reasons.in_groups_of(5, false).each do |reasons| %>
+          <div class="column-one-half">
+            <%= f.collection_check_boxes :reasons, reasons, :id, :label do |b| %>
+              <div class="multiple-choice">
+                <%= b.check_box %>
+                <%= b.label %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </fieldset>
+    </div>
+  <% end %>
+  <% if @visit.nomis_id? %>
+    <div class="form-group">
+      <p>
+        <%= t('.cancel_to_nomis_warning') %>
+      </p>
+      <fieldset>
+        <div class="panel panel-border-narrow">
+          <div class="multiple-choice">
+            <%= check_box_tag :cancel_to_nomis_optout, !@visit.nomis_id? %>
+            <%= label_tag :cancel_to_nomis_optout, t('.dont_cancel_to_nomis'), class: 'block-label selection-button-checkbox' %>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  <% end %>
 
-  <div class="grid-row">
-    <fieldset>
-      <div class="column-one-half">
-        <% %i[prisoner_vos prisoner_released child_protection_issues slot_unavailable visitor_banned].each do |reason| %>
-          <div class="multiple-choice">
-            <%= check_box_tag 'cancellation_reasons[]', reason, false, id: reason %>
-            <%= label_tag reason, t(".#{reason}") %>
-          </div>
-        <% end %>
-      </div>
-      <div class="column-one-half">
-        <% %i[prisoner_moved prisoner_non_association prisoner_cancelled booked_in_error capacity_issues].each do |reason| %>
-          <div class="multiple-choice">
-            <%= check_box_tag 'cancellation_reasons[]', reason, false, id: reason %>
-            <%= label_tag reason, t(".#{reason}") %>
-          </div>
-        <% end %>
-      </div>
-    </fieldset>
-  </div>
   <div class='form-group push-top'>
     <%= submit_tag t('cancel_visit', scope: :shared), class: 'button button-secondary' %>
   </div>

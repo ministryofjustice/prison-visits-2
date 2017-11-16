@@ -133,6 +133,17 @@ module Nomis
     end
   # rubocop:enable Metrics/MethodLength
 
+    def cancel_visit(offender_id, booking_id, params:)
+      response = @pool.with { |client|
+        client.patch(
+          "offenders/#{offender_id}/visits/booking/#{booking_id}/cancel", params)
+      }
+      Nomis::Cancellation.new(response).tap do |cancellation|
+        PVB::Instrumentation.append_to_log(
+          cancel_to_nomis_success: cancellation.error_message.nil?)
+      end
+    end
+
   private
 
     def build_offender(response)

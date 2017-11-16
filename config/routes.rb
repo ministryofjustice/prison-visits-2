@@ -30,9 +30,9 @@ Rails.application.routes.draw do
 
     namespace :prison do
       resources :visits, only: %i[show update] do
+        resource :cancellations, only: :create
         member do
           post 'nomis_cancelled'
-          post 'cancel'
         end
 
         resources :messages, only: :create
@@ -46,7 +46,6 @@ Rails.application.routes.draw do
     resources :visits, only: %i[show update] do
       member do
         post 'nomis_cancelled'
-        post 'cancel'
       end
 
       resources :messages, only: :create

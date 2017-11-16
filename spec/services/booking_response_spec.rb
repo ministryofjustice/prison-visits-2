@@ -39,4 +39,28 @@ RSpec.describe BookingResponse do
 
     it { expect(subject.message).to eq(described_class::NOMIS_VALIDATION_ERROR) }
   end
+
+  describe '.visit_not_found' do
+    subject { described_class.visit_not_found }
+
+    it { expect(subject.message).to eq(described_class::VISIT_NOT_FOUND) }
+  end
+
+  describe '.visit_already_cancelled' do
+    subject { described_class.visit_already_cancelled }
+
+    it { expect(subject.message).to eq(described_class::VISIT_ALREADY_CANCELLED) }
+  end
+
+  describe '.visit_completed' do
+    subject { described_class.visit_completed }
+
+    it { expect(subject.message).to eq(described_class::VISIT_COMPLETED) }
+  end
+
+  describe '.invalid_cancellation_code' do
+    subject { described_class.invalid_cancellation_code }
+
+    it { expect(subject.message).to eq(described_class::INVALID_CANCELLATION_CODE) }
+  end
 end

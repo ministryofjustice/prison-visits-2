@@ -49,6 +49,10 @@ module Nomis
       request(:post, route, params, idempotent: idempotent, options: options)
     end
 
+    def patch(route, params = {})
+      request(:patch, route, params, idempotent: false)
+    end
+
   private
 
     # rubocop:disable Metrics/MethodLength
@@ -112,7 +116,7 @@ module Nomis
     def params_options(method, params)
       return {} if params.empty?
 
-      if method == :post
+      if [:post, :patch].include?(method)
         {
           body: params.to_json,
           headers: { 'Content-Type' => JSON_MIME_TYPE }

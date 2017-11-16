@@ -1,5 +1,4 @@
 require 'rails_helper'
-require_relative '../untrusted_examples'
 
 RSpec.describe Prison::DashboardsController, type: :controller do
   let(:estate) { FactoryBot.create(:estate) }

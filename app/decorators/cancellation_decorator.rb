@@ -22,6 +22,15 @@ class CancellationDecorator < Draper::Decorator
     result
   end
 
+  def staff_cancellation_reasons
+    @staff_cancellation_reasons ||= Cancellation::STAFF_REASONS.map { |reason|
+      Cancellation::Reason.new(
+        id: reason,
+        label: I18n.t(".#{reason}", scope: %i[prison visits cancel_visit])
+      )
+    }
+  end
+
 private
 
   def translated_explanations_for(reason)

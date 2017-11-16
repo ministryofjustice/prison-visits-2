@@ -4,6 +4,13 @@ RSpec.describe Cancellation, model: true do
   subject { FactoryBot.build(:cancellation) }
 
   describe 'validation' do
+    context 'with empty strings' do
+      before do
+        subject.reasons = ['', described_class::PRISONER_VOS]
+      end
+      it { is_expected.to be_valid }
+    end
+
     it 'enforces no more than one per visit' do
       cancellation = FactoryBot.create(:cancellation)
       expect {
@@ -40,6 +47,18 @@ RSpec.describe Cancellation, model: true do
           end
 
           it { is_expected.to be_valid }
+        end
+      end
+
+      describe 'witout a reason' do
+        before do
+          subject.reasons.clear
+          is_expected.to be_invalid
+        end
+
+        it 'has a meaning full transalated message' do
+          errors = subject.errors[:reasons]
+          expect(errors).to eq(['Please provide a cancellation reason'])
         end
       end
     end

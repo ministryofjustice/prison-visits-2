@@ -1,29 +1,38 @@
 class Cancellation < ActiveRecord::Base
   VISITOR_CANCELLED = 'visitor_cancelled'.freeze
-  CHILD_PROTECTION_ISSUES = 'child_protection_issues'.freeze
+
+  PRISONER_VOS             = 'prisoner_vos'.freeze
+  PRISONER_RELEASED        = 'prisoner_released'.freeze
+  CHILD_PROTECTION_ISSUES  = 'child_protection_issues'.freeze
+  SLOT_UNAVAILABLE         = 'slot_unavailable'.freeze
+  VISITOR_BANNED           = 'visitor_banned'.freeze
+  PRISONER_MOVED           = 'prisoner_moved'.freeze
   PRISONER_NON_ASSOCIATION = 'prisoner_non_association'.freeze
-  VISITOR_BANNED = 'visitor_banned'.freeze
-  PRISONER_CANCELLED = 'prisoner_cancelled'.freeze
+  PRISONER_CANCELLED       = 'prisoner_cancelled'.freeze
+  BOOKED_IN_ERROR          = 'booked_in_error'.freeze
+  CAPACITY_ISSUES          = 'capacity_issues'.freeze
 
   STAFF_REASONS = [
-    'booked_in_error',
-    'capacity_issues',
+    PRISONER_VOS,
+    PRISONER_RELEASED,
     CHILD_PROTECTION_ISSUES,
-    'prisoner_moved',
-    PRISONER_NON_ASSOCIATION,
-    'prisoner_released',
-    'prisoner_vos',
-    'slot_unavailable',
+    SLOT_UNAVAILABLE,
     VISITOR_BANNED,
-    PRISONER_CANCELLED
+    PRISONER_MOVED,
+    PRISONER_NON_ASSOCIATION,
+    PRISONER_CANCELLED,
+    BOOKED_IN_ERROR,
+    CAPACITY_ISSUES
   ]
 
   REASONS = STAFF_REASONS + [VISITOR_CANCELLED]
 
   belongs_to :visit
 
+  before_validation :sanitise_reasons
+
   validate :validate_reasons
-  validates :reasons, presence: true
+  validates :reasons, presence: { message: :no_cancellation_reason }
 
 private
 
@@ -38,5 +47,9 @@ private
         )
       )
     end
+  end
+
+  def sanitise_reasons
+    reasons.reject!(&:empty?)
   end
 end

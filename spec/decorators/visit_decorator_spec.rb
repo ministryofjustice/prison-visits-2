@@ -123,4 +123,32 @@ RSpec.describe VisitDecorator do
       end
     end
   end
+
+  describe '#cancellation' do
+    context 'when there is already a cancellation' do
+      let!(:cancellation) { visit.build_cancellation }
+
+      it 'returns the cancellation' do
+        expect(subject.cancellation).to eq cancellation
+      end
+
+      it 'is decorated' do
+        expect(subject.cancellation).to be_decorated
+      end
+    end
+
+    context 'with no cancellation' do
+      it 'builds a new cancellation' do
+        expect {
+          subject.cancellation
+        }.to change {
+          visit.cancellation
+        }.from(nil).to(instance_of(Cancellation))
+      end
+
+      it 'is decorated' do
+        expect(subject.cancellation).to be_decorated
+      end
+    end
+  end
 end

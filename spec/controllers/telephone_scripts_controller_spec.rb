@@ -1,5 +1,4 @@
 require 'rails_helper'
-require_relative 'untrusted_examples'
 
 RSpec.describe TelephoneScriptsController, type: :controller  do
   describe '#index' do

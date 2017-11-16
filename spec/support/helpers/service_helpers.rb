@@ -1,4 +1,8 @@
 module ServiceHelpers
+  def switch_feature_off_for(feature, feature_for)
+    expect(Nomis::Feature).to receive(feature).with(feature_for).and_return(false)
+  end
+
   def switch_off_api
     allow(Nomis::Api).to receive(:enabled?).and_return(false)
   end
