@@ -16,9 +16,6 @@
           <% if @visit.reference_no -%>
             <div class="text-secondary"><%= t('.ref') %>: <%= @visit.reference_no %></div>
           <% end %>
-          <% if @visit.booked? %>
-            <a class="print-link" href="#">Print visit</a>
-          <% end %>
         </div>
       </div>
     </div>
