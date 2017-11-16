@@ -111,6 +111,7 @@ en:
         no_bookings: No bookings
         no_cancellations: No cancellations
         cancelled_visits: Cancelled visits
+        visit_list: Visit list
       search:
         cancellations: Cancellations
         processed: Processed
@@ -330,6 +331,7 @@ en:
     cancel: Cancel
     cancel_visit: Cancel visit
     cancelled: Cancelled
+    cell_location: Cell location
     closed: Closed
     dob: Date of birth
     email_address: Email address
@@ -357,6 +359,7 @@ en:
     time_slot: Time slot
     view: View
     visit_date: Visit date
+    visit_time: Visit time
     visitors: Visitors
     visitor_no: Visitor %{n}
     visitor_name: Visitor name
