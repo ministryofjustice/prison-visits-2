@@ -11,7 +11,7 @@ class Prison::MessagesController < ApplicationController
       flash[:notice] = t('message_created', scope: %i[prison flash])
       redirect_to prison_visit_path(memoised_visit)
     else
-      @visit = decorate_visit(memoised_visit)
+      @visit = memoised_visit.decorate
       flash[:notice] = t('message_create_error', scope: %i[prison flash])
       render 'prison/visits/show'
     end

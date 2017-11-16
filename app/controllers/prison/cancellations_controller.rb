@@ -12,7 +12,7 @@ class Prison::CancellationsController < ApplicationController
       redirect_to prison_visit_path(memoised_visit)
     else
       flash.now[:alert] = cancellation_response.error_message
-      @visit = decorate_visit(memoised_visit)
+      @visit = memoised_visit.decorate
       @message = Message.new
       render :new
     end

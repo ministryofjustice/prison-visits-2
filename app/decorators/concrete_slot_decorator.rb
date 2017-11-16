@@ -158,7 +158,7 @@ private
   end
 
   def nomis_checker
-    context[:nomis_checker]
+    h.nomis_checker
   end
 
   def visit

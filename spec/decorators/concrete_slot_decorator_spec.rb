@@ -16,18 +16,12 @@ RSpec.describe ConcreteSlotDecorator do
   end
 
   subject do
-    described_class.decorate(
-      slot,
-      context: {
-        visit: visit,
-        nomis_checker: nomis_checker,
-        index: 0
-      }
-    )
+    described_class.decorate(slot, context: { index: 0, visit: visit })
   end
 
   before do
     subject.h.output_buffer = ""
+    allow(subject).to receive(:nomis_checker).and_return(nomis_checker)
   end
 
   describe '#slot_picker' do

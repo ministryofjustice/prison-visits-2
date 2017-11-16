@@ -19,7 +19,7 @@ class Prison::VisitsController < ApplicationController
     else
       # Always decorate object last once they've been mutated
       @message = message
-      @visit = decorate_visit(memoised_visit)
+      @visit = memoised_visit.decorate
       render :show
     end
   end
@@ -37,7 +37,7 @@ class Prison::VisitsController < ApplicationController
                messages: :user,
                visit_state_changes: :processed_by).
              find(memoised_visit.id)
-    @visit = decorate_visit(visit)
+    @visit = visit.decorate
     @message = Message.new
   end
 

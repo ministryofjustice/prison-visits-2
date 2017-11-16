@@ -1,14 +1,29 @@
 module StaffResponseContext
   extend ActiveSupport::Concern
 
+  included do
+    helper_method :nomis_checker, :prisoner_details
+  end
+
   def book_to_nomis_config
     @book_to_nomis_config ||=
       BookToNomisConfig.new(
-        staff_nomis_checker,
+        nomis_checker,
         memoised_visit.prison_name,
         params[:book_to_nomis_opted_in],
-        @booking_response&.already_booked_in_nomis?
+        @booking_response&.already_booked_in_nomis?,
+        prisoner_details
       )
+  end
+
+  def nomis_checker
+    @_nomis_checker ||= StaffNomisChecker.new(memoised_visit)
+  end
+
+  def prisoner_details
+    @_prisoner_details ||= PrisonerDetailsPresenter.new(
+      prisoner_validation, prisoner_location
+    )
   end
 
 private
@@ -17,13 +32,14 @@ private
     @_visit ||= scoped_visit
   end
 
-  def decorate_visit(visit)
-    @_decorated_visit ||=
-      visit.decorate(context: { staff_nomis_checker: staff_nomis_checker })
+  def prisoner_validation
+    @_prisoner_validation ||= PrisonerValidation.new(nomis_checker.offender)
   end
 
-  def staff_nomis_checker
-    @staff_nomis_checker ||= StaffNomisChecker.new(memoised_visit)
+  def prisoner_location
+    @_prisoner_location ||= PrisonerLocation.new(
+      nomis_checker.offender, memoised_visit.prison.nomis_id
+    )
   end
 
   def message

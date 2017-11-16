@@ -35,7 +35,7 @@ RSpec.describe ApiPrisonerChecker do
         describe 'when the offender is found' do
           let(:offender) { Nomis::Offender.new(id: 'some_id', noms_id: 'a_noms_id') }
 
-          describe 'and the establishment is valid' do
+          context 'with a valid establishment' do
             let(:establishment) { Nomis::Establishment.new(code: 'a_code') }
 
             before do
@@ -45,10 +45,11 @@ RSpec.describe ApiPrisonerChecker do
             it { is_expected.to be_valid }
           end
 
-          describe 'and the establishment is valid' do
+          context 'when fetching the establishment returns an APIError' do
             before do
               simulate_api_error_for(:lookup_offender_location)
             end
+
             it { is_expected.not_to be_valid }
           end
         end
@@ -62,7 +63,8 @@ RSpec.describe ApiPrisonerChecker do
 
       describe "when the api call fails" do
         before do
-          allow_any_instance_of(Nomis::Client).
+          switch_on(:nomis_public_prisoner_check_enabled)
+          expect_any_instance_of(Nomis::Client).
             to receive(:get).and_raise(Nomis::APIError)
         end
 
@@ -73,12 +75,12 @@ RSpec.describe ApiPrisonerChecker do
 
   describe '#error' do
     let(:errors) { ['something'] }
+    let(:validator) { instance_double(PrisonerValidation) }
 
     before do
       allow(Nomis::Api).to receive(:enabled?).and_return(false)
-      allow_any_instance_of(PrisonerValidation).to receive(:valid?)
-      allow_any_instance_of(PrisonerValidation).
-        to receive(:errors).and_return(base: errors)
+      expect(subject).to receive(:prisoner_validation).and_return(validator)
+      expect(validator).to receive(:errors).and_return(base: errors)
     end
 
     it 'returns the error from the validator' do
