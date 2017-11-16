@@ -292,6 +292,28 @@ RSpec.describe Nomis::Api do
           to change { PVB::Instrumentation.custom_log_items[:book_to_nomis_success] }.
           to eq(true)
       end
+
+      context 'when making a request' do
+        let(:client) { spy(Nomis::Client, post: { 'visit_id' => '123' }) }
+
+        it 'adjusts the request timeout' do
+          allow(Nomis::Client).to receive(:new).and_return(client)
+
+          described_class.instance.book_visit(offender_id: offender_id, params: params)
+
+          expect(client).to have_received('post').
+                              with(
+                                "offenders/#{offender_id}/visits/booking",
+                                params,
+                                idempotent:      true,
+                                options: {
+                                  connect_timeout: Nomis::Api::BOOK_VISIT_TIMEOUT,
+                                  read_timeout:    Nomis::Api::BOOK_VISIT_TIMEOUT,
+                                  write_timeout:   Nomis::Api::BOOK_VISIT_TIMEOUT
+                                }
+                              )
+        end
+      end
     end
 
     context 'with a validation error', vcr: { cassette_name: 'book_visit_validation_error' } do

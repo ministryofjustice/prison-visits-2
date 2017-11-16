@@ -7,7 +7,7 @@ module Nomis
 
   class Api
     include Singleton
-
+    BOOK_VISIT_TIMEOUT = 3
     def self.enabled?
       Rails.configuration.nomis_api_host != nil
     end
@@ -112,12 +112,17 @@ module Nomis
       Nomis::ContactList.new(response)
     end
 
+    # rubocop:disable Metrics/MethodLength
     def book_visit(offender_id:, params:)
       idempotent = params.key?(:client_unique_ref)
 
       response = @pool.with { |client|
         client.post(
-          "offenders/#{offender_id}/visits/booking", params, idempotent: idempotent)
+          "offenders/#{offender_id}/visits/booking",
+          params,
+          idempotent: idempotent,
+          options: book_visit_request_options
+        )
       }
 
       Nomis::Booking.build(response).tap do |booking|
@@ -126,6 +131,7 @@ module Nomis
         )
       end
     end
+  # rubocop:enable Metrics/MethodLength
 
   private
 
@@ -135,6 +141,14 @@ module Nomis
       else
         NullOffender.new(api_call_successful: true)
       end
+    end
+
+    def book_visit_request_options
+      {
+        connect_timeout: Nomis::Api::BOOK_VISIT_TIMEOUT,
+        read_timeout:    Nomis::Api::BOOK_VISIT_TIMEOUT,
+        write_timeout:   Nomis::Api::BOOK_VISIT_TIMEOUT
+      }
     end
   end
 end

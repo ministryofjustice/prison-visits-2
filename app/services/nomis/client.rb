@@ -45,21 +45,21 @@ module Nomis
       request(:get, route, params, idempotent: true)
     end
 
-    def post(route, params, idempotent:)
-      request(:post, route, params, idempotent: idempotent)
+    def post(route, params, idempotent:, options: {})
+      request(:post, route, params, idempotent: idempotent, options: options)
     end
 
   private
 
     # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/AbcSize
-    def request(method, route, params, idempotent:)
+    def request(method, route, params, idempotent:, options: {})
       # For cleanliness, strip initial / if supplied
       route = route.sub(%r{^\/}, '')
       path = "/nomisapi/#{route}"
       api_method = "#{method.to_s.upcase} #{path}"
 
-      options = {
+      options.merge!({
         method: method,
         path: path,
         expects: http_method_expects(method),
@@ -71,7 +71,7 @@ module Nomis
           'Authorization' => auth_header,
           'X-Request-Id' => RequestStore.store[:request_id]
         }
-      }.deep_merge(params_options(method, params))
+      }.deep_merge(params_options(method, params)))
 
       response = @connection.request(options)
 
