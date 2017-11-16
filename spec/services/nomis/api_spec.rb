@@ -290,7 +290,29 @@ RSpec.describe Nomis::Api do
       it 'instruments the outcome of the call' do
         expect { subject }.
           to change { PVB::Instrumentation.custom_log_items[:book_to_nomis_success] }.
-          to eq(true)
+               to eq(true)
+      end
+
+      context 'when making a request' do
+        let(:client) { spy(Nomis::Client, post: { 'visit_id' => '123' }) }
+
+        it 'adjusts the request timeout' do
+          allow(Nomis::Client).to receive(:new).and_return(client)
+
+          described_class.instance.book_visit(offender_id: offender_id, params: params)
+
+          expect(client).to have_received('post').
+                              with(
+                                "offenders/#{offender_id}/visits/booking",
+                                params,
+                                idempotent:      true,
+                                options: {
+                                  connect_timeout: Nomis::Api::BOOK_VISIT_TIMEOUT,
+                                  read_timeout:    Nomis::Api::BOOK_VISIT_TIMEOUT,
+                                  write_timeout:   Nomis::Api::BOOK_VISIT_TIMEOUT
+                                }
+                              )
+        end
       end
     end
 
@@ -302,13 +324,73 @@ RSpec.describe Nomis::Api do
       it 'instruments the outcome of the call' do
         expect { subject }.
           to change { PVB::Instrumentation.custom_log_items[:book_to_nomis_success] }.
-          to eq(false)
+               to eq(false)
       end
     end
 
     context 'with a duplicate post', vcr: { cassette_name: 'book_visit_duplicate_error' } do
       it 'records the error message' do
         expect(subject.error_messages).to eq(['Duplicate post'])
+      end
+    end
+  end
+
+  describe '#cancel_visit' do
+    let(:offender_id) { 1_057_307 }
+    let(:params) do
+      { params: { cancellation_code: 'VISCANC' } }
+    end
+
+    context 'successfully cancel a visit', vcr: { cassette_name: :cancel_visit }  do
+      let(:visit_id) { 5467 }
+
+      it 'records the message' do
+        expect(subject.cancel_visit(offender_id, visit_id, params)).
+          to have_attributes(message: 'Visit Cancelled')
+      end
+
+      it 'instruments the outcome of the call' do
+        expect {
+          subject.cancel_visit(offender_id, visit_id, params)
+        }.to change {
+          PVB::Instrumentation.custom_log_items[:cancel_to_nomis_success]
+        }.from(nil).to(true)
+      end
+    end
+
+    context 'with an already cancelled visit', vcr: { cassette_name: :already_cancel_visit }  do
+      let(:visit_id) { 5467 }
+
+      it 'records the message' do
+        expect(subject.cancel_visit(offender_id, visit_id, params)).
+          to have_attributes(error_message: 'Visit already cancelled')
+      end
+
+      it 'instruments the outcome of the call' do
+        expect {
+          subject.cancel_visit(offender_id, visit_id, params)
+        }.to change {
+          PVB::Instrumentation.custom_log_items[:cancel_to_nomis_success]
+        }.from(nil).to(false)
+      end
+    end
+
+    context 'with an invalid cancellation code' do
+      let(:visit_id) { 5467 }
+
+      it 'records the error message', vcr: { cassette_name: :cancel_invalid_cancellation_code } do
+        expect(subject.cancel_visit(offender_id, visit_id, params: { cancellation_code: 'POOBAR' })).
+          to have_attributes(error_message: 'Invalid cancellation code')
+      end
+    end
+
+    context 'with an unknown visit', vcr: { cassette_name: :cancel_visit_not_found }  do
+      let(:visit_id) { 999_999 }
+
+      it 'records the error message' do
+        expect {
+          subject.cancel_visit(offender_id, visit_id, params)
+        }.to raise_error(Nomis::APIError)
       end
     end
   end

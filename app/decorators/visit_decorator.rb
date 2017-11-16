@@ -32,6 +32,10 @@ class VisitDecorator < Draper::Decorator
                    end
   end
 
+  def cancellation
+    @cancellation ||= (object.cancellation || build_cancellation).decorate
+  end
+
   def principal_visitor
     @principal_visitor ||= object.principal_visitor.decorate(visitor_context)
   end
@@ -54,6 +58,12 @@ class VisitDecorator < Draper::Decorator
       contact_list_working? &&
       principal_visitor.exact_match? &&
       !principal_visitor.banned?
+  end
+
+  def prisoner_restrictions
+    @prisoner_restrictions ||=
+      PrisonerRestrictionDecorator.decorate_collection(
+        nomis_checker.prisoner_restrictions)
   end
 
 private

@@ -154,6 +154,23 @@ RSpec.feature 'Processing a request - Acceptance without the contact list enable
           and_body(/cannot attend as they are not on the prisoner's contact list/)
       end
 
+      context 'with specific prisoner details' do
+        let(:prisoner_number) { 'A1484AE' }
+        let(:prisoner_dob) { '1971-11-11' }
+
+        scenario 'viewing the prisoner restrictions', vcr: { cassette_name: 'offender_restrictions_info' } do
+          switch_on :nomis_staff_prisoner_check_enabled
+          switch_on :nomis_staff_offender_restrictions_enabled
+          switch_feature_flag_with(:staff_prisons_with_prisoner_restrictions_info, [vst.prison_name])
+
+          visit prison_visit_path(vst, locale: 'en')
+
+          expect(page).to have_css('h3.bold-medium', text: 'Prisoner restrictions apply')
+          expect(page).to have_css('span.bold-small', text: 'CCTV')
+          expect(page).to have_css('div.column-full', text: 'Smuggles skittles')
+        end
+      end
+
       scenario 'accepting a booking when the prisoner restrictions api fails', vcr: { cassette_name: 'offender_restrictions_api_failure' } do
         switch_on :nomis_staff_prisoner_check_enabled
         switch_on :nomis_staff_offender_restrictions_enabled

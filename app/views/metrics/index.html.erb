@@ -12,7 +12,7 @@
 
 <h4 class="heading-small">Weekly confirmed bookings</h4>
 <p>
-  <%= link_to 'Download latest confirmed bookings (CSV)', action: 'confirmed_bookings', format: :csv  %>
+  <%= link_to 'Email latest confirmed bookings (CSV)', metrics_send_confirmed_bookings_path %>
 </p>
 <%= render 'all_time_graphs' %>
 <%= render 'all_time_table' %>

@@ -14,13 +14,18 @@ class PrisonerRestrictionList
       map(&:name)
   end
 
-private
+  def active
+    offender_restrictions.
+      select { |restriction| restriction.effective_at?(Time.zone.today) }
+  end
 
   def offender_restrictions
     return empty_offender_restrictions unless @offender.valid?
 
     @offender_restrictions ||= load_offender_restrictions
   end
+
+private
 
   def load_offender_restrictions
     Nomis::Api.instance.fetch_offender_restrictions(offender_id: @offender.id)

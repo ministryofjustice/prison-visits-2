@@ -1,4 +1,6 @@
 class BookingResponder
+  include PersistToNomisResponse
+
   delegate :visit, to: :staff_response
 
   def initialize(visit, user: nil, message: nil, options: {})
@@ -57,14 +59,6 @@ private
   def bookable?
     (visit.rejection.nil? || visit.rejection.invalid?) &&
       visit.slot_granted?
-  end
-
-  def persist_to_nomis=(val)
-    @persist_to_nomis = ActiveRecord::Type::Boolean.new.cast(val)
-  end
-
-  def persist_to_nomis?
-    !!@persist_to_nomis
   end
 
   def processor_opts

@@ -78,4 +78,32 @@ RSpec.describe PrisonerRestrictionList do
       it { expect(subject.on_slot(slot)).to be_empty }
     end
   end
+
+  describe '#active' do
+    before do
+      mock_nomis_with(:fetch_offender_restrictions,
+        Nomis::OffenderRestrictions.new(restrictions: [restriction]))
+    end
+
+    let(:restriction) do
+      Nomis::Restriction.new(
+        effective_date: effective_date,
+        expiry_date: expiry_date
+      )
+    end
+
+    context 'with the restriction in the past' do
+      let(:effective_date) { 3.days.ago.to_date }
+      let(:expiry_date) { 1.day.ago.to_date }
+
+      it { expect(subject.active).to be_empty }
+    end
+
+    context 'with the restriction not in the past' do
+      let(:effective_date) { 3.days.ago.to_date }
+      let(:expiry_date) { 3.days.from_now.to_date }
+
+      it { expect(subject.active).to eq([restriction]) }
+    end
+  end
 end

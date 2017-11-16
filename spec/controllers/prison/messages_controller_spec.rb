@@ -1,5 +1,4 @@
 require 'rails_helper'
-require_relative '../untrusted_examples'
 
 RSpec.describe Prison::MessagesController do
   describe '#create' do

@@ -32,7 +32,6 @@ en:
       estate_error: You don't access rights, please speak to your manager
       message_create_error: Your message couldn't be saved
       message_created: Message created
-      no_cancellation_reason: Please provide a cancellation reason
       process_required_html: |
         <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
           This visit wasn't booked.
@@ -166,6 +165,7 @@ en:
         none_available: None of the chosen times are available
       prisoner_details:
         title: Prisoner details
+        prisoner_restrictions_apply: Prisoner restrictions apply
         prisoner_name: Prisoner name
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
@@ -229,6 +229,8 @@ en:
         issue_with_date: Issue with the date
         visitor_banned: Visitor is banned
         issue_with_visitor: Issue with a visitor
+        cancel_to_nomis_warning: If the visit is processed successfully, it will be copied to NOMIS
+        dont_cancel_to_nomis: "Don't automatically copy this cancellation to NOMIS"
       other_section:
         title: Other
 
@@ -378,3 +380,4 @@ en:
     duplicate_visit_request: Duplicate visit request
     reference_number: Reference number
     clear_selection: Clear selection
+    to: to

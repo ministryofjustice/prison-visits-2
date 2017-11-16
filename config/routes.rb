@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
     scope controller: :metrics do
       get 'metrics', action: :index
-      get 'metrics/confirmed_bookings', action: :confirmed_bookings
+      get 'metrics/send_confirmed_bookings', action: :send_confirmed_bookings
       get 'metrics/:prison_id/summary',
         action: :summary,
         as: :prison_metrics_summary
@@ -30,9 +30,9 @@ Rails.application.routes.draw do
 
     namespace :prison do
       resources :visits, only: %i[show update] do
+        resource :cancellations, only: :create
         member do
           post 'nomis_cancelled'
-          post 'cancel'
         end
 
         resources :messages, only: :create
@@ -46,7 +46,6 @@ Rails.application.routes.draw do
     resources :visits, only: %i[show update] do
       member do
         post 'nomis_cancelled'
-        post 'cancel'
       end
 
       resources :messages, only: :create

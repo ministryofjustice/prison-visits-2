@@ -36,6 +36,9 @@ en:
           invalid_reason: "%{reason} is not in the list"
         cancellation:
           invalid_reason: "%{reason} is not in the list"
+          attributes:
+            reasons:
+              no_cancellation_reason: Please provide a cancellation reason
         prison:
           duplicate_unbookable_date: An unbookable date may not be duplicated
           unbookable_and_anomalous_conflict: An unbookable date may not also be anomalous
@@ -60,7 +63,6 @@ en:
   age_validator:
     errors:
       range: "must be less than %{max} years ago"
- 
   prisoner_number_validator:
     errors:
       format: has an invalid format
