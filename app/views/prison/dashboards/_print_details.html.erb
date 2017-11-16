@@ -2,31 +2,31 @@
 <div class="grid-row">
   <div class="column-one-half">
     <h3 class="heading-large">
-      <span class="heading-secondary">Prisoner</span>
+      <span class="heading-secondary"><%= t('prisoner', scope: :shared) %></span>
       <%= visit.prisoner_full_name %>
     </h3>
     <h3 class="heading-large">
-      <span class="heading-secondary">Prisoner number</span>
+      <span class="heading-secondary"><%= t('prisoner_number', scope: :shared) %></span>
       <%= visit.prisoner_number %>
     </h3>
   </div>
   <div class="column-one-half">
     <h3 class="heading-large">
-      <span class="heading-secondary">Cell location</span>
+      <span class="heading-secondary"><%= t('cell_location', scope: :shared) %></span>
       -
     </h3>
   </div>
 </div>
 <h3 class="heading-large">
-  <span class="heading-secondary">Visit date</span>
+  <span class="heading-secondary"><%= t('visit_date', scope: :shared) %></span>
   <%= format_visit_slot_date_for_staff(visit) %>
 </h3>
 <h3 class="heading-large">
-  <span class="heading-secondary">Visit time</span>
+  <span class="heading-secondary"><%= t('visit_time', scope: :shared) %></span>
   <%= format_visit_slot_times_for_staff(visit) %>
 </h3>
 <h3 class="heading-large">
-  <span class="heading-secondary">Visitor(s)</span>
+  <span class="heading-secondary"><%= t('visitors', scope: :shared) %></span>
   <% visit.allowed_visitors.each do |visitor| %>
     <%= visitor.full_name %><br>
   <% end %>
