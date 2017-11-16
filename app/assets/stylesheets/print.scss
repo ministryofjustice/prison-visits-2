@@ -1,5 +1,5 @@
-@media print {
-  .indicator {
-    display: none;
+.print-only {
+  @media not print {
+    @include visually-hidden;
   }
 }

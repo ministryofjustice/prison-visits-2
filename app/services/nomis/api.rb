@@ -131,7 +131,7 @@ module Nomis
         )
       end
     end
-  # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/MethodLength
 
     def cancel_visit(offender_id, booking_id, params:)
       response = @pool.with { |client|

@@ -23,7 +23,7 @@
 <% end %>
 
 <% content_for :proposition_header do %>
-  <div class="header-proposition">
+  <div class="header-proposition hidden--print">
     <div class="content">
       <nav id="proposition-menu" class="header__menu" role="navigation">
         <a href="/" id="proposition-name" class="header__menu__proposition-name"><%= t('app_title') %></a>
@@ -53,7 +53,7 @@
   <![endif]-->
 
   <main id="content">
-    <a target="_blank" href="https://www.surveymonkey.co.uk/r/36LDWKD" class="feedback-link"><%= t('.feedback') %></a>
+    <a target="_blank" href="https://www.surveymonkey.co.uk/r/36LDWKD" class="feedback-link hidden--print"><%= t('.feedback') %></a>
     <%= yield :banner %>
     <%= yield :navigation %>
     <% if content_for?(:header) %>
