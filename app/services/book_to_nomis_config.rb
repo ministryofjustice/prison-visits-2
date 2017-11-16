@@ -1,9 +1,13 @@
 class BookToNomisConfig
-  def initialize(staff_nomis_checker, prison_name, opted_in, already_booked_in_nomis)
-    self.staff_nomis_checker = staff_nomis_checker
-    self.prison_name = prison_name
-    self.opted_in = opted_in
-    self.already_booked_in_nomis = already_booked_in_nomis
+  def initialize(staff_nomis_checker,
+    prison_name, opted_in,
+    already_booked_in_nomis,
+    prisoner_details_presenter)
+    self.staff_nomis_checker        = staff_nomis_checker
+    self.prison_name                = prison_name
+    self.opted_in                   = opted_in
+    self.already_booked_in_nomis    = already_booked_in_nomis
+    self.prisoner_details_presenter = prisoner_details_presenter
   end
 
   def possible_to_book?
@@ -25,7 +29,11 @@ class BookToNomisConfig
 
 private
 
-  attr_accessor :staff_nomis_checker, :prison_name, :already_booked_in_nomis
+  attr_accessor :staff_nomis_checker,
+    :prison_name,
+    :already_booked_in_nomis,
+    :prisoner_details_presenter
+
   attr_reader :opted_in
 
   def opted_in=(val)
@@ -33,7 +41,8 @@ private
   end
 
   def prisoner_existance_valid?
-    staff_nomis_checker.prisoner_existance_status == StaffNomisChecker::VALID
+    prisoner_details_presenter.
+      prisoner_existance_status == PrisonerDetailsPresenter::VALID
   end
 
   def prisoner_availability_working?

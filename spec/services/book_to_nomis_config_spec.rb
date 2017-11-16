@@ -1,13 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe BookToNomisConfig do
-  let(:checker) { instance_double(StaffNomisChecker) }
-  let(:prison_name) { build_stubbed(:prison).name }
-  let(:opted_in) { true }
-  let(:already_booked_in_nomis) { true }
+  let(:checker)                    { instance_double(StaffNomisChecker) }
+  let(:prisoner_details_presenter) { instance_double(PrisonerDetailsPresenter) }
+  let(:prison_name)                { build_stubbed(:prison).name }
+  let(:opted_in)                   { true }
+  let(:already_booked_in_nomis)    { true }
 
   subject do
-    described_class.new(checker, prison_name, opted_in, already_booked_in_nomis)
+    described_class.new(
+      checker,
+      prison_name,
+      opted_in,
+      already_booked_in_nomis,
+      prisoner_details_presenter
+    )
   end
 
   describe '#opted_in?' do
@@ -53,7 +60,8 @@ RSpec.describe BookToNomisConfig do
 
   shared_context 'with prisoner exists' do
     before do
-      allow(checker).to receive(:prisoner_existance_status).and_return(StaffNomisChecker::VALID)
+      allow(prisoner_details_presenter).
+        to receive(:prisoner_existance_status).and_return(PrisonerDetailsPresenter::VALID)
     end
   end
 
@@ -114,9 +122,9 @@ RSpec.describe BookToNomisConfig do
       include_context 'with offender restrictions working'
 
       before do
-        expect(checker).
+        expect(prisoner_details_presenter).
           to receive(:prisoner_existance_status).
-          and_return(StaffNomisChecker::UNKNOWN)
+          and_return(PrisonerValidation::UNKNOWN)
       end
 
       it { is_expected.not_to be_possible_to_book }

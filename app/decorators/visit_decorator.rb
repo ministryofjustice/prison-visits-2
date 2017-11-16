@@ -2,14 +2,17 @@ class VisitDecorator < Draper::Decorator
   delegate_all
   decorates_association :rejection
 
-  delegate :prisoner_existance_status,
-    :prisoner_existance_error,
-    :prisoner_availability_unknown?,
+  delegate :prisoner_availability_unknown?,
     :slot_availability_unknown?,
     :slots_unavailable?,
     :contact_list_unknown?,
     :prisoner_restrictions_unknown?,
     to: :nomis_checker
+
+  delegate :prisoner_existance_status,
+    :prisoner_existance_error,
+    :prisoner_details_incorrect?,
+    to: :prisoner_details
 
   def slots
     @slots ||= object.slots.map.with_index { |slot, i|
@@ -25,9 +28,7 @@ class VisitDecorator < Draper::Decorator
                      if object.rejection
                        object.rejection.decorate
                      else
-                       object.build_rejection.decorate.tap do |rej|
-                         rej.apply_nomis_reasons(nomis_checker)
-                       end
+                       object.build_rejection.decorate.tap(&:apply_nomis_reasons)
                      end
                    end
   end
@@ -73,7 +74,11 @@ private
   end
 
   def nomis_checker
-    context[:staff_nomis_checker]
+    h.nomis_checker
+  end
+
+  def prisoner_details
+    h.prisoner_details
   end
 
   def visitor_context

@@ -1,37 +1,7 @@
 # Gets prisoner and slot availability details from NOMIS.
 class StaffNomisChecker
-  VALID    = 'valid'.freeze
-  INVALID  = 'invalid'.freeze
-  UNKNOWN  = 'unknown'.freeze
-  NOT_LIVE = 'not_live'.freeze
-
-  LOCATION_VALID    = 'location_valid'.freeze
-  LOCATION_INVALID  = 'location_invalid'.freeze
-  LOCATION_UNKNOWN  = 'location_unknown'.freeze
-
   def initialize(visit)
     @visit = visit
-  end
-
-  def prisoner_existance_status
-    return NOT_LIVE unless Nomis::Api.enabled?
-    case prisoner_existance_error
-    when nil
-      VALID
-    when UNKNOWN, LOCATION_INVALID, LOCATION_UNKNOWN
-      prisoner_existance_error
-    else
-      INVALID
-    end
-  end
-
-  def prisoner_details_incorrect?
-    prisoner_existance_status == INVALID
-  end
-
-  def prisoner_existance_error
-    return prisoner_validation_errors.first if prisoner_validation_errors.first
-    return LOCATION_INVALID if prisoner_moved?
   end
 
   def prisoner_availability_unknown?
@@ -125,24 +95,12 @@ private
     end
   end
 
-  def prisoner_validation_errors
-    @prisoner_validation_errors ||= prisoner_validation.errors.full_messages
-  end
-
   def prisoner_contact_list
     @prisoner_contact_list ||= PrisonerContactList.new(offender)
   end
 
   def prisoner_restriction_list
     @prisoner_restriction_list ||= PrisonerRestrictionList.new(offender)
-  end
-
-  def prisoner_validation
-    @prisoner_validation ||= PrisonerValidation.new(offender).tap(&:valid?)
-  end
-
-  def prisoner_moved?
-    @prisoner_moved ||= !prisoner_validation.prisoner_located_at?(@visit.prison.nomis_id)
   end
 
   def prisoner_availability_validation

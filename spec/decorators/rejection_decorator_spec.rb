@@ -245,7 +245,13 @@ RSpec.describe RejectionDecorator do
       double(StaffNomisChecker)
     end
 
+    let(:prisoner_details_presenter) do
+      instance_double(PrisonerDetailsPresenter)
+    end
+
     before do
+      allow(subject).to receive(:nomis_checker).and_return(nomis_checker)
+      allow(subject).to receive(:prisoner_details).and_return(prisoner_details_presenter)
       allow(nomis_checker).
         to receive(:errors_for).
         with(anything) do
@@ -256,7 +262,7 @@ RSpec.describe RejectionDecorator do
           end
         end
 
-      allow(nomis_checker).
+      allow(prisoner_details_presenter).
         to receive(:prisoner_details_incorrect?).
         and_return(details_incorrect)
 
@@ -297,14 +303,14 @@ RSpec.describe RejectionDecorator do
     end
 
     context 'with no unvisitable reasons and bookable slots' do
-      let(:visit_bookable) { true }
-      let(:details_incorrect) { false }
-      let(:no_allowance) { false }
-      let(:prisoner_banned) { false }
+      let(:visit_bookable)         { true }
+      let(:details_incorrect)      { false }
+      let(:no_allowance)           { false }
+      let(:prisoner_banned)        { false }
       let(:prisoner_out_of_prison) { false }
 
       before do
-        subject.apply_nomis_reasons(nomis_checker)
+        subject.apply_nomis_reasons
       end
 
       it_behaves_like :unchecked, :prisoner_details_incorrect
@@ -321,7 +327,7 @@ RSpec.describe RejectionDecorator do
       let(:prisoner_out_of_prison) { false }
 
       before do
-        subject.apply_nomis_reasons(nomis_checker)
+        subject.apply_nomis_reasons
       end
 
       it_behaves_like :unchecked, :prisoner_details_incorrect
@@ -335,7 +341,7 @@ RSpec.describe RejectionDecorator do
       let(:details_incorrect) { true }
 
       before do
-        subject.apply_nomis_reasons(nomis_checker)
+        subject.apply_nomis_reasons
       end
 
       it_behaves_like :checked, :prisoner_details_incorrect
@@ -346,7 +352,7 @@ RSpec.describe RejectionDecorator do
       let(:details_incorrect) { true }
 
       before do
-        subject.apply_nomis_reasons(nomis_checker)
+        subject.apply_nomis_reasons
       end
 
       it_behaves_like :checked, :prisoner_details_incorrect
@@ -354,7 +360,7 @@ RSpec.describe RejectionDecorator do
 
     context 'with no allowance and bookable slots' do
       before do
-        subject.apply_nomis_reasons(nomis_checker)
+        subject.apply_nomis_reasons
       end
 
       let(:visit_bookable) { true }
@@ -365,7 +371,7 @@ RSpec.describe RejectionDecorator do
 
     context 'with no allowance and unbookable slots' do
       before do
-        subject.apply_nomis_reasons(nomis_checker)
+        subject.apply_nomis_reasons
       end
 
       let(:visit_bookable) { false }
@@ -376,7 +382,7 @@ RSpec.describe RejectionDecorator do
 
     context 'when prisoner banned and bookable slots' do
       before do
-        subject.apply_nomis_reasons(nomis_checker)
+        subject.apply_nomis_reasons
       end
 
       let(:visit_bookable) { true }
@@ -387,7 +393,7 @@ RSpec.describe RejectionDecorator do
 
     context 'when prisoner banned and unbookable slots' do
       before do
-        subject.apply_nomis_reasons(nomis_checker)
+        subject.apply_nomis_reasons
       end
 
       let(:visit_bookable) { false }
@@ -398,7 +404,7 @@ RSpec.describe RejectionDecorator do
 
     context 'when prisoner out of prison and bookable slots' do
       before do
-        subject.apply_nomis_reasons(nomis_checker)
+        subject.apply_nomis_reasons
       end
 
       let(:visit_bookable) { true }
@@ -409,7 +415,7 @@ RSpec.describe RejectionDecorator do
 
     context 'when prisoner out of prison and unbookable slots' do
       before do
-        subject.apply_nomis_reasons(nomis_checker)
+        subject.apply_nomis_reasons
       end
 
       let(:visit_bookable) { false }

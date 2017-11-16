@@ -70,16 +70,16 @@ class RejectionDecorator < Draper::Decorator
     )
   end
 
-  def apply_nomis_reasons(nomis_checker)
-    if unbookable?(nomis_checker)
-      reasons << Rejection::NO_ALLOWANCE if no_allowance?(nomis_checker)
-      reasons << Rejection::PRISONER_BANNED if prisoner_banned?(nomis_checker)
-      if prisoner_out_of_prison?(nomis_checker)
+  def apply_nomis_reasons
+    if unbookable?
+      reasons << Rejection::NO_ALLOWANCE if no_allowance?
+      reasons << Rejection::PRISONER_BANNED if prisoner_banned?
+      if prisoner_out_of_prison?
         reasons << Rejection::PRISONER_OUT_OF_PRISON
       end
     end
 
-    if nomis_checker.prisoner_details_incorrect?
+    if prisoner_details.prisoner_details_incorrect?
       reasons << Rejection::PRISONER_DETAILS_INCORRECT
     end
   end
@@ -98,20 +98,28 @@ private
     end
   end
 
-  def unbookable?(nomis_checker)
+  def nomis_checker
+    h.nomis_checker
+  end
+
+  def prisoner_details
+    h.prisoner_details
+  end
+
+  def unbookable?
     future_slots.any? &&
       future_slots.all? { |slot| nomis_checker.errors_for(slot).any? }
   end
 
-  def no_allowance?(nomis_checker)
+  def no_allowance?
     visit.slots.any? { |slot| nomis_checker.no_allowance?(slot) }
   end
 
-  def prisoner_banned?(nomis_checker)
+  def prisoner_banned?
     visit.slots.any? { |slot| nomis_checker.prisoner_banned?(slot) }
   end
 
-  def prisoner_out_of_prison?(nomis_checker)
+  def prisoner_out_of_prison?
     visit.slots.any? { |slot| nomis_checker.prisoner_out_of_prison?(slot) }
   end
 

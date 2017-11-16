@@ -2,10 +2,13 @@ require 'rails_helper'
 
 RSpec.describe VisitDecorator do
   let(:visit) { create(:visit) }
-  let(:checker) { instance_double(StaffNomisChecker) }
+  let(:offender) { double(Nomis::Offender, id: 1234) }
+  let(:checker) { instance_double(StaffNomisChecker, offender: offender) }
 
-  subject do
-    described_class.decorate(visit, context: { staff_nomis_checker: checker })
+  subject { described_class.decorate(visit) }
+
+  before do
+    allow(subject).to receive(:nomis_checker).and_return(checker)
   end
 
   describe '#prisoner_restrictions' do
@@ -27,12 +30,6 @@ RSpec.describe VisitDecorator do
 
   describe '#nomis_offender_id' do
     context 'when the Nomis::Api is enabled' do
-      let(:offender) { double(Nomis::Offender, id: 1234) }
-
-      before do
-        expect(checker).to receive(:offender).and_return(offender)
-      end
-
       it 'returns the offender id' do
         expect(subject.nomis_offender_id).to eq(offender.id)
       end
