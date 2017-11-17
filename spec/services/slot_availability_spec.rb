@@ -54,6 +54,14 @@ RSpec.describe SlotAvailability do
   end
 
   describe '#slots' do
+    context 'with the api disabled' do
+      before do
+        allow(Nomis::Api).to receive(:enabled?).and_return(false)
+      end
+
+      it { expect(subject.slots).to eq(all_slots_available) }
+    end
+
     describe 'with prison in the slot availability trial' do
       before do
         switch_feature_flag_with(:public_prisons_with_slot_availability, [prison.name])

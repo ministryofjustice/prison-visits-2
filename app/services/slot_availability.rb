@@ -86,8 +86,7 @@ private
   end
 
   def live_availability_enabled?
-    Rails.configuration.public_prisons_with_slot_availability.include?(
-      prison.name
-    )
+    Nomis::Api.enabled? &&
+      Rails.configuration.public_prisons_with_slot_availability.include?(prison.name)
   end
 end
