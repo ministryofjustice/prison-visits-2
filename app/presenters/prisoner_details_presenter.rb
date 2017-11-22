@@ -20,7 +20,7 @@ class PrisonerDetailsPresenter
     end
   end
 
-  def prisoner_details_incorrect?
+  def details_incorrect?
     prisoner_existance_status == INVALID
   end
 

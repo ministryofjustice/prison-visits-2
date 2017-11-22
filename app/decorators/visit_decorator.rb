@@ -11,7 +11,7 @@ class VisitDecorator < Draper::Decorator
 
   delegate :prisoner_existance_status,
     :prisoner_existance_error,
-    :prisoner_details_incorrect?,
+    :details_incorrect?,
     to: :prisoner_details
 
   def slots

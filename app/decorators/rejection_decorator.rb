@@ -79,7 +79,7 @@ class RejectionDecorator < Draper::Decorator
       end
     end
 
-    if prisoner_details.prisoner_details_incorrect?
+    if prisoner_details.details_incorrect?
       reasons << Rejection::PRISONER_DETAILS_INCORRECT
     end
   end
