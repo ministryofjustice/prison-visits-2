@@ -106,6 +106,10 @@ class Visit < ActiveRecord::Base
     visitors.select(&:not_on_list?)
   end
 
+  def visitors_rejected_for_other_reasons
+    visitors.select(&:other_rejection_reason?)
+  end
+
   def confirm_nomis_cancelled
     Cancellation.
       where(visit_id: id, nomis_cancelled: false).
@@ -167,6 +171,8 @@ private
 
   def not_allowed_visitor_ids
     @not_allowed_visitor_ids ||=
-      unlisted_visitors.map(&:id) + banned_visitors.map(&:id)
+      unlisted_visitors.map(&:id) +
+      banned_visitors.map(&:id) +
+      visitors_rejected_for_other_reasons.map(&:id)
   end
 end

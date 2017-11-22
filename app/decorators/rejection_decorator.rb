@@ -87,7 +87,9 @@ class RejectionDecorator < Draper::Decorator
 private
 
   def email_reasons
-    object.reasons.reject{ |reason| reason == Rejection::OTHER_REJECTION_REASON }
+    object.reasons.reject do |reason|
+      reason.in? [Rejection::OTHER_REJECTION_REASON, Rejection::VISITOR_OTHER_REASON]
+    end
   end
 
   def email_formatted_reason(reason)

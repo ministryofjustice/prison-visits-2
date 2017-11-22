@@ -75,6 +75,16 @@ RSpec.describe RejectionDecorator do
         end
       end
 
+      context 'when containing visitor_other_reason' do
+        let!(:other_rejection_visitor) do
+          create(:visitor, visit: rejection.visit, other_rejection_reason: true)
+        end
+
+        let(:reasons) { [Rejection::VISITOR_OTHER_REASON] }
+
+        it { expect(subject.email_formatted_reasons.map(&:explanation)).to be_empty }
+      end
+
       context 'when containing banned' do
         let(:reasons) { [Rejection::BANNED] }
 

@@ -12,10 +12,10 @@
         <%= render 'rejection_reason', rf: rf, id: :child_protection_issues %>
       </div>
     <% end %>
-    <div class="multiple-choice" data-target="rejection_reason">
+    <div class="multiple-choice other-reason" data-target="other_reason_detail">
       <%= render 'rejection_reason', rf: rf, id: :other %>
     </div>
-    <div class="panel panel-border-narrow js-hidden" id="rejection_reason">
+    <div class="panel panel-border-narrow js-hidden" id="other_reason_detail">
       <%= single_field rf, :rejection_reason_detail, :text_area, rows: 4, class: 'form-control form-control-full-width' %>
     </div>
   </div>

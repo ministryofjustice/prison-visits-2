@@ -280,7 +280,8 @@ RSpec.describe GraphMetricsPresenter do
                                    slot_unavailable:           12.12,
                                    visitor_banned:             13.64,
                                    visitor_not_on_list:        15.15,
-                                   other:                      0)
+                                   other:                      0,
+                                   visitor_other_reason:       0)
       end
     end
   end

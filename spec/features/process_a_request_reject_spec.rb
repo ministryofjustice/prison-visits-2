@@ -191,22 +191,45 @@ RSpec.feature 'Processing a request', js: true do
 
     scenario 'rejecting a booking for any reason',
       vcr: { cassette_name: 'process_booking_happy_path', allow_playback_repeats: true } do
-      check 'Other', visible: false
+
+      within '.other-reason' do
+        check 'Other reason'
+      end
+
       click_button 'Process'
 
-      fill_in 'Enter rejection reason', with: 'Other reason'
+      within '#other_reason_detail' do
+        fill_in 'Enter rejection reason', with: 'Other reason'
+      end
+
       click_button 'Process'
 
-      expect(page).to have_text('Thank you for processing the visit')
-
-      vst.reload
       expect(vst.rejection_reasons).to include('other')
-      expect(vst).to be_rejected
+      expect(vst.reload).to be_rejected
 
       expect(contact_email_address).
         to receive_email.
         with_subject(/Your visit to #{prison.name} is NOT booked/).
         and_body(/not been able to book your visit to #{prison.name}. Please do NOT go to the prison/)
+    end
+
+    scenario "lead visitor can't attend for other reasons" do
+      within "#visitor_#{vst.principal_visitor.id}" do
+        check 'Other reason'
+      end
+
+      click_button 'Process'
+
+      expect(page).to have_text('Thank you for processing the visit')
+
+      expect(contact_email_address).
+        to receive_email.
+        with_subject(/Your visit to #{prison.name} is NOT booked/)
+
+      vst.reload
+
+      expect(vst).to be_rejected
+      expect(vst.visitors.first).to be_other_rejection_reason
     end
   end
 end

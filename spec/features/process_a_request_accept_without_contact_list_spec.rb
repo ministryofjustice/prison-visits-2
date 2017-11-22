@@ -154,6 +154,30 @@ RSpec.feature 'Processing a request - Acceptance without the contact list enable
           and_body(/cannot attend as they are not on the prisoner's contact list/)
       end
 
+      scenario 'accepting a booking while indicating a visitor cannot go for other reasons' do
+        visit prison_visit_path(vst, locale: 'en')
+
+        choose_date
+        fill_in 'Reference number', with: '12345678'
+
+        within "#visitor_#{visitor.id}" do
+          check 'Other reason'
+        end
+
+        click_button 'Process'
+
+        expect(page).to have_css('#content .notification', text: 'Thank you for processing the visit')
+
+        vst.reload
+        expect(vst).to be_booked
+        expect(vst.reference_no).to eq('12345678')
+
+        expect(contact_email_address).
+          to receive_email.
+          with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
+          and_body(/cannot attend/)
+      end
+
       context 'with specific prisoner details' do
         let(:prisoner_number) { 'A1484AE' }
         let(:prisoner_dob) { '1971-11-11' }

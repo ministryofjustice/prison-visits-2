@@ -15,11 +15,13 @@ RSpec.describe Visitor do
     before do
       instance.not_on_list = not_on_list
       instance.banned = banned
+      instance.other_rejection_reason = other_rejection_reason
     end
 
-    context 'when not banned or is the contact list' do
+    context 'when not banned or is the contact list or rejected for other reason' do
       let(:not_on_list) { false }
       let(:banned) { false }
+      let(:other_rejection_reason) { false }
 
       it { is_expected.to eq(true) }
     end
@@ -27,12 +29,22 @@ RSpec.describe Visitor do
     context 'when banned' do
       let(:not_on_list) { false }
       let(:banned) { true }
+      let(:other_rejection_reason) { false }
 
       it { is_expected.to eq(false) }
     end
 
     context 'when not in the contact list' do
       let(:not_on_list) { true }
+      let(:banned) { false }
+      let(:other_rejection_reason) { false }
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'when rejected for other reason' do
+      let(:other_rejection_reason) { true }
+      let(:not_on_list) { false }
       let(:banned) { false }
 
       it { is_expected.to eq(false) }

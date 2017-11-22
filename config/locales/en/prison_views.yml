@@ -307,6 +307,8 @@ en:
         banned: Visitor is banned
       not_on_list:
         not_on_list: Not on contact list
+      other_reason:
+        other_reason: Other reason
       contact_list:
         nomis_list: "Match to prisoner's contact list"
       duplicate_request:
@@ -384,6 +386,7 @@ en:
     visitor_banned: A visitor has been banned
     visitor_cancelled: The visitor cancelled the visit
     visitor_not_on_list: A visitor is not on the contact list
+    visitor_other_reason: Visitor rejected for other reasons
     duplicate_visit_request: Duplicate visit request
     reference_number: Reference number
     clear_selection: Clear selection
