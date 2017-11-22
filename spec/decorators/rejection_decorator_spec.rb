@@ -263,7 +263,7 @@ RSpec.describe RejectionDecorator do
         end
 
       allow(prisoner_details_presenter).
-        to receive(:prisoner_details_incorrect?).
+        to receive(:details_incorrect?).
         and_return(details_incorrect)
 
       allow(nomis_checker).

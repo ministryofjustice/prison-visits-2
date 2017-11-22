@@ -30,7 +30,7 @@ RSpec.describe PrisonerDetailsPresenter do
           end
 
           describe '#details_incorrect?' do
-            it { is_expected.not_to be_prisoner_details_incorrect }
+            it { is_expected.not_to be_details_incorrect }
           end
 
           describe 'with valid location' do
@@ -63,7 +63,7 @@ RSpec.describe PrisonerDetailsPresenter do
             end
 
             describe '#details_incorrect?' do
-              it { is_expected.to be_prisoner_details_incorrect }
+              it { is_expected.to be_details_incorrect }
             end
           end
         end
