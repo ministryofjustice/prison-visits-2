@@ -12,6 +12,10 @@ class PrisonerLocation
     self.prison_code = prison_code
   end
 
+  def internal_location
+    prisoner_location.internal_location if valid?
+  end
+
 private
 
   attr_accessor :offender, :prison_code
@@ -36,6 +40,7 @@ private
   end
 
   def load_prisoner_location
+    return Nomis::Establishment.new unless offender.valid?
     Nomis::Api.instance.lookup_offender_location(noms_id: offender.noms_id)
   rescue Nomis::APIError => e
     Raven.capture_exception(

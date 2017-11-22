@@ -64,6 +64,28 @@
   </div>
 </div>
 
+<div class="grid-row push-top">
+  <div class="column-one-quarter">
+    &nbsp;
+  </div>
+  <div class="column-one-quarter">
+    &nbsp;
+  </div>
+  <div class="column-one-quarter">
+    &nbsp;
+  </div>
+  <div class="column-one-quarter">
+    <span class="text-secondary"><%= t('.internal_location') %></span>
+    <div class="bold-small"><%= prisoner_details.internal_location%></div>
+    <% case @visit.prisoner_existance_status %>
+    <% when PrisonerDetailsPresenter::VALID %>
+      <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
+    <% when PrisonerLocation::INVALID %>
+      <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_existance_status}") %></div>
+    <% end %>
+  </div>
+</div>
+
 <% if @visit.prisoner_restrictions.any? %>
   <div class="border-box border-box--large border-box--orange push-top">
     <h3 class="bold-medium">

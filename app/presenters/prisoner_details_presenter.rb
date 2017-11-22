@@ -3,6 +3,8 @@ class PrisonerDetailsPresenter
   INVALID  = 'invalid'.freeze
   NOT_LIVE = 'not_live'.freeze
 
+  delegate :internal_location, to: :prisoner_location
+
   def initialize(prisoner_validation, prisoner_location)
     self.prisoner_validation = prisoner_validation
     self.prisoner_location   = prisoner_location
@@ -19,7 +21,6 @@ class PrisonerDetailsPresenter
       INVALID
     end
   end
-
 
   def details_incorrect?
     prisoner_existance_status == INVALID

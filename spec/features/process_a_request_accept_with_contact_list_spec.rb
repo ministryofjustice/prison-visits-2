@@ -47,6 +47,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
 
       expect(page).to have_css('.notice', text: 'The prisoner date of birth, prisoner number and prison name have been verified.')
       expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
+      expect(page).to have_css('.bold-small', text: 'LEI-H-1-003')
 
       choose_date
 

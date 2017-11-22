@@ -82,6 +82,10 @@ RSpec.describe Nomis::Api do
       it 'returns a Location' do
         expect(establishment).to be_valid
       end
+
+      it 'has the internal location' do
+        expect(establishment).to have_attributes(internal_location: 'ISI-2-1-1')
+      end
     end
 
     context 'with an unknown offender', vcr: { cassette_name: :lookup_offender_location_for_unknown_offender } do
