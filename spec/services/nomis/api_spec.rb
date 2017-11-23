@@ -74,23 +74,26 @@ RSpec.describe Nomis::Api do
   end
 
   describe '#lookup_offender_details' do
-    let(:params) do
-      { noms_id: 'A1459AE' }
-    end
-    let(:offender_details) { described_class.instance.lookup_offender_details(params) }
+    let(:offender_details) { described_class.instance.lookup_offender_details(noms_id: noms_id) }
 
     context 'when found', vcr: { cassette_name: :lookup_offender_details } do
+      let(:noms_id) { 'A1459AE' }
+
       it 'serialises the response into an Offender' do
-        expect(offender_details).to have_attributes({ bob: :bob })
+        expect(offender_details).to have_attributes(given_name: "DAMIEN", surname: "DARHK", date_of_birth: "1945-08-12", aliases: [], gender: {code: "NS", desc: "Not Specified (Indeterminate)"}, convicted: false, imprisonment_status: {code: "RX", desc: "Remanded to Magistrates Court"}, iep_level: {code: "STD", desc: "Standard" })
       end
     end
 
-    context 'when not found found', vcr: { cassette_name: :lookup_offender_details_unknown_offender } do
-      it { is_expected.to raise_error(Nomis::APIError) }
+    context 'when an unknown offender', vcr: { cassette_name: :lookup_offender_details_unknown_offender } do
+      let(:noms_id) { 'A1459BE' }
+
+      it { expect { offender_details }.to raise_error(Nomis::APIError) }
     end
 
     context 'when given an invalid nomis id', vcr: { cassette_name: :lookup_offender_details_invalid_noms_id } do
-      it 'returns an invalid Offender'
+      let(:noms_id) { 'RUBBISH' }
+
+      it { expect { offender_details }.to raise_error(Nomis::APIError) }
     end
   end
 
