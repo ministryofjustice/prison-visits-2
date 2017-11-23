@@ -33,7 +33,7 @@ class RejectionDecorator < Draper::Decorator
       email_formatted_reason(reason).each do |formatted_reason|
         result << formatted_reason
       end
-    end
+    end.to_a
   end
 
   def staff_formatted_reasons
