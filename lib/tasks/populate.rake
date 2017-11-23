@@ -102,7 +102,13 @@ namespace :pvb do
                      }
                    end
 
+      if attributes[:rejection_attributes][:reasons].
+          include?(Rejection::OTHER_REJECTION_REASON)
+        attributes[:rejection_attributes][:rejection_reason_detail] = "It's complicated"
+      end
+
       visit.assign_attributes(attributes)
+
       BookingResponder::Reject.new(
         StaffResponse.new(visit: visit)
       ).process_request
