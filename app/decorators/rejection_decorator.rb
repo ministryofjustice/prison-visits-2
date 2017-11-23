@@ -166,7 +166,7 @@ private
     when Rejection::NO_ALLOWANCE
       [Rejection::Reason.new(explanation: email_no_allowance_explanation)]
     when Rejection::NOT_ON_THE_LIST
-      [Rejection::NotOnList.new(explanation: email_visitor_not_on_list_explanation)]
+      [Rejection::Reason.new(explanation: email_visitor_not_on_list_explanation)]
     when Rejection::BANNED
       email_visitor_rejection_reasons
     else

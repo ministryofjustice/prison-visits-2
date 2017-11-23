@@ -118,7 +118,7 @@ en:
         %{name} is banned from visiting the prison until %{banned_until}
         and should have received a letter from the prison.
       visitor_not_on_list_html:
-        details for %{visitors} don't match our records or  aren't on the
+        details for %{visitors} don't match our records or aren't on the
         prisoner's contact list - ask the prisoner to update their contact list
         with correct details, making sure that names appear exactly the same as
         on ID documents; if this is the prisoner's first visit (reception
