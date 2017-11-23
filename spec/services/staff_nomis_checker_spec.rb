@@ -29,6 +29,10 @@ RSpec.describe StaffNomisChecker do
     describe '#errors_for' do
       it { expect(subject.errors_for(visit.slots.first)).to be_empty }
     end
+
+    describe '#offender' do
+      it { expect(subject.offender).to be_instance_of(Nomis::NullOffender) }
+    end
   end
 
   describe '#prisoner_availability_unknown?' do
@@ -442,5 +446,13 @@ RSpec.describe StaffNomisChecker do
 
       it { expect(subject.prisoner_restrictions).to be_empty }
     end
+  end
+
+  describe '#offender' do
+    before do
+      mock_nomis_with(:lookup_active_offender, offender)
+    end
+
+    it { expect(subject.offender).to eq(offender) }
   end
 end
