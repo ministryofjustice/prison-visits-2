@@ -1,7 +1,9 @@
 <%= render 'prison/dashboards/navigation' %>
 
 <% if @visit.processable? || (@booking_response.present? && !@booking_response.success?) %>
+  <% if Nomis::Api.enabled? %>
   <%= render 'prison/visits/requested', visit: @visit %>
+  <% end %>
 <% else %>
   <%= render 'prison/visits/processed', visit: @visit %>
 <% end %>
