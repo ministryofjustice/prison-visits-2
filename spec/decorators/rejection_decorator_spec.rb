@@ -70,7 +70,7 @@ RSpec.describe RejectionDecorator do
           expect(
             subject.email_formatted_reasons.map(&:explanation)
           ).to eq([
-            "details for #{unlisted_visitor.anonymized_name} don't match our records or  aren't on the prisoner's contact list - ask the prisoner to update their contact list with correct details, making sure that names appear exactly the same as on ID documents; if this is the prisoner's first visit (reception visit), then you need to contact the prison directly to book"
+            "details for #{unlisted_visitor.anonymized_name} don't match our records or aren't on the prisoner's contact list - ask the prisoner to update their contact list with correct details, making sure that names appear exactly the same as on ID documents; if this is the prisoner's first visit (reception visit), then you need to contact the prison directly to book"
           ])
         end
       end
