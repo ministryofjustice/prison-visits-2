@@ -107,23 +107,26 @@ RSpec.feature 'Processing a request', js: true do
         and_body(/has moved prison/)
     end
 
-    scenario 'rejecting a booking when the prisoner is banned and out of prison' do
+    scenario 'rejecting a booking with multiple rejection reasons' do
       check 'Prisoner banned from receiving visits', visible: false
       check 'Prisoner on external movement', visible: false
+      check 'Duplicate visit request'
 
       click_button 'Process'
 
       expect(page).to have_text('Thank you for processing the visit')
 
       vst.reload
-      expect(vst.rejection_reasons).to include('prisoner_banned')
-      expect(vst.rejection_reasons).to include('prisoner_out_of_prison')
+      expect(vst.rejection_reasons).
+        to contain_exactly('prisoner_banned', 'prisoner_out_of_prison', 'duplicate_visit_request')
+
       expect(vst).to be_rejected
 
       expect(contact_email_address).
         to receive_email.
         with_subject(/Your visit to #{prison.name} is NOT booked/).
-        and_body(/the prisoner has a restriction/)
+        and_body(/the prisoner has a restriction/).
+        and_body(/already requested/)
     end
 
     scenario 'rejecting a booking when no visitors are on the contact list' do
