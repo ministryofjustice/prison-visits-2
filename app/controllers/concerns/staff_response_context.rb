@@ -64,6 +64,7 @@ private
         'allowance_renews_on(1i)',
         'allowance_renews_on(2i)',
         'allowance_renews_on(3i)',
+        :rejection_reason_detail,
         reasons: []
       ],
       visitors_attributes:  [

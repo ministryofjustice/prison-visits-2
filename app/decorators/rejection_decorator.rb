@@ -8,6 +8,10 @@ class RejectionDecorator < Draper::Decorator
     Rejection::PRISONER_OUT_OF_PRISON
   ].freeze
 
+  def reasons
+    Rejection::ReasonDecorator.decorate(object.reasons)
+  end
+
   def allowance_renews_on
     @allowance_renews_on ||=
       begin
@@ -24,23 +28,28 @@ class RejectionDecorator < Draper::Decorator
     reasons_decorator.checkbox_for(reason, html_options)
   end
 
-  def formatted_reasons
-    result = []
-
-    if object.reasons.any? { |r| r.in? RESTRICTON_REASONS }
-      result << translated_restricted_reason
+  def email_formatted_reasons
+    email_reasons.each_with_object(Set.new) do |reason, result|
+      email_formatted_reason(reason).each do |formatted_reason|
+        result << formatted_reason
+      end
     end
-
-    non_restricted_reasons = object.reasons - RESTRICTON_REASONS
-
-    non_restricted_reasons.each do |reason|
-      explanations = *translated_explanations_for(reason)
-      result += explanations
-    end
-    result
   end
 
-  def visitor_banned_explanation(visitor)
+  def staff_formatted_reasons
+    object.reasons.each_with_object([]) do |reason, result|
+      result << case reason
+                when 'no_allowance'
+                  staff_no_allowance_explanation(object.allowance_renews_on)
+                when 'other'
+                  staff_other_explanation(object.rejection_reason_detail)
+                else
+                  h.t(reason, scope: :shared)
+                end
+    end
+  end
+
+  def email_visitor_banned_explanation(visitor)
     if visitor.banned_until?
       h.t('visitor_banned_until_html',
         name: visitor.anonymized_name.titleize,
@@ -53,7 +62,7 @@ class RejectionDecorator < Draper::Decorator
     end
   end
 
-  def visitor_not_on_list_explanation
+  def email_visitor_not_on_list_explanation
     h.t(
       'visitor_not_on_list_html',
       visitors: visit.unlisted_visitors.map(&:anonymized_name).to_sentence,
@@ -77,6 +86,18 @@ class RejectionDecorator < Draper::Decorator
 
 private
 
+  def email_reasons
+    object.reasons.reject{ |reason| reason == Rejection::OTHER_REJECTION_REASON }
+  end
+
+  def email_formatted_reason(reason)
+    if reason.in? RESTRICTON_REASONS
+      email_translated_restricted_reason
+    else
+      email_translated_explanations_for(reason)
+    end
+  end
+
   def unbookable?(nomis_checker)
     future_slots.any? &&
       future_slots.all? { |slot| nomis_checker.errors_for(slot).any? }
@@ -98,7 +119,7 @@ private
     @future_slots ||= visit.slots.select { |slot| slot.to_date.future? }
   end
 
-  def slot_unavailable_explanation
+  def email_slot_unavailable_explanation
     h.t(
       'slot_unavailable_html',
       prisoner: visit.prisoner_anonymized_name,
@@ -107,7 +128,7 @@ private
     )
   end
 
-  def no_allowance_explanation
+  def email_no_allowance_explanation
     key = if object.allowance_renews_on?
             'no_allowance_date_html'
           else
@@ -130,32 +151,45 @@ private
   end
 
   # rubocop:disable Metrics/MethodLength
-  def translated_explanations_for(reason)
+  def email_translated_explanations_for(reason)
     case reason
     when Rejection::SLOT_UNAVAILABLE
-      Rejection::Reason.new(explanation: slot_unavailable_explanation)
+      [Rejection::Reason.new(explanation: email_slot_unavailable_explanation)]
     when Rejection::NO_ALLOWANCE
-      Rejection::Reason.new(explanation: no_allowance_explanation)
+      [Rejection::Reason.new(explanation: email_no_allowance_explanation)]
     when Rejection::NOT_ON_THE_LIST
-      Rejection::NotOnList.new(explanation: visitor_not_on_list_explanation)
+      [Rejection::NotOnList.new(explanation: email_visitor_not_on_list_explanation)]
     when Rejection::BANNED
-      visitor_rejection_reasons
+      email_visitor_rejection_reasons
     else
-      Rejection::Reason.new(
+      [Rejection::Reason.new(
         explanation: h.t("#{reason}_html", scope: %i[visitor_mailer rejected])
-      )
+      )]
     end
   end
   # rubocop:enable Metrics/MethodLength
 
-  def visitor_rejection_reasons
+  def email_visitor_rejection_reasons
     visit.banned_visitors.map do |visitor|
-      Rejection::Reason.new(explanation: visitor_banned_explanation(visitor))
+      Rejection::Reason.new(explanation: email_visitor_banned_explanation(visitor))
     end
   end
 
-  def translated_restricted_reason
+  def email_translated_restricted_reason
     explanation = h.t('restricted_reason', scope: %i[visitor_mailer rejected])
-    Rejection::Reason.new(explanation: explanation)
+    [Rejection::Reason.new(explanation: explanation)]
+  end
+
+  def staff_no_allowance_explanation(allowance_renews_on)
+    if allowance_renews_on
+      h.t("no_allowance_#{allowance_renews_on.future?}",
+        vo_date: h.format_date_without_year(allowance_renews_on), scope: :shared)
+    else
+      h.t('no_allowance', scope: :shared)
+    end
+  end
+
+  def staff_other_explanation(detail)
+    h.t('other_reason', detail: detail, scope: :shared)
   end
 end

@@ -4,54 +4,35 @@
   <div class="column-one-half">
     <%= error_container(rf, :reasons) do %>
       <div class="multiple-choice">
-        <%= rf.object.checkbox_for(:prisoner_moved,
-          id: :prisoner_moved,
-          class: 'js-Rejection',
-          'data-rejection-el': 'rejection-message',
-          'data-success-el': 'nomis-opt-out') %>
-        <%= rf.label t('.prisoner_moved'), for: :prisoner_moved %>
+        <%= render 'rejection_reason', rf: rf, id: :prisoner_moved %>
       </div>
     <% end %>
     <%= error_container(rf, :reasons) do %>
       <div class="multiple-choice">
-        <%= rf.object.checkbox_for(:child_protection_issues,
-          id: :child_protection_issues,
-          class: 'js-Rejection',
-          'data-rejection-el': 'rejection-message',
-          'data-success-el': 'nomis-opt-out') %>
-        <%= rf.label t('.child_protection_issues'), for: :child_protection_issues %>
+        <%= render 'rejection_reason', rf: rf, id: :child_protection_issues %>
       </div>
     <% end %>
-    <%= error_container(rf, :reasons) do %>
-      <div class="multiple-choice">
-        <%= rf.object.checkbox_for :duplicate_visit_request,
-          id: :duplicate_visit_request,
-          class: 'js-Rejection',
-          'data-rejection-el': 'rejection-message',
-          'data-success-el': 'nomis-opt-out' %>
-        <%= rf.label t('.duplicate_visit_request'), for: :duplicate_visit_request %>
-      </div>
-    <% end %>
+    <div class="multiple-choice" data-target="rejection_reason">
+      <%= render 'rejection_reason', rf: rf, id: :other %>
+    </div>
+    <div class="panel panel-border-narrow js-hidden" id="rejection_reason">
+      <%= single_field rf, :rejection_reason_detail, :text_area, rows: 4, class: 'form-control form-control-full-width' %>
+    </div>
   </div>
   <div class="column-one-half">
     <%= error_container(rf, :reasons) do %>
       <div class="multiple-choice">
-        <%= rf.object.checkbox_for(:prisoner_released,
-          id: :prisoner_released,
-          class: 'js-Rejection',
-          'data-rejection-el': 'rejection-message',
-          'data-success-el': 'nomis-opt-out') %>
-        <%= rf.label t('.prisoner_released'), for: :prisoner_released %>
+        <%= render 'rejection_reason', rf: rf, id: :prisoner_released %>
       </div>
     <% end %>
     <%= error_container(rf, :reasons) do %>
       <div class="multiple-choice">
-        <%= rf.object.checkbox_for(:prisoner_non_association,
-          id: :prisoner_non_association,
-          class: 'js-Rejection',
-          'data-rejection-el': 'rejection-message',
-          'data-success-el': 'nomis-opt-out') %>
-        <%= rf.label t('.prisoner_non_association'), for: :prisoner_non_association %>
+        <%= render 'rejection_reason', rf: rf, id: :prisoner_non_association %>
+      </div>
+    <% end %>
+    <%= error_container(rf, :reasons) do %>
+      <div class="multiple-choice">
+        <%= render 'rejection_reason', rf: rf, id: :duplicate_visit_request %>
       </div>
     <% end %>
   </div>

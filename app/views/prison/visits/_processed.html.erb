@@ -34,16 +34,8 @@
           <i class="icon icon-information align-vertical--middle"></i> Rejected reason(s)
         </div>
         <ul class="list list-bullet">
-          <% @visit.rejection.reasons.each do |reason| %>
-              <% if reason == 'no_allowance' %>
-                <% if @visit.allowance_renews_on %>
-                  <li><%= t("#{reason}_#{@visit.allowance_renews_on.future?}", vo_date: @visit.allowance_renews_on.to_s(:short_nomis), scope: :shared) %></li>
-                <% else %>
-                  <li><%= t(reason, scope: :shared) %></li>
-                <% end %>
-              <% else %>
-                <li><%= t(reason, scope: :shared) %></li>
-              <% end %>
+          <% @visit.rejection.staff_formatted_reasons.each do |reason| %>
+            <li><%= reason %></li>
           <% end %>
         </ul>
       </div>
@@ -72,15 +64,15 @@
   <h2 class="bold-medium push-top"><%= t('.visit_date') %></h2>
   <div class="grid-row push-top">
     <% @visit.slots.each_with_index do |slot, i| %>
-    <div class="column-one-third">
-      <div class="date-box date-box--number">
-        <div class="date-box__label <%= 'selected' if @visit.slot_granted == slot.object %>">
-          <span class="date-box__number"><%= i+1 %></span>
-          <span class="date-box__day"><%= format_date_day(slot) %></span>
-          <br><%= format_date_of_birth(slot) %> <br><%= format_slot_times(slot) %>
+      <div class="column-one-third">
+        <div class="date-box date-box--number">
+          <div class="date-box__label <%= 'selected' if @visit.slot_granted == slot.object %>">
+            <span class="date-box__number"><%= i+1 %></span>
+            <span class="date-box__day"><%= format_date_day(slot) %></span>
+            <br><%= format_date_of_birth(slot) %> <br><%= format_slot_times(slot) %>
+        </div>
         </div>
       </div>
-    </div>
     <% end %>
   </div>
 
@@ -102,9 +94,7 @@
               <h3 class="bold-medium"><%= t('.send_a_message') %></h3>
               <%= form_for [:prison, @visit, @message], html: { class: 'js-SubmitOnce  form' } do |f| -%>
                 <%= single_field(f, :body, :text_area, class: 'form-control form-control-full-width', rows: 4) %>
-                <div class="">
-                  <%= f.submit t('.send_email'), class: 'button' %>
-                </div>
+                <%= f.submit t('.send_email'), class: 'button' %>
               <% end -%>
             </div>
           </details>
