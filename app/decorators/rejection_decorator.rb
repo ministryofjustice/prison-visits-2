@@ -33,7 +33,7 @@ class RejectionDecorator < Draper::Decorator
       email_formatted_reason(reason).each do |formatted_reason|
         result << formatted_reason
       end
-    end
+    end.to_a
   end
 
   def staff_formatted_reasons
@@ -166,7 +166,7 @@ private
     when Rejection::NO_ALLOWANCE
       [Rejection::Reason.new(explanation: email_no_allowance_explanation)]
     when Rejection::NOT_ON_THE_LIST
-      [Rejection::NotOnList.new(explanation: email_visitor_not_on_list_explanation)]
+      [Rejection::Reason.new(explanation: email_visitor_not_on_list_explanation)]
     when Rejection::BANNED
       email_visitor_rejection_reasons
     else
