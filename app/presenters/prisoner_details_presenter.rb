@@ -5,6 +5,12 @@ class PrisonerDetailsPresenter
 
   delegate :internal_location, to: :prisoner_location
 
+  VALIDATION_ERRORS = [
+    PrisonerValidation::UNKNOWN,
+    PrisonerLocationValidation::INVALID,
+    PrisonerLocationValidation::UNKNOWN
+  ].freeze
+
   def initialize(prisoner_validation, prisoner_location)
     self.prisoner_validation = prisoner_validation
     self.prisoner_location   = prisoner_location
@@ -15,7 +21,7 @@ class PrisonerDetailsPresenter
     case prisoner_existance_error
     when nil
       VALID
-    when PrisonerValidation::UNKNOWN, PrisonerLocationValidation::INVALID, PrisonerLocationValidation::UNKNOWN
+    when *VALIDATION_ERRORS
       prisoner_existance_error
     else
       INVALID
