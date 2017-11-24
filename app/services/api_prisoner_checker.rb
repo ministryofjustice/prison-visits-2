@@ -26,6 +26,6 @@ private
   end
 
   def prisoner_location
-    @prisoner_location ||= PrisonerLocation.new(@offender).tap(&:valid?)
+    @prisoner_location ||= PrisonerLocationValidation.new(@offender).tap(&:valid?)
   end
 end

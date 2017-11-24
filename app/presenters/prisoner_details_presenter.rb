@@ -15,7 +15,7 @@ class PrisonerDetailsPresenter
     case prisoner_existance_error
     when nil
       VALID
-    when PrisonerValidation::UNKNOWN, PrisonerLocation::INVALID, PrisonerLocation::UNKNOWN
+    when PrisonerValidation::UNKNOWN, PrisonerLocationValidation::INVALID, PrisonerLocationValidation::UNKNOWN
       prisoner_existance_error
     else
       INVALID
