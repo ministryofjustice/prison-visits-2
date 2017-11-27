@@ -180,7 +180,7 @@ RSpec.describe Nomis::Feature do
         switch_off :nomis_internal_location_enabled
       end
 
-      it { is_expected.to_not be_internal_location_enabled }
+      it { is_expected.not_to be_internal_location_enabled }
     end
   end
 end
