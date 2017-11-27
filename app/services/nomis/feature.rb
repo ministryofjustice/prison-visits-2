@@ -29,6 +29,10 @@ module Nomis
         config.staff_prisons_with_prisoner_restrictions_info&.include?(prison_name)
     end
 
+    def self.internal_location_enabled?
+      Nomis::Api.enabled? && config.nomis_internal_location_enabled
+    end
+
     def self.config
       Rails.configuration
     end
