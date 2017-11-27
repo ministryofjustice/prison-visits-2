@@ -56,12 +56,6 @@
     <a target="_blank" href="https://www.surveymonkey.co.uk/r/36LDWKD" class="feedback-link hidden--print"><%= t('.feedback') %></a>
     <%= yield :banner %>
     <%= yield :navigation %>
-    <% unless Nomis::Api.enabled? %>
-      <div class="push-top panel panel-border-narrow panel--blue">
-        <p class="bold-small">Visit requests cannot be processed</p>
-        <p>Due to planned NOMIS downtime, it is not possible to process visit requests. We expect NOMIS to be available after 9am on Monday 27 November.</p>
-      </div>
-    <% end %>
     <% if content_for?(:header) %>
       <header>
         <h1 class="heading-large">
