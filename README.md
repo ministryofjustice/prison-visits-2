@@ -268,13 +268,17 @@ If `true` then the process visit page will query the offender restrictions api.
 
 If `true` then the Nomis API will be used to book a visit.
 
-### `STAFF_PRISONS_WITH_BOOK_TO_NOMIS` ###
+#### `STAFF_PRISONS_WITH_BOOK_TO_NOMIS` ###
 
 A comma separated list of prisons for which the book to nomis API is enabled
 
-### `STAFF_PRISONS_WITH_PRISONER_RESTRICTIONS_INFO` ###
+#### `STAFF_PRISONS_WITH_PRISONER_RESTRICTIONS_INFO` ###
 
 A comma separated list of prisons for which the prisoner restrictions is displayed
+
+#### `NOMIS_INTERNAL_LOCATION_ENABLED` ####
+
+If `true` then the internal location is displayed on the process/processed page
 
 #### `PRISON_ESTATE_IPS` ####
 

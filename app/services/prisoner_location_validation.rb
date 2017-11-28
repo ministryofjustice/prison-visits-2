@@ -1,4 +1,4 @@
-class PrisonerLocation
+class PrisonerLocationValidation
   INVALID = 'location_invalid'.freeze
   UNKNOWN = 'location_unknown'.freeze
 
@@ -12,30 +12,35 @@ class PrisonerLocation
     self.prison_code = prison_code
   end
 
+  def internal_location
+    establishment.internal_location if valid?
+  end
+
 private
 
   attr_accessor :offender, :prison_code
 
   def validate_has_location
-    unless prisoner_location.api_call_successful?
+    unless establishment.api_call_successful?
       errors.clear
       errors.add(:base, UNKNOWN)
     end
   end
 
-  def prisoner_location
-    @prisoner_location ||= load_prisoner_location
+  def establishment
+    @establishment ||= load_establishment
   end
 
   def located_at_given_prison
     return if prison_code.nil?
 
-    unless prisoner_location.code == prison_code
+    unless establishment.code == prison_code
       errors.add(:base, INVALID)
     end
   end
 
-  def load_prisoner_location
+  def load_establishment
+    return Nomis::Establishment.new unless offender.valid?
     Nomis::Api.instance.lookup_offender_location(noms_id: offender.noms_id)
   rescue Nomis::APIError => e
     Raven.capture_exception(

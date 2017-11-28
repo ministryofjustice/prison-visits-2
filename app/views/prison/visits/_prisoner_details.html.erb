@@ -7,14 +7,14 @@
     </i>
     <strong class="bold-small"><%= t('.verified_html') %></strong>
   </div>
-<% when PrisonerDetailsPresenter::INVALID, PrisonerLocation::INVALID %>
+<% when PrisonerDetailsPresenter::INVALID, PrisonerLocationValidation::INVALID %>
   <div class="notice push-top">
     <i class="icon icon-information">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
     <strong class="bold-small"><%= t(".#{@visit.prisoner_existance_error}_text") %></strong>
   </div>
-<% when PrisonerValidation::UNKNOWN, PrisonerLocation::UNKNOWN %>
+<% when PrisonerValidation::UNKNOWN, PrisonerLocationValidation::UNKNOWN %>
   <div class="notice push-top">
     <i class="icon icon-important">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
@@ -34,9 +34,9 @@
     <span class="text-secondary"><%= t('.prisoner_dob') %></span>
     <div class="bold-small"><%= @visit.prisoner_date_of_birth.to_s(:short_nomis) %></div>
     <% case @visit.prisoner_existance_status %>
-    <% when PrisonerDetailsPresenter::VALID, PrisonerLocation::INVALID %>
+    <% when PrisonerDetailsPresenter::VALID, PrisonerLocationValidation::INVALID %>
       <div class="tag tag--booked font-xsmall"><%= t('.verified') %></div>
-    <% when PrisonerDetailsPresenter::INVALID, PrisonerLocation::INVALID %>
+    <% when PrisonerDetailsPresenter::INVALID, PrisonerLocationValidation::INVALID %>
       <div class="tag tag--error font-xsmall"><%= t(".#{@visit.prisoner_existance_status}") %></div>
     <% end %>
   </div>
@@ -45,7 +45,7 @@
     <span class="text-secondary"><%= t('.prisoner_number') %></span>
     <div class="bold-small"><%= @visit.prisoner_number %></div>
     <% case @visit.prisoner_existance_status %>
-    <% when PrisonerDetailsPresenter::VALID, PrisonerLocation::INVALID  %>
+    <% when PrisonerDetailsPresenter::VALID, PrisonerLocationValidation::INVALID  %>
       <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
     <% when PrisonerDetailsPresenter::INVALID %>
       <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_existance_status}") %></div>
@@ -58,8 +58,33 @@
     <% case @visit.prisoner_existance_status %>
     <% when PrisonerDetailsPresenter::VALID %>
       <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
-    <% when PrisonerLocation::INVALID %>
+    <% when PrisonerLocationValidation::INVALID %>
       <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_existance_status}") %></div>
+    <% end %>
+  </div>
+</div>
+
+
+<div class="grid-row push-top">
+  <div class="column-one-quarter">
+    &nbsp;
+  </div>
+  <div class="column-one-quarter">
+    &nbsp;
+  </div>
+  <div class="column-one-quarter">
+    &nbsp;
+  </div>
+  <div class="column-one-quarter">
+    <% if Nomis::Feature.internal_location_enabled? %>
+      <span class="text-secondary"><%= t('.internal_location') %></span>
+      <div class="bold-small"><%= prisoner_details.internal_location%></div>
+      <% case @visit.prisoner_existance_status %>
+      <% when PrisonerDetailsPresenter::VALID %>
+        <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
+      <% when PrisonerLocationValidation::INVALID %>
+        <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_existance_status}") %></div>
+      <% end %>
     <% end %>
   </div>
 </div>

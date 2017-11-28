@@ -165,4 +165,22 @@ RSpec.describe Nomis::Feature do
       end
     end
   end
+
+  describe '.internal_location_enabled?' do
+    context 'when the flag is enabled' do
+      before do
+        switch_on :nomis_internal_location_enabled
+      end
+
+      it { is_expected.to be_internal_location_enabled }
+    end
+
+    context 'when the flag is disabled' do
+      before do
+        switch_off :nomis_internal_location_enabled
+      end
+
+      it { is_expected.not_to be_internal_location_enabled }
+    end
+  end
 end

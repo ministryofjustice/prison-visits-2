@@ -37,7 +37,7 @@ private
   end
 
   def prisoner_location
-    @_prisoner_location ||= PrisonerLocation.new(
+    @_prisoner_location ||= PrisonerLocationValidation.new(
       nomis_checker.offender, memoised_visit.prison.nomis_id
     )
   end

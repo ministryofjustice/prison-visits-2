@@ -48,7 +48,7 @@ module Nomis
         client.get("/offenders/#{noms_id}/location")
       }
 
-      Nomis::Establishment.new(response['establishment']).tap do |establishment|
+      Nomis::Establishment.build(response).tap do |establishment|
         PVB::Instrumentation.append_to_log(lookup_offender_location: establishment.code)
       end
     end
