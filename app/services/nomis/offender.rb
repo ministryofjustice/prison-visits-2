@@ -19,6 +19,11 @@ class Nomis::Offender
     details[:iep_level][:desc]
   end
 
+  def imprisonment_status
+    return unless details.valid?
+    details[:imprisonment_status][:desc]
+  end
+
 private
 
   def details

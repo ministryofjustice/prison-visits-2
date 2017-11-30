@@ -72,6 +72,10 @@ class VisitDecorator < Draper::Decorator
     offender.iep_level
   end
 
+  def offender_sentence_status
+    offender.imprisonment_status
+  end
+
 private
 
   def last_visit_state_change

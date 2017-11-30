@@ -37,6 +37,10 @@ module Nomis
       Nomis::Api.enabled? && config.nomis_iep_level_enabled
     end
 
+    def self.sentence_status_enabled?
+      Nomis::Api.enabled? && config.nomis_sentence_status_enabled
+    end
+
     def self.config
       Rails.configuration
     end
