@@ -43,6 +43,15 @@ module Nomis
     end
     # rubocop:enable Metrics/MethodLength
 
+    def lookup_offender_details(noms_id:)
+      response = @pool.with { |client| client.get("/offenders/#{noms_id}") }
+      Nomis::Offender::Details.new(response).tap do |offender_details|
+        PVB::Instrumentation.append_to_log(
+          valid_offender_details_lookup: offender_details.valid?
+        )
+      end
+    end
+
     def lookup_offender_location(noms_id:)
       response = @pool.with { |client|
         client.get("/offenders/#{noms_id}/location")

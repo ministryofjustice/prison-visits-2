@@ -73,6 +73,45 @@ RSpec.describe Nomis::Api do
     end
   end
 
+  describe '#lookup_offender_details' do
+    let(:offender_details) { described_class.instance.lookup_offender_details(noms_id: noms_id) }
+
+    context 'when found', vcr: { cassette_name: :lookup_offender_details } do
+      let(:noms_id) { 'A1459AE' }
+
+      it 'serialises the response into an Offender' do
+        expect(offender_details).
+          to have_attributes(
+            given_name: "DAMIEN",
+            surname: "DARHK",
+            date_of_birth: Date.parse("1945-08-12"),
+            aliases: [],
+            gender: { code: "NS", desc: "Not Specified (Indeterminate)" },
+            convicted: false,
+            imprisonment_status: { code: "RX", desc: "Remanded to Magistrates Court" },
+            iep_level: { code: "STD", desc: "Standard" }
+             )
+      end
+
+      it 'instruments the request' do
+        offender_details
+        expect(PVB::Instrumentation.custom_log_items[:valid_offender_details_lookup]).to be true
+      end
+    end
+
+    context 'when an unknown offender', vcr: { cassette_name: :lookup_offender_details_unknown_offender } do
+      let(:noms_id) { 'A1459BE' }
+
+      it { expect { offender_details }.to raise_error(Nomis::APIError) }
+    end
+
+    context 'when given an invalid nomis id', vcr: { cassette_name: :lookup_offender_details_invalid_noms_id } do
+      let(:noms_id) { 'RUBBISH' }
+
+      it { expect { offender_details }.to raise_error(Nomis::APIError) }
+    end
+  end
+
   describe '#lookup_offender_location' do
     let(:establishment) { subject.lookup_offender_location(noms_id: noms_id) }
 

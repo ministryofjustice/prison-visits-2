@@ -33,6 +33,10 @@ module Nomis
       Nomis::Api.enabled? && config.nomis_internal_location_enabled
     end
 
+    def self.iep_level_enabled?
+      Nomis::Api.enabled? && config.nomis_iep_level_enabled
+    end
+
     def self.config
       Rails.configuration
     end

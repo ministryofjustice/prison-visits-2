@@ -73,7 +73,18 @@
     &nbsp;
   </div>
   <div class="column-one-quarter">
-    &nbsp;
+    <% if Nomis::Feature.iep_level_enabled? %>
+      <span class="text-secondary"><%= t('.iep_level') %></span>
+      <div class="bold-small"><%= @visit.offender_iep_level%></div>
+      <% case @visit.prisoner_existance_status %>
+      <% when PrisonerDetailsPresenter::VALID %>
+        <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
+      <% when PrisonerDetailsPresenter::INVALID %>
+        <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_existance_status}") %></div>
+      <% end %>
+    <% else %>
+      &nbsp;
+    <% end %>
   </div>
   <div class="column-one-quarter">
     <% if Nomis::Feature.internal_location_enabled? %>
