@@ -71,7 +71,7 @@ RSpec.feature 'Metrics', js: true do
         click_on 'Email latest confirmed bookings (CSV)'
         expect(email_address).
           to receive_email.
-          with_subject(/Latest confirmed bookings \(CSV\)/).
+          with_subject(/Confirmed bookings \(CSV\)/).
           with_attachment('confirmed_bookings.csv')
       end
     end

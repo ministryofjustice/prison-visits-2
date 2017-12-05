@@ -46,7 +46,7 @@ RSpec.describe Counters do
   context 'when they are organised by date' do
     include_examples 'when creating visits with dates'
 
-    xdescribe Counters::CountVisitsByPrisonAndCalendarWeek do
+    describe Counters::CountVisitsByPrisonAndCalendarWeek do
       before do
         luna_visits_with_dates
       end

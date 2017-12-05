@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe WeeklyMetricsConfirmedCsvExporter do
-  let(:weeks) { 2 }
-  let(:instance) { described_class.new(weeks: weeks) }
+  let(:instance) { described_class.new(dates_to_export) }
 
   describe '#to_csv' do
     let(:prison1) { create(:prison, name: 'A Prison') }
     let(:prison2) { create(:prison, name: 'B Prison') }
     let(:prison3) { create(:prison, name: 'C Prison') }
-    let(:week_ago) { 1.week.ago }
-    let(:two_weeks_ago) { 2.weeks.ago }
+    let(:week_ago) { 1.week.ago.beginning_of_week.to_date }
+    let(:two_weeks_ago) { 2.weeks.ago.beginning_of_week.to_date }
+    let(:dates_to_export) { [week_ago, two_weeks_ago] }
 
     let!(:recent_confirmed_visit) do
       create(:booked_visit, prison: prison3)
@@ -24,8 +24,8 @@ RSpec.describe WeeklyMetricsConfirmedCsvExporter do
     subject { instance.to_csv }
 
     it 'returns a CSV string' do
-      week1 = week_ago.beginning_of_week.to_date.to_s
-      week2 = two_weeks_ago.beginning_of_week.to_date.to_s
+      week1 = week_ago.to_s
+      week2 = two_weeks_ago.to_s
 
       expect(subject).to eq(<<~CSV)
         Prison,#{week1},#{week2}

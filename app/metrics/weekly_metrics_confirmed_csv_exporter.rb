@@ -1,9 +1,9 @@
 require 'csv'
+require 'formatter'
 
 class WeeklyMetricsConfirmedCsvExporter
-  def initialize(weeks:)
-    @counts = Counters::CountVisitsByPrisonAndCalendarWeek.fetch_and_format
-    @dates = dates_to_export(weeks: weeks)
+  def initialize(dates_to_export = nil)
+    self.dates = dates_to_export || default_dates(weeks: 12)
   end
 
   def to_csv
@@ -16,11 +16,13 @@ class WeeklyMetricsConfirmedCsvExporter
 
 private
 
+  attr_accessor :dates
+
   def headers
     ['Prison'] + @dates.map(&:to_s)
   end
 
-  def dates_to_export(weeks:)
+  def default_dates(weeks:)
     current_week = Time.zone.today.beginning_of_week
 
     1.upto(weeks).map { |n| current_week - n.weeks }
@@ -30,7 +32,7 @@ private
     row = { 'Prison' => prison.name }
 
     @dates.each do |date|
-      prison_data = @counts.fetch(prison.name, {})
+      prison_data = counts.fetch(prison.name, {})
       year_data = prison_data.fetch(date.year, {})
       week_data = year_data.fetch(date.cweek, {})
       bookings = week_data.fetch('booked', 0)
@@ -38,5 +40,22 @@ private
       row[date.to_s] = bookings
     end
     row
+  end
+
+  def counts
+    @counts ||= load_counts
+  end
+
+  def load_counts
+    min_date = @dates.min
+    max_date = @dates.max
+
+    ordered_counts = Counters::CountVisitsByPrisonAndCalendarWeek.
+      where('year = ? AND week >= ?', min_date.year, min_date.cweek).
+      where('year = ? AND week <= ?', max_date.year, max_date.cweek).
+      pluck(:prison_name, :year, :week, :processing_state, :count)
+
+    metrics_formatter = Metrics::Formatter.new(ordered_counts)
+    metrics_formatter.fetch_and_format
   end
 end
