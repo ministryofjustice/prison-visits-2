@@ -142,7 +142,9 @@ RSpec.describe StaffResponse, type: :model do
     end
 
     context 'with slot availability' do
-      before do subject.valid? end
+      before do
+        subject.valid?
+      end
 
       context 'when a slot is available' do
         it { is_expected.to be_valid }
@@ -170,6 +172,20 @@ RSpec.describe StaffResponse, type: :model do
       it 'is rejected for not having lead visitor on the list' do
         expect(subject).to be_valid
         expect(subject.visit.rejection.reasons).to include(Rejection::NOT_ON_THE_LIST)
+      end
+    end
+
+    context "when the lead visitor can't go for other reasons" do
+      before do
+        params[:visitors_attributes]['0']['other_rejection_reason'] = true
+        params[:visitors_attributes]['1'] = other_visitor.attributes.slice('id', 'banned', 'not_on_list')
+      end
+
+      let(:other_visitor) { build(:visitor, visit: visit) }
+
+      it 'is rejected for not having lead visitor on the list' do
+        expect(subject).to be_valid
+        expect(subject.visit.rejection.reasons).to contain_exactly(Rejection::VISITOR_OTHER_REASON)
       end
     end
 

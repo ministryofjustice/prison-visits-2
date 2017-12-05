@@ -88,6 +88,7 @@ private
         :nomis_id,
         :banned,
         :not_on_list,
+        :other_rejection_reason,
         banned_until: [:day, :month, :year]
       ],
       prisoner_attributes: [:nomis_offender_id]

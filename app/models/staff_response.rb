@@ -77,7 +77,7 @@ privileged_allowance_expires_on rejection_reason_detail])
 
   def visitors_attributes
     @visitors_attributes ||= begin
-      fields = %w[id not_on_list banned]
+      fields = %w[id not_on_list banned other_rejection_reason]
 
       visit.visitors.each_with_object({}).with_index do |(visitor, attrs), i|
         attrs[i.to_s] = visitor.attributes.slice(*fields)
@@ -107,6 +107,9 @@ privileged_allowance_expires_on rejection_reason_detail])
       visit.slot_granted = nil
     elsif principal_visitor.not_on_list?
       rejection.reasons << Rejection::NOT_ON_THE_LIST
+      visit.slot_granted = nil
+    elsif principal_visitor.other_rejection_reason?
+      rejection.reasons << Rejection::VISITOR_OTHER_REASON
       visit.slot_granted = nil
     end
   end

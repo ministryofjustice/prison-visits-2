@@ -57,6 +57,12 @@
   <p><%= t('.not_on_list_instructions') %></p>
 <% end %>
 
+<% if @visit.visitors_rejected_for_other_reasons.any? %>
+  <% @visit.visitors_rejected_for_other_reasons.each do |v| %>
+    <p><%= t('.visitor_rejected_other_reason_html', name: v.anonymized_name) %></p>
+  <% end %>
+<% end %>
+
 <h2><%= t('.cancel_change_title') %></h2>
 
 <p>

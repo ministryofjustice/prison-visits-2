@@ -15,7 +15,7 @@ class Visitor < ActiveRecord::Base
   scope :allowed,  -> { where(banned: false, not_on_list: false) }
 
   def allowed?
-    !(banned || not_on_list)
+    !(banned || not_on_list || other_rejection_reason)
   end
 
   def status
