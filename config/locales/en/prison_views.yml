@@ -180,6 +180,9 @@ en:
         verified: NOMIS verified
         verified_html: |
           The prisoner date of birth, prisoner number and prison name have been verified. <br>Please check the prisoner name.
+        internal_location: Internal Location
+        iep_level: Incentive Earned Privilege
+        sentence_status: Sentence Status
       validate_prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name

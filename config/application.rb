@@ -151,5 +151,9 @@ module PrisonVisits
     config.nomis_iep_level_enabled = feature_flag_value.call do
       ENV['NOMIS_IEP_LEVEL_ENABLED']&.downcase == 'true'
     end
+
+    config.nomis_sentence_status_enabled = feature_flag_value.call do
+      ENV['NOMIS_SENTENCE_STATUS_ENABLED']&.downcase == 'true'
+    end
   end
 end
