@@ -39,7 +39,7 @@ gem 'state_machines-activerecord'
 gem 'string_scrubber'
 
 # Newer versions break ie8 js
-gem 'uglifier', '~> 2.7.2'
+gem 'uglifier', '~> 4.0.1'
 gem 'uri_template'
 gem 'virtus'
 gem 'zendesk_api'
