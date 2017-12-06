@@ -58,12 +58,11 @@ RSpec.describe AdminMailer do
     before do
       expect(WeeklyMetricsConfirmedCsvExporter).
         to receive(:new).
-        with(weeks: 12).
         and_return(exporter)
     end
 
     it { expect(mail.to).to include(email_address) }
-    it { expect(mail.subject).to eq('Latest confirmed bookings (CSV)') }
+    it { expect(mail.subject).to eq('Confirmed bookings (CSV)') }
 
     it 'includes a csv attachment with the data' do
       expect(mail.attachments).

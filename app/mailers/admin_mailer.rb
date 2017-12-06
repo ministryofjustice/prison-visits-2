@@ -13,8 +13,8 @@ class AdminMailer < ActionMailer::Base
     )
   end
 
-  def confirmed_bookings(email_address)
-    exporter = WeeklyMetricsConfirmedCsvExporter.new(weeks: 12)
+  def confirmed_bookings(email_address, dates_to_export = nil)
+    exporter = WeeklyMetricsConfirmedCsvExporter.new(dates_to_export)
 
     attachments['confirmed_bookings.csv'] = {
       mime_type: 'text/csv',
@@ -24,7 +24,7 @@ class AdminMailer < ActionMailer::Base
     mail(
       from: I18n.t('mailer.noreply', domain: smtp_settings[:domain]),
       to: email_address,
-      subject: 'Latest confirmed bookings (CSV)'
+      subject: 'Confirmed bookings (CSV)'
     )
   end
 end
