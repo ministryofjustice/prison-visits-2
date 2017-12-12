@@ -139,7 +139,7 @@ ActiveRecord::Schema.define(version: 20171121152149) do
     t.boolean "not_on_list", default: false
     t.date "banned_until"
     t.integer "nomis_id"
-    t.boolean "other_rejection_reason", default: false
+    t.boolean "other_rejection_reason"
     t.index ["visit_id", "sort_index"], name: "index_visitors_on_visit_id_and_sort_index", unique: true
     t.index ["visit_id"], name: "index_visitors_on_visit_id"
   end
