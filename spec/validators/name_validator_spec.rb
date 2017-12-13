@@ -9,11 +9,9 @@ RSpec.describe NameValidator do
   let(:model) {
     Class.new {
       include NonPersistedModel
-
       def self.model_name
         ActiveModel::Name.new(self, nil, 'thing')
       end
-
       attribute :first_name, String
       validates :first_name, presence: true, name: true
     }.new
