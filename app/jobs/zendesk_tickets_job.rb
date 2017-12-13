@@ -51,11 +51,7 @@ private
   # Zendesk requires tickets to have an email, but we do not enforce
   # providing an email. Therefore, a default email is used.
   def email_address_to_submit(feedback)
-    if feedback.email_address.present?
-      feedback.email_address
-    else
-      Rails.configuration.address_book.feedback
-    end
+    feedback.email_address.presence || Rails.configuration.address_book.feedback
   end
 
   def staff_custom_fields(feedback)

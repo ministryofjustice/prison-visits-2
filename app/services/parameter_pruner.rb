@@ -21,7 +21,7 @@ private
     when Array
       obj.map { |p| prune(p) }.reject(&:blank?)
     else
-      obj.blank? ? nil : obj
+      obj.presence
     end
   end
 end
