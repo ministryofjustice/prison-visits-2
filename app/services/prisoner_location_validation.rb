@@ -13,7 +13,7 @@ class PrisonerLocationValidation
   end
 
   def internal_location
-    establishment.internal_location if valid?
+    establishment.housing_location if valid?
   end
 
 private

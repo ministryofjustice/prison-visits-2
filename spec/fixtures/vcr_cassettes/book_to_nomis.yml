@@ -35,7 +35,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"found":true,"offender":{"id":1057307}}'
-    http_version: 
+    http_version:
   recorded_at: Tue, 09 May 2017 23:00:00 GMT
 - request:
     method: get
@@ -72,7 +72,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"2017-06-27":{"external_movement":false,"existing_visits":[{"id":5555,"slot":"2017-06-27T10:00\/11:00"}],"out_of_vo":false,"banned":false}}'
-    http_version: 
+    http_version:
   recorded_at: Tue, 09 May 2017 23:00:00 GMT
 - request:
     method: get
@@ -109,7 +109,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"slots":[{"time":"2017-06-27T10:00\/11:00","capacity":100,"max_groups":100,"max_adults":100,"groups_booked":1,"visitors_booked":2,"adults_booked":2},{"time":"2017-06-27T14:00\/16:00","capacity":100,"max_groups":3,"max_adults":10,"groups_booked":0,"visitors_booked":0,"adults_booked":0}]}'
-    http_version: 
+    http_version:
   recorded_at: Tue, 09 May 2017 23:00:00 GMT
 - request:
     method: get
@@ -149,7 +149,7 @@ http_interactions:
         Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13428,"given_name":"IRMA","middle_names":"CHRISTINE","surname":"ITSU","date_of_birth":"1975-04-03","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"WIFE","desc":"Wife"},"contact_type":{"code":"S","desc":"Social\/
         Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13429,"given_name":"ISAIAH","surname":"ITSU","date_of_birth":"1981-11-16","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"BRO","desc":"Brother"},"contact_type":{"code":"S","desc":"Social\/
         Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":13432,"given_name":"SHAY","surname":"DEE","date_of_birth":"1978-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]}]}'
-    http_version: 
+    http_version:
   recorded_at: Tue, 09 May 2017 23:00:00 GMT
 - request:
     method: get
@@ -186,7 +186,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"restrictions":[]}'
-    http_version: 
+    http_version:
   recorded_at: Thu, 13 Jul 2017 14:40:38 GMT
 - request:
     method: post
@@ -223,7 +223,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"visit_id":5493}'
-    http_version: 
+    http_version:
   recorded_at: Tue, 09 May 2017 23:00:00 GMT
 - request:
     method: get
@@ -259,8 +259,8 @@ http_interactions:
       - "/offenders/{noms_id}"
     body:
       encoding: ASCII-8BIT
-      string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"internal_location":"LEI-H-1-003"}'
-    http_version: 
+      string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":"LEI-H-1-003"}'
+    http_version:
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -298,6 +298,6 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"given_name":"IZZY","surname":"ITSU","date_of_birth":"1971-11-11","aliases":[],"gender":{"code":"M","desc":"Male"},"convicted":true,"imprisonment_status":{"code":"UNK_SENT","desc":"Unknown
         Sentenced"},"iep_level":{"code":"STD","desc":"Standard"}}'
-    http_version: 
+    http_version:
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 recorded_with: VCR 3.0.3
