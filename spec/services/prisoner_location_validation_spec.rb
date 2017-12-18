@@ -10,7 +10,7 @@ RSpec.describe PrisonerLocationValidation do
     Nomis::Establishment.new(
       code: code,
       api_call_successful: api_successful,
-      internal_location: 'Cell With View Overlooking the Ocean'
+      housing_location: 'Cell With View Overlooking the Ocean'
     )
   end
 
