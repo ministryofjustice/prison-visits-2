@@ -75,7 +75,7 @@ GEM
     base32-crockford (0.1.0)
     brakeman (4.0.1)
     builder (3.2.3)
-    business (1.10.0)
+    business (1.11.1)
     byebug (9.1.0)
     capybara (2.16.1)
       addressable
