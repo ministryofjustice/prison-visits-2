@@ -22,7 +22,7 @@ RSpec.describe Nomis::Establishment, type: :model do
   describe '.build' do
     context 'when internal location is not nested under the establishment key' do
       before do
-        attributes['internal_location'] = "ISI-2-1-1"
+        attributes['housing_location'] = "ISI-2-1-1"
       end
 
       it 'builds the object correctly' do
@@ -30,7 +30,7 @@ RSpec.describe Nomis::Establishment, type: :model do
           to have_attributes(
             code: "ISI",
             desc: "ISIS HMP/YOI",
-            internal_location: "ISI-2-1-1"
+            housing_location: "ISI-2-1-1"
              )
       end
     end

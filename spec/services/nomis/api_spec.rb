@@ -123,7 +123,7 @@ RSpec.describe Nomis::Api do
       end
 
       it 'has the internal location' do
-        expect(establishment).to have_attributes(internal_location: 'ISI-2-1-1')
+        expect(establishment).to have_attributes(housing_location: 'ISI-2-1-1')
       end
     end
 
