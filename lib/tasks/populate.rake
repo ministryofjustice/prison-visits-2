@@ -156,3 +156,5 @@ namespace :pvb do
     end
   end
 end
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/AbcSize

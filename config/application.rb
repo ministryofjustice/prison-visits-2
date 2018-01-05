@@ -40,11 +40,6 @@ module PrisonVisits
     config.sentry_dsn = ENV['SENTRY_DSN']
     config.sentry_js_dsn = ENV['SENTRY_JS_DSN']
 
-    config.lograge.enabled = Rails.env.production?
-    config.lograge.custom_options = lambda do |event|
-      event.payload[:custom_log_items]
-    end
-
     config.middleware.insert_before Rack::Head, HttpMethodNotAllowed
 
     config.sendgrid_api_user = ENV['SMTP_USERNAME']

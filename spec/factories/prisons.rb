@@ -25,7 +25,7 @@ FactoryBot.define do
     end
 
     adult_age do
-      10 + rand(9)
+      rand(10..19)
     end
 
     slot_details 'recurring' => {

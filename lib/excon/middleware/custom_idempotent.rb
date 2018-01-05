@@ -41,5 +41,9 @@ module Excon
         end
       end
     end
+    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/LineLength
   end
 end

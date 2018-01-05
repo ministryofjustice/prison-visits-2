@@ -9,6 +9,12 @@ create)
 migrate_and_seed)
     echo "running migrate and seed"
     bundle exec rake db:migrate db:seed
+    RETURN_CODE=$?
+    while [ $RETURN_CODE -gt 0 ]; do
+      sleep 1
+      bundle exec rake db:migrate db:seed
+      RETURN_CODE=$?
+    done
     ;;
 esac
 bundle exec puma -b tcp://0.0.0.0:3000 -d -C config/puma_prod.rb

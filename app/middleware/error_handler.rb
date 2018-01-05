@@ -14,7 +14,7 @@ class ErrorHandler
     end
 
     ErrorsController.action(:show).call(env)
-  rescue => e
+  rescue StandardError => e
     Raven.capture_exception(e)
     raise
   end
@@ -22,7 +22,7 @@ class ErrorHandler
   def self.valid_query_string?(query_string)
     Rack::Utils.parse_nested_query(query_string)
     true
-  rescue
+  rescue StandardError
     false
   end
 end
