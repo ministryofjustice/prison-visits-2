@@ -3,7 +3,6 @@ class Prison::DashboardsController < ApplicationController
 
   before_action :authorize_prison_request
   before_action :authenticate_user
-  before_action :verify_switch_estates, only: :switch_estates
 
   def inbox
     requested_visits(estates: current_estates)
