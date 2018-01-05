@@ -111,7 +111,7 @@ private
     response = @pool.with { |client| client.request(method, action, data) }
 
     yield response
-  rescue => e
+  rescue StandardError => e
     Rails.logger.error("#{e.class.name}: #{e.message}")
     Raven.capture_exception(e) unless ignore_error?(e)
     false

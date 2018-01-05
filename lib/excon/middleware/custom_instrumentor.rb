@@ -46,3 +46,5 @@ module Excon
     end
   end
 end
+# rubocop:enable Metrics/LineLength
+# rubocop:enable Metrics/MethodLength

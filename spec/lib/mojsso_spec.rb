@@ -80,3 +80,4 @@ RSpec.describe OmniAuth::Strategies::Mojsso do
     end
   end
 end
+# rubocop:enable RSpec/FilePath
