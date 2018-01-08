@@ -240,6 +240,7 @@ SPI:
   group: grendon_and_springhill.noms.moj
 STI:
   name: Styal
+  group: apvu.noms.moj
 SUI:
   name: Sudbury
 SWI:
