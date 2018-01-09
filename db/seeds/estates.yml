@@ -89,6 +89,7 @@ FDI:
   name: Ford
 FHI:
   name: Foston Hall
+  group: apvu.noms.moj
 FKI:
   name: Frankland
 FMI:
