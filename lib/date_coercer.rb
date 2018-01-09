@@ -16,10 +16,7 @@ private
 
   def self.rescue_invalid_date
     yield
-  rescue ArgumentError => e # e.g. invalid date such as 2010-14-31
-    # TODO: remove once it has been in production
-    # for a while, this is just for monitoring purpose.
-    Raven.capture_exception(e)
+  rescue ArgumentError # e.g. invalid date such as 2010-14-31
     nil
   end
 end
