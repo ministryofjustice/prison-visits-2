@@ -47,15 +47,29 @@ private
   end
 
   def load_counts
+    metrics_formatter = Metrics::Formatter.new(ordered_counts)
+    metrics_formatter.fetch_and_format
+  end
+
+  def ordered_counts
     min_date = @dates.min
     max_date = @dates.max
 
-    ordered_counts = Counters::CountVisitsByPrisonAndCalendarWeek.
-      where('year = ? AND week >= ?', min_date.year, min_date.cweek).
-      where('year = ? AND week <= ?', max_date.year, max_date.cweek).
-      pluck(:prison_name, :year, :week, :processing_state, :count)
+    if min_date.year != max_date.year
+      min_counts = Counters::CountVisitsByPrisonAndCalendarWeek.
+        where('year = ? AND week >= ?', min_date.year, min_date.cweek).
+        pluck(:prison_name, :year, :week, :processing_state, :count)
 
-    metrics_formatter = Metrics::Formatter.new(ordered_counts)
-    metrics_formatter.fetch_and_format
+      max_counts = Counters::CountVisitsByPrisonAndCalendarWeek.
+        where('year = ? AND week <= ?', max_date.year, max_date.cweek).
+        pluck(:prison_name, :year, :week, :processing_state, :count)
+
+      min_counts + max_counts
+    else
+      Counters::CountVisitsByPrisonAndCalendarWeek.
+        where('year = ? AND week >= ?', min_date.year, min_date.cweek).
+        where('year = ? AND week <= ?', max_date.year, max_date.cweek).
+        pluck(:prison_name, :year, :week, :processing_state, :count)
+    end
   end
 end
