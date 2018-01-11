@@ -40,7 +40,7 @@ RSpec.describe Prison::FeedbacksController, type: :controller do
           expect(feedback.submitted_by_staff).to eq(true)
         end
 
-        expect { subject }.to change { FeedbackSubmission.count }.by(1)
+        expect { subject }.to change(FeedbackSubmission, :count).by(1)
       end
 
       it { is_expected.to redirect_to(prison_inbox_path) }

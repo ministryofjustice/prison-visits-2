@@ -19,13 +19,7 @@ RSpec.describe BookingResponder::Reject do
     it 'process the visit' do
       expect {
         subject.process_request
-      }.to change {
-        visit.processing_state
-      }.from('requested').to('rejected').and change {
-        visit.closed
-      }.to(nil).and change {
-        visit.reference_no
-      }.to(nil)
+      }.to change(visit, :processing_state).from('requested').to('rejected').and change(visit, :closed).to(nil).and change(visit, :reference_no).to(nil)
     end
   end
 end

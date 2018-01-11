@@ -26,7 +26,7 @@ RSpec.describe ContactListMatcherBehaviour do
       it 'adds the contact to contact list' do
         expect{
           subject.add(1, contacts)
-        }.to change { subject.contacts }.from([]).to(['Bob'])
+        }.to change(subject, :contacts).from([]).to(['Bob'])
       end
     end
 
@@ -37,7 +37,7 @@ RSpec.describe ContactListMatcherBehaviour do
         it 'adds contacts to contact list' do
           expect{
             subject.add(1, contacts)
-          }.to change { subject.contacts }.from([]).to(%w[Bob Alice])
+          }.to change(subject, :contacts).from([]).to(%w[Bob Alice])
         end
       end
 
@@ -49,7 +49,7 @@ RSpec.describe ContactListMatcherBehaviour do
           expect{
             subject.add(1, contacts_one)
             subject.add(0.5, contacts_half_one)
-          }.to change { subject.contacts }.from([]).to(['Mark', 'Jez', 'Super Hans'])
+          }.to change(subject, :contacts).from([]).to(['Mark', 'Jez', 'Super Hans'])
         end
       end
     end

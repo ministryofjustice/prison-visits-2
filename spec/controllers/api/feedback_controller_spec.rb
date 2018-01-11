@@ -31,7 +31,7 @@ RSpec.describe Api::FeedbackController, type: :controller do
     subject(:create) { post :create, params: params }
 
     it 'creates a new feedback submission' do
-      expect { create }.to change { FeedbackSubmission.count }.by(1)
+      expect { create }.to change(FeedbackSubmission, :count).by(1)
     end
 
     it 'sends to ZenDesk' do

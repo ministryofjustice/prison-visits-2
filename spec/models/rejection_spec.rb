@@ -58,7 +58,7 @@ RSpec.describe Rejection, model: true do
       end
 
       it 'does not save the text from the rejection reason field to the database' do
-        expect { subject.save! }.to change{ subject.rejection_reason_detail }.to(nil)
+        expect { subject.save! }.to change(subject, :rejection_reason_detail).to(nil)
       end
     end
 

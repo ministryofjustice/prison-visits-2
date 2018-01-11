@@ -34,7 +34,7 @@ RSpec.describe Message, type: :model do
 
       it 'does not create or send a message' do
         expect(VisitorMailer).not_to receive(:one_off_message)
-        expect { subject }.not_to change { visit.messages }
+        expect { subject }.not_to change(visit, :messages)
       end
     end
   end
