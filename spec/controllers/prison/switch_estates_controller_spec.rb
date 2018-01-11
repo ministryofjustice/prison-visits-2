@@ -42,7 +42,7 @@ RSpec.describe Prison::SwitchEstatesController, type: :controller do
         let(:estate_ids) { [] }
 
         it 'does not update the current selection' do
-          expect { subject }.not_to change { controller.current_estates }
+          expect { subject }.not_to change(controller, :current_estates)
         end
       end
     end

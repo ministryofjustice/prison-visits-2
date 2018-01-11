@@ -138,9 +138,7 @@ RSpec.describe VisitDecorator do
       it 'builds a new cancellation' do
         expect {
           subject.cancellation
-        }.to change {
-          visit.cancellation
-        }.from(nil).to(instance_of(Cancellation))
+        }.to change(visit, :cancellation).from(nil).to(instance_of(Cancellation))
       end
 
       it 'is decorated' do
