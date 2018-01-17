@@ -74,7 +74,6 @@ group :test do
   gem 'rspec-collection_matchers'
   gem 'selenium-webdriver'
   gem 'simplecov'
-  gem 'simplecov-rcov'
   gem 'vcr'
   gem 'webmock'
   gem 'shoulda-matchers'
