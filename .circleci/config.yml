@@ -41,9 +41,19 @@ jobs:
               sudo tar -zxvf geckodriver-v0.19.0-linux64.tar.gz -C /opt
             fi
             [[ -L /usr/local/bin/geckodriver ]] || sudo ln -sf /opt/geckodriver /usr/local/bin/geckodriver
+      - run:
+          name: Setup Code Climate test-reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
-      - run: bundle exec rake
+      - run:
+          name: Run tests
+          command: |
+            ./cc-test-reporter before-build
+            bundle exec rake
+            ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
       - save_cache:
           key: prison-visits-2-{{ checksum "Gemfile.lock" }}
           paths:
