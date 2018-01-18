@@ -300,9 +300,6 @@ Layout/SpaceInsidePercentLiteralDelimiters:
 Style/TernaryParentheses:
   Enabled: false
 
-Lint/UnneededDisable:
-  Enabled: false
-
 Lint/UselessAccessModifier:
   Enabled: false
 
