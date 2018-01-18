@@ -7,11 +7,9 @@ class IpAddressMatcher
 
   def include?(addr)
     @cidrs.any? do |cidr|
-      begin
-        cidr.matches?(addr)
-      rescue NetAddr::ValidationError
-        false
-      end
+      cidr.matches?(addr)
+    rescue NetAddr::ValidationError
+      false
     end
   end
 
