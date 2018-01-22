@@ -165,6 +165,7 @@ LLI:
   name: Long Lartin
 LNI:
   name: Low Newton
+  group: apvu.noms.moj
 LPI:
   name: Liverpool
   finder_slug: liverpool
