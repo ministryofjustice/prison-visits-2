@@ -157,7 +157,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       end
 
       preview_window = window_opened_by {
-        click_link 'Preview Email'
+        click_link 'Preview email'
       }
 
       within_window preview_window do

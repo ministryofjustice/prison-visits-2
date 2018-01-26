@@ -26,6 +26,11 @@
       };
 
       $.ajax(ajaxOptions).done(function(data) {
+        moj.Modules.Analytics.send({
+          category: $(event.currentTarget).data('prison'),
+          action: 'Click',
+          label: 'Email preview'
+        });
         var emailPreviewWindow = window.open("", "_blank")
         emailPreviewWindow.document.write(data);
       }).fail(function(xhr) {
