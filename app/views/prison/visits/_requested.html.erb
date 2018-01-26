@@ -67,8 +67,20 @@
     <% end %>
   </div>
 
-  <div class="form-group">
-    <p><%= link_to t('.email_preview'), prison_visit_email_preview_path(@visit), class: 'js-LinkPreview', target: '_blank', data: {'prison': @visit.prison_name} %></p>
-    <p><%= f.submit t('.submit'), class: 'button button-primary' %></p>
+  <div class="grid-row form-group">
+    <div class="column-one-half">
+      <div class="grid-row">
+        <div class="column-one-third">
+          <p><%= f.submit t('.submit'), class: 'button button-primary' %></p>
+        </div>
+        <div class="column-two-thirds">
+          <p class="push-top--half">
+            <i class="icon icon-email-preview">
+              <span class="visuallyhidden"><%= t('.email_preview') %></span>
+            </i>
+            <%= link_to t('.email_preview'), prison_visit_email_preview_path(@visit), class: 'js-LinkPreview', target: '_blank', data: {'prison': @visit.prison_name} %></p>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>

@@ -31,6 +31,16 @@
 .icon-information {
   background-image: image-url('icon-information.png');
 }
+.icon-email-preview {
+  background-image: image-url('icon-email-preview.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  float: left;
+  height: 37px;
+  margin-right: 10px;
+  width: 30px;
+}
 .text-secondary {
   .icon {
     margin-left: 2px;
