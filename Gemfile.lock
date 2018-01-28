@@ -351,6 +351,8 @@ GEM
     tilt (2.0.8)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2018.3)
+      tzinfo (>= 1.0.0)
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -441,6 +443,7 @@ DEPENDENCIES
   spring-commands-rspec
   state_machines-activerecord
   string_scrubber
+  tzinfo-data
   uglifier (~> 2.7.2)
   uri_template
   vcr

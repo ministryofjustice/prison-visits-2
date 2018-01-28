@@ -32,6 +32,8 @@ gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'jwt'
 gem 'rake'
 
+gem 'tzinfo-data'
+
 gem 'secure_headers'
 gem 'sentry-raven'
 gem 'sidekiq'
