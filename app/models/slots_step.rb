@@ -1,10 +1,10 @@
 class SlotsStep
-  include NonPersistedModel
+  include MemoryModel
 
-  attribute :prison, Prison
-  attribute :option_0, String
-  attribute :option_1, String
-  attribute :option_2, String
+  attribute :prison, :prison
+  attribute :option_0, :string
+  attribute :option_1, :string
+  attribute :option_2, :string
 
   delegate :available_slots, to: :prison
 

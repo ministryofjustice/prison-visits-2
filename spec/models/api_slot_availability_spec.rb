@@ -111,7 +111,7 @@ RSpec.describe ApiSlotAvailability, type: :model do
       it 'can intersect available slots with prisoner availability' do
         offender = Nomis::Offender.new(id: 123)
         prisoner_availability = Nomis::PrisonerAvailability.new(
-          dates: [Date.parse('2016-04-12'), Date.parse('2016-04-25')]
+          dates: ['2016-04-12', '2016-04-25']
         )
 
         expect(Nomis::Api.instance).to receive(:lookup_active_offender).

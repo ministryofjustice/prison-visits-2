@@ -1,9 +1,9 @@
 class VisitorsValidation
-  include NonPersistedModel
+  include MemoryModel
 
-  attribute :lead_date_of_birth, Date
-  attribute :dates_of_birth, Array[Date]
-  attribute :prison, Prison
+  attribute :lead_date_of_birth, :date
+  attribute :dates_of_birth
+  attribute :prison, :prison
 
   validate :lead_visitor_age
   validate :number_of_visitors

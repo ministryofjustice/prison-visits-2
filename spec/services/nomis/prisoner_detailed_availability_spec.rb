@@ -18,7 +18,7 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
 
     it 'parses the response body' do
       object = described_class.build(response_body)
-      expect(object.dates.size).to eq(1)
+      expect(object.dates.count).to eq(1)
       date_info = object.dates.first
 
       expect(date_info.banned).to eq(false)

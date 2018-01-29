@@ -1,10 +1,10 @@
 class SlotAvailabilityValidation
-  include NonPersistedModel
+  include MemoryModel
 
   SLOT_NOT_AVAILABLE = 'slot_not_available'.freeze
 
-  attribute :requested_slots, Array[ConcreteSlot]
-  attribute :prison, Prison
+  attribute :requested_slots, :concrete_slot_list
+  attribute :prison, :prison
 
   validate :slots_availability
 

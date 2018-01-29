@@ -36,7 +36,7 @@ RSpec.describe HealthcheckController, type: :controller do
     end
 
     it 'returns an HTTP Success status' do
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'returns the healthcheck data as JSON' do

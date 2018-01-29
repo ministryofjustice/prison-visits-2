@@ -3,9 +3,6 @@ module DateCoercer
   def self.coerce(value)
     case
     when value.nil?                  then nil
-    when value.is_a?(Date)           then value
-    when value.respond_to?(:to_date)
-      rescue_invalid_date { value.to_date }
     when value.respond_to?(:values_at)
       ymd = value.values_at(:year, :month, :day)
       rescue_invalid_date { Date.new(*ymd.map(&:to_i)) }

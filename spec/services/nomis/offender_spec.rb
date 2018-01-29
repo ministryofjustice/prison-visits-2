@@ -22,7 +22,7 @@ RSpec.describe Nomis::Offender, type: :model do
         mock_nomis_with(
           :lookup_offender_details,
           Nomis::Offender::Details.new(
-            iep_level: { code: 'STD', desc: 'Standard' }
+            iep_level: { 'code' => 'STD', 'desc' => 'Standard' }
           )
         )
       end
@@ -45,7 +45,7 @@ RSpec.describe Nomis::Offender, type: :model do
         mock_nomis_with(
           :lookup_offender_details,
           Nomis::Offender::Details.new(
-            imprisonment_status: { code: 'RX', desc: 'Remanded to Magistrates Court' }
+            imprisonment_status: { 'code' => 'RX', 'desc' => 'Remanded to Magistrates Court' }
           )
         )
       end
