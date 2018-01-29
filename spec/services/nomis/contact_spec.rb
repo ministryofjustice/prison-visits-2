@@ -42,7 +42,7 @@ RSpec.describe Nomis::Contact do
           Nomis::Restriction.new(
             effective_date: '2017-03-02',
             expiry_date: '2017-04-02',
-            type: { code: "CLOSED", desc: "Closed" })
+            type: { 'code' => "CLOSED", 'desc' => "Closed" })
         ]
       end
 
@@ -55,7 +55,7 @@ RSpec.describe Nomis::Contact do
           Nomis::Restriction.new(
             effective_date: '2017-03-02',
             expiry_date: '2017-04-02',
-            type: { code: "BAN", desc: "Banned" })
+            type: { 'code' => "BAN", 'desc' => "Banned" })
         ]
       end
 
@@ -73,7 +73,7 @@ RSpec.describe Nomis::Contact do
           Nomis::Restriction.new(
             effective_date: '2017-03-02',
             expiry_date: expiry_date,
-            type: { code: "BAN", desc: "Banned" })
+            type: { 'code' => "BAN", 'desc' => "Banned" })
         ]
       end
 
@@ -86,7 +86,7 @@ RSpec.describe Nomis::Contact do
           Nomis::Restriction.new(
             effective_date: '2017-03-02',
             expiry_date: nil,
-            type: { code: "BAN", desc: "Banned" })
+            type: { 'code' => "BAN", 'desc' => "Banned" })
         ]
       end
 
@@ -99,7 +99,7 @@ RSpec.describe Nomis::Contact do
           Nomis::Restriction.new(
             effective_date: '2017-03-02',
             expiry_date: '2017-04-02',
-            type: { code: "CLOSED", desc: "Closed" })
+            type: { 'code' => "CLOSED", 'desc' => "Closed" })
         ]
       end
 

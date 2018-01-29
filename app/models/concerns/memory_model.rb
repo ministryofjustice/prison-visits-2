@@ -1,14 +1,12 @@
-module NonPersistedModel
+module MemoryModel
   extend ActiveSupport::Concern
 
   included do
-    include Virtus.model
+    include ActiveModel::Model
+    # include ActiveModel::Attributes
+    include ActiveModelAttributes
     include ActiveModel::Conversion
     include ActiveModel::Validations
     include ActiveModel::Validations::Callbacks
-
-    def persisted?
-      false
-    end
   end
 end

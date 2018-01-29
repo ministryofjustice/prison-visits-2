@@ -1,11 +1,9 @@
 module Nomis
   class SlotAvailability
     include Enumerable
-    include NonPersistedModel
+    include MemoryModel
 
-    attribute :slots, Array[ApiSlot], coercer: lambda { |slots|
-      slots.map { |s| ApiSlot.new(s) }
-    }
+    attribute :slots, :api_slot_list
 
     def each
       slots.each { |slot| yield slot }

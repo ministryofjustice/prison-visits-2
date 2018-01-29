@@ -1,22 +1,12 @@
-require 'maybe_date'
 require 'email_address_validation'
 
 class VisitorsStep
-  include NonPersistedModel
+  include MemoryModel
 
-  class Visitor
-    include NonPersistedModel
-    include Person
-
-    attribute :first_name, String
-    attribute :last_name, String
-    attribute :date_of_birth, MaybeDate
-  end
-
-  attribute :prison, Prison
-  attribute :email_address, String
-  attribute :phone_no, String
-  attribute :visitors, Array[Visitor]
+  attribute :prison, :prison
+  attribute :email_address, :string
+  attribute :phone_no, :string
+  attribute :visitors, :visitor_list
 
   delegate :adult_age, to: :prison
 
@@ -38,7 +28,7 @@ class VisitorsStep
     existing = visitors
     num_needed = Prison::MAX_VISITORS - existing.count
     backfill = num_needed.times.map { Visitor.new }
-    existing + backfill
+    existing.to_a + backfill
   end
 
   def visitors_attributes=(params)
@@ -56,7 +46,7 @@ class VisitorsStep
 
   def valid?(*)
     # This must be eager because we want to show errors on all objects.
-    visitors.inject([super]) { |a, e| a << e.valid? }.all?
+    visitors.inject([super]) { |a, e| a << e.valid_person? }.all?
   end
 
   alias_method :validate, :valid?

@@ -71,7 +71,7 @@ module Nomis
 
       PrisonerAvailability.new(response).tap do |prisoner_availability|
         PVB::Instrumentation.append_to_log(
-          offender_visiting_availability: prisoner_availability.dates.size
+          offender_visiting_availability: prisoner_availability.dates.count
         )
       end
     end
@@ -101,7 +101,7 @@ module Nomis
 
       Nomis::SlotAvailability.new(response).tap do |slot_availability|
         PVB::Instrumentation.append_to_log(
-          slot_visiting_availability: slot_availability.slots.size)
+          slot_visiting_availability: slot_availability.slots.count)
       end
     end
 
