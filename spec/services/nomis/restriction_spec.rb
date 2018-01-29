@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Nomis::Restriction do
   let(:description) { 'Banned' }
-  let(:type) { { code: "BAN", desc: description } }
+  let(:type) { { 'code' => "BAN", 'desc' => description } }
   let(:effective_date) { 3.days.ago.to_date }
   let(:expiry_date) { nil }
 
@@ -16,13 +16,13 @@ RSpec.describe Nomis::Restriction do
 
   describe '#banned?' do
     context 'with a banned restriction type' do
-      let(:type) { { code: "BAN", desc: "Banned" } }
+      let(:type) { { 'code' => "BAN", 'desc' => "Banned" } }
 
       it { is_expected.to be_banned }
     end
 
     context 'with not a banned restriction type ' do
-      let(:type) { { code: "CLOSED", desc: "Closed" } }
+      let(:type) { { 'code' => "CLOSED", 'desc' => "Closed" } }
 
       it { is_expected.not_to be_banned }
     end
@@ -30,13 +30,13 @@ RSpec.describe Nomis::Restriction do
 
   describe '#closed?' do
     context 'with a banned restriction type' do
-      let(:type) { { code: "BAN", desc: "Banned" } }
+      let(:type) { { 'code' => "BAN", 'desc' => "Banned" } }
 
       it { expect(subject).not_to be_closed }
     end
 
     context 'with no banned restriction types ' do
-      let(:type) { { code: "CLOSED", desc: "Closed" } }
+      let(:type) { { 'code' => "CLOSED", 'desc' => "Closed" } }
 
       it { expect(subject).to be_closed }
     end

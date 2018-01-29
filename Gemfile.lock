@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/alan/active_model_attributes.git
+  revision: d690c5fd73bb3fec56a7e906cf014e0b4f41d31f
+  ref: d690c5fd73bb3fec56a7e906cf014e0b4f41d31f
+  specs:
+    active_model_attributes (1.2.0)
+      activemodel (>= 5.0)
+      activesupport (>= 5.0)
+
+GIT
   remote: https://github.com/ministryofjustice/email_address_validation
   revision: 5ed2fb93f8d5bc419f03cecb408c688c5bd9fd74
   ref: 5ed2fb93f8d5bc419f03cecb408c688c5bd9fd74
@@ -71,10 +80,6 @@ GEM
     arel (9.0.0)
     ast (2.4.0)
     awesome_print (1.8.0)
-    axiom-types (0.1.1)
-      descendants_tracker (~> 0.0.4)
-      ice_nine (~> 0.11.0)
-      thread_safe (~> 0.3, >= 0.3.1)
     base32-crockford (0.1.0)
     brakeman (4.2.1)
     builder (3.2.3)
@@ -90,8 +95,6 @@ GEM
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.2)
-    coercible (1.0.0)
-      descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
     crack (0.4.3)
@@ -140,7 +143,6 @@ GEM
     htmlentities (4.3.4)
     i18n (1.0.0)
       concurrent-ruby (~> 1.0)
-    ice_nine (0.11.2)
     inflection (1.0.0)
     jasmine (3.1.0)
       jasmine-core (= 3.1.0)
@@ -364,11 +366,6 @@ GEM
     uri_template (0.7.0)
     useragent (0.16.10)
     vcr (4.0.0)
-    virtus (1.0.5)
-      axiom-types (~> 0.1)
-      coercible (~> 1.0)
-      descendants_tracker (~> 0.0, >= 0.0.3)
-      equalizer (~> 0.0, >= 0.0.9)
     webmock (3.3.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -389,6 +386,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_attributes!
   activerecord-safer_migrations
   awesome_print
   base32-crockford
@@ -449,7 +447,6 @@ DEPENDENCIES
   uglifier (~> 2.7.2)
   uri_template
   vcr
-  virtus
   webmock
   zendesk_api
 

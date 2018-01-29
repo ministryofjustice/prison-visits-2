@@ -27,4 +27,14 @@ RSpec.describe Nomis::OffenderRestrictions do
       expect(restriction.expiry_date).to eq(expected_restriction.expiry_date)
     end
   end
+
+  describe '#api_call_successful?' do
+    let(:args) { {} }
+
+    before do
+      subject.api_call_successful = false
+    end
+
+    it { expect(subject).not_to be_api_call_successful }
+  end
 end

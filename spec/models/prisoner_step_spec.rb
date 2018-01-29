@@ -23,8 +23,8 @@ RSpec.describe PrisonerStep do
 
     dob = prisoner_step.date_of_birth
 
-    expect(dob).to be_kind_of(UncoercedDate)
-    expect(dob.month).to eql('13')
+    expect(dob).to be_kind_of(AccessibleDate)
+    expect(dob.month).to be(13)
   end
 
   it 'does not fail if the prisoner number has extra spaces' do

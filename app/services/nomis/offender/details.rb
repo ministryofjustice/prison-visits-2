@@ -1,21 +1,26 @@
 module Nomis
   class Offender
     class Details
-      include NonPersistedModel
+      include MemoryModel
 
-      attribute :given_name,          String
-      attribute :surname,             String
-      attribute :date_of_birth,       MaybeDate
-      attribute :aliases,             Array[String]
-      attribute :gender,              Hash[Symbol => String]
-      attribute :convicted,           Boolean
-      attribute :imprisonment_status, Hash[Symbol => String]
-      attribute :iep_level,           Hash[Symbol => String]
-
-      attribute :api_call_successful, Boolean, default: true
+      attribute :given_name, :string
+      attribute :surname, :string
+      attribute :title, :string
+      attribute :nationalities, :string
+      attribute :date_of_birth, :date
+      attribute :aliases
+      attribute :gender
+      attribute :religion
+      attribute :ethnicity
+      attribute :convicted, :boolean
+      attribute :imprisonment_status
+      attribute :cro_number, :string
+      attribute :pnc_number, :string
+      attribute :iep_level
+      attribute :api_call_successful, :boolean, default: true
 
       def valid?
-        @api_call_successful
+        api_call_successful
       end
     end
   end

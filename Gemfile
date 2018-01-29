@@ -40,7 +40,6 @@ gem 'string_scrubber'
 # Newer versions break ie8 js
 gem 'uglifier', '~> 2.7.2'
 gem 'uri_template'
-gem 'virtus'
 gem 'zendesk_api'
 gem 'pvb-instrumentation',
   git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
