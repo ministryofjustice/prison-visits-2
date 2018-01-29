@@ -48,7 +48,7 @@ private
     Prisoner.create!(
       first_name: prisoner_step.first_name,
       last_name: prisoner_step.last_name,
-      date_of_birth: prisoner_step.date_of_birth,
+      date_of_birth: prisoner_step.date_of_birth.to_date,
       number: prisoner_step.number
     )
   end

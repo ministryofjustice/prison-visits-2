@@ -57,30 +57,33 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
 
     context 'when working correctly with some unavailable slots' do
       let(:date1_availability) do
-        Nomis::PrisonerDateAvailability.new(
+        {
           date: slot1.to_date,
           banned: false,
           out_of_vo: false,
           external_movement: false,
-          existing_visits: [])
+          existing_visits: []
+        }
       end
 
       let(:date2_availability) do
-        Nomis::PrisonerDateAvailability.new(
+        {
           date: slot2.to_date,
           banned: true,
           out_of_vo: false,
           external_movement: false,
-          existing_visits: [])
+          existing_visits: []
+        }
       end
 
       let(:date3_availability) do
-        Nomis::PrisonerDateAvailability.new(
+        {
           date: slot3.to_date,
           banned: false,
           out_of_vo: false,
           external_movement: false,
-          existing_visits: [])
+          existing_visits: []
+        }
       end
 
       before do
@@ -159,7 +162,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
         let(:date1) { 1.day.ago.to_date }
         let(:date2) { 61.days.from_now.to_date }
         let(:availability3) do
-          Nomis::PrisonerDateAvailability.new(date: date3, banned: true)
+          { date: date3, banned: true }
         end
 
         before do

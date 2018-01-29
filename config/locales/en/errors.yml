@@ -63,6 +63,7 @@ en:
   age_validator:
     errors:
       range: "must be less than %{max} years ago"
+      invalid_date: is an invalid date
   prisoner_number_validator:
     errors:
       format: has an invalid format

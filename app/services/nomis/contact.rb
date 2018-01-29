@@ -1,18 +1,29 @@
 module Nomis
   class Contact
-    include NonPersistedModel
+    include MemoryModel
     include Comparable
 
-    attribute :id, Integer
-    attribute :given_name
-    attribute :surname
-    attribute :date_of_birth, Date
-    attribute :gender, Hash[Symbol => String]
-    attribute :relationship_type, Hash[Symbol => String]
-    attribute :contact_type, Hash[Symbol => String]
-    attribute :approved_visitor, Boolean
-    attribute :active, Boolean
-    attribute :restrictions, Array[Restriction]
+    attribute :id, :integer
+    attribute :given_name, :string
+    attribute :middle_names, :string
+    attribute :surname, :string
+    attribute :date_of_birth, :date
+    attribute :gender
+    attribute :relationship_type
+    attribute :contact_type
+    attribute :approved_visitor, :boolean
+    attribute :active, :boolean
+    attribute :restrictions, :restriction_list
+
+    def attributes
+      {
+        'id' => id, 'given_name' => given_name, 'surname' => surname,
+        'date_of_birth' => date_of_birth, 'gender' => gender,
+        'relationship_type' => relationship_type, 'contact_type' => contact_type,
+        'approved_visitor' => approved_visitor, 'active' => active,
+        'restrictions' => restrictions
+      }
+    end
 
     def full_name
       "#{given_name} #{surname}".downcase

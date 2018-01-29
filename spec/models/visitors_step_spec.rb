@@ -26,20 +26,15 @@ RSpec.describe VisitorsStep do
           'date_of_birth' => { 'day' => '3', 'month' => '4', 'year' => '1990' }
         }
       }
-      expect(subject.backfilled_visitors[0]).to match(
-        an_object_having_attributes(
-          first_name: 'Bob',
-          last_name: 'Roberts',
-          date_of_birth: Date.new(1980, 2, 1)
-        )
-      )
-      expect(subject.backfilled_visitors[1]).to match(
-        an_object_having_attributes(
-          first_name: 'John',
-          last_name: 'Johnson',
-          date_of_birth: Date.new(1990, 4, 3)
-        )
-      )
+      first_visitor = subject.backfilled_visitors[0]
+      expect(first_visitor.first_name).to eq('Bob')
+      expect(first_visitor.last_name).to eq('Roberts')
+      expect(first_visitor.date_of_birth).to eq(Date.new(1980, 2, 1))
+
+      second_visitor = subject.backfilled_visitors[1]
+      expect(second_visitor.first_name).to eq('John')
+      expect(second_visitor.last_name).to eq('Johnson')
+      expect(second_visitor.date_of_birth).to eq(Date.new(1990, 4, 3))
     end
 
     it 'ignores more than Prison::MAX_VISITORS visitors' do
@@ -53,12 +48,12 @@ RSpec.describe VisitorsStep do
           }
         ]
       }.to_h
-      expect(subject.backfilled_visitors.length).to eq(6)
+      expect(subject.backfilled_visitors.count).to eq(6)
     end
 
     it 'returns blank visitors to make up 6' do
       subject.visitors_attributes = {}
-      expect(subject.backfilled_visitors.length).to eq(6)
+      expect(subject.backfilled_visitors.count).to eq(6)
     end
 
     it 'includes and validates one visitor if none supplied' do
@@ -128,12 +123,12 @@ RSpec.describe VisitorsStep do
         }
       }
 
-      expect(subject.visitors.length).to eq(2)
+      expect(subject.visitors.count).to eq(2)
     end
 
     it 'always returns at least one visitor' do
       subject.visitors_attributes = {}
-      expect(subject.visitors.length).to eq(1)
+      expect(subject.visitors.count).to eq(1)
     end
 
     it 'ignores more than Prison::MAX_VISITORS visitors' do
@@ -147,7 +142,7 @@ RSpec.describe VisitorsStep do
           }
         ]
       }.to_h
-      expect(subject.visitors.length).to eq(6)
+      expect(subject.visitors.count).to eq(6)
     end
   end
 

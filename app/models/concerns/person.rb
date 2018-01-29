@@ -6,11 +6,7 @@ module Person
   included do
     validates :first_name, presence: true, name: true
     validates :last_name, presence: true, name: true
-    validates :date_of_birth,
-      presence: true,
-      inclusion: {
-        in: ->(p) { p.minimum_date_of_birth..p.maximum_date_of_birth }
-      }
+    validates :date_of_birth, presence: true, age: true
   end
 
   def full_name
@@ -26,11 +22,11 @@ module Person
     AgeCalculator.new.age(date_of_birth)
   end
 
-  def minimum_date_of_birth
-    MAX_AGE.years.ago.beginning_of_year.to_date
-  end
+  def valid_person?
+    valid?
 
-  def maximum_date_of_birth
-    Time.zone.today.end_of_year
+    %i[first_name last_name date_of_birth].all? do |key|
+      errors[key].empty?
+    end
   end
 end

@@ -1,15 +1,15 @@
 module Nomis
   class OffenderRestrictions
-    include NonPersistedModel
+    include MemoryModel
     include Enumerable
 
     delegate :each, to: :restrictions
 
-    attribute :restrictions, Array[Restriction]
-    attribute :api_call_successful, Boolean, default: true
+    attribute :restrictions, :restriction_list, default: -> { RestrictionList.new }
+    attribute :api_call_successful, :boolean, default: true
 
     def api_call_successful?
-      @api_call_successful
+      api_call_successful
     end
   end
 end

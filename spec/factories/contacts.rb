@@ -16,7 +16,7 @@ FactoryBot.define do
       restrictions {
         [
           {
-            type: { code: 'BAN', desc: 'Banned' },
+            type: { 'code' => 'BAN', 'desc' => 'Banned' },
             effective_date: 2.days.ago.to_date.to_s,
             expiry_date: 1.month.from_now.to_date.to_s
           }
