@@ -35,7 +35,11 @@ RSpec.describe Nomis::ContactList do
   end
 
   it 'returns an alphabetically ordered list of contacts, by surname and then first name' do
-    contacts = subject.map{ |k, _| [k[:surname], k[:given_name]] }
+    contacts = subject.map{ |k, _| [k.surname, k.given_name] }
     expect(contacts).to eq [%w[Buster Kate], %w[Buster Kristen], %w[Janklin Dave], %w[Zoomer Pete]]
+  end
+
+  describe '#api_call_successful?' do
+    it { expect(subject).to be_api_call_successful }
   end
 end

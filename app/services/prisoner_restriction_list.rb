@@ -4,7 +4,7 @@ class PrisonerRestrictionList
   end
 
   def unknown_result?
-    !offender_restrictions.api_call_successful?
+    !offender_restrictions.api_call_successful
   end
 
   def on_slot(slot)

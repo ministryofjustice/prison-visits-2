@@ -1,12 +1,8 @@
-require 'maybe_date'
-
 class Nomis::Offender
-  include NonPersistedModel
+  include MemoryModel
 
-  attribute :id
-  attribute :noms_id,
-    String,
-    coercer: ->(number) { number&.upcase&.strip }
+  attribute :id, :integer
+  attribute :noms_id, :prisoner_number
 
   validates_presence_of :id, :noms_id
 
@@ -16,12 +12,12 @@ class Nomis::Offender
 
   def iep_level
     return unless details.valid?
-    details[:iep_level][:desc]
+    details.iep_level['desc']
   end
 
   def imprisonment_status
     return unless details.valid?
-    details[:imprisonment_status][:desc]
+    details.imprisonment_status['desc']
   end
 
 private

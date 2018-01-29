@@ -44,7 +44,7 @@ RSpec.describe PrisonerRestrictionList do
     let(:expiry_date) { effective_date + 1.week }
     let(:restriction) do
       Nomis::Restriction.new(
-        type: { code: restriction_code },
+        type: { 'code' => restriction_code },
         effective_date: effective_date,
         expiry_date: expiry_date
       )

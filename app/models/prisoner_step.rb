@@ -1,15 +1,13 @@
-require 'maybe_date'
-
 class PrisonerStep
-  include NonPersistedModel
+  include MemoryModel
   include Person
   include ActiveModel::Validations::Callbacks
 
-  attribute :first_name, String
-  attribute :last_name, String
-  attribute :date_of_birth, MaybeDate
-  attribute :number, String
-  attribute :prison_id, Integer
+  attribute :first_name, :string
+  attribute :last_name, :string
+  attribute :date_of_birth, :accessible_date
+  attribute :number, :string
+  attribute :prison_id, :string
 
   before_validation :scrub_trailing_spaces
 

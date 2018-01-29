@@ -1,10 +1,12 @@
 require 'date_coercer'
 
 class AccessibleDate
-  include ActiveModel::Model
+  include MemoryModel
   include ActiveModel::Serialization
 
-  attr_accessor :year, :month, :day
+  attribute :year, :integer
+  attribute :month, :integer
+  attribute :day, :integer
 
   validate :parsable?
   validates :year, :month, :day, presence: true, if: :any_date_part?
@@ -14,9 +16,9 @@ class AccessibleDate
   end
 
   def to_date
-    Date.new(
-      *serializable_hash.values_at(:year, :month, :day).map(&:to_i)
-    )
+    return nil if attributes.values.any?(&:blank?)
+
+    Date.new(*attributes.values)
   rescue ArgumentError
     nil
   end

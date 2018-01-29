@@ -1,15 +1,14 @@
 module Nomis
   class ApiSlot
-    include NonPersistedModel
+    include MemoryModel
 
-    attribute :time, ConcreteSlot,
-      coercer: ->(t) { ApiSlotNormaliser.new(t).slot }
-    attribute :capacity, Integer
-    attribute :max_groups, Integer
-    attribute :max_adults, Integer
-    attribute :groups_booked, Integer
-    attribute :visitors_booked, Integer
-    attribute :adults_booked, Integer
+    attribute :time, :normalised_concrete_slot
+    attribute :capacity, :integer
+    attribute :max_groups, :integer
+    attribute :max_adults, :integer
+    attribute :groups_booked, :integer
+    attribute :visitors_booked, :integer
+    attribute :adults_booked, :integer
 
     delegate :to_s, :to_date, to: :time
 
