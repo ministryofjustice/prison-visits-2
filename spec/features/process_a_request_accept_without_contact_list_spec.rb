@@ -65,7 +65,7 @@ RSpec.feature 'Processing a request - Acceptance without the contact list enable
       fill_in 'This message will be included in the email sent to the visitor', with: 'A staff message'
 
       preview_window = window_opened_by {
-        click_link 'Preview email'
+        click_link 'Preview visitor email'
       }
 
       within_window preview_window do
