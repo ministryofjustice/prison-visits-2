@@ -151,7 +151,7 @@ en:
             </li>
           </ul>
         submit: Process
-        email_preview: Preview email
+        email_preview: Preview visitor email
         prisoner_available: Prisoner available
         slot_available: Space available
         prisoner_banned: Visits banned
