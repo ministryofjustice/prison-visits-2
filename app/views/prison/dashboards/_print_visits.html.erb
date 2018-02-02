@@ -3,10 +3,10 @@
   <% unless index.zero? %>
     <div class="page-break"></div>
   <% end %>
-  <%= render 'print_slot', slot: slot, visits: visits %>
+  <%= render 'prison/dashboards/print_slot', slot: slot, visits: visits %>
   <% visits.each do |visit| %>
     <div class="page-break"></div>
-    <%= render 'print_details', visit: visit %>
+    <%= render 'prison/dashboards/print_details', visit: visit %>
     <hr>
   <% end %>
 <% end -%>

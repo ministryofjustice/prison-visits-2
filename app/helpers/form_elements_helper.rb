@@ -18,6 +18,14 @@ module FormElementsHelper
     }
   end
 
+  def visit_date_options
+    {
+      day:   { min: 1, max: 31 },
+      month: { min: 1, max: 12 },
+      year:  { min: Date.new(2014, 1, 1).year }
+    }
+  end
+
   def composite_field(form, name, &blk)
     error_container(form, name) {
       content_tag(:fieldset) {

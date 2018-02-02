@@ -13,21 +13,6 @@ class Prison::DashboardsController < ApplicationController
     processed_visits(estates: current_estates)
   end
 
-  def print_visits
-    @visit_date = parse_date(params[:visit_date])
-
-    @data = EstateVisitQuery.new(current_estates).
-            visits_to_print_by_slot(@visit_date)
-
-    respond_to do |format|
-      format.html
-      format.csv do
-        render csv: BookedVisitsCsvExporter.new(@data),
-               filename: 'booked_visits'
-      end
-    end
-  end
-
   def search
     query = params[:query]
     requested_visits(estates: accessible_estates, query: query)
@@ -65,12 +50,5 @@ private
 
   def estate_query(estates)
     @estate_query ||= EstateVisitQuery.new(estates)
-  end
-
-  def parse_date(date)
-    Date.parse(date) if date.present?
-  rescue ArgumentError
-    flash[:notice] = t('invalid_date', scope: %i[prison flash])
-    nil
   end
 end
