@@ -12,11 +12,6 @@
     <%= stylesheet_link_tag('application-ie8', media: 'all') %>
   <![endif]-->
 <% end %>
-<!--[if gte IE 9]><!-->
-  <%= content_tag :div, nil, class: "js-AsyncGA", data: ga_tracking_data %>
-<!--<![endif]-->
-
-<% yield :metrics %>
 
 <% content_for :cookie_message do %>
   <%= t('.cookies_intro') %>
@@ -103,6 +98,9 @@
 <% end %>
 
 <% content_for :body_end do %>
+  <!--[if gte IE 9]><!-->
+    <%= content_tag :div, nil, class: "js-AsyncGA", data: ga_tracking_data %>
+  <!--<![endif]-->
   <%= content_tag :div, nil, class: "js-Sentry", data: { sentry_js_dsn: config_item(:sentry_js_dsn) } %>
   <%= javascript_include_tag('application') %>
   <%= yield :metrics %>

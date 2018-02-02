@@ -65,6 +65,7 @@ DTI:
   name: Deerbolt
 DWI:
   name: Downview
+  group: apvu.noms.moj
 EEI:
   name: Erlestoke
 EHI:
@@ -73,6 +74,7 @@ EHI:
   group: sheppey_cluster.noms.moj
 ESI:
   name: East Sutton Park
+  group: apvu.noms.moj
 EVI:
   name: Everthorpe
 EWI:
@@ -222,6 +224,7 @@ RSI:
   name: Risley
 SDI:
   name: Send
+  group: apvu.noms.moj
 SFI:
   name: Stafford
   group: apvu.noms.moj
