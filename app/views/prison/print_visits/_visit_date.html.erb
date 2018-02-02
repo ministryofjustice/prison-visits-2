@@ -1,0 +1,19 @@
+<div class='grid-row hidden--print'>
+  <div class='column-one-half'>
+    <%= form_for @print_visits, url: prison_print_visits_path, class: 'form' do |f| -%>
+    <div class="form-group">
+      <%= f.fields_for :visit_date, f.object.visit_date do |af| %>
+        <%= composite_field(f, :visit_date) do %>
+          <% visit_date_options.each do |(field_name, field_options)| %>
+            <div class="datefield form-group form-group-<%= field_name %>">
+              <%= af.label field_name %>
+              <%= af.number_field field_name, field_options.merge( class: 'form-control', aria: { describedby: 'visit_date' }, name: "print_visits[visit_date][#{field_name}]") %>
+            </div>
+          <% end %>
+            <%= f.submit(t('.show'), name: nil, class: 'button print-visit-button') %>
+        <% end %>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+</div>

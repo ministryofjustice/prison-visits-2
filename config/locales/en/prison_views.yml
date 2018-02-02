@@ -63,6 +63,23 @@ en:
         email_address: Email Address
         prison: Prison
         send: Send
+    print_visits:
+      visit_date:
+        day: Day
+        month: Month
+        year: Year
+        visit_date: Visit Date
+        show: Show
+        visit_date_hint: Enter a date to view the visits eg 01/12/2016
+      create:
+        download_csv_html: |
+          Download CSV <span class="visuallyhidden">(link opens in a new browser window)</span>
+        print: Print
+        no_bookings: No bookings
+        no_cancellations: No cancellations
+        cancelled_visits: Cancelled visits
+        no_visits: "No visits on %{date}"
+        search_list: Search to generate print lists
     dashboards:
       banner:
         beta: BETA
@@ -88,6 +105,7 @@ en:
       processed:
         title: Processed visits
         view_link: View
+        no_visits: There are currently no processed visits
       request_details_row:
         choice: "%{number} Choice"
         booked_date: Booked date
@@ -98,26 +116,14 @@ en:
         requests: Requests
         title: Requested visits
         visit_link_desc: visit request details for prisoner %{name} (no. %{number})
-      print_visits:
-        title: Print visits
-        visit_date: Visit date
-        filter_form_hint: Enter a date to view the visits eg 01/12/2016
-        show: Show
-        print: Print
-        no_visits: "No visits on %{date}"
-        search_list: Search to generate print lists
-        download_csv_html: |
-          Download CSV <span class="visuallyhidden">(link opens in a new browser window)</span>
-        no_bookings: No bookings
-        no_cancellations: No cancellations
-        cancelled_visits: Cancelled visits
-        visit_list: Visit list
       search:
         cancellations: Cancellations
         processed: Processed
         requests: Requests
         title: Search results for '%{prisoner_number}'
         search_total: Displaying %{number} results
+      print_visits:
+        visit_list: Visit List
     visits:
       book_to_nomis_opt_in:
         already_booked_in_nomis: This visit won't be booked to NOMIS as it already exists
@@ -395,3 +401,4 @@ en:
     clear_selection: Clear selection
     to: to
     other_reason: "Other: %{detail}"
+    print_visits_title: Print visits

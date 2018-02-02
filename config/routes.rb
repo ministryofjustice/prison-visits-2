@@ -54,12 +54,14 @@ Rails.application.routes.draw do
     resources :visits, only: [] do
       resource :email_preview, only: :update
     end
+
+    resources :print_visits, only: %i[new create]
+
     #######
 
     scope controller: :dashboards do
       get '/inbox', action: :inbox, as: 'inbox'
       get '/processed', action: :processed, as: 'processed_visits'
-      get '/print_visits', action: :print_visits, as: 'print_visits'
       get '/search', action: :search, as: :search
     end
 
