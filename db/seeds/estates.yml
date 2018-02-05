@@ -2,6 +2,7 @@ ACI:
   name: Altcourse
 AGI:
   name: Askham Grange
+  group: apvu.noms.moj
 AKI:
   name: Acklington
   finder_slug: acklington2
@@ -190,6 +191,7 @@ MTI:
   name: The Mount
 NHI:
   name: New Hall
+  group: apvu.noms.moj
 NLI:
   name: Northumberland
 NMI:
