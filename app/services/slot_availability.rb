@@ -72,7 +72,7 @@ private
   end
 
   def offender_availability_dates
-    @offender_availability_dates ||= offender_availability[:dates]
+    @offender_availability_dates ||= offender_availability.dates
   end
 
   def nomis_public_prisoner_availability_enabled?
