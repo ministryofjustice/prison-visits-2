@@ -8,16 +8,16 @@ RSpec.describe SlotAvailability do
   let(:end_date)      { Date.parse('2017-03-01') }
   let(:offender)      { Nomis::Offender.new(id: 1_055_206, noms_id: 'prisoner_number') }
   let(:prisoner_availability) do
-    {
+    Nomis::PrisonerAvailability.new(
       dates: [
-        Date.new(2017, 2, 13),
-        Date.new(2017, 2, 14),
-        Date.new(2017, 2, 20),
-        Date.new(2017, 2, 21),
-        Date.new(2017, 2, 27),
-        Date.new(2017, 2, 28)
+        "2017-2-13",
+        "2017-2-14",
+        "2017-2-20",
+        "2017-2-21",
+        "2017-2-27",
+        "2017-2-28"
       ]
-    }
+    )
   end
 
   let(:unavailable_slot) { '2017-02-28T09:00/10:00' }
