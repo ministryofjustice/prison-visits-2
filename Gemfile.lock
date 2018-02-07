@@ -138,12 +138,12 @@ GEM
     i18n (0.9.3)
       concurrent-ruby (~> 1.0)
     inflection (1.0.0)
-    jasmine (3.0.0)
-      jasmine-core (= 3.0.0)
+    jasmine (2.99.0)
+      jasmine-core (>= 2.99.0, < 3.0.0)
       phantomjs
       rack (>= 1.2.1)
       rake
-    jasmine-core (3.0.0)
+    jasmine-core (2.99.0)
     jasmine-jquery-rails (2.0.3)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -396,7 +396,7 @@ DEPENDENCIES
   govuk_frontend_toolkit
   govuk_template
   highline
-  jasmine
+  jasmine (~> 2.9)
   jasmine-jquery-rails
   jbuilder
   jquery-rails (~> 4.2.0)

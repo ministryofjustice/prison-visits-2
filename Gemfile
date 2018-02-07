@@ -57,7 +57,7 @@ group :development, :test do
   gem 'brakeman'
   gem 'byebug'
   gem 'jasmine-jquery-rails'
-  gem 'jasmine'
+  gem 'jasmine', '~> 2.9'
   gem 'parser'
   gem 'pry-byebug'
   gem 'pry-rails'
