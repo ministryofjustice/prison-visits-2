@@ -28,9 +28,6 @@
 
     render: function(){
       var self = this;
-      // this.$el.each(function(i,el){
-      //   var $el = $(el);
-      // });
       this.toggleOverrides();
     },
 
@@ -63,6 +60,7 @@
       var self = this;
 
       $.each($('#js-OverrideMessage li'), function(i,obj){
+
         var $obj = $(obj),
           id = $obj.attr('id');
         self.overrides.indexOf(id) >= 0? self.toggleEl($obj, false) : self.toggleEl($obj, true);
@@ -77,12 +75,10 @@
     },
 
     checked: function($el){
-      console.log('select');
       this.toggleEl(this.getEl($el), true);
     },
 
     unchecked: function($el){
-      console.log('unselect');
       this.toggleEl(this.getEl($el), false);
     },
 
