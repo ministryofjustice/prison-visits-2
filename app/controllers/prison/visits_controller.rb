@@ -9,6 +9,9 @@ class Prison::VisitsController < ApplicationController
   before_action :set_visit_processing_time_cookie, only: :show
   after_action  :track_visit_process, only: :update
 
+  GA_HIT_TYPE_VISIT_PROCESSED = '/visit-processed'.freeze
+  GA_HIT_TYPE_VISIT_REQUESTED = '/visit-requested'.freeze
+
   def update
     @booking_response = booking_responder.respond!
 
@@ -20,6 +23,7 @@ class Prison::VisitsController < ApplicationController
       # Always decorate object last once they've been mutated
       @message = message
       @visit = memoised_visit.decorate
+      @step_name = GA_HIT_TYPE_VISIT_REQUESTED
       render :show
     end
   end
@@ -32,12 +36,15 @@ class Prison::VisitsController < ApplicationController
 
   def show
     visit = Visit.
-             includes(
-               :visitors,
-               messages: :user,
-               visit_state_changes: :processed_by).
+             includes(:visitors, messages: :user, visit_state_changes: :processed_by).
              find(memoised_visit.id)
+
     @visit = visit.decorate
+    @step_name = if @visit.processable?
+                   GA_HIT_TYPE_VISIT_REQUESTED
+                 else
+                   GA_HIT_TYPE_VISIT_PROCESSED
+                 end
     @message = Message.new
   end
 
