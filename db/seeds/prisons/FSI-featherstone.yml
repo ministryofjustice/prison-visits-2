@@ -13,7 +13,7 @@ private: false
 closed: false
 recurring:
   mon:
-  - 1400-1630
+  - 1400-1600
   tue:
   - 1400-1600
   wed:
