@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'maybe_date'
 
 RSpec.describe StaffResponse, type: :model do
   include_context 'with staff response setup'

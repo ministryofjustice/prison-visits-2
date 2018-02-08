@@ -1,8 +1,8 @@
 module Nomis
   class PrisonerAvailability
-    include MemoryModel
+    include NonPersistedModel
 
-    attribute :available, :boolean
-    attribute :dates, :date_list
+    attribute :available, Boolean
+    attribute :dates, Array[Date]
   end
 end

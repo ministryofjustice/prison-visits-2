@@ -1,11 +1,11 @@
 module Nomis
   class Establishment
-    include MemoryModel
+    include NonPersistedModel
 
-    attribute :code, :string
-    attribute :desc, :string
-    attribute :api_call_successful, :boolean, default: true
-    attribute :housing_location, :string
+    attribute :code
+    attribute :desc
+    attribute :api_call_successful, Boolean, default: true
+    attribute :housing_location, String
 
     validates_presence_of :code
 
@@ -16,7 +16,7 @@ module Nomis
     end
 
     def api_call_successful?
-      api_call_successful
+      @api_call_successful
     end
   end
 end

@@ -1,10 +1,9 @@
 module Nomis
   class Booking
-    include MemoryModel
+    include NonPersistedModel
 
-    attribute :visit_id, :integer
-    attribute :error_messages, default: -> { [] }
-    attribute :error_message # Deprecated
+    attribute :visit_id, Integer
+    attribute :error_messages, Array[String]
 
     def self.build(response)
       if response.key?('visit_id')
