@@ -1,11 +1,8 @@
 <%= render 'prison/dashboards/navigation' %>
 
 <% if @visit.processable? || (@booking_response.present? && !@booking_response.success?) %>
-  <div class="js-AsyncGA" data-ga-tracking-id="<%= config_item :ga_id %>" data-hit-type-page="Visit request">
     <%= render 'prison/visits/requested', visit: @visit %>
   </div>
 <% else %>
-  <div class="js-AsyncGA" data-ga-tracking-id="<%= config_item :ga_id %>" data-hit-type-page="Visit processed">
     <%= render 'prison/visits/processed', visit: @visit %>
-  </div>
 <% end %>
