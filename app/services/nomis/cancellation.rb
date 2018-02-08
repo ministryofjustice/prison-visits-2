@@ -1,8 +1,8 @@
 module Nomis
   class Cancellation
-    include NonPersistedModel
-    attribute :message, String
-    attribute :error_message, String
+    include MemoryModel
+    attribute :message, :string
+    attribute :error_message, :string
 
     def error=(error)
       self.error_message = error['message']

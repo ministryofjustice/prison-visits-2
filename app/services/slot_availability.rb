@@ -61,18 +61,15 @@ private
     @offender_availability ||=
       begin
         Nomis::Api.instance.offender_visiting_availability(
-          offender_id: offender.id,
-          start_date: start_date,
-          end_date: end_date)
+          offender_id: offender.id, start_date: start_date, end_date: end_date)
       rescue Nomis::APIError => e
         Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
-
-        { dates: all_slots.keys.map { |k| ConcreteSlot.parse(k).to_date }.uniq }
+        Nomis::PrisonerAvailability.new(dates: all_slots.keys.uniq)
       end
   end
 
   def offender_availability_dates
-    @offender_availability_dates ||= offender_availability[:dates]
+    @offender_availability_dates ||= offender_availability.dates
   end
 
   def nomis_public_prisoner_availability_enabled?

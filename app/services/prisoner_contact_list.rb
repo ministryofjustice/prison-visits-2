@@ -6,7 +6,7 @@ class PrisonerContactList
   end
 
   def unknown_result?
-    !contact_list.api_call_successful?
+    !contact_list.api_call_successful
   end
 
 private

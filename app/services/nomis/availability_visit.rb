@@ -1,9 +1,8 @@
 module Nomis
   class AvailabilityVisit
-    include NonPersistedModel
+    include MemoryModel
 
-    attribute :slot, ConcreteSlot,
-      coercer: ->(t) { ApiSlotNormaliser.new(t).slot }
-    attribute :id, String
+    attribute :slot, :normalised_concrete_slot
+    attribute :id, :string
   end
 end

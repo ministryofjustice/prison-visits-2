@@ -86,10 +86,10 @@ RSpec.describe Nomis::Api do
             surname: "DARHK",
             date_of_birth: Date.parse("1945-08-12"),
             aliases: [],
-            gender: { code: "NS", desc: "Not Specified (Indeterminate)" },
+            gender: { 'code' => "NS", 'desc' => "Not Specified (Indeterminate)" },
             convicted: false,
-            imprisonment_status: { code: "RX", desc: "Remanded to Magistrates Court" },
-            iep_level: { code: "STD", desc: "Standard" }
+            imprisonment_status: { 'code' => "RX", 'desc' => "Remanded to Magistrates Court" },
+            iep_level: { 'code' => "STD", 'desc' => "Standard" }
              )
       end
 
@@ -163,7 +163,7 @@ RSpec.describe Nomis::Api do
     it 'returns empty list of available dates if there is no availability', vcr: { cassette_name: 'offender_visiting_availability-noavailability' } do
       params[:offender_id] = 1_055_847
       expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
-      expect(subject.dates).to be_empty
+      expect(subject.dates).to be_none
     end
   end
 
@@ -226,21 +226,16 @@ RSpec.describe Nomis::Api do
     end
 
     context 'with restriction_parsing' do
-      let(:expected_restriction) do
-        Nomis::Restriction.new(
-          type: { code: 'BAN', desc: 'Banned' },
-          effective_date: Date.parse('2017-03-09'),
-          expiry_date: Date.parse('2017-03-13')
-        )
-      end
+      let(:type) { { 'code' => 'BAN', 'desc' => 'Banned' } }
+      let(:effective_date) { Date.parse('2017-03-09') }
+      let(:expiry_date) { Date.parse('2017-03-13') }
 
       let(:first_restriction) { subject.first }
 
       it 'parses the response' do
-        expect(first_restriction).to have_attributes(
-          type: expected_restriction.type,
-          effective_date: expected_restriction.effective_date,
-          expiry_date: expected_restriction.expiry_date)
+        expect(first_restriction.type).to eq(type)
+        expect(first_restriction.effective_date).to eq(effective_date)
+        expect(first_restriction.expiry_date).to eq(expiry_date)
       end
     end
   end
