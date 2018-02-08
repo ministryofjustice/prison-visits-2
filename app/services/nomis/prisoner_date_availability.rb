@@ -1,19 +1,17 @@
 module Nomis
   class PrisonerDateAvailability
-    include MemoryModel
+    include NonPersistedModel
 
     BOOKED_VISIT = 'booked_visit'.freeze
     EXTERNAL_MOVEMENT = 'external_movement'.freeze
     BANNED = 'prisoner_banned'.freeze
     OUT_OF_VO = 'out_of_vo'.freeze
 
-    attribute :date, :date
-    attribute :banned, :boolean
-    attribute :out_of_vo, :boolean
-    attribute :external_movement, :boolean
-    attribute :existing_visits,
-      :availability_visit_list,
-      default: -> { AvailabilityVisitList.new }
+    attribute :date, Date
+    attribute :banned, Boolean
+    attribute :out_of_vo, Boolean
+    attribute :external_movement, Boolean
+    attribute :existing_visits, Array[AvailabilityVisit]
 
     def available?(requested_slot)
       unavailable_reasons(requested_slot).empty?

@@ -1,5 +1,5 @@
 class PrisonerAvailabilityValidation
-  include MemoryModel
+  include NonPersistedModel
 
   PRISONER_ERRORS = [
     Nomis::PrisonerDateAvailability::BANNED,
@@ -8,8 +8,8 @@ class PrisonerAvailabilityValidation
     Nomis::PrisonerDateAvailability::BOOKED_VISIT
   ].freeze
 
-  attribute :offender, :nomis_offender
-  attribute :requested_slots, :concrete_slot_list
+  attribute :offender, Nomis::Offender
+  attribute :requested_slots, Array[ConcreteSlot]
 
   validate :slots_availability
 
