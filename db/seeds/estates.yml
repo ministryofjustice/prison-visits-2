@@ -80,6 +80,7 @@ EVI:
   name: Everthorpe
 EWI:
   name: Eastwood Park
+  group: apvu.noms.moj
 EXI:
   name: Exeter
 EYI:
