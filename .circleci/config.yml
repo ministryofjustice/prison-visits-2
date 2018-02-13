@@ -18,31 +18,34 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: prison-visits-2-{{ checksum "Gemfile.lock" }}
-          key: firefox-{{.Environment.FIREFOX_VERSION }}
-          # key: geckodriver-{{ .Environment.GECKODRIVER_VERSION }}
-      - run: bundle check || bundle install -j 4
+          key: prison-visits-2-v2-{{ checksum "Gemfile.lock" }}
+      - restore_cache:
+          key: firefox-v2-{{.Environment.FIREFOX_VERSION }}
+      - restore_cache:
+          key: geckodriver-v1-{{ .Environment.GECKODRIVER_VERSION }}
+      - run: bundle check || bundle install -j 4 --path=vendor/bundle
+      - run: mkdir -p "$HOME/bin" && echo "export PATH=$HOME/bin:$PATH" >> "$HOME/.bashrc"
+      - run: mkdir -p "$HOME/src"
       - run:
           name: install firefox
           command: |
             if [[ $(command -v firefox) ]] && [[ $(firefox --version) == "Mozilla Firefox $FIREFOX_VERSION" ]]; then
-              echo "Skiping, Firefox $FIREFOX_VERSION already install."
+              echo "Skipping, Firefox $FIREFOX_VERSION already install."
             else
               wget -L "https://ftp.mozilla.org/pub/firefox/releases/$FIREFOX_VERSION/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.tar.bz2" -O "firefox-$FIREFOX_VERSION.tar.bz2"
-              sudo tar xjf "firefox-$FIREFOX_VERSION.tar.bz2" -C /opt
+              sudo tar xjf "firefox-$FIREFOX_VERSION.tar.bz2" -C ~/src
             fi
-            [[ -L /usr/local/bin/firefox ]] || sudo ln -sf /opt/firefox/firefox /usr/bin/firefox
+            [[ -L $HOME/bin/firefox ]] || sudo ln -sf $HOME/src/firefox/firefox $HOME/bin/firefox
       - run:
           name: install geckodriver
           command: |
             if [[ $(command -v geckodriver) ]] && [[ $(geckodriver --version) =~ $GECKODRIVER_VERSION  ]]; then
-              echo "Skiping, geckodriver $GECKODRIVER_VERSION already install."
+              echo "Skipping, geckodriver $GECKODRIVER_VERSION already install."
             else
               wget https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
-              sudo tar -zxvf geckodriver-v0.19.0-linux64.tar.gz -C /opt
-              sudo chown root:root /opt/geckodriver
+              sudo tar -zxvf geckodriver-v0.19.0-linux64.tar.gz -C $HOME/bin
             fi
-            [[ -L /usr/local/bin/geckodriver ]] || sudo ln -sf /opt/geckodriver /usr/local/bin/geckodriver
+
       - run:
           name: Setup Code Climate test-reporter
           command: |
@@ -53,21 +56,21 @@ jobs:
       - run:
           name: Run tests
           command: |
-            ./cc-test-reporter before-build
-            bundle exec rake
-            ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
+            # ./cc-test-reporter before-build
+            # bundle exec rake
+            # ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
       - save_cache:
-          key: prison-visits-2-{{ checksum "Gemfile.lock" }}
+          key: prison-visits-2-v2-{{ checksum "Gemfile.lock" }}
           paths:
-            - /usr/local/bundle
+            - vendor/bundle
       - save_cache:
-          key: firefox-{{ .Environment.FIREFOX_VERSION }}
+          key: firefox-v2-{{ .Environment.FIREFOX_VERSION }}
           paths:
-            - /opt/firefox
+            - ~/src/firefox
       - save_cache:
-          key: geckodriver-{{ .Environment.GECKODRIVER_VERSION }}
+          key: geckodriver-v2-{{ .Environment.GECKODRIVER_VERSION }}
           paths:
-            - /opt/geckodriver
+            - ~/bin/geckodriver
 
       - store_test_results:
           path: coverage
