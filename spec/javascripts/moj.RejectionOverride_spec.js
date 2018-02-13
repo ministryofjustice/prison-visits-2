@@ -12,7 +12,7 @@ describe('Override a rejection reason', function() {
     beforeEach(function(){
       spyOn(moj.Modules.restrictionOverride, 'cacheEls');
       spyOn(moj.Modules.restrictionOverride, 'bindEvents');
-      moj.Modules.restrictionOverride.selected = [];
+      moj.Modules.restrictionOverride.overrides = [];
       moj.Modules.restrictionOverride.init();
       moj.Modules.restrictionOverride.render();
     });
@@ -36,6 +36,7 @@ describe('Override a rejection reason', function() {
   describe('when unselecting a rejection tickbox', function(){
 
     beforeEach(function(){
+      moj.Modules.restrictionOverride.overrides = [];
       moj.Modules.restrictionOverride.init();
       moj.Modules.restrictionOverride.render();
       $prisoner_details_incorrect.click();
