@@ -19,8 +19,9 @@ jobs:
       - checkout
       - restore_cache:
           key: prison-visits-2-{{ checksum "Gemfile.lock" }}
-      - run: sudo chown -R circleci:circleci /usr/local/bundle
-      - run: bundle install
+          key: firefox-{{.Environment.FIREFOX_VERSION }}
+          # key: geckodriver-{{ .Environment.GECKODRIVER_VERSION }}
+      - run: bundle check || bundle install -j 4
       - run:
           name: install firefox
           command: |
@@ -39,6 +40,7 @@ jobs:
             else
               wget https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
               sudo tar -zxvf geckodriver-v0.19.0-linux64.tar.gz -C /opt
+              sudo chown root:root /opt/geckodriver
             fi
             [[ -L /usr/local/bin/geckodriver ]] || sudo ln -sf /opt/geckodriver /usr/local/bin/geckodriver
       - run:
@@ -57,7 +59,16 @@ jobs:
       - save_cache:
           key: prison-visits-2-{{ checksum "Gemfile.lock" }}
           paths:
-            - vendor/bundle
+            - /usr/local/bundle
+      - save_cache:
+          key: firefox-{{ .Environment.FIREFOX_VERSION }}
+          paths:
+            - /opt/firefox
+      - save_cache:
+          key: geckodriver-{{ .Environment.GECKODRIVER_VERSION }}
+          paths:
+            - /opt/geckodriver
+
       - store_test_results:
           path: coverage
       - store_artifacts:
