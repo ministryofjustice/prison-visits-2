@@ -36,14 +36,12 @@
     <% end %>
   <% end %>
 
-  <% unless Nomis::Feature.book_to_nomis_enabled?(@visit.prison_name) %>
-    <div class="column-one-half">
-      <div id="selected_slot_details" class="panel panel-border-narrow">
-        <%= single_field f, :reference_no, :text_field, class: 'form-control' %>
-        <%= single_field f, :closed, :check_box  %>
-      </div>
+  <div class="column-one-half">
+    <div id="selected_slot_details" class="panel panel-border-narrow">
+      <%= single_field f, :reference_no, :text_field, class: 'form-control' %>
+      <%= single_field f, :closed, :check_box  %>
     </div>
-  <% end %>
+  </div>
 
   <div class="column-two-thirds push-top push-bottom--half">
     <%= error_container f, :slot_granted do %>
