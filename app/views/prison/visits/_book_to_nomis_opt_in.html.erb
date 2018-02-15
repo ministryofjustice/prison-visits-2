@@ -28,15 +28,4 @@
     <p class="bold-small"><%= t('.closed_visit') %></p>
     <p><%= t('.closed_book_to_nomis') %></p>
   </div>
-
-  <div id="booktonomis-message" class="push-top">
-    <div class="grid-row">
-      <div class="column-one-half">
-        <div id="selected_slot_details" class="">
-          <%= single_field f, :reference_no, :text_field, class: 'form-control' %>
-          <%= single_field f, :closed, :check_box  %>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

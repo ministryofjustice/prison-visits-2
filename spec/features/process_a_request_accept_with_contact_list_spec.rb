@@ -56,6 +56,8 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
 
       choose_date
 
+      fill_in 'Reference number',   with: '11223344'
+
       fill_in 'This message will be included in the email sent to the visitor', with: 'A staff message'
 
       within "#visitor_#{visitor.id}" do
@@ -71,6 +73,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       vst.reload
       expect(vst).to be_booked
       expect(vst.nomis_id).to eq(5493)
+      expect(vst.reference_no).to eq('11223344')
     end
 
     scenario 'opting out of booking to nomis', vcr: { cassette_name: 'process_happy_path_with_contact_list' } do
