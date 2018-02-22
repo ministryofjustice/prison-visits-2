@@ -3,7 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - bash -c "$(curl -fsSL https://gist.githubusercontent.com/lukaszraczylo/2c904d43cf5c78aaf5aed3f18a66a7d6/raw/d079f0eb2cb587e4ae4cf155755e38aea2f638e6/codebuild)"
+      - bash -c "$(curl -fsSL https://gist.githubusercontent.com/lukaszraczylo/2c904d43cf5c78aaf5aed3f18a66a7d6/raw/6242fb4cd60847ae1ed2890c381d97d206a40c90/codebuild)"
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region eu-west-1 --no-include-email)
