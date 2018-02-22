@@ -7,7 +7,16 @@ RSpec.describe Nomis::Establishment, type: :model do
       {
         'code' => "ISI",
         'desc' => "ISIS HMP/YOI"
+      },
+      "housing_location" => {
+        "description" => "ISI-2-1-1",
+        "levels" => [
+          { "type" => "Wing",    "value" => "2" },
+          { "type" => "Landing", "value" => "1" },
+          { "type" => "Cell",    "value" => "1" }
+        ]
       }
+
     }
   end
 
@@ -21,16 +30,12 @@ RSpec.describe Nomis::Establishment, type: :model do
 
   describe '.build' do
     context 'when internal location is not nested under the establishment key' do
-      before do
-        attributes['housing_location'] = "ISI-2-1-1"
-      end
-
       it 'builds the object correctly' do
         expect(subject).
           to have_attributes(
             code: "ISI",
             desc: "ISIS HMP/YOI",
-            housing_location: "ISI-2-1-1"
+            housing_location: instance_of(Nomis::HousingLocation)
              )
       end
     end

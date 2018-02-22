@@ -5,7 +5,7 @@ module Nomis
     attribute :code
     attribute :desc
     attribute :api_call_successful, Boolean, default: true
-    attribute :housing_location, String
+    attribute :housing_location, HousingLocation
 
     validates_presence_of :code
 

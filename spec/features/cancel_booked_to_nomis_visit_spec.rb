@@ -29,7 +29,7 @@ RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
       choose_date
 
       within "#visitor_#{visitor.id}" do
-        select 'IRMA ITSU - 03/04/1975', from: "Match to prisoner's contact list"
+        select 'IRMA ITSU - 03/04/1975', from: "Match to prisoner's contact list", visible: false
       end
 
       click_button 'Process'
@@ -88,7 +88,7 @@ RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
         click_button 'Cancel visit'
       end
 
-      VCR.use_cassette 'cancel_to_nomis', record: :new_episodes do
+      VCR.use_cassette 'cancel_to_nomis' do
         check 'Prisoner has been released'
         click_button 'Cancel visit'
       end

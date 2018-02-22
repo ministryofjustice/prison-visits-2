@@ -195,7 +195,7 @@ http_interactions:
       - Tue, 02 May 2017 12:49:42 GMT
     body:
       encoding: ASCII-8BIT
-      string: '{"establishment":{"code":"ISI","desc":"ISIS HMP\/YOI"}}'
+      string: '{"establishment":{"code":"LEI","desc":"Leeds"},"housing_location":{"description":"LEI-H-1-003","levels":[{"type":"Wing","value":"2"},{"type":"Landing","value":"1"},{"type":"Cell","value":"1"}]}}'
     http_version:
   recorded_at: Thu, 01 Dec 2016 00:00:00 GMT
 - request:
@@ -228,7 +228,7 @@ http_interactions:
       - Tue, 02 May 2017 12:52:13 GMT
     body:
       encoding: ASCII-8BIT
-      string: '{"establishment":{"code":"ISI","desc":"ISIS HMP\/YOI"}}'
+      string: '{"establishment":{"code":"ISI","desc":"ISIS HMP/YOI"},"housing_location":{"description":"ISI-2-1-1","levels":[{"type":"Wing","value":"2"},{"type":"Landing","value":"1"},{"type":"Cell","value":"1"}]}}'
     http_version:
   recorded_at: Thu, 01 Dec 2016 00:00:00 GMT
 - request:
@@ -261,7 +261,7 @@ http_interactions:
       - Tue, 02 May 2017 12:57:05 GMT
     body:
       encoding: ASCII-8BIT
-      string: '{"establishment":{"code":"ISI","desc":"ISIS HMP\/YOI"}}'
+      string: '{"establishment":{"code":"LEI","desc":"Leeds"},"housing_location":{"description":"LEI-H-1-003","levels":[{"type":"Wing","value":"2"},{"type":"Landing","value":"1"},{"type":"Cell","value":"1"}]}}'
     http_version:
   recorded_at: Thu, 01 Dec 2016 00:00:00 GMT
 - request:

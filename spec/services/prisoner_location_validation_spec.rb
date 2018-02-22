@@ -7,10 +7,14 @@ RSpec.describe PrisonerLocationValidation do
   let(:code)           { prison_code }
   let(:api_successful) { true }
   let(:establishment)  do
-    Nomis::Establishment.new(
-      code: code,
-      api_call_successful: api_successful,
-      housing_location: 'Cell With View Overlooking the Ocean'
+    Nomis::Establishment.build(
+      'establishment' => {
+        'code' => code,
+        'api_call_successful' => api_successful
+      },
+      'housing_location' => {
+        'description' => 'Cell With View Overlooking the Ocean'
+      }
     )
   end
 
