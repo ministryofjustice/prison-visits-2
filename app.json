@@ -26,6 +26,15 @@
     "NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED": {
       "required": true
     },
+    "NOMIS_INTERNAL_LOCATION_ENABLED": {
+      "required": true
+    },
+    "NOMIS_SENTENCE_STATUS_ENABLED": {
+      "required": true
+    },
+    "NOMIS_IEP_LEVEL_ENABLED": {
+      "required": true
+    },
     "STAFF_PRISONS_WITH_SLOT_AVAILABILITY": {
       "required": true
     },
