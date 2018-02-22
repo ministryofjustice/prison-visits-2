@@ -7,7 +7,7 @@ phases:
       - aws --version
       - $(aws ecr get-login --region eu-west-1 --no-include-email)
       - BASENAME_REPO=$(basename $CODEBUILD_SOURCE_REPO_URL)
-      - REPOSITORY_URI=880656497252.dkr.ecr.eu-west-1.amazonaws.com/$(${$($BASENAME_REPO)%.*})
+      - REPOSITORY_URI=880656497252.dkr.ecr.eu-west-1.amazonaws.com/${BASENAME_REPO%.*}
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_BRANCH=$(echo $CODEBUILD_SOURCE_VERSION | awk '{print $2}')
   build:
