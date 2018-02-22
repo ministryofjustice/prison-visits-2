@@ -13,14 +13,16 @@ private: false
 closed: false
 adult_age: 10
 recurring:
+  mon:
+  - 1745-1900
   tue:
-  - 1330-1615
+  - 1330-1600
   thu:
-  - 1330-1615
+  - 1330-1600
   sat:
-  - 1330-1615
+  - 1330-1600
   sun:
-  - 1330-1615
+  - 1330-1600
 unbookable:
 - 2017-12-26
 anomalous:
