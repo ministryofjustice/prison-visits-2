@@ -12,18 +12,20 @@ phases:
       - echo $REPOSITORY_URI
       - IMAGE_TAG=$(git rev-parse --short HEAD)
       - echo $IMAGE_TAG
-      - IMAGE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+      - IMAGE_BRANCH=$(git branch -a --contains $IMAGE_TAG)
       - echo $IMAGE_BRANCH
-  build:
-    commands:
-      - echo Build started on `date`
-      - echo Building the Docker image...
-      - docker build -t $REPOSITORY_URI:latest .
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_BRANCH.$IMAGE_TAG
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_BRANCH.latest
-  post_build:
-    commands:
-      - echo Build completed on `date`
-      - echo Pushing the Docker images...
-      - docker push $REPOSITORY_URI:$IMAGE_BRANCH.$IMAGE_TAG
-      - docker push $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_BRANCH.latest
+      - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
+      - echo $CODEBUILD_SOURCE_VERSION
+  # build:
+  #   commands:
+  #     - echo Build started on `date`
+  #     - echo Building the Docker image...
+  #     - docker build -t $REPOSITORY_URI:latest .
+  #     - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_BRANCH.$IMAGE_TAG
+  #     - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_BRANCH.latest
+  # post_build:
+  #   commands:
+  #     - echo Build completed on `date`
+  #     - echo Pushing the Docker images...
+  #     - docker push $REPOSITORY_URI:$IMAGE_BRANCH.$IMAGE_TAG
+  #     - docker push $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_BRANCH.latest
