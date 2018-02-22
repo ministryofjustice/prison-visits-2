@@ -10,12 +10,10 @@ phases:
       - echo $BASENAME_REPO
       - REPOSITORY_URI=880656497252.dkr.ecr.eu-west-1.amazonaws.com/${BASENAME_REPO%.*}
       - echo $REPOSITORY_URI
-      - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=$(git rev-parse --short HEAD)
       - echo $IMAGE_TAG
-      - IMAGE_BRANCH=$(echo $CODEBUILD_SOURCE_VERSION | awk '{print $2}')
+      - IMAGE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
       - echo $IMAGE_BRANCH
-      - echo $CODEBUILD_SOURCE_VERSION
-      - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
   build:
     commands:
       - echo Build started on `date`
