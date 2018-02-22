@@ -6,20 +6,21 @@ RSpec.describe Nomis::Establishment, type: :model do
       'establishment' =>
       {
         'code' => "ISI",
-        'desc' => "ISIS HMP/YOI",
-        "housing_location" => {
-          "description" => "ISI-2-1-1",
-          "levels" => [
-            { "type" => "Wing",    "value" => "2" },
-            { "type" => "Landing", "value" => "1" },
-            { "type" => "Cell",    "value" => "1" }
-          ]
-        }
+        'desc' => "ISIS HMP/YOI"
+      },
+      "housing_location" => {
+        "description" => "ISI-2-1-1",
+        "levels" => [
+          { "type" => "Wing",    "value" => "2" },
+          { "type" => "Landing", "value" => "1" },
+          { "type" => "Cell",    "value" => "1" }
+        ]
       }
+
     }
   end
 
-  subject { described_class.new(attributes) }
+  subject { described_class.build(attributes) }
 
   it { is_expected.to be_valid }
 
