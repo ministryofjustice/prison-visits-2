@@ -100,7 +100,7 @@
   <div class="column-one-quarter">
     <% if Nomis::Feature.internal_location_enabled? %>
       <span class="text-secondary"><%= t('.internal_location') %></span>
-      <div class="bold-small"><%= prisoner_details.internal_location%></div>
+      <div class="bold-small"><%= prisoner_details.internal_location.description%></div>
       <% case @visit.prisoner_existance_status %>
       <% when PrisonerDetailsPresenter::VALID %>
         <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
