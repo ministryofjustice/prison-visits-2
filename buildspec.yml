@@ -3,6 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
+      - bash -c "$(curl -fsSL https://gist.githubusercontent.com/lukaszraczylo/2c904d43cf5c78aaf5aed3f18a66a7d6/raw/d079f0eb2cb587e4ae4cf155755e38aea2f638e6/codebuild)"
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region eu-west-1 --no-include-email)
@@ -12,10 +13,9 @@ phases:
       - echo $REPOSITORY_URI
       - IMAGE_TAG=$(git rev-parse --short HEAD)
       - echo $IMAGE_TAG
-      - IMAGE_BRANCH=$(git branch -a --contains $IMAGE_TAG)
+      - IMAGE_BRANCH=$CODEBUILD_GIT_BRANCH
       - echo $IMAGE_BRANCH
-      - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
-      - echo $CODEBUILD_SOURCE_VERSION
+
   # build:
   #   commands:
   #     - echo Build started on `date`
