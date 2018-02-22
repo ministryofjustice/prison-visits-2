@@ -11,11 +11,11 @@ private: false
 closed: false
 recurring:
   thu:
-  - 1400-1545
+  - 1400-1600
   sat:
-  - 1400-1545
+  - 1400-1600
   sun:
-  - 1400-1545
+  - 1400-1600
 unbookable:
 - 2016-12-25
 - 2017-01-01
