@@ -82,6 +82,39 @@ RSpec.describe GATracker do
     end
   end
 
+  describe '#send_rejection_event' do
+    context "when the visit was not bookable and it was rejected" do
+      let(:was_bookable) { 'false' }
+
+      before do
+        reject_visit visit
+        visit.rejection.reasons = ['prisoner_details_incorrect']
+        cookies['_ga'] = 'some_client_id'
+        switch_feature_flag_with :ga_id, web_property_id
+      end
+
+      it 'sends an event', vcr: { cassette_name: 'rejection_event' } do
+        subject.send_rejection_event
+
+        expect(WebMock).
+          to have_requested(:post, GATracker::ENDPOINT).with(
+            body: URI.encode_www_form(
+              v: 1,
+              uip: ip,
+              tid: web_property_id,
+              cid: "some_client_id",
+              ua: user_agent,
+              t: "event",
+              ec: visit.prison.name,
+              ea: 'Manual rejection',
+              el: "prisoner_details_incorrect"
+            ),
+            headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
+        )
+      end
+    end
+  end
+
   describe '#send_processing_timing' do
     before do
       switch_feature_flag_with :ga_id, web_property_id

@@ -20,6 +20,10 @@ class GATracker
     send_data(rejection_event_payload) if visit_rejected_unexpectedly?
   end
 
+  def send_rejection_event
+    send_data(rejection_event_payload) if visit_rejected?
+  end
+
   def send_processing_timing
     return unless timing_value
     send_data(timing_payload_data)
@@ -45,6 +49,10 @@ private
   def visit_rejected_unexpectedly?
     visit.rejected? &&
       ActiveRecord::Type::Boolean.new.cast(request.params[:was_bookable])
+  end
+
+  def visit_rejected?
+    visit.rejected?
   end
 
   def timing_value
