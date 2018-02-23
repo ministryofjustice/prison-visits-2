@@ -69,6 +69,7 @@ private
     if @booking_response.success?
       ga_tracker.send_processing_timing
       ga_tracker.send_unexpected_rejection_event
+      ga_tracker.send_rejection_event
     end
   end
 
