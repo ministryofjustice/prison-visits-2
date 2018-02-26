@@ -7,7 +7,8 @@ class PrisonerDetailsPresenter
 
   VALIDATION_ERRORS = [
     PrisonerValidation::UNKNOWN,
-    PrisonerLocationValidation::INVALID
+    PrisonerLocationValidation::INVALID,
+    PrisonerLocationValidation::UNKNOWN
   ].freeze
 
   def initialize(prisoner_validation, prisoner_location)
@@ -20,8 +21,6 @@ class PrisonerDetailsPresenter
     return VALID    if valid?
 
     case prisoner_existance_error
-    when nil
-      VALID
     when *VALIDATION_ERRORS
       prisoner_existance_error
     else
@@ -34,7 +33,7 @@ class PrisonerDetailsPresenter
   end
 
   def prisoner_existance_error
-    prisoner_validation_errors.first
+    prisoner_validation_errors.first || prisoner_location_error
   end
 
   def prisoner_location_error
