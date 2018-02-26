@@ -17,11 +17,11 @@ class GATracker
   end
 
   def send_unexpected_rejection_event
-    send_data(rejection_event_payload) if visit_rejected_unexpectedly?
+    send_data(rejection_event_payload('Manual rejection')) if visit_rejected_unexpectedly?
   end
 
   def send_rejection_event
-    send_data(rejection_event_payload) if visit_rejected?
+    send_data(rejection_event_payload('Rejection')) if visit_rejected?
   end
 
   def send_processing_timing
@@ -83,10 +83,10 @@ private
     }
   end
 
-  def rejection_event_payload
+  def rejection_event_payload(action)
     {
       v: 1, uip: ip, tid: web_property_id, cid: cookies['_ga'] || SecureRandom.base64,
-      ua:  user_agent, t: 'event', ec: prison.name, ea: 'Manual rejection',
+      ua:  user_agent, t: 'event', ec: prison.name, ea: action,
       el: visit.rejection.reasons.sort.join('-')
     }
   end
