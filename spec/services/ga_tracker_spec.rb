@@ -104,7 +104,7 @@ RSpec.describe GATracker do
               ua: user_agent,
               t: "event",
               ec: visit.prison.name,
-              ea: 'Manual rejection',
+              ea: 'Rejection',
               el: "prisoner_details_incorrect"
             ),
             headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
