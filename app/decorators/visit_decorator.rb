@@ -12,6 +12,7 @@ class VisitDecorator < Draper::Decorator
 
   delegate :prisoner_existance_status,
     :prisoner_existance_error,
+    :prisoner_location_error,
     :details_incorrect?,
     to: :prisoner_details
 

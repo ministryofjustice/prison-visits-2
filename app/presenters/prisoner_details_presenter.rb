@@ -7,8 +7,7 @@ class PrisonerDetailsPresenter
 
   VALIDATION_ERRORS = [
     PrisonerValidation::UNKNOWN,
-    PrisonerLocationValidation::INVALID,
-    PrisonerLocationValidation::UNKNOWN
+    PrisonerLocationValidation::INVALID
   ].freeze
 
   def initialize(prisoner_validation, prisoner_location)
@@ -18,6 +17,8 @@ class PrisonerDetailsPresenter
 
   def prisoner_existance_status
     return NOT_LIVE unless Nomis::Api.enabled?
+    return VALID    if valid?
+
     case prisoner_existance_error
     when nil
       VALID
@@ -33,8 +34,16 @@ class PrisonerDetailsPresenter
   end
 
   def prisoner_existance_error
-    prisoner_validation_errors.first || prisoner_location_errors.first
+    prisoner_validation_errors.first
   end
+
+  def prisoner_location_error
+    prisoner_location_errors.first
+  end
+
+private
+
+  attr_accessor :prisoner_validation, :prisoner_location
 
   def prisoner_validation_errors
     @prisoner_validation_errors ||= prisoner_validation.tap(&:valid?).errors.full_messages
@@ -44,7 +53,7 @@ class PrisonerDetailsPresenter
     @prisoner_location_errors ||= prisoner_location.tap(&:valid?).errors.full_messages
   end
 
-private
-
-  attr_accessor :prisoner_validation, :prisoner_location
+  def valid?
+    prisoner_validation.valid? && prisoner_location.valid?
+  end
 end
