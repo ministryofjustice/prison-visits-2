@@ -84,7 +84,6 @@ RSpec.describe GATracker do
 
   describe '#send_rejection_event' do
     context "when the visit was rejected" do
-
       before do
         reject_visit(visit, ['prisoner_details_incorrect'])
         cookies['_ga'] = 'some_client_id'
