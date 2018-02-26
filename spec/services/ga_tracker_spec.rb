@@ -83,12 +83,10 @@ RSpec.describe GATracker do
   end
 
   describe '#send_rejection_event' do
-    context "when the visit was not bookable and it was rejected" do
-      let(:was_bookable) { 'false' }
+    context "when the visit was rejected" do
 
       before do
-        reject_visit visit
-        visit.rejection.reasons = ['prisoner_details_incorrect']
+        reject_visit(visit, ['prisoner_details_incorrect'])
         cookies['_ga'] = 'some_client_id'
         switch_feature_flag_with :ga_id, web_property_id
       end
