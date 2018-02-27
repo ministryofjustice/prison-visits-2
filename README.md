@@ -197,7 +197,7 @@ copy .env.example to .env and add the other config you need [ask someone for thi
 rake db:setup to create db with seed data to set up prisons etc
 rake pvb:populate:visits to get some visits data
 
-Get a nomis api token here: https://nomis-api-access.service.justice.gov.uk/
+Get a nomis api token for the "dev" environment here: https://nomis-api-access.service.justice.gov.uk/
 The client.key file you create there is the NOMIS_API_KEY, and the token you
 receive is the NOMIS_API_TOKEN
 
