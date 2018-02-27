@@ -182,8 +182,29 @@ year 1 CE.
 
 ### Development
 
+We develop locally on macs.
+
+Install dependencies:
+
+- xcode
+- ruby (rbenv/rvm)
+- postgres
+- redis (and start it)
+- direnv (and allow it in relevant directories)
+
+bundle install
+rake db:setup to create db with seed data to set up prisons etc
+rake pvb:populate:visits to get some visits data
+
+Get a nomis api token here: https://nomis-api-access.service.justice.gov.uk/
+The client.key file you create there is the NOMIS_API_KEY, and the token you
+receive is the NOMIS_API_TOKEN
+
 Emails will be sent to [MailCatcher](http://mailcatcher.me/), if it’s running.
 See its website for instructions.
+
+You'll also need to have [MOJ Sign On](https://github.com/ministryofjustice/moj-signon)
+running locally on port 5000 to be able to log into the staff app.
 
 ### Environment variables
 
