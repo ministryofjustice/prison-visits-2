@@ -193,6 +193,7 @@ Install dependencies:
 - direnv (and allow it in relevant directories)
 
 bundle install
+copy .env.example to .env and add the other config you need [ask someone for this at the moment, but more of it should be in the example one really]
 rake db:setup to create db with seed data to set up prisons etc
 rake pvb:populate:visits to get some visits data
 
