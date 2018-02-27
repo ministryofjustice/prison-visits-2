@@ -1,4 +1,5 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
+
 <% case nomis_info.notice %>
 <% when nil %>
   <div class="notice push-top">
@@ -33,11 +34,12 @@
   <div class="column-one-quarter">
     <span class="text-secondary"><%= t('.prisoner_dob') %></span>
     <div class="bold-small"><%= @visit.prisoner_date_of_birth.to_s(:short_nomis) %></div>
+
     <% case @visit.prisoner_existance_status %>
-    <% when PrisonerDetailsPresenter::VALID, PrisonerLocationValidation::INVALID %>
+    <% when PrisonerDetailsPresenter::VALID %>
       <div class="tag tag--booked font-xsmall"><%= t('.verified') %></div>
-    <% when PrisonerDetailsPresenter::INVALID, PrisonerLocationValidation::INVALID %>
-      <div class="tag tag--error font-xsmall"><%= t(".#{@visit.prisoner_existance_status}") %></div>
+    <% when PrisonerDetailsPresenter::INVALID %>
+      <div class="tag tag--error font-xsmall"><%= t(".#{@visit.prisoner_existance_error}") %></div>
     <% end %>
   </div>
 
@@ -45,10 +47,10 @@
     <span class="text-secondary"><%= t('.prisoner_number') %></span>
     <div class="bold-small"><%= @visit.prisoner_number %></div>
     <% case @visit.prisoner_existance_status %>
-    <% when PrisonerDetailsPresenter::VALID, PrisonerLocationValidation::INVALID  %>
+    <% when PrisonerDetailsPresenter::VALID %>
       <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
     <% when PrisonerDetailsPresenter::INVALID %>
-      <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_existance_status}") %></div>
+      <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_existance_error}") %></div>
     <% end %>
   </div>
 
