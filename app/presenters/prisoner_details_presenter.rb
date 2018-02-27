@@ -7,10 +7,9 @@ class PrisonerDetailsPresenter
 
   VALIDATION_ERRORS = [
     PrisonerValidation::UNKNOWN,
-    PrisonerLocationValidation::INVALID,
-    PrisonerLocationValidation::UNKNOWN
+    PrisonerValidation::PRISONER_NOT_EXIST
   ].freeze
-
+    # PrisonerLocationValidation::UNKNOWN
   def initialize(prisoner_validation, prisoner_location)
     self.prisoner_validation = prisoner_validation
     self.prisoner_location   = prisoner_location
@@ -18,9 +17,10 @@ class PrisonerDetailsPresenter
 
   def prisoner_existance_status
     return NOT_LIVE unless Nomis::Api.enabled?
-    return VALID    if valid?
 
     case prisoner_existance_error
+    when nil
+      VALID
     when *VALIDATION_ERRORS
       prisoner_existance_error
     else
@@ -33,7 +33,7 @@ class PrisonerDetailsPresenter
   end
 
   def prisoner_existance_error
-    prisoner_validation_errors.first || prisoner_location_error
+    prisoner_validation_errors.first
   end
 
   def prisoner_location_error
