@@ -7,20 +7,19 @@
     </i>
     <strong class="bold-small"><%= t('.verified_html') %></strong>
   </div>
-<% when PrisonerDetailsPresenter::INVALID %>
+<% when PrisonerDetailsPresenter::INVALID, PrisonerLocationValidation::INVALID %>
   <div class="notice push-top">
     <i class="icon icon-information">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
     <strong class="bold-small"><%= t(".#{@visit.prisoner_existance_error}_text") %></strong>
   </div>
-<% end %>
-<% if @visit.prisoner_location_error %>
+<% when PrisonerValidation::UNKNOWN, PrisonerLocationValidation::UNKNOWN %>
   <div class="notice push-top">
     <i class="icon icon-important">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
-    <strong class="bold-small"><%= t(".#{@visit.prisoner_location_error}_text") %></strong>
+    <strong class="bold-small"><%= t(".#{@visit.prisoner_existance_error}_text") %></strong>
   </div>
 <% end %>
 
@@ -56,13 +55,11 @@
   <div class="column-one-quarter">
     <span class="text-secondary"><%= t('.prison_name') %></span>
     <div class="bold-small"><%= @visit.prison_name %></div>
-    <% case @visit.prisoner_location_error %>
-    <% when nil %>
+    <% case @visit.prisoner_existance_status %>
+    <% when PrisonerDetailsPresenter::VALID %>
       <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
-    <% when PrisonerLocationValidation::INVALID %>
-      <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_location_error}") %></div>
-    <% when PrisonerLocationValidation::UNKNOWN %>
-      <div class="font-xsmall tag tag--warning"><%= t(".#{@visit.prisoner_location_error}") %></div>
+    <% when PrisonerDetailsPresenter::INVALID %>
+      <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_existance_status}") %></div>
     <% end %>
   </div>
 </div>
@@ -103,14 +100,12 @@
   <div class="column-one-quarter">
     <% if Nomis::Feature.internal_location_enabled? %>
       <span class="text-secondary"><%= t('.internal_location') %></span>
-      <div class="bold-small"><%= prisoner_details.internal_location %></div>
-      <% case @visit.prisoner_location_error %>
-      <% when nil %>
+      <div class="bold-small"><%= prisoner_details.internal_location%></div>
+      <% case @visit.prisoner_existance_status %>
+      <% when PrisonerDetailsPresenter::VALID %>
         <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
       <% when PrisonerLocationValidation::INVALID %>
-        <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_location_error}") %></div>
-      <% when PrisonerLocationValidation::UNKNOWN %>
-        <div class="font-xsmall tag tag--warning"><%= t(".#{@visit.prisoner_location_error}") %></div>
+        <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_existance_status}") %></div>
       <% end %>
     <% end %>
   </div>
