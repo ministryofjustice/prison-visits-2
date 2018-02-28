@@ -32,10 +32,7 @@ private
   end
 
   def located_at_given_prison
-    if prison_code.nil?
-      errors.add(:base, UNKNOWN)
-      return
-    end
+    return if prison_code.nil?
 
     unless establishment.code == prison_code
       errors.add(:base, INVALID)
