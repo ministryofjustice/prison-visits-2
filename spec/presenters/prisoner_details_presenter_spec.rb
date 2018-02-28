@@ -44,14 +44,12 @@ RSpec.describe PrisonerDetailsPresenter do
             let(:code) { 'CCC' }
 
             it { expect(subject.prisoner_existance_status).to eq('location_invalid') }
-            it { expect(subject.prisoner_location_error).to eq('location_invalid') }
           end
 
           describe 'with an unkown location' do
             let(:api_call_successful) { false }
 
             it { expect(subject.prisoner_existance_status).to eq('location_unknown') }
-            it { expect(subject.prisoner_location_error).to eq('location_unknown') }
           end
         end
 
