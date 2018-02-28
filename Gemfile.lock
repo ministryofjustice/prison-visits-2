@@ -1,19 +1,18 @@
 GIT
   remote: https://github.com/ministryofjustice/email_address_validation
-  revision: 6ba244a046b37bed02dca25271849513b200f056
-  ref: 6ba244a046b37bed02dca25271849513b200f056
+  revision: 5ed2fb93f8d5bc419f03cecb408c688c5bd9fd74
+  ref: 5ed2fb93f8d5bc419f03cecb408c688c5bd9fd74
   specs:
-    email_address_validation (0.1.0)
-      activesupport (~> 5.1.4)
+    email_address_validation (0.1.1)
+      activesupport (~> 5.X)
       mail (~> 2.6.6)
-      rails (~> 5.0)
 
 GIT
   remote: https://github.com/ministryofjustice/pvb-instrumentation.git
-  revision: a264627211f2bf68f4e388200b2a050fe9081504
-  tag: v1.0.0
+  revision: 5696f5a3658701f2a3e1536a9622d828d6c6eb81
+  tag: v1.0.1
   specs:
-    pvb-instrumentation (1.0.0)
+    pvb-instrumentation (1.0.1)
       activesupport (> 4.2)
       request_store (~> 1.3.2)
 
@@ -452,4 +451,4 @@ RUBY VERSION
    ruby 2.4.2p198
 
 BUNDLED WITH
-   1.16.0
+   1.16.1
