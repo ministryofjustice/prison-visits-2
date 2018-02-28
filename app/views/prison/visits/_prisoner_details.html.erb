@@ -7,7 +7,7 @@
     </i>
     <strong class="bold-small"><%= t('.verified_html') %></strong>
   </div>
-<% when PrisonerDetailsPresenter::INVALID, PrisonerLocationValidation::INVALID %>
+<% when PrisonerDetailsPresenter::INVALID %>
   <div class="notice push-top">
     <i class="icon icon-information">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
@@ -20,7 +20,7 @@
     <i class="icon icon-important">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
-    <strong class="bold-small"><%= t(".#{@visit.prisoner_existance_error}_text") %></strong>
+    <strong class="bold-small"><%= t(".#{@visit.prisoner_location_error}_text") %></strong>
   </div>
 <% end %>
 
