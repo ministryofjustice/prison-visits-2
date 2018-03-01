@@ -14,4 +14,5 @@ Rails.application.config.assets.precompile += %w[
   *.svg
   *.ttf
   *.woff
+  jasmine-jquery.js
 ]
