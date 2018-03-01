@@ -18,6 +18,8 @@ module Api
         prisoner_step, visitors_step, slots_step, I18n.locale
       )
 
+      ga_tracker.send_request_event
+
       render :show
     end
 
@@ -126,6 +128,10 @@ module Api
           end
         end
       end
+    end
+
+    def ga_tracker
+      @tracker ||= GATracker.new(nil, @visit, cookies, request)
     end
   end
 end

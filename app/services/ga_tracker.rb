@@ -24,6 +24,10 @@ class GATracker
     send_data(rejection_event_payload('Rejection')) if visit_rejected?
   end
 
+  def send_request_event
+    send_data(request_event_payload)
+  end
+
   def send_processing_timing
     return unless timing_value
     send_data(timing_payload_data)
@@ -88,6 +92,14 @@ private
       v: 1, uip: ip, tid: web_property_id, cid: cookies['_ga'] || SecureRandom.base64,
       ua:  user_agent, t: 'event', ec: prison.name, ea: action,
       el: visit.rejection.reasons.sort.join('-')
+    }
+  end
+
+  def request_event_payload
+    {
+      v: 1, uip: ip, tid: web_property_id, cid: cookies['_ga'] || SecureRandom.base64,
+      ua:  user_agent, t: 'event', ec: prison.name, ea: 'Request',
+      el: visit.slots.count
     }
   end
 
