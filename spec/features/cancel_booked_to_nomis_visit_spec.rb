@@ -63,6 +63,7 @@ RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
           send_processing_timing: nil,
           send_unexpected_rejection_event: nil,
           send_rejection_event: nil,
+          send_booked_visit_event: nil,
           set_visit_processing_time_cookie: nil))
   end
 

@@ -47,7 +47,7 @@ RSpec.describe GATracker do
               el: "slot_unavailable"
             ),
             headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
-        )
+          )
       end
     end
 
@@ -105,6 +105,61 @@ RSpec.describe GATracker do
               ec: visit.prison.name,
               ea: 'Rejection',
               el: "prisoner_details_incorrect"
+            ),
+            headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
+          )
+      end
+    end
+  end
+
+  describe '#send_booked_visit_event' do
+    before do
+      accept_visit(visit, visit.slots.first)
+      cookies['_ga'] = 'some_client_id'
+      switch_feature_flag_with :ga_id, web_property_id
+    end
+    context "when the visit was booked manually" do
+      it 'sends an event', vcr: { cassette_name: 'booked_visit_event' } do
+        subject.send_booked_visit_event
+
+        expect(WebMock).
+          to have_requested(:post, GATracker::ENDPOINT).with(
+            body: URI.encode_www_form(
+              v: 1,
+              uip: ip,
+              tid: web_property_id,
+              cid: "some_client_id",
+              ua: user_agent,
+              t: "event",
+              ec: visit.prison.name,
+              ea: 'Booked',
+              el: 'Manual'
+            ),
+            headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
+          )
+      end
+    end
+
+    context 'when the visit was booked via the NOMIS API' do
+      before do
+        visit.nomis_id = '12345'
+        visit.save!
+      end
+      it 'sends an event', vcr: { cassette_name: 'booked_with_nomis_visit_event' } do
+        subject.send_booked_visit_event
+
+        expect(WebMock).
+          to have_requested(:post, GATracker::ENDPOINT).with(
+            body: URI.encode_www_form(
+              v: 1,
+              uip: ip,
+              tid: web_property_id,
+              cid: "some_client_id",
+              ua: user_agent,
+              t: "event",
+              ec: visit.prison.name,
+              ea: 'Booked',
+              el: 'NOMIS'
             ),
             headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
         )

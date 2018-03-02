@@ -146,7 +146,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"slots":[{"time":"2017-06-20T10:00\/11:00","capacity":100,"max_groups":100,"max_adults":100,"groups_booked":1,"visitors_booked":2,"adults_booked":2},{"time":"2017-06-20T14:00\/16:00","capacity":100,"max_groups":3,"max_adults":10,"groups_booked":0,"visitors_booked":0,"adults_booked":0}]}'
-    http_version:
+    http_version: 
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -183,7 +183,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"restrictions":[]}'
-    http_version:
+    http_version: 
   recorded_at: Thu, 13 Jul 2017 14:40:38 GMT
 - request:
     method: get
@@ -410,7 +410,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"slots":[{"time":"2017-06-20T10:00\/11:00","capacity":100,"max_groups":100,"max_adults":100,"groups_booked":1,"visitors_booked":2,"adults_booked":2},{"time":"2017-06-20T14:00\/16:00","capacity":100,"max_groups":3,"max_adults":10,"groups_booked":0,"visitors_booked":0,"adults_booked":0}]}'
-    http_version:
+    http_version: 
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -447,7 +447,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"restrictions":[]}'
-    http_version:
+    http_version: 
   recorded_at: Thu, 13 Jul 2017 14:40:38 GMT
 - request:
     method: get
@@ -489,4 +489,49 @@ http_interactions:
         Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":13432,"given_name":"SHAY","surname":"DEE","date_of_birth":"1978-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]}]}'
     http_version: 
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
-recorded_with: VCR 3.0.3
+- request:
+    method: post
+    uri: https://www.google-analytics.com/collect
+    body:
+      encoding: US-ASCII
+      string: v=1&uip=127.0.0.1&tid=UA-105607968-1&cid=GA1.4.1674248177.1519981524&ua=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10.13%3B+rv%3A57.0%29+Gecko%2F20100101+Firefox%2F57.0&t=event&ec=Leicester&ea=Booked
+    headers:
+      User-Agent:
+      - excon/0.60.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - "*"
+      Date:
+      - Fri, 02 Mar 2018 09:05:25 GMT
+      Pragma:
+      - no-cache
+      Expires:
+      - Fri, 01 Jan 1990 00:00:00 GMT
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Last-Modified:
+      - Sun, 17 May 1998 03:00:00 GMT
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - image/gif
+      Server:
+      - Golfe2
+      Content-Length:
+      - '35'
+      Alt-Svc:
+      - hq=":443"; ma=2592000; quic=51303431; quic=51303339; quic=51303338; quic=51303337;
+        quic=51303335,quic=":443"; ma=2592000; v="41,39,38,37,35"
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
+    http_version: 
+  recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
+recorded_with: VCR 4.0.0

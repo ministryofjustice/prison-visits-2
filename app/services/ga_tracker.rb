@@ -24,6 +24,10 @@ class GATracker
     send_data(rejection_event_payload('Rejection')) if visit_rejected?
   end
 
+  def send_booked_visit_event
+    send_data(booked_visit_event_payload('Booked')) if visit.booked?
+  end
+
   def send_processing_timing
     return unless timing_value
     send_data(timing_payload_data)
@@ -44,6 +48,10 @@ private
       headers: { 'Content-Type' => 'application/x-www-form-urlencoded' },
       body:    URI.encode_www_form(payload)
     )
+  end
+
+  def booked_method
+    visit.nomis_id.nil? ? 'Manual' : 'NOMIS'
   end
 
   def visit_rejected_unexpectedly?
@@ -88,6 +96,14 @@ private
       v: 1, uip: ip, tid: web_property_id, cid: cookies['_ga'] || SecureRandom.base64,
       ua:  user_agent, t: 'event', ec: prison.name, ea: action,
       el: visit.rejection.reasons.sort.join('-')
+    }
+  end
+
+  def booked_visit_event_payload(action)
+    {
+      v: 1, uip: ip, tid: web_property_id, cid: cookies['_ga'] || SecureRandom.base64,
+      ua:  user_agent, t: 'event', ec: prison.name, ea: action,
+      el: booked_method
     }
   end
 
