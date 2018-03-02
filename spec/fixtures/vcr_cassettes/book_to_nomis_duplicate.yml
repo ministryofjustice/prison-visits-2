@@ -35,7 +35,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"found":true,"offender":{"id":1057307}}'
-    http_version: 
+    http_version:
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -72,7 +72,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"establishment":{"code":"LEI","desc":"Leeds"},"housing_location":{"description":"LEI-H-1-003","levels":[{"type":"Wing","value":"2"},{"type":"Landing","value":"1"},{"type":"Cell","value":"1"}]}}'
-    http_version: 
+    http_version:
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -109,7 +109,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"2017-06-20":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
-    http_version: 
+    http_version:
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -223,14 +223,14 @@ http_interactions:
         Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13428,"given_name":"IRMA","middle_names":"CHRISTINE","surname":"ITSU","date_of_birth":"1975-04-03","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"WIFE","desc":"Wife"},"contact_type":{"code":"S","desc":"Social\/
         Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13429,"given_name":"ISAIAH","surname":"ITSU","date_of_birth":"1981-11-16","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"BRO","desc":"Brother"},"contact_type":{"code":"S","desc":"Social\/
         Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":13432,"given_name":"SHAY","surname":"DEE","date_of_birth":"1978-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]}]}'
-    http_version: 
+    http_version:
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: post
     uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/booking
     body:
       encoding: UTF-8
-      string: '{"lead_contact":13428,"other_visitors":[],"slot":"2017-06-20T10:00/11:00","override_restrictions":false,"client_unique_ref":"302e944c-bcb8-4900-951b-9961634cf72a"}'
+      string: '{"lead_contact":13428,"other_contacts":[],"slot":"2017-06-20T10:00/11:00","override_restrictions":false,"client_unique_ref":"302e944c-bcb8-4900-951b-9961634cf72a"}'
     headers:
       User-Agent:
       - excon/0.56.0
@@ -262,7 +262,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"error":{"message":"Duplicate post"}}'
-    http_version: 
+    http_version:
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -299,7 +299,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"found":true,"offender":{"id":1057307}}'
-    http_version: 
+    http_version:
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -336,7 +336,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"establishment":{"code":"LEI","desc":"Leeds"},"housing_location":{"description":"LEI-H-1-003","levels":[{"type":"Wing","value":"2"},{"type":"Landing","value":"1"},{"type":"Cell","value":"1"}]}}'
-    http_version: 
+    http_version:
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -373,7 +373,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"2017-06-20":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
-    http_version: 
+    http_version:
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 - request:
     method: get
@@ -487,6 +487,6 @@ http_interactions:
         Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13428,"given_name":"IRMA","middle_names":"CHRISTINE","surname":"ITSU","date_of_birth":"1975-04-03","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"WIFE","desc":"Wife"},"contact_type":{"code":"S","desc":"Social\/
         Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13429,"given_name":"ISAIAH","surname":"ITSU","date_of_birth":"1981-11-16","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"BRO","desc":"Brother"},"contact_type":{"code":"S","desc":"Social\/
         Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":13432,"given_name":"SHAY","surname":"DEE","date_of_birth":"1978-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]}]}'
-    http_version: 
+    http_version:
   recorded_at: Sun, 11 Jun 2017 23:00:00 GMT
 recorded_with: VCR 3.0.3

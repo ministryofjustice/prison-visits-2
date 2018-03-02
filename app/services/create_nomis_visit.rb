@@ -45,7 +45,7 @@ private
   def booking_params
     {
       lead_contact: visit.principal_visitor.nomis_id,
-      other_visitors: visit.allowed_additional_visitors.map(&:nomis_id),
+      other_contacts: visit.allowed_additional_visitors.map(&:nomis_id),
       slot: visit.slot_granted.to_s,
       override_restrictions: false,
       client_unique_ref: visit.id
