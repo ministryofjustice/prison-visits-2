@@ -193,7 +193,7 @@ http_interactions:
     uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/booking
     body:
       encoding: UTF-8
-      string: '{"lead_contact":13428,"other_visitors":[],"slot":"2017-06-27T14:00/16:00","override_restrictions":false,"client_unique_ref":"151d5227-f950-459a-a647-53dcb74ca2de"}'
+      string: '{"lead_contact":13428,"other_contacts":[],"slot":"2017-06-27T14:00/16:00","override_restrictions":false,"client_unique_ref":"151d5227-f950-459a-a647-53dcb74ca2de"}'
     headers:
       User-Agent:
       - excon/0.56.0
