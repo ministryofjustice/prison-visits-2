@@ -41,9 +41,9 @@ en:
       invalid_estate_selection: You don't access to these estates
       nomis_validation_error_html: |
         <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
-          This visit wasn't booked.
+          Visit not copied to NOMIS
         </h1>
-        <p>Choose a rejection reason to reject the visit or <a href="#nomis-opt-out">book this visit anyway</a>.</p>
+        <p>Please process the visit and record it manually in NOMIS.</p>
       already_booked_in_nomis_html:
         <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
           This visit is already booked in NOMIS.

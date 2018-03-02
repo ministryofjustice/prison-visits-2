@@ -77,7 +77,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
           it 'sets the flash message' do
             subject
-            expect(flash[:alert]).to match("This visit wasn't booked.")
+            expect(flash[:alert]).to match("Visit not copied to NOMIS")
           end
         end
       end
