@@ -46,6 +46,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
           expect(google_tracker).to receive(:send_processing_timing)
           expect(google_tracker).to receive(:send_unexpected_rejection_event)
           expect(google_tracker).to receive(:send_rejection_event)
+          expect(google_tracker).to receive(:send_booked_visit_event)
         end
 
         it { is_expected.to redirect_to(prison_inbox_path) }

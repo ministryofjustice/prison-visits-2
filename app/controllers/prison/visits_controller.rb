@@ -70,6 +70,7 @@ private
       ga_tracker.send_processing_timing
       ga_tracker.send_unexpected_rejection_event
       ga_tracker.send_rejection_event
+      ga_tracker.send_booked_visit_event
     end
   end
 
