@@ -9,7 +9,7 @@ class PrisonerDetailsPresenter
     PrisonerValidation::UNKNOWN,
     PrisonerValidation::PRISONER_NOT_EXIST
   ].freeze
-    # PrisonerLocationValidation::UNKNOWN
+
   def initialize(prisoner_validation, prisoner_location)
     self.prisoner_validation = prisoner_validation
     self.prisoner_location   = prisoner_location
@@ -29,7 +29,8 @@ class PrisonerDetailsPresenter
   end
 
   def details_incorrect?
-    prisoner_existance_status == INVALID
+    prisoner_existance_status == INVALID ||
+      prisoner_location_error == PrisonerLocationValidation::INVALID
   end
 
   def prisoner_existance_error

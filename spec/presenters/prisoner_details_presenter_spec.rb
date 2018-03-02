@@ -30,28 +30,33 @@ RSpec.describe PrisonerDetailsPresenter do
           end
 
           describe '#details_incorrect?' do
-            it { is_expected.not_to be_details_incorrect }
+            it do
+              is_expected.not_to be_details_incorrect
+            end
           end
 
-          describe 'with valid location' do
+          describe '#prisoner_location_error' do
             it do
-              expect(subject.prisoner_existance_status).
-                to eq('valid')
+              expect(subject.prisoner_location_error).to be nil
             end
           end
 
           describe 'with an invalid location' do
             let(:code) { 'CCC' }
 
-            it { expect(subject.prisoner_existance_status).to eq('location_invalid') }
-            it { expect(subject.prisoner_location_error).to eq('location_invalid') }
+            it 'has a valid existance status and an invalid location' do
+              expect(subject.prisoner_location_error).to eq('location_invalid')
+              expect(subject.prisoner_existance_status).to eq('valid')
+            end
           end
 
           describe 'with an unkown location' do
             let(:api_call_successful) { false }
 
-            it { expect(subject.prisoner_existance_status).to eq('location_unknown') }
-            it { expect(subject.prisoner_location_error).to eq('location_unknown') }
+            it 'has a valid existance status and an unknown location' do
+              expect(subject.prisoner_existance_status).to eq('valid')
+              expect(subject.prisoner_location_error).to eq('location_unknown')
+            end
           end
         end
 
@@ -61,7 +66,7 @@ RSpec.describe PrisonerDetailsPresenter do
           describe 'and the prisoner location is valid' do
             it do
               expect(subject.prisoner_existance_status).
-                to eq('invalid')
+                to eq('prisoner_does_not_exist')
             end
 
             describe '#details_incorrect?' do
