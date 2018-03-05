@@ -17,20 +17,25 @@ class GATracker
   end
 
   def send_unexpected_rejection_event
-    send_data(rejection_event_payload('Manual rejection')) if visit_rejected_unexpectedly?
+    if visit_rejected_unexpectedly?
+      send_data(build_event_payload('Manual rejection',
+        visit.rejection.reasons.sort.join('-')))
+    end
   end
 
   def send_rejection_event
-    send_data(rejection_event_payload('Rejection')) if visit_rejected?
+    if visit.rejected?
+      send_data(build_event_payload('Rejection',
+        visit.rejection.reasons.sort.join('-')))
+    end
   end
 
-
   def send_request_event
-    send_data(request_event_payload)
+    send_data(build_event_payload('Request', visit.slots.count))
   end
 
   def send_booked_visit_event
-    send_data(booked_visit_event_payload('Booked')) if visit.booked?
+    send_data(build_event_payload('Booked', booked_method)) if visit.booked?
   end
 
   def send_processing_timing
@@ -64,10 +69,6 @@ private
       ActiveRecord::Type::Boolean.new.cast(request.params[:was_bookable])
   end
 
-  def visit_rejected?
-    visit.rejected?
-  end
-
   def timing_value
     return unless start_time
     (Time.zone.now - start_time).to_i * 1000
@@ -96,26 +97,11 @@ private
     }
   end
 
-  def rejection_event_payload(action)
+  def build_event_payload(action, label)
     {
       v: 1, uip: ip, tid: web_property_id, cid: cookies['_ga'] || SecureRandom.base64,
       ua:  user_agent, t: 'event', ec: prison.name, ea: action,
-      el: visit.rejection.reasons.sort.join('-')
-    }
-  end
-
-  def request_event_payload
-    {
-      v: 1, uip: ip, tid: web_property_id, cid: cookies['_ga'] || SecureRandom.base64,
-      ua:  user_agent, t: 'event', ec: prison.name, ea: 'Request',
-      el: visit.slots.count
-  end 
-
-  def booked_visit_event_payload(action)
-    {
-      v: 1, uip: ip, tid: web_property_id, cid: cookies['_ga'] || SecureRandom.base64,
-      ua:  user_agent, t: 'event', ec: prison.name, ea: action,
-      el: booked_method
+      el: label
     }
   end
 
