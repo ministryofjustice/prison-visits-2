@@ -202,7 +202,7 @@ GEM
       ast (~> 2.4.0)
     pg (0.21.0)
     phantomjs (2.1.1.0)
-    phonelib (0.6.18)
+    phonelib (0.6.19)
     powerpack (0.1.1)
     premailer (1.11.1)
       addressable
