@@ -1,26 +1,25 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
-<% case @visit.prisoner_existance_status %>
-<% when PrisonerDetailsPresenter::VALID %>
+<% case nomis_info.notice %>
+<% when nil %>
   <div class="notice push-top">
     <i class="icon icon-information">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
     <strong class="bold-small"><%= t('.verified_html') %></strong>
   </div>
-<% when PrisonerDetailsPresenter::INVALID, PrisonerLocationValidation::INVALID %>
+<% when PrisonerValidation::PRISONER_NOT_EXIST, PrisonerLocationValidation::INVALID %>
   <div class="notice push-top">
     <i class="icon icon-information">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
-    <strong class="bold-small"><%= t(".#{@visit.prisoner_existance_error}_text") %></strong>
+    <strong class="bold-small"><%= t(".#{nomis_info.notice}_text") %></strong>
   </div>
-<% end %>
-<% if @visit.prisoner_location_error %>
+<% when PrisonerValidation::UNKNOWN, PrisonerLocationValidation::UNKNOWN %>
   <div class="notice push-top">
-    <i class="icon icon-important">
+    <i class="icon icon-information">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
-    <strong class="bold-small"><%= t(".#{@visit.prisoner_existance_error}_text") %></strong>
+    <strong class="bold-small"><%= t(".#{nomis_info.notice}_text") %></strong>
   </div>
 <% end %>
 
