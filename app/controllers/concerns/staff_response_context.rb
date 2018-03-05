@@ -2,7 +2,7 @@ module StaffResponseContext
   extend ActiveSupport::Concern
 
   included do
-    helper_method :nomis_checker, :prisoner_details
+    helper_method :nomis_checker, :prisoner_details, :nomis_info
   end
 
   def book_to_nomis_config
@@ -24,6 +24,10 @@ module StaffResponseContext
     @prisoner_details ||= PrisonerDetailsPresenter.new(
       prisoner_validation, prisoner_location
     )
+  end
+
+  def nomis_info
+    @nomis_info ||= NomisInfo.new(prisoner_validation, prisoner_location)
   end
 
 private
