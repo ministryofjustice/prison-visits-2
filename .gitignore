@@ -25,3 +25,6 @@ tags
 dump.rdb
 .ruby-gemset
 .wercker
+
+# Ignore IDEs
+.idea/
