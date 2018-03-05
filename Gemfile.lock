@@ -1,19 +1,18 @@
 GIT
   remote: https://github.com/ministryofjustice/email_address_validation
-  revision: 6ba244a046b37bed02dca25271849513b200f056
-  ref: 6ba244a046b37bed02dca25271849513b200f056
+  revision: 5ed2fb93f8d5bc419f03cecb408c688c5bd9fd74
+  ref: 5ed2fb93f8d5bc419f03cecb408c688c5bd9fd74
   specs:
-    email_address_validation (0.1.0)
-      activesupport (~> 5.1.4)
+    email_address_validation (0.1.1)
+      activesupport (~> 5.X)
       mail (~> 2.6.6)
-      rails (~> 5.0)
 
 GIT
   remote: https://github.com/ministryofjustice/pvb-instrumentation.git
-  revision: a264627211f2bf68f4e388200b2a050fe9081504
-  tag: v1.0.0
+  revision: 5696f5a3658701f2a3e1536a9622d828d6c6eb81
+  tag: v1.0.1
   specs:
-    pvb-instrumentation (1.0.0)
+    pvb-instrumentation (1.0.1)
       activesupport (> 4.2)
       request_store (~> 1.3.2)
 
@@ -140,12 +139,12 @@ GEM
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     inflection (1.0.0)
-    jasmine (3.0.0)
-      jasmine-core (= 3.0.0)
+    jasmine (3.1.0)
+      jasmine-core (= 3.1.0)
       phantomjs
       rack (>= 1.2.1)
       rake
-    jasmine-core (3.0.0)
+    jasmine-core (3.1.0)
     jasmine-jquery-rails (2.0.3)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -203,7 +202,7 @@ GEM
       ast (~> 2.4.0)
     pg (0.21.0)
     phantomjs (2.1.1.0)
-    phonelib (0.6.18)
+    phonelib (0.6.19)
     powerpack (0.1.1)
     premailer (1.11.1)
       addressable
@@ -287,7 +286,7 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
-    rubocop-rspec (1.22.2)
+    rubocop-rspec (1.23.0)
       rubocop (>= 0.52.1)
     ruby-progressbar (1.9.0)
     rubyzip (1.2.1)
@@ -308,7 +307,7 @@ GEM
       railties (>= 4.0.0)
     secure_headers (5.0.5)
       useragent (>= 0.15.0)
-    selenium-webdriver (3.9.0)
+    selenium-webdriver (3.10.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     sentry-raven (2.6.3)
@@ -402,7 +401,7 @@ DEPENDENCIES
   govuk_frontend_toolkit
   govuk_template
   highline
-  jasmine (~> 3.0)
+  jasmine (~> 3.1)
   jasmine-jquery-rails
   jbuilder
   jquery-rails (~> 4.2.0)
@@ -452,4 +451,4 @@ RUBY VERSION
    ruby 2.4.2p198
 
 BUNDLED WITH
-   1.16.0
+   1.16.1

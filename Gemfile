@@ -45,17 +45,17 @@ gem 'virtus'
 gem 'zendesk_api'
 gem 'pvb-instrumentation',
   git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
-  tag: 'v1.0.0'
+  tag: 'v1.0.1'
 # gem 'pvb-instrumentation', path: '../pvb-instrumentation'
 gem 'email_address_validation',
   git: 'https://github.com/ministryofjustice/email_address_validation',
-  ref: '6ba244a046b37bed02dca25271849513b200f056'
+  ref: '5ed2fb93f8d5bc419f03cecb408c688c5bd9fd74'
 
 group :development, :test do
   gem 'brakeman'
   gem 'byebug'
   gem 'jasmine-jquery-rails'
-  gem 'jasmine', '~> 3.0'
+  gem 'jasmine', '~> 3.1'
   gem 'parser'
   gem 'pry-byebug'
   gem 'pry-rails'

@@ -30,7 +30,7 @@ RSpec.describe CreateNomisVisit do
           with(offender_id: prisoner.nomis_offender_id,
                params: {
                  lead_contact: lead_visitor.nomis_id,
-                 other_visitors: [additional_visitor.nomis_id],
+                 other_contacts: [additional_visitor.nomis_id],
                  slot: visit.slot_granted.to_s,
                  override_restrictions: false,
                  client_unique_ref: visit.id
