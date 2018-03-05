@@ -307,7 +307,7 @@ GEM
       railties (>= 4.0.0)
     secure_headers (5.0.5)
       useragent (>= 0.15.0)
-    selenium-webdriver (3.9.0)
+    selenium-webdriver (3.10.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     sentry-raven (2.6.3)
