@@ -1,5 +1,4 @@
 class NomisInfo
-
   PRISONER_INFO_VALID   = 'prisoner_info_valid'.freeze
   PRISONER_INFO_INVALID = 'prisoner_info_invalid'.freeze
 
