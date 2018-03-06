@@ -46,23 +46,31 @@ RSpec.describe Api::VisitsController do
         contact_phone_no: '1234567890'
       }
     }
+    let(:google_tracker) { instance_double(GATracker) }
 
-    specify do
-      expect(post :create, params: params).to render_template(:show)
-    end
+    describe 'when sucessfull' do
+      before do
+        expect(GATracker).to receive(:new).and_return(google_tracker)
+        expect(google_tracker).to receive(:send_request_event)
+      end
 
-    it 'creates a new visit booking request' do
-      expect { post :create, params: params }.to change(Visit, :count).by(1)
+      specify do
+        expect(post :create, params: params).to render_template(:show)
+      end
 
-      expect(response).to have_http_status(:ok)
-      expect(parsed_body['visit']).to have_key('id')
-      expect(parsed_body['visit']['processing_state']).to eq('requested')
-    end
+      it 'creates a new visit booking request' do
+        expect { post :create, params: params }.to change(Visit, :count).by(1)
 
-    it 'sets the locale of the visit if Accept-Language header sent' do
-      request.headers['Accept-Language'] = 'cy'
-      expect { post :create, params: params }.to change(Visit, :count).by(1)
-      expect(Visit.last.locale).to eq('cy')
+        expect(response).to have_http_status(:ok)
+        expect(parsed_body['visit']).to have_key('id')
+        expect(parsed_body['visit']['processing_state']).to eq('requested')
+      end
+
+      it 'sets the locale of the visit if Accept-Language header sent' do
+        request.headers['Accept-Language'] = 'cy'
+        expect { post :create, params: params }.to change(Visit, :count).by(1)
+        expect(Visit.last.locale).to eq('cy')
+      end
     end
 
     it 'fails if a (top-level) parameter is missing' do
