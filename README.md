@@ -114,7 +114,3 @@ pvb2 $ rails spec
   - [Prison data](docs/prison_data.md)
   - [Application configuration](docs/configuration.md)
 - [Welsh Translation](docs/welsh_translation.md)
-
-
-### Licence
-
