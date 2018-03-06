@@ -46,7 +46,6 @@ RSpec.describe NomisInfo do
 
           it { expect(subject.notice).to eq('location_unknown') }
         end
-
       end
 
       describe 'when the API call fails' do

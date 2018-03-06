@@ -6,14 +6,11 @@ class PrisonerDetailsPresenter
   delegate :internal_location, to: :prisoner_location
 
   VALIDATION_ERRORS = [
-    PrisonerValidation::UNKNOWN,
-    PrisonerLocationValidation::INVALID,
-    PrisonerLocationValidation::UNKNOWN
+    PrisonerValidation::UNKNOWN
   ].freeze
 
-  def initialize(prisoner_validation, prisoner_location)
+  def initialize(prisoner_validation)
     self.prisoner_validation = prisoner_validation
-    self.prisoner_location   = prisoner_location
   end
 
   def prisoner_existance_status
@@ -33,15 +30,11 @@ class PrisonerDetailsPresenter
   end
 
   def prisoner_existance_error
-    prisoner_validation_errors.first || prisoner_location_errors.first
+    prisoner_validation_errors.first
   end
 
   def prisoner_validation_errors
     @prisoner_validation_errors ||= prisoner_validation.tap(&:valid?).errors.full_messages
-  end
-
-  def prisoner_location_errors
-    @prisoner_location_errors ||= prisoner_location.tap(&:valid?).errors.full_messages
   end
 
 private
