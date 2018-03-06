@@ -47,7 +47,7 @@ This application uses Ruby v2.4.2. Use [RVM](https://rvm.io/) or similar to mana
 *Note* - You will need to spin up both [ministryofjustice/prison-visits-2](https://github.com/ministryofjustice/prison-visits-2) and [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public)
 
 1. Install gems (dependencies) locally. To do this you will need to first install [Bundler](http://bundler.io/)
-2. Install the *direnv* package
+2. Install the `direnv` package  
 ```sh
 pvb2 $ brew install direnv
 
