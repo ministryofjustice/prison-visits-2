@@ -1,13 +1,13 @@
 class NomisInfo
-  NOT_LIVE = 'not_live'.freeze
+  include Nomis::ApiEnabledGuard
 
   def initialize(prisoner_validation, location_validation)
     self.prisoner_validation = prisoner_validation
     self.location_validation = location_validation
   end
 
+  check_nomis_enabled
   def notice
-    return NOT_LIVE unless Nomis::Api.enabled?
     prisoner_details_validation || prisoner_location_validation
   end
 

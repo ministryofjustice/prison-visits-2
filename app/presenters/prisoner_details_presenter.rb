@@ -1,7 +1,8 @@
 class PrisonerDetailsPresenter
+  include Nomis::ApiEnabledGuard
+
   VALID    = 'valid'.freeze
   INVALID  = 'invalid'.freeze
-  NOT_LIVE = 'not_live'.freeze
 
   delegate :internal_location, to: :prisoner_location
 
@@ -13,8 +14,8 @@ class PrisonerDetailsPresenter
     self.prisoner_validation = prisoner_validation
   end
 
+  check_nomis_enabled
   def prisoner_existance_status
-    return NOT_LIVE unless Nomis::Api.enabled?
     case prisoner_existance_error
     when nil
       VALID
