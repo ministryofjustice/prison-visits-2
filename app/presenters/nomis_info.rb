@@ -1,6 +1,5 @@
 class NomisInfo
-  PRISONER_INFO_VALID   = 'prisoner_info_valid'.freeze
-  PRISONER_INFO_INVALID = 'prisoner_info_invalid'.freeze
+  NOT_LIVE = 'not_live'.freeze
 
   def initialize(prisoner_validation, location_validation)
     self.prisoner_validation = prisoner_validation
@@ -8,6 +7,7 @@ class NomisInfo
   end
 
   def notice
+    return NOT_LIVE unless Nomis::Api.enabled?
     prisoner_details_validation || prisoner_location_validation
   end
 
