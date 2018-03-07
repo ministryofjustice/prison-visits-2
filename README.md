@@ -107,14 +107,14 @@ pvb2 $ rails spec
 
 ### Further technical information
 
-  - [Processing a request](docs/processing_a_request.md)
-  - [Notes on models](docs/models.md)
-  - [Queues](docs/queues.md)
-  - [Removing outdated personal information](docs/removing_outdated_personal_info.md)
-  - [Prison data](docs/prison_data.md)
-  - [Application configuration](docs/configuration.md)
+- [Processing a request](docs/processing_a_request.md)
+- [Notes on models](docs/models.md)
+- [Queues](docs/queues.md)
+- [Removing outdated personal information](docs/removing_outdated_personal_info.md)
+- [Prison data](docs/prison_data.md)
+- [Application configuration](docs/configuration.md)
 - [Welsh Translation](docs/welsh_translation.md)
 
 
-### Licence
-
+## Licence
+[MIT Licence (MIT)](LICENCE)
