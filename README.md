@@ -115,6 +115,5 @@ pvb2 $ rails spec
 - [Application configuration](docs/configuration.md)
 - [Welsh Translation](docs/welsh_translation.md)
 
-
 ## Licence
 [MIT Licence (MIT)](LICENCE)
