@@ -2,17 +2,17 @@ module Nomis
   module ApiEnabledGuard
     def self.included(base)
       base.extend ClassMethods
+      base.const_set('NOT_LIVE', 'not_live'.freeze)
     end
 
     module ClassMethods
-      NOT_LIVE = 'not_live'.freeze
       def method_added(method_name)
         if wrap_method?(method_name)
           api_method = instance_method method_name
           method_redefined << method_name
 
           define_method method_name do |*args|
-            return NOT_LIVE unless Nomis::Api.enabled?
+            return self.class::NOT_LIVE unless Nomis::Api.enabled?
             api_method.bind(self).call(*args)
           end
         end
