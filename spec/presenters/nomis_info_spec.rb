@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe NomisInfo do
-  let(:id)       { '123' }
+  let(:id)                  { '123' }
   let(:api_call_successful) { true }
-  let(:offender)           { Nomis::Offender.new(id: id, noms_id: 'AB132ER') }
+  let(:offender)            { Nomis::Offender.new(id: id, noms_id: 'AB132ER') }
   let(:location_params)     { { code: 'LCI', desc: 'Leicester' } }
   let(:establishment)       { Nomis::Establishment.new(location_params) }
 
