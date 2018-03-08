@@ -131,7 +131,7 @@ module Api
     end
 
     def ga_tracker
-      @tracker ||= GATracker.new(nil, @visit, cookies, request)
+      @ga_tracker ||= GATracker.new(nil, @visit, cookies, request)
     end
   end
 end
