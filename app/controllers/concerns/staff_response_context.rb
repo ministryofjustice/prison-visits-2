@@ -2,7 +2,10 @@ module StaffResponseContext
   extend ActiveSupport::Concern
 
   included do
-    helper_method :nomis_checker, :prisoner_details, :nomis_info_presenter, :prisoner_location_presenter
+    helper_method :nomis_checker,
+      :prisoner_details,
+      :nomis_info_presenter,
+      :prisoner_location_presenter
   end
 
   def book_to_nomis_config
@@ -12,8 +15,7 @@ module StaffResponseContext
         memoised_visit.prison_name,
         params[:book_to_nomis_opted_in],
         @booking_response&.already_booked_in_nomis?,
-        prisoner_details
-      )
+        prisoner_details)
   end
 
   def nomis_checker
@@ -21,17 +23,17 @@ module StaffResponseContext
   end
 
   def prisoner_details
-    @prisoner_details ||= PrisonerDetailsPresenter.new(
-      prisoner_validation
-    )
+    @prisoner_details ||= PrisonerDetailsPresenter.new(prisoner_validation)
   end
 
   def nomis_info_presenter
-    @nomis_info_presenter ||= NomisInfoPresenter.new(prisoner_validation, prisoner_location_validation)
+    @nomis_info_presenter ||= NomisInfoPresenter.new(
+      prisoner_validation, prisoner_location_validation)
   end
 
   def prisoner_location_presenter
-    @prisoner_location_presenter ||= PrisonerLocationPresenter.new(prisoner_location_validation)
+    @prisoner_location_presenter ||= PrisonerLocationPresenter.new(
+      prisoner_location_validation)
   end
 
 private

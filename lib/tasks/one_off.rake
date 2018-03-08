@@ -40,24 +40,22 @@ namespace :pvb do
 
   def new_worker(pool, queue, task)
     Thread.new do
-      begin
-        while data = begin
-                       queue.pop(true)
-                     rescue ThreadError
-                       nil
-                     end
-          pool.with do |client|
-            RequestStore.store[:custom_log_items] = {}
-            msg = task.call(client, data)
-            if msg
-              STDOUT.print msg.to_json + "\n"
-            end
+      while data = begin
+                     queue.pop(true)
+                   rescue ThreadError
+                     nil
+                   end
+        pool.with do |client|
+          RequestStore.store[:custom_log_items] = {}
+          msg = task.call(client, data)
+          if msg
+            STDOUT.print msg.to_json + "\n"
           end
         end
-      rescue ThreadError => e
-        error_msg = { thread_error: true, message: e.message }.to_json
-        STDOUT.print error_msg + "\n"
       end
+    rescue ThreadError => e
+      error_msg = { thread_error: true, message: e.message }.to_json
+      STDOUT.print error_msg + "\n"
     end
   end
 
