@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   def current_estates
     return unless sso_identity
-    @_current_estates ||= begin
+    @current_estates ||= begin
       estate_ids = session[:current_estates]
       estates = estate_ids ? Estate.where(id: estate_ids).to_a : []
       if estates.any? && sso_identity.accessible_estates?(estates)
@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   end
 
   def sso_identity
-    @_sso_identity ||= begin
+    @sso_identity ||= begin
       session[:sso_data] && SignonIdentity.from_session_data(session[:sso_data])
     rescue SignonIdentity::InvalidSessionData
       Rails.logger.info \

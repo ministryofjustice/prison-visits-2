@@ -55,7 +55,7 @@ private
   end
 
   def valid_requested_slots
-    @valid_slots ||=
+    @valid_requested_slots ||=
       begin
         min = Date.tomorrow
         max = 60.days.from_now.to_date

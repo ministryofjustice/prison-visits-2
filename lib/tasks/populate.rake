@@ -1,5 +1,4 @@
 # rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/AbcSize
 namespace :pvb do
   namespace :populate do
     def generate_prisoner_number
@@ -84,7 +83,7 @@ namespace :pvb do
       fake_processing_time(visit)
     end
 
-    def reject_visit(visit, _i)
+    def reject_visit(visit, _num)
       attributes = if rand(10).even?
                      { rejection_attributes:
                          { reasons: [Rejection::REASONS.sample] }
@@ -115,8 +114,8 @@ namespace :pvb do
       fake_processing_time(visit.reload)
     end
 
-    def cancel_visit(visit, i)
-      if i.even?
+    def cancel_visit(visit, num)
+      if num.even?
         CancellationResponse.new(
           visit, reasons: [Cancellation::REASONS.sample]
         ).cancel!
@@ -157,4 +156,3 @@ namespace :pvb do
   end
 end
 # rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/AbcSize

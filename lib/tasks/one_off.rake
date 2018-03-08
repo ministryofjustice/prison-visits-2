@@ -1,7 +1,6 @@
 namespace :pvb do
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Lint/AssignmentInCondition
-  # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/PerceivedComplexity
   def check_slot_availability(client, visit)
     retry_count = 0
@@ -86,7 +85,6 @@ namespace :pvb do
   end
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Lint/AssignmentInCondition
-  # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/PerceivedComplexity
 
   desc 'Email slot availability for outstanding prisons'

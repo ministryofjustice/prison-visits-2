@@ -35,7 +35,7 @@ class VisitorDecorator < Draper::Decorator
 private
 
   def contact_list_matcher
-    @matcher ||= ContactListMatcher.new(contact_list, object)
+    @contact_list_matcher ||= ContactListMatcher.new(contact_list, object)
   end
 
   def exact_matches

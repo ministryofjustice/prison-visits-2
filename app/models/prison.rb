@@ -59,9 +59,9 @@ class Prison < ActiveRecord::Base
     end
   end
 
-  def slot_details=(h)
+  def slot_details=(date)
     super
-    @parsed_slot_details = SlotDetailsParser.new.parse(h)
+    @parsed_slot_details = SlotDetailsParser.new.parse(date)
   end
 
   def name

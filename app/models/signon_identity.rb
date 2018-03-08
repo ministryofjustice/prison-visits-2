@@ -82,7 +82,7 @@ class SignonIdentity
   end
 
   def accessible_estates
-    @_ae ||= estate_sso_mapper.accessible_estates.order(:nomis_id).to_a
+    @accessible_estates ||= estate_sso_mapper.accessible_estates.order(:nomis_id).to_a
   end
 
   def accessible_estates?(estates)
@@ -112,7 +112,7 @@ class SignonIdentity
 private
 
   def estate_sso_mapper
-    @_estate_sso_mapper ||= begin
+    @estate_sso_mapper ||= begin
       orgs = @permissions.map { |p| p.fetch('organisation') }
       EstateSSOMapper.new(orgs)
     end

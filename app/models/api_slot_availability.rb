@@ -7,7 +7,6 @@ class ApiSlotAvailability
   end
 
   # rubocop:disable Metrics/MethodLength
-  # rubocop:disable Metrics/AbcSize
   def restrict_by_prisoner(prisoner_number:, prisoner_dob:)
     # Skip restriction if prisoner availability is enabled
     return unless public_prisoner_availability_enabled?
@@ -32,7 +31,6 @@ class ApiSlotAvailability
     Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
   end
 # rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/AbcSize
 
 private
 

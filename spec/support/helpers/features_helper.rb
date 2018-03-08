@@ -53,8 +53,8 @@ module FeaturesHelper
     end
   end
 
-  def select_nth_slot(n)
-    all(".BookingCalendar-date--bookable .BookingCalendar-dateLink")[n].
+  def select_nth_slot(num)
+    all(".BookingCalendar-date--bookable .BookingCalendar-dateLink")[num].
       trigger('click')
     first('.SlotPicker-slot').trigger('click')
   end

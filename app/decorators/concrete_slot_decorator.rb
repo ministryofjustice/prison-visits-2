@@ -9,7 +9,6 @@ class ConcreteSlotDecorator < Draper::Decorator
   }.freeze
 
   # rubocop:disable Metrics/MethodLength
-  # rubocop:disable Metrics/AbcSize
   def slot_picker(form_builder)
     h.concat(
       h.content_tag(
@@ -86,7 +85,6 @@ class ConcreteSlotDecorator < Draper::Decorator
     nil
   end
   # rubocop:enable Metrics/MethodLength
-  # rubocop:enable Metrics/AbcSize
 
   def bookable?
     prisoner_available? && slot_available?
@@ -122,7 +120,7 @@ private
   end
 
   def label_text
-    @label_key ||= I18n.t(
+    @label_text ||= I18n.t(
       '.choice_html', options_for_label_key).html_safe
   end
 
