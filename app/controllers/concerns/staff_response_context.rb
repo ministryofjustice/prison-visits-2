@@ -17,11 +17,11 @@ module StaffResponseContext
   end
 
   def nomis_checker
-    @_nomis_checker ||= StaffNomisChecker.new(memoised_visit)
+    @nomis_checker ||= StaffNomisChecker.new(memoised_visit)
   end
 
   def prisoner_details
-    @_prisoner_details ||= PrisonerDetailsPresenter.new(
+    @prisoner_details ||= PrisonerDetailsPresenter.new(
       prisoner_validation, prisoner_location
     )
   end
@@ -29,15 +29,15 @@ module StaffResponseContext
 private
 
   def memoised_visit
-    @_visit ||= scoped_visit
+    @memoised_visit ||= scoped_visit
   end
 
   def prisoner_validation
-    @_prisoner_validation ||= PrisonerValidation.new(nomis_checker.offender)
+    @prisoner_validation ||= PrisonerValidation.new(nomis_checker.offender)
   end
 
   def prisoner_location
-    @_prisoner_location ||= PrisonerLocationValidation.new(
+    @prisoner_location ||= PrisonerLocationValidation.new(
       nomis_checker.offender, memoised_visit.prison.nomis_id
     )
   end

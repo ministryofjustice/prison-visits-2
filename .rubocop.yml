@@ -314,4 +314,3 @@ Lint/AmbiguousBlockAssociation:
 
 Capybara/FeatureMethods:
   Enabled: false
-

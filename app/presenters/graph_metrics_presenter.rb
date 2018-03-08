@@ -16,7 +16,7 @@ class GraphMetricsPresenter
   end
 
   def visits_per_processing_state_for(prison)
-    @visits_per_processing_state ||= begin
+    @visits_per_processing_state_for ||= begin
       query = visit_count_per_state_scope.
               where(prison_id: prison.id).
               sum(:count)

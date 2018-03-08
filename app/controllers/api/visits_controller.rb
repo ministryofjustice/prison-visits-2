@@ -51,19 +51,19 @@ module Api
     end
 
     def visitor_cancellation_response
-      @_visitor_cancellation_response ||=
+      @visitor_cancellation_response ||=
         VisitorCancellationResponse.new(visit: visit)
     end
 
     def visitor_withdrawal_response
-      @_visitor_withdrawal_response ||=
+      @visitor_withdrawal_response ||=
         VisitorWithdrawalResponse.new(visit: visit)
     end
 
     def visit
       # TODO: Delete the PK (id) lookup after people stop clicking on emails
       # using the guids ids.
-      @_visit ||= begin
+      @visit ||= begin
                     if HumanReadableId.human_readable?(params[:id])
                       Visit.find_by!(human_id: params[:id])
                     else
@@ -80,11 +80,11 @@ module Api
     end
 
     def prison
-      @_prison = Prison.find_by!(id: sanitised_params.require(:prison_id))
+      @prison = Prison.find_by!(id: sanitised_params.require(:prison_id))
     end
 
     def prisoner_step
-      @_prisoner_step ||=
+      @prisoner_step ||=
         PrisonerStep.new(
           sanitised_params.require(:prisoner).
           merge(prison_id: prison.id)
@@ -103,7 +103,7 @@ module Api
     end
 
     def slots_step
-      @_slots_step ||= begin
+      @slots_step ||= begin
         SlotsStep.new(
           option_0: slots.fetch(0), # We expect at least 1 slot
           option_1: slots.fetch(1, nil),
@@ -114,12 +114,12 @@ module Api
     end
 
     def visitors
-      @_visitors =
+      @visitors =
         sanitised_params.require(:visitors).map { |v| VisitorsStep::Visitor.new(v) }
     end
 
     def slots
-      @_slots = begin
+      @slots = begin
         sanitised_params[:slot_options].tap do |obj|
           unless obj.is_a?(Array) && obj.size >= 1
             fail ParameterError, 'slot_options must contain >= slot'

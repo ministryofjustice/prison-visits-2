@@ -96,11 +96,11 @@ RSpec.describe GraphMetricsPresenter do
       it 'returns timeseries for of visits per processing state' do
         todays_metrics = subject.visits_per_processing_state.first
         expect(todays_metrics.as_json).to eq(date:      Time.zone.today,
-                                             requested: BigDecimal.new(5),
-                                             cancelled: BigDecimal.new(4),
-                                             booked:    BigDecimal.new(3),
-                                             rejected:  BigDecimal.new(2),
-                                             withdrawn: BigDecimal.new(1))
+                                             requested: BigDecimal(5),
+                                             cancelled: BigDecimal(4),
+                                             booked:    BigDecimal(3),
+                                             rejected:  BigDecimal(2),
+                                             withdrawn: BigDecimal(1))
       end
     end
   end
@@ -109,8 +109,8 @@ RSpec.describe GraphMetricsPresenter do
     let!(:timely_visits)  { create_list :visit, 2, prison: prison }
     let!(:overdue_visits) { create_list :visit, 3, prison: prison }
 
-    def process_visit(visit, i)
-      i.odd? ? reject_visit(visit) : accept_visit(visit, visit.slots.first)
+    def process_visit(visit, num)
+      num.odd? ? reject_visit(visit) : accept_visit(visit, visit.slots.first)
     end
 
     describe '#timely_and_overdue_for' do
@@ -154,8 +154,8 @@ RSpec.describe GraphMetricsPresenter do
       end
 
       it "returns the formatted overdue and timely visits by date" do
-        expect(subject.timely_and_overdue.first.as_json).to eq(timely:  BigDecimal.new(2),
-                                                               overdue: BigDecimal.new(3),
+        expect(subject.timely_and_overdue.first.as_json).to eq(timely:  BigDecimal(2),
+                                                               overdue: BigDecimal(3),
                                                                date:    Time.zone.today)
       end
     end

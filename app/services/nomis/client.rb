@@ -56,7 +56,6 @@ module Nomis
   private
 
     # rubocop:disable Metrics/MethodLength
-    # rubocop:disable Metrics/AbcSize
     def request(method, route, params, idempotent:, options: {})
       # For cleanliness, strip initial / if supplied
       route = route.sub(%r{^\/}, '')
@@ -100,7 +99,6 @@ module Nomis
       raise APIError, "Exception #{e.class} calling #{api_method}: #{e}"
     end
     # rubocop:enable Metrics/MethodLength
-    # rubocop:enable Metrics/AbcSize
 
     def http_method_expects(method)
       if method == :get

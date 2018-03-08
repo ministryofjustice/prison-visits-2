@@ -6,7 +6,7 @@ class Prison::SwitchEstatesController < ApplicationController
   def create
     estates = Estate.where(id: params[:estate_ids])
     if sso_identity.accessible_estates?(estates)
-      @_current_estates         = nil
+      @current_estates = nil
       session[:current_estates] = estates.map(&:id)
     else
       # This should never happen

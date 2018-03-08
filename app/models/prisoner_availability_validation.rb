@@ -60,7 +60,7 @@ private
   end
 
   def valid_requested_slots
-    @valid_slots ||= requested_slots.select { |slot| valid_slot?(slot) }
+    @valid_requested_slots ||= requested_slots.select { |slot| valid_slot?(slot) }
   end
 
   def valid_slot?(slot)

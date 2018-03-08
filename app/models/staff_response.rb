@@ -18,7 +18,6 @@ class StaffResponse
   after_validation :sanitise_reasons
 
   # rubocop:disable Metrics/MethodLength
-  # rubocop:disable Metrics/AbcSize
   def email_attrs
     attrs = visit.serializable_hash(
       except: [
@@ -45,13 +44,14 @@ class StaffResponse
     attrs
   end
   # rubocop:enable Metrics/MethodLength
-  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Naming/MemoizedInstanceVariableName
   def validate_visitors_nomis_ready=(val)
     @validate_visitors_nomis_ready ||= ActiveRecord::Type::Boolean.
       new.
       cast(val)
   end
+  # rubocop:enable Naming/MemoizedInstanceVariableName
 
   def validate_visitors_nomis_ready?
     @validate_visitors_nomis_ready
@@ -59,7 +59,6 @@ class StaffResponse
 
 private
 
-  # rubocop:disable Metrics/MethodLength
   def rejection_attributes
     return unless visit.rejection&.valid?
     @rejection_attributes ||= begin
@@ -73,7 +72,6 @@ privileged_allowance_expires_on rejection_reason_detail])
       attrs
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def visitors_attributes
     @visitors_attributes ||= begin

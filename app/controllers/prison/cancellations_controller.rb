@@ -21,7 +21,7 @@ class Prison::CancellationsController < ApplicationController
 private
 
   def cancellation_response
-    @_cancellation_response ||= CancellationResponse.new(
+    @cancellation_response ||= CancellationResponse.new(
       memoised_visit,
       cancellation_params,
       user: current_user,

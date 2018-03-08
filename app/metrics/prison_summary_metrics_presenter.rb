@@ -21,8 +21,8 @@ class PrisonSummaryMetricsPresenter
   def percent_rejected
     return '0.0' if total_visits == 0
 
-    rejected = BigDecimal.new(visits_in_state('rejected'))
-    total = BigDecimal.new(total_visits)
+    rejected = BigDecimal(visits_in_state('rejected'))
+    total = BigDecimal(total_visits)
 
     percentage = (rejected / total) * 100
     percentage.truncate(2)

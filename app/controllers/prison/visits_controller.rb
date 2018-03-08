@@ -79,6 +79,6 @@ private
   end
 
   def ga_tracker
-    @tracker ||= GATracker.new(current_user, memoised_visit, cookies, request)
+    @ga_tracker ||= GATracker.new(current_user, memoised_visit, cookies, request)
   end
 end
