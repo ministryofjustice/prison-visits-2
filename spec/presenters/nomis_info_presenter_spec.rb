@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe NomisInfo do
+RSpec.describe NomisInfoPresenter do
   let(:id)                  { '123' }
   let(:api_call_successful) { true }
   let(:offender)            { Nomis::Offender.new(id: id, noms_id: 'AB132ER') }

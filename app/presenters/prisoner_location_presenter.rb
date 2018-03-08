@@ -1,4 +1,4 @@
-class PrisonerLocation
+class PrisonerLocationPresenter
   include Nomis::ApiEnabledGuard
 
   delegate :internal_location, to: :prisoner_location_validation
