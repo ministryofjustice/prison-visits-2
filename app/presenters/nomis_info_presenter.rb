@@ -1,4 +1,4 @@
-class NomisInfo
+class NomisInfoPresenter
   include Nomis::ApiEnabledGuard
 
   def initialize(prisoner_validation, location_validation)

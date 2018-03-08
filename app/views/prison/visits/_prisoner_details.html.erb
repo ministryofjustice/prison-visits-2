@@ -1,5 +1,5 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
-<% case nomis_info.notice %>
+<% case nomis_info_presenter.notice %>
 <% when nil %>
   <div class="notice push-top">
     <i class="icon icon-information">
@@ -12,14 +12,14 @@
     <i class="icon icon-information">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
-    <strong class="bold-small"><%= t(".#{nomis_info.notice}_text") %></strong>
+    <strong class="bold-small"><%= t(".#{nomis_info_presenter.notice}_text") %></strong>
   </div>
 <% when PrisonerValidation::UNKNOWN, PrisonerLocationValidation::UNKNOWN %>
   <div class="notice push-top">
     <i class="icon icon-information">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
-    <strong class="bold-small"><%= t(".#{nomis_info.notice}_text") %></strong>
+    <strong class="bold-small"><%= t(".#{nomis_info_presenter.notice}_text") %></strong>
   </div>
 <% end %>
 
@@ -55,13 +55,13 @@
   <div class="column-one-quarter">
     <span class="text-secondary"><%= t('.prison_name') %></span>
     <div class="bold-small"><%= @visit.prison_name %></div>
-    <% case prisoner_location.status    %>
+    <% case prisoner_location_presenter.status    %>
     <% when nil %>
       <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
     <% when PrisonerLocationValidation::INVALID %>
-      <div class="font-xsmall tag tag--error"><%= t(".#{prisoner_location.status}") %></div>
+      <div class="font-xsmall tag tag--error"><%= t(".#{prisoner_location_presenter.status}") %></div>
     <% when PrisonerLocationValidation::UNKNOWN %>
-      <div class="font-xsmall tag tag--warning"><%= t(".#{prisoner_location.status}") %></div>
+      <div class="font-xsmall tag tag--warning"><%= t(".#{prisoner_location_presenter.status}") %></div>
     <% end %>
   </div>
 </div>

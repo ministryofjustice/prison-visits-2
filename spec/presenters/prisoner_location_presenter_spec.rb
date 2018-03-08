@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe PrisonerLocation do
+RSpec.describe PrisonerLocationPresenter do
   let(:establishment_code) { 'LCI' }
   let(:establishment)      do
     Nomis::Establishment.new(
