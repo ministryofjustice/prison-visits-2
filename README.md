@@ -27,6 +27,7 @@ The source of the predecessor can be found at
 ### Dependencies
 
 - [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public) - this a separate Ruby on Rails application that contains the public interface for booking a prison visit.
+- [MOJ Sign On](https://github.com/ministryofjustice/moj-signon) - for logging into the bookings management interface.
 - [Sidekiq](https://sidekiq.org/) - for background processing.
 - [Redis](https://redis.io/) - for managing queues (required by Sidekiq)
 - [Postgres](https://www.postgresql.org/) - for persisting data
@@ -35,7 +36,9 @@ The source of the predecessor can be found at
 - [Geckodriver v0.19.1](https://github.com/mozilla/geckodriver) - for executing tests against the firefox browser.
 - [direnv](https://direnv.net/) - for managing environment variables and storing credentials.
 - [NOMIS API access](http://ministryofjustice.github.io/nomis-api/) - prison and offender data is accessed via the National Offender Management Information System. An [authentication token](https://nomis-api-access.service.justice.gov.uk/) is required to access this.
-- (Optional) Transifex Client - for managing site translation. See [additional documentation](docs/welsh_translation.md) for setup and updating translations.       
+- (Optional) Transifex Client - for managing site translation. See [additional documentation](docs/welsh_translation.md) for setup and updating translations.
+
+Emails will be sent to [MailCatcher](http://mailcatcher.me/), if it’s running. See its website for instructions.
 
 
 ### Ruby version
@@ -48,6 +51,7 @@ This application uses Ruby v2.4.2. Use [RVM](https://rvm.io/) or similar to mana
 *Note* - You will need to spin up both [ministryofjustice/prison-visits-2](https://github.com/ministryofjustice/prison-visits-2) and [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public)
 
 1. Install gems (dependencies) locally. To do this you will need to first install [Bundler](http://bundler.io/)
+
 2. Install the `direnv` package  
 ```sh
 pvb2 $ brew install direnv
@@ -95,6 +99,28 @@ pvb2 $ rails server
 
 ```sh
 pvb-public $ rails server -p 4000
+
+```
+
+9. In another terminal window spin up [MOJ Signon](https://github.com/ministryofjustice/moj-signon) on port 5000.
+
+```sh
+moj-signon $ rails server -p 5000
+```
+
+### Rake tasks
+
+1. Set up database and seed with prison data
+
+```sh
+pvb2 $ rake db:setup
+
+```
+
+2. Seed database with visits data
+
+```sh
+pvb2 $ rake pvb:populate:visits
 
 ```
 
