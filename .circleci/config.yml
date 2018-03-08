@@ -17,10 +17,18 @@ jobs:
           POSTGRES_DB: pvb2_test
     steps:
       - checkout
+      - run:
+          name: Which bundler?
+          command: bundle -v
       - restore_cache:
-          key: prison-visits-2-{{ checksum "Gemfile.lock" }}
-      - run: sudo chown -R circleci:circleci /usr/local/bundle
-      - run: bundle install
+          keys:
+            - prison-visits-2-v3-{{ checksum "Gemfile.lock" }}
+            - prison-visits-2-v3-
+      - run: bundle check --path vendor/bundle || bundle install --path vendor/bundle
+      - save_cache:
+          key: prison-visits-2-v3-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
       - run:
           name: install firefox
           command: |
@@ -54,10 +62,6 @@ jobs:
             ./cc-test-reporter before-build
             bundle exec rake
             ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
-      - save_cache:
-          key: prison-visits-2-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
       - store_test_results:
           path: coverage
       - store_artifacts:
