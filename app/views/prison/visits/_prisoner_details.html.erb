@@ -107,9 +107,9 @@
       <% when nil %>
         <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
       <% when PrisonerLocationValidation::INVALID %>
-        <div class="font-xsmall tag tag--error"><%= t(".#{prisoner_location.status}") %></div>
+        <div class="font-xsmall tag tag--error"><%= t(".#{prisoner_location_presenter.status}") %></div>
       <% when PrisonerLocationValidation::UNKNOWN %>
-        <div class="font-xsmall tag tag--warning"><%= t(".#{prisoner_location.status}") %></div>
+        <div class="font-xsmall tag tag--warning"><%= t(".#{prisoner_location_presenter.status}") %></div>
       <% end %>
     <% end %>
   </div>
