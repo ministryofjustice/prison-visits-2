@@ -40,22 +40,24 @@ namespace :pvb do
 
   def new_worker(pool, queue, task)
     Thread.new do
-      while data = begin
-                     queue.pop(true)
-                   rescue ThreadError
-                     nil
-                   end
-        pool.with do |client|
-          RequestStore.store[:custom_log_items] = {}
-          msg = task.call(client, data)
-          if msg
-            STDOUT.print msg.to_json + "\n"
+      begin
+        while data = begin
+          queue.pop(true)
+        rescue ThreadError
+          nil
+        end
+          pool.with do |client|
+            RequestStore.store[:custom_log_items] = {}
+            msg = task.call(client, data)
+            if msg
+              STDOUT.print msg.to_json + "\n"
+            end
           end
         end
+      rescue ThreadError => e
+        error_msg = { thread_error: true, message: e.message }.to_json
+        STDOUT.print error_msg + "\n"
       end
-    rescue ThreadError => e
-      error_msg = { thread_error: true, message: e.message }.to_json
-      STDOUT.print error_msg + "\n"
     end
   end
 
@@ -64,9 +66,9 @@ namespace :pvb do
     task = ->(client, visit) { check_slot_availability(client, visit) }
 
     visits = Visit.
-             includes(:prison).
-             where(processing_state: 'requested').
-             where(prisons: { name: prison_name })
+        includes(:prison).
+        where(processing_state: 'requested').
+        where(prisons: { name: prison_name })
 
     non_expired = visits.select { |visit|
       visit.slots.all? { |s| s.to_date > Time.zone.today }
@@ -81,6 +83,7 @@ namespace :pvb do
     workers = 2.times.map { new_worker(pool, queue, task) }
     workers.map(&:join)
   end
+
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Lint/AssignmentInCondition
   # rubocop:enable Metrics/PerceivedComplexity

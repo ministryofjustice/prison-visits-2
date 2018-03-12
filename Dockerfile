@@ -1,4 +1,4 @@
-FROM ministryofjustice/ruby:2.5.0-webapp-onbuild
+FROM ministryofjustice/ruby:2.4.2-webapp-onbuild
 
 # Update openssl & ca-certificates so that communication with signon can take place
 # (TODO: Remove this when base container has been updated)
