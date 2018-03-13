@@ -18,24 +18,25 @@ class GATracker
 
   def send_unexpected_rejection_event
     if visit_rejected_unexpectedly?
-      send_data(build_event_payload('Manual rejection',
+      send_data(build_event_payload(ga_cookie, 'Manual rejection',
         visit.rejection.reasons.sort.join('-')))
     end
   end
 
   def send_rejection_event
     if visit.rejected?
-      send_data(build_event_payload('Rejection',
+      send_data(build_event_payload(ga_cookie, 'Rejection',
         visit.rejection.reasons.sort.join('-')))
     end
   end
 
   def send_request_event
-    send_data(build_event_payload('Request', visit.slots.count))
+    send_data(build_event_payload('GA1.1.123456789.0123456789',
+      'Request', visit.slots.count))
   end
 
   def send_booked_visit_event
-    send_data(build_event_payload('Booked', booked_method)) if visit.booked?
+    send_data(build_event_payload(ga_cookie, 'Booked', booked_method)) if visit.booked?
   end
 
   def send_processing_timing
@@ -97,9 +98,9 @@ private
     }
   end
 
-  def build_event_payload(action, label)
+  def build_event_payload(cookie, action, label)
     {
-      v: 1, uip: ip, tid: web_property_id, cid: cookies['_ga'] || SecureRandom.base64,
+      v: 1, uip: ip, tid: web_property_id, cid: cookie,
       ua:  user_agent, t: 'event', ec: prison.name, ea: action,
       el: label
     }
@@ -111,5 +112,9 @@ private
 
   def delete_visit_processing_time_cookie
     cookies.delete(processing_time_key)
+  end
+
+  def ga_cookie
+    cookies['_ga'] || SecureRandom.base64
   end
 end
