@@ -108,7 +108,7 @@ GEM
       activesupport (~> 5.0)
       request_store (~> 1.0)
     equalizer (0.0.11)
-    erubi (1.7.0)
+    erubi (1.7.1)
     excon (0.60.0)
     execjs (2.7.0)
     factory_bot (4.8.2)
@@ -208,7 +208,7 @@ GEM
       addressable
       css_parser (>= 1.6.0)
       htmlentities (>= 4.0.0)
-    premailer-rails (1.10.1)
+    premailer-rails (1.10.2)
       actionmailer (>= 3, < 6)
       premailer (~> 1.7, >= 1.7.9)
     pry (0.11.3)
@@ -224,7 +224,7 @@ GEM
     rack (2.0.4)
     rack-protection (2.0.0)
       rack
-    rack-test (0.8.2)
+    rack-test (0.8.3)
       rack (>= 1.0, < 3)
     rails (5.1.5)
       actioncable (= 5.1.5)
