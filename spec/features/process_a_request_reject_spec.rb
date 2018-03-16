@@ -15,7 +15,6 @@ RSpec.feature 'Processing a request', js: true do
 
   describe 'rejecting', vcr: { cassette_name: 'process_booking_happy_path' } do
     before do
-      switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, [])
       visit prison_visit_path(vst, locale: 'en')
     end
 

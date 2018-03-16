@@ -45,8 +45,7 @@ class StaffNomisChecker
   end
 
   def contact_list_unknown?
-    Nomis::Feature.contact_list_enabled?(@visit.prison_name) &&
-      prisoner_contact_list.unknown_result?
+    prisoner_contact_list.unknown_result?
   end
 
   def approved_contacts

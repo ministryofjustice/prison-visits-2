@@ -26,7 +26,7 @@
       <% end %>
     </div>
     <div class="column">
-      <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>
+      <% if !@visit.contact_list_unknown? %>
         <%= v.contact_list_matching(vf) %>
       <% end %>
       <div class="bold-small push-bottom--half">Visitor rejection reasons</div>

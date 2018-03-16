@@ -104,7 +104,6 @@ private
   end
 
   def contact_list_working?
-    @contact_list_working ||=
-      Nomis::Feature.contact_list_enabled?(prison_name) && !contact_list_unknown?
+    @contact_list_working ||= !contact_list_unknown?
   end
 end
