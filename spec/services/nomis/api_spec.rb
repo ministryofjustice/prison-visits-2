@@ -293,7 +293,10 @@ RSpec.describe Nomis::Api do
         lead_contact: 12_588,
         other_contacts: [13_428],
         slot: '2017-05-15T10:00/16:00',
-        override_restrictions: false,
+        override_offender_restrictions: false,
+        override_visitor_restrictions: false,
+        override_vo_balance: false,
+        override_slot_capacity: false,
         client_unique_ref: 'visit_id_1234'
       }
     end
