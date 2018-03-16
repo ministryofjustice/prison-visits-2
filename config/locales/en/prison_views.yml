@@ -257,7 +257,7 @@ en:
         prisoner_availability_unknown: You must check NOMIS to verify prisoner availability
         slot_availability_unknown: You must check NOMIS to verify slot availability
         prisoner_restrictions_unknown: We can’t show the NOMIS prisoner restrictions right now. Please check all prisoner restrictions in NOMIS
-        closed: Closed
+        closed: This is a closed visit
       rejection_nomis:
         nomis_rejection_title: Rejections verified by NOMIS
         nomis_rejection_intro: We have checked these rejection reasons in NOMIS and automatically ticked any that apply.
@@ -400,7 +400,7 @@ en:
     visitor_other_reason: Visitor rejected for other reasons
     duplicate_visit_request: Duplicate visit request
     reference_number: Reference number
-    clear_selection: Clear selection
+    clear_selection: Clear date selection
     to: to
     other_reason: "Other: %{detail}"
     print_visits_title: Print visits
