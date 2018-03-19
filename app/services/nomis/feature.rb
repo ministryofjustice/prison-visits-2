@@ -1,10 +1,5 @@
 module Nomis
   class Feature
-    def self.contact_list_enabled?(prison_name)
-      Nomis::Api.enabled? &&
-        config.staff_prisons_without_nomis_contact_list.exclude?(prison_name)
-    end
-
     def self.prisoner_availability_enabled?
       Nomis::Api.enabled? && config.nomis_staff_prisoner_availability_enabled
     end

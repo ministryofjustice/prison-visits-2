@@ -7,9 +7,6 @@ RSpec.feature 'Processing a request', js: true do
   include_context 'with a process request setup'
 
   context 'when not booking to nomis' do
-    before do
-      switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, [])
-    end
     around do |ex|
       travel_to(Date.new(2016, 12, 1)) { ex.run }
     end
@@ -62,7 +59,6 @@ RSpec.feature 'Processing a request', js: true do
     before do
       switch_on :nomis_staff_prisoner_availability_enabled
       switch_on :nomis_staff_prisoner_check_enabled
-      switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, [])
 
       switch_on :nomis_staff_book_to_nomis_enabled
       switch_feature_flag_with(:staff_prisons_with_book_to_nomis, [vst.prison_name])

@@ -1,10 +1,10 @@
 <h2 class="bold-medium"><%= t('.title') %></h2>
-<% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>
+<% if !@visit.contact_list_unknown? %>
   <p><%= t('.help_text') %></p>
   <%= hidden_field_tag :validate_visitors_nomis_ready, true %>
 <% end %>
 
-<% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && @visit.contact_list_unknown? %>
+<% if @visit.contact_list_unknown? %>
   <div class="notice push-bottom push-top">
     <i class="icon icon-information">
       <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>
@@ -13,7 +13,7 @@
   </div>
 <% end %>
 
-<div class="js-visitorList <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>nomis-enabled<% end %>" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
+<div class="js-visitorList <% if !@visit.contact_list_unknown? %>nomis-enabled<% end %>" data-rejection-el="rejection-message" data-success-el="nomis-opt-out">
   <ul class="visitor-contact-list push-top">
     <%= f.fields_for :visitors, @visit.principal_visitor do |vf| %>
       <%= render 'visitor_contact', f: f, v: @visit.principal_visitor, vf: vf %>
@@ -25,7 +25,7 @@
     <% end %>
   </ul>
   <div class="form-group">
-    <% if Nomis::Feature.contact_list_enabled?(@visit.prison_name) && !@visit.contact_list_unknown? %>
+    <% if !@visit.contact_list_unknown? %>
       <div class="js-notAllProcessed">
         <div class="notice">
           <i class="icon icon-information">

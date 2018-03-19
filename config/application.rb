@@ -119,10 +119,6 @@ module PrisonVisits
       ENV['PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY']&.split(',')&.map(&:strip) || []
     end
 
-    config.staff_prisons_without_nomis_contact_list = feature_flag_value.call do
-      ENV['STAFF_PRISONS_WITHOUT_NOMIS_CONTACT_LIST']&.split(',')&.map(&:strip) || []
-    end
-
     config.nomis_staff_offender_restrictions_enabled = feature_flag_value.call do
       ENV['NOMIS_STAFF_OFFENDER_RESTRICTIONS_ENABLED']&.downcase == 'true'
     end

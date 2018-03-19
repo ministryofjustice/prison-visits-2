@@ -22,7 +22,6 @@ RSpec.feature 'Processing a request - NOMIS API disasbled', :js do
   end
 
   before do
-    switch_feature_flag_with(:staff_prisons_without_nomis_contact_list, [])
     vst.update!(slot_option_0: '2017-06-27T14:00/16:00')
   end
 

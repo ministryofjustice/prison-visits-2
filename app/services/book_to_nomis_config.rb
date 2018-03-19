@@ -56,8 +56,7 @@ private
   end
 
   def contact_list_working?
-    Nomis::Feature.contact_list_enabled?(prison_name) &&
-      !staff_nomis_checker.contact_list_unknown?
+    !staff_nomis_checker.contact_list_unknown?
   end
 
   def offender_restrictions_working?

@@ -82,8 +82,6 @@ RSpec.describe BookToNomisConfig do
 
   shared_context 'with contact list working' do
     before do
-      allow(Nomis::Feature).
-        to receive(:contact_list_enabled?).with(prison_name).and_return(true)
       allow(checker).to receive(:contact_list_unknown?).and_return(false)
     end
   end
@@ -193,20 +191,8 @@ RSpec.describe BookToNomisConfig do
       include_context 'with slot availability working'
       include_context 'with offender restrictions working'
 
-      context 'with the feature being disabled' do
-        before do
-          expect(Nomis::Feature).
-            to receive(:contact_list_enabled?).with(prison_name).and_return(false)
-        end
-
-        it { is_expected.not_to be_possible_to_book }
-      end
-
       context 'with the api call response being unknown' do
         before do
-          allow(Nomis::Feature).
-            to receive(:contact_list_enabled?).with(prison_name).and_return(true)
-
           expect(checker).to receive(:contact_list_unknown?).and_return(true)
         end
 

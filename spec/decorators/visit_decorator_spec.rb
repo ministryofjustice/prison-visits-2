@@ -76,8 +76,6 @@ RSpec.describe VisitDecorator do
 
       context 'when the contact list is working' do
         before do
-          expect(Nomis::Feature).
-            to receive(:contact_list_enabled?).with(visit.prison_name).and_return(true)
           expect(checker).to receive(:contact_list_unknown?).and_return(false)
           allow(checker).to receive(:approved_contacts).and_return([])
         end
@@ -111,8 +109,6 @@ RSpec.describe VisitDecorator do
 
       context 'when the contact list is not working' do
         before do
-          expect(Nomis::Feature).
-            to receive(:contact_list_enabled?).with(visit.prison_name).and_return(true)
           expect(checker).to receive(:contact_list_unknown?).and_return(true)
         end
 
