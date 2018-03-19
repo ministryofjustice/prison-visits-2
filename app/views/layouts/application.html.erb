@@ -48,7 +48,9 @@
   <![endif]-->
 
   <main id="content">
-    <a target="_blank" href="https://www.surveymonkey.co.uk/r/36LDWKD" class="feedback-link hidden--print"><%= t('.feedback') %></a>
+    <p class="phase-banner push-top--half push--none font-xsmall">
+      <%= t('.contact_banner_html', url: new_prison_feedback_path) %>
+    </p>
     <%= yield :banner %>
     <%= yield :navigation %>
     <% if content_for?(:header) %>
