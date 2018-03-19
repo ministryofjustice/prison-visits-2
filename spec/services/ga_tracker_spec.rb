@@ -170,7 +170,6 @@ RSpec.describe GATracker do
   describe '#send_request_event' do
     context "when the visit was created" do
       before do
-        cookies['_ga'] = 'some_client_id'
         switch_feature_flag_with :ga_id, web_property_id
       end
 
@@ -183,7 +182,7 @@ RSpec.describe GATracker do
               v: 1,
               uip: ip,
               tid: web_property_id,
-              cid: "some_client_id",
+              cid: "GA1.1.123456789.0123456789",
               ua: user_agent,
               t: "event",
               ec: visit.prison.name,
