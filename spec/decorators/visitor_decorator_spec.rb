@@ -63,7 +63,7 @@ RSpec.describe VisitorDecorator do
             visitor.last_name = nearest_match.surname
           end
 
-          it 'contains the nearest the partially matched contact under the nearest match group' do
+          it 'contains the nearest the partially matched contact under the nearest match group', vcr: { cassette_name: 'lookup_active_offender' } do
             expect(html).to have_css('select optgroup[label="Nearest matches"] option', text: nearest_match.full_name_and_dob)
           end
         end

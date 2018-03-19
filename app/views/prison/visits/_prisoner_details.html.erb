@@ -86,31 +86,25 @@
     <% end %>
   </div>
   <div class="column-one-quarter">
-    <% if Nomis::Feature.iep_level_enabled? %>
-      <span class="text-secondary"><%= t('.iep_level') %></span>
-      <div class="bold-small"><%= @visit.offender_iep_level%></div>
-      <% case @visit.prisoner_existance_status %>
-      <% when PrisonerDetailsPresenter::VALID %>
-        <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
-      <% when PrisonerDetailsPresenter::INVALID %>
-        <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_existance_status}") %></div>
-      <% end %>
-    <% else %>
-      &nbsp;
+    <span class="text-secondary"><%= t('.iep_level') %></span>
+    <div class="bold-small"><%= @visit.offender_iep_level%></div>
+    <% case @visit.prisoner_existance_status %>
+    <% when PrisonerDetailsPresenter::VALID %>
+      <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
+    <% when PrisonerDetailsPresenter::INVALID %>
+      <div class="font-xsmall tag tag--error"><%= t(".#{@visit.prisoner_existance_status}") %></div>
     <% end %>
   </div>
   <div class="column-one-quarter">
-    <% if Nomis::Feature.internal_location_enabled? %>
-      <span class="text-secondary"><%= t('.internal_location') %></span>
-      <div class="bold-small"><%= prisoner_location_presenter.internal_location%></div>
-      <% case prisoner_location_presenter.status %>
-      <% when nil %>
-        <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
-      <% when PrisonerLocationValidation::INVALID %>
-        <div class="font-xsmall tag tag--error"><%= t(".#{prisoner_location_presenter.status}") %></div>
-      <% when PrisonerLocationValidation::UNKNOWN %>
-        <div class="font-xsmall tag tag--warning"><%= t(".#{prisoner_location_presenter.status}") %></div>
-      <% end %>
+    <span class="text-secondary"><%= t('.internal_location') %></span>
+    <div class="bold-small"><%= prisoner_location_presenter.internal_location%></div>
+    <% case prisoner_location_presenter.status %>
+    <% when nil %>
+      <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
+    <% when PrisonerLocationValidation::INVALID %>
+      <div class="font-xsmall tag tag--error"><%= t(".#{prisoner_location_presenter.status}") %></div>
+    <% when PrisonerLocationValidation::UNKNOWN %>
+      <div class="font-xsmall tag tag--warning"><%= t(".#{prisoner_location_presenter.status}") %></div>
     <% end %>
   </div>
 </div>

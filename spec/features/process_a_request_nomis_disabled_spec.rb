@@ -28,6 +28,7 @@ RSpec.feature 'Processing a request - NOMIS API disasbled', :js do
   context 'with all of the flags switched on' do
     before do
       switch_off_api
+
       switch_on :nomis_staff_prisoner_check_enabled
       switch_on :nomis_staff_prisoner_availability_enabled
 
@@ -38,8 +39,6 @@ RSpec.feature 'Processing a request - NOMIS API disasbled', :js do
       switch_feature_flag_with(:staff_prisons_with_slot_availability, [prison.name])
 
       switch_on :nomis_staff_offender_restrictions_enabled
-      switch_on :nomis_internal_location_enabled
-      switch_on :nomis_iep_level_enabled
       switch_on :nomis_sentence_status_enabled
     end
 
@@ -54,7 +53,7 @@ RSpec.feature 'Processing a request - NOMIS API disasbled', :js do
       )
     end
 
-    it 'enables staff to process a visit' do
+    it 'enables staff to process a visit', vcr: { cassette_name: 'lookup_active_offender', record: :new_episodes } do
       allow(GATracker).
         to receive(:new).
              and_return(ga_tracker)
