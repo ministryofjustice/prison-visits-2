@@ -37,7 +37,6 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       switch_feature_flag_with(:staff_prisons_with_slot_availability, [prison.name])
 
       switch_on :nomis_staff_offender_restrictions_enabled
-      switch_on :nomis_iep_level_enabled
       switch_on :nomis_sentence_status_enabled
     end
 
@@ -128,12 +127,11 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
   context 'when book to nomis is not enabled' do
     before do
       switch_off :nomis_staff_book_to_nomis_enabled
-
       switch_on :nomis_staff_prisoner_check_enabled
       switch_on :nomis_staff_prisoner_availability_enabled
     end
 
-    scenario 'accepting a booking', vcr: { cassette_name: 'process_happy_path_with_contact_list' } do
+    scenario 'accepting a booking', vcr: { cassette_name: 'process_happy_path_with_contact_list', record: :new_episodes } do
       # Create the visit before we go to the inbox
       vst
 
@@ -182,7 +180,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       and_body(/Your visit to Leicester is now successfully confirmed/)
     end
 
-    scenario 'accepting a booking but contact list fails', vcr: { cassette_name: 'process_contact_list_fails' } do
+    scenario 'accepting a booking but contact list fails', vcr: { cassette_name: 'process_contact_list_fails', record: :new_episodes } do
       visit prison_visit_path(vst, locale: 'en')
 
       expect(page).to have_css('form .notice', text: "We can’t show the NOMIS contact list right now. Please check all visitors in NOMIS")

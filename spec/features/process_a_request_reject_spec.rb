@@ -13,7 +13,7 @@ RSpec.feature 'Processing a request', js: true do
     travel_to(Date.new(2016, 12, 1)) { ex.run }
   end
 
-  describe 'rejecting', vcr: { cassette_name: 'process_booking_happy_path' } do
+  describe 'rejecting', vcr: { cassette_name: 'process_booking_happy_path', record: :new_episodes } do
     before do
       visit prison_visit_path(vst, locale: 'en')
     end
@@ -189,7 +189,7 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     scenario 'rejecting a booking for any reason',
-      vcr: { cassette_name: 'process_booking_happy_path', allow_playback_repeats: true } do
+      vcr: { cassette_name: 'process_booking_happy_path', record: :new_episodes, allow_playback_repeats: true } do
 
       within '.other-reason' do
         check 'Other reason'
