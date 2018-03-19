@@ -150,24 +150,6 @@ RSpec.describe Nomis::Feature do
     end
   end
 
-  describe '.iep_level_enabled?' do
-    context 'when the flag is enabled' do
-      before do
-        switch_on :nomis_iep_level_enabled
-      end
-
-      it { is_expected.to be_iep_level_enabled }
-    end
-
-    context 'when the flag is disabled' do
-      before do
-        switch_off :nomis_iep_level_enabled
-      end
-
-      it { is_expected.not_to be_iep_level_enabled }
-    end
-  end
-
   describe '.sentence_status_enabled?' do
     context 'when the flag is enabled' do
       before do
