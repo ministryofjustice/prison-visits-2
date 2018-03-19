@@ -27,9 +27,15 @@ class Nomis::Offender
 private
 
   def details
-    @details ||= Nomis::Api.instance.
-                   lookup_offender_details(noms_id: noms_id)
-  rescue Nomis::APIError
+    @details ||= Nomis::Api.instance.lookup_offender_details(noms_id: noms_id)
+  rescue Nomis::DisabledError
+    Rails.logger.warn "Nomis API disabled!"
+    create_offender_details
+  rescue Nomis::APIError , Nomis::DisabledError
+    create_offender_details
+  end
+
+  def create_offender_details
     Nomis::Offender::Details.new(api_call_successful: false)
   end
 end
