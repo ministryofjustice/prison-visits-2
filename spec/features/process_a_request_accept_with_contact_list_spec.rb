@@ -37,7 +37,6 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       switch_feature_flag_with(:staff_prisons_with_slot_availability, [prison.name])
 
       switch_on :nomis_staff_offender_restrictions_enabled
-      switch_on :nomis_internal_location_enabled
       switch_on :nomis_iep_level_enabled
       switch_on :nomis_sentence_status_enabled
     end
