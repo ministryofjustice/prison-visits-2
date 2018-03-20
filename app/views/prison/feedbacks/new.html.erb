@@ -1,31 +1,31 @@
-<% content_for :header do %>
-  <%= t('.title') %>
-<% end %>
-
 <% if current_user %>
   <%= render 'prison/dashboards/navigation' %>
 <% end %>
 
 <div class="grid-row">
   <div class="column-two-thirds">
+    <h1 class="heading-xlarge"><%= t('.title') %></h1>
     <p><%= t('.intro') %></p>
+
+    <%= form_for @feedback, url: prison_feedbacks_path do |f| %>
+
+      <fieldset>
+        <%= f.hidden_field :referrer %>
+
+        <%= single_field f, :body, :text_area, cols: 50, rows: 5, class: 'form-control' %>
+
+        <%= single_field f, :email_address, :email_field, class: 'form-control' %>
+
+        <%= single_field(f, :prison_id, :select,
+          Prison.all.map { |p| [p.name, p.id] },
+          { prompt: t('.prison_id_prompt') },
+          { class: 'form-control js-autocomplete' }) %>
+      </fieldset>
+
+      <%= f.submit t('.send'), class: 'button button-primary' %>
+    <% end %>
+  </div>
+  <div class="column-one-third">
+    <%= render 'navigation' %>
   </div>
 </div>
-
-<%= form_for @feedback, url: prison_feedbacks_path do |f| %>
-
-  <fieldset>
-    <%= f.hidden_field :referrer %>
-
-    <%= single_field f, :body, :text_area, cols: 50, rows: 5, class: 'form-control' %>
-
-    <%= single_field f, :email_address, :email_field, class: 'form-control' %>
-
-    <%= single_field(f, :prison_id, :select,
-      Prison.all.map { |p| [p.name, p.id] },
-      { prompt: t('.prison_id_prompt') },
-      { class: 'form-control js-autocomplete' }) %>
-  </fieldset>
-
-  <%= f.submit t('.send'), class: 'button button-primary' %>
-<% end %>
