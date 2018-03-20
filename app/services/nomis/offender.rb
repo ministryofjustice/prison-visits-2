@@ -15,12 +15,12 @@ class Nomis::Offender
   end
 
   def iep_level
-    return unless details.valid?
+    return unless Nomis::Api.enabled? && details.valid?
     details[:iep_level][:desc]
   end
 
   def imprisonment_status
-    return unless details.valid?
+    return unless Nomis::Api.enabled? && details.valid?
     details[:imprisonment_status][:desc]
   end
 

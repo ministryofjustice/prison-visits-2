@@ -11,7 +11,7 @@ RSpec.feature 'Processing a request', js: true do
       travel_to(Date.new(2016, 12, 1)) { ex.run }
     end
 
-    scenario 'trying to double process a visit', vcr: { cassette_name: 'process_booking_happy_path' } do
+    scenario 'trying to double process a visit', vcr: { cassette_name: 'process_booking_happy_path', record: :new_episodes } do
       # VCR doesn't allow nesting the same cassette. Since we have to requests
       # to the process page we need to setup another happy path cassette.
       Capybara.using_session('window1') do
@@ -40,7 +40,7 @@ RSpec.feature 'Processing a request', js: true do
     end
   end
 
-  context 'with book to nomis', vcr: { cassette_name: 'book_to_nomis_duplicate' } do
+  context 'with book to nomis', vcr: { cassette_name: 'book_to_nomis_duplicate', record: :new_episodes } do
     let(:prison) do
       create(:prison,
         name: 'Leicester',

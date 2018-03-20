@@ -24,10 +24,6 @@ module Nomis
         config.staff_prisons_with_prisoner_restrictions_info&.include?(prison_name)
     end
 
-    def self.iep_level_enabled?
-      Nomis::Api.enabled? && config.nomis_iep_level_enabled
-    end
-
     def self.sentence_status_enabled?
       Nomis::Api.enabled? && config.nomis_sentence_status_enabled
     end
