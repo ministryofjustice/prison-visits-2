@@ -3,6 +3,8 @@ en:
     none: None
   layouts:
     application:
+      contact_banner_html: |
+        <a href='%{url}'>Contact us</a> with feedback or to let us know about a problem.
       contact_us: Contact us
       cookies_intro: GOV.UK uses cookies to make the site simpler.
       downloads: Downloads
