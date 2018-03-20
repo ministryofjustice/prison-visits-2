@@ -149,22 +149,4 @@ RSpec.describe Nomis::Feature do
       end
     end
   end
-
-  describe '.sentence_status_enabled?' do
-    context 'when the flag is enabled' do
-      before do
-        switch_on :nomis_sentence_status_enabled
-      end
-
-      it { is_expected.to be_sentence_status_enabled }
-    end
-
-    context 'when the flag is disabled' do
-      before do
-        switch_off :nomis_sentence_status_enabled
-      end
-
-      it { is_expected.not_to be_sentence_status_enabled }
-    end
-  end
 end

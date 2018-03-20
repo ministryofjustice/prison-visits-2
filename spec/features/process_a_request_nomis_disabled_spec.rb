@@ -39,7 +39,6 @@ RSpec.feature 'Processing a request - NOMIS API disasbled', :js do
       switch_feature_flag_with(:staff_prisons_with_slot_availability, [prison.name])
 
       switch_on :nomis_staff_offender_restrictions_enabled
-      switch_on :nomis_sentence_status_enabled
     end
 
     let(:ga_tracker) do

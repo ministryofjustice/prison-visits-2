@@ -134,9 +134,5 @@ module PrisonVisits
     config.staff_prisons_with_prisoner_restrictions_info = feature_flag_value.call do
       ENV['STAFF_PRISONS_WITH_PRISONER_RESTRICTIONS_INFO']&.split(',')&.map(&:strip) || []
     end
-
-    config.nomis_sentence_status_enabled = feature_flag_value.call do
-      ENV['NOMIS_SENTENCE_STATUS_ENABLED']&.downcase == 'true'
-    end
   end
 end
