@@ -46,8 +46,7 @@ private
   end
 
   def prisoner_availability_working?
-    Nomis::Feature.prisoner_availability_enabled? &&
-      !staff_nomis_checker.prisoner_availability_unknown?
+    !staff_nomis_checker.prisoner_availability_unknown?
   end
 
   def slot_availability_working?

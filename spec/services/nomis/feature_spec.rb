@@ -10,7 +10,6 @@ RSpec.describe Nomis::Feature do
       switch_off_api
     end
 
-    it { expect(described_class.prisoner_availability_enabled?).to eq(false) }
     it { expect(described_class.slot_availability_enabled?(anything)).to eq(false) }
   end
 
@@ -18,10 +17,6 @@ RSpec.describe Nomis::Feature do
     it { expect(described_class).not_to be_offender_restrictions_enabled }
 
     context 'with the prisoner check enabled' do
-      before do
-        switch_on :nomis_staff_prisoner_check_enabled
-      end
-
       context 'with the offender restrictions enabled' do
         before do
           switch_on :nomis_staff_offender_restrictions_enabled
@@ -36,24 +31,6 @@ RSpec.describe Nomis::Feature do
         end
 
         it { expect(described_class).not_to be_offender_restrictions_enabled }
-      end
-    end
-
-    describe '.prisoner_availability_enabled?' do
-      context 'when the prisoner availability is disabled' do
-        before do
-          switch_off :nomis_staff_prisoner_availability_enabled
-        end
-
-        it { expect(described_class.prisoner_availability_enabled?).to eq(false) }
-      end
-
-      context 'when the prisoner availability enabled' do
-        before do
-          switch_on :nomis_staff_prisoner_availability_enabled
-        end
-
-        it { expect(described_class.prisoner_availability_enabled?).to eq(true) }
       end
     end
   end

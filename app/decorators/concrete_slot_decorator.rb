@@ -94,7 +94,6 @@ private
 
   def prisoner_available?
     object.to_date.future? &&
-    Nomis::Feature.prisoner_availability_enabled? &&
       !nomis_checker.prisoner_availability_unknown? &&
       errors.none? do |e|
         PrisonerAvailabilityValidation::PRISONER_ERRORS.include?(e)

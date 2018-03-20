@@ -28,7 +28,6 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
   context 'with book to nomis enabled' do
     before do
       switch_on :nomis_staff_prisoner_check_enabled
-      switch_on :nomis_staff_prisoner_availability_enabled
 
       switch_on :nomis_staff_book_to_nomis_enabled
       switch_feature_flag_with(:staff_prisons_with_book_to_nomis, [prison.name])
@@ -129,9 +128,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
   context 'when book to nomis is not enabled' do
     before do
       switch_off :nomis_staff_book_to_nomis_enabled
-
       switch_on :nomis_staff_prisoner_check_enabled
-      switch_on :nomis_staff_prisoner_availability_enabled
     end
 
     scenario 'accepting a booking', vcr: { cassette_name: 'process_happy_path_with_contact_list' } do

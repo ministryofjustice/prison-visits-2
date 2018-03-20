@@ -36,9 +36,6 @@ RSpec.describe ConcreteSlotDecorator do
 
     describe 'prisoner availability' do
       context 'when the api is enabled' do
-        before do
-          switch_on :nomis_staff_prisoner_availability_enabled
-        end
         context 'with a closed restriction' do
           let(:slot_errors) { [Nomis::Restriction::CLOSED_NAME] }
 
@@ -89,7 +86,7 @@ RSpec.describe ConcreteSlotDecorator do
 
       context 'when the api is disabled' do
         before do
-          switch_off :nomis_staff_prisoner_availability_enabled
+          switch_off_api
         end
 
         it 'renders the checkbox without errors' do
@@ -159,10 +156,6 @@ RSpec.describe ConcreteSlotDecorator do
 
   describe '#bookable?' do
     context 'when the prisoner is avaliable' do
-      before do
-        switch_on :nomis_staff_prisoner_availability_enabled
-      end
-
       context 'when the slot is not avaliable' do
         before do
           switch_on :nomis_staff_slot_availability_enabled
@@ -185,10 +178,6 @@ RSpec.describe ConcreteSlotDecorator do
     end
 
     context 'when the prisoner is not avaliable' do
-      before do
-        switch_on :nomis_staff_prisoner_availability_enabled
-      end
-
       let(:slot_errors) { ['prisoner_banned'] }
 
       context 'when the slot is avaliable' do
