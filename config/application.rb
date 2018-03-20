@@ -94,15 +94,6 @@ module PrisonVisits
       ENV['NOMIS_PUBLIC_PRISONER_CHECK_ENABLED']&.downcase == 'true'
     end
 
-    # Prisoner availability depends on the prisoner check flag because to check
-    # the availability we need to call the api used in the prisoner check to get
-    # the offender id.
-
-    config.nomis_public_prisoner_availability_enabled = feature_flag_value.call do
-      config.nomis_public_prisoner_check_enabled &&
-      ENV['NOMIS_PUBLIC_PRISONER_AVAILABILITY_ENABLED']&.downcase == 'true'
-    end
-
     config.nomis_staff_slot_availability_enabled = feature_flag_value.call do
       ENV['NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED']&.downcase == 'true'
     end

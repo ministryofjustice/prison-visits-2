@@ -32,7 +32,7 @@ private
   attr_reader :prison, :noms_id, :date_of_birth, :start_date, :end_date
 
   def prisoner_unavailable?(slot)
-    nomis_public_prisoner_availability_enabled? &&
+    Nomis::Api.enabled? &&
       offender.valid? &&
       !offender_availability_dates.include?(slot.to_date)
   end
@@ -73,11 +73,6 @@ private
 
   def offender_availability_dates
     @offender_availability_dates ||= offender_availability[:dates]
-  end
-
-  def nomis_public_prisoner_availability_enabled?
-    Nomis::Api.enabled? &&
-      Rails.configuration.nomis_public_prisoner_availability_enabled
   end
 
   def calculate_end_date(date_range)

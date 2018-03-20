@@ -1,3 +1,4 @@
+
 require "rails_helper"
 
 RSpec.describe SlotAvailability do
@@ -56,7 +57,7 @@ RSpec.describe SlotAvailability do
   describe '#slots' do
     context 'with the api disabled' do
       before do
-        allow(Nomis::Api).to receive(:enabled?).and_return(false)
+        switch_off_api
       end
 
       it { expect(subject.slots).to eq(all_slots_available) }
@@ -68,9 +69,9 @@ RSpec.describe SlotAvailability do
         mock_service_with(SlotAvailabilityValidation, slot_availability)
       end
 
-      describe 'with nomis public prisoner check enabled' do
+      describe 'with a successful nomis public prisoner check api call' do
         before do
-          switch_on :nomis_public_prisoner_availability_enabled
+          switch_on_api
           mock_nomis_with(:lookup_active_offender, offender)
         end
 
@@ -136,24 +137,6 @@ RSpec.describe SlotAvailability do
           end
         end
       end
-
-      describe 'without nomis public prisoner check enabled' do
-        it 'applies the prison availability' do
-          expect(subject.slots).to eq(
-            "2017-02-07T09:00/10:00" => [],
-            "2017-02-07T14:00/16:10" => [],
-            "2017-02-13T14:00/16:10" => [],
-            "2017-02-14T09:00/10:00" => [],
-            "2017-02-14T14:00/16:10" => [],
-            "2017-02-20T14:00/16:10" => [],
-            "2017-02-21T09:00/10:00" => [],
-            "2017-02-21T14:00/16:10" => [],
-            "2017-02-27T14:00/16:10" => [],
-            "2017-02-28T09:00/10:00" => ['prison_unavailable'],
-            "2017-02-28T14:00/16:10" => []
-          )
-        end
-      end
     end
 
     describe 'with a prison not in the trial' do
@@ -163,7 +146,6 @@ RSpec.describe SlotAvailability do
 
       describe 'and prisoner availability enabled' do
         before do
-          switch_on :nomis_public_prisoner_availability_enabled
           mock_nomis_with(:lookup_active_offender, offender)
           mock_nomis_with(:offender_visiting_availability, prisoner_availability)
         end
@@ -186,7 +168,7 @@ RSpec.describe SlotAvailability do
 
       describe 'and prisoner availability disabled' do
         before do
-          switch_off(:nomis_public_prisoner_availability_enabled)
+          switch_off_api
         end
 
         it { expect(subject.slots).to eq(all_slots_available) }
