@@ -1,3 +1,4 @@
+# this is a nothing change
 require File.expand_path('boot', __dir__)
 
 require 'rails'
