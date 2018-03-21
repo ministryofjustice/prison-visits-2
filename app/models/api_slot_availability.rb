@@ -8,8 +8,7 @@ class ApiSlotAvailability
 
   # rubocop:disable Metrics/MethodLength
   def restrict_by_prisoner(prisoner_number:, prisoner_dob:)
-    # Skip restriction if prisoner availability is enabled
-    return unless public_prisoner_availability_enabled?
+    return unless Nomis::Api.enabled?
 
     offender = Nomis::Api.instance.lookup_active_offender(
       noms_id: prisoner_number,
@@ -53,10 +52,5 @@ private
 
   def public_prison_slots_enabled?(_prison)
     false
-  end
-
-  def public_prisoner_availability_enabled?
-    Nomis::Api.enabled? &&
-      Rails.configuration.nomis_public_prisoner_availability_enabled
   end
 end

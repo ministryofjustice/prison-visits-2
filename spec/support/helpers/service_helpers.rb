@@ -7,6 +7,10 @@ module ServiceHelpers
     allow(Nomis::Api).to receive(:enabled?).and_return(false)
   end
 
+  def switch_on_api
+    allow(Nomis::Api).to receive(:enabled?).and_return(true)
+  end
+
   def mock_service_with(klass, double_or_spy)
     expect(klass).to receive(:new).and_return(double_or_spy)
   end
