@@ -90,10 +90,6 @@ module PrisonVisits
       ENV['NOMIS_STAFF_PRISONER_CHECK_ENABLED']&.downcase == 'true'
     end
 
-    config.nomis_public_prisoner_check_enabled = feature_flag_value.call do
-      ENV['NOMIS_PUBLIC_PRISONER_CHECK_ENABLED']&.downcase == 'true'
-    end
-
     config.nomis_staff_slot_availability_enabled = feature_flag_value.call do
       ENV['NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED']&.downcase == 'true'
     end

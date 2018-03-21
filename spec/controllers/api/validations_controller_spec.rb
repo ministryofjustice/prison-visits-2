@@ -116,9 +116,6 @@ RSpec.describe Api::ValidationsController do
     end
 
     context 'when the prisoner does not exist' do
-      before do
-        switch_on :nomis_public_prisoner_check_enabled
-      end
       let(:offender) { Nomis::NullOffender.new(api_call_successful: true) }
 
       it 'returns a validation error' do

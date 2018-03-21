@@ -18,17 +18,8 @@ RSpec.describe ApiPrisonerChecker do
     end
 
     context 'when the api is enabled' do
-      context 'when the check is disabled for public' do
+      context 'when the api call is successful' do
         before do
-          switch_off(:nomis_public_prisoner_check_enabled)
-        end
-
-        it { is_expected.to be_valid }
-      end
-
-      context 'when the api is working' do
-        before do
-          switch_on(:nomis_public_prisoner_check_enabled)
           mock_nomis_with(:lookup_active_offender, offender)
         end
 
@@ -61,9 +52,8 @@ RSpec.describe ApiPrisonerChecker do
         end
       end
 
-      describe "when the api call fails" do
+      describe 'when the api call fails' do
         before do
-          switch_on(:nomis_public_prisoner_check_enabled)
           expect_any_instance_of(Nomis::Client).
             to receive(:get).and_raise(Nomis::APIError)
         end
