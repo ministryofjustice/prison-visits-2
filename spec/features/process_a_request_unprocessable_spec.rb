@@ -57,7 +57,6 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     before do
-      switch_on :nomis_staff_prisoner_availability_enabled
       switch_on :nomis_staff_prisoner_check_enabled
 
       switch_on :nomis_staff_book_to_nomis_enabled

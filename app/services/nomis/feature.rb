@@ -1,9 +1,5 @@
 module Nomis
   class Feature
-    def self.prisoner_availability_enabled?
-      Nomis::Api.enabled? && config.nomis_staff_prisoner_availability_enabled
-    end
-
     def self.slot_availability_enabled?(prison_name)
       Nomis::Api.enabled? && config.nomis_staff_slot_availability_enabled &&
         config.staff_prisons_with_slot_availability.include?(prison_name)

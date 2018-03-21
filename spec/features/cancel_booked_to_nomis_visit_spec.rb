@@ -69,7 +69,6 @@ RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
   context 'with book to nomis enabled' do
     before do
       switch_on :nomis_staff_prisoner_check_enabled
-      switch_on :nomis_staff_prisoner_availability_enabled
 
       switch_on :nomis_staff_slot_availability_enabled
       switch_feature_flag_with(:staff_prisons_with_slot_availability, [prison.name])

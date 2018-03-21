@@ -5,8 +5,7 @@ class StaffNomisChecker
   end
 
   def prisoner_availability_unknown?
-    Nomis::Feature.prisoner_availability_enabled? &&
-      prisoner_availability_validation.unknown_result?
+    prisoner_availability_validation.unknown_result?
   end
 
   def slot_availability_unknown?
@@ -76,7 +75,7 @@ private
   end
 
   def prisoner_availability_errors(slot)
-    if Nomis::Feature.prisoner_availability_enabled? && offender.valid?
+    if offender.valid?
       prisoner_availability_validation.slot_errors(slot)
     else
       []
