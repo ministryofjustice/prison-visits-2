@@ -62,52 +62,46 @@ RSpec.describe StaffNomisChecker do
   describe '#errors_for' do
     let(:slot) { visit.slots.first }
 
-    context 'with prisoner availability' do
+    context 'when the api is disabled' do
       before do
-        switch_off(:nomis_staff_prisoner_check_enabled)
+        switch_off_api
       end
 
-      context 'when the api is disabled' do
+      it { expect(subject.errors_for(slot)).to be_empty }
+    end
+
+    context 'when the api is enabled' do
+      context 'with a valid offender' do
+        let(:prisoner_availability_validator) do
+          instance_double(PrisonerAvailabilityValidation, valid?: false, slot_errors: messages)
+        end
+
         before do
-          switch_off_api
+          mock_nomis_with(:lookup_active_offender, offender)
+          mock_service_with(PrisonerAvailabilityValidation, prisoner_availability_validator)
         end
 
-        it { expect(subject.errors_for(slot)).to be_empty }
-      end
+        context 'with an error' do
+          let(:messages) { [Nomis::PrisonerDateAvailability::BANNED] }
 
-      context 'when the api is enabled' do
-        context 'with a valid offender' do
-          let(:prisoner_availability_validator) do
-            instance_double(PrisonerAvailabilityValidation, valid?: false, slot_errors: messages)
-          end
-
-          before do
-            mock_nomis_with(:lookup_active_offender, offender)
-            mock_service_with(PrisonerAvailabilityValidation, prisoner_availability_validator)
-          end
-
-          context 'with an error' do
-            let(:messages) { [Nomis::PrisonerDateAvailability::BANNED] }
-
-            it { expect(subject.errors_for(slot)).to eq(messages) }
-          end
-
-          context 'with no errors' do
-            let(:messages) { [] }
-
-            it { expect(subject.errors_for(slot)).to be_empty }
-          end
+          it { expect(subject.errors_for(slot)).to eq(messages) }
         end
 
-        context 'with a null offender' do
-          let(:offender) { Nomis::NullOffender.new }
-
-          before do
-            mock_nomis_with(:lookup_active_offender, offender)
-          end
+        context 'with no errors' do
+          let(:messages) { [] }
 
           it { expect(subject.errors_for(slot)).to be_empty }
         end
+      end
+
+      context 'with a null offender' do
+        let(:offender) { Nomis::NullOffender.new }
+
+        before do
+          mock_nomis_with(:lookup_active_offender, offender)
+        end
+
+        it { expect(subject.errors_for(slot)).to be_empty }
       end
     end
 
@@ -160,10 +154,6 @@ RSpec.describe StaffNomisChecker do
     end
 
     context 'with prisoner restrictions', vcr: { cassette_name: 'book_visit_happy_path', record: :new_episodes } do
-      before do
-        switch_on(:nomis_staff_prisoner_check_enabled)
-      end
-
       context 'when NOMIS_STAFF_OFFENDER_RESTRICTIONS_ENABLED' do
         context 'when it is disabled' do
           before do
