@@ -20,10 +20,6 @@ module Nomis
         config.staff_prisons_with_prisoner_restrictions_info&.include?(prison_name)
     end
 
-    def self.sentence_status_enabled?
-      Nomis::Api.enabled? && config.nomis_sentence_status_enabled
-    end
-
     def self.config
       Rails.configuration
     end
