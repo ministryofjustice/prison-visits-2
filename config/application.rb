@@ -1,3 +1,4 @@
+# another nothing deploy
 require File.expand_path('boot', __dir__)
 
 require 'rails'
