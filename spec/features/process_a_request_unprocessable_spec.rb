@@ -57,8 +57,6 @@ RSpec.feature 'Processing a request', js: true do
     end
 
     before do
-      switch_on :nomis_staff_prisoner_check_enabled
-
       switch_on :nomis_staff_book_to_nomis_enabled
       switch_feature_flag_with(:staff_prisons_with_book_to_nomis, [vst.prison_name])
 

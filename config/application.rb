@@ -86,10 +86,6 @@ module PrisonVisits
       read_key.call(ENV.fetch('NOMIS_API_KEY', ''))
     end
 
-    config.nomis_staff_prisoner_check_enabled = feature_flag_value.call do
-      ENV['NOMIS_STAFF_PRISONER_CHECK_ENABLED']&.downcase == 'true'
-    end
-
     config.nomis_staff_slot_availability_enabled = feature_flag_value.call do
       ENV['NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED']&.downcase == 'true'
     end
