@@ -14,7 +14,7 @@ class StaffNomisChecker
   end
 
   def prisoner_restrictions_unknown?
-    Nomis::Feature.offender_restrictions_enabled? &&
+    Nomis::Feature.offender_restrictions_info_enabled?(@visit.prison_name) &&
       prisoner_restriction_list.unknown_result?
   end
 
