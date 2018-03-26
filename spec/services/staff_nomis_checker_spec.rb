@@ -346,6 +346,7 @@ RSpec.describe StaffNomisChecker do
 
       before do
         switch_on(:nomis_staff_offender_restrictions_enabled)
+        switch_feature_flag_with(:staff_prisons_with_prisoner_restrictions_info, %w[Pentonville])
         mock_nomis_with(:lookup_active_offender, offender)
         expect(restrictions_list).to receive(:unknown_result?).and_return(offender_restrictions_api_error)
         mock_service_with(PrisonerRestrictionList, restrictions_list)
