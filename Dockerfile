@@ -1,17 +1,26 @@
-FROM ministryofjustice/ruby:2.4.2-webapp-onbuild
+FROM ruby:2.4.2-alpine as baseimg
+RUN apk add --no-cache ca-certificates git build-base libxml2-dev libxslt-dev postgresql-dev
 
-# Update openssl & ca-certificates so that communication with signon can take place
-# (TODO: Remove this when base container has been updated)
-RUN apt-get update && \
-    apt-get install -y ca-certificates openssl postgresql-client-9.4 && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+WORKDIR /usr/src/app
+RUN bundle config --global frozen 1 && bundle config --global disable_shared_gems 1 \
+  bundle config --global without test:development && bundle config build.nokogiri --use-system-libraries
 
-ENV UNICORN_PORT 3000
-EXPOSE $UNICORN_PORT
+COPY Gemfile /usr/src/app/Gemfile
+COPY Gemfile.lock /usr/src/app/Gemfile.lock
+RUN echo "gem: --no-rdoc --no-ri" >> ~/.gemrc && bundle install
 
-RUN gem update bundler --no-doc
+# FROM ruby:2.4.2-alpine as testimg
+# RUN apk add --no-cache ca-certificates git libxslt-dev libxml2-dev postgresql-dev nodejs
+# COPY --from=baseimg /usr/local/bundle /usr/local/bundle
+# COPY . /usr/src/app
+# WORKDIR /usr/src/app
+# RUN bundle exec rake db:create && bundle exec rake db:schema:load
+# RUN RAILS_ENV=production PUBLIC_SERVICE_URL=foo STAFF_SERVICE_URL=foo SECRET_KEY_BASE=foo bundle exec rake
 
+FROM ruby:2.4.2-alpine as deployableimg
+RUN apk add --no-cache ca-certificates git libxslt-dev libxml2-dev postgresql-dev nodejs
+COPY --from=baseimg /usr/local/bundle /usr/local/bundle
+COPY . /usr/src/app
+WORKDIR /usr/src/app
 RUN RAILS_ENV=production PUBLIC_SERVICE_URL=foo STAFF_SERVICE_URL=foo SECRET_KEY_BASE=foo bundle exec rake assets:precompile --trace
-
 ENTRYPOINT ["./run.sh"]
