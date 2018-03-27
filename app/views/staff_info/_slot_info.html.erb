@@ -1,0 +1,17 @@
+<h2 class="heading-small"><%= prison.name %></h2>
+<ul class="slot-list">
+  <% @days.each_with_index do |day_part, index| %>
+    <li>
+      <span class="slot-heading"><%= @day_names[index] %></span>
+      <ul>
+        <% unless prison.slot_details['recurring'][day_part].nil? %>
+          <% prison.slot_details['recurring'][day_part].each do |slot| %>
+            <li><%= format_slot(slot) %></li>
+          <% end %>
+        <% else %>
+          <li><%= t('.no_visits') %></li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ul>

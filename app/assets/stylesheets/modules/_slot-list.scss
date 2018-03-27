@@ -1,0 +1,23 @@
+.slot-list {
+  margin-bottom: $gutter *2;
+  height: auto;
+  overflow: hidden;
+  @extend .grid-row;
+  > li {
+    display: inline-block;
+    float: left;
+    margin-bottom: $gutter-half;
+    @include grid-column( 1/6 );
+    ul {
+      margin-top: 5px;
+      li {
+        display: block;
+        float: none;
+        font-weight: normal;
+      }
+    }
+  }
+  > li:nth-child(6) {
+    clear: left;
+  }
+}

@@ -1,7 +1,14 @@
 <% if current_user %>
   <%= render 'prison/dashboards/navigation' %>
 <% end %>
-<h1 class="heading-xlarge">Information for visit booking staff</h1>
+<h1 class="heading-xlarge">Prison visits booking</h1>
+<p>Below are the social visit slots we display on the public calendar. If they don’t look right, <%= link_to 'contact us', new_prison_feedback_path %>.</p>
+<hr>
+<% @prisons.each do |prison| %>
+  <%= render 'slot_info', prison: prison %>
+<% end %>
+
+<hr>
 <div class="grid-row">
   <div class="column-one-third">
     <h2>
