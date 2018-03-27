@@ -32,7 +32,10 @@ RSpec.describe CreateNomisVisit do
                  lead_contact: lead_visitor.nomis_id,
                  other_contacts: [additional_visitor.nomis_id],
                  slot: visit.slot_granted.to_s,
-                 override_restrictions: false,
+                 override_offender_restrictions: false,
+                 override_visitor_restrictions: false,
+                 override_vo_balance: false,
+                 override_slot_capacity: false,
                  client_unique_ref: visit.id
                }).and_return(Nomis::Booking.new)
 
