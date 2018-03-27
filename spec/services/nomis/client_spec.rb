@@ -35,13 +35,13 @@ RSpec.describe Nomis::Client do
       WebMock.stub_request(:get, /\w/).to_raise(error)
     end
 
-    it 'raises an APIError' do
+    it 'raises an APIError', :expect_exception do
       expect { subject.get(path, params) }.
         to raise_error(Nomis::APIError, 'Unexpected status 422 calling GET /nomisapi/lookup/active_offender: (invalid-JSON) <html>')
     end
 
     it 'sends the error to sentry' do
-      expect(Raven).to receive(:capture_exception).with(error, fingerprint: %w[nomis excon])
+      expect(PVB::ExceptionHandler).to receive(:capture_exception).with(error, fingerprint: %w[nomis excon])
 
       expect { subject.get(path, params) }.to raise_error(Nomis::APIError)
     end
@@ -52,7 +52,7 @@ RSpec.describe Nomis::Client do
       WebMock.stub_request(:get, /\w/).to_timeout
     end
 
-    it 'raises an Nomis::TimeoutError if a timeout occurs' do
+    it 'raises an Nomis::TimeoutError if a timeout occurs', :expect_exception do
       expect {
         subject.get(path, params)
       }.to raise_error(Nomis::APIError)
@@ -68,7 +68,7 @@ RSpec.describe Nomis::Client do
       WebMock.stub_request(:get, /\w/).to_raise(error)
     end
 
-    it 'raises an APIError if an unexpected exception is raised containing request information' do
+    it 'raises an APIError if an unexpected exception is raised containing request information', :expect_exception do
       expect {
         subject.get(path, params)
       }.to raise_error(Nomis::APIError)
@@ -86,19 +86,19 @@ RSpec.describe Nomis::Client do
       WebMock.stub_request(:get, /\w/).to_raise(error)
     end
 
-    it 'raises an APIError if an unexpected exception is raised containing request information' do
+    it 'raises an APIError if an unexpected exception is raised containing request information', :expect_exception do
       expect {
         subject.get(path, params)
       }.to raise_error(Nomis::APIError, 'Unexpected status 422 calling GET /nomisapi/lookup/active_offender: (invalid-JSON) <html>')
     end
 
     it 'sends the error to sentry' do
-      expect(Raven).to receive(:capture_exception).with(error, fingerprint: %w[nomis excon])
+      expect(PVB::ExceptionHandler).to receive(:capture_exception).with(error, fingerprint: %w[nomis excon])
 
       expect { subject.get(path, params) }.to raise_error(Nomis::APIError)
     end
 
-    it 'increments the api error count' do
+    it 'increments the api error count', :expect_exception do
       expect {
         subject.get(path, params)
       }.to raise_error(Nomis::APIError).

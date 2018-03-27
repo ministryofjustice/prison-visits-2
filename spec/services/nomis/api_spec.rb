@@ -45,7 +45,7 @@ RSpec.describe Nomis::Api do
       expect(offender).to be_instance_of(Nomis::NullOffender)
     end
 
-    it 'returns NullOffender if an ApiError is raised' do
+    it 'returns NullOffender if an ApiError is raised', :expect_exception do
       allow_any_instance_of(Nomis::Client).to receive(:get).and_raise(Nomis::APIError)
       expect(offender).to be_instance_of(Nomis::NullOffender)
       expect(offender).not_to be_api_call_successful
@@ -99,13 +99,13 @@ RSpec.describe Nomis::Api do
       end
     end
 
-    context 'when an unknown offender', vcr: { cassette_name: :lookup_offender_details_unknown_offender } do
+    context 'when an unknown offender', :expect_exception, vcr: { cassette_name: :lookup_offender_details_unknown_offender } do
       let(:noms_id) { 'A1459BE' }
 
       it { expect { offender_details }.to raise_error(Nomis::APIError) }
     end
 
-    context 'when given an invalid nomis id', vcr: { cassette_name: :lookup_offender_details_invalid_noms_id } do
+    context 'when given an invalid nomis id', :expect_exception, vcr: { cassette_name: :lookup_offender_details_invalid_noms_id } do
       let(:noms_id) { 'RUBBISH' }
 
       it { expect { offender_details }.to raise_error(Nomis::APIError) }
@@ -127,13 +127,13 @@ RSpec.describe Nomis::Api do
       end
     end
 
-    context 'with an unknown offender', vcr: { cassette_name: :lookup_offender_location_for_unknown_offender } do
+    context 'with an unknown offender', :expect_exception, vcr: { cassette_name: :lookup_offender_location_for_unknown_offender } do
       let(:noms_id) { 'A1459BE' }
 
       it { expect { establishment }.to raise_error(Nomis::APIError) }
     end
 
-    context 'with an invalid nomis_id', vcr: { cassette_name: :lookup_offender_location_for_bogus_offender } do
+    context 'with an invalid nomis_id', :expect_exception, vcr: { cassette_name: :lookup_offender_location_for_bogus_offender } do
       let(:noms_id) { 'BOGUS' }
 
       it { expect { establishment }.to raise_error(Nomis::APIError) }
@@ -322,7 +322,7 @@ RSpec.describe Nomis::Api do
           params.delete(:client_unique_ref)
         end
 
-        it 'does not retry the request on failure' do
+        it 'does not retry the request on failure', :expect_exception do
           expect { subject }.to raise_error(Nomis::APIError)
         end
       end
@@ -433,7 +433,7 @@ RSpec.describe Nomis::Api do
     context 'with an unknown visit', vcr: { cassette_name: :cancel_visit_not_found }  do
       let(:visit_id) { 999_999 }
 
-      it 'records the error message' do
+      it 'records the error message', :expect_exception do
         expect {
           subject.cancel_visit(offender_id, visit_id, params)
         }.to raise_error(Nomis::APIError)

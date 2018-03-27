@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ApiPrisonerChecker do
+RSpec.describe ApiPrisonerChecker, :expect_exception do
   subject(:instance) do
     described_class.new(noms_id: noms_id, date_of_birth: date_of_birth)
   end

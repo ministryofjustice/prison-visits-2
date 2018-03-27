@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'shared_process_setup_context'
 
-RSpec.feature 'Processing a request', js: true do
+RSpec.feature 'Processing a request', :js, :expect_exception do
   include ActiveJobHelper
   include_context 'with a process request setup'
   describe 'cancelling' do

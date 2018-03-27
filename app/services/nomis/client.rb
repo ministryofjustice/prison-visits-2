@@ -91,11 +91,11 @@ module Nomis
         error = "(invalid-JSON) #{body[0, 80]}"
       end
 
-      Raven.capture_exception(e, fingerprint: excon_fingerprint)
+      PVB::ExceptionHandler.capture_exception(e, fingerprint: excon_fingerprint)
       raise APIError,
         "Unexpected status #{e.response.status} calling #{api_method}: #{error}"
     rescue Excon::Errors::Error => e
-      Raven.capture_exception(e, fingerprint: excon_fingerprint)
+      PVB::ExceptionHandler.capture_exception(e, fingerprint: excon_fingerprint)
       raise APIError, "Exception #{e.class} calling #{api_method}: #{e}"
     end
     # rubocop:enable Metrics/MethodLength

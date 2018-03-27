@@ -10,7 +10,7 @@ RSpec.shared_examples 'error handling' do
 
       it 'rescues, logs the error and returns false' do
         check_error_log_message_contains(/StandardError/)
-        expect(Raven).
+        expect(PVB::ExceptionHandler).
           to receive(:capture_exception).
           with(instance_of(StandardError))
 
@@ -23,7 +23,7 @@ RSpec.shared_examples 'error handling' do
 
       it 'rescues, logs the error and returns false' do
         check_error_log_message_contains(/Timeout/)
-        expect(Raven).not_to receive(:capture_exception)
+        expect(PVB::ExceptionHandler).not_to receive(:capture_exception)
 
         expect(subject).to be_falsey
       end

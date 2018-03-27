@@ -32,7 +32,7 @@ gem 'jwt'
 gem 'rake'
 
 gem 'secure_headers'
-gem 'sentry-raven'
+gem 'sentry-raven', require: 'raven'
 gem 'sidekiq'
 gem 'state_machines-activerecord'
 gem 'string_scrubber'

@@ -29,7 +29,7 @@ RSpec.describe ApplicationController, type: :controller do
   end
 
   describe '#log_api_calls' do
-    it 'logs api calls' do
+    it 'logs api calls', :expect_exception do
       WebMock.stub_request(:get, /\w/).to_return(status: 500)
       post :create
       expect(PVB::Instrumentation.custom_log_items[:api_request_count]).to eq(1)

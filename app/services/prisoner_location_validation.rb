@@ -43,7 +43,7 @@ private
     return Nomis::Establishment.new unless offender.valid?
     Nomis::Api.instance.lookup_offender_location(noms_id: offender.noms_id)
   rescue Nomis::APIError => e
-    Raven.capture_exception(
+    PVB::ExceptionHandler.capture_exception(
       e, fingerprint: %w[nomis lookup_offender_location_error])
     PVB::Instrumentation.append_to_log(lookup_offender_location: false)
     Nomis::Establishment.new(api_call_successful: false)

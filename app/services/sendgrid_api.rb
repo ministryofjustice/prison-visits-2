@@ -112,7 +112,7 @@ private
     yield response
   rescue StandardError => e
     Rails.logger.error("#{e.class.name}: #{e.message}")
-    Raven.capture_exception(e) unless ignore_error?(e)
+    PVB::ExceptionHandler.capture_exception(e) unless ignore_error?(e)
     false
   end
 
