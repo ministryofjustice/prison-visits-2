@@ -391,7 +391,7 @@ DEPENDENCIES
   capybara
   connection_pool
   database_cleaner
-  did_you_mean
+  did_you_mean (~> 1.1.0)
   draper
   email_address_validation!
   excon
