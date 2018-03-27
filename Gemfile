@@ -6,7 +6,7 @@ gem 'rails', '~> 5.1'
 gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'
 gem 'business'
-gem 'did_you_mean', '= 1.1.0' # unpin once on ruby 2.5.0
+gem 'did_you_mean'
 gem 'draper'
 gem 'connection_pool'
 gem 'excon'
