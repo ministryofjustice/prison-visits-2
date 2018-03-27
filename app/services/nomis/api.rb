@@ -38,7 +38,7 @@ module Nomis
         offender.noms_id = noms_id
       end
     rescue APIError => e
-      Raven.capture_exception(e, fingerprint: %w[nomis api_error])
+      PVB::ExceptionHandler.capture_exception(e, fingerprint: %w[nomis api_error])
       NullOffender.new(api_call_successful: false)
     end
     # rubocop:enable Metrics/MethodLength

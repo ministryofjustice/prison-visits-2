@@ -34,7 +34,7 @@ RSpec.describe PrisonerLocationPresenter do
         end
       end
 
-      describe 'when the API returns an error' do
+      describe 'when the API returns an error', :expect_exception do
         before do
           simulate_api_error_for(:lookup_offender_location)
         end
@@ -68,7 +68,7 @@ RSpec.describe PrisonerLocationPresenter do
       end
     end
 
-    describe 'when the API returns an error' do
+    describe 'when the API returns an error', :expect_exception do
       before do
         simulate_api_error_for(:lookup_offender_location)
       end

@@ -139,7 +139,7 @@ RSpec.describe Api::ValidationsController do
       expect(parsed_body['message']).to eq('Invalid parameter: date_of_birth')
     end
 
-    it 'returns valid if the NOMIS API cannot be contacted' do
+    it 'returns valid if the NOMIS API cannot be contacted', :expect_exception do
       allow_any_instance_of(Nomis::Client).to receive(:get).
         and_raise(Nomis::APIError, 'Something broke')
 

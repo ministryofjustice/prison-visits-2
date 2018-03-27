@@ -14,7 +14,7 @@ class ErrorHandler
 
     ErrorsController.action(:show).call(env)
   rescue StandardError => e
-    Raven.capture_exception(e)
+    PVB::ExceptionHandler.capture_exception(e)
     raise
   end
 

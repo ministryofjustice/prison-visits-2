@@ -1,7 +1,6 @@
 sentry_dsn = Rails.configuration.sentry_dsn
 
 if sentry_dsn
-  require 'raven'
 
   Raven.configure do |config|
     config.dsn = sentry_dsn
