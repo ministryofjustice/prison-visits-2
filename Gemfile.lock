@@ -72,7 +72,7 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     base32-crockford (0.1.0)
-    brakeman (4.2.0)
+    brakeman (4.2.1)
     builder (3.2.3)
     business (1.11.1)
     byebug (10.0.1)
@@ -181,7 +181,7 @@ GEM
     multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
-    netaddr (2.0.3)
+    netaddr (1.5.1)
     nio4r (2.3.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
@@ -200,7 +200,7 @@ GEM
     parallel (1.12.1)
     parser (2.5.0.5)
       ast (~> 2.4.0)
-    pg (0.21.0)
+    pg (1.0.0)
     phantomjs (2.1.1.0)
     phonelib (0.6.19)
     powerpack (0.1.1)
@@ -411,7 +411,7 @@ DEPENDENCIES
   launchy
   lograge
   logstash-event
-  netaddr
+  netaddr (~> 1.5.1)
   omniauth-oauth2
   parser
   pg
