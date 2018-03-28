@@ -25,6 +25,10 @@
           <% end %>
         <% end %>
       </div>
+      <div class="multiple-choice">
+        <input name="unavailable" id="unavailable" type="checkbox">
+        <label for="unavailable">None of the chosen times are available</label>
+      </div>
     </div>
     <div class="column-one-half">
       <%= error_container(rf, :reasons) do %>

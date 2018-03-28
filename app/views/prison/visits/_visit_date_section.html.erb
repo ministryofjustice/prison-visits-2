@@ -38,21 +38,37 @@
 
   <div class="column-one-half">
     <div id="selected_slot_details" class="panel panel-border-narrow">
+      <fieldset class="inline push-bottom">
+        <legend>
+          <h3 class="heading-small">Book this visit using</h3>
+        </legend>
+        <div class="push-top--half">
+          <div class="multiple-choice ">
+              <input type="radio" name="vo_choice" id="vo" required>
+              <label for="vo">VO</label>
+            </div>
+            <div class="multiple-choice ">
+              <input type="radio" name="vo_choice" id="pvo" required>
+              <label for="pvo">PVO</label>
+          </div>
+        </div>
+      </fieldset>
       <%= single_field f, :reference_no, :text_field, class: 'form-control' %>
+      <hr>
       <%= single_field f, :closed, :check_box  %>
     </div>
   </div>
 
-  <div class="column-two-thirds push-top push-bottom--half">
+<!--   <div class="column-two-thirds push-top push-bottom--half">
     <%= error_container f, :slot_granted do %>
       <div class="multiple-choice">
         <%= f.radio_button :slot_granted, Rejection::SLOT_UNAVAILABLE, { checked: @visit.slots_unavailable?, id: 'no_slot_available', class: 'js-Conditional js-Rejection', 'data-rejection-el': 'rejection-message', 'data-success-el': 'nomis-opt-out' }%>
         <%= f.label :slot_granted, t('.none_available'), for: 'no_slot_available' %>
       </div>
     <% end %>
-  </div>
+  </div> -->
 </div>
 
 <div class="js-clearRadioButtons">
-  <a href="#" class="js-clearRadioButton" data-target="visit[slot_granted]"><%= t('clear_selection', scope: :shared) %></a>
+  <a href="#" class="button button-secondary js-clearRadioButton" data-target="visit[slot_granted]"><%= t('clear_selection', scope: :shared) %></a>
 </div>

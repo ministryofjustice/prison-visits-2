@@ -19,3 +19,7 @@
   line-height: 1;
   margin-top: 27px;
 }
+
+.button-secondary {
+  @include button($grey-3);
+}
