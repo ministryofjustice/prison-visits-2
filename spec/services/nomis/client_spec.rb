@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Nomis::Client do
   let(:api_host) { Rails.configuration.nomis_api_host }
-  let(:client_token) { nil }
-  let(:client_key) { nil }
+  let(:client_token) { Rails.configuration.nomis_api_token }
+  let(:client_key) { Rails.configuration.nomis_api_key }
 
   let(:path) { '/lookup/active_offender' }
   let(:params) {
     {
-      noms_id: 'A1459AE',
-      date_of_birth: Date.parse('1976-06-12')
+      noms_id: 'A1475AE',
+      date_of_birth: Date.parse('1979-04-23')
     }
   }
 
@@ -107,9 +107,9 @@ RSpec.describe Nomis::Client do
   end
 
   describe 'with auth configured' do
-    let(:client_token) { 'atoken' }
+    let(:client_token) { 'a-token' }
     let(:client_key) {
-      key = 'MHcCAQEEIGSsQrYsGnRCEYDNmdXxzBQ8Tq4SpfVWvr5ROPWM29cxoAoGCCqGSM49AwEHoUQDQgAEQ9qVQgr2XA8nupSP7C67pvufywLc2ur11b3bYe7t6+mGAWYM9Pd/L49cI6HWnPVg5UPr1PC+aT4RKW6PGj6BuQ=='
+      key = ENV['NOMIS_API_KEY']
       OpenSSL::PKey::EC.new(Base64.decode64(key))
     }
 

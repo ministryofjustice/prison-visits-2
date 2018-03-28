@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: post
-    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/booking
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057307/visits/booking
     body:
       encoding: UTF-8
-      string: '{"lead_contact":12588,"other_contacts":[13428],"slot":"2017-05-15T10:00/16:00","override_restrictions":false}'
+      string: '{"lead_contact":13429,"other_contacts":[],"slot":"2018-04-14T15:30/16:30","override_offender_restrictions":false,"override_visitor_restrictions":false,"override_vo_balance":false,"override_slot_capacity":false}'
     headers:
       User-Agent:
-      - excon/0.55.0
+      - excon/0.62.0
       Accept:
       - application/json
       Authorization:
@@ -19,20 +19,25 @@ http_interactions:
       - application/json
   response:
     status:
-      code: 502
-      message: ''
+      code: 400
+      message: Bad Request
     headers:
-      Server-Timing:
-      - total=114, db=103
-      Url-Template:
-      - "/offenders/{offender_id}/visits/booking"
       Content-Type:
       - application/json
       Date:
-      - Thu, 11 May 2017 12:08:06 GMT
+      - Fri, 06 Apr 2018 10:18:59 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=88, db=88
+      Url-Template:
+      - "/offenders/{offender_id}/visits"
+      Content-Length:
+      - '100'
     body:
       encoding: ASCII-8BIT
-      string: Bad gateway
-      http_version: 
-  recorded_at: Thu, 11 May 2017 12:08:05 GMT
-recorded_with: VCR 3.0.3
+      string: '{"errors":[{"message":"Offender has an active ban or restriction"},{"message":"Overlapping
+        visit"}]}'
+    http_version:
+  recorded_at: Fri, 06 Apr 2018 10:18:59 GMT
+recorded_with: VCR 4.0.0

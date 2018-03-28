@@ -27,8 +27,8 @@ RSpec.describe Nomis::Api do
   describe 'lookup_active_offender', vcr: { cassette_name: 'lookup_active_offender' } do
     let(:params) {
       {
-        noms_id: 'A1459AE',
-        date_of_birth: Date.parse('1976-06-12')
+        noms_id: 'A1484AE',
+        date_of_birth: Date.parse('1971-11-11')
       }
     }
 
@@ -36,8 +36,8 @@ RSpec.describe Nomis::Api do
 
     it 'returns and offender if the data matches' do
       expect(offender).to be_kind_of(Nomis::Offender)
-      expect(offender.id).to eq(1_055_827)
-      expect(offender.noms_id).to eq('A1459AE')
+      expect(offender.id).to eq(1_057_307)
+      expect(offender.noms_id).to eq('A1484AE')
     end
 
     it 'returns NullOffender if the data does not match', vcr: { cassette_name: 'lookup_active_offender-nomatch' } do
@@ -77,18 +77,18 @@ RSpec.describe Nomis::Api do
     let(:offender_details) { described_class.instance.lookup_offender_details(noms_id: noms_id) }
 
     context 'when found', vcr: { cassette_name: :lookup_offender_details } do
-      let(:noms_id) { 'A1459AE' }
+      let(:noms_id) { 'A1484AE' }
 
       it 'serialises the response into an Offender' do
         expect(offender_details).
           to have_attributes(
-            given_name: "DAMIEN",
-            surname: "DARHK",
-            date_of_birth: Date.parse("1945-08-12"),
+            given_name: "IZZY",
+            surname: "ITSU",
+            date_of_birth: Date.parse('1971-11-11'),
             aliases: [],
-            gender: { code: "NS", desc: "Not Specified (Indeterminate)" },
-            convicted: false,
-            imprisonment_status: { code: "RX", desc: "Remanded to Magistrates Court" },
+            gender: { code: "M", desc: "Male" },
+            convicted: true,
+            imprisonment_status: { code: "UNK_SENT", desc: "Unknown Sentenced" },
             iep_level: { code: "STD", desc: "Standard" }
              )
       end
@@ -116,7 +116,7 @@ RSpec.describe Nomis::Api do
     let(:establishment) { subject.lookup_offender_location(noms_id: noms_id) }
 
     context 'when found', vcr: { cassette_name: :lookup_offender_location } do
-      let(:noms_id) { 'A1459AE' }
+      let(:noms_id) { 'A1484AE' }
 
       it 'returns a Location' do
         expect(establishment).to be_valid
@@ -143,9 +143,9 @@ RSpec.describe Nomis::Api do
   describe 'offender_visiting_availability', vcr: { cassette_name: 'offender_visiting_availability' } do
     let(:params) {
       {
-        offender_id: 1_055_827,
-        start_date: Date.parse('2016-05-01'),
-        end_date: Date.parse('2016-05-21')
+        offender_id: 1_057_307,
+        start_date: Date.parse('2018-04-05'),
+        end_date: Date.parse('2018-04-29')
       }
     }
 
@@ -153,27 +153,36 @@ RSpec.describe Nomis::Api do
 
     it 'returns availability info containing a list of available dates' do
       expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
-      expect(subject.dates.first).to eq(Date.parse('2016-05-01'))
+      expect(subject.dates.first).to eq(Date.parse('2018-04-05'))
     end
 
     it 'logs the number of available dates' do
       expect(subject.dates.count).to eq(PVB::Instrumentation.custom_log_items[:offender_visiting_availability])
     end
 
-    it 'returns empty list of available dates if there is no availability', vcr: { cassette_name: 'offender_visiting_availability-noavailability' } do
-      params[:offender_id] = 1_055_847
-      expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
-      expect(subject.dates).to be_empty
+    context 'when the prisoner has no availability' do
+      let(:params) {
+        {
+          offender_id: 1_057_307,
+          start_date: Date.parse('2018-04-20'),
+          end_date: Date.parse('2018-04-20')
+        }
+      }
+
+      it 'returns empty list of available dates if there is no availability', vcr: { cassette_name: 'offender_visiting_availability-noavailability' } do
+        expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
+        expect(subject.dates).to be_empty
+      end
     end
   end
 
   describe 'offender_visiting_detailed_availability', vcr: { cassette_name: 'offender_visiting_detailed_availability' } do
-    let(:slot1) { ConcreteSlot.new(2017, 3, 14, 10, 0, 11, 0) }
-    let(:slot2) { ConcreteSlot.new(2017, 3, 21, 10, 0, 11, 0) }
-    let(:slot3) { ConcreteSlot.new(2017, 3, 22, 10, 0, 11, 0) }
+    let(:slot1) { ConcreteSlot.new(2018, 4, 07, 10, 0, 11, 0) }
+    let(:slot2) { ConcreteSlot.new(2018, 4, 14, 10, 0, 11, 0) }
+    let(:slot3) { ConcreteSlot.new(2018, 4, 21, 10, 0, 11, 0) }
     let(:params) do
       {
-        offender_id: 1_055_827,
+        offender_id: 1_057_307,
         slots: [slot1, slot2, slot3]
       }
     end
@@ -188,7 +197,7 @@ RSpec.describe Nomis::Api do
 
     it 'logs the number of available slots' do
       subject
-      expect(PVB::Instrumentation.custom_log_items[:offender_visiting_availability]).to eq(2)
+      expect(PVB::Instrumentation.custom_log_items[:offender_visiting_availability]).to eq(3)
     end
   end
 
@@ -196,15 +205,15 @@ RSpec.describe Nomis::Api do
     let(:params) {
       {
         prison: instance_double(Prison, nomis_id: 'LEI'),
-        start_date: Date.parse('2017-02-01'),
-        end_date: Date.parse('2017-02-20')
+        start_date: Date.parse('2018-04-05'),
+        end_date: Date.parse('2018-04-29')
       }
     }
 
     subject { super().fetch_bookable_slots(params) }
 
     it 'returns an array of slots' do
-      expect(subject.first.time.iso8601).to eq('2017-02-02T10:30/11:30')
+      expect(subject.first.time.iso8601).to eq('2018-04-05T10:00/11:30')
     end
 
     it 'logs the number of available slots' do
@@ -222,15 +231,15 @@ RSpec.describe Nomis::Api do
     subject { super().fetch_offender_restrictions(params) }
 
     it 'returns an array of restrictions' do
-      expect(subject).to have_exactly(2).items
+      expect(subject).to have_exactly(10).items
     end
 
     context 'with restriction_parsing' do
       let(:expected_restriction) do
         Nomis::Restriction.new(
-          type: { code: 'BAN', desc: 'Banned' },
-          effective_date: Date.parse('2017-03-09'),
-          expiry_date: Date.parse('2017-03-13')
+          type: { code: 'CCTV', desc: 'CCTV' },
+          effective_date: Date.parse('2017-07-24'),
+          expiry_date: Date.parse('2017-09-17')
         )
       end
 
@@ -290,14 +299,14 @@ RSpec.describe Nomis::Api do
   describe 'book_visit' do
     let(:params) do
       {
-        lead_contact: 12_588,
-        other_contacts: [13_428],
-        slot: '2017-05-15T10:00/16:00',
+        lead_contact: 13_429,
+        other_contacts: [],
+        slot: '2018-04-14T15:30/16:30',
         override_offender_restrictions: false,
         override_visitor_restrictions: false,
         override_vo_balance: false,
         override_slot_capacity: false,
-        client_unique_ref: 'visit_id_1234'
+        client_unique_ref: 'client_ref_11337'
       }
     end
 
@@ -308,11 +317,11 @@ RSpec.describe Nomis::Api do
     describe 'idempotency' do
       context 'with a client unique ref', vcr: { cassette_name: 'book_visit_happy_retry' } do
         before do
-          params[:client_unique_ref] = 'visit_id_1234'
+          params[:client_unique_ref] = 'visit_id_12178'
         end
 
         it 'retries the request on failure' do
-          expect(subject.visit_id).to eq(5_467)
+          expect(subject.visit_id).to eq(5_905)
           expect(PVB::Instrumentation.custom_log_items[:book_to_nomis_success]).to eq(true)
         end
       end
@@ -322,15 +331,26 @@ RSpec.describe Nomis::Api do
           params.delete(:client_unique_ref)
         end
 
-        it 'does not retry the request on failure', :expect_exception do
-          expect { subject }.to raise_error(Nomis::APIError)
+        it 'does not retry the request on failure' do
+          expect_any_instance_of(Nomis::Client).
+            to receive(:post).with(
+              "offenders/#{offender_id}/visits/booking",
+              params,
+              idempotent: false,
+              options: { connect_timeout: 3, read_timeout: 3, write_timeout: 3 }
+            ).and_return(
+              "visit_id" => nil,
+              "errors" => [
+                { "message" => "Overlapping visit" }]
+            )
+          subject
         end
       end
     end
 
     context 'with a happy path', vcr: { cassette_name: 'book_visit_happy_path' } do
       it 'returns the visit_id' do
-        expect(subject.visit_id).to eq(5_467)
+        expect(subject.visit_id).to eq(5_905)
       end
 
       it 'instruments the outcome of the call' do
@@ -340,7 +360,7 @@ RSpec.describe Nomis::Api do
       end
 
       context 'when making a request' do
-        let(:client) { spy(Nomis::Client, post: { 'visit_id' => '123' }) }
+        let(:client) { spy(Nomis::Client, post: { 'visit_id' => '12178' }) }
 
         it 'adjusts the request timeout' do
           allow(Nomis::Client).to receive(:new).and_return(client)
@@ -376,7 +396,7 @@ RSpec.describe Nomis::Api do
 
     context 'with a duplicate post', vcr: { cassette_name: 'book_visit_duplicate_error' } do
       it 'records the error message' do
-        expect(subject.error_messages).to eq(['Duplicate post'])
+        expect(subject.error_messages).to eq(['Overlapping visit'])
       end
     end
   end
@@ -388,7 +408,7 @@ RSpec.describe Nomis::Api do
     end
 
     context 'successfully cancel a visit', vcr: { cassette_name: :cancel_visit }  do
-      let(:visit_id) { 5467 }
+      let(:visit_id) { 5_905 }
 
       it 'records the message' do
         expect(subject.cancel_visit(offender_id, visit_id, params)).
@@ -405,7 +425,7 @@ RSpec.describe Nomis::Api do
     end
 
     context 'with an already cancelled visit', vcr: { cassette_name: :already_cancel_visit }  do
-      let(:visit_id) { 5467 }
+      let(:visit_id) { 5_467 }
 
       it 'records the message' do
         expect(subject.cancel_visit(offender_id, visit_id, params)).
@@ -422,7 +442,7 @@ RSpec.describe Nomis::Api do
     end
 
     context 'with an invalid cancellation code' do
-      let(:visit_id) { 5467 }
+      let(:visit_id) { 5_467 }
 
       it 'records the error message', vcr: { cassette_name: :cancel_invalid_cancellation_code } do
         expect(subject.cancel_visit(offender_id, visit_id, params: { cancellation_code: 'POOBAR' })).

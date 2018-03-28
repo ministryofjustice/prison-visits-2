@@ -10,10 +10,10 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
     # Prisoner availability is date dependent both on the responses from Nomis
     # and in the Nomis client logic as it validates the start / end date
     # parameters before making the call.
-    travel_to(Date.new(2016, 12, 1)) { ex.run }
+    travel_to(Date.new(2018, 4, 5)) { ex.run }
   end
 
-  describe 'rejecting', vcr: { cassette_name: 'process_booking_happy_path', record: :new_episodes } do
+  describe 'rejecting', vcr: { cassette_name: 'process_booking_happy_path_reject' } do
     before do
       visit prison_visit_path(vst, locale: 'en')
     end
@@ -117,7 +117,7 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
 
       vst.reload
       expect(vst.rejection_reasons).
-        to contain_exactly('prisoner_banned', 'prisoner_out_of_prison', 'duplicate_visit_request')
+        to include('prisoner_banned', 'prisoner_out_of_prison', 'duplicate_visit_request')
 
       expect(vst).to be_rejected
 
@@ -189,7 +189,7 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
     end
 
     scenario 'rejecting a booking for any reason',
-      vcr: { cassette_name: 'process_booking_happy_path', record: :new_episodes, allow_playback_repeats: true } do
+      vcr: { cassette_name: 'process_booking_happy_path_reject', allow_playback_repeats: true } do
 
       within '.other-reason' do
         check 'Other reason'

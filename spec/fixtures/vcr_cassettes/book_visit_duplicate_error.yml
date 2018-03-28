@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: post
-    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/booking
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057307/visits/booking
     body:
       encoding: UTF-8
-      string: '{"lead_contact":12588,"other_contacts":[13428],"slot":"2017-05-15T10:00/16:00","override_restrictions":false,"client_unique_ref":"visit_id_1234"}'
+      string: '{"lead_contact":13429,"other_contacts":[],"slot":"2018-04-14T15:30/16:30","override_offender_restrictions":false,"override_visitor_restrictions":false,"override_vo_balance":false,"override_slot_capacity":false,"client_unique_ref":"client_ref_11337"}'
     headers:
       User-Agent:
-      - excon/0.55.0
+      - excon/0.62.0
       Accept:
       - application/json
       Authorization:
@@ -19,24 +19,24 @@ http_interactions:
       - application/json
   response:
     status:
-      code: 409
-      message: ''
+      code: 400
+      message: Bad Request
     headers:
-      Server:
-      - nginx/1.13.0
-      Date:
-      - Wed, 31 May 2017 12:59:33 GMT
       Content-Type:
       - application/json
-      Connection:
-      - keep-alive
-      Url-Template:
-      - "/offenders/{offender_id}/visits/booking"
+      Date:
+      - Fri, 06 Apr 2018 13:20:12 GMT
+      Server:
+      - nginx/1.13.8
       Server-Timing:
-      - total=11
+      - total=8, db=7
+      Url-Template:
+      - "/offenders/{offender_id}/visits"
+      Content-Length:
+      - '44'
     body:
       encoding: ASCII-8BIT
-      string: '{"error":{"message":"Duplicate post"}}'
-    http_version: 
-  recorded_at: Wed, 31 May 2017 12:59:33 GMT
-recorded_with: VCR 3.0.3
+      string: '{"errors":[{"message":"Overlapping visit"}]}'
+    http_version:
+  recorded_at: Fri, 06 Apr 2018 13:20:12 GMT
+recorded_with: VCR 4.0.0

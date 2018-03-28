@@ -106,8 +106,14 @@ RSpec.describe StaffNomisChecker do
     end
 
     context 'with slot availability' do
-      context 'with NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED switched OFF', vcr: { cassette_name: 'lookup_active_offender', record: :new_episodes } do
+      context 'with NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED switched OFF' do
+        let(:prisoner_availability_validator) do
+          instance_double(PrisonerAvailabilityValidation, valid?: false, slot_errors: [])
+        end
+
         before do
+          mock_nomis_with(:lookup_active_offender, offender)
+          mock_service_with(PrisonerAvailabilityValidation, prisoner_availability_validator)
           switch_off :nomis_staff_slot_availability_enabled
         end
 
@@ -122,9 +128,10 @@ RSpec.describe StaffNomisChecker do
         end
       end
 
-      context 'with NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED switched ON', vcr: { cassette_name: 'lookup_active_offender', record: :new_episodes } do
+      context 'with NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED switched ON' do
         before do
           switch_on :nomis_staff_slot_availability_enabled
+          mock_nomis_with(:lookup_active_offender, offender)
         end
 
         describe "and STAFF_PRISONS_WITH_SLOT_AVAILABILITY switched ON for the visit's prison" do
@@ -133,9 +140,14 @@ RSpec.describe StaffNomisChecker do
             instance_double(SlotAvailabilityValidation, valid?: false, slot_error: message)
           end
 
+          let(:prisoner_availability_validator) do
+            instance_double(PrisonerAvailabilityValidation, valid?: false, slot_errors: [])
+          end
+
           before do
             switch_feature_flag_with(:staff_prisons_with_slot_availability, %w[Pentonville Cardiff])
             mock_service_with(SlotAvailabilityValidation, slot_availability_validation)
+            mock_service_with(PrisonerAvailabilityValidation, prisoner_availability_validator)
           end
 
           context 'with no errors' do
@@ -153,11 +165,17 @@ RSpec.describe StaffNomisChecker do
       end
     end
 
-    context 'with prisoner restrictions', vcr: { cassette_name: 'book_visit_happy_path', record: :new_episodes } do
+    context 'with prisoner restrictions' do
       context 'when NOMIS_STAFF_OFFENDER_RESTRICTIONS_ENABLED' do
+        let(:prisoner_availability_validator) do
+          instance_double(PrisonerAvailabilityValidation, valid?: false, slot_errors: [])
+        end
+
         context 'when it is disabled' do
           before do
             switch_off(:nomis_staff_offender_restrictions_enabled)
+            mock_nomis_with(:lookup_active_offender, offender)
+            mock_service_with(PrisonerAvailabilityValidation, prisoner_availability_validator)
           end
 
           it { expect(subject.errors_for(slot)).to be_empty }
@@ -176,6 +194,7 @@ RSpec.describe StaffNomisChecker do
 
             before do
               mock_service_with(PrisonerRestrictionList, prisoner_restrictions_list)
+              mock_service_with(PrisonerAvailabilityValidation, prisoner_availability_validator)
             end
 
             context 'with an error' do

@@ -8,21 +8,21 @@ RSpec.feature 'Processing a request - NOMIS API disasbled', :js, :expect_excepti
 
   let(:prison) do
     create(:prison,
-      name: 'Leicester',
+      name: 'Leeds',
       email_address: prison_email_address,
       estate: create(:estate, nomis_id: 'LEI')
           )
   end
-  let(:prisoner_number) { 'A1484AE' }
-  let(:prisoner_dob) { '11-11-1971' }
+  let(:prisoner_number) { 'A1475AE' }
+  let(:prisoner_dob) { '23-04-1979' }
   let(:visitor) { vst.visitors.first }
 
   around do |ex|
-    travel_to(Date.new(2017, 6, 12)) { ex.run }
+    travel_to(Date.new(2018, 4, 12)) { ex.run }
   end
 
   before do
-    vst.update!(slot_option_0: '2017-06-27T14:00/16:00')
+    vst.update!(slot_option_0: '2018-04-20T14:00/15:00')
   end
 
   context 'with all of the flags switched on' do
@@ -49,7 +49,7 @@ RSpec.feature 'Processing a request - NOMIS API disasbled', :js, :expect_excepti
       )
     end
 
-    it 'enables staff to process a visit', vcr: { cassette_name: 'lookup_active_offender', record: :new_episodes } do
+    it 'enables staff to process a visit' do
       allow(GATracker).
         to receive(:new).
              and_return(ga_tracker)

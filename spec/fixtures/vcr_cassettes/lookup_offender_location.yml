@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: http://151.237.239.116:4888/nomisapi/offenders/A1459AE/location
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1484AE/location
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - excon/0.60.0
+      - excon/0.62.0
       Accept:
       - application/json
       Authorization:
@@ -20,25 +20,21 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Server:
-      - nginx/1.13.3
-      Date:
-      - Mon, 18 Dec 2017 14:28:03 GMT
       Content-Type:
       - application/json
       Date:
-      - Thu, 22 Feb 2018 11:47:12 GMT
+      - Thu, 05 Apr 2018 13:58:45 GMT
       Server:
       - nginx/1.13.8
       Server-Timing:
-      - total=48, db=48
+      - total=50, db=50
       Url-Template:
       - "/offenders/{noms_id}"
       Content-Length:
-      - '199'
+      - '202'
     body:
       encoding: ASCII-8BIT
-      string: '{"establishment":{"code":"ISI","desc":"ISIS HMP/YOI"},"housing_location":{"description":"ISI-2-1-1","levels":[{"type":"Wing","value":"2"},{"type":"Landing","value":"1"},{"type":"Cell","value":"1"}]}}'
-    http_version: 
-  recorded_at: Thu, 22 Feb 2018 11:47:12 GMT
+      string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":{"description":"LEI-H-1-003","levels":[{"type":"Wing","value":"H"},{"type":"Landing","value":"1"},{"type":"Cell","value":"003"}]}}'
+    http_version:
+  recorded_at: Thu, 05 Apr 2018 13:58:45 GMT
 recorded_with: VCR 4.0.0
