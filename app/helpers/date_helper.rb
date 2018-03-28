@@ -1,15 +1,19 @@
 module DateHelper
-  def format_date_of_birth(date)
-    I18n.l(date.to_date, format: :date_of_birth)
+  def format_date(datetime)
+    datetime.to_date.to_s(:short_abbrev)
   end
 
-  def format_date_without_year(date)
-    return unless date
-    I18n.l(date.to_date, format: :date_without_year)
+  def format_date_of_birth(datetime)
+    I18n.l(datetime.to_date, format: :date_of_birth)
   end
 
-  def format_date_day(date)
-    I18n.l(date.to_date, format: '%A')
+  def format_date_without_year(datetime)
+    return unless datetime
+    I18n.l(datetime.to_date, format: :date_without_year)
+  end
+
+  def format_date_day(datetime)
+    I18n.l(datetime.to_date, format: '%A')
   end
 
   def format_time_12hr(time)
