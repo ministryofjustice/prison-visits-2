@@ -140,7 +140,7 @@ private
   def options_for_label_key
     {
       day:  h.format_date_day(object),
-      date: h.format_date_of_birth(object),
+      date: h.format_date(object),
       time: h.format_slot_times(object),
       scope: %w[prison visits visit_date_section]
     }
