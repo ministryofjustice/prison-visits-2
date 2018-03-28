@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: get
-    uri: http://151.237.239.116:4888/nomisapi/offenders/A1459BE/location
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1459BE/location
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - excon/0.55.0
+      - excon/0.62.0
       Accept:
       - application/json
       Authorization:
@@ -20,30 +20,32 @@ http_interactions:
       code: 404
       message: Not Found
     headers:
-      Server:
-      - Apache-Coyote/1.1
-      Url-Template:
-      - "/offenders/{noms_id}/location"
-      Server-Timing:
-      - total=5
       Content-Type:
       - application/json
       Date:
-      - Thu, 13 Apr 2017 16:50:25 GMT
+      - Thu, 05 Apr 2018 13:58:45 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=3
+      Url-Template:
+      - "/offenders/{noms_id}/location"
+      Content-Length:
+      - '42'
     body:
       encoding: ASCII-8BIT
       string: '{"error":{"message":"Offender Not Found"}}'
-    http_version: 
-  recorded_at: Thu, 13 Apr 2017 16:50:26 GMT
+    http_version:
+  recorded_at: Thu, 05 Apr 2018 13:58:45 GMT
 - request:
     method: get
-    uri: http://151.237.239.116:4888/nomisapi/offenders/A1459BE/location
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1459BE/location
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - excon/0.55.0
+      - excon/0.62.0
       Accept:
       - application/json
       Authorization:
@@ -55,19 +57,21 @@ http_interactions:
       code: 404
       message: Not Found
     headers:
-      Server:
-      - Apache-Coyote/1.1
-      Url-Template:
-      - "/offenders/{noms_id}/location"
-      Server-Timing:
-      - total=4
       Content-Type:
       - application/json
       Date:
-      - Thu, 13 Apr 2017 16:50:25 GMT
+      - Thu, 05 Apr 2018 13:58:45 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=3
+      Url-Template:
+      - "/offenders/{noms_id}/location"
+      Content-Length:
+      - '42'
     body:
       encoding: ASCII-8BIT
       string: '{"error":{"message":"Offender Not Found"}}'
-    http_version: 
-  recorded_at: Thu, 13 Apr 2017 16:50:26 GMT
-recorded_with: VCR 3.0.3
+    http_version:
+  recorded_at: Thu, 05 Apr 2018 13:58:45 GMT
+recorded_with: VCR 4.0.0

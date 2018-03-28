@@ -2,186 +2,225 @@
 http_interactions:
 - request:
     method: get
-    uri: http://151.237.239.116:4888/nomisapi/lookup/active_offender?date_of_birth=1971-11-11&noms_id=A1484AE
+    uri: https://noms-api-dev.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1979-04-23&noms_id=A1475AE
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - excon/0.56.0
+      - excon/0.62.0
       Accept:
       - application/json
       Authorization:
       - ''
       X-Request-Id:
-      - 1c337a03-09f6-490d-afca-7450c7a575ee
-  response:
-    status:
-      code: 200
-      message: ''
-    headers:
-      Server:
-      - nginx/1.13.0
-      Date:
-      - Mon, 05 Jun 2017 14:10:55 GMT
-      Content-Type:
-      - application/json
-      Connection:
-      - keep-alive
-      Server-Timing:
-      - total=3, db=2
-      Url-Template:
-      - "/lookup/active_offender"
-    body:
-      encoding: ASCII-8BIT
-      string: '{"found":true,"offender":{"id":1057307}}'
-    http_version: 
-  recorded_at: Sun, 04 Jun 2017 23:00:00 GMT
-- request:
-    method: get
-    uri: http://151.237.239.116:4888/nomisapi/offenders/A1484AE/location
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - excon/0.56.0
-      Accept:
-      - application/json
-      Authorization:
       - ''
-      X-Request-Id:
-      - 1c337a03-09f6-490d-afca-7450c7a575ee
   response:
     status:
       code: 200
-      message: ''
+      message: OK
     headers:
-      Server:
-      - nginx/1.13.0
-      Date:
-      - Mon, 05 Jun 2017 14:10:55 GMT
       Content-Type:
       - application/json
-      Connection:
-      - keep-alive
+      Date:
+      - Thu, 05 Apr 2018 13:08:19 GMT
+      Server:
+      - nginx/1.13.8
       Server-Timing:
       - total=3, db=1
       Url-Template:
-      - "/offenders/{noms_id}/location"
+      - "/lookup/active_offender"
+      Content-Length:
+      - '40'
     body:
       encoding: ASCII-8BIT
-      string: '{"establishment":{"code":"LEI","desc":"Leeds"},"housing_location":{"description":"LEI-H-1-003","levels":[{"type":"Wing","value":"2"},{"type":"Landing","value":"1"},{"type":"Cell","value":"1"}]}}'
-    http_version: 
-  recorded_at: Sun, 04 Jun 2017 23:00:00 GMT
+      string: '{"found":true,"offender":{"id":1057027}}'
+    http_version:
+  recorded_at: Thu, 05 Apr 2018 13:08:20 GMT
 - request:
     method: get
-    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/unavailability?dates=2017-06-27
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057027/visits/unavailability?dates=2018-04-19
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - excon/0.56.0
+      - excon/0.62.0
       Accept:
       - application/json
       Authorization:
       - ''
       X-Request-Id:
-      - 1c337a03-09f6-490d-afca-7450c7a575ee
+      - ''
   response:
     status:
       code: 200
-      message: ''
+      message: OK
     headers:
-      Server:
-      - nginx/1.13.0
-      Date:
-      - Mon, 05 Jun 2017 14:10:55 GMT
       Content-Type:
       - application/json
-      Connection:
-      - keep-alive
+      Date:
+      - Thu, 05 Apr 2018 13:08:20 GMT
+      Server:
+      - nginx/1.13.8
       Server-Timing:
-      - total=59, db=58
+      - total=59, db=59
       Url-Template:
-      - "/offenders/{offender_id}/visits/unavailability"
+      - "/offenders/{offender_id}/visits"
+      Content-Length:
+      - '96'
     body:
       encoding: ASCII-8BIT
-      string: '{"2017-06-27":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
-    http_version: 
-  recorded_at: Sun, 04 Jun 2017 23:00:00 GMT
+      string: '{"2018-04-19":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
+    http_version:
+  recorded_at: Thu, 05 Apr 2018 13:08:20 GMT
 - request:
     method: get
-    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/contact_list
+    uri: https://noms-api-dev.dsd.io/nomisapi/prison/LEI/slots?end_date=2018-04-19&start_date=2018-04-19
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - excon/0.56.0
+      - excon/0.62.0
       Accept:
       - application/json
       Authorization:
       - ''
       X-Request-Id:
-      - 5fab13a0-22bd-4aac-8721-ede058bfe42e
+      - ''
   response:
     status:
-      code: 500
-      message: ''
+      code: 200
+      message: OK
     headers:
-      Server:
-      - nginx/1.13.0
-      Date:
-      - Mon, 05 Jun 2017 14:10:58 GMT
       Content-Type:
       - application/json
-      Connection:
-      - keep-alive
+      Date:
+      - Thu, 05 Apr 2018 13:08:20 GMT
+      Server:
+      - nginx/1.13.8
       Server-Timing:
-      - total=6, db=4
+      - total=5, db=5
       Url-Template:
-      - "/offenders/{offender_id}/visits/contact_list"
+      - "/prison/{prison_id}"
+      Content-Length:
+      - '421'
     body:
       encoding: ASCII-8BIT
-      string: '{"error":"server error"}'
-    http_version: 
-  recorded_at: Sun, 04 Jun 2017 23:00:00 GMT
+      string: '{"slots":[{"time":"2018-04-19T10:00\/11:30","capacity":100,"max_groups":2,"max_adults":4,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2018-04-19T14:00\/15:00","capacity":100,"max_groups":1,"max_adults":50,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2018-04-19T15:30\/16:30","capacity":100,"max_groups":8,"max_adults":50,"groups_booked":0,"visitors_booked":0,"adults_booked":0}]}'
+    http_version:
+  recorded_at: Thu, 05 Apr 2018 13:08:20 GMT
 - request:
     method: get
-    uri: http://151.237.239.116:4888/nomisapi/offenders/1057307/visits/contact_list
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057027/visits/restrictions
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - excon/0.56.0
+      - excon/0.62.0
       Accept:
       - application/json
       Authorization:
       - ''
       X-Request-Id:
-      - 5fab13a0-22bd-4aac-8721-ede058bfe42e
+      - ''
   response:
     status:
-      code: 500
-      message: ''
+      code: 200
+      message: OK
     headers:
-      Server:
-      - nginx/1.13.0
-      Date:
-      - Mon, 05 Jun 2017 14:10:58 GMT
       Content-Type:
       - application/json
-      Connection:
-      - keep-alive
+      Date:
+      - Thu, 05 Apr 2018 13:08:20 GMT
+      Server:
+      - nginx/1.13.8
       Server-Timing:
-      - total=6, db=4
+      - total=2, db=2
       Url-Template:
-      - "/offenders/{offender_id}/visits/contact_list"
+      - "/offenders/{offender_id}/visits"
+      Content-Length:
+      - '118'
     body:
       encoding: ASCII-8BIT
-      string: '{"error":"server error"}'
-    http_version: 
-  recorded_at: Sun, 04 Jun 2017 23:00:00 GMT
+      string: '{"restrictions":[{"type":{"code":"CLOSED","desc":"Closed"},"effective_date":"2016-04-03","expiry_date":"2016-04-27"}]}'
+    http_version:
+  recorded_at: Thu, 05 Apr 2018 13:08:20 GMT
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1475AE/location
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 05 Apr 2018 13:08:20 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=54, db=52
+      Url-Template:
+      - "/offenders/{noms_id}"
+      Content-Length:
+      - '202'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":{"description":"LEI-H-2-006","levels":[{"type":"Wing","value":"H"},{"type":"Landing","value":"2"},{"type":"Cell","value":"006"}]}}'
+    http_version:
+  recorded_at: Thu, 05 Apr 2018 13:08:20 GMT
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1475AE
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - ''
+      X-Request-Id:
+      - e191dcb7-589a-485d-890e-da11eea24e3a
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 05 Apr 2018 13:08:20 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=4, db=4
+      Url-Template:
+      - "/offenders/{noms_id}"
+      Content-Length:
+      - '302'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"given_name":"MARGARET","surname":"LIPMAN","date_of_birth":"1979-04-23","aliases":[],"gender":{"code":"F","desc":"Female"},"convicted":true,"pnc_number":"PNC/A1475AE","imprisonment_status":{"code":"SENT03","desc":"Adult
+        Imprisonment Without Option CJA03"},"iep_level":{"code":"STD","desc":"Standard"}}'
+    http_version:
+  recorded_at: Thu, 05 Apr 2018 13:08:20 GMT
+recorded_with: VCR 4.0.0

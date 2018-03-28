@@ -81,7 +81,6 @@ module Nomis
       JSON.parse(response.body)
     rescue Excon::Errors::HTTPStatusError => e
       body = e.response.body
-
       # API errors should be returned as JSON, but there are many scenarios
       # where this may not be the case.
       begin

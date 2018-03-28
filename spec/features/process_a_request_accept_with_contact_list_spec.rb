@@ -8,21 +8,21 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
 
   let(:prison) do
     create(:prison,
-      name: 'Leicester',
+      name: 'Leeds',
       email_address: prison_email_address,
       estate: create(:estate, nomis_id: 'LEI')
     )
   end
-  let(:prisoner_number) { 'A1484AE' }
-  let(:prisoner_dob) { '11-11-1971' }
+  let(:prisoner_number) { 'A1475AE' }
+  let(:prisoner_dob) { '23-04-1979' }
   let(:visitor) { vst.visitors.first }
 
   around do |ex|
-    travel_to(Date.new(2017, 6, 12)) { ex.run }
+    travel_to(Date.new(2018, 4, 5)) { ex.run }
   end
 
   before do
-    vst.update!(slot_option_0: '2017-06-27T14:00/16:00')
+    vst.update!(slot_option_0: '2018-04-19T10:00/11:30')
   end
 
   context 'with book to nomis enabled' do
@@ -36,17 +36,16 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       switch_on :nomis_staff_offender_restrictions_enabled
     end
 
-    scenario 'accepting a booking', vcr: { cassette_name: 'book_to_nomis' } do
+    scenario 'accepting a booking', vcr: { cassette_name: 'accept_book_to_nomis_enabled' } do
       visit prison_visit_path(vst, locale: 'en')
 
       expect(page).to have_css('h1', text: 'Check visit request')
 
       expect(page).to have_css('.notice', text: 'The prisoner date of birth, prisoner number and prison name have been verified.')
       expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
-      expect(page).to have_css('.bold-small', text: 'LEI-H-1-003')
+      expect(page).to have_css('.bold-small', text: 'LEI-H-2-006')
       expect(page).to have_css('.bold-small', text: 'Standard')
-      expect(page).to have_css('.bold-small', text: 'Unknown Sentenced')
-
+      expect(page).to have_css('.bold-small', text: 'Adult Imprisonment Without Option CJA03')
       choose_date
 
       fill_in 'Reference number',   with: '11223344'
@@ -54,22 +53,21 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       fill_in 'This message will be included in the email sent to the visitor', with: 'A staff message'
 
       within "#visitor_#{visitor.id}" do
-        select 'IRMA ITSU - 03/04/1975', from: "Match to prisoner's contact list"
+        select 'BOB LIPMAN - 01/01/1970', from: "Match to prisoner's contact list"
       end
 
       expect(page).to have_unchecked_field("Don't automatically copy this visit to NOMIS", visible: false)
-
       click_button 'Process'
 
       expect(page).to have_css('.notification', text: 'Thank you for processing the visit')
 
       vst.reload
       expect(vst).to be_booked
-      expect(vst.nomis_id).to eq(5493)
+      expect(vst.nomis_id).to eq(5902)
       expect(vst.reference_no).to eq('11223344')
     end
 
-    scenario 'opting out of booking to nomis', vcr: { cassette_name: 'process_happy_path_with_contact_list' } do
+    scenario 'opting out of booking to nomis', vcr: { cassette_name: 'opt_out_of_book_to_nomis' } do
       visit prison_visit_path(vst, locale: 'en')
 
       expect(page).to have_css('h1', text: 'Check visit request')
@@ -82,7 +80,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       fill_in 'This message will be included in the email sent to the visitor', with: 'A staff message'
 
       within "#visitor_#{visitor.id}" do
-        select 'IRMA ITSU - 03/04/1975', from: "Match to prisoner's contact list"
+        select 'BOB LIPMAN - 01/01/1970', from: "Match to prisoner's contact list"
       end
 
       check "Don't automatically copy this visit to NOMIS", visible: false
@@ -106,11 +104,10 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       choose_date
 
       within "#visitor_#{visitor.id}" do
-        select 'IRMA ITSU - 03/04/1975', from: "Match to prisoner's contact list"
+        select 'BOB LIPMAN - 01/01/1970', from: "Match to prisoner's contact list"
       end
 
       expect(page).to have_css('.panel', text: "This is a closed visit. Book this visit into NOMIS, then enter the reference number")
-
       click_button 'Process'
       expect(page).to have_css('.notification', text: 'Thank you for processing the visit')
 
@@ -125,7 +122,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       switch_off :nomis_staff_book_to_nomis_enabled
     end
 
-    scenario 'accepting a booking', vcr: { cassette_name: 'process_happy_path_with_contact_list', record: :new_episodes } do
+    scenario 'accepting a booking', vcr: { cassette_name: 'process_happy_path_book_to_nomis_not_enabled' } do
       # Create the visit before we go to the inbox
       vst
 
@@ -146,7 +143,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
 
       within "#visitor_#{visitor.id}" do
         expect(page).to have_css('.error-message', text: "Process this visitor to continue")
-        select 'IRMA ITSU - 03/04/1975', from: "Match to prisoner's contact list"
+        select 'BOB LIPMAN - 01/01/1970', from: "Match to prisoner's contact list"
       end
 
       preview_window = window_opened_by {
@@ -165,19 +162,24 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       vst.reload
       visitor.reload
       expect(vst).to be_booked
-      expect(visitor.nomis_id).to eq(13_428)
+      expect(visitor.nomis_id).to eq(13_621)
       expect(vst.reference_no).to eq('12345678')
 
       expect(contact_email_address).
       to receive_email.
       with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
-      and_body(/Your visit to Leicester is now successfully confirmed/)
+      and_body(/Your visit to Leeds is now successfully confirmed/)
     end
 
-    scenario 'accepting a booking but contact list fails', vcr: { cassette_name: 'process_contact_list_fails', record: :new_episodes } do
-      visit prison_visit_path(vst, locale: 'en')
+    context 'accepting a booking but contact list fails', vcr: { cassette_name: 'process_contact_list_fails' } do
+      before do
+        simulate_api_error_for(:fetch_contact_list)
+      end
 
-      expect(page).to have_css('form .notice', text: "We can’t show the NOMIS contact list right now. Please check all visitors in NOMIS")
+      it 'is expected that the contact list is not available' do
+        visit prison_visit_path(vst, locale: 'en')
+        expect(page).to have_css('form .notice', text: "We can’t show the NOMIS contact list right now. Please check all visitors in NOMIS")
+      end
     end
   end
 end

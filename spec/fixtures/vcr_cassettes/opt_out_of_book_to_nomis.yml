@@ -23,7 +23,7 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 05 Apr 2018 08:54:52 GMT
+      - Thu, 05 Apr 2018 13:13:40 GMT
       Server:
       - nginx/1.13.8
       Server-Timing:
@@ -36,7 +36,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"found":true,"offender":{"id":1057027}}'
     http_version:
-  recorded_at: Thu, 05 Apr 2018 08:54:52 GMT
+  recorded_at: Thu, 05 Apr 2018 13:13:40 GMT
 - request:
     method: get
     uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057027/visits/unavailability?dates=2018-04-19
@@ -60,11 +60,11 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 05 Apr 2018 08:54:52 GMT
+      - Thu, 05 Apr 2018 13:13:41 GMT
       Server:
       - nginx/1.13.8
       Server-Timing:
-      - total=44, db=44
+      - total=77, db=76
       Url-Template:
       - "/offenders/{offender_id}/visits"
       Content-Length:
@@ -73,7 +73,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"2018-04-19":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
     http_version:
-  recorded_at: Thu, 05 Apr 2018 08:54:52 GMT
+  recorded_at: Thu, 05 Apr 2018 13:13:41 GMT
 - request:
     method: get
     uri: https://noms-api-dev.dsd.io/nomisapi/prison/LEI/slots?end_date=2018-04-19&start_date=2018-04-19
@@ -97,7 +97,7 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 05 Apr 2018 08:54:52 GMT
+      - Thu, 05 Apr 2018 13:13:41 GMT
       Server:
       - nginx/1.13.8
       Server-Timing:
@@ -110,7 +110,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"slots":[{"time":"2018-04-19T10:00\/11:30","capacity":100,"max_groups":2,"max_adults":4,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2018-04-19T14:00\/15:00","capacity":100,"max_groups":1,"max_adults":50,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2018-04-19T15:30\/16:30","capacity":100,"max_groups":8,"max_adults":50,"groups_booked":0,"visitors_booked":0,"adults_booked":0}]}'
     http_version:
-  recorded_at: Thu, 05 Apr 2018 08:54:52 GMT
+  recorded_at: Thu, 05 Apr 2018 13:13:41 GMT
 - request:
     method: get
     uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057027/visits/restrictions
@@ -134,20 +134,20 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 05 Apr 2018 08:54:53 GMT
+      - Thu, 05 Apr 2018 13:13:41 GMT
       Server:
       - nginx/1.13.8
       Server-Timing:
-      - total=3, db=3
+      - total=4, db=2
       Url-Template:
       - "/offenders/{offender_id}/visits"
       Content-Length:
       - '118'
     body:
       encoding: ASCII-8BIT
-      string: '{"restrictions":[{"type":{"code":"CLOSED","desc":"Closed"},"effective_date":"2018-04-03","expiry_date":"2018-04-27"}]}'
+      string: '{"restrictions":[{"type":{"code":"CLOSED","desc":"Closed"},"effective_date":"2016-04-03","expiry_date":"2016-04-27"}]}'
     http_version:
-  recorded_at: Thu, 05 Apr 2018 08:54:53 GMT
+  recorded_at: Thu, 05 Apr 2018 13:13:41 GMT
 - request:
     method: get
     uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057027/visits/contact_list
@@ -171,11 +171,11 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 05 Apr 2018 08:54:53 GMT
+      - Thu, 05 Apr 2018 13:13:41 GMT
       Server:
       - nginx/1.13.8
       Server-Timing:
-      - total=4, db=3
+      - total=3, db=2
       Url-Template:
       - "/offenders/{offender_id}/visits"
       Content-Length:
@@ -186,7 +186,7 @@ http_interactions:
         Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13668,"given_name":"e","surname":"e","gender":{},"relationship_type":{"code":"COM","desc":"Case
         Admin (Offender Management Unit)"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":false,"active":true,"restrictions":[]}]}'
     http_version:
-  recorded_at: Thu, 05 Apr 2018 08:54:53 GMT
+  recorded_at: Thu, 05 Apr 2018 13:13:41 GMT
 - request:
     method: get
     uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1475AE/location
@@ -210,11 +210,11 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 05 Apr 2018 08:54:53 GMT
+      - Thu, 05 Apr 2018 13:13:41 GMT
       Server:
       - nginx/1.13.8
       Server-Timing:
-      - total=44, db=43
+      - total=51, db=49
       Url-Template:
       - "/offenders/{noms_id}"
       Content-Length:
@@ -223,7 +223,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":{"description":"LEI-H-2-006","levels":[{"type":"Wing","value":"H"},{"type":"Landing","value":"2"},{"type":"Cell","value":"006"}]}}'
     http_version:
-  recorded_at: Thu, 05 Apr 2018 08:54:53 GMT
+  recorded_at: Thu, 05 Apr 2018 13:13:41 GMT
 - request:
     method: get
     uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1475AE
@@ -247,11 +247,11 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 05 Apr 2018 08:54:53 GMT
+      - Thu, 05 Apr 2018 13:13:41 GMT
       Server:
       - nginx/1.13.8
       Server-Timing:
-      - total=3, db=3
+      - total=4, db=3
       Url-Template:
       - "/offenders/{noms_id}"
       Content-Length:
@@ -261,13 +261,13 @@ http_interactions:
       string: '{"given_name":"MARGARET","surname":"LIPMAN","date_of_birth":"1979-04-23","aliases":[],"gender":{"code":"F","desc":"Female"},"convicted":true,"pnc_number":"PNC/A1475AE","imprisonment_status":{"code":"SENT03","desc":"Adult
         Imprisonment Without Option CJA03"},"iep_level":{"code":"STD","desc":"Standard"}}'
     http_version:
-  recorded_at: Thu, 05 Apr 2018 08:54:53 GMT
+  recorded_at: Thu, 05 Apr 2018 13:13:41 GMT
 - request:
     method: post
     uri: https://www.google-analytics.com/collect
     body:
       encoding: US-ASCII
-      string: v=1&uip=127.0.0.1&tid=UA-105607968-1&cid=GA1.4.1802647786.1522918492&ua=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10.13%3B+rv%3A59.0%29+Gecko%2F20100101+Firefox%2F59.0&t=timing&utc=Leeds&utv=booked&utt=3000&utl=fa14a1d5-acd8-4a59-a860-2269e0c00a7d&cd1=
+      string: ''
     headers:
       User-Agent:
       - excon/0.62.0
@@ -281,7 +281,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Date:
-      - Thu, 05 Apr 2018 08:54:55 GMT
+      - Thu, 05 Apr 2018 13:13:44 GMT
       Pragma:
       - no-cache
       Expires:
@@ -306,13 +306,13 @@ http_interactions:
       string: !binary |-
         R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
     http_version:
-  recorded_at: Thu, 05 Apr 2018 08:54:55 GMT
+  recorded_at: Thu, 05 Apr 2018 13:13:44 GMT
 - request:
     method: post
     uri: https://www.google-analytics.com/collect
     body:
       encoding: US-ASCII
-      string: v=1&uip=127.0.0.1&tid=UA-105607968-1&cid=GA1.4.1802647786.1522918492&ua=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10.13%3B+rv%3A59.0%29+Gecko%2F20100101+Firefox%2F59.0&t=event&ec=Leeds&ea=Booked&el=Manual
+      string: ''
     headers:
       User-Agent:
       - excon/0.62.0
@@ -326,7 +326,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Date:
-      - Thu, 05 Apr 2018 08:54:55 GMT
+      - Thu, 05 Apr 2018 13:13:44 GMT
       Pragma:
       - no-cache
       Expires:
@@ -351,5 +351,5 @@ http_interactions:
       string: !binary |-
         R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
     http_version:
-  recorded_at: Thu, 05 Apr 2018 08:54:55 GMT
+  recorded_at: Thu, 05 Apr 2018 13:13:44 GMT
 recorded_with: VCR 4.0.0
