@@ -6,7 +6,7 @@ gem 'rails', '~> 5.1'
 gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'
 gem 'business'
-gem 'did_you_mean', require: false
+# gem 'did_you_mean', '= 1.2.1', require: false
 gem 'draper'
 gem 'connection_pool'
 gem 'excon'
