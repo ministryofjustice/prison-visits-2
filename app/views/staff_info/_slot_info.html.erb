@@ -2,7 +2,7 @@
 <ul class="slot-list">
   <% @days.each_with_index do |day_part, index| %>
     <li>
-      <span class="slot-heading"><%= @day_names[index] %></span>
+      <span class="slot-heading"><%= StaffInfoController::DAY_NAMES[index] %></span>
       <ul>
         <% unless prison.slot_details['recurring'][day_part].nil? %>
           <% prison.slot_details['recurring'][day_part].each do |slot| %>
