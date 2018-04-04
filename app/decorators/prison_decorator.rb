@@ -2,7 +2,10 @@ class PrisonDecorator < Draper::Decorator
   delegate_all
 
   def recurring_slot_list_for(day)
-    slots_info = SlotInfoDecorator.decorate_collection(slot_info_presenter.slots_for(day))
+    slots_info = slot_info_presenter.
+                   slots_for(day).
+                   map{ |slot| SlotInfoDecorator.decorate(slot) }
+
     if slots_info.any?
       h.render slots_info
     else

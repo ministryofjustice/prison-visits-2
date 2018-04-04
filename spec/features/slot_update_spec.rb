@@ -37,10 +37,10 @@ RSpec.feature 'Update slots for a prison', js: true do
 
         if slot_details&.any?
           slot_details.each do |slot_detail|
-            expect(page).to have_css('h2 + ul.slot-list li ul li', text: format_slot(slot_detail))
+            expect(page).to have_css('h2 + ul.slot-list li ul li', text: SlotInfoDecorator.decorate(slot_detail).formatted)
           end
         else
-          expect(page).to have_css('h2 + ul.slot-list li ul li', text: I18n.t('.staff_info.slot_info.no_visits'))
+          expect(page).to have_css('h2 + ul.slot-list li ul li', text: I18n.t('.staff_info.no_visits.no_visits'))
         end
       end
     end
