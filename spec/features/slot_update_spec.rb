@@ -26,15 +26,9 @@ RSpec.feature 'Update slots for a prison', js: true do
     OmniAuth.config.add_mock(:mojsso, sso_response)
   end
 
-  def format_slot(slot)
-    slot[0...2]+":"+slot[2...4]+" - "+slot[5...7]+":"+slot[7...9]
-  end
-
-
   it 'displays slots per prison' do
     visit root_path
     prisons.each do |prison|
-
       expect(page).to have_css('h2.heading-small', text: prison.name)
       StaffInfoController::DAY_NAMES.each do |day_name|
         expect(page).to have_css('h2 + ul.slot-list li span', text: day_name)
@@ -48,9 +42,7 @@ RSpec.feature 'Update slots for a prison', js: true do
         else
           expect(page).to have_css('h2 + ul.slot-list li ul li', text: I18n.t('.staff_info.slot_info.no_visits'))
         end
-
       end
-
     end
   end
 end

@@ -1,5 +1,4 @@
 class SlotInfoPresenter
-
   def initialize(prison)
     self.prison = prison
   end
@@ -11,5 +10,6 @@ class SlotInfoPresenter
   end
 
 private
+
   attr_accessor :prison
 end
