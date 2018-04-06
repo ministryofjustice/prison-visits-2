@@ -14,8 +14,9 @@ RSpec.shared_context 'with a process request setup' do
   let(:prison) {
     create(
       :prison,
-      name: 'Reading Gaol',
-      email_address: prison_email_address
+      name: 'Leeds',
+      email_address: prison_email_address,
+      estate: create(:estate, nomis_id: 'LEI')
     )
   }
   let(:vst) {
@@ -32,8 +33,8 @@ RSpec.shared_context 'with a process request setup' do
       )
     )
   }
-  let(:prisoner_number) { 'A1459AE' }
-  let(:prisoner_dob) { '1976-06-12' }
+  let(:prisoner_number) { 'A1475AE' }
+  let(:prisoner_dob) { '1979-04-23' }
 
   let(:sso_response) do
     {

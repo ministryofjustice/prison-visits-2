@@ -14,7 +14,6 @@ RSpec.feature 'Processing a request', :js, :expect_exception do
     scenario 'cancelling a booked visit with more than one reason', vcr: { cassette_name: 'multiple_cancellation_reasons' } do
       check 'Visit slot no longer available'
       check 'Visitor is banned'
-
       click_button 'Cancel visit'
 
       expect(page).to have_css('.tag--heading', text: /Cancelled/)

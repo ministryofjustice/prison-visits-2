@@ -67,11 +67,11 @@ module PrisonVisits
 
     config.connection_pool_size =
       config.database_configuration[Rails.env]['pool'] || 5
-
     config.pvb_team_email = ENV['PVB_TEAM_EMAIL']
 
     feature_flag_value = proc do |&config|
-      Rails.env.test? ? nil : config.call
+      # Rails.env.test? ? nil :
+      config.call
     end
 
     config.nomis_api_host = feature_flag_value.call do
