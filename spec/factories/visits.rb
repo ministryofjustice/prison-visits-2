@@ -84,7 +84,7 @@ FactoryBot.define do
     end
 
     factory :rejected_visit do
-      rejection_attributes do { reasons: [Rejection::SLOT_UNAVAILABLE] } end
+      rejection_attributes(reasons: [Rejection::SLOT_UNAVAILABLE])
       after :create do |visit|
         BookingResponder.new(visit).respond!
       end
