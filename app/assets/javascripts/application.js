@@ -23,6 +23,7 @@
 //= require filtershim
 //= require modules/moj.analytics
 //= require modules/moj.AsyncGA
+//= require modules/moj.GAEvent
 //= require modules/moj.clearRadioButtons
 //= require modules/moj.hijacks
 //= require modules/moj.submit-once

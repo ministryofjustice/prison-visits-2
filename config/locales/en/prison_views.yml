@@ -342,6 +342,9 @@ en:
       timely_overdue_visits: The graph below shows the number of timely (processed within 3 days) and overdue visits for all prisons.
       rejection_reasons_title: Rejection reasons
       rejection_reasons_percentages: The graph below shows total rejected visits for all prisons, broken down by rejection reason.
+  staff_info:
+    no_visits:
+      no_visits: No visits
   shared:
     age: Age
     actions: Actions
