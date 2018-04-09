@@ -292,7 +292,7 @@ RSpec.describe RejectionDecorator do
         and_return(prisoner_out_of_prison)
     end
 
-    shared_examples_for :unchecked do |checkbox_name|
+    shared_examples_for 'unchecked' do |checkbox_name|
       let(:checkbox) do
         Capybara.string subject.checkbox_for(checkbox_name)
       end
@@ -302,7 +302,7 @@ RSpec.describe RejectionDecorator do
       end
     end
 
-    shared_examples_for :checked do |checkbox_name|
+    shared_examples_for 'checked' do |checkbox_name|
       let(:checkbox) do
         Capybara.string subject.checkbox_for(checkbox_name)
       end
@@ -323,10 +323,10 @@ RSpec.describe RejectionDecorator do
         subject.apply_nomis_reasons
       end
 
-      it_behaves_like :unchecked, :prisoner_details_incorrect
-      it_behaves_like :unchecked, :no_allowance
-      it_behaves_like :unchecked, :prisoner_banned
-      it_behaves_like :unchecked, :prisoner_out_of_prison
+      it_behaves_like 'unchecked', :prisoner_details_incorrect
+      it_behaves_like 'unchecked', :no_allowance
+      it_behaves_like 'unchecked', :prisoner_banned
+      it_behaves_like 'unchecked', :prisoner_out_of_prison
     end
 
     context 'with no unvisitable reasons and unbookable slots' do
@@ -340,10 +340,10 @@ RSpec.describe RejectionDecorator do
         subject.apply_nomis_reasons
       end
 
-      it_behaves_like :unchecked, :prisoner_details_incorrect
-      it_behaves_like :unchecked, :no_allowance
-      it_behaves_like :unchecked, :prisoner_banned
-      it_behaves_like :unchecked, :prisoner_out_of_prison
+      it_behaves_like 'unchecked', :prisoner_details_incorrect
+      it_behaves_like 'unchecked', :no_allowance
+      it_behaves_like 'unchecked', :prisoner_banned
+      it_behaves_like 'unchecked', :prisoner_out_of_prison
     end
 
     context 'when prisoner details incorrect and bookable slots' do
@@ -354,7 +354,7 @@ RSpec.describe RejectionDecorator do
         subject.apply_nomis_reasons
       end
 
-      it_behaves_like :checked, :prisoner_details_incorrect
+      it_behaves_like 'checked', :prisoner_details_incorrect
     end
 
     context 'when prisoner details incorrect and unbookable slots' do
@@ -365,7 +365,7 @@ RSpec.describe RejectionDecorator do
         subject.apply_nomis_reasons
       end
 
-      it_behaves_like :checked, :prisoner_details_incorrect
+      it_behaves_like 'checked', :prisoner_details_incorrect
     end
 
     context 'with no allowance and bookable slots' do
@@ -376,7 +376,7 @@ RSpec.describe RejectionDecorator do
       let(:visit_bookable) { true }
       let(:no_allowance) { true }
 
-      it_behaves_like :unchecked, :no_allowance
+      it_behaves_like 'unchecked', :no_allowance
     end
 
     context 'with no allowance and unbookable slots' do
@@ -387,7 +387,7 @@ RSpec.describe RejectionDecorator do
       let(:visit_bookable) { false }
       let(:no_allowance) { true }
 
-      it_behaves_like :checked, :no_allowance
+      it_behaves_like 'checked', :no_allowance
     end
 
     context 'when prisoner banned and bookable slots' do
@@ -398,7 +398,7 @@ RSpec.describe RejectionDecorator do
       let(:visit_bookable) { true }
       let(:prisoner_banned) { true }
 
-      it_behaves_like :unchecked, :prisoner_banned
+      it_behaves_like 'unchecked', :prisoner_banned
     end
 
     context 'when prisoner banned and unbookable slots' do
@@ -409,7 +409,7 @@ RSpec.describe RejectionDecorator do
       let(:visit_bookable) { false }
       let(:prisoner_banned) { true }
 
-      it_behaves_like :checked, :prisoner_banned
+      it_behaves_like 'checked', :prisoner_banned
     end
 
     context 'when prisoner out of prison and bookable slots' do
@@ -420,7 +420,7 @@ RSpec.describe RejectionDecorator do
       let(:visit_bookable) { true }
       let(:prisoner_out_of_prison) { true }
 
-      it_behaves_like :unchecked, :prisoner_out_of_prison
+      it_behaves_like 'unchecked', :prisoner_out_of_prison
     end
 
     context 'when prisoner out of prison and unbookable slots' do
@@ -431,7 +431,7 @@ RSpec.describe RejectionDecorator do
       let(:visit_bookable) { false }
       let(:prisoner_out_of_prison) { true }
 
-      it_behaves_like :checked, :prisoner_out_of_prison
+      it_behaves_like 'checked', :prisoner_out_of_prison
     end
   end
 end

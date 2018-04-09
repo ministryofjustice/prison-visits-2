@@ -109,7 +109,7 @@ RSpec.describe EstateVisitQuery do
     end
   end
 
-  shared_examples_for :finds_all do
+  shared_examples_for 'finds all' do
     context 'with no query' do
       let(:query) { nil }
 
@@ -119,7 +119,7 @@ RSpec.describe EstateVisitQuery do
     end
   end
 
-  shared_examples_for :finds_by_prisoner_number do
+  shared_examples_for 'finds by prisoner number' do
     context 'with prisoner number query' do
       let(:query) { visit1.prisoner.number }
 
@@ -129,7 +129,7 @@ RSpec.describe EstateVisitQuery do
     end
   end
 
-  shared_examples_for :finds_by_human_id do
+  shared_examples_for 'finds by human id' do
     context 'with human ID query' do
       let(:query) { visit2.human_id }
 
@@ -151,9 +151,9 @@ RSpec.describe EstateVisitQuery do
       FactoryBot.create(:visit, :requested, prison: prison)
     end
 
-    it_behaves_like :finds_all
-    it_behaves_like :finds_by_prisoner_number
-    it_behaves_like :finds_by_human_id
+    it_behaves_like 'finds all'
+    it_behaves_like 'finds by prisoner number'
+    it_behaves_like 'finds by human id'
   end
 
   describe '#cancelled' do
@@ -168,9 +168,9 @@ RSpec.describe EstateVisitQuery do
       FactoryBot.create(:visit, :pending_nomis_cancellation, prison: prison)
     end
 
-    it_behaves_like :finds_all
-    it_behaves_like :finds_by_prisoner_number
-    it_behaves_like :finds_by_human_id
+    it_behaves_like 'finds all'
+    it_behaves_like 'finds by prisoner number'
+    it_behaves_like 'finds by human id'
   end
 
   describe '#inbox_count' do
