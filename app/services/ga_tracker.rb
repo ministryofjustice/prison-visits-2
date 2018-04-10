@@ -76,9 +76,13 @@ private
   end
 
   def start_time
-    Time.zone.at(Integer(cookies[processing_time_key]))
-  rescue TypeError, ArgumentError
-    nil
+    Time.zone.at(cast_processing_time_key) if cast_processing_time_key
+  end
+
+  def cast_processing_time_key
+    Integer(cookies[processing_time_key])
+  rescue TypeError => e
+    PVB::ExceptionHandler.capture_exception(e)
   end
 
   def ip

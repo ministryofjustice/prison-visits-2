@@ -30,7 +30,7 @@ RSpec.describe GATracker do
         switch_feature_flag_with :ga_id, web_property_id
       end
 
-      it 'sends an event', vcr: { cassette_name: 'unexepcted_rejection_event' } do
+      it 'sends an event', vcr: { cassette_name: 'unexpected_rejection_event' } do
         subject.send_unexpected_rejection_event
 
         expect(WebMock).
@@ -196,38 +196,53 @@ RSpec.describe GATracker do
   end
 
   describe '#send_processing_timing' do
-    before do
-      switch_feature_flag_with :ga_id, web_property_id
-      cookies['_ga'] = 'some_client_id'
-      travel_to nowish - 2.minutes do
-        subject.set_visit_processing_time_cookie
+    context 'when it successfully sends an event' do
+      before do
+        switch_feature_flag_with :ga_id, web_property_id
+        cookies['_ga'] = 'some_client_id'
+        travel_to nowish - 2.minutes do
+          subject.set_visit_processing_time_cookie
+        end
+        reject_visit visit
       end
-      reject_visit visit
+
+      it 'with the processing time key is present and valid', vcr: { cassette_name: 'timing_google_analytics' } do
+        travel_to nowish do
+          subject.send_processing_timing
+        end
+
+        expect(WebMock).
+          to have_requested(:post, GATracker::ENDPOINT).with(
+            body: URI.encode_www_form(
+              v: 1,
+              uip: ip,
+              tid: web_property_id,
+              cid: "some_client_id",
+              ua: user_agent,
+              t: "timing",
+              utc: visit.prison.name,
+              utv: visit.processing_state,
+              utt: 120_000,
+              utl: user.id,
+              cd1: "slot_unavailable"
+            ),
+            headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
+        )
+        expect(cookies[processing_time_key]).to be_nil
+      end
     end
 
-    it 'sends an event', vcr: { cassette_name: 'timing_google_analytics' } do
-      travel_to nowish do
-        subject.send_processing_timing
+    context 'when it does not send an event' do
+      it 'when the processing time key is missing' do
+        Rails.configuration.sentry_dsn = nil
+        cookies.delete(processing_time_key)
+        expect { subject.send_processing_timing }.to raise_error(TypeError)
       end
 
-      expect(WebMock).
-        to have_requested(:post, GATracker::ENDPOINT).with(
-          body: URI.encode_www_form(
-            v: 1,
-            uip: ip,
-            tid: web_property_id,
-            cid: "some_client_id",
-            ua: user_agent,
-            t: "timing",
-            utc: visit.prison.name,
-            utv: visit.processing_state,
-            utt: 120_000,
-            utl: user.id,
-            cd1: "slot_unavailable"
-          ),
-          headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
-      )
-      expect(cookies[processing_time_key]).to be_nil
+      it 'when the processing time key is nil', :expect_exception do
+        cookies.delete(processing_time_key)
+        expect(subject.send_processing_timing).to be_nil
+      end
     end
   end
 

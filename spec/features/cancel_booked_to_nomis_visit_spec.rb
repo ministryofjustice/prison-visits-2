@@ -29,7 +29,7 @@ RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
       choose_date
 
       within "#visitor_#{visitor.id}" do
-        select 'IRMA ITSU - 03/04/1975', from: "Match to prisoner's contact list", visible: false
+        select 'BOB LIPMAN - 01/01/1970', from: "Match to prisoner's contact list", visible: false
       end
 
       click_button 'Process'
@@ -41,20 +41,20 @@ RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
 
   let(:prison) do
     create(:prison,
-      name: 'Leicester',
+      name: 'Leeds',
       email_address: prison_email_address,
       estate: create(:estate, nomis_id: 'LEI'))
   end
-  let(:prisoner_number) { 'A1484AE' }
-  let(:prisoner_dob)    { '11-11-1971' }
+  let(:prisoner_number) { 'A1475AE' }
+  let(:prisoner_dob)    { '23-04-1979' }
   let(:visitor)         { vst.visitors.first }
 
   around do |ex|
-    travel_to(Date.new(2017, 6, 12)) { ex.run }
+    travel_to(Date.new(2018, 4, 5)) { ex.run }
   end
 
   before do
-    vst.update!(slot_option_0: '2017-06-27T14:00/16:00')
+    vst.update!(slot_option_0: '2018-04-08T09:00/10:00')
 
     allow(GATracker).
       to receive(:new).and_return(
@@ -94,7 +94,7 @@ RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
       expect(page).to have_content 'The visit has been cancelled'
       vst.reload
       expect(
-        a_request(:patch, "#{Rails.configuration.nomis_api_host}/nomisapi/offenders/1057307/visits/booking/#{vst.nomis_id}/cancel").
+        a_request(:patch, "#{Rails.configuration.nomis_api_host}/nomisapi/offenders/1057027/visits/booking/#{vst.nomis_id}/cancel").
           with(body: { comment: nil, cancellation_code: "ADMIN" }.to_json)).to have_been_made.once
     end
 
@@ -108,7 +108,7 @@ RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
         click_button 'Cancel visit'
       end
 
-      VCR.use_cassette 'cancel_to_nomis', record: :new_episodes do
+      VCR.use_cassette 'cancel_to_nomis' do
         check 'Prisoner has been released'
         check "Don't automatically copy this cancellation to NOMIS"
         click_button 'Cancel visit'
@@ -116,7 +116,7 @@ RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
 
       vst.reload
       expect(
-        a_request(:patch, "#{Rails.configuration.nomis_api_host}/nomisapi/offenders/1057307/visits/booking/#{vst.nomis_id}/cancel").
+        a_request(:patch, "#{Rails.configuration.nomis_api_host}/nomisapi/offenders/1057027/visits/booking/#{vst.nomis_id}/cancel").
           with(body: { comment: nil, cancellation_code: "ADMIN" }.to_json)).not_to have_been_made.once
     end
 

@@ -2,35 +2,39 @@
 http_interactions:
 - request:
     method: get
-    uri: http://151.237.239.116:4888/nomisapi/lookup/active_offender?date_of_birth=1976-06-12&noms_id=A1459AE
+    uri: https://noms-api-dev.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1979-04-23&noms_id=A1475AE
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - excon/0.54.0
+      - excon/0.62.0
       Accept:
       - application/json
       Authorization:
-      - Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJpYXQiOjE0Nzc2NTQ2ODUsInRva2VuIjoiYXRva2VuIn0.60zzCkaiY3QmMSFbLugXfsNnGClPOYyEse1gA06yvD7FgH0z-EyhUM3QcZaJEIK2IrnQ-ZplFILSBcQ5o_zEqg
+      - ''
       X-Request-Id:
-      - uuid
+      - ''
   response:
     status:
       code: 200
-      message: ''
+      message: OK
     headers:
-      Server:
-      - Apache-Coyote/1.1
-      Server-Timing:
-      - total=38, db=30
       Content-Type:
       - application/json
       Date:
-      - Fri, 28 Oct 2016 11:38:06 GMT
+      - Fri, 06 Apr 2018 14:25:54 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=3, db=1
+      Url-Template:
+      - "/lookup/active_offender"
+      Content-Length:
+      - '40'
     body:
-      encoding: UTF-8
-      string: '{"found":true,"offender":{"id":1055827}}'
+      encoding: ASCII-8BIT
+      string: '{"found":true,"offender":{"id":1057027}}'
     http_version:
-  recorded_at: Fri, 28 Oct 2016 11:38:06 GMT
-recorded_with: VCR 3.0.1
+  recorded_at: Fri, 06 Apr 2018 14:25:54 GMT
+recorded_with: VCR 4.0.0

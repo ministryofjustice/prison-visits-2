@@ -61,7 +61,7 @@ RSpec.describe PrisonerLocationValidation do
         end
       end
 
-      context 'when the API call fails' do
+      context 'when the API call fails', :expect_exception do
         before do
           simulate_api_error_for :lookup_offender_location
         end

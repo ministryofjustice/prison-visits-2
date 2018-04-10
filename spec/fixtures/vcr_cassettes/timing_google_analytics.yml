@@ -5,10 +5,10 @@ http_interactions:
     uri: https://www.google-analytics.com/collect
     body:
       encoding: US-ASCII
-      string: v=1&uip=17.74.153.243&tid=UA-96772907-2&cid=ljZFeymOTJfdWC8SsDXuYQ%3D%3D&ua=some+user+agent+string&t=timing&utc=Kuhicshire+Open+Prison&utv=rejected&utt=-1&utl=6a44e7bd-9f2f-449b-ad16-dc25b51447c0&cd1=slot_unavailable
+      string: v=1&uip=12.73.179.247&tid=UA-96772907-2&cid=some_client_id&ua=some+user+agent+string&t=timing&utc=Nicolamouth+Open+Prison&utv=rejected&utt=120000&utl=e2b7dd6f-2bef-4b0b-b23f-f1c5e60ecd49&cd1=slot_unavailable
     headers:
       User-Agent:
-      - excon/0.57.0
+      - excon/0.62.0
       Content-Type:
       - application/x-www-form-urlencoded
   response:
@@ -19,7 +19,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Date:
-      - Fri, 30 Jun 2017 13:52:28 GMT
+      - Thu, 05 Apr 2018 12:28:51 GMT
       Pragma:
       - no-cache
       Expires:
@@ -37,11 +37,12 @@ http_interactions:
       Content-Length:
       - '35'
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="39,38,37,36,35"
+      - hq=":443"; ma=2592000; quic=51303432; quic=51303431; quic=51303339; quic=51303335,quic=":443";
+        ma=2592000; v="42,41,39,35"
     body:
       encoding: ASCII-8BIT
       string: !binary |-
         R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
-    http_version:
-  recorded_at: Fri, 30 Jun 2017 13:52:27 GMT
-recorded_with: VCR 3.0.3
+    http_version: 
+  recorded_at: Thu, 05 Apr 2018 12:28:51 GMT
+recorded_with: VCR 4.0.0
