@@ -82,7 +82,7 @@ RSpec.feature 'Processing a request', :js, :expect_exception do
 
       click_button 'Process'
 
-      expect(page).to have_css('.error-summary', text: "Visit not copied to NOMIS Please process the visit and record it manually in NOMIS")
+      expect(page).to have_css('.error-summary', text: "Visit not copied to NOMIS\nPlease process the visit and record it manually in NOMIS")
     end
   end
 end
