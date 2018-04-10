@@ -108,7 +108,8 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
         select visitor_details, from: "Match to prisoner's contact list"
       end
 
-      expect(page).to have_css('.panel', text: "This is a closed visit. Book this visit into NOMIS, then enter the reference number")
+      expect(page).to have_css('#nomis-opt-out.panel', text: "This is a closed visit.\nBook this visit into NOMIS, then enter the reference number")
+
       click_button 'Process'
       expect(page).to have_css('.notification', text: 'Thank you for processing the visit')
 
@@ -176,7 +177,6 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       before do
         simulate_api_error_for(:fetch_contact_list)
       end
-
       it 'is expected that the contact list is not available' do
         visit prison_visit_path(vst, locale: 'en')
         expect(page).to have_css('form .notice', text: "We can’t show the NOMIS contact list right now. Please check all visitors in NOMIS")
