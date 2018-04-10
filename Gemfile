@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.5.0'
 
-gem 'rails', '~> 5.1'
+gem 'rails', '~> 5.2'
 
 gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'
