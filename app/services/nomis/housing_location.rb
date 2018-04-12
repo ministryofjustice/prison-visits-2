@@ -1,8 +1,8 @@
 module Nomis
   class HousingLocation
-    include NonPersistedModel
+    include MemoryModel
 
-    attribute :description, String
-    attribute :levels, Array[Hash]
+    attribute :description, :string
+    attribute :levels, :level_list
   end
 end
