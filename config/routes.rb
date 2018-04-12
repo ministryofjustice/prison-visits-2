@@ -49,10 +49,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :visits, only: [] do
-      resource :email_preview, only: :update
-    end
-
     resources :print_visits, only: %i[new create]
 
     #######
