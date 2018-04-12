@@ -9,10 +9,6 @@ class ApiSlotList
     raise ArgumentError unless api_slots.all? { |a| a.is_a?(Nomis::ApiSlot) }
   end
 
-  def each(&block)
-    api_slots.each(&block)
-  end
-
 private
 
   attr_accessor :api_slots
