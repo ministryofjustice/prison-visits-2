@@ -17,7 +17,7 @@ RSpec.describe Nomis::ContactList do
     Nomis::Contact.new(id: 4, active: false, surname: "Buster", given_name: "Kate", approved_visitor: false)
   end
 
-  subject(:instance) do
+  subject do
     described_class.new(contacts: [
       approved_active,
       disapproved_active,
