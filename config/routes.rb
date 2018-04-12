@@ -43,11 +43,7 @@ Rails.application.routes.draw do
 
   namespace :prison do
     ### deprecated, for backwards compatibility. Delete soon after deploying
-    resources :visits, only: %i[show update] do
-      member do
-        post 'nomis_cancelled'
-      end
-    end
+    resources :visits, only: %i[show update]
 
     #######
 

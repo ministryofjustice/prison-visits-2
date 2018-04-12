@@ -127,7 +127,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     let(:cancellation) { FactoryBot.create(:cancellation) }
     let(:visit) { cancellation.visit }
 
-    subject { post :nomis_cancelled, params: { id: visit.id } }
+    subject { post :nomis_cancelled, params: { id: visit.id, locale: 'en' } }
 
     it_behaves_like 'disallows untrusted ips'
 
