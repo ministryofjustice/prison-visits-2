@@ -90,7 +90,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     let(:user)   { create(:user) }
 
     context 'with security' do
-      subject { get :show, params: { id: 1 } }
+      subject { get :show, params: { id: 1, locale: 'en' } }
 
       it_behaves_like 'disallows untrusted ips'
     end
@@ -99,7 +99,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
       before do
         travel_to nowish do
           login_user(user, current_estates: [estate])
-          get :show, params: { id: visit.id }
+          get :show, params: { id: visit.id, locale: 'en' }
         end
       end
 
@@ -117,7 +117,7 @@ RSpec.describe Prison::VisitsController, type: :controller do
     end
 
     context "when logged out" do
-      before do get :show, params: { id: visit.id } end
+      before do get :show, params: { id: visit.id, locale: 'en' } end
 
       it { expect(response).not_to be_successful }
     end

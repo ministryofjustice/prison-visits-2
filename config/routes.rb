@@ -42,11 +42,6 @@ Rails.application.routes.draw do
   end
 
   namespace :prison do
-    ### deprecated, for backwards compatibility. Delete soon after deploying
-    resources :visits, only: %i[show update]
-
-    #######
-
     resources :print_visits, only: %i[new create]
 
     scope controller: :dashboards do
