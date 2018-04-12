@@ -49,9 +49,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :print_visits, only: %i[new create]
-
     #######
+
+    resources :print_visits, only: %i[new create]
 
     scope controller: :dashboards do
       get '/inbox', action: :inbox, as: 'inbox'
