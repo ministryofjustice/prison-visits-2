@@ -34,20 +34,6 @@ The `NOMIS_API_TOKEN` is a JWT token which grants access to the NOMIS API when t
 
 (Optional) If not set API calls will be sent without an Authorization header.
 
-### `NOMIS_STAFF_PRISONER_CHECK_ENABLED`, `NOMIS_PUBLIC_PRISONER_CHECK_ENABLED`
-
-If `true` then the Nomis API will be used for staff or public to check the
-prisoner validity.
-
-(Optional) By default it is false.
-
-### `NOMIS_STAFF_PRISONER_AVAILABILITY_ENABLED`, `NOMIS_PUBLIC_PRISONER_AVAILABILITY_ENABLED`
-
-If `true` then the Nomis API will be used for staff or public to check the
-prisoner availability.
-
-(Optional) By default it is false.
-
 ### `NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED`
 
 If `true` then the Nomis API will be used to check the slots availability when
@@ -98,10 +84,6 @@ A comma separated list of prisons for which the book to nomis API is enabled
 ### `STAFF_PRISONS_WITH_PRISONER_RESTRICTIONS_INFO`
 
 A comma separated list of prisons for which the prisoner restrictions is displayed
-
-### `NOMIS_INTERNAL_LOCATION_ENABLED` 
-
-If `true` then the internal location is displayed on the process/processed page
 
 ### `PRISON_ESTATE_IPS`
 
