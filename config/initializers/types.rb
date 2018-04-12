@@ -14,3 +14,4 @@ ActiveModel::Type.register(:prisoner_date_availability_list, PrisonerDateAvailab
 ActiveModel::Type.register(:restriction,                     RestrictionType)
 ActiveModel::Type.register(:restriction_list,                RestrictionListType)
 ActiveModel::Type.register(:visitor_list,                    VisitorListType)
+ActiveModel::Type.register(:level_list,                      LevelListType)
