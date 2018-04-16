@@ -10,7 +10,8 @@ ActiveModel::Type.register(:normalised_concrete_slot,        NormalisedConcreteS
 ActiveModel::Type.register(:prison,                          PrisonType)
 ActiveModel::Type.register(:prisoner_number,                 PrisonerNumberType)
 ActiveRecord::Type.register(:prisoner_number,                PrisonerNumberType)
-ActiveModel::Type.register(:prisoner_date_availability_list, PrisonerDateAvailabilityListType)
+ActiveModel::Type.register(
+  :prisoner_date_availability_list, PrisonerDateAvailabilityListType)
 ActiveModel::Type.register(:restriction,                     RestrictionType)
 ActiveModel::Type.register(:restriction_type,                RestrictionTypeType)
 ActiveModel::Type.register(:restriction_list,                RestrictionListType)
