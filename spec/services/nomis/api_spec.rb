@@ -246,9 +246,10 @@ RSpec.describe Nomis::Api do
       let(:first_restriction) { subject.first }
 
       it 'parses the response' do
-        expect(first_restriction.type).to eq(type)
-        expect(first_restriction.effective_date).to eq(effective_date)
-        expect(first_restriction.expiry_date).to eq(expiry_date)
+        expect(first_restriction.type.code).to      eq(expected_restriction.type.code)
+        expect(first_restriction.type.desc).to      eq(expected_restriction.type.desc)
+        expect(first_restriction.effective_date).to eq(expected_restriction.effective_date)
+        expect(first_restriction.expiry_date).to    eq(expected_restriction.expiry_date)
       end
     end
   end
