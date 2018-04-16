@@ -1,5 +1,5 @@
 class PrintVisits
-  include NonPersistedModel
+  include MemoryModel
 
   attribute :visit_date, :accesible_date
 end

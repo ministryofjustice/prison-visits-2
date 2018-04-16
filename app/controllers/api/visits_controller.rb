@@ -117,7 +117,7 @@ module Api
 
     def visitors
       @visitors =
-        sanitised_params.require(:visitors).map { |v| VisitorsStep::Visitor.new(v) }
+        sanitised_params.require(:visitors).map { |v| Visitor.new(v) }
     end
 
     def slots
