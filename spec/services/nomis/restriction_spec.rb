@@ -13,6 +13,7 @@ RSpec.describe Nomis::Restriction do
   end
 
   it { expect(subject.description).to eq(description) }
+  it { expect(subject.type).to be_instance_of(Nomis::Restriction::Type) }
 
   describe '#banned?' do
     context 'with a banned restriction type' do
