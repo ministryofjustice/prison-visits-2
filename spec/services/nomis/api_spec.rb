@@ -86,10 +86,10 @@ RSpec.describe Nomis::Api do
             surname: "ITSU",
             date_of_birth: Date.parse('1971-11-11'),
             aliases: [],
-            gender: { code: "M", desc: "Male" },
+            gender: { 'code' => 'M', 'desc' => 'Male' },
             convicted: true,
-            imprisonment_status: { code: "UNK_SENT", desc: "Unknown Sentenced" },
-            iep_level: { code: "STD", desc: "Standard" }
+            imprisonment_status: { 'code' => 'UNK_SENT', 'desc' => 'Unknown Sentenced' },
+            iep_level: { 'code' => 'STD', 'desc' => 'Standard' }
              )
       end
 
