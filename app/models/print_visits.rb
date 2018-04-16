@@ -1,6 +1,5 @@
-require 'maybe_date'
 class PrintVisits
   include NonPersistedModel
 
-  attribute :visit_date, MaybeDate
+  attribute :visit_date, :accesible_date
 end
