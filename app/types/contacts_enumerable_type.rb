@@ -10,5 +10,4 @@ private
   def type_caster
     @type_caster ||= ContactType.new
   end
-
 end
