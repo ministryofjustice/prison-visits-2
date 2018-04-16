@@ -22,9 +22,10 @@ RSpec.describe Nomis::OffenderRestrictions do
       expect(subject.restrictions).to have(1).item
       restriction = subject.restrictions.first
 
-      expect(restriction.type).to eq(expected_restriction.type)
+      expect(restriction.type.code).to      eq(expected_restriction.type.code)
+      expect(restriction.type.desc).to      eq(expected_restriction.type.desc)
       expect(restriction.effective_date).to eq(expected_restriction.effective_date)
-      expect(restriction.expiry_date).to eq(expected_restriction.expiry_date)
+      expect(restriction.expiry_date).to    eq(expected_restriction.expiry_date)
     end
   end
 
