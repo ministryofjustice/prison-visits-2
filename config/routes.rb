@@ -42,22 +42,7 @@ Rails.application.routes.draw do
   end
 
   namespace :prison do
-    ### deprecated, for backwards compatibility. Delete soon after deploying
-    resources :visits, only: %i[show update] do
-      member do
-        post 'nomis_cancelled'
-      end
-
-      resources :messages, only: :create
-    end
-
-    resources :visits, only: [] do
-      resource :email_preview, only: :update
-    end
-
     resources :print_visits, only: %i[new create]
-
-    #######
 
     scope controller: :dashboards do
       get '/inbox', action: :inbox, as: 'inbox'

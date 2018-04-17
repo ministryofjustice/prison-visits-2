@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Prison::MessagesController do
   describe '#create' do
     subject do
-      post :create, params: { message: { body: message_body }, visit_id: visit.id }
+      post :create, params: { message: { body: message_body }, visit_id: visit.id, locale: 'en' }
     end
 
     let(:prison) { FactoryBot.create(:prison, estate: estate) }
