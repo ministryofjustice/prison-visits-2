@@ -4,9 +4,10 @@ class SlotAvailabilityValidation
   SLOT_NOT_AVAILABLE = 'slot_not_available'.freeze
 
   attribute :requested_slots, :concrete_slot_list
-  attribute :prison, :prison
 
   validate :slots_availability
+
+  attr_accessor :prison
 
   def slot_error(slot)
     errors[slot.to_s].first

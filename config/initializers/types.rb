@@ -7,7 +7,6 @@ ActiveModel::Type.register(:contacts_enumerable,             ContactsEnumerableT
 ActiveModel::Type.register(:date_list,                       DateListType)
 ActiveModel::Type.register(:nomis_offender,                  NomisOffenderType)
 ActiveModel::Type.register(:normalised_concrete_slot,        NormalisedConcreteSlotType)
-ActiveModel::Type.register(:prison,                          PrisonType)
 ActiveModel::Type.register(:prisoner_number,                 PrisonerNumberType)
 ActiveRecord::Type.register(:prisoner_number,                PrisonerNumberType)
 ActiveModel::Type.register(

@@ -3,7 +3,6 @@ require 'email_address_validation'
 class VisitorsStep
   include MemoryModel
 
-  attribute :prison, :prison
   attribute :email_address, :string
   attribute :phone_no, :string
   attribute :visitors, :visitor_list
@@ -14,6 +13,8 @@ class VisitorsStep
   validates :phone_no, presence: true, length: { minimum: 9 }
 
   validate :validate_email, :validate_ages
+
+  attr_accessor :prison
 
   attr_reader :general # Required in order to assign errors to 'general'
 

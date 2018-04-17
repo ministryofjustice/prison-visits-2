@@ -3,11 +3,12 @@ class VisitorsValidation
 
   attribute :lead_date_of_birth, :date
   attribute :dates_of_birth
-  attribute :prison, :prison
 
   validate :lead_visitor_age
   validate :number_of_visitors
   validate :number_of_adults
+
+  attr_accessor :prison
 
   def lead_visitor_age
     if age_calculator.age(lead_date_of_birth) < Prison::LEAD_VISITOR_MIN_AGE
