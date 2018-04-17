@@ -1,9 +1,7 @@
 class VisitStateChange < ActiveRecord::Base
   belongs_to :visit
   belongs_to :visitor
-  # rubocop:disable Rails/InverseOf
   belongs_to :processed_by, class_name: 'User'
-  # rubocop:enable Rails/InverseOf
 
   scope :booked, -> { where(visit_state: 'booked') }
   scope :rejected, -> { where(visit_state: 'rejected') }
