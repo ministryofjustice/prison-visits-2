@@ -1,7 +1,6 @@
 class SlotsStep
   include MemoryModel
 
-  attribute :prison, :prison
   attribute :option_0, :string
   attribute :option_1, :string
   attribute :option_2, :string
@@ -12,6 +11,8 @@ class SlotsStep
     inclusion: { in: ->(o) { o.available_slots.map(&:iso8601) } },
     allow_blank: true
   validates :option_0, presence: true
+
+  attr_accessor :prison
 
   def slots
     options.map { |s| ConcreteSlot.parse(s) }
