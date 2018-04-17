@@ -3,17 +3,17 @@ module Nomis
     include MemoryModel
     include Comparable
 
-    attribute :id, :integer
-    attribute :given_name, :string
-    attribute :middle_names, :string
-    attribute :surname, :string
-    attribute :date_of_birth, :date
-    attribute :gender
-    attribute :relationship_type
-    attribute :contact_type
-    attribute :approved_visitor, :boolean
-    attribute :active, :boolean
-    attribute :restrictions, :restriction_list
+    attribute :id,                :integer
+    attribute :given_name,        :string
+    attribute :middle_names,      :string
+    attribute :surname,           :string
+    attribute :date_of_birth,     :date
+    attribute :gender,            :contact_gender
+    attribute :relationship_type, :contact_relationship
+    attribute :contact_type,      :contact_type
+    attribute :approved_visitor,  :boolean
+    attribute :active,            :boolean
+    attribute :restrictions,      :restriction_list
 
     def attributes
       {

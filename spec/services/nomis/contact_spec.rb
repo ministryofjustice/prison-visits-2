@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Nomis::Contact do
   let(:restrictions) { [] }
 
-  subject(:instance) do
+  subject do
     described_class.new(
       id: 12_588,
       given_name: 'BILLY',
@@ -21,6 +21,10 @@ RSpec.describe Nomis::Contact do
     )
   end
 
+  it { expect(subject.gender).to            be_instance_of(Nomis::Contact::Gender) }
+  it { expect(subject.relationship_type).to be_instance_of(Nomis::Contact::Relationship) }
+  it { expect(subject.contact_type).to      be_instance_of(Nomis::Contact::ContactType) }
+
   describe '#full_name' do
     it 'concatenate given_name and surname' do
       expect(subject.full_name).to eq('billy jones')
@@ -28,12 +32,10 @@ RSpec.describe Nomis::Contact do
   end
 
   describe '#banned?' do
-    subject { instance.banned? }
-
     context 'with no restrictions' do
       let(:restrictions) { [] }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.not_to be_banned }
     end
 
     context 'with other type of restrictions' do
@@ -46,7 +48,7 @@ RSpec.describe Nomis::Contact do
         ]
       end
 
-      it { is_expected.to eq(false) }
+      it { is_expected.not_to be_banned }
     end
 
     context 'with a banned restriction' do
@@ -59,13 +61,11 @@ RSpec.describe Nomis::Contact do
         ]
       end
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be_banned }
     end
   end
 
   context "when #banned_until" do
-    subject { instance.banned_until }
-
     context 'with a banned restriction with an expiry date' do
       let(:expiry_date) { Date.parse('2017-04-02') }
       let(:restrictions) do
@@ -77,7 +77,7 @@ RSpec.describe Nomis::Contact do
         ]
       end
 
-      it { is_expected.to eq(expiry_date) }
+      it { expect(subject.banned_until).to eq(expiry_date) }
     end
 
     context 'with a banned restriction with no expiry' do
@@ -90,7 +90,7 @@ RSpec.describe Nomis::Contact do
         ]
       end
 
-      it { is_expected.to eq(nil) }
+      it { expect(subject.banned_until).to be nil }
     end
 
     context 'with no banned restriction' do
@@ -103,7 +103,7 @@ RSpec.describe Nomis::Contact do
         ]
       end
 
-      it { is_expected.to eq(nil) }
+      it { expect(subject.banned_until).to be nil }
     end
   end
 
