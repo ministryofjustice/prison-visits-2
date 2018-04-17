@@ -46,26 +46,17 @@ for staff.
 
 Defaults to none by default.
 
-### `STAFF_PRISONS_WITH_SLOT_AVAILABILITY`
+### `NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED`
 
 If `true` then the process visit page will query nomis to check if slots requested
 for a visit are available at the requested prison.
 
-
-### `STAFF_PRISONS_WITH_SLOT_AVAILABILITY`
-
-If `true` then the process visit page will query nomis to check if slots requested
-for a visit are available at the requested prison.
 
 ### `PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY`
 
 A comma separated list of prisons for which PVB2 API will return slots along with their live availability: check which slots
 are available at the requested prison.
 
-### `STAFF_PRISONS_WITHOUT_NOMIS_CONTACT_LIST`
-
-A comma separated list of prisons for which PVB2 API will *not* display the nomis
-contact list on the process visit page.
 
 ### `NOMIS_STAFF_OFFENDER_RESTRICTIONS_ENABLED`
 
@@ -85,10 +76,6 @@ A comma separated list of prisons for which the book to nomis API is enabled
 
 A comma separated list of prisons for which the prisoner restrictions is displayed
 
-### `PRISON_ESTATE_IPS`
-
-A semicolon- or comma-separated list of IP addresses or CIDR ranges. Users on
-these addresses can access the prison booking admin pages.
 
 ### `REDIS_URL`
 
