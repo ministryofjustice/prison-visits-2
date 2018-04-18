@@ -14,6 +14,7 @@ ActiveModel::Type.register(
 ActiveModel::Type.register(:restriction,                     RestrictionType)
 ActiveModel::Type.register(:restriction_type,                RestrictionTypeType)
 ActiveModel::Type.register(:restriction_list,                RestrictionListType)
+ActiveModel::Type.register(:visitor,                         VisitorType)
 ActiveModel::Type.register(:visitor_list,                    VisitorListType)
 ActiveModel::Type.register(:level_list,                      LevelListType)
 ActiveModel::Type.register(:housing_location,                HousingLocationType)
