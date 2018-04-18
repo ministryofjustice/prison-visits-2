@@ -20,6 +20,7 @@ module Nomis
       attribute :nationalities, :string
       attribute :pnc_number, :string
       attribute :religion
+      attribute :suffix
       attribute :surname, :string
       attribute :title, :string
 
