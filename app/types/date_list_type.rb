@@ -1,5 +1,8 @@
+require 'typed_list/date_list'
+
 class DateListType < ActiveModel::Type::Value
   def cast(value)
-    value.map { |date| Date.parse(date) }
+    dates = value.map { |date| Date.parse(date) }
+    DateList.new(dates)
   end
 end
