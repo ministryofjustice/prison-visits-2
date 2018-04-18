@@ -6,6 +6,9 @@ RSpec.describe DateListType do
   describe '#cast' do
     let(:value) { ['2017-01-01', '2017-01-02'] }
 
-    it { expect(subject.cast(value)).to eq(value.map { |v| Date.parse(v) }) }
+    it do
+      expect(subject.cast(value)).
+        to all(be_instance_of(Date))
+    end
   end
 end

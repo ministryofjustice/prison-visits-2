@@ -9,6 +9,10 @@ class DateList
     self.dates = dates.dup.freeze
   end
 
+  def empty?
+    dates.empty?
+  end
+
 private
 
   attr_accessor :dates
