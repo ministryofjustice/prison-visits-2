@@ -5,6 +5,7 @@ module Nomis
 
       attribute :given_name, :string
       attribute :surname, :string
+      attribute :middle_names, :string
       attribute :title, :string
       attribute :nationalities, :string
       attribute :date_of_birth, :date
