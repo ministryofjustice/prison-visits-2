@@ -7,6 +7,7 @@ RSpec.describe VisitorListType do
   describe '#cast' do
     let(:value) { [{}, {}] }
 
-    include_examples 'enumerable type', VisitorList
+    include_examples 'type', Visitor
+
   end
 end

@@ -7,6 +7,6 @@ RSpec.describe ConcreteSlotListType do
   describe '#cast' do
     let(:value) { ['2016-01-01T09:00/10:00', '2016-01-01T10:00/11:00'] }
 
-    include_examples 'enumerable type', ConcreteSlotList
+    include_examples 'type', ConcreteSlot
   end
 end

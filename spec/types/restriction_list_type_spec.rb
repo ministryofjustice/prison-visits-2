@@ -7,6 +7,6 @@ RSpec.describe RestrictionListType do
   describe '#cast' do
     let(:value) { [{}, {}] }
 
-    include_examples 'enumerable type', RestrictionList
+    include_examples 'type', Nomis::Restriction
   end
 end

@@ -7,6 +7,6 @@ RSpec.describe ApiSlotListType do
   describe '#cast' do
     let(:value) { [{}, {}] }
 
-    include_examples 'enumerable type', ApiSlotList
+    include_examples 'type', Nomis::ApiSlot
   end
 end

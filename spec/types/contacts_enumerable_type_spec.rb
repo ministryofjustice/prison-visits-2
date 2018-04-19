@@ -7,6 +7,6 @@ RSpec.describe ContactsEnumerableType do
   describe '#cast' do
     let(:value) { [{}, {}] }
 
-    include_examples 'enumerable type', ContactsEnumerable
+    include_examples 'type', Nomis::Contact
   end
 end
