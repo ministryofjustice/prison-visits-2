@@ -5,7 +5,7 @@ module Nomis
 
     delegate :each, to: :contacts
 
-    attribute :contacts, :contacts_enumerable, default: -> { ContactsEnumerable.new }
+    attribute :contacts, :contacts_enumerable, default: []
     attribute :api_call_successful, :boolean, default: true
 
     def approved
