@@ -8,6 +8,5 @@ RSpec.describe VisitorListType do
     let(:value) { [{}, {}] }
 
     include_examples 'type', Visitor
-
   end
 end
