@@ -1,8 +1,7 @@
 class ContactsEnumerableType < ActiveModel::Type::Value
   def cast(value)
     contacts = value.map { |contact| type_caster.cast(contact) }
-
-    ContactsEnumerable.new(contacts)
+    contacts.dup.sort.freeze
   end
 
 private

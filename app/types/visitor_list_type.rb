@@ -1,9 +1,5 @@
-require 'typed_list/visitor_list'
-
 class VisitorListType < ActiveModel::Type::Value
   def cast(value)
-    visitors = value.map { |visitor| VisitorType.new.cast(visitor) }
-
-    VisitorList.new(visitors)
+    value.map { |visitor| VisitorType.new.cast(visitor) }.dup.freeze
   end
 end
