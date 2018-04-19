@@ -7,6 +7,6 @@ RSpec.describe AvailabilityVisitListType do
   describe '#cast' do
     let(:value) { [{}, {}] }
 
-    include_examples 'enumerable type', AvailabilityVisitList
+    include_examples 'type', Nomis::AvailabilityVisit
   end
 end

@@ -11,9 +11,7 @@ module Nomis
     attribute :banned, :boolean
     attribute :out_of_vo, :boolean
     attribute :external_movement, :boolean
-    attribute :existing_visits,
-      :availability_visit_list,
-      default: -> { AvailabilityVisitList.new }
+    attribute :existing_visits, :availability_visit_list, default: []
 
     def available?(requested_slot)
       unavailable_reasons(requested_slot).empty?

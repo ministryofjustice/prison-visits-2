@@ -7,6 +7,6 @@ RSpec.describe PrisonerDateAvailabilityListType do
   describe '#cast' do
     let(:value) { [{}, {}] }
 
-    include_examples 'enumerable type', PrisonerDateAvailabilityList
+    include_examples 'type', Nomis::PrisonerDateAvailability
   end
 end
