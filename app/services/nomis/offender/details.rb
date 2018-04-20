@@ -23,6 +23,7 @@ module Nomis
       attribute :suffix
       attribute :surname, :string
       attribute :title, :string
+      attribute :security_category
 
       def valid?
         api_call_successful
