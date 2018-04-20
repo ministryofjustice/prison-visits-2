@@ -40,8 +40,11 @@ RSpec.describe LoadTestDataRemover do
 
     it 'removes them' do
       visitor.update!(first_name: first_name, last_name: last_name)
+
       expect(visit_for(first_name, last_name)).to exist
-      subject.run
+      
+      described_class.run
+
       expect(visit_for(first_name, last_name)).not_to exist
     end
   end
@@ -53,8 +56,11 @@ RSpec.describe LoadTestDataRemover do
 
     it 'does not remove them' do
       visitor.update!(first_name: first_name, last_name: last_name)
+
       expect(visit_for(first_name, last_name)).to exist
-      subject.run
+
+      described_class.run
+
       expect(visit_for(first_name, last_name)).to exist
     end
   end
