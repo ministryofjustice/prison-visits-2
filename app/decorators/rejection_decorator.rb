@@ -79,12 +79,17 @@ class RejectionDecorator < Draper::Decorator
       end
     end
 
-    if prisoner_details.details_incorrect?
+    if prisoner_details_incorrect?
       reasons << Rejection::PRISONER_DETAILS_INCORRECT
     end
   end
 
 private
+
+  def prisoner_details_incorrect?
+    prisoner_details.details_incorrect? ||
+      prisoner_location.status == PrisonerLocationValidation::INVALID
+  end
 
   def email_reasons
     object.reasons.reject do |reason|
@@ -106,6 +111,10 @@ private
 
   def prisoner_details
     h.prisoner_details
+  end
+
+  def prisoner_location
+    h.prisoner_location_presenter
   end
 
   def unbookable?

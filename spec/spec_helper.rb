@@ -73,4 +73,7 @@ VCR.configure do |config|
     # Ignore capybara requests within feature tests
     request.uri =~ /__identify__|session/
   end
+  config.filter_sensitive_data('authorisation_header') do |interaction|
+    interaction.request.headers['Authorization']&.first
+  end
 end
