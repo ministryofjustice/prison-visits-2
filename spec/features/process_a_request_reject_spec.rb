@@ -13,6 +13,18 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
     travel_to(Date.new(2018, 4, 5)) { ex.run }
   end
 
+  describe 'when the prisoner is not registered at the prison', vcr: { cassette_name: 'prisoner_not_at_given_prison' } do
+    let(:prisoner_number) { 'A1410AE' }
+
+    before do
+      visit prison_visit_path(vst, locale: 'en')
+    end
+
+    scenario 'rejecting a booking with incorrect prisoner details' do
+      expect(page.find('input[type="checkbox"][id="prisoner_details_incorrect"]')).to be_checked
+    end
+  end
+
   describe 'rejecting', vcr: { cassette_name: 'process_booking_happy_path_reject' } do
     before do
       visit prison_visit_path(vst, locale: 'en')

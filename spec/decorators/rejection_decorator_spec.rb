@@ -246,11 +246,11 @@ RSpec.describe RejectionDecorator do
   end
 
   describe 'prisoner unvisitable checkboxes' do
-    let(:prisoner_banned) { nil }
-    let(:no_allowance) { nil }
-    let(:prisoner_out_of_prison) { nil }
-    let(:details_incorrect) { nil }
-
+    let(:prisoner_banned)          { nil }
+    let(:no_allowance)             { nil }
+    let(:prisoner_out_of_prison)   { nil }
+    let(:details_incorrect)        { nil }
+    let(:prisoner_location_status) { nil }
     let(:nomis_checker) do
       double(StaffNomisChecker)
     end
@@ -259,11 +259,15 @@ RSpec.describe RejectionDecorator do
       instance_double(PrisonerDetailsPresenter)
     end
 
+    let(:prisoner_location_presenter) do
+      instance_double(PrisonerLocationPresenter, status: prisoner_location_status)
+    end
+
     before do
       allow(subject).to receive(:nomis_checker).and_return(nomis_checker)
       allow(subject).to receive(:prisoner_details).and_return(prisoner_details_presenter)
-      allow(nomis_checker).
-        to receive(:errors_for).
+      allow(subject).to receive(:prisoner_location).and_return(prisoner_location_presenter)
+      allow(nomis_checker).to receive(:errors_for).
         with(anything) do
           if visit_bookable
             []
@@ -366,6 +370,30 @@ RSpec.describe RejectionDecorator do
       end
 
       it_behaves_like 'checked', :prisoner_details_incorrect
+    end
+
+    context 'when prisoner location is invalid' do
+      let(:visit_bookable)           { true }
+      let(:details_incorrect)        { false }
+      let(:prisoner_location_status) { PrisonerLocationValidation::INVALID }
+
+      before do
+        subject.apply_nomis_reasons
+      end
+
+      it_behaves_like 'checked', :prisoner_details_incorrect
+    end
+
+    context 'when prisoner location is unknown' do
+      let(:visit_bookable)           { true }
+      let(:details_incorrect)        { false }
+      let(:prisoner_location_status) { PrisonerLocationValidation::UNKNOWN }
+
+      before do
+        subject.apply_nomis_reasons
+      end
+
+      it_behaves_like 'unchecked', :prisoner_details_incorrect
     end
 
     context 'with no allowance and bookable slots' do
