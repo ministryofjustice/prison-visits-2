@@ -37,6 +37,8 @@ module PrisonVisits
       config.asset_host = ENV['ASSET_HOST']
     end
 
+    config.remove_load_test_data = ENV['REMOVE_LOAD_TEST_DATA']
+
     config.sentry_dsn = ENV['SENTRY_DSN']
     config.sentry_js_dsn = ENV['SENTRY_JS_DSN']
 
