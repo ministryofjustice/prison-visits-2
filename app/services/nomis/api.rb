@@ -1,10 +1,6 @@
 require 'nomis/client'
 
 module Nomis
-  Error = Class.new(StandardError)
-  DisabledError = Class.new(Error)
-  NotFound = Class.new(Error)
-
   class Api
     include Singleton
     BOOK_VISIT_TIMEOUT = 3
@@ -14,7 +10,7 @@ module Nomis
 
     def initialize
       unless self.class.enabled?
-        fail DisabledError, 'Nomis API is disabled'
+        fail Nomis::Error::Disabled, 'Nomis API is disabled'
       end
 
       pool_size = Rails.configuration.connection_pool_size
@@ -45,7 +41,8 @@ module Nomis
 
     def lookup_offender_details(noms_id:)
       response = @pool.with { |client| client.get("/offenders/#{noms_id}") }
-      Nomis::Offender::Details.new(response).tap do |offender_details|
+      api_serialiser.
+        serialise(Nomis::Offender::Details, response).tap do |offender_details|
         PVB::Instrumentation.append_to_log(
           valid_offender_details_lookup: offender_details.valid?
         )
@@ -157,7 +154,7 @@ module Nomis
 
     def build_offender(response)
       if response['found'] == true
-        Offender.new(response['offender'])
+        api_serialiser.serialise(Offender, response['offender'])
       else
         NullOffender.new(api_call_successful: true)
       end
@@ -169,6 +166,10 @@ module Nomis
         read_timeout:    Nomis::Api::BOOK_VISIT_TIMEOUT,
         write_timeout:   Nomis::Api::BOOK_VISIT_TIMEOUT
       }
+    end
+
+    def api_serialiser
+      @api_serialiser ||= ApiSerialiser.new
     end
   end
 end
