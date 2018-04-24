@@ -39,7 +39,7 @@ RSpec.describe LoadTestDataRemover do
 
     context 'with "remove_load_test_data" flag switched on' do
       it 'removes them' do
-        remove_load_test_data(:on)
+        switch_on(:remove_load_test_data)
         visitor.update!(first_name: first_name, last_name: last_name)
 
         expect { described_class.run }.
@@ -60,8 +60,8 @@ RSpec.describe LoadTestDataRemover do
 
     context 'with "remove_load_test_data" flag switched off' do
       it 'does not remove them' do
-        remove_load_test_data(:off)
-        # visitor.update!(first_name: first_name, last_name: last_name)
+        switch_off(:remove_load_test_data)
+        visitor.update!(first_name: first_name, last_name: last_name)
 
         expect { described_class.run }.
           not_to change { [Visit.count, Prisoner.count] }
@@ -71,8 +71,8 @@ RSpec.describe LoadTestDataRemover do
     context "with 'remove_load_test_data' flag switched on" do
       context "when visitor is not 'Load Test'" do
         it 'does not remove them' do
-          remove_load_test_data(:on)
-          # visitor.update!(first_name: first_name, last_name: last_name)
+          switch_on(:remove_load_test_data)
+          visitor.update!(first_name: first_name, last_name: last_name)
 
           expect { described_class.run }.
             not_to change { [Visit.count, Prisoner.count] }
@@ -82,14 +82,7 @@ RSpec.describe LoadTestDataRemover do
   end
 
   def visit_for(first_name, last_name)
-    Visit.joins(:visitors).where("visitors.first_name = '#{first_name}'", "visitors.last_name = '#{last_name}'")
-  end
-
-  def remove_load_test_data(value)
-    if value == :on
-      Rails.configuration.remove_load_test_data = true
-    else
-      Rails.configuration.remove_load_test_data = false
-    end
+    Visit.joins(:visitors).
+      where("visitors.first_name = '#{first_name}'", "visitors.last_name = '#{last_name}'")
   end
 end
