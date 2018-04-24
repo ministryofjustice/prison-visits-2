@@ -57,6 +57,10 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  config.after(:each, :expect_exception) do
+    Rails.configuration.sentry_dsn = nil
+  end
 end
 
 Shoulda::Matchers.configure do |config|

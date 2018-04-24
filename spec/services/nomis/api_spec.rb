@@ -21,7 +21,7 @@ RSpec.describe Nomis::Api do
     expect(described_class).to receive(:enabled?).and_return(false)
     expect {
       described_class.instance
-    }.to raise_error(Nomis::DisabledError, 'Nomis API is disabled')
+    }.to raise_error(Nomis::Error::Disabled, 'Nomis API is disabled')
   end
 
   describe 'lookup_active_offender', vcr: { cassette_name: 'lookup_active_offender' } do
