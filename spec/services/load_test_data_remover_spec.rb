@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe LoadTestDataRemover do
+  include ActiveJobHelper
+
   let(:contact_email_address) { 'visitor@test.example.com' }
   let(:prison_email_address) { 'prison@test.example.com' }
   let(:prison) {
