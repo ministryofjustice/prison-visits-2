@@ -39,6 +39,8 @@ RSpec.describe LoadTestDataRemover do
 
     context 'with "remove_load_test_data" flag switched on' do
       it 'removes them' do
+        enable_active_job
+
         switch_on(:remove_load_test_data)
         visitor.update!(first_name: first_name, last_name: last_name)
 
@@ -84,5 +86,9 @@ RSpec.describe LoadTestDataRemover do
   def visit_for(first_name, last_name)
     Visit.joins(:visitors).
       where(visitors: { first_name: first_name, last_name: last_name })
+  end
+
+  def enable_active_job
+    ActiveJob::Base.queue_adapter = :inline
   end
 end
