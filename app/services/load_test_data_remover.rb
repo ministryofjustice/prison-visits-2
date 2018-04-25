@@ -14,7 +14,9 @@ class LoadTestDataRemover
         where(visitors: { first_name: 'Load', last_name: 'Test' }
       )
 
-      visits.each { |visit| visit.prisoner.destroy }
+      visits.each do |visit|
+        LoadTestDataRemoverJob.perform_later(visit.prisoner)
+      end
     end
   end
 end
