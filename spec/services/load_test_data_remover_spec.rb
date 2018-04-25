@@ -83,6 +83,6 @@ RSpec.describe LoadTestDataRemover do
 
   def visit_for(first_name, last_name)
     Visit.joins(:visitors).
-      where("visitors.first_name = '#{first_name}'", "visitors.last_name = '#{last_name}'")
+      where(visitors: { first_name: first_name, last_name: last_name })
   end
 end
