@@ -8,15 +8,17 @@ class LoadTestDataRemover
   class << self
   private
 
-    def delete_load_test_data
-      visits = Visit.
-        joins(:visitors).
-        where(visitors: { first_name: 'Load', last_name: 'Test' }
-      )
+    ASSOCIATIONS = [
+      :prisoner, :visitors, :visit_state_changes, :messages, :rejection, :cancellation
+    ]
 
-      visits.each do |visit|
-        LoadTestDataRemoverJob.perform_later(visit.prisoner)
-      end
+    def delete_load_test_data
+      Visit.
+        includes(ASSOCIATIONS).
+        where(visitors: { first_name: 'Load', last_name: 'Test' }).
+        find_in_batches(batch_size: 1000) do |batch|
+          batch.each { |visit|  LoadTestDataRemoverJob.perform_later(visit.prisoner) }
+        end
     end
   end
 end
