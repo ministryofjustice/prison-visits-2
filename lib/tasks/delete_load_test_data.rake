@@ -1,7 +1,7 @@
 namespace :load_test_data do
   desc 'Delete all the test data created by load tests'
-  task delete: :environment do
-    LoadTestDataRemover.run
-    puts 'Load test data deleted'
+  task :delete, [:first_name, :last_name] => [:environment] do |_t, args|
+    puts 'Starting load test data deletion'
+    LoadTestDataRemover.delete_visits_created_by(args[:first_name], args[:last_name])
   end
 end

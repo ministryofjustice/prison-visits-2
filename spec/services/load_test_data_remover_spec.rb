@@ -44,8 +44,9 @@ RSpec.describe LoadTestDataRemover do
         switch_on(:remove_load_test_data)
         visitor.update!(first_name: first_name, last_name: last_name)
 
-        expect { described_class.run }.
-          to change(Visit, :count).
+        expect {
+          described_class.delete_visits_created_by(first_name, last_name)
+        }.to change(Visit, :count).
             from(1).
             to(0).
           and change(Prisoner, :count).
@@ -65,8 +66,9 @@ RSpec.describe LoadTestDataRemover do
         switch_off(:remove_load_test_data)
         visitor.update!(first_name: first_name, last_name: last_name)
 
-        expect { described_class.run }.
-          not_to change { [Visit.count, Prisoner.count] }
+        expect {
+          described_class.delete_visits_created_by(first_name, last_name)
+        }.not_to change { [Visit.count, Prisoner.count] }
       end
     end
 
@@ -76,8 +78,9 @@ RSpec.describe LoadTestDataRemover do
           switch_on(:remove_load_test_data)
           visitor.update!(first_name: first_name, last_name: last_name)
 
-          expect { described_class.run }.
-            not_to change { [Visit.count, Prisoner.count] }
+          expect {
+            described_class.delete_visits_created_by('Peter', 'Andre')
+          }.not_to change { [Visit.count, Prisoner.count] }
         end
       end
     end
