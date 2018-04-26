@@ -1,0 +1,77 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1970-01-01&noms_id=ZZZZZZZ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - eee052a8-ea08-4cd9-8097-19b22f0f8732
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 01 May 2018 11:24:41 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=0
+      Url-Template:
+      - "/lookup/active_offender"
+      Content-Length:
+      - '54'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"message":"Invalid or missing NOMS Number"}}'
+    http_version: 
+  recorded_at: Tue, 01 May 2018 11:24:41 GMT
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1970-01-01&noms_id=ZZZZZZZ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - eee052a8-ea08-4cd9-8097-19b22f0f8732
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 01 May 2018 11:24:41 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=0
+      Url-Template:
+      - "/lookup/active_offender"
+      Content-Length:
+      - '54'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"message":"Invalid or missing NOMS Number"}}'
+    http_version: 
+  recorded_at: Tue, 01 May 2018 11:24:41 GMT
+recorded_with: VCR 4.0.0
