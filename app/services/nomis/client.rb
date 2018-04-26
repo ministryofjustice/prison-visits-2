@@ -79,7 +79,7 @@ module Nomis
       response = @connection.request(options)
 
       JSON.parse(response.body)
-    rescue Excon::Errors::HTTPStatusError => e
+    rescue Excon::Error::HTTPStatus => e
       body = e.response.body
 
       # API errors should be returned as JSON, but there are many scenarios
