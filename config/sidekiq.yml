@@ -2,4 +2,5 @@
 :queues:
   - default
   - mailers
+  - load_testing
   - zendesk
