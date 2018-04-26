@@ -46,14 +46,8 @@ RSpec.describe Api::VisitsController do
         contact_phone_no: '1234567890'
       }
     }
-    let(:google_tracker) { instance_double(GATracker) }
 
     describe 'when sucessfull' do
-      before do
-        expect(GATracker).to receive(:new).and_return(google_tracker)
-        expect(google_tracker).to receive(:send_request_event)
-      end
-
       specify do
         expect(post :create, params: params).to render_template(:show)
       end
