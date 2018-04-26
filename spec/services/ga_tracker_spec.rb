@@ -167,34 +167,6 @@ RSpec.describe GATracker do
     end
   end
 
-  describe '#send_request_event' do
-    context "when the visit was created" do
-      before do
-        switch_feature_flag_with :ga_id, web_property_id
-      end
-
-      it 'sends an event', vcr: { cassette_name: 'requested_visit_event' } do
-        subject.send_request_event
-
-        expect(WebMock).
-          to have_requested(:post, GATracker::ENDPOINT).with(
-            body: URI.encode_www_form(
-              v: 1,
-              uip: ip,
-              tid: web_property_id,
-              cid: "GA1.1.123456789.0123456789",
-              ua: user_agent,
-              t: "event",
-              ec: visit.prison.name,
-              ea: 'Request',
-              el: 1
-            ),
-            headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
-        )
-      end
-    end
-  end
-
   describe '#send_processing_timing' do
     context 'when it successfully sends an event' do
       before do

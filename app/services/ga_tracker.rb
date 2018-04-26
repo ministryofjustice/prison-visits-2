@@ -30,11 +30,6 @@ class GATracker
     end
   end
 
-  def send_request_event
-    send_data(build_event_payload('GA1.1.123456789.0123456789',
-      'Request', visit.slots.count))
-  end
-
   def send_booked_visit_event
     send_data(build_event_payload(ga_cookie, 'Booked', booked_method)) if visit.booked?
   end
