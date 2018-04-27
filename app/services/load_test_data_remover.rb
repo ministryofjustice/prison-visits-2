@@ -16,7 +16,7 @@ class LoadTestDataRemover
       Visit.
         includes(ASSOCIATIONS).
         where(visitors: { first_name: first_name, last_name: last_name }).
-        find_in_batches(batch_size: 1000) do |batch|
+        find_in_batches(batch_size: 50) do |batch|
           batch.each do |visit|
             LoadTestDataRemoverJob.perform_later(visit.prisoner)
           end
