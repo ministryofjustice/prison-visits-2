@@ -123,7 +123,7 @@ GEM
     govuk_frontend_toolkit (7.4.2)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_template (0.23.3)
+    govuk_template (0.24.0)
       rails (>= 3.1)
     hashdiff (0.3.7)
     hashie (3.5.7)
@@ -217,7 +217,7 @@ GEM
       pry (>= 0.10.4)
     public_suffix (3.0.2)
     puma (3.11.4)
-    rack (2.0.4)
+    rack (2.0.5)
     rack-protection (2.0.1)
       rack
     rack-test (1.0.0)
