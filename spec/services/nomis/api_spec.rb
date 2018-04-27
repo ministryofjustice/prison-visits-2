@@ -197,7 +197,7 @@ RSpec.describe Nomis::Api do
 
     it 'logs the number of available slots' do
       subject
-      expect(PVB::Instrumentation.custom_log_items[:offender_visiting_availability]).to eq(3)
+      expect(PVB::Instrumentation.custom_log_items[:offender_visiting_detailed_availability]).to eq(3)
     end
   end
 

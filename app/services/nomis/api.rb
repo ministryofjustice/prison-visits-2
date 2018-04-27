@@ -84,7 +84,7 @@ module Nomis
         available_slots = slots.select { |slot| availability.available?(slot) }
 
         PVB::Instrumentation.append_to_log(
-          offender_visiting_availability: available_slots.size)
+          offender_visiting_detailed_availability: available_slots.size)
       end
     end
 
