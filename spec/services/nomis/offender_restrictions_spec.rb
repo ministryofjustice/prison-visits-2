@@ -18,6 +18,15 @@ RSpec.describe Nomis::OffenderRestrictions do
 
     let(:expected_restriction) { Nomis::Restriction.new(unparsed_restriction) }
 
+    context 'with no restriction' do
+      let(:args) do
+        {}
+      end
+
+      it 'has an empty default restriction list' do
+        expect(subject.restrictions).to eq([])
+      end
+    end
     it 'parses the attributes to an array of restrictions' do
       expect(subject.restrictions).to have(1).item
       restriction = subject.restrictions.first
