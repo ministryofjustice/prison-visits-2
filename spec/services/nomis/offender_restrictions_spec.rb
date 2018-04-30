@@ -22,6 +22,7 @@ RSpec.describe Nomis::OffenderRestrictions do
       let(:args) do
         {}
       end
+
       it 'has an empty default restriction list' do
         expect(subject.restrictions).to eq([])
       end
