@@ -14,9 +14,7 @@ class ZendeskTicketsJob < ActiveJob::Base
       fail 'Cannot create Zendesk ticket since Zendesk not configured'
     end
 
-    ZendeskAPI::Ticket.create!(
-      Rails.configuration.zendesk_client,
-      ticket_attrs(feedback))
+    feedback.destroy! if ticket_raised?(feedback)
   end
 
 private
@@ -24,6 +22,13 @@ private
   # We have 2 Zendesk inboxes configured, one for the public that matches that
   # the service field is 'prison_visits' and another one for staff that matches
   # tickets tagged with 'staff.prison.visits'.
+
+  def ticket_raised?(feedback)
+    ZendeskAPI::Ticket.create!(
+      Rails.configuration.zendesk_client,
+      ticket_attrs(feedback))
+  end
+
   def ticket_attrs(feedback)
     attrs = {
       description: feedback.body,

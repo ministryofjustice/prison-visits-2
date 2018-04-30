@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe ZendeskTicketsJob, type: :job do
   subject { described_class }
 
-  let(:feedback) {
-    FeedbackSubmission.new(
+  let!(:feedback) {
+    FeedbackSubmission.create!(
       body: 'text',
       email_address: 'email@example.com',
       referrer: 'ref',
@@ -77,7 +77,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
             browser_custom_field,
             service_custom_field
           ]
-        ).and_return(ticket)
+      ).and_return(ticket)
       subject.perform_now(feedback)
     end
   end
@@ -100,7 +100,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
             prison_custom_field,
             service_custom_field
           ]
-        ).and_return(ticket)
+      ).and_return(ticket)
       subject.perform_now(feedback)
     end
   end
@@ -121,7 +121,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
               browser_custom_field,
               service_custom_field
             ]
-          ).and_return(ticket)
+        ).and_return(ticket)
 
         subject.perform_now(feedback)
       end
@@ -152,7 +152,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
               { id: ZendeskTicketsJob::PRISONER_NUM_FIELD, value: prisoner_num },
               { id: ZendeskTicketsJob::PRISONER_DOB_FIELD, value: prisoner_dob }
             ]
-          ).and_return(ticket)
+        ).and_return(ticket)
 
         subject.perform_now(feedback)
       end
@@ -174,8 +174,51 @@ RSpec.describe ZendeskTicketsJob, type: :job do
             url_custom_field,
             browser_custom_field
           ]
-        ).and_return(ticket)
+      ).and_return(ticket)
       subject.perform_now(feedback)
+    end
+  end
+
+  context 'when raising a ticket is successful' do
+    it 'deletes the feedback submission' do
+      expect(ZendeskAPI::Ticket).
+        to receive(:new).
+        with(
+          client,
+          description: 'text',
+          requester: { email: 'email@example.com', name: 'Unknown' },
+          custom_fields: [
+            url_custom_field,
+            browser_custom_field,
+            service_custom_field
+          ]
+      ).and_return(ticket)
+
+      subject.perform_now(feedback)
+
+      expect(FeedbackSubmission.where(email_address: 'email@example.com')).not_to exist
+    end
+  end
+
+  context 'when raising a ticket is not successful' do
+    it 'does not delete the feedback submission' do
+      allow(ticket).to receive(:save!).and_raise(ZendeskAPI::Error::ClientError.new('Error'))
+
+      allow(ZendeskAPI::Ticket).
+        to receive(:new).
+          with(
+            client,
+            description: 'text',
+            requester: { email: 'email@example.com', name: 'Unknown' },
+            custom_fields: [
+              url_custom_field,
+              browser_custom_field,
+              service_custom_field
+            ]
+          ).and_return(ticket)
+
+      expect { subject.perform_now(feedback) }.to raise_error(ZendeskAPI::Error::ClientError)
+      expect(FeedbackSubmission.where(email_address: 'email@example.com')).to exist
     end
   end
 end
