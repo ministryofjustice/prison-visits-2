@@ -93,7 +93,7 @@ RSpec.describe SignonIdentity, type: :model do
   end
 
   describe 'saving and restoring from session data' do
-    let!(:user) { FactoryBot.create(:user) }
+    let!(:user) { create(:user) }
     let!(:serialization) do
       {
         'user_id' => user.id,
@@ -116,34 +116,24 @@ RSpec.describe SignonIdentity, type: :model do
   end
 
   describe 'instance' do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:cardiff_org_name) { 'cardiff.noms' }
-    let!(:cardiff_estate) do
-      FactoryBot.create(:estate,
-        sso_organisation_name: cardiff_org_name, nomis_id: 'CFI')
-    end
-    let!(:pentonville_estate) do
-      FactoryBot.create(:estate, sso_organisation_name: 'pentonville.noms')
-    end
-    let!(:swansea_org_name) { 'swansea.noms' }
-    let!(:swansea_estate) do
-      FactoryBot.create(:estate,
-        sso_organisation_name: swansea_org_name, nomis_id: 'SWI')
-    end
-    let!(:orgs) { [swansea_org_name, cardiff_org_name] }
+    let!(:user)               { create(:user) }
+    let!(:cardiff_org_name)   { 'cardiff.noms' }
+    let!(:cardiff_estate)     { create(:estate, sso_organisation_name: cardiff_org_name, nomis_id: 'CFI') }
+    let!(:pentonville_estate) { create(:estate, sso_organisation_name: 'pentonville.noms') }
+    let!(:swansea_org_name)   { 'swansea.noms' }
+    let!(:swansea_estate)     { create(:estate, sso_organisation_name: swansea_org_name, nomis_id: 'SWI') }
+    let!(:orgs)               { [swansea_org_name, cardiff_org_name] }
     let!(:serialization) do
       {
-        'user_id' => user.id,
-        'full_name' => "Mr A",
+        'user_id'     => user.id,
+        'full_name'   => "Mr A",
         'profile_url' => 'https://example.com/profile',
-        'logout_url' => 'https://example.com/logout',
+        'logout_url'  => 'https://example.com/logout',
         'permissions' => orgs.map { |o| { 'organisation' => o, 'roles' => [] } }
       }
     end
 
-    subject {
-      described_class.from_session_data(serialization)
-    }
+    subject { described_class.from_session_data(serialization) }
 
     it 'makes available the list of accessible estates' do
       expect(subject.accessible_estates).to eq([cardiff_estate, swansea_estate])

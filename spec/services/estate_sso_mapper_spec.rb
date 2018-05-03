@@ -105,4 +105,18 @@ RSpec.describe EstateSSOMapper do
       end
     end
   end
+
+  describe '#pvb_admin?' do
+    context 'when a pvb admin' do
+      let(:orgs) { ['pvb.digital.noms.moj'] }
+
+      it { expect(instance).to be_pvb_admin }
+    end
+
+    context 'when a non pvb admin' do
+      let(:orgs) { ['digital.noms.moj'] }
+
+      it { expect(instance).not_to be_pvb_admin }
+    end
+  end
 end

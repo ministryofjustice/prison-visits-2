@@ -16,6 +16,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_estates
   helper_method :accessible_estates
 
+  include SSOIdentity
+
   def current_user
     sso_identity&.user
   end
@@ -35,17 +37,6 @@ class ApplicationController < ActionController::Base
 
   def accessible_estates
     sso_identity.accessible_estates
-  end
-
-  def sso_identity
-    @sso_identity ||= begin
-      session[:sso_data] && SignonIdentity.from_session_data(session[:sso_data])
-    rescue SignonIdentity::InvalidSessionData
-      Rails.logger.info \
-        "Deleting invalid signon session data: #{session[:sso_data]}"
-      session.delete(:sso_data)
-      nil
-    end
   end
 
 private

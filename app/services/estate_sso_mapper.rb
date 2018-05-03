@@ -1,5 +1,6 @@
 class EstateSSOMapper
-  DIGITAL_ORG = 'digital.noms.moj'.freeze
+  DIGITAL_ORG                 = 'digital.noms.moj'.freeze
+  PRISON_VISITS_BOOKING_ADMIN = 'pvb.digital.noms.moj'.freeze
 
   def self.grouped_estates
     @grouped_estates ||= begin
@@ -28,6 +29,10 @@ class EstateSSOMapper
 
   def admin?
     @orgs.include?(DIGITAL_ORG)
+  end
+
+  def pvb_admin?
+    @orgs.include?(PRISON_VISITS_BOOKING_ADMIN)
   end
 
 private
