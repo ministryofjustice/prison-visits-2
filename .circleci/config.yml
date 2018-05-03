@@ -15,6 +15,8 @@ jobs:
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: pvb2_test
+      - image: redis
+
     steps:
       - checkout
       - run:

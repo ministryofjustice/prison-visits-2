@@ -1,3 +1,5 @@
+require 'pvb/digital_user_constraint'
+
 Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   root to: 'staff_info#show'
@@ -66,5 +68,10 @@ Rails.application.routes.draw do
   resource :staff, only: :show, controller: 'staff_info' do
     resources :downloads, only: :index
     resource :telephone_script, only: :show
+  end
+
+  constraints PVB::DigitalUserConstraint.new do
+    require 'sidekiq/web'
+    mount Sidekiq::Web => '/sidekiq'
   end
 end
