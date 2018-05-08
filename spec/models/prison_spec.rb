@@ -6,6 +6,10 @@ RSpec.describe Prison, type: :model do
     subject.weekend_processing = false
   end
 
+  describe 'validations' do
+    it { is_expected.to validate_numericality_of(:booking_window).is_less_than_or_equal_to(PrisonSeeder::SeedEntry::DEFAULT_BOOKING_WINDOW) }
+  end
+
   describe 'first_bookable_date' do
     #
     #    Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo
