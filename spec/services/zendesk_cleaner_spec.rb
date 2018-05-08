@@ -1,15 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe ZendeskCleaner do
-  subject { described_class.new }
-
   let(:client) { double(ZendeskAPI::Client) }
   let(:ticket1) { double(ZendeskAPI::Ticket, id: 1) }
   let(:ticket2) { double(ZendeskAPI::Ticket, id: 2) }
   let(:ticket3) { double(ZendeskAPI::Ticket, id: 3) }
-  let(:tickets) { [ticket1, ticket2, ticket3] }
+  let(:tickets) { double(ZendeskAPI::Collection) }
+  let(:ticket_ids) { [ticket1.id, ticket2.id, ticket3.id] }
 
-  context 'when Zendesk not configured' do
+  subject { described_class.new }
+
+  context 'when Zendesk is not configured' do
     it 'raises an error if Zendesk is not conifigured' do
       expect(Rails).to receive(:configuration).and_return(Class.new)
 
@@ -22,14 +23,13 @@ RSpec.describe ZendeskCleaner do
   context 'when Zendesk is configured' do
     it 'successfully bulk deletes tickets older than 12 months old' do
       Rails.configuration.zendesk_client = client
-
-      ids = tickets.map(&:id)
       query = "type:ticket tags:staff.prison.visits created<#{twelve_months_ago}"
 
       expect(client).to receive(:search).with(query: query).and_return(tickets)
+      expect(tickets).to receive(:map).and_return(ticket_ids)
       expect(ZendeskAPI::Ticket).
         to receive(:destroy_many!).
-          with(client, ids: ids).
+          with(client, ids: ticket_ids).
           once
 
       subject.delete_tickets
