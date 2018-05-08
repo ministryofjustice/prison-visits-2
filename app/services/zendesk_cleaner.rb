@@ -22,10 +22,6 @@ private
   end
 
   def client
-    unless Rails.configuration.try(:zendesk_client)
-      fail 'Cannot delete Zendesk tickets as Zendesk is not configured'
-    end
-
     @client ||= Rails.configuration.zendesk_client
   end
 end

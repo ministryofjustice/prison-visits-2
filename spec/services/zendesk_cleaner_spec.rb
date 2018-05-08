@@ -10,16 +10,6 @@ RSpec.describe ZendeskCleaner do
 
   subject { described_class.new }
 
-  context 'when Zendesk is not configured' do
-    it 'raises an error if Zendesk is not conifigured' do
-      expect(Rails).to receive(:configuration).and_return(Class.new)
-
-      expect {
-        subject.delete_tickets
-      }.to raise_error('Cannot delete Zendesk tickets as Zendesk is not configured')
-    end
-  end
-
   context 'when Zendesk is configured' do
     it 'successfully bulk deletes tickets older than 12 months old' do
       Rails.configuration.zendesk_client = client
