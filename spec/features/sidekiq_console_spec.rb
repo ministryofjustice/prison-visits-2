@@ -18,7 +18,7 @@ RSpec.feature 'Sidekiq Admin Console' do
         'last_name' => 'Goldman',
         'email' => 'joe@example.com',
         'permissions' => [
-          { 'organisation' => EstateSSOMapper::PRISON_VISITS_BOOKING_ADMIN, roles: [] },
+          { 'organisation' => EstateSSOMapper::DIGITAL_ORG, roles: [] },
           { 'organisation' => prison.estate.sso_organisation_name, roles: [] }
         ],
         'links' => {
