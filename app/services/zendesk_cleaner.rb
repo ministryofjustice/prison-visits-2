@@ -1,5 +1,5 @@
 class ZendeskCleaner
-  STAFF_INBOX = "staff.prison.visits created".freeze
+  STAFF_INBOX = 'staff.prison.visits created'.freeze
 
   def delete_tickets
     unless Rails.configuration.try(:zendesk_client)
@@ -9,16 +9,16 @@ class ZendeskCleaner
     client = Rails.configuration.zendesk_client
     ticket_ids = client.
       search(query: "type:ticket tags:#{STAFF_INBOX}<#{twelve_months_ago}").
-      map {|ticket| ticket[:id] }
+      map(&:id)
 
     ticket_ids.each_slice(100).to_a.each do |id_batch|
       ZendeskAPI::Ticket.destroy_many!(client, ids: id_batch)
     end
   end
 
-  private
+private
 
   def twelve_months_ago
-    Date.today.months_ago(12).strftime("%Y-%m-%d")
+    Time.zone.today.months_ago(12).strftime('%Y-%m-%d')
   end
 end
