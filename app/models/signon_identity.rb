@@ -109,8 +109,8 @@ class SignonIdentity
     }
   end
 
-  def pvb_admin?
-    estate_sso_mapper.pvb_admin?
+  def admin?
+    estate_sso_mapper.admin?
   end
 
 private

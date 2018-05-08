@@ -21,13 +21,13 @@ RSpec.describe PVB::DigitalUserConstraint do
 
   describe '.matches?' do
     context 'with a pvb admin user' do
-      let(:org) { EstateSSOMapper::PRISON_VISITS_BOOKING_ADMIN  }
+      let(:org) { EstateSSOMapper::DIGITAL_ORG  }
 
       it { is_expected.to be_matches(request) }
     end
 
     context 'with a non pvb admin user' do
-      let(:org) { EstateSSOMapper::DIGITAL_ORG  }
+      let(:org) { 'another.org'  }
 
       it { is_expected.not_to be_matches(request) }
     end

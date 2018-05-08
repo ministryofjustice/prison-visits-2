@@ -4,7 +4,7 @@ module PVB
 
     def matches?(request)
       self.session = request.session
-      sso_identity.pvb_admin?
+      sso_identity.admin?
     end
 
   private
