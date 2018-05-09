@@ -1,8 +1,10 @@
 module Api
   class FeedbackController < ApiController
+    include ZendeskClient
+
     def create
       @feedback = FeedbackSubmission.create!(feedback_params)
-      ZendeskTicketsJob.perform_later(@feedback)
+      ZendeskTicketsJob.perform_later(client, @feedback)
       render json: {}, status: 200
     end
 
