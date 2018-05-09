@@ -5,7 +5,8 @@ module StaffResponseContext
     helper_method :nomis_checker,
       :prisoner_details,
       :nomis_info_presenter,
-      :prisoner_location_presenter
+      :prisoner_location_presenter,
+      :staff_response
   end
 
   def book_to_nomis_config
@@ -70,13 +71,18 @@ private
     params[:id] || params[:visit_id]
   end
 
-  def booking_responder
-    memoised_visit.assign_attributes(visit_params)
+  def staff_response
+    @staff_response ||= begin
+      StaffResponse.new(
+        visit: memoised_visit, user: current_user,
+        validate_visitors_nomis_ready: params[:validate_visitors_nomis_ready])
+    end
+  end
 
-    BookingResponder.new(memoised_visit,
-      user: current_user,
-      message: message,
-      options: booking_responder_opts)
+  def booking_responder
+    @booking_responder ||= BookingResponder.new(
+      staff_response,
+      message: message, options: booking_responder_opts)
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -107,10 +113,7 @@ private
   # rubocop:enable Metrics/MethodLength
 
   def booking_responder_opts
-    {
-      validate_visitors_nomis_ready: params[:validate_visitors_nomis_ready],
-      persist_to_nomis: persist_to_nomis
-    }
+    { persist_to_nomis: persist_to_nomis }
   end
 
   def persist_to_nomis

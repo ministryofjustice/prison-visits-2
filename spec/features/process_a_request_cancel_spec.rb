@@ -7,7 +7,7 @@ RSpec.feature 'Processing a request', :js, :expect_exception do
   describe 'cancelling' do
     before do
       vst.assign_attributes(slot_granted: vst.slot_option_0)
-      BookingResponder.new(vst).respond!
+      BookingResponder.new(StaffResponse.new(visit: vst)).respond!
       visit prison_visit_path(vst, locale: 'en')
     end
 

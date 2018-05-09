@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe BookingResponder do
-  subject { described_class.new(visit, message: message, options: options) }
+  subject { described_class.new(staff_response, message: message, options: options) }
 
   let(:visit)            { create(:visit_with_three_slots) }
   let(:staff_response)   { StaffResponse.new(visit: visit) }
@@ -13,7 +13,7 @@ RSpec.describe BookingResponder do
     let(:reject_processor) { spy(BookingResponder::Reject) }
     let(:visitor_mailer)   { spy(VisitorMailer) }
     let(:message)          do
-      Message.new(body: 'a chicky message from staff')
+      Message.new(body: 'a cheeky message from staff')
     end
     let(:message_attributes) { message.attributes.slice('id', 'body') }
 

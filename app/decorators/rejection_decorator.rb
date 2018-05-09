@@ -23,9 +23,9 @@ class RejectionDecorator < Draper::Decorator
       end
   end
 
-  def checkbox_for(reason, html_options = {})
+  def checkbox_for(reason, html_options = {}, visit_has_error = false)
     reasons_decorator = Rejection::ReasonDecorator.decorate(object.reasons)
-    reasons_decorator.checkbox_for(reason, html_options)
+    reasons_decorator.checkbox_for(reason, html_options, visit_has_error)
   end
 
   def email_formatted_reasons

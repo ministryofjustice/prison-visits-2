@@ -11,7 +11,7 @@ RSpec.shared_context 'when creating rejections without dates' do
   end
 
   def reject_visit(visit)
-    BookingResponder.new(visit).respond!
+    BookingResponder.new(StaffResponse.new(visit: visit)).respond!
   end
 
   def make_visits(prison)
@@ -39,7 +39,7 @@ RSpec.shared_context 'when creating rejections with dates' do
   end
 
   def reject_visit(visit)
-    BookingResponder.new(visit).respond!
+    BookingResponder.new(StaffResponse.new(visit: visit)).respond!
   end
 
   def make_visits(prison)
