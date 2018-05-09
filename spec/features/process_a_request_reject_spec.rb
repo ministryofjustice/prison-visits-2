@@ -13,6 +13,12 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
     travel_to(Date.new(2018, 4, 5)) { ex.run }
   end
 
+  def check_nomis_override_message_does_not_trigger
+    expect(page).to have_css('.error-summary', text: 'Please either reject or accept the booking')
+    uncheck 'Prisoner details are incorrect', visible: false
+    expect(page).not_to have_css('#js-OverrideMessage')
+  end
+
   describe 'when the prisoner is not registered at the prison', vcr: { cassette_name: 'prisoner_not_at_given_prison' } do
     let(:prisoner_number) { 'A1410AE' }
 
@@ -84,7 +90,14 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
         and_body(/the prisoner has used their allowance of visits for this month/)
     end
 
-    scenario 'rejecting a booking with incorrect prisoner details' do
+    scenario 'rejecting a booking with incorrect prisoner details', vcr: { cassette_name: 'process_booking_happy_path_reject', allow_playback_repeats: true }  do
+      choose_date
+      check 'Prisoner details are incorrect', visible: false
+      click_button 'Process'
+
+      check_nomis_override_message_does_not_trigger
+
+      choose 'None of the chosen times are available'
       check 'Prisoner details are incorrect', visible: false
 
       click_button 'Process'
