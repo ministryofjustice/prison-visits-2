@@ -12,10 +12,9 @@ RSpec.describe ZendeskCleaner do
 
   context 'when Zendesk is configured' do
     it 'successfully bulk deletes tickets older than 12 months old' do
-      set_configuration_with(:zendesk_client, client)
-
       query = "type:ticket tags:staff.prison.visits created<#{twelve_months_ago}"
 
+      allow(subject).to receive(:client).and_return(client)
       expect(client).to receive(:search).with(query: query).and_return(tickets)
       expect(tickets).to receive(:map).and_return(ticket_ids)
       expect(ZendeskAPI::Ticket).

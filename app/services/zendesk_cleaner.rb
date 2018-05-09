@@ -1,4 +1,6 @@
 class ZendeskCleaner
+  include ZendeskClient
+
   STAFF_INBOX = 'staff.prison.visits created'.freeze
 
   def delete_tickets
@@ -19,9 +21,5 @@ private
 
   def twelve_months_ago
     Time.zone.today.months_ago(12).strftime('%Y-%m-%d')
-  end
-
-  def client
-    @client ||= Rails.configuration.zendesk_client
   end
 end

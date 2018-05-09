@@ -115,5 +115,17 @@ module PrisonVisits
     config.staff_prisons_with_prisoner_restrictions_info = feature_flag_value.call do
       ENV['STAFF_PRISONS_WITH_PRISONER_RESTRICTIONS_INFO']&.split(',')&.map(&:strip) || []
     end
+
+    config.zendesk_token = feature_flag_value.call do
+      ENV.fetch('ZENDESK_TOKEN', nil)
+    end
+
+    config.zendesk_url = feature_flag_value.call do
+      ENV.fetch('ZENDESK_URL', nil)
+    end
+
+    config.zendesk_user = feature_flag_value.call do
+      ENV.fetch('ZENDESK_USER', nil)
+    end
   end
 end

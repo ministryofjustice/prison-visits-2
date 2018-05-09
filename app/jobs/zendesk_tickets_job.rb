@@ -9,12 +9,8 @@ class ZendeskTicketsJob < ActiveJob::Base
   PRISONER_NUM_FIELD = '114094604912'.freeze
   PRISONER_DOB_FIELD = '114094604972'.freeze
 
-  def perform(feedback)
-    unless Rails.configuration.try(:zendesk_client)
-      fail 'Cannot create Zendesk ticket since Zendesk not configured'
-    end
-
-    feedback.destroy! if ticket_raised!(feedback)
+  def perform(client, feedback)
+    feedback.destroy! if ticket_raised!(client, feedback)
   end
 
 private
@@ -23,10 +19,8 @@ private
   # the service field is 'prison_visits' and another one for staff that matches
   # tickets tagged with 'staff.prison.visits'.
 
-  def ticket_raised!(feedback)
-    ZendeskAPI::Ticket.create!(
-      Rails.configuration.zendesk_client,
-      ticket_attrs(feedback))
+  def ticket_raised!(client, feedback)
+    ZendeskAPI::Ticket.create!(client, ticket_attrs(feedback))
   end
 
   def ticket_attrs(feedback)
