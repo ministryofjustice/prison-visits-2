@@ -109,6 +109,10 @@ class SignonIdentity
     }
   end
 
+  def admin?
+    estate_sso_mapper.admin?
+  end
+
 private
 
   def estate_sso_mapper

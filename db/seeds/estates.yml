@@ -72,7 +72,6 @@ EEI:
 EHI:
   name: Standford Hill
   finder_slug: sheppey-cluster-standford-hill
-  group: sheppey_cluster.noms.moj
 ESI:
   name: East Sutton Park
   group: apvu.noms.moj
@@ -86,7 +85,6 @@ EXI:
 EYI:
   name: Elmley
   finder_slug: sheppey-cluster-elmley
-  group: sheppey_cluster.noms.moj
 FBI:
   name: Forest Bank
 FDI:
@@ -239,7 +237,6 @@ SKI:
   name: Stocken
 SLI:
   name: Swaleside
-  group: sheppey_cluster.noms.moj
 SNI:
   name: Swinfen Hall
   group: apvu.noms.moj

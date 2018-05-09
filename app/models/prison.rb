@@ -12,6 +12,10 @@ class Prison < ActiveRecord::Base
     presence: true, if: :enabled?
   validate :validate_unbookable_dates
 
+  validates :booking_window, numericality: {
+    less_than_or_equal_to: PrisonSeeder::SeedEntry::DEFAULT_BOOKING_WINDOW
+  }
+
   delegate :recurring_slots, :anomalous_slots, :unbookable_dates,
     to: :parsed_slot_details
   delegate :finder_slug, :nomis_id, to: :estate
