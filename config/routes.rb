@@ -70,7 +70,7 @@ Rails.application.routes.draw do
     resource :telephone_script, only: :show
   end
 
-  constraints PVB::DigitalUserConstraint.new do
+  constraints ->(req) { PVB::DigitalUserConstraint.new.matches?(req) } do
     require 'sidekiq/web'
     mount Sidekiq::Web => '/sidekiq'
   end
