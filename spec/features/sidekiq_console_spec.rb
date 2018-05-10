@@ -3,11 +3,6 @@ require "rails_helper"
 RSpec.feature 'Sidekiq Admin Console' do
   include ActiveJobHelper
 
-  before do
-    OmniAuth.config.add_mock(:mojsso, sso_response)
-    visit prison_inbox_path
-  end
-
   let(:prison) { create :prison }
   let(:sso_response) do
     {
@@ -29,9 +24,24 @@ RSpec.feature 'Sidekiq Admin Console' do
     }
   end
 
-  scenario "with an user part of the moj.noms.digital organisation it is accessible" do
-    visit sidekiq_web_path
+  describe 'When logged in as an admin' do
+    before do
+      OmniAuth.config.add_mock(:mojsso, sso_response)
+      visit prison_inbox_path
+    end
 
-    expect(page).to have_link 'Sidekiq'
+    scenario "with an user part of the moj.noms.digital organisation it is accessible" do
+      visit sidekiq_web_path
+
+      expect(page).to have_link 'Sidekiq'
+    end
+  end
+
+  scenario "when not logged in" do
+    expect {
+      visit sidekiq_web_path
+    }.to raise_error(ActionController::RoutingError)
+
+    expect(page).not_to have_link 'Sidekiq'
   end
 end
