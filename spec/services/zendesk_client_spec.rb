@@ -3,35 +3,33 @@ require 'rails_helper'
 RSpec.describe ZendeskClient do
   subject { Class.new }
 
-  URL = 'https://zendesk_api.com'
-  USERNAME = 'bob'
-  TOKEN = '123456'
-
-  expectations = [
-    {
-      config: 'url', value: URL
-    },
-    {
-      config: 'token', value: TOKEN
-    },
-    {
-      config: 'username', value: "#{USERNAME}/token"
-    }
-  ]
+  let(:url) { 'https://zendesk_api.com' }
+  let(:username) { 'bob' }
+  let(:token) { '123456' }
 
   before do
-    set_configuration_with(:zendesk_url, URL)
-    set_configuration_with(:zendesk_user, USERNAME)
-    set_configuration_with(:zendesk_token, TOKEN)
+    set_configuration_with(:zendesk_url, url)
+    set_configuration_with(:zendesk_user, username)
+    set_configuration_with(:zendesk_token, token)
 
     subject.extend(described_class)
   end
 
   describe 'a valid instance' do
-    expectations.each do |expectation|
-      it "has the correct #{expectation[:config]}" do
-        expect(subject.client.config.send(expectation[:config])).to eq(expectation[:value])
-      end
+    it 'has a zendesk url' do
+      expect(client_config.url).to eq(url)
     end
+
+    it 'has a zendesk username' do
+      expect(client_config.username).to eq("#{username}/token")
+    end
+
+    it 'has a zendesk token' do
+      expect(client_config.token).to eq(token)
+    end
+  end
+
+  def client_config
+    subject.client.config
   end
 end
