@@ -124,8 +124,8 @@ module PrisonVisits
       ENV.fetch('ZENDESK_URL', nil)
     end
 
-    config.zendesk_user = feature_flag_value.call do
-      ENV.fetch('ZENDESK_USER', nil)
+    config.zendesk_username = feature_flag_value.call do
+      ENV.fetch('ZENDESK_USERNAME', nil)
     end
   end
 end
