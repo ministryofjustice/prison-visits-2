@@ -35,7 +35,17 @@ RSpec.describe ZendeskTicketsJob, type: :job do
   end
 
   before do
-    set_configuration_with(:zendesk_url, 'https://zendesk_api.com')
+    Rails.configuration.zendesk_client = client
+  end
+
+  context 'when Zendesk is not configured' do
+    it 'raises an error if Zendesk is not configured' do
+      allow(Rails).to receive(:configuration).and_return(Class.new)
+
+      expect {
+        subject.perform_now(feedback)
+      }.to raise_error('Cannot create Zendesk ticket since Zendesk not configured')
+    end
   end
 
   it 'calls save! to send the feedback' do
@@ -43,7 +53,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
       to receive(:new).
       and_return(ticket)
     expect(ticket).to receive(:save!).once
-    subject.perform_now(client, feedback)
+    subject.perform_now(feedback)
   end
 
   describe 'when email not provided' do
@@ -68,7 +78,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
             service_custom_field
           ]
       ).and_return(ticket)
-      subject.perform_now(client, feedback)
+      subject.perform_now(feedback)
     end
   end
 
@@ -91,7 +101,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
             service_custom_field
           ]
       ).and_return(ticket)
-      subject.perform_now(client, feedback)
+      subject.perform_now(feedback)
     end
   end
 
@@ -113,7 +123,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
             ]
         ).and_return(ticket)
 
-        subject.perform_now(client, feedback)
+        subject.perform_now(feedback)
       end
     end
 
@@ -144,7 +154,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
             ]
         ).and_return(ticket)
 
-        subject.perform_now(client, feedback)
+        subject.perform_now(feedback)
       end
     end
   end
@@ -165,7 +175,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
             browser_custom_field
           ]
       ).and_return(ticket)
-      subject.perform_now(client, feedback)
+      subject.perform_now(feedback)
     end
   end
 
@@ -184,7 +194,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
           ]
       ).and_return(ticket)
 
-      subject.perform_now(client, feedback)
+      subject.perform_now(feedback)
 
       expect(FeedbackSubmission.where(email_address: 'email@example.com')).not_to exist
     end
@@ -207,7 +217,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
             ]
           ).and_return(ticket)
 
-      expect { subject.perform_now(client, feedback) }.to raise_error(ZendeskAPI::Error::ClientError)
+      expect { subject.perform_now(feedback) }.to raise_error(ZendeskAPI::Error::ClientError)
       expect(FeedbackSubmission.where(email_address: 'email@example.com')).to exist
     end
   end
