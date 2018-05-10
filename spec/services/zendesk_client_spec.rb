@@ -9,7 +9,7 @@ RSpec.describe ZendeskClient do
 
   before do
     set_configuration_with(:zendesk_url, url)
-    set_configuration_with(:zendesk_user, username)
+    set_configuration_with(:zendesk_username, username)
     set_configuration_with(:zendesk_token, token)
 
     subject.extend(described_class)

@@ -128,8 +128,6 @@ This is used to proxy the staff information pages static site.
 
 These are required in order to submit user feedback to Zendesk.
 
-`ZENDESK_URL` defaults to `https://ministryofjustice.zendesk.com/api/v2`.
-
 ### `ENABLE_SENDGRID_VALIDATIONS` (optional)
 
 If specified it will enable the email validations that use Sendgrid in the `EmailChecker` class.
