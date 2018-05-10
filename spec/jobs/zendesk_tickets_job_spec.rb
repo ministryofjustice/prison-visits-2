@@ -36,7 +36,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
 
   before do
     set_configuration_with(:zendesk_url, 'https://zendesk_api.com')
-    allow(subject).to receive(:client).and_return(client)
+    allow_any_instance_of(subject).to receive(:client).and_return(client)
   end
 
   it 'calls save! to send the feedback' do
