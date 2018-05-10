@@ -4,6 +4,9 @@ module PVB
 
     def matches?(request)
       self.session = request.session
+
+      return false unless sso_identity
+
       sso_identity.admin?
     end
 
