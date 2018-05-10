@@ -46,26 +46,6 @@ RSpec.describe EstateSSOMapper do
       end
     end
 
-    context 'when it is for the sheppey cluster' do
-      let!(:elmley) do
-        create(:estate,
-          sso_organisation_name: 'elmley.prisons.noms.moj',
-          group: 'sheppey_cluster.noms.moj')
-      end
-      let(:orgs) { ['sheppey_cluster.noms.moj'] }
-
-      before do
-        allow(described_class).
-          to receive(:grouped_estates).
-          and_return('sheppey_cluster.noms.moj' => ['elmley.prisons.noms.moj'])
-      end
-
-      it 'includes sheppey cluster estates' do
-        is_expected.to include(elmley)
-        is_expected.not_to include(other_estate)
-      end
-    end
-
     context 'when for grendon and springhill' do
       let!(:grendon) do
         create(:estate,

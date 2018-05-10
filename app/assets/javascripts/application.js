@@ -3,7 +3,7 @@
 //= require jquery_ujs
 //= require vendor/chosen.jquery
 //= require vendor/jquery.tablesorter
-//= require raven-3.14.2.min.js
+//= require raven-3.24.2.min.js
 
 // GOVUK modules
 //= require govuk_toolkit

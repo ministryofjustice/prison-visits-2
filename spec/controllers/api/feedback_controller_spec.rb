@@ -36,7 +36,7 @@ RSpec.describe Api::FeedbackController, type: :controller do
     end
 
     it 'sends to ZenDesk' do
-      expect(ZendeskTicketsJob).to receive(:perform_later).once do |feedback|
+      expect(ZendeskTicketsJob).to receive(:perform_later).once do |_, feedback|
         expect(feedback.email_address).to eq('john@example.com')
         expect(feedback.body).to eq(body)
       end

@@ -14,4 +14,5 @@ end
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym 'PVB'
   inflect.acronym 'GA'
+  inflect.acronym 'SSO'
 end
