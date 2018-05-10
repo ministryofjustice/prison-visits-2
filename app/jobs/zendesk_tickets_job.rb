@@ -1,4 +1,5 @@
 class ZendeskTicketsJob < ActiveJob::Base
+  extend ZendeskClient
   queue_as :zendesk
 
   # Custom ticket field IDs as configured in the MOJ Digital Zendesk account
@@ -9,8 +10,8 @@ class ZendeskTicketsJob < ActiveJob::Base
   PRISONER_NUM_FIELD = '114094604912'.freeze
   PRISONER_DOB_FIELD = '114094604972'.freeze
 
-  def perform(client, feedback)
-    feedback.destroy! if ticket_raised!(client, feedback)
+  def perform(feedback)
+    feedback.destroy! if ticket_raised!(feedback)
   end
 
 private
@@ -19,8 +20,8 @@ private
   # the service field is 'prison_visits' and another one for staff that matches
   # tickets tagged with 'staff.prison.visits'.
 
-  def ticket_raised!(client, feedback)
-    ZendeskAPI::Ticket.create!(client, ticket_attrs(feedback))
+  def ticket_raised!(feedback)
+    ZendeskAPI::Ticket.create!(self.class.client, ticket_attrs(feedback))
   end
 
   def ticket_attrs(feedback)
