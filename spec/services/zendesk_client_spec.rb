@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ZendeskClient do
-  subject {Class.new}
+  subject { Class.new }
 
   URL = 'https://zendesk_api.com'
   USERNAME = 'bob'
