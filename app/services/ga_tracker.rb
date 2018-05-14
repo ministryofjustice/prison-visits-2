@@ -34,6 +34,15 @@ class GATracker
     send_data(build_event_payload(ga_cookie, 'Booked', booked_method)) if visit.booked?
   end
 
+  def send_cancelled_visit_event
+    send_data(build_event_payload(ga_cookie, 'Cancelled',
+      visit.cancellation.reasons.sort.join('-'))) if visit.cancelled?
+  end
+
+  def send_withdrawn_visit_event
+    send_data(build_event_payload(ga_cookie, 'Withdrawn', nil)) if visit.withdrawn?
+  end
+
   def send_processing_timing
     return unless timing_value
     send_data(timing_payload_data)

@@ -28,8 +28,10 @@ module Api
     def destroy
       if visitor_cancellation_response.visitor_can_cancel?
         visitor_cancellation_response.cancel!
+        ga_tracker.send_cancelled_visit_event
       elsif visitor_withdrawal_response.visitor_can_withdraw?
         visitor_withdrawal_response.withdraw!
+        ga_tracker.send_withdrawn_visit_event
       end
 
       @visit = visit
@@ -126,6 +128,10 @@ module Api
           end
         end
       end
+    end
+
+    def ga_tracker
+      @ga_tracker ||= GATracker.new(visit.principal_visitor.id, visit, cookies, request)
     end
   end
 end

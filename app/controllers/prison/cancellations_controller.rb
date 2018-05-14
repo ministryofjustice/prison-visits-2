@@ -8,6 +8,7 @@ class Prison::CancellationsController < ApplicationController
   def create
     if cancellation_response.valid?
       cancellation_response.cancel!
+      ga_tracker.send_cancelled_visit_event
       flash[:notice] = t('visit_cancelled', scope: %i[prison flash])
       redirect_to prison_visit_path(memoised_visit)
     else
@@ -38,5 +39,9 @@ private
       flash[:notice] = t('already_cancelled', scope: %i[prison flash])
       redirect_to prison_visit_path(memoised_visit)
     end
+  end
+
+  def ga_tracker
+    @ga_tracker ||= GATracker.new(current_user, memoised_visit, cookies, request)
   end
 end
