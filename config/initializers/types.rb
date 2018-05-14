@@ -1,3 +1,5 @@
+Dir[Rails.root.join('lib/types', '*.rb')].each do |file| require file end
+
 ActiveModel::Type.register(:accessible_date,                 AccessibleDateType)
 ActiveModel::Type.register(:api_slot_list,                   ApiSlotListType)
 ActiveModel::Type.register(:availability_visit_list,         AvailabilityVisitListType)
