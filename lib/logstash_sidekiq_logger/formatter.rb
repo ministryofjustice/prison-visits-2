@@ -97,7 +97,7 @@ module LogstashSidekiqLogger
     # Sidekiq logs a Hash with metadata about a failure, otherwise it is a
     # string.
     def message_needs_logging?(message)
-      (message.is_a?(Hash) && message.keys.include?('class')) ||
+      (message.is_a?(Hash) && message.key?('class')) ||
         message =~ /^done/
     end
   end
