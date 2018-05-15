@@ -236,8 +236,6 @@ RSpec.describe StaffResponse, type: :model do
         'contact_email_address'  => nil,
         'contact_phone_no'       => nil,
         'processing_state'       => 'requested',
-        'override_delivery_error' => false,
-        'delivery_error_type'    => nil,
         'reference_no'           => 'A1234BC',
         'closed'                 => params[:closed],
         'prisoner_id'            => visit.prisoner_id,
