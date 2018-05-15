@@ -43,7 +43,7 @@ private
   end
 
   def multi_estate?(org)
-    self.class.grouped_estates.keys.include?(org)
+    self.class.grouped_estates.key?(org)
   end
 
   def estates_for(org)
