@@ -167,6 +167,64 @@ RSpec.describe GATracker do
     end
   end
 
+  describe '#send_cancelled_visit_event' do
+    before do
+      cancel_visit(visit, ['booked_in_error'])
+      cookies['_ga'] = 'some_client_id'
+      switch_feature_flag_with :ga_id, web_property_id
+    end
+    context "when the visit was cancelled" do
+      it 'sends an event', vcr: { cassette_name: 'cancelled_visit_event' } do
+        subject.send_cancelled_visit_event
+
+        expect(WebMock).
+          to have_requested(:post, GATracker::ENDPOINT).with(
+            body: URI.encode_www_form(
+              v: 1,
+              uip: ip,
+              tid: web_property_id,
+              cid: "some_client_id",
+              ua: user_agent,
+              t: "event",
+              ec: visit.prison.name,
+              ea: 'Cancelled',
+              el: 'booked_in_error'
+            ),
+            headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
+          )
+      end
+    end
+  end
+
+  describe '#send_withdrawn_visit_event' do
+    before do
+      withdraw_visit(visit)
+      cookies['_ga'] = 'some_client_id'
+      switch_feature_flag_with :ga_id, web_property_id
+    end
+    context "when the visit was withdrawn" do
+      it 'sends an event', vcr: { cassette_name: 'withdrawn_visit_event' } do
+        subject.send_withdrawn_visit_event
+
+        expect(WebMock).
+          to have_requested(:post, GATracker::ENDPOINT).with(
+            body: URI.encode_www_form(
+              v: 1,
+              uip: ip,
+              tid: web_property_id,
+              cid: "some_client_id",
+              ua: user_agent,
+              t: "event",
+              ec: visit.prison.name,
+              ea: 'Withdrawn',
+              el: nil
+            ),
+            headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
+          )
+      end
+    end
+  end
+
   describe '#send_processing_timing' do
     context 'when it successfully sends an event' do
       before do

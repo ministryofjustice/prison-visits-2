@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.google-analytics.com/collect
+    body:
+      encoding: US-ASCII
+      string: v=1&uip=23.192.102.96&tid=UA-96772907-2&cid=some_client_id&ua=some+user+agent+string&t=event&ec=Lyndiaton+Open+Prison&ea=Cancelled&el=booked_in_error
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - "*"
+      Date:
+      - Tue, 15 May 2018 11:00:08 GMT
+      Pragma:
+      - no-cache
+      Expires:
+      - Fri, 01 Jan 1990 00:00:00 GMT
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Last-Modified:
+      - Sun, 17 May 1998 03:00:00 GMT
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - image/gif
+      Server:
+      - Golfe2
+      Content-Length:
+      - '35'
+      Alt-Svc:
+      - hq=":443"; ma=2592000; quic=51303433; quic=51303432; quic=51303431; quic=51303339;
+        quic=51303335,quic=":443"; ma=2592000; v="43,42,41,39,35"
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
+    http_version: 
+  recorded_at: Tue, 15 May 2018 11:00:08 GMT
+recorded_with: VCR 4.0.0
