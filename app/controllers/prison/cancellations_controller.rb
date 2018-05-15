@@ -5,6 +5,7 @@ class Prison::CancellationsController < ApplicationController
   before_action :authenticate_user
   before_action :check_visit_cancellable
 
+  # rubocop:disable Metrics/MethodLength
   def create
     if cancellation_response.valid?
       cancellation_response.cancel!
@@ -18,6 +19,7 @@ class Prison::CancellationsController < ApplicationController
       render :new
     end
   end
+# rubocop:enable Metrics/MethodLength
 
 private
 

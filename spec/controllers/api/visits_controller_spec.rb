@@ -21,6 +21,14 @@ RSpec.describe Api::VisitsController do
     end
   end
 
+  before do
+    allow(GATracker).
+      to receive(:new).
+           and_return(double(GATracker,
+             send_withdrawn_visit_event: nil,
+             send_cancelled_visit_event: nil))
+  end
+
   describe 'create' do
     let(:params) {
       {
@@ -163,7 +171,7 @@ RSpec.describe Api::VisitsController do
     end
 
     context 'with messages' do
-      let!(:message) { FactoryBot.create(:message, visit: visit) }
+      let!(:message) { create(:message, visit: visit) }
 
       it 'returns a list of messages' do
         get :show, params: params
@@ -206,7 +214,7 @@ RSpec.describe Api::VisitsController do
     specify do expect(delete :destroy, params: params).to render_template(:show) end
 
     context 'with a booked visit' do
-      let(:visit) { FactoryBot.create(:booked_visit) }
+      let(:visit) { create(:booked_visit) }
 
       it 'cancels a visit request' do
         delete :destroy, params: params
