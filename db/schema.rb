@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171121152149) do
+ActiveRecord::Schema.define(version: 2018_05_15_110205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,7 +108,6 @@ ActiveRecord::Schema.define(version: 20171121152149) do
 
   create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
     t.datetime "remember_created_at"
     t.uuid "estate_id"
     t.datetime "created_at", null: false
@@ -155,8 +154,6 @@ ActiveRecord::Schema.define(version: 20171121152149) do
     t.string "processing_state", default: "requested", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "override_delivery_error", default: false
-    t.string "delivery_error_type"
     t.string "reference_no"
     t.boolean "closed"
     t.uuid "prisoner_id", null: false
