@@ -8,6 +8,9 @@ class GATracker
     self.cookies         = cookies
     self.request         = request
     self.web_property_id = Rails.application.config.ga_id
+    self.client          = Excon.new(ENDPOINT.to_s, persistent: true)
+    self.ip              = request.ip
+    self.user_agent      = request.user_agent
   end
 
   def set_visit_processing_time_cookie
@@ -34,6 +37,17 @@ class GATracker
     send_data(build_event_payload(ga_cookie, 'Booked', booked_method)) if visit.booked?
   end
 
+  def send_cancelled_visit_event
+    if visit.cancelled?
+      send_data(build_event_payload(ga_cookie, 'Cancelled',
+        visit.cancellation.reasons.sort.join('-')))
+    end
+  end
+
+  def send_withdrawn_visit_event
+    send_data(build_event_payload(ga_cookie, 'Withdrawn', nil)) if visit.withdrawn?
+  end
+
   def send_processing_timing
     return unless timing_value
     send_data(timing_payload_data)
@@ -42,11 +56,8 @@ class GATracker
 
 private
 
-  attr_accessor :web_property_id, :user, :prison, :visit, :cookies, :request
-
-  def client
-    @client ||= Excon.new(ENDPOINT.to_s, persistent: true)
-  end
+  attr_accessor :web_property_id, :user, :prison, :visit, :cookies, :request, :client,
+    :ip, :user_agent
 
   def send_data(payload)
     client.post(
@@ -78,14 +89,6 @@ private
     Integer(cookies[processing_time_key])
   rescue TypeError => e
     PVB::ExceptionHandler.capture_exception(e)
-  end
-
-  def ip
-    request.remote_ip
-  end
-
-  def user_agent
-    request.user_agent
   end
 
   def timing_payload_data

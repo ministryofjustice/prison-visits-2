@@ -111,7 +111,7 @@ RSpec.feature 'Using the dashboard' do
     end
 
     let(:vst) do
-      FactoryBot.create(:booked_visit, prison: swansea_prison)
+      create(:booked_visit, prison: swansea_prison)
     end
 
     before do
@@ -124,7 +124,7 @@ RSpec.feature 'Using the dashboard' do
       end
     end
 
-    it 'sends a message and cancels the visit' do
+    it 'sends a message and cancels the visit', vcr: { cassette_name: :cancel_visit_ga } do
       fill_in 'Search', with: vst.prisoner_number
       find('.button.search').click
       click_link 'View'
