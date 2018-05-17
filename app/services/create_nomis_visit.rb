@@ -15,9 +15,29 @@ class CreateNomisVisit
     booking.visit_id
   end
 
+  def visit_order
+    @visit_order ||= begin
+                       return unless booking.visit_order
+                       visit.build_visit_order(
+                         number: booking.visit_order.number,
+                         code: booking.visit_order.code,
+                         type: vo_type
+                       )
+                     end
+  end
+
 private
 
   attr_accessor :visit, :booking, :api_error
+
+  def vo_type
+    case booking.visit_order.code
+    when Nomis::VisitOrder::VO  then VisitOrder
+    when Nomis::VisitOrder::PVO then VisitOrder::Priviledged
+    else
+      VisitOrder::Unsupported
+    end
+  end
 
   def call_api
     self.booking = Nomis::Api.

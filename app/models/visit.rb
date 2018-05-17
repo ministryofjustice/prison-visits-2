@@ -10,6 +10,7 @@ class Visit < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_one :rejection, dependent: :destroy, inverse_of: :visit
   has_one :cancellation, dependent: :destroy
+  has_one :visit_order, dependent: :destroy
 
   validates :prison,
     :prisoner,

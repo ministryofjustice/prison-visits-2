@@ -19,7 +19,10 @@ class BookingResponder
       booking_response = nomis_visit_creator.execute
 
       if booking_response.success?
-        visit.update!(nomis_id: nomis_visit_creator.nomis_visit_id)
+        visit.update!(
+          nomis_id:    nomis_visit_creator.nomis_visit_id,
+          visit_order: nomis_visit_creator.visit_order
+        )
       end
 
       booking_response

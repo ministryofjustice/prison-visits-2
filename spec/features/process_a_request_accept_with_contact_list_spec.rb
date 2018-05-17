@@ -38,6 +38,8 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
     end
 
     scenario 'accepting a booking', vcr: { cassette_name: 'accept_book_to_nomis_enabled' } do
+      vst.update!(slot_option_0: '2018-05-24T10:00/11:30')
+
       visit prison_visit_path(vst, locale: 'en')
 
       expect(page).to have_css('h1', text: 'Check visit request')
@@ -48,8 +50,6 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       expect(page).to have_css('.bold-small', text: 'Standard')
       expect(page).to have_css('.bold-small', text: 'Adult Imprisonment Without Option CJA03')
       choose_date
-
-      fill_in 'Reference number',   with: '11223344'
 
       fill_in 'This message will be included in the email sent to the visitor', with: 'A staff message'
 
@@ -64,8 +64,8 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
 
       vst.reload
       expect(vst).to be_booked
-      expect(vst.nomis_id).to eq(5902)
-      expect(vst.reference_no).to eq('11223344')
+      expect(vst.nomis_id).to eq(5955)
+      expect(vst.visit_order).to have_attributes(type: 'VisitOrder', number: 2_018_000_000_130)
     end
 
     scenario 'opting out of booking to nomis', vcr: { cassette_name: 'opt_out_of_book_to_nomis' } do
