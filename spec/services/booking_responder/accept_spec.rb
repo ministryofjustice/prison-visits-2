@@ -49,30 +49,29 @@ RSpec.describe BookingResponder::Accept do
 
   describe 'with book to nomis enabled' do
     let(:persist_to_nomis) { true }
-    let(:nomis_visit_creator) { instance_double(CreateNomisVisit, nomis_visit_id: 12_345) }
-
-    before do
-      mock_service_with(CreateNomisVisit, nomis_visit_creator)
+    let(:nomis_visit_id)   { 12_345 }
+    let(:booking) do
+      Nomis::Booking.new(
+        'visit_id' => nomis_visit_id,
+        'visit_order' => { 'type' => { 'code' => Nomis::VisitOrder::VO }, 'number' => 98_123 }
+      )
     end
 
     describe 'with book to nomis successfully' do
-      before do
-        expect(nomis_visit_creator).to receive(:execute).and_return(BookingResponse.successful)
-      end
+      before { mock_nomis_with(:book_visit, booking) }
 
       it 'book the visit to nomis and update the nomis id' do
         expect {
           subject.process_request
-        }.to change { visit.reload.nomis_id }.to(nomis_visit_creator.nomis_visit_id)
+          visit.reload
+        }.to change(visit, :nomis_id).to(nomis_visit_id).and change(visit, :visit_order).to(instance_of(VisitOrder))
       end
 
       it_behaves_like 'process the request'
     end
 
     describe 'with book to nomis with errors' do
-      before do
-        expect(nomis_visit_creator).to receive(:execute).and_return(BookingResponse.nomis_api_error)
-      end
+      before { simulate_api_error_for :book_visit }
 
       it 'book the visit to nomis and update the nomis id' do
         expect { subject.process_request }.not_to change { visit.reload.nomis_id }

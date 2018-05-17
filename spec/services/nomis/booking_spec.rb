@@ -27,11 +27,28 @@ RSpec.describe Nomis::Booking do
 
     describe 'with a successful response' do
       let(:visit_id) { 12_345 }
-      let(:response) { { 'visit_id' => visit_id } }
+      let(:response) do
+        {
+          'visit_id' => visit_id,
+          'visit_order' => {
+            'type' => {
+              'code' => 'VO',
+              'desc' => 'Visiting Order'
+            },
+            'number' => '1234567890'
+          }
+        }
+      end
 
       it 'parses the visit id' do
         expect(described_class.build(response)).
-          to have_attributes(visit_id: visit_id, error_messages: [])
+          to have_attributes(
+            visit_id: visit_id,
+            error_messages: [],
+            visit_order: have_attributes(
+              code: 'VO', desc: 'Visiting Order', number: 1_234_567_890
+            )
+             )
       end
     end
   end

@@ -1,9 +1,5 @@
 module Nomis
-  class Establishment
-    include MemoryModel
-
-    attribute :code, :string
-    attribute :desc, :string
+  class Establishment < Code
     attribute :api_call_successful, :boolean, default: true
     attribute :housing_location, :housing_location
 

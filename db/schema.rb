@@ -116,6 +116,16 @@ ActiveRecord::Schema.define(version: 2018_05_21_133256) do
     t.index ["estate_id"], name: "index_users_on_estate_id"
   end
 
+  create_table "visit_orders", force: :cascade do |t|
+    t.string "type", default: "VisitOrder", null: false
+    t.bigint "number", null: false
+    t.string "code", null: false
+    t.uuid "visit_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["visit_id"], name: "index_visit_orders_on_visit_id"
+  end
+
   create_table "visit_state_changes", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string "visit_state"
     t.uuid "visit_id", null: false
@@ -172,6 +182,7 @@ ActiveRecord::Schema.define(version: 2018_05_21_133256) do
   add_foreign_key "prisons", "estates"
   add_foreign_key "rejections", "visits"
   add_foreign_key "users", "estates"
+  add_foreign_key "visit_orders", "visits"
   add_foreign_key "visit_state_changes", "users", column: "processed_by_id"
   add_foreign_key "visit_state_changes", "visitors"
   add_foreign_key "visitors", "visits"

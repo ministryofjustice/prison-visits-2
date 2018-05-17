@@ -7,6 +7,8 @@ RSpec.describe Visit, type: :model do
     double(Mail::Message, deliver_later: nil)
   end
 
+  it { is_expected.to have_one(:visit_order).dependent(:destroy) }
+
   describe 'transitions' do
     context 'when transitioning from requested to rejected' do
       it 'can not be saved without a rejection' do

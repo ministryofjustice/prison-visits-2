@@ -1,10 +1,6 @@
 module Nomis
   class Contact
-    class Relationship
-      include MemoryModel
-
-      attribute :code, :string
-      attribute :desc, :string
+    class Relationship < Code
     end
   end
 end

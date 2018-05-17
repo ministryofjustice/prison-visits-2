@@ -46,15 +46,15 @@ RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
       estate: create(:estate, nomis_id: 'LEI'))
   end
   let(:prisoner_number) { 'A1475AE' }
-  let(:prisoner_dob)    { '23-04-1979' }
+  let(:prisoner_dob)    { '1979-04-23' }
   let(:visitor)         { vst.visitors.first }
 
   around do |ex|
-    travel_to(Date.new(2018, 4, 5)) { ex.run }
+    travel_to(Date.new(2018, 5, 21)) { ex.run }
   end
 
   before do
-    vst.update!(slot_option_0: '2018-04-08T09:00/10:00')
+    vst.update!(slot_option_0: '2018-05-25T10:00/11:30')
 
     allow(GATracker).
       to receive(:new).and_return(

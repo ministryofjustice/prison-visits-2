@@ -296,7 +296,7 @@ RSpec.describe Nomis::Api do
     end
   end
 
-  describe 'book_visit' do
+  describe '#book_visit' do
     let(:params) do
       {
         lead_contact: 13_429,

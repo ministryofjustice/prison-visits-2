@@ -12,9 +12,9 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
-      - ''
+      - cf5bb5a0-46b9-4e52-9ec9-62570cf60808
   response:
     status:
       code: 200
@@ -23,7 +23,7 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 05 Apr 2018 13:03:09 GMT
+      - Mon, 21 May 2018 10:08:46 GMT
       Server:
       - nginx/1.13.8
       Server-Timing:
@@ -35,8 +35,8 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"found":true,"offender":{"id":1057027}}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:03:09 GMT
+    http_version: 
+  recorded_at: Mon, 21 May 2018 10:08:46 GMT
 - request:
     method: get
     uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057027/visits/contact_list
@@ -49,9 +49,9 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
-      - ''
+      - cf5bb5a0-46b9-4e52-9ec9-62570cf60808
   response:
     status:
       code: 200
@@ -60,11 +60,11 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 05 Apr 2018 13:03:09 GMT
+      - Mon, 21 May 2018 10:08:46 GMT
       Server:
       - nginx/1.13.8
       Server-Timing:
-      - total=4, db=2
+      - total=11, db=10
       Url-Template:
       - "/offenders/{offender_id}/visits"
       Content-Length:
@@ -74,11 +74,11 @@ http_interactions:
       string: '{"contacts":[{"id":13621,"given_name":"BOB","surname":"LIPMAN","date_of_birth":"1970-01-01","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"HUS","desc":"Husband"},"contact_type":{"code":"S","desc":"Social/
         Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13668,"given_name":"e","surname":"e","gender":{},"relationship_type":{"code":"COM","desc":"Case
         Admin (Offender Management Unit)"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":false,"active":true,"restrictions":[]}]}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:03:09 GMT
+    http_version: 
+  recorded_at: Mon, 21 May 2018 10:08:46 GMT
 - request:
     method: patch
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057027/visits/booking/5901/cancel
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057027/visits/booking/5984/cancel
     body:
       encoding: UTF-8
       string: '{"comment":null,"cancellation_code":"ADMIN"}'
@@ -88,9 +88,9 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
-      - ''
+      - 301540ce-bea3-47d8-8971-c118a09c6945
       Content-Type:
       - application/json
   response:
@@ -101,11 +101,11 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 05 Apr 2018 13:03:12 GMT
+      - Mon, 21 May 2018 10:13:46 GMT
       Server:
       - nginx/1.13.8
       Server-Timing:
-      - total=44, db=0
+      - total=37, db=0
       Url-Template:
       - "/offenders/{offender_id}/visits"
       Content-Length:
@@ -113,6 +113,6 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"message":"Visit Cancelled"}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:03:12 GMT
+    http_version: 
+  recorded_at: Mon, 21 May 2018 10:13:46 GMT
 recorded_with: VCR 4.0.0

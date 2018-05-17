@@ -107,7 +107,7 @@ private
         :other_rejection_reason,
         banned_until: [:day, :month, :year]
       ],
-      prisoner_attributes: [:nomis_offender_id]
+      prisoner_attributes: [:nomis_offender_id, :id]
     )
   end
   # rubocop:enable Metrics/MethodLength
