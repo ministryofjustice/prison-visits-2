@@ -1,5 +1,5 @@
 class EstateSeeder::SeedEntry
-  KEYS = %i[ nomis_id name finder_slug sso_organisation_name group ].freeze
+  KEYS = %i[ nomis_id name finder_slug sso_organisation_name group admins ].freeze
 
   def initialize(nomis_id, hash)
     @nomis_id = nomis_id
@@ -29,5 +29,9 @@ private
 
   def group
     hash['group']
+  end
+
+  def admins
+    hash['admins']
   end
 end
