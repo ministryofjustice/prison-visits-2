@@ -18,6 +18,7 @@ module PrisonVisits
     config.product_type = 'service'
 
     config.autoload_paths += %w[ app/mailers/concerns ]
+    config.eager_load_paths += %w[ app/services/nomis ]
 
     config.i18n.load_path =
       Dir[Rails.root.join('config', 'locales', '{en,cy}', '*.yml').to_s]
