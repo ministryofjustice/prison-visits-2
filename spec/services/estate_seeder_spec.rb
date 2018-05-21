@@ -33,6 +33,11 @@ RSpec.describe EstateSeeder do
         to have_attributes(finder_slug: 'luna')
     end
 
+    it 'generates a default for admins' do
+      subject.import nomis_id, hash
+      expect(Estate.find_by(nomis_id: nomis_id).admins).to be_empty
+    end
+
     it 'uses the supplied admins' do
       subject.import nomis_id, hash.merge('admins' => ['apvu.noms.moj'])
       expect(Estate.find_by(nomis_id: nomis_id)).
