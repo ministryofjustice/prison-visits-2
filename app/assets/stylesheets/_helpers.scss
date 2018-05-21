@@ -50,15 +50,12 @@
   border: 1px solid $border-colour;
   padding: $gutter-half;
 }
-
 .border-box--orange {
   border-color: orange;
 }
-
 .border-box--large {
   border-width: 3px;
 }
-
 @media print {
   .page-break {
     page-break-before: always;

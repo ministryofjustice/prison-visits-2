@@ -1,3 +1,11 @@
+.form-control-auto-width {
+  width: auto !important;
+}
+
+.form-control-full-width {
+  width: 100% !important;
+}
+
 .form-checkbox {
   position: relative;
   padding-left: 25px;
@@ -8,6 +16,16 @@
   }
 }
 
+.no-form-group {
+  .form-group {
+    margin-bottom: 10px;
+  }
+}
+legend .form-label,
+legend .form-label-bold {
+  padding-bottom: 0;
+}
+
 .prison-switcher {
   float: left;
   + input {
@@ -15,6 +33,16 @@
     @include media(mobile) {
       margin-left: 0;
       margin-top: $gutter-half;
+    }
+  }
+}
+
+form {
+  .error {
+    label .validation-message {
+      color: $error-colour;
+      display: block;
+      @include bold-19;
     }
   }
 }
