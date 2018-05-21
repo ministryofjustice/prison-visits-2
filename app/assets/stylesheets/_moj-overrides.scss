@@ -80,6 +80,7 @@
 a:hover {
   text-decoration: none;
 }
+
 a[rel="external"]{
   &:after {
     background-position: right 4px;
@@ -90,64 +91,6 @@ a[rel="external"]{
   &:hover {
     &:after {
       background-position: right -384px;
-    }
-  }
-}
-
-.form-control-full-width {
-  width: 100% !important;
-}
-
-table {
-  th {
-    @include bold-16;
-    white-space: nowrap;
-  }
-  td {
-    @include core-16;
-    .icon {
-      display: block;
-    }
-  }
-  .long {
-    word-break: break-word;
-  }
-  .col-time {
-    min-width: 80px;
-  }
-  &.table--hover {
-    tbody>tr:not(.hidden-row):hover {
-      td {
-        background-color: $highlight-colour;
-      }
-    }
-  }
-  tr.hide {
-    display: none;
-  }
-  tr.show {
-    display: table-row;
-  }
-}
-
-.form-control-auto-width {
-  width: auto !important;
-}
-
-.no-form-group {
-  .form-group {
-    margin-bottom: 10px;
-  }
-}
-legend .form-label,
-legend .form-label-bold {
-  padding-bottom: 0;
-}
-
-@media print {
-  table {
-    td div {
-      page-break-inside: avoid;
     }
   }
 }
