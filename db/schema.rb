@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_15_110205) do
+ActiveRecord::Schema.define(version: 2018_05_17_155721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2018_05_15_110205) do
     t.string "finder_slug", null: false
     t.string "sso_organisation_name"
     t.string "group"
+    t.string "admins", array: true
     t.index ["name"], name: "index_estates_on_name", unique: true
   end
 

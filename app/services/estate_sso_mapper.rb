@@ -4,8 +4,10 @@ class EstateSSOMapper
   def self.grouped_estates
     @grouped_estates ||= begin
       grouped_estates = Hash.new { |h, k| h[k] = [] }
-      Estate.where.not(group: nil).each do |estate|
-        grouped_estates[estate.group] << estate.sso_organisation_name
+      Estate.where.not(admins: nil).map do |estate|
+        estate.admins.map do |admin|
+          grouped_estates[admin] << estate.sso_organisation_name
+        end
       end
       grouped_estates.values.freeze
       grouped_estates.freeze
