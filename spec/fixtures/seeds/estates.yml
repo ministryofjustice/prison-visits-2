@@ -1,5 +1,9 @@
 LNX:
   name: Luna
   finder_slug: moonbase
+  admins:
+   - luna.prison.noms.moj
 MRX:
   name: Mars
+  admins:
+    - mars.prisons.noms.moj

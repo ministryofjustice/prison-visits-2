@@ -33,10 +33,10 @@ RSpec.describe EstateSeeder do
         to have_attributes(finder_slug: 'luna')
     end
 
-    it 'uses the supplied group' do
-      subject.import nomis_id, hash.merge('group' => 'apvu.noms.moj')
+    it 'uses the supplied admins' do
+      subject.import nomis_id, hash.merge('admins' => ['apvu.noms.moj'])
       expect(Estate.find_by(nomis_id: nomis_id)).
-        to have_attributes(group: 'apvu.noms.moj')
+        to have_attributes(admins: ['apvu.noms.moj'])
     end
 
     it 'generates an sso organisation name' do

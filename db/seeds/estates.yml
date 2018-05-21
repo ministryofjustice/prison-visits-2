@@ -1,292 +1,525 @@
 ACI:
   name: Altcourse
+  admins:
+    - altcourse.prisons.noms.moj
 AGI:
   name: Askham Grange
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 AKI:
   name: Acklington
   finder_slug: acklington2
+  admins:
+    - acklington.prisons.noms.moj
 ALI:
   name: Isle of Wight - Albany
   finder_slug: isle-of-wight
-  group: isle_of_wight.noms.moj
+  admins:
+    - isle_of_wight.noms.moj
 ASI:
   name: Ashfield
+  admins:
+    - ashfield.prisons.noms.moj
 AYI:
   name: Aylesbury
+  admins:
+    - aylesbury.prisons.noms.moj
 BAI:
   name: Belmarsh
+  admins:
+    - belmarsh.prisons.noms.moj
 BCI:
   name: Buckley Hall
+  admins:
+    - buckley_hall.prisons.noms.moj
 BFI:
   name: Bedford
+  admins:
+    - bedford.prisons.noms.moj
 BHI:
   name: Blantyre House
+  admins:
+    - blantyre_house.prisons.noms.moj
 BLI:
   name: Bristol
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 BMI:
   name: Birmingham
+  admins:
+    - birmingham.prisons.noms.moj
 BNI:
   name: Bullingdon
   finder_slug: bullingdon
+  admins:
+    - bullingdon.prisons.noms.moj
 BRI:
   name: Bure
+  admins:
+    - bure.prisons.noms.moj
 BSI:
   name: Brinsford
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 BWI:
   name: Berwyn
+  admins:
+    - berwyn.prisons.noms.moj
 BXI:
   name: Brixton
+  admins:
+    - brixton.prisons.noms.moj
 BZI:
   name: Bronzefield
+  admins:
+    - bronzefield.prisons.noms.moj
 CDI:
   name: Chelmsford
+  admins:
+    - chelmsford.prisons.noms.moj
 CFI:
   name: Cardiff
+  admins:
+    - cardiff.prisons.noms.moj
 CKI:
   name: Cookham Wood
+  admins:
+    - cookham_wood.prisons.noms.moj
 CLI:
   name: Coldingley
+  admins:
+    - coldingley.prisons.noms.moj
 CWI:
   name: Channings Wood
+  admins:
+    - channings_wood.prisons.noms.moj
 DAI:
   name: Dartmoor
+  admins:
+    - dartmoor.prisons.noms.moj
 DGI:
   name: Dovegate
+  admins:
+    - dovegate.prisons.noms.moj
 DHI:
   name: Drake Hall
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 DMI:
   name: Durham
+  admins:
+    - durham.prisons.noms.moj
 DNI:
   name: Doncaster
+  admins:
+    - doncaster.prisons.noms.moj
 DTI:
   name: Deerbolt
+  admins:
+    - deerbolt.prisons.noms.moj
 DWI:
   name: Downview
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 EEI:
   name: Erlestoke
+  admins:
+    - erlestoke.prisons.noms.moj
 EHI:
   name: Standford Hill
   finder_slug: sheppey-cluster-standford-hill
+  admins:
+    - standford_hill.prisons.noms.moj
 ESI:
   name: East Sutton Park
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 EVI:
   name: Everthorpe
+  admins:
+    - everthorpe.prisons.noms.moj
 EWI:
   name: Eastwood Park
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 EXI:
   name: Exeter
+  admins:
+    - exeter.prisons.noms.moj
 EYI:
   name: Elmley
   finder_slug: sheppey-cluster-elmley
+  admins:
+    - elmeley.prisons.noms.moj
 FBI:
   name: Forest Bank
+  admins:
+    - forest_park.prisons.noms.moj
 FDI:
   name: Ford
+  admins:
+    - ford.prisons.nms.moj
 FHI:
   name: Foston Hall
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 FKI:
   name: Frankland
+  admins:
+    - frankland.prisons.noms.moj
 FMI:
   name: Feltham
   finder_slug: feltham
+  admins:
+    - feltham.prisons.noms.moj
 FNI:
   name: Full Sutton
+  admins:
+    - full_stutton.prisons.noms.moj
 FSI:
   name: Featherstone
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 GHI:
   name: Garth
+  admins:
+    - garth.prisons.noms.moj
 GMI:
   name: Guys Marsh
+  admins:
+    - garth.prisons.noms.moj
 GNI:
   name: Grendon
-  group: grendon_and_springhill.noms.moj
+  admins:
+    - grendon_and_springhill.noms.moj
 GPI:
   name: Glen Parva
+  admins:
+    - glen_parva.prisons.noms.moj
 GTI:
   name: Gartree
+  admins:
+    - gartree.prisons.noms.moj
 HBI:
   name: Hollesley Bay Open
+  admins:
+    - hollesley_bay_open.prison.noms.moj
 HCI:
   name: Huntercombe
+  admins:
+    - huntercombe.prisons.noms.moj
 HDI:
   name: Hatfield Open
   finder_slug: hatfield
+  admins:
+    - hatfield.prisons.noms.moj
 HEI:
   name: Hewell
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 HHI:
   name: Holme House
+  admins:
+    - holme_house.prisons.noms.moj
 HII:
   name: Hindley
+  admins:
+    - hindley.prisons.noms.moj
 HLI:
   name: Hull
+  admins:
+    - hull.prisons.noms.moj
 HMI:
   name: Humber
+  admins:
+    - humber.prison.noms.moj
 HOI:
   name: High Down
+  admins:
+    - high_down.prisons.noms.moj
 HPI:
   name: Highpoint
   finder_slug: highpoint-south
+  admins:
+    - highpoint.prisons.noms.moj
 HVI:
   name: Haverigg
+  admins:
+    - haverigg.prisons.noms.moj
 HYI:
   name: Holloway
+  admins:
+    - holloway.prisons.noms.moj
 ISI:
   name: Isis
+  admins:
+    - isis.prisons.noms.moj
 IWI:
   name: Isle of Wight
   finder_slug: isle-of-wight
-  group: isle_of_wight.noms.moj
+  admins:
+    - isle_of_wight.noms.moj
 KMI:
   name: Kirkham
+  admins:
+    - kirkham.prisons.noms.moj
 KTI:
   name: Kennet
+  admins:
+    - kennet.prisons.noms.moj
 KVI:
   name: Kirklevington Grange
+  admins:
+    - kirklevington.prisons.noms.moj
 LCI:
   name: Leicester
+  admins:
+    - leicester.prisons.noms.moj
 LEI:
   name: Leeds
+  admins:
+    - leeds.prisons.noms.moj
 LFI:
   name: Lancaster Farms
+  admins:
+    - lancaster.prisons.noms.moj
 LGI:
   name: Lowdham Grange
+  admins:
+    - lowdham_grange.prisons.noms.moj
 LHI:
   name: Lindholme
+  admins:
+    - lindholme.prisons.noms.moj
 LII:
   name: Lincoln
+  admins:
+    lindholme.prisons.noms.moj
 LLI:
   name: Long Lartin
+  admins:
+    - long_lartin.prisons.noms.moj
 LNI:
   name: Low Newton
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 LPI:
   name: Liverpool
   finder_slug: liverpool
+  admins:
+    liverpool.prisons.noms.moj
 LTI:
   name: Littlehey
+  admins:
+    littlehey.prisons.noms.moj
 LWI:
   name: Lewes
+  admins:
+    lewes.prisons.noms.moj
 LYI:
   name: Leyhill
+  admins:
+    - leyhill.prisons.noms.moj
 MDI:
   name: Moorland Closed
   finder_slug: moorland
+  admins:
+    - moorland_closed.prisons.noms.moj
 MHI:
   name: Morton Hall
+  admins:
+    - morton.hall.prisons.noms.moj
 MRI:
   name: Manchester
+  admins:
+    - manchester.prisons.noms.moj
 MSI:
   name: Maidstone
+  admins:
+    - maidstone.prisons.noms.moj
 MTI:
   name: The Mount
+  admins:
+    the_mount.prisons.noms.moj
 NHI:
   name: New Hall
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 NLI:
   name: Northumberland
+  admins:
+    - northumberland.prisons.noms.moj
 NMI:
   name: Nottingham
+  admins:
+    - nottingham.prisons.noms.moj
 NSI:
   name: North Sea Camp
+  admins:
+    - north_sea_camp.prisons.noms.moj
 NWI:
   name: Norwich
   finder_slug: norwich
+  admins:
+    - norwich.prisons.noms.moj
 ONI:
   name: Onley
+  admins:
+    - onley.prisons.noms.moj
 OWI:
   name: Oakwood
   finder_slug: hmp-oakwood
+  admins:
+    - oakwood.prisons.noms.moj
 PBI:
   name: Peterborough
+  admins:
+    - peterborough.prisons.noms.moj
 PDI:
   name: Portland
+  admins:
+    - portland.prisons.noms.moj
 PNI:
   name: Preston
+  admins:
+    - preston.prisons.noms.moj
 PRI:
   name: Parc
+  admins:
+    - parc.prisons.noms.moj
 PVI:
   name: Pentonville
+  admins:
+    pentonville.prisons.noms.moj
 RCI:
   name: Rochester
+  admins:
+    - rochester.prisons.noms.moj
 RHI:
   name: Rye Hill
+  admins:
+    rye_hill.prisons.noms.moj
 RNI:
   name: Ranby
+  admins:
+    - ranby.prisons.noms.moj
 RSI:
   name: Risley
+  admins:
+    - risley.prisons.noms.moj
 SDI:
   name: Send
   group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 SFI:
   name: Stafford
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 SHI:
   name: Stoke Heath
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 SKI:
   name: Stocken
+  admins:
+    - stocken.prisons.noms.moj
 SLI:
   name: Swaleside
+  admins:
+    - swaleside.prisons.noms.moj
 SNI:
   name: Swinfen Hall
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 SPI:
   name: Spring Hill
   group: grendon_and_springhill.noms.moj
+  admins:
+    - grendon_and_springhill.noms.moj
 STI:
   name: Styal
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 SUI:
   name: Sudbury
+  admins:
+    - sudbury.prisons.noms.moj
 SWI:
   name: Swansea
+  admins:
+    - swansea.prisons.noms.moj
 TCI:
   name: Thorn Cross
+  admins:
+    - thorn_cross.prisons.noms.moj
 TSI:
   name: Thameside
+  admins:
+    - thameside.prisons.noms.moj
 UKI:
   name: Usk
   finder_slug: usk-prescoed-usk
+  admins:
+    - usk.prisons.noms.moj
 UPI:
   name: Prescoed
   finder_slug: usk-prescoed-prescoed
+  admins:
+    - prescoed.prisons.noms.moj
 WCI:
   name: Winchester
+  admins:
+    - winchester.prisons.noms.moj
 WDI:
   name: Wakefield
+  admins:
+    - wakefield.prisons.noms.moj
 WEI:
   name: Wealstun
+  admins:
+    - wealstun.prisons.noms.moj
 WHI:
   name: Woodhill
+  admins:
+    - woodhill.prisons.noms.moj
 WII:
   name: Warren Hill
+  admins:
+    - warren_hill.prisons.noms.moj
 WLI:
   name: Wayland
+  admins:
+    - wayland.prisons.noms.moj
 WMI:
   name: Wymott
+  admins:
+    - wymott.prisons.noms.moj
 WNI:
   name: Werrington
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 WOI:
   name: Wolds
+  admins:
+    - wolds.prisons.noms.moj
 WRI:
   name: Whitemoor
+  admins:
+    - whitemoor.prisons.noms.moj
 WSI:
   name: Wormwood Scrubs
-  group: apvu.noms.moj
+  admins:
+    - apvu.noms.moj
 WTI:
   name: Whatton
+  admins:
+    - whatton.prisons.noms.moj
 WWI:
   name: Wandsworth
+  admins:
+    - wandsworth.prisons.noms.moj
 WYI:
   name: Wetherby
+  admins:
+    - wetherby.prisons.noms.moj
