@@ -21,7 +21,7 @@
           <td aria-label="<%= t('tel', scope: :shared) %>"><%= visit.contact_phone_no %></td>
           <td aria-label="<%= t('visit_date', scope: :shared) %>"><%= format_visit_slot_date_for_staff(visit) %></td>
           <td aria-label="<%= t('time_slot', scope: :shared) %>"><%= format_visit_slot_times_for_staff(visit) %></td>
-          <td aria-label="<%= t('status', scope: :shared) %>"><span class="tag tag-<%= visit.processing_state %>"><%= visit.processing_state.capitalize %></span></td>
+          <td aria-label="<%= t('status', scope: :shared) %>"><span class="tag tag--<%= visit.processing_state %>"><%= visit.processing_state.capitalize %></span></td>
           <td aria-label="<%= t('prison', scope: :shared) %>"><%= visit.prison_name %></td>
           <td aria-label="<%= t('actions', scope: :shared) %>"><%= link_to t('.view_link'), prison_visit_path(visit), title: t('.view_link') %></td>
         </tr>

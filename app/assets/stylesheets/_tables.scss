@@ -1,3 +1,35 @@
+table {
+  th {
+    @include bold-16;
+    white-space: nowrap;
+  }
+  td {
+    @include core-16;
+    .icon {
+      display: block;
+    }
+  }
+  .long {
+    word-break: break-word;
+  }
+  .col-time {
+    min-width: 80px;
+  }
+  &.table--hover {
+    tbody>tr:not(.hidden-row):hover {
+      td {
+        background-color: $highlight-colour;
+      }
+    }
+  }
+  tr.hide {
+    display: none;
+  }
+  tr.show {
+    display: table-row;
+  }
+}
+
 table.tablesorter {
   th.tablesorter-header {
     cursor: pointer;
@@ -35,5 +67,13 @@ table.tablesorter {
   table td:before {
     content: attr(aria-label);
     float: left;
+  }
+}
+
+@media print {
+  table {
+    td div {
+      page-break-inside: avoid;
+    }
   }
 }

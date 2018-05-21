@@ -1,9 +1,0 @@
-form {
-  .error {
-    label .validation-message {
-      color: $error-colour;
-      display: block;
-      @include bold-19;
-    }
-  }
-}
