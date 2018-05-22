@@ -1,6 +1,7 @@
 namespace :zendesk do
-  desc 'Delete zendesk tickets in staff inbox older than 12 months'
+  desc 'Delete zendesk tickets in staff inbox that have not been updated in twelve month'
   task cleanup: :environment do
-    ZendeskCleaner.new.delete_tickets
+    client = Zendesk::Client.instance
+    Zendesk::PvbApi.new(client).cleanup_tickets
   end
 end

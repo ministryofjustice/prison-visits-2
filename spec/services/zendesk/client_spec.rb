@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe ZendeskClient do
-  subject { Class.new }
+RSpec.describe Zendesk::Client do
+  subject { described_class.instance }
 
   let(:url) { 'https://zendesk_api.com' }
   let(:username) { 'bob' }
@@ -11,8 +11,6 @@ RSpec.describe ZendeskClient do
     set_configuration_with(:zendesk_url, url)
     set_configuration_with(:zendesk_username, username)
     set_configuration_with(:zendesk_token, token)
-
-    subject.extend(described_class)
   end
 
   describe 'a valid instance' do
