@@ -1,5 +1,4 @@
 class ZendeskTicketsJob < ActiveJob::Base
-  include ZendeskClient
   queue_as :zendesk
 
   # Custom ticket field IDs as configured in the MOJ Digital Zendesk account
@@ -21,7 +20,8 @@ private
   # tickets tagged with 'staff.prison.visits'.
 
   def ticket_raised!(feedback)
-    ZendeskAPI::Ticket.create!(client, ticket_attrs(feedback))
+    client = Zendesk::Client.instance
+    Zendesk::PvbApi.new(client).raise_ticket(ticket_attrs(feedback))
   end
 
   def ticket_attrs(feedback)
