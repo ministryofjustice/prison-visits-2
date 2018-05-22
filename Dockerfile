@@ -15,6 +15,6 @@ EXPOSE $UNICORN_PORT
 
 RUN gem update bundler --no-doc
 
-RUN RAILS_ENV=production PUBLIC_SERVICE_URL=foo STAFF_SERVICE_URL=foo SECRET_KEY_BASE=foo bundle exec rake assets:precompile --trace
+RUN RAILS_ENV=production PUBLIC_SERVICE_URL=foo STAFF_SERVICE_URL=foo SECRET_KEY_BASE=foo bin/rake assets:precompile --trace
 
 ENTRYPOINT ["./run.sh"]
