@@ -7,14 +7,14 @@ A service for booking a social visit to a prisoner in England or Wales
 
 ## Live application
 
-Production application is made available through GOV.UK & can be found at [https://www.gov.uk/prison-visits](https://www.gov.uk/prison-visits) 
+Production application is made available through GOV.UK & can be found at [https://www.gov.uk/prison-visits](https://www.gov.uk/prison-visits)
 
 ## Technical Information
 
 This is a Ruby on Rails application that has two main roles. It exposes:
 
-1. A public interface for staff to *manage* prison visit bookings. 
-2. An API for *booking* prison visits. The consumer of this API is [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public). 
+1. A public interface for staff to *manage* prison visit bookings.
+2. An API for *booking* prison visits. The consumer of this API is [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public).
 
 This is a full rewrite from the ground up, using a database instead of
 serialised data in URLs in emails. The CSS and JavaScript has largely been
@@ -43,7 +43,7 @@ Emails will be sent to [MailCatcher](http://mailcatcher.me/), if it’s running.
 
 ### Ruby version
 
-This application uses Ruby v2.4.2. Use [RVM](https://rvm.io/) or similar to manage your ruby environment and sets of dependencies. 
+This application uses Ruby v2.4.2. Use [RVM](https://rvm.io/) or similar to manage your ruby environment and sets of dependencies.
 
 
 ### Running the application
@@ -52,14 +52,14 @@ This application uses Ruby v2.4.2. Use [RVM](https://rvm.io/) or similar to mana
 
 1. Install gems (dependencies) locally. To do this you will need to first install [Bundler](http://bundler.io/)
 
-2. Install the `direnv` package  
+2. Install the `direnv` package
 ```sh
 pvb2 $ brew install direnv
 
 ```
 
-3. Create a .env file in the root of the folder and add any necessary environment variables. Load your environment variables into your current session ... 
-```sh 
+3. Create a .env file in the root of the folder and add any necessary environment variables. Load your environment variables into your current session ...
+```sh
 pvb2 $ direnv allow .
 
 ```
@@ -129,7 +129,7 @@ pvb2 $ rake pvb:populate:visits
 ```sh
 pvb2 $ rails spec
 
-```    
+```
 
 ### Further technical information
 
@@ -142,4 +142,5 @@ pvb2 $ rails spec
 - [Welsh Translation](docs/welsh_translation.md)
 
 ## Licence
+
 [MIT Licence (MIT)](LICENCE)
