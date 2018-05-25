@@ -23,12 +23,20 @@ Estates are seeded via the `estates.yml` file.
 LNX: # NOMIS ID
   name: Lunar Penal Colony
   finder_slug: moonbase
+  admins:
+    - lunar.prisons.nomis.moj
 MRX:
   name: Martian Correctional Facility
+  admins:
+    - martian.prisons.nomis.moj
+    - starfleet.nomis.moj
 ```
 
 An estate can be added by adding a new entry to the file. The name or finder
-slug can be changed as long as the NOMIS ID remains the same.
+slug can be changed as long as the NOMIS ID remains the same. The admins array
+specifies which groups are allowed to manage the visits booking for that estate.
+Often prisons will manage their own bookings but there are cases where this is
+outsourced or responsibility is shared.
 
 It is not possible to delete an estate: removing it from the seed data will not
 remove it from the database.
