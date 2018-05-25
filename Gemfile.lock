@@ -87,7 +87,7 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
-    connection_pool (2.2.1)
+    connection_pool (2.2.2)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
@@ -198,7 +198,7 @@ GEM
       ast (~> 2.4.0)
     pg (1.0.0)
     phantomjs (2.1.1.0)
-    phonelib (0.6.21)
+    phonelib (0.6.22)
     powerpack (0.1.1)
     premailer (1.11.1)
       addressable

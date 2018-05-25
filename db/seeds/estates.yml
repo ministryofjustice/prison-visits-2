@@ -6,16 +6,12 @@ AGI:
   name: Askham Grange
   admins:
     - apvu.noms.moj
+    - askham_grange.prisons.noms.moj
 AKI:
   name: Acklington
   finder_slug: acklington2
   admins:
     - acklington.prisons.noms.moj
-ALI:
-  name: Isle of Wight - Albany
-  finder_slug: isle-of-wight
-  admins:
-    - isle_of_wight.noms.moj
 ASI:
   name: Ashfield
   admins:
@@ -121,6 +117,8 @@ DWI:
   name: Downview
   admins:
     - apvu.noms.moj
+    - downview.prisons.noms.moj
+
 EEI:
   name: Erlestoke
   admins:
@@ -134,6 +132,7 @@ ESI:
   name: East Sutton Park
   admins:
     - apvu.noms.moj
+    - east_sutton_park.prisons.noms.moj
 EVI:
   name: Everthorpe
   admins:
@@ -142,6 +141,7 @@ EWI:
   name: Eastwood Park
   admins:
     - apvu.noms.moj
+    - eastwood_park.prisons.noms.moj
 EXI:
   name: Exeter
   admins:
@@ -150,7 +150,7 @@ EYI:
   name: Elmley
   finder_slug: sheppey-cluster-elmley
   admins:
-    - elmeley.prisons.noms.moj
+    - elmley.prisons.noms.moj
 FBI:
   name: Forest Bank
   admins:
@@ -163,6 +163,7 @@ FHI:
   name: Foston Hall
   admins:
     - apvu.noms.moj
+    - foston_hall.prisons.noms.moj
 FKI:
   name: Frankland
   admins:
@@ -258,7 +259,7 @@ IWI:
   name: Isle of Wight
   finder_slug: isle-of-wight
   admins:
-    - isle_of_wight.noms.moj
+    - isle_of_wight.prisons.noms.moj
 KMI:
   name: Kirkham
   admins:
@@ -345,6 +346,7 @@ NHI:
   name: New Hall
   admins:
     - apvu.noms.moj
+    - new_hall.prisons.noms.moj
 NLI:
   name: Northumberland
   admins:
@@ -412,6 +414,7 @@ SDI:
   group: apvu.noms.moj
   admins:
     - apvu.noms.moj
+    - send.prisons.noms.moj
 SFI:
   name: Stafford
   admins:
@@ -441,6 +444,7 @@ STI:
   name: Styal
   admins:
     - apvu.noms.moj
+    - styal.prisons.noms.moj
 SUI:
   name: Sudbury
   admins:
@@ -518,6 +522,7 @@ WTI:
 WWI:
   name: Wandsworth
   admins:
+    - apvu.noms.moj
     - wandsworth.prisons.noms.moj
 WYI:
   name: Wetherby

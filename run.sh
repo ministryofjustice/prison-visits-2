@@ -4,18 +4,18 @@ cd /usr/src/app
 case ${DOCKER_STATE} in
 create)
     echo "running create"
-    bundle exec rake db:setup db:seed
+    bin/rake db:setup db:seed
     ;;
 migrate_and_seed)
     echo "running migrate and seed"
-    bundle exec rake db:migrate db:seed
+    bin/rake db:migrate db:seed
     RETURN_CODE=$?
     while [ $RETURN_CODE -gt 0 ]; do
       sleep 1
-      bundle exec rake db:migrate db:seed
+      bin/rake db:migrate db:seed
       RETURN_CODE=$?
     done
     ;;
 esac
-bundle exec puma -b tcp://0.0.0.0:3000 -d -C config/puma_prod.rb
+bin/puma -b tcp://0.0.0.0:3000 -d -C config/puma_prod.rb
 tail -f /usr/src/app/log/logstash_production.json
