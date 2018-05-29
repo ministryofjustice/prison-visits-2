@@ -1,4 +1,4 @@
-class Prison < ActiveRecord::Base
+class Prison < ApplicationRecord
   MAX_VISITORS = 6
   MAX_ADULTS = 3
   LEAD_VISITOR_MIN_AGE = 18

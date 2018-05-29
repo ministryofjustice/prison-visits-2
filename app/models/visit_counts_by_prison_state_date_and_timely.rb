@@ -1,4 +1,4 @@
-class VisitCountsByPrisonStateDateAndTimely < ActiveRecord::Base
+class VisitCountsByPrisonStateDateAndTimely < ApplicationRecord
   def readonly?
     true
   end

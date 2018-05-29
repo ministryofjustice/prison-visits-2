@@ -1,4 +1,4 @@
-class Cancellation < ActiveRecord::Base
+class Cancellation < ApplicationRecord
   VISITOR_CANCELLED = 'visitor_cancelled'.freeze
 
   PRISONER_VOS             = 'prisoner_vos'.freeze

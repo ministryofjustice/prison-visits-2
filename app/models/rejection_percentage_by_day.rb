@@ -1,4 +1,4 @@
-class RejectionPercentageByDay < ActiveRecord::Base
+class RejectionPercentageByDay < ApplicationRecord
   def readonly?
     true
   end

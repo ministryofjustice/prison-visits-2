@@ -1,4 +1,4 @@
-class Visit < ActiveRecord::Base
+class Visit < ApplicationRecord
   extend FreshnessCalculations
   include PrincipalVisitor
 
