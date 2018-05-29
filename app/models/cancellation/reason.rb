@@ -1,4 +1,4 @@
-class Cancellation < ActiveRecord::Base
+class Cancellation < ApplicationRecord
   class Reason
     include ActiveModel::Model
     attr_accessor :explanation, :id, :label

@@ -1,4 +1,4 @@
-class PercentilesByCalendarDate < ActiveRecord::Base
+class PercentilesByCalendarDate < ApplicationRecord
   include PercentileSerialisation
 
   def readonly?

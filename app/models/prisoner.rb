@@ -1,4 +1,4 @@
-class Prisoner < ActiveRecord::Base
+class Prisoner < ApplicationRecord
   include Person
   extend FreshnessCalculations
 

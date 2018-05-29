@@ -1,6 +1,6 @@
 require 'date_coercer'
 
-class Rejection < ActiveRecord::Base
+class Rejection < ApplicationRecord
   NO_ALLOWANCE     = 'no_allowance'.freeze
   NOT_ON_THE_LIST  = 'visitor_not_on_list'.freeze
   BANNED           = 'visitor_banned'.freeze

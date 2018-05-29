@@ -1,6 +1,6 @@
 require 'email_address_validation'
 
-class FeedbackSubmission < ActiveRecord::Base
+class FeedbackSubmission < ApplicationRecord
   belongs_to :prison
 
   validates :body, presence: true

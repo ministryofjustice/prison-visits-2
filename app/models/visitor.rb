@@ -1,4 +1,4 @@
-class Visitor < ActiveRecord::Base
+class Visitor < ApplicationRecord
   include Person
   extend FreshnessCalculations
 

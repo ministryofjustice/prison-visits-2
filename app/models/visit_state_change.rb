@@ -1,4 +1,4 @@
-class VisitStateChange < ActiveRecord::Base
+class VisitStateChange < ApplicationRecord
   belongs_to :visit
   belongs_to :visitor
   belongs_to :processed_by, class_name: 'User'
