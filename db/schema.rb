@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 2018_05_21_133256) do
     t.index ["estate_id"], name: "index_users_on_estate_id"
   end
 
-  create_table "visit_orders", force: :cascade do |t|
+  create_table "visit_orders", default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string "type", default: "VisitOrder", null: false
     t.bigint "number", null: false
     t.string "code", null: false
