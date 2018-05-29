@@ -1,4 +1,4 @@
-class CreateVisitOrders < ActiveRecord::Migration[5.2]
+class CreateVisitOrders < ActiveRecord::Migration[4.2]
   def change
     create_table :visit_orders, id: :uuid do |t|
       t.string :type, default: 'VisitOrder', null: false
