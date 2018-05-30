@@ -24,12 +24,6 @@ RSpec.describe Nomis::PrisonerDateAvailability do
       ConcreteSlot.new(date.year, date.month, date.day, 14, 30, 15, 30)
     end
 
-    context 'when banned' do
-      let(:banned) { true }
-
-      it { is_expected.to eq([described_class::BANNED]) }
-    end
-
     context 'with no visiting allowance' do
       let(:out_of_vo) { true }
 

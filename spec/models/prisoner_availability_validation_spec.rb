@@ -70,7 +70,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
         {
           date: slot2.to_date,
           banned: true,
-          out_of_vo: false,
+          out_of_vo: true,
           external_movement: false,
           existing_visits: []
         }
@@ -87,14 +87,11 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
       end
 
       before do
-        allow(Nomis::Api).to receive(:enabled?).and_return(true)
-
         availability = Nomis::PrisonerDetailedAvailability.new(
           dates: [date1_availability, date2_availability, date3_availability])
-        expect_any_instance_of(Nomis::Api).
+        expect(Nomis::Api.instance).
           to receive(:offender_visiting_detailed_availability).
-          with(offender_id: offender.id,
-               slots: [slot1, slot2, slot3]).
+          with(offender_id: offender.id, slots: [slot1, slot2, slot3]).
           and_return(availability)
 
         subject.valid?
@@ -117,13 +114,13 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
       context 'with dates that are unavailable' do
         it 'adds an error to the slot' do
           expect(subject.errors[slot2.to_s]).
-            to eq([Nomis::PrisonerDateAvailability::BANNED])
+            to eq([Nomis::PrisonerDateAvailability::OUT_OF_VO])
         end
 
         context 'with #slot_errors' do
           it 'returns the prisoner availability error' do
             expect(subject.slot_errors(slot2)).
-              to eq([Nomis::PrisonerDateAvailability::BANNED])
+              to eq([Nomis::PrisonerDateAvailability::OUT_OF_VO])
           end
         end
 
@@ -162,7 +159,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
         let(:date1) { 1.day.ago.to_date }
         let(:date2) { 61.days.from_now.to_date }
         let(:availability3) do
-          { date: date3, banned: true }
+          { date: date3, external_movement: true }
         end
 
         before do
@@ -179,7 +176,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
           expect(subject.slot_errors(slot1)).to be_empty
           expect(subject.slot_errors(slot2)).to be_empty
           expect(subject.slot_errors(slot3)).
-            to eq([Nomis::PrisonerDateAvailability::BANNED])
+            to eq([Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT])
         end
 
         it { is_expected.not_to be_unknown_result }
