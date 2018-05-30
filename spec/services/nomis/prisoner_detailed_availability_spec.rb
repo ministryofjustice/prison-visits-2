@@ -87,7 +87,6 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
 
       it do
         is_expected.to contain_exactly(
-          Nomis::PrisonerDateAvailability::BANNED,
           Nomis::PrisonerDateAvailability::OUT_OF_VO,
           Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT,
           Nomis::PrisonerDateAvailability::BOOKED_VISIT)

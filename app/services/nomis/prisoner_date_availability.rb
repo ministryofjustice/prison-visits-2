@@ -19,7 +19,6 @@ module Nomis
 
     def unavailable_reasons(requested_slot)
       reasons = []
-      reasons << BANNED if banned
       reasons << EXTERNAL_MOVEMENT if external_movement
       reasons << OUT_OF_VO if out_of_vo
       reasons << BOOKED_VISIT if booked_visit?(requested_slot)
