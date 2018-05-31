@@ -7,6 +7,13 @@ RSpec.describe Zendesk::PVBClient do
   let(:username) { 'bob' }
   let(:token) { '123456' }
 
+  # Ensure that we have a new instance to prevent other specs interfering
+  around do |ex|
+    Singleton.__init__(described_class)
+    ex.run
+    Singleton.__init__(described_class)
+  end
+
   before do
     set_configuration_with(:zendesk_url, url)
     set_configuration_with(:zendesk_username, username)
@@ -15,19 +22,31 @@ RSpec.describe Zendesk::PVBClient do
 
   describe 'a valid instance' do
     it 'has a zendesk url' do
-      get_client { |client| expect(client.config.url).to eq(url) }
+      subject.request { |client| expect(client.config.url).to eq(url) }
     end
 
     it 'has a zendesk username' do
-      get_client { |client| expect(client.config.username).to eq("#{username}/token") }
+      subject.request { |client| expect(client.config.username).to eq("#{username}/token") }
     end
 
     it 'has a zendesk token' do
-      get_client { |client| expect(client.config.token).to eq(token) }
+      subject.request { |client| expect(client.config.token).to eq(token) }
     end
   end
 
-  def get_client
-    subject.pool.with { |expectation| yield expectation }
+  describe '#request' do
+    let(:pool) { double(ConnectionPool) }
+    let(:block) do
+      ->(_) {}
+    end
+
+    before do
+      allow(ConnectionPool).to receive(:new).and_return(pool)
+    end
+
+    it 'yields the give block passing an instance of zendesk client' do
+      expect(pool).to receive(:with).and_yield(instance_of(ZendeskAPI::Client))
+      subject.request(&block)
+    end
   end
 end
