@@ -1,11 +1,11 @@
 module Zendesk
   class PVBApi
-    def initialize(zendesk_client)
-      @pool = zendesk_client.pool
+    def initialize(zendesk_pvb_client)
+      self.zendesk_pvb_client = zendesk_pvb_client
     end
 
     def raise_ticket(ticket_attrs)
-      @pool.with do |client|
+      request do |client|
         ZendeskAPI::Ticket.create!(client, ticket_attrs)
       end
     end
@@ -16,21 +16,19 @@ module Zendesk
       end
     end
 
-    private
+  private
+
+    attr_accessor :zendesk_pvb_client
 
     STAFF_INBOX = 'staff.prison.visits'.freeze
 
     def ticket_ids
-      ids = []
-      @pool.with do |client|
-        ids += client.search(old_tickets_query).map(&:id)
-      end
-      ids
+      request { |client| client.search(old_tickets_query).map(&:id) }
     end
 
     def destroy_tickets(ids)
-      @pool.with do |client|
-        client.tickets.destroy_many(ids: ids, verb: :delete).fetch
+      request do |client|
+        client.tickets.destroy_many!(ids: ids, verb: :delete).fetch
       end
     end
 
@@ -43,6 +41,10 @@ module Zendesk
         query: "type:ticket tags:#{STAFF_INBOX} updated<#{twelve_months_ago}",
         reload: true
       }
+    end
+
+    def request(&block)
+      zendesk_pvb_client.request(&block)
     end
   end
 end
