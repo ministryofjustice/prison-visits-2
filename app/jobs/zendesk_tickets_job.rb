@@ -20,8 +20,8 @@ private
   # tickets tagged with 'staff.prison.visits'.
 
   def ticket_raised!(feedback)
-    client = Zendesk::Client.instance
-    Zendesk::PvbApi.new(client).raise_ticket(ticket_attrs(feedback))
+    client = Zendesk::PVBClient.instance
+    Zendesk::PVBApi.new(client).raise_ticket(ticket_attrs(feedback))
   end
 
   def ticket_attrs(feedback)

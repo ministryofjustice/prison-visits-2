@@ -14,7 +14,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
   }
 
   let(:client) { double(Zendesk::Client) }
-  let(:zendesk_pvb_api) { double(Zendesk::PvbApi) }
+  let(:zendesk_pvb_api) { double(Zendesk::PVBApi) }
   let(:ticket) { double(ZendeskAPI::Ticket, save!: nil) }
   let(:submitted_by_staff) { false }
   let(:prison) { FactoryBot.create(:prison) }
@@ -37,7 +37,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
 
   before do
     set_configuration_with(:zendesk_url, 'https://zendesk_api.com')
-    allow(Zendesk::PvbApi).to receive(:new).and_return(zendesk_pvb_api)
+    allow(Zendesk::PVBApi).to receive(:new).and_return(zendesk_pvb_api)
   end
 
   describe 'when email not provided' do
