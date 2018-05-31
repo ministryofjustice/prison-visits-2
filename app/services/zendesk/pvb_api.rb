@@ -11,8 +11,8 @@ module Zendesk
     end
 
     def cleanup_tickets
-      unless ticket_ids.empty?
-        destroy_tickets(ticket_ids)
+      until (ids = fetch_ticket_ids) && ids.empty?
+        destroy_tickets(ids)
       end
     end
 
@@ -22,7 +22,7 @@ module Zendesk
 
     STAFF_INBOX = 'staff.prison.visits'.freeze
 
-    def ticket_ids
+    def fetch_ticket_ids
       request { |client| client.search(old_tickets_query).map(&:id) }
     end
 
