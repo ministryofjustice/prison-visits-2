@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe VisitStateChange, type: :model do
   it { should belong_to(:visit) }
 
+  it { is_expected.to belong_to(:creator) }
+
   describe 'scopes' do
     let(:visit) { create(:visit) }
 
