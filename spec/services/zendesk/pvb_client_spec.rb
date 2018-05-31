@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Zendesk::Client do
+RSpec.describe Zendesk::PVBClient do
   subject { described_class.instance }
 
   let(:url) { 'https://zendesk_api.com' }
@@ -15,19 +15,19 @@ RSpec.describe Zendesk::Client do
 
   describe 'a valid instance' do
     it 'has a zendesk url' do
-      expect(client_config.url).to eq(url)
+      get_client { |client| expect(client.config.url).to eq(url) }
     end
 
     it 'has a zendesk username' do
-      expect(client_config.username).to eq("#{username}/token")
+      get_client { |client| expect(client.config.username).to eq("#{username}/token") }
     end
 
     it 'has a zendesk token' do
-      expect(client_config.token).to eq(token)
+      get_client { |client| expect(client.config.token).to eq(token) }
     end
   end
 
-  def client_config
-    subject.client.config
+  def get_client
+    subject.pool.with { |expectation| yield expectation }
   end
 end
