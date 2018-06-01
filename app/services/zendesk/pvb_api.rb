@@ -11,9 +11,11 @@ module Zendesk
     end
 
     def cleanup_tickets
+      # rubocop:disable Lint/AssignmentInCondition
       until (ids = fetch_ticket_ids) && ids.empty?
         destroy_tickets(ids)
       end
+      # rubocop:enable Lint/AssignmentInCondition
     end
 
   private
