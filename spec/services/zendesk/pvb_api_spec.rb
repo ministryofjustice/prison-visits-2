@@ -13,10 +13,7 @@ RSpec.describe Zendesk::PVBApi do
   describe '#cleanup_tickets' do
     let(:ticket_ids) { [{ id: 1 }, { id: 2 }, { id: 3 }].map { |t| ZendeskAPI::Ticket.new(zendesk_api_client, t) } }
     let(:empty_ticket_ids) { [] }
-
-    let(:tickets) { ZendeskAPI::Collection.new(zendesk_api_client, ZendeskAPI::Ticket, ids: [1, 2, 3]) }
     let(:empty_tickets) { ZendeskAPI::Collection.new(zendesk_api_client, ZendeskAPI::Ticket, ids: []) }
-
     let(:twelve_months_ago) { 12.months.ago.strftime('%Y-%m-%d') }
     let(:query) do
       {
@@ -25,18 +22,11 @@ RSpec.describe Zendesk::PVBApi do
       }
     end
 
-    before do
+    it 'deletes tickets that have not been updated in twelve months or less' do
       expect(zendesk_api_client).to receive(:search).
         and_return(ticket_ids, empty_ticket_ids)
-      expect(zendesk_api_client).to receive(:tickets).and_return(tickets)
-    end
-
-    it 'deletes tickets that have not been updated in twelve months or less' do
-      expect(tickets).to receive(:fetch)
-      expect(tickets).to receive(:destroy_many!).
-        and_return(tickets).
-        with(ids: ticket_ids, verb: :delete).
-        once
+      expect(ZendeskAPI::Ticket).to receive(:destroy_many!).
+        with(zendesk_api_client, ticket_ids).once
 
       subject.cleanup_tickets
     end
