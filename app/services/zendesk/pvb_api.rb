@@ -30,7 +30,7 @@ module Zendesk
 
     def destroy_tickets(ids)
       request do |client|
-        client.tickets.destroy_many!(ids: ids, verb: :delete).fetch
+        ZendeskAPI::Ticket.destroy_many!(client, ids)
       end
     end
 
