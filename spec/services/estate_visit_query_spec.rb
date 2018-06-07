@@ -106,6 +106,25 @@ RSpec.describe EstateVisitQuery do
           is_expected.to eq([booked])
         end
       end
+
+      context 'when visits have not been updated within six months' do
+        let!(:old_booked) { FactoryBot.create(:booked_visit, prison: prison, updated_at: 7.months.ago) }
+        let(:prisoner_number) { old_booked.prisoner.number.downcase + ' ' }
+
+        it 'does not return visits in search results' do
+          expect(instance.processed(limit: limit, query: prisoner_number)).to be_empty
+        end
+      end
+    end
+  end
+
+  shared_examples_for 'returns recent only' do
+    context 'when visits have not been updated in six months' do
+      let(:query) { nil }
+
+      it 'does not return them' do
+        expect(subject).not_to include(old_visit)
+      end
     end
   end
 
@@ -151,9 +170,14 @@ RSpec.describe EstateVisitQuery do
       FactoryBot.create(:visit, :requested, prison: prison)
     end
 
+    let!(:old_visit) do
+      FactoryBot.create(:visit, :requested, prison: prison, created_at: 7.months.ago, updated_at: 7.months.ago)
+    end
+
     it_behaves_like 'finds all'
     it_behaves_like 'finds by prisoner number'
     it_behaves_like 'finds by human id'
+    it_behaves_like 'returns recent only'
   end
 
   describe '#cancelled' do
@@ -168,9 +192,14 @@ RSpec.describe EstateVisitQuery do
       FactoryBot.create(:visit, :pending_nomis_cancellation, prison: prison)
     end
 
+    let!(:old_visit) do
+      FactoryBot.create(:visit, :pending_nomis_cancellation, prison: prison, created_at: 7.months.ago, updated_at: 7.months.ago)
+    end
+
     it_behaves_like 'finds all'
     it_behaves_like 'finds by prisoner number'
     it_behaves_like 'finds by human id'
+    it_behaves_like 'returns recent only'
   end
 
   describe '#inbox_count' do
