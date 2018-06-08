@@ -316,6 +316,8 @@ en:
         banned_until: Banned until
         banned_until_hint: eg 28 04 1996
         please_select: Please select a contact
+        restrictions_header: Visitor restrictions apply
+        rejections_header: Visitor rejection reasons
       banned:
         banned: Visitor is banned
       not_on_list:
