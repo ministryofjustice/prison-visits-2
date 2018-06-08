@@ -72,7 +72,7 @@ en:
         year: Year
         visit_date: Visit Date
         show: Show
-        visit_date_hint: Enter a date to view the visits eg 01/12/2016
+        visit_date_hint: For example 01 03 2018.  We can only show visits within the last 6 months. Please contact us if you would like to see older visits.
       create:
         download_csv_html: |
           Download CSV <span class="visuallyhidden">(link opens in a new browser window)</span>
