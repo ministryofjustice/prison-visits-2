@@ -1,9 +1,10 @@
 class CreateNomisVisit
   ALREADY_BOOKED_IN_NOMIS = 'Duplicate post'.freeze
 
-  def initialize(visit)
+  def initialize(visit, creator:)
     self.visit = visit
     self.api_error = false
+    self.creator = creator
   end
 
   def execute
@@ -28,7 +29,7 @@ class CreateNomisVisit
 
 private
 
-  attr_accessor :visit, :booking, :api_error
+  attr_accessor :visit, :booking, :api_error, :creator
 
   def vo_type
     case booking.visit_order.code
@@ -71,7 +72,7 @@ private
       override_visitor_restrictions: false,
       override_vo_balance: false,
       override_slot_capacity: false,
-      client_unique_ref: visit.id
+      client_unique_ref: visit.id, comment: creator.email
     }
   end
 end
