@@ -18,16 +18,28 @@ RSpec.describe Nomis::Offender, type: :model do
 
   describe '#iep_level' do
     context 'with a successful API call' do
-      before do
-        mock_nomis_with(
-          :lookup_offender_details,
-          Nomis::Offender::Details.new(
-            iep_level: { 'code' => 'STD', 'desc' => 'Standard' }
+      describe 'with an iep level' do
+        before do
+          mock_nomis_with(
+            :lookup_offender_details,
+            Nomis::Offender::Details.new(
+              iep_level: { 'code' => 'STD', 'desc' => 'Standard' }
+            )
           )
-        )
+        end
+        it { expect(subject.iep_level).to eq('Standard') }
       end
 
-      it { expect(subject.iep_level).to eq('Standard') }
+      describe 'when the offender does not have an iep_level' do
+        before do
+          mock_nomis_with(
+            :lookup_offender_details,
+            Nomis::Offender::Details.new(iep_level: nil)
+          )
+        end
+
+        it { expect(subject.iep_level).to be nil }
+      end
     end
 
     context 'with a unsuccessful API call' do
