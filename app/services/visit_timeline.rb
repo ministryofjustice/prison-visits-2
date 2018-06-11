@@ -52,6 +52,6 @@ private
       state:      state.visit_state,
       created_at: state.created_at,
       last:       last,
-      creator:    state.creator)
+      user:       state.creator)
   end
 end

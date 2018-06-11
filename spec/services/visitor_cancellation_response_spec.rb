@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe VisitorCancellationResponse do
   subject(:instance) { described_class.new(visit: visit) }
 
-  let(:visit) { FactoryBot.create(:booked_visit) }
+  let(:visit) { create(:booked_visit) }
 
   describe '#visitor_can_cancel?' do
     subject(:visitor_can_cancel?) { instance.visitor_can_cancel? }
 
     context "when it can't be withdrawn" do
-      let(:visit) { FactoryBot.create(:withdrawn_visit) }
+      let(:visit) { create(:withdrawn_visit) }
 
       it { is_expected.to eq(false) }
     end
@@ -28,7 +28,7 @@ RSpec.describe VisitorCancellationResponse do
 
       context 'when it has already started' do
         let(:visit) do
-          FactoryBot.create(
+          create(
             :booked_visit,
             slot_granted: ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0))
         end
