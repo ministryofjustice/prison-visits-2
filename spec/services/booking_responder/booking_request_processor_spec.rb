@@ -32,7 +32,7 @@ RSpec.describe BookingResponder::BookingRequestProcessor do
           visit.messages.find_by(body: message.body)
         }.from(nil).to(message)
 
-        expect(visit.last_visit_state.processed_by).to eq(staff_response.user)
+        expect(visit.last_visit_state.creator).to eq(staff_response.user)
       end
 
       it 'returns a sucessful booking response' do

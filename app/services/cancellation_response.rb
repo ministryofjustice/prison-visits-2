@@ -2,6 +2,7 @@ class CancellationResponse
   include PersistToNomisResponse
 
   attr_reader :visit, :user
+  alias :creator :user
 
   def initialize(visit, cancellation_attributes, user: nil, persist_to_nomis: false)
     self.visit                   = visit

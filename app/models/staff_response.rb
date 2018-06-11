@@ -4,6 +4,8 @@ class StaffResponse
   ADULT_AGE = 18
   attr_accessor :visit, :user
 
+  alias :creator :user
+
   before_validation :check_slot_available
   before_validation :check_principal_visitor
 
