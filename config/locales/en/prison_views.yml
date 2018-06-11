@@ -123,7 +123,9 @@ en:
         processed: Processed
         requests: Requests
         title: Search results for '%{prisoner_number}'
-        search_total: Displaying %{number} results
+        search_description_html: |
+          <p class="text-secondary">Below are visit requests made in the last 6 months.
+          Please <a href='/prison/feedbacks/new'>contact us</a> if you would like to see older visits.</p>
       print_visits:
         visit_list: Visit List
     visits:
