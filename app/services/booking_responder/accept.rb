@@ -29,7 +29,9 @@ class BookingResponder
     end
 
     def nomis_visit_creator
-      @nomis_visit_creator ||= CreateNomisVisit.new(visit)
+      @nomis_visit_creator ||= CreateNomisVisit.new(
+        visit, creator: staff_response.creator
+      )
     end
   end
 end
