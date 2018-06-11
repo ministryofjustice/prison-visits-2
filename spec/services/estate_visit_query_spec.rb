@@ -100,7 +100,7 @@ RSpec.describe EstateVisitQuery do
       end
 
       context 'when providing a prisoner number' do
-        let(:prisoner_number) { booked.prisoner.number.downcase + ' ' }
+        let(:prisoner_number) { booked.prisoner.number.downcase }
 
         it 'returns processed visits matching the prisoner number' do
           is_expected.to eq([booked])
@@ -109,7 +109,7 @@ RSpec.describe EstateVisitQuery do
 
       context 'when visits have not been updated within six months' do
         let!(:old_booked) { create(:booked_visit, prison: prison, updated_at: 7.months.ago) }
-        let(:prisoner_number) { old_booked.prisoner.number.downcase + ' ' }
+        let(:prisoner_number) { old_booked.prisoner.number.downcase }
 
         it 'does not return visits in search results' do
           expect(instance.processed(limit: limit, query: prisoner_number)).to be_empty
