@@ -3,7 +3,7 @@
   <%= t('.title', prisoner_number: params[:query]) %>
 <% end %>
 
-<p class="text-secondary"><%= t('.search_total', number: @search_total) %></p>
+<%= t('.search_description_html') %>
 
 <h3 class="heading-medium"><%= t('.cancellations') %></h3>
 <%= render 'cancellations' %>
