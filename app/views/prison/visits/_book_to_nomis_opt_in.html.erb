@@ -16,7 +16,9 @@
               <label for="book_to_nomis_opt_in_true">Yes - copy to NOMIS</label>
             </div>
             <div class="panel panel-border-narrow js-hidden" id="comments-for-nomis">
-              <label for="message_body" class="form-label">This information will be entered into NOMIS. Visitors will not see this.</label>
+              <label class="form-label" for="nomis-comments">Visit comments
+                <span class="form-hint">This information will be entered into NOMIS. Visitors will not see this.</span>
+              </label>
               <%= f.text_area(:nomis_comments, class: 'form-control form-control-full-width', rows: 4, id: 'nomis_comments') %>
             </div>
             <div class="multiple-choice" data-target="do-not-book-to-nomis">
