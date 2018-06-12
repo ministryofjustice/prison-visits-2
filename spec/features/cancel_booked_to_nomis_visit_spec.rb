@@ -2,6 +2,24 @@ require 'rails_helper'
 require 'shared_process_setup_context'
 RSpec.shared_examples_for 'does not cancel the booking in nomis' do
   it 'cancels the booking' do
+    def process_booking
+      VCR.use_cassette 'book_to_nomis', allow_playback_repeats: true do
+        visit prison_visit_path(vst, locale: 'en')
+
+        expect(page).to have_css('h1', text: 'Check visit request')
+        choose_date
+
+        within "#visitor_#{visitor.id}" do
+          select 'BOB LIPMAN - 01/01/1970', from: "Match to prisoner's contact list", visible: false
+        end
+
+        click_button 'Process'
+
+        expect(page).to have_css('.notification', text: 'Thank you for processing the visit')
+        yield if block_given?
+      end
+    end
+
     switch_feature_flag_with(:staff_prisons_with_book_to_nomis, [])
 
     process_booking do
@@ -21,7 +39,7 @@ end
 RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
   include_context 'with a process request setup'
 
-  def process_booking
+  def process_booking_in_nomis
     VCR.use_cassette 'book_to_nomis', allow_playback_repeats: true do
       visit prison_visit_path(vst, locale: 'en')
 
@@ -31,6 +49,8 @@ RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
       within "#visitor_#{visitor.id}" do
         select 'BOB LIPMAN - 01/01/1970', from: "Match to prisoner's contact list", visible: false
       end
+
+      choose "Yes - copy to NOMIS"
 
       click_button 'Process'
 
@@ -80,7 +100,7 @@ RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
     scenario 'cancelling a booking' do
       switch_feature_flag_with(:staff_prisons_with_book_to_nomis, [prison.name])
 
-      process_booking do
+      process_booking_in_nomis do
         click_on 'Processed visits'
         expect(page).to have_link('View')
         click_on 'View'
@@ -102,7 +122,7 @@ RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
     scenario "Staff can opt-out of cancelling to booking to NOMIS" do
       switch_feature_flag_with(:staff_prisons_with_book_to_nomis, [prison.name])
 
-      process_booking do
+      process_booking_in_nomis do
         click_on 'Processed visits'
         expect(page).to have_link('View')
         click_on 'View'

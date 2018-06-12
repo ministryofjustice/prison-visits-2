@@ -57,7 +57,8 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
         select visitor_details, from: "Match to prisoner's contact list"
       end
 
-      expect(page).to have_unchecked_field("Don't automatically copy this visit to NOMIS", visible: false)
+      choose "Yes - copy to NOMIS"
+      fill_in "This information will be entered into NOMIS. Visitors will not see this", with: "Staff comments"
       click_button 'Process'
 
       expect(page).to have_css('.notification', text: 'Thank you for processing the visit')
@@ -84,7 +85,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
         select visitor_details, from: "Match to prisoner's contact list"
       end
 
-      check "Don't automatically copy this visit to NOMIS", visible: false
+      choose "No - do not copy to NOMIS"
 
       fill_in 'Reference number',   with: '12345678'
 
@@ -108,7 +109,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
         select visitor_details, from: "Match to prisoner's contact list"
       end
 
-      expect(page).to have_css('#nomis-opt-out.panel', text: "This is a closed visit.\nBook this visit into NOMIS, then enter the reference number")
+      expect(page).to have_css('#nomis-opt-out', text: "This is a closed visit.\nBook this visit into NOMIS, then enter the reference number")
 
       click_button 'Process'
       expect(page).to have_css('.notification', text: 'Thank you for processing the visit')
