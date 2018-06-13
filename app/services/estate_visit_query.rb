@@ -15,7 +15,9 @@ class EstateVisitQuery
   end
 
   def processed(limit:, query:)
-    visits = Visit.preload(:prisoner, :visitors, :prison).
+    visits = Visit.
+             less_than_six_months_old.
+             preload(:prisoner, :visitors, :prison).
              processed.
              from_estates(@estates).
              order('visits.updated_at desc').limit(limit)
@@ -25,7 +27,9 @@ class EstateVisitQuery
   end
 
   def requested(query: nil)
-    visits = Visit.preload(:prisoner, :visitors, :prison).
+    visits = Visit.
+             less_than_six_months_old.
+             preload(:prisoner, :visitors, :prison).
              with_processing_state(:requested).
              from_estates(@estates).
              order('created_at asc')
@@ -35,7 +39,9 @@ class EstateVisitQuery
   end
 
   def cancelled(query: nil)
-    visits = Visit.preload(:prisoner, :visitors, :cancellation, :prison).
+    visits = Visit.
+             less_than_six_months_old.
+             preload(:prisoner, :visitors, :cancellation, :prison).
              joins(:cancellation).
              from_estates(@estates).
              where(cancellations: { nomis_cancelled: false }).
