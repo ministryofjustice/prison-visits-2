@@ -16,6 +16,23 @@
               <label for="book_to_nomis_opt_in_true">Yes - copy to NOMIS</label>
             </div>
             <div class="panel panel-border-narrow js-hidden" id="comments-for-nomis">
+              <div class="form-group">
+                <fieldset>
+                  <legend class="push-bottom--half">Book using:</legend>
+                  <div class="multiple-choice">
+                    <input type="radio" name="book_to_nomis_visit_order" id="book_to_nomis_pvo" value="true">
+                    <label for="book_to_nomis_pvo">1 PVO (Privilege Visiting Order)</label>
+                  </div>
+                  <div class="multiple-choice">
+                    <input type="radio" name="book_to_nomis_visit_order" id="book_to_nomis_vo" value="true">
+                    <label for="book_to_nomis_vo">1 VO (Visiting Order)</label>
+                  </div>
+                  <div class="multiple-choice">
+                    <input type="radio" name="book_to_nomis_visit_order" id="book_to_nomis_none" value="true">
+                    <label for="book_to_nomis_none">No PVO/VO needed</label>
+                  </div>
+                </fieldset>
+              </div>
               <label class="form-label" for="nomis-comments">Visit comments
                 <span class="form-hint">This information will be entered into NOMIS. Visitors will not see this.</span>
               </label>
