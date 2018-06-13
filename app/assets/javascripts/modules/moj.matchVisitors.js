@@ -263,8 +263,9 @@
         $restrictionsListEl = $restrictionsEl.find('.js-restrictions-list').empty();
       for(var i=0;i<data.restrictions.length;i++){
         var contact = data.restrictions[i].attributes,
+          date = contact.expiry_date? this.formatDate(contact.effective_date)+' to '+ this.formatDate(contact.expiry_date): this.formatDate(contact.effective_date),
           $restrictionItem = $(this.restrictionTemplate).clone();
-        $restrictionItem.find('.restriction__date').text(this.formatDate(contact.effective_date));
+        $restrictionItem.find('.restriction__date').text(date);
         $restrictionItem.find('.restriction__type').text(contact.type.attributes.desc);
         $restrictionItem.find('.restriction__details').text(contact.comment_text);
         $restrictionItem.appendTo($restrictionsListEl);
