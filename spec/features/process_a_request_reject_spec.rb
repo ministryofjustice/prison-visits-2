@@ -6,11 +6,13 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
 
   include_context 'with a process request setup'
 
+  let(:stubbed_date) { Date.new(2018, 4, 5) }
+
   around do |ex|
     # Prisoner availability is date dependent both on the responses from Nomis
     # and in the Nomis client logic as it validates the start / end date
     # parameters before making the call.
-    travel_to(Date.new(2018, 4, 5)) { ex.run }
+    travel_to(stubbed_date) { ex.run }
   end
 
   def check_nomis_override_message_does_not_trigger
@@ -28,6 +30,39 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
 
     scenario 'rejecting a booking with incorrect prisoner details' do
       expect(page.find('input[type="checkbox"][id="prisoner_details_incorrect"]')).to be_checked
+    end
+  end
+
+  describe 'visitor restrictions' do
+    let(:prison) do
+      create(:prison,
+        name: 'Leeds',
+        email_address: prison_email_address,
+        estate: create(:estate, nomis_id: 'LEI')
+      )
+    end
+    let(:prisoner_number) { 'A1484AE' }
+    let(:prisoner_dob) { '11-11-1971' }
+    let(:visitor) { vst.visitors.first }
+
+    let(:stubbed_date) { Date.new(2018, 6, 12) }
+
+    before do
+      switch_on :nomis_staff_restrictions_enabled
+    end
+
+    scenario 'rejecting a booking when the lead visitor has a relevant restriction', vcr: { cassette_name: 'visitor_restriction_rejection' } do
+      switch_feature_flag_with(:staff_prisons_with_restrictions_info, [prison.name])
+
+      visit prison_visit_path(vst, locale: 'en')
+
+      within "#visitor_#{visitor.id}" do
+        select 'BILLY JONES - 01/01/1970', from: "Match to prisoner's contact list"
+        check 'Visitor is banned', visible: false
+      end
+
+      expect(page).to have_content('Visitor restrictions apply')
+      click_button 'Process'
     end
   end
 

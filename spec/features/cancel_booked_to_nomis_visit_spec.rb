@@ -74,7 +74,7 @@ RSpec.feature 'Cancel a visit booked to NOMIS', js: true do
 
       switch_on :nomis_staff_book_to_nomis_enabled
 
-      switch_on :nomis_staff_offender_restrictions_enabled
+      switch_on :nomis_staff_restrictions_enabled
     end
 
     scenario 'cancelling a booking' do

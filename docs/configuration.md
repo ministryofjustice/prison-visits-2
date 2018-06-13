@@ -58,7 +58,7 @@ A comma separated list of prisons for which PVB2 API will return slots along wit
 are available at the requested prison.
 
 
-### `NOMIS_STAFF_OFFENDER_RESTRICTIONS_ENABLED`
+### `NOMIS_STAFF_RESTRICTIONS_ENABLED`
 
 If `true` then the process visit page will query the offender restrictions api.
 
@@ -72,7 +72,7 @@ If `true` then the Nomis API will be used to book a visit.
 
 A comma separated list of prisons for which the book to nomis API is enabled
 
-### `STAFF_PRISONS_WITH_PRISONER_RESTRICTIONS_INFO`
+### `STAFF_PRISONS_WITH_RESTRICTIONS_INFO`
 
 A comma separated list of prisons for which the prisoner restrictions is displayed
 
