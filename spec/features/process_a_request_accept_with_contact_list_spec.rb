@@ -16,6 +16,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
   let(:prisoner_number) { 'A1475AE' }
   let(:prisoner_dob) { '23-04-1979' }
   let(:visitor_details) { 'BOB LIPMAN - 01/01/1970' }
+  let(:nomis_comments) { 'This is a comment to be added to Nomis' }
   let(:visitor) { vst.visitors.first }
 
   around do |ex|
@@ -54,11 +55,11 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       fill_in 'This message will be included in the email sent to the visitor', with: 'A staff message'
 
       within "#visitor_#{visitor.id}" do
-        select visitor_details, from: "Match to prisoner's contact list"
+        select visitor_details, from: 'Match to prisoner\'s contact list'
       end
 
-      choose "Yes - copy to NOMIS"
-      fill_in "This information will be entered into NOMIS. Visitors will not see this", with: "Staff comments"
+      choose 'Yes - copy to NOMIS'
+      fill_in 'nomis_comments', with: nomis_comments
       click_button 'Process'
 
       expect(page).to have_css('.notification', text: 'Thank you for processing the visit')
@@ -66,6 +67,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       vst.reload
       expect(vst).to be_booked
       expect(vst.nomis_id).to eq(5955)
+      expect(vst.nomis_comments).to eq(nomis_comments)
       expect(vst.visit_order).to have_attributes(type: 'VisitOrder', number: 2_018_000_000_130)
     end
 

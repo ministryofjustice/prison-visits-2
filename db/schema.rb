@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_14_095419) do
+ActiveRecord::Schema.define(version: 2018_06_14_122432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -170,7 +170,7 @@ ActiveRecord::Schema.define(version: 2018_06_14_095419) do
     t.string "locale", limit: 2, null: false
     t.string "human_id"
     t.integer "nomis_id"
-    t.string "nomis_comments"
+    t.text "nomis_comments"
     t.index ["human_id"], name: "index_visits_on_human_id", unique: true
     t.index ["prison_id"], name: "index_visits_on_prison_id"
   end
