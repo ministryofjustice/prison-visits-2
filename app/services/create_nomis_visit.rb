@@ -1,5 +1,6 @@
 class CreateNomisVisit
   ALREADY_BOOKED_IN_NOMIS = 'Duplicate post'.freeze
+  PVB_USER_ID_HEADER_FIELD = 'X-PVB-User-id'.freeze
 
   def initialize(visit, creator:)
     self.visit = visit
@@ -41,6 +42,7 @@ private
   end
 
   def call_api
+    booking_params[:headers] = booking_headers
     self.booking = Nomis::Api.
       instance.
       book_visit(offender_id: offender_id, params: booking_params)
@@ -64,7 +66,7 @@ private
   end
 
   def booking_params
-    {
+    @booking_params ||= {
       lead_contact: visit.principal_visitor.nomis_id,
       other_contacts: visit.allowed_additional_visitors.map(&:nomis_id),
       slot: visit.slot_granted.to_s,
@@ -72,7 +74,11 @@ private
       override_visitor_restrictions: false,
       override_vo_balance: false,
       override_slot_capacity: false,
-      client_unique_ref: visit.id, comment: creator.email
+      client_unique_ref: visit.id
     }
+  end
+
+  def booking_headers
+    { PVB_USER_ID_HEADER_FIELD => creator.email }
   end
 end
