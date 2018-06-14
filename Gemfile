@@ -9,7 +9,6 @@ gem 'business'
 gem 'draper'
 gem 'connection_pool'
 gem 'excon'
-gem 'highline', require: false
 gem 'jbuilder'
 gem 'kramdown'
 gem 'lograge'
