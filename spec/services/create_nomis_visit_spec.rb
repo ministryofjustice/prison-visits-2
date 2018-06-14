@@ -37,7 +37,10 @@ RSpec.describe CreateNomisVisit do
                       override_vo_balance: false,
                       override_slot_capacity: false,
                       client_unique_ref: visit.id,
-                      comment: visit.nomis_comments
+                      comment: visit.nomis_comments,
+                      headers: {
+                        described_class::PVB_USER_ID_HEADER_FIELD => user.email
+                      }
                     }).and_return(Nomis::Booking.new)
 
         subject.execute
