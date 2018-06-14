@@ -1,6 +1,6 @@
 class CreateNomisVisit
   ALREADY_BOOKED_IN_NOMIS = 'Duplicate post'.freeze
-  PVB_USER_ID_HEADER_FIELD = 'X-PVB-User-id'.freeze
+  PVB_USER_ID_HEADER_FIELD = 'PVB-User-id'.freeze
 
   def initialize(visit, creator:)
     self.visit = visit

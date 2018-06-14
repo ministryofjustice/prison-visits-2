@@ -121,7 +121,7 @@ module Nomis
     # rubocop:disable Metrics/MethodLength
     def book_visit(offender_id:, params:)
       idempotent = params.key?(:client_unique_ref)
-
+      book_visit_request_options.merge!(params.delete(:headers))
       response = @pool.with { |client|
         client.post(
           "offenders/#{offender_id}/visits/booking",
@@ -161,7 +161,7 @@ module Nomis
     end
 
     def book_visit_request_options
-      {
+      @book_visit_request_options ||= {
         connect_timeout: Nomis::Api::BOOK_VISIT_TIMEOUT,
         read_timeout:    Nomis::Api::BOOK_VISIT_TIMEOUT,
         write_timeout:   Nomis::Api::BOOK_VISIT_TIMEOUT
