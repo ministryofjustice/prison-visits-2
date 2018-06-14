@@ -33,6 +33,8 @@ class Visit < ApplicationRecord
   delegate :allowance_will_renew?, :allowance_renews_on,
     to: :rejection
 
+  scope :less_than_six_months_old, -> { where('visits.updated_at > ?', 6.months.ago) }
+
   scope :from_estates, lambda { |estates|
     joins(prison: :estate).where(estates: { id: estates.map(&:id) })
   }

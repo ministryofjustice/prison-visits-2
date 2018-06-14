@@ -12,7 +12,7 @@ class Nomis::Offender
 
   def iep_level
     return unless Nomis::Api.enabled? && details.valid?
-    details.iep_level['desc']
+    details.iep_level && details.iep_level['desc']
   end
 
   def imprisonment_status
