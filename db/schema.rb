@@ -133,6 +133,9 @@ ActiveRecord::Schema.define(version: 2018_06_14_122432) do
     t.datetime "updated_at", null: false
     t.uuid "processed_by_id"
     t.uuid "visitor_id"
+    t.string "creator_type"
+    t.uuid "creator_id"
+    t.index ["creator_type", "creator_id"], name: "index_visit_state_changes_on_creator_type_and_creator_id"
     t.index ["visit_id"], name: "index_visit_state_changes_on_visit_id"
   end
 

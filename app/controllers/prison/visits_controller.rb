@@ -39,7 +39,7 @@ class Prison::VisitsController < ApplicationController
 
   def show
     visit = Visit.
-             includes(:visitors, messages: :user, visit_state_changes: :processed_by).
+             includes(:visitors, messages: :user, visit_state_changes: :creator).
              find(memoised_visit.id)
 
     @visit = visit.decorate

@@ -61,6 +61,15 @@ RSpec.feature 'Printing a list of visits' do
       expect(page).to have_css('h3', text: 'Visit date 21/12/2017')
       expect(page).to have_css('h3', text: 'Visit time 14:00–16:00')
     end
+
+    it 'is for a date more than six months ago' do
+      visit new_prison_print_visit_path
+      fill_in 'Day', with: '21'
+      fill_in 'Month', with: '12'
+      fill_in 'Year', with: '2016'
+      click_button('Show')
+      expect(page).to have_css('p', text: "Please choose a date within the last six months, or contact us if you would like to see older visits.")
+    end
   end
 
   context 'when searching for visits without any date params' do

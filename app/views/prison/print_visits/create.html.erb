@@ -7,7 +7,9 @@
 <%= render 'visit_date' %>
 
 <% if !@submitted_date.nil? %>
-  <% if @data.any? %>
+  <% if !@print_visits.valid? %>
+    <p class="error-message"><%= t('search_date_invalid_html', scope: [:print_visits, :errors], url: new_prison_feedback_path) %></p>
+  <% elsif @data.any? %>
     <div class="js-print-visits">
       <span class="hidden--print">
         <%= link_to t('.download_csv_html'), prison_print_visits_path(print_visits: params[:visit_date] ,format: :csv) %>
