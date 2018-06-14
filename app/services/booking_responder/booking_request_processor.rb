@@ -29,7 +29,11 @@ class BookingResponder
 
     delegate :visit, to: :staff_response
     delegate :rejection, to: :visit
+
+    # Remove following ignored rubocop once fix released for conflicting cops
+    # rubocop:disable Style/AccessModifierDeclarations, Layout/AccessModifierIndentation
     private :visit
+    # rubocop:enable Style/AccessModifierDeclarations, Layout/AccessModifierIndentation
 
     def record_creator
       visit.last_visit_state.update!(creator: staff_response.creator)
