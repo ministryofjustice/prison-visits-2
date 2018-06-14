@@ -62,6 +62,7 @@ private
     visit.prisoner.nomis_offender_id
   end
 
+  # rubocop:disable Metrics/MethodLength
   def booking_params
     {
       lead_contact: visit.principal_visitor.nomis_id,
@@ -71,7 +72,9 @@ private
       override_visitor_restrictions: false,
       override_vo_balance: false,
       override_slot_capacity: false,
-      client_unique_ref: visit.id
+      client_unique_ref: visit.id,
+      comment: visit.nomis_comments
     }
   end
+  # rubocop:enable Metrics/MethodLength
 end

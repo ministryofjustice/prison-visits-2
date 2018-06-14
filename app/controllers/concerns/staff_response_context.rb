@@ -90,7 +90,7 @@ private
     params.require(:visit).permit(
       :reference_no, :slot_granted, :closed, :slot_option_0,
       :slot_option_1, :slot_option_2, :prison_id, :prisoner_id,
-      :principal_visitor_id, :processing_state, :id,
+      :principal_visitor_id, :processing_state, :id, :nomis_comments,
       visitor_ids: [],
       rejection_attributes: [
         'allowance_renews_on(1i)',
