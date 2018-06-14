@@ -11,7 +11,7 @@ RSpec.describe BookingResponder::Accept do
     create_list(:visitor, 2, visit: visit)
   end
 
-  let(:staff_response) { StaffResponse.new(visit: visit) }
+  let(:staff_response) { StaffResponse.new(visit: visit, user: create(:user)) }
 
   before do
     unlisted_visitors.each do |uv|
