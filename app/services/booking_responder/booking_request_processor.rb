@@ -29,7 +29,11 @@ class BookingResponder
 
     delegate :visit, to: :staff_response
     delegate :rejection, to: :visit
+
+    # Remove following ignored rubocop once fix released for conflicting cops
+    # rubocop:disable Style/AccessModifierDeclarations, Layout/AccessModifierIndentation
     private :visit
+    # rubocop:enable Style/AccessModifierDeclarations, Layout/AccessModifierIndentation
 
     # Responses are either initiated by a user or visitor, but never both
     def record_visitor_or_user
