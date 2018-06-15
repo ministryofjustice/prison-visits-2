@@ -12,9 +12,17 @@ RSpec.describe PrintVisits, type: :model do
       end
     end
 
-    context 'when the date is within the the given range' do
+    context 'when the date is within the past six months' do
       it 'has no error on the field' do
         subject.visit_date = 3.months.ago.strftime("%F")
+        subject.validate
+        expect(subject.errors.messages[:base]).not_to include(error_message)
+      end
+    end
+
+    context 'when the date is in the future' do
+      it 'has no error on the field' do
+        subject.visit_date = 3.months.from_now.strftime("%F")
         subject.validate
         expect(subject.errors.messages[:base]).not_to include(error_message)
       end
