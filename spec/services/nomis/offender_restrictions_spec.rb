@@ -27,6 +27,7 @@ RSpec.describe Nomis::OffenderRestrictions do
         expect(subject.restrictions).to eq([])
       end
     end
+
     it 'parses the attributes to an array of restrictions' do
       expect(subject.restrictions).to have(1).item
       restriction = subject.restrictions.first

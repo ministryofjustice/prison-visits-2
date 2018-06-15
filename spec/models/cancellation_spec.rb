@@ -8,6 +8,7 @@ RSpec.describe Cancellation, model: true do
       before do
         subject.reasons = ['', described_class::PRISONER_VOS]
       end
+
       it { is_expected.to be_valid }
     end
 

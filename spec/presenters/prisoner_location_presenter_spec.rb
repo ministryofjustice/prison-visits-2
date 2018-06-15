@@ -23,6 +23,7 @@ RSpec.describe PrisonerLocationPresenter do
           allow(prisoner_location_validation).
             to receive(:establishment).and_return(establishment)
         end
+
         describe 'when the location is valid' do
           it { expect(subject.status).to be nil }
         end
@@ -38,6 +39,7 @@ RSpec.describe PrisonerLocationPresenter do
         before do
           simulate_api_error_for(:lookup_offender_location)
         end
+
         it { expect(subject.status).to eq('location_unknown') }
       end
     end
@@ -57,6 +59,7 @@ RSpec.describe PrisonerLocationPresenter do
         allow(prisoner_location_validation).
           to receive(:establishment).and_return(establishment)
       end
+
       describe 'when the location is valid' do
         it { expect(subject.internal_location).to eq('some_internal_location') }
       end
