@@ -240,6 +240,7 @@ RSpec.describe StaffResponse, type: :model do
         'closed'                 => params[:closed],
         'prisoner_id'            => visit.prisoner_id,
         'locale'                 => nil,
+        'nomis_comments'         => nil,
         'principal_visitor_id'   => principal_visitor.id,
         'slot_option_0'          => visit.slot_option_0,
         'slot_option_1'          => visit.slot_option_1,

@@ -16,7 +16,7 @@ class BookingResponder
           create_message(message_for_visitor, visit.last_visit_state)
         end
 
-        record_visitor_or_user
+        record_creator
       end
 
       booking_response
@@ -29,17 +29,14 @@ class BookingResponder
 
     delegate :visit, to: :staff_response
     delegate :rejection, to: :visit
+
+    # Remove following ignored rubocop once fix released for conflicting cops
+    # rubocop:disable Style/AccessModifierDeclarations, Layout/AccessModifierIndentation
     private :visit
+    # rubocop:enable Style/AccessModifierDeclarations, Layout/AccessModifierIndentation
 
-    # Responses are either initiated by a user or visitor, but never both
-    def record_visitor_or_user
-      if staff_response.respond_to?(:user)
-        visit.last_visit_state.update!(processed_by: staff_response.user)
-      end
-
-      if staff_response.respond_to?(:visitor)
-        visit.last_visit_state.update!(visitor: staff_response.visitor)
-      end
+    def record_creator
+      visit.last_visit_state.update!(creator: staff_response.creator)
     end
 
     def create_message(message, visit_state_change)

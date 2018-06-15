@@ -27,6 +27,7 @@ RSpec.describe Nomis::Offender, type: :model do
             )
           )
         end
+
         it { expect(subject.iep_level).to eq('Standard') }
       end
 

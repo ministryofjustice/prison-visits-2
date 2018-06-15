@@ -6,14 +6,14 @@ RSpec.describe CreateNomisVisit do
   let(:additional_visitor) { build_stubbed(:visitor, nomis_id: 2345, sort_index: 1) }
   let(:banned_visitor)     { build_stubbed(:visitor, nomis_id: 2345, banned: true, sort_index: 2) }
   let(:nomis_visit_id)     { 99_999 }
-
+  let(:user)               { create(:user) }
   let(:visit) do
     build_stubbed(:booked_visit,
       prisoner: prisoner,
       visitors: [lead_visitor, additional_visitor, banned_visitor])
   end
 
-  subject { described_class.new(visit) }
+  subject { described_class.new(visit, creator: user) }
 
   before do
     allow(Nomis::Api.instance).to receive(:book_visit).and_return(booking)
@@ -36,7 +36,11 @@ RSpec.describe CreateNomisVisit do
                       override_visitor_restrictions: false,
                       override_vo_balance: false,
                       override_slot_capacity: false,
-                      client_unique_ref: visit.id
+                      client_unique_ref: visit.id,
+                      comment: visit.nomis_comments,
+                      headers: {
+                        described_class::PVB_USER_ID_HEADER_FIELD => user.email
+                      }
                     }).and_return(Nomis::Booking.new)
 
         subject.execute

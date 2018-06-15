@@ -8,7 +8,7 @@ class Prison::PrintVisitsController < ApplicationController
 
   def create
     @print_visits = ::PrintVisits.new(permitted_visit_date_params)
-    create_visit_date
+    validate_visit_date
 
     @data = EstateVisitQuery.new(current_estates).visits_to_print_by_slot(@submitted_date)
 
@@ -23,10 +23,11 @@ class Prison::PrintVisitsController < ApplicationController
 
 private
 
-  def create_visit_date
+  def validate_visit_date
     @submitted_date = AccessibleDate.new(
       date_to_accessible_date(@print_visits.visit_date)
       ).to_date
+    @print_visits.valid? unless @submitted_date.nil?
   end
 
   def date_to_accessible_date(date)

@@ -9,6 +9,7 @@ RSpec.describe Nomis::Api do
     ex.run
     Singleton.__init__(described_class)
   end
+
   it 'is implicitly enabled if the api host is configured' do
     expect(Rails.configuration).to receive(:nomis_api_host).and_return(nil)
     expect(described_class.enabled?).to be false
@@ -306,7 +307,8 @@ RSpec.describe Nomis::Api do
         override_visitor_restrictions: false,
         override_vo_balance: false,
         override_slot_capacity: false,
-        client_unique_ref: 'client_ref_11337'
+        client_unique_ref: 'client_ref_11337',
+        headers: { 'X-Some-Random-Header' => 'foo' }
       }
     end
 
@@ -337,7 +339,10 @@ RSpec.describe Nomis::Api do
               "offenders/#{offender_id}/visits/booking",
               params,
               idempotent: false,
-              options: { connect_timeout: 3, read_timeout: 3, write_timeout: 3 }
+              options: {
+                connect_timeout: 3, read_timeout: 3, write_timeout: 3,
+                "X-Some-Random-Header" => "foo"
+              }
             ).and_return(
               "visit_id" => nil,
               "errors" => [
@@ -375,7 +380,8 @@ RSpec.describe Nomis::Api do
                                 options: {
                                   connect_timeout: Nomis::Api::BOOK_VISIT_TIMEOUT,
                                   read_timeout:    Nomis::Api::BOOK_VISIT_TIMEOUT,
-                                  write_timeout:   Nomis::Api::BOOK_VISIT_TIMEOUT
+                                  write_timeout:   Nomis::Api::BOOK_VISIT_TIMEOUT,
+                                  "X-Some-Random-Header" => "foo"
                                 }
                               )
         end

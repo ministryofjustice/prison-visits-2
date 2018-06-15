@@ -16,6 +16,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
   let(:prisoner_number) { 'A1475AE' }
   let(:prisoner_dob) { '23-04-1979' }
   let(:visitor_details) { 'BOB LIPMAN - 01/01/1970' }
+  let(:nomis_comments) { 'This is a comment to be added to Nomis' }
   let(:visitor) { vst.visitors.first }
 
   around do |ex|
@@ -54,10 +55,11 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       fill_in 'This message will be included in the email sent to the visitor', with: 'A staff message'
 
       within "#visitor_#{visitor.id}" do
-        select visitor_details, from: "Match to prisoner's contact list"
+        select visitor_details, from: 'Match to prisoner\'s contact list'
       end
 
-      expect(page).to have_unchecked_field("Don't automatically copy this visit to NOMIS", visible: false)
+      choose 'Yes - copy to NOMIS'
+      fill_in 'nomis_comments', with: nomis_comments
       click_button 'Process'
 
       expect(page).to have_css('.notification', text: 'Thank you for processing the visit')
@@ -65,6 +67,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       vst.reload
       expect(vst).to be_booked
       expect(vst.nomis_id).to eq(5955)
+      expect(vst.nomis_comments).to eq(nomis_comments)
       expect(vst.visit_order).to have_attributes(type: 'VisitOrder', number: 2_018_000_000_130)
     end
 
@@ -84,7 +87,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
         select visitor_details, from: "Match to prisoner's contact list"
       end
 
-      check "Don't automatically copy this visit to NOMIS", visible: false
+      choose "No - do not copy to NOMIS"
 
       fill_in 'Reference number',   with: '12345678'
 
@@ -108,7 +111,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
         select visitor_details, from: "Match to prisoner's contact list"
       end
 
-      expect(page).to have_css('#nomis-opt-out.panel', text: "This is a closed visit.\nBook this visit into NOMIS, then enter the reference number")
+      expect(page).to have_css('#nomis-opt-out', text: "This is a closed visit.\nBook this visit into NOMIS, then enter the reference number")
 
       click_button 'Process'
       expect(page).to have_css('.notification', text: 'Thank you for processing the visit')
@@ -177,6 +180,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       before do
         simulate_api_error_for(:fetch_contact_list)
       end
+
       it 'is expected that the contact list is not available' do
         visit prison_visit_path(vst, locale: 'en')
         expect(page).to have_css('form .notice', text: "We can’t show the NOMIS contact list right now. Please check all visitors in NOMIS")

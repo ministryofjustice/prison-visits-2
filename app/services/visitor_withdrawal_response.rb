@@ -13,7 +13,7 @@ class VisitorWithdrawalResponse
     processor.process_request
   end
 
-  def visitor
+  def creator
     visit.principal_visitor
   end
 

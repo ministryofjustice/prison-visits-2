@@ -71,6 +71,7 @@ RSpec.describe Rejection, model: true do
             expect(subject).to be_valid
           end
         end
+
         context 'with a null date' do
           let(:allowance_renews_on) { nil }
 

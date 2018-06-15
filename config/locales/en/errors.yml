@@ -59,6 +59,9 @@ en:
     errors:
       must_reject_or_accept_visit: "A visit must either be accepted by choosing a date or at least one rejection reason"
   no_visitor_in_nomis: No record of this visitor in NOMIS
+  print_visits:
+    errors:
+      search_date_invalid_html: Please choose a date within the last six months, or <a href='%<url>s'>contact us</a> if you would like to see older visits.
 
   age_validator:
     errors:

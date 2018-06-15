@@ -1,16 +1,34 @@
-<div class="panel panel-border-narrow" id="nomis-opt-out">
-  <div id="opt-out-check">
+<div id="nomis-opt-out">
     <% if book_to_nomis_config.possible_to_book? %>
-      <p>
-        <%= t(".book_to_nomis_opted_in_by_default") %>
-      </p>
-      <%= hidden_field_tag :book_to_nomis_opted_in, true %>
-      <fieldset>
-        <div class="multiple-choice push-bottom">
-          <%= check_box_tag :book_to_nomis_opted_in, false, !book_to_nomis_config.opted_in?, class: 'js-BookToNomis', 'data-el': 'booktonomis-message', id: 'book_to_nomis_opt_in' %>
-          <label for="book_to_nomis_opt_in"><%= t('.dont_book_to_nomis') %></label>
+      <hr>
+      <div class="grid-row" id="opt-out-check">
+
+        <div class="form-group column-two-thirds">
+          <fieldset>
+            <legend class="push-bottom--half">
+              <h2 class="bold-medium">
+                Copy this visit to NOMIS?
+              </h2>
+              <p><%= t(".book_to_nomis_opted_in_by_default") %></p>
+            </legend>
+            <div class="multiple-choice" data-target="comments-for-nomis">
+              <input type="radio" name="book_to_nomis_opted_in" id="book_to_nomis_opt_in_true" value="true">
+              <label for="book_to_nomis_opt_in_true">Yes - copy to NOMIS</label>
+            </div>
+            <div class="panel panel-border-narrow js-hidden" id="comments-for-nomis">
+              <label for="message_body" class="form-label">This information will be entered into NOMIS. Visitors will not see this.</label>
+              <%= f.text_area(:nomis_comments, class: 'form-control form-control-full-width', rows: 4, id: 'nomis_comments') %>
+            </div>
+            <div class="multiple-choice" data-target="do-not-book-to-nomis">
+              <input type="radio" name="book_to_nomis_opted_in" id="book_to_nomis_opt_in_false" value="false">
+              <label for="book_to_nomis_opt_in_false">No - do not copy to NOMIS</label>
+            </div>
+            <div class="panel panel-border-narrow js-hidden" id="do-not-book-to-nomis">
+              <%= single_field f, :reference_no, :text_field, class: 'form-control' %>
+            </div>
+          </fieldset>
         </div>
-      </fieldset>
+      </div>
     <% else %>
       <% if book_to_nomis_config.already_booked_in_nomis? %>
         <p>
@@ -22,10 +40,9 @@
         </p>
       <% end %>
     <% end %>
-  </div>
-
   <div id="closed-visits" class="visually-hidden">
-    <p class="bold-small"><%= t('.closed_visit') %></p>
+    <h2 class="bold-medium"><%= t('.closed_visit') %></h2>
     <p><%= t('.closed_book_to_nomis') %></p>
+    <%= single_field f, :reference_no, :text_field, class: 'form-control' %>
   </div>
 </div>

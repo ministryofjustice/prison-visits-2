@@ -14,6 +14,7 @@ RSpec.describe Percentiles do
           }
       end
     end
+
     describe Percentiles::DistributionByPrison do
       it 'returns the 95% 50% times' do
         expect(described_class.fetch_and_format).to be ==

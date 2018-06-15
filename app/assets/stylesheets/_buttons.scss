@@ -23,3 +23,18 @@
 .button-secondary {
   @include button($grey-3);
 }
+
+.button-preview {
+  // @include button($white);
+  // @include prefix(box-shadow, none);
+  // color: $link-colour !important;
+  // outline: none;
+  // &:hover, &:focus, &:active {
+  //   background-color: $white;
+  //   color: $link-hover-colour;
+  //   text-decoration: none;
+  // }
+  @include inline-block;
+  line-height: 1.25;
+  padding: .526315em .789473em .263157em; // 10px 15px 5px
+}

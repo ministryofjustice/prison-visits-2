@@ -80,6 +80,8 @@ RSpec.feature 'Processing a request', :js, :expect_exception do
 
       expect(page).to have_css(".tag--error", text: "Booked on another visit")
 
+      choose "Yes - copy to NOMIS"
+
       click_button 'Process'
 
       expect(page).to have_css('.error-summary', text: "Visit not copied to NOMIS\nPlease process the visit and record it manually in NOMIS")
