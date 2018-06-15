@@ -12,6 +12,7 @@ RSpec.describe Prison::PrintVisitsController do
       before do
         get :new, params: { estate_id: estate.finder_slug }
       end
+
       it { is_expected.to redirect_to("/auth/mojsso") }
     end
 

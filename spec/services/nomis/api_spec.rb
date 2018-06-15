@@ -9,6 +9,7 @@ RSpec.describe Nomis::Api do
     ex.run
     Singleton.__init__(described_class)
   end
+
   it 'is implicitly enabled if the api host is configured' do
     expect(Rails.configuration).to receive(:nomis_api_host).and_return(nil)
     expect(described_class.enabled?).to be false
