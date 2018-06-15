@@ -7,40 +7,42 @@
           <fieldset>
             <legend class="push-bottom--half">
               <h2 class="bold-medium">
-                Copy this visit to NOMIS?
+                <%= t('.copy_header') %>
               </h2>
               <p><%= t(".book_to_nomis_opted_in_by_default") %></p>
             </legend>
             <div class="multiple-choice" data-target="comments-for-nomis">
               <input type="radio" name="book_to_nomis_opted_in" id="book_to_nomis_opt_in_true" value="true">
-              <label for="book_to_nomis_opt_in_true">Yes - copy to NOMIS</label>
+              <label for="book_to_nomis_opt_in_true"><%= t('.copy_yes') %></label>
             </div>
             <div class="panel panel-border-narrow js-hidden" id="comments-for-nomis">
               <div class="form-group">
                 <fieldset>
-                  <legend class="push-bottom--half">Book using:</legend>
+                  <legend class="push-bottom--half"><%= t('.book_using') %></legend>
                   <div class="multiple-choice">
                     <input type="radio" name="book_to_nomis_visit_order" id="book_to_nomis_pvo" value="true">
-                    <label for="book_to_nomis_pvo">1 PVO (Privilege Visiting Order)</label>
+                    <label for="book_to_nomis_pvo"><%= t('.book_pvo') %></label>
                   </div>
                   <div class="multiple-choice">
                     <input type="radio" name="book_to_nomis_visit_order" id="book_to_nomis_vo" value="true">
-                    <label for="book_to_nomis_vo">1 VO (Visiting Order)</label>
+                    <label for="book_to_nomis_vo"><%= t('.book_vo') %></label>
                   </div>
                   <div class="multiple-choice">
                     <input type="radio" name="book_to_nomis_visit_order" id="book_to_nomis_none" value="true">
-                    <label for="book_to_nomis_none">No PVO/VO needed</label>
+                    <label for="book_to_nomis_none"><%= t('.book_none') %></label>
                   </div>
                 </fieldset>
               </div>
-              <label class="form-label" for="nomis-comments">Visit comments
-                <span class="form-hint">This information will be entered into NOMIS. Visitors will not see this.</span>
-              </label>
-              <%= f.text_area(:nomis_comments, class: 'form-control form-control-full-width', rows: 4, id: 'nomis_comments') %>
+              <div class="form-group push-top push-bottom">
+                <label class="form-label" for="nomis-comments"><%= t('.comments_label') %>
+                  <span class="form-hint"><%= t('.comments_hint') %></span>
+                </label>
+                <%= f.text_area(:nomis_comments, class: 'form-control form-control-full-width', rows: 4, id: 'nomis_comments') %>
+              </div>
             </div>
             <div class="multiple-choice" data-target="do-not-book-to-nomis">
               <input type="radio" name="book_to_nomis_opted_in" id="book_to_nomis_opt_in_false" value="false">
-              <label for="book_to_nomis_opt_in_false">No - do not copy to NOMIS</label>
+              <label for="book_to_nomis_opt_in_false"><%= t('.copy_no') %></label>
             </div>
             <div class="panel panel-border-narrow js-hidden" id="do-not-book-to-nomis">
               <%= single_field f, :reference_no, :text_field, class: 'form-control' %>
