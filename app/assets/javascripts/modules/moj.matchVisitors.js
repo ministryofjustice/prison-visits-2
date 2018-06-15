@@ -219,7 +219,7 @@
     },
 
     isContactRestricted: function(contact) {
-      return contact && contact.restrictions && contact.restrictions.length > 0? true : false;
+      return contact && contact.restrictions && contact.restrictions.length > 0
     },
 
     setBanned: function(el, selected) {
