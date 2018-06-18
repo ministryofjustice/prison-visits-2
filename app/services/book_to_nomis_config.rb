@@ -59,7 +59,7 @@ private
   end
 
   def offender_restrictions_working?
-    Nomis::Feature.offender_restrictions_enabled? &&
+    Nomis::Feature.restrictions_enabled? &&
       !staff_nomis_checker.prisoner_restrictions_unknown?
   end
 

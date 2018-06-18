@@ -88,7 +88,7 @@ RSpec.describe BookToNomisConfig do
   shared_context 'with offender restrictions working' do
     before do
       allow(Nomis::Feature).
-        to receive(:offender_restrictions_enabled?).and_return(true)
+        to receive(:restrictions_enabled?).and_return(true)
       allow(checker).to receive(:prisoner_restrictions_unknown?).and_return(false)
     end
   end
@@ -199,7 +199,7 @@ RSpec.describe BookToNomisConfig do
       context 'with the feature being disabled' do
         before do
           expect(Nomis::Feature).
-            to receive(:offender_restrictions_enabled?).and_return(false)
+            to receive(:restrictions_enabled?).and_return(false)
         end
 
         it { is_expected.not_to be_possible_to_book }
@@ -208,7 +208,7 @@ RSpec.describe BookToNomisConfig do
       context 'with the api call response being unknown' do
         before do
           allow(Nomis::Feature).
-            to receive(:offender_restrictions_enabled?).and_return(true)
+            to receive(:restrictions_enabled?).and_return(true)
 
           expect(checker).to receive(:prisoner_restrictions_unknown?).and_return(true)
         end
