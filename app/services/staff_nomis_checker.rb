@@ -14,7 +14,7 @@ class StaffNomisChecker
   end
 
   def prisoner_restrictions_unknown?
-    Nomis::Feature.offender_restrictions_info_enabled?(@visit.prison_name) &&
+    Nomis::Feature.restrictions_info_enabled?(@visit.prison_name) &&
       prisoner_restriction_list.unknown_result?
   end
 
@@ -56,7 +56,7 @@ class StaffNomisChecker
   end
 
   def prisoner_restrictions
-    if Nomis::Feature.offender_restrictions_info_enabled?(@visit.prison_name) &&
+    if Nomis::Feature.restrictions_info_enabled?(@visit.prison_name) &&
         offender.valid?
       prisoner_restriction_list.active
     else
@@ -67,7 +67,7 @@ class StaffNomisChecker
 private
 
   def slot_prisoner_restrictions(slot)
-    if Nomis::Feature.offender_restrictions_enabled? && offender.valid?
+    if Nomis::Feature.restrictions_enabled? && offender.valid?
       prisoner_restriction_list.on_slot(slot)
     else
       []

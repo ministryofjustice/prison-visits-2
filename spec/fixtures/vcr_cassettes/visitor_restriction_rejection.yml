@@ -1,0 +1,629 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1971-11-11&noms_id=A1484AE
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 2a0e4b1c-205c-4005-bf82-40d16ec3d07c
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 12 Jun 2018 16:14:47 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=3, db=1
+      Url-Template:
+      - "/lookup/active_offender"
+      Content-Length:
+      - '40'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"found":true,"offender":{"id":1057307}}'
+    http_version: 
+  recorded_at: Tue, 12 Jun 2018 16:14:47 GMT
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057307/visits/unavailability?dates=2018-06-18
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 2a0e4b1c-205c-4005-bf82-40d16ec3d07c
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 12 Jun 2018 16:14:47 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=52, db=51
+      Url-Template:
+      - "/offenders/{offender_id}/visits"
+      Content-Length:
+      - '96'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"2018-06-18":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
+    http_version: 
+  recorded_at: Tue, 12 Jun 2018 16:14:47 GMT
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/prison/LEI/slots?end_date=2018-06-18&start_date=2018-06-18
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 2a0e4b1c-205c-4005-bf82-40d16ec3d07c
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 12 Jun 2018 16:14:48 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=6, db=6
+      Url-Template:
+      - "/prison/{prison_id}"
+      Content-Length:
+      - '419'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"slots":[{"time":"2018-06-18T10:00\/11:30","capacity":50,"max_groups":20,"max_adults":50,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2018-06-18T15:30\/16:30","capacity":50,"max_groups":8,"max_adults":50,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2018-06-18T17:00\/18:00","capacity":50,"max_groups":3,"max_adults":6,"groups_booked":0,"visitors_booked":0,"adults_booked":0}]}'
+    http_version: 
+  recorded_at: Tue, 12 Jun 2018 16:14:48 GMT
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057307/visits/restrictions
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 2a0e4b1c-205c-4005-bf82-40d16ec3d07c
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 12 Jun 2018 16:14:48 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=3, db=2
+      Url-Template:
+      - "/offenders/{offender_id}/visits"
+      Content-Length:
+      - '1196'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"restrictions":[{"type":{"code":"CCTV","desc":"CCTV"},"effective_date":"2017-07-24","expiry_date":"2017-09-17","comment_text":"99"},{"type":{"code":"RESTRICTED","desc":"Restricted"},"effective_date":"2017-07-31","expiry_date":"2017-07-31"},{"type":{"code":"CLOSED","desc":"Closed"},"effective_date":"2017-07-18","expiry_date":"2017-08-01"},{"type":{"code":"BAN","desc":"Banned"},"effective_date":"2017-10-11","expiry_date":"2017-10-12","comment_text":"Banned
+        for shouting"},{"type":{"code":"BAN","desc":"Banned"},"effective_date":"2017-09-14","expiry_date":"2017-09-14"},{"type":{"code":"BAN","desc":"Banned"},"effective_date":"2017-03-09","expiry_date":"2017-03-13"},{"type":{"code":"CLOSED","desc":"Closed"},"effective_date":"2018-06-21"},{"type":{"code":"CCTV","desc":"CCTV"},"effective_date":"2017-11-15","expiry_date":"2018-01-01","comment_text":"We
+        need to keep a close eye on this prisoner as they are up to something. Probably
+        getting green smuggled in from that Alan Kennedy!"},{"type":{"code":"CLOSED","desc":"Closed"},"effective_date":"2017-11-15","expiry_date":"2017-11-16"},{"type":{"code":"PREINF","desc":"Previous
+        Info"},"effective_date":"2017-11-15","expiry_date":"2018-01-01"}]}'
+    http_version: 
+  recorded_at: Tue, 12 Jun 2018 16:14:48 GMT
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1484AE/location
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 2a0e4b1c-205c-4005-bf82-40d16ec3d07c
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 12 Jun 2018 16:14:48 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=45, db=44
+      Url-Template:
+      - "/offenders/{noms_id}"
+      Content-Length:
+      - '202'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":{"description":"LEI-H-1-003","levels":[{"type":"Wing","value":"H"},{"type":"Landing","value":"1"},{"type":"Cell","value":"003"}]}}'
+    http_version: 
+  recorded_at: Tue, 12 Jun 2018 16:14:48 GMT
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1484AE
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 2a0e4b1c-205c-4005-bf82-40d16ec3d07c
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 12 Jun 2018 16:14:48 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=4, db=4
+      Url-Template:
+      - "/offenders/{noms_id}"
+      Content-Length:
+      - '324'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"given_name":"IZZY","surname":"ITSU","date_of_birth":"1971-11-11","aliases":[],"gender":{"code":"M","desc":"Male"},"convicted":true,"pnc_number":"PNC/A1484AE","imprisonment_status":{"code":"UNK_SENT","desc":"Unknown
+        Sentenced"},"iep_level":{"code":"STD","desc":"Standard"},"security_category":{"code":"U","desc":"Unclass"}}'
+    http_version: 
+  recorded_at: Tue, 12 Jun 2018 16:14:48 GMT
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057307/visits/contact_list
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 2a0e4b1c-205c-4005-bf82-40d16ec3d07c
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 12 Jun 2018 16:14:48 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=3, db=3
+      Url-Template:
+      - "/offenders/{offender_id}/visits"
+      Content-Length:
+      - '1427'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"contacts":[{"id":13432,"given_name":"SHAY","surname":"DEE","date_of_birth":"1978-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":13428,"given_name":"IRMA","middle_names":"CHRISTINE","surname":"ITSU","date_of_birth":"1975-04-03","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"WIFE","desc":"Wife"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13429,"given_name":"ISAIAH","surname":"ITSU","date_of_birth":"1981-11-16","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"BRO","desc":"Brother"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":12588,"given_name":"BILLY","surname":"JONES","date_of_birth":"1970-01-01","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[{"type":{"code":"CCTV","desc":"CCTV"},"effective_date":"2018-03-30","expiry_date":"2018-07-30","comment_text":"Smuggling
+        risk"},{"type":{"code":"RESTRICTED","desc":"Restricted"},"effective_date":"2018-03-30","expiry_date":"2018-07-30","comment_text":"Caught
+        smuggling illegal items in"}]}]}'
+    http_version: 
+  recorded_at: Tue, 12 Jun 2018 16:14:48 GMT
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1971-11-11&noms_id=A1484AE
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 8076fad5-a248-49b5-aabc-5bbf5ee944aa
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 12 Jun 2018 16:14:49 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=2, db=2
+      Url-Template:
+      - "/lookup/active_offender"
+      Content-Length:
+      - '40'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"found":true,"offender":{"id":1057307}}'
+    http_version: 
+  recorded_at: Tue, 12 Jun 2018 16:14:49 GMT
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057307/visits/unavailability?dates=2018-06-18
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 8076fad5-a248-49b5-aabc-5bbf5ee944aa
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 12 Jun 2018 16:14:49 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=46, db=45
+      Url-Template:
+      - "/offenders/{offender_id}/visits"
+      Content-Length:
+      - '96'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"2018-06-18":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
+    http_version: 
+  recorded_at: Tue, 12 Jun 2018 16:14:49 GMT
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/prison/LEI/slots?end_date=2018-06-18&start_date=2018-06-18
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 8076fad5-a248-49b5-aabc-5bbf5ee944aa
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 12 Jun 2018 16:14:49 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=6, db=6
+      Url-Template:
+      - "/prison/{prison_id}"
+      Content-Length:
+      - '419'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"slots":[{"time":"2018-06-18T10:00\/11:30","capacity":50,"max_groups":20,"max_adults":50,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2018-06-18T15:30\/16:30","capacity":50,"max_groups":8,"max_adults":50,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2018-06-18T17:00\/18:00","capacity":50,"max_groups":3,"max_adults":6,"groups_booked":0,"visitors_booked":0,"adults_booked":0}]}'
+    http_version: 
+  recorded_at: Tue, 12 Jun 2018 16:14:49 GMT
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057307/visits/restrictions
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 8076fad5-a248-49b5-aabc-5bbf5ee944aa
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 12 Jun 2018 16:14:49 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=3, db=2
+      Url-Template:
+      - "/offenders/{offender_id}/visits"
+      Content-Length:
+      - '1196'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"restrictions":[{"type":{"code":"CCTV","desc":"CCTV"},"effective_date":"2017-07-24","expiry_date":"2017-09-17","comment_text":"99"},{"type":{"code":"RESTRICTED","desc":"Restricted"},"effective_date":"2017-07-31","expiry_date":"2017-07-31"},{"type":{"code":"CLOSED","desc":"Closed"},"effective_date":"2017-07-18","expiry_date":"2017-08-01"},{"type":{"code":"BAN","desc":"Banned"},"effective_date":"2017-10-11","expiry_date":"2017-10-12","comment_text":"Banned
+        for shouting"},{"type":{"code":"BAN","desc":"Banned"},"effective_date":"2017-09-14","expiry_date":"2017-09-14"},{"type":{"code":"BAN","desc":"Banned"},"effective_date":"2017-03-09","expiry_date":"2017-03-13"},{"type":{"code":"CLOSED","desc":"Closed"},"effective_date":"2018-06-21"},{"type":{"code":"CCTV","desc":"CCTV"},"effective_date":"2017-11-15","expiry_date":"2018-01-01","comment_text":"We
+        need to keep a close eye on this prisoner as they are up to something. Probably
+        getting green smuggled in from that Alan Kennedy!"},{"type":{"code":"CLOSED","desc":"Closed"},"effective_date":"2017-11-15","expiry_date":"2017-11-16"},{"type":{"code":"PREINF","desc":"Previous
+        Info"},"effective_date":"2017-11-15","expiry_date":"2018-01-01"}]}'
+    http_version: 
+  recorded_at: Tue, 12 Jun 2018 16:14:49 GMT
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1484AE/location
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 8076fad5-a248-49b5-aabc-5bbf5ee944aa
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 12 Jun 2018 16:14:49 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=47, db=47
+      Url-Template:
+      - "/offenders/{noms_id}"
+      Content-Length:
+      - '202'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":{"description":"LEI-H-1-003","levels":[{"type":"Wing","value":"H"},{"type":"Landing","value":"1"},{"type":"Cell","value":"003"}]}}'
+    http_version: 
+  recorded_at: Tue, 12 Jun 2018 16:14:49 GMT
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1484AE
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 8076fad5-a248-49b5-aabc-5bbf5ee944aa
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 12 Jun 2018 16:14:49 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=5, db=4
+      Url-Template:
+      - "/offenders/{noms_id}"
+      Content-Length:
+      - '324'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"given_name":"IZZY","surname":"ITSU","date_of_birth":"1971-11-11","aliases":[],"gender":{"code":"M","desc":"Male"},"convicted":true,"pnc_number":"PNC/A1484AE","imprisonment_status":{"code":"UNK_SENT","desc":"Unknown
+        Sentenced"},"iep_level":{"code":"STD","desc":"Standard"},"security_category":{"code":"U","desc":"Unclass"}}'
+    http_version: 
+  recorded_at: Tue, 12 Jun 2018 16:14:49 GMT
+- request:
+    method: get
+    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057307/visits/contact_list
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 8076fad5-a248-49b5-aabc-5bbf5ee944aa
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 12 Jun 2018 16:14:49 GMT
+      Server:
+      - nginx/1.13.8
+      Server-Timing:
+      - total=3, db=2
+      Url-Template:
+      - "/offenders/{offender_id}/visits"
+      Content-Length:
+      - '1427'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"contacts":[{"id":13432,"given_name":"SHAY","surname":"DEE","date_of_birth":"1978-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":13428,"given_name":"IRMA","middle_names":"CHRISTINE","surname":"ITSU","date_of_birth":"1975-04-03","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"WIFE","desc":"Wife"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13429,"given_name":"ISAIAH","surname":"ITSU","date_of_birth":"1981-11-16","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"BRO","desc":"Brother"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":12588,"given_name":"BILLY","surname":"JONES","date_of_birth":"1970-01-01","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[{"type":{"code":"CCTV","desc":"CCTV"},"effective_date":"2018-03-30","expiry_date":"2018-07-30","comment_text":"Smuggling
+        risk"},{"type":{"code":"RESTRICTED","desc":"Restricted"},"effective_date":"2018-03-30","expiry_date":"2018-07-30","comment_text":"Caught
+        smuggling illegal items in"}]}]}'
+    http_version: 
+  recorded_at: Tue, 12 Jun 2018 16:14:49 GMT
+- request:
+    method: post
+    uri: https://www.google-analytics.com/collect
+    body:
+      encoding: US-ASCII
+      string: v=1&uip=127.0.0.1&tid=UA-105607968-1&cid=GA1.4.972270536.1528820088&ua=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10.13%3B+rv%3A60.0%29+Gecko%2F20100101+Firefox%2F60.0&t=timing&utc=Leeds&utv=rejected&utt=64000&utl=f8f4c1c6-abd0-4071-bf37-baccf88719a2&cd1=slot_unavailable-visitor_banned
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - "*"
+      Date:
+      - Tue, 12 Jun 2018 16:15:51 GMT
+      Pragma:
+      - no-cache
+      Expires:
+      - Fri, 01 Jan 1990 00:00:00 GMT
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Last-Modified:
+      - Sun, 17 May 1998 03:00:00 GMT
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - image/gif
+      Server:
+      - Golfe2
+      Content-Length:
+      - '35'
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="43,42,41,39,35"
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
+    http_version: 
+  recorded_at: Tue, 12 Jun 2018 16:15:51 GMT
+- request:
+    method: post
+    uri: https://www.google-analytics.com/collect
+    body:
+      encoding: US-ASCII
+      string: v=1&uip=127.0.0.1&tid=UA-105607968-1&cid=GA1.4.972270536.1528820088&ua=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10.13%3B+rv%3A60.0%29+Gecko%2F20100101+Firefox%2F60.0&t=event&ec=Leeds&ea=Rejection&el=slot_unavailable-visitor_banned
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - "*"
+      Date:
+      - Tue, 12 Jun 2018 16:15:51 GMT
+      Pragma:
+      - no-cache
+      Expires:
+      - Fri, 01 Jan 1990 00:00:00 GMT
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Last-Modified:
+      - Sun, 17 May 1998 03:00:00 GMT
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - image/gif
+      Server:
+      - Golfe2
+      Content-Length:
+      - '35'
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="43,42,41,39,35"
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
+    http_version: 
+  recorded_at: Tue, 12 Jun 2018 16:15:51 GMT
+recorded_with: VCR 4.0.0

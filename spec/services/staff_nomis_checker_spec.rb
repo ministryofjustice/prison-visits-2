@@ -166,14 +166,14 @@ RSpec.describe StaffNomisChecker do
     end
 
     context 'with prisoner restrictions' do
-      context 'when NOMIS_STAFF_OFFENDER_RESTRICTIONS_ENABLED' do
+      context 'when NOMIS_STAFF_RESTRICTIONS_ENABLED' do
         let(:prisoner_availability_validator) do
           instance_double(PrisonerAvailabilityValidation, valid?: false, slot_errors: [])
         end
 
         context 'when it is disabled' do
           before do
-            switch_off(:nomis_staff_offender_restrictions_enabled)
+            switch_off(:nomis_staff_restrictions_enabled)
             mock_nomis_with(:lookup_active_offender, offender)
             mock_service_with(PrisonerAvailabilityValidation, prisoner_availability_validator)
           end
@@ -183,7 +183,7 @@ RSpec.describe StaffNomisChecker do
 
         context 'when it is enabled' do
           before do
-            switch_on(:nomis_staff_offender_restrictions_enabled)
+            switch_on(:nomis_staff_restrictions_enabled)
             mock_nomis_with(:lookup_active_offender, offender)
           end
 
@@ -364,8 +364,8 @@ RSpec.describe StaffNomisChecker do
       let(:offender_restrictions_api_error) { false }
 
       before do
-        switch_on(:nomis_staff_offender_restrictions_enabled)
-        switch_feature_flag_with(:staff_prisons_with_prisoner_restrictions_info, %w[Pentonville])
+        switch_on(:nomis_staff_restrictions_enabled)
+        switch_feature_flag_with(:staff_prisons_with_restrictions_info, %w[Pentonville])
         mock_nomis_with(:lookup_active_offender, offender)
         expect(restrictions_list).to receive(:unknown_result?).and_return(offender_restrictions_api_error)
         mock_service_with(PrisonerRestrictionList, restrictions_list)
@@ -400,8 +400,8 @@ RSpec.describe StaffNomisChecker do
   describe '#prisoner_restrictions' do
     context 'with the prison enabled' do
       before do
-        switch_feature_flag_with(:staff_prisons_with_prisoner_restrictions_info, [visit.prison_name])
-        switch_on(:nomis_staff_offender_restrictions_enabled)
+        switch_feature_flag_with(:staff_prisons_with_restrictions_info, [visit.prison_name])
+        switch_on(:nomis_staff_restrictions_enabled)
         mock_nomis_with(:lookup_active_offender, offender)
         mock_service_with(PrisonerRestrictionList, prisoner_restrictions_list)
       end
@@ -417,7 +417,7 @@ RSpec.describe StaffNomisChecker do
 
     context 'with the prisone not enabled' do
       before do
-        switch_feature_flag_with(:staff_prisons_with_prisoner_restrictions_info, [])
+        switch_feature_flag_with(:staff_prisons_with_restrictions_info, [])
       end
 
       it { expect(subject.prisoner_restrictions).to be_empty }

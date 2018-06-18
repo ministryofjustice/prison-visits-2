@@ -1,7 +1,7 @@
 require "rails_helper"
 require 'shared_process_setup_context'
 
-RSpec.feature 'Processing a request - NOMIS API disasbled', :js, :expect_exception do
+RSpec.feature 'Processing a request - NOMIS API disabled', :js, :expect_exception do
   include ActiveJobHelper
 
   include_context 'with a process request setup'
@@ -35,7 +35,7 @@ RSpec.feature 'Processing a request - NOMIS API disasbled', :js, :expect_excepti
       switch_on :nomis_staff_slot_availability_enabled
       switch_feature_flag_with(:staff_prisons_with_slot_availability, [prison.name])
 
-      switch_on :nomis_staff_offender_restrictions_enabled
+      switch_on :nomis_staff_restrictions_enabled
     end
 
     let(:ga_tracker) do

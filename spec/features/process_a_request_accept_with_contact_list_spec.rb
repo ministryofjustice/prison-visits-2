@@ -35,7 +35,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       switch_on :nomis_staff_slot_availability_enabled
       switch_feature_flag_with(:staff_prisons_with_slot_availability, [prison.name])
 
-      switch_on :nomis_staff_offender_restrictions_enabled
+      switch_on :nomis_staff_restrictions_enabled
     end
 
     scenario 'accepting a booking', vcr: { cassette_name: 'accept_book_to_nomis_enabled' } do
