@@ -19,18 +19,20 @@
               <div class="form-group">
                 <fieldset>
                   <legend class="push-bottom--half"><%= t('.book_using') %></legend>
-                  <div class="multiple-choice">
-                    <input type="radio" name="book_to_nomis_visit_order" id="book_to_nomis_pvo" value="true">
-                    <label for="book_to_nomis_pvo"><%= t('.book_pvo') %></label>
-                  </div>
-                  <div class="multiple-choice">
-                    <input type="radio" name="book_to_nomis_visit_order" id="book_to_nomis_vo" value="true">
-                    <label for="book_to_nomis_vo"><%= t('.book_vo') %></label>
-                  </div>
-                  <div class="multiple-choice">
-                    <input type="radio" name="book_to_nomis_visit_order" id="book_to_nomis_none" value="true">
-                    <label for="book_to_nomis_none"><%= t('.book_none') %></label>
-                  </div>
+                    <%= f.fields_for :visit_order_attributes, @visit.visit_order do |vo| %>
+                      <div class="multiple-choice">
+                        <%= vo.radio_button(:code, 'PVO', id: 'book_to_nomis_pvo') %>
+                        <%= vo.label t('.book_pvo') %>
+                      </div>
+                      <div class="multiple-choice">
+                        <%= vo.radio_button(:code, 'VO', id: 'book_to_nomis_vo') %>
+                        <%= vo.label t('.book_vo') %>
+                      </div>
+                      <div class="multiple-choice">
+                        <%= vo.radio_button(:code, 'None', id: 'book_to_nomis_none') %>
+                        <%= vo.label t('.book_none') %>
+                      </div>
+                    <% end %>
                 </fieldset>
               </div>
               <div class="form-group push-top push-bottom">

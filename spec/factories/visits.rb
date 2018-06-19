@@ -21,6 +21,7 @@ FactoryBot.define do
 
     after(:create) do |v|
       create :visitor, visit: v
+      create :visit_order, visit: v
     end
 
     trait :requested do

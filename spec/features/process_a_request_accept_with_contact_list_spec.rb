@@ -59,6 +59,8 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       end
 
       choose 'Yes - copy to NOMIS'
+      choose 'book_to_nomis_pvo'
+
       fill_in 'nomis_comments', with: nomis_comments
       click_button 'Process'
 
@@ -180,6 +182,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       before do
         simulate_api_error_for(:fetch_contact_list)
       end
+
       it 'is expected that the contact list is not available' do
         visit prison_visit_path(vst, locale: 'en')
         expect(page).to have_css('form .notice', text: "We can’t show the NOMIS contact list right now. Please check all visitors in NOMIS")

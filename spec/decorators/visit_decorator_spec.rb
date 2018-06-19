@@ -39,6 +39,7 @@ RSpec.describe VisitDecorator do
       before do
         switch_off_api
       end
+
       it 'does not call the API' do
         expect(checker).not_to receive(:offender)
         subject.nomis_offender_id

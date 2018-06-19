@@ -62,6 +62,8 @@ class Visit < ApplicationRecord
   accepts_nested_attributes_for :messages, :rejection, reject_if: :all_blank
   accepts_nested_attributes_for :visitors, update_only: true
   accepts_nested_attributes_for :prisoner, update_only: true
+  accepts_nested_attributes_for :visit_order, update_only: true
+
   state_machine :processing_state, initial: :requested do
     after_transition do |visit|
       visit.visit_state_changes <<

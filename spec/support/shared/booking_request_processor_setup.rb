@@ -21,6 +21,9 @@ RSpec.shared_context 'with staff response setup' do
       visitors_attributes:  {
         '0' => principal_visitor.attributes.slice(*visitor_fields).
           merge('banned_until' => principal_visitor.banned_until.to_s)
+      },
+      visit_order_attributes: {
+        code: 'PVO'
       }
     }
   end

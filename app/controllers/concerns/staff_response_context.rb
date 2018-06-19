@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ModuleLength
 module StaffResponseContext
   extend ActiveSupport::Concern
 
@@ -92,6 +93,9 @@ private
       :slot_option_1, :slot_option_2, :prison_id, :prisoner_id,
       :principal_visitor_id, :processing_state, :id, :nomis_comments,
       visitor_ids: [],
+      visit_order_attributes: [
+        :code
+      ],
       rejection_attributes: [
         'allowance_renews_on(1i)',
         'allowance_renews_on(2i)',
@@ -120,3 +124,4 @@ private
     params[:book_to_nomis_opted_in]
   end
 end
+# rubocop:enable Metrics/ModuleLength

@@ -118,6 +118,7 @@ RSpec.describe GATracker do
       cookies['_ga'] = 'some_client_id'
       switch_feature_flag_with :ga_id, web_property_id
     end
+
     context "when the visit was booked manually" do
       it 'sends an event', vcr: { cassette_name: 'booked_visit_event' } do
         subject.send_booked_visit_event
@@ -145,6 +146,7 @@ RSpec.describe GATracker do
         visit.nomis_id = '12345'
         visit.save!
       end
+
       it 'sends an event', vcr: { cassette_name: 'booked_with_nomis_visit_event' } do
         subject.send_booked_visit_event
 
@@ -173,6 +175,7 @@ RSpec.describe GATracker do
       cookies['_ga'] = 'some_client_id'
       switch_feature_flag_with :ga_id, web_property_id
     end
+
     context "when the visit was cancelled" do
       it 'sends an event', vcr: { cassette_name: 'cancelled_visit_event' } do
         subject.send_cancelled_visit_event
@@ -202,6 +205,7 @@ RSpec.describe GATracker do
       cookies['_ga'] = 'some_client_id'
       switch_feature_flag_with :ga_id, web_property_id
     end
+
     context "when the visit was withdrawn" do
       it 'sends an event', vcr: { cassette_name: 'withdrawn_visit_event' } do
         subject.send_withdrawn_visit_event
