@@ -140,6 +140,16 @@ en:
         reference_no_hint: eg Last 8 digits of VO number or “none” for remand
         closed_visit: This is a closed visit.
         closed_book_to_nomis: Book this visit into NOMIS, then enter the reference number below.
+        copy_header: Copy this visit to NOMIS?
+        copy_yes: Yes - copy to NOMIS
+        copy_no: No - do not copy to NOMIS
+        book_using: |
+          Book using:
+        book_pvo: 1 PVO (Privilege Visiting Order)
+        book_vo: 1 VO (Visiting Order)
+        book_none: No PVO/VO needed
+        comments_label: Visit comments
+        comments_hint: This information will be entered into NOMIS. Visitors will not see this.
       calendar:
         today: Today
       requested:

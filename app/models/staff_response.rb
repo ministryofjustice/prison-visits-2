@@ -30,7 +30,8 @@ class StaffResponse
         :slot_option_1,
         :slot_option_2,
         :nomis_id,
-        :human_id
+        :human_id,
+        :nomis_visit_order
       ],
       methods: [
         :principal_visitor_id

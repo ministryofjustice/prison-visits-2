@@ -59,6 +59,8 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       end
 
       choose 'Yes - copy to NOMIS'
+      choose 'book_to_nomis_pvo'
+
       fill_in 'nomis_comments', with: nomis_comments
       click_button 'Process'
 

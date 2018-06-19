@@ -76,7 +76,8 @@ private
       override_vo_balance: false,
       override_slot_capacity: false,
       client_unique_ref: visit.id,
-      comment: visit.nomis_comments
+      comment: visit.nomis_comments,
+      visit_order_type: visit.visit_order&.code
     }
   end
   # rubocop:enable Metrics/MethodLength

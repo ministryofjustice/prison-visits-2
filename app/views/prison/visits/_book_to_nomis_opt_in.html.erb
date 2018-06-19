@@ -7,21 +7,44 @@
           <fieldset>
             <legend class="push-bottom--half">
               <h2 class="bold-medium">
-                Copy this visit to NOMIS?
+                <%= t('.copy_header') %>
               </h2>
               <p><%= t(".book_to_nomis_opted_in_by_default") %></p>
             </legend>
             <div class="multiple-choice" data-target="comments-for-nomis">
               <input type="radio" name="book_to_nomis_opted_in" id="book_to_nomis_opt_in_true" value="true">
-              <label for="book_to_nomis_opt_in_true">Yes - copy to NOMIS</label>
+              <label for="book_to_nomis_opt_in_true"><%= t('.copy_yes') %></label>
             </div>
             <div class="panel panel-border-narrow js-hidden" id="comments-for-nomis">
-              <label for="message_body" class="form-label">This information will be entered into NOMIS. Visitors will not see this.</label>
-              <%= f.text_area(:nomis_comments, class: 'form-control form-control-full-width', rows: 4, id: 'nomis_comments') %>
+              <div class="form-group">
+                <fieldset>
+                  <legend class="push-bottom--half"><%= t('.book_using') %></legend>
+                    <%= f.fields_for :visit_order_attributes, @visit.visit_order do |vo| %>
+                      <div class="multiple-choice">
+                        <%= vo.radio_button(:code, 'PVO', id: 'book_to_nomis_pvo') %>
+                        <%= vo.label t('.book_pvo') %>
+                      </div>
+                      <div class="multiple-choice">
+                        <%= vo.radio_button(:code, 'VO', id: 'book_to_nomis_vo') %>
+                        <%= vo.label t('.book_vo') %>
+                      </div>
+                      <div class="multiple-choice">
+                        <%= vo.radio_button(:code, 'None', id: 'book_to_nomis_none') %>
+                        <%= vo.label t('.book_none') %>
+                      </div>
+                    <% end %>
+                </fieldset>
+              </div>
+              <div class="form-group push-top push-bottom">
+                <label class="form-label" for="nomis-comments"><%= t('.comments_label') %>
+                  <span class="form-hint"><%= t('.comments_hint') %></span>
+                </label>
+                <%= f.text_area(:nomis_comments, class: 'form-control form-control-full-width', rows: 4, id: 'nomis_comments') %>
+              </div>
             </div>
             <div class="multiple-choice" data-target="do-not-book-to-nomis">
               <input type="radio" name="book_to_nomis_opted_in" id="book_to_nomis_opt_in_false" value="false">
-              <label for="book_to_nomis_opt_in_false">No - do not copy to NOMIS</label>
+              <label for="book_to_nomis_opt_in_false"><%= t('.copy_no') %></label>
             </div>
             <div class="panel panel-border-narrow js-hidden" id="do-not-book-to-nomis">
               <%= single_field f, :reference_no, :text_field, class: 'form-control' %>
