@@ -117,15 +117,6 @@ namespace :pvb do
 
     AdminMailer.slot_availability(prison_data).deliver_now!
   end
-
-  desc 'Migrate processed_by and visitor to creator'
-  task migrate_visit_state_creator: :environment do
-    VisitStateChange.find_each do |visit_state_change|
-      visit_state_change.update!(
-        creator: visit_state_change.processed_by || visit_state_change.visitor
-      )
-    end
-  end
 end
 
 class SlotAvailabilityCounter
