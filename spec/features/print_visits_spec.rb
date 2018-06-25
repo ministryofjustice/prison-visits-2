@@ -53,7 +53,7 @@ RSpec.feature 'Printing a list of visits' do
     end
 
     context 'when searching for visits' do
-      let(:requested_date) { (1.day.ago).to_date }
+      let(:requested_date) { 1.day.ago.to_date }
       let(:slot) { ConcreteSlot.new(requested_date.year, requested_date.month, requested_date.day, 14, 0, 16, 0).to_s }
       let!(:booked_visits)    { create_list(:booked_visit,    5, prison: swansea_prison, slot_granted: slot) }
       let!(:cancelled_visits) { create_list(:cancelled_visit, 5, prison: swansea_prison, slot_granted: slot) }
