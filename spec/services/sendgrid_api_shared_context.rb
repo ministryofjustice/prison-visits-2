@@ -42,6 +42,20 @@ end
 
 RSpec.shared_context 'when sendgrid api responds normally' do
   before do
+    stub_delete_email_from_spam_list
+    stub_delete_all_emails_from_spam_list
+  end
+
+  def stub_delete_all_emails_from_spam_list
+    stub_request(:any, %r{.+api\.sendgrid\.com/api/.+\.json}).
+      with(query: hash_including(
+        'api_key'   => 'test_smtp_password',
+        'api_user'  => 'test_smtp_username',
+        'delete_all' => '1')).
+      to_return(status: 200, body: body, headers: {})
+  end
+
+  def stub_delete_email_from_spam_list
     stub_request(:any, %r{.+api\.sendgrid\.com/api/.+\.json}).
       with(query: hash_including(
         'api_key'   => 'test_smtp_password',
