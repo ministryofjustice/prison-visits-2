@@ -137,6 +137,8 @@ en:
         If you have any questions, visit the
         <a href="%{url}">prison website</a> or call the prison on
         <strong>%{phone_no}</strong>.
+      medway_any_questions_html:
+        If you have any questions, call the prison on <strong>%{phone_no}</strong>.
       visit_id: "Visit ID:"
       message_title: "Message from the prison:"
     request_acknowledged:
@@ -286,6 +288,9 @@ en:
         Please don’t bring anything restricted or illegal to the prison. The
         <a href="%{url}">%{prison} prison page</a> has more information about
         what you can bring.
+      medway_what_not_to_bring_body_html: >-
+        Please don’t bring anything restricted or illegal to the prison. For more information about
+        what you can't bring call the prison on <strong>%{phone_no}</strong>.
     one_off_message:
       subject: "UPDATE: Your visit to %{prison_name} on %{date} (Do not reply)"
       salutation: Dear %{name},
