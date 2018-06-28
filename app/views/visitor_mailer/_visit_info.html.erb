@@ -30,10 +30,19 @@
   <%= t(".what_not_to_bring_title") %>
 </h2>
 
-<p>
-  <%=
-    t(".what_not_to_bring_body_html",
-      url: link_directory.prison_finder(visit.prison),
-      prison: visit.prison_name)
-  %>
-</p>
+<% if @visit.prison.name == 'Medway Secure Training Centre' %>
+  <p>
+    <%=
+      t(".medway_what_not_to_bring_body_html",
+        phone_no: @visit.prison_phone_no)
+    %>
+  </p>
+<% else %>
+  <p>
+    <%=
+      t(".what_not_to_bring_body_html",
+        url: link_directory.prison_finder(visit.prison),
+        prison: visit.prison_name)
+    %>
+  </p>
+<% end %>
