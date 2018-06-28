@@ -87,6 +87,7 @@ MHI-morton-hall.yml: 332fc3de-2744-469e-b97b-b2100a68eaa1
 MRI-manchester.yml: b73b5c8a-879b-43d3-ae2e-7aa19b745832
 MSI-maidstone.yml: 2e49e71e-6f1c-4b75-8d98-4e9719ef25b5
 MTI-the-mount.yml: b02c92f4-e182-44d5-80cd-fe51c87ac6fb
+MWI-medway.yml: 4096d43d-f9b5-4597-afee-5f89b4e65892
 NHI-new-hall.yml: 3d523cf8-4391-4190-b8cc-26b794af4502
 NLI-northumberland.yml: ed268add-b610-44e4-91b4-4e303eb63ab7
 NMI-nottingham.yml: cdf64ca2-fb20-427e-bd34-0226d858d92c
@@ -134,3 +135,5 @@ WSI-wormwood-scrubs.yml: 945accc1-c6aa-49ca-9df3-b48693cd937e
 WTI-whatton.yml: a7236b97-f89c-4f6b-9aea-1703bc0e60f0
 WWI-wandsworth.yml: 94b5d77f-9ea6-449f-a24c-afa09433fe3b
 WYI-wetherby.yml: 0350d16f-76fd-425d-887b-7bdb5bb4ced5
+medway-secure-training-centre.yml: 04573f70-e94b-4c2d-a2f4-5e3f3a30f441
+medway.yml: 517fcd9d-2c8b-44af-b048-3ac211acd232

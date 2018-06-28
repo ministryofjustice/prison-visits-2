@@ -6,9 +6,13 @@
   <%= render 'multiple_cancellation_reasons' %>
 <% end %>
 
-<p><%= t('.any_questions_html',
-         url: link_directory.prison_finder(@visit.prison),
-         phone_no: @visit.prison_phone_no) %></p>
+<% if @visit.prison.name == 'Medway Secure Training Centre' %>
+  <p><%= t('.medway_any_questions_html', phone_no: @visit.prison_phone_no) %></p>
+<% else %>
+  <p><%= t('.any_questions_html',
+           url: link_directory.prison_finder(@visit.prison),
+           phone_no: @visit.prison_phone_no) %></p>
+<% end %>
 
 <p>
   <small><%= t('.visit_id') %> <%= @visit.human_id %></small>
