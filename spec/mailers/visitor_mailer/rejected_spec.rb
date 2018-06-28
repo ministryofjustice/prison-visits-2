@@ -189,4 +189,13 @@ RSpec.describe VisitorMailer, '.rejected' do
       expect(body).to match(/children under 18 can only visit prison with an adult and you've not listed any adults/)
     end
   end
+
+  # TODO: Remove once Medway is on Prison Finder
+  context 'when the prison is Medway Secure Training Centre' do
+    let(:medway) { create(:estate, name: 'Medway Secure Training Centre') }
+    let(:medway_prison) { create(:prison, estate: medway) }
+    let(:visit) { create(:visit, prison: medway_prison) }
+
+    include_examples 'when the prison is not on prison finder'
+  end
 end
