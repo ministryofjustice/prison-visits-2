@@ -342,6 +342,10 @@ MTI:
   name: The Mount
   admins:
     the_mount.prisons.noms.moj
+MWI:
+  name: Medway Secure Training Centre
+  admins:
+    - medway_secure_training_centre.prisons.noms.moj
 NHI:
   name: New Hall
   admins:
