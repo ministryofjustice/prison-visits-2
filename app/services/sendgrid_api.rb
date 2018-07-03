@@ -63,6 +63,13 @@ class SendgridApi
     call_api(:post, action, data) { |response| email_removed?(response) }
   end
 
+  def delete_spam_list
+    action = 'spamreports.delete.json'
+    data = { delete_all: 1 }
+
+    call_api(:post, action, data) { |response| email_removed?(response) }
+  end
+
   def disable
     @enabled = false
   end
