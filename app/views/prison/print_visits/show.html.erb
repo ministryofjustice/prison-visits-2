@@ -12,7 +12,7 @@
   <% elsif @data.any? %>
     <div class="js-print-visits">
       <span class="hidden--print">
-        <%= link_to t('.download_csv_html'), prison_print_visits_path(print_visits: params[:visit_date] ,format: :csv) %>
+        <%= link_to t('.download_csv_html'), prison_print_visit_path(print_visits: { visit_date: @print_visits.visit_date.attributes }, format: :csv) %>
       </span>
       <a class="push-left--half hidden--print print-link js-print-list" href="#"><%= t('.print') %></a>
       <% @data.each_with_index do |(prison_name, grouped_visits), index| %>

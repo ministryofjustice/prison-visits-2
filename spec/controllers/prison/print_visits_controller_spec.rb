@@ -26,7 +26,7 @@ RSpec.describe Prison::PrintVisitsController do
     end
   end
 
-  describe '#create' do
+  describe '#show' do
     let(:slot_granted1) { '2017-12-23T09:00/10:00' }
     let(:slot_granted2) { '2017-12-23T12:00/14:00' }
 
@@ -34,7 +34,7 @@ RSpec.describe Prison::PrintVisitsController do
       let(:visit_date) { nil }
 
       before do
-        post :create, params: { visit_date: { "day" => "23", "month" => "12", "year" => "2017" } }
+        get :show, params: { visit_date: { "day" => "23", "month" => "12", "year" => "2017" } }
       end
 
       it { is_expected.to redirect_to("/auth/mojsso") }
@@ -63,7 +63,7 @@ RSpec.describe Prison::PrintVisitsController do
 
           it 'raises an error' do
             expect {
-              post :create, params: { print_visits: { visit_date: visit_date } }
+              get :show, params: { print_visits: { visit_date: visit_date } }
             }.to raise_error ActionController::ParameterMissing
           end
         end
@@ -73,7 +73,7 @@ RSpec.describe Prison::PrintVisitsController do
 
           it 'does not raises an error'  do
             expect {
-              post :create, params: { print_visits: { visit_date: visit_date } }
+              get :show, params: { print_visits: { visit_date: visit_date } }
             }.not_to raise_error
           end
         end
@@ -84,7 +84,7 @@ RSpec.describe Prison::PrintVisitsController do
         let(:format)     { :html }
 
         before do
-          post :create, params: { print_visits: { visit_date: visit_date }, format: format }
+          get :show, params: { print_visits: { visit_date: visit_date }, format: format }
         end
 
         context 'with an empty date' do

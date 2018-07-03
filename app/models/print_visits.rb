@@ -2,6 +2,7 @@ class PrintVisits
   include MemoryModel
 
   attribute :visit_date, :accessible_date
+  delegate :attributes, to: :visit_date, prefix: true
 
   validate :check_date
 

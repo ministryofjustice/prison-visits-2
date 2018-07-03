@@ -1,6 +1,6 @@
 <div class='grid-row hidden--print'>
   <div class='column-one-half'>
-    <%= form_for @print_visits, url: prison_print_visits_path, class: 'form' do |f| -%>
+    <%= form_for @print_visits, url: prison_print_visit_path, method: 'get', class: 'form' do |f| %>
     <div class="form-group">
       <%= f.fields_for :visit_date, f.object.visit_date do |af| %>
         <%= composite_field(f, :visit_date) do %>
