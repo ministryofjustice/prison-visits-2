@@ -7,16 +7,16 @@ address: |-
   Kent
 postcode: ME17 3DF
 email_address: socialvisits.eastsuttonpark@hmps.gsi.gov.uk
-phone_no: 01622 785010
+phone_no: 0300 060 6513
 enabled: true
 private: false
 closed: false
 recurring:
   sat:
-  - 1330-1530
+  - 1400-1600
   sun:
   - 0930-1130
-  - 1330-1530
+  - 1400-1600
 unbookable:
 - 2017-12-25
 - 2017-12-26
