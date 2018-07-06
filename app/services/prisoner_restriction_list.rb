@@ -36,6 +36,6 @@ private
 
   def empty_offender_restrictions
     @empty_offender_restrictions ||=
-      Nomis::OffenderRestrictions.new(api_call_successful: false)
+      Nomis::Offender::Restrictions.new(api_call_successful: false)
   end
 end

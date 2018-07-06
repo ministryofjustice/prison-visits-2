@@ -66,7 +66,7 @@ module Nomis
           start_date: start_date, end_date: end_date)
       }
 
-      PrisonerAvailability.new(response).tap do |prisoner_availability|
+      Offender::Availability.new(response).tap do |prisoner_availability|
         PVB::Instrumentation.append_to_log(
           offender_visiting_availability: prisoner_availability.dates.count
         )
@@ -80,7 +80,7 @@ module Nomis
           dates: slots.map(&:to_date).join(','))
       }
 
-      PrisonerDetailedAvailability.build(response).tap do |availability|
+      Offender::DetailedAvailability.build(response).tap do |availability|
         available_slots = slots.select { |slot| availability.available?(slot) }
 
         PVB::Instrumentation.append_to_log(
@@ -107,7 +107,7 @@ module Nomis
         client.get("offenders/#{offender_id}/visits/restrictions")
       }
 
-      Nomis::OffenderRestrictions.new(response)
+      Nomis::Offender::Restrictions.new(response)
     end
 
     def fetch_contact_list(offender_id:)

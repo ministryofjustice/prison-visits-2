@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Nomis::OffenderRestrictions do
+RSpec.describe Nomis::Offender::Restrictions do
   subject { described_class.new(args) }
 
   describe '#restrictions' do

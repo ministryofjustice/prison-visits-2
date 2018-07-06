@@ -8,7 +8,7 @@ RSpec.describe SlotAvailability do
   let(:end_date)      { Date.parse('2017-03-01') }
   let(:offender)      { Nomis::Offender.new(id: 1_055_206, noms_id: 'prisoner_number') }
   let(:prisoner_availability) do
-    Nomis::PrisonerAvailability.new(
+    Nomis::Offender::Availability.new(
       dates: [
         "2017-2-13",
         "2017-2-14",
