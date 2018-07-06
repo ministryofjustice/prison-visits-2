@@ -82,7 +82,7 @@ RSpec.describe StaffNomisChecker do
         end
 
         context 'with an error' do
-          let(:messages) { [Nomis::PrisonerDateAvailability::BANNED] }
+          let(:messages) { [Nomis::Offender::DateAvailability::BANNED] }
 
           it { expect(subject.errors_for(slot)).to eq(messages) }
         end
@@ -285,7 +285,7 @@ RSpec.describe StaffNomisChecker do
     end
 
     context 'when there is no vo error' do
-      let(:errors) { [Nomis::PrisonerDateAvailability::OUT_OF_VO] }
+      let(:errors) { [Nomis::Offender::DateAvailability::OUT_OF_VO] }
 
       it { is_expected.to be_no_allowance(slot) }
     end
@@ -305,7 +305,7 @@ RSpec.describe StaffNomisChecker do
     end
 
     context 'when there is a prisoner banned error' do
-      let(:errors) { [Nomis::PrisonerDateAvailability::BANNED] }
+      let(:errors) { [Nomis::Offender::DateAvailability::BANNED] }
 
       it { is_expected.to be_prisoner_banned(slot) }
     end
@@ -325,7 +325,7 @@ RSpec.describe StaffNomisChecker do
     end
 
     context 'when there is a prisoner out of prison error' do
-      let(:errors) { [Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT] }
+      let(:errors) { [Nomis::Offender::DateAvailability::EXTERNAL_MOVEMENT] }
 
       it { is_expected.to be_prisoner_out_of_prison(slot) }
     end

@@ -2,10 +2,10 @@ class PrisonerAvailabilityValidation
   include MemoryModel
 
   PRISONER_ERRORS = [
-    Nomis::PrisonerDateAvailability::BANNED,
-    Nomis::PrisonerDateAvailability::OUT_OF_VO,
-    Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT,
-    Nomis::PrisonerDateAvailability::BOOKED_VISIT
+    Nomis::Offender::DateAvailability::BANNED,
+    Nomis::Offender::DateAvailability::OUT_OF_VO,
+    Nomis::Offender::DateAvailability::EXTERNAL_MOVEMENT,
+    Nomis::Offender::DateAvailability::BOOKED_VISIT
   ].freeze
 
   attribute :offender, :nomis_offender

@@ -23,7 +23,7 @@ RSpec.describe PrisonerRestrictionList do
     end
 
     context "when the api returns no error" do
-      let(:offender_restrictions) { Nomis::OffenderRestrictions.new }
+      let(:offender_restrictions) { Nomis::Offender::Restrictions.new }
 
       before do
         mock_nomis_with(:fetch_offender_restrictions, offender_restrictions)
@@ -52,7 +52,7 @@ RSpec.describe PrisonerRestrictionList do
 
     before do
       mock_nomis_with(:fetch_offender_restrictions,
-        Nomis::OffenderRestrictions.new(restrictions: [restriction]))
+        Nomis::Offender::Restrictions.new(restrictions: [restriction]))
     end
 
     context 'when the restriction is effective' do
@@ -82,7 +82,7 @@ RSpec.describe PrisonerRestrictionList do
   describe '#active' do
     before do
       mock_nomis_with(:fetch_offender_restrictions,
-        Nomis::OffenderRestrictions.new(restrictions: [restriction]))
+        Nomis::Offender::Restrictions.new(restrictions: [restriction]))
     end
 
     let(:restriction) do

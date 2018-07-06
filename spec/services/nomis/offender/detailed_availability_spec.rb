@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Nomis::PrisonerDetailedAvailability do
+RSpec.describe Nomis::Offender::DetailedAvailability do
   let(:api_slot)       { ConcreteSlot.parse('2017-01-01T14:01/16:00') }
   let(:requested_slot) { ConcreteSlot.parse('2017-01-01T14:00/16:00') }
 
@@ -87,9 +87,9 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
 
       it do
         is_expected.to contain_exactly(
-          Nomis::PrisonerDateAvailability::OUT_OF_VO,
-          Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT,
-          Nomis::PrisonerDateAvailability::BOOKED_VISIT)
+          Nomis::Offender::DateAvailability::OUT_OF_VO,
+          Nomis::Offender::DateAvailability::EXTERNAL_MOVEMENT,
+          Nomis::Offender::DateAvailability::BOOKED_VISIT)
       end
     end
   end

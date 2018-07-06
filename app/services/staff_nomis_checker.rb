@@ -32,15 +32,15 @@ class StaffNomisChecker
   end
 
   def no_allowance?(slot)
-    errors_for(slot).include?(Nomis::PrisonerDateAvailability::OUT_OF_VO)
+    errors_for(slot).include?(Nomis::Offender::DateAvailability::OUT_OF_VO)
   end
 
   def prisoner_banned?(slot)
-    errors_for(slot).include?(Nomis::PrisonerDateAvailability::BANNED)
+    errors_for(slot).include?(Nomis::Offender::DateAvailability::BANNED)
   end
 
   def prisoner_out_of_prison?(slot)
-    errors_for(slot).include?(Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT)
+    errors_for(slot).include?(Nomis::Offender::DateAvailability::EXTERNAL_MOVEMENT)
   end
 
   def contact_list_unknown?

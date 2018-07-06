@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Nomis::PrisonerDateAvailability do
+RSpec.describe Nomis::Offender::DateAvailability do
   subject(:instance) do
     described_class.new(
       date: date,
