@@ -6,7 +6,7 @@ module Nomis
 
       delegate :each, to: :restrictions
 
-      attribute :restrictions, :restriction_list, default: -> {[]}
+      attribute :restrictions, :restriction_list, default: -> { [] }
       attribute :api_call_successful, :boolean, default: true
 
       def api_call_successful?

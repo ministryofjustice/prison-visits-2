@@ -26,10 +26,10 @@ module Nomis
         reasons
       end
 
-      private
+    private
 
       def booked_visit?(requested_slot)
-        existing_visits.any? {|visit| visit.slot.overlaps?(requested_slot)}
+        existing_visits.any? { |visit| visit.slot.overlaps?(requested_slot) }
       end
     end
   end

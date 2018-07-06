@@ -23,7 +23,7 @@ module Nomis
         availability_for(slot).unavailable_reasons(slot)
       end
 
-      private
+    private
 
       def availability_for(slot)
         dates.find do |date_availability|
