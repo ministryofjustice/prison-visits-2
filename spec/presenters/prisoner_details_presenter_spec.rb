@@ -23,7 +23,7 @@ RSpec.describe PrisonerDetailsPresenter do
         end
 
         describe 'with invalid prisoner details' do
-          let(:offender) { Nomis::NullOffender.new(api_call_successful: true) }
+          let(:offender) { Nomis::NullPrisoner.new(api_call_successful: true) }
 
           it { expect(subject.prisoner_existance_status).to eq('invalid') }
 
@@ -34,7 +34,7 @@ RSpec.describe PrisonerDetailsPresenter do
       end
 
       describe "and the API is unavailable" do
-        let(:offender) { Nomis::NullOffender.new(api_call_successful: false) }
+        let(:offender) { Nomis::NullPrisoner.new(api_call_successful: false) }
 
         it { expect(subject.prisoner_existance_status).to eq('unknown') }
       end

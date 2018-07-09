@@ -90,7 +90,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
         availability = Nomis::PrisonerDetailedAvailability.new(
           dates: [date1_availability, date2_availability, date3_availability])
         expect(Nomis::Api.instance).
-          to receive(:offender_visiting_detailed_availability).
+          to receive(:prisoner_visiting_detailed_availability).
           with(offender_id: offender.id, slots: [slot1, slot2, slot3]).
           and_return(availability)
 
@@ -143,7 +143,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
         # in the past. Another validator should be responsible for that.
         it 'does not add errors to the slots' do
           expect_any_instance_of(Nomis::Api).
-            not_to receive(:offender_visiting_detailed_availability)
+            not_to receive(:prisoner_visiting_detailed_availability)
 
           subject.valid?
 
@@ -164,7 +164,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
 
         before do
           expect_any_instance_of(Nomis::Api).
-            to receive(:offender_visiting_detailed_availability).
+            to receive(:prisoner_visiting_detailed_availability).
             with(offender_id: offender.id,
                  slots: [slot3]).
             and_return(Nomis::PrisonerDetailedAvailability.new(dates: [availability3]))
@@ -184,7 +184,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
     end
 
     context 'when the API is enabled and with invalid offender' do
-      let(:offender) { Nomis::NullOffender.new }
+      let(:offender) { Nomis::NullPrisoner.new }
 
       it { is_expected.to be_unknown_result }
     end

@@ -50,7 +50,7 @@ RSpec.describe NomisInfoPresenter do
         end
 
         describe 'when the API call fails' do
-          let(:offender) { Nomis::NullOffender.new }
+          let(:offender) { Nomis::NullPrisoner.new }
 
           it { expect(subject.notice).to eq('unknown') }
         end

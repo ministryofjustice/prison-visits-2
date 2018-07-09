@@ -16,7 +16,7 @@ RSpec.describe PrisonerValidation, type: :model do
   end
 
   context 'when the API does not find a match' do
-    let(:offender) { Nomis::NullOffender.new(api_call_successful: success) }
+    let(:offender) { Nomis::NullPrisoner.new(api_call_successful: success) }
 
     describe 'with a successful API call' do
       let(:success) { true }

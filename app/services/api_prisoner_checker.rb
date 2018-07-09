@@ -1,12 +1,12 @@
 class ApiPrisonerChecker
   def initialize(noms_id:, date_of_birth:)
     @offender = if Nomis::Api.enabled?
-                  Nomis::Api.instance.lookup_active_offender(
+                  Nomis::Api.instance.lookup_active_prisoner(
                     noms_id:       noms_id,
                     date_of_birth: date_of_birth
                   )
                 else
-                  Nomis::NullOffender.new(api_call_successful: false)
+                  Nomis::NullPrisoner.new(api_call_successful: false)
                 end
   end
 
