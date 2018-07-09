@@ -49,7 +49,7 @@ private
   def load_offender_availability
     return nil if @api_error
 
-    Nomis::Api.instance.offender_visiting_detailed_availability(
+    Nomis::Api.instance.prisoner_visiting_detailed_availability(
       offender_id: offender.id,
       slots: valid_requested_slots
     )

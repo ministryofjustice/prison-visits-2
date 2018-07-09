@@ -41,11 +41,11 @@ private
 
   def load_establishment
     return Nomis::Establishment.new unless offender.valid?
-    Nomis::Api.instance.lookup_offender_location(noms_id: offender.noms_id)
+    Nomis::Api.instance.lookup_prisoner_location(noms_id: offender.noms_id)
   rescue Nomis::APIError => e
     PVB::ExceptionHandler.capture_exception(
       e, fingerprint: %w[nomis lookup_offender_location_error])
-    PVB::Instrumentation.append_to_log(lookup_offender_location: false)
+    PVB::Instrumentation.append_to_log(lookup_prisoner_location: false)
     Nomis::Establishment.new(api_call_successful: false)
   end
 end

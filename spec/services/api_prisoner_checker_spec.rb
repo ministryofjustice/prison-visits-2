@@ -20,7 +20,7 @@ RSpec.describe ApiPrisonerChecker, :expect_exception do
     context 'when the api is enabled' do
       context 'when the api call is successful' do
         before do
-          mock_nomis_with(:lookup_active_offender, offender)
+          mock_nomis_with(:lookup_active_prisoner, offender)
         end
 
         describe 'when the offender is found' do
@@ -30,7 +30,7 @@ RSpec.describe ApiPrisonerChecker, :expect_exception do
             let(:establishment) { Nomis::Establishment.new(code: 'a_code') }
 
             before do
-              mock_nomis_with(:lookup_offender_location, establishment)
+              mock_nomis_with(:lookup_prisoner_location, establishment)
             end
 
             it { is_expected.to be_valid }
@@ -38,7 +38,7 @@ RSpec.describe ApiPrisonerChecker, :expect_exception do
 
           context 'when fetching the establishment returns an APIError' do
             before do
-              simulate_api_error_for(:lookup_offender_location)
+              simulate_api_error_for(:lookup_prisoner_location)
             end
 
             it { is_expected.not_to be_valid }
@@ -46,7 +46,7 @@ RSpec.describe ApiPrisonerChecker, :expect_exception do
         end
 
         describe 'when the offender is not found' do
-          let(:offender) { Nomis::NullOffender.new(api_call_successful: true) }
+          let(:offender) { Nomis::NullPrisoner.new(api_call_successful: true) }
 
           it { is_expected.not_to be_valid }
         end

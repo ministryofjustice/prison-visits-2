@@ -29,7 +29,7 @@ RSpec.describe PrisonerLocationValidation do
       let(:is_valid) { true }
 
       it 'returns the establishment' do
-        mock_nomis_with(:lookup_offender_location, establishment)
+        mock_nomis_with(:lookup_prisoner_location, establishment)
         expect(subject.internal_location).to eq('Cell With View Overlooking the Ocean')
       end
     end
@@ -47,7 +47,7 @@ RSpec.describe PrisonerLocationValidation do
     context 'with a valid offender' do
       context 'when the API call is successful' do
         before do
-          mock_nomis_with(:lookup_offender_location, establishment)
+          mock_nomis_with(:lookup_prisoner_location, establishment)
         end
 
         context 'when the offender is located at the given prison' do
@@ -63,7 +63,7 @@ RSpec.describe PrisonerLocationValidation do
 
       context 'when the API call fails', :expect_exception do
         before do
-          simulate_api_error_for :lookup_offender_location
+          simulate_api_error_for :lookup_prisoner_location
         end
 
         it { is_expected.to be_invalid }

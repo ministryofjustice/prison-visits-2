@@ -28,7 +28,7 @@ class PrisonerRestrictionList
 private
 
   def load_offender_restrictions
-    Nomis::Api.instance.fetch_offender_restrictions(offender_id: @offender.id)
+    Nomis::Api.instance.fetch_prisoner_restrictions(offender_id: @offender.id)
   rescue Nomis::APIError => e
     Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
     empty_offender_restrictions

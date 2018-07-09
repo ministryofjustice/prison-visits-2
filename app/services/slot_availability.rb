@@ -42,7 +42,7 @@ private
   end
 
   def offender
-    @offender ||= Nomis::Api.instance.lookup_active_offender(
+    @offender ||= Nomis::Api.instance.lookup_active_prisoner(
       noms_id: noms_id, date_of_birth: date_of_birth
     )
   end
@@ -60,7 +60,7 @@ private
   def offender_availability
     @offender_availability ||=
       begin
-        Nomis::Api.instance.offender_visiting_availability(
+        Nomis::Api.instance.prisoner_visiting_availability(
           offender_id: offender.id, start_date: start_date, end_date: end_date)
       rescue Nomis::APIError => e
         Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"

@@ -110,10 +110,10 @@ RSpec.describe ApiSlotAvailability, type: :model do
           dates: ['2016-04-12', '2016-04-25']
         )
 
-        expect(Nomis::Api.instance).to receive(:lookup_active_offender).
+        expect(Nomis::Api.instance).to receive(:lookup_active_prisoner).
           with(noms_id: 'a1234bc', date_of_birth: Date.parse('1970-01-01')).
           and_return(offender)
-        expect(Nomis::Api.instance).to receive(:offender_visiting_availability).
+        expect(Nomis::Api.instance).to receive(:prisoner_visiting_availability).
           and_return(prisoner_availability)
 
         subject.restrict_by_prisoner(prisoner_params)
@@ -129,8 +129,8 @@ RSpec.describe ApiSlotAvailability, type: :model do
 
       it 'returns only prison slots if the NOMIS API is disabled' do
         expect(Nomis::Api).to receive(:enabled?).and_return(false)
-        expect(Nomis::Api.instance).not_to receive(:lookup_active_offender)
-        expect(Nomis::Api.instance).not_to receive(:offender_visiting_availability)
+        expect(Nomis::Api.instance).not_to receive(:lookup_active_prisoner)
+        expect(Nomis::Api.instance).not_to receive(:prisoner_visiting_availability)
 
         subject.restrict_by_prisoner(prisoner_params)
 
@@ -138,7 +138,7 @@ RSpec.describe ApiSlotAvailability, type: :model do
       end
 
       it 'returns only prison slots if the NOMIS API cannot be contacted' do
-        allow(Nomis::Api.instance).to receive(:lookup_active_offender).
+        allow(Nomis::Api.instance).to receive(:lookup_active_prisoner).
           and_raise(Excon::Errors::Error, 'Lookup error')
         expect(Rails.logger).to receive(:warn).with(
           'Error calling the NOMIS API: #<Excon::Error: Lookup error>'

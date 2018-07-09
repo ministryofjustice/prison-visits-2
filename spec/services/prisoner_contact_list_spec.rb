@@ -9,7 +9,7 @@ RSpec.describe PrisonerContactList, type: :model do
 
   context 'with #unknown_result?' do
     context "when it's a null offender" do
-      let(:offender) { Nomis::NullOffender.new }
+      let(:offender) { Nomis::NullPrisoner.new }
 
       it { is_expected.to be_unknown_result }
     end

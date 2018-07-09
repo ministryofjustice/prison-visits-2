@@ -21,7 +21,7 @@ RSpec.describe Nomis::Offender, type: :model do
       describe 'with an iep level' do
         before do
           mock_nomis_with(
-            :lookup_offender_details,
+            :lookup_prisoner_details,
             Nomis::Offender::Details.new(
               iep_level: { 'code' => 'STD', 'desc' => 'Standard' }
             )
@@ -34,7 +34,7 @@ RSpec.describe Nomis::Offender, type: :model do
       describe 'when the offender does not have an iep_level' do
         before do
           mock_nomis_with(
-            :lookup_offender_details,
+            :lookup_prisoner_details,
             Nomis::Offender::Details.new(iep_level: nil)
           )
         end
@@ -45,7 +45,7 @@ RSpec.describe Nomis::Offender, type: :model do
 
     context 'with a unsuccessful API call' do
       before do
-        simulate_api_error_for(:lookup_offender_details)
+        simulate_api_error_for(:lookup_prisoner_details)
       end
 
       it { expect(subject.iep_level).to be nil }
@@ -56,7 +56,7 @@ RSpec.describe Nomis::Offender, type: :model do
     context 'with a successful API call' do
       before do
         mock_nomis_with(
-          :lookup_offender_details,
+          :lookup_prisoner_details,
           Nomis::Offender::Details.new(
             imprisonment_status: { 'code' => 'RX', 'desc' => 'Remanded to Magistrates Court' }
           )
@@ -68,7 +68,7 @@ RSpec.describe Nomis::Offender, type: :model do
 
     context 'with a unsuccessful API call' do
       before do
-        simulate_api_error_for(:lookup_offender_details)
+        simulate_api_error_for(:lookup_prisoner_details)
       end
 
       it { expect(subject.imprisonment_status).to be nil }
