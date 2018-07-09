@@ -8,10 +8,10 @@ RSpec.describe PrisonerLocationPresenter do
       housing_location: { description: 'some_internal_location' }
     )
   end
-  let(:offender)           { Nomis::Offender.new(id: '123', noms_id: 'AR234RG') }
+  let(:prisoner)           { Nomis::Prisoner.new(id: '123', noms_id: 'AR234RG') }
 
   let(:prisoner_location_validation) do
-    PrisonerLocationValidation.new(offender, establishment_code)
+    PrisonerLocationValidation.new(prisoner, establishment_code)
   end
 
   subject { described_class.new(prisoner_location_validation) }

@@ -1,4 +1,4 @@
-class Nomis::Offender
+class Nomis::Prisoner
   include MemoryModel
 
   attribute :id, :integer
@@ -26,6 +26,6 @@ private
     @details ||= Nomis::Api.instance.
                    lookup_prisoner_details(noms_id: noms_id)
   rescue Nomis::APIError
-    Nomis::Offender::Details.new(api_call_successful: false)
+    Nomis::Prisoner::Details.new(api_call_successful: false)
   end
 end

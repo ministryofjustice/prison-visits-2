@@ -7,7 +7,7 @@ class VisitDecorator < Draper::Decorator
     :slots_unavailable?,
     :contact_list_unknown?,
     :prisoner_restrictions_unknown?,
-    :offender,
+    :prisoner,
     to: :nomis_checker
 
   delegate :prisoner_existance_status,
@@ -52,7 +52,7 @@ class VisitDecorator < Draper::Decorator
   end
 
   def nomis_offender_id
-    offender.id if Nomis::Api.enabled?
+    prisoner.id if Nomis::Api.enabled?
   end
 
   def bookable?
@@ -69,11 +69,11 @@ class VisitDecorator < Draper::Decorator
   end
 
   def offender_iep_level
-    offender.iep_level
+    prisoner.iep_level
   end
 
   def offender_sentence_status
-    offender.imprisonment_status
+    prisoner.imprisonment_status
   end
 
 private

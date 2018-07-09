@@ -3,11 +3,11 @@ require 'nomis/client'
 
 RSpec.describe PrisonerAvailabilityValidation, type: :model do
   subject do
-    described_class.new(offender: offender,
+    described_class.new(prisoner: prisoner,
                         requested_slots: requested_slots)
   end
 
-  let(:offender) { Nomis::Offender.new(id: '123', noms_id: 'some_prisoner_number') }
+  let(:prisoner) { Nomis::Prisoner.new(id: '123', noms_id: 'some_prisoner_number') }
   let(:date1) { 2.days.from_now.to_date }
   let(:slot1) { ConcreteSlot.new(date1.year, date1.month, date1.day, 10, 0, 11, 0) }
   let(:date2) { 1.day.from_now.to_date }
@@ -91,7 +91,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
           dates: [date1_availability, date2_availability, date3_availability])
         expect(Nomis::Api.instance).
           to receive(:prisoner_visiting_detailed_availability).
-          with(offender_id: offender.id, slots: [slot1, slot2, slot3]).
+          with(offender_id: prisoner.id, slots: [slot1, slot2, slot3]).
           and_return(availability)
 
         subject.valid?
@@ -165,7 +165,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
         before do
           expect_any_instance_of(Nomis::Api).
             to receive(:prisoner_visiting_detailed_availability).
-            with(offender_id: offender.id,
+            with(offender_id: prisoner.id,
                  slots: [slot3]).
             and_return(Nomis::PrisonerDetailedAvailability.new(dates: [availability3]))
         end
@@ -184,7 +184,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
     end
 
     context 'when the API is enabled and with invalid offender' do
-      let(:offender) { Nomis::NullPrisoner.new }
+      let(:prisoner) { Nomis::NullPrisoner.new }
 
       it { is_expected.to be_unknown_result }
     end
