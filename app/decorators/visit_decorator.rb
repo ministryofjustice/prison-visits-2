@@ -52,7 +52,7 @@ class VisitDecorator < Draper::Decorator
   end
 
   def nomis_offender_id
-    prisoner.id if Nomis::Api.enabled?
+    prisoner.nomis_offender_id if Nomis::Api.enabled?
   end
 
   def bookable?

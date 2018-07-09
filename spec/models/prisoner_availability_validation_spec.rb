@@ -7,7 +7,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
                         requested_slots: requested_slots)
   end
 
-  let(:prisoner) { Nomis::Prisoner.new(id: '123', noms_id: 'some_prisoner_number') }
+  let(:prisoner) { Nomis::Prisoner.new(id: '1234567', noms_id: 'ABC1234') }
   let(:date1) { 2.days.from_now.to_date }
   let(:slot1) { ConcreteSlot.new(date1.year, date1.month, date1.day, 10, 0, 11, 0) }
   let(:date2) { 1.day.from_now.to_date }
@@ -91,7 +91,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
           dates: [date1_availability, date2_availability, date3_availability])
         expect(Nomis::Api.instance).
           to receive(:prisoner_visiting_detailed_availability).
-          with(offender_id: prisoner.id, slots: [slot1, slot2, slot3]).
+          with(offender_id: prisoner.nomis_offender_id, slots: [slot1, slot2, slot3]).
           and_return(availability)
 
         subject.valid?
@@ -165,7 +165,7 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
         before do
           expect_any_instance_of(Nomis::Api).
             to receive(:prisoner_visiting_detailed_availability).
-            with(offender_id: prisoner.id,
+            with(offender_id: prisoner.nomis_offender_id,
                  slots: [slot3]).
             and_return(Nomis::PrisonerDetailedAvailability.new(dates: [availability3]))
         end

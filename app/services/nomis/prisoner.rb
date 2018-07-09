@@ -3,6 +3,7 @@ class Nomis::Prisoner
 
   attribute :id, :integer
   attribute :noms_id, :prisoner_number
+  alias_attribute :nomis_offender_id, :id
 
   validates_presence_of :id, :noms_id
 

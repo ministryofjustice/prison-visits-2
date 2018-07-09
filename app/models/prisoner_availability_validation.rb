@@ -50,7 +50,7 @@ private
     return nil if @api_error
 
     Nomis::Api.instance.prisoner_visiting_detailed_availability(
-      offender_id: prisoner.id,
+      offender_id: prisoner.nomis_offender_id,
       slots: valid_requested_slots
     )
   rescue Nomis::APIError => e
