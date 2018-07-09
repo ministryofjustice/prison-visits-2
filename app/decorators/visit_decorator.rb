@@ -68,11 +68,11 @@ class VisitDecorator < Draper::Decorator
         nomis_checker.prisoner_restrictions)
   end
 
-  def offender_iep_level
+  def prisoner_iep_level
     prisoner.iep_level
   end
 
-  def offender_sentence_status
+  def prisoner_sentence_status
     prisoner.imprisonment_status
   end
 

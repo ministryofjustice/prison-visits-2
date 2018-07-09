@@ -147,14 +147,14 @@ RSpec.describe VisitDecorator do
   describe '#offender_iep_level' do
     it 'returns the IEP level' do
       expect(prisoner).to receive(:iep_level).and_return('Standard')
-      expect(subject.offender_iep_level).to eq('Standard')
+      expect(subject.prisoner_iep_level).to eq('Standard')
     end
   end
 
   describe '#offender_sentence_status' do
     it 'returns the sentence status' do
       expect(prisoner).to receive(:imprisonment_status).and_return('Remanded to Magistrates Court')
-      expect(subject.offender_sentence_status).to eq('Remanded to Magistrates Court')
+      expect(subject.prisoner_sentence_status).to eq('Remanded to Magistrates Court')
     end
   end
 end
