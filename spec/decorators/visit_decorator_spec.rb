@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe VisitDecorator do
   let(:visit) { create(:visit) }
-  let(:prisoner) { double(Nomis::Prisoner, nomis_offender_id: 1234567) }
+  let(:prisoner) { double(Nomis::Prisoner, nomis_offender_id: 1_234_567) }
   let(:checker) { instance_double(StaffNomisChecker, prisoner: prisoner) }
 
   subject { described_class.decorate(visit) }

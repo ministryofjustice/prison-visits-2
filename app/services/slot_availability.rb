@@ -57,16 +57,21 @@ private
       requested_slots: prison_slots).tap(&:valid?)
   end
 
+  # rubocop:disable Metrics/MethodLength
   def prisoner_availability
     @prisoner_availability ||=
       begin
         Nomis::Api.instance.prisoner_visiting_availability(
-          offender_id: prisoner.nomis_offender_id, start_date: start_date, end_date: end_date)
+          offender_id: prisoner.nomis_offender_id,
+          start_date: start_date,
+          end_date: end_date
+        )
       rescue Nomis::APIError => e
         Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
         Nomis::PrisonerAvailability.new(dates: all_slots.keys.uniq)
       end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def prisoner_availability_dates
     @prisoner_availability_dates ||= prisoner_availability.dates
