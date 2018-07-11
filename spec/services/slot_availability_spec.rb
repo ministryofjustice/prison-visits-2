@@ -6,7 +6,7 @@ RSpec.describe SlotAvailability do
   let(:date_of_birth) { '1960-06-01' }
   let(:start_date)    { Date.parse('2017-02-01') }
   let(:end_date)      { Date.parse('2017-03-01') }
-  let(:offender)      { Nomis::Offender.new(id: 1_055_206, noms_id: 'prisoner_number') }
+  let(:prisoner)      { Nomis::Prisoner.new(id: 1_055_206, noms_id: 'prisoner_number') }
   let(:prisoner_availability) do
     Nomis::PrisonerAvailability.new(
       dates: [
@@ -71,12 +71,12 @@ RSpec.describe SlotAvailability do
       describe 'with a successful nomis public prisoner check api call' do
         before do
           switch_on_api
-          mock_nomis_with(:lookup_active_offender, offender)
+          mock_nomis_with(:lookup_active_prisoner, prisoner)
         end
 
         describe 'when the offender is valid' do
           before do
-            mock_nomis_with(:offender_visiting_availability, prisoner_availability)
+            mock_nomis_with(:prisoner_visiting_availability, prisoner_availability)
           end
 
           it 'returns a hash with unavailability reasons' do
@@ -97,7 +97,7 @@ RSpec.describe SlotAvailability do
         end
 
         describe 'with a null offender' do
-          let(:offender) { Nomis::NullOffender.new }
+          let(:prisoner) { Nomis::NullPrisoner.new }
 
           it 'applies the prison availability only' do
             expect(subject.slots).to eq(
@@ -117,7 +117,7 @@ RSpec.describe SlotAvailability do
 
         describe 'with an API::Error when querying the offender availability' do
           before do
-            simulate_api_error_for(:offender_visiting_availability)
+            simulate_api_error_for(:prisoner_visiting_availability)
           end
 
           it 'applies the prison availability only' do
@@ -145,8 +145,8 @@ RSpec.describe SlotAvailability do
 
       describe 'and prisoner availability enabled' do
         before do
-          mock_nomis_with(:lookup_active_offender, offender)
-          mock_nomis_with(:offender_visiting_availability, prisoner_availability)
+          mock_nomis_with(:lookup_active_prisoner, prisoner)
+          mock_nomis_with(:prisoner_visiting_availability, prisoner_availability)
         end
 
         it 'applies the prisoner availability' do

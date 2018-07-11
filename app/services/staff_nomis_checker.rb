@@ -51,13 +51,13 @@ class StaffNomisChecker
     prisoner_contact_list.approved
   end
 
-  def offender
-    @offender ||= load_offender
+  def prisoner
+    @prisoner ||= load_prisoner
   end
 
   def prisoner_restrictions
     if Nomis::Feature.restrictions_info_enabled?(@visit.prison_name) &&
-        offender.valid?
+        prisoner.valid?
       prisoner_restriction_list.active
     else
       []
@@ -67,7 +67,7 @@ class StaffNomisChecker
 private
 
   def slot_prisoner_restrictions(slot)
-    if Nomis::Feature.restrictions_enabled? && offender.valid?
+    if Nomis::Feature.restrictions_enabled? && prisoner.valid?
       prisoner_restriction_list.on_slot(slot)
     else
       []
@@ -75,7 +75,7 @@ private
   end
 
   def prisoner_availability_errors(slot)
-    if offender.valid?
+    if prisoner.valid?
       prisoner_availability_validation.slot_errors(slot)
     else
       []
@@ -91,17 +91,17 @@ private
   end
 
   def prisoner_contact_list
-    @prisoner_contact_list ||= PrisonerContactList.new(offender)
+    @prisoner_contact_list ||= PrisonerContactList.new(prisoner)
   end
 
   def prisoner_restriction_list
-    @prisoner_restriction_list ||= PrisonerRestrictionList.new(offender)
+    @prisoner_restriction_list ||= PrisonerRestrictionList.new(prisoner)
   end
 
   def prisoner_availability_validation
     @prisoner_availability_validation ||=
       PrisonerAvailabilityValidation.new(
-        offender: offender,
+        prisoner: prisoner,
         requested_slots: @visit.slots).tap(&:valid?)
   end
 
@@ -113,14 +113,14 @@ private
       tap(&:valid?)
   end
 
-  def load_offender
+  def load_prisoner
     if Nomis::Api.enabled?
-      Nomis::Api.instance.lookup_active_offender(
+      Nomis::Api.instance.lookup_active_prisoner(
         noms_id:       @visit.prisoner_number,
         date_of_birth: @visit.prisoner.date_of_birth
       )
     else
-      Nomis::NullOffender.new
+      Nomis::NullPrisoner.new
     end
   end
 end
