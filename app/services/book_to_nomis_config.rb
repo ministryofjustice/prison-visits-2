@@ -58,7 +58,7 @@ private
     !staff_nomis_checker.contact_list_unknown?
   end
 
-  def offender_restrictions_working?
+  def prisoner_restrictions_working?
     Nomis::Feature.restrictions_enabled? &&
       !staff_nomis_checker.prisoner_restrictions_unknown?
   end
@@ -67,6 +67,6 @@ private
     prisoner_existance_valid? &&
     prisoner_availability_working? &&
     contact_list_working? &&
-    offender_restrictions_working?
+    prisoner_restrictions_working?
   end
 end
