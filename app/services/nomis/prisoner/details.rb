@@ -1,5 +1,5 @@
 module Nomis
-  class Offender
+  class Prisoner
     class Details
       include MemoryModel
 

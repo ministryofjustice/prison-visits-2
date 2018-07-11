@@ -105,7 +105,7 @@ RSpec.describe ApiSlotAvailability, type: :model do
 
     describe 'restricting by prisoner availability' do
       it 'can intersect available slots with prisoner availability' do
-        offender = Nomis::Offender.new(id: 123)
+        offender = Nomis::Prisoner.new(id: 123)
         prisoner_availability = Nomis::PrisonerAvailability.new(
           dates: ['2016-04-12', '2016-04-25']
         )

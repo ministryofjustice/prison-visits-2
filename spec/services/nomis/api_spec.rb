@@ -36,8 +36,8 @@ RSpec.describe Nomis::Api do
     let(:prisoner) { subject.lookup_active_prisoner(params) }
 
     it 'returns and prisoner if the data matches' do
-      expect(prisoner).to be_kind_of(Nomis::Offender)
-      expect(prisoner.id).to eq(1_057_307)
+      expect(prisoner).to be_kind_of(Nomis::Prisoner)
+      expect(prisoner.nomis_offender_id).to eq(1_057_307)
       expect(prisoner.noms_id).to eq('A1484AE')
     end
 

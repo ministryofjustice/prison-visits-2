@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Nomis::Offender, type: :model do
+RSpec.describe Nomis::Prisoner, type: :model do
   let(:noms_id) { 'A1459AE' }
 
   it { is_expected.to validate_presence_of :id }
@@ -22,7 +22,7 @@ RSpec.describe Nomis::Offender, type: :model do
         before do
           mock_nomis_with(
             :lookup_prisoner_details,
-            Nomis::Offender::Details.new(
+            Nomis::Prisoner::Details.new(
               iep_level: { 'code' => 'STD', 'desc' => 'Standard' }
             )
           )
@@ -35,7 +35,7 @@ RSpec.describe Nomis::Offender, type: :model do
         before do
           mock_nomis_with(
             :lookup_prisoner_details,
-            Nomis::Offender::Details.new(iep_level: nil)
+            Nomis::Prisoner::Details.new(iep_level: nil)
           )
         end
 
@@ -57,7 +57,7 @@ RSpec.describe Nomis::Offender, type: :model do
       before do
         mock_nomis_with(
           :lookup_prisoner_details,
-          Nomis::Offender::Details.new(
+          Nomis::Prisoner::Details.new(
             imprisonment_status: { 'code' => 'RX', 'desc' => 'Remanded to Magistrates Court' }
           )
         )

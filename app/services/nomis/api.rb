@@ -42,7 +42,7 @@ module Nomis
     def lookup_prisoner_details(noms_id:)
       response = @pool.with { |client| client.get("/offenders/#{noms_id}") }
       api_serialiser.
-        serialise(Nomis::Offender::Details, response).tap do |prisoner_details|
+        serialise(Nomis::Prisoner::Details, response).tap do |prisoner_details|
         PVB::Instrumentation.append_to_log(
           valid_prisoner_details_lookup: prisoner_details.valid?
         )
@@ -154,7 +154,7 @@ module Nomis
 
     def build_prisoner(response)
       if response['found'] == true
-        api_serialiser.serialise(Offender, response['offender'])
+        api_serialiser.serialise(Prisoner, response['offender'])
       else
         NullPrisoner.new(api_call_successful: true)
       end

@@ -44,12 +44,12 @@ private
   end
 
   def prisoner_validation
-    @prisoner_validation ||= PrisonerValidation.new(nomis_checker.offender)
+    @prisoner_validation ||= PrisonerValidation.new(nomis_checker.prisoner)
   end
 
   def prisoner_location_validation
     @prisoner_location_validation ||= PrisonerLocationValidation.new(
-      nomis_checker.offender, memoised_visit.prison.nomis_id
+      nomis_checker.prisoner, memoised_visit.prison.nomis_id
     )
   end
 

@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe PrisonerRestrictionList do
-  let(:offender) do
-    Nomis::Offender.new(id: 1, noms_id: 'prisoner_number')
+  let(:prisoner) do
+    Nomis::Prisoner.new(id: 1, noms_id: 'prisoner_number')
   end
 
-  subject { described_class.new(offender) }
+  subject { described_class.new(prisoner) }
 
   context 'with #unknown_result?' do
     context "when it's a null offender" do
-      let(:offender) { Nomis::NullPrisoner.new }
+      let(:prisoner) { Nomis::NullPrisoner.new }
 
       it { is_expected.to be_unknown_result }
     end

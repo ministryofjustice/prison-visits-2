@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe PrisonerValidation, type: :model do
-  let(:offender) do
-    Nomis::Offender.new(id: 'someid', noms_id: 'a1234bc')
+  let(:prisoner) do
+    Nomis::Prisoner.new(id: 'someid', noms_id: 'a1234bc')
   end
 
   subject do
-    described_class.new(offender)
+    described_class.new(prisoner)
   end
 
   context 'when the API finds a match' do
@@ -16,7 +16,7 @@ RSpec.describe PrisonerValidation, type: :model do
   end
 
   context 'when the API does not find a match' do
-    let(:offender) { Nomis::NullPrisoner.new(api_call_successful: success) }
+    let(:prisoner) { Nomis::NullPrisoner.new(api_call_successful: success) }
 
     describe 'with a successful API call' do
       let(:success) { true }

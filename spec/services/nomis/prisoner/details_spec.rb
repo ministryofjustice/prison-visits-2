@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Nomis::Offender::Details do
+RSpec.describe Nomis::Prisoner::Details do
   it { is_expected.to respond_to :aliases }
   it { is_expected.to respond_to :api_call_successful }
   it { is_expected.to respond_to :convicted }

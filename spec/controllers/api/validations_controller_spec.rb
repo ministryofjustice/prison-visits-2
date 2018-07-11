@@ -116,11 +116,11 @@ RSpec.describe Api::ValidationsController do
     end
 
     context 'when the prisoner does not exist' do
-      let(:offender) { Nomis::NullPrisoner.new(api_call_successful: true) }
+      let(:prisoner) { Nomis::NullPrisoner.new(api_call_successful: true) }
 
       it 'returns a validation error' do
         expect(Nomis::Api.instance).to receive(:lookup_active_prisoner).
-          and_return(offender)
+          and_return(prisoner)
 
         post :prisoner, params: params
         expect(parsed_body['validation']).to eq(

@@ -4,7 +4,7 @@ RSpec.describe NomisOffenderType do
   subject { described_class.new }
 
   describe '#cast' do
-    let(:value) { Nomis::Offender.new }
+    let(:value) { Nomis::Prisoner.new }
 
     it { expect(subject.cast(value)).to eq(value) }
   end
