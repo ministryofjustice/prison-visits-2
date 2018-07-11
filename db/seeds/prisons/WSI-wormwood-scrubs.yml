@@ -4,7 +4,7 @@ nomis_id: WSI
 address: |-
   Du Cane Road
 postcode: W12 0AE
-email_address: visitsbooking.westmidlands@noms.gsi.gov.uk
+email_address: prison.visits@ministryofjustice.zendesk.com
 phone_no: 0300 060 6511
 enabled: true
 private: false
