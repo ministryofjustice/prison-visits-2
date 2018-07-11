@@ -5,7 +5,7 @@ address: |-
   19 Cambridge Road
   Bristol
 postcode: BS7 8PS
-email_address:
+email_address: prison.visits@ministryofjustice.zendesk.com
 phone_no: 0300 060 6510
 enabled: true
 private: false
