@@ -4,7 +4,7 @@ nomis_id: NHI
 address: |-
   Dial Wood
 postcode: WF4 4XX
-email_address: socialvisits.newhall@hmps.gsi.gov.uk
+email_address: prison.visits@ministryofjustice.zendesk.com
 phone_no: 0300 060 6515
 enabled: true
 private: false
