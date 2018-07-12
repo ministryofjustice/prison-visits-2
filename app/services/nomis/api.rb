@@ -23,43 +23,43 @@ module Nomis
     end
 
     # rubocop:disable Metrics/MethodLength
-    def lookup_active_offender(noms_id:, date_of_birth:)
+    def lookup_active_prisoner(noms_id:, date_of_birth:)
       response = @pool.with { |client|
         client.get('/lookup/active_offender',
           noms_id: noms_id, date_of_birth: date_of_birth)
       }
 
-      build_offender(response).tap do |offender|
-        PVB::Instrumentation.append_to_log(valid_offender_lookup: !!response['found'])
-        offender.noms_id = noms_id
+      build_prisoner(response).tap do |prisoner|
+        PVB::Instrumentation.append_to_log(valid_prisoner_lookup: !!response['found'])
+        prisoner.noms_id = noms_id
       end
     rescue APIError => e
       PVB::ExceptionHandler.capture_exception(e, fingerprint: %w[nomis api_error])
-      NullOffender.new(api_call_successful: false)
+      NullPrisoner.new(api_call_successful: false)
     end
     # rubocop:enable Metrics/MethodLength
 
-    def lookup_offender_details(noms_id:)
+    def lookup_prisoner_details(noms_id:)
       response = @pool.with { |client| client.get("/offenders/#{noms_id}") }
       api_serialiser.
-        serialise(Nomis::Offender::Details, response).tap do |offender_details|
+        serialise(Nomis::Prisoner::Details, response).tap do |prisoner_details|
         PVB::Instrumentation.append_to_log(
-          valid_offender_details_lookup: offender_details.valid?
+          valid_prisoner_details_lookup: prisoner_details.valid?
         )
       end
     end
 
-    def lookup_offender_location(noms_id:)
+    def lookup_prisoner_location(noms_id:)
       response = @pool.with { |client|
         client.get("/offenders/#{noms_id}/location")
       }
 
       Nomis::Establishment.build(response).tap do |establishment|
-        PVB::Instrumentation.append_to_log(lookup_offender_location: establishment.code)
+        PVB::Instrumentation.append_to_log(lookup_prisoner_location: establishment.code)
       end
     end
 
-    def offender_visiting_availability(offender_id:, start_date:, end_date:)
+    def prisoner_visiting_availability(offender_id:, start_date:, end_date:)
       response = @pool.with { |client|
         client.get(
           "/offenders/#{offender_id}/visits/available_dates",
@@ -68,12 +68,12 @@ module Nomis
 
       PrisonerAvailability.new(response).tap do |prisoner_availability|
         PVB::Instrumentation.append_to_log(
-          offender_visiting_availability: prisoner_availability.dates.count
+          prisoner_visiting_availability: prisoner_availability.dates.count
         )
       end
     end
 
-    def offender_visiting_detailed_availability(offender_id:, slots:)
+    def prisoner_visiting_detailed_availability(offender_id:, slots:)
       response = @pool.with { |client|
         client.get(
           "offenders/#{offender_id}/visits/unavailability",
@@ -84,7 +84,7 @@ module Nomis
         available_slots = slots.select { |slot| availability.available?(slot) }
 
         PVB::Instrumentation.append_to_log(
-          offender_visiting_availability: available_slots.size)
+          prisoner_visiting_availability: available_slots.size)
       end
     end
 
@@ -102,12 +102,12 @@ module Nomis
       end
     end
 
-    def fetch_offender_restrictions(offender_id:)
+    def fetch_prisoner_restrictions(offender_id:)
       response = @pool.with { |client|
         client.get("offenders/#{offender_id}/visits/restrictions")
       }
 
-      Nomis::OffenderRestrictions.new(response)
+      Nomis::PrisonerRestrictions.new(response)
     end
 
     def fetch_contact_list(offender_id:)
@@ -152,11 +152,11 @@ module Nomis
 
   private
 
-    def build_offender(response)
+    def build_prisoner(response)
       if response['found'] == true
-        api_serialiser.serialise(Offender, response['offender'])
+        api_serialiser.serialise(Prisoner, response['offender'])
       else
-        NullOffender.new(api_call_successful: true)
+        NullPrisoner.new(api_call_successful: true)
       end
     end
 

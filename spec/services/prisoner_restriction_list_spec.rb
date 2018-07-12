@@ -1,32 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe PrisonerRestrictionList do
-  let(:offender) do
-    Nomis::Offender.new(id: 1, noms_id: 'prisoner_number')
+  let(:prisoner) do
+    Nomis::Prisoner.new(id: 1, noms_id: 'prisoner_number')
   end
 
-  subject { described_class.new(offender) }
+  subject { described_class.new(prisoner) }
 
   context 'with #unknown_result?' do
-    context "when it's a null offender" do
-      let(:offender) { Nomis::NullOffender.new }
+    context "when it's a null prisoner" do
+      let(:prisoner) { Nomis::NullPrisoner.new }
 
       it { is_expected.to be_unknown_result }
     end
 
     context "when the api returns an error" do
       before do
-        simulate_api_error_for(:fetch_offender_restrictions)
+        simulate_api_error_for(:fetch_prisoner_restrictions)
       end
 
       it { is_expected.to be_unknown_result }
     end
 
     context "when the api returns no error" do
-      let(:offender_restrictions) { Nomis::OffenderRestrictions.new }
+      let(:prisoner_restrictions) { Nomis::PrisonerRestrictions.new }
 
       before do
-        mock_nomis_with(:fetch_offender_restrictions, offender_restrictions)
+        mock_nomis_with(:fetch_prisoner_restrictions, prisoner_restrictions)
       end
 
       it { is_expected.not_to be_unknown_result }
@@ -51,8 +51,8 @@ RSpec.describe PrisonerRestrictionList do
     end
 
     before do
-      mock_nomis_with(:fetch_offender_restrictions,
-        Nomis::OffenderRestrictions.new(restrictions: [restriction]))
+      mock_nomis_with(:fetch_prisoner_restrictions,
+        Nomis::PrisonerRestrictions.new(restrictions: [restriction]))
     end
 
     context 'when the restriction is effective' do
@@ -81,8 +81,8 @@ RSpec.describe PrisonerRestrictionList do
 
   describe '#active' do
     before do
-      mock_nomis_with(:fetch_offender_restrictions,
-        Nomis::OffenderRestrictions.new(restrictions: [restriction]))
+      mock_nomis_with(:fetch_prisoner_restrictions,
+        Nomis::PrisonerRestrictions.new(restrictions: [restriction]))
     end
 
     let(:restriction) do

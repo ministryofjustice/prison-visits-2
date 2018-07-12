@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Nomis::Offender, type: :model do
+RSpec.describe Nomis::Prisoner, type: :model do
   let(:noms_id) { 'A1459AE' }
 
   it { is_expected.to validate_presence_of :id }
@@ -21,8 +21,8 @@ RSpec.describe Nomis::Offender, type: :model do
       describe 'with an iep level' do
         before do
           mock_nomis_with(
-            :lookup_offender_details,
-            Nomis::Offender::Details.new(
+            :lookup_prisoner_details,
+            Nomis::Prisoner::Details.new(
               iep_level: { 'code' => 'STD', 'desc' => 'Standard' }
             )
           )
@@ -31,11 +31,11 @@ RSpec.describe Nomis::Offender, type: :model do
         it { expect(subject.iep_level).to eq('Standard') }
       end
 
-      describe 'when the offender does not have an iep_level' do
+      describe 'when the prisoner does not have an iep_level' do
         before do
           mock_nomis_with(
-            :lookup_offender_details,
-            Nomis::Offender::Details.new(iep_level: nil)
+            :lookup_prisoner_details,
+            Nomis::Prisoner::Details.new(iep_level: nil)
           )
         end
 
@@ -45,7 +45,7 @@ RSpec.describe Nomis::Offender, type: :model do
 
     context 'with a unsuccessful API call' do
       before do
-        simulate_api_error_for(:lookup_offender_details)
+        simulate_api_error_for(:lookup_prisoner_details)
       end
 
       it { expect(subject.iep_level).to be nil }
@@ -56,8 +56,8 @@ RSpec.describe Nomis::Offender, type: :model do
     context 'with a successful API call' do
       before do
         mock_nomis_with(
-          :lookup_offender_details,
-          Nomis::Offender::Details.new(
+          :lookup_prisoner_details,
+          Nomis::Prisoner::Details.new(
             imprisonment_status: { 'code' => 'RX', 'desc' => 'Remanded to Magistrates Court' }
           )
         )
@@ -68,7 +68,7 @@ RSpec.describe Nomis::Offender, type: :model do
 
     context 'with a unsuccessful API call' do
       before do
-        simulate_api_error_for(:lookup_offender_details)
+        simulate_api_error_for(:lookup_prisoner_details)
       end
 
       it { expect(subject.imprisonment_status).to be nil }

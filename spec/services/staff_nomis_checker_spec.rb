@@ -5,9 +5,9 @@ RSpec.describe StaffNomisChecker do
 
   # Enabled for slot availability
   let(:prison)   { build_stubbed(:prison, name: 'Pentonville') }
-  let(:visit)    { build_stubbed(:visit, prisoner: prisoner, prison: prison) }
-  let(:prisoner) { build_stubbed(:prisoner) }
-  let(:offender) { Nomis::Offender.new(id: prisoner.number, noms_id: 'some_noms_id') }
+  let(:pvb_prisoner) { build_stubbed(:prisoner) }
+  let(:visit)    { build_stubbed(:visit, prisoner: pvb_prisoner, prison: prison) }
+  let(:nomis_prisoner) { Nomis::Prisoner.new(id: 'some_noms_id', noms_id: pvb_prisoner.number) }
 
   describe 'When the API is disabled' do
     before do
@@ -30,8 +30,8 @@ RSpec.describe StaffNomisChecker do
       it { expect(subject.errors_for(visit.slots.first)).to be_empty }
     end
 
-    describe '#offender' do
-      it { expect(subject.offender).to be_instance_of(Nomis::NullOffender) }
+    describe '#prisoner' do
+      it { expect(subject.prisoner).to be_instance_of(Nomis::NullPrisoner) }
     end
   end
 
@@ -42,7 +42,7 @@ RSpec.describe StaffNomisChecker do
     end
 
     before do
-      mock_nomis_with(:lookup_active_offender, offender)
+      mock_nomis_with(:lookup_active_prisoner, nomis_prisoner)
       mock_service_with(PrisonerAvailabilityValidation, prisoner_availability_validation)
     end
 
@@ -71,13 +71,13 @@ RSpec.describe StaffNomisChecker do
     end
 
     context 'when the api is enabled' do
-      context 'with a valid offender' do
+      context 'with a valid prisoner' do
         let(:prisoner_availability_validator) do
           instance_double(PrisonerAvailabilityValidation, valid?: false, slot_errors: messages)
         end
 
         before do
-          mock_nomis_with(:lookup_active_offender, offender)
+          mock_nomis_with(:lookup_active_prisoner, nomis_prisoner)
           mock_service_with(PrisonerAvailabilityValidation, prisoner_availability_validator)
         end
 
@@ -94,11 +94,11 @@ RSpec.describe StaffNomisChecker do
         end
       end
 
-      context 'with a null offender' do
-        let(:offender) { Nomis::NullOffender.new }
+      context 'with a null prisoner' do
+        let(:nomis_prisoner) { Nomis::NullPrisoner.new }
 
         before do
-          mock_nomis_with(:lookup_active_offender, offender)
+          mock_nomis_with(:lookup_active_prisoner, nomis_prisoner)
         end
 
         it { expect(subject.errors_for(slot)).to be_empty }
@@ -112,7 +112,7 @@ RSpec.describe StaffNomisChecker do
         end
 
         before do
-          mock_nomis_with(:lookup_active_offender, offender)
+          mock_nomis_with(:lookup_active_prisoner, nomis_prisoner)
           mock_service_with(PrisonerAvailabilityValidation, prisoner_availability_validator)
           switch_off :nomis_staff_slot_availability_enabled
         end
@@ -131,7 +131,7 @@ RSpec.describe StaffNomisChecker do
       context 'with NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED switched ON' do
         before do
           switch_on :nomis_staff_slot_availability_enabled
-          mock_nomis_with(:lookup_active_offender, offender)
+          mock_nomis_with(:lookup_active_prisoner, nomis_prisoner)
         end
 
         describe "and STAFF_PRISONS_WITH_SLOT_AVAILABILITY switched ON for the visit's prison" do
@@ -174,7 +174,7 @@ RSpec.describe StaffNomisChecker do
         context 'when it is disabled' do
           before do
             switch_off(:nomis_staff_restrictions_enabled)
-            mock_nomis_with(:lookup_active_offender, offender)
+            mock_nomis_with(:lookup_active_prisoner, nomis_prisoner)
             mock_service_with(PrisonerAvailabilityValidation, prisoner_availability_validator)
           end
 
@@ -184,10 +184,10 @@ RSpec.describe StaffNomisChecker do
         context 'when it is enabled' do
           before do
             switch_on(:nomis_staff_restrictions_enabled)
-            mock_nomis_with(:lookup_active_offender, offender)
+            mock_nomis_with(:lookup_active_prisoner, nomis_prisoner)
           end
 
-          context 'with a valid offender' do
+          context 'with a valid prisoner' do
             let(:prisoner_restrictions_list) do
               instance_double(PrisonerRestrictionList, on_slot: messages)
             end
@@ -210,8 +210,8 @@ RSpec.describe StaffNomisChecker do
             end
           end
 
-          context 'with a null offender' do
-            let(:offender) { Nomis::NullOffender.new }
+          context 'with a null prisoner' do
+            let(:nomis_prisoner) { Nomis::NullPrisoner.new }
 
             it { expect(subject.errors_for(slot)).to be_empty }
           end
@@ -346,7 +346,7 @@ RSpec.describe StaffNomisChecker do
       let(:contact_list_api_error) { true }
 
       before do
-        mock_nomis_with(:lookup_active_offender, offender)
+        mock_nomis_with(:lookup_active_prisoner, nomis_prisoner)
         expect(contact_list).to receive(:unknown_result?).and_return(contact_list_api_error)
         mock_service_with(PrisonerContactList, contact_list)
       end
@@ -361,20 +361,20 @@ RSpec.describe StaffNomisChecker do
         instance_double(PrisonerRestrictionList)
       end
 
-      let(:offender_restrictions_api_error) { false }
+      let(:prisoner_restrictions_api_error) { false }
 
       before do
         switch_on(:nomis_staff_restrictions_enabled)
         switch_feature_flag_with(:staff_prisons_with_restrictions_info, %w[Pentonville])
-        mock_nomis_with(:lookup_active_offender, offender)
-        expect(restrictions_list).to receive(:unknown_result?).and_return(offender_restrictions_api_error)
+        mock_nomis_with(:lookup_active_prisoner, nomis_prisoner)
+        expect(restrictions_list).to receive(:unknown_result?).and_return(prisoner_restrictions_api_error)
         mock_service_with(PrisonerRestrictionList, restrictions_list)
       end
 
       it { is_expected.not_to be_prisoner_restrictions_unknown }
 
-      context 'when the offender restrictions returns an API error' do
-        let(:offender_restrictions_api_error) { true }
+      context 'when the prisoner restrictions returns an API error' do
+        let(:prisoner_restrictions_api_error) { true }
 
         it { is_expected.to be_prisoner_restrictions_unknown }
       end
@@ -388,7 +388,7 @@ RSpec.describe StaffNomisChecker do
     end
 
     before do
-      mock_nomis_with(:lookup_active_offender, offender)
+      mock_nomis_with(:lookup_active_prisoner, nomis_prisoner)
       mock_service_with(PrisonerContactList, contact_list)
     end
 
@@ -402,7 +402,7 @@ RSpec.describe StaffNomisChecker do
       before do
         switch_feature_flag_with(:staff_prisons_with_restrictions_info, [visit.prison_name])
         switch_on(:nomis_staff_restrictions_enabled)
-        mock_nomis_with(:lookup_active_offender, offender)
+        mock_nomis_with(:lookup_active_prisoner, nomis_prisoner)
         mock_service_with(PrisonerRestrictionList, prisoner_restrictions_list)
       end
 
@@ -424,11 +424,11 @@ RSpec.describe StaffNomisChecker do
     end
   end
 
-  describe '#offender' do
+  describe '#prisoner' do
     before do
-      mock_nomis_with(:lookup_active_offender, offender)
+      mock_nomis_with(:lookup_active_prisoner, nomis_prisoner)
     end
 
-    it { expect(subject.offender).to eq(offender) }
+    it { expect(subject.prisoner).to eq(nomis_prisoner) }
   end
 end

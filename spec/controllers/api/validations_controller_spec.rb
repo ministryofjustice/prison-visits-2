@@ -116,11 +116,11 @@ RSpec.describe Api::ValidationsController do
     end
 
     context 'when the prisoner does not exist' do
-      let(:offender) { Nomis::NullOffender.new(api_call_successful: true) }
+      let(:prisoner) { Nomis::NullPrisoner.new(api_call_successful: true) }
 
       it 'returns a validation error' do
-        expect(Nomis::Api.instance).to receive(:lookup_active_offender).
-          and_return(offender)
+        expect(Nomis::Api.instance).to receive(:lookup_active_prisoner).
+          and_return(prisoner)
 
         post :prisoner, params: params
         expect(parsed_body['validation']).to eq(
@@ -132,7 +132,7 @@ RSpec.describe Api::ValidationsController do
 
     it 'returns an error if the date of birth is invalid' do
       params[:date_of_birth] = '1980-50-01'
-      expect(Nomis::Api.instance).not_to receive(:lookup_active_offender)
+      expect(Nomis::Api.instance).not_to receive(:lookup_active_prisoner)
 
       post :prisoner, params: params
       expect(response.status).to eq(422)
