@@ -8,7 +8,7 @@ RSpec.describe PrisonerRestrictionList do
   subject { described_class.new(prisoner) }
 
   context 'with #unknown_result?' do
-    context "when it's a null offender" do
+    context "when it's a null prisoner" do
       let(:prisoner) { Nomis::NullPrisoner.new }
 
       it { is_expected.to be_unknown_result }
@@ -23,10 +23,10 @@ RSpec.describe PrisonerRestrictionList do
     end
 
     context "when the api returns no error" do
-      let(:offender_restrictions) { Nomis::OffenderRestrictions.new }
+      let(:prisoner_restrictions) { Nomis::PrisonerRestrictions.new }
 
       before do
-        mock_nomis_with(:fetch_prisoner_restrictions, offender_restrictions)
+        mock_nomis_with(:fetch_prisoner_restrictions, prisoner_restrictions)
       end
 
       it { is_expected.not_to be_unknown_result }
@@ -52,7 +52,7 @@ RSpec.describe PrisonerRestrictionList do
 
     before do
       mock_nomis_with(:fetch_prisoner_restrictions,
-        Nomis::OffenderRestrictions.new(restrictions: [restriction]))
+        Nomis::PrisonerRestrictions.new(restrictions: [restriction]))
     end
 
     context 'when the restriction is effective' do
@@ -82,7 +82,7 @@ RSpec.describe PrisonerRestrictionList do
   describe '#active' do
     before do
       mock_nomis_with(:fetch_prisoner_restrictions,
-        Nomis::OffenderRestrictions.new(restrictions: [restriction]))
+        Nomis::PrisonerRestrictions.new(restrictions: [restriction]))
     end
 
     let(:restriction) do

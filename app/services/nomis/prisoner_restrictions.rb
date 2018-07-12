@@ -1,5 +1,5 @@
 module Nomis
-  class OffenderRestrictions
+  class PrisonerRestrictions
     include MemoryModel
     include Enumerable
 

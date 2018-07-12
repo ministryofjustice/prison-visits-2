@@ -31,7 +31,7 @@ RSpec.describe Nomis::Prisoner, type: :model do
         it { expect(subject.iep_level).to eq('Standard') }
       end
 
-      describe 'when the offender does not have an iep_level' do
+      describe 'when the prisoner does not have an iep_level' do
         before do
           mock_nomis_with(
             :lookup_prisoner_details,

@@ -12,7 +12,7 @@ ActiveModel::Type.register(:contact_type,                    ContactTypeType)
 ActiveModel::Type.register(:date_list,                       DateListType)
 ActiveModel::Type.register(:housing_location,                HousingLocationType)
 ActiveModel::Type.register(:level_list,                      LevelListType)
-ActiveModel::Type.register(:nomis_offender,                  NomisOffenderType)
+ActiveModel::Type.register(:nomis_prisoner,                  NomisPrisonerType)
 ActiveModel::Type.register(:normalised_concrete_slot,        NormalisedConcreteSlotType)
 ActiveModel::Type.register(
   :prisoner_date_availability_list, PrisonerDateAvailabilityListType)

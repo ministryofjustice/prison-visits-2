@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe NomisOffenderType do
+RSpec.describe NomisPrisonerType do
   subject { described_class.new }
 
   describe '#cast' do
