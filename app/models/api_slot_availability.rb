@@ -10,20 +10,20 @@ class ApiSlotAvailability
   def restrict_by_prisoner(prisoner_number:, prisoner_dob:)
     return unless Nomis::Api.enabled?
 
-    offender = Nomis::Api.instance.lookup_active_prisoner(
+    prisoner = Nomis::Api.instance.lookup_active_prisoner(
       noms_id: prisoner_number,
       date_of_birth: prisoner_dob
     )
 
     availability = Nomis::Api.instance.prisoner_visiting_availability(
-      offender_id: offender.id,
+      offender_id: prisoner.nomis_offender_id,
       start_date: @prison.first_bookable_date,
       end_date: @prison.last_bookable_date
     )
-    offender_available_dates = availability.dates
+    prisoner_available_dates = availability.dates
 
     @slots = @slots.select { |slot|
-      slot.to_date.in? offender_available_dates
+      slot.to_date.in? prisoner_available_dates
     }
   rescue Excon::Errors::Error => e
     # Skip restriction if NOMIS API is misbehaving
