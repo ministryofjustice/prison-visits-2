@@ -34,7 +34,7 @@ RSpec.describe PrisonerLocationValidation do
       end
     end
 
-    context 'when the offender is not located at the given prison' do
+    context 'when the prisoner is not located at the given prison' do
       let(:is_valid) { false }
 
       it 'has no establishment' do
@@ -44,17 +44,17 @@ RSpec.describe PrisonerLocationValidation do
   end
 
   describe 'validation' do
-    context 'with a valid offender' do
+    context 'with a valid prisoner' do
       context 'when the API call is successful' do
         before do
           mock_nomis_with(:lookup_prisoner_location, establishment)
         end
 
-        context 'when the offender is located at the given prison' do
+        context 'when the prisoner is located at the given prison' do
           it { is_expected.to be_valid }
         end
 
-        context 'when the offender is not located at the given prison' do
+        context 'when the prisoner is not located at the given prison' do
           let(:code) { 'NOT_AT_THIS_PRISON_CODE' }
 
           it { is_expected.to be_invalid }
@@ -75,7 +75,7 @@ RSpec.describe PrisonerLocationValidation do
       end
     end
 
-    context 'with an invalid offender' do
+    context 'with an invalid prisoner' do
       let(:noms_id) { nil }
 
       it 'is invalid' do

@@ -8,7 +8,7 @@ class PrisonerAvailabilityValidation
     Nomis::PrisonerDateAvailability::BOOKED_VISIT
   ].freeze
 
-  attribute :prisoner, :nomis_offender
+  attribute :prisoner, :nomis_prisoner
   attribute :requested_slots, :concrete_slot_list
 
   validate :slots_availability

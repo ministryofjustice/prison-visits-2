@@ -85,7 +85,7 @@ RSpec.describe BookToNomisConfig do
     end
   end
 
-  shared_context 'with offender restrictions working' do
+  shared_context 'with prisoner restrictions working' do
     before do
       allow(Nomis::Feature).
         to receive(:restrictions_enabled?).and_return(true)
@@ -105,7 +105,7 @@ RSpec.describe BookToNomisConfig do
       include_context 'with prisoner availability working'
       include_context 'with slot availability working'
       include_context 'with contact list working'
-      include_context 'with offender restrictions working'
+      include_context 'with prisoner restrictions working'
 
       it { is_expected.to be_possible_to_book }
     end
@@ -116,7 +116,7 @@ RSpec.describe BookToNomisConfig do
       include_context 'with prisoner availability working'
       include_context 'with slot availability working'
       include_context 'with contact list working'
-      include_context 'with offender restrictions working'
+      include_context 'with prisoner restrictions working'
 
       before do
         expect(prisoner_details_presenter).
@@ -133,7 +133,7 @@ RSpec.describe BookToNomisConfig do
       include_context 'with prisoner exists'
       include_context 'with slot availability working'
       include_context 'with contact list working'
-      include_context 'with offender restrictions working'
+      include_context 'with prisoner restrictions working'
 
       before do
         expect(checker).to receive(:prisoner_availability_unknown?).and_return(true)
@@ -148,7 +148,7 @@ RSpec.describe BookToNomisConfig do
       include_context 'with prisoner exists'
       include_context 'with prisoner availability working'
       include_context 'with contact list working'
-      include_context 'with offender restrictions working'
+      include_context 'with prisoner restrictions working'
 
       context 'with the feature being disabled' do
         before do
@@ -177,7 +177,7 @@ RSpec.describe BookToNomisConfig do
       include_context 'with prisoner exists'
       include_context 'with prisoner availability working'
       include_context 'with slot availability working'
-      include_context 'with offender restrictions working'
+      include_context 'with prisoner restrictions working'
 
       context 'with the api call response being unknown' do
         before do
@@ -188,7 +188,7 @@ RSpec.describe BookToNomisConfig do
       end
     end
 
-    context 'when the offender restrictions list is not working' do
+    context 'when the prisoner restrictions list is not working' do
       include_context 'when not booked in NOMIS'
       include_context 'with book to nomis enabled'
       include_context 'with prisoner exists'

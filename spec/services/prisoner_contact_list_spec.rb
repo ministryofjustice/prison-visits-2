@@ -8,7 +8,7 @@ RSpec.describe PrisonerContactList, type: :model do
   subject { described_class.new(prisoner) }
 
   context 'with #unknown_result?' do
-    context "when it's a null offender" do
+    context "when it's a null prisoner" do
       let(:prisoner) { Nomis::NullPrisoner.new }
 
       it { is_expected.to be_unknown_result }

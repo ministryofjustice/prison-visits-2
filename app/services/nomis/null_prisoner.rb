@@ -1,5 +1,5 @@
 module Nomis
-  class NullPrisoner < Prisoner
+  class NullPrisoner < Nomis::Prisoner
     attribute :api_call_successful, :boolean
 
     def valid?

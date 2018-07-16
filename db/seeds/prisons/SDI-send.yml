@@ -4,7 +4,7 @@ nomis_id: SDI
 address: |-
   Ripley Road
 postcode: GU23 7LJ
-email_address: socialvisits.send@hmps.gsi.gov.uk
+email_address: prison.visits@ministryofjustice.zendesk.com
 phone_no:  0300 060 6514
 enabled: true
 private: false
