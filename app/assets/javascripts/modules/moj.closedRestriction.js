@@ -16,7 +16,6 @@
     cacheEls: function(){
       this.$el = $(this.el);
       this.$closedEl = $('#closed-visits');
-      this.$nomisEl = $('#book_to_nomis_opt_in');
       this.$optOutEl = $('#opt-out-check');
       this.$visitClosedEl = $('#visit_closed');
     },
@@ -51,7 +50,6 @@
         this.$optOutEl.hide().addClass('visually-hidden');
       }
       this.$closedEl.attr('aria-expanded', !status).attr('aria-hidden', status);
-      this.$nomisEl.prop('checked', !status).trigger('change');
       this.$visitClosedEl.prop('checked', !status);
     }
 

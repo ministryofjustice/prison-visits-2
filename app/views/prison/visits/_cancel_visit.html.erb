@@ -17,22 +17,7 @@
       </fieldset>
     </div>
   <% end %>
-  <% if @visit.nomis_id? %>
-    <div class="form-group">
-      <p>
-        <%= t('.cancel_to_nomis_warning') %>
-      </p>
-      <fieldset>
-        <div class="panel panel-border-narrow">
-          <div class="multiple-choice">
-            <%= check_box_tag :cancel_to_nomis_optout, !@visit.nomis_id? %>
-            <%= label_tag :cancel_to_nomis_optout, t('.dont_cancel_to_nomis'), class: 'block-label selection-button-checkbox' %>
-          </div>
-        </div>
-      </fieldset>
-    </div>
-  <% end %>
-
+  
   <div class='form-group push-top'>
     <%= submit_tag t('cancel_visit', scope: :shared), class: 'button button-secondary' %>
   </div>

@@ -29,9 +29,6 @@ RSpec.feature 'Processing a request - NOMIS API disabled', :js, :expect_exceptio
     before do
       switch_off_api
 
-      switch_on :nomis_staff_book_to_nomis_enabled
-      switch_feature_flag_with(:staff_prisons_with_book_to_nomis, [prison.name])
-
       switch_on :nomis_staff_slot_availability_enabled
       switch_feature_flag_with(:staff_prisons_with_slot_availability, [prison.name])
 

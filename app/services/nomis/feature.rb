@@ -5,11 +5,6 @@ module Nomis
         config.staff_prisons_with_slot_availability.include?(prison_name)
     end
 
-    def self.book_to_nomis_enabled?(prison_name)
-      Nomis::Api.enabled? && config.nomis_staff_book_to_nomis_enabled &&
-        config.staff_prisons_with_book_to_nomis.include?(prison_name)
-    end
-
     def self.restrictions_enabled?
       Nomis::Api.enabled? && config.nomis_staff_restrictions_enabled
     end

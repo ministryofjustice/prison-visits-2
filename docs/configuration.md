@@ -64,14 +64,6 @@ If `true` then the process visit page will query the offender restrictions api.
 
 (Optional) By default it is false.
 
-### `NOMIS_STAFF_BOOK_TO_NOMIS_ENABLED`
-
-If `true` then the Nomis API will be used to book a visit.
-
-### `STAFF_PRISONS_WITH_BOOK_TO_NOMIS`
-
-A comma separated list of prisons for which the book to nomis API is enabled
-
 ### `STAFF_PRISONS_WITH_RESTRICTIONS_INFO`
 
 A comma separated list of prisons for which the prisoner restrictions is displayed

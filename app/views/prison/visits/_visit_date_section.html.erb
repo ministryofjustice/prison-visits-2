@@ -46,9 +46,7 @@
 
   <div class="column-one-half">
     <div id="selected_slot_details" class="panel panel-border-narrow">
-      <% if !book_to_nomis_config.possible_to_book? %>
-        <%= single_field f, :reference_no, :text_field, class: 'form-control' %>
-      <% end %>
+      <%= single_field f, :reference_no, :text_field, class: 'form-control' %>
       <%= single_field f, :closed, :check_box  %>
     </div>
   </div>
