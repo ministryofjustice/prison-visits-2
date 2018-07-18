@@ -303,7 +303,6 @@ GEM
     scenic (1.4.1)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
-    secure_headers (6.0.0)
     selenium-webdriver (3.13.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
@@ -420,7 +419,6 @@ DEPENDENCIES
   rubocop-rspec
   sass-rails
   scenic
-  secure_headers
   selenium-webdriver
   sentry-raven
   shoulda-matchers
@@ -439,4 +437,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.1
+   1.16.2

@@ -30,7 +30,6 @@ gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'jwt'
 gem 'rake'
 
-gem 'secure_headers'
 gem 'sentry-raven', require: 'raven'
 gem 'sidekiq'
 gem 'state_machines-activerecord'
