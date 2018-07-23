@@ -133,7 +133,6 @@
       } else {
         moj.Modules.Rejection.showRejection();
       }
-      moj.Modules.BookToNomis.render();
     },
 
     checkTotalVisitors: function() {

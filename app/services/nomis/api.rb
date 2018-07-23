@@ -118,38 +118,6 @@ module Nomis
       Nomis::ContactList.new(response)
     end
 
-    # rubocop:disable Metrics/MethodLength
-    def book_visit(offender_id:, params:)
-      idempotent = params.key?(:client_unique_ref)
-      book_visit_request_options.merge!(params.delete(:headers))
-      response = @pool.with { |client|
-        client.post(
-          "offenders/#{offender_id}/visits/booking",
-          params,
-          idempotent: idempotent,
-          options: book_visit_request_options
-        )
-      }
-
-      Nomis::Booking.build(response).tap do |booking|
-        PVB::Instrumentation.append_to_log(
-          book_to_nomis_success: booking.visit_id.present?
-        )
-      end
-    end
-    # rubocop:enable Metrics/MethodLength
-
-    def cancel_visit(offender_id, booking_id, params:)
-      response = @pool.with { |client|
-        client.patch(
-          "offenders/#{offender_id}/visits/booking/#{booking_id}/cancel", params)
-      }
-      Nomis::Cancellation.new(response).tap do |cancellation|
-        PVB::Instrumentation.append_to_log(
-          cancel_to_nomis_success: cancellation.error_message.nil?)
-      end
-    end
-
   private
 
     def build_prisoner(response)
@@ -158,14 +126,6 @@ module Nomis
       else
         NullPrisoner.new(api_call_successful: true)
       end
-    end
-
-    def book_visit_request_options
-      @book_visit_request_options ||= {
-        connect_timeout: Nomis::Api::BOOK_VISIT_TIMEOUT,
-        read_timeout:    Nomis::Api::BOOK_VISIT_TIMEOUT,
-        write_timeout:   Nomis::Api::BOOK_VISIT_TIMEOUT
-      }
     end
 
     def api_serialiser

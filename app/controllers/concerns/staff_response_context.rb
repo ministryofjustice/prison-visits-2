@@ -9,16 +9,6 @@ module StaffResponseContext
       :staff_response
   end
 
-  def book_to_nomis_config
-    @book_to_nomis_config ||=
-      BookToNomisConfig.new(
-        nomis_checker,
-        memoised_visit.prison_name,
-        params[:book_to_nomis_opted_in],
-        @booking_response&.already_booked_in_nomis?,
-        prisoner_details)
-  end
-
   def nomis_checker
     @nomis_checker ||= StaffNomisChecker.new(memoised_visit)
   end
@@ -82,7 +72,7 @@ private
   def booking_responder
     @booking_responder ||= BookingResponder.new(
       staff_response,
-      message: message, options: booking_responder_opts)
+      message: message)
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -111,12 +101,4 @@ private
     )
   end
   # rubocop:enable Metrics/MethodLength
-
-  def booking_responder_opts
-    { persist_to_nomis: persist_to_nomis }
-  end
-
-  def persist_to_nomis
-    params[:book_to_nomis_opted_in]
-  end
 end

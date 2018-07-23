@@ -1,8 +1,6 @@
 class Prison::VisitsController < ApplicationController
   include StaffResponseContext
 
-  helper_method :book_to_nomis_config
-
   before_action :authorize_prison_request
   before_action :authenticate_user
   before_action :visit_is_processable, only: :update

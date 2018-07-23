@@ -63,38 +63,6 @@ RSpec.describe Nomis::Feature do
     end
   end
 
-  describe '.book_to_nomis_enabled?' do
-    context 'when the book to nomis flag is disabled' do
-      before do
-        switch_off :nomis_staff_book_to_nomis_enabled
-      end
-
-      it { expect(described_class.book_to_nomis_enabled?(anything)).to eq(false) }
-    end
-
-    context 'when the book to nomis flag is enabled' do
-      before do
-        switch_on :nomis_staff_book_to_nomis_enabled
-      end
-
-      context 'when the visit prison is not on the list' do
-        before do
-          switch_feature_flag_with(:staff_prisons_with_book_to_nomis, [])
-        end
-
-        it { expect(described_class.book_to_nomis_enabled?(prison_name)).to eq(false) }
-      end
-
-      context 'when the visit prison is on the list' do
-        before do
-          switch_feature_flag_with(:staff_prisons_with_book_to_nomis, [prison_name])
-        end
-
-        it { expect(described_class.book_to_nomis_enabled?(prison_name)).to eq(true) }
-      end
-    end
-  end
-
   describe '.restrictions_info_enabled?' do
     context 'with restrictions disabled' do
       before do
