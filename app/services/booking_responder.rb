@@ -1,12 +1,9 @@
 class BookingResponder
-  include PersistToNomisResponse
-
   delegate :visit, to: :staff_response
 
-  def initialize(staff_response, message: nil, options: {})
+  def initialize(staff_response, message: nil)
     self.staff_response   = staff_response
     self.message          = message
-    self.persist_to_nomis = options[:persist_to_nomis]
   end
 
   def respond!
@@ -40,7 +37,7 @@ private
         BookingResponder::Accept
       else
         BookingResponder::Reject
-      end.new(staff_response, processor_opts)
+      end.new(staff_response)
     end
   end
 
@@ -55,9 +52,5 @@ private
   def bookable?
     (visit.rejection.nil? || visit.rejection.invalid?) &&
       visit.slot_granted?
-  end
-
-  def processor_opts
-    { persist_to_nomis: persist_to_nomis? }
   end
 end

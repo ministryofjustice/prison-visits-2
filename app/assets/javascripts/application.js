@@ -32,7 +32,6 @@
 //= require modules/moj.emailPreview
 //= require modules/moj.multiSelect
 //= require modules/moj.tableSorter
-//= require modules/moj.BookToNomis
 //= require modules/moj.Rejection
 //= require modules/moj.restrictionOverrides
 //= require modules/moj.matchVisitors

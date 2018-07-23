@@ -20,7 +20,7 @@ Rails.application.config.content_security_policy do |config|
   if sentry_js_dsn.present?
     if sentry_js_dsn.match? URI.regexp(%w[http https])
       host = URI.parse(sentry_js_dsn).host
-      config.connect_src host
+      config.connect_src :self, host
     else
       raise '[FATAL] Sentry JS DSN (SENTRY_JS_DSN) is an invalid URI ' \
         '(we were expecting a valid URI with an http or https scheme): ' +

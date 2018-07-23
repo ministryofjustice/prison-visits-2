@@ -105,14 +105,6 @@ module PrisonVisits
       ENV['NOMIS_STAFF_RESTRICTIONS_ENABLED']&.downcase == 'true'
     end
 
-    config.nomis_staff_book_to_nomis_enabled = feature_flag_value.call do
-      ENV['NOMIS_STAFF_BOOK_TO_NOMIS_ENABLED']&.downcase == 'true'
-    end
-
-    config.staff_prisons_with_book_to_nomis = feature_flag_value.call do
-      ENV['STAFF_PRISONS_WITH_BOOK_TO_NOMIS']&.split(',')&.map(&:strip) || []
-    end
-
     config.staff_prisons_with_restrictions_info = feature_flag_value.call do
       ENV['STAFF_PRISONS_WITH_RESTRICTIONS_INFO']&.split(',')&.map(&:strip) || []
     end
