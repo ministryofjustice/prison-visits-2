@@ -61,10 +61,6 @@
         <strong class="bold-small"><%= t('.rejection_warning') %></strong>
       </div>
     </div>
-
-    <% if Nomis::Feature.book_to_nomis_enabled?(@visit.prison_name) %>
-      <%= render 'book_to_nomis_opt_in', f: f %>
-    <% end %>
   </div>
 
   <hr>

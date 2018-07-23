@@ -69,7 +69,6 @@
       } else {
         this.hideRejection();
       }
-      moj.Modules.BookToNomis.render();
     },
 
     conditionals: function(string) {

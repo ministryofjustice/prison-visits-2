@@ -27,13 +27,12 @@ private
     @cancellation_response ||= CancellationResponse.new(
       memoised_visit,
       cancellation_params,
-      user: current_user,
-      persist_to_nomis: params[:cancel_to_nomis_optout]
+      user: current_user
     )
   end
 
   def cancellation_params
-    params.require(:cancellation).permit(:nomis_cancelled, reasons: [])
+    params.require(:cancellation).permit(reasons: [])
   end
 
   def check_visit_cancellable
