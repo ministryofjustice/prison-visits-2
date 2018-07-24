@@ -3,7 +3,6 @@ Rails.application.config.content_security_policy do |config|
   config.font_src :self, :data
   config.img_src :self, :data, 'www.google-analytics.com'
   config.style_src :self, 'www.gstatic.com'
-  config.connect_src :self
   config.script_src :self,
     'www.google-analytics.com',
     'www.gstatic.com',
@@ -28,5 +27,6 @@ Rails.application.config.content_security_policy do |config|
     end
   else
     STDOUT.puts '[WARN] Sentry JS DSN is not set (SENTRY_JS_DSN)'
+    config.connect_src :self
   end
 end
