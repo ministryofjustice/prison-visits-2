@@ -43,13 +43,17 @@ RSpec.feature 'Printing a list of visits' do
   end
 
   context 'when searching for visits with a correctly formed date' do
+    let(:date) { 3.months.ago.to_date }
+
     it 'is a date without any visits booked in' do
       visit new_prison_print_visit_path
-      fill_in 'Day', with: '23'
-      fill_in 'Month', with: '01'
-      fill_in 'Year', with: '2018'
+      fill_in 'Day', with: date.day
+      fill_in 'Month', with: date.month
+      fill_in 'Year', with: date.year
+
       click_button('Show')
-      expect(page).to have_css('p', text: 'No visits on 23/01/2018')
+
+      expect(page).to have_css('p', text: "No visits on #{date.to_s(:short_nomis)}")
     end
 
     context 'when searching for visits' do
