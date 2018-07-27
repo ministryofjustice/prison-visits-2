@@ -12,7 +12,6 @@ RSpec.describe Metrics::RejectionPercentage do
       expect(subject.as_json).to eq(child_protection_issues:    0,
                                     no_adult:                   0,
                                     no_allowance:               0,
-                                    prisoner_banned:            0,
                                     prisoner_details_incorrect: 0,
                                     prisoner_moved:             0,
                                     prisoner_non_association:   0,

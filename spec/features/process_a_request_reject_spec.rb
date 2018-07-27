@@ -167,7 +167,6 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
     end
 
     scenario 'rejecting a booking with multiple rejection reasons' do
-      check 'Prisoner banned from receiving visits', visible: false
       check 'Prisoner on external movement', visible: false
       check 'Duplicate visit request'
 
@@ -177,7 +176,7 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
 
       vst.reload
       expect(vst.rejection_reasons).
-        to include('prisoner_banned', 'prisoner_out_of_prison', 'duplicate_visit_request')
+        to include('prisoner_out_of_prison', 'duplicate_visit_request')
 
       expect(vst).to be_rejected
 

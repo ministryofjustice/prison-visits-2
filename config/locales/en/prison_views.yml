@@ -138,7 +138,6 @@ en:
         email_preview: Preview email
         prisoner_available: Prisoner available
         slot_available: Space available
-        prisoner_banned: Visits banned
         out_of_vo: No visiting allowance
         external_movement: Prisoner on movement
         booked_visit: Booked on another visit
@@ -241,12 +240,10 @@ en:
         update_nomis: Please update any incorrect restrictions in NOMIS
         visiting_allowance: Visiting allowance
         allowance_renews_on: Allowance renews on
-        prisoner_banned: Prisoner banned from receiving visits
         prisoner_out_of_prison: Prisoner on external movement
         no_allowance: Prisoner does not have any visiting allowance
         prisoner_details_incorrect: Prisoner details are incorrect
       rejection_reason:
-        prisoner_banned: Prisoner banned from receiving visits
         prisoner_out_of_prison: Prisoner on external movement
         no_allowance: Prisoner does not have any visiting allowance
         prisoner_details_incorrect: Prisoner details are incorrect

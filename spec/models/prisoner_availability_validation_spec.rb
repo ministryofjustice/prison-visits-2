@@ -59,7 +59,6 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
       let(:date1_availability) do
         {
           date: slot1.to_date,
-          banned: false,
           out_of_vo: false,
           external_movement: false,
           existing_visits: []
@@ -69,7 +68,6 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
       let(:date2_availability) do
         {
           date: slot2.to_date,
-          banned: true,
           out_of_vo: true,
           external_movement: false,
           existing_visits: []
@@ -79,7 +77,6 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
       let(:date3_availability) do
         {
           date: slot3.to_date,
-          banned: false,
           out_of_vo: false,
           external_movement: false,
           existing_visits: []
