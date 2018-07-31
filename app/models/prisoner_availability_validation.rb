@@ -2,7 +2,6 @@ class PrisonerAvailabilityValidation
   include MemoryModel
 
   PRISONER_ERRORS = [
-    Nomis::PrisonerDateAvailability::BANNED,
     Nomis::PrisonerDateAvailability::OUT_OF_VO,
     Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT,
     Nomis::PrisonerDateAvailability::BOOKED_VISIT

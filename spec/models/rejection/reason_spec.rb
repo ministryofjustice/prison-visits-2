@@ -14,7 +14,7 @@ RSpec.describe Rejection::Reason, model: true do
   end
 
   context 'when there is another reason with a different explanation' do
-    let(:second_reason) { described_class.new(explanation: 'prisoner_banned') }
+    let(:second_reason) { described_class.new(explanation: 'external_movement') }
 
     it { is_expected.not_to eql(second_reason) }
 

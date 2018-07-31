@@ -12,7 +12,6 @@ class Rejection < ApplicationRecord
     'prisoner_non_association'.freeze
   CHILD_PROTECTION_ISSUES =
     'child_protection_issues'.freeze
-  PRISONER_BANNED = 'prisoner_banned'.freeze
   PRISONER_OUT_OF_PRISON = 'prisoner_out_of_prison'.freeze
   OTHER_REJECTION_REASON = 'other'.freeze
   VISITOR_OTHER_REASON = 'visitor_other_reason'.freeze
@@ -29,7 +28,6 @@ class Rejection < ApplicationRecord
     BANNED,
     NOT_ON_THE_LIST,
     'duplicate_visit_request',
-    PRISONER_BANNED,
     PRISONER_OUT_OF_PRISON,
     OTHER_REJECTION_REASON,
     VISITOR_OTHER_REASON

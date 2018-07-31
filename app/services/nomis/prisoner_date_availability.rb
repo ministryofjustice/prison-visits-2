@@ -4,7 +4,6 @@ module Nomis
 
     BOOKED_VISIT = 'booked_visit'.freeze
     EXTERNAL_MOVEMENT = 'external_movement'.freeze
-    BANNED = 'prisoner_banned'.freeze
     OUT_OF_VO = 'out_of_vo'.freeze
 
     attribute :date, :date
