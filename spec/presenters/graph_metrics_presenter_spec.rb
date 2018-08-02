@@ -271,6 +271,7 @@ RSpec.describe GraphMetricsPresenter do
                                    duplicate_visit_request:    16.67,
                                    no_adult:                   3.03,
                                    no_allowance:               4.55,
+                                   prisoner_banned:            0,
                                    prisoner_details_incorrect: 6.06,
                                    prisoner_moved:             7.58,
                                    prisoner_non_association:   9.09,
