@@ -43,7 +43,7 @@ en:
         <a href="%{url}">you can cancel this visit</a>.
       want_to_change: >-
         If you want to change anything about your visit, like dates or visitors
-        coming, contact the prison.
+        coming, you should cancel your visit and request another one.
       questions_about_your_visit: Questions about your visit
       dont_reply: >-
         Please don’t reply to this email if you have any other questions about
