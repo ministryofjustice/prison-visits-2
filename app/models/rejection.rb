@@ -15,6 +15,7 @@ class Rejection < ApplicationRecord
   PRISONER_OUT_OF_PRISON = 'prisoner_out_of_prison'.freeze
   OTHER_REJECTION_REASON = 'other'.freeze
   VISITOR_OTHER_REASON = 'visitor_other_reason'.freeze
+  PRISONER_BANNED = 'prisoner_banned'.freeze
 
   REASONS = [
     CHILD_PROTECTION_ISSUES,
@@ -30,7 +31,8 @@ class Rejection < ApplicationRecord
     'duplicate_visit_request',
     PRISONER_OUT_OF_PRISON,
     OTHER_REJECTION_REASON,
-    VISITOR_OTHER_REASON
+    VISITOR_OTHER_REASON,
+    PRISONER_BANNED
   ].freeze
 
   belongs_to :visit, inverse_of: :rejection
