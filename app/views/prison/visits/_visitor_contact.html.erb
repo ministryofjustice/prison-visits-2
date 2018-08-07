@@ -32,12 +32,6 @@
     </div>
   </div>
   <div>
-    <% if Nomis::Feature.restrictions_info_enabled?(@visit.prison_name) %>
-    <div class="border-box border-box--large border-box--orange push-bottom js-restrictions visuallyhidden">
-      <div class="bold-small push-bottom--half"><%= t('.restrictions_header') %></div>
-      <div class="js-restrictions-list"></div>
-    </div>
-    <% end %>
 </div>
   <div class="bold-small push-bottom--half"><%= t('.rejections_header') %></div>
   <div class="grid-row">
