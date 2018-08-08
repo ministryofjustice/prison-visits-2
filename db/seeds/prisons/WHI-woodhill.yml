@@ -17,8 +17,6 @@ lead_days: 3
 recurring:
   tue:
   - 1400-1600
-  wed:
-  - 1400-1600
   thu:
   - 1400-1600
   sat:
