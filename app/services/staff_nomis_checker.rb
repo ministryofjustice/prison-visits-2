@@ -67,10 +67,6 @@ private
     @prisoner_contact_list ||= PrisonerContactList.new(prisoner)
   end
 
-  def prisoner_restriction_list
-    @prisoner_restriction_list ||= PrisonerRestrictionList.new(prisoner)
-  end
-
   def prisoner_availability_validation
     @prisoner_availability_validation ||=
       PrisonerAvailabilityValidation.new(
