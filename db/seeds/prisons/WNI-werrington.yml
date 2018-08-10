@@ -12,8 +12,6 @@ private: false
 closed: false
 adult_age: 10
 recurring:
-  mon:
-  - 1415-1615
   tue:
   - 1415-1615
   wed:
