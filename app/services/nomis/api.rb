@@ -102,14 +102,6 @@ module Nomis
       end
     end
 
-    def fetch_prisoner_restrictions(offender_id:)
-      response = @pool.with { |client|
-        client.get("offenders/#{offender_id}/visits/restrictions")
-      }
-
-      Nomis::PrisonerRestrictions.new(response)
-    end
-
     def fetch_contact_list(offender_id:)
       response = @pool.with { |client|
         client.get("offenders/#{offender_id}/visits/contact_list")
