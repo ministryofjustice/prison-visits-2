@@ -122,7 +122,7 @@ module Nomis
 
     def build_prisoner(response)
       if response['found'] == true
-        api_serialiser.serialise(Prisoner, response['offender'])
+        api_serialiser.serialise(Nomis::Prisoner, response['offender'])
       else
         NullPrisoner.new(api_call_successful: true)
       end
