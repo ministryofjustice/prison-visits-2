@@ -101,14 +101,6 @@ module PrisonVisits
       ENV['PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY']&.split(',')&.map(&:strip) || []
     end
 
-    config.nomis_staff_restrictions_enabled = feature_flag_value.call do
-      ENV['NOMIS_STAFF_RESTRICTIONS_ENABLED']&.downcase == 'true'
-    end
-
-    config.staff_prisons_with_restrictions_info = feature_flag_value.call do
-      ENV['STAFF_PRISONS_WITH_RESTRICTIONS_INFO']&.split(',')&.map(&:strip) || []
-    end
-
     config.zendesk_token = feature_flag_value.call do
       ENV.fetch('ZENDESK_TOKEN', nil)
     end

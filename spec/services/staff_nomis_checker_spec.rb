@@ -22,10 +22,6 @@ RSpec.describe StaffNomisChecker do
       it { is_expected.not_to be_slot_availability_unknown }
     end
 
-    describe '#prisoner_restrictions_unknown?' do
-      it { is_expected.not_to be_prisoner_restrictions_unknown }
-    end
-
     describe '#errors_for' do
       it { expect(subject.errors_for(visit.slots.first)).to be_empty }
     end
@@ -164,60 +160,6 @@ RSpec.describe StaffNomisChecker do
         end
       end
     end
-
-    context 'with prisoner restrictions' do
-      context 'when NOMIS_STAFF_RESTRICTIONS_ENABLED' do
-        let(:prisoner_availability_validator) do
-          instance_double(PrisonerAvailabilityValidation, valid?: false, slot_errors: [])
-        end
-
-        context 'when it is disabled' do
-          before do
-            switch_off(:nomis_staff_restrictions_enabled)
-            mock_nomis_with(:lookup_active_prisoner, nomis_prisoner)
-            mock_service_with(PrisonerAvailabilityValidation, prisoner_availability_validator)
-          end
-
-          it { expect(subject.errors_for(slot)).to be_empty }
-        end
-
-        context 'when it is enabled' do
-          before do
-            switch_on(:nomis_staff_restrictions_enabled)
-            mock_nomis_with(:lookup_active_prisoner, nomis_prisoner)
-          end
-
-          context 'with a valid prisoner' do
-            let(:prisoner_restrictions_list) do
-              instance_double(PrisonerRestrictionList, on_slot: messages)
-            end
-
-            before do
-              mock_service_with(PrisonerRestrictionList, prisoner_restrictions_list)
-              mock_service_with(PrisonerAvailabilityValidation, prisoner_availability_validator)
-            end
-
-            context 'with an error' do
-              let(:messages) { [Nomis::Restriction::CLOSED_NAME] }
-
-              it { expect(subject.errors_for(slot)).to eq(messages) }
-            end
-
-            context 'with no errors' do
-              let(:messages) { [] }
-
-              it { expect(subject.errors_for(slot)).to be_empty }
-            end
-          end
-
-          context 'with a null prisoner' do
-            let(:nomis_prisoner) { Nomis::NullPrisoner.new }
-
-            it { expect(subject.errors_for(slot)).to be_empty }
-          end
-        end
-      end
-    end
   end
 
   describe '#slots_unavailable?' do
@@ -335,32 +277,6 @@ RSpec.describe StaffNomisChecker do
     end
   end
 
-  describe '#prisoner_restrictions_unknown?' do
-    context 'with NOMIS_STAFF_OFFENDER_RESTRICTION_ENABLED switched ON' do
-      let(:restrictions_list) do
-        instance_double(PrisonerRestrictionList)
-      end
-
-      let(:prisoner_restrictions_api_error) { false }
-
-      before do
-        switch_on(:nomis_staff_restrictions_enabled)
-        switch_feature_flag_with(:staff_prisons_with_restrictions_info, %w[Pentonville])
-        mock_nomis_with(:lookup_active_prisoner, nomis_prisoner)
-        expect(restrictions_list).to receive(:unknown_result?).and_return(prisoner_restrictions_api_error)
-        mock_service_with(PrisonerRestrictionList, restrictions_list)
-      end
-
-      it { is_expected.not_to be_prisoner_restrictions_unknown }
-
-      context 'when the prisoner restrictions returns an API error' do
-        let(:prisoner_restrictions_api_error) { true }
-
-        it { is_expected.to be_prisoner_restrictions_unknown }
-      end
-    end
-  end
-
   describe '#approved_contacts' do
     let(:approved_contacts) { double }
     let(:contact_list) do
@@ -374,33 +290,6 @@ RSpec.describe StaffNomisChecker do
 
     it 'returns the prisoner approved contacts' do
       expect(subject.approved_contacts).to eq(approved_contacts)
-    end
-  end
-
-  describe '#prisoner_restrictions' do
-    context 'with the prison enabled' do
-      before do
-        switch_feature_flag_with(:staff_prisons_with_restrictions_info, [visit.prison_name])
-        switch_on(:nomis_staff_restrictions_enabled)
-        mock_nomis_with(:lookup_active_prisoner, nomis_prisoner)
-        mock_service_with(PrisonerRestrictionList, prisoner_restrictions_list)
-      end
-
-      let(:active_restrictions) { [double(Nomis::Restriction)] }
-
-      let(:prisoner_restrictions_list) do
-        double(PrisonerRestrictionList, active: active_restrictions)
-      end
-
-      it { expect(subject.prisoner_restrictions).to eq(active_restrictions) }
-    end
-
-    context 'with the prisone not enabled' do
-      before do
-        switch_feature_flag_with(:staff_prisons_with_restrictions_info, [])
-      end
-
-      it { expect(subject.prisoner_restrictions).to be_empty }
     end
   end
 

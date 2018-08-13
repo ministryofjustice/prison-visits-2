@@ -104,14 +104,3 @@
     <% end %>
   </div>
 </div>
-
-<% if @visit.prisoner_restrictions.any? %>
-  <div class="border-box border-box--large border-box--orange push-top">
-    <h3 class="bold-medium">
-      <%= t('.prisoner_restrictions_apply') %><div class="push-left--half font-xsmall tag tag--verified"><%= t('.verified') %></div>
-    </h3>
-    <% @visit.prisoner_restrictions.each do |restriction| %>
-      <%= render 'prisoner_restriction', restriction: restriction %>
-    <% end %>
-  </div>
-<% end %>

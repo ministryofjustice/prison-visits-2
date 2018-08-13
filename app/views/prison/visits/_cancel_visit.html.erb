@@ -1,5 +1,4 @@
 <%= form_for [:prison, @visit, @visit.cancellation], class: 'form' do |f| -%>
-  <%= hidden_field_tag :cancel_to_nomis_optout, true %>
   <h3 class="heading-medium"><%= t(".title") %></h3>
   <%= error_container(f, :reasons, class: 'form-group') do %>
     <div class="grid-row">
