@@ -18,11 +18,6 @@
       this.$el = $('.js-visitorList');
       this.$notAllMessage = this.$el.find('.js-notAllProcessed');
       this.totalVisitors = this.$el.find('select').length;
-      this.restrictionTemplate = '<div class="restriction push-top--half">' +
-          '<span class="restriction__date"></span>: ' +
-          '<span class="bold-small restriction__type"></span> ' +
-          '<div class="restriction__details"></div>' +
-        '</div>';
     },
 
     bindEvents: function() {
@@ -48,7 +43,6 @@
         }
 
         self.processVisitor(parent, !val == '');
-        self.checkRestrictions(this, contact);
         self.checkStatus();
       });
 
@@ -66,7 +60,6 @@
       if (this.isContactBanned(contactData)) {
         this.setBanned(parent, this.isContactBanned(contactData));
       }
-      this.checkRestrictions(el, contactData);
       this.checkStatus();
     },
 
@@ -217,10 +210,6 @@
       return isBanned;
     },
 
-    isContactRestricted: function(contact) {
-      return contact && contact.restrictions && contact.restrictions.length > 0
-    },
-
     setBanned: function(el, selected) {
       el.find(this.bannedCheckbox).prop('checked', selected).trigger('change');
     },
@@ -252,36 +241,6 @@
         this.checkTotalVisitors();
       }
     },
-
-    checkRestrictions: function(el, contactData) {
-      this.isContactRestricted(contactData)? this.showRestrictions($(el), contactData) : this.hideRestrictions($(el));
-    },
-
-    showRestrictions: function(el, data) {
-      var $restrictionsEl = el.parents('li').find('.js-restrictions'),
-        $restrictionsListEl = $restrictionsEl.find('.js-restrictions-list').empty();
-      for(var i=0;i<data.restrictions.length;i++){
-        var contact = data.restrictions[i].attributes,
-          date = contact.expiry_date? this.formatDate(contact.effective_date)+' to '+ this.formatDate(contact.expiry_date): this.formatDate(contact.effective_date),
-          $restrictionItem = $(this.restrictionTemplate).clone();
-        $restrictionItem.find('.restriction__date').text(date);
-        $restrictionItem.find('.restriction__type').text(contact.type.attributes.desc);
-        $restrictionItem.find('.restriction__details').text(contact.comment_text);
-        $restrictionItem.appendTo($restrictionsListEl);
-      }
-      $restrictionsEl.removeClass('visuallyhidden')
-
-    },
-
-    hideRestrictions: function($el) {
-      $el.parents('li').find('.js-restrictions').addClass('visuallyhidden')
-    },
-
-    formatDate: function(str) {
-      var date = new Date(str);
-      return date.getDate()+'/'+('0' + (date.getMonth() + 1)).slice(-2)+'/'+date.getFullYear();
-    }
-
   };
 
 }());

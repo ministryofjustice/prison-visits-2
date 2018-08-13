@@ -24,10 +24,6 @@ module Nomis
       date >= effective_date && (expiry_date.nil? || date <= expiry_date)
     end
 
-    def name
-      return CLOSED_NAME if closed?
-    end
-
     def description
       type.desc
     end

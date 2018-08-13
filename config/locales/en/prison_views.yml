@@ -149,7 +149,6 @@ en:
         none_available: None of the chosen times are available
       prisoner_details:
         title: Prisoner details
-        prisoner_restrictions_apply: Prisoner restrictions apply
         prisoner_name: Prisoner name
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
@@ -231,7 +230,6 @@ en:
         none_available: None of the chosen times are available
         prisoner_availability_unknown: You must check NOMIS to verify prisoner availability
         slot_availability_unknown: You must check NOMIS to verify slot availability
-        prisoner_restrictions_unknown: We can’t show the NOMIS prisoner restrictions right now. Please check all prisoner restrictions in NOMIS
       rejection_nomis:
         nomis_rejection_title: Rejections verified by NOMIS
         nomis_rejection_intro: We have checked these rejection reasons in NOMIS and automatically ticked any that apply.
@@ -286,8 +284,6 @@ en:
         banned_until: Banned until
         banned_until_hint: eg 28 04 1996
         please_select: Please select a contact
-        restrictions_header: Visitor restrictions apply
-        rejections_header: Visitor rejection reasons
       banned:
         banned: Visitor is banned
       not_on_list:
