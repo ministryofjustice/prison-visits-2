@@ -13,28 +13,6 @@ RSpec.describe Nomis::Feature do
     it { expect(described_class.slot_availability_enabled?(anything)).to eq(false) }
   end
 
-  describe 'when the api is enabled' do
-    it { expect(described_class).not_to be_restrictions_enabled }
-
-    context 'with the prisoner check enabled' do
-      context 'with restrictions enabled' do
-        before do
-          switch_on :nomis_staff_restrictions_enabled
-        end
-
-        it { expect(described_class).to be_restrictions_enabled }
-      end
-
-      context 'with restrictions disabled' do
-        before do
-          switch_off :nomis_staff_restrictions_enabled
-        end
-
-        it { expect(described_class).not_to be_restrictions_enabled }
-      end
-    end
-  end
-
   describe '.slot_availability_enabled?' do
     context 'when the slot availability flag is disabled' do
       before do
@@ -60,38 +38,6 @@ RSpec.describe Nomis::Feature do
       end
 
       it { expect(described_class.slot_availability_enabled?(prison_name)).to eq(true) }
-    end
-  end
-
-  describe '.restrictions_info_enabled?' do
-    context 'with restrictions disabled' do
-      before do
-        switch_off :nomis_staff_restrictions_enabled
-      end
-
-      it { expect(described_class.restrictions_info_enabled?(anything)).to eq(false) }
-    end
-
-    context 'with restrictions enabled' do
-      before do
-        switch_on :nomis_staff_restrictions_enabled
-      end
-
-      context 'when the prison is not on the list for restrictions info' do
-        before do
-          switch_feature_flag_with(:staff_prisons_with_restrictions_info, [])
-        end
-
-        it { expect(described_class.restrictions_info_enabled?(anything)).to eq(false) }
-      end
-
-      context 'when the prison is not the list for restrictions info' do
-        before do
-          switch_feature_flag_with(:staff_prisons_with_restrictions_info, [prison_name])
-        end
-
-        it { expect(described_class.restrictions_info_enabled?(prison_name)).to eq(true) }
-      end
     end
   end
 end

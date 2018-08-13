@@ -11,17 +11,6 @@ RSpec.describe VisitDecorator do
     allow(subject).to receive(:nomis_checker).and_return(checker)
   end
 
-  describe '#prisoner_restrictions' do
-    let(:restriction) { Nomis::Restriction.new }
-
-    before do
-      expect(checker).
-        to receive(:prisoner_restrictions).and_return([restriction])
-    end
-
-    it { expect(subject.prisoner_restrictions).to all(be_decorated) }
-  end
-
   describe '#slots'do
     it 'are decorated object' do
       expect(subject.slots).to all(be_decorated)

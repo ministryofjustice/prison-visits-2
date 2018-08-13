@@ -222,39 +222,6 @@ RSpec.describe Nomis::Api do
     end
   end
 
-  describe 'fetch_prisoner_restrictions', vcr: { cassette_name: :fetch_prisoner_restrictions } do
-    let(:params) do
-      {
-        offender_id: 1_057_307
-      }
-    end
-
-    subject { super().fetch_prisoner_restrictions(params) }
-
-    it 'returns an array of restrictions' do
-      expect(subject).to have_exactly(10).items
-    end
-
-    context 'with restriction_parsing' do
-      let(:expected_restriction) do
-        Nomis::Restriction.new(
-          type: { code: 'CCTV', desc: 'CCTV' },
-          effective_date: Date.parse('2017-07-24'),
-          expiry_date: Date.parse('2017-09-17')
-        )
-      end
-
-      let(:first_restriction) { subject.first }
-
-      it 'parses the response' do
-        expect(first_restriction.type.code).to      eq(expected_restriction.type.code)
-        expect(first_restriction.type.desc).to      eq(expected_restriction.type.desc)
-        expect(first_restriction.effective_date).to eq(expected_restriction.effective_date)
-        expect(first_restriction.expiry_date).to    eq(expected_restriction.expiry_date)
-      end
-    end
-  end
-
   describe 'fetch_contact_list', vcr: { cassette_name: :fetch_contact_list } do
     let(:params) do
       {

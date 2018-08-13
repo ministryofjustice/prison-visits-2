@@ -6,7 +6,6 @@ class VisitDecorator < Draper::Decorator
     :slot_availability_unknown?,
     :slots_unavailable?,
     :contact_list_unknown?,
-    :prisoner_restrictions_unknown?,
     :prisoner,
     to: :nomis_checker
 
@@ -60,12 +59,6 @@ class VisitDecorator < Draper::Decorator
       contact_list_working? &&
       principal_visitor.exact_match? &&
       !principal_visitor.banned?
-  end
-
-  def prisoner_restrictions
-    @prisoner_restrictions ||=
-      PrisonerRestrictionDecorator.decorate_collection(
-        nomis_checker.prisoner_restrictions)
   end
 
   def prisoner_iep_level
