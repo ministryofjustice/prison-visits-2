@@ -166,6 +166,7 @@ RSpec.describe EstateVisitQuery do
     let!(:visit1) do
       create(:visit, :requested, prison: prison)
     end
+
     let!(:visit2) do
       create(:visit, :requested, prison: prison)
     end
