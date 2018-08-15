@@ -52,7 +52,7 @@ RSpec.describe Api::FeedbackController, type: :controller do
       let(:body) { nil }
 
       it 'does not send to ZenDesk' do
-        expect(ZendeskTicketsJob).to receive(:perform_later).never
+        expect(ZendeskTicketsJob).not_to receive(:perform_later)
         create
       end
 
