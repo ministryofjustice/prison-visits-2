@@ -1,12 +1,29 @@
-<h3 class="heading-medium hidden--print"><%= t('.visit_list') %></h3>
-<% grouped_visits['booked'].each_with_index do |(slot, visits), index| %>
-  <% unless index.zero? %>
-    <div class="page-break"></div>
-  <% end %>
-  <%= render 'prison/dashboards/print_slot', slot: slot, visits: visits %>
-  <% visits.each do |visit| %>
-    <div class="page-break"></div>
-    <%= render 'prison/dashboards/print_details', visit: visit %>
-    <hr>
-  <% end %>
-<% end -%>
+<div class="js-print-visits">
+  <span class="hidden--print">
+    <%= link_to t('.download_csv_html'), prison_print_visit_path(print_visits: {visit_date: @print_visits.visit_date_attributes}, format: :csv) %>
+  </span>
+  <a class="push-left--half hidden--print print-link js-print-list" href="#"><%= t('.print') %></a>
+  <% @data.each_with_index do |(prison_name, grouped_visits), index| %>
+
+    <% unless index.zero? %>
+      <div class="page-break"></div>
+    <% end -%>
+
+    <h2 class="heading-xlarge"><%= prison_name %></h2>
+
+    <% if grouped_visits['booked'].nil? -%>
+      <p class="lede push-top"><%= t('.no_bookings') %></p>
+    <% else %>
+      <%= render 'prison/dashboards/print_booked_visits', grouped_visits: grouped_visits %>
+    <% end -%>
+
+    <% if grouped_visits['cancelled'].nil? -%>
+      <div class="hidden--print">
+        <div class="page-break"></div>
+        <h3 class="heading-medium"><%= t('.no_cancellations') %></h3>
+      </div>
+    <% else %>
+      <%= render 'prison/dashboards/print_cancelled_visits', grouped_visits: grouped_visits %>
+    <% end -%>
+  <% end -%>
+</div>

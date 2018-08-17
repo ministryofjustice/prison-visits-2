@@ -6,43 +6,22 @@
 
 <%= render 'visit_date' %>
 
-<% if !@submitted_date.nil? %>
-  <% if !@print_visits.valid? %>
-    <p class="error-message"><%= t('search_date_invalid_html', scope: [:print_visits, :errors], url: new_prison_feedback_path) %></p>
-  <% elsif @data.any? %>
-    <div class="js-print-visits">
-      <span class="hidden--print">
-        <%= link_to t('.download_csv_html'), prison_print_visit_path(print_visits: { visit_date: @print_visits.visit_date_attributes }, format: :csv) %>
-      </span>
-      <a class="push-left--half hidden--print print-link js-print-list" href="#"><%= t('.print') %></a>
-      <% @data.each_with_index do |(prison_name, grouped_visits), index| %>
-        <% unless index.zero? %>
-          <div class="page-break"></div>
-        <% end %>
-        <h2 class="heading-xlarge"><%= prison_name %></h2>
-        <% if grouped_visits['booked'].nil? -%>
-          <p class="lede push-top"><%= t('.no_bookings') %></p>
-        <% else %>
-          <%= render 'prison/dashboards/print_visits', grouped_visits: grouped_visits %>
-        <% end -%>
+<% if !@submitted_date.nil? && !@print_visits.valid? %>
+  <p class="error-message"><%= t('search_date_invalid_html', scope: [:print_visits, :errors], url: new_prison_feedback_path) %></p>
+<% end -%>
 
-        <% if grouped_visits['cancelled'].nil? -%>
-          <div class="hidden--print">
-            <div class="page-break"></div>
-            <h3 class="heading-medium"><%= t('.no_cancellations') %></h3>
-          </div>
-        <% else %>
-          <div class="page-break"></div>
-          <h3 class="heading-medium"><%= t('.cancelled_visits') %></h3>
-          <% grouped_visits['cancelled'].each_with_index do |(slot, visits), index| %>
-            <%= render 'prison/dashboards/print_cancelled_slot', slot: slot, visits: visits %>
-          <% end -%>
-        <% end -%>
-      <% end -%>
-    </div>
-  <% else %>
-    <p class="lede"><%= t('.no_visits', date: @submitted_date.to_s(:short_nomis)) %></p>
-  <% end %>
-<% else %>
+<% if !@submitted_date.nil? && !@print_visits.valid? %>
+  <p class="error-message"><%= t('search_date_invalid_html', scope: [:print_visits, :errors], url: new_prison_feedback_path) %></p>
+<% end -%>
+
+<% if !@submitted_date.nil? && @data.any? %>
+  <%= render 'prison/dashboards/print_visits' %>
+<% end -%>
+
+<% if !@submitted_date.nil? && !@data.any? %>
+  <p class="lede"><%= t('.no_visits', date: @submitted_date.to_s(:short_nomis)) %></p>
+<% end -%>
+
+<% if @submitted_date.nil? %>
   <p class="lede"><%= t('.search_list') %></p>
-<% end %>
+<% end -%>

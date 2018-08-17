@@ -1,0 +1,12 @@
+<h3 class="heading-medium hidden--print"><%= t('.visit_list') %></h3>
+<% grouped_visits['booked'].each_with_index do |(slot, visits), index| %>
+  <% unless index.zero? %>
+    <div class="page-break"></div>
+  <% end -%>
+  <%= render 'prison/dashboards/print_slot', slot: slot, visits: visits %>
+  <% visits.each do |visit| %>
+    <div class="page-break"></div>
+    <%= render 'prison/dashboards/print_details', visit: visit %>
+    <hr>
+  <% end -%>
+<% end -%>

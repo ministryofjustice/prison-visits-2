@@ -1,0 +1,5 @@
+<div class="page-break"></div>
+<h3 class="heading-medium"><%= t('.cancelled_visits') %></h3>
+<% grouped_visits['cancelled'].each_with_index do |(slot, visits), index| %>
+  <%= render 'prison/dashboards/print_cancelled_slot', slot: slot, visits: visits %>
+<% end -%>
