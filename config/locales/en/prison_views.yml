@@ -59,12 +59,6 @@ en:
         show: Show
         visit_date_hint: For example 01 03 2018.  We can only show visits within the last 6 months. Please contact us if you would like to see older visits.
       show:
-        download_csv_html: |
-          Download CSV <span class="visuallyhidden">(link opens in a new browser window)</span>
-        print: Print
-        no_bookings: No bookings
-        no_cancellations: No cancellations
-        cancelled_visits: Cancelled visits
         no_visits: "No visits on %{date}"
         search_list: Search to generate print lists
     dashboards:
@@ -112,7 +106,15 @@ en:
           <p class="text-secondary">Below are visit requests made in the last 6 months.
           Please <a href='/prison/feedbacks/new'>contact us</a> if you would like to see older visits.</p>
       print_visits:
+        no_bookings: No bookings
+        no_cancellations: No cancellations
+        print: Print
+        download_csv_html: |
+                  Download CSV <span class="visuallyhidden">(link opens in a new browser window)</span>
+      print_booked_visits:
         visit_list: Visit List
+      print_cancelled_visits:
+        cancelled_visits: Cancelled visits
     visits:
       calendar:
         today: Today
