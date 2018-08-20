@@ -15,16 +15,12 @@ class ApiPrisonerChecker
   end
 
   def error
-    prisoner_validation.errors[:base].first || prisoner_location.errors[:base].first
+    prisoner_validation.errors[:base].first
   end
 
 private
 
   def prisoner_validation
     @prisoner_validation ||= PrisonerValidation.new(@prisoner).tap(&:valid?)
-  end
-
-  def prisoner_location
-    @prisoner_location ||= PrisonerLocationValidation.new(@prisoner).tap(&:valid?)
   end
 end
