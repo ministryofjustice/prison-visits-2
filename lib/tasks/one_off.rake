@@ -86,38 +86,6 @@ namespace :pvb do
   # rubocop:enable Lint/AssignmentInCondition
   # rubocop:enable Metrics/PerceivedComplexity
 
-  desc 'Email slot availability for outstanding prisons'
-  task email_slot_availability: :environment do
-    pool = ConnectionPool.new(size: 2, timeout: 60) do
-      Nomis::Client.new(Rails.configuration.nomis_api_host,
-        Rails.configuration.nomis_api_token,
-        Rails.configuration.nomis_api_key)
-    end
-
-    prison_data = {}
-
-    Prison.enabled.pluck('name').sort.each do |name|
-      if Rails.
-          configuration.
-          staff_prisons_with_slot_availability.include?(name)
-        next
-      end
-      check_estate_slot_availability(pool, name)
-
-      prison_data[name] = {
-        visits_checked: SlotAvailabilityCounter.visits_checked,
-        unavailable_visits: SlotAvailabilityCounter.unavailable_visits,
-        retries: SlotAvailabilityCounter.retries,
-        hard_failures: SlotAvailabilityCounter.retries,
-        bad_range: SlotAvailabilityCounter.bad_range
-      }
-
-      SlotAvailabilityCounter.reset
-    end
-
-    AdminMailer.slot_availability(prison_data).deliver_now!
-  end
-
   desc 'Migrate processed_by and visitor to creator'
   task migrate_visit_state_creator: :environment do
     VisitStateChange.find_each do |visit_state_change|
