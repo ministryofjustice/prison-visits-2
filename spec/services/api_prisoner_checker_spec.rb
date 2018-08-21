@@ -18,41 +18,27 @@ RSpec.describe ApiPrisonerChecker, :expect_exception do
     end
 
     context 'when the api is enabled' do
-      context 'when the api call is successful' do
+      let(:prisoner) { Nomis::Prisoner.new(id: 'some_id', noms_id: 'a_noms_id') }
+
+      context 'when the prisoner is found' do
         before do
           mock_nomis_with(:lookup_active_prisoner, prisoner)
         end
 
-        describe 'when the prisoner is found' do
-          let(:prisoner) { Nomis::Prisoner.new(id: 'some_id', noms_id: 'a_noms_id') }
-
-          context 'with a valid establishment' do
-            let(:establishment) { Nomis::Establishment.new(code: 'a_code') }
-
-            before do
-              mock_nomis_with(:lookup_prisoner_location, establishment)
-            end
-
-            it { is_expected.to be_valid }
-          end
-
-          context 'when fetching the establishment returns an APIError' do
-            before do
-              simulate_api_error_for(:lookup_prisoner_location)
-            end
-
-            it { is_expected.not_to be_valid }
-          end
-        end
-
-        describe 'when the prisoner is not found' do
-          let(:prisoner) { Nomis::NullPrisoner.new(api_call_successful: true) }
-
-          it { is_expected.not_to be_valid }
-        end
+        it { is_expected.to be_valid }
       end
 
-      describe 'when the api call fails' do
+      context 'when the prisoner is not found' do
+        before do
+          mock_nomis_with(:lookup_active_prisoner, null_prisoner)
+        end
+
+        let(:null_prisoner) { Nomis::NullPrisoner.new(api_call_successful: true) }
+
+        it { is_expected.not_to be_valid }
+      end
+
+      context 'when the api call fails' do
         before do
           expect_any_instance_of(Nomis::Client).
             to receive(:get).and_raise(Nomis::APIError)
