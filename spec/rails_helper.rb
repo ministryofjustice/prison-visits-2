@@ -41,6 +41,18 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
   end
 
+  config.around(:each, type: :controller) do |ex|
+    EstateSSOMapper.reset_grouped_estates
+    ex.run
+    EstateSSOMapper.reset_grouped_estates
+  end
+
+  config.around(:each, type: :feature) do |ex|
+    EstateSSOMapper.reset_grouped_estates
+    ex.run
+    EstateSSOMapper.reset_grouped_estates
+  end
+
   config.before(:each, js: true) do
     DatabaseCleaner.strategy = :truncation
   end

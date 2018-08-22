@@ -1,26 +1,32 @@
 class EstateSSOMapper
   DIGITAL_ORG = 'digital.noms.moj'.freeze
 
+  # Can't use a hash with a default value of an empty array because we want to
+  # freeze it. A frozen hash with default values can't read unknown values or it
+  # raises a frozen error.
   def self.grouped_estates
     @grouped_estates ||= begin
-      grouped_estates = Hash.new { |h, k| h[k] = [] }
-      Estate.where.not(admins: nil).map do |estate|
-        estate.admins.map do |admin|
-          grouped_estates[admin] << estate.sso_organisation_name
+      grouped_estates = Estate.all.each_with_object({}) do |estate, result|
+        estate.admins.each do |admin|
+          result[admin] ||= []
+          result[admin] << estate.sso_organisation_name
         end
       end
-      grouped_estates.values.freeze
+      grouped_estates.values.each(&:freeze)
       grouped_estates.freeze
     end
   end
 
-  def initialize(orgs)
-    @orgs = orgs
+  def self.reset_grouped_estates
+    @grouped_estates = nil
+  end
+
+  def initialize(user_sso_orgs)
+    self.user_sso_orgs = user_sso_orgs
   end
 
   def accessible_estates
-    return [] if @orgs.empty?
-
+    return [] if user_sso_orgs.empty?
     if admin?
       Estate.all
     else
@@ -29,26 +35,20 @@ class EstateSSOMapper
   end
 
   def admin?
-    @orgs.include?(DIGITAL_ORG)
+    user_sso_orgs.include?(DIGITAL_ORG)
   end
 
 private
 
+  attr_accessor :user_sso_orgs
+
   def accessible_sso_names
-    @orgs.each_with_object([]) do |org, result|
-      if multi_estate?(org)
-        estates_for(org).each { |estate| result << estate }
-      else
-        result << org
-      end
+    user_sso_orgs.each_with_object([]) do |org, result|
+      estates_for(org).each { |estate| result << estate }
     end.uniq
   end
 
-  def multi_estate?(org)
-    self.class.grouped_estates.key?(org)
-  end
-
   def estates_for(org)
-    self.class.grouped_estates[org]
+    self.class.grouped_estates[org] || []
   end
 end
