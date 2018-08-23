@@ -12,7 +12,8 @@ RSpec.feature 'Update slots for a prison', js: true do
         'last_name' => 'Goldman',
         'email' => 'joe@example.com',
         'permissions' => [
-          { 'organisation' => prisons.map(&:estate).map(&:sso_organisation_name), roles: [] }
+          { 'organisation' => prisons.first.estate.sso_organisation_name, roles: [] },
+          { 'organisation' => prisons.second.estate.sso_organisation_name, roles: [] }
         ],
         'links' => {
           'profile' => 'http://example.com/profile',

@@ -118,7 +118,6 @@ DWI:
   admins:
     - apvu.noms.moj
     - downview.prisons.noms.moj
-
 EEI:
   name: Erlestoke
   admins:
@@ -154,7 +153,7 @@ EYI:
 FBI:
   name: Forest Bank
   admins:
-    - forest_park.prisons.noms.moj
+    - forest_bank.prisons.noms.moj
 FDI:
   name: Ford
   admins:
@@ -176,7 +175,7 @@ FMI:
 FNI:
   name: Full Sutton
   admins:
-    - full_stutton.prisons.noms.moj
+    - full_sutton.prisons.noms.moj
 FSI:
   name: Featherstone
   admins:
@@ -188,7 +187,7 @@ GHI:
 GMI:
   name: Guys Marsh
   admins:
-    - garth.prisons.noms.moj
+    - guys_marsh.prisons.noms.moj
 GNI:
   name: Grendon
   admins:
@@ -204,7 +203,7 @@ GTI:
 HBI:
   name: Hollesley Bay Open
   admins:
-    - hollesley_bay_open.prison.noms.moj
+    - hollesley_bay_open.prisons.noms.moj
 HCI:
   name: Huntercombe
   admins:
@@ -213,7 +212,7 @@ HDI:
   name: Hatfield Open
   finder_slug: hatfield
   admins:
-    - hatfield.prisons.noms.moj
+    - hatfield_open.prisons.noms.moj
 HEI:
   name: Hewell
   admins:
@@ -233,7 +232,7 @@ HLI:
 HMI:
   name: Humber
   admins:
-    - humber.prison.noms.moj
+    - humber.prisons.noms.moj
 HOI:
   name: High Down
   admins:
@@ -271,7 +270,7 @@ KTI:
 KVI:
   name: Kirklevington Grange
   admins:
-    - kirklevington.prisons.noms.moj
+    - kirklevington_grange.prisons.noms.moj
 LCI:
   name: Leicester
   admins:
@@ -283,7 +282,7 @@ LEI:
 LFI:
   name: Lancaster Farms
   admins:
-    - lancaster.prisons.noms.moj
+    - lancaster_farms.prisons.noms.moj
 LGI:
   name: Lowdham Grange
   admins:
@@ -295,7 +294,7 @@ LHI:
 LII:
   name: Lincoln
   admins:
-    lindholme.prisons.noms.moj
+    - lincoln.prisons.noms.moj
 LLI:
   name: Long Lartin
   admins:
@@ -308,15 +307,15 @@ LPI:
   name: Liverpool
   finder_slug: liverpool
   admins:
-    liverpool.prisons.noms.moj
+    - liverpool.prisons.noms.moj
 LTI:
   name: Littlehey
   admins:
-    littlehey.prisons.noms.moj
+    - littlehey.prisons.noms.moj
 LWI:
   name: Lewes
   admins:
-    lewes.prisons.noms.moj
+    - lewes.prisons.noms.moj
 LYI:
   name: Leyhill
   admins:
@@ -329,7 +328,7 @@ MDI:
 MHI:
   name: Morton Hall
   admins:
-    - morton.hall.prisons.noms.moj
+    - morton_hall.prisons.noms.moj
 MRI:
   name: Manchester
   admins:
@@ -341,7 +340,7 @@ MSI:
 MTI:
   name: The Mount
   admins:
-    the_mount.prisons.noms.moj
+    - the_mount.prisons.noms.moj
 MWI:
   name: Medway Secure Training Centre
   admins:
@@ -396,7 +395,7 @@ PRI:
 PVI:
   name: Pentonville
   admins:
-    pentonville.prisons.noms.moj
+    - pentonville.prisons.noms.moj
 RCI:
   name: Rochester
   admins:
@@ -404,7 +403,7 @@ RCI:
 RHI:
   name: Rye Hill
   admins:
-    rye_hill.prisons.noms.moj
+    - rye_hill.prisons.noms.moj
 RNI:
   name: Ranby
   admins:
@@ -415,7 +414,6 @@ RSI:
     - risley.prisons.noms.moj
 SDI:
   name: Send
-  group: apvu.noms.moj
   admins:
     - apvu.noms.moj
     - send.prisons.noms.moj
@@ -441,7 +439,6 @@ SNI:
     - apvu.noms.moj
 SPI:
   name: Spring Hill
-  group: grendon_and_springhill.noms.moj
   admins:
     - grendon_and_springhill.noms.moj
 STI:

@@ -135,8 +135,14 @@ RSpec.describe SignonIdentity, type: :model do
 
     subject { described_class.from_session_data(serialization) }
 
+    around do |ex|
+      EstateSSOMapper.reset_grouped_estates
+      ex.run
+      EstateSSOMapper.reset_grouped_estates
+    end
+
     it 'makes available the list of accessible estates' do
-      expect(subject.accessible_estates).to eq([cardiff_estate, swansea_estate])
+      expect(subject.accessible_estates).to contain_exactly(cardiff_estate, swansea_estate)
       expect(subject.accessible_estates).not_to include(pentonville_estate)
     end
 

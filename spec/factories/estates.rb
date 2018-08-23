@@ -12,6 +12,8 @@ FactoryBot.define do
       e.name.parameterize
     end
 
-    sso_organisation_name { name }
+    sso_organisation_name do name end
+
+    admins { [sso_organisation_name] }
   end
 end
