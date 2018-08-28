@@ -114,12 +114,12 @@ RSpec.describe VisitorMailer, '.rejected' do
   end
 
   context 'with no_allowance' do
-    include_examples 'template checks'
-
     before do
       visit.rejection.reasons = ['no_allowance']
       visit.rejection.allowance_renews_on = Date.new(2015, 10, 1)
     end
+
+    include_examples 'template checks'
 
     it 'explains the error' do
       expect(body).to match(/prisoner has used their allowance of visits for this month/)

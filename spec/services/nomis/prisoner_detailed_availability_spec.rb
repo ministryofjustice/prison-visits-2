@@ -79,7 +79,7 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
       let(:existing_visits) { [{ 'slot' => api_slot.to_s, 'id' => 123 }] }
 
       it do
-        is_expected.to contain_exactly(
+        expect(subject).to contain_exactly(
           Nomis::PrisonerDateAvailability::OUT_OF_VO,
           Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT,
           Nomis::PrisonerDateAvailability::BOOKED_VISIT)

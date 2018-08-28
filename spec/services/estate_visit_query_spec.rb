@@ -40,7 +40,7 @@ RSpec.describe EstateVisitQuery do
     end
 
     it 'returns the data grouped by prison, status and slot' do
-      is_expected.to eq(
+      expect(subject).to eq(
         prison.name => {
           'booked' => {
             slot1 => [booked_visit1],
@@ -88,7 +88,7 @@ RSpec.describe EstateVisitQuery do
       end
 
       it 'excludes visits pending nomis cancellation and requested visits' do
-        is_expected.to eq([rejected, booked, withdrawn, nomis_cancelled])
+        expect(subject).to eq([rejected, booked, withdrawn, nomis_cancelled])
       end
 
       context 'when limiting the results' do
@@ -103,7 +103,7 @@ RSpec.describe EstateVisitQuery do
         let(:prisoner_number) { booked.prisoner.number.downcase }
 
         it 'returns processed visits matching the prisoner number' do
-          is_expected.to eq([booked])
+          expect(subject).to eq([booked])
         end
       end
 
@@ -220,7 +220,7 @@ RSpec.describe EstateVisitQuery do
       end
 
       it 'returns the count of the visits that are in the inbox' do
-        is_expected.to eq(3)
+        expect(subject).to eq(3)
       end
     end
   end

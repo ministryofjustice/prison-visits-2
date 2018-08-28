@@ -4,14 +4,14 @@ RSpec.describe Prison::FeedbacksController, type: :controller do
   describe '#new' do
     subject { get :new }
 
-    it_behaves_like 'disallows untrusted ips'
-
     before do
       login_user(
         FactoryBot.create(:user),
         current_estates: [FactoryBot.create(:estate)]
       )
     end
+
+    it_behaves_like 'disallows untrusted ips'
 
     it { is_expected.to be_successful }
   end

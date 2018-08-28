@@ -18,7 +18,7 @@ RSpec.describe CancellationResponse do
       let(:reasons) { [] }
 
       before do
-        is_expected.not_to be_valid
+        expect(subject).not_to be_valid
       end
 
       it 'has an error message' do

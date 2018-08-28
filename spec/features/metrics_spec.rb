@@ -37,13 +37,13 @@ RSpec.feature 'Metrics', js: true do
       luna_visit
     end
 
-    include_examples 'when creating visits with dates'
-    # Shared examples are booked within the first week of February, 2106. The
-    # controller tracks one week behind the current date.
-
     before do
       visit(metrics_path(locale: 'en', range: 'all_time'))
     end
+
+    include_examples 'when creating visits with dates'
+    # Shared examples are booked within the first week of February, 2106. The
+    # controller tracks one week behind the current date.
 
     it 'has the correct overdue and waiting values' do
       expect(page).to have_selector('.luna-overdue', text: 2)

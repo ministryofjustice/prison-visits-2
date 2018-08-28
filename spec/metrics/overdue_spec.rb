@@ -2,8 +2,6 @@ require 'rails_helper'
 require_relative 'shared_examples_for_metrics'
 
 RSpec.describe Overdue do
-  include_examples 'when creating visits with dates'
-
   before do
     book_a_luna_visit_late
     book_a_luna_visit_late
@@ -16,6 +14,8 @@ RSpec.describe Overdue do
     reject_a_mars_visit_on_time
     request_a_visit_that_remains_overdue
   end
+
+  include_examples 'when creating visits with dates'
 
   context 'when they are not organised by date' do
     describe Overdue::CountOverdueVisits do

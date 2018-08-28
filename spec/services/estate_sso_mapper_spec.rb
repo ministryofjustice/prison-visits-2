@@ -25,9 +25,9 @@ RSpec.describe EstateSSOMapper do
     end
 
     it {
-      is_expected.to eq('apvu.noms.moj' => ['brinsford.prisons.noms.moj'],
-                        'brinsford.prisons.noms.moj' => ['brinsford.prisons.noms.moj'],
-                        'other_estate.prisons.noms.moj' => ['other_estate.prisons.noms.moj'])
+      expect(subject).to eq('apvu.noms.moj' => ['brinsford.prisons.noms.moj'],
+                            'brinsford.prisons.noms.moj' => ['brinsford.prisons.noms.moj'],
+                            'other_estate.prisons.noms.moj' => ['other_estate.prisons.noms.moj'])
     }
   end
 
@@ -43,8 +43,8 @@ RSpec.describe EstateSSOMapper do
       let(:user_sso_orgs) { ['brinsford.prisons.noms.moj'] }
 
       it 'includes Brinsford estates' do
-        is_expected.to include(brinsford)
-        is_expected.not_to include(other_estate)
+        expect(subject).to include(brinsford)
+        expect(subject).not_to include(other_estate)
       end
     end
 
@@ -57,8 +57,8 @@ RSpec.describe EstateSSOMapper do
       let(:user_sso_orgs) { ['apvu.noms.moj'] }
 
       it 'includes apvu estates' do
-        is_expected.to include(brinsford)
-        is_expected.not_to include(other_estate)
+        expect(subject).to include(brinsford)
+        expect(subject).not_to include(other_estate)
       end
     end
 
@@ -71,8 +71,8 @@ RSpec.describe EstateSSOMapper do
       let(:user_sso_orgs) { ['grendon_and_springhill.noms.moj'] }
 
       it 'includes grendon and spring hill estates' do
-        is_expected.to include(grendon)
-        is_expected.not_to include(other_estate)
+        expect(subject).to include(grendon)
+        expect(subject).not_to include(other_estate)
       end
     end
 
@@ -85,8 +85,8 @@ RSpec.describe EstateSSOMapper do
       let(:user_sso_orgs) { ['isle_of_wight.noms.moj'] }
 
       it 'includes isle of wight estates' do
-        is_expected.to include(iow_parkhurst)
-        is_expected.not_to include(other_estate)
+        expect(subject).to include(iow_parkhurst)
+        expect(subject).not_to include(other_estate)
       end
     end
 
@@ -105,8 +105,8 @@ RSpec.describe EstateSSOMapper do
       let(:user_sso_orgs) { ['wandsworth.prisons.noms.moj', 'brixton.prisons.noms.moj'] }
 
       it 'includes the combined orgs' do
-        is_expected.to include(wandsworth, brixton)
-        is_expected.not_to include(other_estate)
+        expect(subject).to include(wandsworth, brixton)
+        expect(subject).not_to include(other_estate)
       end
     end
 
@@ -114,7 +114,7 @@ RSpec.describe EstateSSOMapper do
       let(:user_sso_orgs) { ['digital.noms.moj'] }
 
       it 'includes all estates' do
-        is_expected.to eq([other_estate])
+        expect(subject).to eq([other_estate])
       end
     end
 

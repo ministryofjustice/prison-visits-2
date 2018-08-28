@@ -7,7 +7,7 @@ FactoryBot.define do
       FFaker::Internet.disposable_email
     end
 
-    contact_phone_no '07900112233'
+    contact_phone_no do '07900112233' end
 
     sequence :human_id do |n|
       'VISIT' + ('%03d' % n)
@@ -17,22 +17,22 @@ FactoryBot.define do
       v.prison.available_slots.first
     end
 
-    locale 'en'
+    locale do 'en' end
 
     after(:create) do |v|
       create :visitor, visit: v
     end
 
     trait :requested do
-      processing_state 'requested'
+      processing_state { 'requested' }
     end
 
     trait :booked do
-      processing_state 'booked'
+      processing_state { 'booked' }
     end
 
     trait :nomis_cancelled do
-      processing_state 'cancelled'
+      processing_state do 'cancelled' end
 
       after(:create) do |v|
         create :cancellation, visit: v, nomis_cancelled: true
@@ -40,7 +40,7 @@ FactoryBot.define do
     end
 
     trait :pending_nomis_cancellation do
-      processing_state 'cancelled'
+      processing_state do 'cancelled' end
 
       after(:create) do |v|
         create :cancellation, visit: v, nomis_cancelled: false
@@ -64,7 +64,7 @@ FactoryBot.define do
     end
 
     factory :booked_visit do
-      processing_state 'booked'
+      processing_state do 'booked' end
 
       slot_granted do |v|
         v.slot_option_0
@@ -76,7 +76,7 @@ FactoryBot.define do
     end
 
     factory :cancelled_visit do
-      processing_state 'cancelled'
+      processing_state do 'cancelled' end
 
       slot_granted do |v|
         v.slot_option_0
@@ -84,14 +84,14 @@ FactoryBot.define do
     end
 
     factory :rejected_visit do
-      rejection_attributes(reasons: [Rejection::SLOT_UNAVAILABLE])
+      rejection_attributes do { reasons: [Rejection::SLOT_UNAVAILABLE] } end
       after :create do |visit|
         BookingResponder.new(StaffResponse.new(visit: visit)).respond!
       end
     end
 
     factory :withdrawn_visit do
-      processing_state 'withdrawn'
+      processing_state { 'withdrawn' }
     end
   end
 end

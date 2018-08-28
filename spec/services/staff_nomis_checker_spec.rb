@@ -223,7 +223,7 @@ RSpec.describe StaffNomisChecker do
     let(:slot) { ConcreteSlot.new(2015, 11, 6, 18, 0, 19, 0) }
 
     before do
-      is_expected.to receive(:errors_for).with(slot).and_return(errors)
+      expect(subject).to receive(:errors_for).with(slot).and_return(errors)
     end
 
     context 'when there is no vo error' do
@@ -243,7 +243,7 @@ RSpec.describe StaffNomisChecker do
     let(:slot) { ConcreteSlot.new(2015, 11, 6, 18, 0, 19, 0) }
 
     before do
-      is_expected.to receive(:errors_for).with(slot).and_return(errors)
+      expect(subject).to receive(:errors_for).with(slot).and_return(errors)
     end
 
     context 'when there is a prisoner out of prison error' do

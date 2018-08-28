@@ -3,6 +3,6 @@ FactoryBot.define do
     skip_create
     initialize_with do new end
 
-    code 'BMI'
+    code { 'BMI' }
   end
 end

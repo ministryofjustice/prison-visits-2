@@ -44,7 +44,7 @@ RSpec.describe Api::FeedbackController, type: :controller do
     end
 
     it 'renders a 200' do
-      is_expected.to be_ok
+      expect(subject).to be_ok
       expect(response.body).to eq('{}')
     end
 
@@ -52,12 +52,12 @@ RSpec.describe Api::FeedbackController, type: :controller do
       let(:body) { nil }
 
       it 'does not send to ZenDesk' do
-        expect(ZendeskTicketsJob).to receive(:perform_later).never
+        expect(ZendeskTicketsJob).not_to receive(:perform_later)
         create
       end
 
       it 'returns an error' do
-        is_expected.to be_unprocessable
+        expect(subject).to be_unprocessable
         expect(parsed_body['message']).to eq("Body is required")
       end
     end

@@ -5,12 +5,12 @@ FactoryBot.define do
     given_name        do FFaker::Name.first_name end
     surname           do FFaker::Name.last_name end
     date_of_birth     do (18..80).to_a.sample.years.ago.to_date.to_s end
-    gender(code: 'M', desc: 'Male')
-    relationship_type(code: 'FRI', desc: 'Friend')
-    contact_type(code: 'S', desc: 'Social/Family')
-    approved_visitor  true
-    active            true
-    restrictions([])
+    gender do { code: 'M', desc: 'Male' } end
+    relationship_type do { code: 'FRI', desc: 'Friend' } end
+    contact_type do { code: 'S', desc: 'Social/Family' } end
+    approved_visitor  do true end
+    active            do true end
+    restrictions do [] end
 
     trait :banned do
       restrictions {

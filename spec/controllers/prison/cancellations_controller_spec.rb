@@ -49,7 +49,7 @@ RSpec.describe Prison::CancellationsController do
         end
 
         it 'redirect to the visit show page setting the already cancelled flash message' do
-          is_expected.to redirect_to(prison_visit_path(visit))
+          expect(subject).to redirect_to(prison_visit_path(visit))
           expect(flash.notice).to eq("The visit is no longer cancellable")
         end
       end
@@ -64,7 +64,7 @@ RSpec.describe Prison::CancellationsController do
         end
 
         it 'redirect to the visit show page setting the already cancelled flash message' do
-          is_expected.to render_template(:new)
+          expect(subject).to render_template(:new)
           expect(flash.alert).to eq("invalid cancellation reason is not in the list")
         end
       end
