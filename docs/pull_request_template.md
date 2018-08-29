@@ -4,8 +4,8 @@
 <!--- Describe your changes in detail -->
 
 ## Motivation and Context
-<!--- Why is this change required? What problem does it solve? -->
-<!--- Is there a Trello card to link to? -->
+<!--- Why is this change required? What problem does it solve? Required if your PR is not a slot update -->
+<!--- Please add a link to any relevant Trello cards, Jira pages, etc. -->
 
 ## Types of changes
 <!--- What types of changes does your code introduce? Put an `x` in all the boxes that apply: -->
