@@ -72,7 +72,7 @@ RSpec.describe DateHelper do
       let(:slot_granted) { nil }
 
       it 'formats the preferred slot' do
-        is_expected.to eq(preferred_slot.to_date.to_s(:short_nomis))
+        expect(subject).to eq(preferred_slot.to_date.to_s(:short_nomis))
       end
     end
 
@@ -80,7 +80,7 @@ RSpec.describe DateHelper do
       let(:slot_granted) { ConcreteSlot.new(2015, 11, 5, 13, 30, 14, 45) }
 
       it 'formats the granted slot' do
-        is_expected.to eq(slot_granted.to_date.to_s(:short_nomis))
+        expect(subject).to eq(slot_granted.to_date.to_s(:short_nomis))
       end
     end
   end
@@ -99,7 +99,7 @@ RSpec.describe DateHelper do
       let(:slot_granted) { nil }
 
       it 'formats the preferred slot' do
-        is_expected.to eq(helper.format_slot_times(preferred_slot))
+        expect(subject).to eq(helper.format_slot_times(preferred_slot))
       end
     end
 
@@ -107,7 +107,7 @@ RSpec.describe DateHelper do
       let(:slot_granted) { ConcreteSlot.new(2015, 11, 5, 13, 30, 14, 45) }
 
       it 'formats the granted slot' do
-        is_expected.to eq(helper.format_slot_times(slot_granted))
+        expect(subject).to eq(helper.format_slot_times(slot_granted))
       end
     end
   end

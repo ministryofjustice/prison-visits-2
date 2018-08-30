@@ -30,7 +30,7 @@ RSpec.describe ApplicationHelper do
       end
 
       it 'adds an active class' do
-        is_expected.to match('class="active"')
+        expect(subject).to match('class="active"')
       end
     end
 
@@ -42,7 +42,7 @@ RSpec.describe ApplicationHelper do
       end
 
       it 'does not add an active class' do
-        is_expected.not_to match('class="active"')
+        expect(subject).not_to match('class="active"')
       end
     end
   end

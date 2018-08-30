@@ -30,7 +30,7 @@ RSpec.describe StaffResponse, type: :model do
       end
 
       it 'clears the allowance field' do
-        is_expected.to be_valid
+        expect(subject).to be_valid
         expect(subject.visit.rejection.allowance_renews_on).to eq(nil)
       end
     end
@@ -42,7 +42,7 @@ RSpec.describe StaffResponse, type: :model do
 
       context 'when a valid renewal date' do
         it 'converts to a date' do
-          is_expected.to be_valid
+          expect(subject).to be_valid
           expect(subject.visit.rejection.allowance_renews_on).to eq(tomorrow)
         end
       end
@@ -57,7 +57,7 @@ RSpec.describe StaffResponse, type: :model do
         end
 
         it 'clears the date' do
-          is_expected.to be_valid
+          expect(subject).to be_valid
           expect(subject.visit.rejection.allowance_renews_on).to eq(nil)
         end
       end
@@ -72,7 +72,7 @@ RSpec.describe StaffResponse, type: :model do
     context 'when not processable' do
       let(:processing_state) { 'rejected' }
 
-      before { is_expected.not_to be_valid }
+      before { expect(subject).not_to be_valid }
 
       specify { expect(subject.errors.full_messages).to eq(["Visit can't be processed"]) }
     end
@@ -83,7 +83,7 @@ RSpec.describe StaffResponse, type: :model do
       end
 
       it 'is invalid' do
-        is_expected.to be_invalid
+        expect(subject).to be_invalid
         expect(subject.errors.full_messages).
           to eq([
                   I18n.t('must_reject_or_accept_visit',
@@ -102,7 +102,7 @@ RSpec.describe StaffResponse, type: :model do
         end
 
         it 'does not require to process the visitors' do
-          is_expected.to be_valid
+          expect(subject).to be_valid
         end
       end
 
@@ -113,7 +113,7 @@ RSpec.describe StaffResponse, type: :model do
         end
 
         it 'is invalid' do
-          is_expected.to be_invalid
+          expect(subject).to be_invalid
 
           expect(subject.errors.full_messages).
             to include(
@@ -133,7 +133,7 @@ RSpec.describe StaffResponse, type: :model do
         end
 
         it 'is valid' do
-          is_expected.to be_valid
+          expect(subject).to be_valid
 
           expect(subject.visit.visitors.first.errors).to be_empty
         end
