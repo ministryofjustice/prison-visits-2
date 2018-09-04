@@ -11,6 +11,8 @@ enabled: true
 private: false
 closed: false
 recurring:
+  mon:
+  - 1400-1600
   tue:
   - 0900-1100
   - 1415-1615
