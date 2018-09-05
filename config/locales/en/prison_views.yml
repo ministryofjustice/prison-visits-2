@@ -221,7 +221,6 @@ en:
         issue_with_visitor: Issue with a visitor
       other_section:
         title: Other
-
       visit_date_section:
         title: Visit date
         choice_html: |
@@ -286,6 +285,7 @@ en:
         banned_until: Banned until
         banned_until_hint: eg 28 04 1996
         please_select: Please select a contact
+        rejections_header: Visitor rejection reasons
       banned:
         banned: Visitor is banned
       not_on_list:
