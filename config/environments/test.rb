@@ -1,7 +1,8 @@
 Rails.application.configure do
   config.action_mailer.smtp_settings = { domain: 'email.test.host' }
   config.cache_classes = true
-  config.eager_load = false
+  config.eager_load = true
+  config.enable_dependency_loading = true
   config.serve_static_files   = true
   config.static_cache_control = 'public, max-age=3600'
   config.consider_all_requests_local       = true
