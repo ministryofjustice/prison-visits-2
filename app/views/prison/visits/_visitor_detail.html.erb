@@ -8,15 +8,19 @@
         </div>
         <div class="column-one-quarter push-bottom--half">
           <% if @visit.principal_visitor.banned %>
-            <span class="tag tag--error font-xsmall text-center">
-              <%= t('.banned') %>
+            <span class="tag tag--rejected font-xsmall text-center">
+              <%= t('.rejected_banned') %>
               <% if @visit.principal_visitor.banned_until? %>
                 <%= t('.until') %> <%= @visit.principal_visitor.banned_until.to_date.to_s(:short_nomis) %>
               <% end %>
             </span>
           <% elsif @visit.principal_visitor.not_on_list %>
-            <span class="tag tag--warning font-xsmall text-center">
-              <%= t('.not_listed') %>
+            <span class="tag tag--rejected font-xsmall text-center">
+              <%= t('.rejected_not_listed') %>
+            </span>
+          <% elsif @visit.principal_visitor.other_rejection_reason %>
+            <span class="tag tag--rejected font-xsmall text-center">
+              <%= t('.rejected_other') %>
             </span>
           <% else %>
             <span class="tag">
@@ -63,15 +67,19 @@
           </div>
           <div class="column-one-half push-bottom--half">
             <% if visitor.banned %>
-              <span class="tag tag--error font-xsmall text-center">
-                <%= t('.banned') %>
+              <span class="tag tag--rejected font-xsmall text-center">
+                <%= t('.rejected_banned') %>
                 <% if visitor.banned_until? %>
                   <%= t('.until') %> <%= visitor.banned_until.to_date.to_s(:short_nomis) %>
                 <% end %>
               </span>
             <% elsif visitor.not_on_list %>
-              <span class="tag tag--warning font-xsmall text-center">
-                <%= t('.not_listed') %>
+              <span class="tag tag--rejected font-xsmall text-center">
+                <%= t('.rejected_not_listed') %>
+              </span>
+            <% elsif visitor.other_rejection_reason %>
+              <span class="tag tag--rejected font-xsmall text-center">
+                <%= t('.rejected_other') %>
               </span>
             <% else %>
               <span class="tag">

@@ -272,8 +272,12 @@ en:
         not_all_processed: Make sure all visitors have been processed
       visitor_detail:
         title: Visitor details
-        not_listed: Not listed
-        banned: Banned
+        rejected_not_listed: >-
+          Rejected: Not listed
+        rejected_banned: >-
+          Rejected: Banned
+        rejected_other: >-
+          Rejected: Other reason
         until: until
         name: "Name"
         dob: "Date of birth (age)"
