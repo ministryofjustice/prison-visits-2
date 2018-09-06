@@ -121,7 +121,7 @@ DWI:
 EEI:
   name: Erlestoke
   admins:
-    - erlestoke.prisons.noms.moj
+    - apvu.noms.moj
 EHI:
   name: Standford Hill
   finder_slug: sheppey-cluster-standford-hill
