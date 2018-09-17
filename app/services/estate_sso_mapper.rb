@@ -27,6 +27,7 @@ class EstateSSOMapper
 
   def accessible_estates
     return [] if user_sso_orgs.empty?
+
     if admin?
       Estate.all
     else

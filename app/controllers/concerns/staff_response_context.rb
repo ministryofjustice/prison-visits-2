@@ -45,6 +45,7 @@ private
 
   def message
     return unless params[:message]
+
     Message.new(
       body:    params[:message][:body],
       user_id: params[:message][:user_id]

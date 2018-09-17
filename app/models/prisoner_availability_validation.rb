@@ -18,6 +18,7 @@ class PrisonerAvailabilityValidation
 
   def unknown_result?
     return false if valid_requested_slots.none?
+
     !Nomis::Api.enabled? || prisoner_availability.nil? || api_error
   end
 

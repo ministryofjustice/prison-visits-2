@@ -19,6 +19,7 @@ class Healthcheck
 
     def fresh?(queue)
       return true unless queue.any?
+
       queue.first.created_at > STALENESS_THRESHOLD.ago
     end
 

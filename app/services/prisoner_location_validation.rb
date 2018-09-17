@@ -41,6 +41,7 @@ private
 
   def load_establishment
     return Nomis::Establishment.new unless prisoner.valid?
+
     Nomis::Api.instance.lookup_prisoner_location(noms_id: prisoner.noms_id)
   rescue Nomis::APIError => e
     PVB::ExceptionHandler.capture_exception(

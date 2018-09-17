@@ -10,6 +10,7 @@ class PrisonerLocationPresenter
   check_nomis_enabled
   def status
     return if prisoner_location_validation.valid?
+
     prisoner_location_validation.errors.full_messages.first
   end
 

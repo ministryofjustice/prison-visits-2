@@ -16,6 +16,7 @@ class BookingResponder
 
     def clean_up_allowance_renews_on
       return if rejection.allowance_will_renew?
+
       visit.rejection.allowance_renews_on = nil
     end
   end

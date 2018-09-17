@@ -50,6 +50,7 @@ class GATracker
 
   def send_processing_timing
     return unless timing_value
+
     send_data(timing_payload_data)
     delete_visit_processing_time_cookie
   end
@@ -78,6 +79,7 @@ private
 
   def timing_value
     return unless start_time
+
     (Time.zone.now - start_time).to_i * 1000
   end
 

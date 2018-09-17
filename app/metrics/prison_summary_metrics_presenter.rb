@@ -10,11 +10,13 @@ class PrisonSummaryMetricsPresenter
 
   def total_visits
     return 0 unless @counts
+
     @counts.values.sum
   end
 
   def visits_in_state(state)
     return 0 unless @counts
+
     @counts[state] || 0
   end
 
@@ -32,6 +34,7 @@ private
 
   def processed(type)
     return 0 unless @timings
+
     @timings.fetch(type, 0)
   end
 end
