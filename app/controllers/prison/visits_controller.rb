@@ -77,6 +77,7 @@ private
 
   def set_visit_processing_time_cookie
     return unless memoised_visit.processable?
+
     ga_tracker.set_visit_processing_time_cookie
   end
 

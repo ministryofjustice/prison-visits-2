@@ -156,6 +156,7 @@ private
 
   def date_to_accessible_date(date)
     return date if date.is_a?(Hash)
+
     {
       year:  date.year,
       month: date.month,

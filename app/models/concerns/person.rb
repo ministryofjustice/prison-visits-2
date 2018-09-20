@@ -19,6 +19,7 @@ module Person
 
   def age
     return nil unless date_of_birth
+
     AgeCalculator.new.age(date_of_birth)
   end
 

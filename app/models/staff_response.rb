@@ -63,6 +63,7 @@ private
 
   def rejection_attributes
     return unless visit.rejection&.valid?
+
     @rejection_attributes ||= begin
       attrs = visit.rejection.serializable_hash(
         except: %i[

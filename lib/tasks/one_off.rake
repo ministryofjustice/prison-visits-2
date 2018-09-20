@@ -41,10 +41,10 @@ namespace :pvb do
   def new_worker(pool, queue, task)
     Thread.new do
       while data = begin
-        queue.pop(true)
-      rescue ThreadError
-        nil
-      end
+                     queue.pop(true)
+                   rescue ThreadError
+                     nil
+                   end
         pool.with do |client|
           RequestStore.store[:custom_log_items] = {}
           msg = task.call(client, data)

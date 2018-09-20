@@ -23,6 +23,7 @@ expected to have completed by #{@deadline.to_s(:iso8601)}"
           unless time_left > 0
             fail Errors::DeadlineError.new(datum[:deadline], time_left)
           end
+
           datum[:read_timeout] = time_left
           datum[:write_timeout] = time_left
         end

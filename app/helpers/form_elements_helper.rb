@@ -49,8 +49,10 @@ module FormElementsHelper
 
   def field_error(form, name)
     return unless form.object
+
     errors = form.object.errors[name]
     return '' unless errors.any?
+
     content_tag(:span, class: 'validation-message') { errors.first }
   end
 
