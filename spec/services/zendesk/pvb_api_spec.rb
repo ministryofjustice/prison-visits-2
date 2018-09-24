@@ -23,12 +23,14 @@ RSpec.describe Zendesk::PVBApi do
     end
 
     it 'deletes tickets that have not been updated in twelve months or less' do
+      inbox = 'an.inbox.tag'
+
       expect(zendesk_api_client).to receive(:search).
         and_return(ticket_ids, empty_ticket_ids)
       expect(ZendeskAPI::Ticket).to receive(:destroy_many!).
         with(zendesk_api_client, ticket_ids).once
 
-      subject.cleanup_tickets
+      subject.cleanup_tickets(inbox)
     end
   end
 
