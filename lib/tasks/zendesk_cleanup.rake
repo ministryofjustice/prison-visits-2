@@ -1,5 +1,5 @@
 namespace :zendesk do
-  desc 'Delete zendesk tickets in staff and public inbox that have not been updated in twelve months'
+  desc 'Delete zendesk tickets that have not been updated in twelve months'
   task cleanup: :environment do
     client = Zendesk::PVBClient.instance
     STAFF_INBOX = 'staff.prison.visits'.freeze
