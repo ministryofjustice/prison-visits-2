@@ -28,26 +28,27 @@ class EstateVisitQuery
 
   def requested(query: nil)
     visits = Visit.
-             less_than_six_months_old.
              preload(:prisoner, :visitors, :prison).
              with_processing_state(:requested).
              from_estates(@estates).
              order('created_at asc')
-
-    visits = search(visits, query) if query
+    if query
+      visits = search(visits.less_than_six_months_old, query)
+    end
     visits.to_a
   end
 
   def cancelled(query: nil)
     visits = Visit.
-             less_than_six_months_old.
              preload(:prisoner, :visitors, :cancellation, :prison).
              joins(:cancellation).
              from_estates(@estates).
              where(cancellations: { nomis_cancelled: false }).
              order('created_at asc')
 
-    visits = search(visits, query) if query
+    if query
+      visits = search(visits.less_than_six_months_old, query)
+    end
     visits.to_a
   end
 
