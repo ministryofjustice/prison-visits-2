@@ -118,22 +118,12 @@ RSpec.describe EstateVisitQuery do
     end
   end
 
-  shared_examples_for 'returns recent only' do
-    context 'when visits have not been updated in six months' do
-      let(:query) { nil }
-
-      it 'does not return them' do
-        expect(subject).not_to include(old_visit)
-      end
-    end
-  end
-
   shared_examples_for 'finds all' do
     context 'with no query' do
       let(:query) { nil }
 
-      it 'returns all requested' do
-        expect(subject).to eq([visit1, visit2])
+      it 'returns all requested ordered' do
+        expect(subject).to eq([old_visit, visit1, visit2])
       end
     end
   end
@@ -144,6 +134,16 @@ RSpec.describe EstateVisitQuery do
 
       it 'returns only those matching prisoner number' do
         expect(subject).to eq([visit1])
+      end
+    end
+  end
+
+  shared_examples_for "doesn't find old records" do
+    context 'with prisoner number query from an old visit' do
+      let(:query) { old_visit.prisoner.number }
+
+      it 'returns only those matching prisoner number' do
+        expect(subject).to be_empty
       end
     end
   end
@@ -178,7 +178,7 @@ RSpec.describe EstateVisitQuery do
     it_behaves_like 'finds all'
     it_behaves_like 'finds by prisoner number'
     it_behaves_like 'finds by human id'
-    it_behaves_like 'returns recent only'
+    it_behaves_like "doesn't find old records"
   end
 
   describe '#cancelled' do
@@ -200,7 +200,7 @@ RSpec.describe EstateVisitQuery do
     it_behaves_like 'finds all'
     it_behaves_like 'finds by prisoner number'
     it_behaves_like 'finds by human id'
-    it_behaves_like 'returns recent only'
+    it_behaves_like "doesn't find old records"
   end
 
   describe '#inbox_count' do
