@@ -10,9 +10,9 @@ module Zendesk
       end
     end
 
-    def cleanup_tickets
+    def cleanup_tickets(inbox)
       # rubocop:disable Lint/AssignmentInCondition
-      until (ids = fetch_ticket_ids) && ids.empty?
+      until (ids = fetch_ticket_ids(inbox)) && ids.empty?
         destroy_tickets(ids)
       end
       # rubocop:enable Lint/AssignmentInCondition
@@ -22,10 +22,8 @@ module Zendesk
 
     attr_accessor :zendesk_pvb_client
 
-    STAFF_INBOX = 'staff.prison.visits'.freeze
-
-    def fetch_ticket_ids
-      request { |client| client.search(old_tickets_query).map(&:id) }
+    def fetch_ticket_ids(inbox)
+      request { |client| client.search(old_tickets_query_for(inbox)).map(&:id) }
     end
 
     def destroy_tickets(ids)
@@ -38,9 +36,9 @@ module Zendesk
       12.months.ago.strftime('%Y-%m-%d')
     end
 
-    def old_tickets_query
+    def old_tickets_query_for(inbox)
       {
-        query: "type:ticket tags:#{STAFF_INBOX} updated<#{twelve_months_ago}",
+        query: "type:ticket tags:#{inbox} updated<#{twelve_months_ago}",
         reload: true
       }
     end
