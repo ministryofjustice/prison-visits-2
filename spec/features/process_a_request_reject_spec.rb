@@ -29,7 +29,7 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
     end
 
     scenario 'rejecting a booking with incorrect prisoner details' do
-      expect(page.find('input[type="checkbox"][id="prisoner_details_incorrect"]')).to be_checked
+      expect(page.find('input[type="checkbox"][id="prisoner_details_incorrect"]', visible: false)).to be_checked
     end
   end
 
@@ -99,7 +99,7 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
 
       check_nomis_override_message_does_not_trigger
 
-      choose 'None of the chosen times are available'
+      choose 'None of the chosen times are available', visible: false
       check 'Prisoner details are incorrect', visible: false
 
       click_button 'Process'
@@ -135,7 +135,7 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
 
     scenario 'rejecting a booking with multiple rejection reasons' do
       check 'Prisoner on external movement', visible: false
-      check 'Duplicate visit request'
+      check 'Duplicate visit request', visible: false
 
       click_button 'Process'
 
@@ -202,7 +202,7 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
       choose_date
 
       within "#visitor_#{vst.principal_visitor.id}" do
-        check 'Not on contact list'
+        check 'Not on contact list', visible: false
       end
 
       click_button 'Process'
@@ -218,7 +218,7 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
       vcr: { cassette_name: 'process_booking_happy_path_reject', allow_playback_repeats: true } do
 
       within '.other-reason' do
-        check 'Other reason'
+        check 'Other reason', visible: false
       end
 
       click_button 'Process'
@@ -240,7 +240,7 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
 
     scenario "lead visitor can't attend for other reasons" do
       within "#visitor_#{vst.principal_visitor.id}" do
-        check 'Other reason'
+        check 'Other reason', visible: false
       end
 
       click_button 'Process'

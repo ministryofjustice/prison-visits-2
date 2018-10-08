@@ -12,8 +12,8 @@ RSpec.feature 'Processing a request', :js, :expect_exception do
     end
 
     scenario 'cancelling a booked visit with more than one reason', vcr: { cassette_name: 'multiple_cancellation_reasons' } do
-      check 'Visit slot no longer available'
-      check 'Visitor is banned'
+      check 'Visit slot no longer available', visible: false
+      check 'Visitor is banned', visible: false
 
       click_button 'Cancel visit'
 
