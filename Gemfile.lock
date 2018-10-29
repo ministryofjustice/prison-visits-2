@@ -348,9 +348,8 @@ GEM
     tilt (2.0.8)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (2.7.2)
-      execjs (>= 0.3.0)
-      json (>= 1.8.0)
+    uglifier (4.1.19)
+      execjs (>= 0.3.0, < 3)
     unicode-display_width (1.4.0)
     uri_template (0.7.0)
     vcr (4.0.0)
@@ -430,7 +429,7 @@ DEPENDENCIES
   spring-commands-rspec
   state_machines-activerecord
   string_scrubber
-  uglifier (~> 2.7.2)
+  uglifier (~> 4.1.19)
   uri_template
   vcr
   webmock
