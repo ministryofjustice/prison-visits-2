@@ -27,7 +27,7 @@ gem 'govuk_template'
 gem 'govuk_frontend_toolkit'
 gem 'govuk_elements_rails'
 gem 'jquery-rails', '~> 4.3.3'
-gem 'jquery-ui-rails', '~> 5.0.5'
+gem 'jquery-ui-rails', '~> 6.0.0'
 gem 'jwt'
 gem 'rake'
 
