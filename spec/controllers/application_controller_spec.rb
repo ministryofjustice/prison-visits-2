@@ -11,7 +11,7 @@ RSpec.describe ApplicationController, type: :controller do
 
     def create
       Nomis::Api.instance.lookup_active_prisoner(
-        noms_id:       'Z9999ZZ',
+        noms_id: 'Z9999ZZ',
         date_of_birth: '1976-06-12'
       )
       head :ok

@@ -21,10 +21,10 @@ class Metrics::ProcessingState
 
   def attributes
     {
-      date:      date,
-      booked:    booked,
+      date: date,
+      booked: booked,
       cancelled: cancelled,
-      rejected:  rejected,
+      rejected: rejected,
       requested: requested,
       withdrawn: withdrawn
     }

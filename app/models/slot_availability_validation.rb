@@ -45,9 +45,9 @@ private
     return nil if @api_error
 
     Nomis::Api.instance.fetch_bookable_slots(
-      prison:   prison,
-      start_date:  valid_requested_slots.min.to_date,
-      end_date:    valid_requested_slots.max.to_date).
+      prison: prison,
+      start_date: valid_requested_slots.min.to_date,
+      end_date: valid_requested_slots.max.to_date).
       slots
   rescue Nomis::APIError => e
     @api_error = true

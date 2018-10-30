@@ -2,7 +2,7 @@ class ApiPrisonerChecker
   def initialize(noms_id:, date_of_birth:)
     @prisoner = if Nomis::Api.enabled?
                   Nomis::Api.instance.lookup_active_prisoner(
-                    noms_id:       noms_id,
+                    noms_id: noms_id,
                     date_of_birth: date_of_birth
                   )
                 else

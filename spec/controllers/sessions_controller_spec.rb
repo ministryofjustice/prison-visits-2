@@ -9,8 +9,8 @@ RSpec.describe SessionsController, type: :controller do
       {
         'user_id': 'some-user-id',
         'profile_url': 'profile_url',
-        'full_name':   'John Doe',
-        'logout_url':  'logout_url',
+        'full_name': 'John Doe',
+        'logout_url': 'logout_url',
         'permissions': {}
       }
     end

@@ -4,7 +4,7 @@ RSpec.describe PrisonerLocationPresenter do
   let(:establishment_code) { 'LCI' }
   let(:establishment)      do
     Nomis::Establishment.new(
-      code:             'LCI',
+      code: 'LCI',
       housing_location: { description: 'some_internal_location' }
     )
   end

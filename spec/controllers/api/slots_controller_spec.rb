@@ -11,11 +11,11 @@ RSpec.describe Api::SlotsController do
     let(:params) {
       {
         format: :json,
-        prison_id:       prison.id,
+        prison_id: prison.id,
         prisoner_number: prisoner.number,
-        prisoner_dob:    prisoner.date_of_birth,
-        start_date:      '2016-02-15',
-        end_date:        '2016-04-15'
+        prisoner_dob: prisoner.date_of_birth,
+        start_date: '2016-02-15',
+        end_date: '2016-04-15'
       }
     }
 

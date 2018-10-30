@@ -32,6 +32,7 @@ FactoryBot.define do
       { 'recurring' => {
         'mon' => ['1400-1610'],
         'tue' => ['0900-1000', '1400-1610']
-      } } }
+      } }
+    }
   end
 end

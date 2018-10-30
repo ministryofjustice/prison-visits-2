@@ -69,9 +69,9 @@ private
 
     mail(
       from: I18n.t('mailer.noreply', domain: smtp_settings[:domain]),
-      to:       visit.contact_email_address,
+      to: visit.contact_email_address,
       reply_to: visit.prison_email_address,
-      subject:  default_i18n_subject(i18n_options)
+      subject: default_i18n_subject(i18n_options)
     )
   end
 end

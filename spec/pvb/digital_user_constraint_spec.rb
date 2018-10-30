@@ -5,10 +5,10 @@ RSpec.describe PVB::DigitalUserConstraint do
   let(:user) { create(:user) }
   let(:sso_data) do
     {
-      'user_id' =>    user.id,
+      'user_id' => user.id,
       'profile_url' => 'profile_url',
-      'full_name' =>   'John Doe',
-      'logout_url' =>  'logout_url',
+      'full_name' => 'John Doe',
+      'logout_url' => 'logout_url',
       'permissions' => [{ 'organisation' => org }]
     }
   end
