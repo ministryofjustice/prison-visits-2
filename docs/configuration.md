@@ -34,10 +34,6 @@ The `NOMIS_API_TOKEN` is a JWT token which grants access to the NOMIS API when t
 
 (Optional) If not set API calls will be sent without an Authorization header.
 
-### `NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED`
-
-If `true` then the Nomis API will be used to check the slots availability when
-staff process a visit.
 
 ### `STAFF_PRISONS_WITH_SLOT_AVAILABILITY`
 
@@ -56,17 +52,6 @@ for a visit are available at the requested prison.
 
 A comma separated list of prisons for which PVB2 API will return slots along with their live availability: check which slots
 are available at the requested prison.
-
-
-### `NOMIS_STAFF_RESTRICTIONS_ENABLED`
-
-If `true` then the process visit page will query the offender restrictions api.
-
-(Optional) By default it is false.
-
-### `STAFF_PRISONS_WITH_RESTRICTIONS_INFO`
-
-A comma separated list of prisons for which the prisoner restrictions is displayed
 
 
 ### `REDIS_URL`
@@ -102,19 +87,11 @@ data.
 This is used to build staff links in emails. It must be set in the production
 environment to `https://staff.prisonvisits.service.gov.uk/`.
 
-### `SESSION_SECRET_KEY`
-
-This is used to sign the session used by the Sidekiq admin interface.
-
 ### `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_HOSTNAME`, `SMTP_PORT`, `SMTP_DOMAIN`
 
 These configure email delivery in the production environment. `SMTP_DOMAIN` is
 also used when generating the `no-reply@` address and the `feedback@` stand-in
 address used when submitting feedback without an email address to Zendesk.
-
-### `STAFF_INFO_ENDPOINT`
-
-This is used to proxy the staff information pages static site.
 
 ### `ZENDESK_USERNAME`, `ZENDESK_TOKEN`, `ZENDESK_URL`
 
@@ -136,9 +113,6 @@ If specified, exceptions will be sent to the given Sentry project.
 
 If specified, Javascript exceptions will be sent to the given Sentry project.
 
-### `PVB_TEAM_EMAIL`
-
-Email address used in the admin mailer.
 
 ### Files to be created on deployment
 
