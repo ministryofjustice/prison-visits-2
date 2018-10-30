@@ -47,7 +47,7 @@ private
     return unless params[:message]
 
     Message.new(
-      body:    params[:message][:body],
+      body: params[:message][:body],
       user_id: params[:message][:user_id]
     )
   end
@@ -90,7 +90,7 @@ private
         :rejection_reason_detail,
         reasons: []
       ],
-      visitors_attributes:  [
+      visitors_attributes: [
         :id,
         :nomis_id,
         :banned,

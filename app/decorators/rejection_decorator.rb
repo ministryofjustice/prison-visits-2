@@ -136,8 +136,8 @@ private
     h.t(
       'slot_unavailable_html',
       prisoner: visit.prisoner_anonymized_name,
-      prison:   visit.prison_name,
-      scope:   %i[visitor_mailer rejected]
+      prison: visit.prison_name,
+      scope: %i[visitor_mailer rejected]
     )
   end
 
@@ -158,9 +158,9 @@ private
     return date if date.is_a?(Hash)
 
     {
-      year:  date.year,
+      year: date.year,
       month: date.month,
-      day:   date.day
+      day: date.day
     }
   end
 

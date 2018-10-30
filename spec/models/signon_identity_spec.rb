@@ -125,10 +125,10 @@ RSpec.describe SignonIdentity, type: :model do
     let!(:orgs)               { [swansea_org_name, cardiff_org_name] }
     let!(:serialization) do
       {
-        'user_id'     => user.id,
-        'full_name'   => "Mr A",
+        'user_id' => user.id,
+        'full_name' => "Mr A",
         'profile_url' => 'https://example.com/profile',
-        'logout_url'  => 'https://example.com/logout',
+        'logout_url' => 'https://example.com/logout',
         'permissions' => orgs.map { |o| { 'organisation' => o, 'roles' => [] } }
       }
     end

@@ -85,7 +85,7 @@ private
   def load_prisoner
     if Nomis::Api.enabled?
       Nomis::Api.instance.lookup_active_prisoner(
-        noms_id:       @visit.prisoner_number,
+        noms_id: @visit.prisoner_number,
         date_of_birth: @visit.prisoner.date_of_birth
       )
     else

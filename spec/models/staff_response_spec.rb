@@ -231,22 +231,22 @@ RSpec.describe StaffResponse, type: :model do
   describe '#email_attrs' do
     let(:expected_params) do
       {
-        'id'                     => nil,
-        'prison_id'              => visit.prison.id,
-        'contact_email_address'  => nil,
-        'contact_phone_no'       => nil,
-        'processing_state'       => 'requested',
-        'reference_no'           => 'A1234BC',
-        'closed'                 => params[:closed],
-        'prisoner_id'            => visit.prisoner_id,
-        'locale'                 => nil,
-        'nomis_comments'         => nil,
-        'principal_visitor_id'   => principal_visitor.id,
-        'slot_option_0'          => visit.slot_option_0,
-        'slot_option_1'          => visit.slot_option_1,
-        'slot_option_2'          => visit.slot_option_2,
-        'slot_granted'           => visit.slot_option_0,
-        'visitors_attributes'    => visit.visitors.each_with_object({}).with_index do |(visitor, h), i|
+        'id' => nil,
+        'prison_id' => visit.prison.id,
+        'contact_email_address' => nil,
+        'contact_phone_no' => nil,
+        'processing_state' => 'requested',
+        'reference_no' => 'A1234BC',
+        'closed' => params[:closed],
+        'prisoner_id' => visit.prisoner_id,
+        'locale' => nil,
+        'nomis_comments' => nil,
+        'principal_visitor_id' => principal_visitor.id,
+        'slot_option_0' => visit.slot_option_0,
+        'slot_option_1' => visit.slot_option_1,
+        'slot_option_2' => visit.slot_option_2,
+        'slot_granted' => visit.slot_option_0,
+        'visitors_attributes' => visit.visitors.each_with_object({}).with_index do |(visitor, h), i|
           h[i.to_s] = visitor.slice(*visitor_fields)
           h[i.to_s]['banned_until'] = visitor.banned_until.to_s
           h
@@ -280,10 +280,10 @@ RSpec.describe StaffResponse, type: :model do
         params[:rejection_attributes].merge!(multi_params_date)
 
         expected_params['rejection_attributes'] = {
-          'id'                              => nil,
-          'visit_id'                        => nil,
-          'reasons'                         => [Rejection::NO_ALLOWANCE],
-          'allowance_renews_on'             => allowance_renew_date.to_s
+          'id' => nil,
+          'visit_id' => nil,
+          'reasons' => [Rejection::NO_ALLOWANCE],
+          'allowance_renews_on' => allowance_renew_date.to_s
         }
         expected_params['slot_granted'] = ''
         expect(subject).to be_valid

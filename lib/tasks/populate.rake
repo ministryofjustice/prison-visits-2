@@ -23,17 +23,17 @@ namespace :pvb do
 
     def generate_prisoner
       Prisoner.create(
-        first_name:    generate_first_name,
-        last_name:     generate_last_name,
+        first_name: generate_first_name,
+        last_name: generate_last_name,
         date_of_birth: generate_past_date,
-        number:        generate_prisoner_number
+        number: generate_prisoner_number
       )
     end
 
     def visitor_attributes
       {
-        first_name:    generate_first_name,
-        last_name:     generate_last_name,
+        first_name: generate_first_name,
+        last_name: generate_last_name,
         date_of_birth: generate_past_date
       }
     end
@@ -41,14 +41,14 @@ namespace :pvb do
     def generate_visit(prison)
       slots = prison.available_slots.to_a.sample(3)
       visit = Visit.create!(
-        prisoner:              generate_prisoner,
-        contact_phone_no:      '07777777777',
+        prisoner: generate_prisoner,
+        contact_phone_no: '07777777777',
         contact_email_address: "#{generate_last_name}@example.com",
-        prison:                 prison,
-        slot_option_0:          slots.pop,
-        slot_option_1:          slots.pop,
-        slot_option_2:          slots.pop,
-        locale:                 'en',
+        prison: prison,
+        slot_option_0: slots.pop,
+        slot_option_1: slots.pop,
+        slot_option_2: slots.pop,
+        locale: 'en',
         created_at: (1..20).to_a.sample.days.ago
       )
       HumanReadableId.update_unique_id(Visit, visit.id, :human_id)
@@ -58,10 +58,10 @@ namespace :pvb do
         )
       end
       visit.visitors.create!(
-        first_name:    generate_first_name,
-        last_name:     generate_last_name,
+        first_name: generate_first_name,
+        last_name: generate_last_name,
         date_of_birth: (prison.adult_age - 1).years.ago,
-        sort_index:    visit.visitors.size + 1
+        sort_index: visit.visitors.size + 1
       )
       visit
     end

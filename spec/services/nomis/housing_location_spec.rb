@@ -4,7 +4,7 @@ RSpec.describe Nomis::HousingLocation do
   let(:unparsed_value) do
     {
       'description' => "some description",
-      'levels'      => [
+      'levels' => [
         {
           'type' => 'wing', 'value' => 'C'
         },

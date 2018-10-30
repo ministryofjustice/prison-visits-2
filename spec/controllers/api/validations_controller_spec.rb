@@ -20,8 +20,8 @@ RSpec.describe Api::ValidationsController do
     let(:params) do
       {
         lead_date_of_birth: lead_dob,
-        dates_of_birth:     dobs,
-        prison_id:          prison_id
+        dates_of_birth: dobs,
+        prison_id: prison_id
       }
     end
 
