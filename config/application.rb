@@ -66,8 +66,6 @@ module PrisonVisits
       end
     }
 
-    config.staff_info_endpoint = ENV.fetch('STAFF_INFO_ENDPOINT', nil)
-
     config.connection_pool_size =
       config.database_configuration[Rails.env]['pool'] || 5
 
