@@ -20,7 +20,11 @@ parsing the slot details into recurring and concrete slots.
 
 ### Steps
 
-These models are not persisted but have attributes (via Virtus) and validations
+(This steps is a legacy from when PVB Public was all in one application. Ideally
+these would be refactored so that the API would use services to validate and
+persist the data)
+
+These models are not persisted but have attributes (via ActiveModel) and validations
 to represent each step in the journey of requesting a visit.
 
 ### `PrisonerStep`
@@ -36,10 +40,6 @@ visitors.
 
 The third step: allows selection of slots for the prison.
 
-### `ConfirmationStep`
-
-This step has only one attribute (`confirmed`) and exists only to facilitate
-displaying a confirmation page in the same way as the preceding steps.
 
 ## Database tables
 
