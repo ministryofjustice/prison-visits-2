@@ -29,11 +29,6 @@
     <div class="column-one-half">
       <%= error_container(rf, :reasons) do %>
         <div class="multiple-choice">
-          <%= render 'rejection_reason', rf: rf, id: :prisoner_banned %>
-        </div>
-      <% end %>
-      <%= error_container(rf, :reasons) do %>
-        <div class="multiple-choice">
           <%= render 'rejection_reason', rf: rf, id: :prisoner_out_of_prison %>
         </div>
       <% end %>
@@ -49,8 +44,7 @@
     <%= t('.overriding_restrictions') %>:
     <ul class="list list-bullet font-small">
       <li id="prisoner-details-incorrect"><%= t('.prisoner_details_incorrect') %></li>
-      <li id="prisoner-banned"><%= t('.prisoner_banned') %></li>
-      <li id="no-allowance"><%= t('.no_allowance') %>  </li>
+      <li id="no-allowance"><%= t('.nro_allowance') %>  </li>
       <li id="prisoner-out-of-prison"><%= t('.prisoner_out_of_prison') %></li>
     </ul>
     <%= t('.update_nomis') %>

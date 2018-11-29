@@ -20,3 +20,12 @@ RSpec.shared_examples 'skipping email for the trial' do
     expect(mail.to).to be_nil
   end
 end
+
+RSpec.shared_examples 'when the prison is not on prison finder' do
+  it 'does not display the link to the Prison Finder service' do
+    medway_prison.name = 'Medway Secure Training Centre'
+    medway_prison.save
+
+    expect(mail.html_part.body).not_to match(%r{http:\/\/www.justice.gov.uk\/contacts\/prison-finder})
+  end
+end

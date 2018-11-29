@@ -224,45 +224,45 @@ RSpec.describe VisitorsStep do
     it 'is valid if there are 3 adult and 3 child visitors' do
       subject.visitors = [
         {
-          first_name:  'John',
-          last_name:  'Johnson',
-          date_of_birth:  {
-            day:  '1', month:  '12', year:  '1990' # First visitor > 18
+          first_name: 'John',
+          last_name: 'Johnson',
+          date_of_birth: {
+            day: '1', month:  '12', year:  '1990' # First visitor > 18
           }
         },
         {
-          first_name:  'Jane',
-          last_name:  'Johnson',
-          date_of_birth:  {
-            day:  '1', month:  '12', year:  '2002' # 13 today
+          first_name: 'Jane',
+          last_name: 'Johnson',
+          date_of_birth: {
+            day: '1', month:  '12', year:  '2002' # 13 today
           }
         },
         {
-          first_name:  'Jim',
-          last_name:  'Johnson',
-          date_of_birth:  {
-            day:  '1', month:  '12', year:  '2002' # 13 today
+          first_name: 'Jim',
+          last_name: 'Johnson',
+          date_of_birth: {
+            day: '1', month:  '12', year:  '2002' # 13 today
           }
         },
         {
-          first_name:  'Joe',
-          last_name:  'Johnson',
-          date_of_birth:  {
-            day:  '2', month:  '12', year:  '2002' # 13 tomorrow
+          first_name: 'Joe',
+          last_name: 'Johnson',
+          date_of_birth: {
+            day: '2', month:  '12', year:  '2002' # 13 tomorrow
           }
         },
         {
-          first_name:  'Jessica',
-          last_name:  'Johnson',
-          date_of_birth:  {
-            day:  '2', month:  '12', year:  '2002' # 13 tomorrow
+          first_name: 'Jessica',
+          last_name: 'Johnson',
+          date_of_birth: {
+            day: '2', month:  '12', year:  '2002' # 13 tomorrow
           }
         },
         {
-          first_name:  'Jerry',
-          last_name:  'Johnson',
-          date_of_birth:  {
-            day:  '2', month:  '12', year:  '2002' # 13 tomorrow
+          first_name: 'Jerry',
+          last_name: 'Johnson',
+          date_of_birth: {
+            day: '2', month:  '12', year:  '2002' # 13 tomorrow
           }
         }
       ]
@@ -273,45 +273,45 @@ RSpec.describe VisitorsStep do
     it 'is invalid if there are too many adult visitors' do
       subject.visitors = [
         {
-          first_name:  'John',
-          last_name:  'Johnson',
-          date_of_birth:  {
-            day:  '1', month:  '12', year:  '1970'
+          first_name: 'John',
+          last_name: 'Johnson',
+          date_of_birth: {
+            day: '1', month:  '12', year:  '1970'
           }
         },
         {
-          first_name:  'Jane',
-          last_name:  'Johnson',
-          date_of_birth:  {
-            day:  '1', month:  '12', year:  '2002' # 13 today
+          first_name: 'Jane',
+          last_name: 'Johnson',
+          date_of_birth: {
+            day: '1', month:  '12', year:  '2002' # 13 today
           }
         },
         {
-          first_name:  'Jim',
-          last_name:  'Johnson',
-          date_of_birth:  {
-            day:  '1', month:  '12', year:  '2002' # 13 today
+          first_name: 'Jim',
+          last_name: 'Johnson',
+          date_of_birth: {
+            day: '1', month:  '12', year:  '2002' # 13 today
           }
         },
         {
-          first_name:  'Joe',
-          last_name:  'Johnson',
-          date_of_birth:  {
-            day:  '1', month:  '12', year:  '2002' # 13 today
+          first_name: 'Joe',
+          last_name: 'Johnson',
+          date_of_birth: {
+            day: '1', month:  '12', year:  '2002' # 13 today
           }
         },
         {
-          first_name:  'Jessica',
-          last_name:  'Johnson',
-          date_of_birth:  {
-            day:  '1', month:  '12', year:  '2002' # 13 today
+          first_name: 'Jessica',
+          last_name: 'Johnson',
+          date_of_birth: {
+            day: '1', month:  '12', year:  '2002' # 13 today
           }
         },
         {
-          first_name:  'Jerry',
-          last_name:  'Johnson',
-          date_of_birth:  {
-            day:  '1', month:  '12', year:  '2002' # 13 today
+          first_name: 'Jerry',
+          last_name: 'Johnson',
+          date_of_birth: {
+            day: '1', month:  '12', year:  '2002' # 13 today
           }
         }
       ]
@@ -324,17 +324,17 @@ RSpec.describe VisitorsStep do
     it 'is invalid if there is no adult visitor' do
       subject.visitors = [
         {
-          first_name:  'Joe',
-          last_name:  'Johnson',
-          date_of_birth:  {
-            day:  '2', month:  '12', year:  '2002' # 13 tomorrow
+          first_name: 'Joe',
+          last_name: 'Johnson',
+          date_of_birth: {
+            day: '2', month:  '12', year:  '2002' # 13 tomorrow
           }
         },
         {
-          first_name:  'Jessica',
-          last_name:  'Johnson',
-          date_of_birth:  {
-            day:  '2', month:  '12', year:  '2002' # 13 tomorrow
+          first_name: 'Jessica',
+          last_name: 'Johnson',
+          date_of_birth: {
+            day: '2', month:  '12', year:  '2002' # 13 tomorrow
           }
         }
       ]

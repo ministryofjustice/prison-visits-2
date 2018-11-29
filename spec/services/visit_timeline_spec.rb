@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe VisitTimeline do
   let(:instance) { described_class.new(visit) }
-  let(:visit) { FactoryBot.create(:visit) }
+  let(:visit) { create(:visit) }
 
   describe '#events' do
     subject(:events) { instance.events }
@@ -22,7 +22,7 @@ RSpec.describe VisitTimeline do
 
       before do
         visit.accept
-        VisitStateChange.last.update!(processed_by: user)
+        VisitStateChange.last.update!(creator: user)
 
         CancellationResponse.new(
           visit, reasons: [Cancellation::BOOKED_IN_ERROR]
@@ -52,7 +52,7 @@ RSpec.describe VisitTimeline do
     describe 'for a withdrawn visit' do
       before do
         visit.withdraw
-        VisitStateChange.last.update!(visitor: visit.principal_visitor)
+        VisitStateChange.last.update!(creator: visit.principal_visitor)
         visit.reload
       end
 

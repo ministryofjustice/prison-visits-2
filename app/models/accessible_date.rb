@@ -25,6 +25,7 @@ class AccessibleDate
 
   def self.from_multi_parameters(before_type_cast_value)
     return new unless before_type_cast_value.respond_to?(:values_at)
+
     new(Hash[[:year, :month, :day].zip(before_type_cast_value.values_at(1, 2, 3))])
   end
 
@@ -32,6 +33,7 @@ private
 
   def parsable?
     return unless any_date_part?
+
     unless any_date_part? && DateCoercer.coerce(serializable_hash).is_a?(Date)
       i18n_scope = %i[activemodel errors messages]
       errors.add(:year,  I18n.t('invalid', scope: i18n_scope))

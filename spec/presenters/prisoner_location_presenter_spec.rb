@@ -4,14 +4,14 @@ RSpec.describe PrisonerLocationPresenter do
   let(:establishment_code) { 'LCI' }
   let(:establishment)      do
     Nomis::Establishment.new(
-      code:             'LCI',
+      code: 'LCI',
       housing_location: { description: 'some_internal_location' }
     )
   end
-  let(:offender)           { Nomis::Offender.new(id: '123', noms_id: 'AR234RG') }
+  let(:prisoner)           { Nomis::Prisoner.new(id: '123', noms_id: 'AR234RG') }
 
   let(:prisoner_location_validation) do
-    PrisonerLocationValidation.new(offender, establishment_code)
+    PrisonerLocationValidation.new(prisoner, establishment_code)
   end
 
   subject { described_class.new(prisoner_location_validation) }
@@ -23,6 +23,7 @@ RSpec.describe PrisonerLocationPresenter do
           allow(prisoner_location_validation).
             to receive(:establishment).and_return(establishment)
         end
+
         describe 'when the location is valid' do
           it { expect(subject.status).to be nil }
         end
@@ -36,8 +37,9 @@ RSpec.describe PrisonerLocationPresenter do
 
       describe 'when the API returns an error', :expect_exception do
         before do
-          simulate_api_error_for(:lookup_offender_location)
+          simulate_api_error_for(:lookup_prisoner_location)
         end
+
         it { expect(subject.status).to eq('location_unknown') }
       end
     end
@@ -57,6 +59,7 @@ RSpec.describe PrisonerLocationPresenter do
         allow(prisoner_location_validation).
           to receive(:establishment).and_return(establishment)
       end
+
       describe 'when the location is valid' do
         it { expect(subject.internal_location).to eq('some_internal_location') }
       end
@@ -70,7 +73,7 @@ RSpec.describe PrisonerLocationPresenter do
 
     describe 'when the API returns an error', :expect_exception do
       before do
-        simulate_api_error_for(:lookup_offender_location)
+        simulate_api_error_for(:lookup_prisoner_location)
       end
 
       it { expect(subject.internal_location).to be nil }

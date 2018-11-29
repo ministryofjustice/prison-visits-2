@@ -60,13 +60,13 @@ RSpec.describe ConcreteSlotDecorator do
 
         context 'when a prisoner is not available' do
           context 'with a date in the future' do
-            let(:slot_errors) { ['prisoner_banned'] }
+            let(:slot_errors) { ['external_movement'] }
 
             it 'renders the checkbox with errors' do
               expect(html_fragment).to have_css('label.date-box__label.date-box--error')
               expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
               expect(html_fragment).to have_text("#{slot.to_date.strftime('%d %b %Y')} 14:00–15:30")
-              expect(html_fragment).to have_css('span.tag--error', text: 'Visits banned')
+              expect(html_fragment).to have_css('span.tag--error', text: 'Prisoner on movement')
             end
           end
 
@@ -178,7 +178,7 @@ RSpec.describe ConcreteSlotDecorator do
     end
 
     context 'when the prisoner is not avaliable' do
-      let(:slot_errors) { ['prisoner_banned'] }
+      let(:slot_errors) { ['external_movement'] }
 
       context 'when the slot is avaliable' do
         before do

@@ -73,7 +73,7 @@
   </div>
   <div class="column-one-quarter">
     <span class="text-secondary"><%= t('.sentence_status') %></span>
-    <div class="bold-small"><%= @visit.offender_sentence_status%></div>
+    <div class="bold-small"><%= @visit.prisoner_sentence_status%></div>
     <% case @visit.prisoner_existance_status %>
     <% when PrisonerDetailsPresenter::VALID %>
       <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
@@ -83,7 +83,7 @@
   </div>
   <div class="column-one-quarter">
     <span class="text-secondary"><%= t('.iep_level') %></span>
-    <div class="bold-small"><%= @visit.offender_iep_level%></div>
+    <div class="bold-small"><%= @visit.prisoner_iep_level%></div>
     <% case @visit.prisoner_existance_status %>
     <% when PrisonerDetailsPresenter::VALID %>
       <div class="font-xsmall tag tag--booked"><%= t('.verified') %></div>
@@ -104,14 +104,3 @@
     <% end %>
   </div>
 </div>
-
-<% if @visit.prisoner_restrictions.any? %>
-  <div class="border-box border-box--large border-box--orange push-top">
-    <h3 class="bold-medium">
-      <%= t('.prisoner_restrictions_apply') %><div class="push-left--half font-xsmall tag tag--verified"><%= t('.verified') %></div>
-    </h3>
-    <% @visit.prisoner_restrictions.each do |restriction| %>
-      <%= render 'prisoner_restriction', restriction: restriction %>
-    <% end %>
-  </div>
-<% end %>

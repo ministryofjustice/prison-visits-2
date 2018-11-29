@@ -4,6 +4,8 @@ class StaffResponse
   ADULT_AGE = 18
   attr_accessor :visit, :user
 
+  alias :creator :user
+
   before_validation :check_slot_available
   before_validation :check_principal_visitor
 
@@ -37,7 +39,7 @@ class StaffResponse
       'slot_option_0' => visit.slot_option_0.to_s,
       'slot_option_1' => visit.slot_option_1.to_s,
       'slot_option_2' => visit.slot_option_2.to_s,
-      'slot_granted'  => visit.slot_granted.to_s
+      'slot_granted' => visit.slot_granted.to_s
     )
     attrs['rejection_attributes'] = rejection_attributes if rejection_attributes
     attrs['visitors_attributes']  = visitors_attributes  if visitors_attributes
@@ -61,6 +63,7 @@ private
 
   def rejection_attributes
     return unless visit.rejection&.valid?
+
     @rejection_attributes ||= begin
       attrs = visit.rejection.serializable_hash(
         except: %i[

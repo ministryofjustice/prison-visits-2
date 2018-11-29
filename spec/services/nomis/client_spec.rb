@@ -119,6 +119,7 @@ RSpec.describe Nomis::Client do
         with { |req|
           auth_type, token = req.headers["Authorization"].split(' ')
           next unless auth_type == 'Bearer'
+
           # raises an error if token is not an ES256 JWT token
           JWT.decode(token, client_key, true, algorithm: 'ES256')
           true

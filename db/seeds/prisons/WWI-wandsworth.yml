@@ -5,8 +5,8 @@ address: |-
   Heathfield Rd
   PO Box 757
 postcode: SW18 3HS
-email_address: socialvisits.wandsworth@hmps.gsi.gov.uk
-phone_no: 020 8588 4002
+email_address: prison.visits@ministryofjustice.zendesk.com
+phone_no: 0300 060 6509
 enabled: true
 private: false
 closed: false
@@ -42,23 +42,13 @@ recurring:
   - 1400-1500
   - 1530-1630
 unbookable:
-- 2018-03-06
-- 2018-03-14
-- 2018-03-28
-- 2018-04-11
-- 2018-04-25
-- 2018-05-09
-- 2018-05-30
-- 2018-06-13
-- 2018-06-27
-- 2018-07-11
-- 2018-07-25
-- 2018-08-08
-- 2018-08-15
-- 2018-09-05
-- 2018-09-12
+- 2018-10-24
 - 2018-10-30
 - 2018-11-14
 - 2018-11-28
 - 2018-12-12
+- 2018-12-20
 - 2018-12-21
+- 2018-12-25
+- 2018-12-26
+- 2019-01-01

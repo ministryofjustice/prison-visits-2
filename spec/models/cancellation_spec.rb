@@ -8,6 +8,7 @@ RSpec.describe Cancellation, model: true do
       before do
         subject.reasons = ['', described_class::PRISONER_VOS]
       end
+
       it { is_expected.to be_valid }
     end
 
@@ -53,7 +54,7 @@ RSpec.describe Cancellation, model: true do
       describe 'witout a reason' do
         before do
           subject.reasons.clear
-          is_expected.to be_invalid
+          expect(subject).to be_invalid
         end
 
         it 'has a meaning full transalated message' do

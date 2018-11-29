@@ -95,11 +95,11 @@ RSpec.describe GraphMetricsPresenter do
 
       it 'returns timeseries for of visits per processing state' do
         todays_metrics = subject.visits_per_processing_state.first
-        expect(todays_metrics.as_json).to eq(date:      Time.zone.today,
+        expect(todays_metrics.as_json).to eq(date: Time.zone.today,
                                              requested: BigDecimal(5),
                                              cancelled: BigDecimal(4),
-                                             booked:    BigDecimal(3),
-                                             rejected:  BigDecimal(2),
+                                             booked: BigDecimal(3),
+                                             rejected: BigDecimal(2),
                                              withdrawn: BigDecimal(1))
       end
     end
@@ -154,9 +154,9 @@ RSpec.describe GraphMetricsPresenter do
       end
 
       it "returns the formatted overdue and timely visits by date" do
-        expect(subject.timely_and_overdue.first.as_json).to eq(timely:  BigDecimal(2),
+        expect(subject.timely_and_overdue.first.as_json).to eq(timely: BigDecimal(2),
                                                                overdue: BigDecimal(3),
-                                                               date:    Time.zone.today)
+                                                               date: Time.zone.today)
       end
     end
   end
@@ -267,21 +267,21 @@ RSpec.describe GraphMetricsPresenter do
         stat = subject.rejection_percentages.first
         expect(stat.as_json.except(:date).values.sum).to be_within(0.3).of(100)
         expect(stat.as_json).to eq(date: Time.zone.today,
-                                   child_protection_issues:    1.52,
-                                   duplicate_visit_request:    16.67,
-                                   no_adult:                   3.03,
-                                   no_allowance:               4.55,
-                                   prisoner_banned:            0,
+                                   child_protection_issues: 1.52,
+                                   duplicate_visit_request: 16.67,
+                                   no_adult: 3.03,
+                                   no_allowance: 4.55,
+                                   prisoner_banned: 0,
                                    prisoner_details_incorrect: 6.06,
-                                   prisoner_moved:             7.58,
-                                   prisoner_non_association:   9.09,
-                                   prisoner_out_of_prison:     0,
-                                   prisoner_released:          10.61,
-                                   slot_unavailable:           12.12,
-                                   visitor_banned:             13.64,
-                                   visitor_not_on_list:        15.15,
-                                   other:                      0,
-                                   visitor_other_reason:       0)
+                                   prisoner_moved: 7.58,
+                                   prisoner_non_association: 9.09,
+                                   prisoner_out_of_prison: 0,
+                                   prisoner_released: 10.61,
+                                   slot_unavailable: 12.12,
+                                   visitor_banned: 13.64,
+                                   visitor_not_on_list: 15.15,
+                                   other: 0,
+                                   visitor_other_reason: 0)
       end
     end
   end

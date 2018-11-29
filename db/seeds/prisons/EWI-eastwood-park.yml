@@ -4,8 +4,8 @@ nomis_id: EWI
 address: |-
   Falfield
 postcode: GL12 8DB
-email_address: socialvisits.eastwoodpark@hmps.gsi.gov.uk
-phone_no: 01454 382159
+email_address: prison.visits@ministryofjustice.zendesk.com
+phone_no: 0300 060 6513
 enabled: true
 private: false
 closed: false

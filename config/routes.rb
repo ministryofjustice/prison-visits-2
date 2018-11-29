@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   end
 
   namespace :prison do
-    resources :print_visits, only: %i[new create]
+    resource :print_visit, only: %i[new show]
 
     scope controller: :dashboards do
       get '/inbox', action: :inbox, as: 'inbox'

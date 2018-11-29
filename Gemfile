@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.5.1'
+ruby '2.5.3'
 
 gem 'rails', '~> 5.2'
 
@@ -8,8 +8,8 @@ gem 'base32-crockford', require: 'base32/crockford'
 gem 'business'
 gem 'draper'
 gem 'connection_pool'
+gem 'did_you_mean'
 gem 'excon'
-gem 'highline', require: false
 gem 'jbuilder'
 gem 'kramdown'
 gem 'lograge'
@@ -31,7 +31,6 @@ gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'jwt'
 gem 'rake'
 
-gem 'secure_headers'
 gem 'sentry-raven', require: 'raven'
 gem 'sidekiq'
 gem 'state_machines-activerecord'
@@ -53,7 +52,7 @@ group :development, :test do
   gem 'brakeman'
   gem 'byebug'
   gem 'jasmine-jquery-rails'
-  gem 'jasmine', '~> 3.1'
+  gem 'jasmine', '~> 3.3'
   gem 'parser'
   gem 'pry-byebug'
   gem 'pry-rails'

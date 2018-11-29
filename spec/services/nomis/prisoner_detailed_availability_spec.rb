@@ -8,7 +8,6 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
     let(:response_body) do
       {
         '2017-01-01' => {
-          'banned' => false,
           'out_of_vo' => true,
           'external_movement' => false,
           'existing_visits' => [{ 'id' => 123, slot: api_slot.to_s }]
@@ -21,7 +20,6 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
       expect(object.dates.count).to eq(1)
       date_info = object.dates.first
 
-      expect(date_info.banned).to eq(false)
       expect(date_info.out_of_vo).to eq(true)
       expect(date_info.external_movement).to eq(false)
       expect(date_info.existing_visits.first.id).to eq('123')
@@ -33,7 +31,6 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
     described_class.new(
       dates: [{
         date: date,
-        banned: banned,
         out_of_vo: out_of_vo,
         external_movement: external_movement,
         existing_visits: existing_visits
@@ -47,7 +44,6 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
     let(:date) { requested_slot.to_date }
 
     context 'when unavailable' do
-      let(:banned) { false }
       let(:out_of_vo) { false }
       let(:external_movement) { false }
       let(:existing_visits) { [{ 'slot' => api_slot.to_s, 'id' => 123 }] }
@@ -56,7 +52,6 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
     end
 
     context 'when available' do
-      let(:banned) { false }
       let(:out_of_vo) { false }
       let(:external_movement) { false }
       let(:existing_visits) { [] }
@@ -71,7 +66,6 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
     let(:date) { requested_slot.to_date }
 
     context 'when available on that day' do
-      let(:banned) { false }
       let(:out_of_vo) { false }
       let(:external_movement) { false }
       let(:existing_visits) { [] }
@@ -80,13 +74,12 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
     end
 
     context 'when unavailable on that day for all the reasons' do
-      let(:banned) { true }
       let(:out_of_vo) { true }
       let(:external_movement) { true }
       let(:existing_visits) { [{ 'slot' => api_slot.to_s, 'id' => 123 }] }
 
       it do
-        is_expected.to contain_exactly(
+        expect(subject).to contain_exactly(
           Nomis::PrisonerDateAvailability::OUT_OF_VO,
           Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT,
           Nomis::PrisonerDateAvailability::BOOKED_VISIT)

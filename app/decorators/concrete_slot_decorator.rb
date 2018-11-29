@@ -3,7 +3,7 @@ class ConcreteSlotDecorator < Draper::Decorator
   RADIO_BUTTON_OPTIONS = {
     class: 'js-Conditional',
     data: {
-      'conditional-el'  => 'selected_slot_details',
+      'conditional-el' => 'selected_slot_details',
       'conditional-val' => 'slot_option_0,slot_option_1,slot_option2'
     }.freeze
   }.freeze
@@ -139,7 +139,7 @@ private
 
   def options_for_label_key
     {
-      day:  h.format_date_day(object),
+      day: h.format_date_day(object),
       date: h.format_date(object),
       time: h.format_slot_times(object),
       scope: %w[prison visits visit_date_section]

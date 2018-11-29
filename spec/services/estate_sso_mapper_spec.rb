@@ -1,17 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe EstateSSOMapper do
-  let(:instance) { described_class.new(orgs) }
+  let(:instance) { described_class.new(user_sso_orgs) }
 
-  let!(:other_estate) { create(:estate) }
-
-  around(:each) do |ex|
-    described_class.instance_variable_set('@grouped_estates', nil)
-    ex.run
-    described_class.instance_variable_set('@grouped_estates', nil)
+  let!(:other_estate) do
+    create(:estate,
+      sso_organisation_name: 'other_estate.prisons.noms.moj',
+      admins: ['other_estate.prisons.noms.moj'])
   end
 
-  describe '#grouped_estates' do
+  around(:each) do |ex|
+    described_class.reset_grouped_estates
+    ex.run
+    described_class.reset_grouped_estates
+  end
+
+  describe '.grouped_estates' do
     subject { described_class.grouped_estates }
 
     let!(:brinsford) do
@@ -20,7 +24,11 @@ RSpec.describe EstateSSOMapper do
         admins: ['apvu.noms.moj', 'brinsford.prisons.noms.moj'])
     end
 
-    it { is_expected.to eq('apvu.noms.moj' => ['brinsford.prisons.noms.moj'], 'brinsford.prisons.noms.moj' => ['brinsford.prisons.noms.moj']) }
+    it {
+      expect(subject).to eq('apvu.noms.moj' => ['brinsford.prisons.noms.moj'],
+                            'brinsford.prisons.noms.moj' => ['brinsford.prisons.noms.moj'],
+                            'other_estate.prisons.noms.moj' => ['other_estate.prisons.noms.moj'])
+    }
   end
 
   describe '#accessible_estates' do
@@ -32,17 +40,11 @@ RSpec.describe EstateSSOMapper do
           sso_organisation_name: 'brinsford.prisons.noms.moj',
           admins: ['brinsford.prisons.noms.moj'])
       end
-      let(:orgs) { ['brinsford.prisons.noms.moj'] }
-
-      before do
-        allow(described_class).
-          to receive(:grouped_estates).
-          and_return('brinsford.prisons.noms.moj' => ['brinsford.prisons.noms.moj'])
-      end
+      let(:user_sso_orgs) { ['brinsford.prisons.noms.moj'] }
 
       it 'includes Brinsford estates' do
-        is_expected.to include(brinsford)
-        is_expected.not_to include(other_estate)
+        expect(subject).to include(brinsford)
+        expect(subject).not_to include(other_estate)
       end
     end
 
@@ -52,17 +54,11 @@ RSpec.describe EstateSSOMapper do
           sso_organisation_name: 'brinsford.prisons.noms.moj',
           admins: ['apvu.noms.moj'])
       end
-      let(:orgs) { ['apvu.noms.moj'] }
-
-      before do
-        allow(described_class).
-          to receive(:grouped_estates).
-          and_return('apvu.noms.moj' => ['brinsford.prisons.noms.moj'])
-      end
+      let(:user_sso_orgs) { ['apvu.noms.moj'] }
 
       it 'includes apvu estates' do
-        is_expected.to include(brinsford)
-        is_expected.not_to include(other_estate)
+        expect(subject).to include(brinsford)
+        expect(subject).not_to include(other_estate)
       end
     end
 
@@ -72,17 +68,11 @@ RSpec.describe EstateSSOMapper do
           sso_organisation_name: 'grendon.prisons.noms.moj',
           admins: ['grendon_and_springhill.noms.moj'])
       end
-      let(:orgs) { ['grendon_and_springhill.noms.moj'] }
-
-      before do
-        allow(described_class).
-          to receive(:grouped_estates).
-          and_return('grendon_and_springhill.noms.moj' => ['grendon.prisons.noms.moj'], 'grendon.prisons.noms.moj' => ['grendon.prisons.noms.moj'])
-      end
+      let(:user_sso_orgs) { ['grendon_and_springhill.noms.moj'] }
 
       it 'includes grendon and spring hill estates' do
-        is_expected.to include(grendon)
-        is_expected.not_to include(other_estate)
+        expect(subject).to include(grendon)
+        expect(subject).not_to include(other_estate)
       end
     end
 
@@ -92,37 +82,51 @@ RSpec.describe EstateSSOMapper do
           sso_organisation_name: 'isle_of_wight-parkhurst.prisons.noms.moj',
           admins: ['isle_of_wight.noms.moj'])
       end
-      let(:orgs) { ['isle_of_wight.noms.moj'] }
-
-      before do
-        allow(described_class).
-          to receive(:grouped_estates).
-          and_return('isle_of_wight.noms.moj' => ['isle_of_wight-parkhurst.prisons.noms.moj'])
-      end
+      let(:user_sso_orgs) { ['isle_of_wight.noms.moj'] }
 
       it 'includes isle of wight estates' do
-        is_expected.to include(iow_parkhurst)
-        is_expected.not_to include(other_estate)
+        expect(subject).to include(iow_parkhurst)
+        expect(subject).not_to include(other_estate)
       end
     end
 
     context 'when combining orgs' do
-      let(:estate1) { create(:estate) }
-      let(:estate2) { create(:estate) }
-      let(:orgs) { [estate1.sso_organisation_name, estate2.sso_organisation_name] }
+      let!(:wandsworth) do
+        create(:estate,
+          sso_organisation_name: 'wandsworth.prisons.noms.moj',
+          admins: ['wandsworth.prisons.noms.moj'])
+      end
+
+      let!(:brixton) do
+        create(:estate,
+          sso_organisation_name: 'brixton.prisons.noms.moj',
+          admins: ['brixton.prisons.noms.moj'])
+      end
+      let(:user_sso_orgs) { ['wandsworth.prisons.noms.moj', 'brixton.prisons.noms.moj'] }
 
       it 'includes the combined orgs' do
-        is_expected.to contain_exactly(estate1, estate2)
-        is_expected.not_to include(other_estate)
+        expect(subject).to include(wandsworth, brixton)
+        expect(subject).not_to include(other_estate)
       end
     end
 
     context 'when the admin org' do
-      let(:orgs) { ['digital.noms.moj'] }
+      let(:user_sso_orgs) { ['digital.noms.moj'] }
 
       it 'includes all estates' do
-        is_expected.to eq([other_estate])
+        expect(subject).to eq([other_estate])
       end
+    end
+
+    context 'when a prison is spelt incorrectly' do
+      let!(:full_sutton) do
+        create(:estate,
+          sso_organisation_name: 'full_sutton.prisons.noms.moj',
+          admins: ['full_stutton.prison.noms.moj'])
+      end
+      let(:user_sso_orgs) { ['full_sutton.prisons.noms.moj'] }
+
+      it { is_expected.to be_empty }
     end
   end
 end

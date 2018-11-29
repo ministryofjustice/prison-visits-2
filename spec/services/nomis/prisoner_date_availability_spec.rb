@@ -4,7 +4,6 @@ RSpec.describe Nomis::PrisonerDateAvailability do
   subject(:instance) do
     described_class.new(
       date: date,
-      banned: banned,
       out_of_vo: out_of_vo,
       external_movement: external_movement,
       existing_visits: existing_visits
@@ -12,7 +11,6 @@ RSpec.describe Nomis::PrisonerDateAvailability do
   end
 
   let(:date) { Time.zone.today }
-  let(:banned) { false }
   let(:out_of_vo) { false }
   let(:external_movement) { false }
   let(:existing_visits) { [] }

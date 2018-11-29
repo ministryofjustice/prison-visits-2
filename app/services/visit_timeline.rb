@@ -49,9 +49,9 @@ private
 
   def build_event_from_state_change(state, last:)
     Event.new(
-      state:      state.visit_state,
+      state: state.visit_state,
       created_at: state.created_at,
-      last:       last,
-      user:       state.actioned_by)
+      last: last,
+      user: state.creator)
   end
 end

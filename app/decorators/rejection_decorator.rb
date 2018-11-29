@@ -4,7 +4,6 @@ class RejectionDecorator < Draper::Decorator
   RESTRICTON_REASONS = [
     Rejection::PRISONER_NON_ASSOCIATION,
     Rejection::CHILD_PROTECTION_ISSUES,
-    Rejection::PRISONER_BANNED,
     Rejection::PRISONER_OUT_OF_PRISON
   ].freeze
 
@@ -73,7 +72,6 @@ class RejectionDecorator < Draper::Decorator
   def apply_nomis_reasons
     if unbookable?
       reasons << Rejection::NO_ALLOWANCE if no_allowance?
-      reasons << Rejection::PRISONER_BANNED if prisoner_banned?
       if prisoner_out_of_prison?
         reasons << Rejection::PRISONER_OUT_OF_PRISON
       end
@@ -126,10 +124,6 @@ private
     visit.slots.any? { |slot| nomis_checker.no_allowance?(slot) }
   end
 
-  def prisoner_banned?
-    visit.slots.any? { |slot| nomis_checker.prisoner_banned?(slot) }
-  end
-
   def prisoner_out_of_prison?
     visit.slots.any? { |slot| nomis_checker.prisoner_out_of_prison?(slot) }
   end
@@ -142,8 +136,8 @@ private
     h.t(
       'slot_unavailable_html',
       prisoner: visit.prisoner_anonymized_name,
-      prison:   visit.prison_name,
-      scope:   %i[visitor_mailer rejected]
+      prison: visit.prison_name,
+      scope: %i[visitor_mailer rejected]
     )
   end
 
@@ -162,10 +156,11 @@ private
 
   def date_to_accessible_date(date)
     return date if date.is_a?(Hash)
+
     {
-      year:  date.year,
+      year: date.year,
       month: date.month,
-      day:   date.day
+      day: date.day
     }
   end
 

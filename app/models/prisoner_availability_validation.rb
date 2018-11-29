@@ -2,13 +2,12 @@ class PrisonerAvailabilityValidation
   include MemoryModel
 
   PRISONER_ERRORS = [
-    Nomis::PrisonerDateAvailability::BANNED,
     Nomis::PrisonerDateAvailability::OUT_OF_VO,
     Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT,
     Nomis::PrisonerDateAvailability::BOOKED_VISIT
   ].freeze
 
-  attribute :offender, :nomis_offender
+  attribute :prisoner, :nomis_prisoner
   attribute :requested_slots, :concrete_slot_list
 
   validate :slots_availability
@@ -19,7 +18,8 @@ class PrisonerAvailabilityValidation
 
   def unknown_result?
     return false if valid_requested_slots.none?
-    !Nomis::Api.enabled? || offender_availability.nil? || api_error
+
+    !Nomis::Api.enabled? || prisoner_availability.nil? || api_error
   end
 
 private
@@ -37,20 +37,20 @@ private
   def error_messages_for_slot(slot)
     return [] if unknown_result? || !valid_slot?(slot)
 
-    offender_availability.error_messages_for_slot(slot)
+    prisoner_availability.error_messages_for_slot(slot)
   end
 
-  def offender_availability
-    return nil unless offender.valid?
+  def prisoner_availability
+    return nil unless prisoner.valid?
 
-    @offender_availability ||= load_offender_availability
+    @prisoner_availability ||= load_prisoner_availability
   end
 
-  def load_offender_availability
+  def load_prisoner_availability
     return nil if @api_error
 
-    Nomis::Api.instance.offender_visiting_detailed_availability(
-      offender_id: offender.id,
+    Nomis::Api.instance.prisoner_visiting_detailed_availability(
+      offender_id: prisoner.nomis_offender_id,
       slots: valid_requested_slots
     )
   rescue Nomis::APIError => e

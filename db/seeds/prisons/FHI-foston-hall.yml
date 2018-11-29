@@ -6,8 +6,8 @@ address: |-
   Derby
   Foston
 postcode: DE65 5DN
-email_address: socialvisits.fostonhall@hmps.gsi.gov.uk
-phone_no: 01283 584357
+email_address: prison.visits@ministryofjustice.zendesk.com
+phone_no: 0300 060 6516
 enabled: true
 private: false
 closed: false
@@ -32,4 +32,6 @@ unbookable:
 - 2018-07-18
 - 2018-08-01
 - 2018-08-29
+- 2018-09-19
+- 2018-12-05
 - 2018-12-19

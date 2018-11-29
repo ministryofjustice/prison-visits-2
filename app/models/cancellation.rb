@@ -39,6 +39,7 @@ private
   def validate_reasons
     reasons.each do |r|
       next if REASONS.include?(r)
+
       errors.add(
         :reasons,
         I18n.t(

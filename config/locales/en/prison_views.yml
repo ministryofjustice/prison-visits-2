@@ -41,21 +41,6 @@ en:
         <p>Please either reject or accept the booking</p>
       at_least_one_estate: You must select at least one estate
       invalid_estate_selection: You don't access to these estates
-      nomis_validation_error_html: |
-        <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
-          Visit not copied to NOMIS
-        </h1>
-        <p>Please process the visit and record it manually in NOMIS.</p>
-      already_booked_in_nomis_html:
-        <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
-          This visit is already booked in NOMIS.
-        </h1>
-        <p>Please find the visit in NOMIS and make sure these visit details match before processing.</p>
-      nomis_api_error_html: |
-        <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
-          We can't connect to NOMIS right now.
-        </h1>
-        <p>Try again later, or <a href="#nomis-opt-out">book this visit without recording to NOMIS</a>.</p>
     feedbacks:
       new:
         title: Contact us
@@ -72,14 +57,8 @@ en:
         year: Year
         visit_date: Visit Date
         show: Show
-        visit_date_hint: Enter a date to view the visits eg 01/12/2016
-      create:
-        download_csv_html: |
-          Download CSV <span class="visuallyhidden">(link opens in a new browser window)</span>
-        print: Print
-        no_bookings: No bookings
-        no_cancellations: No cancellations
-        cancelled_visits: Cancelled visits
+        visit_date_hint: For example 01 03 2018.  We can only show visits within the last 6 months. Please contact us if you would like to see older visits.
+      show:
         no_visits: "No visits on %{date}"
         search_list: Search to generate print lists
     dashboards:
@@ -123,21 +102,20 @@ en:
         processed: Processed
         requests: Requests
         title: Search results for '%{prisoner_number}'
-        search_total: Displaying %{number} results
+        search_description_html: |
+          <p class="text-secondary">Below are visit requests made in the last 6 months.
+          Please <a href='/prison/feedbacks/new'>contact us</a> if you would like to see older visits.</p>
       print_visits:
+        no_bookings: No bookings
+        no_cancellations: No cancellations
+        print: Print
+        download_csv_html: |
+                  Download CSV <span class="visuallyhidden">(link opens in a new browser window)</span>
+      print_booked_visits:
         visit_list: Visit List
+      print_cancelled_visits:
+        cancelled_visits: Cancelled visits
     visits:
-      book_to_nomis_opt_in:
-        already_booked_in_nomis: This visit won't be booked to NOMIS as it already exists
-        book_to_nomis_opted_in_by_default:
-          If the visit is booked successfully, it will be copied to NOMIS.
-        dont_book_to_nomis: Don't automatically copy this visit to NOMIS
-        book_to_nomis_not_possible:
-          We can't copy this visit to NOMIS right now. If the visit is booked successfully, please record it manually.
-        reference_no: Reference number
-        reference_no_hint: eg Last 8 digits of VO number or “none” for remand
-        closed_visit: This is a closed visit.
-        closed_book_to_nomis: Book this visit into NOMIS, then enter the reference number below.
       calendar:
         today: Today
       requested:
@@ -162,7 +140,6 @@ en:
         email_preview: Preview email
         prisoner_available: Prisoner available
         slot_available: Space available
-        prisoner_banned: Visits banned
         out_of_vo: No visiting allowance
         external_movement: Prisoner on movement
         booked_visit: Booked on another visit
@@ -174,7 +151,6 @@ en:
         none_available: None of the chosen times are available
       prisoner_details:
         title: Prisoner details
-        prisoner_restrictions_apply: Prisoner restrictions apply
         prisoner_name: Prisoner name
         prisoner_dob: Prisoner D.O.B
         prisoner_number: Prisoner no.
@@ -243,23 +219,18 @@ en:
         issue_with_date: Issue with the date
         visitor_banned: Visitor is banned
         issue_with_visitor: Issue with a visitor
-        cancel_to_nomis_warning: If the visit is processed successfully, it will be copied to NOMIS
-        dont_cancel_to_nomis: "Don't automatically copy this cancellation to NOMIS"
       other_section:
         title: Other
-
       visit_date_section:
         title: Visit date
         choice_html: |
           <span class="date-box__day bold-small">%{day}</span><br>%{date} <br>%{time}
         reference_no: Reference number
         reference_no_hint: eg Last 8 digits of VO number or "none" for remand
-        closed_visit: This is a closed visit
+        closed: This is a closed visit
         none_available: None of the chosen times are available
         prisoner_availability_unknown: You must check NOMIS to verify prisoner availability
         slot_availability_unknown: You must check NOMIS to verify slot availability
-        prisoner_restrictions_unknown: We can’t show the NOMIS prisoner restrictions right now. Please check all prisoner restrictions in NOMIS
-        closed: Closed
       rejection_nomis:
         nomis_rejection_title: Rejections verified by NOMIS
         nomis_rejection_intro: We have checked these rejection reasons in NOMIS and automatically ticked any that apply.
@@ -268,12 +239,10 @@ en:
         update_nomis: Please update any incorrect restrictions in NOMIS
         visiting_allowance: Visiting allowance
         allowance_renews_on: Allowance renews on
-        prisoner_banned: Prisoner banned from receiving visits
         prisoner_out_of_prison: Prisoner on external movement
         no_allowance: Prisoner does not have any visiting allowance
         prisoner_details_incorrect: Prisoner details are incorrect
       rejection_reason:
-        prisoner_banned: Prisoner banned from receiving visits
         prisoner_out_of_prison: Prisoner on external movement
         no_allowance: Prisoner does not have any visiting allowance
         prisoner_details_incorrect: Prisoner details are incorrect
@@ -303,8 +272,12 @@ en:
         not_all_processed: Make sure all visitors have been processed
       visitor_detail:
         title: Visitor details
-        not_listed: Not listed
-        banned: Banned
+        rejected_not_listed: >-
+          Rejected: Not listed
+        rejected_banned: >-
+          Rejected: Banned
+        rejected_other: >-
+          Rejected: Other reason
         until: until
         name: "Name"
         dob: "Date of birth (age)"
@@ -316,6 +289,7 @@ en:
         banned_until: Banned until
         banned_until_hint: eg 28 04 1996
         please_select: Please select a contact
+        rejections_header: Visitor rejection reasons
       banned:
         banned: Visitor is banned
       not_on_list:

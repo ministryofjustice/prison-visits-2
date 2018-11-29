@@ -4,7 +4,7 @@ jobs:
     parallelism: 1
     working_directory: ~/prison-visits-2
     docker:
-      - image: circleci/ruby:2.5.1-node-browsers
+      - image: circleci/ruby:2.5.3-node-browsers
         environment:
           RAILS_ENV: test
           PG_HOST: localhost
@@ -26,6 +26,7 @@ jobs:
           keys:
             - prison-visits-2-v3-{{ checksum "Gemfile.lock" }}
             - prison-visits-2-v3-
+      - run: gem install did_you_mean -v 1.2.1
       - run: bundle check --path vendor/bundle || bundle install --path vendor/bundle
       - save_cache:
           key: prison-visits-2-v3-{{ checksum "Gemfile.lock" }}

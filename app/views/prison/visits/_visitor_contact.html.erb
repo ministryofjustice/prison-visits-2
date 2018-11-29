@@ -29,10 +29,16 @@
       <% if !@visit.contact_list_unknown? %>
         <%= v.contact_list_matching(vf) %>
       <% end %>
-      <div class="bold-small push-bottom--half">Visitor rejection reasons</div>
+    </div>
+  </div>
+  <div class="bold-small push-bottom--half"><%= t('.rejections_header') %></div>
+  <div class="grid-row">
+    <div class="column-half">
       <%= render 'prison/visits/not_on_list', vf: vf, v: v  %>
-      <%= render 'prison/visits/banned', vf: vf, v: v  %>
       <%= render 'prison/visits/other_reason', vf: vf, v: v  %>
+    </div>
+    <div class="column-half">
+      <%= render 'prison/visits/banned', vf: vf, v: v  %>
     </div>
   </div>
 </li>

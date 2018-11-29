@@ -6,7 +6,7 @@ address: |-
   Redditch
   Worcestershire
 postcode: B97 6QS
-email_address: visitsbooking.westmidlands@noms.gsi.gov.uk
+email_address: prison.visits@ministryofjustice.zendesk.com
 phone_no: 0300 060 6503
 enabled: true
 private: false
@@ -25,7 +25,10 @@ recurring:
   - 0930-1130
   - 1400-1630
   sun:
-  - 1400-1630
+  - 1400-1615
 unbookable:
-- 2017-12-25
-- 2017-12-26
+- 2018-11-20
+- 2018-11-27
+- 2018-12-04
+- 2018-12-11
+- 2018-12-18

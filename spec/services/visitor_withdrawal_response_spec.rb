@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe VisitorWithdrawalResponse do
   subject(:instance) { described_class.new(visit: visit) }
 
-  let(:visit) { FactoryBot.create(:visit) }
+  let(:visit) { create(:visit) }
 
   describe '#visitor_can_withdraw?' do
     subject(:visitor_can_withdraw?) { instance.visitor_can_withdraw? }
 
     context "when it can't be withdrawn" do
-      let(:visit) { FactoryBot.create(:withdrawn_visit) }
+      let(:visit) { create(:withdrawn_visit) }
 
       it { is_expected.to eq(false) }
     end

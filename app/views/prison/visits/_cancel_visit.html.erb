@@ -1,5 +1,4 @@
 <%= form_for [:prison, @visit, @visit.cancellation], class: 'form' do |f| -%>
-  <%= hidden_field_tag :cancel_to_nomis_optout, true %>
   <h3 class="heading-medium"><%= t(".title") %></h3>
   <%= error_container(f, :reasons, class: 'form-group') do %>
     <div class="grid-row">
@@ -17,22 +16,7 @@
       </fieldset>
     </div>
   <% end %>
-  <% if @visit.nomis_id? %>
-    <div class="form-group">
-      <p>
-        <%= t('.cancel_to_nomis_warning') %>
-      </p>
-      <fieldset>
-        <div class="panel panel-border-narrow">
-          <div class="multiple-choice">
-            <%= check_box_tag :cancel_to_nomis_optout, !@visit.nomis_id? %>
-            <%= label_tag :cancel_to_nomis_optout, t('.dont_cancel_to_nomis'), class: 'block-label selection-button-checkbox' %>
-          </div>
-        </div>
-      </fieldset>
-    </div>
-  <% end %>
-
+  
   <div class='form-group push-top'>
     <%= submit_tag t('cancel_visit', scope: :shared), class: 'button button-secondary' %>
   </div>

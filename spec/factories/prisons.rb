@@ -6,7 +6,7 @@ FactoryBot.define do
       "#{p.estate.name} Open Prison"
     end
 
-    enabled true
+    enabled do true end
 
     address do
       FFaker::AddressUK.street_address
@@ -28,9 +28,11 @@ FactoryBot.define do
       rand(10..19)
     end
 
-    slot_details 'recurring' => {
-      'mon' => ['1400-1610'],
-      'tue' => ['0900-1000', '1400-1610']
+    slot_details {
+      { 'recurring' => {
+        'mon' => ['1400-1610'],
+        'tue' => ['0900-1000', '1400-1610']
+      } }
     }
   end
 end

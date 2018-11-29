@@ -11,7 +11,7 @@ RSpec.describe BookingResponder::Accept do
     create_list(:visitor, 2, visit: visit)
   end
 
-  let(:staff_response) { StaffResponse.new(visit: visit) }
+  let(:staff_response) { StaffResponse.new(visit: visit, user: create(:user)) }
 
   before do
     unlisted_visitors.each do |uv|
@@ -24,7 +24,7 @@ RSpec.describe BookingResponder::Accept do
     end
   end
 
-  subject { described_class.new(staff_response, persist_to_nomis: persist_to_nomis) }
+  subject { described_class.new(staff_response) }
 
   shared_examples_for 'process the request' do
     it 'updates the visit' do
@@ -41,43 +41,7 @@ RSpec.describe BookingResponder::Accept do
     visit.assign_attributes(params)
   end
 
-  describe 'with not booking to nomis' do
-    let(:persist_to_nomis) { false }
-
+  describe 'accepting the request' do
     it_behaves_like 'process the request'
-  end
-
-  describe 'with book to nomis enabled' do
-    let(:persist_to_nomis) { true }
-    let(:nomis_visit_id)   { 12_345 }
-    let(:booking) do
-      Nomis::Booking.new(
-        'visit_id' => nomis_visit_id,
-        'visit_order' => { 'type' => { 'code' => Nomis::VisitOrder::VO }, 'number' => 98_123 }
-      )
-    end
-
-    describe 'with book to nomis successfully' do
-      before { mock_nomis_with(:book_visit, booking) }
-
-      it 'book the visit to nomis and update the nomis id' do
-        expect {
-          subject.process_request
-          visit.reload
-        }.to change(visit, :nomis_id).to(nomis_visit_id).and change(visit, :visit_order).to(instance_of(VisitOrder))
-      end
-
-      it_behaves_like 'process the request'
-    end
-
-    describe 'with book to nomis with errors' do
-      before { simulate_api_error_for :book_visit }
-
-      it 'book the visit to nomis and update the nomis id' do
-        expect { subject.process_request }.not_to change { visit.reload.nomis_id }
-      end
-
-      it_behaves_like 'process the request'
-    end
   end
 end

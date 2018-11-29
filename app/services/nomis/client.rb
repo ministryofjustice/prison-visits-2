@@ -45,14 +45,6 @@ module Nomis
       request(:get, route, params, idempotent: true)
     end
 
-    def post(route, params, idempotent:, options: {})
-      request(:post, route, params, idempotent: idempotent, options: options)
-    end
-
-    def patch(route, params = {})
-      request(:patch, route, params, idempotent: false)
-    end
-
   private
 
     # rubocop:disable Metrics/MethodLength
@@ -65,7 +57,7 @@ module Nomis
       options.merge!({
         method: method,
         path: path,
-        expects: http_method_expects(method),
+        expects: [200],
         idempotent: idempotent,
         deadline: RequestStore.store[:deadline],
         retry_limit: 2,
@@ -100,28 +92,11 @@ module Nomis
     end
     # rubocop:enable Metrics/MethodLength
 
-    def http_method_expects(method)
-      if method == :get
-        [200]
-      else
-        # TODO: Change 400 to 422 when api is updated.
-        # Currently it returns 400 for validation errors.
-        [200, 400, 409]
-      end
-    end
-
     # Returns excon options which put params in either the query string or body.
-    def params_options(method, params)
+    def params_options(_method, params)
       return {} if params.empty?
 
-      if [:post, :patch].include?(method)
-        {
-          body: params.to_json,
-          headers: { 'Content-Type' => JSON_MIME_TYPE }
-        }
-      else
-        { query: params }
-      end
+      { query: params }
     end
 
     def auth_header

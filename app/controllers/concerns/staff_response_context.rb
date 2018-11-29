@@ -9,16 +9,6 @@ module StaffResponseContext
       :staff_response
   end
 
-  def book_to_nomis_config
-    @book_to_nomis_config ||=
-      BookToNomisConfig.new(
-        nomis_checker,
-        memoised_visit.prison_name,
-        params[:book_to_nomis_opted_in],
-        @booking_response&.already_booked_in_nomis?,
-        prisoner_details)
-  end
-
   def nomis_checker
     @nomis_checker ||= StaffNomisChecker.new(memoised_visit)
   end
@@ -44,19 +34,20 @@ private
   end
 
   def prisoner_validation
-    @prisoner_validation ||= PrisonerValidation.new(nomis_checker.offender)
+    @prisoner_validation ||= PrisonerValidation.new(nomis_checker.prisoner)
   end
 
   def prisoner_location_validation
     @prisoner_location_validation ||= PrisonerLocationValidation.new(
-      nomis_checker.offender, memoised_visit.prison.nomis_id
+      nomis_checker.prisoner, memoised_visit.prison.nomis_id
     )
   end
 
   def message
     return unless params[:message]
+
     Message.new(
-      body:    params[:message][:body],
+      body: params[:message][:body],
       user_id: params[:message][:user_id]
     )
   end
@@ -82,7 +73,7 @@ private
   def booking_responder
     @booking_responder ||= BookingResponder.new(
       staff_response,
-      message: message, options: booking_responder_opts)
+      message: message)
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -90,7 +81,7 @@ private
     params.require(:visit).permit(
       :reference_no, :slot_granted, :closed, :slot_option_0,
       :slot_option_1, :slot_option_2, :prison_id, :prisoner_id,
-      :principal_visitor_id, :processing_state, :id,
+      :principal_visitor_id, :processing_state, :id, :nomis_comments,
       visitor_ids: [],
       rejection_attributes: [
         'allowance_renews_on(1i)',
@@ -99,7 +90,7 @@ private
         :rejection_reason_detail,
         reasons: []
       ],
-      visitors_attributes:  [
+      visitors_attributes: [
         :id,
         :nomis_id,
         :banned,
@@ -111,12 +102,4 @@ private
     )
   end
   # rubocop:enable Metrics/MethodLength
-
-  def booking_responder_opts
-    { persist_to_nomis: persist_to_nomis }
-  end
-
-  def persist_to_nomis
-    params[:book_to_nomis_opted_in]
-  end
 end

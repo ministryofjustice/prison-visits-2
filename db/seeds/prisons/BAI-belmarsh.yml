@@ -6,7 +6,7 @@ address: |-
   Thamesmead
   London
 postcode: SE28 0EB
-email_address: businesshub.belmarsh@hmps.gsi.gov.uk
+email_address: legalvisits.belmarsh@hmps.gsi.gov.uk
 phone_no: 020 8331 4768
 enabled: true
 private: false
@@ -31,6 +31,8 @@ recurring:
   sun:
   - 1415-1615
 unbookable:
-- 2017-12-25
-- 2017-12-26
-- 2018-01-01
+- 2018-10-02
+- 2018-10-03
+- 2018-10-04
+- 2018-10-05
+- 2018-10-06

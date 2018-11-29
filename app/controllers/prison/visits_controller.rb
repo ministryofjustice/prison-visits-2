@@ -1,8 +1,6 @@
 class Prison::VisitsController < ApplicationController
   include StaffResponseContext
 
-  helper_method :book_to_nomis_config
-
   before_action :authorize_prison_request
   before_action :authenticate_user
   before_action :visit_is_processable, only: :update
@@ -39,7 +37,7 @@ class Prison::VisitsController < ApplicationController
 
   def show
     visit = Visit.
-             includes(:visitors, messages: :user, visit_state_changes: :processed_by).
+             includes(:visitors, messages: :user, visit_state_changes: :creator).
              find(memoised_visit.id)
 
     @visit = visit.decorate
@@ -79,6 +77,7 @@ private
 
   def set_visit_processing_time_cookie
     return unless memoised_visit.processable?
+
     ga_tracker.set_visit_processing_time_cookie
   end
 

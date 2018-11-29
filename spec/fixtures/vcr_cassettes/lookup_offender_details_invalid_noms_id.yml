@@ -17,26 +17,24 @@ http_interactions:
       - ''
   response:
     status:
-      code: 400
-      message: Bad Request
+      code: 403
+      message: Forbidden
     headers:
       Content-Type:
-      - application/json
+      - text/plain; charset=utf-8
+      X-Content-Type-Options:
+      - nosniff
       Date:
-      - Thu, 05 Apr 2018 13:58:46 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=0
-      Url-Template:
-      - "/offenders/{noms_id}"
+      - Fri, 06 Jul 2018 13:34:31 GMT
       Content-Length:
-      - '50'
+      - '29'
     body:
       encoding: ASCII-8BIT
-      string: '{"error":{"message":"Invalid or missing noms_id"}}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:58:46 GMT
+      string: 'Authorization header missing
+
+'
+    http_version: 
+  recorded_at: Fri, 06 Jul 2018 13:34:31 GMT
 - request:
     method: get
     uri: https://noms-api-dev.dsd.io/nomisapi/offenders/RUBBISH
@@ -54,24 +52,22 @@ http_interactions:
       - ''
   response:
     status:
-      code: 400
-      message: Bad Request
+      code: 403
+      message: Forbidden
     headers:
       Content-Type:
-      - application/json
+      - text/plain; charset=utf-8
+      X-Content-Type-Options:
+      - nosniff
       Date:
-      - Thu, 05 Apr 2018 13:58:46 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=1
-      Url-Template:
-      - "/offenders/{noms_id}"
+      - Fri, 06 Jul 2018 13:34:31 GMT
       Content-Length:
-      - '50'
+      - '29'
     body:
       encoding: ASCII-8BIT
-      string: '{"error":{"message":"Invalid or missing noms_id"}}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:58:46 GMT
+      string: 'Authorization header missing
+
+'
+    http_version: 
+  recorded_at: Fri, 06 Jul 2018 13:34:31 GMT
 recorded_with: VCR 4.0.0

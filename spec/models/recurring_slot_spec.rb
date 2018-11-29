@@ -3,7 +3,7 @@ RSpec.describe RecurringSlot do
     subject { described_class.parse('0930-1445') }
 
     it {
-      is_expected.to have_attributes(
+      expect(subject).to have_attributes(
         begin_hour: 9,
         begin_minute: 30,
         end_hour: 14,

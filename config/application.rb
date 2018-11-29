@@ -66,8 +66,6 @@ module PrisonVisits
       end
     }
 
-    config.staff_info_endpoint = ENV.fetch('STAFF_INFO_ENDPOINT', nil)
-
     config.connection_pool_size =
       config.database_configuration[Rails.env]['pool'] || 5
 
@@ -99,22 +97,6 @@ module PrisonVisits
 
     config.public_prisons_with_slot_availability = feature_flag_value.call do
       ENV['PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY']&.split(',')&.map(&:strip) || []
-    end
-
-    config.nomis_staff_offender_restrictions_enabled = feature_flag_value.call do
-      ENV['NOMIS_STAFF_OFFENDER_RESTRICTIONS_ENABLED']&.downcase == 'true'
-    end
-
-    config.nomis_staff_book_to_nomis_enabled = feature_flag_value.call do
-      ENV['NOMIS_STAFF_BOOK_TO_NOMIS_ENABLED']&.downcase == 'true'
-    end
-
-    config.staff_prisons_with_book_to_nomis = feature_flag_value.call do
-      ENV['STAFF_PRISONS_WITH_BOOK_TO_NOMIS']&.split(',')&.map(&:strip) || []
-    end
-
-    config.staff_prisons_with_prisoner_restrictions_info = feature_flag_value.call do
-      ENV['STAFF_PRISONS_WITH_PRISONER_RESTRICTIONS_INFO']&.split(',')&.map(&:strip) || []
     end
 
     config.zendesk_token = feature_flag_value.call do

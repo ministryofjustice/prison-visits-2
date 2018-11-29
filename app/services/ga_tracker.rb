@@ -50,6 +50,7 @@ class GATracker
 
   def send_processing_timing
     return unless timing_value
+
     send_data(timing_payload_data)
     delete_visit_processing_time_cookie
   end
@@ -61,9 +62,9 @@ private
 
   def send_data(payload)
     client.post(
-      path:    ENDPOINT.path,
+      path: ENDPOINT.path,
       headers: { 'Content-Type' => 'application/x-www-form-urlencoded' },
-      body:    URI.encode_www_form(payload)
+      body: URI.encode_www_form(payload)
     )
   end
 
@@ -78,6 +79,7 @@ private
 
   def timing_value
     return unless start_time
+
     (Time.zone.now - start_time).to_i * 1000
   end
 
@@ -94,7 +96,7 @@ private
   def timing_payload_data
     {
       v: 1, uip: ip, tid: web_property_id, cid: cookies['_ga'] || SecureRandom.base64,
-      ua:  user_agent, t: 'timing', utc: prison.name, utv: visit.processing_state,
+      ua: user_agent, t: 'timing', utc: prison.name, utv: visit.processing_state,
       utt: timing_value, utl: user.id,
       cd1: visit.rejection&.reasons&.sort&.join('-') || ''
     }
@@ -103,7 +105,7 @@ private
   def build_event_payload(cookie, action, label)
     {
       v: 1, uip: ip, tid: web_property_id, cid: cookie,
-      ua:  user_agent, t: 'event', ec: prison.name, ea: action,
+      ua: user_agent, t: 'event', ec: prison.name, ea: action,
       el: label
     }
   end

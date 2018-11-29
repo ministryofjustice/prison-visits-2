@@ -12,10 +12,10 @@ class Rejection < ApplicationRecord
     'prisoner_non_association'.freeze
   CHILD_PROTECTION_ISSUES =
     'child_protection_issues'.freeze
-  PRISONER_BANNED = 'prisoner_banned'.freeze
   PRISONER_OUT_OF_PRISON = 'prisoner_out_of_prison'.freeze
   OTHER_REJECTION_REASON = 'other'.freeze
   VISITOR_OTHER_REASON = 'visitor_other_reason'.freeze
+  PRISONER_BANNED = 'prisoner_banned'.freeze
 
   REASONS = [
     CHILD_PROTECTION_ISSUES,
@@ -29,10 +29,10 @@ class Rejection < ApplicationRecord
     BANNED,
     NOT_ON_THE_LIST,
     'duplicate_visit_request',
-    PRISONER_BANNED,
     PRISONER_OUT_OF_PRISON,
     OTHER_REJECTION_REASON,
-    VISITOR_OTHER_REASON
+    VISITOR_OTHER_REASON,
+    PRISONER_BANNED
   ].freeze
 
   belongs_to :visit, inverse_of: :rejection
@@ -67,6 +67,7 @@ private
   def validate_reasons
     reasons.each do |r|
       next if REASONS.include?(r)
+
       errors.add(
         :reasons,
         I18n.t(

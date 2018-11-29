@@ -2,8 +2,6 @@ require 'rails_helper'
 require_relative 'shared_examples_for_metrics'
 
 RSpec.describe Timings do
-  include_examples 'when creating visits with dates'
-
   before do
     book_a_luna_visit_late
     book_a_luna_visit_on_time
@@ -18,6 +16,8 @@ RSpec.describe Timings do
     reject_a_mars_visit_late
     reject_a_mars_visit_on_time
   end
+
+  include_examples 'when creating visits with dates'
 
   describe Timings::TimelyAndOverdue do
     context 'when they are not organized by date' do

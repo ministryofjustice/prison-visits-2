@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
 
   def current_estates
     return unless sso_identity
+
     @current_estates ||= begin
       estate_ids = session[:current_estates]
       estates = estate_ids ? Estate.where(id: estate_ids).to_a : []

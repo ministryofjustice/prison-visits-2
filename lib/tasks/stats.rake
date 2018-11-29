@@ -13,6 +13,7 @@ namespace :pvb do
       next unless File.directory?(path)
       next if ignored.include?(path)
       next if ::STATS_DIRECTORIES.any? { |_, p| p == path }
+
       name = path.split('/').last.capitalize
 
       ::STATS_DIRECTORIES << [name, path]

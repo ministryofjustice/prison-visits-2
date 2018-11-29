@@ -12,17 +12,17 @@ module FormElementsHelper
 
   def accessible_date_options
     {
-      day:   { min: 1, max: 31 },
+      day: { min: 1, max: 31 },
       month: { min: 1, max: 12 },
-      year:  { min: Date.current.year }
+      year: { min: Date.current.year }
     }
   end
 
   def visit_date_options
     {
-      day:   { min: 1, max: 31 },
+      day: { min: 1, max: 31 },
       month: { min: 1, max: 12 },
-      year:  { min: Date.new(2014, 1, 1).year }
+      year: { min: Date.new(2014, 1, 1).year }
     }
   end
 
@@ -49,8 +49,10 @@ module FormElementsHelper
 
   def field_error(form, name)
     return unless form.object
+
     errors = form.object.errors[name]
     return '' unless errors.any?
+
     content_tag(:span, class: 'validation-message') { errors.first }
   end
 

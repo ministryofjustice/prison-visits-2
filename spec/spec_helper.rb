@@ -20,6 +20,7 @@ locations = %w[
 locations.each do |location|
   Dir[File.expand_path(location, __FILE__)].each do |path|
     next unless File.directory?(path)
+
     ActiveSupport::Dependencies.autoload_paths << path
   end
 end

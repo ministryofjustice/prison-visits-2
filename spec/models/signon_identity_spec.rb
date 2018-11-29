@@ -125,18 +125,24 @@ RSpec.describe SignonIdentity, type: :model do
     let!(:orgs)               { [swansea_org_name, cardiff_org_name] }
     let!(:serialization) do
       {
-        'user_id'     => user.id,
-        'full_name'   => "Mr A",
+        'user_id' => user.id,
+        'full_name' => "Mr A",
         'profile_url' => 'https://example.com/profile',
-        'logout_url'  => 'https://example.com/logout',
+        'logout_url' => 'https://example.com/logout',
         'permissions' => orgs.map { |o| { 'organisation' => o, 'roles' => [] } }
       }
     end
 
     subject { described_class.from_session_data(serialization) }
 
+    around do |ex|
+      EstateSSOMapper.reset_grouped_estates
+      ex.run
+      EstateSSOMapper.reset_grouped_estates
+    end
+
     it 'makes available the list of accessible estates' do
-      expect(subject.accessible_estates).to eq([cardiff_estate, swansea_estate])
+      expect(subject.accessible_estates).to contain_exactly(cardiff_estate, swansea_estate)
       expect(subject.accessible_estates).not_to include(pentonville_estate)
     end
 

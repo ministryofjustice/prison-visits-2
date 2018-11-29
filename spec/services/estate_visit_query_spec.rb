@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe EstateVisitQuery do
   subject(:instance) { described_class.new(estates) }
 
-  let(:prison) { FactoryBot.create(:prison) }
+  let(:prison) { create(:prison) }
   let(:estates) { [prison.estate] }
 
   describe '#visits_to_print_by_slot' do
@@ -18,29 +18,29 @@ RSpec.describe EstateVisitQuery do
     let(:slot2) { ConcreteSlot.new(2016, 7, 19, 14, 30, 15, 30) }
     let(:date) { slot1.to_date }
     let!(:booked_visit1) do
-      FactoryBot.create(
+      create(
         :booked_visit,
         prison: prison,
         slot_granted: slot1)
     end
     let!(:booked_visit2) do
-      FactoryBot.create(:booked_visit,
+      create(:booked_visit,
         prison: prison,
         slot_granted: slot2)
     end
     let!(:cancelled_visit) do
-      FactoryBot.create(:cancelled_visit,
+      create(:cancelled_visit,
         prison: prison,
         slot_granted: slot1)
     end
     let!(:other_prison_visit) do
-      FactoryBot.create(
+      create(
         :booked_visit,
         slot_granted: slot1)
     end
 
     it 'returns the data grouped by prison, status and slot' do
-      is_expected.to eq(
+      expect(subject).to eq(
         prison.name => {
           'booked' => {
             slot1 => [booked_visit1],
@@ -66,29 +66,29 @@ RSpec.describe EstateVisitQuery do
 
     context 'with visits in all possible states' do
       let!(:requested) do
-        FactoryBot.create(:visit, :requested, prison: prison)
+        create(:visit, :requested, prison: prison)
       end
       let!(:withdrawn) do
-        FactoryBot.create(:withdrawn_visit, prison: prison)
+        create(:withdrawn_visit, prison: prison)
       end
       let!(:booked) do
-        FactoryBot.create(:booked_visit, prison: prison)
+        create(:booked_visit, prison: prison)
       end
       let!(:rejected) do
-        FactoryBot.create(:rejected_visit, prison: prison)
+        create(:rejected_visit, prison: prison)
       end
       let!(:nomis_cancelled) do
-        FactoryBot.create(:visit,
+        create(:visit,
           :nomis_cancelled,
           prison: prison,
           updated_at: 1.day.ago)
       end
       let!(:pending_nomis_cancellation) do
-        FactoryBot.create(:visit, :pending_nomis_cancellation, prison: prison)
+        create(:visit, :pending_nomis_cancellation, prison: prison)
       end
 
       it 'excludes visits pending nomis cancellation and requested visits' do
-        is_expected.to eq([rejected, booked, withdrawn, nomis_cancelled])
+        expect(subject).to eq([rejected, booked, withdrawn, nomis_cancelled])
       end
 
       context 'when limiting the results' do
@@ -100,10 +100,19 @@ RSpec.describe EstateVisitQuery do
       end
 
       context 'when providing a prisoner number' do
-        let(:prisoner_number) { booked.prisoner.number.downcase + ' ' }
+        let(:prisoner_number) { booked.prisoner.number.downcase }
 
         it 'returns processed visits matching the prisoner number' do
-          is_expected.to eq([booked])
+          expect(subject).to eq([booked])
+        end
+      end
+
+      context 'when visits have not been updated within six months' do
+        let!(:old_booked) { create(:booked_visit, prison: prison, updated_at: 7.months.ago) }
+        let(:prisoner_number) { old_booked.prisoner.number.downcase }
+
+        it 'does not return visits in search results' do
+          expect(instance.processed(limit: limit, query: prisoner_number)).to be_empty
         end
       end
     end
@@ -113,8 +122,8 @@ RSpec.describe EstateVisitQuery do
     context 'with no query' do
       let(:query) { nil }
 
-      it 'returns all requested' do
-        expect(subject).to eq([visit1, visit2])
+      it 'returns all requested ordered' do
+        expect(subject).to eq([old_visit, visit1, visit2])
       end
     end
   end
@@ -125,6 +134,16 @@ RSpec.describe EstateVisitQuery do
 
       it 'returns only those matching prisoner number' do
         expect(subject).to eq([visit1])
+      end
+    end
+  end
+
+  shared_examples_for "doesn't find old records" do
+    context 'with prisoner number query from an old visit' do
+      let(:query) { old_visit.prisoner.number }
+
+      it 'returns only those matching prisoner number' do
+        expect(subject).to be_empty
       end
     end
   end
@@ -145,15 +164,21 @@ RSpec.describe EstateVisitQuery do
     end
 
     let!(:visit1) do
-      FactoryBot.create(:visit, :requested, prison: prison)
+      create(:visit, :requested, prison: prison)
     end
+
     let!(:visit2) do
-      FactoryBot.create(:visit, :requested, prison: prison)
+      create(:visit, :requested, prison: prison)
+    end
+
+    let!(:old_visit) do
+      create(:visit, :requested, prison: prison, created_at: 7.months.ago, updated_at: 7.months.ago)
     end
 
     it_behaves_like 'finds all'
     it_behaves_like 'finds by prisoner number'
     it_behaves_like 'finds by human id'
+    it_behaves_like "doesn't find old records"
   end
 
   describe '#cancelled' do
@@ -162,15 +187,20 @@ RSpec.describe EstateVisitQuery do
     end
 
     let!(:visit1) do
-      FactoryBot.create(:visit, :pending_nomis_cancellation, prison: prison)
+      create(:visit, :pending_nomis_cancellation, prison: prison)
     end
     let!(:visit2) do
-      FactoryBot.create(:visit, :pending_nomis_cancellation, prison: prison)
+      create(:visit, :pending_nomis_cancellation, prison: prison)
+    end
+
+    let!(:old_visit) do
+      create(:visit, :pending_nomis_cancellation, prison: prison, created_at: 7.months.ago, updated_at: 7.months.ago)
     end
 
     it_behaves_like 'finds all'
     it_behaves_like 'finds by prisoner number'
     it_behaves_like 'finds by human id'
+    it_behaves_like "doesn't find old records"
   end
 
   describe '#inbox_count' do
@@ -178,19 +208,19 @@ RSpec.describe EstateVisitQuery do
 
     context 'with visits in different estates' do
       before do
-        FactoryBot.create(:visit, :requested, prison: prison)
-        FactoryBot.create(:visit, :requested, prison: prison)
-        FactoryBot.create(:booked_visit, prison: prison)
-        FactoryBot.create(:rejected_visit, prison: prison)
-        FactoryBot.create(:visit,
+        create(:visit, :requested, prison: prison)
+        create(:visit, :requested, prison: prison)
+        create(:booked_visit, prison: prison)
+        create(:rejected_visit, prison: prison)
+        create(:visit,
           :nomis_cancelled,
           prison: prison,
           updated_at: 1.day.ago)
-        FactoryBot.create(:visit, :pending_nomis_cancellation, prison: prison)
+        create(:visit, :pending_nomis_cancellation, prison: prison)
       end
 
       it 'returns the count of the visits that are in the inbox' do
-        is_expected.to eq(3)
+        expect(subject).to eq(3)
       end
     end
   end

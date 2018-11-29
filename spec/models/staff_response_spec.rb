@@ -30,7 +30,7 @@ RSpec.describe StaffResponse, type: :model do
       end
 
       it 'clears the allowance field' do
-        is_expected.to be_valid
+        expect(subject).to be_valid
         expect(subject.visit.rejection.allowance_renews_on).to eq(nil)
       end
     end
@@ -42,7 +42,7 @@ RSpec.describe StaffResponse, type: :model do
 
       context 'when a valid renewal date' do
         it 'converts to a date' do
-          is_expected.to be_valid
+          expect(subject).to be_valid
           expect(subject.visit.rejection.allowance_renews_on).to eq(tomorrow)
         end
       end
@@ -57,7 +57,7 @@ RSpec.describe StaffResponse, type: :model do
         end
 
         it 'clears the date' do
-          is_expected.to be_valid
+          expect(subject).to be_valid
           expect(subject.visit.rejection.allowance_renews_on).to eq(nil)
         end
       end
@@ -72,7 +72,7 @@ RSpec.describe StaffResponse, type: :model do
     context 'when not processable' do
       let(:processing_state) { 'rejected' }
 
-      before { is_expected.not_to be_valid }
+      before { expect(subject).not_to be_valid }
 
       specify { expect(subject.errors.full_messages).to eq(["Visit can't be processed"]) }
     end
@@ -83,7 +83,7 @@ RSpec.describe StaffResponse, type: :model do
       end
 
       it 'is invalid' do
-        is_expected.to be_invalid
+        expect(subject).to be_invalid
         expect(subject.errors.full_messages).
           to eq([
                   I18n.t('must_reject_or_accept_visit',
@@ -102,7 +102,7 @@ RSpec.describe StaffResponse, type: :model do
         end
 
         it 'does not require to process the visitors' do
-          is_expected.to be_valid
+          expect(subject).to be_valid
         end
       end
 
@@ -113,7 +113,7 @@ RSpec.describe StaffResponse, type: :model do
         end
 
         it 'is invalid' do
-          is_expected.to be_invalid
+          expect(subject).to be_invalid
 
           expect(subject.errors.full_messages).
             to include(
@@ -133,7 +133,7 @@ RSpec.describe StaffResponse, type: :model do
         end
 
         it 'is valid' do
-          is_expected.to be_valid
+          expect(subject).to be_valid
 
           expect(subject.visit.visitors.first.errors).to be_empty
         end
@@ -231,21 +231,22 @@ RSpec.describe StaffResponse, type: :model do
   describe '#email_attrs' do
     let(:expected_params) do
       {
-        'id'                     => nil,
-        'prison_id'              => visit.prison.id,
-        'contact_email_address'  => nil,
-        'contact_phone_no'       => nil,
-        'processing_state'       => 'requested',
-        'reference_no'           => 'A1234BC',
-        'closed'                 => params[:closed],
-        'prisoner_id'            => visit.prisoner_id,
-        'locale'                 => nil,
-        'principal_visitor_id'   => principal_visitor.id,
-        'slot_option_0'          => visit.slot_option_0,
-        'slot_option_1'          => visit.slot_option_1,
-        'slot_option_2'          => visit.slot_option_2,
-        'slot_granted'           => visit.slot_option_0,
-        'visitors_attributes'    => visit.visitors.each_with_object({}).with_index do |(visitor, h), i|
+        'id' => nil,
+        'prison_id' => visit.prison.id,
+        'contact_email_address' => nil,
+        'contact_phone_no' => nil,
+        'processing_state' => 'requested',
+        'reference_no' => 'A1234BC',
+        'closed' => params[:closed],
+        'prisoner_id' => visit.prisoner_id,
+        'locale' => nil,
+        'nomis_comments' => nil,
+        'principal_visitor_id' => principal_visitor.id,
+        'slot_option_0' => visit.slot_option_0,
+        'slot_option_1' => visit.slot_option_1,
+        'slot_option_2' => visit.slot_option_2,
+        'slot_granted' => visit.slot_option_0,
+        'visitors_attributes' => visit.visitors.each_with_object({}).with_index do |(visitor, h), i|
           h[i.to_s] = visitor.slice(*visitor_fields)
           h[i.to_s]['banned_until'] = visitor.banned_until.to_s
           h
@@ -279,10 +280,10 @@ RSpec.describe StaffResponse, type: :model do
         params[:rejection_attributes].merge!(multi_params_date)
 
         expected_params['rejection_attributes'] = {
-          'id'                              => nil,
-          'visit_id'                        => nil,
-          'reasons'                         => [Rejection::NO_ALLOWANCE],
-          'allowance_renews_on'             => allowance_renew_date.to_s
+          'id' => nil,
+          'visit_id' => nil,
+          'reasons' => [Rejection::NO_ALLOWANCE],
+          'allowance_renews_on' => allowance_renew_date.to_s
         }
         expected_params['slot_granted'] = ''
         expect(subject).to be_valid

@@ -1,0 +1,42 @@
+---
+name: Medway Secure Training Centre
+nomis_id: MWI
+address: |-
+ 41 Sir Evelyn Rd
+ Rochester
+postcode: ME1 3ND
+email_address: custody.medway@hmps.gsi.gov.uk
+phone_no: 01634 823300
+enabled: true
+private: false
+closed: false
+recurring:
+ mon:
+ - 1700-1800
+ - 1800-1900
+ tue:
+ - 1700-1800
+ - 1800-1900
+ wed:
+ - 1700-1800
+ - 1800-1900
+ thu:
+ - 1700-1800
+ - 1800-1900
+ fri:
+ - 1700-1800
+ - 1800-1900
+ sat:
+ - 1030-1130
+ - 1415-1515
+ - 1600-1700
+ - 1730-1830
+ sun:
+ - 1030-1130
+ - 1415-1515
+ - 1600-1700
+ - 1730-1830
+unbookable:
+- 2018-12-25
+- 2018-12-26
+- 2019-01-01

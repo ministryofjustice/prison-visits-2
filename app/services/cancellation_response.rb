@@ -1,13 +1,11 @@
 class CancellationResponse
-  include PersistToNomisResponse
-
   attr_reader :visit, :user
+  alias :creator :user
 
-  def initialize(visit, cancellation_attributes, user: nil, persist_to_nomis: false)
+  def initialize(visit, cancellation_attributes, user: nil)
     self.visit                   = visit
     self.cancellation_attributes = cancellation_attributes
     self.user                    = user
-    super(persist_to_nomis)
   end
 
   def valid?
@@ -31,21 +29,16 @@ private
 
   def cancellation
     @cancellation ||= begin
-      cancellation_attributes[:nomis_cancelled] = true
       visit.build_cancellation(cancellation_attributes)
     end
   end
   alias :build_cancellation :cancellation
 
   def processor
-    @processor ||= BookingResponder::Cancel.new(self, processor_options)
+    @processor ||= BookingResponder::Cancel.new(self)
   end
 
   def visitor_mailer
     VisitorMailer.cancelled(visit)
-  end
-
-  def processor_options
-    { persist_to_nomis: persist_to_nomis? }
   end
 end

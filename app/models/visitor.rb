@@ -21,6 +21,7 @@ class Visitor < ApplicationRecord
   def status
     return 'banned' if banned?
     return 'not on list' if not_on_list?
+
     'allowed'
   end
 end

@@ -50,7 +50,7 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
       end
 
       it 'adds no errors for any slot' do
-        is_expected.to be_valid
+        expect(subject).to be_valid
 
         requested_slots.each do |slot|
           expect(subject.errors[slot.to_s]).to be_empty

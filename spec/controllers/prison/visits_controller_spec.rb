@@ -51,37 +51,6 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
         it { is_expected.to redirect_to(prison_inbox_path) }
       end
-
-      context 'with book to nomis related error' do
-        let(:staff_response) { { slot_granted: visit.slots.first.to_s, reference_no: 'none' } }
-        let(:booking_response) do
-          instance_double(BookingResponse, success?: false,
-                                           already_processed?: false,
-                                           message: booking_response_message)
-        end
-
-        before do
-          mock_service_with(BookingResponse, booking_response)
-        end
-
-        context 'when there is an api error' do
-          let(:booking_response_message) { BookingResponse::NOMIS_API_ERROR }
-
-          it 'sets the flash message' do
-            subject
-            expect(flash[:alert]).to match("We can't connect to NOMIS right now.")
-          end
-        end
-
-        context 'when there is an api validation' do
-          let(:booking_response_message) { BookingResponse::NOMIS_VALIDATION_ERROR }
-
-          it 'sets the flash message' do
-            subject
-            expect(flash[:alert]).to match("Visit not copied to NOMIS")
-          end
-        end
-      end
     end
   end
 
