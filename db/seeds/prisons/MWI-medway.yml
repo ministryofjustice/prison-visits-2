@@ -13,7 +13,7 @@ closed: false
 recurring:
  tue:
  - 1730-1900
- wed:00-1900
+ wed:
  - 1730-1900
  thu:
  - 1730-1900
