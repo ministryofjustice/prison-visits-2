@@ -126,7 +126,7 @@ GEM
       sass (>= 3.2.0)
     govuk_template (0.25.0)
       rails (>= 3.1)
-    hashdiff (0.3.7)
+    hashdiff (0.3.8)
     hashie (3.6.0)
     htmlentities (4.3.4)
     i18n (1.1.1)
@@ -353,7 +353,7 @@ GEM
     unicode-display_width (1.4.0)
     uri_template (0.7.0)
     vcr (4.0.0)
-    webmock (3.4.2)
+    webmock (3.5.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
