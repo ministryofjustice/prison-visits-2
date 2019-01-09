@@ -53,7 +53,7 @@ private
 
   def ordered_counts
     min_date = @dates.min
-    max_date = @dates.max
+    max_date = @dates.max + 6.days
 
     if min_date.year != max_date.year
       min_counts = Counters::CountVisitsByPrisonAndCalendarWeek.
