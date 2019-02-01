@@ -151,7 +151,7 @@ GEM
       railties (>= 3.2.16)
     json (2.1.0)
     jwt (2.1.0)
-    kramdown (2.0.0)
+    kramdown (2.1.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     lograge (0.10.0)
