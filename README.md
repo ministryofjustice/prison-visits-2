@@ -46,6 +46,20 @@ Emails will be sent to [MailCatcher](http://mailcatcher.me/), if it’s running.
 This application uses Ruby v2.5.3. Use [RVM](https://rvm.io/) or similar to manage your ruby environment and sets of dependencies.
 
 
+### Setup
+
+Install the git pre-commit hook before you start working on this repository so
+that we're all using some checks to help us avoid committing unencrypted
+secrets. From the root of the repo:
+
+```
+ln -s ../../config/git-hooks/pre-commit.sh .git/hooks/pre-commit
+```
+
+To test that the pre-commit hook is set up correctly, try removing the `diff`
+attribute from a line in a `.gitattributes` file and then committing something -
+the hook should prevent you from committing.
+
 ### Running the application
 
 *Note* - You will need to spin up both [ministryofjustice/prison-visits-2](https://github.com/ministryofjustice/prison-visits-2) and [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public)
@@ -70,39 +84,39 @@ pvb2 $ brew install postgres
 
 ```
 
-4. Install Redis
+5. Install Redis
 ```sh
 pvb2 $ brew install redis
 
 ```
 
-5. Install Selenium Webdriver
+6. Install Selenium Webdriver
 ```sh
 pvb2 $ brew install selenium-server-standalone
 
 ```
 
-6. Install Geckodriver
+7. Install Geckodriver
 ```sh
 brew install geckodriver
 
 ```
 
-7. In separate terminal windows spin up [ministryofjustice/prison-visits-2](https://github.com/ministryofjustice/prison-visits-2) and [Sidekiq](https://sidekiq.org/). The latter processes jobs in the background. Make sure you have the necessary environment variables declared to run Sidekiq. See [additional documentation on queues](docs/queues.md).
+8. In separate terminal windows spin up [ministryofjustice/prison-visits-2](https://github.com/ministryofjustice/prison-visits-2) and [Sidekiq](https://sidekiq.org/). The latter processes jobs in the background. Make sure you have the necessary environment variables declared to run Sidekiq. See [additional documentation on queues](docs/queues.md).
 
 ```sh
 pvb2 $ bundle exec sidekiq
 pvb2 $ rails server
 
 ```
-8. In another terminal window spin up [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public) on port 4000
+9. In another terminal window spin up [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public) on port 4000
 
 ```sh
 pvb-public $ rails server -p 4000
 
 ```
 
-9. In another terminal window spin up [MOJ Signon](https://github.com/ministryofjustice/moj-signon) on port 5000.
+10. In another terminal window spin up [MOJ Signon](https://github.com/ministryofjustice/moj-signon) on port 5000.
 
 ```sh
 moj-signon $ rails server -p 5000
