@@ -33,6 +33,9 @@ Rails.application.configure do
   config.lograge.logger = ActiveSupport::Logger.new \
     "#{Rails.root}/log/logstash_#{Rails.env}.json"
 
+  config.kubernetes_deployment? = ENV['KUBERNETES_DEPLOYMENT']
+  config.redis_url = ENV['REDIS_URL']
+
   config.active_job.queue_adapter = :sidekiq
 
   service_url = if ENV['HEROKU_APP_NAME']
