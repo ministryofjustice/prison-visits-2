@@ -1,0 +1,67 @@
+FROM ruby:2.5.3-stretch
+
+RUN \
+  set -ex \
+  && apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get install \
+    -y \
+    --no-install-recommends \
+    locales \
+  && sed -i -e 's/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/' /etc/locale.gen \
+  && dpkg-reconfigure --frontend=noninteractive locales \
+  && update-locale LANG=en_GB.UTF-8
+
+ENV \
+  LANG=en_GB.UTF-8 \
+  LANGUAGE=en_GB.UTF-8 \
+  LC_ALL=en_GB.UTF-8
+
+WORKDIR /app
+
+RUN \
+  set -ex \
+  && apt-get install \
+    -y \
+    --no-install-recommends \
+    apt-transport-https \
+    build-essential \
+    libpq-dev \
+    netcat \
+    nodejs \
+  && timedatectl set-timezone Europe/London || true \
+  && gem update bundler --no-document
+
+RUN \
+  set -ex \
+  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+RUN \
+  set -ex \
+  && apt-get update \
+  && apt-get install \
+    -y \
+    --no-install-recommends \
+    yarn=1.10.1-1 \
+  && yarn add govuk-frontend
+
+
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" >  /etc/apt/sources.list.d/pgdg.list && \
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+
+# Update openssl & ca-certificates so that communication with signon can take place
+# (TODO: Remove this when base container has been updated)
+RUN apt-get update && \
+    apt-get install -y ca-certificates openssl postgresql-client-9.4 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY Gemfile Gemfile.lock ./
+
+RUN bundle install --without development test --jobs 2 --retry 3
+
+COPY . /app
+
+RUN RAILS_ENV=production PUBLIC_SERVICE_URL=foo STAFF_SERVICE_URL=foo SECRET_KEY_BASE=foo bin/rake assets:precompile --trace
+
+EXPOSE 3000
