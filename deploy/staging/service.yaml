@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prison-visits-booking-staff
+  namespace: prison-visits-booking-staging
+  labels:
+    app: prison-visits-booking-staff
+spec:
+  ports:
+  - port: 3000
+    name: http
+    targetPort: 3000
+  selector:
+    app: prison-visits-booking-staff

@@ -1,0 +1,589 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: prison-visits-booking-staff
+  labels:
+    app: prison-visits-booking-staff
+  annotations:
+    kubernetes.io/change-cause: "<to be filled in deploy job command>"
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: prison-visits-booking-staff
+  template:
+    metadata:
+      labels:
+        app: prison-visits-booking-staff
+    spec:
+      containers:
+        - name: prison-visits-booking-staff
+          image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
+          imagePullPolicy: Always
+          command: ['sh', '-c', "bundle exec rails db:migrate && bundle exec rails db:seed && bundle exec puma -p 3000 -C ./config/puma_prod.rb --pidfile /tmp/server.pid"]
+          ports:
+            - containerPort: 3000
+#          livenessProbe:
+#            httpGet:
+#              path: /healthcheck
+#              port: 3000
+#            initialDelaySeconds: 10
+#            periodSeconds: 60
+#          readinessProbe:
+#            httpGet:
+#              path: /healthcheck
+#              port: 3000
+#            initialDelaySeconds: 10
+#            periodSeconds: 60
+          env: &STAGING_CONTAINER_VARIABLES
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: database_url
+            - name: MOJSSO_ID
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: mojsso_id
+            - name: MOJSSO_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: mojsso_secret
+            - name: MOJSSO_URL
+              value: "https://signon.service.justice.gov.uk"
+            - name: NOMIS_API_HOST
+              value: "https://gateway.preprod.nomis-api.service.hmpps.dsd.io/"
+            - name: NOMIS_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: nomis_api_token
+            - name: NOMIS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: nomis_api_key
+            - name: NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED
+              value: "true"
+            - name: STAFF_PRISONS_WITH_SLOT_AVAILABILITY
+              value: >
+                Askham Grange,
+                Aylesbury,
+                Bedford,
+                Brinsford,
+                Buckley Hall,
+                Bure,
+                Cardiff,
+                Channings Wood,
+                Chelmsford,
+                Coldingley,
+                Cookham Wood,
+                Dartmoor,
+                Deerbolt,
+                Downview,
+                Drake Hall,
+                Durham,
+                East Sutton Park,
+                Eastwood Park,
+                Elmley,
+                Erlestoke,
+                Exeter,
+                Featherstone,
+                Feltham (Young People 15-18 only),
+                Feltham (Young Adults 18-21 only),
+                Ford,
+                Foston Hall,
+                Frankland,
+                Full Sutton,
+                Garth,
+                Gartree,
+                Grendon,
+                Guys Marsh,
+                Hatfield Open,
+                Haverigg,
+                Hewell,
+                High Down,
+                Highpoint South,
+                Hindley,
+                Holme House,
+                Hollesley Bay Open,
+                Hull,
+                Humber,
+                Kirkham,
+                Lancaster Farms,
+                Leicester,
+                Leyhill,
+                Lincoln,
+                Lindholme,
+                Liverpool Social Visits,
+                Low Newton,
+                Maidstone,
+                Medway Secure Training Centre,
+                Moorland Closed,
+                North Sea Camp,
+                Nottingham,
+                Pentonville,
+                Ranby,
+                Rochester,
+                Send,
+                Stocken,
+                Stoke Heath,
+                Styal,
+                Sudbury,
+                Swaleside,
+                Swinfen Hall,
+                The Mount,
+                Thorn Cross,
+                Usk,
+                Wakefield,
+                Wandsworth,
+                Warren Hill,
+                Wayland,
+                Wealstun,
+                Werrington,
+                Wetherby,
+                Whatton,
+                Whitemoor,
+                Winchester (Convicted only),
+                Winchester (Remand only),
+                Woodhill,
+                Wormwood Scrubs
+            - name: PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY
+              value: >
+                Askham Grange,
+                Aylesbury,
+                Bedford,
+                Buckley Hall,
+                Bure,
+                Cardiff,
+                Channings Wood,
+                Chelmsford,
+                Coldingley,
+                Cookham Wood,
+                Dartmoor,
+                Deerbolt,
+                Downview,
+                Drake Hall,
+                Durham,
+                East Sutton Park,
+                Eastwood Park,
+                Elmley,
+                Erlestoke,
+                Exeter,
+                Featherstone,
+                Feltham (Young People 15-18 only),
+                Feltham (Young Adults 18-21 only),
+                Ford,
+                Foston Hall,
+                Frankland,
+                Full Sutton,
+                Garth,
+                Gartree,
+                Grendon,
+                Guys Marsh,
+                Hatfield Open,
+                Haverigg,
+                Hewell,
+                High Down,
+                Highpoint South,
+                Hindley,
+                Hollesley Bay,
+                Holme House,
+                Hull,
+                Humber,
+                Kirkham,
+                Lancaster Farms,
+                Leicester,
+                Leyhill,
+                Lincoln,
+                Lindholme,
+                Liverpool Social Visits,
+                Low Newton,
+                Maidstone,
+                Medway Secure Training Centre,
+                Moorland Closed,
+                Nottingham,
+                Pentonville,
+                Ranby,
+                Send,
+                Stocken,
+                Stoke Heath,
+                Styal,
+                Sudbury,
+                Swaleside,
+                Usk,
+                Wakefield,
+                Wandsworth,
+                Warren Hill,
+                Wayland,
+                Wealstun,
+                Werrington,
+                Whitemoor,
+                Winchester (Convicted only),
+                Wormwood Scrubs
+            - name: SMTP_DOMAIN
+              value: "mailtrap.io"
+            - name: SMTP_HOSTNAME
+              value: "smtp.mailtrap.io"
+            - name: SMTP_PORT
+              value: "465"
+            - name: SMTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: smtp_username
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: smtp_password
+            - name: REMOVE_LOAD_TEST_DATA
+              value: "true"
+            - name: PUBLIC_SERVICE_URL
+              value: "https://public-staging-pvb.dsd.io"
+            - name: STAFF_SERVICE_URL
+              value: "https://staff-staging-pvb.dsd.io"
+            - name: STAFF_SERVICE_URL
+              value: "http://prison-visits-staff-info.s3-website-eu-west-1.amazonaws.com"
+            - name: PRISON_ESTATE_IPS
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: prison_estate_ips
+            - name: SENTRY_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: sentry_dsn
+            - name: SENTRY_JS_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: sentry_js_dsn
+            - name: ZENDESK_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: zendesk_token
+            - name: ZENDESK_URL
+              value: ""
+            - name: GA_TRACKING_ID
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: ga_tracking_id
+            - name: PVB_TEAM_EMAIL
+              value: "pvb-team@digital.justice.gov.uk"
+            - name: RACK_ENV
+              value: "production"
+            - name: SECRET_KEY_BASE
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: secret_key_base
+            - name: RAILS_ENV
+              value: "production"
+            - name: RAILS_SERVE_STATIC_FILES
+              value: "true"
+            - name: WEB_CONCURRENCY
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: rails_web_concurrency
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: redis_url
+        - name: prison-visits-booking-staff-sidekiq
+          image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
+          imagePullPolicy: Always
+          command: ['sh', '-c', "bundle exec sidekiq -C config/sidekiq.yml"]
+          env:
+            - name: SIDEKIQ_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: sidekiq_username
+            - name: SIDEKIQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: sidekiq_password
+            - name: SIDEKIQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: sidekiq_password
+            - name: SCRIPT_NAME
+              value: "/sidekiq-admin"
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: redis_url
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: database_url
+            - name: MOJSSO_ID
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: mojsso_id
+            - name: MOJSSO_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: mojsso_secret
+            - name: MOJSSO_URL
+              value: "https://signon.service.justice.gov.uk"
+            - name: NOMIS_API_HOST
+              value: "https://gateway.preprod.nomis-api.service.hmpps.dsd.io/"
+            - name: NOMIS_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: nomis_api_token
+            - name: NOMIS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: nomis_api_key
+            - name: NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED
+              value: "true"
+            - name: STAFF_PRISONS_WITH_SLOT_AVAILABILITY
+              value: >
+                Askham Grange,
+                Aylesbury,
+                Bedford,
+                Brinsford,
+                Buckley Hall,
+                Bure,
+                Cardiff,
+                Channings Wood,
+                Chelmsford,
+                Coldingley,
+                Cookham Wood,
+                Dartmoor,
+                Deerbolt,
+                Downview,
+                Drake Hall,
+                Durham,
+                East Sutton Park,
+                Eastwood Park,
+                Elmley,
+                Erlestoke,
+                Exeter,
+                Featherstone,
+                Feltham (Young People 15-18 only),
+                Feltham (Young Adults 18-21 only),
+                Ford,
+                Foston Hall,
+                Frankland,
+                Full Sutton,
+                Garth,
+                Gartree,
+                Grendon,
+                Guys Marsh,
+                Hatfield Open,
+                Haverigg,
+                Hewell,
+                High Down,
+                Highpoint South,
+                Hindley,
+                Holme House,
+                Hollesley Bay Open,
+                Hull,
+                Humber,
+                Kirkham,
+                Lancaster Farms,
+                Leicester,
+                Leyhill,
+                Lincoln,
+                Lindholme,
+                Liverpool Social Visits,
+                Low Newton,
+                Maidstone,
+                Medway Secure Training Centre,
+                Moorland Closed,
+                North Sea Camp,
+                Nottingham,
+                Pentonville,
+                Ranby,
+                Rochester,
+                Send,
+                Stocken,
+                Stoke Heath,
+                Styal,
+                Sudbury,
+                Swaleside,
+                Swinfen Hall,
+                The Mount,
+                Thorn Cross,
+                Usk,
+                Wakefield,
+                Wandsworth,
+                Warren Hill,
+                Wayland,
+                Wealstun,
+                Werrington,
+                Wetherby,
+                Whatton,
+                Whitemoor,
+                Winchester (Convicted only),
+                Winchester (Remand only),
+                Woodhill,
+                Wormwood Scrubs
+            - name: PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY
+              value: >
+                Askham Grange,
+                Aylesbury,
+                Bedford,
+                Buckley Hall,
+                Bure,
+                Cardiff,
+                Channings Wood,
+                Chelmsford,
+                Coldingley,
+                Cookham Wood,
+                Dartmoor,
+                Deerbolt,
+                Downview,
+                Drake Hall,
+                Durham,
+                East Sutton Park,
+                Eastwood Park,
+                Elmley,
+                Erlestoke,
+                Exeter,
+                Featherstone,
+                Feltham (Young People 15-18 only),
+                Feltham (Young Adults 18-21 only),
+                Ford,
+                Foston Hall,
+                Frankland,
+                Full Sutton,
+                Garth,
+                Gartree,
+                Grendon,
+                Guys Marsh,
+                Hatfield Open,
+                Haverigg,
+                Hewell,
+                High Down,
+                Highpoint South,
+                Hindley,
+                Hollesley Bay,
+                Holme House,
+                Hull,
+                Humber,
+                Kirkham,
+                Lancaster Farms,
+                Leicester,
+                Leyhill,
+                Lincoln,
+                Lindholme,
+                Liverpool Social Visits,
+                Low Newton,
+                Maidstone,
+                Medway Secure Training Centre,
+                Moorland Closed,
+                Nottingham,
+                Pentonville,
+                Ranby,
+                Send,
+                Stocken,
+                Stoke Heath,
+                Styal,
+                Sudbury,
+                Swaleside,
+                Usk,
+                Wakefield,
+                Wandsworth,
+                Warren Hill,
+                Wayland,
+                Wealstun,
+                Werrington,
+                Whitemoor,
+                Winchester (Convicted only),
+                Wormwood Scrubs
+            - name: SMTP_DOMAIN
+              value: "mailtrap.io"
+            - name: SMTP_HOSTNAME
+              value: "smtp.mailtrap.io"
+            - name: SMTP_PORT
+              value: "465"
+            - name: SMTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: smtp_username
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: smtp_password
+            - name: REMOVE_LOAD_TEST_DATA
+              value: "true"
+            - name: PUBLIC_SERVICE_URL
+              value: "https://public-staging-pvb.dsd.io"
+            - name: STAFF_SERVICE_URL
+              value: "https://staff-staging-pvb.dsd.io"
+            - name: STAFF_SERVICE_URL
+              value: "http://prison-visits-staff-info.s3-website-eu-west-1.amazonaws.com"
+            - name: PRISON_ESTATE_IPS
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: prison_estate_ips
+            - name: SENTRY_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: sentry_dsn
+            - name: SENTRY_JS_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: sentry_js_dsn
+            - name: ZENDESK_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: zendesk_token
+            - name: ZENDESK_URL
+              value: ""
+            - name: GA_TRACKING_ID
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: ga_tracking_id
+            - name: PVB_TEAM_EMAIL
+              value: "pvb-team@digital.justice.gov.uk"
+            - name: RACK_ENV
+              value: "production"
+            - name: SECRET_KEY_BASE
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: secret_key_base
+            - name: RAILS_ENV
+              value: "production"
+            - name: RAILS_SERVE_STATIC_FILES
+              value: "true"
+            - name: WEB_CONCURRENCY
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: rails_web_concurrency
+
