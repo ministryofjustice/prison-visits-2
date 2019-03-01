@@ -250,9 +250,7 @@ spec:
             - name: PUBLIC_SERVICE_URL
               value: "https://public-staging-pvb.dsd.io"
             - name: STAFF_SERVICE_URL
-              value: "https://staff-staging-pvb.dsd.io"
-            - name: STAFF_SERVICE_URL
-              value: "http://prison-visits-staff-info.s3-website-eu-west-1.amazonaws.com"
+              value: "https://prison-visits-booking-staff-staging.apps.cloud-platform-live-0.k8s.integration.dsd.io"
             - name: PRISON_ESTATE_IPS
               valueFrom:
                 secretKeyRef:
@@ -303,6 +301,13 @@ spec:
                 secretKeyRef:
                   name: prison-visits-booking-staff-secrets
                   key: redis_url
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: redis_password
+            - name: KUBERNETES_DEPLOYMENT
+              value: "true"
         - name: prison-visits-booking-staff-sidekiq
           image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
           imagePullPolicy: Always
@@ -330,6 +335,13 @@ spec:
                 secretKeyRef:
                   name: prison-visits-booking-staff-secrets
                   key: redis_url
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-booking-staff-secrets
+                  key: redis_password
+            - name: KUBERNETES_DEPLOYMENT
+              value: "true"
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
