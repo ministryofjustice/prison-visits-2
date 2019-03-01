@@ -1,3 +1,92 @@
+references:
+  defaults: &defaults
+    working_directory: ~/repo
+
+  github_team_name_slug: &github_team_name_slug
+    GITHUB_TEAM_NAME_SLUG: prison-visits-booking
+
+  deploy_container_config: &deploy_container_config
+    docker:
+      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
+
+  test_container_config: &test_container_config
+    docker:
+      - image: circleci/ruby:2.5.3-node-browsers
+        environment:
+          RAILS_ENV: test
+          PGHOST: 127.0.0.1
+          PGUSER: ubuntu
+          RACK_ENV: test
+      - image: circleci/postgres:10.5-alpine
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: pvb2_test
+
+  install_gpg: &install_gpg
+    run:
+      name: Install GPG
+      command: |
+        apk add \
+          --no-cache \
+          --no-progress \
+          gnupg
+
+  configure_gpg: &configure_gpg
+    run:
+      name: Configure GPG
+      command: |
+        echo "${GPG_PRIVATE_KEY}" | base64 -d | gpg --batch --allow-secret-key-import --import
+
+  decrypt_secrets: &decrypt_secrets
+    run:
+      name: Decrypt secrets file
+      command: |
+        gpg --export-ownertrust > /tmp/ownertrust.txt
+        echo $GPG_KEY_ID:1 >> /tmp/ownertrust.txt
+        gpg --import-ownertrust /tmp/ownertrust.txt
+        gpgconf --kill gpg-agent
+        gpg-agent --daemon --allow-preset-passphrase
+        /usr/libexec/gpg-preset-passphrase --preset --passphrase $GPG_PASSPHRASE $GPG_KEY_KEYGRIP_ID
+        git-crypt unlock
+
+
+  install_aws_cli: &install_aws_cli
+    run:
+      name: Set up aws
+      command: |
+        sudo apt-get --assume-yes install python3-pip
+        sudo pip3 install awscli
+
+  build_docker_image: &build_docker_image
+    run:
+      name: Build docker image
+      command: |
+        export BUILD_DATE=$(date -Is) >> $BASH_ENV
+        source $BASH_ENV
+        docker build \
+          --build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} \
+          --build-arg COMMIT_ID=${CIRCLE_SHA1} \
+          --build-arg BUILD_DATE=${BUILD_DATE} \
+          --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
+          -t pvb-staff .
+
+  push_docker_image: &push_docker_image
+    run:
+      name: Push allocation-manager docker image
+      command: |
+        login="$(aws ecr get-login --region eu-west-1 --no-include-email)"
+        ${login}
+        docker tag pvb-staff "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
+        docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
+        if [ "${CIRCLE_BRANCH}" == "master" ]; then
+          docker tag pvb-staff "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
+          docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
+        fi
+      environment:
+        <<: *github_team_name_slug
+        REPONAME: prison-visits-staff
+
 version: 2
 jobs:
   build:
@@ -69,59 +158,66 @@ jobs:
           path: screenshots
           path: coverage
 
+  security-static-analysis:
+      <<: *defaults
+      <<: *test_container_config
+      steps:
+        - checkout
+        - attach_workspace:
+            at: ~/repo
+        - run: bundle --path vendor/bundle
+        - run: bundle exec brakeman -o ~/test-results/brakeman/brakeman.json -o ~/test-results/brakeman/brakeman.html
+        - store_artifacts:
+            path: ~/test-results
 
-  # The following section is an attempts to have circleci run our integration tests per branch
-  # It was abandonned because it was causing out of memory errors. Maybe this will be worth optimising in the future
-  # build:
-  #   working_directory: ~/prison-visits-2
-  #   docker:
-  #     - image: docker:17.09.0-ce-git
-  #   steps:
-  #     - checkout
-  #     - setup_remote_docker
-  #     - type: shell
-  #       name: Push application Docker image
-  #       command: |
-  #         docker login -u $DOCKER_USER -p $DOCKER_PASS
-  #         docker build -t "stupidcodefactory/prison-visits-2:${CIRCLE_BRANCH}" .
-  #         docker push "stupidcodefactory/prison-visits-2:${CIRCLE_BRANCH}"
-  # integration-tests:
-  #   working_directory: ~/prison-visits-2
-  #   docker:
-  #     - image: docker:17.09.0-ce-git
-  #     - image: postgres:9.4-alpine
-  #       name: db
-  #     - image: redis:alpine
-  #       name: redis
-  #     - image: stupidcodefactory/prison-visits-public:circleci2
-  #       name: public
-  #       environment:
-  #         RAILS_ENV: production
-  #         RACK_ENV: production
-  #         SSL_ON: 'false'
-  #         STAFF_SERVICE_URL: http://staff:3000
-  #         PRISON_VISITS_API: http://staff:3000
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Install Docker Compose
-  #         command: |
-  #           sudo curl -L "https://github.com/docker/compose/releases/download/1.16.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  rubocop:
+    <<: *defaults
+    <<: *test_container_config
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - run: bundle --path vendor/bundle
+      - run: bundle exec rubocop
 
-  #     # - setup_remote_docker
-  #     - type: shell
-  #       name: run integration tests
-  #       command: |
-  #         docker-compose up -d
-  #         docker-compose exec staff rails db:setup
-  #         docker-compose run integration-tests bin/rspec
-# workflows:
-#    version: 2
-#    test-and-build:
-#      jobs:
-#        - build
-#        - test:
-#           requires:
-#             - build
-#        - test
-#        - integration-tests
+  build_and_push_docker_image:
+    <<: *defaults
+    <<: *test_container_config
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - *install_aws_cli
+      - *build_docker_image
+      - *push_docker_image
+
+  deploy_staging:
+    <<: *deploy_container_config
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Kubectl deployment staging setup
+          command: |
+            setup-kube-auth
+            kubectl config use-context staging
+      - *install_gpg
+      - *configure_gpg
+      - *decrypt_secrets
+      - deploy:
+          name: Deploy to staging
+          command: |
+            kubectl set image -f deploy/staging/deployment.yaml allocation-manager=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
+            | kubectl annotate -f - kubernetes.io/change-cause="$CIRCLE_BUILD_URL" --local -o yaml \
+            | kubectl apply --record=false \
+              -f - \
+              -f ./deploy/staging/ingress.yaml \
+              -f ./deploy/staging/service.yaml \
+              -f ./deploy/staging/secrets.yaml \
+              -f ./deploy/staging/shared-environment.yaml \
+              -f ./deploy/staging/deployment.yaml \
+          environment:
+            <<: *github_team_name_slug
