@@ -30,7 +30,9 @@ Rails.application.configure do
     event.payload[:custom_log_items]
   end
 
-  config.lograge.logger = ActiveSupport::Logger.new "#{Rails.root}/log/logstash_#{Rails.env}.json"
+  config.lograge.logger = ActiveSupport::Logger.new(
+    "#{Rails.root}/log/logstash_#{Rails.env}.json"
+  )
 
   config.redis_url = ENV['REDIS_URL']
   config.redis_password = ENV['REDIS_PASSWORD']
