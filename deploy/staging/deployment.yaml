@@ -41,7 +41,7 @@ spec:
 #              port: 3000
 #            initialDelaySeconds: 10
 #            periodSeconds: 60
-          env: &STAGING_CONTAINER_VARIABLES
+          env:
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
