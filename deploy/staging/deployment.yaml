@@ -1,0 +1,57 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: prison-visits-booking-staff
+  labels:
+    app: prison-visits-booking-staff
+  annotations:
+    kubernetes.io/change-cause: "<to be filled in deploy job command>"
+spec:
+  replicas: 3
+  revisionHistoryLimit: 1
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 2
+  selector:
+    matchLabels:
+      app: prison-visits-booking-staff
+  template:
+    metadata:
+      labels:
+        app: prison-visits-booking-staff
+    spec:
+      containers:
+        - name: prison-visits-booking-staff
+          image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
+          imagePullPolicy: Always
+          command: ['sh', '-c', "bundle exec rails db:migrate && bundle exec rails db:seed && bundle exec puma -p 3000 -C ./config/puma_prod.rb --pidfile /tmp/server.pid"]
+          ports:
+            - containerPort: 3000
+#          livenessProbe:
+#            httpGet:
+#              path: /healthcheck
+#              port: 3000
+#            initialDelaySeconds: 10
+#            periodSeconds: 60
+#          readinessProbe:
+#            httpGet:
+#              path: /healthcheck
+#              port: 3000
+#            initialDelaySeconds: 10
+#            periodSeconds: 60
+          envFrom:
+            - configMapRef:
+                name: shared-environment
+            - secretRef:
+                name: secrets
+        - name: prison-visits-booking-staff-sidekiq
+          image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
+          imagePullPolicy: Always
+          command: ['sh', '-c', "bundle exec sidekiq -C config/sidekiq.yml"]
+          envFrom:
+            - configMapRef:
+                name: shared-environment
+            - secretRef:
+                name: secrets
