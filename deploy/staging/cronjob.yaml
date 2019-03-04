@@ -1,0 +1,39 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: refresh-views
+spec:
+  schedule: "0 0 * * *"
+  startingDeadlineSeconds: 10
+  concurrencyPolicy: Forbid
+  backoffLimit: 5
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: prison-visits-booking-staff
+            image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
+            imagePullPolicy: Always
+            command: ['sh', '-c', "bundle exec rake pvb:metrics:refresh"]
+          restartPolicy: OnFailure
+metadata:
+  name: delete-load-test-data
+spec:
+  schedule: "0 1 * * *"
+  startingDeadlineSeconds: 10
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: prison-visits-booking-staff
+            image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
+            imagePullPolicy: Always
+            command: ['sh', '-c', "RAILS_ENV=production", "DISABLE_DATABASE_ENVIRONMENT_CHECK=1", "bundle exec rake load_test_data:delete['Load','Test']"]
+          restartPolicy: OnFailure
