@@ -1,6 +1,6 @@
 references:
   defaults: &defaults
-    working_directory: ~/repo
+    working_directory: ~/prison-visits-staff
 
   github_team_name_slug: &github_team_name_slug
     GITHUB_TEAM_NAME_SLUG: prison-visits-booking
@@ -17,11 +17,13 @@ references:
           PGHOST: 127.0.0.1
           PGUSER: ubuntu
           RACK_ENV: test
-      - image: circleci/postgres:9.4-alpine
+          RAILS_ENV: test
+      - image: circleci/postgres:9.4.12-alpine
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: ""
           POSTGRES_DB: pvb2_test
+      - image: redis
 
   install_gpg: &install_gpg
     run:
@@ -69,52 +71,37 @@ references:
           --build-arg COMMIT_ID=${CIRCLE_SHA1} \
           --build-arg BUILD_DATE=${BUILD_DATE} \
           --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
-          -t pvb-staff .
+          -f Dockerfile.kubernetes \
+          -t app .
 
   push_docker_image: &push_docker_image
     run:
-      name: Push allocation-manager docker image
+      name: Push docker image
       command: |
         login="$(aws ecr get-login --region eu-west-1 --no-include-email)"
         ${login}
-        docker tag pvb-staff "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
+        docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
         docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
-        if [ "${CIRCLE_BRANCH}" == "master" ]; then
-          docker tag pvb-staff "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
-          docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
-        fi
       environment:
         <<: *github_team_name_slug
         REPONAME: prison-visits-staff
 
 version: 2
 jobs:
-  build:
-    parallelism: 1
-    working_directory: ~/prison-visits-2
-    docker:
-      - image: circleci/ruby:2.5.3-node-browsers
-        environment:
-          RAILS_ENV: test
-          PG_HOST: localhost
-          PG_USER: ubuntu
-          RAILS_ENV: test
-          RACK_ENV: test
-      - image: circleci/postgres:9.4.12-alpine
-        environment:
-          POSTGRES_USER: ubuntu
-          POSTGRES_DB: pvb2_test
-      - image: redis
-
+  test:
+    <<: *defaults
+    <<: *test_container_config
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/prison-visits-staff
       - run:
           name: Which bundler?
           command: bundle -v
       - restore_cache:
           keys:
-            - prison-visits-2-v3-{{ checksum "Gemfile.lock" }}
-            - prison-visits-2-v3-
+            - prison-visits-staff-v3-{{ checksum "Gemfile.lock" }}
+            - prison-visits-staff-v3-
       - run: bundle check --path vendor/bundle || bundle install --path vendor/bundle
       - save_cache:
           key: prison-visits-2-v3-{{ checksum "Gemfile.lock" }}
@@ -159,16 +146,16 @@ jobs:
           path: coverage
 
   security-static-analysis:
-      <<: *defaults
-      <<: *test_container_config
-      steps:
-        - checkout
-        - attach_workspace:
-            at: ~/repo
-        - run: bundle --path vendor/bundle
-        - run: bundle exec brakeman -o ~/test-results/brakeman/brakeman.json -o ~/test-results/brakeman/brakeman.html
-        - store_artifacts:
-            path: ~/test-results
+    <<: *defaults
+    <<: *test_container_config
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/prison-visits-staff
+      - run: bundle --path vendor/bundle
+      - run: bundle exec brakeman -o ~/test-results/brakeman/brakeman.json -o ~/test-results/brakeman/brakeman.html
+      - store_artifacts:
+          path: ~/test-results
 
   rubocop:
     <<: *defaults
@@ -176,7 +163,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ~/repo
+          at: ~/prison-visits-staff
       - run: bundle --path vendor/bundle
       - run: bundle exec rubocop
 
@@ -186,7 +173,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ~/repo
+          at: ~/prison-visits-staff
       - setup_remote_docker:
           docker_layer_caching: true
       - *install_aws_cli
@@ -198,7 +185,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ~/repo
+          at: ~/prison-visits-staff
       - run:
           name: Kubectl deployment staging setup
           command: |
@@ -210,7 +197,7 @@ jobs:
       - deploy:
           name: Deploy to staging
           command: |
-            kubectl set image -f deploy/staging/deployment.yaml allocation-manager=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
+            kubectl set image -f deploy/staging/deployment.yaml prison-visits-booking-staff=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
             | kubectl annotate -f - kubernetes.io/change-cause="$CIRCLE_BUILD_URL" --local -o yaml \
             | kubectl apply --record=false \
               -f - \
@@ -221,3 +208,30 @@ jobs:
               -f ./deploy/staging/deployment.yaml \
           environment:
             <<: *github_team_name_slug
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+     - test
+     - security-static-analysis
+     - rubocop
+     - build_and_push_docker_image:
+         requires:
+           - test
+           - security-static-analysis
+           - rubocop
+         filters:
+           branches:
+             only: master
+     - deploy_staging:
+         requires:
+           - build_and_push_docker_image
+         filters:
+           branches:
+             only: master
+
+
+
+
+
