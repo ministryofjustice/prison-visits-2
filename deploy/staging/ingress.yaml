@@ -9,6 +9,9 @@ metadata:
    nginx.ingress.kubernetes.io/whitelist-source-range: "81.134.202.29/32, 52.17.133.167, 34.251.93.81, 34.247.134.240"
 
 spec:
+  tls:
+  - hosts:
+    - prison-visits-booking-staff-staging.apps.cloud-platform-live-0.k8s.integration.dsd.io
   rules:
   - host: prison-visits-booking-staff-staging.apps.cloud-platform-live-0.k8s.integration.dsd.io
     http:
