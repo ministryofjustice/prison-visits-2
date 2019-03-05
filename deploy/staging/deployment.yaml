@@ -29,18 +29,18 @@ spec:
           command: ['sh', '-c', "bundle exec rails db:migrate && bundle exec rails db:seed && bundle exec puma -p 3000 -C ./config/puma_prod.rb --pidfile /tmp/server.pid"]
           ports:
             - containerPort: 3000
-#          livenessProbe:
-#            httpGet:
-#              path: /healthcheck
-#              port: 3000
-#            initialDelaySeconds: 10
-#            periodSeconds: 60
-#          readinessProbe:
-#            httpGet:
-#              path: /healthcheck
-#              port: 3000
-#            initialDelaySeconds: 10
-#            periodSeconds: 60
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 60
           envFrom:
             - configMapRef:
                 name: shared-environment
@@ -55,3 +55,21 @@ spec:
                 name: shared-environment
             - secretRef:
                 name: secrets
+        - name: allocation-manager-metrics
+          image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
+          imagePullPolicy: Always
+          command: ['sh', '-c', "bundle exec prometheus_exporter"]
+          ports:
+            - containerPort: 9394
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: 9394
+            initialDelaySeconds: 10
+            periodSeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: 9394
+          initialDelaySeconds: 10
+          periodSeconds: 60
