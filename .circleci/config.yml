@@ -206,6 +206,7 @@ jobs:
               -f ./deploy/staging/secrets.yaml \
               -f ./deploy/staging/shared-environment.yaml \
               -f ./deploy/staging/deployment.yaml \
+              -f ./deploy/staging/cronjob.yaml \
           environment:
             <<: *github_team_name_slug
 
