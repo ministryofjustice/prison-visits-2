@@ -55,7 +55,7 @@ spec:
                 name: shared-environment
             - secretRef:
                 name: secrets
-        - name: allocation-manager-metrics
+        - name: prison-visits-booking-staff-metrics
           image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
           imagePullPolicy: Always
           command: ['sh', '-c', "bundle exec prometheus_exporter"]
@@ -71,5 +71,5 @@ spec:
             httpGet:
               path: /metrics
               port: 9394
-          initialDelaySeconds: 10
-          periodSeconds: 60
+            initialDelaySeconds: 10
+            periodSeconds: 60
