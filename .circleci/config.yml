@@ -202,6 +202,8 @@ jobs:
             | kubectl apply --record=false \
               -f - \
               -f ./deploy/staging/ingress.yaml \
+              -f ./deploy/staging/network-policy.yaml \
+              -f ./deploy/staging/service-monitor.yaml \
               -f ./deploy/staging/service.yaml \
               -f ./deploy/staging/secrets.yaml \
               -f ./deploy/staging/shared-environment.yaml \
