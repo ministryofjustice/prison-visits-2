@@ -1,4 +1,4 @@
-if Rails.configuration.kubernetes_deployment
+if Rails.env.production? && Rails.configuration.kubernetes_deployment
   require 'prometheus_exporter/instrumentation'
   require 'prometheus_exporter/middleware'
 
