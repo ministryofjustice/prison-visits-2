@@ -6,7 +6,6 @@ spec:
   schedule: "0 0 * * *"
   startingDeadlineSeconds: 10
   concurrencyPolicy: Forbid
-  backoffLimit: 5
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
   jobTemplate:
@@ -19,6 +18,9 @@ spec:
             imagePullPolicy: Always
             command: ['sh', '-c', "bundle exec rake pvb:metrics:refresh"]
           restartPolicy: OnFailure
+---
+apiVersion: batch/v1beta1
+kind: CronJob
 metadata:
   name: delete-load-test-data
 spec:
