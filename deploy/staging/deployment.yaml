@@ -59,17 +59,10 @@ spec:
           image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
           imagePullPolicy: Always
           command: ['sh', '-c', "bundle exec prometheus_exporter"]
+          envFrom:
+            - configMapRef:
+                name: shared-environment
+            - secretRef:
+                name: secrets
           ports:
             - containerPort: 9394
-          livenessProbe:
-            httpGet:
-              path: /metrics
-              port: 9394
-            initialDelaySeconds: 10
-            periodSeconds: 60
-          readinessProbe:
-            httpGet:
-              path: /metrics
-              port: 9394
-            initialDelaySeconds: 10
-            periodSeconds: 60
