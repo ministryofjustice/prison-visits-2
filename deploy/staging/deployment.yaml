@@ -50,6 +50,9 @@ spec:
           image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
           imagePullPolicy: Always
           command: ['sh', '-c', "bundle exec sidekiq -C config/sidekiq.yml"]
+          env:
+            - name: "SCRIPT_NAME"
+              value: "/sidekiq-admin"
           envFrom:
             - configMapRef:
                 name: shared-environment
