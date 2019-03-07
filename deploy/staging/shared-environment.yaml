@@ -11,7 +11,6 @@ data:
   RACK_ENV: "production"
   RAILS_SERVE_STATIC_FILES: "true"
   REMOVE_LOAD_TEST_DATA: "true"
-  SCRIPT_NAME: "/sidekiq-admin"
   STAFF_SERVICE_URL: "https://prison-visits-booking-staff-staging.apps.cloud-platform-live-0.k8s.integration.dsd.io"
   SMTP_DOMAIN: "mailtrap.io"
   SMTP_PORT: "465"
