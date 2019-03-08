@@ -95,9 +95,10 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/prison-visits-staff
-      - type: cache-restore
-        name: Restore bundle cache
-        key: prison-visits-staff-{{ checksum "Gemfile.lock" }}
+      - run: gem cleanup did_you_mean
+#      - type: cache-restore
+#        name: Restore bundle cache
+#        key: prison-visits-staff-{{ checksum "Gemfile.lock" }}
 
 #      - run:
 #          name: Which bundler?
@@ -143,7 +144,7 @@ jobs:
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
-      - run: bundle exec rake db:create db:schema:load
+      - run: rails db:create db:schema:load
       - run:
           name: Run tests
           command: |
