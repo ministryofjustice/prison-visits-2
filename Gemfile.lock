@@ -95,6 +95,7 @@ GEM
     css_parser (1.6.0)
       addressable
     database_cleaner (1.7.0)
+    did_you_mean (1.2.1)
     diff-lcs (1.3)
     docile (1.3.0)
     draper (3.0.1)
@@ -386,6 +387,7 @@ DEPENDENCIES
   capybara
   connection_pool
   database_cleaner
+  did_you_mean
   draper
   email_address_validation!
   excon
