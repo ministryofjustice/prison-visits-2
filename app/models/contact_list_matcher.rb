@@ -1,5 +1,3 @@
-require 'jaro_winkler'
-
 class ContactListMatcher
   NEAREST_MATCH_THRESHOLD = 0.90
   EXACT_MATCH_THRESHOLD   = 1
