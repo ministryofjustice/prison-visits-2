@@ -102,7 +102,7 @@ jobs:
           keys:
             - prison-visits-staff-v3-{{ checksum "Gemfile.lock" }}
             - prison-visits-staff-v3-
-      - run: gem install did_you_mean
+#      - run: gem install did_you_mean
       - run: bundle check --path vendor/bundle || bundle install --path vendor/bundle
       - save_cache:
           key: prison-visits-2-v3-{{ checksum "Gemfile.lock" }}
