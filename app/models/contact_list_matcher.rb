@@ -50,7 +50,7 @@ private
   end
 
   def matched_bucket_for(candidate)
-    score = JaroWinkler.distance(visitor_full_name, candidate.full_name)
+    score = DidYouMean::JaroWinkler.distance(visitor_full_name, candidate.full_name)
     bucket = case
              when score == 1
                exact_matches
