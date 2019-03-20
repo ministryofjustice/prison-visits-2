@@ -75,7 +75,7 @@ GEM
     brakeman (4.5.0)
     builder (3.2.3)
     business (1.16.0)
-    byebug (11.0.0)
+    byebug (11.0.1)
     capybara (3.14.0)
       addressable
       mini_mime (>= 0.1.3)
