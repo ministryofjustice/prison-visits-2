@@ -62,6 +62,6 @@ RUN bundle install --without development test --jobs 2 --retry 3
 
 COPY . /app
 
-RUN RAILS_ENV=production PUBLIC_SERVICE_URL=foo STAFF_SERVICE_URL=foo SECRET_KEY_BASE=foo bin/rake assets:precompile --trace
+RUN RAILS_ENV=production PUBLIC_SERVICE_URL=foo STAFF_SERVICE_URL=foo SECRET_KEY_BASE=foo rails assets:precompile --trace
 
 EXPOSE 3000
