@@ -1,3 +1,4 @@
+# rubocop:disable Layout/AccessModifierIndentation
 class LoadTestDataRemover
   # Warning! Do not run on production.
   # ENV['REMOVE_LOAD_TEST_DATA'] should be set to 'true' on Staging env only.
@@ -6,7 +7,7 @@ class LoadTestDataRemover
   end
 
   class << self
-  private
+    private
 
     ASSOCIATIONS = [
       :prisoner, :visitors, :visit_state_changes, :messages, :rejection, :cancellation
@@ -24,3 +25,4 @@ class LoadTestDataRemover
     end
   end
 end
+# rubocop:enable Layout/AccessModifierIndentation
