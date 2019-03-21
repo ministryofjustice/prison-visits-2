@@ -11,7 +11,7 @@ references:
 
   test_container_config: &test_container_config
     docker:
-      - image: circleci/ruby:2.6.2-node-browsers
+      - image: circleci/ruby:2.5.3-node-browsers
         environment:
           RAILS_ENV: test
           PGHOST: 127.0.0.1
@@ -96,12 +96,6 @@ jobs:
       - attach_workspace:
           at: ~/prison-visits-staff
       - run:
-          name: Configure Bundler
-          command: |
-            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
-            source $BASH_ENV
-            gem install bundler
-      - run:
           name: Which bundler?
           command: bundle -v
       - restore_cache:
@@ -158,12 +152,6 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/prison-visits-staff
-      - run:
-          name: Configure Bundler
-          command: |
-            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
-            source $BASH_ENV
-            gem install bundler
       - run: bundle --path vendor/bundle
       - run: bundle exec brakeman -o ~/test-results/brakeman/brakeman.json -o ~/test-results/brakeman/brakeman.html
       - store_artifacts:
@@ -176,12 +164,6 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/prison-visits-staff
-      - run:
-          name: Configure Bundler
-          command: |
-            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
-            source $BASH_ENV
-            gem install bundler
       - run: bundle --path vendor/bundle
       - run: bundle exec rubocop
 
