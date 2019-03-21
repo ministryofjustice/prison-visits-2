@@ -216,6 +216,9 @@ workflows:
   version: 2
   build_and_test:
     jobs:
+     - run:
+         name: Update bundler
+         command: bundle update --bundler
      - test
      - security-static-analysis
      - rubocop
