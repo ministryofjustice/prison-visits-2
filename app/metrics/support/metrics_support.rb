@@ -1,6 +1,7 @@
 # rubocop:disable Layout/AccessModifierIndentation
 module MetricsSupport
   protected
+
   # Takes the attributes of a visitor counter object, extracts the values,
   # orders them from least specific to most specific and returns a hash of
   # the results.
