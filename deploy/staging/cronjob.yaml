@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: refresh-views
 spec:
-  schedule: "5 1 * * *"
+  schedule: "0 0 * * *"
   startingDeadlineSeconds: 10
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
