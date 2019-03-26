@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: refresh-views
 spec:
-  schedule: "0 0 * * *"
+  schedule: "5 1 * * *"
   startingDeadlineSeconds: 10
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
@@ -13,10 +13,10 @@ spec:
       template:
         spec:
           containers:
-          - name: prison-visits-booking-staff-pvb-metrics-refresh
-            image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
-            imagePullPolicy: Always
-            command: ['sh', '-c', "bundle exec rake pvb:metrics:refresh"]
+            - name: prison-visits-booking-staff-pvb-metrics refresh
+              image: 926803513772.dkr.ecr.eu-west-1.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
+              imagePullPolicy: Always
+              command: ['sh', '-c', "bundle exec rake pvb:metrics:refresh"]
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1beta1
