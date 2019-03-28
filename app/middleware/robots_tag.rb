@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RobotsTag
-  X_ROBOT_TAG_HEADER_VALUE = 'none'
+  X_ROBOT_TAG_HEADER_VALUE = 'noindex, nofollow'
   X_ROBOT_TAG_HEADER = 'X-Robots-Tag'
 
   def initialize(app)
