@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  ## TODO: Remove me once Jenkins builds are passing again!
-
   before_action :do_not_cache
   before_action :set_locale
   before_action :store_request_id
