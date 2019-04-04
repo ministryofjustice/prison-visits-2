@@ -133,12 +133,12 @@ GEM
       concurrent-ruby (~> 1.0)
     inflection (1.0.0)
     jaro_winkler (1.5.2)
-    jasmine (3.3.0)
-      jasmine-core (~> 3.3.0)
+    jasmine (3.4.0)
+      jasmine-core (~> 3.4.0)
       phantomjs
       rack (>= 1.2.1)
       rake
-    jasmine-core (3.3.0)
+    jasmine-core (3.4.0)
     jasmine-jquery-rails (2.0.3)
     jbuilder (2.8.0)
       activesupport (>= 4.2.0)
@@ -219,7 +219,7 @@ GEM
     psych (3.1.0)
     public_suffix (3.0.3)
     puma (3.12.1)
-    rack (2.0.6)
+    rack (2.0.7)
     rack-protection (2.0.5)
       rack
     rack-test (1.1.0)
@@ -393,7 +393,7 @@ DEPENDENCIES
   govuk_frontend_toolkit
   govuk_template
   jaro_winkler
-  jasmine (~> 3.3)
+  jasmine (~> 3.4)
   jasmine-jquery-rails
   jbuilder
   jquery-rails (~> 4.3.3)
