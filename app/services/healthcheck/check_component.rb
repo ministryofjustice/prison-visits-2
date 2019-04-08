@@ -12,8 +12,8 @@ class Healthcheck
       @report =
         begin
           yield
-        rescue StandardError => err
-          { error: err.to_s, ok: false }
+        rescue StandardError => e
+          { error: e.to_s, ok: false }
         end.merge(description: description)
     end
   end
