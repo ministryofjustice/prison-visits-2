@@ -23,8 +23,8 @@ class PrisonSeeder
     prison = Prison.find_or_initialize_by(id: uuid_for_path(path))
     entry = PrisonSeeder::SeedEntry.new(hash)
     prison.update! entry.to_h.merge(estate: estate)
-  rescue StandardError => err
-    raise ImportFailure, "#{err} in #{path}"
+  rescue StandardError => e
+    raise ImportFailure, "#{e} in #{path}"
   end
 
 private
