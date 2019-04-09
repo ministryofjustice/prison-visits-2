@@ -1,5 +1,6 @@
-require: rubocop-performance
-require: rubocop-rspec
+require:
+  - rubocop-performance
+  - rubocop-rspec
 
 AllCops:
   # Exclude anything that isn't really part of our code.
@@ -61,11 +62,6 @@ Style/CollectionMethods:
 Layout/DotPosition:
   EnforcedStyle: trailing
 
-# The holidays file has extra spaces for ease of reading and comparison
-Layout/ExtraSpacing:
-  Exclude:
-    - 'config/initializers/holidays.rb'
-
 # Percent-formatting and hash interpolation both have their place. Don't
 # enforce any particular one.
 Style/FormatString:
@@ -105,11 +101,6 @@ Metrics/MethodLength:
     - 'spec/**/*'
     - 'app/helpers/form_elements_helper.rb'
     - 'app/metrics/**/*' # Some very long SQL based methods there.
-
-# Don't worry about the complexity of spec methods
-Metrics/AbcSize:
-  Exclude:
-    - 'spec/**/*'
 
 # Enforce single quotes everywhere except in specs (because there's a lot of
 # human text with apostrophes in spec names, and using double quotes for all
