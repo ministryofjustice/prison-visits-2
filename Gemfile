@@ -59,6 +59,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'rubocop'
+  gem 'rubocop-performance'
   gem 'rubocop-rspec'
   gem 'awesome_print', require: 'ap'
   gem 'spring-commands-rspec'
