@@ -472,6 +472,10 @@ UPI:
   finder_slug: usk-prescoed-prescoed
   admins:
     - prescoed.prisons.noms.moj
+VEI:
+  name: The Verne
+  admins:
+    the_verne.prisons.noms.moj
 WCI:
   name: Winchester
   admins:
