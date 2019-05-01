@@ -33,7 +33,7 @@ class BookingResponder
     # Remove following ignored rubocop once fix released for conflicting cops
     # rubocop:disable Style/AccessModifierDeclarations
     private :visit
-    # rubocop:enable Style/AccessModifierDeclarations, Layout/AccessModifierIndentation
+    # rubocop:enable Style/AccessModifierDeclarations
 
     def record_creator
       visit.last_visit_state.update!(creator: staff_response.creator)
