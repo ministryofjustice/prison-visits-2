@@ -27,8 +27,8 @@ RSpec.describe Nomis::Client do
   context 'when there is an http status error' do
     let(:error) do
       Excon::Error::HTTPStatus.new('error',
-        double('request'),
-        double('response', status: 422, body: '<html>'))
+                                   double('request'),
+                                   double('response', status: 422, body: '<html>'))
     end
 
     before do
@@ -78,8 +78,8 @@ RSpec.describe Nomis::Client do
   describe 'with an error' do
     let(:error) do
       Excon::Error::HTTPStatus.new('error',
-        double('request'),
-        double('response', status: 422, body: '<html>'))
+                                   double('request'),
+                                   double('response', status: 422, body: '<html>'))
     end
 
     before do

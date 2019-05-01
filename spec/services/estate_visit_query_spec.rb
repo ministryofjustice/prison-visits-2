@@ -25,13 +25,13 @@ RSpec.describe EstateVisitQuery do
     end
     let!(:booked_visit2) do
       create(:booked_visit,
-        prison: prison,
-        slot_granted: slot2)
+             prison: prison,
+             slot_granted: slot2)
     end
     let!(:cancelled_visit) do
       create(:cancelled_visit,
-        prison: prison,
-        slot_granted: slot1)
+             prison: prison,
+             slot_granted: slot1)
     end
     let!(:other_prison_visit) do
       create(
@@ -79,9 +79,9 @@ RSpec.describe EstateVisitQuery do
       end
       let!(:nomis_cancelled) do
         create(:visit,
-          :nomis_cancelled,
-          prison: prison,
-          updated_at: 1.day.ago)
+               :nomis_cancelled,
+               prison: prison,
+               updated_at: 1.day.ago)
       end
       let!(:pending_nomis_cancellation) do
         create(:visit, :pending_nomis_cancellation, prison: prison)
@@ -213,9 +213,9 @@ RSpec.describe EstateVisitQuery do
         create(:booked_visit, prison: prison)
         create(:rejected_visit, prison: prison)
         create(:visit,
-          :nomis_cancelled,
-          prison: prison,
-          updated_at: 1.day.ago)
+               :nomis_cancelled,
+               prison: prison,
+               updated_at: 1.day.ago)
         create(:visit, :pending_nomis_cancellation, prison: prison)
       end
 

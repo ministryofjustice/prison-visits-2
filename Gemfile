@@ -42,12 +42,12 @@ gem 'uglifier', '~> 2.7.2'
 gem 'uri_template'
 gem 'zendesk_api'
 gem 'pvb-instrumentation',
-  git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
-  tag: 'v1.0.1'
+    git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
+    tag: 'v1.0.1'
 # gem 'pvb-instrumentation', path: '../pvb-instrumentation'
 gem 'email_address_validation',
-  git: 'https://github.com/ministryofjustice/email_address_validation',
-  ref: '5ed2fb93f8d5bc419f03cecb408c688c5bd9fd74'
+    git: 'https://github.com/ministryofjustice/email_address_validation',
+    ref: '5ed2fb93f8d5bc419f03cecb408c688c5bd9fd74'
 
 group :development, :test do
   gem 'brakeman'

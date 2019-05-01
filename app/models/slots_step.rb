@@ -8,8 +8,8 @@ class SlotsStep
   delegate :available_slots, to: :prison
 
   validates :option_0, :option_1, :option_2,
-    inclusion: { in: ->(o) { o.available_slots.map(&:iso8601) } },
-    allow_blank: true
+            inclusion: { in: ->(o) { o.available_slots.map(&:iso8601) } },
+            allow_blank: true
   validates :option_0, presence: true
 
   attr_accessor :prison

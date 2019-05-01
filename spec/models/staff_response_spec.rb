@@ -87,7 +87,7 @@ RSpec.describe StaffResponse, type: :model do
         expect(subject.errors.full_messages).
           to eq([
                   I18n.t('must_reject_or_accept_visit',
-                    scope: %i[staff_response errors])
+                         scope: %i[staff_response errors])
                 ])
       end
     end
@@ -118,7 +118,7 @@ RSpec.describe StaffResponse, type: :model do
           expect(subject.errors.full_messages).
             to include(
               I18n.t('visitors_invalid',
-                scope: %i[activemodel errors models staff_response attributes base])
+                     scope: %i[activemodel errors models staff_response attributes base])
                )
 
           expect(subject.visit.visitors.first.errors[:base]).

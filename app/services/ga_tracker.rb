@@ -22,14 +22,14 @@ class GATracker
   def send_unexpected_rejection_event
     if visit_rejected_unexpectedly?
       send_data(build_event_payload(ga_cookie, 'Manual rejection',
-        visit.rejection.reasons.sort.join('-')))
+                                    visit.rejection.reasons.sort.join('-')))
     end
   end
 
   def send_rejection_event
     if visit.rejected?
       send_data(build_event_payload(ga_cookie, 'Rejection',
-        visit.rejection.reasons.sort.join('-')))
+                                    visit.rejection.reasons.sort.join('-')))
     end
   end
 
@@ -40,7 +40,7 @@ class GATracker
   def send_cancelled_visit_event
     if visit.cancelled?
       send_data(build_event_payload(ga_cookie, 'Cancelled',
-        visit.cancellation.reasons.sort.join('-')))
+                                    visit.cancellation.reasons.sort.join('-')))
     end
   end
 
@@ -58,7 +58,7 @@ class GATracker
 private
 
   attr_accessor :web_property_id, :user, :prison, :visit, :cookies, :request, :client,
-    :ip, :user_agent
+                :ip, :user_agent
 
   def send_data(payload)
     client.post(

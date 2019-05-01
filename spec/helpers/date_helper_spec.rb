@@ -64,8 +64,8 @@ RSpec.describe DateHelper do
     let(:preferred_slot) { ConcreteSlot.new(2016, 7, 19, 10, 30, 11, 30) }
     let(:visit) do
       FactoryBot.build_stubbed(:visit,
-        slot_option_0: preferred_slot,
-        slot_granted: slot_granted)
+                               slot_option_0: preferred_slot,
+                               slot_granted: slot_granted)
     end
 
     context 'with no slot granted' do
@@ -91,8 +91,8 @@ RSpec.describe DateHelper do
     let(:preferred_slot) { ConcreteSlot.new(2016, 7, 19, 10, 30, 11, 30) }
     let(:visit) do
       FactoryBot.build_stubbed(:visit,
-        slot_option_0: preferred_slot,
-        slot_granted: slot_granted)
+                               slot_option_0: preferred_slot,
+                               slot_granted: slot_granted)
     end
 
     context 'with no slot granted' do

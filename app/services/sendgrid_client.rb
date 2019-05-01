@@ -11,8 +11,8 @@ class SendgridClient
     @api_user = api_user
 
     @connection = Excon.new('https://api.sendgrid.com',
-      persistent: persistent,
-      connect_timeout: timeout)
+                            persistent: persistent,
+                            connect_timeout: timeout)
   end
 
   def request(verb, endpoint, query, timeout: TIMEOUT)

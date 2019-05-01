@@ -10,7 +10,7 @@ class SendgridApi
         pool_size = database_pool_size
 
         client = new_client(Rails.configuration.sendgrid_api_user,
-          Rails.configuration.sendgrid_api_key)
+                            Rails.configuration.sendgrid_api_key)
 
         pool = ConnectionPool.new(size: pool_size, timeout: 1, &client)
         send(:new, pool)

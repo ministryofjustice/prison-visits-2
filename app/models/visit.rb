@@ -13,25 +13,25 @@ class Visit < ApplicationRecord
   has_one :visit_order, dependent: :destroy
 
   validates :prison,
-    :prisoner,
-    :contact_email_address,
-    :contact_phone_no,
-    :slot_option_0,
-    :processing_state,
-    presence: true
+            :prisoner,
+            :contact_email_address,
+            :contact_phone_no,
+            :slot_option_0,
+            :processing_state,
+            presence: true
 
   validates :contact_phone_no, phone: true, on: :create
 
   before_create :sanitise_contact_phone_no
 
   delegate :address, :email_address, :name, :phone_no, :postcode,
-    to: :prison, prefix: true
+           to: :prison, prefix: true
   alias_attribute :first_date, :slot_option_0
 
   delegate :reasons, to: :rejection, prefix: true
   delegate :reasons, to: :cancellation, prefix: true
   delegate :allowance_will_renew?, :allowance_renews_on,
-    to: :rejection
+           to: :rejection
 
   scope :less_than_six_months_old, -> { where('visits.updated_at > ?', 6.months.ago) }
 
@@ -120,10 +120,10 @@ class Visit < ApplicationRecord
   end
 
   delegate :age, :first_name, :last_name, :full_name, :anonymized_name,
-    :number, :date_of_birth, to: :prisoner, prefix: true
+           :number, :date_of_birth, to: :prisoner, prefix: true
 
   delegate :first_name, :last_name, :full_name, :anonymized_name,
-    :date_of_birth, to: :principal_visitor, prefix: :visitor
+           :date_of_birth, to: :principal_visitor, prefix: :visitor
 
   alias_method :processable?, :requested?
 

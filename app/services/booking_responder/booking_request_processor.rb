@@ -31,7 +31,7 @@ class BookingResponder
     delegate :rejection, to: :visit
 
     # Remove following ignored rubocop once fix released for conflicting cops
-    # rubocop:disable Style/AccessModifierDeclarations, Layout/AccessModifierIndentation
+    # rubocop:disable Style/AccessModifierDeclarations
     private :visit
     # rubocop:enable Style/AccessModifierDeclarations, Layout/AccessModifierIndentation
 

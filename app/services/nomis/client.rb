@@ -85,7 +85,7 @@ module Nomis
 
       PVB::ExceptionHandler.capture_exception(e, fingerprint: excon_fingerprint)
       raise APIError,
-        "Unexpected status #{e.response.status} calling #{api_method}: #{error}"
+            "Unexpected status #{e.response.status} calling #{api_method}: #{error}"
     rescue Excon::Errors::Error => e
       PVB::ExceptionHandler.capture_exception(e, fingerprint: excon_fingerprint)
       raise APIError, "Exception #{e.class} calling #{api_method}: #{e}"

@@ -40,7 +40,7 @@ module Api
 
     def validate_visitors_parameters(params)
       lead_date_of_birth = validate_date(params.fetch(:lead_date_of_birth),
-        :lead_date_of_birth)
+                                         :lead_date_of_birth)
 
       dates_of_birth = params.fetch(:dates_of_birth).map { |date|
         validate_date(date, :dates_of_birth)
