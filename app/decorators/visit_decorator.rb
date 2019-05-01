@@ -3,16 +3,16 @@ class VisitDecorator < Draper::Decorator
   decorates_association :rejection
 
   delegate :prisoner_availability_unknown?,
-    :slot_availability_unknown?,
-    :slots_unavailable?,
-    :contact_list_unknown?,
-    :prisoner,
-    to: :nomis_checker
+           :slot_availability_unknown?,
+           :slots_unavailable?,
+           :contact_list_unknown?,
+           :prisoner,
+           to: :nomis_checker
 
   delegate :prisoner_existance_status,
-    :prisoner_existance_error,
-    :details_incorrect?,
-    to: :prisoner_details
+           :prisoner_existance_error,
+           :details_incorrect?,
+           to: :prisoner_details
 
   def slots
     @slots ||= object.slots.map.with_index { |slot, i|

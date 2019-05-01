@@ -8,9 +8,9 @@ RSpec.feature 'Processing a request - NOMIS API disabled', :js, :expect_exceptio
 
   let(:prison) do
     create(:prison,
-      name: 'Leeds',
-      email_address: prison_email_address,
-      estate: create(:estate, nomis_id: 'LEI')
+           name: 'Leeds',
+           email_address: prison_email_address,
+           estate: create(:estate, nomis_id: 'LEI')
           )
   end
   let(:prisoner_number) { 'A1475AE' }

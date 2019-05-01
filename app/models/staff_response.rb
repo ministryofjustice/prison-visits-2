@@ -93,7 +93,7 @@ privileged_allowance_expires_on rejection_reason_detail])
       errors.add(
         :base,
         I18n.t('must_reject_or_accept_visit',
-          scope: %i[staff_response errors])
+               scope: %i[staff_response errors])
       )
     end
   end

@@ -9,7 +9,7 @@ class Prison < ApplicationRecord
   validates :estate, :name, :slot_details, presence: true
   validates :enabled, inclusion: { in: [true, false] }
   validates :address, :email_address, :phone_no, :postcode,
-    presence: true, if: :enabled?
+            presence: true, if: :enabled?
   validate :validate_unbookable_dates
 
   validates :booking_window, numericality: {
@@ -17,7 +17,7 @@ class Prison < ApplicationRecord
   }
 
   delegate :recurring_slots, :anomalous_slots, :unbookable_dates,
-    to: :parsed_slot_details
+           to: :parsed_slot_details
   delegate :finder_slug, :nomis_id, to: :estate
 
   scope :enabled, (lambda {

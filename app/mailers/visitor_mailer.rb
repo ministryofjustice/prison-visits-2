@@ -10,7 +10,7 @@ class VisitorMailer < ActionMailer::Base
     I18n.locale = visit.locale
 
     mail_visitor visit,
-      receipt_date: format_date_without_year(visit.first_date)
+                 receipt_date: format_date_without_year(visit.first_date)
   end
 
   def booked(attrs, message_attrs = nil)
@@ -23,7 +23,7 @@ class VisitorMailer < ActionMailer::Base
     end
 
     mail_visitor @visit,
-      date: format_date_without_year(@visit.slot_granted.begin_at)
+                 date: format_date_without_year(@visit.slot_granted.begin_at)
   end
 
   def rejected(attrs, message_attrs = nil)
@@ -41,7 +41,7 @@ class VisitorMailer < ActionMailer::Base
     end
 
     mail_visitor @visit,
-      prison_name: @visit.prison_name
+                 prison_name: @visit.prison_name
   end
 
   def cancelled(visit)
@@ -49,8 +49,8 @@ class VisitorMailer < ActionMailer::Base
 
     @cancellation = visit.cancellation.decorate
     mail_visitor visit,
-      prison_name: visit.prison_name,
-      date: format_date_without_year(visit.date)
+                 prison_name: visit.prison_name,
+                 date: format_date_without_year(visit.date)
   end
 
   def one_off_message(message)
@@ -58,8 +58,8 @@ class VisitorMailer < ActionMailer::Base
     I18n.locale = message.visit.locale
 
     mail_visitor message.visit,
-      prison_name: message.visit.prison_name,
-      date: format_date_without_year(message.visit.date)
+                 prison_name: message.visit.prison_name,
+                 date: format_date_without_year(message.visit.date)
   end
 
 private

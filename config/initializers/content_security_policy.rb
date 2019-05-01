@@ -5,14 +5,14 @@ Rails.application.config.content_security_policy do |config|
   config.style_src :self, 'www.gstatic.com'
   config.connect_src :self
   config.script_src :self,
-    'www.google-analytics.com',
-    'www.gstatic.com',
-    'https://docs.google.com',
-    "'unsafe-eval'",
-    "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='",  # govuk
-    "'sha256-G29/qSW/JHHANtFhlrZVDZW1HOkCDRc78ggbqwwIJ2g='",  # govuk
-    "'sha256-9GTWoKmlaDM3V+GStWlXFaD4tf+wPfBN2ds2eySQ9aE='",  # govuk
-    (Rails.env.test? ? "'unsafe-inline'" : '')
+                    'www.google-analytics.com',
+                    'www.gstatic.com',
+                    'https://docs.google.com',
+                    "'unsafe-eval'",
+                    "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='",  # govuk
+                    "'sha256-G29/qSW/JHHANtFhlrZVDZW1HOkCDRc78ggbqwwIJ2g='",  # govuk
+                    "'sha256-9GTWoKmlaDM3V+GStWlXFaD4tf+wPfBN2ds2eySQ9aE='",  # govuk
+                    (Rails.env.test? ? "'unsafe-inline'" : '')
 
   # So we can send JS errors to Sentry
   sentry_js_dsn = Rails.configuration.sentry_js_dsn

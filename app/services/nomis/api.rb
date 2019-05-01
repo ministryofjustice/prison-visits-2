@@ -26,7 +26,7 @@ module Nomis
     def lookup_active_prisoner(noms_id:, date_of_birth:)
       response = @pool.with { |client|
         client.get('/lookup/active_offender',
-          noms_id: noms_id, date_of_birth: date_of_birth)
+                   noms_id: noms_id, date_of_birth: date_of_birth)
       }
 
       build_prisoner(response).tap do |prisoner|

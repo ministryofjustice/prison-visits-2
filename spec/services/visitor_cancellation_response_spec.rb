@@ -19,8 +19,8 @@ RSpec.describe VisitorCancellationResponse do
         let(:prison) { FactoryBot.create(:prison) }
         let(:visit) do
           FactoryBot.create(:booked_visit,
-            prison: prison,
-            slot_granted: prison.available_slots.first)
+                            prison: prison,
+                            slot_granted: prison.available_slots.first)
         end
 
         it { is_expected.to eq(true) }

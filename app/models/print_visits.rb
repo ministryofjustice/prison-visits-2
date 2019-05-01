@@ -15,7 +15,7 @@ class PrintVisits
       errors.add(
         :base,
         I18n.t('search_date_invalid_html',
-          scope: %i[print_visits errors]))
+               scope: %i[print_visits errors]))
     end
   end
 end

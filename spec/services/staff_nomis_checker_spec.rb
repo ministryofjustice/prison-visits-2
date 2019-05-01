@@ -34,7 +34,7 @@ RSpec.describe StaffNomisChecker do
   describe '#prisoner_availability_unknown?' do
     let(:prisoner_availability_validation) do
       instance_double(PrisonerAvailabilityValidation,
-        valid?: false, unknown_result?: unknown_result)
+                      valid?: false, unknown_result?: unknown_result)
     end
 
     before do

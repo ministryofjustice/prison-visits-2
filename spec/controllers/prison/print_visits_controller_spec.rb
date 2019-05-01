@@ -47,14 +47,14 @@ RSpec.describe Prison::PrintVisitsController do
 
       let!(:visit1) do
         create(:booked_visit,
-          prison: prison,
-          slot_granted: slot_granted1)
+               prison: prison,
+               slot_granted: slot_granted1)
       end
 
       let!(:visit2) do
         create(:booked_visit,
-          prison: prison,
-          slot_granted: slot_granted2)
+               prison: prison,
+               slot_granted: slot_granted2)
       end
 
       describe 'with an invalid date' do

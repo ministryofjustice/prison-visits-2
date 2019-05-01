@@ -5,9 +5,9 @@ RSpec.describe ConcreteSlotDecorator do
   let(:slot_errors)   { [] }
   let(:nomis_checker) do
     double(StaffNomisChecker,
-      errors_for: slot_errors,
-      prisoner_availability_unknown?: false,
-      slot_availability_unknown?: false
+           errors_for: slot_errors,
+           prisoner_availability_unknown?: false,
+           slot_availability_unknown?: false
     )
   end
   let(:date) { Date.tomorrow }

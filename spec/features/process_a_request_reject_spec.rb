@@ -215,7 +215,7 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
     end
 
     scenario 'rejecting a booking for any reason',
-      vcr: { cassette_name: 'process_booking_happy_path_reject', allow_playback_repeats: true } do
+             vcr: { cassette_name: 'process_booking_happy_path_reject', allow_playback_repeats: true } do
 
       within '.other-reason' do
         check 'Other reason', visible: false

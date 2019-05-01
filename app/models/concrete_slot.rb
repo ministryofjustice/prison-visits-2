@@ -16,7 +16,7 @@ ConcreteSlot = Struct.new(
 
   def self.parse_times(begin_at, end_at)
     new(begin_at.year, begin_at.mon, begin_at.day, begin_at.hour, begin_at.min,
-      end_at.hour, end_at.min)
+        end_at.hour, end_at.min)
   end
 
   def iso8601

@@ -10,7 +10,7 @@ class Prison::FeedbacksController < ApplicationController
     if @feedback.save
       ZendeskTicketsJob.perform_later(@feedback)
       redirect_to prison_inbox_path,
-        notice: t('feedback_submitted', scope: %i[prison flash])
+                  notice: t('feedback_submitted', scope: %i[prison flash])
     else
       render :new
     end

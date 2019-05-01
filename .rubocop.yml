@@ -247,7 +247,7 @@ Layout/ExtraSpacing:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Layout/IndentArray:
+Layout/IndentFirstArrayElement:
   Enabled: false
 
 Layout/MultilineArrayBraceLayout:

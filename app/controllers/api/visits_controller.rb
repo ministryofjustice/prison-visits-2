@@ -77,7 +77,7 @@ module Api
     def fail_if_invalid(param, step)
       unless step.valid?
         fail ParameterError,
-          "#{param} (#{step.errors.full_messages.join(', ')})"
+             "#{param} (#{step.errors.full_messages.join(', ')})"
       end
     end
 

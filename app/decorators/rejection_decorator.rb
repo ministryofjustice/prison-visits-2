@@ -51,13 +51,13 @@ class RejectionDecorator < Draper::Decorator
   def email_visitor_banned_explanation(visitor)
     if visitor.banned_until?
       h.t('visitor_banned_until_html',
-        name: visitor.anonymized_name.titleize,
-        banned_until: visitor.banned_until.to_s(:short_nomis),
-        scope: %i[visitor_mailer rejected])
+          name: visitor.anonymized_name.titleize,
+          banned_until: visitor.banned_until.to_s(:short_nomis),
+          scope: %i[visitor_mailer rejected])
     else
       h.t('visitor_banned_html',
-        name: visitor.anonymized_name.titleize,
-        scope: %i[visitor_mailer rejected])
+          name: visitor.anonymized_name.titleize,
+          scope: %i[visitor_mailer rejected])
     end
   end
 
@@ -197,7 +197,7 @@ private
   def staff_no_allowance_explanation(allowance_renews_on)
     if allowance_renews_on
       h.t("no_allowance_#{allowance_renews_on.future?}",
-        vo_date: h.format_date_without_year(allowance_renews_on), scope: :shared)
+          vo_date: h.format_date_without_year(allowance_renews_on), scope: :shared)
     else
       h.t('no_allowance', scope: :shared)
     end

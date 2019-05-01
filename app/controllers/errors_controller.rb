@@ -21,8 +21,8 @@ class ErrorsController < ApplicationController
     # a situation should not be possible with a correct routes definition)
     template_to_render = SUPPORTED_ERRORS.fetch(status_code.to_i)
     render template_to_render,
-      status: status_code,
-      format: :html
+           status: status_code,
+           format: :html
   end
 
   def test

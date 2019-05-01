@@ -3,10 +3,10 @@ module StaffResponseContext
 
   included do
     helper_method :nomis_checker,
-      :prisoner_details,
-      :nomis_info_presenter,
-      :prisoner_location_presenter,
-      :staff_response
+                  :prisoner_details,
+                  :nomis_info_presenter,
+                  :prisoner_location_presenter,
+                  :staff_response
   end
 
   def nomis_checker

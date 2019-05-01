@@ -25,8 +25,8 @@ Rails.application.routes.draw do
       get 'metrics', action: :index
       get 'metrics/send_confirmed_bookings', action: :send_confirmed_bookings
       get 'metrics/:prison_id/summary',
-        action: :summary,
-        as: :prison_metrics_summary
+          action: :summary,
+          as: :prison_metrics_summary
       get 'metrics/digital_takeup', action: :digital_takeup
     end
 
