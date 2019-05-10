@@ -12,8 +12,6 @@ closed: false
 recurring:
   mon:
   - 1400-1545
-  tue:
-  - 1800-1900
   wed:
   - 1400-1545
   thu:
