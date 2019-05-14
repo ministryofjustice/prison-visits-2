@@ -79,7 +79,7 @@ references:
     run:
       name: Push docker image
       command: |
-        login="$(aws ecr get-login --region eu-west-1 --no-include-email)"
+        login="$(aws ecr get-login --region eu-west-2 --no-include-email)"
         ${login}
         docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
         docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
