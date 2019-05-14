@@ -57,6 +57,7 @@ references:
     run:
       name: Set up aws
       command: |
+        sudo apt-get update
         sudo apt-get --assume-yes install python3-pip
         sudo pip3 install awscli
 
@@ -233,8 +234,3 @@ workflows:
          filters:
            branches:
              only: master
-
-
-
-
-
