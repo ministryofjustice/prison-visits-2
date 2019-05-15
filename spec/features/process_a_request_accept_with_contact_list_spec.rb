@@ -78,7 +78,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
             and_body(/Your visit to Leeds is now successfully confirmed/)
   end
 
-  context 'accepting a booking but contact list fails', vcr: { cassette_name: :process_contact_list_fails } do
+  context 'when accepting a booking but contact list fails', vcr: { cassette_name: :process_contact_list_fails } do
     before do
       simulate_api_error_for(:fetch_contact_list)
     end
