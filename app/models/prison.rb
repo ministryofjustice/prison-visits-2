@@ -13,7 +13,7 @@ class Prison < ApplicationRecord
   validate :validate_unbookable_dates
 
   validates :booking_window, numericality: {
-    less_than_or_equal_to: PrisonSeeder::SeedEntry::DEFAULT_BOOKING_WINDOW
+    less_than_or_equal_to: PrisonSeeder::SeedEntry::MAX_BOOKING_WINDOW
   }
 
   delegate :recurring_slots, :anomalous_slots, :unbookable_dates,
