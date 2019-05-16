@@ -11,7 +11,7 @@ references:
 
   test_container_config: &test_container_config
     docker:
-      - image: circleci/ruby:2.5.3-node-browsers
+      - image: circleci/ruby:2.6.3-node-browsers
         environment:
           RAILS_ENV: test
           PGHOST: 127.0.0.1
@@ -57,6 +57,7 @@ references:
     run:
       name: Set up aws
       command: |
+        sudo apt-get update
         sudo apt-get --assume-yes install python3-pip
         sudo pip3 install awscli
 
@@ -78,7 +79,7 @@ references:
     run:
       name: Push docker image
       command: |
-        login="$(aws ecr get-login --region eu-west-1 --no-include-email)"
+        login="$(aws ecr get-login --region eu-west-2 --no-include-email)"
         ${login}
         docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
         docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
@@ -233,8 +234,3 @@ workflows:
          filters:
            branches:
              only: master
-
-
-
-
-

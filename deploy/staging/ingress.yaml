@@ -10,14 +10,13 @@ metadata:
    # Quantum Network = 62.25.109.197/32
    # NB: Quantum Network external IP address will be changed to use same ranges as 'ARK'
    # See https://mojdt.slack.com/archives/C3F8L6XQU/p1554203335024400
-   nginx.ingress.kubernetes.io/whitelist-source-range: "81.134.202.29/32, 62.25.109.197/32, 52.17.133.167, 34.251.93.81, 34.247.134.240, 195.92.38.16/28"
-
+   nginx.ingress.kubernetes.io/whitelist-source-range: "81.134.202.29/32, 62.25.109.197/32, 195.92.38.16/28, 35.178.209.113, 3.8.51.207, 35.177.252.54"
 spec:
   tls:
   - hosts:
-    - prison-visits-booking-staff-staging.apps.cloud-platform-live-0.k8s.integration.dsd.io
+    - prison-visits-booking-staff-staging.apps.live-1.cloud-platform.service.justice.gov.uk
   rules:
-  - host: prison-visits-booking-staff-staging.apps.cloud-platform-live-0.k8s.integration.dsd.io
+  - host: prison-visits-booking-staff-staging.apps.live-1.cloud-platform.service.justice.gov.uk
     http:
       paths:
       - path: /
