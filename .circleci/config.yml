@@ -198,18 +198,10 @@ jobs:
       - deploy:
           name: Deploy to staging
           command: |
-            kubectl set image -f deploy/staging/deployment.yaml prison-visits-booking-staff=${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} --local -o yaml \
-            | kubectl annotate -f - kubernetes.io/change-cause="$CIRCLE_BUILD_URL" --local -o yaml \
-            | kubectl apply --record=false \
-              -f - \
-              -f ./deploy/staging/ingress.yaml \
-              -f ./deploy/staging/network-policy.yaml \
-              -f ./deploy/staging/service-monitor.yaml \
-              -f ./deploy/staging/service.yaml \
-              -f ./deploy/staging/secrets.yaml \
-              -f ./deploy/staging/shared-environment.yaml \
-              -f ./deploy/staging/deployment.yaml \
-              -f ./deploy/staging/cronjob.yaml \
+            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/deployment.yaml
+            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/cronjob.yaml
+            kubectl annotate deployments/prison-visits-booking-staff kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
+            kubectl apply --record=false -f ./deploy/staging
           environment:
             <<: *github_team_name_slug
 
