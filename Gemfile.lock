@@ -76,7 +76,7 @@ GEM
     builder (3.2.3)
     business (1.16.0)
     byebug (11.0.1)
-    capybara (3.18.0)
+    capybara (3.20.2)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -256,7 +256,7 @@ GEM
     rb-inotify (0.10.0)
       ffi (~> 1.0)
     redis (4.1.0)
-    regexp_parser (1.4.0)
+    regexp_parser (1.5.0)
     request_store (1.3.2)
     rspec-collection_matchers (1.1.3)
       rspec-expectations (>= 2.99.0.beta1)
