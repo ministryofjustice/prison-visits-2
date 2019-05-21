@@ -81,8 +81,8 @@ references:
       command: |
         login="$(aws ecr get-login --region eu-west-2 --no-include-email)"
         ${login}
-        docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
-        docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
+        docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
+        docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
       environment:
         <<: *github_team_name_slug
         REPONAME: prison-visits-staff
