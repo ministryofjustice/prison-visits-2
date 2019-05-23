@@ -4,7 +4,7 @@ nomis_id: FNI
 address: |-
   York
 postcode: YO41 1PS
-email_address: socialvisits.fullsutton@hmps.gsi.gov.uk
+email_address: socialvisits.fullsutton@hmps.gov.uk.
 phone_no: 01759 475355
 enabled: true
 private: false
