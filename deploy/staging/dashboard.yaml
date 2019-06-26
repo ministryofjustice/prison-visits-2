@@ -90,7 +90,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by(pod_name)(container_memory_usage_bytes{namespace='$namespace'})",
+              "expr": "(container_memory_usage_bytes{namespace='$namespace',container_name='prison-visits-booking-staff'})",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -98,14 +98,14 @@ data:
               "refId": "A"
             },
             {
-              "expr": "avg(kube_pod_container_resource_requests_memory_bytes{namespace='$namespace'})",
+              "expr": "avg(kube_pod_container_resource_requests_memory_bytes{namespace='$namespace',container='prison-visits-booking-staff'})",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Requested (soft limit)",
               "refId": "C"
             },
             {
-              "expr": "avg(kube_pod_container_resource_limits_memory_bytes{namespace='$namespace'})",
+              "expr": "avg(kube_pod_container_resource_limits_memory_bytes{namespace='$namespace',container='prison-visits-booking-staff'})",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Limit (hard limit)",
@@ -116,7 +116,7 @@ data:
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "Memory usage",
+          "title": "Memory usage STAFF",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -157,19 +157,19 @@ data:
         {
           "aliasColors": {
             "Limit": "#bf1b00",
+            "Limit (hard limit)": "#bf1b00",
             "Requested (soft limit)": "#f2c96d"
           },
           "bars": false,
           "dashLength": 10,
           "dashes": false,
           "datasource": "Prometheus",
-          "decimals": null,
           "fill": 1,
           "gridPos": {
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 17
+            "y": 9
           },
           "id": 4,
           "legend": {
@@ -200,32 +200,33 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (pod_name)(rate(container_cpu_usage_seconds_total{namespace='$namespace'}[5m]))",
+              "expr": "(container_memory_usage_bytes{namespace='$namespace',container_name='prison-visits-booking-staff-sidekiq'})",
               "format": "time_series",
-              "intervalFactor": 2,
+              "hide": false,
+              "intervalFactor": 1,
               "legendFormat": "{{pod_name}}",
               "refId": "A"
             },
             {
-              "expr": "avg(kube_pod_container_resource_requests_cpu_cores{namespace='$namespace'})",
+              "expr": "avg(kube_pod_container_resource_requests_memory_bytes{namespace='$namespace',container='prison-visits-booking-staff-sidekiq'})",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Requested (soft limit)",
-              "refId": "B"
+              "refId": "C"
             },
             {
-              "expr": "avg(kube_pod_container_resource_limits_cpu_cores{namespace='$namespace'})",
+              "expr": "avg(kube_pod_container_resource_limits_memory_bytes{namespace='$namespace',container='prison-visits-booking-staff-sidekiq'})",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Limit (hard limit)",
-              "refId": "C"
+              "refId": "B"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "CPU usage",
+          "title": "Memory usage STAFF Sidekiq",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -242,7 +243,117 @@ data:
           "yaxes": [
             {
               "decimals": null,
+              "format": "bytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
               "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {
+            "Limit": "#bf1b00",
+            "Limit (hard limit)": "#bf1b00",
+            "Requested (soft limit)": "#f2c96d"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Prometheus",
+          "fill": 1,
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 9
+          },
+          "id": 5,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sideWidth": 580,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "(container_memory_usage_bytes{namespace='$namespace',container_name='prison-visits-public'})",
+              "format": "time_series",
+              "hide": false,
+              "intervalFactor": 1,
+              "legendFormat": "{{pod_name}}",
+              "refId": "A"
+            },
+            {
+              "expr": "avg(kube_pod_container_resource_requests_memory_bytes{namespace='$namespace',container='prison-visits-public'})",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "Requested (soft limit)",
+              "refId": "C"
+            },
+            {
+              "expr": "avg(kube_pod_container_resource_limits_memory_bytes{namespace='$namespace',container='prison-visits-public'})",
+              "format": "time_series",
+              "intervalFactor": 2,
+              "legendFormat": "Limit (hard limit)",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Memory usage PUBLIC",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "bytes",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -322,4 +433,3 @@ data:
       "uid": "prison-visits",
       "version": 1
     }
-    
