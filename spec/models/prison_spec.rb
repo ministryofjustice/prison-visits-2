@@ -190,7 +190,7 @@ RSpec.describe Prison, type: :model do
     context 'when there is a duplicate unbookable date' do
       it 'does not have valid slot_details' do
         subject.slot_details = {
-          'unbookable' => ['2020-01-02', '2020-01-02']
+          'unbookable' => %w[2020-01-02 2020-01-02]
         }
 
         subject.validate

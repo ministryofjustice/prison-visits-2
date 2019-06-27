@@ -11,7 +11,7 @@ module Api
                      { valid: false, errors: [checker.error] }
                    end
 
-      render status: 200, json: { validation: validation }
+      render status: :ok, json: { validation: validation }
     end
 
     def visitors
@@ -23,7 +23,7 @@ module Api
         lead_date_of_birth: lead_date_of_birth,
         dates_of_birth: dates_of_birth)
 
-      render status: 200, json: {
+      render status: :ok, json: {
         validation: visitors_response(visitors_group)
       }
     end
