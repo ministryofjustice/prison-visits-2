@@ -1,6 +1,4 @@
 require 'rails_helper'
-
-# rubocop:disable RSpec/FilePath
 RSpec.describe OmniAuth::Strategies::Mojsso do
   let(:app){
     Rack::Builder.new do |b|
@@ -80,4 +78,3 @@ RSpec.describe OmniAuth::Strategies::Mojsso do
     end
   end
 end
-# rubocop:enable RSpec/FilePath

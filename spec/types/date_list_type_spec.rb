@@ -4,7 +4,7 @@ RSpec.describe DateListType do
   subject { described_class.new }
 
   describe '#cast' do
-    let(:value) { ['2017-01-01', '2017-01-02'] }
+    let(:value) { %w[2017-01-01 2017-01-02] }
 
     it do
       expect(subject.cast(value)).
