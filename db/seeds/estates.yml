@@ -474,6 +474,7 @@ UPI:
     - prescoed.prisons.noms.moj
 VEI:
   name: The Verne
+  finder_slug: verne
   admins:
     the_verne.prisons.noms.moj
 WCI:
