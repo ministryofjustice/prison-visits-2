@@ -34,7 +34,6 @@ class ConcreteSlotDecorator < Draper::Decorator
                 value: iso8601,
                 data: { target: 'selected_slot_details' }
               ) {
-
                 h.concat(label_text)
               }
             )

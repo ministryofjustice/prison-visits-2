@@ -76,13 +76,13 @@ GEM
     builder (3.2.3)
     business (1.16.0)
     byebug (11.0.1)
-    capybara (3.18.0)
+    capybara (3.25.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
-      regexp_parser (~> 1.2)
+      regexp_parser (~> 1.5)
       xpath (~> 3.2)
     childprocess (1.0.1)
       rake (< 13.0)
@@ -114,7 +114,7 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffaker (2.11.0)
-    ffi (1.10.0)
+    ffi (1.11.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     govuk_elements_rails (3.1.3)
@@ -126,13 +126,13 @@ GEM
       sass (>= 3.2.0)
     govuk_template (0.26.0)
       rails (>= 3.1)
-    hashdiff (0.3.8)
+    hashdiff (0.4.0)
     hashie (3.6.0)
     htmlentities (4.3.4)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     inflection (1.0.0)
-    jaro_winkler (1.5.2)
+    jaro_winkler (1.5.3)
     jasmine (3.4.0)
       jasmine-core (~> 3.4.0)
       phantomjs
@@ -140,21 +140,20 @@ GEM
       rake
     jasmine-core (3.4.0)
     jasmine-jquery-rails (2.0.3)
-    jbuilder (2.8.0)
+    jbuilder (2.9.1)
       activesupport (>= 4.2.0)
-      multi_json (>= 1.2)
-    jquery-rails (4.3.3)
+    jquery-rails (4.3.5)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (2.2.0)
-    jwt (2.1.0)
+    jwt (2.2.1)
     kramdown (2.1.0)
     launchy (2.4.3)
       addressable (~> 2.3)
-    lograge (0.11.0)
+    lograge (0.11.2)
       actionpack (>= 4)
       activesupport (>= 4)
       railties (>= 4)
@@ -199,7 +198,7 @@ GEM
       ast (~> 2.4.0)
     pg (1.1.4)
     phantomjs (2.1.1.0)
-    phonelib (0.6.33)
+    phonelib (0.6.36)
     premailer (1.11.1)
       addressable
       css_parser (>= 1.6.0)
@@ -207,7 +206,7 @@ GEM
     premailer-rails (1.10.2)
       actionmailer (>= 3, < 6)
       premailer (~> 1.7, >= 1.7.9)
-    prometheus_exporter (0.4.10)
+    prometheus_exporter (0.4.12)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -216,7 +215,7 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    public_suffix (3.0.3)
+    public_suffix (3.1.1)
     puma (3.12.1)
     rack (2.0.7)
     rack-protection (2.0.5)
@@ -257,7 +256,7 @@ GEM
     rb-inotify (0.10.0)
       ffi (~> 1.0)
     redis (4.1.0)
-    regexp_parser (1.4.0)
+    regexp_parser (1.5.1)
     request_store (1.3.2)
     rspec-collection_matchers (1.1.3)
       rspec-expectations (>= 2.99.0.beta1)
@@ -278,18 +277,21 @@ GEM
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
-    rubocop (0.68.1)
+    rubocop (0.72.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
-      parser (>= 2.5, != 2.5.1.1)
+      parser (>= 2.6)
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (>= 1.4.0, < 1.6)
-    rubocop-performance (1.2.0)
-      rubocop (>= 0.68.0)
-    rubocop-rspec (1.32.0)
+      unicode-display_width (>= 1.4.0, < 1.7)
+    rubocop-performance (1.4.0)
+      rubocop (>= 0.71.0)
+    rubocop-rails (2.1.0)
+      rack (>= 1.1)
+      rubocop (>= 0.72.0)
+    rubocop-rspec (1.33.0)
       rubocop (>= 0.60.0)
-    ruby-progressbar (1.10.0)
+    ruby-progressbar (1.10.1)
     rubyzip (1.2.2)
     safe_yaml (1.0.5)
     sass (3.7.4)
@@ -297,21 +299,24 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    sass-rails (5.0.7)
-      railties (>= 4.0.0, < 6)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (>= 1.1, < 3)
+    sassc (2.0.1)
+      ffi (~> 1.9)
+      rake
+    sassc-rails (2.1.2)
+      railties (>= 4.0.0)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     scenic (1.5.1)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
-    selenium-webdriver (3.142.2)
+    selenium-webdriver (3.142.3)
       childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
     sentry-raven (2.9.0)
       faraday (>= 0.7.6, < 1.0)
-    shoulda-matchers (4.0.1)
+    shoulda-matchers (4.1.0)
       activesupport (>= 4.2.0)
     sidekiq (5.2.7)
       connection_pool (~> 2.2, >= 2.2.2)
@@ -352,13 +357,13 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    unicode-display_width (1.5.0)
+    unicode-display_width (1.6.0)
     uri_template (0.7.0)
-    vcr (4.0.0)
-    webmock (3.5.1)
+    vcr (5.0.0)
+    webmock (3.6.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
-      hashdiff
+      hashdiff (>= 0.4.0, < 2.0.0)
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
@@ -396,7 +401,7 @@ DEPENDENCIES
   jasmine (~> 3.4)
   jasmine-jquery-rails
   jbuilder
-  jquery-rails (~> 4.3.3)
+  jquery-rails (~> 4.3.5)
   jquery-ui-rails (~> 5.0.5)
   jwt
   kramdown
@@ -422,8 +427,9 @@ DEPENDENCIES
   rspec-rails
   rubocop
   rubocop-performance
+  rubocop-rails
   rubocop-rspec
-  sass-rails
+  sassc-rails
   scenic
   selenium-webdriver
   sentry-raven
@@ -443,4 +449,4 @@ RUBY VERSION
    ruby 2.6.3p62
 
 BUNDLED WITH
-   1.17.1
+   1.17.2

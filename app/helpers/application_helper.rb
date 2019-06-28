@@ -7,11 +7,13 @@ module ApplicationHelper
     Kramdown::Document.new(source).to_html.html_safe
   end
 
+  # rubocop:disable Rails/HelperInstanceVariable
   def ga_tracking_data
     data = { ga_tracking_id: config_item(:ga_id) }
     data[:hit_type_page] = @step_name if @step_name
     data
   end
+  # rubocop:enable Rails/HelperInstanceVariable
 
   def alternative_locales
     I18n.available_locales - [I18n.locale]

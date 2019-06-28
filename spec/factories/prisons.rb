@@ -31,7 +31,7 @@ FactoryBot.define do
     slot_details {
       { 'recurring' => {
         'mon' => ['1400-1610'],
-        'tue' => ['0900-1000', '1400-1610']
+        'tue' => %w[0900-1000 1400-1610]
       } }
     }
   end
