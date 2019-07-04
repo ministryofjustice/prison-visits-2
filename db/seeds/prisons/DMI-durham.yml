@@ -10,6 +10,7 @@ phone_no: 0191 3323417
 enabled: true
 private: false
 closed: false
+adult_age: 2
 recurring:
   mon:
   - 1345-1545
