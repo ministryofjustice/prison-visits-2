@@ -7,7 +7,7 @@ RSpec.describe Prison, type: :model do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_numericality_of(:booking_window).is_less_than_or_equal_to(PrisonSeeder::SeedEntry::MAX_BOOKING_WINDOW) }
+    it { is_expected.to validate_numericality_of(:booking_window).is_less_than_or_equal_to(PrisonSeeder::SeedEntry::DEFAULT_BOOKING_WINDOW) }
   end
 
   describe 'first_bookable_date' do
