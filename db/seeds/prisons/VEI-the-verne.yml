@@ -1,0 +1,22 @@
+---
+name: The Verne
+nomis_id: VEI
+address: |-
+  Verne Common Road
+  Portland
+  Dorset
+postcode: DT5 1EQ
+email_address: socialvisits.theverne@hmps.gsi.gov.uk
+phone_no: 01305 825000
+enabled: true
+private: true
+closed: false
+recurring:
+  tue:
+  - 1400-1600
+  wed:
+  - 1400-1600
+  sat:
+  - 1400-1600
+  sun:
+  - 1400-1600
