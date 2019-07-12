@@ -83,9 +83,41 @@ references:
         ${login}
         docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
         docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
+        if [ "${CIRCLE_BRANCH}" == "master" ]; then
+          docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
+          docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
+        fi
       environment:
         <<: *github_team_name_slug
         REPONAME: prison-visits-staff
+
+  restore_cache: &restore_cache
+    restore_cache:
+      keys:
+        - integration-tests-v2-{{ checksum "Gemfile.lock" }}
+        - integration-tests-v2-
+
+  install_gems: &install_gems
+    run:
+      name: Clone and install gems
+      command: |
+        git clone git@github.com:ministryofjustice/prison-visits-integration-tests.git
+        cd prison-visits-integration-tests
+        bundle check --path vendor/bundle || bundle install --path vendor/bundle
+
+  save_cache: &save_cache
+    save_cache:
+      key: integration-tests-v2-{{ checksum "Gemfile.lock" }}
+      paths:
+        - ~/staging/vendor/bundle
+
+  store_test_results: &store_test_results
+    store_test_results:
+      path: ./prison-visits-integration-tests/screenshots
+
+  store_artifacts: &store_artifacts
+    store_artifacts:
+      path: ./prison-visits-integration-tests/screenshots
 
 version: 2
 jobs:
@@ -204,6 +236,48 @@ jobs:
           environment:
             <<: *github_team_name_slug
 
+test_staging:
+    <<: *test_container_config
+    working_directory: ~/staging
+    steps:
+      - checkout
+      - *restore_cache
+      - *install_gems
+      - *save_cache
+      - run:
+          name: run integration tests
+          command: |
+            cd prison-visits-integration-tests
+            VCR=1 bundle exec rspec spec/integration --no-color --format documentation --format RspecJunitFormatter -o screenshots/rspec.xml
+          environment:
+            STAGING_START_PAGE: https://prison-visits-public-staging.apps.live-1.cloud-platform.service.justice.gov.uk
+      - *store_test_results
+      - *store_artifacts
+
+deploy_production:
+  <<: *deploy_container_config
+  steps:
+    - checkout
+    - attach_workspace:
+        at: ~/repo
+    - run:
+        name: Kubectl deployment production setup
+        command: |
+          setup-kube-auth
+          kubectl config use-context production
+    - *install_gpg
+    - *configure_gpg
+    - *decrypt_secrets
+    - deploy:
+        name: Deploy to production
+        command: |
+          sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/cronjob.yaml
+          sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/deployment.yaml
+          kubectl annotate deployments/prison-visits kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
+          kubectl apply --record=false -f ./deploy/production
+        environment:
+          <<: *github_team_name_slug
+
 workflows:
   version: 2
   build_and_test:
@@ -225,3 +299,23 @@ workflows:
          filters:
            branches:
              only: master
+    - test_staging:
+          requires:
+            - build_and_push_docker_image
+            - deploy_staging
+          filters:
+            branches:
+              only: master
+    - deploy_production_approval:
+        type: approval
+        requires:
+          - test_staging
+        filters:
+          branches:
+            only: master
+    - deploy_production:
+        requires:
+          - deploy_production_approval
+        filters:
+          branches:
+            only: master
