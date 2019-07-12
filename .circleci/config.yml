@@ -236,47 +236,47 @@ jobs:
           environment:
             <<: *github_team_name_slug
 
-test_staging:
-    <<: *test_container_config
-    working_directory: ~/staging
+  test_staging:
+      <<: *test_container_config
+      working_directory: ~/staging
+      steps:
+        - checkout
+        - *restore_cache
+        - *install_gems
+        - *save_cache
+        - run:
+            name: run integration tests
+            command: |
+              cd prison-visits-integration-tests
+              VCR=1 bundle exec rspec spec/integration --no-color --format documentation --format RspecJunitFormatter -o screenshots/rspec.xml
+            environment:
+              STAGING_START_PAGE: https://prison-visits-public-staging.apps.live-1.cloud-platform.service.justice.gov.uk
+        - *store_test_results
+        - *store_artifacts
+
+  deploy_production:
+    <<: *deploy_container_config
     steps:
       - checkout
-      - *restore_cache
-      - *install_gems
-      - *save_cache
+      - attach_workspace:
+          at: ~/repo
       - run:
-          name: run integration tests
+          name: Kubectl deployment production setup
           command: |
-            cd prison-visits-integration-tests
-            VCR=1 bundle exec rspec spec/integration --no-color --format documentation --format RspecJunitFormatter -o screenshots/rspec.xml
+            setup-kube-auth
+            kubectl config use-context production
+      - *install_gpg
+      - *configure_gpg
+      - *decrypt_secrets
+      - deploy:
+          name: Deploy to production
+          command: |
+            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/cronjob.yaml
+            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/deployment.yaml
+            kubectl annotate deployments/prison-visits kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
+            kubectl apply --record=false -f ./deploy/production
           environment:
-            STAGING_START_PAGE: https://prison-visits-public-staging.apps.live-1.cloud-platform.service.justice.gov.uk
-      - *store_test_results
-      - *store_artifacts
-
-deploy_production:
-  <<: *deploy_container_config
-  steps:
-    - checkout
-    - attach_workspace:
-        at: ~/repo
-    - run:
-        name: Kubectl deployment production setup
-        command: |
-          setup-kube-auth
-          kubectl config use-context production
-    - *install_gpg
-    - *configure_gpg
-    - *decrypt_secrets
-    - deploy:
-        name: Deploy to production
-        command: |
-          sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/cronjob.yaml
-          sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/deployment.yaml
-          kubectl annotate deployments/prison-visits kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
-          kubectl apply --record=false -f ./deploy/production
-        environment:
-          <<: *github_team_name_slug
+            <<: *github_team_name_slug
 
 workflows:
   version: 2
