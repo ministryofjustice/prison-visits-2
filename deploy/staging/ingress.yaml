@@ -4,8 +4,8 @@ metadata:
  name: prison-visits-booking-staff
  namespace: prison-visits-booking-staging
  annotations:
-    kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/whitelist-source-range: "81.134.202.29/32,62.25.109.197,212.137.36.230,81.134.202.29,172.22.16.3,54.229.117.192,87.81.252.58,217.41.68.40,52.209.34.226,52.209.186.226,52.210.232.124,52.59.46.112,52.59.147.246,52.48.244.35,52.57.132.90"
+   kubernetes.io/ingress.class: "nginx"
+   nginx.ingress.kubernetes.io/whitelist-source-range: "81.134.202.29/32,62.25.109.197,212.137.36.230,81.134.202.29,172.22.16.3,54.229.117.192,87.81.252.58,217.41.68.40,52.209.34.226,52.209.186.226,52.210.232.124,52.59.46.112,52.59.147.246,52.48.244.35,52.57.132.90,3.8.51.207,35.178.209.113,35.177.252.54"
 spec:
   tls:
   - hosts:
