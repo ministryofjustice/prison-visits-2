@@ -208,6 +208,30 @@ jobs:
           environment:
             <<: *github_team_name_slug
 
+  deploy_production:
+    <<: *deploy_container_config
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Kubectl deployment production setup
+          command: |
+            setup-kube-auth
+            kubectl config use-context production
+      - *install_gpg
+      - *configure_gpg
+      - *decrypt_secrets
+      - deploy:
+          name: Deploy to production
+          command: |
+            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/cronjob.yaml
+            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/deployment.yaml
+            kubectl annotate deployments/prison-visits kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
+            kubectl apply --record=false -f ./deploy/production
+          environment:
+            <<: *github_team_name_slug
+
 workflows:
   version: 2
   build_and_test:
@@ -226,6 +250,19 @@ workflows:
      - deploy_staging:
          requires:
            - build_and_push_docker_image
+         filters:
+           branches:
+             only: master
+     - deploy_production_approval:
+         type: approval
+         requires:
+           - deploy_staging
+         filters:
+           branches:
+             only: master
+     - deploy_production:
+         requires:
+           - deploy_production_approval
          filters:
            branches:
              only: master
