@@ -476,7 +476,7 @@ VEI:
   name: The Verne
   finder_slug: verne
   admins:
-    the_verne.prisons.noms.moj
+    - the_verne.prisons.noms.moj
 WCI:
   name: Winchester
   admins:
