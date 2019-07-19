@@ -35,6 +35,7 @@ gem 'sentry-raven', require: 'raven'
 gem 'sidekiq'
 gem 'state_machines-activerecord'
 gem 'string_scrubber'
+gem 'turnout'
 
 # Newer versions break ie8 js
 gem 'uglifier', '~> 2.7.2'
