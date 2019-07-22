@@ -303,6 +303,7 @@ en:
         duplicate_visit_request: Duplicate visit request
   sessions:
     create:
+      service_update: This service will be unavailable from 10am - 2pm Thursday 25th July 2019
       cannot_sign_in: You cannot be signed in
   metrics:
     summary:
