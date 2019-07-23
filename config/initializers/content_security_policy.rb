@@ -9,7 +9,9 @@ Rails.application.config.content_security_policy do |config|
                           "'sha256-9NbuZMVWTDRI9ANCNpQ/DvHYWTmho9ddRoWzrw92Sb8='",
                           "'sha256-+p3F6QxHZjpmYy6+k01yaRh+ZLb4MHArj21hcTgAVsU='",
                           "'sha256-S8V+uyFYaKy0jah4Keaedpe6kLa/IlAMHjqq5ZSBgiI='",
-                          "'sha256-448fDnCjGWfDwqnssH6SMCrSb24RFiKT+WhdUF7zQ3k='" #  turnout
+                          "'sha256-448fDnCjGWfDwqnssH6SMCrSb24RFiKT+WhdUF7zQ3k='",
+                          "'sha256-jRd2b1CXOOHOaPPiDOJsvJQjSZz9bHtKXAo57Zigjos='",
+                          "'sha256-MdpPpFW1XK624SqfJz/rc45B26OodZk05ErFmPqgFuo='"
 
   config.connect_src :self
   config.script_src :self,
