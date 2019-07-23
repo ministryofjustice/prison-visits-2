@@ -3,15 +3,7 @@ Rails.application.config.content_security_policy do |config|
   config.font_src :self, :data
   config.img_src :self, :data, 'www.google-analytics.com'
 
-  config.style_src :self, 'www.gstatic.com',
-                          "'sha256-iTowdtwiVAq/7mh0vTmvSvKFSXuZUUwMv5PwgOYI1Bo='",
-                          "'sha256-CncSpRIxsqzjbbauXSnu88BT2cqsz9CFPKeMyjsKESM='",
-                          "'sha256-9NbuZMVWTDRI9ANCNpQ/DvHYWTmho9ddRoWzrw92Sb8='",
-                          "'sha256-+p3F6QxHZjpmYy6+k01yaRh+ZLb4MHArj21hcTgAVsU='",
-                          "'sha256-S8V+uyFYaKy0jah4Keaedpe6kLa/IlAMHjqq5ZSBgiI='",
-                          "'sha256-448fDnCjGWfDwqnssH6SMCrSb24RFiKT+WhdUF7zQ3k='",
-                          "'sha256-jRd2b1CXOOHOaPPiDOJsvJQjSZz9bHtKXAo57Zigjos='",
-                          "'sha256-MdpPpFW1XK624SqfJz/rc45B26OodZk05ErFmPqgFuo='"
+  config.style_src :self, 'www.gstatic.com'
 
   config.connect_src :self
   config.script_src :self,
