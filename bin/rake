@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require_relative '../config/boot'
 require 'rake'
-require 'turnout/rake_tasks'
 
 Rake.application.run
