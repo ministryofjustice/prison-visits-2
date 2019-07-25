@@ -48,7 +48,6 @@ RSpec.describe SessionsController, type: :controller do
 
         it 'clears the redirect from the session and redirects' do
           expect(create).to redirect_to(redirect_path)
-          expect(request.flash[:alert]).to eq "This service will be unavailable from 10am - 2pm Thursday 25th July 2019"
           expect(session[:redirect_path]).to be_nil
         end
       end
@@ -56,7 +55,6 @@ RSpec.describe SessionsController, type: :controller do
       context 'with no redirect_path set on the session' do
         it 'redirects to the inbox by default' do
           expect(create).to redirect_to(prison_inbox_path)
-          expect(request.flash[:alert]).to eq "This service will be unavailable from 10am - 2pm Thursday 25th July 2019"
         end
       end
     end
