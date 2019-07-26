@@ -47,10 +47,10 @@ spec:
             - secretRef:
                 name: secrets
           resources:
-            requests:
+            limits:
               memory: "1Gi"
               cpu: "250m"
-            limits:
+            requests:
               memory: "125Mi"
               cpu: "150m"
         - name: prison-visits-booking-staff-sidekiq
