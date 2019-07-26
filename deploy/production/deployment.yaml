@@ -52,7 +52,7 @@ spec:
               cpu: "250m"
             limits:
               memory: "125Mi"
-              cpu: "250m"
+              cpu: "150m"
         - name: prison-visits-booking-staff-sidekiq
           image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
           imagePullPolicy: Always
