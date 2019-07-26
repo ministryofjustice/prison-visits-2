@@ -7,13 +7,6 @@ metadata:
   annotations:
     kubernetes.io/change-cause: "<to be filled in deploy job command>"
 spec:
-  limits:
-  - default:
-      cpu: 250m
-      memory: 1Gi
-    defaultRequest:
-      cpu: 125m
-      memory: 500Mi
   replicas: 3
   revisionHistoryLimit: 1
   minReadySeconds: 10
@@ -53,6 +46,13 @@ spec:
                 name: shared-environment
             - secretRef:
                 name: secrets
+          resources:
+            limits:
+              memory: "1Gi"
+              cpu: "250m"
+            requests:
+              memory: "125Mi"
+              cpu: "150m"
         - name: prison-visits-booking-staff-sidekiq
           image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
           imagePullPolicy: Always
