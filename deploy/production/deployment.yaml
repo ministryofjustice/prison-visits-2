@@ -7,6 +7,13 @@ metadata:
   annotations:
     kubernetes.io/change-cause: "<to be filled in deploy job command>"
 spec:
+  limits:
+  - default:
+      cpu: 250m
+      memory: 1Gi
+    defaultRequest:
+      cpu: 125m
+      memory: 500Mi
   replicas: 3
   revisionHistoryLimit: 1
   minReadySeconds: 10
