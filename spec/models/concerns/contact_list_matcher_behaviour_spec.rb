@@ -5,9 +5,9 @@ RSpec.describe ContactListMatcherBehaviour do
     described_module = described_class
 
     unless defined?(TestMatcher)
-      TestMatcher = Class.new do
+      stub_const("TestMatcher", Class.new do
         include described_module
-      end
+      end)
     end
 
     TestMatcher.new
