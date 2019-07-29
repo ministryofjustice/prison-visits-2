@@ -17,7 +17,7 @@ module LogstashSidekiqLogger
   private
 
     def store_message_failure_metadata(message)
-      return unless message =~ /^fail/
+      return unless /^fail/.match?(message)
 
       duration = message.match(/^fail:\s(.*)\s/).captures.first
       RequestStore.store[:duration] = duration.to_f * 1000 # milliseconds
