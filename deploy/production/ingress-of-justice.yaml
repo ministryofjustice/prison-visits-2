@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
- name: prison-visits-booking-staff
+ name: prison-visits-booking-staff-justice
  namespace: prison-visits-booking-production
  annotations:
    kubernetes.io/ingress.class: "nginx"
@@ -9,18 +9,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - staff.prisonvisits.service.gov.uk
-    - prison-visits-booking-staff-production.apps.live-1.cloud-platform.service.justice.gov.uk
-    secretName: prison-visits-staff-secret
+    - staff.prisonvisits.service.justice.gov.uk
+    secretName: prison-visits-staff-justice-secret
   rules:
-  - host: prison-visits-booking-staff-production.apps.live-1.cloud-platform.service.justice.gov.uk
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: prison-visits-booking-staff
-          servicePort: 3000
-  - host: staff.prisonvisits.service.gov.uk
+  - host: staff.prisonvisits.service.justice.gov.uk
     http:
       paths:
       - path: /
