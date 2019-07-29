@@ -5,10 +5,6 @@ class SessionsController < ApplicationController
     if identity
       session[:sso_data] = identity.to_session
       redirect_to session.delete(:redirect_path) || prison_inbox_path
-
-      # Temporarily display flash notice ahead of PVB migration 25/7/19;
-      # it will removed once the migration has been completed
-      flash[:alert] = t('.service_update')
     else
       flash[:notice] = t('.cannot_sign_in')
       redirect_to root_path
