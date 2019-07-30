@@ -31,12 +31,18 @@ spec:
             - containerPort: 3000
           livenessProbe:
             httpGet:
+              httpHeaders:
+                - name: Host
+                  value: prison-visits-booking-staff-staging.apps.live-1.cloud-platform.service.justice.gov.uk
               path: /healthcheck
               port: 3000
             initialDelaySeconds: 10
             periodSeconds: 60
           readinessProbe:
             httpGet:
+              httpHeaders:
+                - name: Host
+                  value: prison-visits-booking-staff-staging.apps.live-1.cloud-platform.service.justice.gov.uk
               path: /healthcheck
               port: 3000
             initialDelaySeconds: 10
