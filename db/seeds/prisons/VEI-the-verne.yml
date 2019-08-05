@@ -7,7 +7,7 @@ address: |-
   Dorset
 postcode: DT5 1EQ
 email_address: socialvisits.theverne@hmps.gsi.gov.uk
-phone_no: 01305 825000
+phone_no: 01305 825014 - Monday to Friday, 2:00pm to 4:00pm. Closed weekends and public holidays.
 enabled: true
 private: false
 lead_days: 4
@@ -21,30 +21,3 @@ recurring:
   - 1400-1600
   sun:
   - 1400-1600
-unbookable:
-- 2019-08-03
-- 2019-08-04
-- 2019-08-06
-- 2019-08-07
-- 2019-08-10
-- 2019-08-11
-- 2019-08-13
-- 2019-08-14
-- 2019-08-17
-- 2019-08-18
-- 2019-08-20
-- 2019-08-21
-- 2019-08-24
-- 2019-08-25
-- 2019-08-27
-- 2019-08-28
-- 2019-08-31
-- 2019-09-01
-- 2019-09-03
-- 2019-09-04
-- 2019-09-07
-- 2019-09-08
-- 2019-09-10
-- 2019-09-11
-- 2019-09-14
-- 2019-09-15
