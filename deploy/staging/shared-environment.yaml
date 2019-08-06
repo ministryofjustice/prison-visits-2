@@ -6,6 +6,7 @@ data:
   KUBERNETES_DEPLOYMENT: "true"
   MOJSSO_URL: "https://signon.service.justice.gov.uk"
   NOMIS_API_HOST: "https://gateway.preprod.nomis-api.service.hmpps.dsd.io/"
+  NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED: "true"
   PUBLIC_SERVICE_URL: "https://prison-visits-public-staging.apps.live-1.cloud-platform.service.justice.gov.uk"
   PVB_TEAM_EMAIL: "pvb-team@digital.justice.gov.uk"
   RACK_ENV: "production"
