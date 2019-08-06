@@ -49,10 +49,10 @@ spec:
           resources:
             limits:
               memory: "2Gi"
-              cpu: "100m"
-            requests:
-              memory: "500Mi"
               cpu: "50m"
+            requests:
+              memory: "1Gi"
+              cpu: "10m"
         - name: prison-visits-booking-staff-sidekiq
           image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
           imagePullPolicy: Always
