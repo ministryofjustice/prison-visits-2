@@ -1,4 +1,4 @@
-if Rails.env.production? && Rails.configuration.kubernetes_deployment
+if Rails.env.production?
   Sidekiq.configure_server do |config|
     config.redis = {
       url: "rediss://#{Rails.configuration.redis_url}:6379",
