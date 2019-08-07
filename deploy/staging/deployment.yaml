@@ -30,6 +30,7 @@ spec:
           ports:
             - containerPort: 3000
           livenessProbe:
+            failureThreshold: 6
             httpGet:
               path: /healthcheck
               port: 3000
@@ -46,6 +47,13 @@ spec:
                 name: shared-environment
             - secretRef:
                 name: secrets
+          resources:
+            limits:
+              memory: "2Gi"
+              cpu: "50m"
+            requests:
+              memory: "1Gi"
+              cpu: "10m"
         - name: prison-visits-booking-staff-sidekiq
           image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
           imagePullPolicy: Always
