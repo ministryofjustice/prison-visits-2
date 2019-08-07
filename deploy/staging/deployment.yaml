@@ -30,6 +30,7 @@ spec:
           ports:
             - containerPort: 3000
           livenessProbe:
+            failureThreshold: 6
             httpGet:
               path: /healthcheck
               port: 3000
