@@ -228,8 +228,10 @@ jobs:
       - deploy:
           name: Deploy to production
           command: |
+            kubectl delete job pvb-staff-migration-prod --ignore-not-found
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/cronjob.yaml
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/deployment.yaml
+            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/migration_job.yaml
             kubectl annotate deployments/prison-visits-booking-staff kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
             kubectl apply --record=false -f ./deploy/production
           environment:
