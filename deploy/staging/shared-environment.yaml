@@ -3,7 +3,6 @@ kind: ConfigMap
 metadata:
   name: shared-environment
 data:
-  KUBERNETES_DEPLOYMENT: "true"
   MOJSSO_URL: "https://signon.service.justice.gov.uk"
   NOMIS_API_HOST: "https://gateway.preprod.nomis-api.service.hmpps.dsd.io/"
   NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED: "true"
