@@ -9,6 +9,7 @@ spec:
   parallelism: 1
   template:
     spec:
+      ttlSecondsAfterFinished: 30
       containers:
         - name: prison-visits-staff-migration
           image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
