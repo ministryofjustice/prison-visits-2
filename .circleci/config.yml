@@ -202,6 +202,7 @@ jobs:
       - deploy:
           name: Deploy to staging
           command: |
+            kubectl delete job pvb-staff-migration --ignore-not-found
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/deployment.yaml
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/cronjob.yaml
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/migration_job.yaml
