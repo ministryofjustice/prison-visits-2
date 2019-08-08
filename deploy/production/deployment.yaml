@@ -32,7 +32,7 @@ spec:
           livenessProbe:
             failureThreshold: 6
             httpGet:
-              path: /healthcheck
+              path: /ping
               port: 3000
             initialDelaySeconds: 10
             periodSeconds: 60
