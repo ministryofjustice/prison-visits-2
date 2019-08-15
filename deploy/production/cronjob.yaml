@@ -4,7 +4,6 @@ metadata:
   name: refresh-views
 spec:
   schedule: "0 0 * * *"
-  startingDeadlineSeconds: 10
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
