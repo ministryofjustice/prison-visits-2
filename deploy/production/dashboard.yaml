@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: prison-visits-staging-dashboard
-  namespace: prison-visits-booking-staging
+  name: prison-visits-production-dashboard
+  namespace: prison-visits-booking-production
   labels:
-    grafana_dashboard: "prison-visits-booking-staging"
+    grafana_dashboard: "prison-visits-booking-production"
 data:
-  pvb-staging-dashboard.json: |
+  pvb-production-dashboard.json: |
     {
       "annotations": {
         "list": [
