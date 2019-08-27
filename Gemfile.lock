@@ -1,11 +1,11 @@
 GIT
   remote: https://github.com/ministryofjustice/email_address_validation
-  revision: 5ed2fb93f8d5bc419f03cecb408c688c5bd9fd74
-  ref: 5ed2fb93f8d5bc419f03cecb408c688c5bd9fd74
+  revision: d37caea140a11bbb82f6abfbecef39fef78b97e8
+  ref: d37caea140a11bbb82f6abfbecef39fef78b97e8
   specs:
-    email_address_validation (0.1.1)
-      activesupport (~> 5.X)
-      mail (~> 2.6.6)
+    email_address_validation (0.1.2)
+      activesupport
+      mail
 
 GIT
   remote: https://github.com/ministryofjustice/pvb-instrumentation.git
