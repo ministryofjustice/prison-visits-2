@@ -16,12 +16,14 @@ module LogstashSidekiqLogger
 
   private
 
+    # rubocop:disable Performance/RegexpMatch
     def store_message_failure_metadata(message)
-      return unless /^fail/.match?(message)
+      return unless message =~ /^fail/
 
       duration = message.match(/^fail:\s(.*)\s/).captures.first
       RequestStore.store[:duration] = duration.to_f * 1000 # milliseconds
     end
+    # rubocop:enable Performance/RegexpMatch
 
     def failure_data(message)
       { retry_count: message['retry_count'] }
