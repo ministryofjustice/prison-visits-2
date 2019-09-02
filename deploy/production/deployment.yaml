@@ -26,12 +26,13 @@ spec:
         - name: prison-visits-booking-staff
           image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
           imagePullPolicy: Always
-          command: ['sh', '-c', "bundle exec rails db:migrate && bundle exec rails db:seed && bundle exec puma -p 3000 -C ./config/puma_prod.rb --pidfile /tmp/server.pid"]
+          command: ['sh', '-c', "bundle exec puma -p 3000 -C ./config/puma_prod.rb --pidfile /tmp/server.pid"]
           ports:
             - containerPort: 3000
           livenessProbe:
+            failureThreshold: 6
             httpGet:
-              path: /healthcheck
+              path: /ping
               port: 3000
             initialDelaySeconds: 10
             periodSeconds: 60
@@ -48,11 +49,11 @@ spec:
                 name: secrets
           resources:
             limits:
-              memory: "1Gi"
-              cpu: "250m"
+              memory: "2Gi"
+              cpu: "100m"
             requests:
-              memory: "125Mi"
-              cpu: "150m"
+              memory: "1Gi"
+              cpu: "30m"
         - name: prison-visits-booking-staff-sidekiq
           image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
           imagePullPolicy: Always

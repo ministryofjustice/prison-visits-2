@@ -1,11 +1,11 @@
 GIT
   remote: https://github.com/ministryofjustice/email_address_validation
-  revision: 5ed2fb93f8d5bc419f03cecb408c688c5bd9fd74
-  ref: 5ed2fb93f8d5bc419f03cecb408c688c5bd9fd74
+  revision: d37caea140a11bbb82f6abfbecef39fef78b97e8
+  ref: d37caea140a11bbb82f6abfbecef39fef78b97e8
   specs:
-    email_address_validation (0.1.1)
-      activesupport (~> 5.X)
-      mail (~> 2.6.6)
+    email_address_validation (0.1.2)
+      activesupport
+      mail
 
 GIT
   remote: https://github.com/ministryofjustice/pvb-instrumentation.git
@@ -113,7 +113,7 @@ GEM
       railties (>= 4.2.0)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
-    ffaker (2.11.0)
+    ffaker (2.12.0)
     ffi (1.11.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -126,7 +126,7 @@ GEM
       sass (>= 3.2.0)
     govuk_template (0.26.0)
       rails (>= 3.1)
-    hashdiff (0.4.0)
+    hashdiff (1.0.0)
     hashie (3.6.0)
     htmlentities (4.3.4)
     i18n (1.6.0)
@@ -176,10 +176,10 @@ GEM
     minitest (5.11.3)
     multi_json (1.13.1)
     multi_xml (0.6.0)
-    multipart-post (2.0.0)
+    multipart-post (2.1.1)
     netaddr (1.5.1)
-    nio4r (2.3.1)
-    nokogiri (1.10.3)
+    nio4r (2.5.1)
+    nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     oauth2 (1.4.1)
       faraday (>= 0.8, < 0.16.0)
@@ -216,11 +216,14 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (3.1.1)
-    puma (4.0.1)
+    puma (4.1.0)
       nio4r (~> 2.0)
     rack (2.0.7)
     rack-accept (0.4.5)
       rack (>= 0.4)
+    rack-canonical-host (0.2.3)
+      addressable (> 0, < 3)
+      rack (>= 1.0.0, < 3)
     rack-protection (2.0.5)
       rack
     rack-test (1.1.0)
@@ -280,7 +283,7 @@ GEM
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
-    rubocop (0.73.0)
+    rubocop (0.74.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)
@@ -289,10 +292,10 @@ GEM
       unicode-display_width (>= 1.4.0, < 1.7)
     rubocop-performance (1.4.1)
       rubocop (>= 0.71.0)
-    rubocop-rails (2.2.1)
+    rubocop-rails (2.3.1)
       rack (>= 1.1)
       rubocop (>= 0.72.0)
-    rubocop-rspec (1.34.0)
+    rubocop-rspec (1.35.0)
       rubocop (>= 0.60.0)
     ruby-progressbar (1.10.1)
     rubyzip (1.2.2)
@@ -317,9 +320,9 @@ GEM
     selenium-webdriver (3.142.3)
       childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
-    sentry-raven (2.9.0)
+    sentry-raven (2.11.0)
       faraday (>= 0.7.6, < 1.0)
-    shoulda-matchers (4.1.1)
+    shoulda-matchers (4.1.2)
       activesupport (>= 4.2.0)
     sidekiq (5.2.7)
       connection_pool (~> 2.2, >= 2.2.2)
@@ -368,7 +371,7 @@ GEM
     unicode-display_width (1.6.0)
     uri_template (0.7.0)
     vcr (5.0.0)
-    webmock (3.6.0)
+    webmock (3.6.2)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -427,6 +430,7 @@ DEPENDENCIES
   pry-rails
   puma
   pvb-instrumentation!
+  rack-canonical-host
   rails (~> 5.2)
   rails-controller-testing
   rake

@@ -38,8 +38,6 @@ module PrisonVisits
       config.asset_host = ENV['ASSET_HOST']
     end
 
-    config.kubernetes_deployment = ENV['KUBERNETES_DEPLOYMENT']
-
     config.remove_load_test_data = ENV['REMOVE_LOAD_TEST_DATA']
 
     config.sentry_dsn = ENV['SENTRY_DSN']
