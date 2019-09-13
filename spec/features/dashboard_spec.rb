@@ -129,10 +129,10 @@ RSpec.feature 'Using the dashboard' do
       find('.button.search').click
       click_link 'View'
 
-      click_button 'Send email'
+      click_button 'Send email', visible:  false
 
-      fill_in 'Please type your message', with: 'Sandals not allowed'
-      click_button 'Send email'
+      fill_in 'Please type your message', with: 'Sandals not allowed', visible:  false
+      click_button 'Send email', visible:  false
 
       expect(page).to have_css('.message', text: 'Sandals not allowed')
 

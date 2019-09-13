@@ -10,17 +10,17 @@ enabled: true
 private: false
 closed: false
 recurring:
-  thu:
-  - 1445-1600
-  sat:
-  - 0915-1115
-  - 1445-1600
-  sun:
-  - 0915-1115
-  - 1445-1600
   wed:
   - 0900-1100
-  - 1445-1600
+  - 1345-1545
+  thu:
+  - 1345-1545
+  sat:
+  - 0915-1115
+  - 1345-1545
+  sun:
+  - 0915-1115
+  - 1345-1545
 unbookable:
 - 2019-01-01
 anomalous:
