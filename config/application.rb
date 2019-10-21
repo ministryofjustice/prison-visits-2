@@ -75,40 +75,40 @@ module PrisonVisits
       Rails.env.test? ? nil : config.call
     end
 
-    config.nomis_api_host = feature_flag_value.call do
+    config.nomis_api_host = feature_flag_value.call {
       ENV.fetch('NOMIS_API_HOST', nil)
-    end
+    }
 
-    config.nomis_api_token = feature_flag_value.call do
+    config.nomis_api_token = feature_flag_value.call {
       ENV.fetch('NOMIS_API_TOKEN', nil)
-    end
+    }
 
-    config.nomis_api_key = feature_flag_value.call do
+    config.nomis_api_key = feature_flag_value.call {
       read_key.call(ENV.fetch('NOMIS_API_KEY', ''))
-    end
+    }
 
-    config.nomis_staff_slot_availability_enabled = feature_flag_value.call do
+    config.nomis_staff_slot_availability_enabled = feature_flag_value.call {
       ENV['NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED']&.downcase == 'true'
-    end
+    }
 
-    config.staff_prisons_with_slot_availability = feature_flag_value.call do
+    config.staff_prisons_with_slot_availability = feature_flag_value.call {
       ENV['STAFF_PRISONS_WITH_SLOT_AVAILABILITY']&.split(',')&.map(&:strip) || []
-    end
+    }
 
-    config.public_prisons_with_slot_availability = feature_flag_value.call do
+    config.public_prisons_with_slot_availability = feature_flag_value.call {
       ENV['PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY']&.split(',')&.map(&:strip) || []
-    end
+    }
 
-    config.zendesk_token = feature_flag_value.call do
+    config.zendesk_token = feature_flag_value.call {
       ENV.fetch('ZENDESK_TOKEN', nil)
-    end
+    }
 
-    config.zendesk_url = feature_flag_value.call do
+    config.zendesk_url = feature_flag_value.call {
       ENV.fetch('ZENDESK_URL', nil)
-    end
+    }
 
-    config.zendesk_username = feature_flag_value.call do
+    config.zendesk_username = feature_flag_value.call {
       ENV.fetch('ZENDESK_USERNAME', nil)
-    end
+    }
   end
 end
