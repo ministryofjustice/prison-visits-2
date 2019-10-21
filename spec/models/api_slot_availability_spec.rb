@@ -91,6 +91,7 @@ RSpec.describe ApiSlotAvailability, type: :model do
 
           expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
         end
+
         it 'falls back to hard-coded slots if NOMIS call fails' do
           allow(Nomis::Api.instance).to receive(:fetch_bookable_slots).
                                           and_raise(Excon::Error, 'Fail')
