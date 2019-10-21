@@ -68,6 +68,9 @@ Layout/DotPosition:
 Style/FormatString:
   Enabled: false
 
+Style/FormatStringToken:
+  Enabled: false
+
 # It's not really clearer to replace every if with a return if.
 Style/GuardClause:
   Enabled: false
