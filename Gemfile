@@ -12,6 +12,7 @@ gem 'excon', '0.62.0' # There is an issue with subsequent versions where there i
 # regression, which isn't fixed in any future versions. An agreement has been reached
 # within the team to pin Excon to the current version, with the plan to
 # replace it with another HTTP client, probably Faraday.
+gem 'gov_uk_date_fields', '~> 3.0'
 gem 'govuk_elements_rails'
 gem 'govuk_frontend_toolkit'
 gem 'govuk_template'

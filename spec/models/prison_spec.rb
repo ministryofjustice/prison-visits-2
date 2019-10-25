@@ -174,36 +174,15 @@ RSpec.describe Prison, type: :model do
         }.to raise_exception(ArgumentError)
       end
     end
-
-    context 'when an unbookable day is invalid' do
-      it 'raises an exception' do
-        expect {
-          subject.slot_details = {
-            'unbookable' => ['9999-99-99']
-          }
-        }.to raise_exception(ArgumentError)
-      end
-    end
   end
 
   describe 'validation' do
-    context 'when there is a duplicate unbookable date' do
-      it 'does not have valid slot_details' do
-        subject.slot_details = {
-          'unbookable' => %w[2020-01-02 2020-01-02]
-        }
-
-        subject.validate
-        expect(subject.errors).to have_key(:slot_details)
-      end
-    end
-
     context 'when an unbookable date conflicts with an anomalous date' do
       it 'does not have valid slot_details' do
         subject.slot_details = {
-          'unbookable' => ['2020-01-02'],
           'anomalous' => { '2020-01-02' => ['0900-1000'] }
         }
+        subject.unbookable_dates.build(date: Date.new(2020, 1, 2))
 
         subject.validate
         expect(subject.errors).to have_key(:slot_details)

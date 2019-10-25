@@ -11,12 +11,6 @@ RSpec.describe SlotDetailsParser do
         expect(parsed.recurring_slots).to be_empty
       end
     end
-
-    describe 'unbookable_dates' do
-      it 'is empty' do
-        expect(parsed.unbookable_dates).to be_empty
-      end
-    end
   end
 
   context 'when there are slot details' do
@@ -29,8 +23,7 @@ RSpec.describe SlotDetailsParser do
         'anomalous' => {
           '2014-12-24' => ['1400-1600'],
           '2014-12-31' => ['1400-1600']
-        },
-        'unbookable' => %w[2014-12-25 2014-12-26]
+        }
       }
     }
 
@@ -58,13 +51,6 @@ RSpec.describe SlotDetailsParser do
             RecurringSlot.new(14, 0, 16, 00)
           ]
         )
-      end
-    end
-
-    describe 'unbookable_dates' do
-      it 'lists dates' do
-        expect(parsed.unbookable_dates).
-          to eq([Date.new(2014, 12, 25), Date.new(2014, 12, 26)])
       end
     end
   end

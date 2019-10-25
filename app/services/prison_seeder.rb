@@ -7,27 +7,45 @@ class PrisonSeeder
       base_path.join('prison_uuid_mappings.yml')
     filename_to_uuid_map =
       YAML.load(File.read(filename_to_uuid_map_path)) || {}
-    seeder = new(filename_to_uuid_map)
+    seeder = new(Rails.logger, filename_to_uuid_map)
 
     Dir[base_path.join('prisons', '*.yml')].each do |path|
       seeder.import path, YAML.load(File.read(path))
     end
   end
 
-  def initialize(filename_to_uuid_map)
+  def initialize(logger, filename_to_uuid_map)
+    @logger = logger
     @filename_to_uuid_map = filename_to_uuid_map
   end
 
   def import(path, hash)
-    estate = Estate.find_by!(nomis_id: hash.fetch('nomis_id'))
-    prison = Prison.find_or_initialize_by(id: uuid_for_path(path))
-    entry = PrisonSeeder::SeedEntry.new(hash)
-    prison.update! entry.to_h.merge(estate: estate)
+    Prison.transaction do
+      estate = Estate.find_by!(nomis_id: hash.fetch('nomis_id'))
+      prison = Prison.includes(:unbookable_dates).
+        find_or_initialize_by(id: uuid_for_path(path))
+      entry = PrisonSeeder::SeedEntry.new(prison, hash)
+      prison.update! entry.to_h.merge(estate: estate)
+
+      import_unbookable_dates(prison, entry)
+    end
   rescue StandardError => e
     raise ImportFailure, "#{e} in #{path}"
   end
 
 private
+
+  attr_accessor :logger
+
+  def import_unbookable_dates(prison, entry)
+    entry.unbookable_dates.
+      each do |date|
+      unbookable = prison.unbookable_dates.create(date: date)
+      unless unbookable.valid?
+        logger.warn "create unbookable date #{date} fail at #{prison.estate.nomis_id}"
+      end
+    end
+  end
 
   def uuid_for_path(path)
     filename = File.basename(path)

@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe PrisonSeeder do
   let(:filename) { 'LNX-luna.yml' }
   let(:uuid) { '0ff01907-42f6-4646-9bda-841ec27d4fc6' }
+  let(:next_monday) { Time.zone.today - Time.zone.today.cwday.days + 8.days }
+  let(:monday_week) { next_monday + 7.days }
   let(:hash) {
     {
       'name' => 'Lunar Penal Colony',
@@ -29,7 +31,7 @@ RSpec.describe PrisonSeeder do
         'mon' => ['1330-1430'],
         'tue' => ['1330-1430']
       },
-      'unbookable' => [Date.new(2015, 11, 4)]
+      'unbookable' => [monday_week]
     }
   }
 
@@ -61,7 +63,7 @@ RSpec.describe PrisonSeeder do
 
     let(:filename_to_uuid_map) { {} }
 
-    subject { described_class.new(filename_to_uuid_map) }
+    subject { described_class.new(Rails.logger, filename_to_uuid_map) }
 
     it 'raises an exception on import' do
       expect {
@@ -75,59 +77,78 @@ RSpec.describe PrisonSeeder do
       create :estate, nomis_id: 'LNX'
     end
 
-    subject { described_class.new(filename_to_uuid_map) }
-
     let(:filename_to_uuid_map) { { filename => uuid } }
 
-    it 'creates a new prison record' do
-      expect {
+    subject { described_class.new(Rails.logger, filename_to_uuid_map) }
+
+    context 'when there is no existing record' do
+      it 'creates a new prison record' do
+        expect {
+          subject.import filename, hash
+        }.to change(Prison, :count).by(1)
+      end
+
+      it 'is associated with the estate record' do
+        create :estate, name: 'Luna'
         subject.import filename, hash
-      }.to change(Prison, :count).by(1)
-    end
+        expect(Prison.find(uuid).estate.nomis_id).to eq('LNX')
+      end
 
-    it 'updates an existing prison record' do
-      create :prison, id: uuid
-      expect {
+      it 'transforms slot details' do
         subject.import filename, hash
-      }.not_to change(Prison, :count)
-      expect(Prison.find(uuid).name).to eq('Lunar Penal Colony')
+        prison = Prison.find(uuid)
+        expect(prison.slot_details).to eq(
+          "recurring" => {
+            "mon" => ["1330-1430"],
+            "tue" => ["1330-1430"]
+          },
+          "anomalous" => {
+            "2015-05-25" => ["1330-1430"],
+            "2015-08-31" => ["1330-1430"]
+          }
+        )
+        expect(prison.unbookable_dates.map(&:date)).to eq([monday_week])
+      end
+
+      it 'imports translations' do
+        subject.import filename, hash
+        expect(Prison.find(uuid).translations).to eq(
+          'cy' => {
+            'name' => 'Lünar Penäl Colöny',
+            'address' => "Oüter Rïm\nEratösthenes\nMäre Imbrïum\nLüna"
+          }
+        )
+      end
+
+      it 'uses the supplied email address' do
+        subject.import filename, hash
+        expect(Prison.find(uuid)).
+          to have_attributes(email_address: 'luna@hmps.gsi.gov.uk')
+      end
     end
 
-    it 'is associated with the estate record' do
-      create :estate, name: 'Luna'
-      subject.import filename, hash
-      expect(Prison.find(uuid).estate.nomis_id).to eq('LNX')
-    end
+    context 'with an existing record' do
+      let(:next_tuesday) { next_monday + 1.day }
 
-    it 'transforms slot details' do
-      subject.import filename, hash
-      expect(Prison.find(uuid).slot_details).to eq(
-        "recurring" => {
-          "mon" => ["1330-1430"],
-          "tue" => ["1330-1430"]
-        },
-        "anomalous" => {
-          "2015-05-25" => ["1330-1430"],
-          "2015-08-31" => ["1330-1430"]
-        },
-        "unbookable" => ["2015-11-04"]
-      )
-    end
-
-    it 'imports translations' do
-      subject.import filename, hash
-      expect(Prison.find(uuid).translations).to eq(
-        'cy' => {
-          'name' => 'Lünar Penäl Colöny',
-          'address' => "Oüter Rïm\nEratösthenes\nMäre Imbrïum\nLüna"
+      before {
+        prison = create :prison, id: uuid, slot_details: {
+          'recurring' => {
+            'mon' => ['1400-1610'],
+            'tue' => %w[0900-1000 1400-1610]
+          }
         }
-      )
-    end
+        create(:unbookable_date, prison: prison, date: next_monday)
+        create(:unbookable_date, prison: prison, date: next_tuesday)
+      }
 
-    it 'uses the supplied email address' do
-      subject.import filename, hash
-      expect(Prison.find(uuid)).
-        to have_attributes(email_address: 'luna@hmps.gsi.gov.uk')
+      it 'updates an existing prison record' do
+        expect {
+          subject.import filename, hash
+        }.not_to change(Prison, :count)
+        prison = Prison.find(uuid)
+        expect(prison.name).to eq('Lunar Penal Colony')
+        expect(prison.unbookable_dates.map(&:date)).to eq([next_monday, next_tuesday, monday_week])
+      end
     end
   end
 end

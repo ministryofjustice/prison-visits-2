@@ -103,11 +103,11 @@ jobs:
           command: bundle -v
       - restore_cache:
           keys:
-            - prison-visits-staff-v3-{{ checksum "Gemfile.lock" }}
-            - prison-visits-staff-v3-
+            - prison-visits-staff-v5-{{ checksum "Gemfile.lock" }}
+            - prison-visits-staff-v5-
       - run: bundle check --path vendor/bundle || bundle install --path vendor/bundle
       - save_cache:
-          key: prison-visits-staff-v3-{{ checksum "Gemfile.lock" }}
+          key: prison-visits-staff-v5-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run:

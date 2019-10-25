@@ -1,0 +1,18 @@
+<h1>Slot updates for <%= @prison.name %></h1>
+
+<%= render '/prisons/prison', prison: @prison.decorate %>
+
+Current Unbookable dates:
+<table>
+  <% @prison.unbookable_dates.select(&:persisted?).each do |unbookable_date| %>
+    <%= form_for @prison, url: prison_unbookable_date_path(@prison.id, unbookable_date.date), method: :delete do |form| %>
+      <tr>
+        <td><%= unbookable_date.date.to_s(:long) %></td>
+        <td><%= form.submit "Remove #{unbookable_date.date.to_s(:short)}", id: "unbookable_date_#{unbookable_date.date}" %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+
+<%= link_to 'Add Unbookable Date', new_prison_unbookable_date_path(@prison) %>
+
