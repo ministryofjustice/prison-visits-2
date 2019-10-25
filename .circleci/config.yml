@@ -147,7 +147,6 @@ jobs:
       - store_test_results:
           path: coverage
       - store_artifacts:
-          path: screenshots
           path: coverage
 
   security-static-analysis:
