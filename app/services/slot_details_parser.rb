@@ -2,8 +2,7 @@ class SlotDetailsParser
   def parse(raw)
     SlotDetails.new(
       parse_recurring_slots(raw),
-      parse_anomalous_slots(raw),
-      parse_unbookable_dates(raw)
+      parse_anomalous_slots(raw)
     )
   end
 
@@ -19,10 +18,6 @@ private
     raw.fetch('anomalous', {}).map { |date, slots|
       [parse_date(date), slots.map { |s| RecurringSlot.parse(s) }]
     }.to_h
-  end
-
-  def parse_unbookable_dates(raw)
-    raw.fetch('unbookable', {}).map { |date| parse_date(date) }
   end
 
   def parse_date(date)

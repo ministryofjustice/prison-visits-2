@@ -16,7 +16,7 @@ class Prison < ApplicationRecord
     less_than_or_equal_to: PrisonSeeder::SeedEntry::DEFAULT_BOOKING_WINDOW
   }
 
-  delegate :recurring_slots, :anomalous_slots, :unbookable_dates,
+  delegate :recurring_slots, :anomalous_slots,
            to: :parsed_slot_details
   delegate :finder_slug, :nomis_id, to: :estate
 
@@ -24,10 +24,12 @@ class Prison < ApplicationRecord
     where(enabled: true).order(name: :asc)
   })
 
+  has_many :unbookable_dates, dependent: :destroy
+
   def available_slots(today = Time.zone.today)
     AvailableSlotEnumerator.new(
       first_bookable_date(today), last_bookable_date(today),
-      recurring_slots, anomalous_slots, unbookable_dates
+      recurring_slots, anomalous_slots, unbookable_dates.map(&:date)
     )
   end
 
@@ -96,12 +98,18 @@ private
     Rails.configuration.calendar.business_day?(date)
   end
 
+  # rubocop:disable Metrics/LineLength
   def validate_unbookable_dates
-    if unbookable_dates.uniq.length != unbookable_dates.length
-      errors.add :slot_details, :duplicate_unbookable_date
-    end
-    if (unbookable_dates & anomalous_slots.keys).any?
+    if (unbookable_dates.map(&:date) & anomalous_slots.keys).any?
       errors.add :slot_details, :unbookable_and_anomalous_conflict
     end
+    recurring_weekdays = recurring_slots.map { |r|
+      r.first.index
+    }
+
+    unless unbookable_dates.map { |date| recurring_weekdays.include?(date.date.wday) }.all?
+      errors.add(:slot_details, :unbookable_date_not_in_schedule)
+    end
   end
+  # rubocop:enable Metrics/LineLength
 end

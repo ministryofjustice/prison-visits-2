@@ -35,4 +35,10 @@ FactoryBot.define do
       } }
     }
   end
+
+  factory :unbookable_date do
+    association :prison
+
+    sequence(:date) { |n| Time.zone.today + n.days }
+  end
 end

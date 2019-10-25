@@ -40,8 +40,13 @@ en:
             reasons:
               no_cancellation_reason: Please provide a cancellation reason
         prison:
-          duplicate_unbookable_date: An unbookable date may not be duplicated
           unbookable_and_anomalous_conflict: An unbookable date may not also be anomalous
+          unbookable_date_not_in_schedule: An unbookable date cannot be outside the recurring schedule
+        unbookable_date:
+          attributes:
+            date:
+              unbookable_date_in_the_past: cannot be in the past
+              taken: may not be duplicated
         visitor:
           unprocessed_contact_list: Process this visitor to continue
   email_checker:

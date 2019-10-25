@@ -8,12 +8,20 @@ class PrisonSeeder::SeedEntry
     phone_no postcode slot_details translations weekend_processing closed private
   ]
 
-  def initialize(hash)
+  def initialize(prison, hash)
+    @prison = prison
     @hash = hash
   end
 
   def to_h
     KEYS.inject({}) { |a, e| a.merge(e => send(e)) }
+  end
+
+  def unbookable_dates
+    today = Time.zone.today
+    (hash_unbookable_slots + unbookable_slots).
+      select { |unbookable_date| unbookable_date > today }.
+      sort.uniq
   end
 
 private
@@ -67,8 +75,7 @@ private
   def slot_details
     {
       'recurring' => hash.fetch('recurring', {}),
-      'anomalous' => hash.fetch('anomalous', {}),
-      'unbookable' => hash.fetch('unbookable', [])
+      'anomalous' => hash.fetch('anomalous', {})
     }
   end
 
@@ -78,5 +85,16 @@ private
 
   def weekend_processing
     hash.fetch('works_weekends', false)
+  end
+
+private
+
+  # hashes coming in from YML files actually contain dates
+  def hash_unbookable_slots
+    hash.fetch('unbookable', [])
+  end
+
+  def unbookable_slots
+    @prison.unbookable_dates.map(&:date)
   end
 end

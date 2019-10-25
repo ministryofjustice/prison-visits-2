@@ -41,6 +41,10 @@ Rails.application.routes.draw do
         resource :email_preview, only: :update
       end
     end
+
+    resources :prisons, only: [:show] do
+      resources :unbookable_dates, only: [:new, :create, :destroy], param: :date
+    end
   end
 
   namespace :prison do
