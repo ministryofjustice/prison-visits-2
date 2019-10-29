@@ -15,6 +15,8 @@ module Nomis
 
       pool_size = Rails.configuration.connection_pool_size
       @pool = ConnectionPool.new(size: pool_size, timeout: 1) do
+        # TODO: Pass in Elite2 as a host and remove the other
+        # parameters as they are no longer needed.
         Nomis::Client.new(
           Rails.configuration.nomis_api_host,
           Rails.configuration.nomis_api_token,
