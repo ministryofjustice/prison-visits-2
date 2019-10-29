@@ -51,6 +51,7 @@ module Nomis
     def request(method, route, params, idempotent:, options: {})
       # For cleanliness, strip initial / if supplied
       route = route.sub(%r{^\/}, '')
+      # path = "/v1/#{route}"
       path = "/nomisapi/#{route}"
       api_method = "#{method.to_s.upcase} #{path}"
 
@@ -104,6 +105,10 @@ module Nomis
 
       token = auth_token(@client_token, @client_key)
       "Bearer #{token}"
+
+      # TODO: Replace the above with this ...
+      # token = Nomis::Oauth::TokenService.valid_token
+      # "Bearer #{token.access_token}"
     end
 
     def auth_token(client_token, client_key)
