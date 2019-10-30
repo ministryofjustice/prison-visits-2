@@ -67,11 +67,16 @@ group :development, :test do
   gem 'spring-commands-rspec'
 end
 
+group :development do
+  gem 'dotenv-rails'
+end
+
 group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'ffaker'
+  gem 'geckodriver-helper', '~> 0.20.2'
   gem 'launchy'
   gem 'rails-controller-testing'
   gem 'rspec-collection_matchers'
