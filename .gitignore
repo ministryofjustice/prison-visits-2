@@ -28,3 +28,4 @@ dump.rdb
 
 # Ignore IDEs
 .idea/
+*.iml

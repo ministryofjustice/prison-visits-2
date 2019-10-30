@@ -12,8 +12,9 @@ spec:
   minReadySeconds: 10
   strategy:
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 2
+      maxSurge: 100%
+      maxUnavailable: 20%
+    type: RollingUpdate
   selector:
     matchLabels:
       app: prison-visits-booking-staff
