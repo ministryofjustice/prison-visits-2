@@ -15,19 +15,16 @@ module Nomis
 
       pool_size = Rails.configuration.connection_pool_size
       @pool = ConnectionPool.new(size: pool_size, timeout: 1) do
-        # TODO: Pass in Elite2 as a host and remove the other
-        # parameters as they are no longer needed.
+
         Nomis::Client.new(
-          Rails.configuration.nomis_api_host,
-          Rails.configuration.nomis_api_token,
-          Rails.configuration.nomis_api_key)
+          Rails.configuration.nomis_oauth_host)
       end
     end
 
     # rubocop:disable Metrics/MethodLength
     def lookup_active_prisoner(noms_id:, date_of_birth:)
       response = @pool.with { |client|
-        client.get('/lookup/active_offender',
+        client.get('lookup/active_offender',
                    noms_id: noms_id, date_of_birth: date_of_birth)
       }
 
@@ -42,7 +39,8 @@ module Nomis
     # rubocop:enable Metrics/MethodLength
 
     def lookup_prisoner_details(noms_id:)
-      response = @pool.with { |client| client.get("/offenders/#{noms_id}") }
+      response = @pool.with { |client| client.get("offenders/#{noms_id}") }
+
       api_serialiser.
         serialise(Nomis::Prisoner::Details, response).tap do |prisoner_details|
         PVB::Instrumentation.append_to_log(
@@ -53,7 +51,7 @@ module Nomis
 
     def lookup_prisoner_location(noms_id:)
       response = @pool.with { |client|
-        client.get("/offenders/#{noms_id}/location")
+        client.get("offenders/#{noms_id}/location")
       }
 
       Nomis::Establishment.build(response).tap do |establishment|
@@ -64,7 +62,7 @@ module Nomis
     def prisoner_visiting_availability(offender_id:, start_date:, end_date:)
       response = @pool.with { |client|
         client.get(
-          "/offenders/#{offender_id}/visits/available_dates",
+          "offenders/#{offender_id}/visits/available_dates",
           start_date: start_date, end_date: end_date)
       }
 
@@ -93,7 +91,7 @@ module Nomis
     def fetch_bookable_slots(prison:, start_date:, end_date:)
       response = @pool.with { |client|
         client.get(
-          "/prison/#{prison.nomis_id}/slots",
+          "prison/#{prison.nomis_id}/slots",
           start_date: start_date,
           end_date: end_date)
       }
