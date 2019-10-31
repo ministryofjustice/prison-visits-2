@@ -73,7 +73,6 @@ private
   end
 
   def slot_details
-    today = Time.zone.today.to_s
     {
       'recurring' => hash.fetch('recurring', {}),
       'anomalous' => hash.fetch('anomalous', {})

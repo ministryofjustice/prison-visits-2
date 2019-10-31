@@ -16,9 +16,6 @@ class Prison < ApplicationRecord
     less_than_or_equal_to: PrisonSeeder::SeedEntry::DEFAULT_BOOKING_WINDOW
   }
 
-  attribute :random_date, :date
-  acts_as_gov_uk_date :random_date
-
   delegate :recurring_slots, :anomalous_slots,
            to: :parsed_slot_details
   delegate :finder_slug, :nomis_id, to: :estate
