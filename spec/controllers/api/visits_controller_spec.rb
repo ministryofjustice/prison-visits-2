@@ -7,7 +7,8 @@ RSpec.describe Api::VisitsController do
   let(:prison)   do
     create(
       :prison,
-      slot_details: { 'recurring' => { 'mon' => ['1330-1430'] } }
+      slot_days: [build(:slot_day, day: 'mon', slot_times: [
+        build(:slot_time, start_hour: 13, start_minute: 30, end_hour: 14, end_minute: 30)])]
     )
   end
 

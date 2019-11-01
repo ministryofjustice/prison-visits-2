@@ -42,17 +42,15 @@ RSpec.describe Prison, type: :model do
       #     T  1  .  .  2  3  *  *  *  .  .  *
       #     |              |  |<--------->|
       #   Today       Confirm    Bookable
-      subject.slot_details = {
-        'recurring' => {
-          'mon' => ['1001-1100'],
-          'tue' => ['1002-1100'],
-          'wed' => ['1003-1100'],
-          'thu' => ['1004-1100'],
-          'fri' => ['1005-1100'],
-          'sat' => ['1006-1100'],
-          'sun' => ['1007-1100']
-        }
-      }
+      subject.slot_days = [
+        build(:slot_day, day: 'mon', slot_times: [build(:slot_time, start_hour: 10, start_minute: 1, end_hour: 11, end_minute: 00)]),
+        build(:slot_day, day: 'tue', slot_times: [build(:slot_time, start_hour: 10, start_minute: 2, end_hour: 11, end_minute: 00)]),
+        build(:slot_day, day: 'wed', slot_times: [build(:slot_time, start_hour: 10, start_minute: 3, end_hour: 11, end_minute: 00)]),
+        build(:slot_day, day: 'thu', slot_times: [build(:slot_time, start_hour: 10, start_minute: 4, end_hour: 11, end_minute: 00)]),
+        build(:slot_day, day: 'fri', slot_times: [build(:slot_time, start_hour: 10, start_minute: 5, end_hour: 11, end_minute: 00)]),
+        build(:slot_day, day: 'sat', slot_times: [build(:slot_time, start_hour: 10, start_minute: 6, end_hour: 11, end_minute: 00)]),
+        build(:slot_day, day: 'sun', slot_times: [build(:slot_time, start_hour: 10, start_minute: 7, end_hour: 11, end_minute: 00)])
+      ]
       subject.booking_window = 10
     end
 
@@ -156,12 +154,8 @@ RSpec.describe Prison, type: :model do
 
   describe 'slot_details=' do
     context 'when a day name is invalid' do
-      it 'raises an exception' do
-        expect {
-          subject.slot_details = {
-            'recurring' => { 'xxx' => ['1330-1430'] }
-          }
-        }.to raise_exception(ArgumentError)
+      it 'is invalid' do
+        expect(build(:slot_day, prison: subject, day: 'xxx')).not_to be_valid
       end
     end
 

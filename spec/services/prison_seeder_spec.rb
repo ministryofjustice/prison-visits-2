@@ -98,16 +98,15 @@ RSpec.describe PrisonSeeder do
         subject.import filename, hash
         prison = Prison.find(uuid)
         expect(prison.slot_details).to eq(
-          "recurring" => {
-            "mon" => ["1330-1430"],
-            "tue" => ["1330-1430"]
-          },
           "anomalous" => {
             "2015-05-25" => ["1330-1430"],
             "2015-08-31" => ["1330-1430"]
           }
         )
         expect(prison.unbookable_dates.map(&:date)).to eq([monday_week])
+        expect(prison.recurring_slots).
+          to eq(DayOfWeek::MON => [RecurringSlot.new(13, 30, 14, 30)],
+                DayOfWeek::TUE => [RecurringSlot.new(13, 30, 14, 30)])
       end
 
       it 'imports translations' do

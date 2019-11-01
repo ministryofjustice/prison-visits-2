@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_31_131811) do
+ActiveRecord::Schema.define(version: 2019_11_01_072235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,24 @@ ActiveRecord::Schema.define(version: 2019_10_31_131811) do
     t.string "reasons", default: [], array: true
     t.string "rejection_reason_detail"
     t.index ["visit_id"], name: "index_rejections_on_visit_id", unique: true
+  end
+
+  create_table "slot_days", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid "prison_id", null: false
+    t.string "day", null: false
+    t.date "start_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "slot_times", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid "slot_day_id"
+    t.integer "start_hour"
+    t.integer "start_minute"
+    t.integer "end_hour"
+    t.integer "end_minute"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "unbookable_dates", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|

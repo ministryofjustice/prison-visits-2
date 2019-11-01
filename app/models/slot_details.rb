@@ -1,1 +1,1 @@
-SlotDetails = Struct.new(:recurring_slots, :anomalous_slots)
+SlotDetails = Struct.new(:anomalous_slots)

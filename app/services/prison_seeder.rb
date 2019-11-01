@@ -28,6 +28,18 @@ class PrisonSeeder
       prison.update! entry.to_h.merge(estate: estate)
 
       import_unbookable_dates(prison, entry)
+
+      prison.slot_days.destroy_all
+      entry.recurring_slots.each do |day, slots|
+        slot_day = prison.slot_days.create!(start_date: Time.zone.today, day: day)
+        slots.each do |slot|
+          slot_data = RecurringSlot.parse(slot)
+          slot_day.slot_times.create!(start_hour: slot_data.begin_hour,
+                                      start_minute: slot_data.begin_minute,
+                                      end_hour: slot_data.end_hour,
+                                      end_minute: slot_data.end_minute)
+        end
+      end
     end
   rescue StandardError => e
     raise ImportFailure, "#{e} in #{path}"

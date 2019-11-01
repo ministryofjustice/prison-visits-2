@@ -4,7 +4,7 @@ RSpec.describe Message, type: :model do
   describe '.create_and_send_email' do
     subject { described_class.create_and_send_email(attrs) }
 
-    let(:visit) { FactoryBot.create(:visit) }
+    let(:visit) { create(:visit) }
     let(:user) { FactoryBot.create(:user) }
 
     let(:attrs) do

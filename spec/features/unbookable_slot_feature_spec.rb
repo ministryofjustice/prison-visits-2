@@ -7,12 +7,19 @@ RSpec.feature 'Unbookable slots', :js do
   let(:next_monday) { Time.zone.today - Time.zone.today.cwday.days + 8.days }
 
   before do
-    prison.update!(slot_details:
-                     { 'recurring' => {
-                       'mon' => ['1400-1610'],
-                       'tue' => %w[0900-1000 1400-1610]
-                     } }
-    )
+    # prison.update!(slot_details:
+    #                  { 'recurring' => {
+    #                    'mon' => ['1400-1610'],
+    #                    'tue' => %w[0900-1000 1400-1610]
+    #                  } }
+    # )
+    create(:slot_day, prison: prison, day: 'mon', slot_times: [
+      build(:slot_time, start_hour: 14, start_minute: 0, end_hour: 16, end_minute: 10)
+    ])
+    create(:slot_day, prison: prison, day: 'tue', slot_times: [
+      build(:slot_time, start_hour: 9, start_minute: 0, end_hour: 10, end_minute: 00),
+      build(:slot_time, start_hour: 14, start_minute: 0, end_hour: 16, end_minute: 10)
+    ])
     create(:unbookable_date, prison: prison, date: next_monday)
 
     visit staff_path

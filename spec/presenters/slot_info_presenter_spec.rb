@@ -18,7 +18,7 @@ RSpec.describe SlotInfoPresenter do
       let(:day) { 'tue' }
 
       it 'shows the list' do
-        expect(subject.slots_for(day)).to eq(prison.slot_details['recurring'][day])
+        expect(subject.slots_for(day)).to eq(%w[0900-1000 1400-1610])
       end
     end
   end

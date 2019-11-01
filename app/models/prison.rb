@@ -16,7 +16,7 @@ class Prison < ApplicationRecord
     less_than_or_equal_to: PrisonSeeder::SeedEntry::DEFAULT_BOOKING_WINDOW
   }
 
-  delegate :recurring_slots, :anomalous_slots,
+  delegate :anomalous_slots,
            to: :parsed_slot_details
   delegate :finder_slug, :nomis_id, to: :estate
 
@@ -25,11 +25,35 @@ class Prison < ApplicationRecord
   })
 
   has_many :unbookable_dates, dependent: :destroy
+  has_many :slot_days, dependent: :destroy
+
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Style/MultilineBlockChain
+  def recurring_slots(today = Time.zone.today)
+    # pick out 'active' item for each slot_day (which might be nil)
+    # and then convert to a hash of DayOfWeek -> RecurringSlot array
+    # so that it matches what it used to do before the data was stored
+    # as a JSON blob
+    slot_days.group_by(&:day).values.map { |days_array|
+      days_array.
+        sort_by(&:start_date).
+        detect { |sd| today >= sd.start_date }
+    }.compact.map { |day|
+      [
+        DayOfWeek.by_name(day.day),
+        day.slot_times.map do |t|
+          RecurringSlot.new(t.start_hour, t.start_minute, t.end_hour, t.end_minute)
+        end
+      ]
+    }.to_h
+  end
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Style/MultilineBlockChain
 
   def available_slots(today = Time.zone.today)
     AvailableSlotEnumerator.new(
       first_bookable_date(today), last_bookable_date(today),
-      recurring_slots, anomalous_slots, unbookable_dates.map(&:date)
+      recurring_slots(today), anomalous_slots, unbookable_dates.map(&:date)
     )
   end
 
@@ -103,8 +127,8 @@ private
     if (unbookable_dates.map(&:date) & anomalous_slots.keys).any?
       errors.add :slot_details, :unbookable_and_anomalous_conflict
     end
-    recurring_weekdays = recurring_slots.map { |r|
-      r.first.index
+    recurring_weekdays = slot_days.map(&:day).map { |r|
+      DayOfWeek.by_name(r).index
     }
 
     unless unbookable_dates.map { |date| recurring_weekdays.include?(date.date.wday) }.all?

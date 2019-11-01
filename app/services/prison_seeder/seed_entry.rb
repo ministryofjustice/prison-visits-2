@@ -24,6 +24,10 @@ class PrisonSeeder::SeedEntry
       sort.uniq
   end
 
+  def recurring_slots
+    hash.fetch('recurring', {})
+  end
+
 private
 
   attr_reader :hash
@@ -74,7 +78,6 @@ private
 
   def slot_details
     {
-      'recurring' => hash.fetch('recurring', {}),
       'anomalous' => hash.fetch('anomalous', {})
     }
   end

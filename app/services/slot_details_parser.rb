@@ -1,18 +1,11 @@
 class SlotDetailsParser
   def parse(raw)
     SlotDetails.new(
-      parse_recurring_slots(raw),
       parse_anomalous_slots(raw)
     )
   end
 
 private
-
-  def parse_recurring_slots(raw)
-    raw.fetch('recurring', {}).map { |day, slots|
-      [DayOfWeek.by_name(day), slots.map { |s| RecurringSlot.parse(s) }]
-    }.to_h
-  end
 
   def parse_anomalous_slots(raw)
     raw.fetch('anomalous', {}).map { |date, slots|
