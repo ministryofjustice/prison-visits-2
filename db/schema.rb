@@ -110,14 +110,15 @@ ActiveRecord::Schema.define(version: 2019_11_01_072235) do
     t.uuid "prison_id", null: false
     t.string "day", null: false
     t.date "start_date", null: false
+    t.date "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "slot_times", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid "slot_day_id"
-    t.integer "start_hour"
-    t.integer "start_minute"
+    t.integer "begin_hour"
+    t.integer "begin_minute"
     t.integer "end_hour"
     t.integer "end_minute"
     t.datetime "created_at", null: false

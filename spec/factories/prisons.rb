@@ -34,11 +34,11 @@ FactoryBot.define do
       slot_days {
         [
           build(:slot_day, day: 'mon', slot_times: [
-            build(:slot_time, start_hour: 14, start_minute: 0, end_hour: 16, end_minute: 10)
+            build(:slot_time, begin_hour: 14, begin_minute: 0, end_hour: 16, end_minute: 10)
           ]),
           build(:slot_day, day: 'tue', slot_times: [
-            build(:slot_time, start_hour: 9, start_minute: 0, end_hour: 10, end_minute: 0),
-            build(:slot_time, start_hour: 14, start_minute: 0, end_hour: 16, end_minute: 10)
+            build(:slot_time, begin_hour: 9, begin_minute: 0, end_hour: 10, end_minute: 0),
+            build(:slot_time, begin_hour: 14, begin_minute: 0, end_hour: 16, end_minute: 10)
           ])
         ]
       }
@@ -55,8 +55,8 @@ FactoryBot.define do
   factory :slot_time do
     association :slot_day
 
-    start_hour do 0 end
-    start_minute do 0 end
+    begin_hour do 0 end
+    begin_minute do 0 end
     end_hour do 23 end
     end_minute { 59 }
   end

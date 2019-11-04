@@ -37,16 +37,19 @@ class Prison < ApplicationRecord
     slot_days.group_by(&:day).values.map { |days_array|
       days_array.
         sort_by(&:start_date).
-        detect { |sd| today >= sd.start_date }
+        detect do |slot_day|
+          slot_day.contains?(today)
+        end
     }.compact.map { |day|
       [
         DayOfWeek.by_name(day.day),
         day.slot_times.map do |t|
-          RecurringSlot.new(t.start_hour, t.start_minute, t.end_hour, t.end_minute)
+          RecurringSlot.new(t.begin_hour, t.begin_minute, t.end_hour, t.end_minute)
         end
       ]
     }.to_h
   end
+
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Style/MultilineBlockChain
 
@@ -122,18 +125,19 @@ private
     Rails.configuration.calendar.business_day?(date)
   end
 
-  # rubocop:disable Metrics/LineLength
   def validate_unbookable_dates
     if (unbookable_dates.map(&:date) & anomalous_slots.keys).any?
       errors.add :slot_details, :unbookable_and_anomalous_conflict
     end
-    recurring_weekdays = slot_days.map(&:day).map { |r|
-      DayOfWeek.by_name(r).index
-    }
 
-    unless unbookable_dates.map { |date| recurring_weekdays.include?(date.date.wday) }.all?
+    unless unbookable_dates.map { |date| slot_days_contains?(date.date) }.all?
       errors.add(:slot_details, :unbookable_date_not_in_schedule)
     end
   end
-  # rubocop:enable Metrics/LineLength
+
+  def slot_days_contains?(date)
+    slot_days.select { |slot_day| slot_day.contains?(date) }.
+      map(&:day).
+      map { |r| DayOfWeek.by_name(r).index }.include?(date.wday)
+  end
 end

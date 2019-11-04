@@ -43,13 +43,13 @@ RSpec.describe Prison, type: :model do
       #     |              |  |<--------->|
       #   Today       Confirm    Bookable
       subject.slot_days = [
-        build(:slot_day, day: 'mon', slot_times: [build(:slot_time, start_hour: 10, start_minute: 1, end_hour: 11, end_minute: 00)]),
-        build(:slot_day, day: 'tue', slot_times: [build(:slot_time, start_hour: 10, start_minute: 2, end_hour: 11, end_minute: 00)]),
-        build(:slot_day, day: 'wed', slot_times: [build(:slot_time, start_hour: 10, start_minute: 3, end_hour: 11, end_minute: 00)]),
-        build(:slot_day, day: 'thu', slot_times: [build(:slot_time, start_hour: 10, start_minute: 4, end_hour: 11, end_minute: 00)]),
-        build(:slot_day, day: 'fri', slot_times: [build(:slot_time, start_hour: 10, start_minute: 5, end_hour: 11, end_minute: 00)]),
-        build(:slot_day, day: 'sat', slot_times: [build(:slot_time, start_hour: 10, start_minute: 6, end_hour: 11, end_minute: 00)]),
-        build(:slot_day, day: 'sun', slot_times: [build(:slot_time, start_hour: 10, start_minute: 7, end_hour: 11, end_minute: 00)])
+        build(:slot_day, day: 'mon', slot_times: [build(:slot_time, begin_hour: 10, begin_minute: 1, end_hour: 11, end_minute: 00)]),
+        build(:slot_day, day: 'tue', slot_times: [build(:slot_time, begin_hour: 10, begin_minute: 2, end_hour: 11, end_minute: 00)]),
+        build(:slot_day, day: 'wed', slot_times: [build(:slot_time, begin_hour: 10, begin_minute: 3, end_hour: 11, end_minute: 00)]),
+        build(:slot_day, day: 'thu', slot_times: [build(:slot_time, begin_hour: 10, begin_minute: 4, end_hour: 11, end_minute: 00)]),
+        build(:slot_day, day: 'fri', slot_times: [build(:slot_time, begin_hour: 10, begin_minute: 5, end_hour: 11, end_minute: 00)]),
+        build(:slot_day, day: 'sat', slot_times: [build(:slot_time, begin_hour: 10, begin_minute: 6, end_hour: 11, end_minute: 00)]),
+        build(:slot_day, day: 'sun', slot_times: [build(:slot_time, begin_hour: 10, begin_minute: 7, end_hour: 11, end_minute: 00)])
       ]
       subject.booking_window = 10
     end

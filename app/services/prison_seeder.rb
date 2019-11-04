@@ -19,6 +19,7 @@ class PrisonSeeder
     @filename_to_uuid_map = filename_to_uuid_map
   end
 
+  # rubocop:disable Metrics/MethodLength
   def import(path, hash)
     Prison.transaction do
       estate = Estate.find_by!(nomis_id: hash.fetch('nomis_id'))
@@ -28,24 +29,33 @@ class PrisonSeeder
       prison.update! entry.to_h.merge(estate: estate)
 
       import_unbookable_dates(prison, entry)
-
-      prison.slot_days.destroy_all
-      entry.recurring_slots.each do |day, slots|
-        slot_day = prison.slot_days.create!(start_date: Time.zone.today, day: day)
-        slots.each do |slot|
-          slot_data = RecurringSlot.parse(slot)
-          slot_day.slot_times.create!(start_hour: slot_data.begin_hour,
-                                      start_minute: slot_data.begin_minute,
-                                      end_hour: slot_data.end_hour,
-                                      end_minute: slot_data.end_minute)
-        end
-      end
+      import_slot_days(prison, entry)
     end
   rescue StandardError => e
     raise ImportFailure, "#{e} in #{path}"
   end
+# rubocop:enable Metrics/MethodLength
 
 private
+
+  # rubocop:disable Metrics/MethodLength
+  def import_slot_days(prison, entry)
+    # updating these is too hard - so just remove and put back
+    # (which is what used to happen anyway when it was stored as JSON)
+    prison.slot_days.destroy_all
+
+    entry.recurring_slots.each do |day, slots|
+      slot_day = prison.slot_days.create!(start_date: Time.zone.today, day: day)
+      slots.each do |slot|
+        slot_data = RecurringSlot.parse(slot)
+        slot_day.slot_times.create!(begin_hour: slot_data.begin_hour,
+                                    begin_minute: slot_data.begin_minute,
+                                    end_hour: slot_data.end_hour,
+                                    end_minute: slot_data.end_minute)
+      end
+    end
+  end
+  # rubocop:enable Metrics/MethodLength
 
   attr_accessor :logger
 

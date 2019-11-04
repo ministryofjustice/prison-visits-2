@@ -6,6 +6,8 @@ class CreateSlotDays < ActiveRecord::Migration[5.2]
       t.uuid :prison_id, null: false
       t.string :day, null: false
       t.date :start_date, null: false
+      # end_date may be infinite (unknown)
+      t.date :end_date
 
       t.timestamps
     end

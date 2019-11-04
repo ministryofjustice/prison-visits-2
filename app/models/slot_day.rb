@@ -6,4 +6,8 @@ class SlotDay < ApplicationRecord
 
   validates :day, inclusion: { in: %w[mon tue wed thu fri sat sun], allow_nil: false }
   validates :start_date, presence: true
+
+  def contains?(today)
+    start_date <= today && (end_date.nil? || today <= end_date)
+  end
 end
