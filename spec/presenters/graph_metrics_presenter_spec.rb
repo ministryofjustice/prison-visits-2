@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.describe GraphMetricsPresenter do
-  let(:prison) { create(:prison) }
-  let(:other_prison) { create(:prison) }
+  let(:prison) { create(:prison_with_slots) }
+  let(:other_prison) { create(:prison_with_slots) }
 
   def refresh_views
     VisitCountsByPrisonStateDateAndTimely.refresh

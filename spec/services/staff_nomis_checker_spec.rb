@@ -4,7 +4,7 @@ RSpec.describe StaffNomisChecker do
   subject { described_class.new(visit) }
 
   # Enabled for slot availability
-  let(:prison)   { build_stubbed(:prison, name: 'Pentonville') }
+  let(:prison)   { build_stubbed(:prison_with_slots, name: 'Pentonville') }
   let(:pvb_prisoner) { build_stubbed(:prisoner) }
   let(:visit)    { build_stubbed(:visit, prisoner: pvb_prisoner, prison: prison) }
   let(:nomis_prisoner) { Nomis::Prisoner.new(id: 'some_noms_id', noms_id: pvb_prisoner.number) }

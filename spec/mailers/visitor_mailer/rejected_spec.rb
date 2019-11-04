@@ -193,7 +193,7 @@ RSpec.describe VisitorMailer, '.rejected' do
   # TODO: Remove once Medway is on Prison Finder
   context 'when the prison is Medway Secure Training Centre' do
     let(:medway) { create(:estate, name: 'Medway Secure Training Centre') }
-    let(:medway_prison) { create(:prison, estate: medway) }
+    let(:medway_prison) { create(:prison_with_slots, estate: medway) }
     let(:visit) { create(:visit, prison: medway_prison) }
 
     include_examples 'when the prison is not on prison finder'

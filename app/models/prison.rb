@@ -25,7 +25,7 @@ class Prison < ApplicationRecord
   })
 
   has_many :unbookable_dates, dependent: :destroy
-  has_many :slot_days, dependent: :destroy
+  has_many :slot_days, inverse_of: :prison, dependent: :destroy
 
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Style/MultilineBlockChain

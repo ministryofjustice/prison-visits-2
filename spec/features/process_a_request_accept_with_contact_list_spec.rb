@@ -10,7 +10,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
   # going to use The Verne as there are bookable slots at this prison.
 
   let(:prison) do
-    create(:prison,
+    create(:prison_with_slots,
            name: 'The Verne',
            email_address: prison_email_address,
            estate: create(:estate, nomis_id: 'VEI')

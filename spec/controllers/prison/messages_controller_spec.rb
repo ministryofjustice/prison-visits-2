@@ -6,7 +6,7 @@ RSpec.describe Prison::MessagesController do
       post :create, params: { message: { body: message_body }, visit_id: visit.id, locale: 'en' }
     end
 
-    let(:prison) { FactoryBot.create(:prison, estate: estate) }
+    let(:prison) { FactoryBot.create(:prison_with_slots, estate: estate) }
     let(:visit) { FactoryBot.create(:visit, prison: prison) }
     let(:user) { FactoryBot.create(:user) }
     let(:estate) { FactoryBot.create(:estate) }

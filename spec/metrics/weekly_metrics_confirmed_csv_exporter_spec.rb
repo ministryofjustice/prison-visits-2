@@ -4,9 +4,9 @@ RSpec.describe WeeklyMetricsConfirmedCsvExporter do
   let(:instance) { described_class.new(dates_to_export) }
 
   describe '#to_csv' do
-    let(:prison1) { create(:prison, name: 'A Prison') }
-    let(:prison2) { create(:prison, name: 'B Prison') }
-    let(:prison3) { create(:prison, name: 'C Prison') }
+    let(:prison1) { create(:prison_with_slots, name: 'A Prison') }
+    let(:prison2) { create(:prison_with_slots, name: 'B Prison') }
+    let(:prison3) { create(:prison_with_slots, name: 'C Prison') }
     let(:week_ago) { 1.week.ago.beginning_of_week + 10.hours }
     let(:two_weeks_ago) { 2.weeks.ago.beginning_of_week + 10.hours }
     let(:three_weeks_ago) { 3.weeks.ago.beginning_of_week + 10.hours }

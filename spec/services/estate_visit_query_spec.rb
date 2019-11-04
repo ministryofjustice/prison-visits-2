@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe EstateVisitQuery do
   subject(:instance) { described_class.new(estates) }
 
-  let(:prison) { create(:prison) }
+  let(:prison) { create(:prison_with_slots) }
   let(:estates) { [prison.estate] }
 
   describe '#visits_to_print_by_slot' do

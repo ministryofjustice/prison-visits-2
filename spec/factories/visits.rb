@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :visit do
-    prison
+    association :prison, factory: :prison_with_slots
     prisoner
 
     contact_email_address do

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe SlotAvailability do
-  let(:prison)        { create(:prison) }
+  let(:prison)        { create(:prison_with_slots) }
   let(:offender_id)   { 'A1410AE' }
   let(:date_of_birth) { '1960-06-01' }
   let(:start_date)    { Date.parse('2017-02-01') }

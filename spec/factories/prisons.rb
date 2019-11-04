@@ -30,21 +30,24 @@ FactoryBot.define do
 
     slot_details do { 'anomalous' => [] } end
 
-    slot_days {
-      [
-      build(:slot_day, day: 'mon', slot_times: [
-        build(:slot_time, start_hour: 14, start_minute: 0, end_hour: 16, end_minute: 10)
-      ]),
-      build(:slot_day, day: 'tue', slot_times: [
-        build(:slot_time, start_hour: 9, start_minute: 0, end_hour: 10, end_minute: 0),
-        build(:slot_time, start_hour: 14, start_minute: 0, end_hour: 16, end_minute: 10)
-      ])
-    ]
-    }
+    factory :prison_with_slots do
+      slot_days {
+        [
+          build(:slot_day, day: 'mon', slot_times: [
+            build(:slot_time, start_hour: 14, start_minute: 0, end_hour: 16, end_minute: 10)
+          ]),
+          build(:slot_day, day: 'tue', slot_times: [
+            build(:slot_time, start_hour: 9, start_minute: 0, end_hour: 10, end_minute: 0),
+            build(:slot_time, start_hour: 14, start_minute: 0, end_hour: 16, end_minute: 10)
+          ])
+        ]
+      }
+    end
   end
 
   factory :slot_day do
-    assocation :prison
+    association :prison
+
     start_date do Date.new(2010, 1, 1) end
     day { 'mon' }
   end

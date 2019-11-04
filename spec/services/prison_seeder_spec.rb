@@ -130,12 +130,7 @@ RSpec.describe PrisonSeeder do
       let(:next_tuesday) { next_monday + 1.day }
 
       before {
-        prison = create :prison, id: uuid, slot_details: {
-          'recurring' => {
-            'mon' => ['1400-1610'],
-            'tue' => %w[0900-1000 1400-1610]
-          }
-        }
+        prison = create :prison_with_slots, id: uuid
         create(:unbookable_date, prison: prison, date: next_monday)
         create(:unbookable_date, prison: prison, date: next_tuesday)
       }

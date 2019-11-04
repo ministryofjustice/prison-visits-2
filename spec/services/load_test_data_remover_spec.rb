@@ -7,7 +7,7 @@ RSpec.describe LoadTestDataRemover do
   let(:prison_email_address) { 'prison@test.example.com' }
   let(:prison) {
     create(
-      :prison,
+      :prison_with_slots,
       name: 'Leeds',
       email_address: prison_email_address,
       estate: create(:estate, nomis_id: 'LEI')

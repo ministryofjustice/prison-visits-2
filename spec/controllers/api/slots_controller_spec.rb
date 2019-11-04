@@ -5,7 +5,7 @@ RSpec.describe Api::SlotsController do
 
   let(:parsed_body) { JSON.parse(response.body) }
   let(:prisoner)    { create(:prisoner) }
-  let(:prison)      { create(:prison) }
+  let(:prison)      { create(:prison_with_slots) }
 
   describe '#index' do
     let(:params) {

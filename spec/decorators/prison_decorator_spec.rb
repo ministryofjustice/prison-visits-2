@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe PrisonDecorator do
-  let(:prison) { create :prison }
+  let(:prison) { create :prison_with_slots }
 
   subject {  prison.decorate }
 

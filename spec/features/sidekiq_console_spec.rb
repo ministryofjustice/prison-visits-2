@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.feature 'Sidekiq Admin Console' do
   include ActiveJobHelper
 
-  let(:prison) { create :prison }
+  let(:prison) { create :prison_with_slots }
   let(:sso_response) do
     {
       'uid' => '1234-1234-1234-1234',

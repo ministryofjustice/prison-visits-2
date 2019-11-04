@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Prison::PrintVisitsController do
   let(:estate) { create(:estate) }
   let(:user)   { create(:user) }
-  let(:prison) { create(:prison, estate: estate) }
+  let(:prison) { create(:prison_with_slots, estate: estate) }
 
   subject { response }
 

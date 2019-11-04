@@ -16,7 +16,7 @@ RSpec.describe VisitorCancellationResponse do
 
     context 'when the visit is booked' do
       context 'when this has not yet started' do
-        let(:prison) { FactoryBot.create(:prison) }
+        let(:prison) { FactoryBot.create(:prison_with_slots) }
         let(:visit) do
           FactoryBot.create(:booked_visit,
                             prison: prison,

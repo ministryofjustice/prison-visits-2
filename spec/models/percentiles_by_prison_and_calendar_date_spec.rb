@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe PercentilesByPrisonAndCalendarDate, type: :model do
-  let(:prison)                          { create :prison }
+  let(:prison)                          { create :prison_with_slots }
   let(:processed_within_a_day_visits)   do
     create_list(
       :visit, 4,

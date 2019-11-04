@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Printing a list of visits' do
   let(:cardiff)        { create(:estate, name: 'Cardiff') }
   let(:swansea)        { create(:estate, name: 'Swansea') }
-  let(:swansea_prison) { create(:prison, estate: swansea) }
+  let(:swansea_prison) { create(:prison_with_slots, estate: swansea) }
 
   let(:vst) do
     create(:booked_visit, prison: swansea_prison)

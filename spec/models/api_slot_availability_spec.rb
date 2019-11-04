@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ApiSlotAvailability, type: :model do
   subject { described_class.new(prison: prison) }
 
-  let!(:prison) { create(:prison) }
+  let!(:prison) { create(:prison_with_slots) }
 
   let(:prisoner_params) {
     {

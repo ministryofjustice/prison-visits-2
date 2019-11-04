@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe BookedVisitsCsvExporter do
-  let(:prison) { FactoryBot.create(:prison) }
+  let(:prison) { FactoryBot.create(:prison_with_slots) }
   let(:estates) { [prison.estate] }
 
   let!(:booked_visit) do

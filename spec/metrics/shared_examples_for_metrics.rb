@@ -1,6 +1,6 @@
 RSpec.shared_context 'when creating rejections without dates' do
-  let(:luna) { create(:prison, name: 'Lunar Penal Colony') }
-  let(:mars) { create(:prison, name: 'Martian Penal Colony') }
+  let(:luna) { create(:prison_with_slots, name: 'Lunar Penal Colony') }
+  let(:mars) { create(:prison_with_slots, name: 'Martian Penal Colony') }
 
   def luna_visits_without_dates
     make_visits(luna)
@@ -27,8 +27,8 @@ end
 RSpec.shared_context 'when creating rejections with dates' do
   let(:luna_estate) { create(:estate, finder_slug: 'luna') }
   let(:mars_estate) { create(:estate, finder_slug: 'mars') }
-  let(:luna) { create(:prison, name: 'Lunar Penal Colony', estate: luna_estate) }
-  let(:mars) { create(:prison, name: 'Martian Penal Colony', estate: mars_estate) }
+  let(:luna) { create(:prison_with_slots, name: 'Lunar Penal Colony', estate: luna_estate) }
+  let(:mars) { create(:prison_with_slots, name: 'Martian Penal Colony', estate: mars_estate) }
 
   def luna_visits_with_dates
     make_visits(luna)
@@ -54,8 +54,8 @@ RSpec.shared_context 'when creating rejections with dates' do
 end
 
 RSpec.shared_context 'when creating visits without dates' do
-  let(:luna) { create(:prison, name: 'Lunar Penal Colony') }
-  let(:mars) { create(:prison, name: 'Martian Penal Colony') }
+  let(:luna) { create(:prison_with_slots, name: 'Lunar Penal Colony') }
+  let(:mars) { create(:prison_with_slots, name: 'Martian Penal Colony') }
 
   let!(:luna_visits_without_dates) do
     make_visits(luna)
@@ -78,8 +78,8 @@ RSpec.shared_context 'when creating visits with dates' do
   # easier to target the TDs in the metrics table.
   let(:luna_estate) { create(:estate, finder_slug: 'luna') }
   let(:mars_estate) { create(:estate, finder_slug: 'mars') }
-  let(:luna) { create(:prison, name: 'Lunar Penal Colony', estate: luna_estate) }
-  let(:mars) { create(:prison, name: 'Martian Penal Colony', estate: mars_estate) }
+  let(:luna) { create(:prison_with_slots, name: 'Lunar Penal Colony', estate: luna_estate) }
+  let(:mars) { create(:prison_with_slots, name: 'Martian Penal Colony', estate: mars_estate) }
 
   let(:luna_visits_with_dates) do
     make_visits(luna)
@@ -195,8 +195,8 @@ RSpec.shared_context 'when creating visits with dates' do
 end
 
 RSpec.shared_context 'when creating and processing visits timed by seconds' do
-  let(:luna) { create(:prison, name: 'Lunar Penal Colony') }
-  let(:mars) { create(:prison, name: 'Martian Penal Colony') }
+  let(:luna) { create(:prison_with_slots, name: 'Lunar Penal Colony') }
+  let(:mars) { create(:prison_with_slots, name: 'Martian Penal Colony') }
 
   before do
     [luna, mars].each do |prison|
@@ -216,8 +216,8 @@ RSpec.shared_context 'when creating and processing visits timed by seconds' do
 end
 
 RSpec.shared_context 'when creating and processing visits with dates' do
-  let(:luna) { create(:prison, name: 'Lunar Penal Colony') }
-  let(:mars) { create(:prison, name: 'Martian Penal Colony') }
+  let(:luna) { create(:prison_with_slots, name: 'Lunar Penal Colony') }
+  let(:mars) { create(:prison_with_slots, name: 'Martian Penal Colony') }
 
   let(:luna_visits_with_dates) do
     make_visits(luna)

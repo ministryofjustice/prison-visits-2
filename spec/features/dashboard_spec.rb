@@ -7,7 +7,7 @@ RSpec.feature 'Using the dashboard' do
 
   let(:cardiff)        { create(:estate, name: 'Cardiff') }
   let(:swansea)        { create(:estate, name: 'Swansea') }
-  let(:swansea_prison) { create(:prison, estate: swansea) }
+  let(:swansea_prison) { create(:prison_with_slots, estate: swansea) }
   let(:sso_response) do
     {
       'uid' => '1234-1234-1234-1234',

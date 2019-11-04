@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UnbookableDate < ApplicationRecord
-  belongs_to :prison
+  belongs_to :prison, inverse_of: :unbookable_dates
 
   validate :date_must_be_in_the_future
 
