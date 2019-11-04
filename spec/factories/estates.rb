@@ -4,12 +4,11 @@ FactoryBot.define do
       FFaker::AddressUK.city
     end
 
-    # This field is only 3 characters - wrapping after 1000 unique ones
-    # in tests feels reasonable as they are destroyed quite often
     sequence :nomis_id do |n|
-      estate_id = n % 1000
+      name_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+      name_chars.gsub! name_chars.first(n / 1000), ''
 
-      ('%03d' % estate_id).tr('0123456789', 'ABCDEFGHIJ')
+      ('%03d' % (n % 1000)).tr('0123456789', name_chars)
     end
 
     finder_slug do |e|
