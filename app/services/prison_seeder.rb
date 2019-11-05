@@ -19,7 +19,6 @@ class PrisonSeeder
     @filename_to_uuid_map = filename_to_uuid_map
   end
 
-  # rubocop:disable Metrics/MethodLength
   def import(path, hash)
     Prison.transaction do
       estate = Estate.find_by!(nomis_id: hash.fetch('nomis_id'))
@@ -33,7 +32,6 @@ class PrisonSeeder
   rescue StandardError => e
     raise ImportFailure, "#{e} in #{path}"
   end
-# rubocop:enable Metrics/MethodLength
 
 private
 
