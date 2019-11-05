@@ -13,7 +13,6 @@ references:
     docker:
       - image: circleci/ruby:2.6.3-node-browsers
         environment:
-          RAILS_ENV: test
           PGHOST: 127.0.0.1
           PGUSER: ubuntu
           RACK_ENV: test
@@ -121,16 +120,6 @@ jobs:
               sudo tar xjf "firefox-$FIREFOX_VERSION.tar.bz2" -C /opt
             fi
             [[ -L /usr/local/bin/firefox ]] || sudo ln -sf /opt/firefox/firefox /usr/bin/firefox
-      - run:
-          name: install geckodriver
-          command: |
-            if [[ $(command -v geckodriver) ]] && [[ $(geckodriver --version) =~ $GECKODRIVER_VERSION  ]]; then
-              echo "Skiping, geckodriver $GECKODRIVER_VERSION already install."
-            else
-              wget https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
-              sudo tar -zxvf geckodriver-v0.19.0-linux64.tar.gz -C /opt
-            fi
-            [[ -L /usr/local/bin/geckodriver ]] || sudo ln -sf /opt/geckodriver /usr/local/bin/geckodriver
       - run:
           name: Setup Code Climate test-reporter
           command: |
