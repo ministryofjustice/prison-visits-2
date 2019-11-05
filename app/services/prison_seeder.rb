@@ -28,8 +28,9 @@ class PrisonSeeder
       entry = PrisonSeeder::SeedEntry.new(prison, hash)
       prison.update! entry.to_h.merge(estate: estate)
 
-      import_unbookable_dates(prison, entry)
+      # import recurring days first so that invalid unbookables can be rejected
       import_slot_days(prison, entry)
+      import_unbookable_dates(prison, entry)
     end
   rescue StandardError => e
     raise ImportFailure, "#{e} in #{path}"
@@ -59,6 +60,9 @@ private
 
   attr_accessor :logger
 
+  # This method deliberately doesn't remove unbookable dates from the DB
+  # they would have to be done manually. Otherwise the YAML file would always win
+  # over manually entered records.
   def import_unbookable_dates(prison, entry)
     entry.unbookable_dates.
       each do |date|
