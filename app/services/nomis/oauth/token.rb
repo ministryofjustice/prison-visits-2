@@ -5,7 +5,6 @@ require 'base64'
 module Nomis
   module Oauth
     class Token
-
       attr_accessor :access_token,
                     :token_type,
                     :expires_in,
