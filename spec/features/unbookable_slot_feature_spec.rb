@@ -35,7 +35,6 @@ RSpec.feature 'Unbookable slots', :js do
     let(:today) { Time.zone.today }
 
     context 'when editing' do
-
       before do
         click_link 'Monday'
       end
@@ -82,9 +81,7 @@ RSpec.feature 'Unbookable slots', :js do
         expect(slot_day.start_date).to eq(today)
         expect(slot_day.end_date).to eq(three_months_time)
       end
-
     end
-
   end
 
   context 'when adding a slot' do

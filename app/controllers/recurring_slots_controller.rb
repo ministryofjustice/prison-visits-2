@@ -35,7 +35,9 @@ private
   end
 
   def slot_day_params
-    params.require(:slot_day).permit(:day, :start_date_dd, :start_date_mm, :start_date_yyyy, :end_date_dd, :end_date_mm, :end_date_yyyy)
+    params.require(:slot_day).permit(:day,
+                                     :start_date_dd, :start_date_mm, :start_date_yyyy,
+                                     :end_date_dd, :end_date_mm, :end_date_yyyy)
   end
 
   def load_prison
