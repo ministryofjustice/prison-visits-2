@@ -3,8 +3,11 @@
   <% SlotDay::DAYS_OF_THE_WEEK.each_with_index do |day, day_counter| %>
     <li>
       <span class="slot-heading">
-        <% if prison.slots_for?(day) %>
-          <%= link_to StaffInfoController::DAY_NAMES[day_counter], edit_prison_recurring_slot_path(params[:locale], prison, day) %>
+        <% if prison_slots_on(prison, day).any? %>
+          <% prison_slots_on(prison, day).each do |slot_day| %>
+            <%= link_to slot_day_edit_link_name(slot_day),
+                        edit_prison_recurring_slot_path(params[:locale], prison, slot_day.id) %>
+          <% end %>
         <% else %>
           <%= link_to StaffInfoController::DAY_NAMES[day_counter], new_prison_recurring_slot_path(params[:locale], prison, day: day) %>
         <% end %>

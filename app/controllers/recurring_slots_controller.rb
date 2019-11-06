@@ -31,7 +31,7 @@ class RecurringSlotsController < ApplicationController
 private
 
   def load_slot_day
-    @slot_day = @prison.slot_days.where(day: params[:day]).first!
+    @slot_day = @prison.slot_days.find(params[:id])
   end
 
   def slot_day_params

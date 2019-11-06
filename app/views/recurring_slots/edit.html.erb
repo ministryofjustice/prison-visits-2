@@ -1,5 +1,5 @@
 <table>
-  <%= form_for @slot_day, url: prison_recurring_slot_path(params[:locale], @prison, @slot_day.day), method: :put do |form| %>
+  <%= form_for @slot_day, url: prison_recurring_slot_path(params[:locale], @prison, @slot_day.id), method: :put do |form| %>
     <tr>
       <td>Start Date</td>
       <td><%= form.gov_uk_date_field(:start_date) %></td>

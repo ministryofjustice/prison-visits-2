@@ -4,7 +4,8 @@ require 'rails_helper'
 require 'shared_process_setup_context'
 
 RSpec.feature 'Unbookable slots', :js do
-  include_context 'with a process request setup'
+  # include_context 'with a process request setup'
+  let!(:prison) { create(:prison) }
 
   let(:next_monday) { Time.zone.today - Time.zone.today.cwday.days + 8.days }
 
@@ -36,12 +37,10 @@ RSpec.feature 'Unbookable slots', :js do
 
     context 'when editing' do
       before do
-        click_link 'Monday'
+        click_link 'Mondays from 2010-01-01'
       end
 
       scenario 'stop monday visits soon' do
-        expect(page).to have_current_path edit_prison_recurring_slot_path(:en, prison, :mon)
-
         expect {
           fill_in 'slot_day_end_date_dd', with: today.day
           fill_in 'slot_day_end_date_mm', with: today.month
@@ -84,7 +83,7 @@ RSpec.feature 'Unbookable slots', :js do
     end
   end
 
-  context 'when adding a slot' do
+  context 'when adding a unbookable' do
     before do
       click_link 'Add Unbookable Date'
     end
