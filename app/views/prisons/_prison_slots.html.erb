@@ -1,8 +1,14 @@
 <h2 class="heading-small"><%= prison.name %></h2>
 <ul class="slot-list">
-  <% DayDecorator::DAYS_OF_THE_WEEK.each_with_index do |day, day_counter| %>
+  <% SlotDay::DAYS_OF_THE_WEEK.each_with_index do |day, day_counter| %>
     <li>
-      <span class="slot-heading"><%= StaffInfoController::DAY_NAMES[day_counter] %></span>
+      <span class="slot-heading">
+        <% if prison.slots_for?(day) %>
+          <%= link_to StaffInfoController::DAY_NAMES[day_counter], edit_prison_recurring_slot_path(params[:locale], prison, day) %>
+        <% else %>
+          <%= link_to StaffInfoController::DAY_NAMES[day_counter], new_prison_recurring_slot_path(params[:locale], prison, day: day) %>
+        <% end %>
+      </span>
       <ul>
         <%= prison.recurring_slot_list_for(day.to_s) %>
       </ul>

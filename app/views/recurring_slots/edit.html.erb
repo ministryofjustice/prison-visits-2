@@ -1,0 +1,16 @@
+<table>
+  <%= form_for @slot_day, url: prison_recurring_slot_path(params[:locale], @prison, @slot_day.day), method: :put do |form| %>
+    <tr>
+      <td>Start Date</td>
+      <td><%= form.gov_uk_date_field(:start_date) %></td>
+    </tr>
+    <tr>
+      <td>End Date</td>
+      <td><%= form.gov_uk_date_field(:end_date) %></td>
+    </tr>
+
+    <tr>
+      <td colspan="2"><%= form.submit 'Save' %></td>
+    </tr>
+  <% end %>
+</table>

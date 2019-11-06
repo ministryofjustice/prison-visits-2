@@ -44,6 +44,7 @@ Rails.application.routes.draw do
 
     resources :prisons, only: [:show] do
       resources :unbookable_dates, only: [:new, :create, :destroy], param: :date
+      resources :recurring_slots, only: [:new, :edit, :update, :create], param: :day
     end
   end
 

@@ -1,6 +1,10 @@
 class PrisonDecorator < Draper::Decorator
   delegate_all
 
+  def slots_for?(day)
+    SlotInfoPresenter.slots_for(object, day).any?
+  end
+
   def recurring_slot_list_for(day)
     slots_info = SlotInfoPresenter.
                    slots_for(object, day).

@@ -32,8 +32,24 @@ RSpec.feature 'Unbookable slots', :js do
   end
 
   context 'when editing a recurring slot' do
+    let(:today) { Time.zone.today }
+
     before do
       click_link 'Monday'
+    end
+
+    scenario 'stop monday visits soon' do
+      expect(page).to have_current_path edit_prison_recurring_slot_path(:en, prison, :mon)
+
+      expect {
+        fill_in 'slot_day_end_date_dd', with: today.day
+        fill_in 'slot_day_end_date_mm', with: today.month
+        fill_in 'slot_day_end_date_yyyy', with: today.year
+
+        click_button 'Save'
+      }.not_to change(SlotDay, :count)
+
+      expect(prison.slot_days.where(day: 'mon').first!.end_date).to eq(today)
     end
   end
 
