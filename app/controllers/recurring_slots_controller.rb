@@ -8,8 +8,6 @@ class RecurringSlotsController < ApplicationController
     @slot_day = @prison.slot_days.new day: params[:day]
   end
 
-  def edit; end
-
   def create
     @slot_day = @prison.slot_days.create slot_day_params
 
@@ -19,6 +17,8 @@ class RecurringSlotsController < ApplicationController
       render 'new'
     end
   end
+
+  def edit; end
 
   def update
     if @slot_day.update(slot_day_params)
