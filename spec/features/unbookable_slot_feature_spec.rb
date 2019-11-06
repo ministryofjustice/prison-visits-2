@@ -4,12 +4,12 @@ require 'rails_helper'
 require 'shared_process_setup_context'
 
 RSpec.feature 'Unbookable slots', :js do
-  # include_context 'with a process request setup'
   let!(:prison) { create(:prison) }
 
   let(:next_monday) { Time.zone.today - Time.zone.today.cwday.days + 8.days }
 
   before do
+    prison_login(prison)
     create(:slot_day, prison: prison, day: 'mon', slot_times: [
       build(:slot_time, begin_hour: 14, begin_minute: 0, end_hour: 16, end_minute: 10)
     ])
@@ -21,7 +21,7 @@ RSpec.feature 'Unbookable slots', :js do
 
     visit staff_path
     expect(page).to have_text("Below are the social visit slots")
-    click_link("Update slots for Leeds")
+    click_link("Update slots for #{prison.name}")
     # we're now on prison#show which displays unbookable slots and recurring ones
     expect(page).to have_text(next_monday.to_s(:long))
   end

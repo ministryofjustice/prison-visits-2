@@ -22,4 +22,27 @@ module ServiceHelpers
   def simulate_api_error_for(api, exception_class = Nomis::APIError)
     expect(Nomis::Api.instance).to receive(api).and_raise(exception_class)
   end
+
+  # allow feature tests to login for a specific prison
+  def prison_login(prison)
+    sso_response =
+      {
+        'uid' => '1234-1234-1234-1234',
+        'provider' => 'mojsso',
+        'info' => {
+          'first_name' => 'Joe',
+          'last_name' => 'Goldman',
+          'email' => 'joe@example.com',
+          'permissions' => [
+            { 'organisation' => prison.estate.sso_organisation_name, roles: [] }
+          ],
+          'links' => {
+            'profile' => 'http://example.com/profile',
+            'logout' => 'http://example.com/logout'
+          }
+        }
+      }
+
+    OmniAuth.config.add_mock(:mojsso, sso_response)
+  end
 end
