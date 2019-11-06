@@ -1,9 +1,6 @@
 <h1>Configure slots</h1>
 
-<h2 class="heading-small"><%= @prison.name %></h2>
-<ul class="slot-list">
-  <%= render DayDecorator::DECORATED_DAYS, prison: @prison.decorate %>
-</ul>
+<%= render '/prisons/prison_slots', prison: @prison.decorate %>
 
 Current Unbookable dates:
 <table>

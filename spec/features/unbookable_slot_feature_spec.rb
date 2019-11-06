@@ -31,10 +31,10 @@ RSpec.feature 'Unbookable slots', :js do
     expect(Prison.find(prison.id).unbookable_dates).to eq([])
   end
 
-  context 'when editing recurring slot' do
-    # before do
-    #   click_link 'Edit Recurring Slots'
-    # end
+  context 'when editing a recurring slot' do
+    before do
+      click_link 'Monday'
+    end
   end
 
   context 'when adding a slot' do
@@ -49,7 +49,7 @@ RSpec.feature 'Unbookable slots', :js do
         submit_slot_date(next_tuesday)
 
         expect(Prison.find(prison.id).unbookable_dates.map(&:date)).to eq([next_monday, next_tuesday])
-        expect(page).to have_current_path('/staff?locale=en')
+        expect(page).to have_current_path(prison_path(:en, prison))
       end
     end
 

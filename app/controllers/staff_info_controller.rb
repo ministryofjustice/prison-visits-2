@@ -7,6 +7,5 @@ class StaffInfoController < ApplicationController
   def show
     prison_ids = accessible_estates.map(&:id)
     @prisons = Prison.where(estate_id: prison_ids).order(:name)
-    @days = DayDecorator.decorate_collection(%w[mon tue wed thu fri sat sun])
   end
 end

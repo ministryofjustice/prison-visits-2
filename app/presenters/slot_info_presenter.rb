@@ -1,10 +1,7 @@
-class SlotInfoPresenter
-  def initialize(prison)
-    self.prison = prison
-  end
+# frozen_string_literal: true
 
-  def slots_for(day)
-    # contains?
+class SlotInfoPresenter
+  def self.slots_for(prison, day)
     slot_days = prison.slot_days.select { |sd| sd.day == day }.sort_by(&:start_date)
 
     active_slot_day = slot_days.detect { |sd| sd.contains?(Time.zone.today) }
@@ -16,8 +13,4 @@ class SlotInfoPresenter
       "#{data[0]}#{data[1]}-#{data[2]}#{data[3]}"
     end
   end
-
-private
-
-  attr_accessor :prison
 end

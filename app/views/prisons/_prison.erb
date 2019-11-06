@@ -1,4 +1,4 @@
 <h2 class="heading-small"><%= prison.name %></h2>
 <ul class="slot-list">
-  <%= render @days, prison: prison %>
+  <%= render DayDecorator::DECORATED_DAYS, prison: prison %>
 </ul>
