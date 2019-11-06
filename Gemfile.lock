@@ -414,7 +414,7 @@ DEPENDENCIES
   excon
   factory_bot_rails
   ffaker
-  geckodriver-helper (~> 0.20.2)
+  geckodriver-helper (< 0.21)
   govuk_elements_rails
   govuk_frontend_toolkit
   govuk_template

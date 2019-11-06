@@ -76,7 +76,8 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'ffaker'
-  gem 'geckodriver-helper', '~> 0.20.2'
+  # version 0.21 breaks horribly
+  gem 'geckodriver-helper', '< 0.21'
   gem 'launchy'
   gem 'rails-controller-testing'
   gem 'rspec-collection_matchers'
