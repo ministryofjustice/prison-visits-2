@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require 'shared_process_setup_context'
 
@@ -19,15 +21,20 @@ RSpec.feature 'Unbookable slots', :js do
     visit staff_path
     expect(page).to have_text("Below are the social visit slots")
     click_link("Update slots for Leeds")
+    # we're now on prison#show which displays unbookable slots and recurring ones
     expect(page).to have_text(next_monday.to_s(:long))
   end
 
-  context 'when removing a slot' do
-    it 'destroys' do
-      find("#unbookable_date_#{next_monday}").click
-      expect(page).to have_current_path('/staff?locale=en')
-      expect(Prison.find(prison.id).unbookable_dates).to eq([])
-    end
+  scenario 'removing a slot' do
+    find("#unbookable_date_#{next_monday}").click
+    expect(page).to have_current_path(prison_path(:en, prison))
+    expect(Prison.find(prison.id).unbookable_dates).to eq([])
+  end
+
+  context 'when editing recurring slot' do
+    # before do
+    #   click_link 'Edit Recurring Slots'
+    # end
   end
 
   context 'when adding a slot' do

@@ -5,25 +5,27 @@ class UnbookableDatesController < ApplicationController
 
   def new
     @unbookable_date = @prison.unbookable_dates.new
-    @days = DayDecorator.decorate_collection(%w[mon tue wed thu fri sat sun])
   end
 
   def create
     @unbookable_date = @prison.unbookable_dates.create(date_params)
     if @unbookable_date.persisted?
-      redirect_to staff_path
+      redirect_to prison_path(locale, @prison)
     else
-      @days = DayDecorator.decorate_collection(%w[mon tue wed thu fri sat sun])
       render 'new'
     end
   end
 
   def destroy
     @prison.unbookable_dates.detect { |d| d.date.to_s == params[:date] }.destroy
-    redirect_to staff_path
+    redirect_to prison_path(locale, @prison)
   end
 
 private
+
+  def locale
+    params[:locale]
+  end
 
   def load_prison
     @prison = Prison.find(params[:prison_id])
