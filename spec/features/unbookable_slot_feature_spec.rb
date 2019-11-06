@@ -31,26 +31,60 @@ RSpec.feature 'Unbookable slots', :js do
     expect(Prison.find(prison.id).unbookable_dates).to eq([])
   end
 
-  context 'when editing a recurring slot' do
+  context 'with recurring' do
     let(:today) { Time.zone.today }
 
-    before do
-      click_link 'Monday'
+    context 'when editing' do
+
+      before do
+        click_link 'Monday'
+      end
+
+      scenario 'stop monday visits soon' do
+        expect(page).to have_current_path edit_prison_recurring_slot_path(:en, prison, :mon)
+
+        expect {
+          fill_in 'slot_day_end_date_dd', with: today.day
+          fill_in 'slot_day_end_date_mm', with: today.month
+          fill_in 'slot_day_end_date_yyyy', with: today.year
+
+          click_button 'Save'
+        }.not_to change(SlotDay, :count)
+
+        expect(prison.slot_days.where(day: 'mon').first!.end_date).to eq(today)
+      end
     end
 
-    scenario 'stop monday visits soon' do
-      expect(page).to have_current_path edit_prison_recurring_slot_path(:en, prison, :mon)
+    context 'without an existing slot' do
+      let(:three_months_time) { today + 3.months }
 
-      expect {
-        fill_in 'slot_day_end_date_dd', with: today.day
-        fill_in 'slot_day_end_date_mm', with: today.month
-        fill_in 'slot_day_end_date_yyyy', with: today.year
+      before do
+        click_link 'Wednesday'
+      end
 
-        click_button 'Save'
-      }.not_to change(SlotDay, :count)
+      scenario 'wednesday visits for the next 3 months' do
+        expect(page).to have_current_path new_prison_recurring_slot_path(:en, prison, day: :wed)
 
-      expect(prison.slot_days.where(day: 'mon').first!.end_date).to eq(today)
+        expect {
+          fill_in 'slot_day_start_date_dd', with: today.day
+          fill_in 'slot_day_start_date_mm', with: today.month
+          fill_in 'slot_day_start_date_yyyy', with: today.year
+
+          fill_in 'slot_day_end_date_dd', with: three_months_time.day
+          fill_in 'slot_day_end_date_mm', with: three_months_time.month
+          fill_in 'slot_day_end_date_yyyy', with: three_months_time.year
+
+          click_button 'Save'
+        }.to change(SlotDay, :count).by(1)
+
+        slot_day = prison.slot_days.where(day: 'wed').first!
+
+        expect(slot_day.start_date).to eq(today)
+        expect(slot_day.end_date).to eq(three_months_time)
+      end
+
     end
+
   end
 
   context 'when adding a slot' do
