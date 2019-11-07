@@ -31,7 +31,7 @@ RSpec.feature 'Update slots for a prison', js: true do
     visit root_path
     prisons.each do |prison|
       expect(page).to have_css('h2.heading-small', text: prison.name)
-      StaffInfoController::DAY_NAMES.each do |day_name|
+      SlotDayHelper::DAY_NAMES.each do |day_name|
         expect(page).to have_css('h2 + ul.slot-list li span', text: day_name)
         day = day_name[0..2].downcase
         slot_details = (prison.recurring_slots[DayOfWeek.by_name(day)] || []).map { |r|

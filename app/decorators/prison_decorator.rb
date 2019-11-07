@@ -7,7 +7,7 @@ class PrisonDecorator < Draper::Decorator
                    map{ |slot| SlotInfoDecorator.decorate(slot) }
 
     if slots_info.any?
-      h.render slots_info
+      h.render collection: slots_info, partial: 'staff_info/slot_list_item'
     else
       h.render 'staff_info/no_visits'
     end

@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
 class SlotInfoPresenter
-  def self.slots_for(prison, day)
+  def self.raw_slots_for(prison, day)
     slot_days = prison.slot_days.select { |sd| sd.day == day }.sort_by(&:start_date)
 
-    active_slot_day = slot_days.detect { |sd| sd.contains?(Time.zone.today) }
+    slot_days.detect { |sd| sd.contains?(Time.zone.today) }
+  end
+
+  def self.slots_for(prison, day)
     # if there is no active slot day, there are no slot times
-    (active_slot_day&.slot_times || []).map do |slot_time|
+    (raw_slots_for(prison, day)&.slot_times || []).map do |slot_time|
       data = [slot_time.begin_hour, slot_time.begin_minute,
               slot_time.end_hour, slot_time.end_minute].map { |s| s < 10 ? "0#{s}" : s }
 

@@ -9,7 +9,7 @@
                         edit_prison_recurring_slot_path(params[:locale], prison, slot_day.id) %>
           <% end %>
         <% else %>
-          <%= link_to StaffInfoController::DAY_NAMES[day_counter], new_prison_recurring_slot_path(params[:locale], prison, day: day) %>
+          <%= link_to SlotDayHelper::DAY_NAMES[day_counter], new_prison_recurring_slot_path(params[:locale], prison, day: day) %>
         <% end %>
       </span>
       <ul>
