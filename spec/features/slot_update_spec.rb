@@ -37,12 +37,12 @@ RSpec.feature 'Update slots for a prison', js: true do
         slot_details = (prison.recurring_slots[DayOfWeek.by_name(day)] || []).map { |r|
           data = [r.begin_hour, r.begin_minute, r.end_hour, r.end_minute].map { |x| x < 10 ? "0#{x}" : x }
 
-          "#{data[0]}#{data[1]}-#{data[2]}#{data[3]}"
+          "#{data[0]}:#{data[1]}-#{data[2]}:#{data[3]}"
         }
 
         if slot_details&.any?
           slot_details.each do |slot_detail|
-            expect(page).to have_css('h2 + ul.slot-list li ul li', text: SlotInfoDecorator.decorate(slot_detail).formatted)
+            expect(page).to have_css('h2 + ul.slot-list li ul li', text: slot_detail)
           end
         else
           expect(page).to have_css('h2 + ul.slot-list li ul li', text: I18n.t('.staff_info.no_visits.no_visits'))

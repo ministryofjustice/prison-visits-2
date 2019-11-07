@@ -4,7 +4,7 @@ class PrisonDecorator < Draper::Decorator
   def recurring_slot_list_for(day)
     slots_info = SlotInfoPresenter.
                    slots_for(object, day).
-                   map{ |slot| SlotInfoDecorator.decorate(slot) }
+                   map{ |slot| h.colon_formatted_slot(slot) }
 
     if slots_info.any?
       h.render collection: slots_info, partial: 'staff_info/slot_list_item'
