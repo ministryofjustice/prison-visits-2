@@ -8,7 +8,7 @@ class BookedVisitsCsvExporter
   end
 
   def to_csv
-    visits = @data.values.map(&:values).flatten(1).map(&:values).flatten
+    visits = @data.values.flat_map(&:values).map(&:values).flatten
 
     CSV.generate(headers: headers, write_headers: true) do |csv|
       visits.each do |visit|
