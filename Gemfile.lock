@@ -76,7 +76,7 @@ GEM
     base32-crockford (0.1.0)
     brakeman (4.7.1)
     builder (3.2.3)
-    business (1.16.1)
+    business (1.17.0)
     byebug (11.0.1)
     capybara (3.29.0)
       addressable
@@ -206,7 +206,7 @@ GEM
       ast (~> 2.4.0)
     pg (1.1.4)
     phantomjs (2.1.1.0)
-    phonelib (0.6.38)
+    phonelib (0.6.39)
     premailer (1.11.1)
       addressable
       css_parser (>= 1.6.0)
@@ -291,7 +291,7 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.0)
-    rubocop (0.75.1)
+    rubocop (0.76.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)
@@ -414,7 +414,7 @@ DEPENDENCIES
   excon
   factory_bot_rails
   ffaker
-  geckodriver-helper (~> 0.20.2)
+  geckodriver-helper (< 0.21)
   govuk_elements_rails
   govuk_frontend_toolkit
   govuk_template
