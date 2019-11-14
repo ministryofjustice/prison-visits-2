@@ -89,8 +89,8 @@ RSpec.describe Nomis::Api do
             aliases: [],
             gender: { 'code' => 'M', 'desc' => 'Male' },
             convicted: true,
-            imprisonment_status: { "code"=>"SENT03", "desc"=>"Adult Imprisonment Without Option CJA03" },
-            iep_level: { "code"=>"ENH", "desc"=>"Enhanced" }
+            imprisonment_status: { "code" => "SENT03", "desc" => "Adult Imprisonment Without Option CJA03" },
+            iep_level: { "code" => "ENH", "desc" => "Enhanced" }
              )
       end
 
@@ -176,6 +176,7 @@ RSpec.describe Nomis::Api do
           end_date: Date.parse('2019-11-18')
         }
       }
+
       subject { super().prisoner_visiting_availability(params) }
 
       it 'returns empty list of available dates if there is no availability', vcr: { cassette_name: :prisoner_visiting_availability_noavailability } do

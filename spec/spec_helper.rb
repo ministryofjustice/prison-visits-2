@@ -80,4 +80,3 @@ VCR.configure do |config|
     interaction.request.headers['Authorization']&.first
   end
 end
-
