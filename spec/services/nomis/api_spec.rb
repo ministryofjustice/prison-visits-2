@@ -29,7 +29,7 @@ RSpec.describe Nomis::Api do
     let(:params) {
       {
         noms_id: 'G7244GR',
-        offender_dob: Date.parse('1966-11-22')
+        date_of_birth: Date.parse('1966-11-22')
       }
     }
 
