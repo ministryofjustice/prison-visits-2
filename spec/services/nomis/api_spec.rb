@@ -101,7 +101,7 @@ RSpec.describe Nomis::Api do
     end
 
     context 'when an unknown prisoner', :expect_exception, vcr: { cassette_name: :lookup_prisoner_details_unknown_prisoner } do
-      let(:noms_id) { 'A1459BE' }
+      let(:noms_id) { 'G999999' }
 
       it { expect { prisoner_details }.to raise_error(Nomis::APIError) }
     end
@@ -131,7 +131,7 @@ RSpec.describe Nomis::Api do
     end
 
     context 'with an unknown offender', :expect_exception, vcr: { cassette_name: :lookup_prisoner_location_for_unknown_prisoner } do
-      let(:noms_id) { 'A1459BE' }
+      let(:noms_id) { 'G999999' }
 
       it { expect { establishment }.to raise_error(Nomis::APIError) }
     end
