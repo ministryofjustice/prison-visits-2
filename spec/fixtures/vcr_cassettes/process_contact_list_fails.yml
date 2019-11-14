@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1966-11-22&noms_id=G7244GR
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/lookup/active_offender?date_of_birth=1964-05-03&noms_id=G4315UW
     body:
       encoding: US-ASCII
       string: ''
@@ -14,154 +14,42 @@ http_interactions:
       Authorization:
       - authorisation_header
       X-Request-Id:
-      - f7306fbf-246a-44be-b716-807d5ba8feba
+      - 3b5af8fd-d74e-4e92-818c-a0a0dfb75156
   response:
     status:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
-      Server:
-      - nginx/1.15.3
+      Expires:
+      - '0'
       Request-Context:
       - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
-      Server-Timing:
-      - total=13, db=6
-      Url-Template:
-      - "/lookup/active_offender"
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Wed, 13 Nov 2019 10:24:51 GMT
-      Content-Length:
-      - '40'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"found":true,"offender":{"id":1502035}}'
-    http_version: 
-  recorded_at: Wed, 13 Nov 2019 10:24:52 GMT
-- request:
-    method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/G7244GR/location
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - excon/0.62.0
-      Accept:
-      - application/json
-      Authorization:
-      - authorisation_header
-      X-Request-Id:
-      - f7306fbf-246a-44be-b716-807d5ba8feba
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Server:
-      - nginx/1.15.3
-      Request-Context:
-      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
-      Server-Timing:
-      - total=21, db=15
-      Url-Template:
-      - "/offenders/{noms_id}"
-      Date:
-      - Wed, 13 Nov 2019 10:24:52 GMT
-      Content-Length:
-      - '202'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":{"description":"LEI-F-3-005","levels":[{"type":"Wing","value":"F"},{"type":"Landing","value":"3"},{"type":"Cell","value":"005"}]}}'
-    http_version: 
-  recorded_at: Wed, 13 Nov 2019 10:24:52 GMT
-- request:
-    method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/G7244GR
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - excon/0.62.0
-      Accept:
-      - application/json
-      Authorization:
-      - authorisation_header
-      X-Request-Id:
-      - f7306fbf-246a-44be-b716-807d5ba8feba
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Server:
-      - nginx/1.15.3
-      Request-Context:
-      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
-      Server-Timing:
-      - total=10, db=10
-      Url-Template:
-      - "/offenders/{noms_id}"
-      Date:
-      - Wed, 13 Nov 2019 10:24:52 GMT
-      Content-Length:
-      - '558'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"given_name":"UDFSANAYE","surname":"KURTEEN","date_of_birth":"1966-11-22","aliases":[],"gender":{"code":"M","desc":"Male"},"nationalities":"sxiVsxi","religion":{"code":"RC","desc":"EDWdamUEDWdamU"},"ethnicity":{"code":"W1","desc":"White:
-        Eng./Welsh/Scot./N.Irish/British"},"csra":{"code":"HI","desc":"High"},"convicted":true,"pnc_number":"84/36220X","cro_number":"36220/84R","imprisonment_status":{"code":"SENT03","desc":"Adult
-        Imprisonment Without Option CJA03"},"iep_level":{"code":"ENH","desc":"Enhanced"},"security_category":{"code":"C","desc":"Cat
-        C"}}'
-    http_version: 
-  recorded_at: Wed, 13 Nov 2019 10:24:52 GMT
-- request:
-    method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1964-05-03&noms_id=G4315UW
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - excon/0.62.0
-      Accept:
-      - application/json
-      Authorization:
-      - authorisation_header
-      X-Request-Id:
-      - 5af0bbdf-3279-489e-8bb5-034d451de526
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Server:
-      - nginx/1.15.3
-      Request-Context:
-      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
-      Server-Timing:
-      - total=12, db=7
-      Url-Template:
-      - "/lookup/active_offender"
-      Date:
-      - Wed, 13 Nov 2019 12:44:52 GMT
+      - Thu, 14 Nov 2019 15:22:49 GMT
       Content-Length:
       - '40'
     body:
       encoding: ASCII-8BIT
       string: '{"found":true,"offender":{"id":2190892}}'
     http_version: 
-  recorded_at: Wed, 13 Nov 2019 12:44:52 GMT
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/2190892/visits/unavailability?dates=2019-11-20
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/2190892/visits/unavailability?dates=2019-11-20
     body:
       encoding: US-ASCII
       string: ''
@@ -173,34 +61,42 @@ http_interactions:
       Authorization:
       - authorisation_header
       X-Request-Id:
-      - 5af0bbdf-3279-489e-8bb5-034d451de526
+      - 3b5af8fd-d74e-4e92-818c-a0a0dfb75156
   response:
     status:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
-      Server:
-      - nginx/1.15.3
+      Expires:
+      - '0'
       Request-Context:
       - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
-      Server-Timing:
-      - total=16, db=16
-      Url-Template:
-      - "/offenders/{offender_id}/visits"
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Wed, 13 Nov 2019 12:44:52 GMT
+      - Thu, 14 Nov 2019 15:22:49 GMT
       Content-Length:
       - '96'
     body:
       encoding: ASCII-8BIT
       string: '{"2019-11-20":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
     http_version: 
-  recorded_at: Wed, 13 Nov 2019 12:44:52 GMT
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/G4315UW/location
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/G4315UW/location
     body:
       encoding: US-ASCII
       string: ''
@@ -212,24 +108,32 @@ http_interactions:
       Authorization:
       - authorisation_header
       X-Request-Id:
-      - 5af0bbdf-3279-489e-8bb5-034d451de526
+      - 3b5af8fd-d74e-4e92-818c-a0a0dfb75156
   response:
     status:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
-      Server:
-      - nginx/1.15.3
+      Expires:
+      - '0'
       Request-Context:
       - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
-      Server-Timing:
-      - total=22, db=19
-      Url-Template:
-      - "/offenders/{noms_id}"
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Wed, 13 Nov 2019 12:44:52 GMT
+      - Thu, 14 Nov 2019 15:22:49 GMT
       Content-Length:
       - '227'
     body:
@@ -237,10 +141,10 @@ http_interactions:
       string: '{"establishment":{"code":"VEI","desc":"The Verne Immigration Removal
         Centre"},"housing_location":{"description":"VEI-B1-2-75","levels":[{"type":"Wing","value":"B1"},{"type":"Landing","value":"2"},{"type":"Cell","value":"75"}]}}'
     http_version: 
-  recorded_at: Wed, 13 Nov 2019 12:44:53 GMT
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/G4315UW
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/G4315UW
     body:
       encoding: US-ASCII
       string: ''
@@ -252,24 +156,32 @@ http_interactions:
       Authorization:
       - authorisation_header
       X-Request-Id:
-      - 5af0bbdf-3279-489e-8bb5-034d451de526
+      - 3b5af8fd-d74e-4e92-818c-a0a0dfb75156
   response:
     status:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
-      Server:
-      - nginx/1.15.3
+      Expires:
+      - '0'
       Request-Context:
       - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
-      Server-Timing:
-      - total=8, db=8
-      Url-Template:
-      - "/offenders/{noms_id}"
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Wed, 13 Nov 2019 12:44:52 GMT
+      - Thu, 14 Nov 2019 15:22:49 GMT
       Content-Length:
       - '985'
     body:
@@ -279,5 +191,5 @@ http_interactions:
         Deportation Only"},"iep_level":{"code":"ENH","desc":"Enhanced"},"security_category":{"code":"C","desc":"Cat
         C"}}'
     http_version: 
-  recorded_at: Wed, 13 Nov 2019 12:44:53 GMT
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 recorded_with: VCR 5.0.0
