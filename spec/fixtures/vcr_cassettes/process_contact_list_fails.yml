@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1979-04-23&noms_id=A1475AE
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1966-11-22&noms_id=G7244GR
     body:
       encoding: US-ASCII
       string: ''
@@ -12,9 +12,9 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
-      - ''
+      - f7306fbf-246a-44be-b716-807d5ba8feba
   response:
     status:
       code: 200
@@ -22,24 +22,26 @@ http_interactions:
     headers:
       Content-Type:
       - application/json
-      Date:
-      - Thu, 05 Apr 2018 13:08:19 GMT
       Server:
-      - nginx/1.13.8
+      - nginx/1.15.3
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       Server-Timing:
-      - total=3, db=1
+      - total=13, db=6
       Url-Template:
       - "/lookup/active_offender"
+      Date:
+      - Wed, 13 Nov 2019 10:24:51 GMT
       Content-Length:
       - '40'
     body:
       encoding: ASCII-8BIT
-      string: '{"found":true,"offender":{"id":1057027}}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:08:20 GMT
+      string: '{"found":true,"offender":{"id":1502035}}'
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 10:24:52 GMT
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057027/visits/unavailability?dates=2018-04-19
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/G7244GR/location
     body:
       encoding: US-ASCII
       string: ''
@@ -49,9 +51,9 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
-      - ''
+      - f7306fbf-246a-44be-b716-807d5ba8feba
   response:
     status:
       code: 200
@@ -59,135 +61,26 @@ http_interactions:
     headers:
       Content-Type:
       - application/json
-      Date:
-      - Thu, 05 Apr 2018 13:08:20 GMT
       Server:
-      - nginx/1.13.8
+      - nginx/1.15.3
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       Server-Timing:
-      - total=59, db=59
-      Url-Template:
-      - "/offenders/{offender_id}/visits"
-      Content-Length:
-      - '96'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"2018-04-19":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:08:20 GMT
-- request:
-    method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/prison/LEI/slots?end_date=2018-04-19&start_date=2018-04-19
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - excon/0.62.0
-      Accept:
-      - application/json
-      Authorization:
-      - ''
-      X-Request-Id:
-      - ''
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 05 Apr 2018 13:08:20 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=5, db=5
-      Url-Template:
-      - "/prison/{prison_id}"
-      Content-Length:
-      - '421'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"slots":[{"time":"2018-04-19T10:00\/11:30","capacity":100,"max_groups":2,"max_adults":4,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2018-04-19T14:00\/15:00","capacity":100,"max_groups":1,"max_adults":50,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2018-04-19T15:30\/16:30","capacity":100,"max_groups":8,"max_adults":50,"groups_booked":0,"visitors_booked":0,"adults_booked":0}]}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:08:20 GMT
-- request:
-    method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057027/visits/restrictions
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - excon/0.62.0
-      Accept:
-      - application/json
-      Authorization:
-      - ''
-      X-Request-Id:
-      - ''
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 05 Apr 2018 13:08:20 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=2, db=2
-      Url-Template:
-      - "/offenders/{offender_id}/visits"
-      Content-Length:
-      - '118'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"restrictions":[{"type":{"code":"CLOSED","desc":"Closed"},"effective_date":"2016-04-03","expiry_date":"2016-04-27"}]}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:08:20 GMT
-- request:
-    method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1475AE/location
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - excon/0.62.0
-      Accept:
-      - application/json
-      Authorization:
-      - ''
-      X-Request-Id:
-      - ''
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 05 Apr 2018 13:08:20 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=54, db=52
+      - total=21, db=15
       Url-Template:
       - "/offenders/{noms_id}"
+      Date:
+      - Wed, 13 Nov 2019 10:24:52 GMT
       Content-Length:
       - '202'
     body:
       encoding: ASCII-8BIT
-      string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":{"description":"LEI-H-2-006","levels":[{"type":"Wing","value":"H"},{"type":"Landing","value":"2"},{"type":"Cell","value":"006"}]}}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:08:20 GMT
+      string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":{"description":"LEI-F-3-005","levels":[{"type":"Wing","value":"F"},{"type":"Landing","value":"3"},{"type":"Cell","value":"005"}]}}'
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 10:24:52 GMT
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1475AE
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/G7244GR
     body:
       encoding: US-ASCII
       string: ''
@@ -197,9 +90,9 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
-      - ''
+      - f7306fbf-246a-44be-b716-807d5ba8feba
   response:
     status:
       code: 200
@@ -207,20 +100,184 @@ http_interactions:
     headers:
       Content-Type:
       - application/json
-      Date:
-      - Thu, 05 Apr 2018 13:08:20 GMT
       Server:
-      - nginx/1.13.8
+      - nginx/1.15.3
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       Server-Timing:
-      - total=4, db=4
+      - total=10, db=10
       Url-Template:
       - "/offenders/{noms_id}"
+      Date:
+      - Wed, 13 Nov 2019 10:24:52 GMT
       Content-Length:
-      - '302'
+      - '558'
     body:
       encoding: ASCII-8BIT
-      string: '{"given_name":"MARGARET","surname":"LIPMAN","date_of_birth":"1979-04-23","aliases":[],"gender":{"code":"F","desc":"Female"},"convicted":true,"pnc_number":"PNC/A1475AE","imprisonment_status":{"code":"SENT03","desc":"Adult
-        Imprisonment Without Option CJA03"},"iep_level":{"code":"STD","desc":"Standard"}}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:08:20 GMT
-recorded_with: VCR 4.0.0
+      string: '{"given_name":"UDFSANAYE","surname":"KURTEEN","date_of_birth":"1966-11-22","aliases":[],"gender":{"code":"M","desc":"Male"},"nationalities":"sxiVsxi","religion":{"code":"RC","desc":"EDWdamUEDWdamU"},"ethnicity":{"code":"W1","desc":"White:
+        Eng./Welsh/Scot./N.Irish/British"},"csra":{"code":"HI","desc":"High"},"convicted":true,"pnc_number":"84/36220X","cro_number":"36220/84R","imprisonment_status":{"code":"SENT03","desc":"Adult
+        Imprisonment Without Option CJA03"},"iep_level":{"code":"ENH","desc":"Enhanced"},"security_category":{"code":"C","desc":"Cat
+        C"}}'
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 10:24:52 GMT
+- request:
+    method: get
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1964-05-03&noms_id=G4315UW
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 5af0bbdf-3279-489e-8bb5-034d451de526
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Server:
+      - nginx/1.15.3
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      Server-Timing:
+      - total=12, db=7
+      Url-Template:
+      - "/lookup/active_offender"
+      Date:
+      - Wed, 13 Nov 2019 12:44:52 GMT
+      Content-Length:
+      - '40'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"found":true,"offender":{"id":2190892}}'
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 12:44:52 GMT
+- request:
+    method: get
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/2190892/visits/unavailability?dates=2019-11-20
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 5af0bbdf-3279-489e-8bb5-034d451de526
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Server:
+      - nginx/1.15.3
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      Server-Timing:
+      - total=16, db=16
+      Url-Template:
+      - "/offenders/{offender_id}/visits"
+      Date:
+      - Wed, 13 Nov 2019 12:44:52 GMT
+      Content-Length:
+      - '96'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"2019-11-20":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 12:44:52 GMT
+- request:
+    method: get
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/G4315UW/location
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 5af0bbdf-3279-489e-8bb5-034d451de526
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Server:
+      - nginx/1.15.3
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      Server-Timing:
+      - total=22, db=19
+      Url-Template:
+      - "/offenders/{noms_id}"
+      Date:
+      - Wed, 13 Nov 2019 12:44:52 GMT
+      Content-Length:
+      - '227'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"establishment":{"code":"VEI","desc":"The Verne Immigration Removal
+        Centre"},"housing_location":{"description":"VEI-B1-2-75","levels":[{"type":"Wing","value":"B1"},{"type":"Landing","value":"2"},{"type":"Cell","value":"75"}]}}'
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 12:44:53 GMT
+- request:
+    method: get
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/G4315UW
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 5af0bbdf-3279-489e-8bb5-034d451de526
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Server:
+      - nginx/1.15.3
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      Server-Timing:
+      - total=8, db=8
+      Url-Template:
+      - "/offenders/{noms_id}"
+      Date:
+      - Wed, 13 Nov 2019 12:44:52 GMT
+      Content-Length:
+      - '985'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"given_name":"IJAREEKAS","surname":"ABBOY","date_of_birth":"1964-05-03","aliases":[{"given_name":"OSSSEFJIT","middle_names":"JESSA","surname":"CIAROR","date_of_birth":"1964-05-23"},{"given_name":"OSSSEFJIT","surname":"FRANKLONDA","date_of_birth":"1964-05-11"},{"given_name":"OSSSEFJIT","middle_names":"CAMDYN","surname":"KHALIFER","date_of_birth":"1964-05-24"},{"given_name":"UHOYNEKE","surname":"CARMIN","date_of_birth":"1964-04-20"}],"gender":{"code":"M","desc":"Male"},"nationalities":"qpTqpT","religion":{"code":"RC","desc":"EDWdamUEDWdamU"},"ethnicity":{"code":"W9","desc":"White:
+        Any other background"},"language":{"preferred_spoken":{"code":"POL","desc":"Polish"},"interpreter_required":false},"csra":{"code":"STANDARD","desc":"Standard"},"convicted":false,"pnc_number":"05/523121K","cro_number":"114078/05E","imprisonment_status":{"code":"DEPORT","desc":"Awaiting
+        Deportation Only"},"iep_level":{"code":"ENH","desc":"Enhanced"},"security_category":{"code":"C","desc":"Cat
+        C"}}'
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 12:44:53 GMT
+recorded_with: VCR 5.0.0

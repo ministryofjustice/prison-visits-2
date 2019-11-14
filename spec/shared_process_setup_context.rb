@@ -33,8 +33,8 @@ RSpec.shared_context 'with a process request setup' do
       )
     )
   }
-  let(:prisoner_number) { 'A1475AE' }
-  let(:prisoner_dob) { '1979-04-23' }
+  let(:prisoner_number) { 'G7244GR' }
+  let(:prisoner_dob) { '1966-11-22' }
 
   let(:sso_response) do
     {

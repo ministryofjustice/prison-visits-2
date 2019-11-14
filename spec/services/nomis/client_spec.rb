@@ -8,8 +8,8 @@ RSpec.describe Nomis::Client do
   let(:path) { '/lookup/active_offender' }
   let(:params) {
     {
-      noms_id: 'A1475AE',
-      date_of_birth: Date.parse('1979-04-23')
+      noms_id: 'G7244GR',
+      date_of_birth: Date.parse('1966-11-22')
     }
   }
 
@@ -107,6 +107,8 @@ RSpec.describe Nomis::Client do
   end
 
   describe 'with auth configured' do
+    # when recording VCR cassettes the 'client_token' needs to be an actual token, it then needs to be removed once
+    # the VCR has been recorded
     let(:client_token) { 'a-token' }
     let(:client_key) {
       key = ENV['NOMIS_API_KEY']

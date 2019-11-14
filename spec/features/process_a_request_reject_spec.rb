@@ -6,7 +6,7 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
 
   include_context 'with a process request setup'
 
-  let(:stubbed_date) { Date.new(2018, 4, 5) }
+  let(:stubbed_date) { Date.new(2019, 11, 13) }
 
   around do |ex|
     # Prisoner availability is date dependent both on the responses from Nomis
@@ -40,7 +40,6 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
 
     scenario 'rejecting a booking with no available slot' do
       choose 'None of the chosen times are available', visible: false
-
       fill_in 'This message will be included in the email sent to the visitor', with: 'A staff message'
 
       preview_window = window_opened_by {

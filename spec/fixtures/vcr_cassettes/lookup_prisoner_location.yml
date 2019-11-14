@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1484AE/location
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/G7244GR/location
     body:
       encoding: US-ASCII
       string: ''
@@ -12,7 +12,7 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
       - ''
   response:
@@ -22,19 +22,21 @@ http_interactions:
     headers:
       Content-Type:
       - application/json
-      Date:
-      - Thu, 05 Apr 2018 13:58:45 GMT
       Server:
-      - nginx/1.13.8
+      - nginx/1.15.3
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       Server-Timing:
-      - total=50, db=50
+      - total=20, db=20
       Url-Template:
       - "/offenders/{noms_id}"
+      Date:
+      - Wed, 13 Nov 2019 09:35:50 GMT
       Content-Length:
       - '202'
     body:
       encoding: ASCII-8BIT
-      string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":{"description":"LEI-H-1-003","levels":[{"type":"Wing","value":"H"},{"type":"Landing","value":"1"},{"type":"Cell","value":"003"}]}}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:58:45 GMT
-recorded_with: VCR 4.0.0
+      string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":{"description":"LEI-F-3-005","levels":[{"type":"Wing","value":"F"},{"type":"Landing","value":"3"},{"type":"Cell","value":"005"}]}}'
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 09:35:50 GMT
+recorded_with: VCR 5.0.0

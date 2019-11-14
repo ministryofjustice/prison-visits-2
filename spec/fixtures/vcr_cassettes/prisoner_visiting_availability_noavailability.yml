@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057307/visits/available_dates?end_date=2018-04-20&start_date=2018-04-20
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/1502035/visits/available_dates?end_date=2019-11-18&start_date=2019-11-18
     body:
       encoding: US-ASCII
       string: ''
@@ -12,7 +12,7 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
       - ''
   response:
@@ -22,19 +22,21 @@ http_interactions:
     headers:
       Content-Type:
       - application/json
-      Date:
-      - Fri, 06 Apr 2018 08:29:51 GMT
       Server:
-      - nginx/1.13.8
+      - nginx/1.15.3
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       Server-Timing:
-      - total=3, db=3
+      - total=7, db=6
       Url-Template:
       - "/offenders/{offender_id}/visits"
+      Date:
+      - Wed, 13 Nov 2019 09:35:48 GMT
       Content-Length:
       - '12'
     body:
       encoding: ASCII-8BIT
       string: '{"dates":[]}'
-    http_version:
-  recorded_at: Fri, 06 Apr 2018 08:29:51 GMT
-recorded_with: VCR 4.0.0
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 09:35:49 GMT
+recorded_with: VCR 5.0.0
