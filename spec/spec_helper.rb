@@ -74,7 +74,7 @@ VCR.configure do |config|
   # config.default_cassette_options = { :record => :new_episodes }
   config.ignore_request do |request|
     # Ignore capybara requests within feature tests
-    request.uri =~ /__identify__|session/
+    request.uri =~ /__identify__|session|oauth/
   end
   config.filter_sensitive_data('authorisation_header') do |interaction|
     interaction.request.headers['Authorization']&.first

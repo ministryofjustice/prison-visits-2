@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Nomis::Client do
-  let(:api_host) { Rails.configuration.nomis_api_host }
-  let(:client_token) { Rails.configuration.nomis_api_token }
-  let(:client_key) { Rails.configuration.nomis_api_key }
+  let(:api_host) { Rails.configuration.nomis_oauth_host }
 
-  let(:path) { '/lookup/active_offender' }
+  let(:path) { 'lookup/active_offender' }
   let(:params) {
     {
       noms_id: 'G7244GR',
@@ -13,7 +11,7 @@ RSpec.describe Nomis::Client do
     }
   }
 
-  subject { described_class.new(api_host, client_token, client_key) }
+  subject { described_class.new(api_host) }
 
   describe 'with a valid request', vcr: { cassette_name: 'client-request-id' } do
     it 'sets the X-Request-Id header if a request_id is present' do
@@ -37,7 +35,7 @@ RSpec.describe Nomis::Client do
 
     it 'raises an APIError', :expect_exception do
       expect { subject.get(path, params) }.
-        to raise_error(Nomis::APIError, 'Unexpected status 422 calling GET /nomisapi/lookup/active_offender: (invalid-JSON) <html>')
+        to raise_error(Nomis::APIError, 'Unexpected status 422 calling GET /elite2api/api/v1/lookup/active_offender: (invalid-JSON) <html>')
     end
 
     it 'sends the error to sentry' do
@@ -89,7 +87,7 @@ RSpec.describe Nomis::Client do
     it 'raises an APIError if an unexpected exception is raised containing request information', :expect_exception do
       expect {
         subject.get(path, params)
-      }.to raise_error(Nomis::APIError, 'Unexpected status 422 calling GET /nomisapi/lookup/active_offender: (invalid-JSON) <html>')
+      }.to raise_error(Nomis::APIError, 'Unexpected status 422 calling GET /elite2api/api/v1/lookup/active_offender: (invalid-JSON) <html>')
     end
 
     it 'sends the error to sentry' do
@@ -107,12 +105,9 @@ RSpec.describe Nomis::Client do
   end
 
   describe 'with auth configured' do
-    # when recording VCR cassettes the 'client_token' needs to be an actual token, it then needs to be removed once
-    # the VCR has been recorded
-    let(:client_token) { 'a-token' }
-    let(:client_key) {
-      key = ENV['NOMIS_API_KEY']
-      OpenSSL::PKey::EC.new(Base64.decode64(key))
+    let(:public_key) { Base64.decode64(ENV['NOMIS_OAUTH_PUBLIC_KEY'])}
+    let(:cert) {
+      OpenSSL::PKey::RSA.new(public_key)
     }
 
     it 'sends an Authorization header containing a JWT token', vcr: { cassette_name: 'client-auth' } do
@@ -123,7 +118,7 @@ RSpec.describe Nomis::Client do
           next unless auth_type == 'Bearer'
 
           # raises an error if token is not an ES256 JWT token
-          JWT.decode(token, client_key, true, algorithm: 'ES256')
+          JWT.decode(token, cert, true, algorithm: 'RS256')
           true
         }
     end
