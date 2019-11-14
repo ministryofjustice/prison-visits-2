@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057307/visits/contact_list
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/1502035/visits/contact_list
     body:
       encoding: US-ASCII
       string: ''
@@ -12,7 +12,7 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
       - ''
   response:
@@ -22,22 +22,44 @@ http_interactions:
     headers:
       Content-Type:
       - application/json
-      Date:
-      - Thu, 05 Apr 2018 13:58:43 GMT
       Server:
-      - nginx/1.13.8
+      - nginx/1.15.3
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       Server-Timing:
-      - total=3, db=3
+      - total=16, db=12
       Url-Template:
       - "/offenders/{offender_id}/visits"
-      Content-Length:
-      - '1141'
+      Date:
+      - Wed, 13 Nov 2019 09:35:49 GMT
     body:
       encoding: ASCII-8BIT
-      string: '{"contacts":[{"id":13432,"given_name":"SHAY","surname":"DEE","date_of_birth":"1978-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":13428,"given_name":"IRMA","middle_names":"CHRISTINE","surname":"ITSU","date_of_birth":"1975-04-03","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"WIFE","desc":"Wife"},"contact_type":{"code":"S","desc":"Social/
-        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13429,"given_name":"ISAIAH","surname":"ITSU","date_of_birth":"1981-11-16","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"BRO","desc":"Brother"},"contact_type":{"code":"S","desc":"Social/
-        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":12588,"given_name":"BILLY","surname":"JONES","date_of_birth":"1970-01-01","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
-        Family"},"approved_visitor":true,"active":true,"restrictions":[]}]}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:58:43 GMT
-recorded_with: VCR 4.0.0
+      string: '{"contacts":[{"id":2996406,"given_name":"AELAREET","surname":"ANTOINETTE","date_of_birth":"1990-09-22","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SON","desc":"Son"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3191193,"given_name":"DABUOTHDAVID","surname":"AUGEVIEVE","date_of_birth":"1986-03-09","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"NIE","desc":"Niece"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2996409,"given_name":"IRILISA","surname":"BRADERTO","date_of_birth":"1995-01-19","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SON","desc":"Son"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3191231,"given_name":"EDFMINNO","surname":"CAITLYLE","date_of_birth":"1954-03-11","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"UN","desc":"Uncle"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":3323356,"given_name":"YFHINNAIN","surname":"CARTYSSUS","date_of_birth":"1994-08-09","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":252262,"given_name":"''LSIEDE","surname":"DAIJALIE","gender":{},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":74560,"given_name":"IJAGORENA","surname":"DREW","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"PROB","desc":"Probation
+        Officer"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2459488,"given_name":"YSJANHKUMAR","surname":"EDITHA","date_of_birth":"1961-06-06","gender":{},"relationship_type":{"code":"AUNT","desc":"Aunt"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":1834701,"given_name":"UNSALNDER","surname":"ERNAN","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"UN","desc":"Uncle"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":3102890,"given_name":"IHEWLYN","surname":"ESSINE","date_of_birth":"1949-10-13","gender":{},"relationship_type":{"code":"AUNT","desc":"Aunt"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2459489,"given_name":"YSJANHKUMAR","surname":"JARRANIE","date_of_birth":"1964-09-11","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2996430,"given_name":"IRILISA","surname":"JAYMELLA","date_of_birth":"1955-07-06","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3191201,"given_name":"DABUOTHDAVID","surname":"KAYLARY","date_of_birth":"1989-05-03","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"NIE","desc":"Niece"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":1375628,"given_name":"UALICNAIN","surname":"KIMBUR","date_of_birth":"1967-11-06","gender":{},"relationship_type":{"code":"SIS","desc":"Sister"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":1203649,"given_name":"URKSIEARIE","surname":"LETWIN","date_of_birth":"1948-10-09","gender":{},"relationship_type":{"code":"FA","desc":"Father"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3191221,"given_name":"OZGNATON","surname":"LUNIVER","date_of_birth":"1964-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"COU","desc":"Cousin"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":75757,"given_name":"IJAGORENA","surname":"MALLERY","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":75757,"given_name":"IJAGORENA","surname":"MALLERY","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SIS","desc":"Sister"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":2996433,"given_name":"IRILISA","surname":"MOLLIS","date_of_birth":"1955-11-26","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":2931624,"given_name":"EETNIFUI","surname":"REMICK","date_of_birth":"1947-09-25","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"AUNT","desc":"Aunt"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":2931619,"given_name":"EETNIFUI","surname":"SALLICA","date_of_birth":"1967-11-28","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"SIS","desc":"Sister"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3101980,"given_name":"ETSINLOUISE","surname":"SANDINEE","date_of_birth":"1949-10-02","gender":{},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":1206106,"given_name":"ESNTERNS","surname":"SAVIS","date_of_birth":"1948-08-29","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FA","desc":"Father"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":2054299,"given_name":"OKBKEIGH","surname":"SHAMIR","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"OTH","desc":"Other
+        - Official"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2447707,"given_name":"EHSREECHI","surname":"SHEMEMAN","date_of_birth":"1971-10-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":3191214,"given_name":"YDFDANDER","surname":"TONINALD","date_of_birth":"1965-05-02","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"COU","desc":"Cousin"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":39896,"given_name":"AAANIO","surname":"YVYGSEE","gender":{},"relationship_type":{"code":"PROB","desc":"Probation
+        Officer"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]}]}'
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 09:35:49 GMT
+recorded_with: VCR 5.0.0
