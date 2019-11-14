@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/RUBBISH
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/RUBBISH
     body:
       encoding: US-ASCII
       string: ''
@@ -12,32 +12,36 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
       - ''
   response:
     status:
-      code: 403
-      message: Forbidden
+      code: 400
+      message: Bad Request
     headers:
       Content-Type:
-      - text/plain; charset=utf-8
-      X-Content-Type-Options:
-      - nosniff
+      - application/json
+      Server:
+      - nginx/1.15.3
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      Server-Timing:
+      - total=0
+      Url-Template:
+      - "/offenders/{noms_id}"
       Date:
-      - Fri, 06 Jul 2018 13:34:31 GMT
+      - Wed, 13 Nov 2019 09:35:48 GMT
       Content-Length:
-      - '29'
+      - '50'
     body:
       encoding: ASCII-8BIT
-      string: 'Authorization header missing
-
-'
+      string: '{"error":{"message":"Invalid or missing noms_id"}}'
     http_version: 
-  recorded_at: Fri, 06 Jul 2018 13:34:31 GMT
+  recorded_at: Wed, 13 Nov 2019 09:35:49 GMT
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/RUBBISH
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/RUBBISH
     body:
       encoding: US-ASCII
       string: ''
@@ -47,27 +51,31 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
       - ''
   response:
     status:
-      code: 403
-      message: Forbidden
+      code: 400
+      message: Bad Request
     headers:
       Content-Type:
-      - text/plain; charset=utf-8
-      X-Content-Type-Options:
-      - nosniff
+      - application/json
+      Server:
+      - nginx/1.15.3
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      Server-Timing:
+      - total=1
+      Url-Template:
+      - "/offenders/{noms_id}"
       Date:
-      - Fri, 06 Jul 2018 13:34:31 GMT
+      - Wed, 13 Nov 2019 09:35:49 GMT
       Content-Length:
-      - '29'
+      - '50'
     body:
       encoding: ASCII-8BIT
-      string: 'Authorization header missing
-
-'
+      string: '{"error":{"message":"Invalid or missing noms_id"}}'
     http_version: 
-  recorded_at: Fri, 06 Jul 2018 13:34:31 GMT
-recorded_with: VCR 4.0.0
+  recorded_at: Wed, 13 Nov 2019 09:35:50 GMT
+recorded_with: VCR 5.0.0

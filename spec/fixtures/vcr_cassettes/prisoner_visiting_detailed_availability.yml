@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057307/visits/unavailability?dates=2018-04-07,2018-04-14,2018-04-21
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/1502035/visits/unavailability?dates=2019-11-14,2019-11-15,2019-11-16
     body:
       encoding: US-ASCII
       string: ''
@@ -12,7 +12,7 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
       - ''
   response:
@@ -22,19 +22,21 @@ http_interactions:
     headers:
       Content-Type:
       - application/json
-      Date:
-      - Thu, 05 Apr 2018 13:58:44 GMT
       Server:
-      - nginx/1.13.8
+      - nginx/1.15.3
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       Server-Timing:
-      - total=49, db=49
+      - total=25, db=21
       Url-Template:
       - "/offenders/{offender_id}/visits"
+      Date:
+      - Wed, 13 Nov 2019 09:35:49 GMT
       Content-Length:
       - '286'
     body:
       encoding: ASCII-8BIT
-      string: '{"2018-04-07":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false},"2018-04-14":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false},"2018-04-21":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:58:44 GMT
-recorded_with: VCR 4.0.0
+      string: '{"2019-11-14":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false},"2019-11-15":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false},"2019-11-16":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 09:35:49 GMT
+recorded_with: VCR 5.0.0

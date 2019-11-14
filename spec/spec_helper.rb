@@ -70,6 +70,8 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.configure_rspec_metadata!
 
+  # Uncomment out the line below when recording/re-recording cassettes
+  # config.default_cassette_options = { :record => :new_episodes }
   config.ignore_request do |request|
     # Ignore capybara requests within feature tests
     request.uri =~ /__identify__|session/
