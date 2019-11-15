@@ -105,7 +105,7 @@ RSpec.describe Nomis::Client do
   end
 
   describe 'with auth configured' do
-    let(:public_key) { Base64.decode64(ENV['NOMIS_OAUTH_PUBLIC_KEY'])}
+    let(:public_key) { Base64.decode64(ENV['NOMIS_OAUTH_PUBLIC_KEY']) }
     let(:cert) {
       OpenSSL::PKey::RSA.new(public_key)
     }
