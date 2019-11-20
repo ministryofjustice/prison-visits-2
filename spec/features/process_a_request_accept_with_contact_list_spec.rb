@@ -6,25 +6,30 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
 
   include_context 'with a process request setup'
 
+  # When re-recording this test there was an issue with the visit slots for Leeds in T3.  Therefore, for this spec we are
+  # going to use The Verne as there are bookable slots at this prison.
+
   let(:prison) do
     create(:prison,
-           name: 'Leeds',
+           name: 'The Verne',
            email_address: prison_email_address,
-           estate: create(:estate, nomis_id: 'LEI')
+           estate: create(:estate, nomis_id: 'VEI')
     )
   end
-  let(:prisoner_number) { 'A1475AE' }
-  let(:prisoner_dob) { '23-04-1979' }
-  let(:visitor_details) { 'BOB LIPMAN - 01/01/1970' }
+  let(:prisoner_number) { 'G4315UW' }
+  let(:prisoner_dob) { '03-05-1964' }
+  let(:visitor_details) { 'BYNCEILOR MAURANIE - 30/09/1967' }
   let(:nomis_comments) { 'This is a comment to be added to Nomis' }
   let(:visitor) { vst.visitors.first }
 
+  # If re-recording the VCR cassettes in this spec then you will need to initially comment out this around to block,
+  # and then update the date to match when they were recorded
   around do |ex|
-    travel_to(Date.new(2018, 4, 5)) { ex.run }
+    travel_to(Date.new(2019, 11, 13)) { ex.run }
   end
 
   before do
-    vst.update!(slot_option_0: '2018-04-19T10:00/11:30')
+    vst.update!(slot_option_0: '2019-11-20T14:00/16:00')
   end
 
   scenario 'accepting a booking', vcr: { cassette_name: :process_happy_path } do
@@ -40,8 +45,6 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
     expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
 
     choose_date
-
-    sleep 20
 
     fill_in 'Reference number', with: '12345678'
     fill_in 'This message will be included in the email sent to the visitor', with: 'A staff message'
@@ -69,13 +72,13 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
     vst.reload
     visitor.reload
     expect(vst).to be_booked
-    expect(visitor.nomis_id).to eq(13_621)
+    expect(visitor.nomis_id).to eq(4_508_410)
     expect(vst.reference_no).to eq('12345678')
 
     expect(contact_email_address).
         to receive_email.
             with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
-            and_body(/Your visit to Leeds is now successfully confirmed/)
+            and_body(/Your visit to The Verne is now successfully confirmed/)
   end
 
   context 'when accepting a booking but contact list fails', vcr: { cassette_name: :process_contact_list_fails } do

@@ -8,7 +8,7 @@ RSpec.feature 'Processing a request', :js, :expect_exception do
 
   context 'when processing a request' do
     around do |ex|
-      travel_to(Date.new(2018, 4, 5)) { ex.run }
+      travel_to(Date.new(2019, 11, 13)) { ex.run }
     end
 
     scenario 'trying to double process a visit', vcr: { cassette_name: 'process_booking_happy_path_double_process_visit' } do

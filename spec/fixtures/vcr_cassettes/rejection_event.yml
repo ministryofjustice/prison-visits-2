@@ -5,7 +5,7 @@ http_interactions:
     uri: https://www.google-analytics.com/collect
     body:
       encoding: US-ASCII
-      string: v=1&uip=118.60.79.55&tid=UA-96772907-2&cid=some_client_id&ua=some+user+agent+string&t=event&ec=New+Cathrinefort+Open+Prison&ea=Rejection&el=prisoner_details_incorrect
+      string: v=1&uip=132.238.212.93&tid=UA-96772907-2&cid=some_client_id&ua=some+user+agent+string&t=event&ec=Brittniburgh+Open+Prison&ea=Rejection&el=prisoner_details_incorrect
     headers:
       User-Agent:
       - excon/0.62.0
@@ -19,7 +19,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Date:
-      - Thu, 05 Apr 2018 12:28:51 GMT
+      - Wed, 13 Nov 2019 09:35:48 GMT
       Pragma:
       - no-cache
       Expires:
@@ -37,12 +37,13 @@ http_interactions:
       Content-Length:
       - '35'
       Alt-Svc:
-      - hq=":443"; ma=2592000; quic=51303432; quic=51303431; quic=51303339; quic=51303335,quic=":443";
-        ma=2592000; v="42,41,39,35"
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
     body:
       encoding: ASCII-8BIT
       string: !binary |-
         R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
     http_version: 
-  recorded_at: Thu, 05 Apr 2018 12:28:51 GMT
-recorded_with: VCR 4.0.0
+  recorded_at: Wed, 13 Nov 2019 09:35:48 GMT
+recorded_with: VCR 5.0.0
