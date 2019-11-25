@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1971-11-11&noms_id=Z9999ZZ
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1966-11-22&noms_id=Z9999ZZ
     body:
       encoding: US-ASCII
       string: ''
@@ -12,7 +12,7 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
       - ''
   response:
@@ -22,19 +22,21 @@ http_interactions:
     headers:
       Content-Type:
       - application/json
-      Date:
-      - Thu, 05 Apr 2018 13:58:46 GMT
       Server:
-      - nginx/1.13.8
+      - nginx/1.15.3
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       Server-Timing:
-      - total=3, db=1
+      - total=5, db=4
       Url-Template:
       - "/lookup/active_offender"
+      Date:
+      - Wed, 13 Nov 2019 09:35:48 GMT
       Content-Length:
       - '15'
     body:
       encoding: ASCII-8BIT
       string: '{"found":false}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:58:46 GMT
-recorded_with: VCR 4.0.0
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 09:35:49 GMT
+recorded_with: VCR 5.0.0

@@ -28,8 +28,8 @@ RSpec.describe Nomis::Api do
   describe 'lookup_active_prisoner', vcr: { cassette_name: :lookup_active_prisoner } do
     let(:params) {
       {
-        noms_id: 'A1484AE',
-        date_of_birth: Date.parse('1971-11-11')
+        noms_id: 'G7244GR',
+        date_of_birth: Date.parse('1966-11-22')
       }
     }
 
@@ -37,8 +37,8 @@ RSpec.describe Nomis::Api do
 
     it 'returns and prisoner if the data matches' do
       expect(prisoner).to be_kind_of(Nomis::Prisoner)
-      expect(prisoner.nomis_offender_id).to eq(1_057_307)
-      expect(prisoner.noms_id).to eq('A1484AE')
+      expect(prisoner.nomis_offender_id).to eq(1_502_035)
+      expect(prisoner.noms_id).to eq('G7244GR')
     end
 
     it 'returns NullPrisoner if the data does not match', vcr: { cassette_name: :lookup_active_prisoner_nomatch } do
@@ -78,19 +78,19 @@ RSpec.describe Nomis::Api do
     let(:prisoner_details) { described_class.instance.lookup_prisoner_details(noms_id: noms_id) }
 
     context 'when found', vcr: { cassette_name: :lookup_prisoner_details } do
-      let(:noms_id) { 'A1484AE' }
+      let(:noms_id) { 'G7244GR' }
 
       it 'serialises the response into a prisonwe' do
         expect(prisoner_details).
           to have_attributes(
-            given_name: "IZZY",
-            surname: "ITSU",
-            date_of_birth: Date.parse('1971-11-11'),
+            given_name: "UDFSANAYE",
+            surname: "KURTEEN",
+            date_of_birth: Date.parse('1966-11-22'),
             aliases: [],
             gender: { 'code' => 'M', 'desc' => 'Male' },
             convicted: true,
-            imprisonment_status: { 'code' => 'UNK_SENT', 'desc' => 'Unknown Sentenced' },
-            iep_level: { 'code' => 'STD', 'desc' => 'Standard' }
+            imprisonment_status: { "code" => "SENT03", "desc" => "Adult Imprisonment Without Option CJA03" },
+            iep_level: { "code" => "ENH", "desc" => "Enhanced" }
              )
       end
 
@@ -101,7 +101,7 @@ RSpec.describe Nomis::Api do
     end
 
     context 'when an unknown prisoner', :expect_exception, vcr: { cassette_name: :lookup_prisoner_details_unknown_prisoner } do
-      let(:noms_id) { 'A1459BE' }
+      let(:noms_id) { 'G999999' }
 
       it { expect { prisoner_details }.to raise_error(Nomis::APIError) }
     end
@@ -117,19 +117,21 @@ RSpec.describe Nomis::Api do
     let(:establishment) { subject.lookup_prisoner_location(noms_id: noms_id) }
 
     context 'when found', vcr: { cassette_name: :lookup_prisoner_location } do
-      let(:noms_id) { 'A1484AE' }
+      let(:noms_id) { 'G7244GR' }
 
       it 'returns a Location' do
         expect(establishment).to be_valid
+        expect(establishment.code).to eq 'LEI'
       end
 
       it 'has the internal location' do
         expect(establishment).to have_attributes(housing_location: instance_of(Nomis::HousingLocation))
+        expect(establishment.housing_location.description).to eq 'LEI-F-3-005'
       end
     end
 
     context 'with an unknown offender', :expect_exception, vcr: { cassette_name: :lookup_prisoner_location_for_unknown_prisoner } do
-      let(:noms_id) { 'A1459BE' }
+      let(:noms_id) { 'G999999' }
 
       it { expect { establishment }.to raise_error(Nomis::APIError) }
     end
@@ -144,31 +146,38 @@ RSpec.describe Nomis::Api do
   describe 'prisoner_visiting_availability', vcr: { cassette_name: :prisoner_visiting_availability } do
     let(:params) {
       {
-        offender_id: 1_057_307,
-        start_date: Date.parse('2018-04-05'),
-        end_date: Date.parse('2018-04-29')
+        offender_id: 1_502_035,
+        start_date: '2019-11-14',
+        end_date: '2019-11-24'
       }
     }
 
-    subject { super().prisoner_visiting_availability(params) }
+    context 'when the prisoner has availability' do
+      subject { super().prisoner_visiting_availability(params) }
 
-    it 'returns availability info containing a list of available dates' do
-      expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
-      expect(subject.dates.first).to eq(Date.parse('2018-04-05'))
-    end
+      it 'returns availability info containing a list of available dates' do
+        expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
+        expect(subject.dates.first).to eq(Date.parse('2019-11-14'))
+      end
 
-    it 'logs the number of available dates' do
-      expect(subject.dates.count).to eq(PVB::Instrumentation.custom_log_items[:prisoner_visiting_availability])
+      it 'logs the number of available dates' do
+        expect(subject.dates.count).to eq(PVB::Instrumentation.custom_log_items[:prisoner_visiting_availability])
+      end
     end
 
     context 'when the prisoner has no availability' do
+      # This spec has to have a hard coded date as an offender MUST be unavailable on a specific date in order for this to
+      # pass.  Unfortunately we are unable to use 'travel_to' and go to the past as the JWT token skew is too large.  If this
+      # test needs updating a new date will need to be added and updated as part of the VCR being recorded
       let(:params) {
         {
-          offender_id: 1_057_307,
-          start_date: Date.parse('2018-04-20'),
-          end_date: Date.parse('2018-04-20')
+          offender_id: 1_502_035,
+          start_date: Date.parse('2019-11-18'),
+          end_date: Date.parse('2019-11-18')
         }
       }
+
+      subject { super().prisoner_visiting_availability(params) }
 
       it 'returns empty list of available dates if there is no availability', vcr: { cassette_name: :prisoner_visiting_availability_noavailability } do
         expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
@@ -178,12 +187,12 @@ RSpec.describe Nomis::Api do
   end
 
   describe 'prisoner_visiting_detailed_availability', vcr: { cassette_name: :prisoner_visiting_detailed_availability } do
-    let(:slot1) { ConcreteSlot.new(2018, 4, 07, 10, 0, 11, 0) }
-    let(:slot2) { ConcreteSlot.new(2018, 4, 14, 10, 0, 11, 0) }
-    let(:slot3) { ConcreteSlot.new(2018, 4, 21, 10, 0, 11, 0) }
+    let(:slot1) { ConcreteSlot.new(2019, 11, 14, 10, 0, 11, 0) }
+    let(:slot2) { ConcreteSlot.new(2019, 11, 15, 10, 0, 11, 0) }
+    let(:slot3) { ConcreteSlot.new(2019, 11, 16, 10, 0, 11, 0) }
     let(:params) do
       {
-        offender_id: 1_057_307,
+        offender_id: 1_502_035,
         slots: [slot1, slot2, slot3]
       }
     end
@@ -203,18 +212,20 @@ RSpec.describe Nomis::Api do
   end
 
   describe 'fetch_bookable_slots', vcr: { cassette_name: :fetch_bookable_slots } do
+    # There have been issues with the visit slots for Leeds in T3 and therefore we have switched to use The Verne
+    # for this spec
     let(:params) {
       {
-        prison: instance_double(Prison, nomis_id: 'LEI'),
-        start_date: Date.parse('2018-04-05'),
-        end_date: Date.parse('2018-04-29')
+        prison: instance_double(Prison, nomis_id: 'VEI'),
+        start_date: '2019-11-14',
+        end_date: '2019-11-24'
       }
     }
 
     subject { super().fetch_bookable_slots(params) }
 
     it 'returns an array of slots' do
-      expect(subject.first.time.iso8601).to eq('2018-04-05T10:00/11:30')
+      expect(subject.first.time.iso8601).to eq("2019-11-14T14:00/16:00")
     end
 
     it 'logs the number of available slots' do
@@ -225,38 +236,32 @@ RSpec.describe Nomis::Api do
   describe 'fetch_contact_list', vcr: { cassette_name: :fetch_contact_list } do
     let(:params) do
       {
-        offender_id: 1_057_307
+        offender_id: 1_502_035
       }
     end
 
     let(:first_contact) do
       Nomis::Contact.new(
-        id: 12_588,
-        given_name: 'BILLY',
-        surname: 'JONES',
-        date_of_birth: '1970-01-01',
+        id: 2_996_406,
+        given_name: 'AELAREET',
+        surname: 'ANTOINETTE',
+        date_of_birth: '1990-09-22',
         gender: { code: "M", desc: "Male" },
         active: true,
         approved_visitor: true,
-        relationship_type: { code: "FRI", desc: "Friend" },
+        relationship_type: { code: "SON", desc: "Son" },
         contact_type: {
           code: "S",
           desc: "Social/ Family"
         },
-        restrictions: [
-          {
-            effective_date: '2017-03-02',
-            expiry_date: '2017-04-02',
-            type: { code: "BAN", desc: "Banned" }
-          }
-        ]
+        restrictions: []
       )
     end
 
     subject { super().fetch_contact_list(params) }
 
     it 'returns an array of contacts' do
-      expect(subject).to have_exactly(4).items
+      expect(subject).to have_exactly(27).items
     end
 
     it 'parses the contacts' do

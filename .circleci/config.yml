@@ -13,11 +13,9 @@ references:
     docker:
       - image: circleci/ruby:2.6.3-node-browsers
         environment:
-          RAILS_ENV: test
           PGHOST: 127.0.0.1
           PGUSER: ubuntu
           RACK_ENV: test
-          RAILS_ENV: test
       - image: circleci/postgres:9.4.12-alpine
         environment:
           POSTGRES_USER: ubuntu
@@ -123,16 +121,6 @@ jobs:
             fi
             [[ -L /usr/local/bin/firefox ]] || sudo ln -sf /opt/firefox/firefox /usr/bin/firefox
       - run:
-          name: install geckodriver
-          command: |
-            if [[ $(command -v geckodriver) ]] && [[ $(geckodriver --version) =~ $GECKODRIVER_VERSION  ]]; then
-              echo "Skiping, geckodriver $GECKODRIVER_VERSION already install."
-            else
-              wget https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
-              sudo tar -zxvf geckodriver-v0.19.0-linux64.tar.gz -C /opt
-            fi
-            [[ -L /usr/local/bin/geckodriver ]] || sudo ln -sf /opt/geckodriver /usr/local/bin/geckodriver
-      - run:
           name: Setup Code Climate test-reporter
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -147,7 +135,6 @@ jobs:
       - store_test_results:
           path: coverage
       - store_artifacts:
-          path: screenshots
           path: coverage
 
   security-static-analysis:

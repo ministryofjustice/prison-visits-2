@@ -13,8 +13,8 @@ RSpec.feature 'Processing a request - NOMIS API disabled', :js, :expect_exceptio
            estate: create(:estate, nomis_id: 'LEI')
           )
   end
-  let(:prisoner_number) { 'A1475AE' }
-  let(:prisoner_dob) { '23-04-1979' }
+  let(:prisoner_number) { 'G7244GR' }
+  let(:prisoner_dob) { '1966-11-22' }
   let(:visitor) { vst.visitors.first }
 
   around do |ex|

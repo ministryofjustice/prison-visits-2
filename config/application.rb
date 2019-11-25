@@ -71,6 +71,9 @@ module PrisonVisits
 
     config.pvb_team_email = ENV['PVB_TEAM_EMAIL']
 
+    # If you want to record new/re-record VCR cassettes then you need to update the line
+    # below to 'config.call', once completed you can return it to the value below so that
+    # the VCR cassettes will be used during testing
     feature_flag_value = proc do |&config|
       Rails.env.test? ? nil : config.call
     end
