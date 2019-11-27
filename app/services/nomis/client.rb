@@ -47,7 +47,6 @@ module Nomis
 
     # rubocop:disable Metrics/MethodLength
     def request(method, route, params, idempotent:, options: {})
-      # For cleanliness, strip initial / if supplied
       path = "/elite2api/api/v1/#{route}"
 
       api_method = "#{method.to_s.upcase} #{path}"

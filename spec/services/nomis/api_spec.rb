@@ -261,7 +261,7 @@ RSpec.describe Nomis::Api do
     subject { super().fetch_contact_list(params) }
 
     it 'returns an array of contacts' do
-      expect(subject).to have_exactly(26).items
+      expect(subject).to have_exactly(27).items
     end
 
     it 'parses the contacts' do
