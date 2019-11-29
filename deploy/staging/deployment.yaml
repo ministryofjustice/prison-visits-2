@@ -12,8 +12,9 @@ spec:
   minReadySeconds: 10
   strategy:
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 2
+      maxSurge: 100%
+      maxUnavailable: 20%
+    type: RollingUpdate
   selector:
     matchLabels:
       app: prison-visits-booking-staff
@@ -26,12 +27,13 @@ spec:
         - name: prison-visits-booking-staff
           image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
           imagePullPolicy: Always
-          command: ['sh', '-c', "bundle exec rails db:migrate && bundle exec rails db:seed && bundle exec puma -p 3000 -C ./config/puma_prod.rb --pidfile /tmp/server.pid"]
+          command: ['sh', '-c', "bundle exec puma -p 3000 -C ./config/puma_prod.rb --pidfile /tmp/server.pid"]
           ports:
             - containerPort: 3000
           livenessProbe:
+            failureThreshold: 6
             httpGet:
-              path: /healthcheck
+              path: /ping
               port: 3000
             initialDelaySeconds: 10
             periodSeconds: 60
@@ -46,6 +48,13 @@ spec:
                 name: shared-environment
             - secretRef:
                 name: secrets
+          resources:
+            limits:
+              memory: "2Gi"
+              cpu: "150m"
+            requests:
+              memory: "1Gi"
+              cpu: "30m"
         - name: prison-visits-booking-staff-sidekiq
           image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
           imagePullPolicy: Always

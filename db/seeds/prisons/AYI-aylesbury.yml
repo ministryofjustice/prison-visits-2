@@ -5,7 +5,7 @@ address: |-
   Bierton Road
 postcode: HP20 1EH
 email_address: socialvisits.aylesbury@hmps.gsi.gov.uk
-phone_no: 01296 444099
+phone_no: 01296 442668
 enabled: true
 private: false
 closed: false
@@ -22,20 +22,10 @@ recurring:
   sun:
   - 1430-1630
 unbookable:
-- 2019-02-07
-- 2019-02-25
-- 2019-02-26
-- 2019-03-07
-- 2019-03-04
-- 2019-03-05
-- 2019-05-02
-- 2019-06-06
-- 2019-07-04
-- 2019-08-01
-- 2019-09-05
 - 2019-10-03
 - 2019-11-07
 - 2019-12-05
+- 2019-12-26
 anomalous:
   2019-05-07:
   - 1415-1615

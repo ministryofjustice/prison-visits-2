@@ -38,8 +38,6 @@ module PrisonVisits
       config.asset_host = ENV['ASSET_HOST']
     end
 
-    config.kubernetes_deployment = ENV['KUBERNETES_DEPLOYMENT']
-
     config.remove_load_test_data = ENV['REMOVE_LOAD_TEST_DATA']
 
     config.sentry_dsn = ENV['SENTRY_DSN']
@@ -73,44 +71,47 @@ module PrisonVisits
 
     config.pvb_team_email = ENV['PVB_TEAM_EMAIL']
 
+    # If you want to record new/re-record VCR cassettes then you need to update the line
+    # below to 'config.call', once completed you can return it to the value below so that
+    # the VCR cassettes will be used during testing
     feature_flag_value = proc do |&config|
       Rails.env.test? ? nil : config.call
     end
 
-    config.nomis_api_host = feature_flag_value.call do
+    config.nomis_api_host = feature_flag_value.call {
       ENV.fetch('NOMIS_API_HOST', nil)
-    end
+    }
 
-    config.nomis_api_token = feature_flag_value.call do
+    config.nomis_api_token = feature_flag_value.call {
       ENV.fetch('NOMIS_API_TOKEN', nil)
-    end
+    }
 
-    config.nomis_api_key = feature_flag_value.call do
+    config.nomis_api_key = feature_flag_value.call {
       read_key.call(ENV.fetch('NOMIS_API_KEY', ''))
-    end
+    }
 
-    config.nomis_staff_slot_availability_enabled = feature_flag_value.call do
+    config.nomis_staff_slot_availability_enabled = feature_flag_value.call {
       ENV['NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED']&.downcase == 'true'
-    end
+    }
 
-    config.staff_prisons_with_slot_availability = feature_flag_value.call do
+    config.staff_prisons_with_slot_availability = feature_flag_value.call {
       ENV['STAFF_PRISONS_WITH_SLOT_AVAILABILITY']&.split(',')&.map(&:strip) || []
-    end
+    }
 
-    config.public_prisons_with_slot_availability = feature_flag_value.call do
+    config.public_prisons_with_slot_availability = feature_flag_value.call {
       ENV['PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY']&.split(',')&.map(&:strip) || []
-    end
+    }
 
-    config.zendesk_token = feature_flag_value.call do
+    config.zendesk_token = feature_flag_value.call {
       ENV.fetch('ZENDESK_TOKEN', nil)
-    end
+    }
 
-    config.zendesk_url = feature_flag_value.call do
+    config.zendesk_url = feature_flag_value.call {
       ENV.fetch('ZENDESK_URL', nil)
-    end
+    }
 
-    config.zendesk_username = feature_flag_value.call do
+    config.zendesk_username = feature_flag_value.call {
       ENV.fetch('ZENDESK_USERNAME', nil)
-    end
+    }
   end
 end

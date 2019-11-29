@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :contact, class: Nomis::Contact do
+  factory :contact, class: 'Nomis::Contact' do
     skip_create
     id                do rand(99_999) end
     given_name        do FFaker::Name.first_name end

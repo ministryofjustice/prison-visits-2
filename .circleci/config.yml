@@ -13,11 +13,9 @@ references:
     docker:
       - image: circleci/ruby:2.6.3-node-browsers
         environment:
-          RAILS_ENV: test
           PGHOST: 127.0.0.1
           PGUSER: ubuntu
           RACK_ENV: test
-          RAILS_ENV: test
       - image: circleci/postgres:9.4.12-alpine
         environment:
           POSTGRES_USER: ubuntu
@@ -83,6 +81,10 @@ references:
         ${login}
         docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
         docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
+        if [ "${CIRCLE_BRANCH}" == "master" ]; then
+          docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
+          docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
+        fi
       environment:
         <<: *github_team_name_slug
         REPONAME: prison-visits-staff
@@ -105,7 +107,7 @@ jobs:
             - prison-visits-staff-v3-
       - run: bundle check --path vendor/bundle || bundle install --path vendor/bundle
       - save_cache:
-          key: prison-visits-2-v3-{{ checksum "Gemfile.lock" }}
+          key: prison-visits-staff-v3-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run:
@@ -118,16 +120,6 @@ jobs:
               sudo tar xjf "firefox-$FIREFOX_VERSION.tar.bz2" -C /opt
             fi
             [[ -L /usr/local/bin/firefox ]] || sudo ln -sf /opt/firefox/firefox /usr/bin/firefox
-      - run:
-          name: install geckodriver
-          command: |
-            if [[ $(command -v geckodriver) ]] && [[ $(geckodriver --version) =~ $GECKODRIVER_VERSION  ]]; then
-              echo "Skiping, geckodriver $GECKODRIVER_VERSION already install."
-            else
-              wget https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
-              sudo tar -zxvf geckodriver-v0.19.0-linux64.tar.gz -C /opt
-            fi
-            [[ -L /usr/local/bin/geckodriver ]] || sudo ln -sf /opt/geckodriver /usr/local/bin/geckodriver
       - run:
           name: Setup Code Climate test-reporter
           command: |
@@ -143,7 +135,6 @@ jobs:
       - store_test_results:
           path: coverage
       - store_artifacts:
-          path: screenshots
           path: coverage
 
   security-static-analysis:
@@ -198,9 +189,38 @@ jobs:
       - deploy:
           name: Deploy to staging
           command: |
+            kubectl delete job pvb-staff-migration --ignore-not-found
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/deployment.yaml
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/cronjob.yaml
+            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/migration-job.yaml
+            kubectl annotate deployments/prison-visits-booking-staff kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
             kubectl apply --record=false -f ./deploy/staging
+          environment:
+            <<: *github_team_name_slug
+
+  deploy_production:
+    <<: *deploy_container_config
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Kubectl deployment production setup
+          command: |
+            setup-kube-auth
+            kubectl config use-context production
+      - *install_gpg
+      - *configure_gpg
+      - *decrypt_secrets
+      - deploy:
+          name: Deploy to production
+          command: |
+            kubectl delete job pvb-staff-migration-prod --ignore-not-found
+            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/cronjob.yaml
+            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/deployment.yaml
+            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/migration-job.yaml
+            kubectl annotate deployments/prison-visits-booking-staff kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
+            kubectl apply --record=false -f ./deploy/production
           environment:
             <<: *github_team_name_slug
 
@@ -222,6 +242,19 @@ workflows:
      - deploy_staging:
          requires:
            - build_and_push_docker_image
+         filters:
+           branches:
+             only: master
+     - deploy_production_approval:
+         type: approval
+         requires:
+           - deploy_staging
+         filters:
+           branches:
+             only: master
+     - deploy_production:
+         requires:
+           - deploy_production_approval
          filters:
            branches:
              only: master
