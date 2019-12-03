@@ -5,34 +5,46 @@ require 'base64'
 module Nomis
   module Oauth
     class Token
+      attr_writer :expires_in,
+                  :internal_user,
+                  :token_type,
+                  :auth_source,
+                  :jti
+
       attr_accessor :access_token,
-                    :token_type,
-                    :expires_in,
-                    :scope,
-                    :internal_user,
-                    :jti,
-                    :auth_source
+                    :scope
+
+      def initialize(fields = {})
+        # Allow this object to be reconstituted from a hash, we can't use
+        # from_json as the one passed in will already be using the snake case
+        # names whereas from_json is expecting the elite2 camelcase names.
+        fields.each { |k, v| instance_variable_set("@#{k}", v) } if fields.present?
+      end
 
       def expired?
-        # Try and decode the access_token knowing that it will
-        # raise ExpiredSignature if the token itself has
-        # expired
-        JWT.decode(
+        x = payload.fetch('exp')
+        expiry_seconds = Time.zone.at(x) - Time.zone.now
+        # consider token expired if it has less than 10 seconds to go
+        expiry_seconds < 10
+      rescue JWT::ExpiredSignature => e
+        Raven.capture_exception(e)
+        true
+      end
+
+      def payload
+        @payload ||= JWT.decode(
           access_token,
           OpenSSL::PKey::RSA.new(public_key),
           true,
           algorithm: 'RS256'
-        )
-        false
-      rescue JWT::ExpiredSignature
-        true
+        ).first
       end
 
       def self.from_json(payload)
         Token.new.tap { |obj|
           obj.access_token = payload['access_token']
           obj.token_type = payload['token_type']
-          obj.expires_in = payload['expires_in']
+          obj.expires_in = payload.fetch('expires_in')
           obj.scope = payload['scope']
           obj.internal_user = payload['internal_user']
           obj.jti = payload['jti']

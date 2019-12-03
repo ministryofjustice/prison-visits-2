@@ -14,7 +14,7 @@ module Nomis
         token
       end
 
-    private
+      private
 
       def set_new_token
         @token = fetch_token
@@ -25,7 +25,12 @@ module Nomis
       end
 
       def fetch_token
-        Nomis::Oauth::Api.fetch_new_auth_token
+        host = Rails.configuration.nomis_oauth_host
+        oauth_client = Nomis::Oauth::Client.new(host)
+
+        route = '/auth/oauth/token?grant_type=client_credentials'
+        response = oauth_client.post(route)
+        Token.from_json(response)
       end
     end
   end

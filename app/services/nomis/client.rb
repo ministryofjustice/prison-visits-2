@@ -100,14 +100,6 @@ module Nomis
       "Bearer #{token.access_token}"
     end
 
-    def auth_token(client_token, client_key)
-      payload = {
-        iat: Time.now.to_i,
-        token: client_token
-      }
-      JWT.encode(payload, client_key, 'ES256')
-    end
-
     def excon_fingerprint
       %w[nomis excon]
     end
