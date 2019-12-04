@@ -99,7 +99,7 @@ module Nomis
       token = Nomis::Oauth::TokenService.valid_token
       "Bearer #{token.access_token}"
     end
-
+    
     def excon_fingerprint
       %w[nomis excon]
     end
