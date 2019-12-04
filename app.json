@@ -1,8 +1,8 @@
 {
   "name": "prison-visits-2",
   "scripts": {
-    "postdeploy": "bundle exec rake db:migrate db:seed heroku:post_deploy pvb:populate:visits pvb:metrics:refresh",
-    "pr-predestroy": "bundle exec rake heroku:pr_destroy"
+    "postdeploy": "bundle exec rails db:migrate db:seed heroku:post_deploy pvb:populate:visits pvb:metrics:refresh",
+    "pr-predestroy": "bundle exec rails heroku:pr_destroy"
   },
   "env": {
     "SSO_REVIEW_PARENT_ID": {
