@@ -1,7 +1,7 @@
-task(:stats).prerequisites.unshift task('pvb:statsetup')
+task(stats: :environment).prerequisites.unshift task('pvb:statsetup': :environment)
 
 namespace :pvb do
-  task :statsetup do
+  task statsetup: :environment do
     require 'rails/code_statistics'
 
     ignored = %w[
