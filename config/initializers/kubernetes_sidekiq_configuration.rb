@@ -3,7 +3,6 @@ if Rails.env.production?
     config.redis = {
       url: Rails.configuration.redis_url.to_s,
       network_timeout: 5,
-      password: Rails.configuration.redis_password
     }
   end
 
@@ -11,7 +10,6 @@ if Rails.env.production?
     config.redis = {
       url: Rails.configuration.redis_url.to_s,
       network_timeout: 5,
-      password: Rails.configuration.redis_password
     }
   end
 end
