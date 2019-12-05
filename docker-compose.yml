@@ -10,7 +10,7 @@ services:
       RAILS_ENV:         production
       RACK_ENV:          production
       DATABASE_URL:      postgres://postgres@db:5432/
-      REDIS_URL:         redis://redis:6379/0
+      REDIS_URL:         $REDIS_URL
       STAFF_SERVICE_URL: $STAFF_SERVICE_URL
       MOJSSO_ID:         $MOJSSO_ID
       NOMIS_API_HOST:    $NOMIS_API_HOST
