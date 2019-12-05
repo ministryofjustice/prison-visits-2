@@ -33,7 +33,7 @@ Layout/AccessModifierIndentation:
 
 # Just indent parameters by two spaces. It's less volatile if methods change,
 # and there's less busy work lining things up.
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
 
 Style/AsciiComments:
@@ -251,7 +251,7 @@ Layout/ExtraSpacing:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   Enabled: false
 
 Layout/MultilineArrayBraceLayout:
