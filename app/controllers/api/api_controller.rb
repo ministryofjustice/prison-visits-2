@@ -1,3 +1,5 @@
+# rubocop:disable Rails/ApplicationController
+
 module Api
   ParameterError = Class.new(StandardError)
 
@@ -57,3 +59,4 @@ module Api
     end
   end
 end
+# rubocop:enable Rails/ApplicationController
