@@ -13,7 +13,7 @@ RSpec.describe Nomis::Oauth::TokenService do
     expired_encoded_token = generate_jwt_token(exp: Time.current.to_i - 3600)
     expired_token = Nomis::Oauth::Token.new(access_token: expired_encoded_token)
 
-    expect_any_instance_of(Nomis::Oauth::TokenService).
+    expect_any_instance_of(described_class).
         to receive(:fetch_token).
             and_return(expired_token, unexpired_token)
 
