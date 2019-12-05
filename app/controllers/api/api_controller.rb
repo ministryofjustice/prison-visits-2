@@ -1,7 +1,9 @@
+# rubocop:disable Rails/ApplicationController
+
 module Api
   ParameterError = Class.new(StandardError)
 
-  class ApiController < ApplicationController
+  class ApiController < ActionController::Base
     API_SLA = 2.seconds
 
     skip_before_action :verify_authenticity_token, raise: false
@@ -57,3 +59,4 @@ module Api
     end
   end
 end
+# rubocop:enable Rails/ApplicationController
