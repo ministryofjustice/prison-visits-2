@@ -1,7 +1,7 @@
 module Api
   ParameterError = Class.new(StandardError)
 
-  class ApiController < ActionController::Base
+  class ApiController < ApplicationController
     API_SLA = 2.seconds
 
     skip_before_action :verify_authenticity_token, raise: false

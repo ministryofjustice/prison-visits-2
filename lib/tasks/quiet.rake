@@ -1,7 +1,7 @@
 if defined? RSpec
   require 'rspec/core/rake_task'
 
-  task(:spec).clear
+  task(spec: :environment).clear
   RSpec::Core::RakeTask.new(:spec) do |t|
     t.verbose = false
   end
