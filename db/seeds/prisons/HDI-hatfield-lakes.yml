@@ -10,8 +10,6 @@ enabled: true
 private: false
 closed: false
 recurring:
-  thu:
-  - 1400-1600
   fri:
   - 1400-1600
   sat:
@@ -22,3 +20,8 @@ unbookable:
 - 2017-12-25
 - 2017-12-26
 - 2018-01-01
+anomalous:
+  2010-01-02:
+    - 1400-1600
+  2020-01-09:
+    - 1400-1600
