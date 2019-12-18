@@ -411,7 +411,7 @@ DEPENDENCIES
   dotenv-rails
   draper
   email_address_validation!
-  excon
+  excon (= 0.62.0)
   factory_bot_rails
   ffaker
   geckodriver-helper (< 0.21)
