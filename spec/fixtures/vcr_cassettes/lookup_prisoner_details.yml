@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1484AE
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/G7244GR
     body:
       encoding: US-ASCII
       string: ''
@@ -12,7 +12,7 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
       - ''
   response:
@@ -20,22 +20,34 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
+      Expires:
+      - '0'
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Thu, 05 Apr 2018 13:58:46 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=4, db=4
-      Url-Template:
-      - "/offenders/{noms_id}"
+      - Thu, 14 Nov 2019 15:23:32 GMT
       Content-Length:
-      - '274'
+      - '558'
     body:
       encoding: ASCII-8BIT
-      string: '{"given_name":"IZZY","surname":"ITSU","date_of_birth":"1971-11-11","aliases":[],"gender":{"code":"M","desc":"Male"},"convicted":true,"pnc_number":"PNC/A1484AE","imprisonment_status":{"code":"UNK_SENT","desc":"Unknown
-        Sentenced"},"iep_level":{"code":"STD","desc":"Standard"}}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:58:46 GMT
-recorded_with: VCR 4.0.0
+      string: '{"given_name":"UDFSANAYE","surname":"KURTEEN","date_of_birth":"1966-11-22","aliases":[],"gender":{"code":"M","desc":"Male"},"nationalities":"sxiVsxi","religion":{"code":"RC","desc":"EDWdamUEDWdamU"},"ethnicity":{"code":"W1","desc":"White:
+        Eng./Welsh/Scot./N.Irish/British"},"csra":{"code":"HI","desc":"High"},"convicted":true,"pnc_number":"84/36220X","cro_number":"36220/84R","imprisonment_status":{"code":"SENT03","desc":"Adult
+        Imprisonment Without Option CJA03"},"iep_level":{"code":"ENH","desc":"Enhanced"},"security_category":{"code":"C","desc":"Cat
+        C"}}'
+    http_version: 
+  recorded_at: Thu, 14 Nov 2019 15:23:33 GMT
+recorded_with: VCR 5.0.0

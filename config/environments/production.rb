@@ -23,19 +23,15 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
   config.active_record.dump_schema_after_migration = false
 
+  config.lograge.enabled = true
   config.lograge.formatter = Lograge::Formatters::Logstash.new
-  config.lograge.enabled = !ENV['HEROKU_APP_NAME']
+  config.lograge.logger = ActiveSupport::Logger.new(STDOUT)
 
   config.lograge.custom_options = lambda do |event|
     event.payload[:custom_log_items]
   end
 
-  config.lograge.logger = ActiveSupport::Logger.new(
-    "#{Rails.root}/log/logstash_#{Rails.env}.json"
-  )
-
   config.redis_url = ENV['REDIS_URL']
-  config.redis_password = ENV['REDIS_PASSWORD']
 
   config.active_job.queue_adapter = :sidekiq
 

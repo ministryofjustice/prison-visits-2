@@ -14,4 +14,4 @@ namespace :factory_bot do
   end
 end
 
-task(:default).prerequisites.unshift task('factory_bot:lint')
+task(default: :environment).prerequisites.unshift task('factory_bot:lint': :environment)

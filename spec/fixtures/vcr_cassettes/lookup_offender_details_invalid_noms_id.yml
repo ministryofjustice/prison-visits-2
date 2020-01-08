@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/RUBBISH
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/RUBBISH
     body:
       encoding: US-ASCII
       string: ''
@@ -12,32 +12,48 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
       - ''
   response:
     status:
-      code: 403
-      message: Forbidden
+      code: 400
+      message: " "
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
-      - text/plain; charset=utf-8
+      - application/json
+      Expires:
+      - '0'
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       X-Content-Type-Options:
       - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Fri, 06 Jul 2018 13:34:31 GMT
+      - Thu, 14 Nov 2019 15:23:32 GMT
+      Connection:
+      - close
       Content-Length:
-      - '29'
+      - '290'
     body:
       encoding: ASCII-8BIT
-      string: 'Authorization header missing
-
-'
+      string: '{"status":400,"userMessage":"getOffender.nomsId: Value contains invalid
+        characters: must match ''[a-zA-Z][0-9]{4}[a-zA-Z]{2}''","developerMessage":"javax.validation.ConstraintViolationException:
+        getOffender.nomsId: Value contains invalid characters: must match ''[a-zA-Z][0-9]{4}[a-zA-Z]{2}''"}'
     http_version: 
-  recorded_at: Fri, 06 Jul 2018 13:34:31 GMT
+  recorded_at: Thu, 14 Nov 2019 15:23:33 GMT
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/RUBBISH
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/RUBBISH
     body:
       encoding: US-ASCII
       string: ''
@@ -47,27 +63,43 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
       - ''
   response:
     status:
-      code: 403
-      message: Forbidden
+      code: 400
+      message: " "
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
-      - text/plain; charset=utf-8
+      - application/json
+      Expires:
+      - '0'
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       X-Content-Type-Options:
       - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Fri, 06 Jul 2018 13:34:31 GMT
+      - Thu, 14 Nov 2019 15:23:32 GMT
+      Connection:
+      - close
       Content-Length:
-      - '29'
+      - '290'
     body:
       encoding: ASCII-8BIT
-      string: 'Authorization header missing
-
-'
+      string: '{"status":400,"userMessage":"getOffender.nomsId: Value contains invalid
+        characters: must match ''[a-zA-Z][0-9]{4}[a-zA-Z]{2}''","developerMessage":"javax.validation.ConstraintViolationException:
+        getOffender.nomsId: Value contains invalid characters: must match ''[a-zA-Z][0-9]{4}[a-zA-Z]{2}''"}'
     http_version: 
-  recorded_at: Fri, 06 Jul 2018 13:34:31 GMT
-recorded_with: VCR 4.0.0
+  recorded_at: Thu, 14 Nov 2019 15:23:33 GMT
+recorded_with: VCR 5.0.0

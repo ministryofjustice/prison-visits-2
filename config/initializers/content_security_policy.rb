@@ -2,7 +2,9 @@ Rails.application.config.content_security_policy do |config|
   config.default_src :self
   config.font_src :self, :data
   config.img_src :self, :data, 'www.google-analytics.com'
+
   config.style_src :self, 'www.gstatic.com'
+
   config.connect_src :self
   config.script_src :self,
                     'www.google-analytics.com',

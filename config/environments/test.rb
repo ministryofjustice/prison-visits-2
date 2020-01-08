@@ -19,7 +19,7 @@ Rails.application.configure do
   # Always make testing calls to the NOMIS dev server, and hard-code
   # credentials to avoid the possibility of leaking sensitive credentials or
   # returned data into VCR test output files.
-  config.nomis_api_host = 'https://noms-api-dev.dsd.io'
+  config.nomis_api_host = 'https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi'
 
   EmailAddressValidation.configure do |config|
     config.mx_checker = MxChecker::Dummy.new

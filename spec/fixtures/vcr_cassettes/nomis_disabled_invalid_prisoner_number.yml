@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1970-01-01&noms_id=ZZZZZZZ
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/lookup/active_offender?date_of_birth=1970-01-01&noms_id=ZZZZZZZ
     body:
       encoding: US-ASCII
       string: ''
@@ -14,32 +14,46 @@ http_interactions:
       Authorization:
       - authorisation_header
       X-Request-Id:
-      - eee052a8-ea08-4cd9-8097-19b22f0f8732
+      - 1329d28f-1be3-4b53-b1d4-490036409a15
   response:
     status:
       code: 400
-      message: Bad Request
+      message: " "
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
+      Expires:
+      - '0'
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Tue, 01 May 2018 11:24:41 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=0
-      Url-Template:
-      - "/lookup/active_offender"
+      - Thu, 14 Nov 2019 15:23:32 GMT
+      Connection:
+      - close
       Content-Length:
-      - '54'
+      - '302'
     body:
       encoding: ASCII-8BIT
-      string: '{"error":{"message":"Invalid or missing NOMS Number"}}'
+      string: '{"status":400,"userMessage":"getActiveOffender.nomsId: Value contains
+        invalid characters: must match ''[a-zA-Z][0-9]{4}[a-zA-Z]{2}''","developerMessage":"javax.validation.ConstraintViolationException:
+        getActiveOffender.nomsId: Value contains invalid characters: must match ''[a-zA-Z][0-9]{4}[a-zA-Z]{2}''"}'
     http_version: 
-  recorded_at: Tue, 01 May 2018 11:24:41 GMT
+  recorded_at: Thu, 14 Nov 2019 15:23:32 GMT
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1970-01-01&noms_id=ZZZZZZZ
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/lookup/active_offender?date_of_birth=1970-01-01&noms_id=ZZZZZZZ
     body:
       encoding: US-ASCII
       string: ''
@@ -51,27 +65,41 @@ http_interactions:
       Authorization:
       - authorisation_header
       X-Request-Id:
-      - eee052a8-ea08-4cd9-8097-19b22f0f8732
+      - 1329d28f-1be3-4b53-b1d4-490036409a15
   response:
     status:
       code: 400
-      message: Bad Request
+      message: " "
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
+      Expires:
+      - '0'
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Tue, 01 May 2018 11:24:41 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=0
-      Url-Template:
-      - "/lookup/active_offender"
+      - Thu, 14 Nov 2019 15:23:32 GMT
+      Connection:
+      - close
       Content-Length:
-      - '54'
+      - '302'
     body:
       encoding: ASCII-8BIT
-      string: '{"error":{"message":"Invalid or missing NOMS Number"}}'
+      string: '{"status":400,"userMessage":"getActiveOffender.nomsId: Value contains
+        invalid characters: must match ''[a-zA-Z][0-9]{4}[a-zA-Z]{2}''","developerMessage":"javax.validation.ConstraintViolationException:
+        getActiveOffender.nomsId: Value contains invalid characters: must match ''[a-zA-Z][0-9]{4}[a-zA-Z]{2}''"}'
     http_version: 
-  recorded_at: Tue, 01 May 2018 11:24:41 GMT
-recorded_with: VCR 4.0.0
+  recorded_at: Thu, 14 Nov 2019 15:23:32 GMT
+recorded_with: VCR 5.0.0

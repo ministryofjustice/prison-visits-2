@@ -1,4 +1,4 @@
-class AdminMailer < ActionMailer::Base
+class AdminMailer < ApplicationMailer
   include LogoAttachment
 
   layout 'email'

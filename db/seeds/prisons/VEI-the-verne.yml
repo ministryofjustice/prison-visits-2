@@ -1,0 +1,33 @@
+---
+name: The Verne
+nomis_id: VEI
+address: |-
+  Verne Common Road
+  Portland
+  Dorset
+postcode: DT5 1EQ
+email_address: socialvisits.theverne@hmps.gsi.gov.uk
+phone_no: 01305 825014 - Monday to Friday, 2:00pm to 4:00pm. Closed weekends and public holidays.
+enabled: true
+private: false
+lead_days: 4
+closed: false
+recurring:
+  tue:
+  - 1400-1600
+  wed:
+  - 1400-1600
+  sat:
+  - 1400-1600
+  sun:
+  - 1400-1600
+unbookable:
+  - 2019-12-17
+  - 2019-12-25
+  - 2020-01-01
+anomalous:
+  2019-12-23:
+  - 1400-1600
+  2019-12-30:
+  - 1400-1600
+

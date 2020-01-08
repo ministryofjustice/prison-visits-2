@@ -1,4 +1,4 @@
-class VisitorMailer < ActionMailer::Base
+class VisitorMailer < ApplicationMailer
   include LogoAttachment
   include DateHelper
   add_template_helper DateHelper

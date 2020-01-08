@@ -3,9 +3,10 @@ kind: ConfigMap
 metadata:
   name: shared-environment
 data:
-  KUBERNETES_DEPLOYMENT: "true"
   MOJSSO_URL: "https://signon.service.justice.gov.uk"
   NOMIS_API_HOST: "https://gateway.preprod.nomis-api.service.hmpps.dsd.io/"
+  NOMIS_OAUTH_PUBLIC_KEY: "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUFqVGR1dEtLZVBSQmVBY2tnUzZwLwpsVitkNVlxYjNxMTh6NlV3aDFNTll4cDNIcVlwWVYrOTJ5RnhlMlE1UjdLVmpJeUt5MmZHQWpzV3krZVNOMjNUCkZURVVUeXdHdnc0SkJrRGRoaUUvKy80SjR2TWFHMzBYN29GdE9JUWIwaENFQVlWM3o4emc1WVd2OGZlRkVnWGcKSndKNUJzaStTQ29qM0hkOURFeTVkZlpNOWMvcGg5c3lhaktTVmJBbytEK1dqeFBYdThSd1FKT0FTSDQ1RXByVAozSTMvTXZZcmNWb3ZDeFFWclFjcGMzYmNFNGx6WHRZUlcvcElqR1FaQSsvVmIzV2V2bkdRYmJ3UzR6enl5M2s4CkRCZ0pzQVJlVDI1eHp0ckptRGlZZXBHYkVKVHV0alRqR2NVOG1qUjRWZ3gwdHdqMk9DMzBES3dXbGlrMzhXTWwKTlFJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCgo="
+  NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED: "true"
   PUBLIC_SERVICE_URL: "https://prison-visits-public-staging.apps.live-1.cloud-platform.service.justice.gov.uk"
   PVB_TEAM_EMAIL: "pvb-team@digital.justice.gov.uk"
   RACK_ENV: "production"

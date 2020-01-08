@@ -28,10 +28,8 @@ module Nomis
     # - we end up opening more sockets than necessary (25 vs 5). If we only have
     #   5 puma threads we only need 5 sockets
     # - the cache has a memory leak when there are short lived threads.
-    def initialize(host, client_token, client_key)
+    def initialize(host)
       @host = host
-      @client_token = client_token
-      @client_key = client_key
 
       @connection = Excon.new(
         host, persistent: true,
@@ -49,9 +47,8 @@ module Nomis
 
     # rubocop:disable Metrics/MethodLength
     def request(method, route, params, idempotent:, options: {})
-      # For cleanliness, strip initial / if supplied
-      route = route.sub(%r{^\/}, '')
-      path = "/nomisapi/#{route}"
+      path = "/elite2api/api/v1/#{route}"
+
       api_method = "#{method.to_s.upcase} #{path}"
 
       options.merge!({
@@ -67,7 +64,6 @@ module Nomis
           'X-Request-Id' => RequestStore.store[:request_id]
         }
       }.deep_merge(params_options(method, params)))
-
       response = @connection.request(options)
 
       JSON.parse(response.body)
@@ -99,19 +95,9 @@ module Nomis
       { query: params }
     end
 
-    def auth_header
-      return unless @client_token && @client_key
-
-      token = auth_token(@client_token, @client_key)
-      "Bearer #{token}"
-    end
-
-    def auth_token(client_token, client_key)
-      payload = {
-        iat: Time.now.to_i,
-        token: client_token
-      }
-      JWT.encode(payload, client_key, 'ES256')
+    def  auth_header
+      token = Nomis::Oauth::TokenService.valid_token
+      "Bearer #{token.access_token}"
     end
 
     def excon_fingerprint
