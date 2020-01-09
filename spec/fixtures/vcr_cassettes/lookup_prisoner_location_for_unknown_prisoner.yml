@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1459BE/location
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/G999999/location
     body:
       encoding: US-ASCII
       string: ''
@@ -12,34 +12,49 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
       - ''
   response:
     status:
-      code: 404
-      message: Not Found
+      code: 400
+      message: " "
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
+      Expires:
+      - '0'
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Thu, 05 Apr 2018 13:58:45 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=3
-      Url-Template:
-      - "/offenders/{noms_id}/location"
+      - Thu, 14 Nov 2019 15:23:32 GMT
+      Connection:
+      - close
       Content-Length:
-      - '42'
+      - '316'
     body:
       encoding: ASCII-8BIT
-      string: '{"error":{"message":"Offender Not Found"}}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:58:45 GMT
+      string: '{"status":400,"userMessage":"getLatestBookingLocation.nomsId: Value
+        contains invalid characters: must match ''[a-zA-Z][0-9]{4}[a-zA-Z]{2}''","developerMessage":"javax.validation.ConstraintViolationException:
+        getLatestBookingLocation.nomsId: Value contains invalid characters: must match
+        ''[a-zA-Z][0-9]{4}[a-zA-Z]{2}''"}'
+    http_version: 
+  recorded_at: Thu, 14 Nov 2019 15:23:33 GMT
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1459BE/location
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/G999999/location
     body:
       encoding: US-ASCII
       string: ''
@@ -49,29 +64,44 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
       - ''
   response:
     status:
-      code: 404
-      message: Not Found
+      code: 400
+      message: " "
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
+      Expires:
+      - '0'
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Thu, 05 Apr 2018 13:58:45 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=3
-      Url-Template:
-      - "/offenders/{noms_id}/location"
+      - Thu, 14 Nov 2019 15:23:32 GMT
+      Connection:
+      - close
       Content-Length:
-      - '42'
+      - '316'
     body:
       encoding: ASCII-8BIT
-      string: '{"error":{"message":"Offender Not Found"}}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:58:45 GMT
-recorded_with: VCR 4.0.0
+      string: '{"status":400,"userMessage":"getLatestBookingLocation.nomsId: Value
+        contains invalid characters: must match ''[a-zA-Z][0-9]{4}[a-zA-Z]{2}''","developerMessage":"javax.validation.ConstraintViolationException:
+        getLatestBookingLocation.nomsId: Value contains invalid characters: must match
+        ''[a-zA-Z][0-9]{4}[a-zA-Z]{2}''"}'
+    http_version: 
+  recorded_at: Thu, 14 Nov 2019 15:23:33 GMT
+recorded_with: VCR 5.0.0

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1979-04-23&noms_id=A1475AE
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/lookup/active_offender?date_of_birth=1966-11-22&noms_id=G7244GR
     body:
       encoding: US-ASCII
       string: ''
@@ -12,34 +12,44 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
-      - ''
+      - fa732e89-608a-449b-b673-2177a9a0cbeb
   response:
     status:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
+      Expires:
+      - '0'
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Thu, 05 Apr 2018 13:16:10 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=3, db=2
-      Url-Template:
-      - "/lookup/active_offender"
+      - Thu, 14 Nov 2019 15:22:56 GMT
       Content-Length:
       - '40'
     body:
       encoding: ASCII-8BIT
-      string: '{"found":true,"offender":{"id":1057027}}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:16:10 GMT
+      string: '{"found":true,"offender":{"id":1502035}}'
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057027/visits/unavailability?dates=2018-04-16
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/1502035/visits/unavailability?dates=2019-11-19
     body:
       encoding: US-ASCII
       string: ''
@@ -49,34 +59,44 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
-      - ''
+      - fa732e89-608a-449b-b673-2177a9a0cbeb
   response:
     status:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
+      Expires:
+      - '0'
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Thu, 05 Apr 2018 13:16:10 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=51, db=50
-      Url-Template:
-      - "/offenders/{offender_id}/visits"
+      - Thu, 14 Nov 2019 15:22:56 GMT
       Content-Length:
       - '96'
     body:
       encoding: ASCII-8BIT
-      string: '{"2018-04-16":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:16:10 GMT
+      string: '{"2019-11-19":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/prison/LEI/slots?end_date=2018-04-16&start_date=2018-04-16
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/prison/LEI/slots?end_date=2019-11-19&start_date=2019-11-19
     body:
       encoding: US-ASCII
       string: ''
@@ -86,34 +106,44 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
-      - ''
+      - fa732e89-608a-449b-b673-2177a9a0cbeb
   response:
     status:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
+      Expires:
+      - '0'
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Thu, 05 Apr 2018 13:16:11 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=11, db=9
-      Url-Template:
-      - "/prison/{prison_id}"
+      - Thu, 14 Nov 2019 15:22:56 GMT
       Content-Length:
-      - '422'
+      - '12'
     body:
       encoding: ASCII-8BIT
-      string: '{"slots":[{"time":"2018-04-16T10:00\/11:30","capacity":100,"max_groups":20,"max_adults":50,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2018-04-16T15:30\/16:30","capacity":100,"max_groups":8,"max_adults":50,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2018-04-16T17:00\/18:00","capacity":100,"max_groups":3,"max_adults":6,"groups_booked":0,"visitors_booked":0,"adults_booked":0}]}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:16:11 GMT
+      string: '{"slots":[]}'
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057027/visits/restrictions
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/G7244GR/location
     body:
       encoding: US-ASCII
       string: ''
@@ -123,71 +153,44 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
-      - ''
+      - fa732e89-608a-449b-b673-2177a9a0cbeb
   response:
     status:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
+      Expires:
+      - '0'
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Thu, 05 Apr 2018 13:16:11 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=3, db=2
-      Url-Template:
-      - "/offenders/{offender_id}/visits"
-      Content-Length:
-      - '118'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"restrictions":[{"type":{"code":"CLOSED","desc":"Closed"},"effective_date":"2016-04-03","expiry_date":"2016-04-27"}]}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:16:11 GMT
-- request:
-    method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1475AE/location
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      User-Agent:
-      - excon/0.62.0
-      Accept:
-      - application/json
-      Authorization:
-      - ''
-      X-Request-Id:
-      - ''
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 05 Apr 2018 13:16:11 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=46, db=46
-      Url-Template:
-      - "/offenders/{noms_id}"
+      - Thu, 14 Nov 2019 15:22:56 GMT
       Content-Length:
       - '202'
     body:
       encoding: ASCII-8BIT
-      string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":{"description":"LEI-H-2-006","levels":[{"type":"Wing","value":"H"},{"type":"Landing","value":"2"},{"type":"Cell","value":"006"}]}}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:16:11 GMT
+      string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":{"description":"LEI-F-3-005","levels":[{"type":"Wing","value":"F"},{"type":"Landing","value":"3"},{"type":"Cell","value":"005"}]}}'
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/A1475AE
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/G7244GR
     body:
       encoding: US-ASCII
       string: ''
@@ -197,35 +200,47 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
-      - ''
+      - fa732e89-608a-449b-b673-2177a9a0cbeb
   response:
     status:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
+      Expires:
+      - '0'
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Thu, 05 Apr 2018 13:16:11 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=5, db=3
-      Url-Template:
-      - "/offenders/{noms_id}"
+      - Thu, 14 Nov 2019 15:22:56 GMT
       Content-Length:
-      - '302'
+      - '558'
     body:
       encoding: ASCII-8BIT
-      string: '{"given_name":"MARGARET","surname":"LIPMAN","date_of_birth":"1979-04-23","aliases":[],"gender":{"code":"F","desc":"Female"},"convicted":true,"pnc_number":"PNC/A1475AE","imprisonment_status":{"code":"SENT03","desc":"Adult
-        Imprisonment Without Option CJA03"},"iep_level":{"code":"STD","desc":"Standard"}}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:16:11 GMT
+      string: '{"given_name":"UDFSANAYE","surname":"KURTEEN","date_of_birth":"1966-11-22","aliases":[],"gender":{"code":"M","desc":"Male"},"nationalities":"sxiVsxi","religion":{"code":"RC","desc":"EDWdamUEDWdamU"},"ethnicity":{"code":"W1","desc":"White:
+        Eng./Welsh/Scot./N.Irish/British"},"csra":{"code":"HI","desc":"High"},"convicted":true,"pnc_number":"84/36220X","cro_number":"36220/84R","imprisonment_status":{"code":"SENT03","desc":"Adult
+        Imprisonment Without Option CJA03"},"iep_level":{"code":"ENH","desc":"Enhanced"},"security_category":{"code":"C","desc":"Cat
+        C"}}'
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057027/visits/contact_list
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/1502035/visits/contact_list
     body:
       encoding: US-ASCII
       string: ''
@@ -235,39 +250,71 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
-      - ''
+      - fa732e89-608a-449b-b673-2177a9a0cbeb
   response:
     status:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
+      Expires:
+      - '0'
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Thu, 05 Apr 2018 13:16:11 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=4, db=3
-      Url-Template:
-      - "/offenders/{offender_id}/visits"
+      - Thu, 14 Nov 2019 15:22:57 GMT
       Content-Length:
-      - '531'
+      - '6986'
     body:
       encoding: ASCII-8BIT
-      string: '{"contacts":[{"id":13621,"given_name":"BOB","surname":"LIPMAN","date_of_birth":"1970-01-01","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"HUS","desc":"Husband"},"contact_type":{"code":"S","desc":"Social/
-        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":13668,"given_name":"e","surname":"e","gender":{},"relationship_type":{"code":"COM","desc":"Case
-        Admin (Offender Management Unit)"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":false,"active":true,"restrictions":[]}]}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:16:11 GMT
+      string: '{"contacts":[{"id":2996406,"given_name":"AELAREET","surname":"ANTOINETTE","date_of_birth":"1990-09-22","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SON","desc":"Son"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3191193,"given_name":"DABUOTHDAVID","surname":"AUGEVIEVE","date_of_birth":"1986-03-09","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"NIE","desc":"Niece"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2996409,"given_name":"IRILISA","surname":"BRADERTO","date_of_birth":"1995-01-19","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SON","desc":"Son"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3191231,"given_name":"EDFMINNO","surname":"CAITLYLE","date_of_birth":"1954-03-11","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"UN","desc":"Uncle"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":3323356,"given_name":"YFHINNAIN","surname":"CARTYSSUS","date_of_birth":"1994-08-09","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":252262,"given_name":"''LSIEDE","surname":"DAIJALIE","relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":74560,"given_name":"IJAGORENA","surname":"DREW","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"PROB","desc":"Probation
+        Officer"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2459488,"given_name":"YSJANHKUMAR","surname":"EDITHA","date_of_birth":"1961-06-06","relationship_type":{"code":"AUNT","desc":"Aunt"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":1834701,"given_name":"UNSALNDER","surname":"ERNAN","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"UN","desc":"Uncle"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":3102890,"given_name":"IHEWLYN","surname":"ESSINE","date_of_birth":"1949-10-13","relationship_type":{"code":"AUNT","desc":"Aunt"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2459489,"given_name":"YSJANHKUMAR","surname":"JARRANIE","date_of_birth":"1964-09-11","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2996430,"given_name":"IRILISA","surname":"JAYMELLA","date_of_birth":"1955-07-06","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3191201,"given_name":"DABUOTHDAVID","surname":"KAYLARY","date_of_birth":"1989-05-03","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"NIE","desc":"Niece"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":1375628,"given_name":"UALICNAIN","surname":"KIMBUR","date_of_birth":"1967-11-06","relationship_type":{"code":"SIS","desc":"Sister"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":1203649,"given_name":"URKSIEARIE","surname":"LETWIN","date_of_birth":"1948-10-09","relationship_type":{"code":"FA","desc":"Father"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3191221,"given_name":"OZGNATON","surname":"LUNIVER","date_of_birth":"1964-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"COU","desc":"Cousin"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":75757,"given_name":"IJAGORENA","surname":"MALLERY","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2996433,"given_name":"IRILISA","surname":"MOLLIS","date_of_birth":"1955-11-26","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":2931624,"given_name":"EETNIFUI","surname":"REMICK","date_of_birth":"1947-09-25","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"AUNT","desc":"Aunt"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":2931619,"given_name":"EETNIFUI","surname":"SALLICA","date_of_birth":"1967-11-28","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"SIS","desc":"Sister"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3101980,"given_name":"ETSINLOUISE","surname":"SANDINEE","date_of_birth":"1949-10-02","relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":1206106,"given_name":"ESNTERNS","surname":"SAVIS","date_of_birth":"1948-08-29","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FA","desc":"Father"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":2054299,"given_name":"OKBKEIGH","surname":"SHAMIR","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"OTH","desc":"Other
+        - Official"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2447707,"given_name":"EHSREECHI","surname":"SHEMEMAN","date_of_birth":"1971-10-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":3191214,"given_name":"YDFDANDER","surname":"TONINALD","date_of_birth":"1965-05-02","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"COU","desc":"Cousin"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":39896,"given_name":"AAANIO","surname":"YVYGSEE","relationship_type":{"code":"PROB","desc":"Probation
+        Officer"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]}]}'
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: post
     uri: https://www.google-analytics.com/collect
     body:
       encoding: US-ASCII
-      string: v=1&uip=127.0.0.1&tid=UA-105607968-1&cid=GA1.4.668520474.1522934170&ua=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10.13%3B+rv%3A59.0%29+Gecko%2F20100101+Firefox%2F59.0&t=timing&utc=Leeds&utv=rejected&utt=2000&utl=b6a10b62-64ce-4df7-abec-1028451bd307&cd1=slot_unavailable-visitor_not_on_list
+      string: v=1&uip=127.0.0.1&tid&cid=CQJZGV5pVztjgk7EjwSjyQ%3D%3D&ua=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10.13%3B+rv%3A70.0%29+Gecko%2F20100101+Firefox%2F70.0&t=timing&utc=Leeds&utv=rejected&utt=0&utl=49095178-bc9a-4c8d-904a-19a925c536dd&cd1=slot_unavailable-visitor_not_on_list
     headers:
       User-Agent:
       - excon/0.62.0
@@ -281,7 +328,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Date:
-      - Thu, 05 Apr 2018 13:16:12 GMT
+      - Thu, 14 Nov 2019 15:22:59 GMT
       Pragma:
       - no-cache
       Expires:
@@ -299,20 +346,21 @@ http_interactions:
       Content-Length:
       - '35'
       Alt-Svc:
-      - hq=":443"; ma=2592000; quic=51303432; quic=51303431; quic=51303339; quic=51303335,quic=":443";
-        ma=2592000; v="42,41,39,35"
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
     body:
       encoding: ASCII-8BIT
       string: !binary |-
         R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:16:12 GMT
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: post
     uri: https://www.google-analytics.com/collect
     body:
       encoding: US-ASCII
-      string: v=1&uip=127.0.0.1&tid=UA-105607968-1&cid=GA1.4.668520474.1522934170&ua=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10.13%3B+rv%3A59.0%29+Gecko%2F20100101+Firefox%2F59.0&t=event&ec=Leeds&ea=Rejection&el=slot_unavailable-visitor_not_on_list
+      string: v=1&uip=127.0.0.1&tid&cid=PUqCqu%2Fg%2BQpgAa1UaxJeLQ%3D%3D&ua=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10.13%3B+rv%3A70.0%29+Gecko%2F20100101+Firefox%2F70.0&t=event&ec=Leeds&ea=Rejection&el=slot_unavailable-visitor_not_on_list
     headers:
       User-Agent:
       - excon/0.62.0
@@ -326,7 +374,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Date:
-      - Thu, 05 Apr 2018 13:16:12 GMT
+      - Thu, 14 Nov 2019 15:22:59 GMT
       Pragma:
       - no-cache
       Expires:
@@ -344,12 +392,13 @@ http_interactions:
       Content-Length:
       - '35'
       Alt-Svc:
-      - hq=":443"; ma=2592000; quic=51303432; quic=51303431; quic=51303339; quic=51303335,quic=":443";
-        ma=2592000; v="42,41,39,35"
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
     body:
       encoding: ASCII-8BIT
       string: !binary |-
         R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 13:16:12 GMT
-recorded_with: VCR 4.0.0
+    http_version: 
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+recorded_with: VCR 5.0.0

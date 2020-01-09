@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://noms-api-dev.dsd.io/nomisapi/offenders/1057307/visits/available_dates?end_date=2018-04-29&start_date=2018-04-05
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/1502035/visits/available_dates?end_date=2019-11-25&start_date=2019-11-15
     body:
       encoding: US-ASCII
       string: ''
@@ -12,7 +12,7 @@ http_interactions:
       Accept:
       - application/json
       Authorization:
-      - ''
+      - authorisation_header
       X-Request-Id:
       - ''
   response:
@@ -20,21 +20,31 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
+      Expires:
+      - '0'
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Thu, 05 Apr 2018 14:01:24 GMT
-      Server:
-      - nginx/1.13.8
-      Server-Timing:
-      - total=5, db=4
-      Url-Template:
-      - "/offenders/{offender_id}/visits"
+      - Thu, 14 Nov 2019 15:23:33 GMT
       Content-Length:
-      - '336'
+      - '141'
     body:
       encoding: ASCII-8BIT
-      string: '{"dates":["2018-04-05","2018-04-06","2018-04-07","2018-04-08","2018-04-09","2018-04-10","2018-04-11","2018-04-12","2018-04-13","2018-04-14","2018-04-15","2018-04-16","2018-04-17","2018-04-18","2018-04-19","2018-04-20","2018-04-21","2018-04-22","2018-04-23","2018-04-24","2018-04-25","2018-04-26","2018-04-27","2018-04-28","2018-04-29"]}'
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 14:01:24 GMT
-recorded_with: VCR 4.0.0
+      string: '{"dates":["2019-11-15","2019-11-16","2019-11-17","2019-11-19","2019-11-20","2019-11-21","2019-11-22","2019-11-23","2019-11-24","2019-11-25"]}'
+    http_version: 
+  recorded_at: Thu, 14 Nov 2019 15:23:34 GMT
+recorded_with: VCR 5.0.0

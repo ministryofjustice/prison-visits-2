@@ -5,7 +5,7 @@ http_interactions:
     uri: https://www.google-analytics.com/collect
     body:
       encoding: US-ASCII
-      string: v=1&uip=66.116.34.151&tid=UA-96772907-2&cid=some_client_id&ua=some+user+agent+string&t=event&ec=Roxannberg+Open+Prison&ea=Manual+rejection&el=slot_unavailable
+      string: v=1&uip=190.90.78.135&tid=UA-96772907-2&cid=some_client_id&ua=some+user+agent+string&t=event&ec=Lemuelborough+Open+Prison&ea=Manual+rejection&el=slot_unavailable
     headers:
       User-Agent:
       - excon/0.62.0
@@ -19,7 +19,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Date:
-      - Thu, 05 Apr 2018 12:28:51 GMT
+      - Thu, 14 Nov 2019 15:23:44 GMT
       Pragma:
       - no-cache
       Expires:
@@ -37,12 +37,13 @@ http_interactions:
       Content-Length:
       - '35'
       Alt-Svc:
-      - hq=":443"; ma=2592000; quic=51303432; quic=51303431; quic=51303339; quic=51303335,quic=":443";
-        ma=2592000; v="42,41,39,35"
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
     body:
       encoding: ASCII-8BIT
       string: !binary |-
         R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
-    http_version:
-  recorded_at: Thu, 05 Apr 2018 12:28:51 GMT
-recorded_with: VCR 4.0.0
+    http_version: 
+  recorded_at: Thu, 14 Nov 2019 15:23:44 GMT
+recorded_with: VCR 5.0.0

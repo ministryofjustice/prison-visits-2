@@ -6,11 +6,20 @@ gem 'rails', '~> 5.2'
 gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'
 gem 'business'
-gem 'draper'
 gem 'connection_pool'
-gem 'excon'
-gem 'jbuilder'
+gem 'draper'
+gem 'excon', '0.62.0' # There is an issue with subsequent versions where there is a
+# regression, which isn't fixed in any future versions. An agreement has been reached
+# within the team to pin Excon to the current version, with the plan to
+# replace it with another HTTP client, probably Faraday.
+gem 'govuk_elements_rails'
+gem 'govuk_frontend_toolkit'
+gem 'govuk_template'
 gem 'jaro_winkler'
+gem 'jbuilder'
+gem 'jquery-rails', '~> 4.3.5'
+gem 'jquery-ui-rails', '~> 5.0.5'
+gem 'jwt'
 gem 'kramdown'
 gem 'lograge'
 gem 'logstash-event'
@@ -21,21 +30,16 @@ gem 'phonelib'
 gem 'premailer-rails'
 gem 'prometheus_exporter'
 gem 'puma'
+gem 'rake'
 gem 'request_store'
 gem 'sassc-rails'
 gem 'scenic'
-gem 'govuk_template'
-gem 'govuk_frontend_toolkit'
-gem 'govuk_elements_rails'
-gem 'jquery-rails', '~> 4.3.5'
-gem 'jquery-ui-rails', '~> 5.0.5'
-gem 'jwt'
-gem 'rake'
-
 gem 'sentry-raven', require: 'raven'
 gem 'sidekiq'
 gem 'state_machines-activerecord'
 gem 'string_scrubber'
+gem 'turnout'
+gem 'rack-canonical-host'
 
 # Newer versions break ie8 js
 gem 'uglifier', '~> 2.7.2'
@@ -47,13 +51,14 @@ gem 'pvb-instrumentation',
 # gem 'pvb-instrumentation', path: '../pvb-instrumentation'
 gem 'email_address_validation',
     git: 'https://github.com/ministryofjustice/email_address_validation',
-    ref: '5ed2fb93f8d5bc419f03cecb408c688c5bd9fd74'
+    ref: 'd37caea140a11bbb82f6abfbecef39fef78b97e8'
 
 group :development, :test do
+  gem 'awesome_print', require: 'ap'
   gem 'brakeman'
   gem 'byebug'
   gem 'jasmine-jquery-rails'
-  gem 'jasmine', '~> 3.4'
+  gem 'jasmine', '~> 3.5'
   gem 'parser'
   gem 'pry-byebug'
   gem 'pry-rails'
@@ -62,21 +67,26 @@ group :development, :test do
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
-  gem 'awesome_print', require: 'ap'
   gem 'spring-commands-rspec'
+end
+
+group :development do
+  gem 'dotenv-rails'
 end
 
 group :test do
   gem 'capybara'
+  gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'ffaker'
+  # version 0.21 breaks horribly
+  gem 'geckodriver-helper', '< 0.21'
   gem 'launchy'
+  gem 'rails-controller-testing'
   gem 'rspec-collection_matchers'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'vcr'
   gem 'webmock'
-  gem 'shoulda-matchers'
-  gem 'database_cleaner'
-  gem 'rails-controller-testing'
 end
