@@ -6,7 +6,7 @@ address: |-
   Rochester
   Kent
 postcode: ME1 3QS
-email_address: 
+email_address: socialvisits.rochester@hmps.gsi.gov.uk
 phone_no: 01634 803100
 enabled: true
 private: false
@@ -25,8 +25,6 @@ recurring:
   - 1345-1545
   sun:
   - 1345-1545
-unbookable:
-- 2019-07-24
 anomalous:
   2020-01-13:
   - 1400-1600
