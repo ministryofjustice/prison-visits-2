@@ -2,7 +2,7 @@
 
 #
 # :nocov:
-# rubocop:disable Metrics/LineLength
+# rubocop:disable Layout/LineLength
 # rubocop:disable Metrics/MethodLength
 module Excon
   module Middleware
@@ -46,5 +46,5 @@ module Excon
     end
   end
 end
-# rubocop:enable Metrics/LineLength
+# rubocop:enable Layout/LineLength
 # rubocop:enable Metrics/MethodLength

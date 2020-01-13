@@ -20,13 +20,13 @@ module Nomis
 
     private
 
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       def authorisation
         'Basic ' + Base64.urlsafe_encode64(
           "#{Rails.configuration.nomis_oauth_client_id}:#{Rails.configuration.nomis_oauth_client_secret}"
         )
       end
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
     end
   end
 end
