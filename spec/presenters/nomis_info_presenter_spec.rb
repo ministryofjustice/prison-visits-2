@@ -30,12 +30,6 @@ RSpec.describe NomisInfoPresenter do
             it { expect(subject.notice).to eq('prisoner_does_not_exist') }
           end
 
-          describe 'when given incorrect incorrect location' do
-            let(:location_params) { { code: 'LEI', desc: 'Leeds' } }
-
-            it { expect(subject.notice).to eq('location_invalid') }
-          end
-
           describe 'when given an incorrect location' do
             let(:location_params) { { code: 'LEI', desc: 'Leeds' } }
 

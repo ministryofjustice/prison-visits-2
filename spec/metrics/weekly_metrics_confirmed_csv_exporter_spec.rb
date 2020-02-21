@@ -65,7 +65,7 @@ RSpec.describe WeeklyMetricsConfirmedCsvExporter do
       end
     end
 
-    context 'with data from the current year' do
+    context 'with data from two different years' do
       around do |ex|
         travel_to(Time.zone.local(2019, 1, 14, 13, 0)) { ex.run }
       end

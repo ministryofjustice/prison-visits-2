@@ -46,7 +46,7 @@ RSpec.describe PrisonerContactList, type: :model do
       end
     end
 
-    context 'when the api returns no error' do
+    context 'when no error is returned by the api' do
       before do
         simulate_api_error_for(:fetch_contact_list)
       end
