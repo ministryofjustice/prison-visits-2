@@ -14,7 +14,11 @@ closed: false
 recurring:
   mon:
   - 1400-1600
+  tue:
+  - 1400-1600
   wed:
+  - 1400-1600
+  thu:
   - 1400-1600
   fri:
   - 1400-1600

@@ -12,7 +12,7 @@ module Excon
       # rubocop:disable Metrics/MethodLength
       # rubocop:disable Metrics/CyclomaticComplexity
       # rubocop:disable Metrics/PerceivedComplexity
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       def error_call(datum)
         if datum[:idempotent]
           if datum.key?(:request_block)
@@ -44,6 +44,6 @@ module Excon
     # rubocop:enable Metrics/MethodLength
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Layout/LineLength
   end
 end
