@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/offenders/G7244GR
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/G7244GR
     body:
       encoding: US-ASCII
       string: ''
@@ -20,18 +20,26 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
-      Server:
-      - nginx/1.15.3
+      Expires:
+      - '0'
       Request-Context:
       - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
-      Server-Timing:
-      - total=9, db=9
-      Url-Template:
-      - "/offenders/{noms_id}"
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Wed, 13 Nov 2019 09:35:50 GMT
+      - Thu, 14 Nov 2019 15:23:32 GMT
       Content-Length:
       - '558'
     body:
@@ -41,5 +49,5 @@ http_interactions:
         Imprisonment Without Option CJA03"},"iep_level":{"code":"ENH","desc":"Enhanced"},"security_category":{"code":"C","desc":"Cat
         C"}}'
     http_version: 
-  recorded_at: Wed, 13 Nov 2019 09:35:50 GMT
+  recorded_at: Thu, 14 Nov 2019 15:23:33 GMT
 recorded_with: VCR 5.0.0

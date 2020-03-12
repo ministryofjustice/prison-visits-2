@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/lookup/active_offender?date_of_birth=1966-11-22&noms_id=A1410AE
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/lookup/active_offender?date_of_birth=1966-11-22&noms_id=A1410AE
     body:
       encoding: US-ASCII
       string: ''
@@ -14,34 +14,42 @@ http_interactions:
       Authorization:
       - authorisation_header
       X-Request-Id:
-      - 25875d48-d627-4bc6-952f-dacb33190b96
+      - 470dc81a-657b-4e7b-8413-e7c4f60b6dd5
   response:
     status:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
-      Server:
-      - nginx/1.15.3
+      Expires:
+      - '0'
       Request-Context:
       - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
-      Server-Timing:
-      - total=12, db=6
-      Url-Template:
-      - "/lookup/active_offender"
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Wed, 13 Nov 2019 10:00:16 GMT
+      - Thu, 14 Nov 2019 15:23:14 GMT
       Content-Length:
       - '15'
     body:
       encoding: ASCII-8BIT
       string: '{"found":false}'
     http_version: 
-  recorded_at: Wed, 13 Nov 2019 10:00:16 GMT
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/nomisapi/prison/LEI/slots?end_date=2019-11-19&start_date=2019-11-19
+    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/prison/LEI/slots?end_date=2019-11-19&start_date=2019-11-19
     body:
       encoding: US-ASCII
       string: ''
@@ -53,29 +61,37 @@ http_interactions:
       Authorization:
       - authorisation_header
       X-Request-Id:
-      - 25875d48-d627-4bc6-952f-dacb33190b96
+      - 470dc81a-657b-4e7b-8413-e7c4f60b6dd5
   response:
     status:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json
-      Server:
-      - nginx/1.15.3
+      Expires:
+      - '0'
       Request-Context:
       - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
-      Server-Timing:
-      - total=9, db=6
-      Url-Template:
-      - "/prison/{prison_id}"
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
       Date:
-      - Wed, 13 Nov 2019 10:00:16 GMT
+      - Thu, 14 Nov 2019 15:23:14 GMT
       Content-Length:
       - '12'
     body:
       encoding: ASCII-8BIT
       string: '{"slots":[]}'
     http_version: 
-  recorded_at: Wed, 13 Nov 2019 10:00:16 GMT
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 recorded_with: VCR 5.0.0

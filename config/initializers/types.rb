@@ -1,4 +1,4 @@
-Dir[Rails.root.join('lib/types', '*.rb')].each do |file| require file end
+Dir[Rails.root.join('lib/types', '*.rb')].sort.each do |file| require file end
 
 ActiveModel::Type.register(:accessible_date,                 AccessibleDateType)
 ActiveModel::Type.register(:api_slot_list,                   ApiSlotListType)

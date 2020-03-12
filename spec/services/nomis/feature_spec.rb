@@ -31,7 +31,7 @@ RSpec.describe Nomis::Feature do
       it { expect(described_class.slot_availability_enabled?(prison_name)).to eq(false) }
     end
 
-    context 'when the slot availability flag is enabled and the visit prison is not on the list' do
+    context 'when the slot availability flag is enabled and the visit prison is on the list' do
       before do
         switch_on :nomis_staff_slot_availability_enabled
         switch_feature_flag_with(:staff_prisons_with_slot_availability, [prison_name])

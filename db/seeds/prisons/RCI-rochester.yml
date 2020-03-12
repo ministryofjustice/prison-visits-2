@@ -12,8 +12,6 @@ enabled: true
 private: false
 closed: false
 recurring:
-  mon:
-  - 1400-1600
   tue:
   - 1400-1600
   wed:
@@ -27,5 +25,10 @@ recurring:
   - 1345-1545
   sun:
   - 1345-1545
-unbookable:
-- 2019-07-24
+anomalous:
+  2020-01-13:
+  - 1400-1600
+  2020-01-20:
+  - 1400-1600
+  2020-01-27:
+  - 1400-1600

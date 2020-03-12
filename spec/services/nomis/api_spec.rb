@@ -147,8 +147,8 @@ RSpec.describe Nomis::Api do
     let(:params) {
       {
         offender_id: 1_502_035,
-        start_date: '2019-11-14',
-        end_date: '2019-11-24'
+        start_date: '2019-11-15',
+        end_date: '2019-11-25'
       }
     }
 
@@ -157,7 +157,7 @@ RSpec.describe Nomis::Api do
 
       it 'returns availability info containing a list of available dates' do
         expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
-        expect(subject.dates.first).to eq(Date.parse('2019-11-14'))
+        expect(subject.dates.first).to eq(Date.parse('2019-11-15'))
       end
 
       it 'logs the number of available dates' do
@@ -187,9 +187,9 @@ RSpec.describe Nomis::Api do
   end
 
   describe 'prisoner_visiting_detailed_availability', vcr: { cassette_name: :prisoner_visiting_detailed_availability } do
-    let(:slot1) { ConcreteSlot.new(2019, 11, 14, 10, 0, 11, 0) }
-    let(:slot2) { ConcreteSlot.new(2019, 11, 15, 10, 0, 11, 0) }
-    let(:slot3) { ConcreteSlot.new(2019, 11, 16, 10, 0, 11, 0) }
+    let(:slot1) { ConcreteSlot.new(2019, 11, 15, 10, 0, 11, 0) }
+    let(:slot2) { ConcreteSlot.new(2019, 11, 16, 10, 0, 11, 0) }
+    let(:slot3) { ConcreteSlot.new(2019, 11, 17, 10, 0, 11, 0) }
     let(:params) do
       {
         offender_id: 1_502_035,

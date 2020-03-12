@@ -113,5 +113,11 @@ module PrisonVisits
     config.zendesk_username = feature_flag_value.call {
       ENV.fetch('ZENDESK_USERNAME', nil)
     }
+
+    # Details for authenticating API calls via the HMPPS SSO
+    config.nomis_oauth_host = ENV['NOMIS_OAUTH_HOST']&.strip
+    config.nomis_oauth_client_id = ENV['NOMIS_OAUTH_CLIENT_ID']&.strip
+    config.nomis_oauth_client_secret = ENV['NOMIS_OAUTH_CLIENT_SECRET']&.strip
+    config.nomis_oauth_public_key = ENV['NOMIS_OAUTH_PUBLIC_KEY']&.strip
   end
 end

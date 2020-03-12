@@ -119,10 +119,8 @@ RSpec.describe Rejection, model: true do
         end
       end
 
-      context 'when the reason does not exists' do
-        it 'returns an array of reasons' do
-          expect(subject.reasons).to eq(reasons)
-        end
+      it 'returns an array of reasons' do
+        expect(subject.reasons).to eq(reasons)
       end
     end
   end

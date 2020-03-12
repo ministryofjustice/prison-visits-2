@@ -25,11 +25,11 @@ locations.each do |location|
   end
 end
 
-Dir[File.expand_path('support/matchers/*.rb', __dir__)].each do |path|
+Dir[File.expand_path('support/matchers/*.rb', __dir__)].sort.each do |path|
   require path
 end
 
-Dir[File.expand_path('support/shared/*.rb', __dir__)].each do |path|
+Dir[File.expand_path('support/shared/*.rb', __dir__)].sort.each do |path|
   require path
 end
 
@@ -74,7 +74,7 @@ VCR.configure do |config|
   # config.default_cassette_options = { :record => :new_episodes }
   config.ignore_request do |request|
     # Ignore capybara requests within feature tests
-    request.uri =~ /__identify__|session/
+    request.uri =~ /__identify__|session|oauth/
   end
   config.filter_sensitive_data('authorisation_header') do |interaction|
     interaction.request.headers['Authorization']&.first

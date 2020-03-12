@@ -32,7 +32,6 @@ Rails.application.configure do
   end
 
   config.redis_url = ENV['REDIS_URL']
-  config.redis_password = ENV['REDIS_PASSWORD']
 
   config.active_job.queue_adapter = :sidekiq
 

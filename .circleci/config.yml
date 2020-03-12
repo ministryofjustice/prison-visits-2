@@ -127,6 +127,12 @@ jobs:
             chmod +x ./cc-test-reporter
       - run: bundle exec rake db:create db:schema:load
       - run:
+          name: Rubocop
+          command: bundle exec rubocop
+      - run:
+          name: Security analysis
+          command: bundle exec brakeman -o ~/test-results/brakeman/brakeman.json -o ~/test-results/brakeman/brakeman.html
+      - run:
           name: Run tests
           command: |
             ./cc-test-reporter before-build
@@ -136,28 +142,8 @@ jobs:
           path: coverage
       - store_artifacts:
           path: coverage
-
-  security-static-analysis:
-    <<: *defaults
-    <<: *test_container_config
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/prison-visits-staff
-      - run: bundle --path vendor/bundle
-      - run: bundle exec brakeman -o ~/test-results/brakeman/brakeman.json -o ~/test-results/brakeman/brakeman.html
       - store_artifacts:
           path: ~/test-results
-
-  rubocop:
-    <<: *defaults
-    <<: *test_container_config
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/prison-visits-staff
-      - run: bundle --path vendor/bundle
-      - run: bundle exec rubocop
 
   build_and_push_docker_image:
     <<: *defaults
@@ -229,13 +215,9 @@ workflows:
   build_and_test:
     jobs:
      - test
-     - security-static-analysis
-     - rubocop
      - build_and_push_docker_image:
          requires:
            - test
-           - security-static-analysis
-           - rubocop
          filters:
            branches:
              only: master
