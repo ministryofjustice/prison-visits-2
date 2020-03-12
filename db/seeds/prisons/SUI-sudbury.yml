@@ -21,8 +21,6 @@ recurring:
   sun:
   - 0945-1145
   - 1345-1545
-unbookable:
-
 anomalous:
   2019-12-23:
   - 1345-1545
