@@ -118,7 +118,7 @@ GEM
       railties (>= 4.2.0)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
-    ffaker (2.13.0)
+    ffaker (2.14.0)
     ffi (1.11.1)
     geckodriver-helper (0.20.2)
       archive-zip (~> 0.7)
