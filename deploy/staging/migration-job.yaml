@@ -22,6 +22,11 @@ spec:
           env:
             - name: "DISABLE_PROMETHEUS_METRICS"
               value: "true"
+            - name: DATABASE_URL
+                valueFrom:
+                  secretKeyRef:
+                    name: prison-visits-rds-instance-output
+                    key: url
           resources:
             limits:
               memory: "1Gi"
