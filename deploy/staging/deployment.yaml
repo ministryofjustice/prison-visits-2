@@ -54,6 +54,11 @@ spec:
                 secretKeyRef:
                   name: prison-visits-rds-instance-output
                   key: url
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: elasticache-prison-visits-booking-token-cache-staging
+                  key: url
           resources:
             limits:
               memory: "2Gi"
