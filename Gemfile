@@ -36,6 +36,7 @@ gem 'sassc-rails'
 gem 'scenic'
 gem 'sentry-raven', require: 'raven'
 gem 'sidekiq'
+gem 'sprockets', '< 4'
 gem 'state_machines-activerecord'
 gem 'string_scrubber'
 gem 'turnout'
@@ -57,6 +58,7 @@ group :development, :test do
   gem 'awesome_print', require: 'ap'
   gem 'brakeman'
   gem 'byebug'
+  gem 'dotenv-rails'
   gem 'jasmine-jquery-rails'
   gem 'jasmine', '~> 3.5'
   gem 'parser'
@@ -68,10 +70,6 @@ group :development, :test do
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
   gem 'spring-commands-rspec'
-end
-
-group :development do
-  gem 'dotenv-rails'
 end
 
 group :test do
