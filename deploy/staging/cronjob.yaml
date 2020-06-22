@@ -47,3 +47,28 @@ spec:
               - secretRef:
                   name: secrets
           restartPolicy: OnFailure
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: anonymise-data
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: prison-visits-booking-staff-anonymise-data
+              image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
+              imagePullPolicy: Always
+              command: ['sh', '-c', "bundle exec rake anonymise:remove_old_personal_information"]
+              envFrom:
+                - configMapRef:
+                    name: shared-environment
+                - secretRef:
+                    name: secrets
+          restartPolicy: OnFailure
