@@ -1,7 +1,7 @@
 # Removing old personal information
 
 The agreed privacy impact assessment for this service states that personal
-details will be purged after one month. To achieve this, a Rake task must be
+details older than six months will be anonymised. To achieve this, a Rake task must be
 run at least once a day:
 
 ```sh
