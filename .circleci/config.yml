@@ -220,17 +220,13 @@ workflows:
            - test
          filters:
            branches:
-             only:
-              - master
-              - anonymise_data
+             only: master
      - deploy_staging:
          requires:
            - build_and_push_docker_image
          filters:
            branches:
-             only:
-              - master
-              - anonymise_data
+             only: master
      - deploy_production_approval:
          type: approval
          requires:
