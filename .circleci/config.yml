@@ -220,7 +220,7 @@ workflows:
            - test
          filters:
            branches:
-             only: master
+             only:  master
      - deploy_staging:
          requires:
            - build_and_push_docker_image

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Depersonalizer do
-  let(:cutoff_date) { Time.zone.now - 30.days }
+  let(:cutoff_date) { Time.zone.now - 6.months }
 
   context 'when processing prisoners' do
     let!(:prisoner) {
