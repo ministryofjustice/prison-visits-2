@@ -220,13 +220,17 @@ workflows:
            - test
          filters:
            branches:
-             only:  master
+             only:
+              - master
+              - add-k8s-ips-to-internal-list
      - deploy_staging:
          requires:
            - build_and_push_docker_image
          filters:
            branches:
-             only: master
+             only:
+               - master
+               - add-k8s-ips-to-internal-list
      - deploy_production_approval:
          type: approval
          requires:
