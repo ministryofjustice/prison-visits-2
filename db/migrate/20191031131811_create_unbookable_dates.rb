@@ -7,6 +7,8 @@ class CreateUnbookableDates < ActiveRecord::Migration[5.2]
       t.date :date, null: false
 
       t.timestamps null: false
+
+      t.index [:prison_id, :date], unique: true
     end
   end
 end
