@@ -222,7 +222,7 @@ workflows:
            branches:
              only:
               - master
-              - add-k8s-ips-to-internal-list
+              - pom777-reopen-two-prisons
      - deploy_staging:
          requires:
            - build_and_push_docker_image
@@ -230,7 +230,7 @@ workflows:
            branches:
              only:
                - master
-               - add-k8s-ips-to-internal-list
+               - pom777-reopen-two-prisons
      - deploy_production_approval:
          type: approval
          requires:
