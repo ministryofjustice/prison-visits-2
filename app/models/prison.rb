@@ -98,7 +98,7 @@ private
     Rails.configuration.calendar.business_day?(date)
   end
 
-  # rubocop:disable Metrics/LineLength
+  # rubocop:disable Layout/LineLength
   def validate_unbookable_dates
     if (unbookable_dates.map(&:date) & anomalous_slots.keys).any?
       errors.add :slot_details, :unbookable_and_anomalous_conflict
@@ -111,5 +111,5 @@ private
       errors.add(:slot_details, :unbookable_date_not_in_schedule)
     end
   end
-  # rubocop:enable Metrics/LineLength
+  # rubocop:enable Layout/LineLength
 end

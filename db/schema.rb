@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 2019_10_31_131811) do
     t.date "date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["prison_id", "date"], name: "index_unbookable_dates_on_prison_id_and_date", unique: true
   end
 
   create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
