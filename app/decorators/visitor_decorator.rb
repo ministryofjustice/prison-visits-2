@@ -20,7 +20,6 @@ class VisitorDecorator < Draper::Decorator
       )
     end
   end
-  
 
   def exact_match?
     exact_matches.contact.present?

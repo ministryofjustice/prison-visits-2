@@ -25,7 +25,6 @@ class Prison::VisitsController < ApplicationController
       render :show
     end
   end
-  
 
   def nomis_cancelled
     memoised_visit.confirm_nomis_cancelled

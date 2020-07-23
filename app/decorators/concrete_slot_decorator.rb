@@ -81,7 +81,6 @@ class ConcreteSlotDecorator < Draper::Decorator
 
     nil
   end
-  
 
   def bookable?
     prisoner_available? && slot_available?

@@ -43,7 +43,6 @@ class StaffResponse
     attrs['visitors_attributes']  = visitors_attributes  if visitors_attributes
     attrs
   end
-  
 
   # rubocop:disable Naming/MemoizedInstanceVariableName
   def validate_visitors_nomis_ready=(val)

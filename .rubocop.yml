@@ -328,18 +328,3 @@ Style/WordArray:
 
 Style/MethodCalledOnDoEndBlock:
   Enabled: false
-
-Layout/TrailingWhitespace:
-  Enabled: false
-
-Layout/EmptyLinesAroundModuleBody:
-  Enabled: false
-
-Layout/TrailingEmptyLines:
-  Enabled: false
-
-Layout/EmptyLineBetweenDefs:
-  Enabled: false
-
-Layout/EmptyLinesAroundAccessModifier:
-  Enabled: false
