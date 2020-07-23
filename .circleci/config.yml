@@ -81,7 +81,7 @@ references:
         ${login}
         docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
         docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
-        if [ "${CIRCLE_BRANCH}" == "master" ]; then
+        if [ "${CIRCLE_BRANCH}" == "main" ]; then
           docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
           docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
         fi
@@ -221,7 +221,7 @@ workflows:
          filters:
            branches:
              only:
-              - master
+              - main
               - add-k8s-ips-to-internal-list
      - deploy_staging:
          requires:
@@ -229,7 +229,7 @@ workflows:
          filters:
            branches:
              only:
-               - master
+               - main
                - add-k8s-ips-to-internal-list
      - deploy_production_approval:
          type: approval
@@ -237,10 +237,10 @@ workflows:
            - deploy_staging
          filters:
            branches:
-             only: master
+             only: main
      - deploy_production:
          requires:
            - deploy_production_approval
          filters:
            branches:
-             only: master
+             only: main
