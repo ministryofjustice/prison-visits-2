@@ -27,23 +27,6 @@ AllCops:
     - 'lib/tasks/elasticsearch.rake'
     - 'spec/dummy/db/**/*'
 
-#  DisplayCopNames: true
-
-Rails:
-  Enabled: true
-
-# private/protected/public
-Layout/AccessModifierIndentation:
-  EnforcedStyle: outdent
-
-# Just indent parameters by two spaces. It's less volatile if methods change,
-# and there's less busy work lining things up.
-Layout/ParameterAlignment:
-  EnforcedStyle: with_fixed_indentation
-
-Style/AsciiComments:
-  Enabled: false
-
 # Use Weirich style
 Style/BlockDelimiters:
   EnforcedStyle: semantic
@@ -55,31 +38,6 @@ Style/BlockDelimiters:
     - watch
     - expect
 
-# Allow ===. It's useful.
-Style/CaseEquality:
-  Enabled: false
-
-Style/CollectionMethods:
-  PreferredMethods:
-    inject: 'inject'
-    reduce: 'inject'
-
-# Chain methods with trailing dots.
-Layout/DotPosition:
-  EnforcedStyle: trailing
-
-# Percent-formatting and hash interpolation both have their place. Don't
-# enforce any particular one.
-Style/FormatString:
-  Enabled: false
-
-Style/FormatStringToken:
-  Enabled: false
-
-# It's not really clearer to replace every if with a return if.
-Style/GuardClause:
-  Enabled: false
-
 Style/SymbolArray:
   Enabled: false
 
@@ -90,18 +48,6 @@ Style/SymbolProc:
 # You can't use attr_reader to define a foo? method from @foo.
 Style/TrivialAccessors:
   AllowPredicates: true
-
-Naming/FileName:
-  Enabled: false
-
-# Default is 100
-Metrics/ClassLength:
-  Max: 200
-
-Layout/LineLength:
-  Max: 90
-  Exclude:
-    - 'spec/**/*'
 
 # Don't worry about long methods in specs.
 Metrics/MethodLength:
@@ -125,9 +71,6 @@ Style/Documentation:
   Description: Document classes and non-namespace modules.
   Enabled: false
 
-Style/DoubleNegation:
-  Enabled: false
-
 # Would enforce do_y if x over if x / do y / end. As with GuardClause above,
 # this enforces code organisation that doesn't necesarily make things clearer.
 Style/IfUnlessModifier:
@@ -145,9 +88,6 @@ Style/PercentLiteralDelimiters:
     '%W': '[]'
     '%': '{}'
 
-Style/ClassAndModuleChildren:
-  Enabled: false
-
 # This encourages bad style IMHO
 Rails/Delegate:
   Enabled: false
@@ -156,9 +96,6 @@ RSpec/AnyInstance:
   Enabled: false
 
 Bundler/OrderedGems:
-  Enabled: false
-
-Metrics/AbcSize:
   Enabled: false
 
 Metrics/BlockLength:
@@ -177,7 +114,7 @@ RSpec/EmptyExampleGroup:
   Enabled: false
 
 RSpec/ExampleLength:
-  Enabled: false
+  Max: 48
 
 RSpec/HookArgument:
   Enabled: false
@@ -198,7 +135,7 @@ RSpec/MessageSpies:
   Enabled: false
 
 RSpec/MultipleExpectations:
-  Enabled: false
+  Max: 27
 
 RSpec/NamedSubject:
   Enabled: false
@@ -227,18 +164,13 @@ Rails/HttpPositionalArguments:
 Rails/OutputSafety:
   Enabled: false
 
-Rails/SkipsModelValidations:
-  Enabled: false
-
 Rails/ApplicationRecord:
   Enabled: false
+
 Rails/ApplicationJob:
   Enabled: false
 
 Security/YAMLLoad:
-  Enabled: false
-
-Style/Alias:
   Enabled: false
 
 Layout/ClosingParenthesisIndentation:
@@ -287,9 +219,6 @@ Style/NumericPredicate:
   Enabled: false
 
 Style/SignalException:
-  Enabled: false
-
-Layout/SpaceAroundKeyword:
   Enabled: false
 
 Layout/SpaceBeforeBlockBraces:
