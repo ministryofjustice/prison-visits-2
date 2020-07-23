@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ApiSlotAvailability, type: :model do
-  subject { described_class.new(prison: prison) }
+  subject { described_class.new(prisoner_params.merge(prison: prison)) }
 
   let!(:prison) { create(:prison) }
 
@@ -23,6 +23,13 @@ RSpec.describe ApiSlotAvailability, type: :model do
       "2016-04-25T14:00/16:10",
       "2016-04-26T09:00/10:00",
       "2016-04-26T14:00/16:10"
+    ]
+  }
+  let(:prisoner_slots) {
+    [
+      "2016-04-12T09:00/10:00",
+      "2016-04-12T14:00/16:10",
+      "2016-04-25T14:00/16:10"
     ]
   }
 
@@ -50,18 +57,27 @@ RSpec.describe ApiSlotAvailability, type: :model do
   context 'when the api is enabled' do
     before do
       allow(Nomis::Api).to receive(:enabled?).and_return(true)
+      offender = Nomis::Prisoner.new(id: 123)
+      expect(Nomis::Api.instance).to receive(:lookup_active_prisoner).
+        with(noms_id: 'a1234bc', date_of_birth: Date.parse('1970-01-01')).
+        and_return(offender)
+      prisoner_availability = Nomis::PrisonerAvailability.new(
+        dates: %w[2016-04-12 2016-04-25]
+      )
+      expect(Nomis::Api.instance).to receive(:prisoner_visiting_availability).
+        and_return(prisoner_availability)
     end
 
     it 'fetches slot availability from the prison by default' do
-      expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
+      expect(subject.slots.map(&:iso8601)).to eq(prisoner_slots)
     end
 
     describe 'fetching available slots from NOMIS' do
-      subject { described_class.new(prison: prison, use_nomis_slots: true) }
+      subject { described_class.new(prisoner_params.merge(prison: prison, use_nomis_slots: true)) }
 
       context 'when the prison slots feature is disabled' do
         it 'fetches slot availability from the prison defaults' do
-          expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
+          expect(subject.slots.map(&:iso8601)).to eq(prisoner_slots)
         end
       end
 
@@ -89,7 +105,7 @@ RSpec.describe ApiSlotAvailability, type: :model do
           expect(Nomis::Api).to receive(:enabled?).and_return(false)
           expect(Nomis::Api.instance).not_to receive(:fetch_bookable_slots)
 
-          expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
+          expect(subject.slots.map(&:iso8601)).to eq(prisoner_slots)
         end
 
         it 'falls back to hard-coded slots if NOMIS call fails' do
@@ -99,56 +115,41 @@ RSpec.describe ApiSlotAvailability, type: :model do
             'Error calling the NOMIS API: #<Excon::Error: Fail>'
                                   )
 
-          expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
+          expect(subject.slots.map(&:iso8601)).to eq(prisoner_slots)
         end
       end
     end
 
     describe 'restricting by prisoner availability' do
       it 'can intersect available slots with prisoner availability' do
-        offender = Nomis::Prisoner.new(id: 123)
-        prisoner_availability = Nomis::PrisonerAvailability.new(
-          dates: %w[2016-04-12 2016-04-25]
-        )
-
-        expect(Nomis::Api.instance).to receive(:lookup_active_prisoner).
-          with(noms_id: 'a1234bc', date_of_birth: Date.parse('1970-01-01')).
-          and_return(offender)
-        expect(Nomis::Api.instance).to receive(:prisoner_visiting_availability).
-          and_return(prisoner_availability)
-
-        subject.restrict_by_prisoner(prisoner_params)
-
-        expect(subject.slots.map(&:iso8601)).to eq(
-          [
-            '2016-04-12T09:00/10:00',
-            '2016-04-12T14:00/16:10',
-            '2016-04-25T14:00/16:10'
-          ]
-        )
+        expect(subject.slots.map(&:iso8601)).to eq(prisoner_slots)
       end
+    end
+  end
 
-      it 'returns only prison slots if the NOMIS API is disabled' do
-        expect(Nomis::Api).to receive(:enabled?).and_return(false)
-        expect(Nomis::Api.instance).not_to receive(:lookup_active_prisoner)
-        expect(Nomis::Api.instance).not_to receive(:prisoner_visiting_availability)
+  context 'when if the NOMIS API is disabled' do
+    before do
+      expect(Nomis::Api).to receive(:enabled?).and_return(false)
+      expect(Nomis::Api.instance).not_to receive(:lookup_active_prisoner)
+      expect(Nomis::Api.instance).not_to receive(:prisoner_visiting_availability)
+    end
 
-        subject.restrict_by_prisoner(prisoner_params)
+    it 'returns only prison slots ' do
+      expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
+    end
+  end
 
-        expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
-      end
+  context 'when the NOMIS API cannot be contacted' do
+    before do
+      allow(Nomis::Api.instance).to receive(:lookup_active_prisoner).
+        and_raise(Excon::Errors::Error, 'Lookup error')
+      expect(Rails.logger).to receive(:warn).with(
+        'Error calling the NOMIS API: #<Excon::Error: Lookup error>'
+      )
+    end
 
-      it 'returns only prison slots if the NOMIS API cannot be contacted' do
-        allow(Nomis::Api.instance).to receive(:lookup_active_prisoner).
-          and_raise(Excon::Errors::Error, 'Lookup error')
-        expect(Rails.logger).to receive(:warn).with(
-          'Error calling the NOMIS API: #<Excon::Error: Lookup error>'
-        )
-
-        subject.restrict_by_prisoner(prisoner_params)
-
-        expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
-      end
+    it 'returns only prison slots if the NOMIS API cannot be contacted' do
+      expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
     end
   end
 end

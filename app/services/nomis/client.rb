@@ -4,7 +4,8 @@ require 'excon/middleware/custom_instrumentor'
 require 'excon/middleware/deadline'
 
 module Nomis
-  APIError = Class.new(StandardError)
+  class APIError < StandardError
+  end
 
   # This client is **NOT** thread safe. To be used with a connection pool. See below.
   class Client

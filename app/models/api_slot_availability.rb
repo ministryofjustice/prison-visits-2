@@ -1,18 +1,18 @@
 class ApiSlotAvailability
-  attr_reader :slots
-
-  def initialize(prison:, use_nomis_slots: false)
+  def initialize(prison:, prisoner_number:, prisoner_dob:, use_nomis_slots: false)
     @prison = prison
+    @prisoner_number = prisoner_number
+    @prisoner_dob = prisoner_dob
     @slots = (use_nomis_slots && nomis_slots(prison)) || hardcoded_slots(prison)
   end
 
   # rubocop:disable Metrics/MethodLength
-  def restrict_by_prisoner(prisoner_number:, prisoner_dob:)
-    return unless Nomis::Api.enabled?
+  def slots
+    return @slots unless Nomis::Api.enabled?
 
     prisoner = Nomis::Api.instance.lookup_active_prisoner(
-      noms_id: prisoner_number,
-      date_of_birth: prisoner_dob
+      noms_id: @prisoner_number,
+      date_of_birth: @prisoner_dob
     )
 
     availability = Nomis::Api.instance.prisoner_visiting_availability(
@@ -22,12 +22,13 @@ class ApiSlotAvailability
     )
     prisoner_available_dates = availability.dates
 
-    @slots = @slots.select { |slot|
+    @slots.select { |slot|
       slot.to_date.in? prisoner_available_dates
     }
   rescue Excon::Errors::Error => e
     # Skip restriction if NOMIS API is misbehaving
     Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
+    @slots
   end
 # rubocop:enable Metrics/MethodLength
 
