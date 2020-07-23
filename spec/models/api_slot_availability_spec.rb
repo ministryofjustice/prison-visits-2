@@ -80,7 +80,7 @@ RSpec.describe ApiSlotAvailability, type: :model do
               start_date: Date.parse('2016-04-06'),
               end_date: Date.parse('2016-04-28')
             ).
-            and_return([ConcreteSlot.parse('2016-04-12T09:00/10:00')])
+            and_return(Struct.new(:slots).new([Struct.new(:time).new(ConcreteSlot.parse('2016-04-12T09:00/10:00'))]))
 
           expect(subject.slots.map(&:iso8601)).to eq(['2016-04-12T09:00/10:00'])
         end

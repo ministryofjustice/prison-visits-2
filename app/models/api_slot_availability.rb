@@ -44,7 +44,7 @@ private
       prison: prison,
       start_date: prison.first_bookable_date,
       end_date: prison.last_bookable_date
-    )
+    ).slots.map(&:time)
   rescue Excon::Errors::Error => e
     Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
     nil
