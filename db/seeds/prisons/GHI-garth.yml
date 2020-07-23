@@ -1,7 +1,7 @@
 ---
 name: Garth
 nomis_id: GHI
-enabled: true
+enabled: false
 private: false
 closed: false
 address: |-

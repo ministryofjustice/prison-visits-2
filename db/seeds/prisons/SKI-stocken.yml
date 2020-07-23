@@ -6,7 +6,7 @@ address: |-
 postcode: LE15 7RD
 email_address: socialvisits.stocken@hmps.gsi.gov.uk
 phone_no: 01780 795156
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

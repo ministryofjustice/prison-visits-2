@@ -6,7 +6,7 @@ address: |-
 postcode: HP18 0TL
 email_address: socialvisits.grendon@hmps.gsi.gov.uk
 phone_no: 01296 445000
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

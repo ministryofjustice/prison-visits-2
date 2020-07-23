@@ -6,7 +6,7 @@ address: |-
 postcode: PR1 5AB
 email_address: socialvisits.preston@hmps.gsi.gov.uk
 phone_no: 01772 444888
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

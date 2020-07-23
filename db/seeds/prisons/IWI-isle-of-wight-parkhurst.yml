@@ -6,7 +6,7 @@ address: |-
 postcode: PO30 5RS
 email_address: socialvisitsisleofwight@hmps.gsi.gov.uk
 phone_no: 01983 634218
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

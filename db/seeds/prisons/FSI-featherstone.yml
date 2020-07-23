@@ -8,7 +8,7 @@ address: |-
 postcode: WV10 7PU
 email_address: prison.visits@ministryofjustice.zendesk.com
 phone_no: 0300 060 6502
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

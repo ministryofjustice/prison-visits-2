@@ -6,7 +6,7 @@ address: |-
 postcode: IP12 3JW
 email_address: socialvisits.hollesleybay@hmps.gsi.gov.uk
 phone_no: 01394 412400
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:
