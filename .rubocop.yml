@@ -1,3 +1,8 @@
+inherit_gem:
+  rubocop-govuk:
+    - config/default.yml
+    - config/rails.yml
+
 require:
   - rubocop-performance
   - rubocop-rails
@@ -22,7 +27,7 @@ AllCops:
     - 'lib/tasks/elasticsearch.rake'
     - 'spec/dummy/db/**/*'
 
-  DisplayCopNames: true
+#  DisplayCopNames: true
 
 Rails:
   Enabled: true
@@ -306,4 +311,35 @@ Lint/AmbiguousBlockAssociation:
   Enabled: false
 
 Capybara/FeatureMethods:
+  Enabled: false
+
+# Below here are failing GovUk styles
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+Style/TrailingCommaInArguments:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Style/MethodCalledOnDoEndBlock:
+  Enabled: false
+
+Layout/TrailingWhitespace:
+  Enabled: false
+
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+Layout/TrailingEmptyLines:
+  Enabled: false
+
+Layout/EmptyLineBetweenDefs:
+  Enabled: false
+
+Layout/EmptyLinesAroundAccessModifier:
   Enabled: false

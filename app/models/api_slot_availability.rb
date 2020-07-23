@@ -5,8 +5,6 @@ class ApiSlotAvailability
     @prison = prison
     @slots = (use_nomis_slots && nomis_slots(prison)) || hardcoded_slots(prison)
   end
-
-  # rubocop:disable Metrics/MethodLength
   def restrict_by_prisoner(prisoner_number:, prisoner_dob:)
     return unless Nomis::Api.enabled?
 
@@ -29,7 +27,7 @@ class ApiSlotAvailability
     # Skip restriction if NOMIS API is misbehaving
     Rails.logger.warn "Error calling the NOMIS API: #{e.inspect}"
   end
-# rubocop:enable Metrics/MethodLength
+
 
 private
 

@@ -7,8 +7,6 @@ class ConcreteSlotDecorator < Draper::Decorator
       'conditional-val' => 'slot_option_0,slot_option_1,slot_option2'
     }.freeze
   }.freeze
-
-  # rubocop:disable Metrics/MethodLength
   def slot_picker(form_builder)
     h.concat(
       h.content_tag(
@@ -83,7 +81,7 @@ class ConcreteSlotDecorator < Draper::Decorator
 
     nil
   end
-  # rubocop:enable Metrics/MethodLength
+  
 
   def bookable?
     prisoner_available? && slot_available?
