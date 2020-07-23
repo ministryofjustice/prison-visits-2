@@ -35,8 +35,6 @@ private
   def csv_row(visit)
     visit_attrs(visit).merge(additional_visitor_attrs(visit.visitors))
   end
-
-  # rubocop:disable Metrics/MethodLength
   def visit_attrs(visit)
     {
       'Status' => visit.processing_state,
@@ -52,7 +50,7 @@ private
       'Email address' => visit.contact_email_address
     }
   end
-  # rubocop:enable Metrics/MethodLength
+  
 
   def additional_visitor_attrs(visitors)
     attrs = {}

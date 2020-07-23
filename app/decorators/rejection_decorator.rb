@@ -163,8 +163,6 @@ private
       day: date.day
     }
   end
-
-  # rubocop:disable Metrics/MethodLength
   def email_translated_explanations_for(reason)
     case reason
     when Rejection::SLOT_UNAVAILABLE
@@ -181,7 +179,7 @@ private
       )]
     end
   end
-  # rubocop:enable Metrics/MethodLength
+  
 
   def email_visitor_rejection_reasons
     visit.banned_visitors.map do |visitor|

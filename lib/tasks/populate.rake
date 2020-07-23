@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/MethodLength
 namespace :pvb do
   namespace :populate do
     def generate_prisoner_number
@@ -155,4 +154,4 @@ namespace :pvb do
     end
   end
 end
-# rubocop:enable Metrics/MethodLength
+

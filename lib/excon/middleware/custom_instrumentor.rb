@@ -2,8 +2,6 @@
 
 #
 # :nocov:
-# rubocop:disable Layout/LineLength
-# rubocop:disable Metrics/MethodLength
 module Excon
   module Middleware
     class CustomInstrumentor < Excon::Middleware::Base
@@ -46,5 +44,5 @@ module Excon
     end
   end
 end
-# rubocop:enable Layout/LineLength
-# rubocop:enable Metrics/MethodLength
+
+
