@@ -37,9 +37,5 @@ module Excon
         end
       end
     end
-    
-    
-    
-    
   end
 end

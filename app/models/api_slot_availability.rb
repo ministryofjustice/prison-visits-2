@@ -5,6 +5,7 @@ class ApiSlotAvailability
     @prison = prison
     @slots = (use_nomis_slots && nomis_slots(prison)) || hardcoded_slots(prison)
   end
+
   def restrict_by_prisoner(prisoner_number:, prisoner_dob:)
     return unless Nomis::Api.enabled?
 

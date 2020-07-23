@@ -163,6 +163,7 @@ private
       day: date.day
     }
   end
+
   def email_translated_explanations_for(reason)
     case reason
     when Rejection::SLOT_UNAVAILABLE
@@ -179,7 +180,6 @@ private
       )]
     end
   end
-  
 
   def email_visitor_rejection_reasons
     visit.banned_visitors.map do |visitor|

@@ -44,5 +44,3 @@ module Excon
     end
   end
 end
-
-

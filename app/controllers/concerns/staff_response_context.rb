@@ -75,6 +75,7 @@ private
       staff_response,
       message: message)
   end
+
   def visit_params
     params.require(:visit).permit(
       :reference_no, :slot_granted, :closed, :slot_option_0,
@@ -99,5 +100,4 @@ private
       prisoner_attributes: [:nomis_offender_id, :id]
     )
   end
-  
 end
