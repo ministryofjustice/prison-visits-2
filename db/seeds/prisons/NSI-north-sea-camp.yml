@@ -6,7 +6,7 @@ address: |-
 postcode: PE22 0QX
 email_address: socialvisits.northseacamp@hmps.gsi.gov.uk
 phone_no: 01205 769 368
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

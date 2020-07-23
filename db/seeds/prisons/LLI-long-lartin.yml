@@ -8,7 +8,7 @@ address: |-
 postcode: WR11 8TZ
 email_address: Socialvisits.longlartin@hmps.gsi.gov.uk
 phone_no: 01386 295188
-enabled: true
+enabled: false
 private: false
 closed: false
 booking_window: 28

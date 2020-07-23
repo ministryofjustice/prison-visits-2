@@ -6,7 +6,7 @@ address: |-
 postcode: PR26 8LW
 email_address: socialvisits.wymott@hmps.gsi.gov.uk
 phone_no: 01772 442234
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

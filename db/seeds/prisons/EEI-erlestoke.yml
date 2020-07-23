@@ -6,7 +6,7 @@ address: |-
 postcode: SN10 5TU
 email_address: eecmbookavisit@hmps.gsi.gov.uk
 phone_no: 01380 814488
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

@@ -7,7 +7,7 @@ address: |-
 postcode: TF9 2JL
 email_address: prison.visits@ministryofjustice.zendesk.com
 phone_no: 0300 060 6506
-enabled: true
+enabled: false
 private: false
 closed: false
 adult_age: 10

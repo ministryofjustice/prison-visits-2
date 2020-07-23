@@ -6,7 +6,7 @@ address: |-
 postcode: LA1 3QZ
 email_address: lancasterfarmsdomesticvisitsbooking@hmps.gsi.gov.uk
 phone_no: 01524 563636
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

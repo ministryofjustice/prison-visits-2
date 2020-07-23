@@ -6,7 +6,7 @@ address: |-
 postcode: OX25 1PZ
 email_address: socialvisits.bullingdon@hmps.gsi.gov.uk
 phone_no: 01869 353176
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

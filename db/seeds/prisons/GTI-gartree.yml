@@ -8,7 +8,7 @@ address: |-
 postcode: LE16 7RP
 email_address: socialvisits.gartree@hmps.gsi.gov.uk
 phone_no: 01858 426 727
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

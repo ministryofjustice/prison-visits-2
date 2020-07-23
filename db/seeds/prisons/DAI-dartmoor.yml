@@ -6,7 +6,7 @@ address: |-
 postcode: PL20 6RR
 email_address: socvisdartmoor@hmps.gsi.gov.uk
 phone_no: 01822 322022
-enabled: true
+enabled: false
 private: false
 closed: false
 lead_days: 4

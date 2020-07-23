@@ -13,7 +13,7 @@ translations:
       Caerdydd
 email_address: socialvisits.cardiff@hmps.gsi.gov.uk
 phone_no: 029 20923327
-enabled: true
+enabled: false
 private: false
 closed: false
 works_weekends: false

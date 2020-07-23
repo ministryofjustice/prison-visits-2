@@ -7,7 +7,7 @@ address: |-
 postcode: ME1 3ND
 email_address: custody.medway@hmps.gsi.gov.uk
 phone_no: 01634 823300
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

@@ -8,7 +8,7 @@ address: |-
 postcode: SE28 0EB
 email_address: legalvisits.belmarsh@hmps.gsi.gov.uk
 phone_no: 020 8331 4760
-enabled: true
+enabled: false
 private: false
 closed: false
 booking_window: 21

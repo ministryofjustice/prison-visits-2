@@ -7,7 +7,7 @@ address: |-
 postcode: DE6 5HW
 email_address: socialvisitssudbury@hmps.gsi.gov.uk
 phone_no: 01283 584175
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

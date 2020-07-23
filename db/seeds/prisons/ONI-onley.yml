@@ -6,7 +6,7 @@ address: |-
 postcode: CV23 8AP
 email_address: socialvisits.onley@hmps.gsi.gov.uk
 phone_no: 01788 523 402
-enabled: true
+enabled: false
 private: false
 closed: false
 adult_age: 10

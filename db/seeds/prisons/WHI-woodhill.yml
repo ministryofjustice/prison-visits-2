@@ -8,7 +8,7 @@ address: |-
 postcode: MK4 4DA
 email_address: socialvisits.woodhill@hmps.gsi.gov.uk
 phone_no: 01908 722329
-enabled: true
+enabled: false
 private: false
 closed: false
 adult_age: 10

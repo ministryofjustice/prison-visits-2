@@ -6,7 +6,7 @@ address: |-
 postcode: LE2 7AJ
 email_address: socialvisitsleicester@hmps.gsi.gov.uk
 phone_no: 0116 228 3128
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

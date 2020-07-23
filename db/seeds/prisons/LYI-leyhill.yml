@@ -6,7 +6,7 @@ address: |-
 postcode: GL12 8BT
 email_address: socialvisits.leyhill@hmps.gsi.gov.uk
 phone_no: 01454 264211
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

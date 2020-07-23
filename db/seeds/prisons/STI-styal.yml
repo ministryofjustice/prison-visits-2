@@ -6,7 +6,7 @@ address: |-
 postcode: SK9 4HR
 email_address: prison.visits@ministryofjustice.zendesk.com
 phone_no: 0300 060 6512
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

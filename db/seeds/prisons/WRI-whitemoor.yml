@@ -8,7 +8,7 @@ address: |-
 postcode: PE15 0PR
 email_address: socialvisits.whitemoor@hmps.gsi.gov.uk
 phone_no: 01354 602800
-enabled: true
+enabled: false
 private: false
 closed: false
 booking_window: 28

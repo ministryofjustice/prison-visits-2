@@ -6,7 +6,7 @@ address: |-
 postcode: DN22 8EU
 email_address: socialvisits.ranby@hmps.gsi.gov.uk
 phone_no: 01777 862107
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

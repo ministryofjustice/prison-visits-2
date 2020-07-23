@@ -6,7 +6,7 @@ address: |-
 postcode: GU24 9EX
 email_address: socialvisits.coldingley@hmps.gsi.gov.uk
 phone_no: 01483 344418
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

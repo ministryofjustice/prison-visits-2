@@ -6,7 +6,7 @@ address: |-
 postcode: RG9 5SB
 email_address: socialvisits.huntercombe@hmps.gsi.gov.uk
 phone_no: 01491 643151
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:
