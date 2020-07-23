@@ -51,6 +51,6 @@ private
   end
 
   def public_prison_slots_enabled?(_prison)
-    false
+    true
   end
 end

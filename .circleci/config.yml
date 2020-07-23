@@ -222,7 +222,7 @@ workflows:
            branches:
              only:
               - main
-              - add-k8s-ips-to-internal-list
+              - pom781-allow-nomis-slot-testing
      - deploy_staging:
          requires:
            - build_and_push_docker_image
@@ -230,7 +230,7 @@ workflows:
            branches:
              only:
                - main
-               - add-k8s-ips-to-internal-list
+               - pom781-allow-nomis-slot-testing
      - deploy_production_approval:
          type: approval
          requires:
