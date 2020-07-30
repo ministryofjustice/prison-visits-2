@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: prison-visits-booking-staff
@@ -54,6 +54,11 @@ spec:
                 secretKeyRef:
                   name: prison-visits-rds-instance-output
                   key: url
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: elasticache-prison-visits-booking-token-cache-staging
+                  key: url
           resources:
             limits:
               memory: "2Gi"
@@ -68,6 +73,16 @@ spec:
           env:
             - name: "SCRIPT_NAME"
               value: "/sidekiq-admin"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-rds-instance-output
+                  key: url
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: elasticache-prison-visits-booking-token-cache-staging
+                  key: url
           envFrom:
             - configMapRef:
                 name: shared-environment
@@ -76,7 +91,7 @@ spec:
         - name: prison-visits-booking-staff-metrics
           image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
           imagePullPolicy: Always
-          command: ['sh', '-c', "bundle exec prometheus_exporter"]
+          command: ['sh', '-c', "bundle exec prometheus_exporter --bind 0.0.0.0"]
           envFrom:
             - configMapRef:
                 name: shared-environment

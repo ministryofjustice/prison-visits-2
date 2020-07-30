@@ -60,19 +60,19 @@ RSpec.describe ApiSlotAvailability, type: :model do
       subject { described_class.new(prison: prison, use_nomis_slots: true) }
 
       context 'when the prison slots feature is disabled' do
+        before do
+          allow_any_instance_of(described_class).
+            to receive(:public_prison_slots_enabled?).
+              with(prison).
+              and_return(false)
+        end
+
         it 'fetches slot availability from the prison defaults' do
           expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
         end
       end
 
       context 'when the prison slots feature is enabled' do
-        before do
-          allow_any_instance_of(described_class).
-            to receive(:public_prison_slots_enabled?).
-            with(prison).
-            and_return(true)
-        end
-
         it 'requests slots from NOMIS' do
           expect(Nomis::Api.instance).to receive(:fetch_bookable_slots).
             with(
@@ -80,7 +80,7 @@ RSpec.describe ApiSlotAvailability, type: :model do
               start_date: Date.parse('2016-04-06'),
               end_date: Date.parse('2016-04-28')
             ).
-            and_return([ConcreteSlot.parse('2016-04-12T09:00/10:00')])
+            and_return(Struct.new(:slots).new([Struct.new(:time).new(ConcreteSlot.parse('2016-04-12T09:00/10:00'))]))
 
           expect(subject.slots.map(&:iso8601)).to eq(['2016-04-12T09:00/10:00'])
         end

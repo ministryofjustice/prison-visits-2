@@ -81,7 +81,7 @@ references:
         ${login}
         docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
         docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
-        if [ "${CIRCLE_BRANCH}" == "master" ]; then
+        if [ "${CIRCLE_BRANCH}" == "main" ]; then
           docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
           docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
         fi
@@ -220,23 +220,27 @@ workflows:
            - test
          filters:
            branches:
-             only: master
+             only:
+              - main
+              - pom781-allow-nomis-slot-testing
      - deploy_staging:
          requires:
            - build_and_push_docker_image
          filters:
            branches:
-             only: master
+             only:
+               - main
+               - pom781-allow-nomis-slot-testing
      - deploy_production_approval:
          type: approval
          requires:
            - deploy_staging
          filters:
            branches:
-             only: master
+             only: main
      - deploy_production:
          requires:
            - deploy_production_approval
          filters:
            branches:
-             only: master
+             only: main
