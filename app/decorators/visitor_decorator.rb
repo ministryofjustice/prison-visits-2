@@ -2,8 +2,6 @@ class VisitorDecorator < Draper::Decorator
   delegate_all
 
   NO_VISITORS_IN_NOMIS = 'no_visitor_in_nomis'.freeze
-
-  # rubocop:disable Metrics/MethodLength
   def contact_list_matching(form_build)
     return I18n.t(".#{NO_VISITORS_IN_NOMIS}") unless contact_list_matcher.any?
 
@@ -22,7 +20,6 @@ class VisitorDecorator < Draper::Decorator
       )
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def exact_match?
     exact_matches.contact.present?

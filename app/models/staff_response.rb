@@ -18,8 +18,6 @@ class StaffResponse
 
   after_validation :clear_allowance_renews_on_date
   after_validation :sanitise_reasons
-
-  # rubocop:disable Metrics/MethodLength
   def email_attrs
     attrs = visit.serializable_hash(
       except: [
@@ -45,7 +43,6 @@ class StaffResponse
     attrs['visitors_attributes']  = visitors_attributes  if visitors_attributes
     attrs
   end
-  # rubocop:enable Metrics/MethodLength
 
   # rubocop:disable Naming/MemoizedInstanceVariableName
   def validate_visitors_nomis_ready=(val)

@@ -20,7 +20,6 @@ module Nomis
       end
     end
 
-    # rubocop:disable Metrics/MethodLength
     # Looks for an active offender with the provided details
     #
     #  noms_id: A nomis number (e.g. A1234AA)
@@ -42,7 +41,6 @@ module Nomis
       PVB::ExceptionHandler.capture_exception(e, fingerprint: %w[nomis api_error])
       NullPrisoner.new(api_call_successful: false)
     end
-    # rubocop:enable Metrics/MethodLength
 
     # Returns offenders details given a noms_id
     #

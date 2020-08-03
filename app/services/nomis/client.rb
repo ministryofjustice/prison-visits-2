@@ -45,7 +45,6 @@ module Nomis
 
   private
 
-    # rubocop:disable Metrics/MethodLength
     def request(method, route, params, idempotent:, options: {})
       path = "/elite2api/api/v1/#{route}"
 
@@ -86,7 +85,6 @@ module Nomis
       PVB::ExceptionHandler.capture_exception(e, fingerprint: excon_fingerprint)
       raise APIError, "Exception #{e.class} calling #{api_method}: #{e}"
     end
-    # rubocop:enable Metrics/MethodLength
 
     # Returns excon options which put params in either the query string or body.
     def params_options(_method, params)

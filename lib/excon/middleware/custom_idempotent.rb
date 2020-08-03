@@ -9,10 +9,6 @@
 module Excon
   module Middleware
     class CustomIdempotent < Excon::Middleware::Base
-      # rubocop:disable Metrics/MethodLength
-      # rubocop:disable Metrics/CyclomaticComplexity
-      # rubocop:disable Metrics/PerceivedComplexity
-      # rubocop:disable Layout/LineLength
       def error_call(datum)
         if datum[:idempotent]
           if datum.key?(:request_block)
@@ -41,9 +37,5 @@ module Excon
         end
       end
     end
-    # rubocop:enable Metrics/MethodLength
-    # rubocop:enable Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/PerceivedComplexity
-    # rubocop:enable Layout/LineLength
   end
 end

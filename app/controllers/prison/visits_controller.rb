@@ -9,8 +9,6 @@ class Prison::VisitsController < ApplicationController
 
   GA_HIT_TYPE_VISIT_PROCESSED = '/visit-processed'.freeze
   GA_HIT_TYPE_VISIT_REQUESTED = '/visit-requested'.freeze
-
-  # rubocop:disable Metrics/MethodLength
   def update
     memoised_visit.assign_attributes(visit_params)
     @booking_response = booking_responder.respond!
@@ -27,7 +25,6 @@ class Prison::VisitsController < ApplicationController
       render :show
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def nomis_cancelled
     memoised_visit.confirm_nomis_cancelled

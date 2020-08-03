@@ -1,4 +1,3 @@
-# rubocop:disable Layout/LineLength
 Turnout.configure do |config|
   config.app_root = '.'
   config.named_maintenance_file_paths = { default: config.app_root.join('tmp', 'maintenance.yml').to_s }
@@ -9,4 +8,3 @@ Turnout.configure do |config|
   config.default_response_code = 503
   config.default_retry_after = 7200
 end
-# rubocop:enable Layout/LineLength

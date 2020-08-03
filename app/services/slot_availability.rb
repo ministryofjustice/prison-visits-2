@@ -57,7 +57,6 @@ private
       requested_slots: prison_slots).tap(&:valid?)
   end
 
-  # rubocop:disable Metrics/MethodLength
   def prisoner_availability
     @prisoner_availability ||=
       begin
@@ -71,7 +70,6 @@ private
         Nomis::PrisonerAvailability.new(dates: all_slots.keys.uniq)
       end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def prisoner_availability_dates
     @prisoner_availability_dates ||= prisoner_availability.dates

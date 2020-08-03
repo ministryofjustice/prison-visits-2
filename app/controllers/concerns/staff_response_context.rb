@@ -76,7 +76,6 @@ private
       message: message)
   end
 
-  # rubocop:disable Metrics/MethodLength
   def visit_params
     params.require(:visit).permit(
       :reference_no, :slot_granted, :closed, :slot_option_0,
@@ -101,5 +100,4 @@ private
       prisoner_attributes: [:nomis_offender_id, :id]
     )
   end
-  # rubocop:enable Metrics/MethodLength
 end
