@@ -9,28 +9,8 @@ RSpec.feature 'Printing a list of visits' do
     create(:booked_visit, prison: swansea_prison)
   end
 
-  let(:sso_response) do
-    {
-      'uid' => '1234-1234-1234-1234',
-      'provider' => 'mojsso',
-      'info' => {
-        'first_name' => 'Joe',
-        'last_name' => 'Goldman',
-        'email' => 'joe@example.com',
-        'permissions' => [
-          { 'organisation' => cardiff.sso_organisation_name, roles: [] },
-          { 'organisation' => swansea.sso_organisation_name, roles: [] }
-        ],
-        'links' => {
-          'profile' => 'http://example.com/profile',
-          'logout' => 'http://example.com/logout'
-        }
-      }
-    }
-  end
-
   before do
-    OmniAuth.config.add_mock(:mojsso, sso_response)
+    prison_login [cardiff, swansea]
     vst.update!(slot_granted: '2017-12-21T14:00/16:00')
   end
 

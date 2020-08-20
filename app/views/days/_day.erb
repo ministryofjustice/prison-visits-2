@@ -1,5 +1,5 @@
 <li>
-  <span class="slot-heading"><%= StaffInfoController::DAY_NAMES[day_counter] %></span>
+  <span class="slot-heading"><%= SlotInfoHelper::DAY_NAMES[day_counter] %></span>
   <ul>
     <%= prison.recurring_slot_list_for(day.to_s) %>
   </ul>

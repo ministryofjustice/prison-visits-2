@@ -4,28 +4,10 @@ require_relative '../metrics/shared_examples_for_metrics'
 RSpec.feature 'Metrics', js: true do
   include ActiveJobHelper
   let(:email_address) { 'joe@example.com' }
-  let(:sso_response) do
-    {
-      'uid' => '1234-1234-1234-1234',
-      'provider' => 'mojsso',
-      'info' => {
-        'first_name' => 'Joe',
-        'last_name' => 'Goldman',
-        'email' => email_address,
-        'permissions' => [
-          { 'organisation' => EstateSSOMapper::DIGITAL_ORG, roles: [] }
-        ],
-        'links' => {
-          'profile' => 'http://example.com/profile',
-          'logout' => 'http://example.com/logout'
-        }
-      }
-    }
-  end
 
   before do
     allow(VisitorMailer).to receive(:rejected).and_return(double('Mailer', deliver_later: nil))
-    OmniAuth.config.add_mock(:mojsso, sso_response)
+    prison_login [Struct.new(:sso_organisation_name).new(EstateSSOMapper::DIGITAL_ORG)], email_address
   end
 
   context 'when overdue' do

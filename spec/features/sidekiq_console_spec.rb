@@ -4,29 +4,10 @@ RSpec.feature 'Sidekiq Admin Console' do
   include ActiveJobHelper
 
   let(:prison) { create :prison }
-  let(:sso_response) do
-    {
-      'uid' => '1234-1234-1234-1234',
-      'provider' => 'mojsso',
-      'info' => {
-        'first_name' => 'Joe',
-        'last_name' => 'Goldman',
-        'email' => 'joe@example.com',
-        'permissions' => [
-          { 'organisation' => EstateSSOMapper::DIGITAL_ORG, roles: [] },
-          { 'organisation' => prison.estate.sso_organisation_name, roles: [] }
-        ],
-        'links' => {
-          'profile' => 'http://example.com/profile',
-          'logout' => 'http://example.com/logout'
-        }
-      }
-    }
-  end
 
   describe 'When logged in as an admin', :sidekiq do
     before do
-      OmniAuth.config.add_mock(:mojsso, sso_response)
+      prison_login [Struct.new(:sso_organisation_name).new(EstateSSOMapper::DIGITAL_ORG), prison.estate]
       visit prison_inbox_path
     end
 

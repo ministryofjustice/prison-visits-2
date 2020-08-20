@@ -2,31 +2,12 @@ require 'rails_helper'
 
 RSpec.feature 'Using the dashboard' do
   before do
-    OmniAuth.config.add_mock(:mojsso, sso_response)
+    prison_login [cardiff, swansea]
   end
 
   let(:cardiff)        { create(:estate, name: 'Cardiff') }
   let(:swansea)        { create(:estate, name: 'Swansea') }
   let(:swansea_prison) { create(:prison, estate: swansea) }
-  let(:sso_response) do
-    {
-      'uid' => '1234-1234-1234-1234',
-      'provider' => 'mojsso',
-      'info' => {
-        'first_name' => 'Joe',
-        'last_name' => 'Goldman',
-        'email' => 'joe@example.com',
-        'permissions' => [
-          { 'organisation' => cardiff.sso_organisation_name, roles: [] },
-          { 'organisation' => swansea.sso_organisation_name, roles: [] }
-        ],
-        'links' => {
-          'profile' => 'http://example.com/profile',
-          'logout' => 'http://example.com/logout'
-        }
-      }
-    }
-  end
 
   context 'when logging in and switching inbox' do
     before do
