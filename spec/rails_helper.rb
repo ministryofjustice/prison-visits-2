@@ -29,6 +29,7 @@ RSpec.configure do |config|
   config.include ConfigurationHelpers
   config.include ServiceHelpers
   config.include JWTHelper
+  config.include AuthHelper
 
   config.infer_spec_type_from_file_location!
 

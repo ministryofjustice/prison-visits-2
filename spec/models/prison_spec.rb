@@ -34,31 +34,56 @@ RSpec.describe Prison, type: :model do
     end
   end
 
-  context 'with available slots and bookability' do
-    before do
-      #
-      #    Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo
-      #     1  2  3  4  5  6  7  8  9 10 11 12
-      #     T  1  .  .  2  3  *  *  *  .  .  *
-      #     |              |  |<--------->|
-      #   Today       Confirm    Bookable
-      subject.slot_details = {
-        'recurring' => {
-          'mon' => ['1001-1100'],
-          'tue' => ['1002-1100'],
-          'wed' => ['1003-1100'],
-          'thu' => ['1004-1100'],
-          'fri' => ['1005-1100'],
-          'sat' => ['1006-1100'],
-          'sun' => ['1007-1100']
-        }
-      }
-      subject.booking_window = 10
-    end
-
+  describe '#available_slots' do
     let(:today) { Date.new(2015, 10, 1) } # Thursday
 
-    describe 'available_slots' do
+    context 'with auto_slots_enabled' do
+      let(:prison) {
+        create(:prison,
+               slot_details:
+                 { 'unbookable' => ['2015-10-15'] },
+               nomis_concrete_slots: [
+                 build(:nomis_concrete_slot, date: Date.new(2014, 10, 7), start_hour: 10, start_minute: 3, end_hour: 11, end_minute: 0),
+                 build(:nomis_concrete_slot, date: Date.new(2015, 10, 14), start_hour: 10, start_minute: 3, end_hour: 11, end_minute: 0),
+                 build(:nomis_concrete_slot, date: Date.new(2015, 10, 15), start_hour: 10, start_minute: 3, end_hour: 11, end_minute: 0),
+                 build(:nomis_concrete_slot, date: Date.new(2015, 10, 7), start_hour: 10, start_minute: 3, end_hour: 11, end_minute: 0),
+                 build(:nomis_concrete_slot, date: Date.new(2015, 10, 1), start_hour: 10, start_minute: 3, end_hour: 11, end_minute: 0)
+               ]).tap do |prison|
+          switch_feature_flag_with(:public_prisons_with_slot_availability, [prison.name])
+        end
+      }
+
+      it 'returns the auto_slots for future (respecting lead time and unbookable slots) in the correct order' do
+        expect(prison.available_slots(today)).to eq(
+          [
+            ConcreteSlot.new(2015, 10,  7, 10, 3, 11, 0),
+            ConcreteSlot.new(2015, 10,  14, 10, 3, 11, 0)
+          ])
+      end
+    end
+
+    context 'with available slots and bookability' do
+      before do
+        #
+        #    Th Fr Sa Su Mo Tu We Th Fr Sa Su Mo
+        #     1  2  3  4  5  6  7  8  9 10 11 12
+        #     T  1  .  .  2  3  *  *  *  .  .  *
+        #     |              |  |<--------->|
+        #   Today       Confirm    Bookable
+        subject.slot_details = {
+          'recurring' => {
+            'mon' => ['1001-1100'],
+            'tue' => ['1002-1100'],
+            'wed' => ['1003-1100'],
+            'thu' => ['1004-1100'],
+            'fri' => ['1005-1100'],
+            'sat' => ['1006-1100'],
+            'sun' => ['1007-1100']
+          }
+        }
+        subject.booking_window = 10
+      end
+
       it 'enumerates available slots within booking window starting after lead time' do
         expect(subject.available_slots(today).to_a).to eq(
           [

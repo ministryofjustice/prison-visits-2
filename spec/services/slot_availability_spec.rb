@@ -1,7 +1,34 @@
 require "rails_helper"
 
 RSpec.describe SlotAvailability do
-  let(:prison)        { create(:prison) }
+  let(:default_prison_slots) {
+    [
+      "2017-02-07T09:00/10:00",
+      "2017-02-07T14:00/16:10",
+      "2017-02-13T14:00/16:10",
+      "2017-02-14T09:00/10:00",
+      "2017-02-14T14:00/16:10",
+      "2017-02-20T14:00/16:10",
+      "2017-02-21T09:00/10:00",
+      "2017-02-21T14:00/16:10",
+      "2017-02-27T14:00/16:10",
+      "2017-02-28T09:00/10:00",
+      "2017-02-28T14:00/16:10"
+    ]
+  }
+
+  let(:prison) {
+    create(:prison,
+           nomis_concrete_slots: default_prison_slots.map { |s| ConcreteSlot.parse(s) }.map { |cs|
+                                   build(:nomis_concrete_slot,
+                                         date: Date.new(cs.year, cs.month, cs.day),
+                                         start_hour: cs.begin_hour,
+                                         start_minute: cs.begin_minute,
+                                         end_hour: cs.end_hour,
+                                         end_minute: cs.end_minute)
+                                 })
+  }
+
   let(:offender_id)   { 'A1410AE' }
   let(:date_of_birth) { '1960-06-01' }
   let(:start_date)    { Date.parse('2017-02-01') }
@@ -172,24 +199,6 @@ RSpec.describe SlotAvailability do
 
         it { expect(subject.slots).to eq(all_slots_available) }
       end
-    end
-  end
-
-  describe '#all_slots' do
-    it 'returns a hash without unavailability reasons' do
-      expect(subject.all_slots).to eq(
-        "2017-02-07T09:00/10:00" => [],
-        "2017-02-07T14:00/16:10" => [],
-        "2017-02-13T14:00/16:10" => [],
-        "2017-02-14T09:00/10:00" => [],
-        "2017-02-14T14:00/16:10" => [],
-        "2017-02-20T14:00/16:10" => [],
-        "2017-02-21T09:00/10:00" => [],
-        "2017-02-21T14:00/16:10" => [],
-        "2017-02-27T14:00/16:10" => [],
-        "2017-02-28T09:00/10:00" => [],
-        "2017-02-28T14:00/16:10" => []
-      )
     end
   end
 end

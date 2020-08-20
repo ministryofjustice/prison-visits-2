@@ -65,10 +65,22 @@ end
 
 require 'vcr'
 
+# set VCR=1 when you wish to record new interactions with T3
+vcr_mode = ENV.fetch('VCR', '0').to_i.freeze
+
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
-  config.hook_into :webmock
+  if vcr_mode.zero?
+    config.hook_into :webmock
+  else
+    config.hook_into :faraday
+  end
   config.configure_rspec_metadata!
+  # config.allow_http_connections_when_no_cassette = true
+  config.default_cassette_options = {
+    # by default, all T3 interactions are already recorded
+    record: vcr_mode.zero? ? :none : :new_episodes,
+  }
 
   # Uncomment out the line below when recording/re-recording cassettes
   # config.default_cassette_options = { record: :new_episodes }

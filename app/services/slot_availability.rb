@@ -23,11 +23,11 @@ class SlotAvailability
     end
   end
 
+private
+
   def all_slots
     @all_slots ||= Hash[prison_slots.map { |slot| [slot.to_s, []] }]
   end
-
-private
 
   attr_reader :prison, :noms_id, :date_of_birth, :start_date, :end_date
 
