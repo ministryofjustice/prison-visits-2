@@ -383,7 +383,7 @@ GEM
       json (>= 1.8.0)
     unicode-display_width (1.6.1)
     uri_template (0.7.0)
-    vcr (5.1.0)
+    vcr (6.0.0)
     webmock (3.8.3)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
