@@ -74,7 +74,7 @@ GEM
     ast (2.4.1)
     awesome_print (1.8.0)
     base32-crockford (0.1.0)
-    brakeman (4.8.0)
+    brakeman (4.9.0)
     builder (3.2.4)
     business (1.17.1)
     byebug (11.1.3)
