@@ -1,5 +1,3 @@
-require 'nomis/client'
-
 module Nomis
   class Api
     include Singleton
@@ -29,7 +27,7 @@ module Nomis
     # returns Nomis::Prisoner | NullPrisoner
     def lookup_active_prisoner(noms_id:, date_of_birth:)
       response = @pool.with { |client|
-        client.get('lookup/active_offender',
+        client.get('v1/lookup/active_offender',
                    noms_id: noms_id, date_of_birth: date_of_birth)
       }
 
@@ -48,7 +46,7 @@ module Nomis
     #
     # returns Nomis::Prisoner::Details
     def lookup_prisoner_details(noms_id:)
-      response = @pool.with { |client| client.get("offenders/#{noms_id}") }
+      response = @pool.with { |client| client.get("v1/offenders/#{noms_id}") }
 
       api_serialiser.
         serialise(Nomis::Prisoner::Details, response).tap do |prisoner_details|
@@ -65,7 +63,7 @@ module Nomis
     # returns Nomis::Establishment
     def lookup_prisoner_location(noms_id:)
       response = @pool.with { |client|
-        client.get("offenders/#{noms_id}/location")
+        client.get("v1/offenders/#{noms_id}/location")
       }
 
       Nomis::Establishment.build(response).tap do |establishment|
@@ -86,7 +84,7 @@ module Nomis
     def prisoner_visiting_availability(offender_id:, start_date:, end_date:)
       response = @pool.with { |client|
         client.get(
-          "offenders/#{offender_id}/visits/available_dates",
+          "v1/offenders/#{offender_id}/visits/available_dates",
           start_date: start_date, end_date: end_date)
       }
 
@@ -107,7 +105,7 @@ module Nomis
     def prisoner_visiting_detailed_availability(offender_id:, slots:)
       response = @pool.with { |client|
         client.get(
-          "offenders/#{offender_id}/visits/unavailability",
+          "v1/offenders/#{offender_id}/visits/unavailability",
           dates: slots.map(&:to_date).join(','))
       }
 
@@ -131,7 +129,7 @@ module Nomis
     def fetch_bookable_slots(prison:, start_date:, end_date:)
       response = @pool.with { |client|
         client.get(
-          "prison/#{prison.nomis_id}/slots",
+          "v1/prison/#{prison.nomis_id}/slots",
           start_date: start_date,
           end_date: end_date)
       }
@@ -150,10 +148,38 @@ module Nomis
     # returns Nomis::ContactList
     def fetch_contact_list(offender_id:)
       response = @pool.with { |client|
-        client.get("offenders/#{offender_id}/visits/contact_list")
+        client.get("v1/offenders/#{offender_id}/visits/contact_list")
       }
 
       Nomis::ContactList.new(response)
+    end
+
+    #:nocov:
+    def user_caseloads(staff_id)
+      route = "staff/#{staff_id}/caseloads"
+      response = @pool.with { |client|
+        client.get(route)
+      }
+
+      response
+    end
+
+    def user_details(username)
+      route = "users/#{username}"
+      response = @pool.with { |client|
+        client.get(route)
+      }
+
+      Nomis::UserDetails.new(response)
+    end
+    #:nocov:
+
+    def fetch_email_addresses(staff_id)
+      route = "staff/#{staff_id}/emails"
+      response = @pool.with { |client|
+        client.get(route)
+      }
+      response || []
     end
 
   private

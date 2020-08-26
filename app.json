@@ -1,7 +1,7 @@
 {
   "name": "prison-visits-2",
   "scripts": {
-    "postdeploy": "bundle exec rails db:seed heroku:post_deploy pvb:load_nomis_slots pvb:populate:visits pvb:metrics:refresh",
+    "postdeploy": "bundle exec rails db:seed pvb:load_nomis_slots pvb:populate:visits pvb:metrics:refresh",
     "pr-predestroy": "bundle exec rails heroku:pr_destroy"
   },
   "env": {

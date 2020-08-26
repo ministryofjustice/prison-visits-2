@@ -54,7 +54,7 @@ private
   def authenticate_user
     unless sso_identity
       session[:redirect_path] = request.original_fullpath
-      redirect_to '/auth/mojsso'
+      redirect_to '/auth/hmpps_sso'
     end
   end
 

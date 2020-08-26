@@ -39,24 +39,21 @@ RSpec.shared_context 'with a process request setup' do
   let(:sso_response) do
     {
       'uid' => '1234-1234-1234-1234',
-      'provider' => 'mojsso',
+      'provider' => 'hmpps_sso',
       'info' => {
         'first_name' => 'Joe',
         'last_name' => 'Goldman',
-        'email' => 'joe@example.com',
-        'permissions' => [
-          { 'organisation' => vst.prison.estate.sso_organisation_name, roles: [] }
+        'user_id' => 485_926,
+        'organisations' => [
+          vst.prison.estate.nomis_id
         ],
-        'links' => {
-          'profile' => 'http://example.com/profile',
-          'logout' => 'http://example.com/logout'
-        }
+        'roles' => [],
       }
     }
   end
 
   before do
-    OmniAuth.config.add_mock(:mojsso, sso_response)
+    OmniAuth.config.add_mock(:hmpps_sso, sso_response)
     visit prison_inbox_path
   end
 end

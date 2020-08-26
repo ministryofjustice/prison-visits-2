@@ -7,7 +7,7 @@ RSpec.feature 'Metrics', js: true do
 
   before do
     allow(VisitorMailer).to receive(:rejected).and_return(double('Mailer', deliver_later: nil))
-    prison_login [Struct.new(:sso_organisation_name).new(EstateSSOMapper::DIGITAL_ORG)], email_address
+    prison_login [Struct.new(:nomis_id).new('WED')], email_address, [SignonIdentity::ADMIN_ROLE]
   end
 
   context 'when overdue' do
@@ -39,6 +39,10 @@ RSpec.feature 'Metrics', js: true do
 
     context 'when all the time' do
       before do
+        stub_auth_token
+        stub_request(:get, "https://api-dev.prison.service.justice.gov.uk/api/staff/485926/emails").
+          to_return(body: [email_address].to_json)
+
         luna_visits_with_dates
 
         visit(metrics_path(locale: 'en', range: 'all_time'))

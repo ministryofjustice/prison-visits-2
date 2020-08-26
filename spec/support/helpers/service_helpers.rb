@@ -24,25 +24,21 @@ module ServiceHelpers
   end
 
   # allow feature tests to login for specific prisons
-  def prison_login(prisons, email_address = 'joe@example.com')
+  def prison_login(estates, email_address = 'joe@example.com', roles = [])
     sso_response =
       {
         'uid' => '1234-1234-1234-1234',
-        'provider' => 'mojsso',
+        'provider' => 'hmpps_sso',
         'info' => {
           'first_name' => 'Joe',
           'last_name' => 'Goldman',
+          'user_id' => 485_926,
           'email' => email_address,
-          'permissions' => prisons.map { |prison|
-            { 'organisation' => prison.sso_organisation_name, roles: [] }
-          },
-          'links' => {
-            'profile' => 'http://example.com/profile',
-            'logout' => 'http://example.com/logout'
-          }
+          'organisations' => estates.map(&:nomis_id),
+          'roles' => roles,
         }
       }
 
-    OmniAuth.config.add_mock(:mojsso, sso_response)
+    OmniAuth.config.add_mock(:hmpps_sso, sso_response)
   end
 end

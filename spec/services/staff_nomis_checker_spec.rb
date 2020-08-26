@@ -67,6 +67,15 @@ RSpec.describe StaffNomisChecker do
     end
 
     context 'when the api is enabled' do
+      let(:slot_date) { Time.zone.today + 10.days }
+      let(:api) { 'https://api-dev.prison.service.justice.gov.uk/api/v1' }
+
+      before do
+        stub_auth_token
+        stub_request(:get, "#{api}/prison/#{prison.nomis_id}/slots?end_date=#{slot_date}&start_date=#{slot_date}").
+          to_return(body: { slots: ["time": "#{slot_date}T14:00/16:10"] }.to_json)
+      end
+
       context 'with a valid prisoner' do
         let(:prisoner_availability_validator) do
           instance_double(PrisonerAvailabilityValidation, valid?: false, slot_errors: messages)
@@ -86,7 +95,7 @@ RSpec.describe StaffNomisChecker do
         context 'with no errors' do
           let(:messages) { [] }
 
-          it { expect(subject.errors_for(slot)).to be_empty }
+          it { expect(subject.errors_for(slot)).to eq([]) }
         end
       end
 

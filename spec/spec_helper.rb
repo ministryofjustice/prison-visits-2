@@ -82,8 +82,6 @@ VCR.configure do |config|
     record: vcr_mode.zero? ? :none : :new_episodes,
   }
 
-  # Uncomment out the line below when recording/re-recording cassettes
-  # config.default_cassette_options = { record: :new_episodes }
   config.ignore_request do |request|
     # Ignore capybara requests within feature tests
     request.uri =~ /__identify__|session|oauth/

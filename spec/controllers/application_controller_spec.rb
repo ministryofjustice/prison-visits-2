@@ -1,5 +1,4 @@
 require "rails_helper"
-require 'nomis/client'
 
 RSpec.describe ApplicationController, type: :controller do
   let(:user) { create(:user) }
