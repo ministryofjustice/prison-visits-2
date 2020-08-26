@@ -1,15 +1,19 @@
+# frozen_string_literal: true
+
 # Responsible for the relationship between identities and permissions retrieved
 # from SSO, and the internal Users and Estates. Also for additional information
 # returned from the SSO application which is stored in the user's session.
 class SignonIdentity
   class InvalidSessionData < RuntimeError; end
 
+  ADMIN_ROLE = 'ROLE_PVB_ADMIN'
+
   class << self
     def from_omniauth(omniauth_auth)
       info = omniauth_auth.fetch('info')
 
       # Disallow login unless user has access to at least one estate
-      if accessible_estates(info.fetch('permissions')).empty?
+      if accessible_estates(info.fetch('organisations'), info.fetch('roles')).empty?
         Rails.logger.info "User has no valid permissions: #{info}"
         return
       end
@@ -24,9 +28,9 @@ class SignonIdentity
       new(
         User.find(data.fetch('user_id')),
         full_name: data.fetch('full_name'),
-        profile_url: data.fetch('profile_url'),
         logout_url: data.fetch('logout_url'),
-        permissions: data.fetch('permissions')
+        organisations: data.fetch('organisations'),
+        roles: data.fetch('roles')
       )
     rescue KeyError
       raise InvalidSessionData
@@ -35,26 +39,26 @@ class SignonIdentity
   private
 
     # Determines which estates a user can access based on their permissions
-    def accessible_estates(permissions)
-      orgs = permissions.map { |p| p.fetch('organisation') }
-
-      mapper = EstateSSOMapper.new(orgs)
+    def accessible_estates(orgs, roles)
+      mapper = EstateSSOMapper.new(orgs, roles.include?(ADMIN_ROLE))
       mapper.accessible_estates
     end
 
     def find_or_create_authorized_user(info)
-      email = info.fetch('email')
+      email = user_email(info)
       User.find_or_create_by!(email: email)
     end
 
-    def extract_additional_data(info)
-      links = info.fetch('links')
+    def user_email(info)
+      Nomis::Api.instance.fetch_email_addresses(info.fetch('user_id')).first
+    end
 
+    def extract_additional_data(info)
       {
         full_name: full_name_from_additional_data(info),
-        profile_url: links.fetch('profile'),
-        logout_url: links.fetch('logout'),
-        permissions: info.fetch('permissions')
+        logout_url: "#{Rails.configuration.nomis_oauth_host}/auth/logout",
+        organisations: info.fetch('organisations'),
+        roles: info.fetch('roles')
       }
     end
 
@@ -65,14 +69,14 @@ class SignonIdentity
     end
   end
 
-  attr_reader :user, :full_name, :profile_url
+  attr_reader :user, :full_name
 
-  def initialize(user, full_name:, profile_url:, logout_url:, permissions:)
+  def initialize(user, full_name:, logout_url:, organisations:, roles:)
     @user = user
     @full_name = full_name
-    @profile_url = profile_url
     @logout_url = logout_url
-    @permissions = permissions
+    @organisations = organisations
+    @roles = roles
   end
 
   def logout_url(redirect_to: nil)
@@ -90,7 +94,7 @@ class SignonIdentity
   end
 
   def default_estates
-    # Prevent loading data from all prisons by defaul
+    # Prevent loading data from all prisons by default
     if estate_sso_mapper.admin?
       accessible_estates.take(1)
     else
@@ -103,22 +107,21 @@ class SignonIdentity
     {
       'full_name' => @full_name,
       'user_id' => @user.id,
-      'profile_url' => @profile_url,
       'logout_url' => @logout_url,
-      'permissions' => @permissions
+      'organisations' => @organisations,
+      'roles' => @roles
     }
   end
 
   def admin?
-    estate_sso_mapper.admin?
+    @roles.include?(ADMIN_ROLE)
   end
 
 private
 
   def estate_sso_mapper
     @estate_sso_mapper ||= begin
-      orgs = @permissions.map { |p| p.fetch('organisation') }
-      EstateSSOMapper.new(orgs)
+      EstateSSOMapper.new(@organisations, admin?)
     end
   end
 end

@@ -24,7 +24,7 @@
         <a href="/" id="proposition-name" class="header__menu__proposition-name"><%= t('app_title') %></a>
         <% if current_user %>
           <ul id="proposition-links" class="header__menu__proposition-links">
-            <li><%= link_to current_user.email, sso_identity.profile_url %></li>
+            <li><%= current_user.email %></li>
             <li>
               <%= form_tag session_path, method: :delete, enforce_utf8: false, class: 'form' do -%>
                 <input class="button-link" type="submit" value="<%= t('.sign_out') %>">

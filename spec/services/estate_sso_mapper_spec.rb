@@ -1,34 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe EstateSSOMapper do
-  let(:instance) { described_class.new(user_sso_orgs) }
+  let(:admin) { false }
+  let(:instance) { described_class.new(user_sso_orgs, admin) }
 
   let!(:other_estate) do
     create(:estate,
            sso_organisation_name: 'other_estate.prisons.noms.moj',
            admins: ['other_estate.prisons.noms.moj'])
-  end
-
-  around(:each) do |ex|
-    described_class.reset_grouped_estates
-    ex.run
-    described_class.reset_grouped_estates
-  end
-
-  describe '.grouped_estates' do
-    subject { described_class.grouped_estates }
-
-    let!(:brinsford) do
-      create(:estate,
-             sso_organisation_name: 'brinsford.prisons.noms.moj',
-             admins: ['apvu.noms.moj', 'brinsford.prisons.noms.moj'])
-    end
-
-    it {
-      expect(subject).to eq('apvu.noms.moj' => ['brinsford.prisons.noms.moj'],
-                            'brinsford.prisons.noms.moj' => ['brinsford.prisons.noms.moj'],
-                            'other_estate.prisons.noms.moj' => ['other_estate.prisons.noms.moj'])
-    }
   end
 
   describe '#accessible_estates' do
@@ -40,7 +19,7 @@ RSpec.describe EstateSSOMapper do
                sso_organisation_name: 'brinsford.prisons.noms.moj',
                admins: ['brinsford.prisons.noms.moj'])
       end
-      let(:user_sso_orgs) { ['brinsford.prisons.noms.moj'] }
+      let(:user_sso_orgs) { [brinsford.nomis_id] }
 
       it 'includes Brinsford estates' do
         expect(subject).to include(brinsford)
@@ -54,7 +33,7 @@ RSpec.describe EstateSSOMapper do
                sso_organisation_name: 'brinsford.prisons.noms.moj',
                admins: ['apvu.noms.moj'])
       end
-      let(:user_sso_orgs) { ['apvu.noms.moj'] }
+      let(:user_sso_orgs) { [brinsford.nomis_id] }
 
       it 'includes apvu estates' do
         expect(subject).to include(brinsford)
@@ -68,7 +47,7 @@ RSpec.describe EstateSSOMapper do
                sso_organisation_name: 'grendon.prisons.noms.moj',
                admins: ['grendon_and_springhill.noms.moj'])
       end
-      let(:user_sso_orgs) { ['grendon_and_springhill.noms.moj'] }
+      let(:user_sso_orgs) { [grendon.nomis_id] }
 
       it 'includes grendon and spring hill estates' do
         expect(subject).to include(grendon)
@@ -82,7 +61,7 @@ RSpec.describe EstateSSOMapper do
                sso_organisation_name: 'isle_of_wight-parkhurst.prisons.noms.moj',
                admins: ['isle_of_wight.noms.moj'])
       end
-      let(:user_sso_orgs) { ['isle_of_wight.noms.moj'] }
+      let(:user_sso_orgs) { [iow_parkhurst.nomis_id] }
 
       it 'includes isle of wight estates' do
         expect(subject).to include(iow_parkhurst)
@@ -102,7 +81,7 @@ RSpec.describe EstateSSOMapper do
                sso_organisation_name: 'brixton.prisons.noms.moj',
                admins: ['brixton.prisons.noms.moj'])
       end
-      let(:user_sso_orgs) { ['wandsworth.prisons.noms.moj', 'brixton.prisons.noms.moj'] }
+      let(:user_sso_orgs) { [wandsworth.nomis_id, brixton.nomis_id] }
 
       it 'includes the combined orgs' do
         expect(subject).to include(wandsworth, brixton)
@@ -112,6 +91,7 @@ RSpec.describe EstateSSOMapper do
 
     context 'when the admin org' do
       let(:user_sso_orgs) { ['digital.noms.moj'] }
+      let(:admin) { true }
 
       it 'includes all estates' do
         expect(subject).to eq([other_estate])

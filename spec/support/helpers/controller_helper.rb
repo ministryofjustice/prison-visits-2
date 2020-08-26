@@ -1,13 +1,13 @@
 module ControllerHelper
   def login_user(user, current_estates:, available_estates: [current_estates.first])
-    orgs = available_estates.map(&:sso_organisation_name)
+    orgs = available_estates.map(&:nomis_id)
 
     sso_identity = SignonIdentity.new(
       user,
       full_name: FFaker::Name.name,
-      profile_url: '',
+      roles: [],
       logout_url: '',
-      permissions: orgs.map { |o| { 'organisation' => o, 'roles' => [] } }
+      organisations: orgs
     )
 
     controller.session[:sso_data] = sso_identity.to_session

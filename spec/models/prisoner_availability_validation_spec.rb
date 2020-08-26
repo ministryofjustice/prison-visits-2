@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'nomis/client'
+# require 'nomis/client'
 
 RSpec.describe PrisonerAvailabilityValidation, type: :model do
   subject do

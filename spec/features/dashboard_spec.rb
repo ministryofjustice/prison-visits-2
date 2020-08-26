@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.feature 'Using the dashboard' do
   before do
     prison_login [cardiff, swansea]
+    stub_auth_token
+    stub_request(:get, "https://api-dev.prison.service.justice.gov.uk/api/staff/485926/emails").
+        to_return(body: ['joe@example.com'].to_json)
   end
 
   let(:cardiff)        { create(:estate, name: 'Cardiff') }
@@ -11,7 +14,7 @@ RSpec.feature 'Using the dashboard' do
 
   context 'when logging in and switching inbox' do
     before do
-      FactoryBot.create(:visit, prison: swansea_prison)
+      create(:visit, prison: swansea_prison)
     end
 
     it do
@@ -88,6 +91,10 @@ RSpec.feature 'Using the dashboard' do
 
   context 'when searching for a visit and cancelling it' do
     before do
+      visit prison_inbox_path
+    end
+
+    before do
       allow(Nomis::Api).to receive(:enabled?).and_return(false)
     end
 
@@ -96,8 +103,6 @@ RSpec.feature 'Using the dashboard' do
     end
 
     before do
-      visit prison_inbox_path
-
       # Search is independent of the prison filter
       within '.prison-switcher-form' do
         unselect 'Swansea', from: 'Select one or more prisons'

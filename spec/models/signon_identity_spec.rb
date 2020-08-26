@@ -7,14 +7,11 @@ RSpec.describe SignonIdentity, type: :model do
     let(:omniauth_auth) { { 'info' => oauth_info } }
     let(:oauth_info) do
       {
-        'email' => FFaker::Internet.email,
-        'permissions' => permissions,
+        'user_id' => 485_926,
+        'organisations' => organisations,
         'first_name' => 'Joe',
         'last_name' => 'Bloggs',
-        'links' => {
-          'profile' => '',
-          'logout' => ''
-        }
+        'roles' => []
       }
     end
 
@@ -22,12 +19,19 @@ RSpec.describe SignonIdentity, type: :model do
     let!(:estate) do
       FactoryBot.create(:estate, sso_organisation_name: org_name)
     end
+    let(:email) { 'pom@digital.justice.gov.uk' }
+
+    before do
+      stub_auth_token
+      stub_request(:get, "https://api-dev.prison.service.justice.gov.uk/api/staff/485926/emails").
+        to_return(body: [email].to_json)
+    end
 
     context 'when a user has previously logged in' do
-      let!(:user) { FactoryBot.create(:user, email: oauth_info['email']) }
+      let!(:user) { FactoryBot.create(:user, email: email) }
 
       context 'when they have no permissions' do
-        let(:permissions) { [] }
+        let(:organisations) { [] }
 
         it 'rejects the login attempt' do
           expect(from_omniauth).to be_nil
@@ -35,8 +39,8 @@ RSpec.describe SignonIdentity, type: :model do
       end
 
       context 'when they have permissions to access only unknown-to-pvb organisations' do
-        let(:permissions) {
-          [{ 'organisation' => 'not-an-estate', 'roles' => [] }]
+        let(:organisations) {
+          ['not-an-estate']
         }
 
         it 'rejects the login attempt' do
@@ -45,8 +49,8 @@ RSpec.describe SignonIdentity, type: :model do
       end
 
       context 'when they have permission to access an org linked to a pvb estate' do
-        let(:permissions) {
-          [{ 'organisation' => org_name, 'roles' => [] }]
+        let(:organisations) {
+          [estate.nomis_id]
         }
 
         it 'accepts the login' do
@@ -57,7 +61,7 @@ RSpec.describe SignonIdentity, type: :model do
 
     context 'with a user has not previously logged in' do
       context 'with no permissions' do
-        let(:permissions) { [] }
+        let(:organisations) { [] }
 
         it 'rejects the login attempt' do
           expect(from_omniauth).to be_nil
@@ -65,8 +69,8 @@ RSpec.describe SignonIdentity, type: :model do
       end
 
       context 'when they have permissions to access only unknown-to-pvb organisations' do
-        let(:permissions) {
-          [{ 'organisation' => 'random', 'roles' => [] }]
+        let(:organisations) {
+          ['random']
         }
 
         it 'rejects the login attempt' do
@@ -75,13 +79,13 @@ RSpec.describe SignonIdentity, type: :model do
       end
 
       context 'when they have permission to access an org linked to a pvb estate' do
-        let(:permissions) {
-          [{ 'organisation' => org_name, 'roles' => [] }]
+        let(:organisations) {
+          [estate.nomis_id]
         }
 
         it 'creates a new user' do
           expect { from_omniauth }.to change {
-            User.where(email: oauth_info['email']).count
+            User.where(email: email).count
           }.by(1)
         end
 
@@ -98,9 +102,9 @@ RSpec.describe SignonIdentity, type: :model do
       {
         'user_id' => user.id,
         'full_name' => "Mr A",
-        'profile_url' => 'https://example.com/profile',
+        'roles' => [],
         'logout_url' => 'https://example.com/logout',
-        'permissions' => [{ 'organisation' => 'noms', 'roles' => [] }]
+        'organisations' => ['noms']
       }
     end
 
@@ -122,24 +126,19 @@ RSpec.describe SignonIdentity, type: :model do
     let!(:pentonville_estate) { create(:estate, sso_organisation_name: 'pentonville.noms') }
     let!(:swansea_org_name)   { 'swansea.noms' }
     let!(:swansea_estate)     { create(:estate, sso_organisation_name: swansea_org_name, nomis_id: 'SWI') }
-    let!(:orgs)               { [swansea_org_name, cardiff_org_name] }
+    let!(:orgs)               { [swansea_estate, cardiff_estate] }
+    let!(:roles)               { [] }
     let!(:serialization) do
       {
         'user_id' => user.id,
         'full_name' => "Mr A",
-        'profile_url' => 'https://example.com/profile',
+        'roles' => roles,
         'logout_url' => 'https://example.com/logout',
-        'permissions' => orgs.map { |o| { 'organisation' => o, 'roles' => [] } }
+        'organisations' => orgs.map(&:nomis_id)
       }
     end
 
     subject { described_class.from_session_data(serialization) }
-
-    around do |ex|
-      EstateSSOMapper.reset_grouped_estates
-      ex.run
-      EstateSSOMapper.reset_grouped_estates
-    end
 
     it 'makes available the list of accessible estates' do
       expect(subject.accessible_estates).to contain_exactly(cardiff_estate, swansea_estate)
@@ -159,10 +158,14 @@ RSpec.describe SignonIdentity, type: :model do
       end
 
       context 'when an admin' do
-        let!(:orgs) { [EstateSSOMapper::DIGITAL_ORG] }
+        let(:roles) { ["ROLE_PVB_ADMIN"] }
 
         it 'defaults to only 1 estate' do
           expect(subject.default_estates.size).to eq(1)
+        end
+
+        it 'makes all estates accessible' do
+          expect(subject.accessible_estates).to include(pentonville_estate)
         end
       end
     end
@@ -173,14 +176,6 @@ RSpec.describe SignonIdentity, type: :model do
       ).to eq(
         'https://example.com/logout?redirect_to=https%3A%2F%2Fpvb%2Floggedout'
       )
-    end
-
-    context 'when a user is associated to a digital team' do
-      let!(:orgs) { [swansea_org_name, 'digital.noms.moj'] }
-
-      it 'makes all estates accessible' do
-        expect(subject.accessible_estates).to include(pentonville_estate)
-      end
     end
   end
 end

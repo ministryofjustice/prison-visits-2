@@ -6,10 +6,10 @@ RSpec.describe PVB::DigitalUserConstraint do
   let(:sso_data) do
     {
       'user_id' => user.id,
-      'profile_url' => 'profile_url',
+      'roles' => roles,
       'full_name' => 'John Doe',
       'logout_url' => 'logout_url',
-      'permissions' => [{ 'organisation' => org }]
+      'organisations' => ['VDD']
     }
   end
 
@@ -29,13 +29,13 @@ RSpec.describe PVB::DigitalUserConstraint do
     end
 
     context 'with a pvb admin user' do
-      let(:org) { EstateSSOMapper::DIGITAL_ORG  }
+      let(:roles) { [SignonIdentity::ADMIN_ROLE]  }
 
       it { is_expected.to be_matches(request) }
     end
 
     context 'with a non pvb admin user' do
-      let(:org) { 'another.org'  }
+      let(:roles) { []  }
 
       it { is_expected.not_to be_matches(request) }
     end

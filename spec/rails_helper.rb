@@ -27,6 +27,7 @@ RSpec.configure do |config|
   config.include StaffResponseHelper
   config.include ControllerHelper, type: :controller
   config.include ConfigurationHelpers
+  config.include AuthHelper
   config.include ServiceHelpers
   config.include JWTHelper
   config.include AuthHelper
@@ -49,18 +50,6 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
   end
 
-  config.around(:each, type: :controller) do |ex|
-    EstateSSOMapper.reset_grouped_estates
-    ex.run
-    EstateSSOMapper.reset_grouped_estates
-  end
-
-  config.around(:each, type: :feature) do |ex|
-    EstateSSOMapper.reset_grouped_estates
-    ex.run
-    EstateSSOMapper.reset_grouped_estates
-  end
-
   config.before(:each, js: true) do
     DatabaseCleaner.strategy = :truncation
   end
@@ -80,6 +69,14 @@ RSpec.configure do |config|
 
   config.after(:each, :expect_exception) do
     Rails.configuration.sentry_dsn = nil
+  end
+
+  # in VCR mode, allow HTTP connections to T3, but then
+  # reset back to default afterwards
+  config.around(:each, :vcr) do |example|
+    WebMock.allow_net_connect!
+    example.run
+    WebMock.disable_net_connect!(allow: 'codeclimate.com', allow_localhost: true)
   end
 end
 

@@ -13,7 +13,7 @@ RSpec.describe Prison::PrintVisitsController do
         get :new, params: { estate_id: estate.finder_slug }
       end
 
-      it { is_expected.to redirect_to("/auth/mojsso") }
+      it { is_expected.to redirect_to("/auth/hmpps_sso") }
     end
 
     context "when logged in" do
@@ -37,7 +37,7 @@ RSpec.describe Prison::PrintVisitsController do
         get :show, params: { visit_date: { "day" => "23", "month" => "12", "year" => "2017" } }
       end
 
-      it { is_expected.to redirect_to("/auth/mojsso") }
+      it { is_expected.to redirect_to("/auth/hmpps_sso") }
     end
 
     context "when logged in" do

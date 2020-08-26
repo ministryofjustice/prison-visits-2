@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Nomis::Client do
   let(:api_host) { Rails.configuration.prison_api_host }
 
-  let(:path) { 'lookup/active_offender' }
+  let(:path) { 'v1/lookup/active_offender' }
   let(:params) {
     {
       noms_id: 'G7244GR',

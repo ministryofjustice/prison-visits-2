@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
   describe '#create' do
-    subject(:create) { get :create, params: { provider: 'mojsso' } }
+    subject(:create) { get :create, params: { provider: 'hmpps_sso' } }
 
     let(:auth_hash) { { 'info' => anything } }
     let(:sso_data) do
@@ -11,7 +11,7 @@ RSpec.describe SessionsController, type: :controller do
         'profile_url': 'profile_url',
         'full_name': 'John Doe',
         'logout_url': 'logout_url',
-        'permissions': {}
+        'organisations': []
       }
     end
 
@@ -64,20 +64,21 @@ RSpec.describe SessionsController, type: :controller do
     subject(:destroy) { delete :destroy }
 
     let(:user) { FactoryBot.create(:user) }
+    let(:estate_nomis_id) { 'ACI' }
 
     let(:sso_data) do
       {
         'user_id' => user.id,
         'full_name' => 'Joe Bloggs',
-        'profile_url' => '',
+        'roles' => [],
         'logout_url' => 'http://example.com/logout',
-        'permissions' => [{ 'organisation' => 'org1', 'roles' => [] }]
+        'organisations' => [estate_nomis_id]
       }
     end
 
     before do
       session[:sso_data] = sso_data
-      create(:estate, sso_organisation_name: 'org1')
+      create(:estate, nomis_id: estate_nomis_id)
     end
 
     it 'deletes the session and does not redirect to SSO if session data invalid' do
