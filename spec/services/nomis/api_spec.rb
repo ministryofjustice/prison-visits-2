@@ -147,8 +147,8 @@ RSpec.describe Nomis::Api do
     let(:params) {
       {
         offender_id: 1_502_035,
-        start_date: '2019-11-15',
-        end_date: '2019-11-25'
+        start_date: '2020-10-15',
+        end_date: '2020-10-25'
       }
     }
 
@@ -157,7 +157,7 @@ RSpec.describe Nomis::Api do
 
       it 'returns availability info containing a list of available dates' do
         expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
-        expect(subject.dates.first).to eq(Date.parse('2019-11-15'))
+        expect(subject.dates.first).to eq(Date.parse('2020-10-15'))
       end
 
       it 'logs the number of available dates' do
@@ -172,8 +172,8 @@ RSpec.describe Nomis::Api do
       let(:params) {
         {
           offender_id: 1_502_035,
-          start_date: Date.parse('2019-11-18'),
-          end_date: Date.parse('2019-11-18')
+          start_date: Date.parse('2020-10-18'),
+          end_date: Date.parse('2020-10-18')
         }
       }
 
@@ -187,9 +187,9 @@ RSpec.describe Nomis::Api do
   end
 
   describe 'prisoner_visiting_detailed_availability', vcr: { cassette_name: :prisoner_visiting_detailed_availability } do
-    let(:slot1) { ConcreteSlot.new(2019, 11, 15, 10, 0, 11, 0) }
-    let(:slot2) { ConcreteSlot.new(2019, 11, 16, 10, 0, 11, 0) }
-    let(:slot3) { ConcreteSlot.new(2019, 11, 17, 10, 0, 11, 0) }
+    let(:slot1) { ConcreteSlot.new(2020, 10, 15, 10, 0, 11, 0) }
+    let(:slot2) { ConcreteSlot.new(2020, 10, 16, 10, 0, 11, 0) }
+    let(:slot3) { ConcreteSlot.new(2020, 10, 17, 10, 0, 11, 0) }
     let(:params) do
       {
         offender_id: 1_502_035,
@@ -217,15 +217,15 @@ RSpec.describe Nomis::Api do
     let(:params) {
       {
         prison: instance_double(Prison, nomis_id: 'VEI'),
-        start_date: '2019-11-14',
-        end_date: '2019-11-24'
+        start_date: '2020-10-14',
+        end_date: '2020-10-24'
       }
     }
 
     subject { super().fetch_bookable_slots(params) }
 
     it 'returns an array of slots' do
-      expect(subject.first.time.iso8601).to eq("2019-11-14T14:00/16:00")
+      expect(subject.first.time.iso8601).to eq("2020-10-14T14:00/16:00")
     end
 
     it 'logs the number of available slots' do

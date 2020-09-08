@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/lookup/active_offender?date_of_birth=1966-11-22&noms_id=A1410AE
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/lookup/active_offender?date_of_birth=1966-11-22&noms_id=A1410AE
     body:
       encoding: US-ASCII
       string: ''
@@ -14,42 +14,41 @@ http_interactions:
       Authorization:
       - authorisation_header
       X-Request-Id:
-      - 470dc81a-657b-4e7b-8413-e7c4f60b6dd5
+      - 8ce1953e-3924-4048-b178-5f4ec720c923
   response:
     status:
       code: 200
-      message: OK
+      message: ''
     headers:
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
+      Date:
+      - Tue, 08 Sep 2020 10:05:37 GMT
       Content-Type:
       - application/json
-      Expires:
-      - '0'
+      Connection:
+      - keep-alive
       Request-Context:
       - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       X-Content-Type-Options:
       - nosniff
       X-Xss-Protection:
       - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
       Strict-Transport-Security:
       - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
-      - DENY
-      Date:
-      - Thu, 14 Nov 2019 15:23:14 GMT
-      Content-Length:
-      - '15'
+      - SAMEORIGIN
     body:
       encoding: ASCII-8BIT
       string: '{"found":false}'
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/prison/LEI/slots?end_date=2019-11-19&start_date=2019-11-19
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/prison/LEI/slots?end_date=2019-11-19&start_date=2019-11-19
     body:
       encoding: US-ASCII
       string: ''
@@ -61,37 +60,84 @@ http_interactions:
       Authorization:
       - authorisation_header
       X-Request-Id:
-      - 470dc81a-657b-4e7b-8413-e7c4f60b6dd5
+      - 8ce1953e-3924-4048-b178-5f4ec720c923
   response:
     status:
-      code: 200
-      message: OK
+      code: 400
+      message: ''
     headers:
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
+      Date:
+      - Tue, 08 Sep 2020 10:05:37 GMT
       Content-Type:
       - application/json
-      Expires:
-      - '0'
+      Connection:
+      - keep-alive
       Request-Context:
       - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       X-Content-Type-Options:
       - nosniff
       X-Xss-Protection:
       - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
       Strict-Transport-Security:
       - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
-      - DENY
-      Date:
-      - Thu, 14 Nov 2019 15:23:14 GMT
-      Content-Length:
-      - '12'
+      - SAMEORIGIN
     body:
       encoding: ASCII-8BIT
-      string: '{"slots":[]}'
-    http_version: 
+      string: '{"status":400,"userMessage":"Start date cannot be in the past","developerMessage":"400
+        Start date cannot be in the past"}'
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
-recorded_with: VCR 5.0.0
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/prison/LEI/slots?end_date=2019-11-19&start_date=2019-11-19
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 8ce1953e-3924-4048-b178-5f4ec720c923
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:05:37 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":400,"userMessage":"Start date cannot be in the past","developerMessage":"400
+        Start date cannot be in the past"}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+recorded_with: VCR 6.0.0

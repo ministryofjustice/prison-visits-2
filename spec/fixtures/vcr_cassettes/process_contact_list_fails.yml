@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/lookup/active_offender?date_of_birth=1964-05-03&noms_id=G4315UW
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/lookup/active_offender?date_of_birth=1964-05-03&noms_id=G4315UW
     body:
       encoding: US-ASCII
       string: ''
@@ -14,42 +14,41 @@ http_interactions:
       Authorization:
       - authorisation_header
       X-Request-Id:
-      - 3b5af8fd-d74e-4e92-818c-a0a0dfb75156
+      - ca0d0dba-5885-487f-95b3-78bc870a2647
   response:
     status:
       code: 200
-      message: OK
+      message: ''
     headers:
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
+      Date:
+      - Tue, 08 Sep 2020 10:04:11 GMT
       Content-Type:
       - application/json
-      Expires:
-      - '0'
+      Connection:
+      - keep-alive
       Request-Context:
       - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       X-Content-Type-Options:
       - nosniff
       X-Xss-Protection:
       - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
       Strict-Transport-Security:
       - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
-      - DENY
-      Date:
-      - Thu, 14 Nov 2019 15:22:49 GMT
-      Content-Length:
-      - '40'
+      - SAMEORIGIN
     body:
       encoding: ASCII-8BIT
       string: '{"found":true,"offender":{"id":2190892}}'
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/2190892/visits/unavailability?dates=2019-11-20
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/2190892/visits/unavailability?dates=2019-11-20
     body:
       encoding: US-ASCII
       string: ''
@@ -61,42 +60,42 @@ http_interactions:
       Authorization:
       - authorisation_header
       X-Request-Id:
-      - 3b5af8fd-d74e-4e92-818c-a0a0dfb75156
+      - ca0d0dba-5885-487f-95b3-78bc870a2647
   response:
     status:
-      code: 200
-      message: OK
+      code: 400
+      message: ''
     headers:
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
+      Date:
+      - Tue, 08 Sep 2020 10:04:11 GMT
       Content-Type:
       - application/json
-      Expires:
-      - '0'
+      Connection:
+      - keep-alive
       Request-Context:
       - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       X-Content-Type-Options:
       - nosniff
       X-Xss-Protection:
       - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
       Strict-Transport-Security:
       - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
-      - DENY
-      Date:
-      - Thu, 14 Nov 2019 15:22:49 GMT
-      Content-Length:
-      - '96'
+      - SAMEORIGIN
     body:
       encoding: ASCII-8BIT
-      string: '{"2019-11-20":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
-    http_version: 
+      string: '{"status":400,"userMessage":"Dates requested must be in future","developerMessage":"400
+        Dates requested must be in future"}'
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/G4315UW/location
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/2190892/visits/unavailability?dates=2019-11-20
     body:
       encoding: US-ASCII
       string: ''
@@ -108,43 +107,89 @@ http_interactions:
       Authorization:
       - authorisation_header
       X-Request-Id:
-      - 3b5af8fd-d74e-4e92-818c-a0a0dfb75156
+      - ca0d0dba-5885-487f-95b3-78bc870a2647
   response:
     status:
-      code: 200
-      message: OK
+      code: 400
+      message: ''
     headers:
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
+      Date:
+      - Tue, 08 Sep 2020 10:04:12 GMT
       Content-Type:
       - application/json
-      Expires:
-      - '0'
+      Connection:
+      - keep-alive
       Request-Context:
       - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       X-Content-Type-Options:
       - nosniff
       X-Xss-Protection:
       - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
       Strict-Transport-Security:
       - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
-      - DENY
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":400,"userMessage":"Dates requested must be in future","developerMessage":"400
+        Dates requested must be in future"}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/G4315UW/location
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - ca0d0dba-5885-487f-95b3-78bc870a2647
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
       Date:
-      - Thu, 14 Nov 2019 15:22:49 GMT
-      Content-Length:
-      - '227'
+      - Tue, 08 Sep 2020 10:04:12 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
     body:
       encoding: ASCII-8BIT
       string: '{"establishment":{"code":"VEI","desc":"The Verne Immigration Removal
         Centre"},"housing_location":{"description":"VEI-B1-2-75","levels":[{"type":"Wing","value":"B1"},{"type":"Landing","value":"2"},{"type":"Cell","value":"75"}]}}'
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/G4315UW
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/G4315UW
     body:
       encoding: US-ASCII
       string: ''
@@ -156,40 +201,85 @@ http_interactions:
       Authorization:
       - authorisation_header
       X-Request-Id:
-      - 3b5af8fd-d74e-4e92-818c-a0a0dfb75156
+      - ca0d0dba-5885-487f-95b3-78bc870a2647
   response:
     status:
       code: 200
-      message: OK
+      message: ''
     headers:
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
+      Date:
+      - Tue, 08 Sep 2020 10:04:12 GMT
       Content-Type:
       - application/json
-      Expires:
-      - '0'
+      Connection:
+      - keep-alive
       Request-Context:
       - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       X-Content-Type-Options:
       - nosniff
       X-Xss-Protection:
       - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
       Strict-Transport-Security:
       - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
-      - DENY
-      Date:
-      - Thu, 14 Nov 2019 15:22:49 GMT
-      Content-Length:
-      - '985'
+      - SAMEORIGIN
     body:
       encoding: ASCII-8BIT
-      string: '{"given_name":"IJAREEKAS","surname":"ABBOY","date_of_birth":"1964-05-03","aliases":[{"given_name":"OSSSEFJIT","middle_names":"JESSA","surname":"CIAROR","date_of_birth":"1964-05-23"},{"given_name":"OSSSEFJIT","surname":"FRANKLONDA","date_of_birth":"1964-05-11"},{"given_name":"OSSSEFJIT","middle_names":"CAMDYN","surname":"KHALIFER","date_of_birth":"1964-05-24"},{"given_name":"UHOYNEKE","surname":"CARMIN","date_of_birth":"1964-04-20"}],"gender":{"code":"M","desc":"Male"},"nationalities":"qpTqpT","religion":{"code":"RC","desc":"EDWdamUEDWdamU"},"ethnicity":{"code":"W9","desc":"White:
-        Any other background"},"language":{"preferred_spoken":{"code":"POL","desc":"Polish"},"interpreter_required":false},"csra":{"code":"STANDARD","desc":"Standard"},"convicted":false,"pnc_number":"05/523121K","cro_number":"114078/05E","imprisonment_status":{"code":"DEPORT","desc":"Awaiting
+      string: '{"given_name":"IJAREEKAS","surname":"ABBOY","date_of_birth":"1964-05-03","aliases":[{"given_name":"OSSSEFJIT","middle_names":"JESSA","surname":"CIAROR","date_of_birth":"1964-05-23"},{"given_name":"OSSSEFJIT","surname":"FRANKLONDA","date_of_birth":"1964-05-11"},{"given_name":"OSSSEFJIT","middle_names":"CAMDYN","surname":"KHALIFER","date_of_birth":"1964-05-24"},{"given_name":"UHOYNEKE","surname":"CARMIN","date_of_birth":"1964-04-20"}],"gender":{"code":"M","desc":"Male"},"nationalities":"Polish","religion":{"code":"RC","desc":"Roman
+        Catholic"},"ethnicity":{"code":"W9","desc":"White: Any other background"},"language":{"preferred_spoken":{"code":"POL","desc":"Polish"},"interpreter_required":false},"csra":{"code":"STANDARD","desc":"Standard"},"convicted":false,"pnc_number":"05/523121K","cro_number":"114078/05E","imprisonment_status":{"code":"DEPORT","desc":"Awaiting
         Deportation Only"},"iep_level":{"code":"ENH","desc":"Enhanced"},"security_category":{"code":"C","desc":"Cat
         C"}}'
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
-recorded_with: VCR 5.0.0
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/2190892/visits/unavailability?dates=2020-10-20
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 7ed5f6be-9e11-449b-981e-88fbcfb86a01
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 12:21:56 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"2020-10-20":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
+  recorded_at: Tue, 08 Sep 2020 13:19:00 GMT
+recorded_with: VCR 6.0.0

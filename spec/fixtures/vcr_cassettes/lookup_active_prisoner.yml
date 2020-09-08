@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/lookup/active_offender?date_of_birth=1966-11-22&noms_id=G7244GR
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/lookup/active_offender?date_of_birth=1966-11-22&noms_id=G7244GR
     body:
       encoding: US-ASCII
       string: ''
@@ -18,33 +18,32 @@ http_interactions:
   response:
     status:
       code: 200
-      message: OK
+      message: ''
     headers:
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
+      Date:
+      - Tue, 08 Sep 2020 10:04:42 GMT
       Content-Type:
       - application/json
-      Expires:
-      - '0'
+      Connection:
+      - keep-alive
       Request-Context:
       - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       X-Content-Type-Options:
       - nosniff
       X-Xss-Protection:
       - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
       Strict-Transport-Security:
       - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
-      - DENY
-      Date:
-      - Thu, 14 Nov 2019 15:23:33 GMT
-      Content-Length:
-      - '40'
+      - SAMEORIGIN
     body:
       encoding: ASCII-8BIT
       string: '{"found":true,"offender":{"id":1502035}}'
-    http_version: 
-  recorded_at: Thu, 14 Nov 2019 15:23:34 GMT
-recorded_with: VCR 5.0.0
+  recorded_at: Tue, 08 Sep 2020 10:04:42 GMT
+recorded_with: VCR 6.0.0
