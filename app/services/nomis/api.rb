@@ -5,7 +5,7 @@ module Nomis
     include Singleton
     BOOK_VISIT_TIMEOUT = 3
     def self.enabled?
-      Rails.configuration.nomis_api_host != nil
+      Rails.configuration.prison_api_host != nil
     end
 
     def initialize

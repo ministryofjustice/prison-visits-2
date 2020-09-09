@@ -11,10 +11,10 @@ RSpec.describe Nomis::Api do
   end
 
   it 'is implicitly enabled if the api host is configured' do
-    expect(Rails.configuration).to receive(:nomis_api_host).and_return(nil)
+    expect(Rails.configuration).to receive(:prison_api_host).and_return(nil)
     expect(described_class.enabled?).to be false
 
-    expect(Rails.configuration).to receive(:nomis_api_host).and_return('http://example.com/')
+    expect(Rails.configuration).to receive(:prison_api_host).and_return('http://example.com/')
     expect(described_class.enabled?).to be true
   end
 
