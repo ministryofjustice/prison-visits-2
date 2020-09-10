@@ -207,7 +207,7 @@ GEM
       ast (~> 2.4.0)
     pg (1.2.3)
     phantomjs (2.1.1.0)
-    phonelib (0.6.44)
+    phonelib (0.6.45)
     premailer (1.11.1)
       addressable
       css_parser (>= 1.6.0)
