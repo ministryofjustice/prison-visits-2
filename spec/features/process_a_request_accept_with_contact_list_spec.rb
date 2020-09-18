@@ -25,11 +25,11 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
   # If re-recording the VCR cassettes in this spec then you will need to initially comment out this around to block,
   # and then update the date to match when they were recorded
   around do |ex|
-    travel_to(Date.new(2019, 11, 13)) { ex.run }
+    travel_to(DateTime.new(2020, 9, 8, 13, 19, 0)) { ex.run }
   end
 
   before do
-    vst.update!(slot_option_0: '2019-11-20T14:00/16:00')
+    vst.update!(slot_option_0: '2020-10-20T14:00/16:00')
   end
 
   scenario 'accepting a booking', vcr: { cassette_name: :process_happy_path } do

@@ -24,7 +24,7 @@ RSpec.feature 'Sidekiq Admin Console' do
     }
   end
 
-  describe 'When logged in as an admin' do
+  describe 'When logged in as an admin', :sidekiq do
     before do
       OmniAuth.config.add_mock(:mojsso, sso_response)
       visit prison_inbox_path

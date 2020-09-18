@@ -45,6 +45,51 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"slots":[{"time":"2019-11-14T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2019-11-15T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2019-11-16T14:00/16:00","capacity":100,"max_groups":50,"max_adults":100,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2019-11-17T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2019-11-18T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2019-11-19T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2019-11-20T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2019-11-21T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2019-11-22T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2019-11-23T14:00/16:00","capacity":100,"max_groups":50,"max_adults":100,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2019-11-24T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0}]}'
-    http_version: 
   recorded_at: Thu, 14 Nov 2019 15:23:33 GMT
-recorded_with: VCR 5.0.0
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/prison/VEI/slots?end_date=2020-10-24&start_date=2020-10-14
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - ''
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:35:52 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"slots":[{"time":"2020-10-14T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2020-10-15T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2020-10-16T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2020-10-17T14:00/16:00","capacity":100,"max_groups":50,"max_adults":100,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2020-10-18T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2020-10-19T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2020-10-20T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2020-10-21T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2020-10-22T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2020-10-23T14:00/16:00","capacity":100,"max_groups":50,"max_adults":99,"groups_booked":0,"visitors_booked":0,"adults_booked":0},{"time":"2020-10-24T14:00/16:00","capacity":100,"max_groups":50,"max_adults":100,"groups_booked":0,"visitors_booked":0,"adults_booked":0}]}'
+  recorded_at: Tue, 08 Sep 2020 10:35:52 GMT
+recorded_with: VCR 6.0.0
