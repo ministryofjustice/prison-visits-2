@@ -157,7 +157,7 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (2.3.0)
-    jwt (2.2.1)
+    jwt (2.2.2)
     kramdown (2.3.0)
       rexml
     launchy (2.5.0)
