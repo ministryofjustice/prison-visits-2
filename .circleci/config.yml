@@ -140,6 +140,10 @@ jobs:
             ./cc-test-reporter before-build
             bundle exec rake
             ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
+      - run:
+          name: Run jasmine tests
+          command: |
+            bundle exec rake jasmine:ci
       - store_test_results:
           path: coverage
       - store_artifacts:
