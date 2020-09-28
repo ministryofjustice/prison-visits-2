@@ -46,7 +46,7 @@ module Nomis
   private
 
     def request(method, route, params, idempotent:, options: {})
-      path = "/elite2api/api/v1/#{route}"
+      path = "/api/v1/#{route}"
 
       api_method = "#{method.to_s.upcase} #{path}"
 

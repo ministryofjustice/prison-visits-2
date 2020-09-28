@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Nomis::Client do
-  let(:api_host) { Rails.configuration.nomis_oauth_host }
+  let(:api_host) { Rails.configuration.prison_api_host }
 
   let(:path) { 'lookup/active_offender' }
   let(:params) {
@@ -35,7 +35,7 @@ RSpec.describe Nomis::Client do
 
     it 'raises an APIError', :expect_exception do
       expect { subject.get(path, params) }.
-        to raise_error(Nomis::APIError, 'Unexpected status 422 calling GET /elite2api/api/v1/lookup/active_offender: (invalid-JSON) <html>')
+        to raise_error(Nomis::APIError, 'Unexpected status 422 calling GET /api/v1/lookup/active_offender: (invalid-JSON) <html>')
     end
 
     it 'sends the error to sentry' do
@@ -87,7 +87,7 @@ RSpec.describe Nomis::Client do
     it 'raises an APIError if an unexpected exception is raised containing request information', :expect_exception do
       expect {
         subject.get(path, params)
-      }.to raise_error(Nomis::APIError, 'Unexpected status 422 calling GET /elite2api/api/v1/lookup/active_offender: (invalid-JSON) <html>')
+      }.to raise_error(Nomis::APIError, 'Unexpected status 422 calling GET /api/v1/lookup/active_offender: (invalid-JSON) <html>')
     end
 
     it 'sends the error to sentry' do

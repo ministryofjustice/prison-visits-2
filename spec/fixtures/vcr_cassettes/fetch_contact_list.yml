@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://gateway.t3.nomis-api.hmpps.dsd.io/elite2api/api/v1/offenders/1502035/visits/contact_list
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/1502035/visits/contact_list
     body:
       encoding: US-ASCII
       string: ''
@@ -18,30 +18,30 @@ http_interactions:
   response:
     status:
       code: 200
-      message: OK
+      message: ''
     headers:
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
+      Date:
+      - Tue, 08 Sep 2020 10:04:41 GMT
       Content-Type:
       - application/json
-      Expires:
-      - '0'
+      Connection:
+      - keep-alive
       Request-Context:
       - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
       X-Content-Type-Options:
       - nosniff
       X-Xss-Protection:
       - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
       Strict-Transport-Security:
       - max-age=31536000 ; includeSubDomains
       X-Frame-Options:
-      - DENY
-      Date:
-      - Wed, 27 Nov 2019 15:30:49 GMT
-      Content-Length:
-      - '7239'
+      - SAMEORIGIN
     body:
       encoding: ASCII-8BIT
       string: '{"contacts":[{"id":2996406,"given_name":"AELAREET","surname":"ANTOINETTE","date_of_birth":"1990-09-22","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SON","desc":"Son"},"contact_type":{"code":"S","desc":"Social/
@@ -70,6 +70,5 @@ http_interactions:
         Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":3191214,"given_name":"YDFDANDER","surname":"TONINALD","date_of_birth":"1965-05-02","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"COU","desc":"Cousin"},"contact_type":{"code":"S","desc":"Social/
         Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":39896,"given_name":"AAANIO","surname":"YVYGSEE","relationship_type":{"code":"PROB","desc":"Probation
         Officer"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]}]}'
-    http_version: 
-  recorded_at: Wed, 27 Nov 2019 15:30:50 GMT
-recorded_with: VCR 5.0.0
+  recorded_at: Tue, 08 Sep 2020 10:04:41 GMT
+recorded_with: VCR 6.0.0

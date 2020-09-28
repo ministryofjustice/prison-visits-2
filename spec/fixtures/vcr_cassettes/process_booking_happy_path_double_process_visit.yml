@@ -45,7 +45,6 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"found":true,"offender":{"id":1502035}}'
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
@@ -92,7 +91,6 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"2019-11-19":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
@@ -139,7 +137,6 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"slots":[]}'
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
@@ -186,7 +183,6 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":{"description":"LEI-F-3-005","levels":[{"type":"Wing","value":"F"},{"type":"Landing","value":"3"},{"type":"Cell","value":"005"}]}}'
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
@@ -236,7 +232,6 @@ http_interactions:
         Eng./Welsh/Scot./N.Irish/British"},"csra":{"code":"HI","desc":"High"},"convicted":true,"pnc_number":"84/36220X","cro_number":"36220/84R","imprisonment_status":{"code":"SENT03","desc":"Adult
         Imprisonment Without Option CJA03"},"iep_level":{"code":"ENH","desc":"Enhanced"},"security_category":{"code":"C","desc":"Cat
         C"}}'
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
@@ -307,7 +302,6 @@ http_interactions:
         Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":3191214,"given_name":"YDFDANDER","surname":"TONINALD","date_of_birth":"1965-05-02","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"COU","desc":"Cousin"},"contact_type":{"code":"S","desc":"Social/
         Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":39896,"given_name":"AAANIO","surname":"YVYGSEE","relationship_type":{"code":"PROB","desc":"Probation
         Officer"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]}]}'
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
@@ -354,7 +348,6 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"found":true,"offender":{"id":1502035}}'
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
@@ -401,7 +394,6 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"2019-11-19":{"external_movement":false,"existing_visits":[],"out_of_vo":false,"banned":false}}'
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
@@ -448,7 +440,6 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"slots":[]}'
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
@@ -495,7 +486,6 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":{"description":"LEI-F-3-005","levels":[{"type":"Wing","value":"F"},{"type":"Landing","value":"3"},{"type":"Cell","value":"005"}]}}'
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
@@ -545,7 +535,6 @@ http_interactions:
         Eng./Welsh/Scot./N.Irish/British"},"csra":{"code":"HI","desc":"High"},"convicted":true,"pnc_number":"84/36220X","cro_number":"36220/84R","imprisonment_status":{"code":"SENT03","desc":"Adult
         Imprisonment Without Option CJA03"},"iep_level":{"code":"ENH","desc":"Enhanced"},"security_category":{"code":"C","desc":"Cat
         C"}}'
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: get
@@ -616,7 +605,6 @@ http_interactions:
         Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":3191214,"given_name":"YDFDANDER","surname":"TONINALD","date_of_birth":"1965-05-02","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"COU","desc":"Cousin"},"contact_type":{"code":"S","desc":"Social/
         Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":39896,"given_name":"AAANIO","surname":"YVYGSEE","relationship_type":{"code":"PROB","desc":"Probation
         Officer"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]}]}'
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: post
@@ -662,7 +650,6 @@ http_interactions:
       encoding: ASCII-8BIT
       string: !binary |-
         R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
 - request:
     method: post
@@ -708,6 +695,805 @@ http_interactions:
       encoding: ASCII-8BIT
       string: !binary |-
         R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
-    http_version: 
   recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
-recorded_with: VCR 5.0.0
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/lookup/active_offender?date_of_birth=1966-11-22&noms_id=G7244GR
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - ff1fcb78-60b9-47a9-9b06-9211bbd5b65d
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:17:24 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"found":true,"offender":{"id":1502035}}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/1502035/visits/unavailability?dates=2019-11-19
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - ff1fcb78-60b9-47a9-9b06-9211bbd5b65d
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:17:24 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":400,"userMessage":"Dates requested must be in future","developerMessage":"400
+        Dates requested must be in future"}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/1502035/visits/unavailability?dates=2019-11-19
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - ff1fcb78-60b9-47a9-9b06-9211bbd5b65d
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:17:25 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":400,"userMessage":"Dates requested must be in future","developerMessage":"400
+        Dates requested must be in future"}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/G7244GR/location
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - ff1fcb78-60b9-47a9-9b06-9211bbd5b65d
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:17:25 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":{"description":"LEI-F-3-005","levels":[{"type":"Wing","value":"F"},{"type":"Landing","value":"3"},{"type":"Cell","value":"005"}]}}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/G7244GR
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - ff1fcb78-60b9-47a9-9b06-9211bbd5b65d
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:17:25 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"given_name":"UDFSANAYE","surname":"KURTEEN","date_of_birth":"1966-11-22","aliases":[],"gender":{"code":"M","desc":"Male"},"nationalities":"British","religion":{"code":"RC","desc":"Roman
+        Catholic"},"ethnicity":{"code":"W1","desc":"White: Eng./Welsh/Scot./N.Irish/British"},"csra":{"code":"HI","desc":"High"},"convicted":true,"pnc_number":"84/36220X","cro_number":"36220/84R","imprisonment_status":{"code":"SENT03","desc":"Adult
+        Imprisonment Without Option CJA03"},"iep_level":{"code":"ENH","desc":"Enhanced"},"security_category":{"code":"C","desc":"Cat
+        C"}}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/prison/LEI/slots?end_date=2019-11-19&start_date=2019-11-19
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - ff1fcb78-60b9-47a9-9b06-9211bbd5b65d
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:17:25 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":400,"userMessage":"Start date cannot be in the past","developerMessage":"400
+        Start date cannot be in the past"}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/prison/LEI/slots?end_date=2019-11-19&start_date=2019-11-19
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - ff1fcb78-60b9-47a9-9b06-9211bbd5b65d
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:17:26 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":400,"userMessage":"Start date cannot be in the past","developerMessage":"400
+        Start date cannot be in the past"}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/1502035/visits/contact_list
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - ff1fcb78-60b9-47a9-9b06-9211bbd5b65d
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:17:26 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"contacts":[{"id":2996406,"given_name":"AELAREET","surname":"ANTOINETTE","date_of_birth":"1990-09-22","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SON","desc":"Son"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3191193,"given_name":"DABUOTHDAVID","surname":"AUGEVIEVE","date_of_birth":"1986-03-09","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"NIE","desc":"Niece"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2996409,"given_name":"IRILISA","surname":"BRADERTO","date_of_birth":"1995-01-19","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SON","desc":"Son"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3191231,"given_name":"EDFMINNO","surname":"CAITLYLE","date_of_birth":"1954-03-11","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"UN","desc":"Uncle"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":3323356,"given_name":"YFHINNAIN","surname":"CARTYSSUS","date_of_birth":"1994-08-09","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":252262,"given_name":"''LSIEDE","surname":"DAIJALIE","relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":74560,"given_name":"IJAGORENA","surname":"DREW","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"PROB","desc":"Probation
+        Officer"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2459488,"given_name":"YSJANHKUMAR","surname":"EDITHA","date_of_birth":"1961-06-06","relationship_type":{"code":"AUNT","desc":"Aunt"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":1834701,"given_name":"UNSALNDER","surname":"ERNAN","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"UN","desc":"Uncle"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":3102890,"given_name":"IHEWLYN","surname":"ESSINE","date_of_birth":"1949-10-13","relationship_type":{"code":"AUNT","desc":"Aunt"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2459489,"given_name":"YSJANHKUMAR","surname":"JARRANIE","date_of_birth":"1964-09-11","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2996430,"given_name":"IRILISA","surname":"JAYMELLA","date_of_birth":"1955-07-06","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3191201,"given_name":"DABUOTHDAVID","surname":"KAYLARY","date_of_birth":"1989-05-03","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"NIE","desc":"Niece"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":1375628,"given_name":"UALICNAIN","surname":"KIMBUR","date_of_birth":"1967-11-06","relationship_type":{"code":"SIS","desc":"Sister"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":1203649,"given_name":"URKSIEARIE","surname":"LETWIN","date_of_birth":"1948-10-09","relationship_type":{"code":"FA","desc":"Father"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3191221,"given_name":"OZGNATON","surname":"LUNIVER","date_of_birth":"1964-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"COU","desc":"Cousin"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":75757,"given_name":"IJAGORENA","surname":"MALLERY","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":75757,"given_name":"IJAGORENA","surname":"MALLERY","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SIS","desc":"Sister"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":2996433,"given_name":"IRILISA","surname":"MOLLIS","date_of_birth":"1955-11-26","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":2931624,"given_name":"EETNIFUI","surname":"REMICK","date_of_birth":"1947-09-25","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"AUNT","desc":"Aunt"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":2931619,"given_name":"EETNIFUI","surname":"SALLICA","date_of_birth":"1967-11-28","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"SIS","desc":"Sister"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3101980,"given_name":"ETSINLOUISE","surname":"SANDINEE","date_of_birth":"1949-10-02","relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":1206106,"given_name":"ESNTERNS","surname":"SAVIS","date_of_birth":"1948-08-29","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FA","desc":"Father"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":2054299,"given_name":"OKBKEIGH","surname":"SHAMIR","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"OTH","desc":"Other
+        - Official"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2447707,"given_name":"EHSREECHI","surname":"SHEMEMAN","date_of_birth":"1971-10-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":3191214,"given_name":"YDFDANDER","surname":"TONINALD","date_of_birth":"1965-05-02","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"COU","desc":"Cousin"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":39896,"given_name":"AAANIO","surname":"YVYGSEE","relationship_type":{"code":"PROB","desc":"Probation
+        Officer"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]}]}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/lookup/active_offender?date_of_birth=1966-11-22&noms_id=G7244GR
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 960b6cfb-bb4d-4cf5-8c11-1a33792a6a35
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:17:33 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"found":true,"offender":{"id":1502035}}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/1502035/visits/unavailability?dates=2019-11-19
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 960b6cfb-bb4d-4cf5-8c11-1a33792a6a35
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:17:33 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":400,"userMessage":"Dates requested must be in future","developerMessage":"400
+        Dates requested must be in future"}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/1502035/visits/unavailability?dates=2019-11-19
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 960b6cfb-bb4d-4cf5-8c11-1a33792a6a35
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:17:33 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":400,"userMessage":"Dates requested must be in future","developerMessage":"400
+        Dates requested must be in future"}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/G7244GR/location
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 960b6cfb-bb4d-4cf5-8c11-1a33792a6a35
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:17:33 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"establishment":{"code":"LEI","desc":"LEEDS (HMP)"},"housing_location":{"description":"LEI-F-3-005","levels":[{"type":"Wing","value":"F"},{"type":"Landing","value":"3"},{"type":"Cell","value":"005"}]}}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/G7244GR
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 960b6cfb-bb4d-4cf5-8c11-1a33792a6a35
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:17:33 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"given_name":"UDFSANAYE","surname":"KURTEEN","date_of_birth":"1966-11-22","aliases":[],"gender":{"code":"M","desc":"Male"},"nationalities":"British","religion":{"code":"RC","desc":"Roman
+        Catholic"},"ethnicity":{"code":"W1","desc":"White: Eng./Welsh/Scot./N.Irish/British"},"csra":{"code":"HI","desc":"High"},"convicted":true,"pnc_number":"84/36220X","cro_number":"36220/84R","imprisonment_status":{"code":"SENT03","desc":"Adult
+        Imprisonment Without Option CJA03"},"iep_level":{"code":"ENH","desc":"Enhanced"},"security_category":{"code":"C","desc":"Cat
+        C"}}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/prison/LEI/slots?end_date=2019-11-19&start_date=2019-11-19
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 960b6cfb-bb4d-4cf5-8c11-1a33792a6a35
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:17:33 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":400,"userMessage":"Start date cannot be in the past","developerMessage":"400
+        Start date cannot be in the past"}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/prison/LEI/slots?end_date=2019-11-19&start_date=2019-11-19
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 960b6cfb-bb4d-4cf5-8c11-1a33792a6a35
+  response:
+    status:
+      code: 400
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:17:34 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"status":400,"userMessage":"Start date cannot be in the past","developerMessage":"400
+        Start date cannot be in the past"}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+- request:
+    method: get
+    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/1502035/visits/contact_list
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - excon/0.62.0
+      Accept:
+      - application/json
+      Authorization:
+      - authorisation_header
+      X-Request-Id:
+      - 960b6cfb-bb4d-4cf5-8c11-1a33792a6a35
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Tue, 08 Sep 2020 10:17:35 GMT
+      Content-Type:
+      - application/json
+      Connection:
+      - keep-alive
+      Request-Context:
+      - appId=cid-v1:0d5d6f09-1d07-47f5-9d3a-f9f473544e78
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"contacts":[{"id":2996406,"given_name":"AELAREET","surname":"ANTOINETTE","date_of_birth":"1990-09-22","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SON","desc":"Son"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3191193,"given_name":"DABUOTHDAVID","surname":"AUGEVIEVE","date_of_birth":"1986-03-09","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"NIE","desc":"Niece"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2996409,"given_name":"IRILISA","surname":"BRADERTO","date_of_birth":"1995-01-19","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SON","desc":"Son"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3191231,"given_name":"EDFMINNO","surname":"CAITLYLE","date_of_birth":"1954-03-11","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"UN","desc":"Uncle"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":3323356,"given_name":"YFHINNAIN","surname":"CARTYSSUS","date_of_birth":"1994-08-09","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":252262,"given_name":"''LSIEDE","surname":"DAIJALIE","relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":74560,"given_name":"IJAGORENA","surname":"DREW","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"PROB","desc":"Probation
+        Officer"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2459488,"given_name":"YSJANHKUMAR","surname":"EDITHA","date_of_birth":"1961-06-06","relationship_type":{"code":"AUNT","desc":"Aunt"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":1834701,"given_name":"UNSALNDER","surname":"ERNAN","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"UN","desc":"Uncle"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":3102890,"given_name":"IHEWLYN","surname":"ESSINE","date_of_birth":"1949-10-13","relationship_type":{"code":"AUNT","desc":"Aunt"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2459489,"given_name":"YSJANHKUMAR","surname":"JARRANIE","date_of_birth":"1964-09-11","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2996430,"given_name":"IRILISA","surname":"JAYMELLA","date_of_birth":"1955-07-06","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3191201,"given_name":"DABUOTHDAVID","surname":"KAYLARY","date_of_birth":"1989-05-03","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"NIE","desc":"Niece"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":1375628,"given_name":"UALICNAIN","surname":"KIMBUR","date_of_birth":"1967-11-06","relationship_type":{"code":"SIS","desc":"Sister"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":1203649,"given_name":"URKSIEARIE","surname":"LETWIN","date_of_birth":"1948-10-09","relationship_type":{"code":"FA","desc":"Father"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3191221,"given_name":"OZGNATON","surname":"LUNIVER","date_of_birth":"1964-06-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"COU","desc":"Cousin"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":75757,"given_name":"IJAGORENA","surname":"MALLERY","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SOL","desc":"Solicitor"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":75757,"given_name":"IJAGORENA","surname":"MALLERY","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"SIS","desc":"Sister"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":2996433,"given_name":"IRILISA","surname":"MOLLIS","date_of_birth":"1955-11-26","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":2931624,"given_name":"EETNIFUI","surname":"REMICK","date_of_birth":"1947-09-25","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"AUNT","desc":"Aunt"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":2931619,"given_name":"EETNIFUI","surname":"SALLICA","date_of_birth":"1967-11-28","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"SIS","desc":"Sister"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":3101980,"given_name":"ETSINLOUISE","surname":"SANDINEE","date_of_birth":"1949-10-02","relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":1206106,"given_name":"ESNTERNS","surname":"SAVIS","date_of_birth":"1948-08-29","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FA","desc":"Father"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":true,"restrictions":[]},{"id":2054299,"given_name":"OKBKEIGH","surname":"SHAMIR","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"OTH","desc":"Other
+        - Official"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":2447707,"given_name":"EHSREECHI","surname":"SHEMEMAN","date_of_birth":"1971-10-07","gender":{"code":"M","desc":"Male"},"relationship_type":{"code":"FRI","desc":"Friend"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":3191214,"given_name":"YDFDANDER","surname":"TONINALD","date_of_birth":"1965-05-02","gender":{"code":"F","desc":"Female"},"relationship_type":{"code":"COU","desc":"Cousin"},"contact_type":{"code":"S","desc":"Social/
+        Family"},"approved_visitor":true,"active":false,"restrictions":[]},{"id":39896,"given_name":"AAANIO","surname":"YVYGSEE","relationship_type":{"code":"PROB","desc":"Probation
+        Officer"},"contact_type":{"code":"O","desc":"Official"},"approved_visitor":true,"active":false,"restrictions":[]}]}'
+  recorded_at: Wed, 13 Nov 2019 00:00:00 GMT
+recorded_with: VCR 6.0.0

@@ -3,6 +3,8 @@ kind: ConfigMap
 metadata:
   name: shared-environment
 data:
+  PRISON_API_HOST: "https://api-preprod.prison.service.justice.gov.uk"
+  NOMIS_OAUTH_HOST: "https://sign-in-preprod.hmpps.service.justice.gov.uk"
   MOJSSO_URL: "https://signon.service.justice.gov.uk"
   NOMIS_API_HOST: "https://gateway.preprod.nomis-api.service.hmpps.dsd.io/"
   NOMIS_OAUTH_PUBLIC_KEY: "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUFqVGR1dEtLZVBSQmVBY2tnUzZwLwpsVitkNVlxYjNxMTh6NlV3aDFNTll4cDNIcVlwWVYrOTJ5RnhlMlE1UjdLVmpJeUt5MmZHQWpzV3krZVNOMjNUCkZURVVUeXdHdnc0SkJrRGRoaUUvKy80SjR2TWFHMzBYN29GdE9JUWIwaENFQVlWM3o4emc1WVd2OGZlRkVnWGcKSndKNUJzaStTQ29qM0hkOURFeTVkZlpNOWMvcGg5c3lhaktTVmJBbytEK1dqeFBYdThSd1FKT0FTSDQ1RXByVAozSTMvTXZZcmNWb3ZDeFFWclFjcGMzYmNFNGx6WHRZUlcvcElqR1FaQSsvVmIzV2V2bkdRYmJ3UzR6enl5M2s4CkRCZ0pzQVJlVDI1eHp0ckptRGlZZXBHYkVKVHV0alRqR2NVOG1qUjRWZ3gwdHdqMk9DMzBES3dXbGlrMzhXTWwKTlFJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCgo="

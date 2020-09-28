@@ -5,7 +5,7 @@ http_interactions:
     uri: https://www.google-analytics.com/collect
     body:
       encoding: US-ASCII
-      string: v=1&uip=99.223.31.251&tid=UA-96772907-2&cid=some_client_id&ua=some+user+agent+string&t=event&ec=Janeyberg+Open+Prison&ea=Rejection&el=prisoner_details_incorrect
+      string: v=1&uip=249.113.229.135&tid=UA-96772907-2&cid=some_client_id&ua=some+user+agent+string&t=event&ec=Darleneport+Open+Prison&ea=Rejection&el=prisoner_details_incorrect
     headers:
       User-Agent:
       - excon/0.62.0
@@ -19,7 +19,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Date:
-      - Thu, 14 Nov 2019 15:23:45 GMT
+      - Tue, 08 Sep 2020 10:04:43 GMT
       Pragma:
       - no-cache
       Expires:
@@ -37,13 +37,12 @@ http_interactions:
       Content-Length:
       - '35'
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3-29=":443"; ma=2592000,h3-27=":443"; ma=2592000,h3-T051=":443"; ma=2592000,h3-T050=":443";
+        ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: ASCII-8BIT
       string: !binary |-
         R0lGODlhAQABAID/AP///wAAACwAAAAAAQABAAACAkQBADs=
-    http_version: 
-  recorded_at: Thu, 14 Nov 2019 15:23:45 GMT
-recorded_with: VCR 5.0.0
+  recorded_at: Tue, 08 Sep 2020 10:04:43 GMT
+recorded_with: VCR 6.0.0
