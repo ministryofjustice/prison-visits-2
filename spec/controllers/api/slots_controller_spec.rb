@@ -49,8 +49,15 @@ RSpec.describe Api::SlotsController do
         stub_request(:get, "#{AuthHelper::API_PREFIX}/lookup/active_offender?date_of_birth=#{prisoner.date_of_birth}&noms_id=#{prisoner.number}").
           to_return(body: { found: true, offender: { id: offender_id } }.to_json)
 
-        stub_request(:get, "#{AuthHelper::API_PREFIX}/offenders/#{offender_id}/visits/available_dates?end_date=2016-03-08&start_date=2016-02-09").
+        stub_request(:get, "#{AuthHelper::API_PREFIX}/offenders/#{offender_id}/visits/available_dates?end_date=2016-03-08&start_date=2016-02-13").
           to_return(body: { dates: ['2016-02-15'] }.to_json)
+
+        stub_request(:get, "#{AuthHelper::API_PREFIX}/prison/#{prison.nomis_id}/slots?end_date=2016-03-12&start_date=2016-02-13").
+            to_return(body: { slots: [
+                { time: "2016-02-15T13:30/14:30" },
+                { time: "2016-03-02T13:30/14:30" },
+                { time: "2016-03-03T13:30/14:30" },
+            ] }.to_json)
 
         switch_feature_flag_with(:public_prisons_with_slot_availability, [prison.name])
       end

@@ -1,17 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe ApiSlotAvailability, type: :model do
-  subject { described_class.new(prison: prison, use_nomis_slots: false) }
-
+  let(:start_date) { Date.new(2016, 4, 2) }
   let!(:prison) { create(:prison) }
-
   let(:prisoner_params) {
     {
       prisoner_number: 'a1234bc',
-      prisoner_dob: Date.parse('1970-01-01')
+      prisoner_dob: Date.parse('1970-01-01'),
+      start_date: start_date
     }
   }
-
   let(:default_prison_slots) {
     [
       "2016-04-11T14:00/16:10",
@@ -25,6 +23,9 @@ RSpec.describe ApiSlotAvailability, type: :model do
       "2016-04-26T14:00/16:10"
     ]
   }
+  let(:end_date) { Date.new(2016, 4, 28) }
+
+  subject { described_class.new(prison: prison, use_nomis_slots: false, start_date: start_date, end_date: end_date) }
 
   before do
     allow(Nomis::Api).
@@ -57,20 +58,7 @@ RSpec.describe ApiSlotAvailability, type: :model do
     end
 
     describe 'fetching available slots from NOMIS' do
-      subject { described_class.new(prison: prison, use_nomis_slots: true) }
-
-      context 'when the prison slots feature is disabled' do
-        before do
-          allow_any_instance_of(described_class).
-            to receive(:public_prison_slots_enabled?).
-              with(prison).
-              and_return(false)
-        end
-
-        it 'fetches slot availability from the prison defaults' do
-          expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
-        end
-      end
+      subject { described_class.new(prison: prison, use_nomis_slots: true, start_date: start_date, end_date: end_date) }
 
       context 'when the prison slots feature is enabled' do
         let(:prison) {
@@ -91,19 +79,12 @@ RSpec.describe ApiSlotAvailability, type: :model do
           expect(Nomis::Api.instance).to receive(:fetch_bookable_slots).
             with(
               prison: prison,
-              start_date: Date.parse('2016-04-06'),
+              start_date: Date.parse('2016-04-07'),
               end_date: Date.parse('2016-04-28')
             ).
             and_return(Struct.new(:slots).new([Struct.new(:time).new(ConcreteSlot.parse('2016-04-12T09:00/10:00'))]))
 
           expect(subject.slots.map(&:iso8601)).to eq(['2016-04-12T09:00/10:00'])
-        end
-
-        it 'falls back to hard-coded slots if NOMIS is disabled' do
-          expect(Nomis::Api).to receive(:enabled?).and_return(false)
-          expect(Nomis::Api.instance).not_to receive(:fetch_bookable_slots)
-
-          expect(subject.slots.map(&:iso8601)).to eq(default_prison_slots)
         end
 
         it 'falls back to hard-coded slots if NOMIS call fails' do

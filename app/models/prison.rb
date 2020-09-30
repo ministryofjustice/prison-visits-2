@@ -88,11 +88,11 @@ class Prison < ApplicationRecord
     attempt_translation(:address, super)
   end
 
-private
-
   def auto_slots_enabled?
     Rails.configuration.public_prisons_with_slot_availability&.include?(name)
   end
+
+private
 
   def attempt_translation(key, fallback)
     translations.fetch(I18n.locale.to_s, {}).fetch(key.to_s, fallback)
