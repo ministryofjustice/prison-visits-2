@@ -1,15 +1,9 @@
-class SlotInfoPresenter
-  def initialize(prison)
-    self.prison = prison
-  end
+# frozen_string_literal: true
 
-  def slots_for(day)
+class SlotInfoPresenter
+  def self.slots_for(prison, day)
     slot_details = prison.slot_details['recurring'][day]
 
     slot_details&.any? ? slot_details : []
   end
-
-private
-
-  attr_accessor :prison
 end

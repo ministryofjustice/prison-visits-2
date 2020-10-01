@@ -6,27 +6,8 @@ RSpec.feature 'When NOMIS API was disabled' do
 
   let(:vst) { create(:visit) }
 
-  let(:sso_response) do
-    {
-      'uid' => '1234-1234-1234-1234',
-      'provider' => 'mojsso',
-      'info' => {
-        'first_name' => 'Joe',
-        'last_name' => 'Goldman',
-        'email' => 'joe@example.com',
-        'permissions' => [
-          { 'organisation' => vst.prison.estate.sso_organisation_name, roles: [] }
-        ],
-        'links' => {
-          'profile' => 'http://example.com/profile',
-          'logout' => 'http://example.com/logout'
-        }
-      }
-    }
-  end
-
   before do
-    OmniAuth.config.add_mock(:mojsso, sso_response)
+    prison_login [vst.prison.estate]
     vst.prisoner.update!(number: 'zzzzzzz')
   end
 
