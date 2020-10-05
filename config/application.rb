@@ -53,19 +53,6 @@ module PrisonVisits
       !ENV.key?('SMTP_USERNAME') &&
       !ENV.key?('SMTP_PASSWORD')
 
-    read_key = lambda { |string|
-      begin
-        der = Base64.decode64(string)
-        OpenSSL::PKey::EC.new(der)
-      rescue OpenSSL::PKey::ECError => e
-        STDOUT.puts "[WARN] Invalid ECDSA key: #{e}"
-        nil
-      rescue ArgumentError => e
-        STDOUT.puts "[WARN] Invalid ECDSA key: #{e}"
-        nil
-      end
-    }
-
     config.connection_pool_size =
       config.database_configuration[Rails.env]['pool'] || 5
 
@@ -77,18 +64,6 @@ module PrisonVisits
     feature_flag_value = proc do |&config|
       Rails.env.test? ? nil : config.call
     end
-
-    config.nomis_api_host = feature_flag_value.call {
-      ENV.fetch('NOMIS_API_HOST', nil)
-    }
-
-    config.nomis_api_token = feature_flag_value.call {
-      ENV.fetch('NOMIS_API_TOKEN', nil)
-    }
-
-    config.nomis_api_key = feature_flag_value.call {
-      read_key.call(ENV.fetch('NOMIS_API_KEY', ''))
-    }
 
     config.nomis_staff_slot_availability_enabled = feature_flag_value.call {
       ENV['NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED']&.downcase == 'true'

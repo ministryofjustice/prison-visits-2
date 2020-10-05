@@ -38,13 +38,16 @@
     "MOJSSO_URL": {
       "required": true
     },
-    "NOMIS_API_HOST": {
+    "PRISON_API_HOST": {
       "required": true
     },
-    "NOMIS_API_KEY": {
+    "NOMIS_OAUTH_PUBLIC_KEY": {
       "required": true
     },
-    "NOMIS_API_TOKEN": {
+    "NOMIS_OAUTH_CLIENT_ID": {
+      "required": true
+    },
+    "NOMIS_OAUTH_CLIENT_SECRET": {
       "required": true
     },
     "PUBLIC_SERVICE_URL": {
