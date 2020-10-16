@@ -5,6 +5,7 @@ class Prison < ApplicationRecord
 
   has_many :visits, dependent: :destroy
   belongs_to :estate
+  has_many :nomis_concrete_slots, dependent: :destroy
 
   validates :estate, :name, :slot_details, presence: true
   validates :enabled, inclusion: { in: [true, false] }
@@ -24,11 +25,22 @@ class Prison < ApplicationRecord
     where(enabled: true).order(name: :asc)
   })
 
+  # This method represents the 'fallback position' i.e. the slots to use if the API is unavailable
   def available_slots(today = Time.zone.today)
-    AvailableSlotEnumerator.new(
-      first_bookable_date(today), last_bookable_date(today),
-      recurring_slots, anomalous_slots, unbookable_dates
-    )
+    if auto_slots_enabled?
+      nomis_concrete_slots.order(:date).
+        where('date >= ?', first_bookable_date(today)).
+        where('date <= ?', last_bookable_date(today)).
+        reject { |cs| unbookable_dates.include?(cs.date) }.
+        map do |ncs|
+        ConcreteSlot.new(ncs.date.year, ncs.date.month, ncs.date.day, ncs.start_hour, ncs.start_minute, ncs.end_hour, ncs.end_minute)
+      end
+    else
+      AvailableSlotEnumerator.new(
+        first_bookable_date(today), last_bookable_date(today),
+        recurring_slots, anomalous_slots, unbookable_dates
+      )
+    end
   end
 
   def first_bookable_date(today = Time.zone.today)
@@ -74,6 +86,10 @@ class Prison < ApplicationRecord
 
   def address
     attempt_translation(:address, super)
+  end
+
+  def auto_slots_enabled?
+    Rails.configuration.public_prisons_with_slot_availability&.include?(name)
   end
 
 private

@@ -29,11 +29,18 @@ RSpec.configure do |config|
   config.include ConfigurationHelpers
   config.include ServiceHelpers
   config.include JWTHelper
+  config.include AuthHelper
 
   config.infer_spec_type_from_file_location!
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation, except: %w(public.ar_internal_metadata))
+  end
+
+  config.around(:each, :vcr) do |example|
+    WebMock.enable_net_connect!
+    example.run
+    WebMock.disable_net_connect!(allow: 'codeclimate.com', allow_localhost: true)
   end
 
   config.before(:each) do

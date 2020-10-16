@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_14_122432) do
+ActiveRecord::Schema.define(version: 2020_08_21_073052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,18 @@ ActiveRecord::Schema.define(version: 2018_06_14_122432) do
     t.uuid "visit_state_change_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "nomis_concrete_slots", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid "prison_id", null: false
+    t.date "date", null: false
+    t.integer "start_hour", null: false
+    t.integer "start_minute", null: false
+    t.integer "end_hour", null: false
+    t.integer "end_minute", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prison_id"], name: "index_nomis_concrete_slots_on_prison_id"
   end
 
   create_table "prisoners", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
