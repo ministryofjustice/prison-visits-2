@@ -120,7 +120,7 @@ GEM
     ffaker (2.17.0)
     ffi (1.11.1)
     formatador (0.2.5)
-    geckodriver-helper (0.20.2)
+    geckodriver-helper (0.24.0)
       archive-zip (~> 0.7)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -156,7 +156,7 @@ GEM
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     inflection (1.0.0)
-    io-like (0.3.0)
+    io-like (0.3.1)
     jaro_winkler (1.5.4)
     jasmine (3.6.0)
       jasmine-core (~> 3.6.0)
@@ -449,7 +449,7 @@ DEPENDENCIES
   excon (= 0.62.0)
   factory_bot_rails
   ffaker
-  geckodriver-helper (< 0.21)
+  geckodriver-helper (< 0.25)
   govuk_elements_rails
   govuk_frontend_toolkit
   govuk_template
