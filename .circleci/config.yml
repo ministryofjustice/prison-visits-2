@@ -113,6 +113,17 @@ jobs:
           paths:
             - vendor/bundle
       - run:
+        name: install geckodriver
+        command: |
+          if [ `which geckodriver` ]
+          then
+            geckodriver --version
+          else
+            wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
+            tar -zxvf geckodriver-v0.24.0-linux64.tar.gz
+            mv geckodriver ~/.local/bin
+          fi
+      - run:
           name: Setup Code Climate test-reporter
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
