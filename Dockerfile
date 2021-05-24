@@ -1,4 +1,4 @@
-FROM ministryofjustice/ruby:2.6.3-webapp-onbuild
+FROM ruby:2.6.7-stretch
 
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" >  /etc/apt/sources.list.d/pgdg.list && \
     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
@@ -13,8 +13,18 @@ RUN apt-get update && \
 ENV UNICORN_PORT 3000
 EXPOSE $UNICORN_PORT
 
+ARG VERSION_NUMBER
+ARG COMMIT_ID
+ARG BUILD_DATE
+ARG BUILD_TAG
+
+ENV APPVERSION=${VERSION_NUMBER}
+ENV APP_GIT_COMMIT=${COMMIT_ID}
+ENV APP_BUILD_DATE=${BUILD_DATE}
+ENV APP_BUILD_TAG=${BUILD_TAG}
+
 RUN gem update bundler --no-doc
 
-RUN RAILS_ENV=production PUBLIC_SERVICE_URL=foo STAFF_SERVICE_URL=foo SECRET_KEY_BASE=foo bin/rake assets:precompile --trace
+RUN RAILS_ENV=production DISABLE_PROMETHEUS_METRICS=foo PUBLIC_SERVICE_URL=foo STAFF_SERVICE_URL=foo SECRET_KEY_BASE=foo bin/rake assets:precompile --trace
 
 ENTRYPOINT ["./run.sh"]
