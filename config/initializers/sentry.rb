@@ -1,15 +1,15 @@
 sentry_dsn = Rails.configuration.sentry_dsn
 
-if sentry_dsn
-
-  Raven.configure do |config|
+Sentry.init do |config|
+  if sentry_dsn
     config.dsn = sentry_dsn
-    config.processors -= [Raven::Processor::PostData]
-    config.faraday_builder = proc { |builder|
-      builder.request :instrumentation, name: 'faraday.raven'
-    }
+    config.logger = Rails.logger
+
+    # If we're in Heroku, set the environment name to be the current app name
+    # This allows us to tell which PR/Review App an error came from
+    config.current_environment = ENV['HEROKU_APP_NAME'] if ENV['HEROKU_APP_NAME'].present?
+  else
+    # (Rails logger is not initialized yet)
+    STDOUT.puts '[WARN] Sentry is not configured (SENTRY_DSN)'
   end
-else
-  # (Rails logger is not initialized yet)
-  STDOUT.puts '[WARN] Sentry is not configured (SENTRY_DSN)'
 end

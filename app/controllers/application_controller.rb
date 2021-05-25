@@ -88,7 +88,7 @@ private
   def store_request_id
     RequestStore.store[:request_id] = request.uuid
     append_to_log(request_id: RequestStore.store[:request_id])
-    Raven.extra_context(request_id: RequestStore.store[:request_id])
+    Sentry.set_extras(request_id: RequestStore.store[:request_id])
   end
 
   def log_current_estates

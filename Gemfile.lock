@@ -121,8 +121,19 @@ GEM
     factory_bot_rails (6.1.0)
       factory_bot (~> 6.1.0)
       railties (>= 5.0.0)
-    faraday (0.17.4)
+    faraday (1.4.2)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.1)
       multipart-post (>= 1.2, < 3)
+      ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.1.0)
     ffaker (2.17.0)
     ffi (1.11.1)
     formatador (0.2.5)
@@ -344,6 +355,7 @@ GEM
     rubocop-rspec (1.41.0)
       rubocop (>= 0.68.1)
     ruby-progressbar (1.10.1)
+    ruby2_keywords (0.0.4)
     rubyzip (2.0.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
@@ -365,8 +377,12 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
-    sentry-raven (2.13.0)
-      faraday (>= 0.7.6, < 1.0)
+    sentry-rails (4.4.0)
+      railties (>= 5.0)
+      sentry-ruby-core (~> 4.4.0.pre.beta)
+    sentry-ruby-core (4.4.2)
+      concurrent-ruby
+      faraday
     shellany (0.0.1)
     shoulda-matchers (4.5.1)
       activesupport (>= 4.2.0)
@@ -496,7 +512,7 @@ DEPENDENCIES
   sassc-rails
   scenic
   selenium-webdriver
-  sentry-raven
+  sentry-rails
   shoulda-matchers
   sidekiq
   simplecov
@@ -511,6 +527,9 @@ DEPENDENCIES
   vcr
   webmock
   zendesk_api
+
+RUBY VERSION
+   ruby 2.6.7p197
 
 BUNDLED WITH
    1.17.3

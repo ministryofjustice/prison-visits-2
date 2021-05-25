@@ -49,7 +49,7 @@ module Api
     def store_request_id
       RequestStore.store[:request_id] = request.uuid
       PVB::Instrumentation.append_to_log(request_id: RequestStore.store[:request_id])
-      Raven.extra_context(request_id: RequestStore.store[:request_id])
+      Sentry.set_extras(request_id: RequestStore.store[:request_id])
     end
 
     def enforce_json
