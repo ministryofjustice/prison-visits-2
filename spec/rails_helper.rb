@@ -67,7 +67,7 @@ RSpec.configure do |config|
 
   config.before(:each, :expect_exception) do
     Rails.configuration.sentry_dsn = 'https://test.com'
-    allow(Raven).to receive(:capture_exception)
+    allow(Sentry).to receive(:capture_exception)
   end
 
   config.before(:each) do

@@ -12,7 +12,7 @@ RSpec.describe PVB::ExceptionHandler do
     let(:sentry_dsn) { 'something' }
 
     it 'sends the exception to sentry' do
-      expect(Raven).to receive(:capture_exception).with(exception)
+      expect(Sentry).to receive(:capture_exception).with(exception)
 
       described_class.capture_exception(exception)
     end
@@ -32,7 +32,7 @@ RSpec.describe PVB::ExceptionHandler do
     let(:sentry_dsn) { nil }
 
     it 'raises the exception' do
-      expect(Raven).not_to receive(:capture_exception).with(exception)
+      expect(Sentry).not_to receive(:capture_exception).with(exception)
       expect {
         described_class.capture_exception(exception)
       }.to raise_error exception
