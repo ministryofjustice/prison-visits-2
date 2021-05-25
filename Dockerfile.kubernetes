@@ -1,4 +1,4 @@
-FROM ruby:2.6.3-stretch
+FROM ruby:2.6.7-stretch
 
 RUN \
   set -ex \
@@ -69,6 +69,6 @@ RUN mkdir -p /home/appuser && \
 
 USER 1001
 
-RUN RAILS_ENV=production PUBLIC_SERVICE_URL=foo STAFF_SERVICE_URL=foo SECRET_KEY_BASE=foo rails assets:precompile --trace
+RUN RAILS_ENV=production DISABLE_PROMETHEUS_METRICS=foo PUBLIC_SERVICE_URL=foo STAFF_SERVICE_URL=foo SECRET_KEY_BASE=foo rails assets:precompile --trace
 
 EXPOSE 3000
