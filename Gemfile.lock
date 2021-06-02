@@ -242,7 +242,8 @@ GEM
     premailer-rails (1.11.1)
       actionmailer (>= 3)
       premailer (~> 1.7, >= 1.7.9)
-    prometheus_exporter (0.5.3)
+    prometheus_exporter (0.7.0)
+      webrick
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -421,6 +422,7 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
+    webrick (1.7.0)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
