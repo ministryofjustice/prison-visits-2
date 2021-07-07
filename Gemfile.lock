@@ -165,12 +165,13 @@ GEM
     inflection (1.0.0)
     io-like (0.3.0)
     jaro_winkler (1.5.4)
-    jasmine (3.7.0)
-      jasmine-core (~> 3.7.0)
+    jasmine (3.8.0)
+      jasmine-core (~> 3.8.0)
       phantomjs
       rack (>= 1.2.1)
       rake
-    jasmine-core (3.7.1)
+      webrick
+    jasmine-core (3.8.0)
     jasmine-jquery-rails (2.0.3)
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
@@ -468,7 +469,7 @@ DEPENDENCIES
   guard-rspec
   guard-rubocop
   jaro_winkler
-  jasmine (~> 3.7)
+  jasmine (~> 3.8)
   jasmine-jquery-rails
   jbuilder
   jquery-rails (~> 4.4.0)
