@@ -59,6 +59,16 @@ spec:
                 secretKeyRef:
                   name: elasticache-prison-visits-booking-token-cache-staging
                   key: url
+            - name: NOMIS_USER_OAUTH_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: hmpps-auth-secrets
+                  key: NOMIS_USER_OAUTH_CLIENT_ID
+            - name: NOMIS_USER_OAUTH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: hmpps-auth-secrets
+                  key: NOMIS_USER_OAUTH_CLIENT_SECRET
           resources:
             limits:
               memory: "2Gi"

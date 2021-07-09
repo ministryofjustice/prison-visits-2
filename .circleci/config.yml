@@ -228,7 +228,7 @@ workflows:
            branches:
              only:
               - main
-              - upgrade-ruby267
+              - k8s-config-user-client-id
      - deploy_staging:
          requires:
            - build_and_push_docker_image
@@ -236,6 +236,7 @@ workflows:
            branches:
              only:
                - main
+               - k8s-config-user-client-id
      - deploy_production_approval:
          type: approval
          requires:
