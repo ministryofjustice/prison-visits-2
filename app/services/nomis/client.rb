@@ -8,7 +8,7 @@ module Nomis
 
   # This client is **NOT** thread safe. To be used with a connection pool. See below.
   class Client
-    TIMEOUT = 2 # seconds
+    TIMEOUT = 5 # seconds
     EXCON_INSTRUMENT_NAME = 'nomis_api'.freeze
     JSON_MIME_TYPE = 'application/json'.freeze
 

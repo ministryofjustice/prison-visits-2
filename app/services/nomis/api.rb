@@ -12,7 +12,7 @@ module Nomis
       end
 
       pool_size = Rails.configuration.connection_pool_size
-      @pool = ConnectionPool.new(size: pool_size, timeout: 1) do
+      @pool = ConnectionPool.new(size: pool_size, timeout: 5) do
         Nomis::Client.new(
           Rails.configuration.prison_api_host)
       end
