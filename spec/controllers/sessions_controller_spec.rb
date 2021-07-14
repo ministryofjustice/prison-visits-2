@@ -70,7 +70,7 @@ RSpec.describe SessionsController, type: :controller do
       {
         'user_id' => user.id,
         'full_name' => 'Joe Bloggs',
-        'roles' => [],
+        'roles' => [SignonIdentity::REQUEST_ROLE],
         'logout_url' => 'http://example.com/logout',
         'organisations' => [estate_nomis_id]
       }
