@@ -45,7 +45,7 @@ gem 'turnout'
 gem 'rack-canonical-host'
 
 # Newer versions break ie8 js
-gem 'uglifier', '~> 2.7.2'
+gem 'uglifier', '~> 3.2.0'
 gem 'uri_template'
 gem 'zendesk_api'
 gem 'pvb-instrumentation',
