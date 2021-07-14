@@ -174,7 +174,7 @@ RSpec.describe SignonIdentity, type: :model do
       expect(
         subject.logout_url(redirect_to: 'https://pvb/loggedout')
       ).to eq(
-        'https://example.com/logout?redirect_to=https%3A%2F%2Fpvb%2Floggedout'
+        'https://example.com/logout?client_id=prison-visits-booking-frontend&redirect_uri=https%3A%2F%2Fpvb%2Floggedout'
       )
     end
   end
