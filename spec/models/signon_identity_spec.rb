@@ -11,7 +11,7 @@ RSpec.describe SignonIdentity, type: :model do
         'organisations' => organisations,
         'first_name' => 'Joe',
         'last_name' => 'Bloggs',
-        'roles' => []
+        'roles' => [SignonIdentity::REQUEST_ROLE]
       }
     end
 
@@ -127,7 +127,7 @@ RSpec.describe SignonIdentity, type: :model do
     let!(:swansea_org_name)   { 'swansea.noms' }
     let!(:swansea_estate)     { create(:estate, sso_organisation_name: swansea_org_name, nomis_id: 'SWI') }
     let!(:orgs)               { [swansea_estate, cardiff_estate] }
-    let!(:roles)               { [] }
+    let!(:roles)               { [SignonIdentity::REQUEST_ROLE] }
     let!(:serialization) do
       {
         'user_id' => user.id,
@@ -166,6 +166,14 @@ RSpec.describe SignonIdentity, type: :model do
 
         it 'makes all estates accessible' do
           expect(subject.accessible_estates).to include(pentonville_estate)
+        end
+      end
+
+      context 'without the role' do
+        let(:roles) { [] }
+
+        it 'has no estates' do
+          expect(subject.accessible_estates).to eq([])
         end
       end
     end

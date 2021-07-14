@@ -24,7 +24,7 @@ module ServiceHelpers
   end
 
   # allow feature tests to login for specific prisons
-  def prison_login(estates, email_address = 'joe@example.com', roles = [])
+  def prison_login(estates, email_address = 'joe@example.com', roles = [SignonIdentity::REQUEST_ROLE])
     sso_response =
       {
         'uid' => '1234-1234-1234-1234',

@@ -47,7 +47,7 @@ RSpec.shared_context 'with a process request setup' do
         'organisations' => [
           vst.prison.estate.nomis_id
         ],
-        'roles' => [],
+        'roles' => [SignonIdentity::REQUEST_ROLE],
       }
     }
   end
