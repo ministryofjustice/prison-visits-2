@@ -369,7 +369,7 @@ GEM
     rubocop-rspec (1.41.0)
       rubocop (>= 0.68.1)
     ruby-progressbar (1.10.1)
-    ruby2_keywords (0.0.4)
+    ruby2_keywords (0.0.5)
     rubyzip (2.0.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
@@ -391,10 +391,10 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
-    sentry-rails (4.6.1)
+    sentry-rails (4.6.3)
       railties (>= 5.0)
       sentry-ruby-core (~> 4.6.0)
-    sentry-ruby-core (4.6.1)
+    sentry-ruby-core (4.6.3)
       concurrent-ruby
       faraday
     shellany (0.0.1)
