@@ -1,0 +1,111 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prison-visits-booking-staff
+  labels:
+    app: prison-visits-booking-staff
+  annotations:
+    kubernetes.io/change-cause: "<to be filled in deploy job command>"
+spec:
+  replicas: 3
+  revisionHistoryLimit: 1
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 20%
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: prison-visits-booking-staff
+  template:
+    metadata:
+      labels:
+        app: prison-visits-booking-staff
+    spec:
+      containers:
+        - name: prison-visits-booking-staff
+          image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
+          imagePullPolicy: Always
+          command: ['sh', '-c', "bundle exec puma -p 3000 -C ./config/puma_prod.rb --pidfile /tmp/server.pid"]
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            failureThreshold: 6
+            httpGet:
+              path: /ping
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 60
+          envFrom:
+            - configMapRef:
+                name: shared-environment
+            - secretRef:
+                name: secrets
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-rds-instance-output
+                  key: url
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: elasticache-prison-visits-booking-token-cache-development
+                  key: url
+            - name: NOMIS_USER_OAUTH_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: hmpps-auth-secrets
+                  key: NOMIS_USER_OAUTH_CLIENT_ID
+            - name: NOMIS_USER_OAUTH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: hmpps-auth-secrets
+                  key: NOMIS_USER_OAUTH_CLIENT_SECRET
+          resources:
+            limits:
+              memory: "2Gi"
+              cpu: "150m"
+            requests:
+              memory: "1Gi"
+              cpu: "30m"
+        - name: prison-visits-booking-staff-sidekiq
+          image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
+          imagePullPolicy: Always
+          command: ['sh', '-c', "bundle exec sidekiq -C config/sidekiq.yml"]
+          env:
+            - name: "SCRIPT_NAME"
+              value: "/sidekiq-admin"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-rds-instance-output
+                  key: url
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: elasticache-prison-visits-booking-token-cache-development
+                  key: url
+          envFrom:
+            - configMapRef:
+                name: shared-environment
+            - secretRef:
+                name: secrets
+        - name: prison-visits-booking-staff-metrics
+          image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
+          imagePullPolicy: Always
+          command: ['sh', '-c', "bundle exec prometheus_exporter --bind 0.0.0.0"]
+          envFrom:
+            - configMapRef:
+                name: shared-environment
+            - secretRef:
+                name: secrets
+          ports:
+            - containerPort: 9394
