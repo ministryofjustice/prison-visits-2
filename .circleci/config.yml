@@ -255,6 +255,14 @@ workflows:
              only:
               - main
               - k8s-config-user-client-id
+     - deploy_development:
+         requires:
+           - build_and_push_docker_image
+         filters:
+           branches:
+             only:
+               - main
+               - k8s-config-user-client-id
      - deploy_staging:
          requires:
            - build_and_push_docker_image
