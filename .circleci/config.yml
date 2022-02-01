@@ -164,6 +164,32 @@ jobs:
       - *build_docker_image
       - *push_docker_image
 
+  deploy_development:
+    <<: *deploy_container_config
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/prison-visits-staff
+      - run:
+          name: Kubectl deployment development setup
+          command: |
+            setup-kube-auth
+            kubectl config use-context development
+      - *install_gpg
+      - *configure_gpg
+      - *decrypt_secrets
+      - deploy:
+          name: Deploy to development
+          command: |
+            kubectl delete job pvb-staff-migration --ignore-not-found
+            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/development/deployment.yaml
+            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/development/cronjob.yaml
+            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/development/migration-job.yaml
+            kubectl annotate deployments/prison-visits-booking-staff kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
+            kubectl apply --record=false -f ./deploy/development
+          environment:
+            <<: *github_team_name_slug
+
   deploy_staging:
     <<: *deploy_container_config
     steps:
@@ -229,6 +255,14 @@ workflows:
              only:
               - main
               - k8s-config-user-client-id
+     - deploy_development:
+         requires:
+           - build_and_push_docker_image
+         filters:
+           branches:
+             only:
+               - main
+               - k8s-config-user-client-id
      - deploy_staging:
          requires:
            - build_and_push_docker_image
