@@ -10,6 +10,10 @@ references:
     docker:
       - image: ministryofjustice/cloud-platform-tools
 
+  deploy_live_1_container_config: &deploy_live_1_container_config
+    docker:
+      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
+
   test_container_config: &test_container_config
     docker:
       - image: circleci/ruby:2.6.7-node-browsers
@@ -194,7 +198,7 @@ jobs:
             <<: *github_team_name_slug
 
   deploy_staging:
-    <<: *deploy_container_config
+    <<: *deploy_live_1_container_config
     steps:
       - checkout
       - attach_workspace:
@@ -202,11 +206,8 @@ jobs:
       - run:
           name: Kubectl deployment staging setup
           command: |
-            echo -n $KUBE_ENV_STAGING_CACERT | base64 -d > ./ca.crt
-            kubectl config set-cluster $KUBE_ENV_STAGING_NAME --certificate-authority=./ca.crt --server=$KUBE_ENV_STAGING_NAME
-            kubectl config set-credentials circleci --token=$KUBE_ENV_STAGING_TOKEN
-            kubectl config set-context $KUBE_ENV_STAGING_NAME --cluster=$KUBE_ENV_STAGING_NAME --user=circleci --namespace=$KUBE_ENV_STAGING_NAMESPACE
-            kubectl config use-context $KUBE_ENV_STAGING_NAME
+            setup-kube-auth
+            kubectl config use-context staging
       - *install_gpg
       - *configure_gpg
       - *decrypt_secrets
