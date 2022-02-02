@@ -173,15 +173,17 @@ jobs:
       - run:
           name: Kubectl deployment development setup
           command: |
-            setup-kube-auth
-            kubectl config use-context development
+            echo -n $KUBE_ENV_DEVELOPMENT_CACERT | base64 -d > ./ca.crt
+            kubectl config set-cluster $KUBE_ENV_DEVELOPMENT_NAME --certificate-authority=./ca.crt --server=https://$KUBE_ENV_DEVELOPMENT_NAME
+            kubectl config set-credentials circleci --token=$KUBE_ENV_DEVELOPMENT_TOKEN
+            kubectl config set-context $KUBE_ENV_DEVELOPMENT_NAME --cluster=$KUBE_ENV_DEVELOPMENT_NAME --user=circleci --namespace=$KUBE_ENV_DEVELOPMENT_NAMESPACE
+            kubectl config use-context $KUBE_ENV_DEVELOPMENT_NAME
       - *install_gpg
       - *configure_gpg
       - *decrypt_secrets
       - deploy:
           name: Deploy to development
           command: |
-            echo kubectl api-versions
             kubectl delete job pvb-staff-migration --ignore-not-found
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/development/deployment.yaml
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/development/cronjob.yaml
