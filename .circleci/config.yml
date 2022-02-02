@@ -189,7 +189,6 @@ jobs:
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/development/deployment.yaml
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/development/cronjob.yaml
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/development/migration-job.yaml
-            kubectl annotate deployments/prison-visits-booking-dev kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
             kubectl apply --record=false -f ./deploy/development
           environment:
             <<: *github_team_name_slug
