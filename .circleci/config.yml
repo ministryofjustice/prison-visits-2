@@ -6,8 +6,9 @@ references:
     GITHUB_TEAM_NAME_SLUG: prison-visits-booking
 
   deploy_container_config: &deploy_container_config
+    resource_class: small
     docker:
-      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
+      - image: ministryofjustice/cloud-platform-tools
 
   test_container_config: &test_container_config
     docker:
