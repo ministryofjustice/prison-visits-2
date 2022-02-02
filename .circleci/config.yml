@@ -207,12 +207,12 @@ jobs:
       - deploy:
           name: Deploy to staging
           command: |
-            kubectl delete job pvb-staff-migration --ignore-not-found
-            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/deployment.yaml
-            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/cronjob.yaml
-            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/migration-job.yaml
-            kubectl annotate deployments/prison-visits-booking-staff kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
-            kubectl apply --record=false -f ./deploy/staging
+            echo kubectl delete job pvb-staff-migration --ignore-not-found
+            echo sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/deployment.yaml
+            echo sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/cronjob.yaml
+            echo sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/migration-job.yaml
+            echo kubectl annotate deployments/prison-visits-booking-staff kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
+            echo kubectl apply --record=false -f ./deploy/staging
           environment:
             <<: *github_team_name_slug
 
