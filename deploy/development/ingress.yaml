@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
  name: prison-visits-booking-staff
- namespace: prison-visits-booking-development
+ namespace: prison-visits-booking-dev
  annotations:
    external-dns.alpha.kubernetes.io/set-identifier: prison-visits-booking-staff-prison-visits-booking-development-green
    external-dns.alpha.kubernetes.io/aws-weight: "100"

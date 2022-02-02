@@ -2,7 +2,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: prison-visits-booking-staff
-  namespace: prison-visits-booking-development
+  namespace: prison-visits-booking-dev
 spec:
   selector:
     matchLabels:
