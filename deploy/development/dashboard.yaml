@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: prison-visits-development-dashboard
-  namespace: prison-visits-booking-development
+  namespace: prison-visits-booking-dev
   labels:
     grafana_dashboard: "prison-visits-booking-development"
 data:
