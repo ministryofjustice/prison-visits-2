@@ -181,7 +181,7 @@ jobs:
       - deploy:
           name: Deploy to development
           command: |
-            echo kubectl kubectl api-versions
+            echo kubectl pi-versions
             kubectl delete job pvb-staff-migration --ignore-not-found
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/development/deployment.yaml
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/development/cronjob.yaml
