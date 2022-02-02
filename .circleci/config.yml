@@ -165,7 +165,6 @@ jobs:
       - *push_docker_image
 
   deploy_development:
-    <<: *deploy_container_config
     steps:
       - checkout
       - attach_workspace:
@@ -174,7 +173,7 @@ jobs:
           name: Kubectl deployment development setup
           command: |
             echo -n $KUBE_ENV_DEVELOPMENT_CACERT | base64 -d > ./ca.crt
-            kubectl config set-cluster $KUBE_ENV_DEVELOPMENT_NAME --certificate-authority=./ca.crt --server=https://$KUBE_ENV_DEVELOPMENT_NAME
+            kubectl config set-cluster $KUBE_ENV_DEVELOPMENT_NAME --certificate-authority=./ca.crt --server=$KUBE_ENV_DEVELOPMENT_NAME
             kubectl config set-credentials circleci --token=$KUBE_ENV_DEVELOPMENT_TOKEN
             kubectl config set-context $KUBE_ENV_DEVELOPMENT_NAME --cluster=$KUBE_ENV_DEVELOPMENT_NAME --user=circleci --namespace=$KUBE_ENV_DEVELOPMENT_NAMESPACE
             kubectl config use-context $KUBE_ENV_DEVELOPMENT_NAME
