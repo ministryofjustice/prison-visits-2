@@ -165,6 +165,7 @@ jobs:
       - *push_docker_image
 
   deploy_development:
+    <<:
     steps:
       - checkout
       - attach_workspace:
