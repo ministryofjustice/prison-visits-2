@@ -35,13 +35,13 @@ spec:
             httpGet:
               path: /ping
               port: 3000
-            initialDelaySeconds: 10
+            initialDelaySeconds: 30
             periodSeconds: 60
           readinessProbe:
             httpGet:
               path: /healthcheck
               port: 3000
-            initialDelaySeconds: 10
+            initialDelaySeconds: 30
             periodSeconds: 60
           envFrom:
             - configMapRef:
