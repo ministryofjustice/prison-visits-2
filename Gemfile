@@ -64,7 +64,7 @@ group :developmemt do
 end
 
 group :development, :test do
-  gem 'awesome_print', require: 'ap'
+  gem 'awesome_print'
   gem 'brakeman', '>= 5.0.4'
   gem 'byebug'
   gem 'dotenv-rails'
