@@ -4,7 +4,7 @@ metadata:
  name: prison-visits-booking-staff
  namespace: prison-visits-booking-staging
  annotations:
-   external-dns.alpha.kubernetes.io/set-identifier: prison-visits-booking-staff-prison-visits-booking-dev-blue
+   external-dns.alpha.kubernetes.io/set-identifier: prison-visits-booking-staff-prison-visits-booking-staging-blue
    external-dns.alpha.kubernetes.io/aws-weight: "100"
    kubernetes.io/ingress.class: "nginx"
    nginx.ingress.kubernetes.io/whitelist-source-range: "195.92.38.20,195.92.38.21,195.92.38.22,195.92.38.16/28,194.33.192.0/24,194.33.196.0/24,194.33.193.0/25,194.33.197.0/25,51.247.4.0/24,51.247.3.0/24,81.134.202.29/32,62.25.109.197,212.137.36.230,81.134.202.29,172.22.16.3,54.229.117.192,87.81.252.58,217.41.68.40,52.209.34.226,52.209.186.226,52.210.232.124,52.59.46.112,52.59.147.246,52.48.244.35,52.57.132.90,3.8.51.207,35.178.209.113,35.177.252.54"
