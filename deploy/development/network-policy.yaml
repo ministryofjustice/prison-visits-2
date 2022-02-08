@@ -6,7 +6,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: prison-visits-booking-staff-development
+      app: prison-visits-booking-staff-dev
   policyTypes:
   - Ingress
   ingress:

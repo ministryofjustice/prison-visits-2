@@ -5,7 +5,7 @@ metadata:
   name: prison-visits-development-dashboard
   namespace: prison-visits-booking-dev
   labels:
-    grafana_dashboard: "prison-visits-booking-development"
+    grafana_dashboard: "prison-visits-booking-dev"
 data:
   pvb-development-dashboard.json: |
     {

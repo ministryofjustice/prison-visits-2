@@ -9,7 +9,7 @@ spec:
       app: prison-visits-booking-staff
   namespaceSelector:
     matchNames:
-    - prison-visits-booking-staff-development
+    - prison-visits-booking-staff-dev
   endpoints:
   - port: metrics
     interval: 15s

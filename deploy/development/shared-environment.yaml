@@ -13,7 +13,7 @@ data:
   RAILS_SERVE_STATIC_FILES: "true"
   REMOVE_LOAD_TEST_DATA: "true"
   SENTRY_CURRENT_ENV: "development"
-  STAFF_SERVICE_URL: "https://prison-visits-booking-staff-development.apps.live.cloud-platform.service.justice.gov.uk"
+  STAFF_SERVICE_URL: "https://prison-visits-booking-staff-dev.apps.live.cloud-platform.service.justice.gov.uk"
   SMTP_DOMAIN: "mailtrap.io"
   SMTP_PORT: "465"
   SMTP_HOSTNAME: "smtp.mailtrap.io"
