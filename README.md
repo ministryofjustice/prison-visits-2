@@ -27,7 +27,7 @@ The source of the predecessor can be found at
 ### Dependencies
 
 - [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public) - this a separate Ruby on Rails application that contains the public interface for booking a prison visit.
-- [MOJ Sign On](https://github.com/ministryofjustice/moj-signon) - for logging into the bookings management interface.
+- [HMPPS Auth](https://github.com/ministryofjustice/hmpps-auth) - for logging into the bookings management interface.
 - [Sidekiq](https://sidekiq.org/) - for background processing.
 - [Redis](https://redis.io/) - for managing queues (required by Sidekiq)
 - [Postgres](https://www.postgresql.org/) - for persisting data
@@ -115,13 +115,6 @@ pvb2 $ rails server
 pvb-public $ rails server -p 4000
 
 ```
-
-10. In another terminal window spin up [MOJ Signon](https://github.com/ministryofjustice/moj-signon) on port 5000.
-
-```sh
-moj-signon $ rails server -p 5000
-```
-
 ### Rake tasks
 
 1. Set up database and seed with prison data
