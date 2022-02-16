@@ -203,7 +203,7 @@ jobs:
           name: Kubectl deployment staging setup
           command: |
             echo -n $KUBE_ENV_STAGING_CACERT | base64 -d > ./ca.crt
-            kubectl config set-cluster $KUBE_ENV_STAGING_NAME --certificate-authority=./ca.crt --server=$KUBE_ENV_STAGING_NAME
+            kubectl config set-cluster $KUBE_ENV_STAGING_NAME --certificate-authority=./ca.crt --server=https://$KUBE_ENV_STAGING_NAME
             kubectl config set-credentials circleci --token=$KUBE_ENV_STAGING_TOKEN
             kubectl config set-context $KUBE_ENV_STAGING_NAME --cluster=$KUBE_ENV_STAGING_NAME --user=circleci --namespace=$KUBE_ENV_STAGING_NAMESPACE
             kubectl config use-context $KUBE_ENV_STAGING_NAME
@@ -231,7 +231,7 @@ jobs:
           name: Kubectl deployment production setup
           command: |
             echo -n $KUBE_ENV_PRODUCTION_CACERT | base64 -d > ./ca.crt
-            kubectl config set-cluster $KUBE_ENV_PRODUCTION_NAME --certificate-authority=./ca.crt --server=$KUBE_ENV_PRODUCTION_NAME
+            kubectl config set-cluster $KUBE_ENV_PRODUCTION_NAME --certificate-authority=./ca.crt --server=https://$KUBE_ENV_PRODUCTION_NAME
             kubectl config set-credentials circleci --token=$KUBE_ENV_PRODUCTION_TOKEN
             kubectl config set-context $KUBE_ENV_PRODUCTION_NAME --cluster=$KUBE_ENV_PRODUCTION_NAME --user=circleci --namespace=$KUBE_ENV_PRODUCTION_NAMESPACE
             kubectl config use-context $KUBE_ENV_PRODUCTION_NAME
