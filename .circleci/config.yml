@@ -217,7 +217,6 @@ jobs:
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/deployment.yaml
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/cronjob.yaml
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/migration-job.yaml
-            kubectl annotate deployments/prison-visits-booking-staff kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
             kubectl apply --record=false -f ./deploy/staging
           environment:
             <<: *github_team_name_slug
@@ -246,7 +245,6 @@ jobs:
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/cronjob.yaml
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/deployment.yaml
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/migration-job.yaml
-            kubectl annotate deployments/prison-visits-booking-staff kubernetes.io/change-cause="$CIRCLE_BUILD_URL"
             kubectl apply --record=false -f ./deploy/production
           environment:
             <<: *github_team_name_slug
