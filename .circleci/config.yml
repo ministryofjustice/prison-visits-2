@@ -231,10 +231,10 @@ jobs:
           name: Kubectl deployment production setup
           command: |
             echo -n $KUBE_ENV_PRODUCTION_CACERT | base64 -d > ./ca.crt
-            kubectl config set-cluster $KUBE_ENV_PRODUCTION_NAME --certificate-authority=./ca.crt --server=$KUBE_ENV_PRODUCTION_NAME
-            kubectl config set-credentials circleci --token=$KUBE_ENV_PRODUCTION_TOKEN
-            kubectl config set-context $KUBE_ENV_PRODUCTION_NAME --cluster=$KUBE_ENV_PRODUCTION_NAME --user=circleci --namespace=$KUBE_ENV_PRODUCTION_NAMESPACE
-            kubectl config use-context $KUBE_ENV_PRODUCTION_NAME
+            kubectl config set-cluster ${CLUSTER_NAME_LIVE_1} --certificate-authority=./ca.crt --server=https://api.${CLUSTER_NAME_LIVE_1}
+            kubectl config set-credentials circleci --token=${KUBE_ENV_PRODUCTION_TOKEN}
+            kubectl config set-context ${CLUSTER_NAME_LIVE_1} --cluster=${CLUSTER_NAME_LIVE_1} --user=circleci --namespace=${KUBE_ENV_PRODUCTION_NAMESPACE}
+            kubectl config use-context ${CLUSTER_NAME_LIVE_1}
       - *install_gpg
       - *configure_gpg
       - *decrypt_secrets
