@@ -12,7 +12,7 @@ references:
 
   deploy_live_1_container_config: &deploy_live_1_container_config
     docker:
-      - image: ${ECR_ENDPOINT}/cloud-platform/tools:circleci
+      - image: ${ECR_ENDPOINT_LIVE1}/cloud-platform/tools:circleci
 
   test_container_config: &test_container_config
     docker:
@@ -96,6 +96,22 @@ references:
         <<: *github_team_name_slug
         REPONAME: prison-visits-staff
 
+  push_docker_image_live1: &push_docker_image_live1
+    run:
+      name: Push docker image live-1
+      command: |
+        login="$(aws ecr get-login --region eu-west-2 --no-include-email)"
+        ${login}
+        docker tag app "${ECR_ENDPOINT_LIVE1}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
+        docker push "${ECR_ENDPOINT_LIVE1}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
+        if [ "${CIRCLE_BRANCH}" == "main" ]; then
+          docker tag app "${ECR_ENDPOINT_LIVE1}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
+          docker push "${ECR_ENDPOINT_LIVE1}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
+        fi
+      environment:
+        <<: *github_team_name_slug
+        REPONAME: prison-visits-staff
+
 version: 2
 jobs:
   test:
@@ -168,6 +184,7 @@ jobs:
       - *install_aws_cli
       - *build_docker_image
       - *push_docker_image
+      - *push_docker_image_live1
 
   deploy_development:
     <<: *deploy_container_config
@@ -198,7 +215,7 @@ jobs:
             <<: *github_team_name_slug
 
   deploy_staging:
-    <<: *deploy_container_config
+    <<: *deploy_live_1_container_config
     steps:
       - checkout
       - attach_workspace:
@@ -227,7 +244,7 @@ jobs:
             <<: *github_team_name_slug
 
   deploy_production:
-    <<: *deploy_container_config
+    <<: *deploy_live_1_container_config
     steps:
       - checkout
       - attach_workspace:
