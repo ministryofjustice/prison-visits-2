@@ -198,7 +198,7 @@ jobs:
             <<: *github_team_name_slug
 
   deploy_staging:
-    <<: *deploy_live_1_container_config
+    <<: *deploy_container_config
     steps:
       - checkout
       - attach_workspace:
