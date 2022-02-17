@@ -14,7 +14,7 @@ closed: false
 adult_age: 10
 recurring:
   mon:
-  - 1400-1630
+  - 1345-1445
   tue:
   - 1400-1630
   wed:
