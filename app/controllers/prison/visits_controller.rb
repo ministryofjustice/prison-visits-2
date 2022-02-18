@@ -48,7 +48,7 @@ class Prison::VisitsController < ApplicationController
     @message = Message.new
 
     @gov_notify_email = GovNotifyEmailer.new
-    @gov_notify_email.send_email(@visit, @prison)
+    # @gov_notify_email.send_email(@visit, @prison)
   end
 
 private

@@ -1,9 +1,4 @@
 require 'simplecov'
-require 'webmock'
-
-include WebMock::API
-
-WebMock.enable!
 
 SimpleCov.minimum_coverage 100
 
@@ -74,9 +69,6 @@ require 'vcr'
 # set VCR=1 when you wish to record new interactions with T3
 vcr_mode = ENV.fetch('VCR', '0').to_i.freeze
 
-stub_request(:post, "https://api.notifications.service.gov.uk/v2/notifications/email").
-  with(body: "abc", headers: { 'Content-Length' => 3 })
-
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
   if vcr_mode.zero?
@@ -94,7 +86,6 @@ VCR.configure do |config|
   config.ignore_request do |request|
     # Ignore capybara requests within feature tests
     request.uri =~ /__identify__|session|oauth/
-    URI("https://api.notifications.service.gov.uk/v2/notifications/email")
   end
   config.filter_sensitive_data('authorisation_header') do |interaction|
     interaction.request.headers['Authorization']&.first
