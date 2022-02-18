@@ -38,6 +38,8 @@ class Prison::VisitsController < ApplicationController
              find(memoised_visit.id)
 
     @visit = visit.decorate
+    @prison = Prison.find_by(id: @visit.prison_id)
+
     @step_name = if @visit.processable?
                    GA_HIT_TYPE_VISIT_REQUESTED
                  else
@@ -45,11 +47,8 @@ class Prison::VisitsController < ApplicationController
                  end
     @message = Message.new
 
-    pp 'Check the visit cols'
-    pp visit.column_names
-
     @gov_notify_email = GovNotifyEmailer.new
-    @gov_notify_email.send_email(visit.contact_email_address)
+    @gov_notify_email.send_email(@visit, @prison)
   end
 
 private
