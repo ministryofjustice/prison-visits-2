@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 5.2'
 # This needs to be in here for Heroku
-ruby '2.6.7'
+ruby '2.7.5'
 
 gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'
@@ -25,6 +25,7 @@ gem 'kramdown'
 gem 'lograge'
 gem 'logstash-event'
 gem 'netaddr', '~> 1.5.1'
+gem 'notifications-ruby-client', '~> 5.3'
 gem 'omniauth-oauth2'
 gem 'pg'
 gem 'phonelib'
