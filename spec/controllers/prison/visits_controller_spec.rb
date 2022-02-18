@@ -4,12 +4,6 @@
 #   let(:visit) { FactoryBot.create(:visit) }
 #   let(:estate) { visit.prison.estate }
 
-#   VCR.configure do |c|
-#     c.ignore_request do |request|
-#       URI("https://api.notifications.service.gov.uk/v2/notifications/email")
-#     end
-#   end
-
 #   describe '#update' do
 #     subject do
 #       put :update, params: {
