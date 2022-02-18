@@ -45,11 +45,11 @@ class Prison::VisitsController < ApplicationController
                  end
     @message = Message.new
 
-    pp "Check the visit cols"
+    pp 'Check the visit cols'
     pp visit.column_names
 
     @gov_notify_email = GovNotifyEmailer.new
-    send_email = @gov_notify_email.send_email(visit.contact_email_address)
+    @gov_notify_email.send_email(visit.contact_email_address)
   end
 
 private
