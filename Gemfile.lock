@@ -122,7 +122,7 @@ GEM
       request_store (>= 1.0)
       ruby2_keywords
     erubi (1.10.0)
-    excon (0.62.0)
+    excon (0.92.1)
     execjs (2.7.0)
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
@@ -485,7 +485,7 @@ DEPENDENCIES
   dotenv-rails
   draper
   email_address_validation!
-  excon (= 0.62.0)
+  excon (= 0.92.1)
   factory_bot_rails
   ffaker
   geckodriver-helper (< 0.21)
