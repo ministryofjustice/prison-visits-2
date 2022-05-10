@@ -13,7 +13,14 @@ class VisitorMailer < ApplicationMailer
                  receipt_date: format_date_without_year(visit.first_date)
 
     @gov_notify_email = GovNotifyEmailer.new
-    @gov_notify_email.send_email(visit)
+  
+    begin
+      response = @gov_notify_email.send_email(visit)
+    rescue Notifications::Client::AuthError
+      pp response
+    end
+
+    (raise Notifications::Client::AuthError, "foo") rescue 'yahoo'
   end
 
   def booked(attrs, message_attrs = nil)
