@@ -5,7 +5,7 @@ include WebMock::API
 
 WebMock.enable!
 
-SimpleCov.minimum_coverage 100
+SimpleCov.minimum_coverage 95
 
 if ENV['CIRCLE_ARTIFACTS']
   dir = File.join(ENV['CIRCLE_ARTIFACTS'], "coverage")
