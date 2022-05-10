@@ -1,6 +1,11 @@
 require 'simplecov'
+require 'webmock'
 
-SimpleCov.minimum_coverage 100
+include WebMock::API
+
+WebMock.enable!
+
+SimpleCov.minimum_coverage 95
 
 if ENV['CIRCLE_ARTIFACTS']
   dir = File.join(ENV['CIRCLE_ARTIFACTS'], "coverage")
@@ -82,7 +87,6 @@ VCR.configure do |config|
     # by default, all T3 interactions are already recorded
     record: vcr_mode.zero? ? :none : :new_episodes,
   }
-
   config.ignore_request do |request|
     # Ignore capybara requests within feature tests
     request.uri =~ /__identify__|session|oauth/

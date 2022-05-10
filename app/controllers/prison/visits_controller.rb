@@ -46,9 +46,6 @@ class Prison::VisitsController < ApplicationController
                    GA_HIT_TYPE_VISIT_PROCESSED
                  end
     @message = Message.new
-
-    # @gov_notify_email = GovNotifyEmailer.new
-    # @gov_notify_email.send_email(@visit, @prison)
   end
 
 private

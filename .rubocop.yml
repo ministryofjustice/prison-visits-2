@@ -26,6 +26,7 @@ AllCops:
     - 'lib/tasks/brakeman.rake'
     - 'lib/tasks/elasticsearch.rake'
     - 'spec/dummy/db/**/*'
+    - 'spec/spec_helper.rb'
 
 # Use Weirich style
 Style/BlockDelimiters:
