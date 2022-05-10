@@ -11,6 +11,9 @@ class VisitorMailer < ApplicationMailer
 
     mail_visitor visit,
                  receipt_date: format_date_without_year(visit.first_date)
+
+    @gov_notify_email = GovNotifyEmailer.new
+    @gov_notify_email.send_email(visit)
   end
 
   def booked(attrs, message_attrs = nil)
