@@ -44,6 +44,11 @@ RSpec.configure do |config|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
 
+  config.before(:each) do
+    stub_request(:post, "https://api.notifications.service.gov.uk/v2/notifications/email").
+    to_return(status: 200, body: {}.to_json)
+  end
+
   config.mock_with :rspec do |mocks|
     mocks.verify_partial_doubles = true
   end
@@ -75,7 +80,6 @@ require 'vcr'
 vcr_mode = ENV.fetch('VCR', '0').to_i.freeze
 
 VCR.configure do |config|
-  config.ignore_hosts 'api.notifications.service.gov.uk'
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
   if vcr_mode.zero?
     config.hook_into :webmock
