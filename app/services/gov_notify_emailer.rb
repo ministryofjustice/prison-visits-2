@@ -35,5 +35,4 @@ class GovNotifyEmailer
       }
     )
   end
-
 end
