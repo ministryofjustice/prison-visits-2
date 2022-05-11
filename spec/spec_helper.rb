@@ -75,6 +75,7 @@ require 'vcr'
 vcr_mode = ENV.fetch('VCR', '0').to_i.freeze
 
 VCR.configure do |config|
+  config.ignore_hosts 'api.notifications.service.gov.uk'
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
   if vcr_mode.zero?
     config.hook_into :webmock
@@ -88,8 +89,6 @@ VCR.configure do |config|
     record: vcr_mode.zero? ? :none : :new_episodes,
   }
   config.ignore_request do |request|
-    stub_request(:post, "api.notifications.service.gov.uk/v2/notifications/email").
-      with(body: "abc", headers: { 'Content-Length' => 3 })
     # Ignore capybara requests within feature tests
     request.uri =~ /__identify__|session|oauth/
   end
