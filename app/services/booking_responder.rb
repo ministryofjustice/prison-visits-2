@@ -29,6 +29,9 @@ private
 
   def send_notifications
     visitor_mailer.deliver_later
+    template_id = 'd9beed43-e310-4875-807d-ffe9f833ad66'
+    @gov_notify_email = GovNotifyEmailer.new
+    @gov_notify_email.send_email(visit, template_id)
   end
 
   def processor
