@@ -75,6 +75,7 @@ require 'vcr'
 vcr_mode = ENV.fetch('VCR', '0').to_i.freeze
 
 VCR.configure do |config|
+  config.ignore_hosts 'api.notifications.service.gov.uk'
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
   if vcr_mode.zero?
     config.hook_into :webmock
