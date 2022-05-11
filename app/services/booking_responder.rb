@@ -35,6 +35,7 @@ private
       @gov_notify_email = GovNotifyEmailer.new
       @gov_notify_email.send_email(visit, template_id)
     rescue Notifications::Client::AuthError
+      pp 'auth error'
     end
   end
 
