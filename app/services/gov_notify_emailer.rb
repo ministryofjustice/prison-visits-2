@@ -14,7 +14,6 @@ class GovNotifyEmailer
       template_id: template_id,
       personalisation: {
         receipt_date: format_date_without_year(visit.first_date),
-        cancellation_date: format_date_without_year(visit.date),
         visitor_full_name: visit.visitor_first_name,
         where_to_check_status_html: link_directory.visit_status(visit, locale: I18n.locale),
         when_to_expect_response: format_date_without_year(visit.confirm_by),
@@ -29,7 +28,7 @@ class GovNotifyEmailer
         phone: visit.prison_phone_no,
         prison_email_address: visit.prison_email_address,
         feedback_url: link_directory.feedback_submission(locale: I18n.locale),
-        # cancel_intro_date: format_slot_for_public(visit.slot_granted),
+        cancel_intro_date: format_slot_for_public(visit.slot_granted),
         prisoner_full_name: visit.prisoner_full_name,
         prison_website: link_directory.prison_finder(visit.prison)
       }
