@@ -29,7 +29,7 @@ class GovNotifyEmailer
         phone: visit.prison_phone_no,
         prison_email_address: visit.prison_email_address,
         feedback_url: link_directory.feedback_submission(locale: I18n.locale),
-        cancel_intro_date: format_slot_for_public(visit.slot_granted),
+        cancel_intro_date: format_slot_for_public(visit.slot_granted) || '',
         prisoner_full_name: visit.prisoner_full_name,
         prison_website: link_directory.prison_finder(visit.prison)
       }
