@@ -84,7 +84,7 @@ en:
       cant_visit: You can't visit because
       slot_unavailable_html: >-
         the dates and times you chose aren't available - choose new dates on
-        <a href="www.gov.uk/prison-visits">www.gov.uk/prison-visits</a>
+        www.gov.uk/prison-visits
       no_allowance_html: >-
         the prisoner has used their allowance of visits for this month
       no_allowance_date_html: >-
@@ -99,8 +99,7 @@ en:
         to get this information
       prisoner_moved_html: >-
         the prisoner has moved prisons - they should contact you soon or you
-        can use the
-        <a href="http://www.gov.uk/find-prisoner">find a prisoner</a> service
+        can use the find a prisoner service http://www.gov.uk/find-prisoner
       prisoner_released_html:
         the prisoner has been released - hopefully they will contact you soon
       restricted_reason:
