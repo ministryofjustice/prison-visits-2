@@ -8,6 +8,10 @@ class BookingResponder
         clean_up_allowance_renews_on
         visit.reject!
 
+        template_id = 'ee75661f-e1e8-4bfa-a599-4232d8f94216'
+        @gov_notify_email = GovNotifyEmailer.new
+        @gov_notify_email.send_email(visit, template_id)
+
         BookingResponse.successful
       end
     end

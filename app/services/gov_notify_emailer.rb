@@ -21,7 +21,7 @@ class GovNotifyEmailer
         add_address: address_book.no_reply,
         prison: visit.prison_name,
         count: visit.total_number_of_visitors,
-        choice: 'yas',
+        choice: slot_choices(visit),
         prisoner: visit.prisoner_anonymized_name,
         prisoner_number: visit.prisoner_number.upcase,
         visit_id: visit.human_id,
@@ -33,5 +33,11 @@ class GovNotifyEmailer
         prison_website: link_directory.prison_finder(visit.prison)
       }
     )
+  end
+
+  def slot_choices(visit)
+    visit.slots.each_with_index do |slot, _index|
+      format_slot_for_public(slot)
+    end
   end
 end
