@@ -34,8 +34,7 @@ class GovNotifyEmailer
         phone: visit.prison_phone_no,
         prison_email_address: visit.prison_email_address,
         feedback_url: link_directory.feedback_submission(locale: I18n.locale),
-        cancel_intro_date: format_slot_for_public(visit.slot_granted),
-        booked_subject_date: format_date_without_year(visit.slot_granted),
+        booked_subject_date: booked_subject_date(visit),
         prisoner_full_name: visit.prisoner_full_name,
         prison_website: link_directory.prison_finder(visit.prison),
         rejection_reasons: rejection_reasons(visit, rejection),
@@ -57,6 +56,17 @@ class GovNotifyEmailer
         what_not_to_bring_text: what_not_to_bring_text(visit)
       }
     )
+  end
+
+  def booked_subject_date(visit)
+    slot_date = ''
+    if visit.slot_granted == nil
+      slot_date = ''
+    else
+      slot_date = format_slot_for_public(visit.slot_granted)
+    end
+
+    slot_date
   end
 
   def what_not_to_bring_text(visit)
