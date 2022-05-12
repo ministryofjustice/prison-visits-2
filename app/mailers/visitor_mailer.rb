@@ -10,11 +10,11 @@ class VisitorMailer < ApplicationMailer
     template_id = 'd9beed43-e310-4875-807d-ffe9f833ad66'
     I18n.locale = visit.locale
 
-    mail_visitor visit,
-                 receipt_date: format_date_without_year(visit.first_date)
-
     @gov_notify_email = GovNotifyEmailer.new
     @gov_notify_email.send_email(visit, template_id)
+
+    mail_visitor visit,
+                 receipt_date: format_date_without_year(visit.first_date)
   end
 
   def booked(attrs, message_attrs = nil)

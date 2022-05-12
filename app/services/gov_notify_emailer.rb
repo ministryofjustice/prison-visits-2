@@ -99,21 +99,23 @@ class GovNotifyEmailer
   end
 
   def rejection_reasons(visit, rejection)
-    if rejection.email_formatted_reasons.size > 1
-      rejection.email_formatted_reasons.map(&:explanation)
-    elsif rejection.email_formatted_reasons.first == 'duplicate_visit_request'
-      $cant_visit_text = nil
-      $rejection_intro_text = "We haven't booked your visit to #{visit.prisoner_anonymized_name} at #{visit.prison_name} because
-              you've already requested a visit for the same date and time at this prison.
-              We've sent you a separate email about your other visit request.
-              Please click the link in that email to check the status of your request"
-    elsif rejection.email_formatted_reasons.empty?
-      $cant_visit_text = nil
-      $rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do NOT go to the prison as you won't be able to get in."
-    else
-      $cant_visit_text = "You can't visit because:"
-      $rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do NOT go to the prison as you won't be able to get in."
-      rejection.email_formatted_reasons.first.explanation
+    unless rejection.nil?
+      if rejection.email_formatted_reasons.size > 1
+        rejection.email_formatted_reasons.map(&:explanation)
+      elsif rejection.email_formatted_reasons.first == 'duplicate_visit_request'
+        $cant_visit_text = nil
+        $rejection_intro_text = "We haven't booked your visit to #{visit.prisoner_anonymized_name} at #{visit.prison_name} because
+                you've already requested a visit for the same date and time at this prison.
+                We've sent you a separate email about your other visit request.
+                Please click the link in that email to check the status of your request"
+      elsif rejection.email_formatted_reasons.empty?
+        $cant_visit_text = nil
+        $rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do NOT go to the prison as you won't be able to get in."
+      else
+        $cant_visit_text = "You can't visit because:"
+        $rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do NOT go to the prison as you won't be able to get in."
+        rejection.email_formatted_reasons.first.explanation
+      end
     end
   end
 end
