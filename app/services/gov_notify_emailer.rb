@@ -179,7 +179,9 @@ class GovNotifyEmailer
   end
 
   def banned_visitors(visit, rejection)
-    if visit.banned_visitors.any? && !rejection.reasons.include?('visitor_banned')
+    if rejection.nil?
+      ''
+    elsif visit.banned_visitors.any? && !rejection.reasons.include?('visitor_banned')
       visit.banned_visitors.each do |v|
         rejection.email_visitor_banned_explanation(v)
       end
@@ -189,7 +191,11 @@ class GovNotifyEmailer
   end
 
   def unlisted_visitors(visit, rejection)
-    if visit.unlisted_visitors.any? && !rejection.reasons.include?('visitor_not_on_list')
+    if rejection.nil?
+      $update_list = ''
+      $first_visit = ''
+      ''
+    elsif visit.unlisted_visitors.any? && !rejection.reasons.include?('visitor_not_on_list')
       $update_list = 'Please contact the prisoner and ask them to update their contact list with correct details, making sure that names appear exactly the same as on ID documents.'
       $first_visit = "If this is the prisoner's first visit (reception visit), then you need to contact the prison to book."
       rejection.email_visitor_not_on_list_explanation
