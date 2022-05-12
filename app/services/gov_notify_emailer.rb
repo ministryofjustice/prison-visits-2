@@ -35,7 +35,7 @@ class GovNotifyEmailer
         prison_email_address: visit.prison_email_address,
         feedback_url: link_directory.feedback_submission(locale: I18n.locale),
         cancel_intro_date: format_slot_for_public(visit.slot_granted),
-        booked_subject_date: format_date_without_year(visit.slot_granted.begin_at),
+        booked_subject_date: format_date_without_year(visit.slot_granted),
         prisoner_full_name: visit.prisoner_full_name,
         prison_website: link_directory.prison_finder(visit.prison),
         rejection_reasons: rejection_reasons(visit, rejection),
