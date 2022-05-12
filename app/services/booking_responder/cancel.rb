@@ -4,7 +4,6 @@ class BookingResponder
       super do
         visit.cancel!
         visit.cancellation.save!
-
         BookingResponse.successful
       end
     end
