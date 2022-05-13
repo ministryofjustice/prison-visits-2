@@ -53,9 +53,24 @@ class GovNotifyEmailer
         booking_accept_unlisted_visitors: booking_accept_unlisted_visitors(visit),
         visitors_rejected_for_other_reasons: visitors_rejected_for_other_reasons(visit),
         cancel_url: override_cancel_link(visit),
-        what_not_to_bring_text: what_not_to_bring_text(visit)
+        what_not_to_bring_text: what_not_to_bring_text(visit),
+        cancellation_reasons: cancellation_reasons(visit)
       }
     )
+  end
+
+  def cancellation_reasons(visit)
+    cancellation = visit.cancellation.decorate
+
+    cancellation_reasons = ''
+
+    if cancellation.reasons.one?
+      cancellation_reasons = cancellation.formatted_reasons.first.explanation
+    else
+      cancellation_reasons = cancellation.formatted_reasons.map(&:explanation)
+    end
+
+    cancellation_reasons
   end
 
   def booked_subject_date(visit)
@@ -219,13 +234,13 @@ class GovNotifyEmailer
       if rejection.email_formatted_reasons.size > 1
         rejection.email_formatted_reasons.map(&:explanation)
       elsif rejection.email_formatted_reasons.first == 'duplicate_visit_request'
-        $cant_visit_text = nil
+        $cant_visit_text = ''
         $rejection_intro_text = "We haven't booked your visit to #{visit.prisoner_anonymized_name} at #{visit.prison_name} because
                 you've already requested a visit for the same date and time at this prison.
                 We've sent you a separate email about your other visit request.
                 Please click the link in that email to check the status of your request"
       elsif rejection.email_formatted_reasons.empty?
-        $cant_visit_text = nil
+        $cant_visit_text = ''
         $rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do NOT go to the prison as you won't be able to get in."
       else
         $cant_visit_text = "You can't visit because:"

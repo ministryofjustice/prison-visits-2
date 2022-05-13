@@ -191,7 +191,7 @@ en:
       capacity_issues_html: >-
         the visit hall is fully booked for the dates and times you chose.
       prisoner_moved_html: >-
-        they have left this prison. If you don’t know where they are, you can visit <a href="%{service_url}">www.gov.uk/find-prisoner</a>.
+        they have left this prison. If you don’t know where they are, you can visit www.gov.uk/find-prisoner.
       restricted_reason_html: >-
         there are restrictions around this prisoner. You may be able to visit them at a later date.
       prisoner_released_html: >-
@@ -205,7 +205,7 @@ en:
         If you have any questions, visit the <a href="%{url}">prison website</a> or call the prison on <strong>%{phone_no}</strong>.
       visit_id: "Visit ID:"
       arrange_html: >-
-        You can arrange another visit on <a href="%{service_url}">www.gov.uk/prison-visits</a>.
+        You can arrange another visit on www.gov.uk/prison-visits.
     visit_info:
       what_to_bring_title: What to bring when you visit
       id_requirements_html: |
