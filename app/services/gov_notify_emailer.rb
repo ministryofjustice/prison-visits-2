@@ -54,9 +54,21 @@ class GovNotifyEmailer
         visitors_rejected_for_other_reasons: visitors_rejected_for_other_reasons(visit),
         cancel_url: override_cancel_link(visit),
         what_not_to_bring_text: what_not_to_bring_text(visit),
-        cancellation_reasons: cancellation_reasons(visit, cancellation)
+        cancellation_reasons: cancellation_reasons(visit, cancellation),
+        one_off_message_text: one_off_message_text(message)
       }
     )
+  end
+
+  def one_off_message_text(message)
+    returned_message = ''
+
+    if message.nil? || message.body.nil?
+      returned_message = ''
+    else
+      returned_message = message.body
+    end
+    returned_message
   end
 
   def cancellation_reasons(_visit, cancellation)
