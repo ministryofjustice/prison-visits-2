@@ -8,7 +8,7 @@ class GovNotifyEmailer
     @client = Notifications::Client.new(ENV['GOV_NOTIFY_API_KEY'])
   end
 
-  def send_email(visit, template_id, rejection = nil, message = nil)
+  def send_email(visit, template_id, rejection = nil, message = nil, cancellation = nil)
     $rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do NOT go to the prison as you won't be able to get in."
     $cant_visit_text = "You can't visit because:"
 
@@ -54,20 +54,20 @@ class GovNotifyEmailer
         visitors_rejected_for_other_reasons: visitors_rejected_for_other_reasons(visit),
         cancel_url: override_cancel_link(visit),
         what_not_to_bring_text: what_not_to_bring_text(visit),
-        cancellation_reasons: cancellation_reasons(visit)
+        cancellation_reasons: cancellation_reasons(visit, cancellation)
       }
     )
   end
 
-  def cancellation_reasons(visit)
-    cancellation = visit.cancellation.decorate
-
+  def cancellation_reasons(_visit, cancellation)
     cancellation_reasons = ''
 
-    if cancellation.reasons.one?
-      cancellation_reasons = cancellation.formatted_reasons.first.explanation
-    else
-      cancellation_reasons = cancellation.formatted_reasons.map(&:explanation)
+    unless cancellation.nil?
+      if cancellation.reasons.one?
+        cancellation_reasons = cancellation.formatted_reasons.first.explanation
+      else
+        cancellation_reasons = cancellation.formatted_reasons.map(&:explanation)
+      end
     end
 
     cancellation_reasons

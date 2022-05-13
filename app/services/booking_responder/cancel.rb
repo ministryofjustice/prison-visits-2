@@ -6,9 +6,10 @@ class BookingResponder
         visit.cancellation.save!
 
         template_id = '12969e6f-96b4-40a6-994c-14432e604965'
+        cancellation = visit.cancellation.decorate
 
         @gov_notify_email = GovNotifyEmailer.new
-        @gov_notify_email.send_email(visit, template_id, nil, nil)
+        @gov_notify_email.send_email(visit, template_id, nil, nil, cancellation)
 
         BookingResponse.successful
       end
