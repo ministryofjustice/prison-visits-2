@@ -6,6 +6,7 @@ class GovNotifyEmailer
 
   def initialize
     @client = Notifications::Client.new(ENV['GOV_NOTIFY_API_KEY'])
+    @presenter = GovNotifyEmailerPresenter.new
   end
 
   def send_email(visit, template_id, rejection = nil, message = nil, cancellation = nil)
@@ -34,7 +35,7 @@ class GovNotifyEmailer
         phone: visit.prison_phone_no,
         prison_email_address: visit.prison_email_address,
         feedback_url: link_directory.feedback_submission(locale: I18n.locale),
-        booked_subject_date: booked_subject_date(visit),
+        booked_subject_date: @presenter.booked_subject_date(visit),
         prisoner_full_name: visit.prisoner_full_name,
         prison_website: link_directory.prison_finder(visit.prison),
         rejection_reasons: rejection_reasons(visit, rejection),
@@ -53,58 +54,11 @@ class GovNotifyEmailer
         booking_accept_unlisted_visitors: booking_accept_unlisted_visitors(visit),
         visitors_rejected_for_other_reasons: visitors_rejected_for_other_reasons(visit),
         cancel_url: override_cancel_link(visit),
-        what_not_to_bring_text: what_not_to_bring_text(visit),
-        cancellation_reasons: cancellation_reasons(visit, cancellation),
-        one_off_message_text: one_off_message_text(message)
+        what_not_to_bring_text: @presenter.what_not_to_bring_text(visit),
+        cancellation_reasons: @presenter.cancellation_reasons(cancellation),
+        one_off_message_text: @presenter.one_off_message_text(message)
       }
     )
-  end
-
-  def one_off_message_text(message)
-    returned_message = ''
-
-    if message.nil? || message.body.nil?
-      returned_message = ''
-    else
-      returned_message = message.body
-    end
-    returned_message
-  end
-
-  def cancellation_reasons(_visit, cancellation)
-    cancellation_reasons = ''
-
-    unless cancellation.nil?
-      if cancellation.reasons.one?
-        cancellation_reasons = cancellation.formatted_reasons.first.explanation
-      else
-        cancellation_reasons = cancellation.formatted_reasons.map(&:explanation)
-      end
-    end
-
-    cancellation_reasons
-  end
-
-  def booked_subject_date(visit)
-    slot_date = ''
-    if visit.slot_granted == nil
-      slot_date = ''
-    else
-      slot_date = format_slot_for_public(visit.slot_granted)
-    end
-
-    slot_date
-  end
-
-  def what_not_to_bring_text(visit)
-    text = ''
-    if visit.prison.name == 'Medway Secure Training Centre'
-      text = "Please don't bring anything restricted or illegal to the prison. For more information about what you can't bring call the prison on #{visit.prison_phone_no}."
-    else
-      text = "Please don't bring anything restricted or illegal to the prison. The prison page has more information about what you can bring #{link_directory.prison_finder(visit.prison)}."
-    end
-
-    text
   end
 
   def override_cancel_link(visit)
