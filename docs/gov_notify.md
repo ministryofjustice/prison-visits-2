@@ -1,4 +1,4 @@
-# Gov Notify
+# Gov Notify
 
 Due to the COVID-19 pandemic the prison visits application was turned off for around 2 years, and over that time
 MoJ stopped making payments to the previous emailing application. In general most government services should be using GovNotify to send notifications to their users.
