@@ -5,15 +5,15 @@ address: |-
   Stradishall
 postcode: CB8 9YG
 email_address: socialvisits.highpoint@hmps.gsi.gov.uk
-phone_no: 01440 743134
+phone_no: 01440 743 134
 enabled: true
 private: false
 closed: false
 recurring:
-  fri:
-  - 1430-1630
   mon:
   - 1400-1600
+  fri:
+  - 1430-1630
   sat:
   - 1400-1600
   sun:

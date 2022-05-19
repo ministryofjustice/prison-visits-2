@@ -5,15 +5,11 @@ address: |-
   Wotton-under-edge
 postcode: GL12 8BT
 email_address: socialvisits.leyhill@hmps.gsi.gov.uk
-phone_no: 01454 264211
+phone_no: 01454 264311
 enabled: true
 private: false
 closed: false
 recurring:
-  tue:
-  - 1330-1530
-  thu:
-  - 1330-1530
   sat:
   - 1330-1530
   sun:

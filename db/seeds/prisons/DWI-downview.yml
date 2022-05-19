@@ -13,7 +13,7 @@ private: false
 closed: false
 recurring:
   thu:
-  - 1415-1545
+  - 1400-1600
   sat:
   - 1400-1600
   sun:

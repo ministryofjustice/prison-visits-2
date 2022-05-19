@@ -10,9 +10,9 @@ private: false
 closed: false
 recurring:
   sat:
-  - 1345-1545
+  - 1400-1600
   sun:
-  - 1345-1545
+  - 1400-1600
 unbookable:
 - 2016-12-25
 - 2016-12-26

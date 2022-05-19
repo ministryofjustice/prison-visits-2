@@ -5,17 +5,17 @@ address: |-
   Shaftesbury
 postcode: SP7 0AH
 email_address: socialvisitsguysmarsh@hmps.gsi.gov.uk
-phone_no: 01747 856586
+phone_no: 01747 856400
 enabled: true
 private: false
 closed: false
 recurring:
   fri:
-  - 1400-1600
+  - 1400-1530
   sat:
-  - 1400-1600
+  - 1400-1530
   sun:
-  - 1400-1600
+  - 1400-1530
 unbookable:
 - 2017-12-25
 - 2017-12-26

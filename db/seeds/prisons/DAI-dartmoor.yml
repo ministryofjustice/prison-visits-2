@@ -11,8 +11,6 @@ private: false
 closed: false
 lead_days: 4
 recurring:
-  mon:
-  - 1400-1600
   fri:
   - 1400-1600
   sat:

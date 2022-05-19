@@ -7,23 +7,14 @@ address: |-
   Foston
 postcode: DE65 5DN
 email_address: prison.visits@ministryofjustice.zendesk.com
-phone_no: 0300 060 6516
+phone_no: 0128 358 4300
 enabled: true
 private: false
 closed: false
 recurring:
-  mon:
-  - 1400-1600
-  tue:
-  - 1400-1600
   wed:
   - 1400-1600
-  thu:
-  - 1400-1600
   fri:
-  - 1400-1600
-  sat:
-  - 0930-1130
   - 1400-1600
   sun:
   - 0930-1130
