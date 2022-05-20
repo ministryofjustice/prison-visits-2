@@ -140,6 +140,7 @@ pvb2 $ rails spec
 
 ### Further technical information
 
+- [Time Slots using NOMIS (Important!)](docs/nomis_time_slots.md)
 - [GovNotify Documentation](docs/gov_notify.md)
 - [Processing a request](docs/processing_a_request.md)
 - [Notes on models](docs/models.md)
