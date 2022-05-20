@@ -10,6 +10,6 @@ There are 3 environment variables which dictate if this is enabled and what pris
 - `PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY` [Link to PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY](https://github.com/ministryofjustice/prison-visits-2/blob/main/docs/configuration.md#public_prisons_with_slot_availability)
 - `STAFF_PRISONS_WITH_SLOT_AVAILABILITY` [Link to STAFF_PRISONS_WITH_SLOT_AVAILABILITY](https://github.com/ministryofjustice/prison-visits-2/blob/main/docs/configuration.md#staff_prisons_with_slot_availability)
 
-Any prisons listed in `NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED` and `STAFF_PRISONS_WITH_SLOT_AVAILABILITY` will only use NOMIS time slots instead of the yaml files.
+Any prisons listed in `PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY` and `STAFF_PRISONS_WITH_SLOT_AVAILABILITY` will only use NOMIS time slots instead of the yaml files.
 
 You can just turn this feature off entirely by setting `NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED` to false. However in production this is enabled and there are a list of prisons already there so I am unsure if in the past the team agreed with those prisons that they will just rely on NOMIS for their time slots
