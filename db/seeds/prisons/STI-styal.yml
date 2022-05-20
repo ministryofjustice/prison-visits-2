@@ -10,17 +10,13 @@ enabled: true
 private: false
 closed: false
 recurring:
-  mon:
+  tue:
+  - 1400-1600
+  thu:
   - 1400-1600
   sat:
   - 1400-1600
   sun:
-  - 1400-1600
-  thu:
-  - 1400-1600
-  tue:
-  - 1400-1600
-  wed:
   - 1400-1600
 unbookable:
 - 2020-07-09

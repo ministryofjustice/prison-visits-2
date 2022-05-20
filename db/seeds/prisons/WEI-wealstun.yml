@@ -11,12 +11,9 @@ private: false
 closed: false
 recurring:
   mon:
-  - 0900-1100
   - 1415-1600
   tue:
   - 0900-1100
-  - 1415-1600
-  wed:
   - 1415-1600
   thu:
   - 0900-1100
