@@ -9,3 +9,6 @@ phone_no: 0116 228 4366
 enabled: false
 closed: true
 private: false
+unbookable:
+- 2022-06-02
+- 2022-06-03
