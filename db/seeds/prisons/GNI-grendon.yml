@@ -11,11 +11,11 @@ private: false
 closed: false
 recurring:
   wed:
-  - 1400-1600
+  - 1345-1545
   sat:
-  - 1400-1600
+  - 1345-1545
   sun:
-  - 1400-1600
+  - 1345-1545
 unbookable:
 - 2018-12-26
 anomalous:

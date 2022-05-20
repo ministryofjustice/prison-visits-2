@@ -12,8 +12,6 @@ enabled: true
 private: false
 closed: false
 recurring:
-  mon:
-  - 1400-1600
   tue:
   - 1400-1600
   wed:
@@ -21,7 +19,6 @@ recurring:
   thu:
   - 1400-1600
   sat:
-  - 0930-1130
   - 1400-1600
   sun:
   - 1400-1600

@@ -5,7 +5,7 @@ address: |-
   Jebb Avenue
 postcode: SW2 5XF
 email_address: socialvisits.brixton@hmps.gsi.gov.uk
-phone_no: 020 8678 1433
+phone_no: 0208 588 6230
 enabled: true
 private: false
 closed: false
@@ -15,21 +15,22 @@ recurring:
   - 1600-1700
   tue:
   - 1415-1515
+  - 1600-1700
   wed:
   - 1415-1515
   - 1600-1700
   thu:
-  - 0830-0930
-  - 1015-1115
-  - 1415-1615
-  - 1800-1900
+  - 1415-1515
+  - 1600-1700
   sat:
-  - 0900-1000
+  - 0915-1015
   - 1045-1145
   - 1415-1515
   - 1545-1645
   sun:
-  - 0900-1100
-  - 1415-1630
+  - 0915-1015
+  - 1045-1145
+  - 1415-1515
+  - 1545-1645
 unbookable:
 - 2018-01-01

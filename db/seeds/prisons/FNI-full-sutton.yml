@@ -10,12 +10,9 @@ enabled: true
 private: false
 closed: false
 booking_window: 28
-lead_days: 3
 recurring:
-  thu:
-  - 1430-1615
   fri:
-  - 1330-1615
+  - 1400-1615
   sat:
   - 1400-1615
   sun:

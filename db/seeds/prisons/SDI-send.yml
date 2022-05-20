@@ -10,10 +10,10 @@ enabled: true
 private: false
 closed: false
 recurring:
-  thu:
+  tue:
   - 1400-1600
   sat:
-  - 1400-1600
+  - 0900-1100
   sun:
   - 1400-1600
 unbookable:

@@ -11,13 +11,11 @@ private: false
 closed: false
 adult_age: 10
 recurring:
-  thu:
-  - 1345-1615
   fri:
-  - 1345-1615
+  - 1230-1615
   sat:
-  - 1345-1615
+  - 1030-1615
   sun:
-  - 1345-1615
+  - 1030-1615
 unbookable:
 - 2020-04-10
