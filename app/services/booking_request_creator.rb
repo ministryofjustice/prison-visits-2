@@ -16,6 +16,10 @@ private
       human_id = HumanReadableId.update_unique_id(Visit, visit.id, :human_id)
       visit.human_id = human_id
       create_visitors(visitors_step, visit)
+
+      @gov_notify_email = GovNotifyEmailer.new
+      @gov_notify_email.send_email(visit, 'd9beed43-e310-4875-807d-ffe9f833ad66')
+
       visit
     end
   end
