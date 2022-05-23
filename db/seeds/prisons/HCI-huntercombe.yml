@@ -5,18 +5,18 @@ address: |-
   Huntercombe Place
 postcode: RG9 5SB
 email_address: socialvisits.huntercombe@hmps.gsi.gov.uk
-phone_no: 01491 643151
+phone_no: 01491 643195
 enabled: true
 private: false
 closed: false
 recurring:
   mon:
   - 1400-1600
+  thu:
+  - 1400-1600
   sat:
   - 1400-1600
   sun:
-  - 1400-1600
-  thu:
   - 1400-1600
 unbookable:
 - 2019-12-26
