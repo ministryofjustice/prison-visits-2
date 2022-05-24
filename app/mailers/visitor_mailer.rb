@@ -7,11 +7,7 @@ class VisitorMailer < ApplicationMailer
   layout 'email'
 
   def request_acknowledged(visit)
-    template_id = 'd9beed43-e310-4875-807d-ffe9f833ad66'
     I18n.locale = visit.locale
-
-    @gov_notify_email = GovNotifyEmailer.new
-    @gov_notify_email.send_email(visit, template_id)
 
     mail_visitor visit,
                  receipt_date: format_date_without_year(visit.first_date)
