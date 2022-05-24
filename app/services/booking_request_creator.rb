@@ -2,9 +2,7 @@ require 'human_readable_id'
 
 class BookingRequestCreator
   def create!(prisoner_step, visitors_step, slots_step, locale)
-    create_visit(prisoner_step, visitors_step, slots_step, locale).tap { |visit|
-      VisitorMailer.request_acknowledged(visit).deliver_later
-    }
+    create_visit(prisoner_step, visitors_step, slots_step, locale)
   end
 
 private
