@@ -24,7 +24,6 @@ data:
   ZENDESK_USERNAME: "pvb-technical-support+zendesk@digital.justice.gov.uk"
   STAFF_PRISONS_WITH_SLOT_AVAILABILITY: >
     Askham Grange,
-    Aylesbury,
     Bedford,
     Brinsford,
     Buckley Hall,
@@ -107,7 +106,6 @@ data:
     Wormwood Scrubs
   PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY: >
     Askham Grange,
-    Aylesbury,
     Bedford,
     Buckley Hall,
     Bure,
