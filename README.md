@@ -27,6 +27,7 @@ The source of the predecessor can be found at
 ### Dependencies
 
 - [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public) - this a separate Ruby on Rails application that contains the public interface for booking a prison visit.
+- **If on a Mac install Xcode from the App Store**
 - [HMPPS Auth](https://github.com/ministryofjustice/hmpps-auth) - for logging into the bookings management interface.
 - [Sidekiq](https://sidekiq.org/) - for background processing.
 - [Redis](https://redis.io/) - for managing queues (required by Sidekiq)
