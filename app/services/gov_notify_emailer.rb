@@ -9,7 +9,7 @@ class GovNotifyEmailer
   end
 
   def send_email(visit, template_id, rejection = nil, message = nil, cancellation = nil)
-    $rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do NOT go to the prison as you won't be able to get in."
+    $rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do not go to the prison as you won't be able to get in."
     $cant_visit_text = "You can't visit because:"
 
     $update_list = ''
@@ -189,7 +189,7 @@ class GovNotifyEmailer
 
   def any_questions(visit)
     if visit.prison.name == 'Medway Secure Training Centre'
-      "If you have any questions, call the prison #{visit.prison_phone_no} on ."
+      "If you have any questions, call the prison on #{visit.prison_phone_no}."
     else
       "If you have any questions, visit the prison website
       #{link_directory.prison_finder(visit.prison)}
@@ -253,10 +253,10 @@ class GovNotifyEmailer
                 Please click the link in that email to check the status of your request"
       elsif rejection.email_formatted_reasons.empty?
         $cant_visit_text = ''
-        $rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do NOT go to the prison as you won't be able to get in."
+        $rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do not go to the prison as you won't be able to get in."
       else
         $cant_visit_text = "You can't visit because:"
-        $rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do NOT go to the prison as you won't be able to get in."
+        $rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do not go to the prison as you won't be able to get in."
         rejection.email_formatted_reasons.first.explanation
       end
     end

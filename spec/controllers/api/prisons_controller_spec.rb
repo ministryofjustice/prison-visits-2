@@ -94,7 +94,7 @@ RSpec.describe Api::PrisonsController do
           'private' => false,
           'postcode' => 'XL1 1AA',
           'prison_finder_url' =>
-          'http://www.justice.gov.uk/contacts/prison-finder/moon'
+          'http://www.gov.uk/guidance/moon-prison'
         )
       )
     end
