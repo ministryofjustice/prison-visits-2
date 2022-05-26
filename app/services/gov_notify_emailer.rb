@@ -53,7 +53,6 @@ class GovNotifyEmailer
         booking_accept_unlisted_visitors: booking_accept_unlisted_visitors(visit),
         visitors_rejected_for_other_reasons: visitors_rejected_for_other_reasons(visit),
         cancel_url: override_cancel_link(visit),
-        what_not_to_bring_text: what_not_to_bring_text(visit),
         cancellation_reasons: cancellation_reasons(visit, cancellation),
         one_off_message_text: one_off_message_text(message)
       }
@@ -94,17 +93,6 @@ class GovNotifyEmailer
     end
 
     slot_date
-  end
-
-  def what_not_to_bring_text(visit)
-    text = ''
-    if visit.prison.name == 'Medway Secure Training Centre'
-      text = "Please don't bring anything restricted or illegal to the prison. For more information about what you can't bring call the prison on #{visit.prison_phone_no}."
-    else
-      text = "Please don't bring anything restricted or illegal to the prison. The prison page has more information about what you can bring #{link_directory.prison_finder(visit.prison)}."
-    end
-
-    text
   end
 
   def override_cancel_link(visit)
