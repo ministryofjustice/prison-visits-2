@@ -7,20 +7,20 @@ address: |-
   West Yorkshire
 postcode: WF2 9AG
 email_address: SocialVisits.Wakefield@hmps.gsi.gov.uk
-phone_no: 01924 612274
+phone_no: 01924 612085
 enabled: true
 private: false
 closed: false
 booking_window: 28
 lead_days: 3
 recurring:
+  mon:
+  - 1400-1600
   fri:
   - 1400-1600
   sat:
   - 1400-1600
   sun:
-  - 1400-1600
-  mon:
   - 1400-1600
 unbookable:
 - 2017-12-25

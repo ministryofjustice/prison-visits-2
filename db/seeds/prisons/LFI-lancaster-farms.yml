@@ -5,19 +5,21 @@ address: |-
   Stone Row Head
 postcode: LA1 3QZ
 email_address: lancasterfarmsdomesticvisitsbooking@hmps.gsi.gov.uk
-phone_no: 01524 563636
+phone_no: 01524 563611
 enabled: true
 private: false
 closed: false
 recurring:
-  sat:
-  - 1400-1530
-  sun:
-  - 1400-1530
   tue:
   - 1400-1500
-  - 1530-1630  
+  - 1530-1630
   wed:
+  - 1400-1500
+  - 1530-1630
+  sat:
+  - 1400-1500
+  - 1530-1630
+  sun:
   - 1400-1500
   - 1530-1630
 unbookable:
