@@ -6,7 +6,7 @@ address: |-
 postcode: BN7 1EA
 email_address: socialvisits.lewes@hmps.gsi.gov.uk
 phone_no: 01273785277
-enabled: true
+enabled: false
 private: false
 closed: false
 weekend_processing: true

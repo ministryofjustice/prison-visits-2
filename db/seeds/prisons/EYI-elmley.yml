@@ -6,7 +6,7 @@ address: |-
 postcode: ME12 4DZ
 email_address: socialvisits.elmley@hmps.gsi.gov.uk
 phone_no: 0300 060 6605
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

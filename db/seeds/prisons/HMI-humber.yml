@@ -8,7 +8,7 @@
  postcode: HU15 2JZ
  email_address: socialvisits.everthorpe@hmps.gsi.gov.uk
  phone_no: 0300 060 6606
- enabled: true
+ enabled: false
  private: false
  closed: false
  recurring:

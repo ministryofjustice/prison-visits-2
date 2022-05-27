@@ -7,7 +7,7 @@ postcode: NG5 3AG
 email_address: socialvisits.nottingham@hmps.gsi.gov.uk
 phone_no: 0115 962 8980
 adult_age: 10
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

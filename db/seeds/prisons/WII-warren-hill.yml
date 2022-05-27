@@ -10,11 +10,11 @@ enabled: true
 private: false
 closed: false
 recurring:
+  fri:
+  - 1400-1600
   sat:
   - 1400-1600
   sun:
-  - 1400-1600
-  fri:
   - 1400-1600
 unbookable:
 - 2018-12-28
