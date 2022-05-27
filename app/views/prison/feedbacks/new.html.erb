@@ -5,25 +5,8 @@
 <div class="grid-row">
   <div class="column-two-thirds">
     <h1 class="heading-xlarge"><%= t('.title') %></h1>
-    <p><%= t('.intro') %></p>
-
-    <%= form_for @feedback, url: prison_feedbacks_path do |f| %>
-
-      <fieldset>
-        <%= f.hidden_field :referrer %>
-
-        <%= single_field f, :body, :text_area, cols: 50, rows: 5, class: 'form-control' %>
-
-        <%= single_field f, :email_address, :email_field, class: 'form-control' %>
-
-        <%= single_field(f, :prison_id, :select,
-          Prison.all.map { |p| [p.name, p.id] },
-          { prompt: t('.prison_id_prompt') },
-          { class: 'form-control js-autocomplete' }) %>
-      </fieldset>
-
-      <%= f.submit t('.send'), class: 'button button-primary' %>
-    <% end %>
+    <p>If you are having trouble accessing the service, please contact your Local Systems Administrator.</p>
+    <p>If you are experiencing any other issues, or the visit schedule for your prison is no longer correct, email pvb-team@digital.justice.gov.uk and we will respond to your query as soon as we can.</p>
   </div>
   <div class="column-one-third">
     <%= render 'navigation' %>
