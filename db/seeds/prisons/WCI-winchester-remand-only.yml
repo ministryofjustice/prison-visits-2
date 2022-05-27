@@ -6,7 +6,7 @@ address: |-
 postcode: SO22 5DF
 email_address: socialvisits.winchester@hmps.gsi.gov.uk
 phone_no: 0845 223 5514
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

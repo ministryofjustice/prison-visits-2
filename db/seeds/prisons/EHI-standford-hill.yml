@@ -6,7 +6,7 @@ address: |-
 postcode: ME12 4AA
 email_address: socialvisits.standfordhill@hmps.gsi.gov.uk
 phone_no: 0300 060 6603
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

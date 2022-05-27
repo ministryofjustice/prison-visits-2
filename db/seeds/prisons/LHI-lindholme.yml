@@ -6,7 +6,7 @@ address: |-
 postcode: DN7 6EE
 email_address: socialvisits.lindholme@hmps.gsi.gov.uk
 phone_no: 01302 524980
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:
