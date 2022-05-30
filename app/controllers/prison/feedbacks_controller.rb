@@ -1,5 +1,4 @@
 class Prison::FeedbacksController < ApplicationController
-
   def new
     @feedback = FeedbackSubmission.new(email_address: current_user&.email)
   end

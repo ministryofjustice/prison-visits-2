@@ -17,9 +17,6 @@
     "LANG": {
       "required": true
     },
-    "PRISON_ESTATE_IPS": {
-      "required": true
-    },
     "NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED": {
       "required": true
     },
