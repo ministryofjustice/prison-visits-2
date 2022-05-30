@@ -23,8 +23,6 @@ RSpec.describe MetricsController, type: :controller do
 
       it { is_expected.to be_successful }
     end
-
-    it_behaves_like 'disallows untrusted ips'
   end
 
   describe 'summary' do

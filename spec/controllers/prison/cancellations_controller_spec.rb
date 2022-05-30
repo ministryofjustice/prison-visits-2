@@ -75,8 +75,6 @@ RSpec.describe Prison::CancellationsController do
         expect(ga_tracker).not_to receive(:send_cancelled_visit_event)
       end
 
-      it_behaves_like 'disallows untrusted ips'
-
       it { is_expected.not_to be_successful }
     end
   end

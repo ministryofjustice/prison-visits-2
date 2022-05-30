@@ -13,8 +13,6 @@ RSpec.describe Prison::MessagesController do
 
     let(:message_body) { 'Hello' }
 
-    it_behaves_like 'disallows untrusted ips'
-
     context "when logged in" do
       before do
         login_user(user, current_estates: [estate])

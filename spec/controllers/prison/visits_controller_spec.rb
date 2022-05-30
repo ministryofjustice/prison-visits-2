@@ -15,8 +15,6 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
     let(:staff_response) { { slot_granted: visit.slots.first.to_s } }
 
-    it_behaves_like 'disallows untrusted ips'
-
     context 'when there is no logged in user' do
       it { is_expected.not_to be_successful }
     end
@@ -60,8 +58,6 @@ RSpec.describe Prison::VisitsController, type: :controller do
 
     context 'with security' do
       subject { get :show, params: { id: 1, locale: 'en' } }
-
-      it_behaves_like 'disallows untrusted ips'
     end
 
     context "when logged in" do
@@ -97,8 +93,6 @@ RSpec.describe Prison::VisitsController, type: :controller do
     let(:visit) { cancellation.visit }
 
     subject { post :nomis_cancelled, params: { id: visit.id, locale: 'en' } }
-
-    it_behaves_like 'disallows untrusted ips'
 
     context 'when there is a user signed in' do
       let(:user) { FactoryBot.create(:user) }

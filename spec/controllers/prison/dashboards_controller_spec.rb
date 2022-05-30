@@ -6,8 +6,6 @@ RSpec.describe Prison::DashboardsController, type: :controller do
 
   subject { get :inbox, params: { estate_id: estate.finder_slug } }
 
-  it_behaves_like 'disallows untrusted ips'
-
   describe '#inbox' do
     let(:prison) { FactoryBot.create(:prison, estate: estate) }
 
