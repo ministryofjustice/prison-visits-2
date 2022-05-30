@@ -1,6 +1,4 @@
 class StaffInfoController < ApplicationController
-  include PrisonRestriction
-  before_action :authorize_prison_request
   before_action :authenticate_user
 
   def show

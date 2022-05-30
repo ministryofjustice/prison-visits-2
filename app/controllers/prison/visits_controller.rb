@@ -1,7 +1,6 @@
 class Prison::VisitsController < ApplicationController
   include StaffResponseContext
 
-  before_action :authorize_prison_request
   before_action :authenticate_user
   before_action :visit_is_processable, only: :update
   before_action :set_visit_processing_time_cookie, only: :show
