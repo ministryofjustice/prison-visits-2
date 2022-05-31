@@ -44,13 +44,6 @@ private
 
   # :nocov:
 
-  def authorize_prison_request
-    unless Rails.configuration.prison_ip_matcher.include?(request.remote_ip)
-      Rails.logger.info "Unauthorized request from #{request.remote_ip}"
-      fail ActionController::RoutingError, 'Not Found'
-    end
-  end
-
   def authenticate_user
     unless sso_identity
       session[:redirect_path] = request.original_fullpath

@@ -11,8 +11,6 @@ RSpec.describe Prison::FeedbacksController, type: :controller do
       )
     end
 
-    it_behaves_like 'disallows untrusted ips'
-
     it { is_expected.to be_successful }
   end
 
@@ -29,8 +27,6 @@ RSpec.describe Prison::FeedbacksController, type: :controller do
     end
     let(:body) { 'My comment' }
     let(:prison) { FactoryBot.create(:prison) }
-
-    it_behaves_like 'disallows untrusted ips'
 
     context 'when it is successful' do
       it 'creates a feedback submission and enqueues it' do

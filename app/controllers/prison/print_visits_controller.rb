@@ -1,5 +1,4 @@
 class Prison::PrintVisitsController < ApplicationController
-  before_action :authorize_prison_request
   before_action :authenticate_user
 
   def new

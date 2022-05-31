@@ -1,7 +1,6 @@
 class Prison::CancellationsController < ApplicationController
   include StaffResponseContext
 
-  before_action :authorize_prison_request
   before_action :authenticate_user
   before_action :check_visit_cancellable
   def create

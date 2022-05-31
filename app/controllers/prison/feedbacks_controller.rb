@@ -1,6 +1,4 @@
 class Prison::FeedbacksController < ApplicationController
-  before_action :authorize_prison_request
-
   def new
     @feedback = FeedbackSubmission.new(email_address: current_user&.email)
   end
