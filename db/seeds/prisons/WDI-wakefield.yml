@@ -14,8 +14,6 @@ closed: false
 booking_window: 28
 lead_days: 3
 recurring:
-  mon:
-  - 1400-1600
   fri:
   - 1400-1600
   sat:
