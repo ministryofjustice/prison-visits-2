@@ -6,7 +6,7 @@ address: |-
 postcode: NR10 5GB
 email_address: socialvisits.bure@hmps.gsi.gov.uk
 phone_no: 01603 326252
-enabled: false
+enabled: true
 private: false
 closed: false
 recurring:
