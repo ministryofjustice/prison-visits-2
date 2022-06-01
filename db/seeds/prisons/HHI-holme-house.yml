@@ -6,24 +6,24 @@ address: |-
 postcode: S18 2QU
 email_address: socialvisits.holmehouse@hmps.gsi.gov.uk
 phone_no: 03000 606602
-enabled: false
+enabled: true
 private: false
 closed: false
 recurring:
   tue:
-  - 1345-1530
+  - 1400-1500
   wed:
-  - 1345-1530
+  - 1400-1500
   thu:
-  - 1345-1530
+  - 1400-1500
   fri:
-  - 1345-1530
+  - 1400-1500
   sat:
-  - 0815-1100
-  - 1315-1500
+  - 0900-1000
+  - 1400-1500
   sun:
-  - 0900-1130
-  - 1345-1530
+  - 0900-1000
+  - 1400-1500
 unbookable:
 - 2018-12-25
 - 2018-12-26
