@@ -6,19 +6,19 @@ address: |-
 postcode: DN7 6BW
 email_address: socialvisits.moorlandclosed@hmps.gsi.gov.uk
 phone_no: 01302523289
-enabled: false
+enabled: true
 private: false
 closed: false
 lead_days: 1
 recurring:
   tue:
-  - 1400-1600
+  - 1400-1530
   thu:
-  - 1400-1600
+  - 1400-1530
   sat:
-  - 1400-1600
+  - 1400-1530
   sun:
-  - 1400-1600
+  - 1400-1530
 unbookable:
 - 2019-12-26
 - 2022-06-02
