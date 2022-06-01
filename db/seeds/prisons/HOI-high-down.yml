@@ -6,18 +6,18 @@ address: |-
 postcode: SM2 5PJ
 email_address: socialvisits.highdown@hmps.gsi.gov.uk
 phone_no: 020 7147 6570
-enabled: false
+enabled: true
 private: false
 closed: false
 recurring:
   tue:
-  - 0930-1100
+  - 1000-1130
   - 1430-1600
   wed:
-  - 0930-1100
+  - 1000-1130
   - 1430-1600
   thu:
-  - 0930-1100
+  - 1000-1130
   - 1430-1600
   sat:
   - 1430-1600
