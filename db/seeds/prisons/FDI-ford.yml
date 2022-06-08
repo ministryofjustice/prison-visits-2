@@ -6,7 +6,7 @@ address: |-
 postcode: BN18 0BX
 email_address: socialvisits.ford@hmps.gsi.gov.uk
 phone_no: 01903 663000
-enabled: false
+enabled: true
 private: false
 closed: false
 recurring:
