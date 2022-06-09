@@ -12,7 +12,7 @@ translations:
       Sir Fynwy
 email_address: socialvisits.usk@hmps.gsi.gov.uk
 phone_no: 01291 671730
-enabled: false
+enabled: true
 private: false
 closed: false
 recurring:
