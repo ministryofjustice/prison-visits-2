@@ -10,8 +10,6 @@ enabled: true
 private: false
 closed: false
 recurring:
-  fri:
-  - 1400-1600
   sat:
   - 0915-1115
   - 1400-1600
