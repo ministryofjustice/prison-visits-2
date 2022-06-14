@@ -6,18 +6,16 @@ address: |-
 postcode: DT5 1DL
 email_address: socialvisits.portland@hmps.gsi.gov.uk
 phone_no: 01305 715775
-enabled: false
+enabled: true
 private: false
 closed: false
 adult_age: 11
 recurring:
+  wed:
+  - 1400-1600
   sat:
   - 1400-1600
   sun:
-  - 1400-1600
-  thu:
-  - 1400-1600
-  tue:
   - 1400-1600
 unbookable:
 - 2019-12-26
