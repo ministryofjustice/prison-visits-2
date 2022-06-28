@@ -11,8 +11,6 @@ private: false
 closed: false
 adult_age: 10
 recurring:
-  fri:
-  - 1230-1615
   sat:
   - 1030-1615
   sun:
