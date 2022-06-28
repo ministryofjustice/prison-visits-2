@@ -4,27 +4,26 @@ nomis_id: LEI
 address: |-
   Gloucester Terrace
 postcode: LS12 2TJ
-email_address: socialvisits.leeds@hmps.gsi.gov.uk
-phone_no: 0113 203 2600
-enabled: false
+email_address: socialvisits.leeds@justice.gov.uk
+phone_no: 01132 032995
+enabled: true
 private: false
 closed: false
 booking_window: 14
 recurring:
   mon:
-  - 1000-1130
   - 1400-1500
   - 1530-1630
+  - 1800-1900
+  tue:
+  - 1400-1500
+  - 1530-1630
+  - 1800-1900
   wed:
-  - 1000-1130
   - 1400-1500
   - 1530-1630
-  thu:
-  - 1000-1130
-  - 1400-1500
-  - 1530-1630
+  - 1800-1900
   fri:
-  - 1000-1130
   - 1400-1500
   - 1530-1630
   sat:
