@@ -6,7 +6,7 @@ address: |-
 postcode: EX4 4EX
 email_address: socialvisits.exeter@hmps.gsi.gov.uk
 phone_no: 01392 41 5833
-enabled: false
+enabled: true
 private: false
 closed: false
 recurring:
