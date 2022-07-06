@@ -24,7 +24,6 @@ data:
   ZENDESK_USERNAME: "pvb-technical-support+zendesk@digital.justice.gov.uk"
   STAFF_PRISONS_WITH_SLOT_AVAILABILITY: >
     Bedford,
-    Chelmsford,
     Deerbolt,
     Durham,
     Feltham (Young People 15-18 only),
@@ -41,7 +40,6 @@ data:
     Winchester (Convicted only)
   PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY: >
     Bedford,
-    Chelmsford,
     Deerbolt,
     Durham,
     Feltham (Young People 15-18 only),
