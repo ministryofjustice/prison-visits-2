@@ -40,6 +40,8 @@ class ApplicationController < ActionController::Base
     sso_identity.accessible_estates
   end
 
+  homepage_url = 'digital-dev.prison.service.justice.gov.uk'
+
 private
 
   # :nocov:
