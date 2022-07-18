@@ -10,8 +10,6 @@ enabled: true
 private: false
 closed: false
 recurring:
-  mon:
-  - 1345-1615
   tue:
   - 1345-1615
   wed:
