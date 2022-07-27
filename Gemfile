@@ -9,7 +9,7 @@ gem 'base32-crockford', require: 'base32/crockford'
 gem 'business'
 gem 'connection_pool'
 gem 'draper'
-gem 'excon', '0.62.0' # There is an issue with subsequent versions where there is a
+gem 'excon', '0.92.4' # There is an issue with subsequent versions where there is a
 # regression, which isn't fixed in any future versions. An agreement has been reached
 # within the team to pin Excon to the current version, with the plan to
 # replace it with another HTTP client, probably Faraday.
