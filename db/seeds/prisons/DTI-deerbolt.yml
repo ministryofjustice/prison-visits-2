@@ -6,7 +6,7 @@ address: |-
 postcode: DL12 9BG
 email_address: socialvisits.deerbolt@hmps.gsi.gov.uk
 phone_no: 01833 633349
-enabled: false
+enabled: true
 private: false
 closed: false
 recurring:
