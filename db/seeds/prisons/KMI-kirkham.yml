@@ -7,16 +7,16 @@ address: |-
 postcode: PR4 2RN
 email_address: socialvisits.kirkham@hmps.gsi.gov.uk
 phone_no: 01772 675400
-enabled: false
+enabled: true
 private: false
 closed: false
 recurring:
   fri:
-  - 1300-1540
+  - 1315-1600
   sat:
-  - 1300-1540
+  - 1315-1600
   sun:
-  - 1300-1540
+  - 1315-1600
 unbookable:
 - 2017-12-25
 - 2017-12-26
