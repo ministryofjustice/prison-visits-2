@@ -19,7 +19,7 @@ references:
           RACK_ENV: test
           PRISON_API_HOST: https://api-dev.prison.service.justice.gov.uk
           NOMIS_OAUTH_HOST: https://sign-in-dev.hmpps.service.justice.gov.uk
-      - image: circleci/postgres:9.4.12-alpine
+      - image: circleci/postgres:12-alpine
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: ""

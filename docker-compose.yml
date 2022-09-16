@@ -1,7 +1,7 @@
 version: "3"
 services:
   db:
-    image: postgres:9.4-alpine
+    image: postgres:12-alpine
   redis:
     image: redis:alpine
   staff:
