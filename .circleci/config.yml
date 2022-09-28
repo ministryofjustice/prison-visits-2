@@ -253,42 +253,32 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-     - test
-     - build_and_push_docker_image:
-         requires:
-           - test
-         filters:
-           branches:
-             only:
-              - main
-              - k8s-config-user-client-id
-     - deploy_development:
-         requires:
-           - build_and_push_docker_image
-         filters:
-           branches:
-             only:
-               - main
-               - k8s-config-user-client-id
-     - deploy_staging:
-         requires:
-           - build_and_push_docker_image
-           - deploy_development
-         filters:
-           branches:
-             only:
-               - main
-               - k8s-config-user-client-id
-     - deploy_production_approval:
-         type: approval
-         requires:
-           - deploy_staging
-         filters:
-           branches:
-             only: main
-     - deploy_production:
-         requires:
-           - deploy_production_approval
-         filters:
-           branches:
-             only: main
+      - test
+      - build_and_push_docker_image:
+          requires:
+            - test
+      - deploy_development:
+          requires:
+            - build_and_push_docker_image
+      - request-staging-approval:
+            type: approval
+            requires:
+              - deploy_development
+      - deploy_staging:
+          requires:
+            - build_and_push_docker_image
+            - deploy_development
+            - request-staging-approval
+      - deploy_production_approval:
+          type: approval
+          requires:
+            - deploy_staging
+          filters:
+            branches:
+              only: main
+      - deploy_production:
+          requires:
+            - deploy_production_approval
+          filters:
+            branches:
+              only: main
