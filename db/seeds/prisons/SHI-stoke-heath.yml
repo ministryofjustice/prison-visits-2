@@ -12,7 +12,11 @@ private: false
 closed: false
 adult_age: 10
 recurring:
+  mon:
+  - 1415-1545
   tue:
+  - 1415-1545
+  wed:
   - 1415-1545
   thu:
   - 1415-1545
