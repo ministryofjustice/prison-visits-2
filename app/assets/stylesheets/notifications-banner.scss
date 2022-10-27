@@ -131,26 +131,26 @@
     line-height: 1.15;
   }
 }
-.govuk-notification-banner__link {
+/*.govuk-notification-banner__link {
   font-family: "TransportNew", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-decoration: underline;
   text-decoration-thickness: max(1px, .0625rem);
   text-underline-offset: 0.1em;
-}
+}*/
 @media print {
   .govuk-notification-banner__link {
     font-family: sans-serif;
   }
 }
-.govuk-notification-banner__link:hover {
+/*.govuk-notification-banner__link:hover {
   text-decoration-thickness: max(3px, .1875rem, .12em);
   -webkit-text-decoration-skip-ink: none;
   text-decoration-skip-ink: none;
   -webkit-text-decoration-skip: none;
   text-decoration-skip: none;
-}
+}*/
 .govuk-notification-banner__link:focus {
   outline: 3px solid transparent;
   color: #0b0c0c;
