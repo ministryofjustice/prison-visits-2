@@ -1,3 +1,5 @@
+<%= govuk_notification_banner(title_text: "Important", text: "This service will be unavailable on Wednesday 2nd November due to scheduled maintenance.") %>
+
 <%= render 'prison/dashboards/navigation' %>
 
 <% if @visit.processable? || (@booking_response.present? && !@booking_response.success?) %>
