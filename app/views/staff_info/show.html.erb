@@ -2,19 +2,6 @@
   <%= render 'prison/dashboards/navigation' %>
 <% end %>
 
-<div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
-  <div class="govuk-notification-banner__header">
-    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-      Important
-    </h2>
-  </div>
-  <div class="govuk-notification-banner__content">
-    <p class="govuk-notification-banner__heading">
-      This service will be unavailable on Wednesday 2 November due to scheduled maintenance.
-    </p>
-  </div>
-</div>
-
 <h1 class="heading-xlarge">Prison visits booking</h1>
 <p>Below are the social visit slots we display on the public calendar.
   If they don’t look right, <%= link_to 'contact us', new_prison_feedback_path, class: 'js-GAEvent', data: {event_data: {category: "Slot information", action: "Contact link", label: @prisons.first.name}}  %>.
