@@ -7,7 +7,7 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" >  /et
 # Update openssl & ca-certificates so that communication with signon can take place
 # (TODO: Remove this when base container has been updated)
 RUN apt-get update && \
-    apt-get install -y ca-certificates openssl postgresql-client-9.4 && \
+    apt-get install -y ca-certificates openssl postgresql-client-12 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
