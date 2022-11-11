@@ -1,6 +1,6 @@
 FROM ruby:2.6.7-stretch
 
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" >  /etc/apt/sources.list.d/pgdg.list && \
+RUN echo "deb http://apt-archive.postgresql.org/pub/repos/apt/ stretch-pgdg main" >  /etc/apt/sources.list.d/pgdg.list && \
     wget -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc \
     apt-key add ACCC4CF8.asc
 
