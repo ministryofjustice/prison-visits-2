@@ -181,7 +181,7 @@ jobs:
             kubectl config use-context $KUBE_ENV_DEVELOPMENT_NAME
       - *install_gpg
       - *configure_gpg
-      - *decrypt_secrets
+      # - *decrypt_secrets
       - deploy:
           name: Deploy to development
           command: |
