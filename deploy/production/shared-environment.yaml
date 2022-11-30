@@ -31,7 +31,6 @@ data:
     Medway Secure Training Centre,
     Nottingham,
     Swaleside,
-    Wayland,
     Whitemoor,
     Winchester (Convicted only)
   PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY: >
@@ -43,6 +42,5 @@ data:
     Medway Secure Training Centre,
     Nottingham,
     Swaleside,
-    Wayland,
     Whitemoor,
     Winchester (Convicted only)

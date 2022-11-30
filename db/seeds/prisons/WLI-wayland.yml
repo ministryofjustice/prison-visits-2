@@ -4,15 +4,17 @@ nomis_id: WLI
 address: |-
   Griston
 postcode: IP25 6RL
-email_address: socialvisits.wayland@hmps.gsi.gov.uk
+email_address: socialvisits.wayland@justice.gov.uk
 phone_no: 01953 804152
-enabled: false
+enabled: true
 private: false
 closed: false
 recurring:
-  tue:
+  mon:
   - 1400-1600
   wed:
+  - 1400-1600
+  thu:
   - 1400-1600
   fri:
   - 1400-1600
@@ -23,9 +25,10 @@ recurring:
 unbookable:
 - 2019-04-13
 - 2019-04-14
-- 2019-04-19
-- 2022-06-02
-- 2022-06-03
+- 2022-12-19
+- 2022-12-25
+- 2022-12-26
+- 2023-01-01
 anomalous:
   2018-12-24:
   - 1400-1600
