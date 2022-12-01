@@ -4,33 +4,22 @@ nomis_id: WCI
 address: |-
   Romsey Road
 postcode: SO22 5DF
-email_address: socialvisits.winchester@hmps.gsi.gov.uk
-phone_no: 0845 223 5514
-enabled: false
+email_address: socialvisits.winchester@justice.gov.uk
+phone_no: 0345 223 5514
+enabled: true
 private: false
 closed: false
 recurring:
-  fri:
-  - 1400-1500
-  - 1515-1615
-  mon:
-  - 1400-1500
-  - 1515-1615
-  sat:
-  - 1400-1500
-  - 1515-1615
-  sun:
-  - 1400-1500
-  - 1515-1615
-  thu:
-  - 1400-1500
-  - 1515-1615
   tue:
-  - 1400-1500
-  - 1515-1615
+  - 1345-1530
   wed:
-  - 1400-1500
-  - 1515-1615
+  - 1345-1530
+  thu:
+  - 1345-1530
+  sat:
+  - 1345-1530
+  sun:
+  - 1345-1530
 unbookable:
 - 2019-12-25
 - 2019-12-26
