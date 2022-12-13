@@ -1,27 +1,27 @@
 ---
- name: Humber
- nomis_id: HMI
- address: |-
-   4 Sands Lane
-   Everthorpe
-   Brough
- postcode: HU15 2JZ
- email_address: socialvisits.everthorpe@hmps.gsi.gov.uk
- phone_no: 0300 060 6606
- enabled: true
- private: false
- closed: false
- recurring:
-   mon:
-   - 1400-1600
-   thu:
-   - 1400-1600
-   fri:
-   - 1400-1600
-   sat:
-   - 1400-1600
-   sun:
-   - 1400-1600
+name: Humber
+nomis_id: HMI
+address: |-
+  4 Sands Lane
+  Everthorpe
+  Brough
+postcode: HU15 2JZ
+email_address: socialvisits.everthorpe@hmps.gsi.gov.uk
+phone_no: 0300 060 6606
+enabled: true
+private: false
+closed: false
+recurring:
+  mon:
+  - 1400-1600
+  thu:
+  - 1400-1600
+  fri:
+  - 1400-1600
+  sat:
+  - 1400-1600
+  sun:
+  - 1400-1600
 unbookable:
 - 2018-12-25
 - 2018-12-26
