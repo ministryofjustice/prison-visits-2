@@ -56,6 +56,16 @@ spec:
                 secretKeyRef:
                   name: hmpps-auth-secrets
                   key: NOMIS_USER_OAUTH_CLIENT_SECRET
+            - name: NOMIS_OAUTH_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: NOMIS_OAUTH_CLIENT_ID
+            - name: NOMIS_OAUTH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: NOMIS_OAUTH_CLIENT_SECRET
           resources:
             limits:
               memory: "2Gi"
