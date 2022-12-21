@@ -266,8 +266,6 @@ workflows:
               - deploy_development
       - deploy_staging:
           requires:
-            - build_and_push_docker_image
-            - deploy_development
             - request-staging-approval
       - deploy_production_approval:
           type: approval
