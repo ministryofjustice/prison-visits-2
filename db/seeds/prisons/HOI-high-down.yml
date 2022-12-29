@@ -4,8 +4,8 @@ nomis_id: HOI
 address: |-
   Sutton Lane
 postcode: SM2 5PJ
-email_address: socialvisits.highdown@hmps.gsi.gov.uk
-phone_no: 020 7147 6570
+email_address: socialvisits.highdown@justice.gov.uk
+phone_no: 0207 147 6570
 enabled: true
 private: false
 closed: false

@@ -4,8 +4,8 @@ nomis_id: CLI
 address: |-
   Shaftesbury Road
 postcode: GU24 9EX
-email_address: socialvisits.coldingley@hmps.gsi.gov.uk
-phone_no: 01483 344 300
+email_address: socialvisits.coldingley@justice.gov.uk
+phone_no: 0148 334 4300
 enabled: true
 private: false
 closed: false

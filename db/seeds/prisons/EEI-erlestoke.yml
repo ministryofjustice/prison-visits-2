@@ -4,8 +4,8 @@ nomis_id: EEI
 address: |-
   Devizes
 postcode: SN10 5TU
-email_address: eecmbookavisit@hmps.gsi.gov.uk
-phone_no: 01380 814488
+email_address: hmppsvisitbooking@justice.gov.uk
+phone_no: 0300 303 0634
 enabled: true
 private: false
 closed: false
