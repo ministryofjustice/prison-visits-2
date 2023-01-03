@@ -4,8 +4,8 @@ nomis_id: HHI
 address: |-
   Holme House Road
 postcode: TS18 2QU
-email_address: socialvisits.holmehouse@hmps.gsi.gov.uk
-phone_no: 03000 606602
+email_address: socialvisits.holmehouse@justice.gov.uk
+phone_no: 0300 060 6602
 enabled: true
 private: false
 closed: false

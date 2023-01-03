@@ -4,8 +4,8 @@ nomis_id: PNI
 address: |-
   2 Ribbleton Lane
 postcode: PR1 5AB
-email_address: socialvisits.preston@hmps.gsi.gov.uk
-phone_no: 01772 444888
+email_address: hmppsvisitbooking@justice.gov.uk
+phone_no: 0177 244 4888
 enabled: true
 private: false
 closed: false

@@ -4,8 +4,8 @@ nomis_id: EWI
 address: |-
   Falfield
 postcode: GL12 8DB
-email_address: prison.visits@ministryofjustice.zendesk.com
-phone_no: 0145 438 2100
+email_address: hmppsvisitbooking@justice.gov.uk
+phone_no: 0300 303 0631
 enabled: true
 private: false
 closed: false

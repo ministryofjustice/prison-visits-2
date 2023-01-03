@@ -4,8 +4,8 @@ nomis_id: EXI
 address: |-
   New North Road
 postcode: EX4 4EX
-email_address: socialvisits.exeter@hmps.gsi.gov.uk
-phone_no: 01392 41 5833
+email_address: socialvisits.exeter@justice.gov.uk
+phone_no: 0139 241 5833
 enabled: true
 private: false
 closed: false
