@@ -66,7 +66,7 @@ cy:
         mynd i mewn.</p>
       cant_visit: Ni allwch ymweld oherwydd
       slot_unavailable_html: nid yw'r dyddiadau a'r amseroedd a ddewiswyd gennych
-        ar gael - dewiswch ddyddiadau newydd ar <a href="www.gov.uk/prison-visits">www.gov.uk/prison-visits</a>
+        ar gael - dewiswch ddyddiadau newydd ar <a href="https://www.gov.uk/prison-visits">https://www.gov.uk/prison-visits</a>
       no_allowance_html: mae'r carcharor wedi defnyddio ei lwfans ymweld ar gyfer
         y mis hwn
       no_allowance_date_html: 'Mae''r carcharor wedi defnyddio ei lwfans ymweld ar
@@ -78,7 +78,7 @@ cy:
         neu cysylltwch â''r carcharor i gael yr wybodaeth hon '
       prisoner_moved_html: mae'r carcharor wedi symud i garchar arall - dylent gysylltu
         â chi yn fuan neu gallwch ddefnyddio'r gwasanaeth dod o hyd i garcharor <a
-        href="http://www.gov.uk/find-prisoner">
+        href="https://www.gov.uk/find-prisoner">
       prisoner_released_html: 'Mae''r carcharor wedi cael ei ryddhau - byddant yn
         cysylltu â chi''n fuan gobeithio '
       restricted_reason: mae cyfyngiad ar y carcharor
@@ -150,7 +150,7 @@ cy:
       slot_unavailable_html: '<p>Mae''n ddrwg gennym, ond nid yw''r dyddiad a''r amser
         a ddewiswyd gennych ar gael ddim mwy. </p>
 
-        <p>I drefnu ymweliad arall, ewch i <a href="%{service_url}">www.gov.uk/prison-visits</a>
+        <p>I drefnu ymweliad arall, ewch i <a href="%{service_url}">https://www.gov.uk/prison-visits</a>
         a dewiswch ddyddiadau newydd.</p>'
       visitor_banned_html: '<p>Rydym wedi canslo eich ymweliad oherwydd eich bod wedi
         cael eich gwahardd rhag ymweld â''r carchar hwn.</p>
@@ -160,20 +160,20 @@ cy:
       booked_in_error_html: '<p>Yn anffodus, gwnaethom gamgymeriad wrth drefnu''r
         ymweliad hwn.</p>
 
-        <p>I drefnu ymweliad arall, ewch i <a href="%{service_url}">www.gov.uk/prison-visits</a>
+        <p>I drefnu ymweliad arall, ewch i <a href="%{service_url}">https://www.gov.uk/prison-visits</a>
         a dewiswch ddyddiadau newydd.</p>'
       capacity_issues_html: '<p>Mae''n ddrwg gennym, ond mae gormod o ymwelwyr wedi
         trefnu i ymweld ar yr amser a nodwyd gennych, ac nid oes digon o le i bawb
         eistedd yn ddiogel.</p>
 
-        <p>I drefnu ymweliad arall, ewch i <a href="%{service_url}">www.gov.uk/prison-visits</a>
+        <p>I drefnu ymweliad arall, ewch i <a href="%{service_url}">https://www.gov.uk/prison-visits</a>
         a dewiswch ddyddiadau newydd.</p>'
       child_protection_issues_html: <p>Rydym wedi canslo eich ymweliad oherwydd bod
         cyfyngiadau'n berthnasol i'r carcharor hwn.</p>
       prisoner_moved_html: '<p>Rydym wedi canslo eich ymweliad oherwydd eu bod wedi
         gadael y carchar hwn.</p>
 
-        <p>Os nad ydynt wedi bod mewn cysylltiad yn ddiweddar, ewch i <a href="%{service_url}">www.gov.uk/find-prisoner</a>.
+        <p>Os nad ydynt wedi bod mewn cysylltiad yn ddiweddar, ewch i <a href="%{service_url}">https://www.gov.uk/find-prisoner</a>.
         Bydd y gwasanaeth hwn yn eich helpu i ddod o hyd iddynt.</p>'
       prisoner_non_association_html: '<p>Rydym wedi canslo eich ymweliad oherwydd
         bod cyfyngiadau''n berthnasol i''r carcharor hwn.</p>
@@ -191,7 +191,7 @@ cy:
         ddewis, ond gallwch geisio ymweld â nhw eto ar ôl iddynt gael lwfans o''r
         newydd.</p>
 
-        <p>I drefnu ymweliad arall, ewch i <a href="%{service_url}">www.gov.uk/prison-visits</a>.</p>'
+        <p>I drefnu ymweliad arall, ewch i <a href="%{service_url}">https://www.gov.uk/prison-visits</a>.</p>'
       any_questions_html: Os oes gennych unrhyw gwestiynau, ewch i wefan y carchar
         yn <a href="%{url}"></a> neu ffoniwch y carchar ar <strong>%{phone_no}</strong>.
       visit_id: 'Rhif adnabod ar gyfer yr ymweliad:'
