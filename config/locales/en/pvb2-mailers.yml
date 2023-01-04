@@ -84,7 +84,7 @@ en:
       cant_visit: You can't visit because
       slot_unavailable_html: >-
         the dates and times you chose aren't available - choose new dates on
-        www.gov.uk/prison-visits
+        https://www.gov.uk/prison-visits
       no_allowance_html: >-
         the prisoner has used their allowance of visits for this month
       no_allowance_date_html: >-
@@ -99,7 +99,7 @@ en:
         to get this information
       prisoner_moved_html: >-
         the prisoner has moved prisons - they should contact you soon or you
-        can use the find a prisoner service http://www.gov.uk/find-prisoner
+        can use the find a prisoner service https://www.gov.uk/find-prisoner
       prisoner_released_html:
         the prisoner has been released - hopefully they will contact you soon
       restricted_reason:
@@ -191,7 +191,7 @@ en:
       capacity_issues_html: >-
         the visit hall is fully booked for the dates and times you chose.
       prisoner_moved_html: >-
-        they have left this prison. If you don’t know where they are, you can visit www.gov.uk/find-prisoner.
+        they have left this prison. If you don’t know where they are, you can visit https://www.gov.uk/find-prisoner.
       restricted_reason_html: >-
         there are restrictions around this prisoner. You may be able to visit them at a later date.
       prisoner_released_html: >-
@@ -205,7 +205,7 @@ en:
         If you have any questions, visit the <a href="%{url}">prison website</a> or call the prison on <strong>%{phone_no}</strong>.
       visit_id: "Visit ID:"
       arrange_html: >-
-        You can arrange another visit on www.gov.uk/prison-visits.
+        You can arrange another visit on https://www.gov.uk/prison-visits.
     visit_info:
       what_to_bring_title: What to bring when you visit
       id_requirements_html: |

@@ -29,7 +29,7 @@ RSpec.describe RejectionDecorator do
         expect(
           subject.email_formatted_reasons.map(&:explanation)
         ).to eq([
-          "the dates and times you chose aren't available - choose new dates on www.gov.uk/prison-visits"
+          "the dates and times you chose aren't available - choose new dates on https://www.gov.uk/prison-visits"
         ])
       end
 
