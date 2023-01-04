@@ -8,6 +8,6 @@ public_service_url = if Rails.env.production?
                      end
 
 Rails.configuration.link_directory = LinkDirectory.new(
-  prison_finder: 'https://www.gov.uk/guidance/{prison}-prison',
+  prison_finder: 'https://www.gov.uk/guidance/{prison}',
   public_service: public_service_url
 )
