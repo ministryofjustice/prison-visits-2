@@ -482,10 +482,12 @@ SFI:
     - apvu.noms.moj
 SHI:
   name: Stoke Heath
+  finder_slug: stoke-heath-prison
   admins:
     - apvu.noms.moj
 SKI:
   name: Stocken
+  finder_slug: stocken-prison
   admins:
     - stocken.prisons.noms.moj
 SLI:
