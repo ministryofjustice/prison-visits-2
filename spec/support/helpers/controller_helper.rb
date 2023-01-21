@@ -5,7 +5,7 @@ module ControllerHelper
     sso_identity = SignonIdentity.new(
       user,
       full_name: FFaker::Name.name,
-      roles: [],
+      roles: [SignonIdentity::REQUEST_ROLE],
       logout_url: '',
       organisations: orgs
     )

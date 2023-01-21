@@ -7,6 +7,7 @@ class SignonIdentity
   class InvalidSessionData < RuntimeError; end
 
   ADMIN_ROLE = 'ROLE_PVB_ADMIN'
+  REQUEST_ROLE = 'ROLE_PVB_REQUESTS'
 
   class << self
     def from_omniauth(omniauth_auth)
@@ -92,7 +93,14 @@ class SignonIdentity
   end
 
   def accessible_estates
-    @accessible_estates ||= estate_sso_mapper.accessible_estates.order(:nomis_id).to_a
+    @accessible_estates ||= begin
+      # Ensure that user has at least one valid role
+      if @roles.select { |role| [ADMIN_ROLE, REQUEST_ROLE].include?(role) }.empty?
+        []
+      else
+        estate_sso_mapper.accessible_estates.order(:nomis_id).to_a
+      end
+    end
   end
 
   def accessible_estates?(estates)
