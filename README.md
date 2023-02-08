@@ -137,7 +137,7 @@ pvb2 $ rake pvb:populate:visits
 
 ```sh
 pvb2 $ rails spec
-
+.
 ```
 
 ### Further technical information
