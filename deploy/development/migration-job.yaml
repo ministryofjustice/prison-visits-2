@@ -1,9 +1,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: pvb-staff-migration
+  name: pvb-staff-migration-dev
   labels:
-    app: pvb-staff-migration
+    app: pvb-staff-migration-dev
 spec:
   completions: 1
   parallelism: 1
