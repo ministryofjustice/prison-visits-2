@@ -204,9 +204,6 @@ jobs:
             kubectl config set-credentials circleci --token=${KUBE_ENV_STAGING_TOKEN_LIVE}
             kubectl config set-context ${CLUSTER_NAME_LIVE} --cluster=${CLUSTER_NAME_LIVE} --user=circleci --namespace=${KUBE_ENV_STAGING_NAMESPACE}
             kubectl config use-context ${CLUSTER_NAME_LIVE}
-      # - *install_gpg
-      # - *configure_gpg
-      # - *decrypt_secrets
       - deploy:
           name: Deploy to staging
           command: |
