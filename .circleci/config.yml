@@ -254,13 +254,14 @@ workflows:
       - build_and_push_docker_image:
           requires:
             - test
-      - deploy_development:
-          requires:
-            - build_and_push_docker_image
+      # - deploy_development:
+      #     requires:
+      #       - build_and_push_docker_image
       - request-staging-approval:
             type: approval
             requires:
-              - deploy_development
+              # - deploy_development
+              - build_and_push_docker_image
       - deploy_staging:
           requires:
             - request-staging-approval
