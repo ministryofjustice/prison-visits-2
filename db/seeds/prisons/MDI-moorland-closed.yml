@@ -9,7 +9,7 @@ phone_no: 0130 252 3289
 enabled: true
 private: false
 closed: false
-lead_days: 1
+lead_days: 3
 recurring:
   tue:
   - 1400-1530
