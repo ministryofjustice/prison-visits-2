@@ -1,3 +1,6 @@
+require 'database_cleaner'
+require 'factory_bot'
+
 namespace :factory_bot do
   desc 'Verify that all FactoryBot factories are valid'
   task lint: :environment do
