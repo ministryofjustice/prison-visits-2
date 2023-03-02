@@ -3,6 +3,18 @@ require 'base64'
 
 RSpec.describe Nomis::Oauth::Client do
   describe 'with a valid request' do
+    let(:client_id) { 'my_client_id' }
+    let(:client_secret) { 'a_value_like_>>>_that_base64_encodes_with_plus_or_slash' }
+
+    let(:auth_header) do
+      'Basic bXlfY2xpZW50X2lkOmFfdmFsdWVfbGlrZV8+Pj5fdGhhdF9iYXNlNjRfZW5jb2Rlc193aXRoX3BsdXNfb3Jfc2xhc2g='
+    end
+
+    before do
+      allow(Rails.configuration).to receive(:nomis_oauth_client_id).and_return(client_id)
+      allow(Rails.configuration).to receive(:nomis_oauth_client_secret).and_return(client_secret)
+    end
+
     it 'sets the Authorization header' do
       WebMock.stub_request(:post, /\w/).to_return(body: '{}')
 
@@ -15,9 +27,7 @@ RSpec.describe Nomis::Oauth::Client do
       expect(WebMock).to have_requested(:post, /\w/).
           with(
             headers: {
-              'Authorization': 'Basic ' + Base64.urlsafe_encode64(
-                "#{Rails.configuration.nomis_oauth_client_id}:#{Rails.configuration.nomis_oauth_client_secret}"
-                )
+              Authorization: auth_header
             }
           )
     end
