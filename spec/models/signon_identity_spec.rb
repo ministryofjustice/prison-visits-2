@@ -128,6 +128,7 @@ RSpec.describe SignonIdentity, type: :model do
     let!(:swansea_estate)     { create(:estate, sso_organisation_name: swansea_org_name, nomis_id: 'SWI') }
     let!(:orgs)               { [swansea_estate, cardiff_estate] }
     let!(:roles)               { [] }
+    
     let!(:serialization) do
       {
         'user_id' => user.id,
@@ -137,6 +138,8 @@ RSpec.describe SignonIdentity, type: :model do
         'organisations' => orgs.map(&:nomis_id)
       }
     end
+
+    let(:client_id) { ENV['NOMIS_USER_OAUTH_CLIENT_ID'] }
 
     subject { described_class.from_session_data(serialization) }
 
@@ -174,7 +177,7 @@ RSpec.describe SignonIdentity, type: :model do
       expect(
         subject.logout_url(redirect_to: 'https://pvb/loggedout')
       ).to eq(
-        'https://example.com/logout?client_id=prison-visits-booking-frontend&redirect_uri=https%3A%2F%2Fpvb%2Floggedout'
+        "https://example.com/logout?client_id=#{client_id}&redirect_uri=https%3A%2F%2Fpvb%2Floggedout"
       )
     end
   end
