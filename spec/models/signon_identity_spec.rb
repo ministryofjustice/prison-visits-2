@@ -128,7 +128,7 @@ RSpec.describe SignonIdentity, type: :model do
     let!(:swansea_estate)     { create(:estate, sso_organisation_name: swansea_org_name, nomis_id: 'SWI') }
     let!(:orgs)               { [swansea_estate, cardiff_estate] }
     let!(:roles)               { [] }
-    
+
     let!(:serialization) do
       {
         'user_id' => user.id,
