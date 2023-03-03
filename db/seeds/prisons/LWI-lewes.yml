@@ -4,32 +4,22 @@ nomis_id: LWI
 address: |-
   1 Brighton Road
 postcode: BN7 1EA
-email_address: socialvisits.lewes@hmps.gsi.gov.uk
-phone_no: 01273785277
+email_address: socialvisits.lewes@@justice.gov.uk
+phone_no: 0127 378 5277
 enabled: false
 private: false
 closed: false
 weekend_processing: true
 recurring:
   mon:
-  - 1415-1545
+  - 1400-1530
   tue:
-  - 0930-1115  
-  - 1415-1545
-  wed:
-  - 1415-1545
+  - 1400-1530
   thu:
-  - 0930-1115  
-  - 1415-1545
-  fri:
-  - 0930-1115
+  - 1400-1530
   sat:
-  - 1415-1545
+  - 1400-1530
   sun:
-  - 1415-1545
+  - 1400-1530
 unbookable:
-- 2017-12-19
-- 2017-12-25
-- 2017-12-26
-- 2022-06-02
 - 2022-06-03
