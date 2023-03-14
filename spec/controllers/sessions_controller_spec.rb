@@ -65,6 +65,7 @@ RSpec.describe SessionsController, type: :controller do
 
     let(:user) { FactoryBot.create(:user) }
     let(:estate_nomis_id) { 'ACI' }
+    let(:client_id) { ENV['NOMIS_USER_OAUTH_CLIENT_ID'] }
 
     let(:sso_data) do
       {
@@ -90,7 +91,7 @@ RSpec.describe SessionsController, type: :controller do
     it 'deletes the current user id from the session and redirects' do
       expect(destroy).
         to redirect_to(<<-URI.strip_heredoc)
-          http://example.com/logout?client_id=prison-visits-booking-frontend&redirect_uri=#{CGI.escape(root_url)}
+          http://example.com/logout?client_id=#{client_id}&redirect_uri=#{CGI.escape(root_url)}
       URI
       expect(session[:sso_data]).to be_nil
     end

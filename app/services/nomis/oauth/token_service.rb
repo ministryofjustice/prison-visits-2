@@ -10,7 +10,7 @@ module Nomis
       end
 
       def valid_token
-        set_new_token if token.expired?
+        set_new_token if token.expired? || token.access_token.nil?
         token
       end
 

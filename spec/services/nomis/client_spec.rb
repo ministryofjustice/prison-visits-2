@@ -105,10 +105,62 @@ RSpec.describe Nomis::Client do
   end
 
   describe 'with auth configured' do
-    let(:public_key) { Base64.decode64(ENV['NOMIS_OAUTH_PUBLIC_KEY']) }
-    let(:cert) {
-      OpenSSL::PKey::RSA.new(public_key)
-    }
+    let(:cert) { OpenSSL::PKey::RSA.new(Base64.decode64(public_key)) }
+
+    let(:access_token) do
+      'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRwcy1jbGllbnQta2V5In0.eyJzdWIiOiJ0' \
+      'ZXN0IiwiZ3JhbnRfdHlwZSI6ImNsaWVudF9jcmVkZW50aWFscyIsInNjb3BlIjpbInJlYWQiLCJ3cml0' \
+      'ZSJdLCJhdXRoX3NvdXJjZSI6Im5vbmUiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwOTAvYXV0aC9p' \
+      'c3N1ZXIiLCJleHAiOjE2Nzg0NjY3MTEsImp0aSI6IkRIbnY3ZElCSFdjdmh6akdlTFotZFlGSndGMCIs' \
+      'ImNsaWVudF9pZCI6InRlc3QifQ.QLYRxudeQeh_54fJmMNevmHrt2d6hci6qqbqskPt41hvFWCLOrA4T' \
+      'LJSkRsu-u3l1grZKpWJWKUlI0v51BnjnzkJ8oJBUQ738qILpN_lZixxxP1QB2sqL-tO2NgXW3H2-HPvJ' \
+      'muUWABr5WBbzEbCvy9xMQhlMGN3BAi-EbbOmAjzP53194ggcojHz2tlAfav6Z8qSc1BKeSrMRVq6cA42' \
+      'xLER61URCSAYfjRa_wTlFALi-K7CKdsD2T8zsO2H8kBxDx5nJN_5beMPCFkKLN66NAEtiAfEgHZE9ri4' \
+      '7gWVC1gPrm6-S6CoIGu54KNQ6hF8rsntFeFvPr1ff8WrRgOtg'
+    end
+
+    let(:public_key) do
+      'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsOPAtsQADdbRu/EH6LP5BM1/mF40VDBn12hJ' \
+      'SXPPd5WYK0HLY20VM7AxxR9mnYCF6So1Wt7fGNqUx/WyemBpIJNrs/7Dzwg3uwiQuNh4zKR+EGxWbLwi' \
+      '3yw7lXPUzxUyC5xt88e/7vO+lz1oCnizjh4mxNAms6ZYF7qfnhJE9WvWPwLLkojkZu1JdusLaVowN7GT' \
+      'GNpME8dzeJkam0gp4oxHQGhMN87K6jqX3cEwO6Dvhemg8whs96nzQl8n2LFvAK2up9Prr9Gi2LFgTt7K' \
+      'qXA06kC4Kgw2IR1eFgzcBlTOEwmzjre65HoNaJBr9uNZzV5sILPMczzhQj/fMhz3/QIDAQAB'
+    end
+
+    let(:config) do
+      {
+        nomis_oauth_host: 'http://localhost:9090',
+        nomis_oauth_client_id: 'test',
+        nomis_oauth_client_secret: '6+9tp<TO4b0!s)>>hSA.Kq7Rjtab.6V9P-lW*TZIW:2nj8>u&2F&>snY5G9v'
+      }
+    end
+
+    before do
+      # spoof the time, otherwise the signature will have expired
+      travel_to Time.new(2023, 2, 10, 15, 0, 0, '+00:00')
+
+      config.each do |key, val|
+        allow(Rails.configuration).to receive(key).and_return(val)
+      end
+
+      stub_request(:post, 'http://localhost:9090/auth/oauth/token?grant_type=client_credentials')
+        .to_return(
+          body: {
+            access_token: access_token,
+            token_type: 'bearer',
+            expires_in: 3599,
+            scope: 'read write',
+            sub: 'test',
+            auth_source: 'none',
+            jti: 'DHnv7dIBHWcvhzjGeLZ-dYFJwF0',
+            iss: 'http://localhost:9090/auth/issuer'
+          }.to_json
+        )
+    end
+
+    after do
+      travel_back
+    end
 
     it 'sends an Authorization header containing a JWT token', vcr: { cassette_name: 'client-auth' } do
       subject.get(path, params)
