@@ -3,6 +3,7 @@ FROM ruby:2.6.7-stretch
 RUN echo "deb http://apt-archive.postgresql.org/pub/repos/apt/ stretch-pgdg main" >  /etc/apt/sources.list.d/pgdg.list && \
     wget -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc \
     apt-key add ACCC4CF8.asc
+RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list
 
 # Update openssl & ca-certificates so that communication with signon can take place
 # (TODO: Remove this when base container has been updated)
