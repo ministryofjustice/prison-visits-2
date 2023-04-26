@@ -30,6 +30,8 @@ spec:
           command: ['sh', '-c', "bundle exec puma -p 3000 -C ./config/puma_prod.rb --pidfile /tmp/server.pid"]
           ports:
             - containerPort: 3000
+          livenessProbe: null
+          readinessProbe: null
           # livenessProbe:
           #   failureThreshold: 6
           #   httpGet:
