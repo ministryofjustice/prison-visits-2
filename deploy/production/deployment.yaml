@@ -30,21 +30,21 @@ spec:
           command: ['sh', '-c', "bundle exec puma -p 3000 -C ./config/puma_prod.rb --pidfile /tmp/server.pid"]
           ports:
             - containerPort: 3000
-          livenessProbe:
-            failureThreshold: 6
-            httpGet:
-              path: /ping
-              port: 3000
-            initialDelaySeconds: 10
-            periodSeconds: 60
-            timeoutSeconds: 5
-          readinessProbe:
-            httpGet:
-              path: /ping
-              port: 3000
-            initialDelaySeconds: 10
-            periodSeconds: 60
-            timeoutSeconds: 5
+          # livenessProbe:
+          #   failureThreshold: 6
+          #   httpGet:
+          #     path: /ping
+          #     port: 3000
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 60
+          #   timeoutSeconds: 5
+          # readinessProbe:
+          #   httpGet:
+          #     path: /ping
+          #     port: 3000
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 60
+          #   timeoutSeconds: 5
           envFrom:
             - configMapRef:
                 name: shared-environment
