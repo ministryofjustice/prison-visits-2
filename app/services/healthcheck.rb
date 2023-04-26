@@ -3,10 +3,10 @@ require 'sidekiq/api'
 class Healthcheck
   def initialize
     @components = {
-      database: DatabaseCheck.new('Postgres database'),
-      mailers: QueueCheck.new('Email queue', queue_name: 'mailers'),
-      zendesk: QueueCheck.new('Zendesk queue', queue_name: 'zendesk'),
-      smtp: SmtpCheck.new('SMTP server', smtp_settings: smtp_settings)
+      database: DatabaseCheck.new('Postgres database')
+      # mailers: QueueCheck.new('Email queue', queue_name: 'mailers'),
+      # zendesk: QueueCheck.new('Zendesk queue', queue_name: 'zendesk'),
+      # smtp: SmtpCheck.new('SMTP server', smtp_settings: smtp_settings)
     }
   end
 
