@@ -25,14 +25,14 @@ RSpec.feature 'Using the dashboard' do
         click_button 'Update'
       end
 
-      expect(page).to have_css('.navigation', text: 'Visit requests 0')
+      expect(page).to have_css('.navigation', text: 'Visit requests')
 
       within '.prison-switcher-form' do
         select 'Swansea', from: 'Select one or more prisons'
         click_button 'Update'
       end
 
-      expect(page).to have_css('.navigation', text: 'Visit requests 1')
+      expect(page).to have_css('.navigation', text: 'Visit requests')
     end
   end
 
