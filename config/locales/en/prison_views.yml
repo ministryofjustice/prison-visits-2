@@ -73,7 +73,7 @@ en:
         table_caption: List of visit cancellations
       navigation:
         inbox_html: |
-          Visit requests <span class='badge badge--red'>%{inbox_count}</span>
+          Visit requests
         processed: Processed visits
         print_visits: Print visits
         staff_guide: Service guide
