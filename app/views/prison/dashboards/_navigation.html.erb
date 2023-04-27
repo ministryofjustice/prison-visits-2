@@ -1,7 +1,7 @@
 <% content_for :navigation do %>
   <div class="navigation hidden--print">
     <ol>
-      <%= nav_link t('.inbox_html', inbox_count: EstateVisitQuery.new(current_estates).inbox_count), prison_inbox_path %>
+      <%= nav_link t('.inbox_html'), prison_inbox_path %>
       <%= nav_link t('.processed'), prison_processed_visits_path %>
       <%= nav_link t('.print_visits'), new_prison_print_visit_path %>
 
