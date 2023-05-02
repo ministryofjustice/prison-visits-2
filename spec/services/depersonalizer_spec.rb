@@ -94,7 +94,7 @@ RSpec.describe Depersonalizer do
     let!(:prisoner) {
       create(
         :prisoner,
-        first_name: 'Oscar',
+        first_name: 'REMOVED',
         last_name: 'Wilde',
         date_of_birth: Date.new(1980, 1, 1),
         number: 'ABC1234'
