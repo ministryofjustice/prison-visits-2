@@ -25,16 +25,6 @@ RSpec.describe Depersonalizer do
     end
 
     it 'does not anonymise prisoners newer than the cutoff date' do
-      let!(:prisoner) {
-        create(
-          :prisoner,
-          first_name: 'REMOVED',
-          last_name: 'Wilde',
-          date_of_birth: Date.new(1980, 1, 1),
-          number: 'ABC1234'
-        )
-      }
-
       subject.remove_personal_information(Time.zone.now - 1.day)
       expect(prisoner.reload).to have_attributes(
         first_name: 'Oscar',
@@ -47,6 +37,7 @@ RSpec.describe Depersonalizer do
     # Test that it doesn't run on already removed entries (Checks first_name)
     # Therefore it should leave the rest of the data in this prisoner untouched
     it 'does not anonymise prisoners who have already been anonymised' do
+      prisoner.merge!(first_name: 'REMOVED')
       subject.remove_personal_information(Time.zone.now + 1.day)
       expect(prisoner.reload).to have_attributes(
         first_name: 'REMOVED',
@@ -55,6 +46,7 @@ RSpec.describe Depersonalizer do
         number: 'ABC1234'
       )
     end
+
   end
 
   context 'when processing visitors' do
