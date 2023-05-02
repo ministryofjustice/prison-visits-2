@@ -33,19 +33,6 @@ RSpec.describe Depersonalizer do
         number: 'ABC1234'
       )
     end
-
-    # Test that it doesn't run on already removed entries (Checks first_name)
-    # Therefore it should leave the rest of the data in this prisoner untouched
-    it 'does not anonymise prisoners who have already been anonymised' do
-      prisoner[:first_name] = 'REMOVED'
-      # subject.remove_personal_information(Time.zone.now + 1.day)
-      expect(prisoner.reload).to have_attributes(
-        first_name: 'REMOVED',
-        last_name: 'Wild',
-        date_of_birth: Date.new(1980, 1, 1),
-        number: 'ABC1234'
-      )
-    end
   end
 
   context 'when processing visitors' do
@@ -99,6 +86,28 @@ RSpec.describe Depersonalizer do
       expect(visit.reload).to have_attributes(
         contact_email_address: 'user@example.com',
         contact_phone_no: '07900112233'
+      )
+    end
+  end
+
+  context 'when processing prisoners part 2' do 
+    let!(:prisoner) {
+      create(
+        :prisoner,
+        first_name: 'Oscar',
+        last_name: 'Wilde',
+        date_of_birth: Date.new(1980, 1, 1),
+        number: 'ABC1234'
+      )
+    }
+
+    it 'does not anonymise prisoners older than the cutoff date, who have already been processed' do
+      subject.remove_personal_information(Time.zone.now + 1.day)
+      expect(prisoner.reload).to have_attributes(
+        first_name: 'REMOVED',
+        last_name: 'Wilde',
+        date_of_birth: Date.new(1980, 1, 1),
+        number: 'ABC1234'
       )
     end
   end
