@@ -55,7 +55,6 @@ RSpec.describe Depersonalizer do
         number: 'ABC1234'
       )
     end
-
   end
 
   context 'when processing visitors' do
