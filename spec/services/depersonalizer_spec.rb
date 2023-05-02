@@ -90,7 +90,7 @@ RSpec.describe Depersonalizer do
     end
   end
 
-  context 'prisoner - not already anonymised' do
+  context 'when prisoner not already anonymised' do
     let!(:prisoner) {
       create(
         :prisoner,
@@ -112,7 +112,7 @@ RSpec.describe Depersonalizer do
     end
   end
 
-  context 'Visitor - not already anonymised' do
+  context 'when visitor not already anonymised' do
     let!(:visitor) {
       create(
         :visitor,
@@ -132,7 +132,7 @@ RSpec.describe Depersonalizer do
     end
   end
 
-  context 'Visit - not already anonymised' do
+  context 'when visit not already anonymised' do
     let!(:visit) {
       create(
         :visit,
