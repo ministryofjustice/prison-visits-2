@@ -90,7 +90,7 @@ RSpec.describe Depersonalizer do
     end
   end
 
-  context 'when processing prisoners part 2' do 
+  context 'when processing prisoners part 2' do
     let!(:prisoner) {
       create(
         :prisoner,
