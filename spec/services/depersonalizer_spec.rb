@@ -90,7 +90,7 @@ RSpec.describe Depersonalizer do
     end
   end
 
-  context 'when processing prisoners part 2' do
+  context 'prisoner - not already anonymised' do
     let!(:prisoner) {
       create(
         :prisoner,
@@ -108,6 +108,44 @@ RSpec.describe Depersonalizer do
         last_name: 'Wilde',
         date_of_birth: Date.new(1980, 1, 1),
         number: 'ABC1234'
+      )
+    end
+  end
+
+  context 'Visitor - not already anonymised' do
+    let!(:visitor) {
+      create(
+        :visitor,
+        first_name: 'REMOVED',
+        last_name: 'Lovelace',
+        date_of_birth: Date.new(1970, 2, 3)
+      )
+    }
+
+    it 'anonymises visitors older than the cutoff date' do
+      subject.remove_personal_information(Time.zone.now + 1.day)
+      expect(visitor.reload).to have_attributes(
+        first_name: 'REMOVED',
+        last_name: 'Lovelace',
+        date_of_birth: Date.new(1970, 2, 3)
+      )
+    end
+  end
+
+  context 'Visit - not already anonymised' do
+    let!(:visit) {
+      create(
+        :visit,
+        contact_email_address: 'REMOVED',
+        contact_phone_no: '079 00112233'
+      )
+    }
+
+    it 'anonymises visits older than the cutoff date' do
+      subject.remove_personal_information(Time.zone.now + 1.day)
+      expect(visit.reload).to have_attributes(
+        contact_email_address: 'REMOVED',
+        contact_phone_no: '079 00112233'
       )
     end
   end
