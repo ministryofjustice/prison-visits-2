@@ -37,7 +37,7 @@ RSpec.describe Depersonalizer do
     # Test that it doesn't run on already removed entries (Checks first_name)
     # Therefore it should leave the rest of the data in this prisoner untouched
     it 'does not anonymise prisoners who have already been anonymised' do
-      prisoner.merge!(first_name: 'REMOVED')
+      prisoner[:first_name] = 'REMOVED'
       subject.remove_personal_information(Time.zone.now + 1.day)
       expect(prisoner.reload).to have_attributes(
         first_name: 'REMOVED',
@@ -46,7 +46,6 @@ RSpec.describe Depersonalizer do
         number: 'ABC1234'
       )
     end
-
   end
 
   context 'when processing visitors' do
