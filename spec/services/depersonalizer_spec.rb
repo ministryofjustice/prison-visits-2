@@ -41,7 +41,7 @@ RSpec.describe Depersonalizer do
       # subject.remove_personal_information(Time.zone.now + 1.day)
       expect(prisoner.reload).to have_attributes(
         first_name: 'REMOVED',
-        last_name: 'Wilde',
+        last_name: 'Wild',
         date_of_birth: Date.new(1980, 1, 1),
         number: 'ABC1234'
       )
