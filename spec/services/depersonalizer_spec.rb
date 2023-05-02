@@ -33,6 +33,28 @@ RSpec.describe Depersonalizer do
         number: 'ABC1234'
       )
     end
+
+    let!(:prisoner) {
+      create(
+        :prisoner,
+        first_name: 'REMOVED',
+        last_name: 'Wilde',
+        date_of_birth: Date.new(1980, 1, 1),
+        number: 'ABC1234'
+      )
+    }
+
+    it 'does not anonymise prisoners who have already been anonymised' do
+      subject.remove_personal_information(Time.zone.now + 1.day)
+      expect(prisoner.reload).to have_attributes(
+        first_name: 'REMOVED',
+        last_name: 'Wilde',
+        date_of_birth: Date.new(1980, 1, 1),
+        number: 'ABC1234'
+      )
+    end
+
+
   end
 
   context 'when processing visitors' do
