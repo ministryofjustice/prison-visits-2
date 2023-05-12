@@ -14,7 +14,7 @@ spec:
   - hosts:
     - staff.prisonvisits.service.gov.uk
     - prison-visits-booking-staff-production.apps.live.cloud-platform.service.justice.gov.uk
-    secretName: prison-visits-staff-secret
+    secretName: prison-visits-staff-cert
   rules:
   - host: prison-visits-booking-staff-production.apps.live.cloud-platform.service.justice.gov.uk
     http:

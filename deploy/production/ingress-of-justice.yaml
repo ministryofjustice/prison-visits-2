@@ -12,7 +12,7 @@ spec:
   tls:
   - hosts:
     - staff.prisonvisits.service.justice.gov.uk
-    secretName: prison-visits-staff-justice-secret
+    secretName: prison-visits-staff-justice-cert
   rules:
   - host: staff.prisonvisits.service.justice.gov.uk
     http:
