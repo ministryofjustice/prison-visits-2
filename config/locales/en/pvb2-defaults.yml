@@ -3,7 +3,7 @@
 # better solution in time...
 en:
   language: English
-  app_title: Visit someone in prison
+  app_title: Online visit requests
   date:
     fields:
       day: Day
