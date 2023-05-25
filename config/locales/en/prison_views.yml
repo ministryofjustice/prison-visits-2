@@ -4,7 +4,7 @@ en:
   layouts:
     application:
       contact_banner_html: |
-        Help us to improve this service by giving <a href='%{url}'>feedback (opens in a new tab)</a>.
+        Help us to improve this service by giving <a href='%{url}' target=”_blank”>feedback (opens in a new tab)</a>.
       contact_us: Contact us
       cookies_intro: GOV.UK uses cookies to make the site simpler.
       downloads: Downloads
