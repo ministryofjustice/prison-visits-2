@@ -4,27 +4,20 @@ nomis_id: NSI
 address: |-
   Freiston
 postcode: PE22 0QX
-email_address: socialvisits.northseacamp@hmps.gsi.gov.uk
+email_address: visitsNSC@justice.gov.uk
 phone_no: 01205 769 368
-enabled: false
+enabled: true
 private: false
 closed: false
 recurring:
-  sat:
-  - 0900-1130
-  - 1330-1545
-  sun:
-  - 0900-1130
-  - 1330-1545
   wed:
-  - 1330-1545
+  - 1345-1545
+  sat:
+  - 1345-1545
+  sun:
+  - 0930-1130
 unbookable:
-- 2019-12-25
-- 2020-01-01
-- 2022-06-02
 - 2022-06-03
 anomalous:
   2019-12-27:
-  - 1330-1530
-  2019-12-30:
   - 1330-1530
