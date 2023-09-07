@@ -40,7 +40,7 @@ RSpec.feature 'Metrics', js: true do
     context 'when all the time' do
       before do
         stub_auth_token
-        stub_request(:get, "https://api-dev.prison.service.justice.gov.uk/api/staff/485926/emails").
+        stub_request(:get, "https://prison-api-dev.prison.service.justice.gov.uk/api/staff/485926/emails").
           to_return(body: [email_address].to_json)
 
         luna_visits_with_dates

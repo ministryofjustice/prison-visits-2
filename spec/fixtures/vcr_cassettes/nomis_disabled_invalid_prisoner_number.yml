@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/lookup/active_offender?date_of_birth=1970-01-01&noms_id=ZZZZZZZ
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/lookup/active_offender?date_of_birth=1970-01-01&noms_id=ZZZZZZZ
     body:
       encoding: US-ASCII
       string: ''
@@ -48,7 +48,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 10:03:13 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/staff/485926/emails
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/staff/485926/emails
     body:
       encoding: US-ASCII
       string: ''

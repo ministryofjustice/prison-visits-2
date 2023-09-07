@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/G7244GR/location
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/offenders/G7244GR/location
     body:
       encoding: US-ASCII
       string: ''

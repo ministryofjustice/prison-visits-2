@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/lookup/active_offender?date_of_birth=1966-11-22&noms_id=G7244GR
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/lookup/active_offender?date_of_birth=1966-11-22&noms_id=G7244GR
     body:
       encoding: US-ASCII
       string: ''
@@ -48,7 +48,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 10:03:58 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/1502035/visits/contact_list
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/offenders/1502035/visits/contact_list
     body:
       encoding: US-ASCII
       string: ''
@@ -164,7 +164,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 10:04:01 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/lookup/active_offender?date_of_birth=1966-11-22&noms_id=G7244GR
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/lookup/active_offender?date_of_birth=1966-11-22&noms_id=G7244GR
     body:
       encoding: US-ASCII
       string: ''
@@ -210,7 +210,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 10:04:01 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/1502035/visits/contact_list
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/offenders/1502035/visits/contact_list
     body:
       encoding: US-ASCII
       string: ''
@@ -281,7 +281,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 10:04:01 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/staff/485926/emails
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/staff/485926/emails
     body:
       encoding: US-ASCII
       string: ''

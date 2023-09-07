@@ -17,7 +17,7 @@ references:
           PGHOST: 127.0.0.1
           PGUSER: ubuntu
           RACK_ENV: test
-          PRISON_API_HOST: https://api-dev.prison.service.justice.gov.uk
+          PRISON_API_HOST: https://prison-api-dev.prison.service.justice.gov.uk
           NOMIS_OAUTH_HOST: https://sign-in-dev.hmpps.service.justice.gov.uk
       - image: circleci/postgres:12-alpine
         environment:
