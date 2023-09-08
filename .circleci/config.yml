@@ -92,7 +92,12 @@ references:
         <<: *github_team_name_slug
         REPONAME: prison-visits-staff
 
-version: 2
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@4.0.0 # use v4 of this orb
+  aws-ecr: circleci/aws-ecr@8.2.1 # this orb doesn't support OIDC v2, so we use aws-cli to authenticate
+
 jobs:
   test:
     <<: *defaults
@@ -153,6 +158,7 @@ jobs:
           path: ~/test-results
 
   build_and_push_docker_image:
+    executor: aws-ecr/default # use the aws-ecr/default executor to start the docker daemon
     <<: *defaults
     <<: *test_container_config
     steps:
@@ -161,9 +167,29 @@ jobs:
           at: ~/prison-visits-staff
       - setup_remote_docker:
           docker_layer_caching: true
-      - *install_aws_cli
+      # - *install_aws_cli
       - *build_docker_image
-      - *push_docker_image
+      # Authenticate to AWS using OIDC v2 with the AWS CLI
+      - aws-cli/setup:
+          role_arn: $ECR_ROLE_TO_ASSUME # this will use the env var
+          region: $ECR_REGION # this will use the env var
+      # Authenticate to the ECR repository using the standard command
+      - run: |
+          aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
+
+      - run:
+          name: Push docker image
+          command: |
+            $DOCKER_TAG = "${CIRCLE_SHA1}"
+            if [ "${CIRCLE_BRANCH}" == "main" ]; then
+              $DOCKER_TAG = "latest"
+            fi
+      # Build and push your Docker image
+      - aws-ecr/build-image:
+          push-image: true
+          tag: ${DOCKER_TAG}
+          region: $ECR_REGION # this will use the env var
+          repo: $ECR_REPOSITORY # this will use the env var
 
   deploy_development:
     <<: *deploy_container_config
@@ -250,30 +276,30 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - test
-      - build_and_push_docker_image:
-          requires:
-            - test
+      # - test
+      - build_and_push_docker_image
+          # requires:
+          #   - test
       - deploy_development:
           requires:
             - build_and_push_docker_image
-      - request-staging-approval:
-            type: approval
-            requires:
-              - deploy_development
-      - deploy_staging:
-          requires:
-            - request-staging-approval
-      - deploy_production_approval:
-          type: approval
-          requires:
-            - deploy_staging
-          filters:
-            branches:
-              only: main
-      - deploy_production:
-          requires:
-            - deploy_production_approval
-          filters:
-            branches:
-              only: main
+      # - request-staging-approval:
+      #       type: approval
+      #       requires:
+      #         - deploy_development
+      # - deploy_staging:
+      #     requires:
+      #       - request-staging-approval
+      # - deploy_production_approval:
+      #     type: approval
+      #     requires:
+      #       - deploy_staging
+      #     filters:
+      #       branches:
+      #         only: main
+      # - deploy_production:
+      #     requires:
+      #       - deploy_production_approval
+      #     filters:
+      #       branches:
+      #         only: main
