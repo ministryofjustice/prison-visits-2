@@ -167,7 +167,7 @@ jobs:
           at: ~/prison-visits-staff
       - setup_remote_docker:
           docker_layer_caching: true
-      # - *install_aws_cli
+      - *install_aws_cli
       - *build_docker_image
       # Authenticate to AWS using OIDC v2 with the AWS CLI
       - aws-cli/setup:
