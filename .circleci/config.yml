@@ -158,7 +158,7 @@ jobs:
           path: ~/test-results
 
   build_and_push_docker_image:
-    executor: aws-ecr/default # use the aws-ecr/default executor to start the docker daemon
+    # executor: aws-ecr/default # use the aws-ecr/default executor to start the docker daemon
     <<: *defaults
     <<: *test_container_config
     steps:
