@@ -188,7 +188,7 @@ jobs:
       - run:
           name: Tag image
           command: |
-            docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${DOCKER_TAG}"
+            docker tag app "${ECR_REPOSITORY}:${DOCKER_TAG}"
       - aws-ecr/push-image:
           tag: $DOCKER_TAG
           region: $ECR_REGION # this will use the env var
