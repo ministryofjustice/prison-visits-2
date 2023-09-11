@@ -12,7 +12,8 @@ references:
 
   test_container_config: &test_container_config
     docker:
-      - image: cimg/ruby:2.6.10-browsers
+      # - image: cimg/ruby:2.6.10-browsers
+      - image: circleci/ruby:2.6.7-node-browsers
         environment:
           PGHOST: 127.0.0.1
           PGUSER: ubuntu
@@ -62,19 +63,19 @@ references:
   #       sudo apt-get --assume-yes install python3-pip
   #       sudo pip3 install awscli
 
-  # build_docker_image: &build_docker_image
-  #   run:
-  #     name: Build docker image
-  #     command: |
-  #       export BUILD_DATE=$(date -Is) >> $BASH_ENV
-  #       source $BASH_ENV
-  #       docker build \
-  #         --build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} \
-  #         --build-arg COMMIT_ID=${CIRCLE_SHA1} \
-  #         --build-arg BUILD_DATE=${BUILD_DATE} \
-  #         --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
-  #         -f Dockerfile.kubernetes \
-  #         -t app .
+  build_docker_image: &build_docker_image
+    run:
+      name: Build docker image
+      command: |
+        export BUILD_DATE=$(date -Is) >> $BASH_ENV
+        source $BASH_ENV
+        docker build \
+          --build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} \
+          --build-arg COMMIT_ID=${CIRCLE_SHA1} \
+          --build-arg BUILD_DATE=${BUILD_DATE} \
+          --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
+          -f Dockerfile.kubernetes \
+          -t app .
 
   # push_docker_image: &push_docker_image
   #   run:
@@ -168,7 +169,7 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       # - *install_aws_cli
-      # - *build_docker_image
+      - *build_docker_image
       # Authenticate to AWS using OIDC v2 with the AWS CLI
       - aws-cli/setup:
           role_arn: $ECR_ROLE_TO_ASSUME # this will use the env var
@@ -185,13 +186,17 @@ jobs:
               echo 'export DOCKER_TAG=latest' >> $BASH_ENV
             fi
             source $BASH_ENV
-      - aws-ecr/build-image:
-          push-image: true
+      - aws-ecr/push-image:
           tag: $DOCKER_TAG
           region: $ECR_REGION # this will use the env var
           repo: $ECR_REPOSITORY # this will use the env var
-          # dockerfile: "Dockerfile.kubernetes"
-          extra-build-args: "--build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} --build-arg COMMIT_ID=${CIRCLE_SHA1} --build-arg BUILD_DATE=${BUILD_DATE} --build-arg BUILD_TAG=${CIRCLE_BRANCH}"
+      # - aws-ecr/build-image:
+      #     push-image: true
+      #     tag: $DOCKER_TAG
+      #     region: $ECR_REGION # this will use the env var
+      #     repo: $ECR_REPOSITORY # this will use the env var
+      #     # dockerfile: "Dockerfile.kubernetes"
+      #     extra-build-args: "--build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} --build-arg COMMIT_ID=${CIRCLE_SHA1} --build-arg BUILD_DATE=${BUILD_DATE} --build-arg BUILD_TAG=${CIRCLE_BRANCH}"
 
   deploy_development:
     <<: *deploy_container_config
