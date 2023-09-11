@@ -180,13 +180,18 @@ jobs:
       - run:
           name: Push docker image
           command: |
-            echo 'export $CIRCLE_SHA1 >> "$DOCKER_TAG"
-            if [ "${CIRCLE_BRANCH}" == "main" ]; then
-              echo 'export "latest" >> "$DOCKER_TAG"
+            # echo 'export $CIRCLE_SHA1 >> "$DOCKER_TAG"
+            # if [ "${CIRCLE_BRANCH}" == "main" ]; then
+            #   echo 'export "latest" >> "$DOCKER_TAG"
+            # fi
+            # source "$DOCKER_TAG"
+            DOCKER_TAG="${CIRCLE_SHA1}"
+            if [ "${CIRCLE_BRANCH}" = "main" ]; then
+              DOCKER_TAG="latest"
             fi
-            source "$DOCKER_TAG"
       # Build and push your Docker image
       - aws-ecr/build-image:
+          name: Push docker image
           push-image: true
           tag: ${DOCKER_TAG}
           region: $ECR_REGION # this will use the env var
