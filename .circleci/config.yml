@@ -26,33 +26,6 @@ references:
           POSTGRES_DB: pvb2_test
       - image: redis
 
-  # install_gpg: &install_gpg
-  #   run:
-  #     name: Install GPG
-  #     command: |
-  #       apk add \
-  #         --no-cache \
-  #         --no-progress \
-  #         gnupg
-
-  # configure_gpg: &configure_gpg
-  #   run:
-  #     name: Configure GPG
-  #     command: |
-  #       echo "${GPG_PRIVATE_KEY}" | base64 -d | gpg --batch --allow-secret-key-import --import
-
-  # decrypt_secrets: &decrypt_secrets
-  #   run:
-  #     name: Decrypt secrets file
-  #     command: |
-  #       gpg --export-ownertrust > /tmp/ownertrust.txt
-  #       echo $GPG_KEY_ID:1 >> /tmp/ownertrust.txt
-  #       gpg --import-ownertrust /tmp/ownertrust.txt
-  #       gpgconf --kill gpg-agent
-  #       gpg-agent --daemon --allow-preset-passphrase
-  #       /usr/libexec/gpg-preset-passphrase --preset --passphrase $GPG_PASSPHRASE $GPG_KEY_KEYGRIP_ID
-  #       git-crypt unlock
-
   build_docker_image: &build_docker_image
     run:
       name: Build docker image
@@ -203,9 +176,6 @@ jobs:
             kubectl config set-credentials circleci --token=${KUBE_ENV_STAGING_TOKEN_LIVE}
             kubectl config set-context ${CLUSTER_NAME_LIVE} --cluster=${CLUSTER_NAME_LIVE} --user=circleci --namespace=${KUBE_ENV_STAGING_NAMESPACE}
             kubectl config use-context ${CLUSTER_NAME_LIVE}
-      # - *install_gpg
-      # - *configure_gpg
-      # - *decrypt_secrets
       - deploy:
           name: Deploy to staging
           command: |
@@ -231,9 +201,6 @@ jobs:
             kubectl config set-credentials circleci --token=${KUBE_ENV_PRODUCTION_TOKEN_LIVE}
             kubectl config set-context ${CLUSTER_NAME_LIVE} --cluster=${CLUSTER_NAME_LIVE} --user=circleci --namespace=${KUBE_ENV_PRODUCTION_NAMESPACE}
             kubectl config use-context ${CLUSTER_NAME_LIVE}
-      # - *install_gpg
-      # - *configure_gpg
-      # - *decrypt_secrets
       - deploy:
           name: Deploy to production
           command: |
@@ -263,16 +230,16 @@ workflows:
       - deploy_staging:
           requires:
             - request-staging-approval
-      # - deploy_production_approval:
-      #     type: approval
-      #     requires:
-      #       - deploy_staging
-      #     filters:
-      #       branches:
-      #         only: main
-      # - deploy_production:
-      #     requires:
-      #       - deploy_production_approval
-      #     filters:
-      #       branches:
-      #         only: main
+      - deploy_production_approval:
+          type: approval
+          requires:
+            - deploy_staging
+          filters:
+            branches:
+              only: main
+      - deploy_production:
+          requires:
+            - deploy_production_approval
+          filters:
+            branches:
+              only: main
