@@ -197,7 +197,7 @@ jobs:
           region: $ECR_REGION # this will use the env var
           repo: $ECR_REPOSITORY # this will use the env var
           dockerfile: "Dockerfile.kubernetes"
-          extra_build_args: "VERSION_NUMBER=${CIRCLE_BUILD_NUM},COMMIT_ID=${CIRCLE_SHA1},BUILD_DATE=${BUILD_DATE},BUILD_TAG=${CIRCLE_BRANCH}""
+          extra_build_args: "VERSION_NUMBER=${CIRCLE_BUILD_NUM},COMMIT_ID=${CIRCLE_SHA1},BUILD_DATE=${BUILD_DATE},BUILD_TAG=${CIRCLE_BRANCH}"
 
   deploy_development:
     <<: *deploy_container_config
