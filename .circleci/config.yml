@@ -12,7 +12,7 @@ references:
 
   test_container_config: &test_container_config
     docker:
-      - image: circleci/ruby:2.6.7-node-browsers
+      - image: cimg/ruby:2.6.10-browsers
         environment:
           PGHOST: 127.0.0.1
           PGUSER: ubuntu
@@ -35,62 +35,62 @@ references:
           --no-progress \
           gnupg
 
-  configure_gpg: &configure_gpg
-    run:
-      name: Configure GPG
-      command: |
-        echo "${GPG_PRIVATE_KEY}" | base64 -d | gpg --batch --allow-secret-key-import --import
+  # configure_gpg: &configure_gpg
+  #   run:
+  #     name: Configure GPG
+  #     command: |
+  #       echo "${GPG_PRIVATE_KEY}" | base64 -d | gpg --batch --allow-secret-key-import --import
 
-  decrypt_secrets: &decrypt_secrets
-    run:
-      name: Decrypt secrets file
-      command: |
-        gpg --export-ownertrust > /tmp/ownertrust.txt
-        echo $GPG_KEY_ID:1 >> /tmp/ownertrust.txt
-        gpg --import-ownertrust /tmp/ownertrust.txt
-        gpgconf --kill gpg-agent
-        gpg-agent --daemon --allow-preset-passphrase
-        /usr/libexec/gpg-preset-passphrase --preset --passphrase $GPG_PASSPHRASE $GPG_KEY_KEYGRIP_ID
-        git-crypt unlock
+  # decrypt_secrets: &decrypt_secrets
+  #   run:
+  #     name: Decrypt secrets file
+  #     command: |
+  #       gpg --export-ownertrust > /tmp/ownertrust.txt
+  #       echo $GPG_KEY_ID:1 >> /tmp/ownertrust.txt
+  #       gpg --import-ownertrust /tmp/ownertrust.txt
+  #       gpgconf --kill gpg-agent
+  #       gpg-agent --daemon --allow-preset-passphrase
+  #       /usr/libexec/gpg-preset-passphrase --preset --passphrase $GPG_PASSPHRASE $GPG_KEY_KEYGRIP_ID
+  #       git-crypt unlock
 
 
-  install_aws_cli: &install_aws_cli
-    run:
-      name: Set up aws
-      command: |
-        sudo apt-get update
-        sudo apt-get --assume-yes install python3-pip
-        sudo pip3 install awscli
+  # install_aws_cli: &install_aws_cli
+  #   run:
+  #     name: Set up aws
+  #     command: |
+  #       sudo apt-get update
+  #       sudo apt-get --assume-yes install python3-pip
+  #       sudo pip3 install awscli
 
-  build_docker_image: &build_docker_image
-    run:
-      name: Build docker image
-      command: |
-        export BUILD_DATE=$(date -Is) >> $BASH_ENV
-        source $BASH_ENV
-        docker build \
-          --build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} \
-          --build-arg COMMIT_ID=${CIRCLE_SHA1} \
-          --build-arg BUILD_DATE=${BUILD_DATE} \
-          --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
-          -f Dockerfile.kubernetes \
-          -t app .
+  # build_docker_image: &build_docker_image
+  #   run:
+  #     name: Build docker image
+  #     command: |
+  #       export BUILD_DATE=$(date -Is) >> $BASH_ENV
+  #       source $BASH_ENV
+  #       docker build \
+  #         --build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} \
+  #         --build-arg COMMIT_ID=${CIRCLE_SHA1} \
+  #         --build-arg BUILD_DATE=${BUILD_DATE} \
+  #         --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
+  #         -f Dockerfile.kubernetes \
+  #         -t app .
 
-  push_docker_image: &push_docker_image
-    run:
-      name: Push docker image
-      command: |
-        login="$(aws ecr get-login --region eu-west-2 --no-include-email)"
-        ${login}
-        docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
-        docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
-        if [ "${CIRCLE_BRANCH}" == "main" ]; then
-          docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
-          docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
-        fi
-      environment:
-        <<: *github_team_name_slug
-        REPONAME: prison-visits-staff
+  # push_docker_image: &push_docker_image
+  #   run:
+  #     name: Push docker image
+  #     command: |
+  #       login="$(aws ecr get-login --region eu-west-2 --no-include-email)"
+  #       ${login}
+  #       docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
+  #       docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
+  #       if [ "${CIRCLE_BRANCH}" == "main" ]; then
+  #         docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
+  #         docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
+  #       fi
+  #     environment:
+  #       <<: *github_team_name_slug
+  #       REPONAME: prison-visits-staff
 
 version: 2.1
 
@@ -176,21 +176,15 @@ jobs:
       # Authenticate to the ECR repository using the standard command
       - run: |
           aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
-
       - run:
           name: Push docker image
           command: |
-            export BUILD_DATE=$(date -Is) >> $BASH_ENV
+            echo 'export BUILD_DATE=$(date -Is)' >> $BASH_ENV
             echo 'export DOCKER_TAG=$CIRCLE_SHA1' >> $BASH_ENV
             if [ "${CIRCLE_BRANCH}" == "main" ]; then
               echo 'export DOCKER_TAG=latest' >> $BASH_ENV
             fi
             source $BASH_ENV
-      # Build and push your Docker image
-      # - aws-ecr/push-image:
-      #     # tag: $DOCKER_TAG
-      #     region: $ECR_REGION # this will use the env var
-      #     repo: $ECR_REPOSITORY # this will use the env var
       - aws-ecr/build-image:
           push-image: true
           tag: $DOCKER_TAG
@@ -238,9 +232,9 @@ jobs:
             kubectl config set-credentials circleci --token=${KUBE_ENV_STAGING_TOKEN_LIVE}
             kubectl config set-context ${CLUSTER_NAME_LIVE} --cluster=${CLUSTER_NAME_LIVE} --user=circleci --namespace=${KUBE_ENV_STAGING_NAMESPACE}
             kubectl config use-context ${CLUSTER_NAME_LIVE}
-      - *install_gpg
-      - *configure_gpg
-      - *decrypt_secrets
+      # - *install_gpg
+      # - *configure_gpg
+      # - *decrypt_secrets
       - deploy:
           name: Deploy to staging
           command: |
@@ -266,9 +260,9 @@ jobs:
             kubectl config set-credentials circleci --token=${KUBE_ENV_PRODUCTION_TOKEN_LIVE}
             kubectl config set-context ${CLUSTER_NAME_LIVE} --cluster=${CLUSTER_NAME_LIVE} --user=circleci --namespace=${KUBE_ENV_PRODUCTION_NAMESPACE}
             kubectl config use-context ${CLUSTER_NAME_LIVE}
-      - *install_gpg
-      - *configure_gpg
-      - *decrypt_secrets
+      # - *install_gpg
+      # - *configure_gpg
+      # - *decrypt_secrets
       - deploy:
           name: Deploy to production
           command: |
