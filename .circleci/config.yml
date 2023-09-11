@@ -278,20 +278,20 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      # - test
-      - build_and_push_docker_image
-          # requires:
-          #   - test
+      - test
+      - build_and_push_docker_image:
+          requires:
+            - test
       - deploy_development:
           requires:
             - build_and_push_docker_image
-      # - request-staging-approval:
-      #       type: approval
-      #       requires:
-      #         - deploy_development
-      # - deploy_staging:
-      #     requires:
-      #       - request-staging-approval
+      - request-staging-approval:
+            type: approval
+            requires:
+              - deploy_development
+      - deploy_staging:
+          requires:
+            - request-staging-approval
       # - deploy_production_approval:
       #     type: approval
       #     requires:
