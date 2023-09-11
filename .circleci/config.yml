@@ -168,7 +168,7 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       # - *install_aws_cli
-      - *build_docker_image
+      # - *build_docker_image
       # Authenticate to AWS using OIDC v2 with the AWS CLI
       - aws-cli/setup:
           role_arn: $ECR_ROLE_TO_ASSUME # this will use the env var
@@ -180,16 +180,24 @@ jobs:
       - run:
           name: Push docker image
           command: |
-            echo 'export DOCKER_TAG=$CIRCLE_SHA1' >> "$BASH_ENV"
+            export BUILD_DATE=$(date -Is) >> $BASH_ENV
+            echo 'export DOCKER_TAG=$CIRCLE_SHA1' >> $BASH_ENV
             if [ "${CIRCLE_BRANCH}" == "main" ]; then
-              echo 'export DOCKER_TAG=latest' >> "$BASH_ENV"
+              echo 'export DOCKER_TAG=latest' >> $BASH_ENV
             fi
-            source "$BASH_ENV"
+            source $BASH_ENV
       # Build and push your Docker image
-      - aws-ecr/push-image:
-          # tag: $DOCKER_TAG
+      # - aws-ecr/push-image:
+      #     # tag: $DOCKER_TAG
+      #     region: $ECR_REGION # this will use the env var
+      #     repo: $ECR_REPOSITORY # this will use the env var
+      - aws-ecr/build-image:
+          push_image: true
+          tag: $DOCKER_TAG
           region: $ECR_REGION # this will use the env var
           repo: $ECR_REPOSITORY # this will use the env var
+          dockerfile: "Dockerfile.kubernetes"
+          extra_build_args: "VERSION_NUMBER=${CIRCLE_BUILD_NUM},COMMIT_ID=${CIRCLE_SHA1},BUILD_DATE=${BUILD_DATE},BUILD_TAG=${CIRCLE_BRANCH}""
 
   deploy_development:
     <<: *deploy_container_config
