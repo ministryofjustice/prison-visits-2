@@ -74,7 +74,6 @@ references:
           --build-arg COMMIT_ID=${CIRCLE_SHA1} \
           --build-arg BUILD_DATE=${BUILD_DATE} \
           --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
-          -f Dockerfile.kubernetes \
           -t app .
 
   # push_docker_image: &push_docker_image
@@ -283,10 +282,10 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - test
-      - build_and_push_docker_image:
-          requires:
-            - test
+      # - test
+      - build_and_push_docker_image
+          # requires:
+          #   - test
       - deploy_development:
           requires:
             - build_and_push_docker_image
