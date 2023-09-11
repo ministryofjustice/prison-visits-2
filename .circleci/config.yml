@@ -74,7 +74,7 @@ references:
           --build-arg COMMIT_ID=${CIRCLE_SHA1} \
           --build-arg BUILD_DATE=${BUILD_DATE} \
           --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
-          -t app .
+          -t ${CIRCLE_SHA1} .
 
   # push_docker_image: &push_docker_image
   #   run:
