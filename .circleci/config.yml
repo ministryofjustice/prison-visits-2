@@ -10,9 +10,8 @@ references:
     docker:
       - image: ministryofjustice/cloud-platform-tools
 
-  test_container_config: &test_container_config
+  docker_container_config: &docker_container_config
     docker:
-      # - image: cimg/ruby:2.6.10-browsers
       - image: circleci/ruby:2.6.7-node-browsers
         environment:
           PGHOST: 127.0.0.1
@@ -27,14 +26,14 @@ references:
           POSTGRES_DB: pvb2_test
       - image: redis
 
-  install_gpg: &install_gpg
-    run:
-      name: Install GPG
-      command: |
-        apk add \
-          --no-cache \
-          --no-progress \
-          gnupg
+  # install_gpg: &install_gpg
+  #   run:
+  #     name: Install GPG
+  #     command: |
+  #       apk add \
+  #         --no-cache \
+  #         --no-progress \
+  #         gnupg
 
   # configure_gpg: &configure_gpg
   #   run:
@@ -54,15 +53,6 @@ references:
   #       /usr/libexec/gpg-preset-passphrase --preset --passphrase $GPG_PASSPHRASE $GPG_KEY_KEYGRIP_ID
   #       git-crypt unlock
 
-
-  # install_aws_cli: &install_aws_cli
-  #   run:
-  #     name: Set up aws
-  #     command: |
-  #       sudo apt-get update
-  #       sudo apt-get --assume-yes install python3-pip
-  #       sudo pip3 install awscli
-
   build_docker_image: &build_docker_image
     run:
       name: Build docker image
@@ -76,32 +66,16 @@ references:
           --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
           -t app .
 
-  # push_docker_image: &push_docker_image
-  #   run:
-  #     name: Push docker image
-  #     command: |
-  #       login="$(aws ecr get-login --region eu-west-2 --no-include-email)"
-  #       ${login}
-  #       docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
-  #       docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:${CIRCLE_SHA1}"
-  #       if [ "${CIRCLE_BRANCH}" == "main" ]; then
-  #         docker tag app "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
-  #         docker push "${ECR_ENDPOINT}/${GITHUB_TEAM_NAME_SLUG}/${REPONAME}:latest"
-  #       fi
-  #     environment:
-  #       <<: *github_team_name_slug
-  #       REPONAME: prison-visits-staff
-
 version: 2.1
 
 orbs:
-  aws-cli: circleci/aws-cli@4.0.0 # use v4 of this orb
+  aws-cli: circleci/aws-cli@4.0.0
   aws-ecr: circleci/aws-ecr@8.2.1 # this orb doesn't support OIDC v2, so we use aws-cli to authenticate
 
 jobs:
   test:
     <<: *defaults
-    <<: *test_container_config
+    <<: *docker_container_config
     steps:
       - checkout
       - attach_workspace:
@@ -158,22 +132,18 @@ jobs:
           path: ~/test-results
 
   build_and_push_docker_image:
-    # executor: aws-ecr/default # use the aws-ecr/default executor to start the docker daemon
     <<: *defaults
-    <<: *test_container_config
+    <<: *docker_container_config
     steps:
       - checkout
       - attach_workspace:
           at: ~/prison-visits-staff
       - setup_remote_docker:
           docker_layer_caching: true
-      # - *install_aws_cli
       - *build_docker_image
-      # Authenticate to AWS using OIDC v2 with the AWS CLI
       - aws-cli/setup:
-          role_arn: $ECR_ROLE_TO_ASSUME # this will use the env var
-          region: $ECR_REGION # this will use the env var
-      # Authenticate to the ECR repository using the standard command
+          role_arn: $ECR_ROLE_TO_ASSUME
+          region: $ECR_REGION
       - run: |
           aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
       - run:
@@ -191,15 +161,8 @@ jobs:
             docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:${DOCKER_TAG}"
       - aws-ecr/push-image:
           tag: $DOCKER_TAG
-          region: $ECR_REGION # this will use the env var
-          repo: $ECR_REPOSITORY # this will use the env var
-      # - aws-ecr/build-image:
-      #     push-image: true
-      #     tag: $DOCKER_TAG
-      #     region: $ECR_REGION # this will use the env var
-      #     repo: $ECR_REPOSITORY # this will use the env var
-      #     # dockerfile: "Dockerfile.kubernetes"
-      #     extra-build-args: "--build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} --build-arg COMMIT_ID=${CIRCLE_SHA1} --build-arg BUILD_DATE=${BUILD_DATE} --build-arg BUILD_TAG=${CIRCLE_BRANCH}"
+          region: $ECR_REGION
+          repo: $ECR_REPOSITORY
 
   deploy_development:
     <<: *deploy_container_config
@@ -286,10 +249,10 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      # - test
-      - build_and_push_docker_image
-          # requires:
-          #   - test
+      - test
+      - build_and_push_docker_image:
+          requires:
+            - test
       - deploy_development:
           requires:
             - build_and_push_docker_image
