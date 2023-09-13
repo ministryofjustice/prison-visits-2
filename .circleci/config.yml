@@ -122,19 +122,13 @@ jobs:
       - run:
           name: Setup, tag and push docker image
           command: |
-            echo 'export BUILD_DATE=$(date -Is)' >> $BASH_ENV
             echo 'export DOCKER_TAGS=$CIRCLE_SHA1' >> $BASH_ENV
-            if [ "${CIRCLE_BRANCH}" == "main" ]; then
-              echo 'export DOCKER_TAGS=${DOCKER_TAGS},latest' >> $BASH_ENV
-            fi
-            source $BASH_ENV
-      - run:
-          name: Tag image
-          command: |
             docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:${CIRCLE_SHA1}"
             if [ "${CIRCLE_BRANCH}" == "main" ]; then
-              docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:latest
+              echo 'export DOCKER_TAGS=${DOCKER_TAGS},latest' >> $BASH_ENV
+              docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:latest"
             fi
+            source $BASH_ENV
       - aws-ecr/push-image:
           tag: $DOCKER_TAGS
           region: $ECR_REGION
