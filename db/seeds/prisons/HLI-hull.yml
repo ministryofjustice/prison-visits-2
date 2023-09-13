@@ -5,21 +5,21 @@ address: |-
   Hedon Road
   Hull
 postcode: HU9 5LS
-email_address: socialvisits.hull@hmps.gsi.gov.uk
+email_address: Unavailable
 phone_no: 01482 282016
-enabled: false
+enabled: enable
 private: false
 closed: false
 recurring:
   mon:
-  - 0915-1115
-  - 1415-1615
+  - 0900-1100
+  - 1400-1600
   tue:
-  - 1745-1900
+  - 1745-1845
   thu:
-  - 1745-1900
+  - 1745-1845
   fri:
-  - 0930-1130
+  - 0900-1100
   - 1400-1600
   sat:
   - 0900-1100
