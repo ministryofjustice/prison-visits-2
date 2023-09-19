@@ -68,7 +68,7 @@ RSpec.describe StaffNomisChecker do
 
     context 'when the api is enabled' do
       let(:slot_date) { Time.zone.today + 10.days }
-      let(:api) { 'https://api-dev.prison.service.justice.gov.uk/api/v1' }
+      let(:api) { 'https://prison-api-dev.prison.service.justice.gov.uk/api/v1' }
 
       before do
         stub_auth_token

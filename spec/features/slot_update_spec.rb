@@ -6,7 +6,7 @@ RSpec.feature 'Update slots for a prison', js: true do
   before do
     prison_login [prisons.first.estate, prisons.second.estate]
     stub_auth_token
-    stub_request(:get, "https://api-dev.prison.service.justice.gov.uk/api/staff/485926/emails").
+    stub_request(:get, "https://prison-api-dev.prison.service.justice.gov.uk/api/staff/485926/emails").
         to_return(body: ['joe@example.com'].to_json)
   end
 

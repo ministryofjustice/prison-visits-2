@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/G999999/location
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/offenders/G999999/location
     body:
       encoding: US-ASCII
       string: ''
@@ -49,7 +49,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 10:04:43 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/G999999/location
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/offenders/G999999/location
     body:
       encoding: US-ASCII
       string: ''

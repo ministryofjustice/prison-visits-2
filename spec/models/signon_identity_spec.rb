@@ -23,7 +23,7 @@ RSpec.describe SignonIdentity, type: :model do
 
     before do
       stub_auth_token
-      stub_request(:get, "https://api-dev.prison.service.justice.gov.uk/api/staff/485926/emails").
+      stub_request(:get, "https://prison-api-dev.prison.service.justice.gov.uk/api/staff/485926/emails").
         to_return(body: [email].to_json)
     end
 

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/lookup/active_offender?date_of_birth=1964-05-03&noms_id=G4315UW
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/lookup/active_offender?date_of_birth=1964-05-03&noms_id=G4315UW
     body:
       encoding: US-ASCII
       string: ''
@@ -48,7 +48,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 12:18:35 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/2190892/visits/unavailability?dates=2020-10-20
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/offenders/2190892/visits/unavailability?dates=2020-10-20
     body:
       encoding: US-ASCII
       string: ''
@@ -94,7 +94,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 12:18:36 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/G4315UW/location
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/offenders/G4315UW/location
     body:
       encoding: US-ASCII
       string: ''
@@ -141,7 +141,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 12:18:36 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/G4315UW
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/offenders/G4315UW
     body:
       encoding: US-ASCII
       string: ''
@@ -190,7 +190,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 12:18:36 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/2190892/visits/contact_list
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/offenders/2190892/visits/contact_list
     body:
       encoding: US-ASCII
       string: ''
@@ -237,7 +237,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 12:18:36 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/lookup/active_offender?date_of_birth=1964-05-03&noms_id=G4315UW
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/lookup/active_offender?date_of_birth=1964-05-03&noms_id=G4315UW
     body:
       encoding: US-ASCII
       string: ''
@@ -283,7 +283,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 12:18:39 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/2190892/visits/unavailability?dates=2020-10-20
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/offenders/2190892/visits/unavailability?dates=2020-10-20
     body:
       encoding: US-ASCII
       string: ''
@@ -329,7 +329,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 12:18:39 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/G4315UW/location
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/offenders/G4315UW/location
     body:
       encoding: US-ASCII
       string: ''
@@ -376,7 +376,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 12:18:39 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/G4315UW
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/offenders/G4315UW
     body:
       encoding: US-ASCII
       string: ''
@@ -425,7 +425,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 12:18:39 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/2190892/visits/contact_list
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/offenders/2190892/visits/contact_list
     body:
       encoding: US-ASCII
       string: ''
@@ -562,7 +562,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 13:19:00 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/staff/485926/emails
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/staff/485926/emails
     body:
       encoding: US-ASCII
       string: ''

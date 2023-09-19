@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/RUBBISH
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/offenders/RUBBISH
     body:
       encoding: US-ASCII
       string: ''
@@ -54,7 +54,7 @@ http_interactions:
   recorded_at: Tue, 08 Sep 2020 10:04:40 GMT
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/offenders/RUBBISH
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/offenders/RUBBISH
     body:
       encoding: US-ASCII
       string: ''

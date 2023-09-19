@@ -10,7 +10,7 @@ RSpec.feature 'Sidekiq Admin Console' do
     before do
       prison_login [Struct.new(:nomis_id).new('WED'), prison.estate], email_address, [SignonIdentity::ADMIN_ROLE]
       stub_auth_token
-      stub_request(:get, "https://api-dev.prison.service.justice.gov.uk/api/staff/485926/emails").
+      stub_request(:get, "https://prison-api-dev.prison.service.justice.gov.uk/api/staff/485926/emails").
           to_return(body: [email_address].to_json)
       visit prison_inbox_path
     end

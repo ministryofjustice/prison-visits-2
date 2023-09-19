@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api-dev.prison.service.justice.gov.uk/api/v1/prison/VEI/slots?end_date=2020-10-24&start_date=2020-10-14
+    uri: https://prison-api-dev.prison.service.justice.gov.uk/api/v1/prison/VEI/slots?end_date=2020-10-24&start_date=2020-10-14
     body:
       encoding: US-ASCII
       string: ''
