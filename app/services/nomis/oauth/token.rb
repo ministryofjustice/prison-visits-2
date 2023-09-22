@@ -45,7 +45,6 @@ module Nomis
         Sentry.capture_exception(e)
         false
       end
-      
 
       def self.from_json(payload)
         Token.new(payload)
