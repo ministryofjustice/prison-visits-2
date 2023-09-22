@@ -13,7 +13,7 @@ class JwksKey
     def jwks_key_data
       return @jwks_key_data if @jwks_key_data.present?
 
-      @jwks_key_data = HmppsApi::Oauth::Api.fetch_jwks_keys.fetch('keys').fetch(0)
+      @jwks_key_data = Nomis::Oauth::Api.fetch_jwks_keys.fetch('keys').fetch(0)
     end
 
     def clear_jwks_key_data_cache!
