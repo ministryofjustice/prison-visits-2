@@ -57,6 +57,22 @@ module Api
         render_error 406, 'Only JSON supported'
       end
     end
+
+    def verify_token
+      access_token = parse_access_token(request.headers['AUTHORIZATION'])
+
+      token = Nomis::Oauth::Token.new(access_token: access_token)
+      unless token.valid_token_with_scope?('read', role: API_ROLE)
+        render_error('Valid authorisation token required')
+      end
+    end
+
+    def parse_access_token(auth_header)
+      return nil if auth_header.nil?
+      return nil unless auth_header.starts_with?('Bearer')
+
+      auth_header.split.last
+    end
   end
 end
 # rubocop:enable Rails/ApplicationController
