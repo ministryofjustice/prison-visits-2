@@ -8,6 +8,10 @@ module Nomis
         @connection = Faraday.new
       end
 
+      def get(route)
+        request(:get, route)
+      end
+      
       def post(route)
         response = @connection.send(:post) { |req|
           url = URI.join(@host, route).to_s

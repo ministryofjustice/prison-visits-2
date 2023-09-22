@@ -53,13 +53,9 @@ module OmniAuth
       end
 
       def decode_roles
-        public_key = Base64.urlsafe_decode64(
-          Rails.configuration.nomis_oauth_public_key
-        )
-
         decoded_token = JWT.decode(
           access_token.token,
-          OpenSSL::PKey::RSA.new(public_key),
+          JwksKey.openssl_public_key,
           true,
           algorithm: 'RS256'
         )

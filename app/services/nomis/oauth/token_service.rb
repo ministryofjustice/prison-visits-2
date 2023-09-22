@@ -6,7 +6,7 @@ module Nomis
       include Singleton
 
       class << self
-        delegate :valid_token, to: :instance
+        delegate :valid_token, :fetch_jwks_keys, to: :instance
       end
 
       def valid_token
@@ -31,6 +31,11 @@ module Nomis
         route = '/auth/oauth/token?grant_type=client_credentials'
         response = oauth_client.post(route)
         Token.from_json(response)
+      end
+
+      def fetch_jwks_keys
+        route = '/auth/.well-known/jwks.json'
+        @oauth_client.get(route)
       end
     end
   end
