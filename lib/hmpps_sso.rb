@@ -53,7 +53,7 @@ module OmniAuth
       end
 
       def decode_roles
-        @decodeRoles ||= JWT.decode(
+        @decode_roles ||= JWT.decode(
           access_token.token,
           JwksKey.openssl_public_key,
           true,
