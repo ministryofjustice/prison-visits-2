@@ -53,16 +53,16 @@ module OmniAuth
       end
 
       def decode_roles
-        decoded_token = JWT.decode(
+        @decodeRoles ||= JWT.decode(
           access_token.token,
           JwksKey.openssl_public_key,
           true,
           algorithm: 'RS256'
-        )
+        ).first
 
         # decoded_token is a pair of hashes. Most of the useful data is in the first hash
         # the second just contains {"alg"=>"RS256", "typ"=>"JWT", "kid"=>"dev-jwk-kid"}
-        decoded_token.first.fetch('authorities', [])
+        # decoded_token.first.fetch('authorities', [])
       end
 
       def user_details
