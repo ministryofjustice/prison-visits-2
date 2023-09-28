@@ -1,3 +1,0 @@
-deploy/*secrets.yaml filter=git-crypt diff=git-crypt
-deploy/staging/*secrets.yaml filter=git-crypt diff=git-crypt
-deploy/production/*secrets.yaml filter=git-crypt diff=git-crypt
