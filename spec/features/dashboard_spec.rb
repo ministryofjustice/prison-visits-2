@@ -38,6 +38,11 @@ RSpec.feature 'Using the dashboard' do
 
   context 'when searching for a visit' do
     before do
+      # Instantiate a Nomis::Api instance before stubbing Nomis::Api.enabled?
+      # otherwise an exception will be raised
+
+      Nomis::Api.instance
+
       allow(Nomis::Api).to receive(:enabled?).and_return(false)
     end
 
