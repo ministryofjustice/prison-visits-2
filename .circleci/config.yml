@@ -66,16 +66,6 @@ jobs:
           paths:
             - vendor/bundle
       - run:
-          name: install firefox
-          command: |
-            if [[ $(command -v firefox) ]] && [[ $(firefox --version) == "Mozilla Firefox $FIREFOX_VERSION" ]]; then
-              echo "Skiping, Firefox $FIREFOX_VERSION already install."
-            else
-              wget -L "https://ftp.mozilla.org/pub/firefox/releases/$FIREFOX_VERSION/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.tar.bz2" -O "firefox-$FIREFOX_VERSION.tar.bz2"
-              sudo tar xjf "firefox-$FIREFOX_VERSION.tar.bz2" -C /opt
-            fi
-            [[ -L /usr/local/bin/firefox ]] || sudo ln -sf /opt/firefox/firefox /usr/bin/firefox
-      - run:
           name: Setup Code Climate test-reporter
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
