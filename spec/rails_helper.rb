@@ -6,22 +6,27 @@ require 'spec_helper'
 require 'rspec/rails'
 
 require 'capybara/rspec'
+require 'capybara-screenshot/rspec'
 require 'ffaker'
 require 'webmock/rspec'
 require 'support/helpers/controller_helper'
 
+Dir[Rails.root.join('spec/support/features/*')].sort.each { |f| require f }
+
 WebMock.disable_net_connect!(allow: 'codeclimate.com', allow_localhost: true)
 
-Capybara.javascript_driver = :selenium
 Capybara.default_max_wait_time = 4
 Capybara.asset_host = 'http://localhost:3000'
+Capybara.server = :puma, { Silent: true }
+Capybara.default_normalize_ws = true
+Capybara.save_path = ENV.fetch("CAPYBARA_ARTIFACTS", "./tmp/capybara")
 
 ActiveRecord::Migration.maintain_test_schema!
 
 OmniAuth.config.test_mode = true
 
 RSpec.configure do |config|
-  config.use_transactional_fixtures = false
+  config.use_transactional_fixtures = true
   config.include FactoryBot::Syntax::Methods
   config.include ActiveSupport::Testing::TimeHelpers
   config.include StaffResponseHelper
@@ -31,12 +36,9 @@ RSpec.configure do |config|
   config.include ServiceHelpers
   config.include JWTHelper
   config.include AuthHelper
+  config.include FeaturesHelper
 
   config.infer_spec_type_from_file_location!
-
-  config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation, except: %w(public.ar_internal_metadata))
-  end
 
   config.around(:each, :vcr) do |example|
     WebMock.enable_net_connect!
@@ -47,24 +49,11 @@ RSpec.configure do |config|
   config.before(:each) do
     I18n.locale = I18n.default_locale
     RequestStore.clear!
-    DatabaseCleaner.strategy = :transaction
-  end
-
-  config.before(:each, js: true) do
-    DatabaseCleaner.strategy = :truncation
   end
 
   config.before(:each, :expect_exception) do
     Rails.configuration.sentry_dsn = 'https://test.com'
     allow(Sentry).to receive(:capture_exception)
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
-
-  config.after(:each) do
-    DatabaseCleaner.clean
   end
 
   config.after(:each, :expect_exception) do
