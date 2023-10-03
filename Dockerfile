@@ -1,4 +1,4 @@
-FROM ruby:2.6.7-stretch
+FROM ruby:2.7.5-buster
 
 RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list
 
