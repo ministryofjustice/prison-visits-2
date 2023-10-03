@@ -34,9 +34,6 @@ The source of the predecessor can be found at
 - [Sidekiq](https://sidekiq.org/) - for background processing.
 - [Redis](https://redis.io/) - for managing queues (required by Sidekiq)
 - [Postgres](https://www.postgresql.org/) - for persisting data
-- [Firefox browser v57.0.4](https://download-installer.cdn.mozilla.net/pub/firefox/releases/57.0.4/mac/en-US/Firefox%2057.0.4.dmg)
-- [Selenium webdriver](https://www.seleniumhq.org/projects/webdriver/) - for executing tests against different browsers.
-- [Geckodriver v0.19.1](https://github.com/mozilla/geckodriver) - for executing tests against the firefox browser.
 - [direnv](https://direnv.net/) - for managing environment variables and storing credentials.
 - [NOMIS API access](http://ministryofjustice.github.io/nomis-api/) - prison and offender data is accessed via the National Offender Management Information System. An [authentication token](https://nomis-api-access.service.justice.gov.uk/) is required to access this.
 - (Optional) Transifex Client - for managing site translation. See [additional documentation](docs/welsh_translation.md) for setup and updating translations.
@@ -113,23 +110,13 @@ the hook should prevent you from committing.
     pvb2 $ brew install redis
     ```
 
-7. Install Selenium Webdriver
-    ```sh
-    pvb2 $ brew install selenium-server
-    ```
-
-8. Install Geckodriver
-    ```sh
-    brew install geckodriver
-    ```
-
-9. In separate terminal windows spin up [ministryofjustice/prison-visits-2](https://github.com/ministryofjustice/prison-visits-2) and [Sidekiq](https://sidekiq.org/). The latter processes jobs in the background. Make sure you have the necessary environment variables declared to run Sidekiq. See [additional documentation on queues](docs/queues.md).
+7. In separate terminal windows spin up [ministryofjustice/prison-visits-2](https://github.com/ministryofjustice/prison-visits-2) and [Sidekiq](https://sidekiq.org/). The latter processes jobs in the background. Make sure you have the necessary environment variables declared to run Sidekiq. See [additional documentation on queues](docs/queues.md).
 
     ```sh
     pvb2 $ bundle exec sidekiq
     pvb2 $ rails server
     ```
-10. In another terminal window spin up [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public) on port 4000
+8. In another terminal window spin up [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public) on port 4000
 
     ```sh
     pvb-public $ rails server -p 4000

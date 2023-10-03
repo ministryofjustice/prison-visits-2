@@ -111,6 +111,10 @@ Performance/RangeInclude:
 Performance/TimesMap:
   Enabled: false
 
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/requests/**/*'
+
 RSpec/EmptyExampleGroup:
   Enabled: false
 
