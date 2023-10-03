@@ -70,75 +70,88 @@ the hook should prevent you from committing.
 1. Install gems (dependencies) locally. To do this you will need to first install [Bundler](http://bundler.io/)
 
 2. Install the `direnv` package
-```sh
-pvb2 $ brew install direnv
+    ```sh
+    pvb2 $ brew install direnv
+    ```
 
-```
+3. Enable **direnv** for you shell
 
-3. Create a .env file in the root of the folder and add any necessary environment variables. Load your environment variables into your current session ...
-```sh
-pvb2 $ direnv allow .
+    ##### BASH
+    Add the following line at the end of the `~/.bashrc` file:
 
-```
+    ```sh
+    eval "$(direnv hook bash)"
+    ```
+    Make sure it appears even after rvm, git-prompt and other shell extensions that manipulate the prompt.
 
-4. Install Postgres
-```
-pvb2 $ brew install postgres
+    ##### ZSH
+    Add the following line at the end of the `~/.zshrc` file:
 
-```
+    ```sh
+    eval "$(direnv hook zsh)"
+    ```
+    ##### FISH
 
-5. Install Redis
-```sh
-pvb2 $ brew install redis
+    Add the following line at the end of the `~/.config/fish/config.fish` file:
 
-```
+    ```sh
+    direnv hook fish | source
+    ```
 
-6. Install Selenium Webdriver
-```sh
-pvb2 $ brew install selenium-server-standalone
+4. Create a .env file in the root of the folder and add any necessary environment variables. Load your environment variables into your current session ...
+    ```sh
+    pvb2 $ direnv allow .
+    ```
 
-```
+5. Install Postgres
+    ```
+    pvb2 $ brew install postgres
+    ```
 
-7. Install Geckodriver
-```sh
-brew install geckodriver
+6. Install Redis
+    ```sh
+    pvb2 $ brew install redis
+    ```
 
-```
+7. Install Selenium Webdriver
+    ```sh
+    pvb2 $ brew install selenium-server
+    ```
 
-8. In separate terminal windows spin up [ministryofjustice/prison-visits-2](https://github.com/ministryofjustice/prison-visits-2) and [Sidekiq](https://sidekiq.org/). The latter processes jobs in the background. Make sure you have the necessary environment variables declared to run Sidekiq. See [additional documentation on queues](docs/queues.md).
+8. Install Geckodriver
+    ```sh
+    brew install geckodriver
+    ```
 
-```sh
-pvb2 $ bundle exec sidekiq
-pvb2 $ rails server
+9. In separate terminal windows spin up [ministryofjustice/prison-visits-2](https://github.com/ministryofjustice/prison-visits-2) and [Sidekiq](https://sidekiq.org/). The latter processes jobs in the background. Make sure you have the necessary environment variables declared to run Sidekiq. See [additional documentation on queues](docs/queues.md).
 
-```
-9. In another terminal window spin up [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public) on port 4000
+    ```sh
+    pvb2 $ bundle exec sidekiq
+    pvb2 $ rails server
+    ```
+10. In another terminal window spin up [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public) on port 4000
 
-```sh
-pvb-public $ rails server -p 4000
-
-```
+    ```sh
+    pvb-public $ rails server -p 4000
+    ```
 ### Rake tasks
 
 1. Set up database and seed with prison data
 
-```sh
-pvb2 $ rake db:setup
-
-```
+    ```sh
+    pvb2 $ rake db:setup
+    ```
 
 2. Seed database with visits data
 
-```sh
-pvb2 $ rake pvb:populate:visits
-
-```
+    ```sh
+    pvb2 $ rake pvb:populate:visits
+    ```
 
 ### Running the test suite
 
 ```sh
 pvb2 $ rails spec
-.
 ```
 
 ### Further technical information
