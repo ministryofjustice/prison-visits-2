@@ -19,16 +19,17 @@ RSpec.feature 'Using the dashboard' do
 
     it do
       visit prison_inbox_path
+
       within '.prison-switcher-form' do
-        select 'Cardiff', from: 'Select one or more prisons'
-        unselect 'Swansea', from: 'Select one or more prisons'
+        select_from_chosen 'Cardiff', from: 'Select one or more prisons'
+        unselect_from_chosen 'Swansea', from: 'Select one or more prisons'
         click_button 'Update'
       end
 
       expect(page).to have_css('.navigation', text: 'Visit requests 0')
 
       within '.prison-switcher-form' do
-        select 'Swansea', from: 'Select one or more prisons'
+        select_from_chosen 'Swansea', from: 'Select one or more prisons'
         click_button 'Update'
       end
 
@@ -110,7 +111,7 @@ RSpec.feature 'Using the dashboard' do
     before do
       # Search is independent of the prison filter
       within '.prison-switcher-form' do
-        unselect 'Swansea', from: 'Select one or more prisons'
+        unselect_from_chosen 'Swansea', from: 'Select one or more prisons'
         click_button 'Update'
       end
     end
@@ -120,14 +121,15 @@ RSpec.feature 'Using the dashboard' do
       find('.button.search').click
       click_link 'View'
 
-      click_button 'Send email', visible:  false
+      find_button('Send email').trigger('click')
 
       fill_in 'Please type your message', with: 'Sandals not allowed', visible:  false
-      click_button 'Send email', visible:  false
+      find_button('Send email').trigger('click')
 
       expect(page).to have_css('.message', text: 'Sandals not allowed')
 
-      check 'Prisoner has moved prisons'
+      check 'Prisoner has moved prisons', visible: false
+
       click_button 'Cancel visit', match: :first
 
       visit prison_visit_path(vst, locale: 'en')

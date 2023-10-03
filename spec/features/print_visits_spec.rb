@@ -20,6 +20,7 @@ RSpec.feature 'Printing a list of visits' do
   context 'when logging in and navigating to the print visits page' do
     it 'displays the print visit page' do
       visit new_prison_print_visit_path
+
       expect(page).to have_css('.navigation')
       expect(page).to have_css('label', text: 'Select one or more prisons')
     end
@@ -30,6 +31,7 @@ RSpec.feature 'Printing a list of visits' do
 
     it 'is a date without any visits booked in' do
       visit new_prison_print_visit_path
+
       fill_in 'Day', with: date.day
       fill_in 'Month', with: date.month
       fill_in 'Year', with: date.year
