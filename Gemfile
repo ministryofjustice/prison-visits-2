@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 5.2.8.1'
 # This needs to be in here for Heroku
 ruby '2.7.5'
 
@@ -70,7 +70,7 @@ group :development, :test do
   gem 'byebug'
   gem 'dotenv-rails'
   gem 'jasmine-jquery-rails'
-  gem 'jasmine', '~> 3.8'
+  gem 'jasmine', '3.9.2'
   gem 'parser'
   gem 'pry-byebug'
   gem 'pry-rails'
