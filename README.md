@@ -43,7 +43,7 @@ Emails will be sent to [MailCatcher](http://mailcatcher.me/), if it’s running.
 
 ### Ruby version
 
-This application uses Ruby v2.6.2. Use [RVM](https://rvm.io/) or similar to manage your ruby environment and sets of dependencies.
+This application uses Ruby v2.7.5. Use [RVM](https://rvm.io/) or similar to manage your ruby environment and sets of dependencies.
 
 
 ### Setup
