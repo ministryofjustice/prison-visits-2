@@ -6,7 +6,7 @@ ruby '2.7.5'
 
 gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'
-gem 'business'
+gem 'business', '1.18.0'
 gem 'connection_pool'
 gem 'draper'
 gem 'excon', '0.62.0' # There is an issue with subsequent versions where there is a
@@ -14,7 +14,7 @@ gem 'excon', '0.62.0' # There is an issue with subsequent versions where there i
 # within the team to pin Excon to the current version, with the plan to
 # replace it with another HTTP client, probably Faraday.
 gem 'govuk_elements_rails'
-gem 'govuk_frontend_toolkit'
+gem 'govuk_frontend_toolkit', '8.2.0'
 gem 'govuk_template'
 gem 'jaro_winkler'
 gem 'jbuilder'
