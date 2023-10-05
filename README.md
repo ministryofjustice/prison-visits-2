@@ -45,21 +45,6 @@ Emails will be sent to [MailCatcher](http://mailcatcher.me/), if it’s running.
 
 This application uses Ruby v2.7.5. Use [RVM](https://rvm.io/) or similar to manage your ruby environment and sets of dependencies.
 
-
-### Setup
-
-Install the git pre-commit hook before you start working on this repository so
-that we're all using some checks to help us avoid committing unencrypted
-secrets. From the root of the repo:
-
-```
-ln -s ../../config/git-hooks/pre-commit.sh .git/hooks/pre-commit
-```
-
-To test that the pre-commit hook is set up correctly, try removing the `diff`
-attribute from a line in a `.gitattributes` file and then committing something -
-the hook should prevent you from committing.
-
 ### Running the application
 
 *Note* - You will need to spin up both [ministryofjustice/prison-visits-2](https://github.com/ministryofjustice/prison-visits-2) and [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public)
