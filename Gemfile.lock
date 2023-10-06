@@ -564,7 +564,7 @@ DEPENDENCIES
   zendesk_api
 
 RUBY VERSION
-   ruby 2.7.5p203
+   ruby 2.6.7p197
 
 BUNDLED WITH
    2.1.4
