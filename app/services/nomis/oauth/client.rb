@@ -18,6 +18,15 @@ module Nomis
         JSON.parse(response.body)
       end
 
+      def get(route)
+        response = @connection.send(:get) { |req|
+          url = URI.join(@host, route).to_s
+          req.url(url)
+        }
+
+        JSON.parse(response.body)
+      end
+
     private
 
       def authorisation

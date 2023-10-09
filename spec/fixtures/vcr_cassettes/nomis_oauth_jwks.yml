@@ -1,0 +1,37 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://sign-in-dev.hmpps.service.justice.gov.uk/auth/.well-known/jwks.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Date:
+      - Mon, 09 Oct 2023 13:16:10 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Cache-Control:
+      - max-age=43200, public
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"keys":[{"kty":"RSA","e":"ABQ","use":"sig","kid":"user-kid","alg":"RS256","n":"ZII/AvQAeYSKRaa77rvYP2U+8XrP4Tk0nN0gRE2i+pBqT1wNh1f3gDvdRAa5QZzQc9xY7tKD2WiTYaITjlC+hXObvQaYfsEZtZG+zd5pTtcf96ck0j44c9bdwQ23T9nKgWTMwA=="}]}'
+  recorded_at: Mon, 09 Oct 2023 13:16:10 GMT
+recorded_with: VCR 6.0.0
