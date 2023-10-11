@@ -40,12 +40,6 @@ RSpec.configure do |config|
 
   config.infer_spec_type_from_file_location!
 
-  config.around(:each, :vcr) do |example|
-    WebMock.enable_net_connect!
-    example.run
-    WebMock.disable_net_connect!(allow: 'codeclimate.com', allow_localhost: true)
-  end
-
   config.before(:each) do
     I18n.locale = I18n.default_locale
     RequestStore.clear!

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Nomis::Client do
+  subject { described_class.new(api_host) }
+
   let(:api_host) { Rails.configuration.prison_api_host }
 
   let(:path) { 'v1/lookup/active_offender' }
@@ -10,8 +12,6 @@ RSpec.describe Nomis::Client do
       date_of_birth: Date.parse('1966-11-22')
     }
   }
-
-  subject { described_class.new(api_host) }
 
   describe 'with a valid request', vcr: { cassette_name: 'client-request-id' } do
     it 'sets the X-Request-Id header if a request_id is present' do
@@ -105,8 +105,6 @@ RSpec.describe Nomis::Client do
   end
 
   describe 'with auth configured' do
-    let(:cert) { OpenSSL::PKey::RSA.new(Base64.decode64(public_key)) }
-
     let(:access_token) do
       'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRwcy1jbGllbnQta2V5In0.eyJzdWIiOiJ0' \
       'ZXN0IiwiZ3JhbnRfdHlwZSI6ImNsaWVudF9jcmVkZW50aWFscyIsInNjb3BlIjpbInJlYWQiLCJ3cml0' \
@@ -119,14 +117,6 @@ RSpec.describe Nomis::Client do
       '7gWVC1gPrm6-S6CoIGu54KNQ6hF8rsntFeFvPr1ff8WrRgOtg'
     end
 
-    let(:public_key) do
-      'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsOPAtsQADdbRu/EH6LP5BM1/mF40VDBn12hJ' \
-      'SXPPd5WYK0HLY20VM7AxxR9mnYCF6So1Wt7fGNqUx/WyemBpIJNrs/7Dzwg3uwiQuNh4zKR+EGxWbLwi' \
-      '3yw7lXPUzxUyC5xt88e/7vO+lz1oCnizjh4mxNAms6ZYF7qfnhJE9WvWPwLLkojkZu1JdusLaVowN7GT' \
-      'GNpME8dzeJkam0gp4oxHQGhMN87K6jqX3cEwO6Dvhemg8whs96nzQl8n2LFvAK2up9Prr9Gi2LFgTt7K' \
-      'qXA06kC4Kgw2IR1eFgzcBlTOEwmzjre65HoNaJBr9uNZzV5sILPMczzhQj/fMhz3/QIDAQAB'
-    end
-
     let(:config) do
       {
         nomis_oauth_host: 'http://localhost:9090',
@@ -136,9 +126,6 @@ RSpec.describe Nomis::Client do
     end
 
     before do
-      # spoof the time, otherwise the signature will have expired
-      travel_to Time.new(2023, 2, 10, 15, 0, 0, '+00:00')
-
       config.each do |key, val|
         allow(Rails.configuration).to receive(key).and_return(val)
       end
@@ -158,10 +145,6 @@ RSpec.describe Nomis::Client do
         )
     end
 
-    after do
-      travel_back
-    end
-
     it 'sends an Authorization header containing a JWT token', vcr: { cassette_name: 'client-auth' } do
       subject.get(path, params)
       expect(WebMock).to have_requested(:get, /\w/).
@@ -169,9 +152,7 @@ RSpec.describe Nomis::Client do
           auth_type, token = req.headers["Authorization"].split(' ')
           next unless auth_type == 'Bearer'
 
-          # raises an error if token is not an ES256 JWT token
-          JWT.decode(token, cert, true, algorithm: 'RS256')
-          true
+          expect(token).to eq(access_token)
         }
     end
   end
