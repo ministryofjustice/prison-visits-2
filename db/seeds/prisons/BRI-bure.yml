@@ -11,10 +11,10 @@ private: false
 closed: false
 recurring:
   sat:
-  - 0930-1130
+  - 0915-1115
   - 1415-1615
   sun:
-  - 0930-1130
+  - 0915-1115
   - 1415-1615
 unbookable:
 - 2022-12-25
