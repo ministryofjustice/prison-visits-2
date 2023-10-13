@@ -4,7 +4,7 @@ nomis_id: LWI
 address: |-
   1 Brighton Road
 postcode: BN7 1EA
-email_address: socialvisits.lewes@@justice.gov.uk
+email_address: socialvisits.lewes@justice.gov.uk
 phone_no: 0127 378 5277
 enabled: true
 private: false
