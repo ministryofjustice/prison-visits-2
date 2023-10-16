@@ -1,8 +1,9 @@
 class VisitorMailer < ApplicationMailer
   include LogoAttachment
   include DateHelper
-  add_template_helper DateHelper
-  add_template_helper LinksHelper
+
+  helper DateHelper
+  helper LinksHelper
 
   layout 'email'
 
