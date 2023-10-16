@@ -9,6 +9,7 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 
+  config.action_mailer.raise_delivery_errors = false
   config.cache_classes = true
   config.eager_load = true
   config.consider_all_requests_local       = false
