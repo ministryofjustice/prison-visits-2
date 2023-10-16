@@ -5,7 +5,7 @@ threads db_pool, db_pool
 
 preload_app!
 
-rackup      DefaultRackup if defined?(DefaultRackup)
+rackup      DefaultRackup
 port        ENV['PORT']     || 3000
 environment ENV['RACK_ENV'] || 'production'
 
