@@ -116,7 +116,7 @@ private
 
   def label_text
     @label_text ||= I18n.t(
-      '.choice_html', options_for_label_key).html_safe
+      '.choice_html', **options_for_label_key).html_safe
   end
 
   def label_classes

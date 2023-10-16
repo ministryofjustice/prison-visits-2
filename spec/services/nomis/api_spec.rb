@@ -33,7 +33,7 @@ RSpec.describe Nomis::Api do
       }
     }
 
-    let(:prisoner) { subject.lookup_active_prisoner(params) }
+    let(:prisoner) { subject.lookup_active_prisoner(**params) }
 
     it 'returns and prisoner if the data matches' do
       expect(prisoner).to be_kind_of(Nomis::Prisoner)
@@ -153,7 +153,7 @@ RSpec.describe Nomis::Api do
     }
 
     context 'when the prisoner has availability' do
-      subject { super().prisoner_visiting_availability(params) }
+      subject { super().prisoner_visiting_availability(**params) }
 
       it 'returns availability info containing a list of available dates' do
         expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
@@ -177,7 +177,7 @@ RSpec.describe Nomis::Api do
         }
       }
 
-      subject { super().prisoner_visiting_availability(params) }
+      subject { super().prisoner_visiting_availability(**params) }
 
       it 'returns empty list of available dates if there is no availability', vcr: { cassette_name: :prisoner_visiting_availability_noavailability } do
         expect(subject).to be_kind_of(Nomis::PrisonerAvailability)
@@ -197,7 +197,7 @@ RSpec.describe Nomis::Api do
       }
     end
 
-    subject { super().prisoner_visiting_detailed_availability(params) }
+    subject { super().prisoner_visiting_detailed_availability(**params) }
 
     it 'returns availability info containing a list of available dates' do
       expect(subject).to be_kind_of(Nomis::PrisonerDetailedAvailability)
@@ -222,7 +222,7 @@ RSpec.describe Nomis::Api do
       }
     }
 
-    subject { super().fetch_bookable_slots(params) }
+    subject { super().fetch_bookable_slots(**params) }
 
     it 'returns an array of slots' do
       expect(subject.first.time.iso8601).to eq("2020-10-14T14:00/16:00")
@@ -258,7 +258,7 @@ RSpec.describe Nomis::Api do
       )
     end
 
-    subject { super().fetch_contact_list(params) }
+    subject { super().fetch_contact_list(**params) }
 
     it 'returns an array of contacts' do
       expect(subject).to have_exactly(27).items
