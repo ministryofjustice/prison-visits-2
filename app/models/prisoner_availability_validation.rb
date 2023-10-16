@@ -29,7 +29,7 @@ private
   def slots_availability
     valid_requested_slots.each do |requested_slot|
       error_messages_for_slot(requested_slot).each do |message|
-        errors[requested_slot.to_s] << message
+        errors.add(requested_slot.to_s, message)
       end
     end
   end

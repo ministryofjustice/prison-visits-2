@@ -24,7 +24,7 @@ private
   def slots_availability
     valid_requested_slots.each do |requested_slot|
       error_message = error_message_for_slot(requested_slot)
-      errors[requested_slot.to_s] << error_message if error_message
+      errors.add(requested_slot.to_s, error_message) if error_message
     end
   end
 
