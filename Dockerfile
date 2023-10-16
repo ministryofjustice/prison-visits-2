@@ -1,6 +1,4 @@
-FROM ruby:2.6.7-stretch
-
-RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list
+FROM ruby:2.7.5-bullseye
 
 RUN \
   set -ex \
@@ -8,6 +6,8 @@ RUN \
   && DEBIAN_FRONTEND=noninteractive apt-get install \
     -y \
     --no-install-recommends \
+    debconf \
+    libc-bin \
     locales \
   && sed -i -e 's/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/' /etc/locale.gen \
   && dpkg-reconfigure --frontend=noninteractive locales \

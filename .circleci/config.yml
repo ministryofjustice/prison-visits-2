@@ -12,7 +12,7 @@ references:
 
   docker_container_config: &docker_container_config
     docker:
-      - image: circleci/ruby:2.6.7-node-browsers
+      - image: circleci/ruby:2.7.5-node-browsers
         environment:
           PGHOST: 127.0.0.1
           PGUSER: ubuntu

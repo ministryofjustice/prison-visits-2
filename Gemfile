@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.2.8.1'
+gem 'rails', '~> 5.2'
 # This needs to be in here for Heroku
-ruby '2.6.7'
+ruby '2.7.5'
 
 gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'
-gem 'business', '1.18.0'
+gem 'business'
 gem 'connection_pool'
 gem 'draper'
 gem 'excon', '0.62.0' # There is an issue with subsequent versions where there is a
@@ -14,7 +14,7 @@ gem 'excon', '0.62.0' # There is an issue with subsequent versions where there i
 # within the team to pin Excon to the current version, with the plan to
 # replace it with another HTTP client, probably Faraday.
 gem 'govuk_elements_rails'
-gem 'govuk_frontend_toolkit', '8.2.0'
+gem 'govuk_frontend_toolkit'
 gem 'govuk_template'
 gem 'jaro_winkler'
 gem 'jbuilder'
@@ -31,7 +31,7 @@ gem 'pg'
 gem 'phonelib'
 gem 'premailer-rails'
 gem 'prometheus_exporter'
-gem 'puma', '5.6.7'
+gem 'puma'
 gem 'rack', '>= 2.1.4'
 gem 'rake'
 gem 'request_store'
@@ -59,7 +59,7 @@ gem 'email_address_validation',
 
 group :developmemt do
   gem 'guard-rspec'
-  gem 'guard-rubocop', '1.4.0'
+  gem 'guard-rubocop'
   gem 'better_errors'
   gem 'binding_of_caller'
 end
@@ -70,16 +70,16 @@ group :development, :test do
   gem 'byebug'
   gem 'dotenv-rails'
   gem 'jasmine-jquery-rails'
-  gem 'jasmine', '3.9.2'
+  gem 'jasmine', '~> 3.8'
   gem 'parser'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails'
-  gem 'rubocop-govuk', '3.3.2'
-  gem 'rubocop', '0.80.1'
-  gem 'rubocop-performance', '1.6.1'
-  gem 'rubocop-rails', '2.5.2'
-  gem 'rubocop-rspec', '1.41.0'
+  gem 'rubocop-govuk'
+  gem 'rubocop'
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
   gem 'spring-commands-rspec'
 end
 
