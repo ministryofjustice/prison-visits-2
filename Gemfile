@@ -7,7 +7,6 @@ ruby '2.6.7'
 gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'
 gem 'business', '1.18.0'
-gem 'bootsnap', require: false
 gem 'connection_pool'
 gem 'draper'
 gem 'excon', '0.62.0' # There is an issue with subsequent versions where there is a
@@ -17,7 +16,6 @@ gem 'excon', '0.62.0' # There is an issue with subsequent versions where there i
 gem 'govuk_elements_rails'
 gem 'govuk_frontend_toolkit', '8.2.0'
 gem 'govuk_template'
-gem 'net-http'
 gem 'jaro_winkler'
 gem 'jbuilder'
 gem 'jquery-rails', '~> 4.4.0'
