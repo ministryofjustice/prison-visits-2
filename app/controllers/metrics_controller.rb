@@ -3,7 +3,7 @@ class MetricsController < ApplicationController
 
   def index
     @prisons = PrisonsDecorator.decorate(Prison.enabled.includes(:estate))
-    @dataset = MetricsPresenter.new(all_time_counts)
+    @dataset = MetricsPresenter.new(**all_time_counts)
     @graphs_presenter = GraphMetricsPresenter.new
   end
 

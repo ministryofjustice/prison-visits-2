@@ -21,7 +21,7 @@ class SignonIdentity
       user = find_or_create_authorized_user(info)
       additional_data = extract_additional_data(info)
 
-      new(user, additional_data)
+      new(user, **additional_data)
     end
 
     def from_session_data(data)
