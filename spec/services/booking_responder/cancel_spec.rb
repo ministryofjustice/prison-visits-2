@@ -4,7 +4,7 @@ RSpec.describe BookingResponder::Cancel do
   subject(:instance) { described_class.new(cancellation_response, options) }
 
   let(:cancellation_response) do
-    CancellationResponse.new(visit, reasons: reasons)
+    CancellationResponse.new(visit, { reasons: reasons })
   end
   let(:nomis_id)             { nil }
   let(:visit)                { create(:booked_visit, nomis_id: nomis_id) }

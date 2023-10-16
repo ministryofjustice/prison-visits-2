@@ -25,7 +25,7 @@ RSpec.describe VisitTimeline do
         VisitStateChange.last.update!(creator: user)
 
         CancellationResponse.new(
-          visit, reasons: [Cancellation::BOOKED_IN_ERROR]
+          visit, { reasons: [Cancellation::BOOKED_IN_ERROR] },
         ).tap(&:cancel!)
 
         VisitStateChange.
