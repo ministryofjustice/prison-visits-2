@@ -1,14 +1,13 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/20ad81e6cb95ffd082d2/maintainability)](https://codeclimate.com/github/ministryofjustice/prison-visits-2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/20ad81e6cb95ffd082d2/test_coverage)](https://codeclimate.com/github/ministryofjustice/prison-visits-2/test_coverage)
 
-# Visit someone in prison
+# Online visit requests
 
-
-A service for booking a social visit to a prisoner in England or Wales
+A staff service for reviewing social visit requests to visit a prisoner in England or Wales.
 
 ## Live application
 
-Production application is made available through GOV.UK & can be found at [https://www.gov.uk/prison-visits](https://www.gov.uk/prison-visits)
+Production application can be found at [https://staff.prisonvisits.service.justice.gov.uk](https://staff.prisonvisits.service.justice.gov.uk) accessed via DPS.
 
 ## Technical Information
 
@@ -17,14 +16,10 @@ This is a Ruby on Rails application that has two main roles. It exposes:
 1. A public interface for staff to *manage* prison visit bookings.
 2. An API for *booking* prison visits. The consumer of this API is [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public).
 
-This is a full rewrite from the ground up, using a database instead of
-serialised data in URLs in emails. The CSS and JavaScript has largely been
-ported intact from the previous application.
+This is a full rewrite from the ground up, using a database instead of serialised data in URLs in emails. The CSS and JavaScript has largely been ported intact from the previous application.
 
 The source of the predecessor can be found at
 [ministryofjustice/prison-visits](https://github.com/ministryofjustice/prison-visits).
-
-
 
 ### Dependencies
 
@@ -37,9 +32,6 @@ The source of the predecessor can be found at
 - [direnv](https://direnv.net/) - for managing environment variables and storing credentials.
 - [NOMIS API access](http://ministryofjustice.github.io/nomis-api/) - prison and offender data is accessed via the National Offender Management Information System. An [authentication token](https://nomis-api-access.service.justice.gov.uk/) is required to access this.
 - (Optional) Transifex Client - for managing site translation. See [additional documentation](docs/welsh_translation.md) for setup and updating translations.
-
-Emails will be sent to [MailCatcher](http://mailcatcher.me/), if it’s running. See its website for instructions.
-
 
 ### Ruby version
 
