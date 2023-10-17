@@ -23,7 +23,7 @@ RSpec.describe VisitorMailer, '.request_acknowledged' do
   end
 
   it 'uses the locale of the visit' do
-    visit.update! locale: 'cy'
+    visit.update locale: 'cy'
     expect(mail.subject)
       .to match(
         /mae eich cais i ymweld ar Dydd Llun 12 Hydref wedi cyrraedd/)

@@ -5,9 +5,9 @@ class HumanReadableId
   def self.update_unique_id(klass, primary_key, column)
     ActiveRecord::Base.transaction(requires_new: true) do
       generate_id do |candidate_id|
-        klass.
-          where(id: primary_key, column => nil).
-          update_all(column => candidate_id)
+        klass
+          .where(id: primary_key, column => nil)
+          .update_all(column => candidate_id)
         candidate_id
       end
     end

@@ -91,17 +91,17 @@ namespace :pvb do
                      {
                        rejection_attributes: {
                          reasons: [Rejection::REASONS.sample],
-                         allowance_renews_on: (1..10).
-                                              to_a.
-                                              sample.
-                                              days.
-                                              from_now
+                         allowance_renews_on: (1..10)
+                                              .to_a
+                                              .sample
+                                              .days
+                                              .from_now
                        }
                      }
                    end
 
-      if attributes[:rejection_attributes][:reasons].
-          include?(Rejection::OTHER_REJECTION_REASON)
+      if attributes[:rejection_attributes][:reasons]
+          .include?(Rejection::OTHER_REJECTION_REASON)
         attributes[:rejection_attributes][:rejection_reason_detail] = "It's complicated"
       end
 

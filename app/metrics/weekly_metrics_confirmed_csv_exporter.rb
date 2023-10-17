@@ -56,20 +56,20 @@ private
     max_date = @dates.max + 6.days
 
     if min_date.year != max_date.year
-      min_counts = Counters::CountVisitsByPrisonAndCalendarWeek.
-        where('year = ? AND week >= ?', min_date.year, min_date.cweek).
-        pluck(:prison_name, :year, :week, :processing_state, :count)
+      min_counts = Counters::CountVisitsByPrisonAndCalendarWeek
+        .where('year = ? AND week >= ?', min_date.year, min_date.cweek)
+        .pluck(:prison_name, :year, :week, :processing_state, :count)
 
-      max_counts = Counters::CountVisitsByPrisonAndCalendarWeek.
-        where('year = ? AND week <= ?', max_date.year, max_date.cweek).
-        pluck(:prison_name, :year, :week, :processing_state, :count)
+      max_counts = Counters::CountVisitsByPrisonAndCalendarWeek
+        .where('year = ? AND week <= ?', max_date.year, max_date.cweek)
+        .pluck(:prison_name, :year, :week, :processing_state, :count)
 
       min_counts + max_counts
     else
-      Counters::CountVisitsByPrisonAndCalendarWeek.
-        where('year = ? AND week >= ?', min_date.year, min_date.cweek).
-        where('year = ? AND week <= ?', max_date.year, max_date.cweek).
-        pluck(:prison_name, :year, :week, :processing_state, :count)
+      Counters::CountVisitsByPrisonAndCalendarWeek
+        .where('year = ? AND week >= ?', min_date.year, min_date.cweek)
+        .where('year = ? AND week <= ?', max_date.year, max_date.cweek)
+        .pluck(:prison_name, :year, :week, :processing_state, :count)
     end
   end
 end

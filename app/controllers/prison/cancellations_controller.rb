@@ -28,10 +28,10 @@ private
   end
 
   def cancellation_params
-    params.
-      require(:cancellation).
-      permit(reasons: []).
-      merge(nomis_cancelled: true)
+    params
+      .require(:cancellation)
+      .permit(reasons: [])
+      .merge(nomis_cancelled: true)
   end
 
   def check_visit_cancellable

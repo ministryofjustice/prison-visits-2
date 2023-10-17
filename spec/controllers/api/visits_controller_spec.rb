@@ -25,8 +25,8 @@ RSpec.describe Api::VisitsController do
     allow(GATracker)
       .to receive(:new)
            .and_return(double(GATracker,
-                              send_withdrawn_visit_event: nil,
-                              send_cancelled_visit_event: nil))
+                             send_withdrawn_visit_event: nil,
+                             send_cancelled_visit_event: nil))
   end
 
   describe 'create' do

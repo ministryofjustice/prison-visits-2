@@ -17,9 +17,9 @@ class Prison::FeedbacksController < ApplicationController
 private
 
   def feedback_params
-    params.
-      require(:feedback_submission).
-      permit(:referrer, :body, :email_address, :user_agent, :prison_id).
-      merge(submitted_by_staff: true)
+    params
+      .require(:feedback_submission)
+      .permit(:referrer, :body, :email_address, :user_agent, :prison_id)
+      .merge(submitted_by_staff: true)
   end
 end

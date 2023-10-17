@@ -47,9 +47,9 @@ module OmniAuth
 
       # :nocov:
       def organisations
-        @organisations ||= Nomis::Api.instance.user_caseloads(user_id).
-          select { |c| c.fetch('type') == 'INST' }.
-          map { |c| c.fetch('caseLoadId') }
+        @organisations ||= Nomis::Api.instance.user_caseloads(user_id)
+          .select { |c| c.fetch('type') == 'INST' }
+          .map { |c| c.fetch('caseLoadId') }
       end
 
       def decode_roles

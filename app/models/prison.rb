@@ -28,11 +28,11 @@ class Prison < ApplicationRecord
   # This method represents the 'fallback position' i.e. the slots to use if the API is unavailable
   def available_slots(today = Time.zone.today)
     if auto_slots_enabled?
-      nomis_concrete_slots.order(:date).
-        where('date >= ?', first_bookable_date(today)).
-        where('date <= ?', last_bookable_date(today)).
-        reject { |cs| unbookable_dates.include?(cs.date) }.
-        map do |ncs|
+      nomis_concrete_slots.order(:date)
+        .where('date >= ?', first_bookable_date(today))
+        .where('date <= ?', last_bookable_date(today))
+        .reject { |cs| unbookable_dates.include?(cs.date) }
+        .map do |ncs|
         ConcreteSlot.new(ncs.date.year, ncs.date.month, ncs.date.day, ncs.start_hour, ncs.start_minute, ncs.end_hour, ncs.end_minute)
       end
     else
@@ -52,10 +52,10 @@ class Prison < ApplicationRecord
   end
 
   def confirm_by(today = Time.zone.today)
-    ((today + 1)..last_bookable_date(today)).
-      select { |d| processing_day?(d) }.
-      take(lead_days).
-      last
+    ((today + 1)..last_bookable_date(today))
+      .select { |d| processing_day?(d) }
+      .take(lead_days)
+      .last
   end
 
   def validate_visitor_ages_on(target, field, ages)

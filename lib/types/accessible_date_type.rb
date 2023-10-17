@@ -13,8 +13,8 @@ class AccessibleDateType < ActiveModel::Type::Value
 private
 
   def cast_with_values_at(value)
-    hash = Hash[[:year, :month, :day].
-                zip(value.with_indifferent_access.values_at(:year, :month, :day))]
+    hash = Hash[[:year, :month, :day]
+                .zip(value.with_indifferent_access.values_at(:year, :month, :day))]
     return nil if hash.values == [0, 0, 0]
 
     AccessibleDate.new(hash)

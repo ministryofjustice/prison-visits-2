@@ -32,9 +32,9 @@ class Prison::VisitsController < ApplicationController
   end
 
   def show
-    visit = Visit.
-             includes(:visitors, messages: :user, visit_state_changes: :creator).
-             find(memoised_visit.id)
+    visit = Visit
+             .includes(:visitors, messages: :user, visit_state_changes: :creator)
+             .find(memoised_visit.id)
 
     @visit = visit.decorate
     @prison = Prison.find_by(id: @visit.prison_id)
