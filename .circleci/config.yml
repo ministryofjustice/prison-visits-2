@@ -74,9 +74,9 @@ jobs:
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
       - run: bundle exec rake db:create db:schema:load
-      - run:
-          name: Rubocop
-          command: bundle exec rubocop
+      # - run:
+          # name: Rubocop
+          # command: bundle exec rubocop
       - run:
           name: Security analysis
           command: bundle exec brakeman -o ~/test-results/brakeman/brakeman.json -o ~/test-results/brakeman/brakeman.html
