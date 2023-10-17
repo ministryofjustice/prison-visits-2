@@ -7,10 +7,10 @@ private
 
   def prune_hash(hash)
     HashWithIndifferentAccess.new(
-      hash.
-        map { |k, v| [k, prune(v)] }.
-        reject { |_, v| v.blank? }.
-        to_h
+      hash
+        .map { |k, v| [k, prune(v)] }
+        .reject { |_, v| v.blank? }
+        .to_h
     )
   end
 

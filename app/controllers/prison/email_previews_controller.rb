@@ -9,8 +9,8 @@ class Prison::EmailPreviewsController < ApplicationController
       render html: email_preview
     else
       render(
-        body: staff_response.
-          errors.full_messages.to_sentence,
+        body: staff_response
+          .errors.full_messages.to_sentence,
         status: :not_acceptable
       )
     end
@@ -19,9 +19,9 @@ class Prison::EmailPreviewsController < ApplicationController
 private
 
   def email_preview
-    @email_preview ||= ActionMailer::InlinePreviewInterceptor.
-                       previewing_email(visitor_mailer).
-                       html_part.body.decoded.html_safe
+    @email_preview ||= ActionMailer::InlinePreviewInterceptor
+                       .previewing_email(visitor_mailer)
+                       .html_part.body.decoded.html_safe
   end
 
   def visitor_mailer
