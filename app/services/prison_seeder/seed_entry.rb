@@ -4,19 +4,19 @@ class PrisonSeeder::SeedEntry
   DEFAULT_ADULT_AGE = 18
 
   KEYS = %i[
-    address 
-adult_age 
-booking_window 
-email_address 
-enabled 
-lead_days 
+    address
+adult_age
+booking_window
+email_address
+enabled
+lead_days
 name
-    phone_no 
-postcode 
-slot_details 
-translations 
-weekend_processing 
-closed 
+    phone_no
+postcode
+slot_details
+translations
+weekend_processing
+closed
 private
   ]
 
