@@ -1,6 +1,4 @@
-FROM ruby:2.6.7-stretch
-
-RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list
+FROM ruby:3.0.6-bullseye
 
 RUN \
   set -ex \
