@@ -21,7 +21,11 @@ module Nomis
     private
 
       def authorisation
-        'Basic ' + Base64.strict_encode64(
+        "Basic #{credentials}"
+      end
+
+      def credentials
+        Base64.strict_encode64(
           "#{Rails.configuration.nomis_oauth_client_id}:#{Rails.configuration.nomis_oauth_client_secret}"
         )
       end
