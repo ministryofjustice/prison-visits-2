@@ -15,6 +15,8 @@ Bundler.require(*Rails.groups)
 
 module PrisonVisits
   class Application < Rails::Application
+    config.action_mailer.delivery_job = 'ActionMailer::MailDeliveryJob'
+
     config.phase = 'live'
     config.product_type = 'service'
 
