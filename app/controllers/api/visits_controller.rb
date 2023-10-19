@@ -70,7 +70,7 @@ module Api
                  else
                       Visit.find(params[:id])
                     end
-                  
+
     end
 
     def fail_if_invalid(param, step)
@@ -99,7 +99,7 @@ module Api
           visitors: visitors,
           prison: prison
         )
-      
+
     end
 
     def slots_step
@@ -109,7 +109,7 @@ module Api
           option_2: slots.fetch(2, nil),
           prison: prison
         )
-      
+
     end
 
     def visitors
@@ -123,7 +123,7 @@ module Api
             fail ParameterError, 'slot_options must contain >= slot'
           end
         end
-      
+
     end
 
     def ga_tracker

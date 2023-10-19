@@ -37,7 +37,7 @@ private
                    else
         BookingResponder::Reject
       end.new(staff_response)
-    
+
   end
 
   def email

@@ -29,7 +29,7 @@ private
 
   def cancellation
     @cancellation ||= visit.build_cancellation(cancellation_attributes)
-    
+
   end
   alias :build_cancellation :cancellation
 

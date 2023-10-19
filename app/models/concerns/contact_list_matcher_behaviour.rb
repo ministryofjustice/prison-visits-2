@@ -30,7 +30,7 @@ module ContactListMatcherBehaviour
             [contact, { data: { contact: contact } }]
           end
         end
-      
+
   end
 
   def any?

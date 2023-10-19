@@ -127,6 +127,6 @@ private
 
   def estate_sso_mapper
     @estate_sso_mapper ||= EstateSSOMapper.new(@organisations, admin?)
-    
+
   end
 end
