@@ -5,8 +5,8 @@ module Nomis
 
     attribute :slots, :api_slot_list
 
-    def each
-      slots.each { |slot| yield slot }
+    def each(&block)
+      slots.each(&block)
     end
   end
 end

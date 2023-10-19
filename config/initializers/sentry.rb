@@ -10,6 +10,6 @@ Sentry.init do |config|
     config.environment = ENV['HEROKU_APP_NAME'] if ENV['HEROKU_APP_NAME'].present?
   else
     # (Rails logger is not initialized yet)
-    STDOUT.puts '[WARN] Sentry is not configured (SENTRY_DSN)'
+    $stdout.puts '[WARN] Sentry is not configured (SENTRY_DSN)'
   end
 end

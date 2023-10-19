@@ -11,7 +11,7 @@ module LogstashSidekiqLogger
 
       RequestStore.clear!
 
-      "\n" + event.to_json
+      "\n#{event.to_json}"
     end
 
   private
@@ -62,7 +62,7 @@ module LogstashSidekiqLogger
 
     def job_arguments(job)
       arguments = job.payload[:job].arguments
-      arguments[2..-1].map do |arg|
+      arguments[2..].map do |arg|
         arg.try(:to_global_id).try(:to_s) || arg.to_s
       end
     end

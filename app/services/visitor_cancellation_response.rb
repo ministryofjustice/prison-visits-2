@@ -6,7 +6,7 @@ class VisitorCancellationResponse
   end
 
   def visitor_can_cancel?
-    visit.can_cancel? && (visit.slot_granted.begin_at >= Time.now.utc)
+    visit.can_cancel? && (visit.slot_granted.begin_at >= Time.zone.now.utc)
   end
 
   def cancel!

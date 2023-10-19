@@ -14,7 +14,7 @@ module Nomis
           define_method method_name do |*args|
             return self.class::NOT_LIVE unless Nomis::Api.enabled?
 
-            api_method.bind(self).call(*args)
+            api_method.bind_call(self, *args)
           end
         end
 
