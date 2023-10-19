@@ -95,15 +95,15 @@ private
 
   def timing_payload_data
     {
-      v: 1, 
-uip: ip, 
-tid: web_property_id, 
+      v: 1,
+uip: ip,
+tid: web_property_id,
 cid: cookies['_ga'] || SecureRandom.base64,
-      ua: user_agent, 
-t: 'timing', 
-utc: prison.name, 
+      ua: user_agent,
+t: 'timing',
+utc: prison.name,
 utv: visit.processing_state,
-      utt: timing_value, 
+      utt: timing_value,
 utl: user.id,
       cd1: visit.rejection&.reasons&.sort&.join('-') || ''
     }
@@ -111,13 +111,13 @@ utl: user.id,
 
   def build_event_payload(cookie, action, label)
     {
-      v: 1, 
-uip: ip, 
-tid: web_property_id, 
+      v: 1,
+uip: ip,
+tid: web_property_id,
 cid: cookie,
-      ua: user_agent, 
-t: 'event', 
-ec: prison.name, 
+      ua: user_agent,
+t: 'event',
+ec: prison.name,
 ea: action,
       el: label
     }
