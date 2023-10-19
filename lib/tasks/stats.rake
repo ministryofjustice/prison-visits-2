@@ -1,3 +1,4 @@
+# rubocop:disable Rake/DuplicateTask, Rake/Desc
 task(stats: :environment).prerequisites.unshift task('pvb:statsetup': :environment)
 
 namespace :pvb do
@@ -20,3 +21,4 @@ namespace :pvb do
     end
   end
 end
+# rubocop:enable Rake/DuplicateTask, Rake/Desc

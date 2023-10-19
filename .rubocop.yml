@@ -28,6 +28,11 @@ AllCops:
     - 'spec/dummy/db/**/*'
     - 'spec/spec_helper.rb'
 
+
+Style/OptionalBooleanParameter:
+  Enabled: false
+Lint/MissingSuper:
+  Enabled: false
 Rake/MethodDefinitionInTask:
   Enabled: false
 RSpec/MultipleMemoizedHelpers:
