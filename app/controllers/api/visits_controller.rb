@@ -69,8 +69,7 @@ module Api
                    Visit.find_by!(human_id: params[:id])
                  else
                    Visit.find(params[:id])
-                    end
-
+                 end
     end
 
     def fail_if_invalid(param, step)
@@ -99,7 +98,6 @@ module Api
         visitors: visitors,
         prison: prison
         )
-
     end
 
     def slots_step
@@ -109,7 +107,6 @@ module Api
         option_2: slots.fetch(2, nil),
         prison: prison
         )
-
     end
 
     def visitors
@@ -119,11 +116,10 @@ module Api
 
     def slots
       @slots = sanitised_params[:slot_options].tap do |obj|
-          unless obj.is_a?(Array) && obj.size >= 1
-            fail ParameterError, 'slot_options must contain >= slot'
-          end
+        unless obj.is_a?(Array) && obj.size >= 1
+          fail ParameterError, 'slot_options must contain >= slot'
         end
-
+      end
     end
 
     def ga_tracker
