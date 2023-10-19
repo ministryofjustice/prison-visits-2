@@ -17,8 +17,7 @@ class RejectionDecorator < Draper::Decorator
         AccessibleDate.new(date_to_accessible_date(object.allowance_renews_on))
       else
         AccessibleDate.from_multi_parameters(allowance_renews_on_before_type_cast)
-        end
-
+      end
   end
 
   def checkbox_for(reason, html_options = {}, visit_has_error = false)

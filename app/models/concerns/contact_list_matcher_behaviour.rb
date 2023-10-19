@@ -29,8 +29,7 @@ module ContactListMatcherBehaviour
         contacts.map do |contact|
           [contact, { data: { contact: contact } }]
         end
-        end
-
+      end
   end
 
   def any?
@@ -40,6 +39,7 @@ module ContactListMatcherBehaviour
 private
 
   attr_accessor :scores_and_contacts
+
   def no_match
     [
       OpenStruct.new(

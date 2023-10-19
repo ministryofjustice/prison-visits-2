@@ -66,7 +66,6 @@ private
     @staff_response ||= StaffResponse.new(
       visit: memoised_visit, user: current_user,
       validate_visitors_nomis_ready: params[:validate_visitors_nomis_ready])
-
   end
 
   def booking_responder
@@ -86,7 +85,7 @@ private
         'allowance_renews_on(2i)',
         'allowance_renews_on(3i)',
         :rejection_reason_detail,
-        reasons: []
+        { reasons: [] }
       ],
       visitors_attributes: [
         :id,
@@ -94,7 +93,7 @@ private
         :banned,
         :not_on_list,
         :other_rejection_reason,
-        banned_until: [:day, :month, :year]
+        { banned_until: [:day, :month, :year] }
       ],
       prisoner_attributes: [:nomis_offender_id, :id]
     )

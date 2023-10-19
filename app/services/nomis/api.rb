@@ -32,7 +32,7 @@ module Nomis
       }
 
       build_prisoner(response).tap do |prisoner|
-        PVB::Instrumentation.append_to_log(valid_prisoner_lookup: !response['found'].blank?)
+        PVB::Instrumentation.append_to_log(valid_prisoner_lookup: response['found'].present?)
         prisoner.noms_id = noms_id
       end
     rescue APIError => e

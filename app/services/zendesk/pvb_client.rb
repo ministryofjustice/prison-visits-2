@@ -13,10 +13,8 @@ module Zendesk
       end
     end
 
-    def request
-      pool.with { |client|
-        yield client
-      }
+    def request(&block)
+      pool.with(&block)
     end
 
   private

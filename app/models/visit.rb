@@ -148,14 +148,14 @@ class Visit < ApplicationRecord
     messages
       .where.not(visit_state_change_id: nil)
       .find_by(
-        visit_state_change_id: visit_state_changes.booked.pluck(:id).first)
+        visit_state_change_id: visit_state_changes.booked.pick(:id))
   end
 
   def rejection_message
     messages
       .where.not(visit_state_change_id: nil)
       .find_by(
-        visit_state_change_id: visit_state_changes.rejected.pluck(:id).first)
+        visit_state_change_id: visit_state_changes.rejected.pick(:id))
   end
 
   def last_visit_state

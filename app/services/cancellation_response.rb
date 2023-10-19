@@ -1,6 +1,6 @@
 class CancellationResponse
   attr_reader :visit, :user
-  alias :creator :user
+  alias_method :creator, :user
 
   def initialize(visit, cancellation_attributes, user: nil)
     self.visit                   = visit
@@ -29,9 +29,8 @@ private
 
   def cancellation
     @cancellation ||= visit.build_cancellation(cancellation_attributes)
-
   end
-  alias :build_cancellation :cancellation
+  alias_method :build_cancellation, :cancellation
 
   def processor
     @processor ||= BookingResponder::Cancel.new(self)

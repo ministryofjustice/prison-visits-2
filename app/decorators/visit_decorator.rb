@@ -28,8 +28,7 @@ class VisitDecorator < Draper::Decorator
                      object.rejection.decorate
                    else
                      object.build_rejection.decorate.tap(&:apply_nomis_reasons)
-                     end
-
+                   end
   end
 
   def cancellation

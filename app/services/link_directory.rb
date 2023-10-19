@@ -8,7 +8,7 @@ class LinkDirectory
     @prison_finder_template = URITemplate.new(prison_finder)
     @status_template = URITemplate.new(public_service + VISIT_STATUS_PATH)
     @feedback_template = URITemplate.new(public_service + FEEDBACK_PATH)
-    @public_service_template = URITemplate.new(public_service + '/{path}')
+    @public_service_template = URITemplate.new("#{public_service}/{path}")
   end
 
   def prison_finder(prison = nil)
