@@ -46,12 +46,12 @@ RSpec.describe LoadTestDataRemover do
 
         expect {
           described_class.delete_visits_created_by(first_name, last_name)
-        }.to change(Visit, :count).
-            from(1).
-            to(0).
-          and change(Prisoner, :count).
-            from(1).
-            to(0)
+        }.to change(Visit, :count)
+            .from(1)
+            .to(0)
+          .and change(Prisoner, :count)
+            .from(1)
+            .to(0)
       end
     end
   end
@@ -87,7 +87,7 @@ RSpec.describe LoadTestDataRemover do
   end
 
   def visit_for(first_name, last_name)
-    Visit.joins(:visitors).
-      where(visitors: { first_name: first_name, last_name: last_name })
+    Visit.joins(:visitors)
+      .where(visitors: { first_name: first_name, last_name: last_name })
   end
 end

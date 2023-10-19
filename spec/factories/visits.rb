@@ -10,7 +10,7 @@ FactoryBot.define do
     contact_phone_no do '07900112233' end
 
     sequence :human_id, 100 do |n|
-      'VISIT' + ('%03d' % n)
+      "VISIT#{'%03d' % n}"
     end
 
     slot_option_0 do |v|

@@ -25,7 +25,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
   # If re-recording the VCR cassettes in this spec then you will need to initially comment out this around to block,
   # and then update the date to match when they were recorded
   around do |ex|
-    travel_to(DateTime.new(2020, 9, 8, 13, 19, 0)) { ex.run }
+    travel_to(Time.zone.local(2020, 9, 8, 13, 19, 0)) { ex.run }
   end
 
   before do
@@ -75,10 +75,10 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
     expect(visitor.nomis_id).to eq(4_508_410)
     expect(vst.reference_no).to eq('12345678')
 
-    expect(contact_email_address).
-        to receive_email.
-            with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/).
-            and_body(/Your visit to The Verne is now successfully confirmed/)
+    expect(contact_email_address)
+        .to receive_email
+            .with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/)
+            .and_body(/Your visit to The Verne is now successfully confirmed/)
   end
 
   context 'when accepting a booking but contact list fails', vcr: { cassette_name: :process_contact_list_fails } do

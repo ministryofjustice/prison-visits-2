@@ -5,9 +5,9 @@ RSpec.describe Healthcheck::DatabaseCheck do
 
   context 'with a working connection' do
     before do
-      allow(ActiveRecord::Base.connection).
-        to receive(:active?).
-        and_return(true)
+      allow(ActiveRecord::Base.connection)
+        .to receive(:active?)
+        .and_return(true)
     end
 
     it { is_expected.to be_ok }
@@ -22,9 +22,9 @@ RSpec.describe Healthcheck::DatabaseCheck do
 
   context 'with an inactive database' do
     before do
-      allow(ActiveRecord::Base.connection).
-        to receive(:active?).
-        and_return(false)
+      allow(ActiveRecord::Base.connection)
+        .to receive(:active?)
+        .and_return(false)
     end
 
     it { is_expected.not_to be_ok }
@@ -39,9 +39,9 @@ RSpec.describe Healthcheck::DatabaseCheck do
 
   context 'with an unreachable database' do
     before do
-      allow(ActiveRecord::Base.connection).
-        to receive(:active?).
-        and_raise(PG::ConnectionBad, 'bad connection')
+      allow(ActiveRecord::Base.connection)
+        .to receive(:active?)
+        .and_raise(PG::ConnectionBad, 'bad connection')
     end
 
     it { is_expected.not_to be_ok }
@@ -57,9 +57,9 @@ RSpec.describe Healthcheck::DatabaseCheck do
 
   context 'with another database exception' do
     before do
-      allow(ActiveRecord::Base.connection).
-        to receive(:active?).
-        and_raise(StandardError, 'some other exception')
+      allow(ActiveRecord::Base.connection)
+        .to receive(:active?)
+        .and_raise(StandardError, 'some other exception')
     end
 
     it { is_expected.not_to be_ok }

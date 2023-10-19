@@ -40,7 +40,7 @@ RSpec.describe Api::FeedbackController, type: :controller do
         expect(feedback.email_address).to eq('john@example.com')
         expect(feedback.body).to eq(body)
       end
-      create
+      create!
     end
 
     it 'renders a 200' do
@@ -53,7 +53,7 @@ RSpec.describe Api::FeedbackController, type: :controller do
 
       it 'does not send to ZenDesk' do
         expect(ZendeskTicketsJob).not_to receive(:perform_later)
-        create
+        create!
       end
 
       it 'returns an error' do

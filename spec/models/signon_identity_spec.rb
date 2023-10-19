@@ -23,8 +23,8 @@ RSpec.describe SignonIdentity, type: :model do
 
     before do
       stub_auth_token
-      stub_request(:get, "https://prison-api-dev.prison.service.justice.gov.uk/api/staff/485926/emails").
-        to_return(body: [email].to_json)
+      stub_request(:get, "https://prison-api-dev.prison.service.justice.gov.uk/api/staff/485926/emails")
+        .to_return(body: [email].to_json)
     end
 
     context 'when a user has previously logged in' do
@@ -151,8 +151,8 @@ RSpec.describe SignonIdentity, type: :model do
     it 'allows checking whether all the estates is accessible' do
       expect(subject.accessible_estates?([cardiff_estate])).to be true
       expect(subject.accessible_estates?([pentonville_estate])).to be false
-      expect(subject.accessible_estates?([cardiff_estate, pentonville_estate])).
-        to be false
+      expect(subject.accessible_estates?([cardiff_estate, pentonville_estate]))
+        .to be false
     end
 
     context 'with #default_estates' do

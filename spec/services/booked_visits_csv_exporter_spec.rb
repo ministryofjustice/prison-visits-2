@@ -46,16 +46,16 @@ RSpec.describe BookedVisitsCsvExporter do
       expect(row['Prison']).to eq(booked_visit.prison_name)
       expect(row['Prisoner name']).to eq(booked_visit.prisoner_full_name)
       expect(row['Prisoner number']).to eq(booked_visit.prisoner_number)
-      expect(row['Slot granted']).
-        to eq(instance.format_slot_for_staff(booked_visit.slot_granted))
+      expect(row['Slot granted'])
+        .to eq(instance.format_slot_for_staff(booked_visit.slot_granted))
       expect(row['Closed visit']).to eq('false')
 
       expect(row['Phone number']).to eq(booked_visit.contact_phone_no)
       expect(row['Email address']).to eq(booked_visit.contact_email_address)
 
       expect(row['Lead visitor']).to eq(booked_visit.visitor_full_name)
-      expect(row['Lead visitor dob']).
-        to eq(booked_visit.visitor_date_of_birth.to_s)
+      expect(row['Lead visitor dob'])
+        .to eq(booked_visit.visitor_date_of_birth.to_s)
       expect(row['Lead visitor allowed?']).to eq('true')
 
       expect(row['Visitor 2 name']).to eq(second_visitor.full_name)

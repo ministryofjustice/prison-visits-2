@@ -109,7 +109,7 @@ RSpec.describe VisitorDecorator do
     context 'when there is not an exact match' do
       before do
         visitor.date_of_birth = contact.date_of_birth
-        visitor.first_name = contact.given_name + "bob"
+        visitor.first_name = "#{contact.given_name}bob"
         visitor.last_name  = contact.surname
       end
 

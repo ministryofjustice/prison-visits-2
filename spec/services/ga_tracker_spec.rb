@@ -33,8 +33,8 @@ RSpec.describe GATracker do
       it 'sends an event', vcr: { cassette_name: 'unexpected_rejection_event' } do
         subject.send_unexpected_rejection_event
 
-        expect(WebMock).
-          to have_requested(:post, GATracker::ENDPOINT).with(
+        expect(WebMock)
+          .to have_requested(:post, GATracker::ENDPOINT).with(
             body: URI.encode_www_form(
               v: 1,
               uip: ip,
@@ -63,8 +63,8 @@ RSpec.describe GATracker do
       it 'sends an event', vcr: { cassette_name: 'unexepcted_rejection_event' } do
         subject.send_unexpected_rejection_event
 
-        expect(WebMock).
-          not_to have_requested(:post, GATracker::ENDPOINT).with(
+        expect(WebMock)
+          .not_to have_requested(:post, GATracker::ENDPOINT).with(
             body: URI.encode_www_form(
               v: 1,
               uip: ip,
@@ -93,8 +93,8 @@ RSpec.describe GATracker do
       it 'sends an event', vcr: { cassette_name: 'rejection_event' } do
         subject.send_rejection_event
 
-        expect(WebMock).
-          to have_requested(:post, GATracker::ENDPOINT).with(
+        expect(WebMock)
+          .to have_requested(:post, GATracker::ENDPOINT).with(
             body: URI.encode_www_form(
               v: 1,
               uip: ip,
@@ -123,8 +123,8 @@ RSpec.describe GATracker do
       it 'sends an event', vcr: { cassette_name: 'booked_visit_event' } do
         subject.send_booked_visit_event
 
-        expect(WebMock).
-          to have_requested(:post, GATracker::ENDPOINT).with(
+        expect(WebMock)
+          .to have_requested(:post, GATracker::ENDPOINT).with(
             body: URI.encode_www_form(
               v: 1,
               uip: ip,
@@ -153,8 +153,8 @@ RSpec.describe GATracker do
       it 'sends an event', vcr: { cassette_name: 'cancelled_visit_event' } do
         subject.send_cancelled_visit_event
 
-        expect(WebMock).
-          to have_requested(:post, GATracker::ENDPOINT).with(
+        expect(WebMock)
+          .to have_requested(:post, GATracker::ENDPOINT).with(
             body: URI.encode_www_form(
               v: 1,
               uip: ip,
@@ -183,8 +183,8 @@ RSpec.describe GATracker do
       it 'sends an event', vcr: { cassette_name: 'withdrawn_visit_event' } do
         subject.send_withdrawn_visit_event
 
-        expect(WebMock).
-          to have_requested(:post, GATracker::ENDPOINT).with(
+        expect(WebMock)
+          .to have_requested(:post, GATracker::ENDPOINT).with(
             body: URI.encode_www_form(
               v: 1,
               uip: ip,
@@ -218,8 +218,8 @@ RSpec.describe GATracker do
           subject.send_processing_timing
         end
 
-        expect(WebMock).
-          to have_requested(:post, GATracker::ENDPOINT).with(
+        expect(WebMock)
+          .to have_requested(:post, GATracker::ENDPOINT).with(
             body: URI.encode_www_form(
               v: 1,
               uip: ip,

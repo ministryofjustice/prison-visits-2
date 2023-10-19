@@ -63,9 +63,9 @@ RSpec.describe SlotAvailability do
   end
 
   def bookable_slots_times
-    all_slots_available.
-      keys.
-      reject { |slot| slot == unavailable_slot }
+    all_slots_available
+      .keys
+      .reject { |slot| slot == unavailable_slot }
   end
 
   before do

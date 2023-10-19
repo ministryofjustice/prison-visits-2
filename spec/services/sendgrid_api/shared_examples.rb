@@ -10,9 +10,9 @@ RSpec.shared_examples 'error handling' do
 
       it 'rescues, logs the error and returns false' do
         check_error_log_message_contains(/StandardError/)
-        expect(PVB::ExceptionHandler).
-          to receive(:capture_exception).
-          with(instance_of(StandardError))
+        expect(PVB::ExceptionHandler)
+          .to receive(:capture_exception)
+          .with(instance_of(StandardError))
 
         expect(subject).to be_falsey
       end
@@ -100,8 +100,8 @@ end
 
 RSpec.shared_examples 'sendgrid pool timeouts' do
   specify do
-    allow_any_instance_of(ConnectionPool).
-      to receive(:with).and_raise(Timeout::Error)
+    allow_any_instance_of(ConnectionPool)
+      .to receive(:with).and_raise(Timeout::Error)
     expect(subject).to be_falsey
   end
 end

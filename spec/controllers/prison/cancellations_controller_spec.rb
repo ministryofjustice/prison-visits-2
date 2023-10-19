@@ -36,8 +36,8 @@ RSpec.describe Prison::CancellationsController do
         it { is_expected.to redirect_to(prison_visit_path(visit)) }
 
         it 'cancels the visit' do
-          expect { subject }.
-            to change { visit.reload.processing_state }.to('cancelled')
+          expect { subject }
+            .to change { visit.reload.processing_state }.to('cancelled')
         end
       end
 

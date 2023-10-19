@@ -84,8 +84,8 @@ RSpec.describe StaffResponse, type: :model do
 
       it 'is invalid' do
         expect(subject).to be_invalid
-        expect(subject.errors.full_messages).
-          to eq([
+        expect(subject.errors.full_messages)
+          .to eq([
                   I18n.t('must_reject_or_accept_visit',
                          scope: %i[staff_response errors])
                 ])
@@ -115,14 +115,14 @@ RSpec.describe StaffResponse, type: :model do
         it 'is invalid' do
           expect(subject).to be_invalid
 
-          expect(subject.errors.full_messages).
-            to include(
+          expect(subject.errors.full_messages)
+            .to include(
               I18n.t('visitors_invalid',
                      scope: %i[activemodel errors models staff_response attributes base])
                )
 
-          expect(subject.visit.visitors.first.errors[:base]).
-            to include("Process this visitor to continue")
+          expect(subject.visit.visitors.first.errors[:base])
+            .to include("Process this visitor to continue")
         end
       end
 

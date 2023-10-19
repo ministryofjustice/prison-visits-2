@@ -80,8 +80,8 @@ RSpec.describe Visit, type: :model do
       end
 
       it 'bumps updated_at field' do
-        expect { confirm_nomis_cancelled }.
-          to change { cancellation.reload.updated_at }
+        expect { confirm_nomis_cancelled }
+          .to change { cancellation.reload.updated_at }
       end
     end
 
@@ -89,8 +89,8 @@ RSpec.describe Visit, type: :model do
       let(:nomis_cancelled) { true }
 
       it 'does not bump updated_at field' do
-        expect { confirm_nomis_cancelled }.
-          not_to change { cancellation.reload.updated_at }
+        expect { confirm_nomis_cancelled }
+          .not_to change { cancellation.reload.updated_at }
       end
     end
   end
@@ -205,8 +205,8 @@ RSpec.describe Visit, type: :model do
   describe 'slot_granted' do
     it 'returns a ConcreteSlot when set' do
       subject.slot_granted = '2015-11-06T16:00/17:00'
-      expect(subject.slot_granted).
-        to eq(ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0))
+      expect(subject.slot_granted)
+        .to eq(ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0))
     end
 
     it 'returns nil when unset' do
@@ -217,14 +217,14 @@ RSpec.describe Visit, type: :model do
   describe 'slot_granted=' do
     it 'accepts a string' do
       subject.slot_granted = '2015-11-06T16:00/17:00'
-      expect(subject.slot_granted).
-        to eq(ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0))
+      expect(subject.slot_granted)
+        .to eq(ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0))
     end
 
     it 'accepts a ConcreteSlot instance' do
       subject.slot_granted = ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0)
-      expect(subject.slot_granted).
-        to eq(ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0))
+      expect(subject.slot_granted)
+        .to eq(ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0))
     end
   end
 
@@ -233,14 +233,14 @@ RSpec.describe Visit, type: :model do
     let(:confirmation_date) { Date.new(2015, 11, 1) }
 
     it 'asks its prison for the confirmation date based on booking creation' do
-      allow(subject).to receive(:created_at).
-        and_return(Time.zone.local(2015, 10, 7, 14, 49))
-      allow(subject).to receive(:prison).
-        and_return(prison)
+      allow(subject).to receive(:created_at)
+        .and_return(Time.zone.local(2015, 10, 7, 14, 49))
+      allow(subject).to receive(:prison)
+        .and_return(prison)
 
-      expect(prison).to receive(:confirm_by).
-        with(Date.new(2015, 10, 7)).
-        and_return(confirmation_date)
+      expect(prison).to receive(:confirm_by)
+        .with(Date.new(2015, 10, 7))
+        .and_return(confirmation_date)
       expect(subject.confirm_by).to eq(confirmation_date)
     end
   end

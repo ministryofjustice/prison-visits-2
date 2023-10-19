@@ -17,8 +17,8 @@ RSpec.describe Nomis::Client do
     it 'sets the X-Request-Id header if a request_id is present' do
       RequestStore.store[:request_id] = 'uuid'
       subject.get(path, params)
-      expect(WebMock).to have_requested(:get, /\w/).
-        with(headers: { 'X-Request-Id' => 'uuid' })
+      expect(WebMock).to have_requested(:get, /\w/)
+        .with(headers: { 'X-Request-Id' => 'uuid' })
     end
   end
 
@@ -34,8 +34,8 @@ RSpec.describe Nomis::Client do
     end
 
     it 'raises an APIError', :expect_exception do
-      expect { subject.get(path, params) }.
-        to raise_error(Nomis::APIError, 'Unexpected status 422 calling GET /api/v1/lookup/active_offender: (invalid-JSON) <html>')
+      expect { subject.get(path, params) }
+        .to raise_error(Nomis::APIError, 'Unexpected status 422 calling GET /api/v1/lookup/active_offender: (invalid-JSON) <html>')
     end
 
     it 'sends the error to sentry' do
@@ -99,8 +99,8 @@ RSpec.describe Nomis::Client do
     it 'increments the api error count', :expect_exception do
       expect {
         subject.get(path, params)
-      }.to raise_error(Nomis::APIError).
-        and change { PVB::Instrumentation.custom_log_items[:api_request_count] }.from(nil).to(1)
+      }.to raise_error(Nomis::APIError)
+        .and change { PVB::Instrumentation.custom_log_items[:api_request_count] }.from(nil).to(1)
     end
   end
 
@@ -147,8 +147,8 @@ RSpec.describe Nomis::Client do
 
     it 'sends an Authorization header containing a JWT token', vcr: { cassette_name: 'client-auth' } do
       subject.get(path, params)
-      expect(WebMock).to have_requested(:get, /\w/).
-        with { |req|
+      expect(WebMock).to have_requested(:get, /\w/)
+        .with { |req|
           auth_type, token = req.headers["Authorization"].split(' ')
           next unless auth_type == 'Bearer'
 

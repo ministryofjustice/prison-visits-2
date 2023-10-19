@@ -91,16 +91,16 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
         let(:message) { done_message }
 
         it 'outputs a message' do
-          expect(logged_message).
-            to include(
+          expect(logged_message)
+            .to include(
               'job_name' => 'visitor_mailer_cancelled',
               'arguments' => [visit.to_global_id.to_s, 'foo'],
               'queue_name' => 'mailers',
               'job_status' => 'completed',
               'active_job_duration' => 1234,
               'total_duration' => 2944)
-          expect(logged_message['message']).
-            to match(Regexp.quote('[completed] (2944.0 ms)'))
+          expect(logged_message['message'])
+            .to match(Regexp.quote('[completed] (2944.0 ms)'))
         end
 
         it 'clears the request store' do
@@ -131,8 +131,8 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
         let(:can_retry_job) { true }
 
         it 'outputs a message' do
-          expect(logged_message).
-            to include(
+          expect(logged_message)
+            .to include(
               'job_name' => 'visitor_mailer_cancelled',
               'arguments' => [visit.to_global_id.to_s, 'foo'],
               'queue_name' => 'mailers',
@@ -140,8 +140,8 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
               'active_job_duration' => 1234,
               'total_duration' => 2945,
               "retry_count" => 0)
-          expect(logged_message['message']).
-            to match(Regexp.quote('[to_be_retried] (2945.0 ms)'))
+          expect(logged_message['message'])
+            .to match(Regexp.quote('[to_be_retried] (2945.0 ms)'))
         end
 
         it 'clears the request store' do
@@ -159,8 +159,8 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
         let(:message) { fail_hash_message }
 
         it 'outputs a message' do
-          expect(logged_message).
-            to include(
+          expect(logged_message)
+            .to include(
               'job_name' => 'visitor_mailer_cancelled',
               'arguments' => [visit.to_global_id.to_s, 'foo'],
               'queue_name' => 'mailers',
@@ -168,8 +168,8 @@ RSpec.describe LogstashSidekiqLogger::Formatter do
               'active_job_duration' => 1234,
               'total_duration' => 2945,
               "retry_count" => 0)
-          expect(logged_message['message']).
-            to match(Regexp.quote('[failed] (2945.0 ms)'))
+          expect(logged_message['message'])
+            .to match(Regexp.quote('[failed] (2945.0 ms)'))
         end
 
         it 'clears the request store' do

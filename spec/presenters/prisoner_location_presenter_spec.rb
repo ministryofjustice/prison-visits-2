@@ -20,8 +20,8 @@ RSpec.describe PrisonerLocationPresenter do
     describe 'when NOMIS API is live' do
       describe 'when the API call is successful' do
         before do
-          allow(prisoner_location_validation).
-            to receive(:establishment).and_return(establishment)
+          allow(prisoner_location_validation)
+            .to receive(:establishment).and_return(establishment)
         end
 
         describe 'when the location is valid' do
@@ -56,8 +56,8 @@ RSpec.describe PrisonerLocationPresenter do
   describe '#internal_location' do
     describe 'when the API call is successful' do
       before do
-        allow(prisoner_location_validation).
-          to receive(:establishment).and_return(establishment)
+        allow(prisoner_location_validation)
+          .to receive(:establishment).and_return(establishment)
       end
 
       describe 'when the location is valid' do

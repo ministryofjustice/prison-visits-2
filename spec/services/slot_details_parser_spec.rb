@@ -63,8 +63,8 @@ RSpec.describe SlotDetailsParser do
 
     describe 'unbookable_dates' do
       it 'lists dates' do
-        expect(parsed.unbookable_dates).
-          to eq([Date.new(2014, 12, 25), Date.new(2014, 12, 26)])
+        expect(parsed.unbookable_dates)
+          .to eq([Date.new(2014, 12, 25), Date.new(2014, 12, 26)])
       end
     end
   end

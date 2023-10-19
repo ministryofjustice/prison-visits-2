@@ -40,8 +40,8 @@ RSpec.describe ApiPrisonerChecker, :expect_exception do
 
       context 'when the api call fails' do
         before do
-          expect_any_instance_of(Nomis::Client).
-            to receive(:get).and_raise(Nomis::APIError)
+          expect_any_instance_of(Nomis::Client)
+            .to receive(:get).and_raise(Nomis::APIError)
         end
 
         it { is_expected.to be_valid }

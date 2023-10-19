@@ -73,10 +73,10 @@ RSpec.describe Nomis::PrisonerDateAvailability do
 
     context 'with no unavailable_reasons' do
       before do
-        expect(instance).
-          to receive(:unavailable_reasons).
-          with(slot).
-          and_return([])
+        expect(instance)
+          .to receive(:unavailable_reasons)
+          .with(slot)
+          .and_return([])
       end
 
       it { is_expected.to eq(true) }
@@ -84,10 +84,10 @@ RSpec.describe Nomis::PrisonerDateAvailability do
 
     context 'with unavailable_reasons' do
       before do
-        expect(instance).
-          to receive(:unavailable_reasons).
-          with(slot).
-          and_return([anything])
+        expect(instance)
+          .to receive(:unavailable_reasons)
+          .with(slot)
+          .and_return([anything])
       end
 
       it { is_expected.to eq(false) }

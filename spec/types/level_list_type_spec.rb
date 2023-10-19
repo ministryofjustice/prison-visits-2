@@ -8,8 +8,8 @@ RSpec.describe LevelListType do
     let(:value) { [{}, {}] }
 
     it do
-      expect(subject.cast(value)).
-        to all(be_instance_of(Nomis::HousingLocation::Level))
+      expect(subject.cast(value))
+        .to all(be_instance_of(Nomis::HousingLocation::Level))
     end
   end
 end
