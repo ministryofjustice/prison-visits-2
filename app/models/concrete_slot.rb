@@ -20,9 +20,7 @@ ConcreteSlot = Struct.new(
   end
 
   def iso8601
-    '%04d-%02d-%02dT%02d:%02d/%02d:%02d' % [
-      year, month, day, begin_hour, begin_minute, end_hour, end_minute
-    ]
+    sprintf('%04d-%02d-%02dT%02d:%02d/%02d:%02d', year, month, day, begin_hour, begin_minute, end_hour, end_minute)
   end
 
   alias_method :to_s, :iso8601

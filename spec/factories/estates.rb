@@ -5,7 +5,7 @@ FactoryBot.define do
     end
 
     sequence :nomis_id do |n|
-      ('%03d' % n).tr('0123456789', 'ABCDEFGHIJ')
+      sprintf('%03d', n).tr('0123456789', 'ABCDEFGHIJ')
     end
 
     finder_slug do |e|
