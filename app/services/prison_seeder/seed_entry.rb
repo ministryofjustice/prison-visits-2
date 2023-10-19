@@ -5,19 +5,19 @@ class PrisonSeeder::SeedEntry
 
   KEYS = %i[
     address
-adult_age
-booking_window
-email_address
-enabled
-lead_days
-name
+    adult_age
+    booking_window
+    email_address
+    enabled
+    lead_days
+    name
     phone_no
-postcode
-slot_details
-translations
-weekend_processing
-closed
-private
+    postcode
+    slot_details
+    translations
+    weekend_processing
+    closed
+    private
   ]
 
   def initialize(hash)
