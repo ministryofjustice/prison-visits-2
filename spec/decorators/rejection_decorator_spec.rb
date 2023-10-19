@@ -138,7 +138,7 @@ RSpec.describe RejectionDecorator do
         it 'has a restricted and non restricted reasons' do
           expect(subject.email_formatted_reasons.map(&:explanation))
             .to contain_exactly('the prisoner has a restriction',
-                               'the prisoner has been released - hopefully they will contact you soon')
+                                'the prisoner has been released - hopefully they will contact you soon')
         end
       end
     end
