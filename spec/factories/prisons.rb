@@ -21,7 +21,7 @@ FactoryBot.define do
     end
 
     sequence :phone_no do |n|
-      '01154960%03d' % n
+      sprintf('01154960%03d', n)
     end
 
     adult_age do

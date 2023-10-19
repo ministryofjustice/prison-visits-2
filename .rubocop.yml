@@ -28,6 +28,8 @@ AllCops:
     - 'spec/dummy/db/**/*'
     - 'spec/spec_helper.rb'
 
+Rake/MethodDefinitionInTask:
+  Enabled: false
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
 # Use Weirich style
