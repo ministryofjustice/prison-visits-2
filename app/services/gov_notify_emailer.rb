@@ -4,18 +4,21 @@ class GovNotifyEmailer
   include DateHelper
   include LinksHelper
 
+  attr_reader :client
+
+  attr_accessor :update_list, :first_visit, :rejection_intro_text, :cant_visit_text
+
   def initialize
     @client = Notifications::Client.new(ENV['GOV_NOTIFY_API_KEY'])
   end
 
   def send_email(visit, template_id, rejection = nil, message = nil, cancellation = nil)
-    $rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do not go to the prison as you won't be able to get in."
-    $cant_visit_text = "You can't visit because:"
+    self.update_list = self.first_visit = ''
+    self.rejection_intro_text =
+      "We've not been able to book your visit to #{visit.prison_name}. Please do not go to the prison as you won't be able to get in."
+    self.cant_visit_text = "You can't visit because:"
 
-    $update_list = ''
-    $first_visit = ''
-
-    @client.send_email(
+    client.send_email(
       email_address: visit.contact_email_address,
       template_id: template_id,
       personalisation: {
@@ -38,11 +41,11 @@ class GovNotifyEmailer
         prisoner_full_name: visit.prisoner_full_name,
         prison_website: link_directory.prison_finder(visit.prison),
         rejection_reasons: rejection_reasons(visit, rejection),
-        rejection_intro_text: $rejection_intro_text,
-        cant_visit_text: $cant_visit_text,
+        rejection_intro_text: rejection_intro_text,
+        cant_visit_text: cant_visit_text,
         unlisted_visitors_text: unlisted_visitors(visit, rejection),
-        update_list: $update_list,
-        first_visit: $first_visit,
+        update_list: update_list,
+        first_visit: first_visit,
         banned_visitors: banned_visitors(visit, rejection),
         message_from_prison: message_from_prison(message),
         any_questions: any_questions(visit),
@@ -86,7 +89,7 @@ class GovNotifyEmailer
 
   def booked_subject_date(visit)
     slot_date = ''
-    if visit.slot_granted == nil
+    if visit.slot_granted.nil?
       slot_date = ''
     else
       slot_date = format_slot_for_public(visit.slot_granted)
@@ -130,8 +133,7 @@ class GovNotifyEmailer
       not_on_list_instructions = ''
     end
 
-    not_on_list_message = message + ' ' + not_on_list_instructions
-    not_on_list_message
+    "#{message} #{not_on_list_instructions}"
   end
 
   def booking_accept_banned_visitors(visit)
@@ -153,8 +155,7 @@ class GovNotifyEmailer
       banned_instructions = ''
     end
 
-    banned_message = message + ' ' + banned_instructions
-    banned_message
+    "#{message} #{banned_instructions}"
   end
 
   def is_closed_visit(visit)
@@ -187,7 +188,7 @@ class GovNotifyEmailer
 
   def message_from_prison(message)
     if message&.body.present?
-      'Message from the prison: ' + message.body
+      "Message from the prison: #{message.body}"
     else
       ''
     end
@@ -207,17 +208,15 @@ class GovNotifyEmailer
 
   def unlisted_visitors(visit, rejection)
     if rejection.nil?
-      $update_list = ''
-      $first_visit = ''
-      ''
+      self.update_list = ''
+      self.first_visit = ''
     elsif visit.unlisted_visitors.any? && !rejection.reasons.include?('visitor_not_on_list')
-      $update_list = 'Please contact the prisoner and ask them to update their contact list with correct details, making sure that names appear exactly the same as on ID documents.'
-      $first_visit = "If this is the prisoner's first visit (reception visit), then you need to contact the prison to book."
+      self.update_list = 'Please contact the prisoner and ask them to update their contact list with correct details, making sure that names appear exactly the same as on ID documents.'
+      self.first_visit = "If this is the prisoner's first visit (reception visit), then you need to contact the prison to book."
       rejection.email_visitor_not_on_list_explanation
     else
-      $update_list = ''
-      $first_visit = ''
-      ''
+      self.update_list = ''
+      self.first_visit = ''
     end
   end
 
@@ -234,17 +233,17 @@ class GovNotifyEmailer
       if rejection.email_formatted_reasons.size > 1
         rejection.email_formatted_reasons.map(&:explanation)
       elsif rejection.email_formatted_reasons.first == 'duplicate_visit_request'
-        $cant_visit_text = ''
-        $rejection_intro_text = "We haven't booked your visit to #{visit.prisoner_anonymized_name} at #{visit.prison_name} because
+        self.cant_visit_text = ''
+        self.rejection_intro_text = "We haven't booked your visit to #{visit.prisoner_anonymized_name} at #{visit.prison_name} because
                 you've already requested a visit for the same date and time at this prison.
                 We've sent you a separate email about your other visit request.
                 Please click the link in that email to check the status of your request"
       elsif rejection.email_formatted_reasons.empty?
-        $cant_visit_text = ''
-        $rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do not go to the prison as you won't be able to get in."
+        self.cant_visit_text = ''
+        self.rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do not go to the prison as you won't be able to get in."
       else
-        $cant_visit_text = "You can't visit because:"
-        $rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do not go to the prison as you won't be able to get in."
+        self.cant_visit_text = "You can't visit because:"
+        self.rejection_intro_text = "We've not been able to book your visit to #{visit.prison_name}. Please do not go to the prison as you won't be able to get in."
         rejection.email_formatted_reasons.first.explanation
       end
     end
