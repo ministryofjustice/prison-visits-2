@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#:nocov:
+# :nocov:
 module Nomis
   class UserDetails
     attr_reader :first_name,
@@ -12,4 +12,4 @@ module Nomis
     end
   end
 end
-#:nocov:
+# :nocov:
