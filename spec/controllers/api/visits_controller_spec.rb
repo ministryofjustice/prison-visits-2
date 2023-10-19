@@ -22,11 +22,11 @@ RSpec.describe Api::VisitsController do
   end
 
   before do
-    allow(GATracker).
-      to receive(:new).
-           and_return(double(GATracker,
-                             send_withdrawn_visit_event: nil,
-                             send_cancelled_visit_event: nil))
+    allow(GATracker)
+      .to receive(:new)
+           .and_return(double(GATracker,
+                              send_withdrawn_visit_event: nil,
+                              send_cancelled_visit_event: nil))
   end
 
   describe 'create' do
@@ -79,48 +79,48 @@ RSpec.describe Api::VisitsController do
       params.delete(:contact_email_address)
       post :create, params: params
       expect(response).to have_http_status(:unprocessable_entity)
-      expect(parsed_body['message']).
-        to eq('Missing parameter: contact_email_address')
+      expect(parsed_body['message'])
+        .to eq('Missing parameter: contact_email_address')
     end
 
     it 'fails if the prisoner is invalid' do
       params[:prisoner][:first_name] = nil
       post :create, params: params
       expect(response).to have_http_status(:unprocessable_entity)
-      expect(parsed_body['message']).
-        to eq('Invalid parameter: prisoner (First name is required)')
+      expect(parsed_body['message'])
+        .to eq('Invalid parameter: prisoner (First name is required)')
     end
 
     it 'fails if the visitors are invalid' do
       params[:visitors][0][:first_name] = nil
       post :create, params: params
       expect(response).to have_http_status(:unprocessable_entity)
-      expect(parsed_body['message']).
-        to eq('Invalid parameter: visitors ()')
+      expect(parsed_body['message'])
+        .to eq('Invalid parameter: visitors ()')
     end
 
     it 'fails if slot_options is not an array' do
       params[:slot_options] = 'string'
       post :create, params: params
       expect(response).to have_http_status(:unprocessable_entity)
-      expect(parsed_body['message']).
-        to eq('Invalid parameter: slot_options must contain >= slot')
+      expect(parsed_body['message'])
+        .to eq('Invalid parameter: slot_options must contain >= slot')
     end
 
     it 'fails if slot_options does not contain at least 1 slot' do
       params[:slot_options] = 'string'
       post :create, params: params
       expect(response).to have_http_status(:unprocessable_entity)
-      expect(parsed_body['message']).
-        to eq('Invalid parameter: slot_options must contain >= slot')
+      expect(parsed_body['message'])
+        .to eq('Invalid parameter: slot_options must contain >= slot')
     end
 
     it 'returns an error if the slot does not exist' do
       params[:slot_options] = ['2016-02-15T04:00/04:30']
       post :create, params: params
       expect(response).to have_http_status(:unprocessable_entity)
-      expect(parsed_body['message']).
-        to match(/Invalid parameter: slot_options \(Option 0/)
+      expect(parsed_body['message'])
+        .to match(/Invalid parameter: slot_options \(Option 0/)
     end
   end
 
@@ -175,8 +175,8 @@ RSpec.describe Api::VisitsController do
 
       it 'returns a list of messages' do
         get :show, params: params
-        expect(parsed_body['visit']['messages']).
-          to eq([{ 'body' => message.body }])
+        expect(parsed_body['visit']['messages'])
+          .to eq([{ 'body' => message.body }])
       end
     end
 

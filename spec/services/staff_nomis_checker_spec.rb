@@ -72,8 +72,8 @@ RSpec.describe StaffNomisChecker do
 
       before do
         stub_auth_token
-        stub_request(:get, "#{api}/prison/#{prison.nomis_id}/slots?end_date=#{slot_date}&start_date=#{slot_date}").
-          to_return(body: { slots: ["time": "#{slot_date}T14:00/16:10"] }.to_json)
+        stub_request(:get, "#{api}/prison/#{prison.nomis_id}/slots?end_date=#{slot_date}&start_date=#{slot_date}")
+          .to_return(body: { slots: ["time": "#{slot_date}T14:00/16:10"] }.to_json)
       end
 
       context 'with a valid prisoner' do
@@ -175,9 +175,9 @@ RSpec.describe StaffNomisChecker do
     describe 'when the slots have expired' do
       before do
         now = Date.current
-        allow(visit).
-          to receive(:slots).
-               and_return([
+        allow(visit)
+          .to receive(:slots)
+               .and_return([
                             ConcreteSlot.new(2015, 10, 5, 11, 30, 12, 30),
                             ConcreteSlot.new(now.year, now.month, now.day, 14, 30, 15, 30)
                           ])
@@ -188,10 +188,10 @@ RSpec.describe StaffNomisChecker do
 
     describe 'when the slots are unavailable' do
       before do
-        allow(subject).
-          to receive(:errors_for).
-               with(anything).
-               and_return([SlotAvailabilityValidation::SLOT_NOT_AVAILABLE])
+        allow(subject)
+          .to receive(:errors_for)
+               .with(anything)
+               .and_return([SlotAvailabilityValidation::SLOT_NOT_AVAILABLE])
       end
 
       it { is_expected.to be_slots_unavailable }
@@ -218,10 +218,10 @@ RSpec.describe StaffNomisChecker do
 
         allow(subject).to receive(:errors_for).with(slot1).and_return([])
 
-        allow(subject).
-          to receive(:errors_for).
-               with(slot2).
-               and_return([SlotAvailabilityValidation::SLOT_NOT_AVAILABLE])
+        allow(subject)
+          .to receive(:errors_for)
+               .with(slot2)
+               .and_return([SlotAvailabilityValidation::SLOT_NOT_AVAILABLE])
       end
 
       it { is_expected.not_to be_slots_unavailable }

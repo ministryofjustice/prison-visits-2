@@ -27,15 +27,15 @@ RSpec.describe HumanReadableId do
       before do
         described_class.update_unique_id(Visit, other_visit.id, :human_id)
 
-        expect(Base32::Crockford).
-          to receive(:encode).
-          and_return(other_visit.reload.human_id, 'unique_id')
+        expect(Base32::Crockford)
+          .to receive(:encode)
+          .and_return(other_visit.reload.human_id, 'unique_id')
       end
 
       it 'retries until a unique id is found' do
-        expect { subject }.
-          to change { visit.reload.human_id }.
-          to('unique_id')
+        expect { subject }
+          .to change { visit.reload.human_id }
+          .to('unique_id')
       end
     end
   end

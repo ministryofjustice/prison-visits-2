@@ -28,6 +28,8 @@ AllCops:
     - 'spec/dummy/db/**/*'
     - 'spec/spec_helper.rb'
 
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
 # Use Weirich style
 Style/BlockDelimiters:
   EnforcedStyle: semantic
@@ -40,6 +42,8 @@ Style/BlockDelimiters:
     - expect
 
 Style/SymbolArray:
+  Enabled: false
+RSpec/StubbedMock:
   Enabled: false
 
 Style/SymbolProc:

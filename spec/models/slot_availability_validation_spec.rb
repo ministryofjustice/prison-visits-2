@@ -45,8 +45,8 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
   describe 'when the NOMIS API is enabled' do
     context 'when the api returns an error' do
       before do
-        expect_any_instance_of(Nomis::Client).
-          to receive(:get).and_raise(Nomis::APIError)
+        expect_any_instance_of(Nomis::Client)
+          .to receive(:get).and_raise(Nomis::APIError)
       end
 
       it 'adds no errors for any slot' do
@@ -68,12 +68,12 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
       before do
         allow(Nomis::Api).to receive(:enabled?).and_return(true)
 
-        expect(Nomis::Api.instance).
-          to receive(:fetch_bookable_slots).
-          with(prison: prison,
-               start_date: slot3.to_date,
-               end_date: slot1.to_date).
-          and_return(Nomis::SlotAvailability.new(slots: api_slots))
+        expect(Nomis::Api.instance)
+          .to receive(:fetch_bookable_slots)
+          .with(prison: prison,
+                start_date: slot3.to_date,
+                end_date: slot1.to_date)
+          .and_return(Nomis::SlotAvailability.new(slots: api_slots))
 
         subject.valid?
       end
@@ -98,14 +98,14 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
         let(:available_slots) { [slot1, slot3] }
 
         it 'adds an error to the missing slot' do
-          expect(subject.errors[slot2.to_s]).
-            to eq([described_class::SLOT_NOT_AVAILABLE])
+          expect(subject.errors[slot2.to_s])
+            .to eq([described_class::SLOT_NOT_AVAILABLE])
         end
 
         context 'with a #slot_error' do
           it 'returns the slot not available message' do
-            expect(subject.slot_error(slot2)).
-              to eq(described_class::SLOT_NOT_AVAILABLE)
+            expect(subject.slot_error(slot2))
+              .to eq(described_class::SLOT_NOT_AVAILABLE)
           end
         end
 
@@ -160,12 +160,12 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
         end
 
         before do
-          expect_any_instance_of(Nomis::Api).
-            to receive(:fetch_bookable_slots).
-            with(prison: prison,
-                 start_date: slot3.to_date,
-                 end_date: slot3.to_date).
-            and_return(Nomis::SlotAvailability.new(slots: []))
+          expect_any_instance_of(Nomis::Api)
+            .to receive(:fetch_bookable_slots)
+            .with(prison: prison,
+                  start_date: slot3.to_date,
+                  end_date: slot3.to_date)
+            .and_return(Nomis::SlotAvailability.new(slots: []))
         end
 
         it 'filters out invalid dates' do
@@ -173,8 +173,8 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
 
           expect(subject.slot_error(slot1)).to be_nil
           expect(subject.slot_error(slot2)).to be_nil
-          expect(subject.slot_error(slot3)).
-            to eq(described_class::SLOT_NOT_AVAILABLE)
+          expect(subject.slot_error(slot3))
+            .to eq(described_class::SLOT_NOT_AVAILABLE)
         end
 
         it { is_expected.not_to be_unknown_result }

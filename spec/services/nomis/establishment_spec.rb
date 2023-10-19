@@ -31,8 +31,8 @@ RSpec.describe Nomis::Establishment, type: :model do
   describe '.build' do
     context 'when internal location is not nested under the establishment key' do
       it 'builds the object correctly' do
-        expect(subject).
-          to have_attributes(
+        expect(subject)
+          .to have_attributes(
             code: "ISI",
             desc: "ISIS HMP/YOI",
             housing_location: instance_of(Nomis::HousingLocation)

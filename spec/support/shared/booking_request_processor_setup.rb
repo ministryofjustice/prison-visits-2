@@ -19,8 +19,8 @@ RSpec.shared_context 'with staff response setup' do
       closed: [true, false].sample,
       rejection_attributes: {},
       visitors_attributes: {
-        '0' => principal_visitor.attributes.slice(*visitor_fields).
-          merge('banned_until' => principal_visitor.banned_until.to_s)
+        '0' => principal_visitor.attributes.slice(*visitor_fields)
+          .merge('banned_until' => principal_visitor.banned_until.to_s)
       }
     }
   end

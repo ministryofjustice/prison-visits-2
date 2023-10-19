@@ -59,10 +59,10 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
       expect(vst).to be_rejected
       expect(vst.rejection_reasons).to eq(['slot_unavailable'])
 
-      expect(contact_email_address).
-        to receive_email.
-        with_subject(/Your visit to #{prison.name} is NOT booked/).
-        and_body(/the dates and times you chose aren't available/)
+      expect(contact_email_address)
+        .to receive_email
+        .with_subject(/Your visit to #{prison.name} is NOT booked/)
+        .and_body(/the dates and times you chose aren't available/)
     end
 
     scenario 'a booking when the prisoner has no visiting allowance' do
@@ -85,10 +85,10 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
       expect(vst.rejection_reasons).to include('no_allowance')
       expect(vst.rejection.allowance_renews_on).to eq(allowance_renewal)
 
-      expect(contact_email_address).
-        to receive_email.
-        with_subject(/Your visit to #{prison.name} is NOT booked/).
-        and_body(/the prisoner has used their allowance of visits for this month/)
+      expect(contact_email_address)
+        .to receive_email
+        .with_subject(/Your visit to #{prison.name} is NOT booked/)
+        .and_body(/the prisoner has used their allowance of visits for this month/)
     end
 
     scenario 'rejecting a booking with incorrect prisoner details', vcr: { cassette_name: 'process_booking_happy_path_reject', allow_playback_repeats: true }  do
@@ -109,10 +109,10 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
       expect(vst.rejection_reasons).to include('prisoner_details_incorrect')
       expect(vst).to be_rejected
 
-      expect(contact_email_address).
-        to receive_email.
-        with_subject(/Your visit to #{prison.name} is NOT booked/).
-        and_body(/we can't find the prisoner from the information you've given/)
+      expect(contact_email_address)
+        .to receive_email
+        .with_subject(/Your visit to #{prison.name} is NOT booked/)
+        .and_body(/we can't find the prisoner from the information you've given/)
     end
 
     scenario 'rejecting a booking when the prisoner has moved' do
@@ -126,10 +126,10 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
       expect(vst.rejection_reasons).to include('prisoner_moved')
       expect(vst).to be_rejected
 
-      expect(contact_email_address).
-        to receive_email.
-        with_subject(/Your visit to #{prison.name} is NOT booked/).
-        and_body(/has moved prison/)
+      expect(contact_email_address)
+        .to receive_email
+        .with_subject(/Your visit to #{prison.name} is NOT booked/)
+        .and_body(/has moved prison/)
     end
 
     scenario 'rejecting a booking with multiple rejection reasons' do
@@ -141,16 +141,16 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
       expect(page).to have_text('Thank you for processing the visit')
 
       vst.reload
-      expect(vst.rejection_reasons).
-        to include('prisoner_out_of_prison', 'duplicate_visit_request')
+      expect(vst.rejection_reasons)
+        .to include('prisoner_out_of_prison', 'duplicate_visit_request')
 
       expect(vst).to be_rejected
 
-      expect(contact_email_address).
-        to receive_email.
-        with_subject(/Your visit to #{prison.name} is NOT booked/).
-        and_body(/the prisoner has a restriction/).
-        and_body(/already requested/)
+      expect(contact_email_address)
+        .to receive_email
+        .with_subject(/Your visit to #{prison.name} is NOT booked/)
+        .and_body(/the prisoner has a restriction/)
+        .and_body(/already requested/)
     end
 
     scenario 'rejecting a booking when no visitors are on the contact list' do
@@ -169,10 +169,10 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
       expect(vst).to be_rejected
       expect(vst.visitors.first).to be_not_on_list
 
-      expect(contact_email_address).
-        to receive_email.
-        with_subject(/Your visit to #{prison.name} is NOT booked/).
-        and_body(/prisoner's contact list/)
+      expect(contact_email_address)
+        .to receive_email
+        .with_subject(/Your visit to #{prison.name} is NOT booked/)
+        .and_body(/prisoner's contact list/)
     end
 
     scenario 'rejecting a booking when all visitors are banned' do
@@ -191,10 +191,10 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
       expect(vst).to be_rejected
       expect(vst.visitors.first).to be_banned
 
-      expect(contact_email_address).
-        to receive_email.
-        with_subject(/Your visit to #{prison.name} is NOT booked/).
-        and_body(/banned from visiting/)
+      expect(contact_email_address)
+        .to receive_email
+        .with_subject(/Your visit to #{prison.name} is NOT booked/)
+        .and_body(/banned from visiting/)
     end
 
     scenario "rejecting a visit by indicating the lead visitor can't attend" do
@@ -230,10 +230,10 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
       expect(vst.rejection_reasons).to include('other')
       expect(vst.reload).to be_rejected
 
-      expect(contact_email_address).
-        to receive_email.
-        with_subject(/Your visit to #{prison.name} is NOT booked/).
-        and_body(/not been able to book your visit to #{prison.name}. Please do NOT go to the prison/)
+      expect(contact_email_address)
+        .to receive_email
+        .with_subject(/Your visit to #{prison.name} is NOT booked/)
+        .and_body(/not been able to book your visit to #{prison.name}. Please do NOT go to the prison/)
     end
 
     scenario "lead visitor can't attend for other reasons" do
@@ -245,9 +245,9 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
 
       expect(page).to have_text('Thank you for processing the visit')
 
-      expect(contact_email_address).
-        to receive_email.
-        with_subject(/Your visit to #{prison.name} is NOT booked/)
+      expect(contact_email_address)
+        .to receive_email
+        .with_subject(/Your visit to #{prison.name} is NOT booked/)
 
       vst.reload
 

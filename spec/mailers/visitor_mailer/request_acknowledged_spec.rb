@@ -18,14 +18,14 @@ RSpec.describe VisitorMailer, '.request_acknowledged' do
   include_examples 'template checks'
 
   it 'acknowledges the request' do
-    expect(mail.subject).
-      to match(/received your visit request for Monday 12 October/)
+    expect(mail.subject)
+      .to match(/received your visit request for Monday 12 October/)
   end
 
   it 'uses the locale of the visit' do
-    visit.update locale: 'cy'
-    expect(mail.subject).
-      to match(
+    visit.update! locale: 'cy'
+    expect(mail.subject)
+      .to match(
         /mae eich cais i ymweld ar Dydd Llun 12 Hydref wedi cyrraedd/)
   end
 end

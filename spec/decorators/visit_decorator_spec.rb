@@ -11,7 +11,7 @@ RSpec.describe VisitDecorator do
     allow(subject).to receive(:nomis_checker).and_return(checker)
   end
 
-  describe '#slots'do
+  describe '#slots' do
     it 'are decorated object' do
       expect(subject.slots).to all(be_decorated)
     end

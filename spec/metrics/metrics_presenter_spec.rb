@@ -13,8 +13,8 @@ RSpec.describe MetricsPresenter do
     subject { instance.total_visits(prison_name) }
 
     before do
-      allow_any_instance_of(PrisonSummaryMetricsPresenter).
-        to receive(:total_visits).and_return(5)
+      allow_any_instance_of(PrisonSummaryMetricsPresenter)
+        .to receive(:total_visits).and_return(5)
     end
 
     it { is_expected.to eq(5) }
@@ -26,8 +26,8 @@ RSpec.describe MetricsPresenter do
     subject { instance.visits_in_state(prison_name, state) }
 
     before do
-      allow_any_instance_of(PrisonSummaryMetricsPresenter).
-        to receive(:visits_in_state).with(state).and_return(3)
+      allow_any_instance_of(PrisonSummaryMetricsPresenter)
+        .to receive(:visits_in_state).with(state).and_return(3)
     end
 
     it { is_expected.to eq(3) }
@@ -37,8 +37,8 @@ RSpec.describe MetricsPresenter do
     subject { instance.overdue_count(prison_name) }
 
     before do
-      allow_any_instance_of(PrisonSummaryMetricsPresenter).
-        to receive(:processed_overdue).and_return(2)
+      allow_any_instance_of(PrisonSummaryMetricsPresenter)
+        .to receive(:processed_overdue).and_return(2)
     end
 
     it { is_expected.to eq(2) }
@@ -50,8 +50,8 @@ RSpec.describe MetricsPresenter do
     subject { instance.percent_rejected(prison_name) }
 
     before do
-      allow_any_instance_of(PrisonSummaryMetricsPresenter).
-        to receive(:percent_rejected).and_return(38)
+      allow_any_instance_of(PrisonSummaryMetricsPresenter)
+        .to receive(:percent_rejected).and_return(38)
     end
 
     it { is_expected.to eq(38) }
@@ -65,8 +65,8 @@ RSpec.describe MetricsPresenter do
     it { is_expected.to be_instance_of(PrisonSummaryMetricsPresenter) }
 
     it 'memoizes a prisons summary presenter' do
-      expect(PrisonSummaryMetricsPresenter).
-        to receive(:new).with(anything).once.and_call_original
+      expect(PrisonSummaryMetricsPresenter)
+        .to receive(:new).with(anything).once.and_call_original
 
       instance.summary_for(name)
       instance.summary_for(name)
@@ -103,9 +103,9 @@ RSpec.describe MetricsPresenter do
     subject { instance.build_summary_for(name) }
 
     before do
-      expect(PrisonSummaryMetricsPresenter).to receive(:new).
-        with(counts: 'Prison counts', timings: 'Prison timings').
-        and_call_original
+      expect(PrisonSummaryMetricsPresenter).to receive(:new)
+        .with(counts: 'Prison counts', timings: 'Prison timings')
+        .and_call_original
     end
 
     it { is_expected.to be_instance_of(PrisonSummaryMetricsPresenter) }

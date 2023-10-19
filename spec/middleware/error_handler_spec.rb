@@ -14,8 +14,8 @@ RSpec.describe ErrorHandler do
     subject { described_class.call(env) }
 
     before do
-      expect(ErrorsController).
-        to receive(:action).with(:show).and_return(show_action)
+      expect(ErrorsController)
+        .to receive(:action).with(:show).and_return(show_action)
     end
 
     context 'with a valid query string' do

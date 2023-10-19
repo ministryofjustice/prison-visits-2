@@ -166,11 +166,11 @@ RSpec.describe Prison, type: :model do
       let(:wednesday) { Date.new(2015, 11, 25) }
 
       before do
-        allow(Rails.configuration.calendar).
-          to receive(:business_day?).and_call_original
+        allow(Rails.configuration.calendar)
+          .to receive(:business_day?).and_call_original
 
-        expect(Rails.configuration.calendar).
-          to receive(:business_day?).with(monday).and_return(false)
+        expect(Rails.configuration.calendar)
+          .to receive(:business_day?).with(monday).and_return(false)
       end
 
       it 'skips the public holiday' do

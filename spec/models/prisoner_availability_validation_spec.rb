@@ -36,8 +36,8 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
   describe 'when the NOMIS API is enabled' do
     context 'when the api returns an error' do
       before do
-        expect_any_instance_of(Nomis::Client).
-          to receive(:get).and_raise(Nomis::APIError)
+        expect_any_instance_of(Nomis::Client)
+          .to receive(:get).and_raise(Nomis::APIError)
       end
 
       it 'adds no errors for any slot' do
@@ -86,10 +86,10 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
       before do
         availability = Nomis::PrisonerDetailedAvailability.new(
           dates: [date1_availability, date2_availability, date3_availability])
-        expect(Nomis::Api.instance).
-          to receive(:prisoner_visiting_detailed_availability).
-          with(offender_id: prisoner.nomis_offender_id, slots: [slot1, slot2, slot3]).
-          and_return(availability)
+        expect(Nomis::Api.instance)
+          .to receive(:prisoner_visiting_detailed_availability)
+          .with(offender_id: prisoner.nomis_offender_id, slots: [slot1, slot2, slot3])
+          .and_return(availability)
 
         subject.valid?
       end
@@ -110,14 +110,14 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
 
       context 'with dates that are unavailable' do
         it 'adds an error to the slot' do
-          expect(subject.errors[slot2.to_s]).
-            to eq([Nomis::PrisonerDateAvailability::OUT_OF_VO])
+          expect(subject.errors[slot2.to_s])
+            .to eq([Nomis::PrisonerDateAvailability::OUT_OF_VO])
         end
 
         context 'with #slot_errors' do
           it 'returns the prisoner availability error' do
-            expect(subject.slot_errors(slot2)).
-              to eq([Nomis::PrisonerDateAvailability::OUT_OF_VO])
+            expect(subject.slot_errors(slot2))
+              .to eq([Nomis::PrisonerDateAvailability::OUT_OF_VO])
           end
         end
 
@@ -139,8 +139,8 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
         # communicate that the prisoner is unavailable just because the date is
         # in the past. Another validator should be responsible for that.
         it 'does not add errors to the slots' do
-          expect_any_instance_of(Nomis::Api).
-            not_to receive(:prisoner_visiting_detailed_availability)
+          expect_any_instance_of(Nomis::Api)
+            .not_to receive(:prisoner_visiting_detailed_availability)
 
           subject.valid?
 
@@ -160,11 +160,11 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
         end
 
         before do
-          expect_any_instance_of(Nomis::Api).
-            to receive(:prisoner_visiting_detailed_availability).
-            with(offender_id: prisoner.nomis_offender_id,
-                 slots: [slot3]).
-            and_return(Nomis::PrisonerDetailedAvailability.new(dates: [availability3]))
+          expect_any_instance_of(Nomis::Api)
+            .to receive(:prisoner_visiting_detailed_availability)
+            .with(offender_id: prisoner.nomis_offender_id,
+                  slots: [slot3])
+            .and_return(Nomis::PrisonerDetailedAvailability.new(dates: [availability3]))
         end
 
         it 'filters out invalid dates' do
@@ -172,8 +172,8 @@ RSpec.describe PrisonerAvailabilityValidation, type: :model do
 
           expect(subject.slot_errors(slot1)).to be_empty
           expect(subject.slot_errors(slot2)).to be_empty
-          expect(subject.slot_errors(slot3)).
-            to eq([Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT])
+          expect(subject.slot_errors(slot3))
+            .to eq([Nomis::PrisonerDateAvailability::EXTERNAL_MOVEMENT])
         end
 
         it { is_expected.not_to be_unknown_result }

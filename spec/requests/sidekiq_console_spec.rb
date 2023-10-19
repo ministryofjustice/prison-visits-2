@@ -8,8 +8,8 @@ RSpec.describe 'Sidekiq Admin Console' do
     before do
       prison_login [Struct.new(:nomis_id).new('WED'), prison.estate], email_address, [SignonIdentity::ADMIN_ROLE]
       stub_auth_token
-      stub_request(:get, "https://prison-api-dev.prison.service.justice.gov.uk/api/staff/485926/emails").
-          to_return(body: [email_address].to_json)
+      stub_request(:get, "https://prison-api-dev.prison.service.justice.gov.uk/api/staff/485926/emails")
+          .to_return(body: [email_address].to_json)
       get prison_inbox_path
 
       follow_redirect! while response.redirect?

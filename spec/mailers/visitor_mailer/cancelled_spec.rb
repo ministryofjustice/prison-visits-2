@@ -22,8 +22,8 @@ RSpec.describe VisitorMailer, '.cancelled' do
 
   it 'sends an email notifying of the visit cancellation' do
     prison_name = visit.prison_name
-    expect(mail.subject).
-      to match(
+    expect(mail.subject)
+      .to match(
         /CANCELLED: Your #{prison_name} prison visit for Monday 12 October/)
   end
 

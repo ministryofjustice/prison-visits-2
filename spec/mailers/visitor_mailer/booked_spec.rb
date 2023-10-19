@@ -25,14 +25,14 @@ RSpec.describe VisitorMailer, '.booked' do
   include_examples 'template checks'
 
   it 'sends an email confirming the booking' do
-    expect(mail.subject).
-      to match(/your visit for Monday 12 October has been confirmed/)
+    expect(mail.subject)
+      .to match(/your visit for Monday 12 October has been confirmed/)
   end
 
   it 'uses the locale of the visit' do
     visit.locale = 'cy'
-    expect(mail.subject).
-      to match(/mae eich ymweliad ar Dydd Llun 12 Hydref wedi'i gadarnhau/)
+    expect(mail.subject)
+      .to match(/mae eich ymweliad ar Dydd Llun 12 Hydref wedi'i gadarnhau/)
   end
 
   it 'notifies of the banned visitor' do
