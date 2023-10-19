@@ -66,9 +66,9 @@ module Api
       # TODO: Delete the PK (id) lookup after people stop clicking on emails
       # using the guids ids.
       @visit ||= if HumanReadableId.human_readable?(params[:id])
-                      Visit.find_by!(human_id: params[:id])
+                   Visit.find_by!(human_id: params[:id])
                  else
-                      Visit.find(params[:id])
+                   Visit.find(params[:id])
                     end
 
     end

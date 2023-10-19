@@ -3,7 +3,7 @@ namespace :factory_bot do
   task lint: :environment do
     if Rails.env.test?
 
-        FactoryBot.lint
+      FactoryBot.lint
 
     else
       sh 'rake db:environment:set[test] db:test:prepare factory_bot:lint'

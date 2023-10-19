@@ -33,9 +33,9 @@ private
 
   def processor
     @processor ||= if bookable?
-        BookingResponder::Accept
+                     BookingResponder::Accept
                    else
-        BookingResponder::Reject
+                     BookingResponder::Reject
       end.new(staff_response)
 
   end
