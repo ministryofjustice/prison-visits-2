@@ -32,7 +32,7 @@ module Nomis
       }
 
       build_prisoner(response).tap do |prisoner|
-        PVB::Instrumentation.append_to_log(valid_prisoner_lookup: !!response['found'])
+        PVB::Instrumentation.append_to_log(valid_prisoner_lookup: !response['found'].blank?)
         prisoner.noms_id = noms_id
       end
     rescue APIError => e
@@ -157,11 +157,9 @@ module Nomis
     # :nocov:
     def user_caseloads(staff_id)
       route = "staff/#{staff_id}/caseloads"
-      response = @pool.with { |client|
+      @pool.with { |client|
         client.get(route)
       }
-
-      response
     end
 
     def user_details(username)
