@@ -1,6 +1,7 @@
 require 'rails_helper'
 require 'excon/middleware/custom_idempotent'
 
+# rubocop:disable RSpec/RepeatedDescription
 RSpec.describe Excon::Middleware::CustomIdempotent do
   let(:connection) do
     middlewares = Excon.defaults[:middlewares].map { |middleware|
@@ -287,3 +288,4 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
     expect(response_block.rewound).to eq(true)
   end
 end
+# rubocop:enable RSpec/RepeatedDescription
