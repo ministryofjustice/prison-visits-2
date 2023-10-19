@@ -35,7 +35,7 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it 'sets the identity data in the session' do
-        create!
+        create
         expect(session[:sso_data]).to eq(sso_data)
       end
 
