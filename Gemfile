@@ -58,7 +58,7 @@ gem 'email_address_validation',
 
 group :developmemt do
   gem 'guard-rspec'
-  gem 'guard-rubocop', '1.4.0'
+  gem 'guard-rubocop'
   gem 'better_errors'
   gem 'binding_of_caller'
 end
@@ -74,11 +74,11 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails'
-  gem 'rubocop-govuk', '3.3.2'
-  gem 'rubocop', '0.80.1'
-  gem 'rubocop-performance', '1.6.1'
-  gem 'rubocop-rails', '2.5.2'
-  gem 'rubocop-rspec', '1.41.0'
+  gem 'rubocop-govuk'
+  gem 'rubocop'
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
   gem 'spring-commands-rspec'
 end
 
