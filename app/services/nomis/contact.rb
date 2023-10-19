@@ -18,14 +18,14 @@ module Nomis
     def attributes
       {
         'id' => id,
-'given_name' => given_name,
-'surname' => surname,
+        'given_name' => given_name,
+        'surname' => surname,
         'date_of_birth' => date_of_birth,
-'gender' => gender,
+        'gender' => gender,
         'relationship_type' => relationship_type,
-'contact_type' => contact_type,
+        'contact_type' => contact_type,
         'approved_visitor' => approved_visitor,
-'active' => active,
+        'active' => active,
         'restrictions' => restrictions
       }
     end
