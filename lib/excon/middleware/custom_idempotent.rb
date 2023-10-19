@@ -54,7 +54,7 @@ module Excon
           datum[:retries_remaining] -= 1
           connection = datum.delete(:connection)
           valid_keys = Set.new(connection.valid_request_keys(datum[:middlewares]))
-          datum.select! {|key, _| valid_keys.include?(key) }
+          datum.select! do |key, _| valid_keys.include?(key) end
           connection.request(datum)
         else
           @stack.error_call(datum)
