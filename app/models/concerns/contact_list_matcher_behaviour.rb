@@ -26,7 +26,7 @@ module ContactListMatcherBehaviour
       begin
         if contacts.empty?
           [no_match]
-        else
+      else
           contacts.map do |contact|
             [contact, { data: { contact: contact } }]
           end
