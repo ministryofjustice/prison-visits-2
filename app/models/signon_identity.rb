@@ -126,8 +126,7 @@ class SignonIdentity
 private
 
   def estate_sso_mapper
-    @estate_sso_mapper ||= begin
-      EstateSSOMapper.new(@organisations, admin?)
-    end
+    @estate_sso_mapper ||= EstateSSOMapper.new(@organisations, admin?)
+    
   end
 end
