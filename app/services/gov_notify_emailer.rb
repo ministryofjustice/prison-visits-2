@@ -16,6 +16,7 @@ class GovNotifyEmailer
     self.rejection_intro_text =
       "We've not been able to book your visit to #{visit.prison_name}. Please do not go to the prison as you won't be able to get in."
     self.cant_visit_text = "You can't visit because:"
+    self.update_list = self.first_visit = ''
 
     client.send_email(
       email_address: visit.contact_email_address,
@@ -88,7 +89,7 @@ class GovNotifyEmailer
 
   def booked_subject_date(visit)
     slot_date = ''
-    if visit.slot_granted == nil
+    if visit.slot_granted.nil?
       slot_date = ''
     else
       slot_date = format_slot_for_public(visit.slot_granted)
@@ -132,8 +133,7 @@ class GovNotifyEmailer
       not_on_list_instructions = ''
     end
 
-    not_on_list_message = message + ' ' + not_on_list_instructions
-    not_on_list_message
+    "#{message} #{not_on_list_instructions}"
   end
 
   def booking_accept_banned_visitors(visit)
@@ -155,8 +155,7 @@ class GovNotifyEmailer
       banned_instructions = ''
     end
 
-    banned_message = message + ' ' + banned_instructions
-    banned_message
+    "#{message} #{banned_instructions}"
   end
 
   def is_closed_visit(visit)
@@ -189,7 +188,7 @@ class GovNotifyEmailer
 
   def message_from_prison(message)
     if message&.body.present?
-      'Message from the prison: ' + message.body
+      "Message from the prison: #{message.body}"
     else
       ''
     end
