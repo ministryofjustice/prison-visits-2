@@ -32,13 +32,12 @@ private
   end
 
   def processor
-    @processor ||= begin
-      if bookable?
+    @processor ||= if bookable?
         BookingResponder::Accept
                    else
         BookingResponder::Reject
       end.new(staff_response)
-    end
+    
   end
 
   def email

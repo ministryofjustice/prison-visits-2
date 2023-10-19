@@ -63,11 +63,10 @@ private
   end
 
   def staff_response
-    @staff_response ||= begin
-      StaffResponse.new(
+    @staff_response ||= StaffResponse.new(
         visit: memoised_visit, user: current_user,
         validate_visitors_nomis_ready: params[:validate_visitors_nomis_ready])
-    end
+    
   end
 
   def booking_responder

@@ -24,13 +24,12 @@ class VisitDecorator < Draper::Decorator
   end
 
   def rejection
-    @rejection ||= begin
-                     if object.rejection
+    @rejection ||= if object.rejection
                        object.rejection.decorate
                    else
                        object.build_rejection.decorate.tap(&:apply_nomis_reasons)
                      end
-                   end
+                   
   end
 
   def cancellation
