@@ -94,20 +94,20 @@ module Api
 
     def visitors_step
       @visitors_step ||= VisitorsStep.new(
-          email_address: sanitised_params.require(:contact_email_address),
-          phone_no: sanitised_params.require(:contact_phone_no),
-          visitors: visitors,
-          prison: prison
+        email_address: sanitised_params.require(:contact_email_address),
+        phone_no: sanitised_params.require(:contact_phone_no),
+        visitors: visitors,
+        prison: prison
         )
 
     end
 
     def slots_step
       @slots_step ||= SlotsStep.new(
-          option_0: slots.fetch(0), # We expect at least 1 slot
-          option_1: slots.fetch(1, nil),
-          option_2: slots.fetch(2, nil),
-          prison: prison
+        option_0: slots.fetch(0), # We expect at least 1 slot
+        option_1: slots.fetch(1, nil),
+        option_2: slots.fetch(2, nil),
+        prison: prison
         )
 
     end
