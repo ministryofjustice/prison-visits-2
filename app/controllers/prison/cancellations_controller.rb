@@ -17,7 +17,6 @@ class Prison::CancellationsController < ApplicationController
     end
   end
 
-
 private
 
   def cancellation_response

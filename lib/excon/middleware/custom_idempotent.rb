@@ -48,7 +48,6 @@ module Excon
           datum[:error].kind_of?(ex) && !datum[:error].kind_of?(Excon::Error::Timeout)
         } && datum[:retries_remaining] > 1
 
-
           sleep(datum[:retry_interval]) if datum[:retry_interval]
 
           # reduces remaining retries, reset connection, and restart request_call
