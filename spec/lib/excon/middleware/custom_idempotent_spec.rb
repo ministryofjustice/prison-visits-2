@@ -15,6 +15,22 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
     Excon.new('http://127.0.0.1:9292', middlewares: middlewares)
   end
 
+  let(:block_class) do
+    Class.new do
+      attr_reader :rewound
+
+      def initialize
+        @rewound = false
+      end
+
+      def call(_); end
+
+      def rewind
+        @rewound = true
+      end
+    end
+  end
+
   it "Non-idempotent call with an erroring socket" do
     run_count = 0
     WebMock.stub_request(:get, /\w/).to_return(
@@ -240,20 +256,6 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
     }.to raise_error(Excon::Error::Socket)
   end
 
-  class Block
-    attr_reader :rewound
-
-    def initialize
-      @rewound = false
-    end
-
-    def call(_); end
-
-    def rewind
-      @rewound = true
-    end
-  end
-
   it "request_block rewound" do
     run_count = 0
     WebMock.stub_request(:get, /\w/).and_return(
@@ -266,7 +268,7 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
         end
       end
     )
-    request_block = Block.new
+    request_block = block_class.new
     connection.request(method: :get, idempotent: true, path: '/some-path', request_block: request_block, retry_limit: 2, retry_interval: 0.1)
     expect(request_block.rewound).to eq(true)
   end
@@ -283,7 +285,7 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
         end
       end
     )
-    response_block = Block.new
+    response_block = block_class.new
     connection.request(method: :get, idempotent: true, path: '/some-path', response_block: response_block, retry_limit: 2, retry_interval: 0.1)
     expect(response_block.rewound).to eq(true)
   end
