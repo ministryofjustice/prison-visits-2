@@ -163,7 +163,7 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
       lambda do |request|
         run_count += 1
         if run_count <= 2 # First 5 calls fail.
-          raise Excon::Error::Socket, Exception.new "Mock Error"
+          raise Excon::Error::Socket, Exception.new("Mock Error")
         else
           { body: request.body, headers: request.headers, status: 200 }
         end
@@ -181,7 +181,7 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
       lambda do |request|
         run_count += 1
         if run_count <= 2 # First 5 calls fail.
-          raise Excon::Error::Socket, Exception.new "Mock Error"
+          raise Excon::Error::Socket, Exception.new("Mock Error")
         else
           { body: request.body, headers: request.headers, status:  200 }
         end
@@ -259,7 +259,7 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
       lambda do |request|
         run_count += 1
         if run_count <= 1 # First call fails.
-          raise Excon::Error::Socket, Exception.new "Mock Error"
+          raise Excon::Error::Socket, Exception.new("Mock Error")
         else
           { body: request.body, headers: request.headers, status: 200 }
         end
@@ -276,7 +276,7 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
       lambda do |request|
         run_count += 1
         if run_count <= 1 # First call fails.
-          raise Excon::Error::Socket, Exception.new "Mock Error"
+          raise Excon::Error::Socket, Exception.new("Mock Error")
         else
           { body: request.body, headers: request.headers, status: 200 }
         end
