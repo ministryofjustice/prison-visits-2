@@ -32,6 +32,13 @@ Rake/MethodDefinitionInTask:
   Enabled: false
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
+Style/FormatString:
+  Enabled: false
+RSpec/StubbedMock:
+  Enabled: false
+Rails/SaveBang:
+  Enabled: false
+
 # Use Weirich style
 Style/BlockDelimiters:
   EnforcedStyle: semantic
