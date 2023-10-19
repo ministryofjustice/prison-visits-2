@@ -27,7 +27,7 @@ class VisitDecorator < Draper::Decorator
     @rejection ||= begin
                      if object.rejection
                        object.rejection.decorate
-                     else
+                   else
                        object.build_rejection.decorate.tap(&:apply_nomis_reasons)
                      end
                    end

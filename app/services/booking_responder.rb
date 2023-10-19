@@ -35,7 +35,7 @@ private
     @processor ||= begin
       if bookable?
         BookingResponder::Accept
-      else
+                   else
         BookingResponder::Reject
       end.new(staff_response)
     end
