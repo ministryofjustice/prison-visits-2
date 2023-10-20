@@ -8,8 +8,8 @@ class GovNotifyEmailer
 
   attr_accessor :update_list, :first_visit, :rejection_intro_text, :cant_visit_text
 
-  def initialize
-    @client = Notifications::Client.new(ENV['GOV_NOTIFY_API_KEY'])
+  def initialize(client = Notifications::Client.new(ENV['GOV_NOTIFY_API_KEY']))
+    @client = client
   end
 
   def send_email(visit, template_id, rejection = nil, message = nil, cancellation = nil)
