@@ -10,6 +10,7 @@ RSpec.describe GovNotifyEmailer do
 
   describe '#send_email' do
     let(:visit) { create(:visit) }
+    let(:slot) { visit.slots.first }
     let(:template_id) { SecureRandom.uuid }
     let(:client_params) do
       {
@@ -24,7 +25,7 @@ RSpec.describe GovNotifyEmailer do
           add_address: address_book.no_reply,
           prison: visit.prison_name,
           count: visit.total_number_of_visitors,
-          choices: ["Choice 1: Monday 30 October 2:00pm for 2 hrs 10 mins"],
+          choices: ["Choice 1: #{format_slot_for_public(slot)}"],
           prisoner: visit.prisoner_anonymized_name,
           prisoner_number: visit.prisoner_number.upcase,
           visit_id: visit.human_id,
