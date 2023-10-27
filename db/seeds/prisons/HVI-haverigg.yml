@@ -9,7 +9,7 @@ phone_no: 0122 971 3016
 enabled: true
 private: false
 closed: false
-adult_age: 10
+adult_age: 18
 recurring:
   sat:
   - 1030-1600
