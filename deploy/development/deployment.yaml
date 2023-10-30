@@ -108,14 +108,3 @@ spec:
                 name: shared-environment
             - secretRef:
                 name: secrets
-        - name: prison-visits-booking-staff-metrics
-          image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
-          imagePullPolicy: Always
-          command: ['sh', '-c', "bundle exec prometheus_exporter --bind 0.0.0.0"]
-          envFrom:
-            - configMapRef:
-                name: shared-environment
-            - secretRef:
-                name: secrets
-          ports:
-            - containerPort: 9394

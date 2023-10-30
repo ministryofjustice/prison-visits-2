@@ -310,8 +310,6 @@ GEM
       actionmailer (>= 3)
       net-smtp
       premailer (~> 1.7, >= 1.7.9)
-    prometheus_exporter (2.0.8)
-      webrick
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -562,7 +560,6 @@ DEPENDENCIES
   pg
   phonelib
   premailer-rails
-  prometheus_exporter
   pry-byebug
   pry-rails
   puma (= 5.6.7)
