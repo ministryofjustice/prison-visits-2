@@ -28,7 +28,7 @@ Rails.application.config.active_storage.queues.purge    = :active_storage_purge
 
 # When assigning to a collection of attachments declared via `has_many_attached`, replace existing
 # attachments instead of appending. Use #attach to add new attachments without replacing existing ones.
-# Rails.application.config.active_storage.replace_on_assign_to_many = true
+Rails.application.config.active_storage.replace_on_assign_to_many = true
 
 # Use ActionMailer::MailDeliveryJob for sending parameterized and normal mail.
 #
@@ -37,6 +37,10 @@ Rails.application.config.active_storage.queues.purge    = :active_storage_purge
 # If you send mail in the background, job workers need to have a copy of
 # MailDeliveryJob to ensure all delivery jobs are processed properly.
 # Make sure your entire app is migrated and stable on 6.0 before using this setting.
+#
+# We have enabled this in application.rb
+# https://github.com/rails/rails/issues/37068#issuecomment-545531362
+#
 # Rails.application.config.action_mailer.delivery_job = "ActionMailer::MailDeliveryJob"
 
 # Enable the same cache key to be reused when the object being cached of type
