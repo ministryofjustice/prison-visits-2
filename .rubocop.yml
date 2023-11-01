@@ -39,8 +39,6 @@ RSpec/MultipleMemoizedHelpers:
   Enabled: false
 Style/FormatString:
   Enabled: false
-RSpec/StubbedMock:
-  Enabled: false
 Rails/SaveBang:
   Enabled: false
 
@@ -262,7 +260,7 @@ Lint/IneffectiveAccessModifier:
 Lint/AmbiguousBlockAssociation:
   Enabled: false
 
-Capybara/FeatureMethods:
+RSpec/Capybara/FeatureMethods:
   Enabled: false
 
 # Below here are failing GovUk styles
