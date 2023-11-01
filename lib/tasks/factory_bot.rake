@@ -2,9 +2,7 @@ namespace :factory_bot do
   desc 'Verify that all FactoryBot factories are valid'
   task lint: :environment do
     if Rails.env.test?
-      begin
-        FactoryBot.lint
-      end
+      FactoryBot.lint
     else
       sh 'rake db:environment:set[test] db:test:prepare factory_bot:lint'
     end

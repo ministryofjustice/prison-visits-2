@@ -28,9 +28,8 @@ private
   attr_writer :visit, :user
 
   def cancellation
-    @cancellation ||= begin
-      visit.build_cancellation(cancellation_attributes)
-    end
+    @cancellation ||= visit.build_cancellation(cancellation_attributes)
+    
   end
   alias :build_cancellation :cancellation
 
