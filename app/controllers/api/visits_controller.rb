@@ -66,11 +66,10 @@ module Api
       # TODO: Delete the PK (id) lookup after people stop clicking on emails
       # using the guids ids.
       @visit ||= if HumanReadableId.human_readable?(params[:id])
-                      Visit.find_by!(human_id: params[:id])
+                   Visit.find_by!(human_id: params[:id])
                  else
-                      Visit.find(params[:id])
-                    end
-                  
+                   Visit.find(params[:id])
+                 end
     end
 
     def fail_if_invalid(param, step)
@@ -85,31 +84,28 @@ module Api
     end
 
     def prisoner_step
-      @prisoner_step ||=
-        PrisonerStep.new(
-          sanitised_params.require(:prisoner).
-          merge(prison_id: prison.id)
-        )
+      @prisoner_step ||= PrisonerStep.new(
+        sanitised_params.require(:prisoner).
+        merge(prison_id: prison.id)
+      )
     end
 
     def visitors_step
       @visitors_step ||= VisitorsStep.new(
-          email_address: sanitised_params.require(:contact_email_address),
-          phone_no: sanitised_params.require(:contact_phone_no),
-          visitors: visitors,
-          prison: prison
-        )
-      
+        email_address: sanitised_params.require(:contact_email_address),
+        phone_no: sanitised_params.require(:contact_phone_no),
+        visitors: visitors,
+        prison: prison
+      )
     end
 
     def slots_step
       @slots_step ||= SlotsStep.new(
-          option_0: slots.fetch(0), # We expect at least 1 slot
-          option_1: slots.fetch(1, nil),
-          option_2: slots.fetch(2, nil),
-          prison: prison
-        )
-      
+        option_0: slots.fetch(0), # We expect at least 1 slot
+        option_1: slots.fetch(1, nil),
+        option_2: slots.fetch(2, nil),
+        prison: prison
+      )
     end
 
     def visitors
@@ -119,11 +115,10 @@ module Api
 
     def slots
       @slots = sanitised_params[:slot_options].tap do |obj|
-          unless obj.is_a?(Array) && obj.size >= 1
-            fail ParameterError, 'slot_options must contain >= slot'
-          end
+        unless obj.is_a?(Array) && obj.size >= 1
+          fail ParameterError, 'slot_options must contain >= slot'
         end
-      
+      end
     end
 
     def ga_tracker

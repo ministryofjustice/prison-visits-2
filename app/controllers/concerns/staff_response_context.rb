@@ -19,7 +19,8 @@ module StaffResponseContext
 
   def nomis_info_presenter
     @nomis_info_presenter ||= NomisInfoPresenter.new(
-      prisoner_validation, prisoner_location_validation)
+      prisoner_validation, prisoner_location_validation
+    )
   end
 
   def prisoner_location_presenter
@@ -64,9 +65,9 @@ private
 
   def staff_response
     @staff_response ||= StaffResponse.new(
-        visit: memoised_visit, user: current_user,
-        validate_visitors_nomis_ready: params[:validate_visitors_nomis_ready])
-    
+      visit: memoised_visit, user: current_user,
+      validate_visitors_nomis_ready: params[:validate_visitors_nomis_ready]
+    )
   end
 
   def booking_responder

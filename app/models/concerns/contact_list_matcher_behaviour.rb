@@ -24,13 +24,12 @@ module ContactListMatcherBehaviour
   def contacts_with_data
     @contacts_with_data ||=
       if contacts.empty?
-          [no_match]
+        [no_match]
       else
-          contacts.map do |contact|
-            [contact, { data: { contact: contact } }]
-          end
+        contacts.map do |contact|
+          [contact, { data: { contact: contact } }]
         end
-      
+      end
   end
 
   def any?
