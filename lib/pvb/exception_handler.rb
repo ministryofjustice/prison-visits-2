@@ -1,10 +1,9 @@
 module PVB
   class ExceptionHandler
-    def self.capture_exception(exception, options = nil)
+    def self.capture_exception(exception, options = {})
       raise exception unless Rails.configuration.sentry_dsn
 
-      args = [exception, options].compact
-      Sentry.capture_exception(*args)
+      Sentry.capture_exception(exception, **options)
     end
   end
 end

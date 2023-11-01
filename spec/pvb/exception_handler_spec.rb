@@ -20,10 +20,18 @@ RSpec.describe PVB::ExceptionHandler do
     context 'when passing options' do
       let(:extra_options) { { foo: :bar } }
 
-      it 'forwards the extra options to ruby-raven' do
-        expect(described_class).to receive(:capture_exception).with(exception, extra_options)
+      it 'forwards them to Sentry' do
+        expect(Sentry).to receive(:capture_exception).with(exception, extra_options)
 
         described_class.capture_exception(exception, extra_options)
+      end
+    end
+
+    context 'when not passing options' do
+      it 'forwards them to Sentry' do
+        expect(Sentry).to receive(:capture_exception).with(exception)
+
+        described_class.capture_exception(exception)
       end
     end
   end
