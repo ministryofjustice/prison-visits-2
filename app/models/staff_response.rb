@@ -64,11 +64,11 @@ private
     @rejection_attributes ||= begin
       attrs = visit.rejection.serializable_hash(
         except: %i[
-created_at
-updated_at
-allowance_renews_on
-privileged_allowance_expires_on
-rejection_reason_detail])
+        created_at
+        updated_at
+        allowance_renews_on
+        privileged_allowance_expires_on
+        rejection_reason_detail])
 
       attrs['allowance_renews_on'] =
         rejection.allowance_renews_on.to_s
