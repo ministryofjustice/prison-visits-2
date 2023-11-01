@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails', '6.0.6.1'
+gem 'rails', '6.1.7.6'
 # This needs to be in here for Heroku
-ruby '2.6.7'
+ruby '3.0.6'
 
 gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'
@@ -10,10 +10,7 @@ gem 'business', '1.18.0'
 gem 'bootsnap', require: false
 gem 'connection_pool'
 gem 'draper'
-gem 'excon', '0.62.0' # There is an issue with subsequent versions where there is a
-# regression, which isn't fixed in any future versions. An agreement has been reached
-# within the team to pin Excon to the current version, with the plan to
-# replace it with another HTTP client, probably Faraday.
+gem 'excon'
 gem 'govuk_elements_rails'
 gem 'govuk_frontend_toolkit', '8.2.0'
 gem 'govuk_template'
@@ -39,7 +36,7 @@ gem 'request_store'
 gem 'sassc-rails'
 gem 'scenic'
 gem 'sentry-rails'
-gem 'sidekiq'
+gem 'sidekiq', '6.5.11'
 gem 'sprockets', '< 4'
 gem 'state_machines-activerecord'
 gem 'string_scrubber'

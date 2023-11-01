@@ -21,7 +21,7 @@ private
 
   def ticket_raised!(feedback)
     client = Zendesk::PVBClient.instance
-    Zendesk::PVBApi.new(client).raise_ticket(ticket_attrs(feedback))
+    Zendesk::PVBApi.new(client).raise_ticket(**ticket_attrs(feedback))
   end
 
   def ticket_attrs(feedback)

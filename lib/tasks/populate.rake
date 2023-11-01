@@ -116,7 +116,7 @@ namespace :pvb do
     def cancel_visit(visit, num)
       if num.even?
         CancellationResponse.new(
-          visit, reasons: [Cancellation::REASONS.sample]
+          visit, { reasons: [Cancellation::REASONS.sample] }
         ).cancel!
       else
         VisitorCancellationResponse.new(visit: visit).cancel!

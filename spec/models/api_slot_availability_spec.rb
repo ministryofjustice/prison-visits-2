@@ -112,7 +112,7 @@ RSpec.describe ApiSlotAvailability, type: :model do
         expect(Nomis::Api.instance).to receive(:prisoner_visiting_availability).
           and_return(prisoner_availability)
 
-        expect(subject.prisoner_available_dates(prisoner_params)).to eq([Date.new(2016, 4, 12), Date.new(2016, 4, 25)])
+        expect(subject.prisoner_available_dates(**prisoner_params)).to eq([Date.new(2016, 4, 12), Date.new(2016, 4, 25)])
       end
 
       it 'returns only prison slots if the NOMIS API is disabled' do
@@ -120,7 +120,7 @@ RSpec.describe ApiSlotAvailability, type: :model do
         expect(Nomis::Api.instance).not_to receive(:lookup_active_prisoner)
         expect(Nomis::Api.instance).not_to receive(:prisoner_visiting_availability)
 
-        expect(subject.prisoner_available_dates(prisoner_params)).to be_nil
+        expect(subject.prisoner_available_dates(**prisoner_params)).to be_nil
       end
 
       it 'returns only prison slots if the NOMIS API cannot be contacted' do
@@ -130,7 +130,7 @@ RSpec.describe ApiSlotAvailability, type: :model do
           'Error calling the NOMIS API: #<Excon::Error: Lookup error>'
         )
 
-        expect(subject.prisoner_available_dates(prisoner_params)).to be_nil
+        expect(subject.prisoner_available_dates(**prisoner_params)).to be_nil
       end
     end
   end

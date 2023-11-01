@@ -62,7 +62,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
             browser_custom_field,
             service_custom_field
           ]
-      ).and_return(ticket)
+        ).and_return(ticket)
 
       subject.perform_now(feedback)
     end

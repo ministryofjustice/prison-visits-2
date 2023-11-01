@@ -35,12 +35,12 @@ RSpec.describe Api::PrisonsController do
     let(:params) { { format: :json } }
 
     it 'returns 200 OK' do
-      get :index, params
+      get :index, params: params
       expect(response).to have_http_status(:ok)
     end
 
     it 'returns the id and name of each prison' do
-      get :index, params
+      get :index, params: params
       expect(parsed_body).to include(
         'prisons' => [
           include('id' => disabled_prison.id, 'name' => 'A Disabled Prison'),
@@ -50,7 +50,7 @@ RSpec.describe Api::PrisonsController do
     end
 
     it 'includes an API link for each prison' do
-      get :index, params
+      get :index, params: params
       expect(parsed_body).to include(
         'prisons' => [
           include('prison_url' => "http://test.host/api/prisons/#{disabled_prison.id}"),
@@ -61,7 +61,7 @@ RSpec.describe Api::PrisonsController do
 
     it 'localises prison details on Accept-Language header' do
       request.env['HTTP_ACCEPT_LANGUAGE'] = 'cy'
-      get :index, params
+      get :index, params: params
       expect(parsed_body).to include(
         'prisons' => [
           include('name' => 'Some Welsh'), include('name' => 'Lleuad')
