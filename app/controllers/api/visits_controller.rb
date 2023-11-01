@@ -68,7 +68,7 @@ module Api
       @visit ||= begin
                     if HumanReadableId.human_readable?(params[:id])
                       Visit.find_by!(human_id: params[:id])
-                    else
+                 else
                       Visit.find(params[:id])
                     end
                   end
