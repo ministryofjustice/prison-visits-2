@@ -20,12 +20,12 @@ RSpec.describe BookingResponder do
       before do
         visit.slot_granted = visit.slot_option_0
 
-        expect(BookingResponder::Accept).
-          to receive(:new).
-          with(instance_of(StaffResponse)).
-          and_return(accept_processor)
-        allow(VisitorMailer).to receive(:booked).
-          and_return(visitor_mailer)
+        expect(BookingResponder::Accept)
+          .to receive(:new)
+          .with(instance_of(StaffResponse))
+          .and_return(accept_processor)
+        allow(VisitorMailer).to receive(:booked)
+          .and_return(visitor_mailer)
       end
 
       it 'accepts the booking' do
@@ -35,8 +35,8 @@ RSpec.describe BookingResponder do
 
       it 'sends the booked emails to prison and visitors' do
         subject.respond!
-        expect(VisitorMailer).to have_received(:booked).
-          with(staff_response.email_attrs, message_attributes)
+        expect(VisitorMailer).to have_received(:booked)
+          .with(staff_response.email_attrs, message_attributes)
       end
     end
 
@@ -45,10 +45,10 @@ RSpec.describe BookingResponder do
         visit.slot_granted = Rejection::SLOT_UNAVAILABLE
 
         expect(BookingResponder::Accept).not_to receive(:new)
-        expect(BookingResponder::Reject).to receive(:new).
-          and_return(reject_processor)
-        allow(VisitorMailer).to receive(:rejected).
-          and_return(visitor_mailer)
+        expect(BookingResponder::Reject).to receive(:new)
+          .and_return(reject_processor)
+        allow(VisitorMailer).to receive(:rejected)
+          .and_return(visitor_mailer)
       end
 
       it 'rejects the booking' do
@@ -58,8 +58,8 @@ RSpec.describe BookingResponder do
 
       it 'sends the booked emails to prison and visitors' do
         subject.respond!
-        expect(VisitorMailer).to have_received(:rejected).
-          with(staff_response.email_attrs, message_attributes)
+        expect(VisitorMailer).to have_received(:rejected)
+          .with(staff_response.email_attrs, message_attributes)
       end
     end
   end

@@ -1,6 +1,7 @@
 require 'rails_helper'
 require 'excon/middleware/custom_idempotent'
 
+# rubocop:disable RSpec/RepeatedDescription
 RSpec.describe Excon::Middleware::CustomIdempotent do
   let(:connection) do
     middlewares = Excon.defaults[:middlewares].map { |middleware|
@@ -14,7 +15,23 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
     Excon.new('http://127.0.0.1:9292', middlewares: middlewares)
   end
 
-  it "Non-idempotent call with an erroring socket"do
+  let(:block_class) do
+    Class.new do
+      attr_reader :rewound
+
+      def initialize
+        @rewound = false
+      end
+
+      def call(_); end
+
+      def rewind
+        @rewound = true
+      end
+    end
+  end
+
+  it "Non-idempotent call with an erroring socket" do
     run_count = 0
     WebMock.stub_request(:get, /\w/).to_return(
       lambda do |_request|
@@ -27,15 +44,15 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
       end
     )
 
-    expect { connection.request(method: :get, path: '/some-path') }.
-      to raise_error(Excon::Errors::SocketError)
+    expect { connection.request(method: :get, path: '/some-path') }
+      .to raise_error(Excon::Errors::SocketError)
   end
 
   it "Idempotent request with a timeout error" do
     WebMock.stub_request(:get, /\w/).to_timeout
 
-    expect { connection.request(method: :get, path: '/some-path') }.
-      to raise_error(Excon::Errors::Timeout)
+    expect { connection.request(method: :get, path: '/some-path') }
+      .to raise_error(Excon::Errors::Timeout)
   end
 
   it "Idempotent request with socket erroring first 3 times" do
@@ -68,8 +85,8 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
       end
     )
 
-    expect { connection.request(method: :get, idempotent: true, path: '/some-path') }.
-      to raise_error(Excon::Errors::SocketError)
+    expect { connection.request(method: :get, idempotent: true, path: '/some-path') }
+      .to raise_error(Excon::Errors::SocketError)
   end
 
   it "Lowered retry limit with socket erroring first time" do
@@ -102,8 +119,8 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
       end
     )
 
-    expect { connection.request(method: :get, idempotent: true, path: '/some-path', retry_limit: 2) }.
-      to raise_error(Excon::Errors::SocketError)
+    expect { connection.request(method: :get, idempotent: true, path: '/some-path', retry_limit: 2) }
+      .to raise_error(Excon::Errors::SocketError)
   end
 
   it "Raised retry limit with socket erroring first 5 times" do
@@ -136,8 +153,8 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
       end
     )
 
-    expect { connection.request(method: :get, idempotent: true, path: '/some-path', retry_limit: 8) }.
-     to raise_error(Excon::Errors::SocketError)
+    expect { connection.request(method: :get, idempotent: true, path: '/some-path', retry_limit: 8) }
+     .to raise_error(Excon::Errors::SocketError)
   end
 
   it "Retry limit in constructor with socket erroring first 5 times" do
@@ -157,16 +174,15 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
     expect(response.status).to eq(200)
   end
 
-
   it "Retry limit and sleep in constructor with socket erroring first 2 times" do
     run_count = 0
     WebMock.stub_request(:get, /\w/).and_return(
       lambda do |request|
         run_count += 1
         if run_count <= 2 # First 5 calls fail.
-          raise Excon::Error::Socket.new(Exception.new "Mock Error")
+          raise Excon::Error::Socket, Exception.new("Mock Error")
         else
-          {body: request.body, headers: request.headers, status: 200}
+          { body: request.body, headers: request.headers, status: 200 }
         end
       end
     )
@@ -182,9 +198,9 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
       lambda do |request|
         run_count += 1
         if run_count <= 2 # First 5 calls fail.
-          raise Excon::Error::Socket.new(Exception.new "Mock Error")
+          raise Excon::Error::Socket, Exception.new("Mock Error")
         else
-          {body: request.body, headers: request.headers, status:  200}
+          { body: request.body, headers: request.headers, status:  200 }
         end
       end
     )
@@ -203,12 +219,12 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
         if run_count <= 3 # First 3 calls fail.
           raise "oops"
         else
-          {body: request.body, headers: request.headers, status: 200}
+          { body: request.body, headers: request.headers, status: 200 }
         end
       end
     )
 
-    response = connection.request(method: :get, :idempotent => true, :retry_errors => [RuntimeError], :path => '/some-path')
+    response = connection.request(method: :get, idempotent: true, retry_errors: [RuntimeError], path: '/some-path')
     expect(response.status).to eq(200)
   end
 
@@ -220,7 +236,7 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
         if run_count <= 5 # First 5 calls fail.
           raise "oops"
         else
-          {body: request.body, headers: request.headers, status: 200}
+          { body: request.body, headers: request.headers, status: 200 }
         end
       end
     )
@@ -236,23 +252,8 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
     )
 
     expect {
-      connection.request(:method => :get, :idempotent => true, :retry_errors => [RuntimeError], :path => '/some-path')
+      connection.request(method: :get, idempotent: true, retry_errors: [RuntimeError], path: '/some-path')
     }.to raise_error(Excon::Error::Socket)
-  end
-
-  class Block
-    attr_reader :rewound
-
-    def initialize
-      @rewound = false
-    end
-
-    def call(_)
-    end
-
-    def rewind
-      @rewound = true
-    end
   end
 
   it "request_block rewound" do
@@ -261,13 +262,13 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
       lambda do |request|
         run_count += 1
         if run_count <= 1 # First call fails.
-          raise Excon::Error::Socket.new(Exception.new "Mock Error")
+          raise Excon::Error::Socket, Exception.new("Mock Error")
         else
-          {body: request.body, headers: request.headers, status: 200}
+          { body: request.body, headers: request.headers, status: 200 }
         end
       end
     )
-    request_block = Block.new
+    request_block = block_class.new
     connection.request(method: :get, idempotent: true, path: '/some-path', request_block: request_block, retry_limit: 2, retry_interval: 0.1)
     expect(request_block.rewound).to eq(true)
   end
@@ -278,14 +279,15 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
       lambda do |request|
         run_count += 1
         if run_count <= 1 # First call fails.
-          raise Excon::Error::Socket.new(Exception.new "Mock Error")
+          raise Excon::Error::Socket, Exception.new("Mock Error")
         else
-          {body: request.body, headers: request.headers, status: 200}
+          { body: request.body, headers: request.headers, status: 200 }
         end
       end
     )
-    response_block = Block.new
+    response_block = block_class.new
     connection.request(method: :get, idempotent: true, path: '/some-path', response_block: response_block, retry_limit: 2, retry_interval: 0.1)
     expect(response_block.rewound).to eq(true)
   end
 end
+# rubocop:enable RSpec/RepeatedDescription

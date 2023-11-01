@@ -66,8 +66,11 @@ RSpec.shared_context 'when creating visits without dates' do
   end
 
   def make_visits(prison)
-    %i[visit booked_visit rejected_visit
-       cancelled_visit withdrawn_visit].each do |visit_type|
+    %i[visit
+       booked_visit
+       rejected_visit
+       cancelled_visit
+       withdrawn_visit].each do |visit_type|
       create(visit_type, prison: prison)
     end
   end

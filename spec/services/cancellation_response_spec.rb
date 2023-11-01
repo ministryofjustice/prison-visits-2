@@ -34,9 +34,9 @@ RSpec.describe CancellationResponse do
     before do
       allow(VisitorMailer).to receive(:cancelled).with(visit).and_return(mail)
 
-      expect(BookingResponder::Cancel).
-          to receive(:new).
-              with(subject).and_return(responder)
+      expect(BookingResponder::Cancel)
+          .to receive(:new)
+              .with(subject).and_return(responder)
       instance.cancel!
     end
 

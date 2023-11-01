@@ -10,7 +10,7 @@ RSpec.describe MojHelper do
   end
 
   it 'returns the proposition title' do
-    expect(config_item(:proposition_title)).
-      to eq('Online visit requests')
+    expect(config_item(:proposition_title))
+      .to eq('Online visit requests')
   end
 end

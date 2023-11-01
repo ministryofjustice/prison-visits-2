@@ -22,8 +22,8 @@ RSpec.describe Excon::Middleware::Deadline do
 
   it 'does not complete within the deadline' do
     travel_to(deadline + 1.second) do
-      expect { response }.
-        to raise_error(Excon::Errors::DeadlineError, /Deadline/)
+      expect { response }
+        .to raise_error(Excon::Errors::DeadlineError, /Deadline/)
     end
   end
 

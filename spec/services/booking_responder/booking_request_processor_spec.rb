@@ -50,8 +50,8 @@ RSpec.describe BookingResponder::BookingRequestProcessor do
       end
 
       it 'does not persist the visit state change and message' do
-        expect { process_request }.
-          not_to change { visit.reload.processing_state }
+        expect { process_request }
+          .not_to change { visit.reload.processing_state }
 
         expect(visit.messages.count).to eq(0)
         expect(visit.last_visit_state).to be_nil

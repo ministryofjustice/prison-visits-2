@@ -40,8 +40,8 @@ RSpec.feature 'Metrics', js: true do
     context 'when all the time' do
       before do
         stub_auth_token
-        stub_request(:get, "https://prison-api-dev.prison.service.justice.gov.uk/api/staff/485926/emails").
-          to_return(body: [email_address].to_json)
+        stub_request(:get, "https://prison-api-dev.prison.service.justice.gov.uk/api/staff/485926/emails")
+          .to_return(body: [email_address].to_json)
 
         luna_visits_with_dates
 
@@ -55,10 +55,10 @@ RSpec.feature 'Metrics', js: true do
 
       it 'sends en email with a csv attachment', driver: :rack_test do
         click_on 'Email latest confirmed bookings (CSV)'
-        expect(email_address).
-          to receive_email.
-          with_subject(/Confirmed bookings \(CSV\)/).
-          with_attachment('confirmed_bookings.csv')
+        expect(email_address)
+          .to receive_email
+          .with_subject(/Confirmed bookings \(CSV\)/)
+          .with_attachment('confirmed_bookings.csv')
       end
     end
   end

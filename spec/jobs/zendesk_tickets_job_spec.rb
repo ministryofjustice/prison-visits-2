@@ -52,9 +52,9 @@ RSpec.describe ZendeskTicketsJob, type: :job do
     it 'creates a ticket with default email address' do
       allow(zendesk_pvb_api).to receive(:raise_ticket).and_return(ticket)
 
-      expect(zendesk_pvb_api).
-        to receive(:raise_ticket).
-        with(
+      expect(zendesk_pvb_api)
+        .to receive(:raise_ticket)
+        .with(
           description: 'text',
           requester: { email: 'feedback@email.test.host', name: 'Unknown' },
           custom_fields: [
@@ -74,9 +74,9 @@ RSpec.describe ZendeskTicketsJob, type: :job do
     end
 
     it 'creates a ticket with custom fields containing the prison' do
-      expect(zendesk_pvb_api).
-        to receive(:raise_ticket).
-        with(
+      expect(zendesk_pvb_api)
+        .to receive(:raise_ticket)
+        .with(
           description: 'text',
           requester: { email: 'email@example.com', name: 'Unknown' },
           custom_fields: [
@@ -96,9 +96,9 @@ RSpec.describe ZendeskTicketsJob, type: :job do
 
     context 'with no prisoner fields filled in' do
       it 'creates a ticket with feedback and custom fields' do
-        expect(zendesk_pvb_api).
-          to receive(:raise_ticket).
-          with(
+        expect(zendesk_pvb_api)
+          .to receive(:raise_ticket)
+          .with(
             description: 'text',
             requester: { email: 'email@example.com', name: 'Unknown' },
             custom_fields: [
@@ -123,9 +123,9 @@ RSpec.describe ZendeskTicketsJob, type: :job do
       let(:prisoner_dob) { Time.zone.today - 30.years }
 
       it 'creates a ticket with feedback and custom fields' do
-        expect(zendesk_pvb_api).
-          to receive(:raise_ticket).
-          with(
+        expect(zendesk_pvb_api)
+          .to receive(:raise_ticket)
+          .with(
             description: 'text',
             requester: { email: 'email@example.com', name: 'Unknown' },
             custom_fields: [
@@ -147,9 +147,9 @@ RSpec.describe ZendeskTicketsJob, type: :job do
     let(:submitted_by_staff) { true }
 
     it 'creates a ticket with feedback, custom fields and a tag' do
-      expect(zendesk_pvb_api).
-        to receive(:raise_ticket).
-        with(
+      expect(zendesk_pvb_api)
+        .to receive(:raise_ticket)
+        .with(
           description: 'text',
           requester: { email: 'email@example.com', name: 'Unknown' },
           tags: ['staff.prison.visits'],
@@ -165,9 +165,9 @@ RSpec.describe ZendeskTicketsJob, type: :job do
 
   context 'when raising a ticket is successful' do
     it 'deletes the feedback submission' do
-      expect(zendesk_pvb_api).
-        to receive(:raise_ticket).
-        with(
+      expect(zendesk_pvb_api)
+        .to receive(:raise_ticket)
+        .with(
           description: 'text',
           requester: { email: 'email@example.com', name: 'Unknown' },
           custom_fields: [
@@ -185,9 +185,9 @@ RSpec.describe ZendeskTicketsJob, type: :job do
 
   context 'when raising a ticket is not successful' do
     it 'does not delete the feedback submission' do
-      allow(zendesk_pvb_api).
-        to receive(:raise_ticket).
-          with(
+      allow(zendesk_pvb_api)
+        .to receive(:raise_ticket)
+          .with(
             description: 'text',
             requester: { email: 'email@example.com', name: 'Unknown' },
             custom_fields: [

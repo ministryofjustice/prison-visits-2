@@ -25,8 +25,8 @@ RSpec.shared_context 'when accepting a request' do
   end
 
   it 'emails the visitor' do
-    expect(VisitorMailer).to receive(:booked).with(visit).
-      and_return(mailing)
+    expect(VisitorMailer).to receive(:booked).with(visit)
+      .and_return(mailing)
     expect(mailing).to receive(:deliver_later)
     subject.respond!
   end
@@ -37,8 +37,8 @@ RSpec.shared_context 'when accepting a request' do
     end
 
     it 'assigns the selected slot' do
-      expect(visit_after_responding.slot_granted).
-        to eq(visit_after_responding.slots[0])
+      expect(visit_after_responding.slot_granted)
+        .to eq(visit_after_responding.slots[0])
     end
   end
 
@@ -48,8 +48,8 @@ RSpec.shared_context 'when accepting a request' do
     end
 
     it 'assigns the selected slot' do
-      expect(visit_after_responding.slot_granted).
-        to eq(visit_after_responding.slots[1])
+      expect(visit_after_responding.slot_granted)
+        .to eq(visit_after_responding.slots[1])
     end
   end
 
@@ -59,8 +59,8 @@ RSpec.shared_context 'when accepting a request' do
     end
 
     it 'assigns the selected slot' do
-      expect(visit_after_responding.slot_granted).
-        to eq(visit_after_responding.slots[2])
+      expect(visit_after_responding.slot_granted)
+        .to eq(visit_after_responding.slots[2])
     end
   end
 end

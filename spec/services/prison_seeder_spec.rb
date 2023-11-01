@@ -49,8 +49,8 @@ RSpec.describe PrisonSeeder do
 
     it 'imports using the UUID mapping' do
       described_class.seed! base_path
-      expect(Prison.find('67d22c66-41ac-431b-b24a-51bafb30ef8d')).
-        to have_attributes(name: 'Lunar Penal Colony')
+      expect(Prison.find('67d22c66-41ac-431b-b24a-51bafb30ef8d'))
+        .to have_attributes(name: 'Lunar Penal Colony')
     end
   end
 
@@ -126,8 +126,8 @@ RSpec.describe PrisonSeeder do
 
     it 'uses the supplied email address' do
       subject.import filename, hash
-      expect(Prison.find(uuid)).
-        to have_attributes(email_address: 'luna@hmps.gsi.gov.uk')
+      expect(Prison.find(uuid))
+        .to have_attributes(email_address: 'luna@hmps.gsi.gov.uk')
     end
   end
 end

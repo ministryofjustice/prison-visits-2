@@ -11,7 +11,7 @@ FactoryBot.define do
     date_of_birth do '1970-01-01' end
 
     sequence(:number) do |n|
-      'ABC%04d' % n
+      sprintf('ABC%04d', n)
     end
   end
 end

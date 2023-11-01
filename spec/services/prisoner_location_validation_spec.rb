@@ -70,8 +70,8 @@ RSpec.describe PrisonerLocationValidation do
 
         it 'has an unknown location error' do
           subject.valid?
-          expect(subject.errors.full_messages_for(:base)).
-            to eq([described_class::UNKNOWN])
+          expect(subject.errors.full_messages_for(:base))
+            .to eq([described_class::UNKNOWN])
         end
       end
     end

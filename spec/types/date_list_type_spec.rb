@@ -7,8 +7,8 @@ RSpec.describe DateListType do
     let(:value) { %w[2017-01-01 2017-01-02] }
 
     it do
-      expect(subject.cast(value)).
-        to all(be_instance_of(Date))
+      expect(subject.cast(value))
+        .to all(be_instance_of(Date))
     end
   end
 end

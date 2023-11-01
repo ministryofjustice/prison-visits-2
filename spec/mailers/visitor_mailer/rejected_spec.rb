@@ -26,14 +26,14 @@ RSpec.describe VisitorMailer, '.rejected' do
 
   context 'when always' do
     it 'sends an email reporting the rejection' do
-      expect(mail.subject).
-        to match(/Your visit to #{visit.prison_name} is NOT booked/)
+      expect(mail.subject)
+        .to match(/Your visit to #{visit.prison_name} is NOT booked/)
     end
 
     it 'uses the locale of the visit' do
       visit.update! locale: 'cy'
-      expect(mail.subject).
-        to match(
+      expect(mail.subject)
+        .to match(
           /NID yw eich ymweliad â Charchar #{visit.prison_name} wedi cael ei drefnu/)
     end
 
@@ -66,7 +66,7 @@ RSpec.describe VisitorMailer, '.rejected' do
 
       it 'enumerates the banned visitors' do
         expect(body).to match(/Percy P is banned from visiting the prison at the moment/)
-        expect(body).to match(%r{John J is banned from visiting the prison until 01\/04\/2016})
+        expect(body).to match(%r{John J is banned from visiting the prison until 01/04/2016})
       end
     end
 

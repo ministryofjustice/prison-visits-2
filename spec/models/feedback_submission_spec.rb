@@ -21,8 +21,8 @@ RSpec.describe FeedbackSubmission do
 
       context 'when the email checker returns true' do
         before do
-          allow_any_instance_of(EmailAddressValidation::Checker).
-            to receive(:valid?).and_return(true)
+          allow_any_instance_of(EmailAddressValidation::Checker)
+            .to receive(:valid?).and_return(true)
         end
 
         it 'is valid' do
@@ -34,8 +34,8 @@ RSpec.describe FeedbackSubmission do
 
       context 'when the email checker returns false' do
         before do
-          allow_any_instance_of(EmailAddressValidation::Checker).
-            to receive(:valid?).and_return(false)
+          allow_any_instance_of(EmailAddressValidation::Checker)
+            .to receive(:valid?).and_return(false)
         end
 
         it 'is invalid when not an email address' do
@@ -54,12 +54,12 @@ RSpec.describe FeedbackSubmission do
         end
       end
 
-      context 'when it is invalid'do
+      context 'when it is invalid' do
         it 'error on the field' do
           subject.prisoner_number = 'bobbins'
           subject.valid?
-          expect(subject.errors.full_messages_for(:prisoner_number)).
-            to eq(['Prisoner number has an invalid format'])
+          expect(subject.errors.full_messages_for(:prisoner_number))
+            .to eq(['Prisoner number has an invalid format'])
         end
       end
 
@@ -80,12 +80,12 @@ RSpec.describe FeedbackSubmission do
         end
       end
 
-      context 'when it is invalid'do
+      context 'when it is invalid' do
         it 'error on the field' do
           subject.prisoner_date_of_birth = Date.new(1066, 1, 1)
           subject.valid?
-          expect(subject.errors.full_messages_for(:prisoner_date_of_birth)).
-            to eq(['Prisoner date of birth must be less than 120 years ago'])
+          expect(subject.errors.full_messages_for(:prisoner_date_of_birth))
+            .to eq(['Prisoner date of birth must be less than 120 years ago'])
         end
       end
 

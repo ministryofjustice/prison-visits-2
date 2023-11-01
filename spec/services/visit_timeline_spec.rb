@@ -28,9 +28,9 @@ RSpec.describe VisitTimeline do
           visit, { reasons: [Cancellation::BOOKED_IN_ERROR] },
         ).tap(&:cancel!)
 
-        VisitStateChange.
-          find_by!(visit_state: 'cancelled').
-          update!(created_at: 1.minute.from_now)
+        VisitStateChange
+          .find_by!(visit_state: 'cancelled')
+          .update!(created_at: 1.minute.from_now)
         visit.reload
       end
 

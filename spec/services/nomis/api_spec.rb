@@ -81,8 +81,8 @@ RSpec.describe Nomis::Api do
       let(:noms_id) { 'G7244GR' }
 
       it 'serialises the response into a prisonwe' do
-        expect(prisoner_details).
-          to have_attributes(
+        expect(prisoner_details)
+          .to have_attributes(
             given_name: "UDFSANAYE",
             surname: "KURTEEN",
             date_of_birth: Date.parse('1966-11-22'),
@@ -201,8 +201,8 @@ RSpec.describe Nomis::Api do
 
     it 'returns availability info containing a list of available dates' do
       expect(subject).to be_kind_of(Nomis::PrisonerDetailedAvailability)
-      expect(subject.dates.map(&:date)).
-        to contain_exactly(slot1.to_date, slot2.to_date, slot3.to_date)
+      expect(subject.dates.map(&:date))
+        .to contain_exactly(slot1.to_date, slot2.to_date, slot3.to_date)
     end
 
     it 'logs the number of available slots' do

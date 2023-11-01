@@ -20,8 +20,8 @@ RSpec.describe Healthcheck do
   # let(:smtp_report) { { description: 'smtp', ok: smtp_ok } }
 
   before do
-    allow(Healthcheck::DatabaseCheck).to receive(:new).
-      and_return(database_check)
+    allow(Healthcheck::DatabaseCheck).to receive(:new)
+      .and_return(database_check)
     # allow(Healthcheck::QueueCheck).to receive(:new).
     #   with(anything, queue_name: 'zendesk').and_return(zendesk_check)
     # allow(Healthcheck::QueueCheck).to receive(:new).

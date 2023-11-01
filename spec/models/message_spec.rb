@@ -21,9 +21,9 @@ RSpec.describe Message, type: :model do
       it 'creates a message and sends it' do
         mail = double('email', deliver_later: true)
 
-        expect(VisitorMailer).
-          to receive(:one_off_message).with(instance_of(described_class)).
-          and_return(mail)
+        expect(VisitorMailer)
+          .to receive(:one_off_message).with(instance_of(described_class))
+          .and_return(mail)
 
         expect { subject }.to change { visit.messages.count }.by(1)
       end

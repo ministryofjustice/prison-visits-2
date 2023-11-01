@@ -136,9 +136,9 @@ RSpec.describe RejectionDecorator do
         end
 
         it 'has a restricted and non restricted reasons' do
-          expect(subject.email_formatted_reasons.map(&:explanation)).
-            to contain_exactly('the prisoner has a restriction',
-                               'the prisoner has been released - hopefully they will contact you soon')
+          expect(subject.email_formatted_reasons.map(&:explanation))
+            .to contain_exactly('the prisoner has a restriction',
+                                'the prisoner has been released - hopefully they will contact you soon')
         end
       end
     end
@@ -266,8 +266,8 @@ RSpec.describe RejectionDecorator do
       allow(subject).to receive(:nomis_checker).and_return(nomis_checker)
       allow(subject).to receive(:prisoner_details).and_return(prisoner_details_presenter)
       allow(subject).to receive(:prisoner_location).and_return(prisoner_location_presenter)
-      allow(nomis_checker).to receive(:errors_for).
-        with(anything) do
+      allow(nomis_checker).to receive(:errors_for)
+        .with(anything) do
           if visit_bookable
             []
           else
@@ -275,19 +275,19 @@ RSpec.describe RejectionDecorator do
           end
         end
 
-      allow(prisoner_details_presenter).
-        to receive(:details_incorrect?).
-        and_return(details_incorrect)
+      allow(prisoner_details_presenter)
+        .to receive(:details_incorrect?)
+        .and_return(details_incorrect)
 
-      allow(nomis_checker).
-        to receive(:no_allowance?).
-        with(anything).
-        and_return(no_allowance)
+      allow(nomis_checker)
+        .to receive(:no_allowance?)
+        .with(anything)
+        .and_return(no_allowance)
 
-      allow(nomis_checker).
-        to receive(:prisoner_out_of_prison?).
-        with(anything).
-        and_return(prisoner_out_of_prison)
+      allow(nomis_checker)
+        .to receive(:prisoner_out_of_prison?)
+        .with(anything)
+        .and_return(prisoner_out_of_prison)
     end
 
     shared_examples_for 'unchecked' do |checkbox_name|

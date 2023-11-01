@@ -22,11 +22,11 @@ RSpec.describe ApplicationHelper do
 
     context 'when is the current page' do
       before do
-        allow(helper).
-          to receive(:params).
-          and_return(controller: 'prison/dashboards',
-                     action: 'inbox',
-                     prisoner_number: 'A1234BC')
+        allow(helper)
+          .to receive(:params)
+          .and_return(controller: 'prison/dashboards',
+                      action: 'inbox',
+                      prisoner_number: 'A1234BC')
       end
 
       it 'adds an active class' do
@@ -36,9 +36,9 @@ RSpec.describe ApplicationHelper do
 
     context 'when is not the current page' do
       before do
-        allow(helper).
-          to receive(:params).
-          and_return(controller: 'prison/dashboards', action: 'processed')
+        allow(helper)
+          .to receive(:params)
+          .and_return(controller: 'prison/dashboards', action: 'processed')
       end
 
       it 'does not add an active class' do
@@ -58,8 +58,18 @@ RSpec.describe ApplicationHelper do
       # JavaScript follows the libc convention of 0 = January etc.
       expect(javascript_i18n).to include(
         months: %w[
-          January February March April May June
-          July August September October November December
+          January
+          February
+          March
+          April
+          May
+          June
+          July
+          August
+          September
+          October
+          November
+          December
         ]
       )
     end

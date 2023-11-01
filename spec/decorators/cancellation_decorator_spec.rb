@@ -56,8 +56,8 @@ RSpec.describe CancellationDecorator do
       end
 
       it 'has a restricted and another restricted reasons' do
-        expect(subject.formatted_reasons.map(&:explanation)).
-          to contain_exactly("there are restrictions around this prisoner. You may be able to visit them at a later date.")
+        expect(subject.formatted_reasons.map(&:explanation))
+          .to contain_exactly("there are restrictions around this prisoner. You may be able to visit them at a later date.")
       end
     end
   end

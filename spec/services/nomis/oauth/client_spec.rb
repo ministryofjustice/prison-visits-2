@@ -24,8 +24,8 @@ RSpec.describe Nomis::Oauth::Client do
 
       client.post(route)
 
-      expect(WebMock).to have_requested(:post, /\w/).
-          with(
+      expect(WebMock).to have_requested(:post, /\w/)
+          .with(
             headers: {
               Authorization: auth_header
             }

@@ -31,8 +31,8 @@ RSpec.describe Healthcheck::SmtpCheck do
 
   context 'when it times out' do
     before do
-      allow(Net::SMTP).to receive(:start).
-        and_raise(Net::OpenTimeout, 'timed out')
+      allow(Net::SMTP).to receive(:start)
+        .and_raise(Net::OpenTimeout, 'timed out')
     end
 
     it { is_expected.not_to be_ok }
@@ -48,8 +48,8 @@ RSpec.describe Healthcheck::SmtpCheck do
 
   context 'when the port is closed' do
     before do
-      allow(Net::SMTP).to receive(:start).
-        and_raise(Errno::ECONNREFUSED, 'port closed')
+      allow(Net::SMTP).to receive(:start)
+        .and_raise(Errno::ECONNREFUSED, 'port closed')
     end
 
     it { is_expected.not_to be_ok }
@@ -65,8 +65,8 @@ RSpec.describe Healthcheck::SmtpCheck do
 
   context 'when the hostname cannot be resolved' do
     before do
-      allow(Net::SMTP).to receive(:start).
-        and_raise(SocketError, 'hostname not resolved')
+      allow(Net::SMTP).to receive(:start)
+        .and_raise(SocketError, 'hostname not resolved')
     end
 
     it { is_expected.not_to be_ok }

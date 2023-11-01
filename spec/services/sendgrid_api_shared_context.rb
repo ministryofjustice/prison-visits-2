@@ -5,8 +5,8 @@ RSpec.shared_context 'with sendgrid shared tools' do
   let(:body) { '[]' }
 
   def check_error_log_message_contains(regexp)
-    expect(logger).to receive(:error).
-      with(regexp)
+    expect(logger).to receive(:error)
+      .with(regexp)
   end
 end
 
@@ -47,34 +47,34 @@ RSpec.shared_context 'when sendgrid api responds normally' do
   end
 
   def stub_delete_all_emails_from_spam_list
-    stub_request(:any, %r{.+api\.sendgrid\.com/api/.+\.json}).
-      with(query: hash_including(
+    stub_request(:any, %r{.+api\.sendgrid\.com/api/.+\.json})
+      .with(query: hash_including(
         'api_key' => 'test_smtp_password',
         'api_user' => 'test_smtp_username',
-        'delete_all' => '1')).
-      to_return(status: 200, body: body, headers: {})
+        'delete_all' => '1'))
+      .to_return(status: 200, body: body, headers: {})
   end
 
   def stub_delete_email_from_spam_list
-    stub_request(:any, %r{.+api\.sendgrid\.com/api/.+\.json}).
-      with(query: hash_including(
+    stub_request(:any, %r{.+api\.sendgrid\.com/api/.+\.json})
+      .with(query: hash_including(
         'api_key' => 'test_smtp_password',
         'api_user' => 'test_smtp_username',
-        'email' => 'test@example.com')).
-      to_return(status: 200, body: body, headers: {})
+        'email' => 'test@example.com'))
+      .to_return(status: 200, body: body, headers: {})
   end
 end
 
 RSpec.shared_context 'when sendgrid api raises an exception' do
   before do
-    stub_request(:any, %r{.*api\.sendgrid\.com/api/.+\.json}).
-      to_raise(StandardError)
+    stub_request(:any, %r{.*api\.sendgrid\.com/api/.+\.json})
+      .to_raise(StandardError)
   end
 end
 
 RSpec.shared_context 'when sendgrid times out' do
   before do
-    stub_request(:any, %r{.*api\.sendgrid\.com/api/.+\.json}).
-      to_raise(Excon::Errors::Timeout)
+    stub_request(:any, %r{.*api\.sendgrid\.com/api/.+\.json})
+      .to_raise(Excon::Errors::Timeout)
   end
 end

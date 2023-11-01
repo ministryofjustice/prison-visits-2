@@ -43,9 +43,9 @@ RSpec.describe Api::ValidationsController do
 
       it 'returns a body' do
         subject
-        expect(parsed_body).
-          to eq('validation' => { 'valid' => false,
-                                  'errors' => ['too_many_adults'] })
+        expect(parsed_body)
+          .to eq('validation' => { 'valid' => false,
+                                   'errors' => ['too_many_adults'] })
       end
     end
 
@@ -104,8 +104,8 @@ RSpec.describe Api::ValidationsController do
       end
 
       it 'returns valid' do
-        expect(ApiPrisonerChecker).
-          to receive(:new).with(
+        expect(ApiPrisonerChecker)
+          .to receive(:new).with(
             noms_id: params[:number],
             date_of_birth: Date.parse(params[:date_of_birth])
              ).and_return(double(ApiPrisonerChecker, 'valid?' => true))
@@ -119,8 +119,8 @@ RSpec.describe Api::ValidationsController do
       let(:prisoner) { Nomis::NullPrisoner.new(api_call_successful: true) }
 
       it 'returns a validation error' do
-        expect(Nomis::Api.instance).to receive(:lookup_active_prisoner).
-          and_return(prisoner)
+        expect(Nomis::Api.instance).to receive(:lookup_active_prisoner)
+          .and_return(prisoner)
 
         post :prisoner, params: params
         expect(parsed_body['validation']).to eq(
@@ -140,8 +140,8 @@ RSpec.describe Api::ValidationsController do
     end
 
     it 'returns valid if the NOMIS API cannot be contacted', :expect_exception do
-      allow_any_instance_of(Nomis::Client).to receive(:get).
-        and_raise(Nomis::APIError, 'Something broke')
+      allow_any_instance_of(Nomis::Client).to receive(:get)
+        .and_raise(Nomis::APIError, 'Something broke')
 
       post :prisoner, params: params
       expect(parsed_body['validation']['valid']).to eq(true)
