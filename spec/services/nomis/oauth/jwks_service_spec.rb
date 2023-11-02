@@ -14,7 +14,7 @@ RSpec.describe Nomis::Oauth::JwksService do
           "alg" => "RS256",
           "n" => "ZII/AvQAeYSKRaa77rvYP2U+8XrP4Tk0nN0gRE2i+pBqT1wNh1f3gDvdRAa5QZzQc9xY7tKD2WiTYaITjlC+hXObvQaYfsEZtZG+zd5pTtcf96ck0j44c9bdwQ23T9nKgWTMwA=="
         }]
-        )
+      )
     end
   end
 end
