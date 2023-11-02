@@ -101,7 +101,6 @@ module PrisonVisits
     #
     config.nomis_user_oauth_client_id = ENV['NOMIS_USER_OAUTH_CLIENT_ID']&.strip
     config.nomis_user_oauth_client_secret = ENV['NOMIS_USER_OAUTH_CLIENT_SECRET']&.strip
-    config.nomis_oauth_public_key = ENV['NOMIS_OAUTH_PUBLIC_KEY']&.strip
     config.prison_api_host = ENV['PRISON_API_HOST']&.strip
   end
 end

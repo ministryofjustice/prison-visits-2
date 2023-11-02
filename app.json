@@ -38,9 +38,6 @@
     "PRISON_API_HOST": {
       "required": true
     },
-    "NOMIS_OAUTH_PUBLIC_KEY": {
-      "required": true
-    },
     "NOMIS_OAUTH_CLIENT_ID": {
       "required": true
     },
