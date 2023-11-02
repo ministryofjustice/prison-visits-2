@@ -72,7 +72,7 @@ private
 
   def additional_visitor_attrs(visitors)
     attrs = {}
-    visitors[1..-1].each_with_index do |visitor, i|
+    visitors[1..].each_with_index do |visitor, i|
       n = i + 2
       attrs["Visitor #{n} name"] = visitor.full_name
       attrs["Visitor #{n} dob"] = visitor.date_of_birth

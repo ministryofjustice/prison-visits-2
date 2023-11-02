@@ -26,8 +26,8 @@ class Nomis::Prisoner
 private
 
   def details
-    @details ||= Nomis::Api.instance.
-                   lookup_prisoner_details(noms_id: noms_id)
+    @details ||= Nomis::Api.instance
+                   .lookup_prisoner_details(noms_id: noms_id)
   rescue Nomis::APIError
     Nomis::Prisoner::Details.new(api_call_successful: false)
   end

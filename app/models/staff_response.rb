@@ -4,7 +4,7 @@ class StaffResponse
   ADULT_AGE = 18
   attr_accessor :visit, :user
 
-  alias :creator :user
+  alias_method :creator, :user
 
   before_validation :check_slot_available
   before_validation :check_principal_visitor
@@ -46,9 +46,9 @@ class StaffResponse
 
   # rubocop:disable Naming/MemoizedInstanceVariableName
   def validate_visitors_nomis_ready=(val)
-    @validate_visitors_nomis_ready ||= ActiveRecord::Type::Boolean.
-      new.
-      cast(val)
+    @validate_visitors_nomis_ready ||= ActiveRecord::Type::Boolean
+      .new
+      .cast(val)
   end
   # rubocop:enable Naming/MemoizedInstanceVariableName
 
@@ -64,11 +64,11 @@ private
     @rejection_attributes ||= begin
       attrs = visit.rejection.serializable_hash(
         except: %i[
-created_at
-updated_at
-allowance_renews_on
-privileged_allowance_expires_on
-rejection_reason_detail])
+        created_at
+        updated_at
+        allowance_renews_on
+        privileged_allowance_expires_on
+        rejection_reason_detail])
 
       attrs['allowance_renews_on'] =
         rejection.allowance_renews_on.to_s

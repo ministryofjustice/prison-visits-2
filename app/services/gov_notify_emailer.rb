@@ -6,17 +6,17 @@ class GovNotifyEmailer
 
   attr_reader :client
 
-  attr_accessor :update_list, :first_visit, :rejection_intro_text, :cant_visit_text
+  attr_accessor :rejection_intro_text, :cant_visit_text, :update_list, :first_visit
 
   def initialize(client = Notifications::Client.new(ENV['GOV_NOTIFY_API_KEY']))
     @client = client
   end
 
   def send_email(visit, template_id, rejection = nil, message = nil, cancellation = nil)
-    self.update_list = self.first_visit = ''
     self.rejection_intro_text =
       "We've not been able to book your visit to #{visit.prison_name}. Please do not go to the prison as you won't be able to get in."
     self.cant_visit_text = "You can't visit because:"
+    self.update_list = self.first_visit = ''
 
     client.send_email(
       email_address: visit.contact_email_address,

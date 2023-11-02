@@ -19,7 +19,7 @@ class Prison::MessagesController < ApplicationController
 private
 
   def message_params
-    params.require(:message).permit(:body).
-      merge(user: current_user, visit: memoised_visit)
+    params.require(:message).permit(:body)
+      .merge(user: current_user, visit: memoised_visit)
   end
 end

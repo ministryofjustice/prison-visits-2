@@ -3,7 +3,7 @@ class SlotAvailability
   PRISON_UNAVAILABLE   = 'prison_unavailable'.freeze
 
   def initialize(prison, noms_id, date_of_birth,
-    date_range = Time.zone.today.to_date..28.days.from_now)
+                 date_range = Time.zone.today.to_date..28.days.from_now)
     @prison = prison
     @noms_id = noms_id
     @date_of_birth = date_of_birth

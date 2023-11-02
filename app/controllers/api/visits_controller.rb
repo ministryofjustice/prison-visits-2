@@ -85,8 +85,8 @@ module Api
 
     def prisoner_step
       @prisoner_step ||= PrisonerStep.new(
-        sanitised_params.require(:prisoner).
-        merge(prison_id: prison.id)
+        sanitised_params.require(:prisoner)
+        .merge(prison_id: prison.id)
       )
     end
 

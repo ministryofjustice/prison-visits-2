@@ -54,9 +54,9 @@ private
   end
 
   def scoped_visit
-    Visit.joins(prison: :estate).
-      where(estates: { id: accessible_estates }).
-      find(visit_id_param)
+    Visit.joins(prison: :estate)
+      .where(estates: { id: accessible_estates })
+      .find(visit_id_param)
   end
 
   def visit_id_param
@@ -87,7 +87,7 @@ private
         'allowance_renews_on(2i)',
         'allowance_renews_on(3i)',
         :rejection_reason_detail,
-        reasons: []
+        { reasons: [] }
       ],
       visitors_attributes: [
         :id,
@@ -95,7 +95,7 @@ private
         :banned,
         :not_on_list,
         :other_rejection_reason,
-        banned_until: [:day, :month, :year]
+        { banned_until: [:day, :month, :year] }
       ],
       prisoner_attributes: [:nomis_offender_id, :id]
     )

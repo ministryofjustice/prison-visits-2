@@ -40,23 +40,23 @@ class Visit < ApplicationRecord
   }
 
   scope :processed, lambda {
-    joins(<<~JOIN).
+    joins(<<~JOIN)
       LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
     JOIN
-      where(<<~WHERE, nomis_cancelled: true).
+      .where(<<~WHERE, nomis_cancelled: true)
         cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
     WHERE
-      without_processing_state(:requested)
+      .without_processing_state(:requested)
   }
 
   scope :ready_for_processing, lambda {
-    joins(<<~JOIN).
+    joins(<<~JOIN)
       LEFT OUTER JOIN cancellations ON cancellations.visit_id = visits.id
     JOIN
-      where(<<~WHERE, nomis_cancelled: false).
+      .where(<<~WHERE, nomis_cancelled: false)
         cancellations.id IS NULL OR cancellations.nomis_cancelled = :nomis_cancelled
     WHERE
-      with_processing_state(:requested, :cancelled)
+      .with_processing_state(:requested, :cancelled)
   }
 
   accepts_nested_attributes_for :messages, :rejection, reject_if: :all_blank
@@ -114,9 +114,9 @@ class Visit < ApplicationRecord
   end
 
   def confirm_nomis_cancelled
-    Cancellation.
-      where(visit_id: id, nomis_cancelled: false).
-      update_all(nomis_cancelled: true, updated_at: Time.zone.now)
+    Cancellation
+      .where(visit_id: id, nomis_cancelled: false)
+      .update_all(nomis_cancelled: true, updated_at: Time.zone.now)
   end
 
   delegate :age, :first_name, :last_name, :full_name, :anonymized_name,
@@ -128,8 +128,8 @@ class Visit < ApplicationRecord
   alias_method :processable?, :requested?
 
   def slots
-    [slot_option_0, slot_option_1, slot_option_2].
-      select(&:present?).map { |s| ConcreteSlot.parse(s) }
+    [slot_option_0, slot_option_1, slot_option_2]
+      .select(&:present?).map { |s| ConcreteSlot.parse(s) }
   end
 
   def slot_granted
@@ -145,17 +145,17 @@ class Visit < ApplicationRecord
   end
 
   def acceptance_message
-    messages.
-      where.not(visit_state_change_id: nil).
-      find_by(
-        visit_state_change_id: visit_state_changes.booked.pluck(:id).first)
+    messages
+      .where.not(visit_state_change_id: nil)
+      .find_by(
+        visit_state_change_id: visit_state_changes.booked.pick(:id))
   end
 
   def rejection_message
-    messages.
-      where.not(visit_state_change_id: nil).
-      find_by(
-        visit_state_change_id: visit_state_changes.rejected.pluck(:id).first)
+    messages
+      .where.not(visit_state_change_id: nil)
+      .find_by(
+        visit_state_change_id: visit_state_changes.rejected.pick(:id))
   end
 
   def last_visit_state

@@ -29,9 +29,9 @@ module PrisonVisits
 
     config.time_zone = 'London'
 
-    config.
-      action_dispatch.
-      rescue_responses['StateMachines::InvalidTransition'] = :unprocessable_entity
+    config
+      .action_dispatch
+      .rescue_responses['StateMachines::InvalidTransition'] = :unprocessable_entity
 
     config.ga_id = ENV['GA_TRACKING_ID']
 

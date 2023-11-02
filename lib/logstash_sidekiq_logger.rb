@@ -55,8 +55,8 @@ module LogstashSidekiqLogger
 
     # ActiveSupport::Logger.broadcast wraps an existing logger so that logs
     # going to that logger get broadcasted to a different logger
-    Sidekiq.
-      logger.
-      extend(ActiveSupport::Logger.broadcast(custom_sidekiq_logger))
+    Sidekiq
+      .logger
+      .extend(ActiveSupport::Logger.broadcast(custom_sidekiq_logger))
   end
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'set'
 
 # Same as https://github.com/excon/excon/blob/v0.104.0/lib/excon/middlewares/idempotent.rb
@@ -27,7 +28,7 @@ module Excon
 
       def error_call(datum)
         if datum[:idempotent]
-          if datum.has_key?(:request_block)
+          if datum.key?(:request_block)
             if datum[:request_block].respond_to?(:rewind)
               datum[:request_block].rewind
             else
@@ -35,17 +36,17 @@ module Excon
               datum[:idempotent] = false
             end
           end
-          if datum.has_key?(:response_block) && datum[:response_block].respond_to?(:rewind)
+          if datum.key?(:response_block) && datum[:response_block].respond_to?(:rewind)
             datum[:response_block].rewind
           end
-          if datum.has_key?(:pipeline)
-            Excon.display_warning("Excon requests can not be :idempotent when pipelining.")
+          if datum.key?(:pipeline)
+            Excon.display_warning('Excon requests can not be :idempotent when pipelining.')
             datum[:idempotent] = false
           end
         end
 
         if datum[:idempotent] && datum[:retry_errors].any? { |ex|
-          datum[:error].kind_of?(ex) && !datum[:error].kind_of?(Excon::Error::Timeout)
+          datum[:error].is_a?(ex) && !datum[:error].is_a?(Excon::Error::Timeout)
         } && datum[:retries_remaining] > 1
 
           sleep(datum[:retry_interval]) if datum[:retry_interval]

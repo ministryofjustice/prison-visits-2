@@ -39,6 +39,7 @@ module ContactListMatcherBehaviour
 private
 
   attr_accessor :scores_and_contacts
+
   def no_match
     [
       OpenStruct.new(
