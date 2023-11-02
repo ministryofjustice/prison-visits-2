@@ -23,12 +23,12 @@ RSpec.describe PVB::ExceptionHandler do
       it 'forwards them to Sentry' do
         expect(Sentry).to receive(:capture_exception).with(exception, extra_options)
 
-        described_class.capture_exception(exception, extra_options)
+        described_class.capture_exception(exception, **extra_options)
       end
     end
 
     context 'when not passing options' do
-      it 'forwards them to Sentry' do
+      it 'does not forward them to Sentry' do
         expect(Sentry).to receive(:capture_exception).with(exception)
 
         described_class.capture_exception(exception)
