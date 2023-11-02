@@ -53,20 +53,21 @@ module OmniAuth
       end
 
       def decode_roles
-        public_key = Base64.urlsafe_decode64(
-          Rails.configuration.nomis_oauth_public_key
-        )
-
         decoded_token = JWT.decode(
           access_token.token,
-          OpenSSL::PKey::RSA.new(public_key),
+          nil,
           true,
-          algorithm: 'RS256'
+          algorithm: 'RS256',
+          jwks: jwks_keys
         )
 
         # decoded_token is a pair of hashes. Most of the useful data is in the first hash
         # the second just contains {"alg"=>"RS256", "typ"=>"JWT", "kid"=>"dev-jwk-kid"}
         decoded_token.first.fetch('authorities', [])
+      end
+
+      def jwks_keys
+        @jwks_keys ||= Nomis::Oauth::JwksService.instance.fetch_keys
       end
 
       def user_details
