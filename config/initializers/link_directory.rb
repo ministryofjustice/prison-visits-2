@@ -1,4 +1,4 @@
-Rails.application.config.to_prepare do
+Rails.application.reloader.to_prepare do
   public_service_url = if Rails.env.production?
                          ENV.fetch('PUBLIC_SERVICE_URL')
                        else
