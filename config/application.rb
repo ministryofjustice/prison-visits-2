@@ -15,7 +15,10 @@ Bundler.require(*Rails.groups)
 
 module PrisonVisits
   class Application < Rails::Application
-    config.action_mailer.delivery_job = 'ActionMailer::MailDeliveryJob'
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 6.1
+    config.autoload_paths += %w[app/metrics/support]
+    config.eager_load_paths += %w[app/metrics/support]
 
     config.phase = 'live'
     config.product_type = 'service'
