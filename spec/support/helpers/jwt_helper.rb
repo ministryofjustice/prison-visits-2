@@ -1,6 +1,6 @@
 require 'base64'
 
-module JWTHelper
+module JwtHelper
   def generate_jwt_token(options = {})
     payload = {
       'internal_user': false,

@@ -1,5 +1,3 @@
-require 'support/percentile_support'
-
 module Percentiles
   class Distribution < ActiveRecord::Base
     extend PercentileSupport

@@ -1,5 +1,4 @@
 require 'csv'
-require 'formatter'
 
 class WeeklyMetricsConfirmedCsvExporter
   def initialize(dates_to_export = nil)
@@ -47,7 +46,7 @@ private
   end
 
   def load_counts
-    metrics_formatter = Metrics::Formatter.new(ordered_counts)
+    metrics_formatter = MetricsFormatter.new(ordered_counts)
     metrics_formatter.fetch_and_format
   end
 
