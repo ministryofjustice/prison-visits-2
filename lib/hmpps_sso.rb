@@ -7,7 +7,11 @@ require_dependency '../services/nomis/oauth/client_helper'
 module OmniAuth
   module Strategies
     class HmppsSso < OmniAuth::Strategies::OAuth2
-      include Nomis::Oauth::ClientHelper
+      Rails.application.reloader.to_prepare do
+        def self.included(base)
+          base.include Nomis::Oauth::ClientHelper
+        end
+      end
 
       option :name, 'hmpps_sso'
 
