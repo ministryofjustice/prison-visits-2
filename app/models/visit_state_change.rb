@@ -1,8 +1,11 @@
 class VisitStateChange < ApplicationRecord
   belongs_to :visit
-  belongs_to :visitor
-  belongs_to :processed_by, class_name: 'User'
-  belongs_to :creator, polymorphic: true
+
+  with_options optional: true do
+    belongs_to :visitor
+    belongs_to :processed_by, class_name: 'User'
+    belongs_to :creator, polymorphic: true
+  end
 
   scope :booked,    -> { where(visit_state: 'booked') }
   scope :rejected,  -> { where(visit_state: 'rejected') }

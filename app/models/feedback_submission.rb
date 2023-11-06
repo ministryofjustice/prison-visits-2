@@ -1,7 +1,7 @@
 require 'email_address_validation'
 
 class FeedbackSubmission < ApplicationRecord
-  belongs_to :prison
+  belongs_to :prison, optional: true
 
   validates :body, presence: true
   validates :prisoner_date_of_birth, allow_blank: true, age: true

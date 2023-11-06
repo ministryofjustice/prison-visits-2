@@ -1,7 +1,7 @@
 class Message < ApplicationRecord
   belongs_to :user
   belongs_to :visit
-  belongs_to :visit_state_change
+  belongs_to :visit_state_change, optional: true
 
   validates :body, presence: true
   validates :user_id, presence: true
