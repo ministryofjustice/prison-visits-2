@@ -41,6 +41,8 @@ Style/FormatString:
   Enabled: false
 Rails/SaveBang:
   Enabled: false
+Style/DoubleNegation:
+  Enabled: false
 
 # Use Weirich style
 Style/BlockDelimiters:
