@@ -7,8 +7,10 @@ url_value = Rails.env.production? ?
 
 service_url = URI.parse(url_value)
 
-VisitorMailer.default_url_options = {
-  protocol: service_url.scheme,
-  host: service_url.hostname,
-  port: service_url.port
-}
+Rails.application.config.to_prepare do
+  VisitorMailer.default_url_options = {
+    protocol: service_url.scheme,
+    host: service_url.hostname,
+    port: service_url.port
+  }
+end
