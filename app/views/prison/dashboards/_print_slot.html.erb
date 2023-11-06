@@ -20,7 +20,7 @@
       <tr>
         <td aria-label="<%= t('prisoner_name', scope: :shared) %>"><%= visit.prisoner_full_name %></td>
         <td aria-label="<%= t('prisoner_number', scope: :shared) %>"><%= visit.prisoner_number %></td>
-        <td aria-label="<%= t('lead_visitor', scope: :shared) %>"><%= visit.principal_visitor.full_name %><br>(<%= visit.principal_visitor.date_of_birth.to_s(:short_nomis) %>)</td>
+        <td aria-label="<%= t('lead_visitor', scope: :shared) %>"><%= visit.principal_visitor.full_name %><br>(<%= visit.principal_visitor.date_of_birth.to_fs(:short_nomis) %>)</td>
         <td aria-label="<%= t('tel', scope: :shared) %>"><%= visit.contact_phone_no %></td>
         <td aria-label="<%= t('additional_visitors', scope: :shared) %>">
           <div>

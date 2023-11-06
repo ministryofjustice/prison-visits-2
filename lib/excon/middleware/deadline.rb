@@ -10,7 +10,7 @@ module Excon
 
       def message
         "Deadline exceeded by #{@exceeded_by.abs}, \
-expected to have completed by #{@deadline.to_s(:iso8601)}"
+expected to have completed by #{@deadline.to_fs(:iso8601)}"
       end
     end
   end

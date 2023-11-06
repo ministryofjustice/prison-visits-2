@@ -3,6 +3,11 @@
 module Nomis
   module Oauth
     class Client
+      class_attribute :nomis_oauth_client_id, :nomis_oauth_client_secret
+
+      self.nomis_oauth_client_id     = Rails.configuration.nomis_oauth_client_id
+      self.nomis_oauth_client_secret = Rails.configuration.nomis_oauth_client_secret
+
       def initialize(host)
         @host = host
         @connection = Faraday.new
@@ -34,9 +39,7 @@ module Nomis
       end
 
       def credentials
-        Base64.strict_encode64(
-          "#{Rails.configuration.nomis_oauth_client_id}:#{Rails.configuration.nomis_oauth_client_secret}"
-        )
+        Base64.strict_encode64("#{nomis_oauth_client_id}:#{nomis_oauth_client_secret}")
       end
     end
   end

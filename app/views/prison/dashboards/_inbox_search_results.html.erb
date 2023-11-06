@@ -14,9 +14,9 @@
     <% visits.each do |visit| %>
       <tr>
         <td class="long" aria-label="<%= t('prisoner_name', scope: :shared) %>"><%= visit.prisoner_full_name %></td>
-        <td aria-label="<%= t('visit_date', scope: :shared) %>"><%= visit.slots.first.to_date.to_s(:short_nomis) %></td>
+        <td aria-label="<%= t('visit_date', scope: :shared) %>"><%= visit.slots.first.to_date.to_fs(:short_nomis) %></td>
         <td aria-label="<%= t('visitor_name', scope: :shared) %>"><%= visit.principal_visitor.full_name %></td>
-        <td aria-label="<%= t('requested', scope: :shared) %>"><%= visit.created_at.to_s(:short) %></td>
+        <td aria-label="<%= t('requested', scope: :shared) %>"><%= visit.created_at.to_fs(:short) %></td>
         <td aria-label="<%= t('prison', scope: :shared) %>"><%= visit.prison_name %></td>
         <td aria-label="<%= t('actions', scope: :shared) %>">
           <%= link_to prison_visit_path(visit), title: t('view', scope: :shared) do %>

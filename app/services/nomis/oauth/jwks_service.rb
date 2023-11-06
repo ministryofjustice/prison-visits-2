@@ -5,12 +5,14 @@ module Nomis
     class JwksService
       include Singleton
 
-      HOST = Rails.configuration.nomis_oauth_host
+      class_attribute :host
+
+      self.host = Rails.configuration.nomis_oauth_host
 
       attr_reader :oauth_client
 
       def initialize(oauth_client: Nomis::Oauth::Client)
-        @oauth_client = oauth_client.new(HOST)
+        @oauth_client = oauth_client.new(host)
       end
 
       def fetch_keys

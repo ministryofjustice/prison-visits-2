@@ -2,7 +2,7 @@
   <ul>
     <% VisitTimeline.new(@visit).events.each do |event| %>
       <%= content_tag :li, class: timeline_event_html_class(event) do -%>
-        <div class="timeline__date"><%= event.created_at.to_s(:timeline_date) %><span class="timeline__smalltext"><%= event.created_at.to_s(:timeline_time) %></span></div>
+        <div class="timeline__date"><%= event.created_at.to_fs(:timeline_date) %><span class="timeline__smalltext"><%= event.created_at.to_fs(:timeline_time) %></span></div>
         <div class="timeline__status"><%= t(".#{event.state}") %><span class="timeline__smalltext"><%= t('.by', name: event.user_name || t('.anonymous')) %></span></div>
       <% end -%>
     <% end -%>

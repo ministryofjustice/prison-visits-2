@@ -6,10 +6,10 @@
     <div class="column-two-thirds">
       <div class="grid-row">
         <div class="column-one-third">
-          <div class="tag tag--requested tag--heading"><%= t('requested', scope: 'shared') %>: <br><%= @visit.created_at.to_date.to_s(:short_nomis) %> - <%= @visit.created_at.to_s(:time) %></div>
+          <div class="tag tag--requested tag--heading"><%= t('requested', scope: 'shared') %>: <br><%= @visit.created_at.to_date.to_fs(:short_nomis) %> - <%= @visit.created_at.to_fs(:time) %></div>
         </div>
         <div class="column-one-third">
-          <div class="tag tag--<%= @visit.processing_state %> tag--heading"><%= @visit.processing_state.capitalize %>: <br><%= @visit.processed_at.to_date.to_s(:short_nomis) %> - <%= @visit.processed_at.to_s(:time) %></div>
+          <div class="tag tag--<%= @visit.processing_state %> tag--heading"><%= @visit.processing_state.capitalize %>: <br><%= @visit.processed_at.to_date.to_fs(:short_nomis) %> - <%= @visit.processed_at.to_fs(:time) %></div>
         </div>
         <div class="column-one-third">
           <div class="text-secondary">ID: <%= @visit.human_id %></div>

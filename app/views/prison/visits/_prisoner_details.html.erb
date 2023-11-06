@@ -32,7 +32,7 @@
 
   <div class="column-one-quarter">
     <span class="text-secondary"><%= t('.prisoner_dob') %></span>
-    <div class="bold-small"><%= @visit.prisoner_date_of_birth.to_s(:short_nomis) %></div>
+    <div class="bold-small"><%= @visit.prisoner_date_of_birth.to_fs(:short_nomis) %></div>
     <% case @visit.prisoner_existance_status %>
     <% when PrisonerDetailsPresenter::VALID, PrisonerLocationValidation::INVALID %>
       <div class="tag tag--booked font-xsmall"><%= t('.verified') %></div>
