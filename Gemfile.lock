@@ -493,9 +493,8 @@ GEM
       tilt (>= 1.4, < 3)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uglifier (2.7.2)
-      execjs (>= 0.3.0)
-      json (>= 1.8.0)
+    uglifier (4.2.0)
+      execjs (>= 0.3.0, < 3)
     unicode-display_width (2.5.0)
     uri (0.12.2)
     uri_template (0.7.0)
@@ -596,7 +595,7 @@ DEPENDENCIES
   string_scrubber
   timecop
   turnout
-  uglifier (~> 2.7.2)
+  uglifier
   uri_template
   vcr
   webmock
@@ -606,4 +605,4 @@ RUBY VERSION
    ruby 3.0.6p216
 
 BUNDLED WITH
-   2.4.21
+   2.4.20

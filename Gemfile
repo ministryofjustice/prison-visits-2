@@ -42,9 +42,7 @@ gem 'state_machines-activerecord'
 gem 'string_scrubber'
 gem 'turnout'
 gem 'rack-canonical-host'
-
-# Newer versions break ie8 js
-gem 'uglifier', '~> 2.7.2'
+gem 'uglifier'
 gem 'uri_template'
 gem 'zendesk_api'
 gem 'pvb-instrumentation',
