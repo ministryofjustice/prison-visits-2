@@ -12,4 +12,3 @@
 //= link fonts.css
 //= link email.css
 //= link metrics.js
-//= link jasmine-jquery.js
