@@ -43,12 +43,14 @@ This application uses Ruby v3.0.6. Use [RVM](https://rvm.io/) or similar to mana
 
 1. Install gems (dependencies) locally. To do this you will need to first install [Bundler](http://bundler.io/)
 
-2. Install the `direnv` package
+2. Install packages with [yarn] https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable
+
+3. Install the `direnv` package
     ```sh
     pvb2 $ brew install direnv
     ```
 
-3. Enable **direnv** for you shell
+4. Enable **direnv** for you shell
 
     ##### BASH
     Add the following line at the end of the `~/.bashrc` file:
@@ -72,28 +74,28 @@ This application uses Ruby v3.0.6. Use [RVM](https://rvm.io/) or similar to mana
     direnv hook fish | source
     ```
 
-4. Create a .env file in the root of the folder and add any necessary environment variables. Load your environment variables into your current session ...
+5. Create a .env file in the root of the folder and add any necessary environment variables. Load your environment variables into your current session ...
     ```sh
     pvb2 $ direnv allow .
     ```
 
-5. Install Postgres
+6. Install Postgres
     ```
     pvb2 $ brew install postgres
     ```
 
-6. Install Redis
+7. Install Redis
     ```sh
     pvb2 $ brew install redis
     ```
 
-7. In separate terminal windows spin up [ministryofjustice/prison-visits-2](https://github.com/ministryofjustice/prison-visits-2) and [Sidekiq](https://sidekiq.org/). The latter processes jobs in the background. Make sure you have the necessary environment variables declared to run Sidekiq. See [additional documentation on queues](docs/queues.md).
+8. In separate terminal windows spin up [ministryofjustice/prison-visits-2](https://github.com/ministryofjustice/prison-visits-2) and [Sidekiq](https://sidekiq.org/). The latter processes jobs in the background. Make sure you have the necessary environment variables declared to run Sidekiq. See [additional documentation on queues](docs/queues.md).
 
     ```sh
     pvb2 $ bundle exec sidekiq
     pvb2 $ rails server
     ```
-8. In another terminal window spin up [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public) on port 4000
+9. In another terminal window spin up [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public) on port 4000
 
     ```sh
     pvb-public $ rails server -p 4000

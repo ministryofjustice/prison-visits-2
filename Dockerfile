@@ -60,6 +60,10 @@ COPY Gemfile Gemfile.lock ./
 
 RUN bundle install --without development test --jobs 2 --retry 3
 
+COPY package.json yarn.lock ./
+
+RUN yarn install --prod
+
 COPY . /app
 
 RUN mkdir -p /home/appuser && \

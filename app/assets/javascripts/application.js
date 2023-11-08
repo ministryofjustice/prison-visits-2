@@ -1,7 +1,7 @@
 // Vendor assets
 //= require jquery2
 //= require jquery_ujs
-//= require vendor/chosen.jquery
+//= require chosen-js/chosen.jquery
 //= require vendor/jquery.tablesorter
 //= require raven-3.24.2.min.js
 
