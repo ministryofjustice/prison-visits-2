@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '6.1.7.6'
+gem 'rails', '7.1.1'
 # This needs to be in here for Heroku
 ruby '3.0.6'
 
