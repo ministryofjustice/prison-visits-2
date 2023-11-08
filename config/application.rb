@@ -116,5 +116,8 @@ module PrisonVisits
     config.nomis_user_oauth_client_id = ENV['NOMIS_USER_OAUTH_CLIENT_ID']&.strip
     config.nomis_user_oauth_client_secret = ENV['NOMIS_USER_OAUTH_CLIENT_SECRET']&.strip
     config.prison_api_host = ENV['PRISON_API_HOST']&.strip
+
+    # We still use ie stylesheets as well as the govuk_template
+    config.action_view.preload_links_header = false
   end
 end
