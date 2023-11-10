@@ -20,7 +20,7 @@ class GovNotifyEmailer
 
     client.send_email(
       email_address: visit.contact_email_address,
-      template_id: template_id,
+      template_id:,
       personalisation: {
         receipt_date: format_date_without_year(visit.first_date),
         visitor_full_name: visit.visitor_first_name,
@@ -41,11 +41,11 @@ class GovNotifyEmailer
         prisoner_full_name: visit.prisoner_full_name,
         prison_website: link_directory.prison_finder(visit.prison),
         rejection_reasons: rejection_reasons(visit, rejection),
-        rejection_intro_text: rejection_intro_text,
-        cant_visit_text: cant_visit_text,
+        rejection_intro_text:,
+        cant_visit_text:,
         unlisted_visitors_text: unlisted_visitors(visit, rejection),
-        update_list: update_list,
-        first_visit: first_visit,
+        update_list:,
+        first_visit:,
         banned_visitors: banned_visitors(visit, rejection),
         message_from_prison: message_from_prison(message),
         any_questions: any_questions(visit),

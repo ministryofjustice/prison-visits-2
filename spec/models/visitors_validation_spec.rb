@@ -9,7 +9,7 @@ RSpec.describe VisitorsValidation do
   subject do
     described_class.new(lead_date_of_birth: lead_dob,
                         dates_of_birth: dobs,
-                        prison: prison)
+                        prison:)
   end
 
   describe 'validations' do

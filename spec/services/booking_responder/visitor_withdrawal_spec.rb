@@ -4,7 +4,7 @@ RSpec.describe BookingResponder::VisitorWithdrawal do
   subject(:instance) { described_class.new(visitor_withdrawal_response) }
 
   let(:visitor_withdrawal_response) do
-    VisitorWithdrawalResponse.new(visit: visit)
+    VisitorWithdrawalResponse.new(visit:)
   end
   let(:visit) { FactoryBot.create(:visit) }
 

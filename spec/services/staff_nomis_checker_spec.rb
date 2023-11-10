@@ -6,7 +6,7 @@ RSpec.describe StaffNomisChecker do
   # Enabled for slot availability
   let(:prison)   { build_stubbed(:prison, name: 'Pentonville') }
   let(:pvb_prisoner) { build_stubbed(:prisoner) }
-  let(:visit)    { build_stubbed(:visit, prisoner: pvb_prisoner, prison: prison) }
+  let(:visit)    { build_stubbed(:visit, prisoner: pvb_prisoner, prison:) }
   let(:nomis_prisoner) { Nomis::Prisoner.new(id: 'some_noms_id', noms_id: pvb_prisoner.number) }
 
   describe 'When the API is disabled' do

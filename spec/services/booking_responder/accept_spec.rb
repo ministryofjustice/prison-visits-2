@@ -4,14 +4,14 @@ RSpec.describe BookingResponder::Accept do
   include_context 'with staff response setup'
 
   let!(:unlisted_visitors) do
-    create_list(:visitor, 2, visit: visit)
+    create_list(:visitor, 2, visit:)
   end
 
   let!(:banned_visitors) do
-    create_list(:visitor, 2, visit: visit)
+    create_list(:visitor, 2, visit:)
   end
 
-  let(:staff_response) { StaffResponse.new(visit: visit, user: create(:user)) }
+  let(:staff_response) { StaffResponse.new(visit:, user: create(:user)) }
 
   before do
     unlisted_visitors.each do |uv|

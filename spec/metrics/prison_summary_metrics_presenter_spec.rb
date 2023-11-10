@@ -5,7 +5,7 @@ RSpec.describe PrisonSummaryMetricsPresenter do
   let(:counts) { nil }
 
   let(:instance) do
-    described_class.new(timings: timings, counts: counts)
+    described_class.new(timings:, counts:)
   end
 
   describe '#processed_overdue' do

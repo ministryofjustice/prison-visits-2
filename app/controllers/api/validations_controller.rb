@@ -3,7 +3,7 @@ module Api
     def prisoner
       date, noms_id = validate_prisoner_parameters(params)
 
-      checker = ApiPrisonerChecker.new(noms_id: noms_id, date_of_birth: date)
+      checker = ApiPrisonerChecker.new(noms_id:, date_of_birth: date)
 
       validation = if checker.valid?
                      { valid: true }
@@ -11,7 +11,7 @@ module Api
                      { valid: false, errors: [checker.error] }
                    end
 
-      render status: :ok, json: { validation: validation }
+      render status: :ok, json: { validation: }
     end
 
     def visitors
@@ -19,9 +19,9 @@ module Api
       prison = validate_prison_id_parameter(params)
 
       visitors_group = VisitorsValidation.new(
-        prison: prison,
-        lead_date_of_birth: lead_date_of_birth,
-        dates_of_birth: dates_of_birth)
+        prison:,
+        lead_date_of_birth:,
+        dates_of_birth:)
 
       render status: :ok, json: {
         validation: visitors_response(visitors_group)

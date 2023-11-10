@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Healthcheck::SmtpCheck do
   subject {
-    described_class.new('SMTP connection', smtp_settings: smtp_settings)
+    described_class.new('SMTP connection', smtp_settings:)
   }
 
   let(:smtp_settings) { { address: 'smtp.example.com', port: 587 } }

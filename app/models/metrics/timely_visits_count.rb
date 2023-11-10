@@ -4,7 +4,7 @@ class Metrics::TimelyVisitsCount
   attr_accessor :date
 
   def attributes
-    { timely: timely, overdue: overdue, date: date }
+    { timely:, overdue:, date: }
   end
 
   def false=(count)

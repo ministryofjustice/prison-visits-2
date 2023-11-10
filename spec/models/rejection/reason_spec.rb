@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Rejection::Reason, model: true do
-  subject { described_class.new(explanation: explanation) }
+  subject { described_class.new(explanation:) }
 
   let(:explanation) { 'prisoner has a restriction' }
 
   context 'when there is another reason with the same explanation' do
-    let(:second_reason) { described_class.new(explanation: explanation) }
+    let(:second_reason) { described_class.new(explanation:) }
 
     it { is_expected.to eql(second_reason) }
 

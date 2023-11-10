@@ -39,8 +39,8 @@ private
 
   def nomis_slots(prison, start_date, end_date)
     Nomis::Api.instance.fetch_bookable_slots(
-      prison: prison,
-      start_date: start_date,
+      prison:,
+      start_date:,
       end_date: calculate_end_date(start_date..end_date)
     ).slots.map(&:time)
   rescue Excon::Errors::Error => e

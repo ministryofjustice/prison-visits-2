@@ -51,10 +51,10 @@ module Nomis
       api_method = "#{method.to_s.upcase} #{path}"
 
       options.merge!({
-        method: method,
-        path: path,
+        method:,
+        path:,
         expects: [200],
-        idempotent: idempotent,
+        idempotent:,
         deadline: RequestStore.store[:deadline],
         retry_limit: 2,
         headers: {

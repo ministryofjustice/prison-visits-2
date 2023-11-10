@@ -18,7 +18,7 @@ class VisitDecorator < Draper::Decorator
     @slots ||= object.slots.map.with_index { |slot, i|
       ConcreteSlotDecorator.decorate(
         slot,
-        context: { index: i, visit: object, nomis_checker: nomis_checker }
+        context: { index: i, visit: object, nomis_checker: }
       )
     }
   end

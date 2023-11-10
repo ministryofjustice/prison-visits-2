@@ -30,10 +30,10 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
   subject(:instance) do
     described_class.new(
       dates: [{
-        date: date,
-        out_of_vo: out_of_vo,
-        external_movement: external_movement,
-        existing_visits: existing_visits
+        date:,
+        out_of_vo:,
+        external_movement:,
+        existing_visits:
       }]
     )
   end

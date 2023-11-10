@@ -7,7 +7,7 @@ RSpec.describe ApiSlotAvailability, type: :model do
     {
       prisoner_number: 'a1234bc',
       prisoner_dob: Date.parse('1970-01-01'),
-      start_date: start_date
+      start_date:
     }
   }
   let(:default_prison_slots) {
@@ -25,7 +25,7 @@ RSpec.describe ApiSlotAvailability, type: :model do
   }
   let(:end_date) { Date.new(2016, 4, 28) }
 
-  subject { described_class.new(prison: prison, use_nomis_slots: false, start_date: start_date, end_date: end_date) }
+  subject { described_class.new(prison:, use_nomis_slots: false, start_date:, end_date:) }
 
   before do
     allow(Nomis::Api)
@@ -58,7 +58,7 @@ RSpec.describe ApiSlotAvailability, type: :model do
     end
 
     describe 'fetching available slots from NOMIS' do
-      subject { described_class.new(prison: prison, use_nomis_slots: true, start_date: start_date, end_date: end_date) }
+      subject { described_class.new(prison:, use_nomis_slots: true, start_date:, end_date:) }
 
       context 'when the prison slots feature is enabled' do
         let(:prison) {
@@ -78,7 +78,7 @@ RSpec.describe ApiSlotAvailability, type: :model do
         it 'requests slots from NOMIS' do
           expect(Nomis::Api.instance).to receive(:fetch_bookable_slots)
             .with(
-              prison: prison,
+              prison:,
               start_date: Date.parse('2016-04-07'),
               end_date: Date.parse('2016-04-28')
             )

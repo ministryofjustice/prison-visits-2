@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SlotAvailabilityValidation, type: :model do
   subject do
-    described_class.new(prison: prison, requested_slots: requested_slots)
+    described_class.new(prison:, requested_slots:)
   end
 
   let(:prison) { build_stubbed(:prison) }
@@ -70,7 +70,7 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
 
         expect(Nomis::Api.instance)
           .to receive(:fetch_bookable_slots)
-          .with(prison: prison,
+          .with(prison:,
                 start_date: slot3.to_date,
                 end_date: slot1.to_date)
           .and_return(Nomis::SlotAvailability.new(slots: api_slots))
@@ -162,7 +162,7 @@ RSpec.describe SlotAvailabilityValidation, type: :model do
         before do
           expect_any_instance_of(Nomis::Api)
             .to receive(:fetch_bookable_slots)
-            .with(prison: prison,
+            .with(prison:,
                   start_date: slot3.to_date,
                   end_date: slot3.to_date)
             .and_return(Nomis::SlotAvailability.new(slots: []))

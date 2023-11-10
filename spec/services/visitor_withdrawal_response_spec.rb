@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe VisitorWithdrawalResponse do
-  subject(:instance) { described_class.new(visit: visit) }
+  subject(:instance) { described_class.new(visit:) }
 
   let(:visit) { create(:visit) }
 

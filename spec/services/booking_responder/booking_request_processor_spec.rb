@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe BookingResponder::BookingRequestProcessor do
   include_context 'with staff response setup'
 
-  let(:staff_response) { StaffResponse.new(visit: visit, user: create(:user)) }
+  let(:staff_response) { StaffResponse.new(visit:, user: create(:user)) }
   let(:message)        { build(:message, body: 'A staff message') }
 
   before do

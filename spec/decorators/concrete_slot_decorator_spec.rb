@@ -16,7 +16,7 @@ RSpec.describe ConcreteSlotDecorator do
   end
 
   subject do
-    described_class.decorate(slot, context: { index: 0, visit: visit })
+    described_class.decorate(slot, context: { index: 0, visit: })
   end
 
   before do

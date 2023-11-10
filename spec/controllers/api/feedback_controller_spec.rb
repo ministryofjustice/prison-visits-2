@@ -18,7 +18,7 @@ RSpec.describe Api::FeedbackController, type: :controller do
       {
         format: :json,
         feedback: {
-          body: body,
+          body:,
           email_address: 'john@example.com',
           user_agent: 'browser user agent',
           referrer: 'The referrer',
@@ -29,7 +29,7 @@ RSpec.describe Api::FeedbackController, type: :controller do
       }
     }
 
-    subject(:create) { post :create, params: params }
+    subject(:create) { post :create, params: }
 
     it 'creates a new feedback submission' do
       expect { create }.to change(FeedbackSubmission, :count).by(1)

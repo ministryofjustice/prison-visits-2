@@ -9,7 +9,7 @@ RSpec.describe Prison::SwitchEstatesController, type: :controller do
     let(:estate_ids) { [other_estate.id] }
 
     subject do
-      post :create, params: { estate_ids: estate_ids }
+      post :create, params: { estate_ids: }
     end
 
     context "when logged out" do

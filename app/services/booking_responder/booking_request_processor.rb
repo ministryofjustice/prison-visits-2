@@ -41,8 +41,8 @@ class BookingResponder
       return unless message.valid?
 
       message.update!(
-        visit: visit,
-        visit_state_change: visit_state_change
+        visit:,
+        visit_state_change:
       )
     end
   end

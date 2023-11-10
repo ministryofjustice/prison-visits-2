@@ -7,7 +7,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
   subject { get :inbox, params: { estate_id: estate.finder_slug } }
 
   describe '#inbox' do
-    let(:prison) { FactoryBot.create(:prison, estate: estate) }
+    let(:prison) { FactoryBot.create(:prison, estate:) }
 
     subject { get :inbox, params: { estate_id: estate.finder_slug } }
 
@@ -25,7 +25,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
   end
 
   describe '#processed' do
-    let(:prison) { FactoryBot.create(:prison, estate: estate) }
+    let(:prison) { FactoryBot.create(:prison, estate:) }
 
     subject { get :processed, params: { estate_id: estate.finder_slug } }
 
@@ -43,8 +43,8 @@ RSpec.describe Prison::DashboardsController, type: :controller do
       context 'when there are more processed visits than the default' do
         before do
           stub_const("#{described_class}::NUMBER_VISITS", 2)
-          FactoryBot.create(:booked_visit, prison: prison)
-          FactoryBot.create(:booked_visit, prison: prison)
+          FactoryBot.create(:booked_visit, prison:)
+          FactoryBot.create(:booked_visit, prison:)
         end
 
         it 'sets up the view to render only one visit' do
@@ -57,7 +57,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
   end
 
   describe '#search' do
-    let(:prison) { FactoryBot.create(:prison, estate: estate) }
+    let(:prison) { FactoryBot.create(:prison, estate:) }
 
     subject { get :search, params: { estate_id: estate.finder_slug } }
 
@@ -76,7 +76,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
           }
         end
 
-        let!(:visit) { FactoryBot.create(:visit, prison: prison) }
+        let!(:visit) { FactoryBot.create(:visit, prison:) }
 
         it 'returns the requested visit for that prisoner' do
           subject
@@ -92,7 +92,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
           }
         end
 
-        let!(:visit) { FactoryBot.create(:booked_visit, prison: prison) }
+        let!(:visit) { FactoryBot.create(:booked_visit, prison:) }
 
         it 'returns the processed visit for that prisoner' do
           subject

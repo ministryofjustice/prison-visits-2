@@ -4,7 +4,7 @@ RSpec.describe RejectionDecorator do
   let(:allowance_renews_on) { 2.days.from_now.to_date }
   let!(:visit) { create(:rejected_visit) }
   let!(:unlisted_visitor) do
-    create(:visitor, visit: visit, not_on_list: true)
+    create(:visitor, visit:, not_on_list: true)
   end
   let!(:banned_visitor) do
     create(:visitor, visit: rejection.visit, banned: true)
@@ -39,7 +39,7 @@ RSpec.describe RejectionDecorator do
         context 'with a date set' do
           before do
             rejection.assign_attributes(
-              allowance_renews_on: allowance_renews_on
+              allowance_renews_on:
             )
           end
 
@@ -155,7 +155,7 @@ RSpec.describe RejectionDecorator do
       context 'with a date set' do
         before do
           rejection.assign_attributes(
-            allowance_renews_on: allowance_renews_on
+            allowance_renews_on:
           )
         end
 
@@ -211,7 +211,7 @@ RSpec.describe RejectionDecorator do
     context 'with a date' do
       before do
         rejection.assign_attributes(
-          allowance_renews_on: allowance_renews_on
+          allowance_renews_on:
         )
       end
 

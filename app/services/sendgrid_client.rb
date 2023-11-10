@@ -11,7 +11,7 @@ class SendgridClient
     @api_user = api_user
 
     @connection = Excon.new('https://api.sendgrid.com',
-                            persistent: persistent,
+                            persistent:,
                             connect_timeout: timeout)
   end
 
@@ -37,6 +37,6 @@ class SendgridClient
 private
 
   def credentials
-    { api_user: api_user, api_key: api_key }
+    { api_user:, api_key: }
   end
 end

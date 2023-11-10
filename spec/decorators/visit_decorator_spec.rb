@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe VisitDecorator do
   let(:visit) { create(:visit) }
   let(:prisoner) { double(Nomis::Prisoner, nomis_offender_id: 1_234_567) }
-  let(:checker) { instance_double(StaffNomisChecker, prisoner: prisoner) }
+  let(:checker) { instance_double(StaffNomisChecker, prisoner:) }
 
   subject { described_class.decorate(visit) }
 
@@ -47,7 +47,7 @@ RSpec.describe VisitDecorator do
 
     context 'when not requested' do
       let!(:last_state_change) do
-        VisitStateChange.create!(visit: visit,
+        VisitStateChange.create!(visit:,
                                  visit_state: 'cancelled',
                                  created_at: 1.day.from_now)
       end

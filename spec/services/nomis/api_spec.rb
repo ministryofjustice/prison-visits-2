@@ -75,7 +75,7 @@ RSpec.describe Nomis::Api do
   end
 
   describe '#lookup_prisoner_details' do
-    let(:prisoner_details) { described_class.instance.lookup_prisoner_details(noms_id: noms_id) }
+    let(:prisoner_details) { described_class.instance.lookup_prisoner_details(noms_id:) }
 
     context 'when found', vcr: { cassette_name: :lookup_prisoner_details } do
       let(:noms_id) { 'G7244GR' }
@@ -114,7 +114,7 @@ RSpec.describe Nomis::Api do
   end
 
   describe '#lookup_prisoner_location' do
-    let(:establishment) { subject.lookup_prisoner_location(noms_id: noms_id) }
+    let(:establishment) { subject.lookup_prisoner_location(noms_id:) }
 
     context 'when found', vcr: { cassette_name: :lookup_prisoner_location } do
       let(:noms_id) { 'G7244GR' }

@@ -23,30 +23,30 @@ RSpec.describe EstateSeeder do
 
     it 'generates a default prison finder slug' do
       subject.import nomis_id, hash
-      expect(Estate.find_by(nomis_id: nomis_id))
+      expect(Estate.find_by(nomis_id:))
         .to have_attributes(finder_slug: 'lunar-penal-colony')
     end
 
     it 'uses the supplied prison finder slug' do
       subject.import nomis_id, hash.merge('finder_slug' => 'luna')
-      expect(Estate.find_by(nomis_id: nomis_id))
+      expect(Estate.find_by(nomis_id:))
         .to have_attributes(finder_slug: 'luna')
     end
 
     it 'generates a default for admins' do
       subject.import nomis_id, hash
-      expect(Estate.find_by(nomis_id: nomis_id).admins).to be_empty
+      expect(Estate.find_by(nomis_id:).admins).to be_empty
     end
 
     it 'uses the supplied admins' do
       subject.import nomis_id, hash.merge('admins' => ['apvu.noms.moj'])
-      expect(Estate.find_by(nomis_id: nomis_id))
+      expect(Estate.find_by(nomis_id:))
         .to have_attributes(admins: ['apvu.noms.moj'])
     end
 
     it 'generates an sso organisation name' do
       subject.import nomis_id, hash.merge('name' => 'Lunar Penal Colony - A')
-      expect(Estate.find_by(nomis_id: nomis_id)).to have_attributes(
+      expect(Estate.find_by(nomis_id:)).to have_attributes(
         sso_organisation_name: 'lunar_penal_colony-a.prisons.noms.moj'
       )
     end

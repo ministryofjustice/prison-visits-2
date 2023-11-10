@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CancellationDecorator do
   let!(:visit) { create(:cancelled_visit) }
-  let(:cancellation) { create(:cancellation, visit: visit) }
+  let(:cancellation) { create(:cancellation, visit:) }
 
   subject { described_class.decorate(cancellation) }
 

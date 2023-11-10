@@ -29,7 +29,7 @@ class MetricsPresenter
     counts = @counts[prison_name]
     timings = @timings[prison_name]
 
-    PrisonSummaryMetricsPresenter.new(counts: counts,
-                                      timings: timings)
+    PrisonSummaryMetricsPresenter.new(counts:,
+                                      timings:)
   end
 end

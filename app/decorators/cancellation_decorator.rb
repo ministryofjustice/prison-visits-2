@@ -50,6 +50,6 @@ private
 
   def translated_restricted_reason
     explanation = h.t('restricted_reason_html', scope: %i[visitor_mailer cancelled])
-    Cancellation::Reason.new(explanation: explanation)
+    Cancellation::Reason.new(explanation:)
   end
 end

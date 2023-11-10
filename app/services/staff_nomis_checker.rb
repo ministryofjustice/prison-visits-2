@@ -70,7 +70,7 @@ private
   def prisoner_availability_validation
     @prisoner_availability_validation ||=
       PrisonerAvailabilityValidation.new(
-        prisoner: prisoner,
+        prisoner:,
         requested_slots: @visit.slots).tap(&:valid?)
   end
 

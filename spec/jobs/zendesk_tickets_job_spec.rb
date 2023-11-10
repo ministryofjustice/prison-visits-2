@@ -9,7 +9,7 @@ RSpec.describe ZendeskTicketsJob, type: :job do
       email_address: 'email@example.com',
       referrer: 'ref',
       user_agent: 'Mozilla',
-      submitted_by_staff: submitted_by_staff
+      submitted_by_staff:
     )
   }
 

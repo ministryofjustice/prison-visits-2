@@ -3,10 +3,10 @@ require 'mailers/shared_mailer_examples'
 
 RSpec.describe VisitorMailer, '.booked' do
   let(:visit) { create(:booked_visit) }
-  let!(:visitor) { create(:visitor, :banned, visit: visit, banned_until: banned_until) }
+  let!(:visitor) { create(:visitor, :banned, visit:, banned_until:) }
   let(:banned_until) { 3.days.from_now.to_date }
   let(:staff_response) do
-    StaffResponse.new(visit: visit, user: create(:user))
+    StaffResponse.new(visit:, user: create(:user))
   end
   let(:mail) { described_class.booked(staff_response.email_attrs, message_attributes) }
   let(:message_attributes) { nil }

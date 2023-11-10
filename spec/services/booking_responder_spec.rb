@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe BookingResponder do
-  subject { described_class.new(staff_response, message: message) }
+  subject { described_class.new(staff_response, message:) }
 
   let(:visit)            { create(:visit_with_three_slots) }
-  let(:staff_response)   { StaffResponse.new(visit: visit) }
+  let(:staff_response)   { StaffResponse.new(visit:) }
   let(:message)          { nil }
 
   describe 'with a requested visit' do

@@ -29,7 +29,7 @@ RSpec.describe Healthcheck::QueueCheck do
 
   context 'with only fresh queue items' do
     let(:created_at) { 9.minutes.ago }
-    let(:queue) { [double(Sidekiq::Job, created_at: created_at)] }
+    let(:queue) { [double(Sidekiq::Job, created_at:)] }
 
     it { is_expected.to be_ok }
 
@@ -61,7 +61,7 @@ RSpec.describe Healthcheck::QueueCheck do
 
   context 'with stale queue items' do
     let(:created_at) { 11.minutes.ago }
-    let(:queue) { [double(Sidekiq::Job, created_at: created_at)] }
+    let(:queue) { [double(Sidekiq::Job, created_at:)] }
 
     it { is_expected.not_to be_ok }
 

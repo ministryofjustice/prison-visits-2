@@ -12,7 +12,7 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
       end
     }
 
-    Excon.new('http://127.0.0.1:9292', middlewares: middlewares)
+    Excon.new('http://127.0.0.1:9292', middlewares:)
   end
 
   let(:block_class) do
@@ -269,7 +269,7 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
       end
     )
     request_block = block_class.new
-    connection.request(method: :get, idempotent: true, path: '/some-path', request_block: request_block, retry_limit: 2, retry_interval: 0.1)
+    connection.request(method: :get, idempotent: true, path: '/some-path', request_block:, retry_limit: 2, retry_interval: 0.1)
     expect(request_block.rewound).to eq(true)
   end
 
@@ -286,7 +286,7 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
       end
     )
     response_block = block_class.new
-    connection.request(method: :get, idempotent: true, path: '/some-path', response_block: response_block, retry_limit: 2, retry_interval: 0.1)
+    connection.request(method: :get, idempotent: true, path: '/some-path', response_block:, retry_limit: 2, retry_interval: 0.1)
     expect(response_block.rewound).to eq(true)
   end
 end

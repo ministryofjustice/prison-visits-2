@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe VisitorCancellationResponse do
-  subject(:instance) { described_class.new(visit: visit) }
+  subject(:instance) { described_class.new(visit:) }
 
   let(:visit) { create(:booked_visit) }
 
@@ -19,7 +19,7 @@ RSpec.describe VisitorCancellationResponse do
         let(:prison) { FactoryBot.create(:prison) }
         let(:visit) do
           FactoryBot.create(:booked_visit,
-                            prison: prison,
+                            prison:,
                             slot_granted: prison.available_slots.first)
         end
 

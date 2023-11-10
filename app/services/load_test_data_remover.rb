@@ -16,7 +16,7 @@ class LoadTestDataRemover
     def run(first_name, last_name)
       Visit
         .includes(ASSOCIATIONS)
-        .where(visitors: { first_name: first_name, last_name: last_name })
+        .where(visitors: { first_name:, last_name: })
         .find_in_batches(batch_size: 50) do |batch|
           batch.each do |visit|
             LoadTestDataRemoverJob.perform_later(visit.prisoner)

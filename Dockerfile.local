@@ -1,4 +1,4 @@
-FROM ruby:3.0.6-bullseye
+FROM ruby:3.1.4-bullseye
 
 RUN echo "deb http://apt-archive.postgresql.org/pub/repos/apt/ stretch-pgdg main" >  /etc/apt/sources.list.d/pgdg.list && \
     wget -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc \

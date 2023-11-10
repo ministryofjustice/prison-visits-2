@@ -27,7 +27,7 @@ module ContactListMatcherBehaviour
         [no_match]
       else
         contacts.map do |contact|
-          [contact, { data: { contact: contact } }]
+          [contact, { data: { contact: } }]
         end
       end
   end

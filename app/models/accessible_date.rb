@@ -12,7 +12,7 @@ class AccessibleDate
   validates :year, :month, :day, presence: true, if: :any_date_part?
 
   def attributes
-    { year: year, month: month, day: day }
+    { year:, month:, day: }
   end
 
   def to_date

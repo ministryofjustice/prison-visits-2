@@ -9,19 +9,19 @@ RSpec.describe VisitStateChange, type: :model do
     let(:visit) { create(:visit) }
 
     let(:booked) {
-      described_class.create(visit_state: 'booked', visit: visit)
+      described_class.create(visit_state: 'booked', visit:)
     }
 
     let(:rejected) {
-      described_class.create(visit_state: 'rejected', visit: visit)
+      described_class.create(visit_state: 'rejected', visit:)
     }
 
     let(:cancelled) {
-      described_class.create(visit_state: 'cancelled', visit: visit)
+      described_class.create(visit_state: 'cancelled', visit:)
     }
 
     let(:withdrawn) {
-      described_class.create(visit_state: 'withdrawn', visit: visit)
+      described_class.create(visit_state: 'withdrawn', visit:)
     }
 
     it 'has a booked scope' do

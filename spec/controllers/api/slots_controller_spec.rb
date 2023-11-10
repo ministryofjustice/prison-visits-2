@@ -63,7 +63,7 @@ RSpec.describe Api::SlotsController do
       end
 
       it 'returns the list of slots with their availabilities' do
-        get :index, params: params
+        get(:index, params:)
         expect(parsed_body).to eq('slots' => slots)
       end
     end
@@ -82,7 +82,7 @@ RSpec.describe Api::SlotsController do
       end
 
       it 'returns the list of slots with their availabilities' do
-        get :index, params: params
+        get(:index, params:)
         expect(parsed_body).to eq('slots' => { "2016-02-15T14:00/16:10" => [],
                                                "2016-02-16T09:00/10:00" => ["prisoner_unavailable"],
                                                "2016-02-16T14:00/16:10" => ["prisoner_unavailable"],

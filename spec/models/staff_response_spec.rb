@@ -6,7 +6,7 @@ RSpec.describe StaffResponse, type: :model do
   subject do
     described_class.new(
       visit: Visit.new(params),
-      validate_visitors_nomis_ready: validate_visitors_nomis_ready)
+      validate_visitors_nomis_ready:)
   end
 
   describe 'multi_param dates' do
@@ -166,7 +166,7 @@ RSpec.describe StaffResponse, type: :model do
         params[:visitors_attributes]['1'] = other_visitor.attributes.slice('id', 'banned', 'not_on_list')
       end
 
-      let(:other_visitor) { build(:visitor, visit: visit) }
+      let(:other_visitor) { build(:visitor, visit:) }
 
       it 'is rejected for not having lead visitor on the list' do
         expect(subject).to be_valid
@@ -180,7 +180,7 @@ RSpec.describe StaffResponse, type: :model do
         params[:visitors_attributes]['1'] = other_visitor.attributes.slice('id', 'banned', 'not_on_list')
       end
 
-      let(:other_visitor) { build(:visitor, visit: visit) }
+      let(:other_visitor) { build(:visitor, visit:) }
 
       it 'is rejected for not having lead visitor on the list' do
         expect(subject).to be_valid
@@ -192,7 +192,7 @@ RSpec.describe StaffResponse, type: :model do
       let(:slot_granted) { '' }
 
       context 'when all visitors are unlisted' do
-        let!(:unlisted_visitor) { create(:visitor, visit: visit) }
+        let!(:unlisted_visitor) { create(:visitor, visit:) }
 
         before do
           unlisted_visitor.not_on_list = true
@@ -209,7 +209,7 @@ RSpec.describe StaffResponse, type: :model do
       end
 
       context 'when all visitor are banned' do
-        let!(:unlisted_visitor) { create(:visitor, visit: visit) }
+        let!(:unlisted_visitor) { create(:visitor, visit:) }
         let(:slot_granted)      { '' }
 
         before do

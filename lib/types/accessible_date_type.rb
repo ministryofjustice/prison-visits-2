@@ -4,7 +4,7 @@ class AccessibleDateType < ActiveModel::Type::Value
       AccessibleDate.new(year: value.year, month: value.month, day: value.day)
     elsif value.is_a?(String)
       year, month, day = value.split('-').map(&:to_i)
-      AccessibleDate.new(year: year, month: month, day: day)
+      AccessibleDate.new(year:, month:, day:)
     elsif value.respond_to?(:values_at)
       cast_with_values_at(value)
     end

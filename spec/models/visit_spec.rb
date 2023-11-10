@@ -64,7 +64,7 @@ RSpec.describe Visit, type: :model do
   describe "#confirm_nomis_cancelled" do
     let(:cancellation) do
       FactoryBot.create(:cancellation,
-                        nomis_cancelled: nomis_cancelled,
+                        nomis_cancelled:,
                         updated_at: 1.day.ago)
     end
     let(:visit) { cancellation.visit }

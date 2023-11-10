@@ -10,7 +10,7 @@ class BookedVisitsCsvExporter
   def to_csv
     visits = @data.values.flat_map(&:values).map(&:values).flatten
 
-    CSV.generate(headers: headers, write_headers: true) do |csv|
+    CSV.generate(headers:, write_headers: true) do |csv|
       visits.each do |visit|
         csv << csv_row(visit)
       end

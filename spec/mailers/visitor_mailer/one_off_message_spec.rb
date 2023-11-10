@@ -7,7 +7,7 @@ RSpec.describe VisitorMailer, '.one_off_message' do
   end
 
   let(:visit) { FactoryBot.create(:booked_visit) }
-  let(:message) { FactoryBot.create(:message, visit: visit) }
+  let(:message) { FactoryBot.create(:message, visit:) }
   let(:mail) { described_class.one_off_message(message) }
 
   include_examples 'template checks'

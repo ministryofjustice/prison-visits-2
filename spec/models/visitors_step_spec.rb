@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe VisitorsStep do
   let(:prison) { build(:prison) }
 
-  subject { described_class.new(prison: prison) }
+  subject { described_class.new(prison:) }
 
   describe "email_address=" do
     it 'strips whitespace' do

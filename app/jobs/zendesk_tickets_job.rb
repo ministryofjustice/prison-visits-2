@@ -83,6 +83,6 @@ private
   end
 
   def as_hash(id, value)
-    { id: id, value: value }
+    { id:, value: }
   end
 end

@@ -31,7 +31,7 @@ private
       slot_option_0: slots_step.option_0,
       slot_option_1: slots_step.option_1,
       slot_option_2: slots_step.option_2,
-      locale: locale
+      locale:
     )
   end
 
@@ -41,7 +41,7 @@ private
         first_name: visitor.first_name,
         last_name: visitor.last_name,
         date_of_birth: visitor.date_of_birth,
-        sort_index: sort_index
+        sort_index:
       )
     end
   end

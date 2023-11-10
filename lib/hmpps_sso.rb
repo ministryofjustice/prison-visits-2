@@ -15,8 +15,8 @@ module OmniAuth
       info do
         {
           roles: decode_roles,
-          organisations: organisations,
-          user_id: user_id,
+          organisations:,
+          user_id:,
           first_name: user_details.first_name,
           last_name: user_details.last_name
         }
