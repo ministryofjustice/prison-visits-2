@@ -3,7 +3,7 @@
 unless Rails.env.production?
   module Jasmine
     class AssetExpander
-      private
+    private
 
       def asset_bundle
         return Rails4Or5Or6AssetBundle.new if Jasmine::Dependencies.rails4? ||
