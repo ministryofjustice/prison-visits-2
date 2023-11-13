@@ -25,7 +25,7 @@
         <td aria-label="<%= t('additional_visitors', scope: :shared) %>">
           <div>
             <% visit.allowed_visitors[1..-1].each do |visitor| %>
-              <%= visitor.full_name %> (<%= visitor.date_of_birth.to_s(:short_nomis) %>)<br>
+              <%= visitor.full_name %> (<%= visitor.date_of_birth.to_fs(:short_nomis) %>)<br>
             <% end %>
           </div>
         </td>

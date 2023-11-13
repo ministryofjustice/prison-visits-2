@@ -70,7 +70,7 @@
               <span class="tag tag--rejected font-xsmall text-center">
                 <%= t('.rejected_banned') %>
                 <% if visitor.banned_until? %>
-                  <%= t('.until') %> <%= visitor.banned_until.to_date.to_s(:short_nomis) %>
+                  <%= t('.until') %> <%= visitor.banned_until.to_date.to_fs(:short_nomis) %>
                 <% end %>
               </span>
             <% elsif visitor.not_on_list %>
@@ -98,7 +98,7 @@
           <div class="column-one-half">
             <dl>
               <dt><%= t('.dob') %></dt>
-              <dd><%= visitor.date_of_birth.to_s(:short_nomis) %> (<%= visitor.age %>)</dd>
+              <dd><%= visitor.date_of_birth.to_fs(:short_nomis) %> (<%= visitor.age %>)</dd>
             </dl>
           </div>
         </div>
