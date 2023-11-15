@@ -19,7 +19,7 @@ RSpec.describe Prison::FeedbacksController, type: :controller do
 
     let(:feedback_params) do
       {
-        body: body,
+        body:,
         email_address: 'john@example.com',
         prison_id: prison.id,
         referrer: 'somewhere'

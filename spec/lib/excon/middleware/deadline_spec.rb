@@ -4,7 +4,7 @@ require 'excon/middleware/deadline'
 RSpec.describe Excon::Middleware::Deadline do
   let(:connection) do
     middlewares = Excon.defaults[:middlewares].unshift(described_class)
-    Excon.new('http://127.0.0.1:9292', middlewares: middlewares)
+    Excon.new('http://127.0.0.1:9292', middlewares:)
   end
 
   let!(:deadline) { 2.seconds.from_now }
@@ -12,7 +12,7 @@ RSpec.describe Excon::Middleware::Deadline do
   subject(:response) do
     connection.request(method: :get,
                        path: '/foo',
-                       deadline: deadline)
+                       deadline:)
   end
 
   it 'completes within the deadline' do
@@ -37,7 +37,7 @@ RSpec.describe Excon::Middleware::Deadline do
         expect(datum[:write_timeout]).to be_present
       end
 
-      middleware.request_call(deadline: deadline)
+      middleware.request_call(deadline:)
     end
   end
 end

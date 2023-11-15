@@ -14,9 +14,9 @@ class Prison::DashboardsController < ApplicationController
 
   def search
     query = params[:query]
-    requested_visits(estates: accessible_estates, query: query)
-    cancellations(estates: accessible_estates, query: query)
-    processed_visits(estates: accessible_estates, query: query)
+    requested_visits(estates: accessible_estates, query:)
+    cancellations(estates: accessible_estates, query:)
+    processed_visits(estates: accessible_estates, query:)
     @search_total = @cancellations.size +
                     @requested_visits.size +
                     @processed_visits.size
@@ -26,17 +26,17 @@ private
 
   def requested_visits(estates:, query: nil)
     @requested_visits ||=
-      estate_query(estates).requested(query: query)
+      estate_query(estates).requested(query:)
   end
 
   def cancellations(estates:, query: nil)
     @cancellations ||=
-      estate_query(estates).cancelled(query: query)
+      estate_query(estates).cancelled(query:)
   end
 
   def processed_visits(estates:, query: nil)
     @processed_visits ||= estate_query(estates).processed(
-      query: query,
+      query:,
       limit: NUMBER_VISITS)
 
     if @processed_visits.size == NUMBER_VISITS

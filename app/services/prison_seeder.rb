@@ -10,7 +10,7 @@ class PrisonSeeder
     seeder = new(filename_to_uuid_map)
 
     Dir[base_path.join('prisons', '*.yml')].each do |path|
-      seeder.import path, YAML.load(File.read(path))
+      seeder.import path, YAML.load(File.read(path), permitted_classes: [Date])
     end
   end
 
@@ -22,7 +22,7 @@ class PrisonSeeder
     estate = Estate.find_by!(nomis_id: hash.fetch('nomis_id'))
     prison = Prison.find_or_initialize_by(id: uuid_for_path(path))
     entry = PrisonSeeder::SeedEntry.new(hash)
-    prison.update! entry.to_h.merge(estate: estate)
+    prison.update! entry.to_h.merge(estate:)
   rescue StandardError => e
     raise ImportFailure, "#{e} in #{path}"
   end

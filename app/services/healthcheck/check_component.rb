@@ -14,7 +14,7 @@ class Healthcheck
           yield
         rescue StandardError => e
           { error: e.to_s, ok: false }
-        end.merge(description: description)
+        end.merge(description:)
     end
   end
 end

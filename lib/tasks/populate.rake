@@ -43,7 +43,7 @@ namespace :pvb do
         prisoner: generate_prisoner,
         contact_phone_no: '07777777777',
         contact_email_address: "#{generate_last_name}@example.com",
-        prison: prison,
+        prison:,
         slot_option_0: slots.pop,
         slot_option_1: slots.pop,
         slot_option_2: slots.pop,
@@ -77,7 +77,7 @@ namespace :pvb do
 
       closed = [true, false].sample
       visit.update!(
-        slot_granted: granted_slot, reference_no: 'none', closed: closed)
+        slot_granted: granted_slot, reference_no: 'none', closed:)
       visit.accept!
       fake_processing_time(visit)
     end
@@ -108,7 +108,7 @@ namespace :pvb do
       visit.assign_attributes(attributes)
 
       BookingResponder::Reject.new(
-        StaffResponse.new(visit: visit)
+        StaffResponse.new(visit:)
       ).process_request
       fake_processing_time(visit.reload)
     end
@@ -119,7 +119,7 @@ namespace :pvb do
           visit, { reasons: [Cancellation::REASONS.sample] }
         ).cancel!
       else
-        VisitorCancellationResponse.new(visit: visit).cancel!
+        VisitorCancellationResponse.new(visit:).cancel!
       end
     end
 

@@ -78,7 +78,7 @@ private
 
   def format_stat_collection(query, presenter_class)
     metrics_presenters = Hash.new do |h, date|
-      h[date] = presenter_class.new(date: date)
+      h[date] = presenter_class.new(date:)
     end
 
     query.each do |(date, stat), count|

@@ -5,14 +5,14 @@ RSpec.describe PercentilesByPrisonAndCalendarDate, type: :model do
   let(:processed_within_a_day_visits)   do
     create_list(
       :visit, 4,
-      prison: prison,
+      prison:,
       created_at: Time.zone.today.beginning_of_day
     )
   end
   let(:processed_within_two_days_visit) do
     create(
       :visit,
-      prison: prison,
+      prison:,
       created_at: Time.zone.today.beginning_of_day)
   end
 

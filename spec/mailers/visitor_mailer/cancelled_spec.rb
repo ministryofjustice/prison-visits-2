@@ -9,7 +9,7 @@ RSpec.describe VisitorMailer, '.cancelled' do
 
   before do
     ActionMailer::Base.deliveries.clear
-    FactoryBot.create(:cancellation, visit: visit, reasons: reasons)
+    FactoryBot.create(:cancellation, visit:, reasons:)
   end
 
   around do |example|

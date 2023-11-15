@@ -42,7 +42,7 @@ private
     Event.new(
       state: 'requested',
       created_at: @visit.created_at,
-      last: last,
+      last:,
       user: @visit.principal_visitor
     )
   end
@@ -51,7 +51,7 @@ private
     Event.new(
       state: state.visit_state,
       created_at: state.created_at,
-      last: last,
+      last:,
       user: state.creator)
   end
 end

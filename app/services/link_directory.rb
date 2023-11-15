@@ -16,14 +16,14 @@ class LinkDirectory
   end
 
   def visit_status(visit, locale: 'en')
-    @status_template.expand(visit_id: visit.human_id, locale: locale)
+    @status_template.expand(visit_id: visit.human_id, locale:)
   end
 
   def feedback_submission(locale: 'en')
-    @feedback_template.expand(locale: locale)
+    @feedback_template.expand(locale:)
   end
 
   def public_service(path: nil)
-    @public_service_template.expand(path: path)
+    @public_service_template.expand(path:)
   end
 end

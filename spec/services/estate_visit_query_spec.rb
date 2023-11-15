@@ -20,17 +20,17 @@ RSpec.describe EstateVisitQuery do
     let!(:booked_visit1) do
       create(
         :booked_visit,
-        prison: prison,
+        prison:,
         slot_granted: slot1)
     end
     let!(:booked_visit2) do
       create(:booked_visit,
-             prison: prison,
+             prison:,
              slot_granted: slot2)
     end
     let!(:cancelled_visit) do
       create(:cancelled_visit,
-             prison: prison,
+             prison:,
              slot_granted: slot1)
     end
     let!(:other_prison_visit) do
@@ -58,7 +58,7 @@ RSpec.describe EstateVisitQuery do
 
   describe '#processed' do
     subject(:processed) do
-      instance.processed(limit: limit, query: prisoner_number)
+      instance.processed(limit:, query: prisoner_number)
     end
 
     let(:limit) { 10 }
@@ -66,25 +66,25 @@ RSpec.describe EstateVisitQuery do
 
     context 'with visits in all possible states' do
       let!(:requested) do
-        create(:visit, :requested, prison: prison)
+        create(:visit, :requested, prison:)
       end
       let!(:withdrawn) do
-        create(:withdrawn_visit, prison: prison)
+        create(:withdrawn_visit, prison:)
       end
       let!(:booked) do
-        create(:booked_visit, prison: prison)
+        create(:booked_visit, prison:)
       end
       let!(:rejected) do
-        create(:rejected_visit, prison: prison)
+        create(:rejected_visit, prison:)
       end
       let!(:nomis_cancelled) do
         create(:visit,
                :nomis_cancelled,
-               prison: prison,
+               prison:,
                updated_at: 1.day.ago)
       end
       let!(:pending_nomis_cancellation) do
-        create(:visit, :pending_nomis_cancellation, prison: prison)
+        create(:visit, :pending_nomis_cancellation, prison:)
       end
 
       it 'excludes visits pending nomis cancellation and requested visits' do
@@ -108,11 +108,11 @@ RSpec.describe EstateVisitQuery do
       end
 
       context 'when visits have not been updated within six months' do
-        let!(:old_booked) { create(:booked_visit, prison: prison, updated_at: 7.months.ago) }
+        let!(:old_booked) { create(:booked_visit, prison:, updated_at: 7.months.ago) }
         let(:prisoner_number) { old_booked.prisoner.number.downcase }
 
         it 'does not return visits in search results' do
-          expect(instance.processed(limit: limit, query: prisoner_number)).to be_empty
+          expect(instance.processed(limit:, query: prisoner_number)).to be_empty
         end
       end
     end
@@ -160,19 +160,19 @@ RSpec.describe EstateVisitQuery do
 
   describe '#requested' do
     subject do
-      instance.requested(query: query)
+      instance.requested(query:)
     end
 
     let!(:visit1) do
-      create(:visit, :requested, prison: prison)
+      create(:visit, :requested, prison:)
     end
 
     let!(:visit2) do
-      create(:visit, :requested, prison: prison)
+      create(:visit, :requested, prison:)
     end
 
     let!(:old_visit) do
-      create(:visit, :requested, prison: prison, created_at: 7.months.ago, updated_at: 7.months.ago)
+      create(:visit, :requested, prison:, created_at: 7.months.ago, updated_at: 7.months.ago)
     end
 
     it_behaves_like 'finds all'
@@ -183,18 +183,18 @@ RSpec.describe EstateVisitQuery do
 
   describe '#cancelled' do
     subject do
-      instance.cancelled(query: query)
+      instance.cancelled(query:)
     end
 
     let!(:visit1) do
-      create(:visit, :pending_nomis_cancellation, prison: prison)
+      create(:visit, :pending_nomis_cancellation, prison:)
     end
     let!(:visit2) do
-      create(:visit, :pending_nomis_cancellation, prison: prison)
+      create(:visit, :pending_nomis_cancellation, prison:)
     end
 
     let!(:old_visit) do
-      create(:visit, :pending_nomis_cancellation, prison: prison, created_at: 7.months.ago, updated_at: 7.months.ago)
+      create(:visit, :pending_nomis_cancellation, prison:, created_at: 7.months.ago, updated_at: 7.months.ago)
     end
 
     it_behaves_like 'finds all'
@@ -208,15 +208,15 @@ RSpec.describe EstateVisitQuery do
 
     context 'with visits in different estates' do
       before do
-        create(:visit, :requested, prison: prison)
-        create(:visit, :requested, prison: prison)
-        create(:booked_visit, prison: prison)
-        create(:rejected_visit, prison: prison)
+        create(:visit, :requested, prison:)
+        create(:visit, :requested, prison:)
+        create(:booked_visit, prison:)
+        create(:rejected_visit, prison:)
         create(:visit,
                :nomis_cancelled,
-               prison: prison,
+               prison:,
                updated_at: 1.day.ago)
-        create(:visit, :pending_nomis_cancellation, prison: prison)
+        create(:visit, :pending_nomis_cancellation, prison:)
       end
 
       it 'returns the count of the visits that are in the inbox' do

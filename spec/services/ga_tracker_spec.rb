@@ -10,7 +10,7 @@ RSpec.describe GATracker do
     ActionDispatch::TestRequest.new(
       'REMOTE_ADDR' => ip,
       'HTTP_USER_AGENT' => user_agent,
-      'action_dispatch.request.parameters' => { was_bookable: was_bookable }
+      'action_dispatch.request.parameters' => { was_bookable: }
     )
   end
   let(:was_bookable)        { false }

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Prison::PrintVisitsController do
   let(:estate) { create(:estate) }
   let(:user)   { create(:user) }
-  let(:prison) { create(:prison, estate: estate) }
+  let(:prison) { create(:prison, estate:) }
 
   subject { response }
 
@@ -47,13 +47,13 @@ RSpec.describe Prison::PrintVisitsController do
 
       let!(:visit1) do
         create(:booked_visit,
-               prison: prison,
+               prison:,
                slot_granted: slot_granted1)
       end
 
       let!(:visit2) do
         create(:booked_visit,
-               prison: prison,
+               prison:,
                slot_granted: slot_granted2)
       end
 
@@ -63,7 +63,7 @@ RSpec.describe Prison::PrintVisitsController do
 
           it 'raises an error' do
             expect {
-              get :show, params: { print_visits: { visit_date: visit_date } }
+              get :show, params: { print_visits: { visit_date: } }
             }.to raise_error ActionController::ParameterMissing
           end
         end
@@ -73,7 +73,7 @@ RSpec.describe Prison::PrintVisitsController do
 
           it 'does not raises an error'  do
             expect {
-              get :show, params: { print_visits: { visit_date: visit_date } }
+              get :show, params: { print_visits: { visit_date: } }
             }.not_to raise_error
           end
         end
@@ -84,7 +84,7 @@ RSpec.describe Prison::PrintVisitsController do
         let(:format)     { :html }
 
         before do
-          get :show, params: { print_visits: { visit_date: visit_date }, format: format }
+          get :show, params: { print_visits: { visit_date: }, format: }
         end
 
         context 'with an empty date' do

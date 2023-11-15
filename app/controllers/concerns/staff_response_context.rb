@@ -73,7 +73,7 @@ private
   def booking_responder
     @booking_responder ||= BookingResponder.new(
       staff_response,
-      message: message)
+      message:)
   end
 
   def visit_params

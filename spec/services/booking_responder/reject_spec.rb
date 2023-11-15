@@ -11,7 +11,7 @@ RSpec.describe BookingResponder::Reject do
     staff_response.valid?
   end
 
-  let(:staff_response) { StaffResponse.new(visit: visit) }
+  let(:staff_response) { StaffResponse.new(visit:) }
 
   subject { described_class.new(staff_response) }
 

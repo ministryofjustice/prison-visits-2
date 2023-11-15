@@ -12,7 +12,7 @@ RSpec.describe GraphMetricsPresenter do
   end
 
   describe 'Percentiles Statistics' do
-    let(:visits) { create_list(:visit, 10, prison: prison) }
+    let(:visits) { create_list(:visit, 10, prison:) }
 
     before do
       travel_to(visits.first.created_at + 2.days) do
@@ -50,7 +50,7 @@ RSpec.describe GraphMetricsPresenter do
 
   describe 'processing_state breakdown' do
     describe '#visits_per_processing_state_for' do
-      let!(:requested_visits)       { create_list :visit, 2, prison: prison }
+      let!(:requested_visits)       { create_list :visit, 2, prison: }
       let!(:other_requested_visits) { create :visit, prison: other_prison }
 
       before do
@@ -63,28 +63,28 @@ RSpec.describe GraphMetricsPresenter do
     end
 
     describe '#visits_per_processing_state' do
-      let!(:requested_visits) { create_list :visit, 5, prison: prison }
+      let!(:requested_visits) { create_list :visit, 5, prison: }
 
       let!(:cancelled_visits) do
-        create_list(:visit, 4, prison: prison).map do |visit|
+        create_list(:visit, 4, prison:).map do |visit|
           cancel_visit(visit)
         end
       end
 
       let!(:booked_visits)  do
-        create_list(:visit, 3, prison: prison).map do |visit|
+        create_list(:visit, 3, prison:).map do |visit|
           accept_visit(visit, visit.slots.first)
         end
       end
 
       let!(:rejected_visits) do
-        create_list(:visit, 2, prison: prison).map do |visit|
+        create_list(:visit, 2, prison:).map do |visit|
           reject_visit(visit)
         end
       end
 
       let!(:withdrawn_visits) do
-        create_list(:visit, 1, prison: prison).map do |visit|
+        create_list(:visit, 1, prison:).map do |visit|
           withdraw_visit(visit)
         end
       end
@@ -106,8 +106,8 @@ RSpec.describe GraphMetricsPresenter do
   end
 
   describe 'timely and overdue' do
-    let!(:timely_visits)  { create_list :visit, 2, prison: prison }
-    let!(:overdue_visits) { create_list :visit, 3, prison: prison }
+    let!(:timely_visits)  { create_list :visit, 2, prison: }
+    let!(:overdue_visits) { create_list :visit, 3, prison: }
 
     def process_visit(visit, num)
       num.odd? ? reject_visit(visit) : accept_visit(visit, visit.slots.first)
@@ -164,13 +164,13 @@ RSpec.describe GraphMetricsPresenter do
   describe 'rejection percentage breakdown' do
     describe '#rejection_percentages_for' do
       let!(:no_adult_rejected) do
-        create_list(:visit, 2, prison: prison).map do |visit|
+        create_list(:visit, 2, prison:).map do |visit|
           reject_visit(visit, [Rejection::NO_ADULT])
         end
       end
 
       let!(:child_protection_rejected) do
-        create_list(:visit, 1, prison: prison).map do |visit|
+        create_list(:visit, 1, prison:).map do |visit|
           reject_visit(visit, [Rejection::CHILD_PROTECTION_ISSUES])
         end
       end
@@ -194,67 +194,67 @@ RSpec.describe GraphMetricsPresenter do
 
     describe '#rejection_percentages' do
       let!(:child_protection_rejected) do
-        create_list(:visit, 1, prison: prison).map do |visit|
+        create_list(:visit, 1, prison:).map do |visit|
           reject_visit(visit, [Rejection::CHILD_PROTECTION_ISSUES])
         end
       end
 
       let!(:no_adult_rejected) do
-        create_list(:visit, 2, prison: prison).map do |visit|
+        create_list(:visit, 2, prison:).map do |visit|
           reject_visit(visit, [Rejection::NO_ADULT])
         end
       end
 
       let!(:no_allowance_rejected) do
-        create_list(:visit, 3, prison: prison).map do |visit|
+        create_list(:visit, 3, prison:).map do |visit|
           reject_visit(visit, [Rejection::NO_ALLOWANCE])
         end
       end
 
       let!(:prisoner_details_incorrect_rejected) do
-        create_list(:visit, 4, prison: prison).map do |visit|
+        create_list(:visit, 4, prison:).map do |visit|
           reject_visit(visit, [Rejection::PRISONER_DETAILS_INCORRECT])
         end
       end
 
       let!(:prisoner_moved_rejected) do
-        create_list(:visit, 5, prison: prison).map do |visit|
+        create_list(:visit, 5, prison:).map do |visit|
           reject_visit(visit, ['prisoner_moved'])
         end
       end
 
       let!(:prisoner_non_assiciation_rejected) do
-        create_list(:visit, 6, prison: prison).map do |visit|
+        create_list(:visit, 6, prison:).map do |visit|
           reject_visit(visit, [Rejection::PRISONER_NON_ASSOCIATION])
         end
       end
 
       let!(:prisoner_released_rejected) do
-        create_list(:visit, 7, prison: prison).map do |visit|
+        create_list(:visit, 7, prison:).map do |visit|
           reject_visit(visit, ['prisoner_released'])
         end
       end
 
       let!(:slot_unavailable_rejected) do
-        create_list(:visit, 8, prison: prison).map do |visit|
+        create_list(:visit, 8, prison:).map do |visit|
           reject_visit(visit, [Rejection::SLOT_UNAVAILABLE])
         end
       end
 
       let!(:banned_rejected) do
-        create_list(:visit, 9, prison: prison).map do |visit|
+        create_list(:visit, 9, prison:).map do |visit|
           reject_visit(visit, [Rejection::BANNED])
         end
       end
 
       let!(:not_on_the_list_rejected) do
-        create_list(:visit, 10, prison: prison).map do |visit|
+        create_list(:visit, 10, prison:).map do |visit|
           reject_visit(visit, [Rejection::NOT_ON_THE_LIST])
         end
       end
 
       let!(:duplicate_visit_request_rejected) do
-        create_list(:visit, 11, prison: prison).map do |visit|
+        create_list(:visit, 11, prison:).map do |visit|
           reject_visit(visit, ['duplicate_visit_request'])
         end
       end

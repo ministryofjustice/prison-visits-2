@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe PrisonerStep do
-  subject { described_class.new(prison: prison) }
+  subject { described_class.new(prison:) }
 
   let(:params) {
     {

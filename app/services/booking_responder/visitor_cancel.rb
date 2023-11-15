@@ -3,7 +3,7 @@ class BookingResponder
     def process_request
       super do
         visit.cancel!
-        Cancellation.create!(visit: visit,
+        Cancellation.create!(visit:,
                              reasons: [Cancellation::VISITOR_CANCELLED],
                              nomis_cancelled: false)
 

@@ -52,7 +52,7 @@ RSpec.shared_context 'when sendgrid api responds normally' do
         'api_key' => 'test_smtp_password',
         'api_user' => 'test_smtp_username',
         'delete_all' => '1'))
-      .to_return(status: 200, body: body, headers: {})
+      .to_return(status: 200, body:, headers: {})
   end
 
   def stub_delete_email_from_spam_list
@@ -61,7 +61,7 @@ RSpec.shared_context 'when sendgrid api responds normally' do
         'api_key' => 'test_smtp_password',
         'api_user' => 'test_smtp_username',
         'email' => 'test@example.com'))
-      .to_return(status: 200, body: body, headers: {})
+      .to_return(status: 200, body:, headers: {})
   end
 end
 

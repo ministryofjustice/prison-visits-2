@@ -3,7 +3,7 @@ module PercentileSerialisation
 
   def as_json(*_args)
     {
-      date: date,
+      date:,
       ninety_fifth_percentile: (percentiles.first / 1.day.to_f),
       median: (percentiles.last / 1.day.to_f)
     }

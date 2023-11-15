@@ -15,7 +15,7 @@ RSpec.describe GovNotifyEmailer do
     let(:client_params) do
       {
         email_address: visit.contact_email_address,
-        template_id: template_id,
+        template_id:,
         personalisation: {
           receipt_date: format_date_without_year(visit.first_date),
           visitor_full_name: visit.visitor_first_name,

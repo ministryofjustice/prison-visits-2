@@ -6,7 +6,7 @@ RSpec.describe MetricsPresenter do
   let(:prison_name) { 'Cardiff' }
 
   let(:instance) do
-    described_class.new(counts: counts, timings: timings)
+    described_class.new(counts:, timings:)
   end
 
   describe '#total_visits' do

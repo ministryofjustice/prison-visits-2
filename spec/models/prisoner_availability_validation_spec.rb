@@ -3,8 +3,8 @@ require 'rails_helper'
 
 RSpec.describe PrisonerAvailabilityValidation, type: :model do
   subject do
-    described_class.new(prisoner: prisoner,
-                        requested_slots: requested_slots)
+    described_class.new(prisoner:,
+                        requested_slots:)
   end
 
   let(:prisoner) { Nomis::Prisoner.new(id: '1234567', noms_id: 'ABC1234') }

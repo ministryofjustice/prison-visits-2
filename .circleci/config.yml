@@ -12,7 +12,7 @@ references:
 
   docker_container_config: &docker_container_config
     docker:
-      - image: cimg/ruby:3.0.6-browsers
+      - image: cimg/ruby:3.1.4-browsers
         environment:
           PGHOST: 127.0.0.1
           PGUSER: ubuntu

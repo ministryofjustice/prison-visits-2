@@ -26,9 +26,9 @@ RSpec.describe LoadTestDataRemover do
   let(:vst) {
     create(
       :visit,
-      prison: prison,
-      contact_email_address: contact_email_address,
-      prisoner: prisoner
+      prison:,
+      contact_email_address:,
+      prisoner:
     )
   }
   let(:prisoner_number) { 'G7244GR' }
@@ -42,7 +42,7 @@ RSpec.describe LoadTestDataRemover do
     context 'with "remove_load_test_data" flag switched on' do
       it 'removes them' do
         switch_on(:remove_load_test_data)
-        visitor.update!(first_name: first_name, last_name: last_name)
+        visitor.update!(first_name:, last_name:)
 
         expect {
           described_class.delete_visits_created_by(first_name, last_name)
@@ -64,7 +64,7 @@ RSpec.describe LoadTestDataRemover do
     context 'with "remove_load_test_data" flag switched off' do
       it 'does not remove them' do
         switch_off(:remove_load_test_data)
-        visitor.update!(first_name: first_name, last_name: last_name)
+        visitor.update!(first_name:, last_name:)
 
         expect {
           described_class.delete_visits_created_by(first_name, last_name)
@@ -76,7 +76,7 @@ RSpec.describe LoadTestDataRemover do
       context "when visitor is not 'Load Test'" do
         it 'does not remove them' do
           switch_on(:remove_load_test_data)
-          visitor.update!(first_name: first_name, last_name: last_name)
+          visitor.update!(first_name:, last_name:)
 
           expect {
             described_class.delete_visits_created_by('Peter', 'Andre')
@@ -88,6 +88,6 @@ RSpec.describe LoadTestDataRemover do
 
   def visit_for(first_name, last_name)
     Visit.joins(:visitors)
-      .where(visitors: { first_name: first_name, last_name: last_name })
+      .where(visitors: { first_name:, last_name: })
   end
 end

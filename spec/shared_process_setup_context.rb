@@ -22,8 +22,8 @@ RSpec.shared_context 'with a process request setup' do
   let(:vst) {
     create(
       :visit,
-      prison: prison,
-      contact_email_address: contact_email_address,
+      prison:,
+      contact_email_address:,
       prisoner: create(
         :prisoner,
         number: prisoner_number,

@@ -6,7 +6,7 @@ class WeeklyMetricsConfirmedCsvExporter
   end
 
   def to_csv
-    CSV.generate(headers: headers, write_headers: true) do |csv|
+    CSV.generate(headers:, write_headers: true) do |csv|
       Prison.enabled.each do |prison|
         csv << prison_data(prison)
       end

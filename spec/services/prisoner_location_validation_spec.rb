@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe PrisonerLocationValidation do
-  let(:prisoner)       { Nomis::Prisoner.new(id: 'someid', noms_id: noms_id) }
+  let(:prisoner)       { Nomis::Prisoner.new(id: 'someid', noms_id:) }
   let(:noms_id)        { 'a1234bc' }
   let(:prison_code)    { 'BMI' }
   let(:code)           { prison_code }

@@ -187,7 +187,7 @@ private
 
   def email_translated_restricted_reason
     explanation = h.t('restricted_reason', scope: %i[visitor_mailer rejected])
-    [Rejection::Reason.new(explanation: explanation)]
+    [Rejection::Reason.new(explanation:)]
   end
 
   def staff_no_allowance_explanation(allowance_renews_on)
@@ -200,6 +200,6 @@ private
   end
 
   def staff_other_explanation(detail)
-    h.t('other_reason', detail: detail, scope: :shared)
+    h.t('other_reason', detail:, scope: :shared)
   end
 end

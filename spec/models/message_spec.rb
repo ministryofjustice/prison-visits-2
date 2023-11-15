@@ -9,8 +9,8 @@ RSpec.describe Message, type: :model do
 
     let(:attrs) do
       {
-        visit: visit,
-        user: user,
+        visit:,
+        user:,
         body: message_body
       }
     end

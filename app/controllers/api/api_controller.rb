@@ -43,7 +43,7 @@ module Api
     end
 
     def render_error(status, message)
-      render json: { message: message }, status: status
+      render json: { message: }, status:
     end
 
     def store_request_id

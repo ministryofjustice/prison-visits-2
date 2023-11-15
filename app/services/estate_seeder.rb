@@ -10,7 +10,7 @@ class EstateSeeder
   end
 
   def import(nomis_id, attributes)
-    estate = Estate.find_or_initialize_by(nomis_id: nomis_id)
+    estate = Estate.find_or_initialize_by(nomis_id:)
     entry = EstateSeeder::SeedEntry.new(nomis_id, check(attributes))
     estate.update! entry.to_h
   end

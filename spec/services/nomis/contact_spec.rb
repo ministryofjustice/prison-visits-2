@@ -17,7 +17,7 @@ RSpec.describe Nomis::Contact do
         code: "S",
         desc: "Social/ Family"
       },
-      restrictions: restrictions
+      restrictions:
     )
   end
 
@@ -72,7 +72,7 @@ RSpec.describe Nomis::Contact do
         [
           Nomis::Restriction.new(
             effective_date: '2017-03-02',
-            expiry_date: expiry_date,
+            expiry_date:,
             type: { 'code' => "BAN", 'desc' => "Banned" })
         ]
       end

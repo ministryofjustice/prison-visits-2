@@ -14,7 +14,7 @@ RSpec.describe PVB::DigitalUserConstraint do
   end
 
   let(:request) do
-    double(ActionDispatch::Request, session: { sso_data: sso_data })
+    double(ActionDispatch::Request, session: { sso_data: })
   end
 
   subject { described_class.new }

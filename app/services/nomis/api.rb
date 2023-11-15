@@ -28,7 +28,7 @@ module Nomis
     def lookup_active_prisoner(noms_id:, date_of_birth:)
       response = @pool.with { |client|
         client.get('v1/lookup/active_offender',
-                   noms_id: noms_id, date_of_birth: date_of_birth)
+                   noms_id:, date_of_birth:)
       }
 
       build_prisoner(response).tap do |prisoner|
@@ -85,7 +85,7 @@ module Nomis
       response = @pool.with { |client|
         client.get(
           "v1/offenders/#{offender_id}/visits/available_dates",
-          start_date: start_date, end_date: end_date)
+          start_date:, end_date:)
       }
 
       PrisonerAvailability.new(response).tap do |prisoner_availability|
@@ -130,8 +130,8 @@ module Nomis
       response = @pool.with { |client|
         client.get(
           "v1/prison/#{prison.nomis_id}/slots",
-          start_date: start_date,
-          end_date: end_date)
+          start_date:,
+          end_date:)
       }
 
       Nomis::SlotAvailability.new(response).tap do |slot_availability|

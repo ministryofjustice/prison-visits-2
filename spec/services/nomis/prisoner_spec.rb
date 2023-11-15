@@ -6,7 +6,7 @@ RSpec.describe Nomis::Prisoner, type: :model do
   it { is_expected.to validate_presence_of :id }
   it { is_expected.to validate_presence_of :noms_id }
 
-  subject { described_class.new(noms_id: noms_id) }
+  subject { described_class.new(noms_id:) }
 
   context 'with an unormalised noms_id' do
     let(:noms_id) { 'A1234bc ' }

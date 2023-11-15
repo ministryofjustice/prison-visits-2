@@ -28,7 +28,7 @@ RSpec.describe SignonIdentity, type: :model do
     end
 
     context 'when a user has previously logged in' do
-      let!(:user) { FactoryBot.create(:user, email: email) }
+      let!(:user) { FactoryBot.create(:user, email:) }
 
       context 'when they have no permissions' do
         let(:organisations) { [] }
@@ -85,7 +85,7 @@ RSpec.describe SignonIdentity, type: :model do
 
         it 'creates a new user' do
           expect { from_omniauth }.to change {
-            User.where(email: email).count
+            User.where(email:).count
           }.by(1)
         end
 

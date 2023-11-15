@@ -129,7 +129,7 @@ RSpec.describe Nomis::Client do
       stub_request(:post, "#{nomis_oauth_host}/auth/oauth/token?grant_type=client_credentials")
         .to_return(
           body: {
-            access_token: access_token,
+            access_token:,
             token_type: 'bearer',
             expires_in: 3599,
             scope: 'read write',

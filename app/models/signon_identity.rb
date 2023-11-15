@@ -46,7 +46,7 @@ class SignonIdentity
 
     def find_or_create_authorized_user(info)
       email = user_email(info)
-      User.find_or_create_by!(email: email)
+      User.find_or_create_by!(email:)
     end
 
     def user_email(info)

@@ -9,7 +9,7 @@ module StaffResponseHelper
     accept_visit(visit, visit.slots.first)
     CancellationResponse.new(
       visit,
-      { reasons: reasons },
+      { reasons: },
       user:   create(:user)
     ).cancel!
     visit
@@ -22,10 +22,10 @@ module StaffResponseHelper
   end
 
   def withdraw_visit(visit)
-    VisitorWithdrawalResponse.new(visit: visit).withdraw!
+    VisitorWithdrawalResponse.new(visit:).withdraw!
   end
 
   def staff_response_for(visit)
-    StaffResponse.new(visit: visit)
+    StaffResponse.new(visit:)
   end
 end

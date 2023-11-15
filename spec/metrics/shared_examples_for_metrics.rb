@@ -11,16 +11,16 @@ RSpec.shared_context 'when creating rejections without dates' do
   end
 
   def reject_visit(visit)
-    BookingResponder.new(StaffResponse.new(visit: visit)).respond!
+    BookingResponder.new(StaffResponse.new(visit:)).respond!
   end
 
   def make_visits(prison)
-    create_list(:booked_visit, 6, prison: prison)
+    create_list(:booked_visit, 6, prison:)
 
-    reject_visit create(:visit, prison: prison, rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
-    reject_visit create(:visit, prison: prison, rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
-    reject_visit create(:visit, prison: prison, rejection_attributes: { reasons: ['slot_unavailable'] })
-    reject_visit create(:visit, prison: prison, rejection_attributes: { reasons: ['visitor_banned'] })
+    reject_visit create(:visit, prison:, rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
+    reject_visit create(:visit, prison:, rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
+    reject_visit create(:visit, prison:, rejection_attributes: { reasons: ['slot_unavailable'] })
+    reject_visit create(:visit, prison:, rejection_attributes: { reasons: ['visitor_banned'] })
   end
 end
 
@@ -39,17 +39,17 @@ RSpec.shared_context 'when creating rejections with dates' do
   end
 
   def reject_visit(visit)
-    BookingResponder.new(StaffResponse.new(visit: visit)).respond!
+    BookingResponder.new(StaffResponse.new(visit:)).respond!
   end
 
   def make_visits(prison)
-    create_list(:booked_visit, 5, created_at: Time.zone.local(2016, 2, 1), prison: prison)
+    create_list(:booked_visit, 5, created_at: Time.zone.local(2016, 2, 1), prison:)
 
-    reject_visit create(:visit, prison: prison, created_at: Time.zone.local(2016, 2, 1), rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
-    reject_visit create(:visit, prison: prison, created_at: Time.zone.local(2016, 2, 2), rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
-    reject_visit create(:visit, prison: prison, created_at: Time.zone.local(2016, 2, 3), rejection_attributes: { reasons: ['slot_unavailable'] })
-    reject_visit create(:visit, prison: prison, created_at: Time.zone.local(2016, 2, 4), rejection_attributes: { reasons: ['visitor_banned'] })
-    reject_visit create(:visit, prison: prison, created_at: Time.zone.local(2016, 2, 4), rejection_attributes: { reasons: ['no_adult'] })
+    reject_visit create(:visit, prison:, created_at: Time.zone.local(2016, 2, 1), rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
+    reject_visit create(:visit, prison:, created_at: Time.zone.local(2016, 2, 2), rejection_attributes: { reasons: [Rejection::NO_ALLOWANCE] })
+    reject_visit create(:visit, prison:, created_at: Time.zone.local(2016, 2, 3), rejection_attributes: { reasons: ['slot_unavailable'] })
+    reject_visit create(:visit, prison:, created_at: Time.zone.local(2016, 2, 4), rejection_attributes: { reasons: ['visitor_banned'] })
+    reject_visit create(:visit, prison:, created_at: Time.zone.local(2016, 2, 4), rejection_attributes: { reasons: ['no_adult'] })
   end
 end
 
@@ -71,7 +71,7 @@ RSpec.shared_context 'when creating visits without dates' do
        rejected_visit
        cancelled_visit
        withdrawn_visit].each do |visit_type|
-      create(visit_type, prison: prison)
+      create(visit_type, prison:)
     end
   end
 end
@@ -182,18 +182,18 @@ RSpec.shared_context 'when creating visits with dates' do
   end
 
   def make_visits(prison)
-    create(:visit, created_at: Time.zone.local(2016, 2, 1), prison: prison)
-    create(:visit, created_at: Time.zone.local(2016, 2, 8), prison: prison)
+    create(:visit, created_at: Time.zone.local(2016, 2, 1), prison:)
+    create(:visit, created_at: Time.zone.local(2016, 2, 8), prison:)
 
-    create(:booked_visit, created_at: Time.zone.local(2016, 2, 1), prison: prison)
-    create(:booked_visit, created_at: Time.zone.local(2016, 2, 8), prison: prison)
+    create(:booked_visit, created_at: Time.zone.local(2016, 2, 1), prison:)
+    create(:booked_visit, created_at: Time.zone.local(2016, 2, 8), prison:)
 
-    create(:rejected_visit, created_at: Time.zone.local(2016, 2, 1), prison: prison)
-    create(:rejected_visit, created_at: Time.zone.local(2016, 2, 15), prison: prison)
+    create(:rejected_visit, created_at: Time.zone.local(2016, 2, 1), prison:)
+    create(:rejected_visit, created_at: Time.zone.local(2016, 2, 15), prison:)
 
     # Due to percularities of isoyear, this will show up as the last week of 2015
     # in the calendar week count.
-    create(:cancelled_visit, created_at: Time.zone.local(2016, 1, 1), prison: prison)
+    create(:cancelled_visit, created_at: Time.zone.local(2016, 1, 1), prison:)
   end
 end
 
@@ -205,7 +205,7 @@ RSpec.shared_context 'when creating and processing visits timed by seconds' do
     [luna, mars].each do |prison|
       visits = []
       travel_to Time.zone.local(2016, 3, 1, 13, 0, 0) do
-        visits = create_list(:visit, 10, prison: prison)
+        visits = create_list(:visit, 10, prison:)
       end
 
       visits.each_with_index do |visit, i|
@@ -232,7 +232,7 @@ RSpec.shared_context 'when creating and processing visits with dates' do
 
   def make_visits(prison)
     [1, 8, 15].each do |day|
-      visits = create_list(:visit, 3, created_at: Time.zone.local(2016, 2, day), prison: prison)
+      visits = create_list(:visit, 3, created_at: Time.zone.local(2016, 2, day), prison:)
 
       visits.each_with_index do |visit, index|
         days = [3, 5, 9].fetch(index)

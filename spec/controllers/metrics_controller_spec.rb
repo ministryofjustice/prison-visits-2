@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe MetricsController, type: :controller do
   describe 'index' do
     let(:range) { nil }
-    let(:params) { { range: range, locale: 'en' } }
+    let(:params) { { range:, locale: 'en' } }
 
-    subject { get :index, params: params }
+    subject { get :index, params: }
 
     context 'with no range' do
       let(:range) { 'all_time' }

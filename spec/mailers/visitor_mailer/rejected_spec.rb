@@ -6,7 +6,7 @@ RSpec.describe VisitorMailer, '.rejected' do
   let(:reason) { 'slot_unavailable' }
   let(:staff_response) do
     StaffResponse.new(
-      visit:     visit
+      visit:
     )
   end
   let(:mail) { described_class.rejected(staff_response.email_attrs, message_attributes) }

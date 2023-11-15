@@ -54,12 +54,12 @@ module Api
 
     def visitor_cancellation_response
       @visitor_cancellation_response ||=
-        VisitorCancellationResponse.new(visit: visit)
+        VisitorCancellationResponse.new(visit:)
     end
 
     def visitor_withdrawal_response
       @visitor_withdrawal_response ||=
-        VisitorWithdrawalResponse.new(visit: visit)
+        VisitorWithdrawalResponse.new(visit:)
     end
 
     def visit
@@ -94,8 +94,8 @@ module Api
       @visitors_step ||= VisitorsStep.new(
         email_address: sanitised_params.require(:contact_email_address),
         phone_no: sanitised_params.require(:contact_phone_no),
-        visitors: visitors,
-        prison: prison
+        visitors:,
+        prison:
       )
     end
 
@@ -104,7 +104,7 @@ module Api
         option_0: slots.fetch(0), # We expect at least 1 slot
         option_1: slots.fetch(1, nil),
         option_2: slots.fetch(2, nil),
-        prison: prison
+        prison:
       )
     end
 

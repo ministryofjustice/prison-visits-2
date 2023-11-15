@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe Nomis::PrisonerDateAvailability do
   subject(:instance) do
     described_class.new(
-      date: date,
-      out_of_vo: out_of_vo,
-      external_movement: external_movement,
-      existing_visits: existing_visits
+      date:,
+      out_of_vo:,
+      external_movement:,
+      existing_visits:
     )
   end
 

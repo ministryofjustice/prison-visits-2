@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe Rejection, model: true do
   subject do
     described_class.new(
-      reasons: reasons,
-      allowance_renews_on: allowance_renews_on,
-      rejection_reason_detail: rejection_reason_detail
+      reasons:,
+      allowance_renews_on:,
+      rejection_reason_detail:
     )
   end
 
@@ -22,7 +22,7 @@ RSpec.describe Rejection, model: true do
       visit = create(:visit)
       reject_visit visit
       expect {
-        described_class.create!(visit: visit, reasons: [described_class::NOT_ON_THE_LIST])
+        described_class.create!(visit:, reasons: [described_class::NOT_ON_THE_LIST])
       }.to raise_exception(ActiveRecord::RecordNotUnique)
     end
 
@@ -54,7 +54,7 @@ RSpec.describe Rejection, model: true do
 
       before do
         visit = create(:visit)
-        subject.assign_attributes(visit_id: visit.id, reasons: reasons, rejection_reason_detail: detail)
+        subject.assign_attributes(visit_id: visit.id, reasons:, rejection_reason_detail: detail)
       end
 
       it 'does not save the text from the rejection reason field to the database' do

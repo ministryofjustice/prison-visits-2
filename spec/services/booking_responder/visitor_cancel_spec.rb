@@ -4,7 +4,7 @@ RSpec.describe BookingResponder::VisitorCancel do
   subject(:instance) { described_class.new(visitor_cancellation_response) }
 
   let(:visitor_cancellation_response) do
-    VisitorCancellationResponse.new(visit: visit)
+    VisitorCancellationResponse.new(visit:)
   end
   let(:visit) { FactoryBot.create(:booked_visit) }
   let(:reason) { Cancellation::VISITOR_CANCELLED }

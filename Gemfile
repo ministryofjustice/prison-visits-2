@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '7.0.8'
 # This needs to be in here for Heroku
-ruby '3.0.6'
+ruby '3.1.4'
 
 gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'

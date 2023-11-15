@@ -7,9 +7,9 @@ RSpec.describe Nomis::Restriction do
   let(:expiry_date) { nil }
 
   subject do
-    described_class.new(type: type,
-                        effective_date: effective_date,
-                        expiry_date: expiry_date)
+    described_class.new(type:,
+                        effective_date:,
+                        expiry_date:)
   end
 
   it { expect(subject.description).to eq(description) }

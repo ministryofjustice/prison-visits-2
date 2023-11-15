@@ -5,10 +5,10 @@ RSpec.describe BookedVisitsCsvExporter do
   let(:estates) { [prison.estate] }
 
   let!(:booked_visit) do
-    FactoryBot.create(:booked_visit, prison: prison)
+    FactoryBot.create(:booked_visit, prison:)
   end
   let!(:cancelled_visit) do
-    FactoryBot.create(:cancelled_visit, prison: prison)
+    FactoryBot.create(:cancelled_visit, prison:)
   end
   let!(:second_visitor) do
     FactoryBot.create(:visitor, visit: booked_visit, not_on_list: true)

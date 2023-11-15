@@ -20,8 +20,8 @@ class SendgridApi
     def new_client(api_user, api_key)
       lambda {
         SendgridClient.new(
-          api_key: api_key,
-          api_user: api_user,
+          api_key:,
+          api_user:,
           http_opts: { persistent: true, timeout: 2 }
         )
       }
@@ -37,28 +37,28 @@ class SendgridApi
 
   def spam_reported?(email)
     action = 'spamreports.get.json'
-    query = { email: email }
+    query = { email: }
 
     call_api(:post, action, query) { |response| email_found?(response) }
   end
 
   def bounced?(email)
     action = 'bounces.get.json'
-    query = { email: email }
+    query = { email: }
 
     call_api(:post, action, query) { |response| email_found?(response) }
   end
 
   def remove_from_bounce_list(email)
     action = 'bounces.delete.json'
-    data = { email: email }
+    data = { email: }
 
     call_api(:post, action, data) { |response| email_removed?(response) }
   end
 
   def remove_from_spam_list(email)
     action = 'spamreports.delete.json'
-    data = { email: email }
+    data = { email: }
 
     call_api(:post, action, data) { |response| email_removed?(response) }
   end
