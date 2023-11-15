@@ -111,7 +111,7 @@ en:
         Please click the link in that email to check the status of your request.</p>
       duplicate_visit_request_html:
         you've already requested a visit with these details and we've already
-        sent you an email response - please clink on the link in our original
+        sent you an email response - please click on the link in our original
         response to check the status of your request
       visitor_banned_html: >-
         %{name} is banned from visiting the prison at the moment and
