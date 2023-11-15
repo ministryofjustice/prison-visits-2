@@ -1,5 +1,3 @@
-require 'support/counter_support'
-
 module Timings
   class TimelyAndOverdue < ActiveRecord::Base
     extend CounterSupport

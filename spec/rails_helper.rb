@@ -34,7 +34,7 @@ RSpec.configure do |config|
   config.include ConfigurationHelpers
   config.include AuthHelper
   config.include ServiceHelpers
-  config.include JWTHelper
+  config.include JwtHelper
   config.include AuthHelper
   config.include FeaturesHelper
 

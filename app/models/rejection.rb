@@ -35,7 +35,7 @@ class Rejection < ApplicationRecord
     PRISONER_BANNED
   ].freeze
 
-  belongs_to :visit, inverse_of: :rejection
+  belongs_to :visit, inverse_of: :rejection, optional: true
 
   validate :validate_reasons
   validates :reasons, presence: true

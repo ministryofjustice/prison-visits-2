@@ -27,7 +27,7 @@ class Cancellation < ApplicationRecord
 
   REASONS = STAFF_REASONS + [VISITOR_CANCELLED]
 
-  belongs_to :visit
+  belongs_to :visit, optional: true
 
   before_validation :sanitise_reasons
 

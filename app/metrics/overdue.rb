@@ -1,5 +1,3 @@
-require 'support/counter_support'
-
 module Overdue
   class CountOverdueVisits < ActiveRecord::Base
     extend CounterSupport
