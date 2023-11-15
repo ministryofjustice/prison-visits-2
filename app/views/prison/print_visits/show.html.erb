@@ -19,7 +19,7 @@
 <% end -%>
 
 <% if !@submitted_date.nil? && !@data.any? %>
-  <p class="lede"><%= t('.no_visits', date: @submitted_date.to_s(:short_nomis)) %></p>
+  <p class="lede"><%= t('.no_visits', date: @submitted_date.to_fs(:short_nomis)) %></p>
 <% end -%>
 
 <% if @submitted_date.nil? %>

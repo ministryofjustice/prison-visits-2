@@ -145,7 +145,7 @@ class GovNotifyEmailer
     if visit.banned_visitors.any?
       visit.banned_visitors.each do |v|
         if v.banned_until?
-          message = "#{v.anonymized_name} cannot attend as they are currently banned until #{v.banned_until.to_s(:short_nomis)}"
+          message = "#{v.anonymized_name} cannot attend as they are currently banned until #{v.banned_until.to_fs(:short_nomis)}"
         else
           message = "#{v.anonymized_name} cannot attend as they are currently banned "
         end

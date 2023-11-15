@@ -38,7 +38,7 @@ RSpec.feature 'Printing a list of visits' do
 
       click_button('Show')
 
-      expect(page).to have_css('p', text: "No visits on #{date.to_s(:short_nomis)}")
+      expect(page).to have_css('p', text: "No visits on #{date.to_fs(:short_nomis)}")
     end
 
     context 'when searching for visits' do
@@ -55,7 +55,7 @@ RSpec.feature 'Printing a list of visits' do
 
         click_button('Show')
 
-        expect(page).to have_css('h3', text: "Visit date #{requested_date.to_s(:short_nomis)}")
+        expect(page).to have_css('h3', text: "Visit date #{requested_date.to_fs(:short_nomis)}")
         expect(page).to have_css('h3', text: 'Visit time 14:00–16:00')
         booked_visits.each do |v|
           expect(page).to have_css('tr td', text: v.prisoner_number)

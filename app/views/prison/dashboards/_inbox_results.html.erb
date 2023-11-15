@@ -1,10 +1,10 @@
 <% @requested_visits.group_by {|v| v.created_at.to_date}.each do |date, booking| %>
   <h3 class="bold-medium">
     <span class="text-secondary font-small"><%= t('requested_on', scope: :shared) %></span>
-    <%= date.to_s(:short) %>
+    <%= date.to_fs(:short) %>
   </h3>
   <table class="table--hover push-bottom push-top--half tablesorter">
-    <caption class="visuallyhidden"><%= t('title', scope: [:prison, :dashboards, :inbox]).capitalize %> - <%= t('requested_on', scope: :shared).downcase %><%= date.to_s(:short) %></caption>
+    <caption class="visuallyhidden"><%= t('title', scope: [:prison, :dashboards, :inbox]).capitalize %> - <%= t('requested_on', scope: :shared).downcase %><%= date.to_fs(:short) %></caption>
     <thead>
       <tr>
         <th scope="col" data-sorter="false"><%= t('prisoner_name', scope: :shared) %></th>

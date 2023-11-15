@@ -11,7 +11,7 @@
     <div class="column">
       <div class="name">
         <%= vf.hidden_field :id %>
-        <span class="bold-small"><%= v.full_name %></span> - <%= v.date_of_birth.to_s(:short_nomis) %>
+        <span class="bold-small"><%= v.full_name %></span> - <%= v.date_of_birth.to_fs(:short_nomis) %>
         <span class="font-small">(<%= v.age %>)</span>
       </div>
       <% if @visit.principal_visitor == v %>

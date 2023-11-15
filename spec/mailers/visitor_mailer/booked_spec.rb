@@ -36,7 +36,7 @@ RSpec.describe VisitorMailer, '.booked' do
   end
 
   it 'notifies of the banned visitor' do
-    expect(mail.html_part.body).to match("until #{banned_until.to_s(:short_nomis)}")
+    expect(mail.html_part.body).to match("until #{banned_until.to_fs(:short_nomis)}")
   end
 
   context 'with an acceptance staff message' do

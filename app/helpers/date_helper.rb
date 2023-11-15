@@ -1,6 +1,6 @@
 module DateHelper
   def format_date(datetime)
-    datetime.to_date.to_s(:short_abbrev)
+    datetime.to_date.to_fs(:short_abbrev)
   end
 
   def format_date_of_birth(datetime)
@@ -45,7 +45,7 @@ module DateHelper
   def format_slot_for_staff(slot)
     I18n.t(
       'formats.slot.staff',
-      date: slot.begin_at.to_date.to_s(:full_nomis),
+      date: slot.begin_at.to_date.to_fs(:full_nomis),
       begin: format_time_24hr(slot.begin_at),
       end: format_time_24hr(slot.end_at)
     )
@@ -53,7 +53,7 @@ module DateHelper
 
   def format_visit_slot_date_for_staff(visit)
     slot = visit.slot_granted || visit.slots.first
-    slot.to_date.to_s(:short_nomis)
+    slot.to_date.to_fs(:short_nomis)
   end
 
   def format_visit_slot_times_for_staff(visit)

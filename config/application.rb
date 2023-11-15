@@ -15,6 +15,7 @@ require 'action_view/railtie'
 require 'sprockets/railtie'
 require 'rails/test_unit/railtie'
 require_relative '../app/middleware/http_method_not_allowed'
+require_relative '../app/middleware/robots_tag'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -24,6 +25,7 @@ module PrisonVisits
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
+
     config.autoload_paths += %w[app/metrics/support]
     config.eager_load_paths += %w[app/metrics/support]
 
@@ -53,6 +55,7 @@ module PrisonVisits
     config.sentry_dsn = ENV['SENTRY_DSN']
     config.sentry_js_dsn = ENV['SENTRY_JS_DSN']
 
+    config.middleware.use RobotsTag
     config.middleware.insert_before Rack::Head, HttpMethodNotAllowed
 
     config.sendgrid_api_user = ENV['SMTP_USERNAME']
@@ -113,5 +116,8 @@ module PrisonVisits
     config.nomis_user_oauth_client_id = ENV['NOMIS_USER_OAUTH_CLIENT_ID']&.strip
     config.nomis_user_oauth_client_secret = ENV['NOMIS_USER_OAUTH_CLIENT_SECRET']&.strip
     config.prison_api_host = ENV['PRISON_API_HOST']&.strip
+
+    # We still use ie stylesheets as well as the govuk_template
+    config.action_view.preload_links_header = false
   end
 end

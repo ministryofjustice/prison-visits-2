@@ -50,7 +50,7 @@ class RejectionDecorator < Draper::Decorator
     if visitor.banned_until?
       h.t('visitor_banned_until_html',
           name: visitor.anonymized_name.titleize,
-          banned_until: visitor.banned_until.to_s(:short_nomis),
+          banned_until: visitor.banned_until.to_fs(:short_nomis),
           scope: %i[visitor_mailer rejected])
     else
       h.t('visitor_banned_html',

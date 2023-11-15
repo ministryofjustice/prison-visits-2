@@ -5,6 +5,10 @@ module Nomis
     class TokenService
       include Singleton
 
+      class_attribute :host
+
+      self.host = Rails.configuration.nomis_oauth_host
+
       class << self
         delegate :valid_token, to: :instance
       end
@@ -25,9 +29,7 @@ module Nomis
       end
 
       def fetch_token
-        host = Rails.configuration.nomis_oauth_host
         oauth_client = Nomis::Oauth::Client.new(host)
-
         route = '/auth/oauth/token?grant_type=client_credentials'
         response = oauth_client.post(route)
         Token.from_json(response)

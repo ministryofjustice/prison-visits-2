@@ -8,7 +8,7 @@ class EstateVisitQuery
 
     visits = Visit.includes(:prisoner, :visitors, :prison)
              .processed.from_estates(@estates)
-             .where('slot_granted LIKE ?', "#{date.to_s(:db)}%")
+             .where('slot_granted LIKE ?', "#{date.to_fs(:db)}%")
              .order('slot_granted asc').to_a
 
     grouped_visits(visits)

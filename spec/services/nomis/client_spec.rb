@@ -117,20 +117,16 @@ RSpec.describe Nomis::Client do
       '7gWVC1gPrm6-S6CoIGu54KNQ6hF8rsntFeFvPr1ff8WrRgOtg'
     end
 
-    let(:config) do
-      {
-        nomis_oauth_host: 'http://localhost:9090',
-        nomis_oauth_client_id: 'test',
-        nomis_oauth_client_secret: '6+9tp<TO4b0!s)>>hSA.Kq7Rjtab.6V9P-lW*TZIW:2nj8>u&2F&>snY5G9v'
-      }
-    end
+    let(:nomis_oauth_host) { 'http://localhost:9090' }
+    let(:nomis_oauth_client_id) { 'test' }
+    let(:nomis_oauth_client_secret) { '6+9tp<TO4b0!s)>>hSA.Kq7Rjtab.6V9P-lW*TZIW:2nj8>u&2F&>snY5G9v' }
 
     before do
-      config.each do |key, val|
-        allow(Rails.configuration).to receive(key).and_return(val)
-      end
+      Nomis::Oauth::TokenService.host = nomis_oauth_host
+      Nomis::Oauth::Client.nomis_oauth_client_id = nomis_oauth_client_id
+      Nomis::Oauth::Client.nomis_oauth_client_secret = nomis_oauth_client_secret
 
-      stub_request(:post, 'http://localhost:9090/auth/oauth/token?grant_type=client_credentials')
+      stub_request(:post, "#{nomis_oauth_host}/auth/oauth/token?grant_type=client_credentials")
         .to_return(
           body: {
             access_token: access_token,
@@ -143,6 +139,12 @@ RSpec.describe Nomis::Client do
             iss: 'http://localhost:9090/auth/issuer'
           }.to_json
         )
+    end
+
+    after do
+      Nomis::Oauth::TokenService.host = Rails.configuration.nomis_oauth_host
+      Nomis::Oauth::Client.nomis_oauth_client_id = Rails.configuration.nomis_oauth_client_id
+      Nomis::Oauth::Client.nomis_oauth_client_secret = Rails.configuration.nomis_oauth_client_secret
     end
 
     it 'sends an Authorization header containing a JWT token', vcr: { cassette_name: 'client-auth' } do

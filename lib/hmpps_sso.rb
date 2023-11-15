@@ -2,6 +2,8 @@
 
 require 'omniauth-oauth2'
 
+require_dependency '../services/nomis/oauth/client_helper'
+
 module OmniAuth
   module Strategies
     class HmppsSso < OmniAuth::Strategies::OAuth2

@@ -12,8 +12,13 @@ RSpec.describe Nomis::Oauth::Client do
       let(:client_secret) { 'a_value_like_>>>_that_base64_encodes_with_plus_or_slash' }
 
       before do
-        allow(Rails.configuration).to receive(:nomis_oauth_client_id).and_return(client_id)
-        allow(Rails.configuration).to receive(:nomis_oauth_client_secret).and_return(client_secret)
+        described_class.nomis_oauth_client_id = client_id
+        described_class.nomis_oauth_client_secret = client_secret
+      end
+
+      after do
+        described_class.nomis_oauth_client_id = Rails.configuration.nomis_oauth_host
+        described_class.nomis_oauth_client_secret = Rails.configuration.nomis_oauth_client_secret
       end
 
       it 'sets the Authorization header' do

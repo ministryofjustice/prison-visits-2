@@ -4,7 +4,7 @@ class Nomis::ContactDecorator < Draper::Decorator
   def full_name_and_dob
     [
       "#{given_name} #{surname}",
-      date_of_birth&.to_s(:short_nomis)
+      date_of_birth&.to_fs(:short_nomis)
     ].compact.join(' - ')
   end
 
