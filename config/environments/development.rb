@@ -1,5 +1,3 @@
-require 'uglifier'
-
 Rails.application.configure do
   config.hosts << ENV['STAFF_SERVICE_URL'].gsub('https://', '') if ENV['STAFF_SERVICE_URL']
   config.cache_classes = false
@@ -35,6 +33,8 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 
   config.active_job.queue_adapter = :sidekiq
+
+  config.assets.precompile += %w[jasmine-jquery.js]
 
   config.i18n.load_path =
     Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]

@@ -12,7 +12,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
   config.active_support.test_order = :random
   config.active_support.deprecation = :stderr
-
+  config.assets.precompile += %w[jasmine-jquery.js]
   config.i18n.load_path =
     Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
 
