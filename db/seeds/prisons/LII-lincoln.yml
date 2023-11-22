@@ -4,22 +4,22 @@ nomis_id: LII
 address: |-
   Greetwell Road
 postcode: LN2 4BD
-email_address: lincolnvisitsbooking@justice.gov.uk
+email_address: Unknown
 phone_no: 0152 266 3172
 enabled: true
 private: false
 closed: false
 recurring:
   tue:
-  - 1345-1600
+  - 1400-1600
   thu:
-  - 1345-1600
+  - 1400-1600
   sat:
-  - 0845-1130
-  - 1345-1600
+  - 0900-1100
+  - 1400-1600
   sun:
-  - 0845-1130
-  - 1345-1600
+  - 0900-1100
+  - 1400-1600
 unbookable:
 - 2018-12-25
 - 2018-12-26
