@@ -20,7 +20,6 @@ RSpec.describe ConcreteSlotDecorator do
   end
 
   before do
-    subject.h.output_buffer = ""
     allow(subject).to receive(:nomis_checker).and_return(nomis_checker)
   end
 
@@ -31,7 +30,7 @@ RSpec.describe ConcreteSlotDecorator do
 
     let(:html_fragment) do
       subject.slot_picker(form_builder)
-      Capybara.string(h.output_buffer)
+      Capybara.string(h.output_buffer.raw_buffer)
     end
 
     describe 'prisoner availability' do

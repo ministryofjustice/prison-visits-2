@@ -24,10 +24,14 @@ Bundler.require(*Rails.groups)
 module PrisonVisits
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 7.0
+    # config.add_autoload_paths_to_load_path = true
 
     config.autoload_paths += %w[app/metrics/support]
     config.eager_load_paths += %w[app/metrics/support]
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    # config.autoload_lib(ignore: %w(assets tasks))
 
     config.phase = 'live'
     config.product_type = 'service'
@@ -119,9 +123,5 @@ module PrisonVisits
 
     # We still use ie stylesheets as well as the govuk_template
     config.action_view.preload_links_header = false
-
-    # Rails 7 new defaults
-    config.active_support.cache_format_version = 7.0
-    config.active_support.disable_to_s_conversion = true
   end
 end
