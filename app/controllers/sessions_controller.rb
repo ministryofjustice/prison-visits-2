@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
     if sso_identity
       sso_logout_url = sso_identity.logout_url(redirect_to: root_url)
       session.delete(:sso_data)
-      redirect_to sso_logout_url
+      redirect_to sso_logout_url, allow_other_host: true
     else
       redirect_to root_url
     end
