@@ -6,7 +6,7 @@ ruby '~> 3.2.2'
 
 gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'
-gem 'business' # , '1.18.0'
+gem 'business'
 gem 'bootsnap', require: false
 gem 'connection_pool'
 gem 'draper'
