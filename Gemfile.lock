@@ -529,7 +529,7 @@ GEM
       tilt (>= 1.4, < 3)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uglifier (4.2.0)
+    uglifier (4.1.0)
       execjs (>= 0.3.0, < 3)
     unicode-display_width (2.5.0)
     uri (0.13.0)
@@ -631,7 +631,7 @@ DEPENDENCIES
   string_scrubber
   timecop
   turnout
-  uglifier
+  uglifier (= 4.1.0)
   uri_template
   vcr
   webmock
