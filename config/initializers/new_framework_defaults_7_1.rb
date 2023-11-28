@@ -16,7 +16,7 @@
 # This will reduce the size of the load path, making `require` faster if you don't use bootsnap, or reduce the size
 # of the bootsnap cache if you use it.
 #++
-Rails.application.config.add_autoload_paths_to_load_path = false
+# Rails.application.config.add_autoload_paths_to_load_path = false
 
 ###
 # Remove the default X-Download-Options headers since it is used only by Internet Explorer.
@@ -35,7 +35,7 @@ Rails.application.config.add_autoload_paths_to_load_path = false
 # Do not treat an `ActionController::Parameters` instance
 # as equal to an equivalent `Hash` by default.
 #++
-Rails.application.config.action_controller.allow_deprecated_parameters_hash_equality = false
+# Rails.application.config.action_controller.allow_deprecated_parameters_hash_equality = false
 
 ###
 # Active Record Encryption now uses SHA-256 as its hash digest algorithm.
