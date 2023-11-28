@@ -1,5 +1,6 @@
 class ConcreteSlotDecorator < Draper::Decorator
   delegate_all
+
   RADIO_BUTTON_OPTIONS = {
     class: 'js-Conditional',
     data: {
@@ -7,6 +8,7 @@ class ConcreteSlotDecorator < Draper::Decorator
       'conditional-val' => 'slot_option_0,slot_option_1,slot_option2'
     }.freeze
   }.freeze
+
   def slot_picker(form_builder)
     h.concat(
       h.content_tag(

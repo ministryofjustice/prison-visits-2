@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '7.0.8'
+gem 'rails', '~> 7.1.2'
 # This needs to be in here for Heroku
-ruby '3.1.4'
+ruby '~> 3.2.2'
 
 gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'
-gem 'business', '1.18.0'
+gem 'business'
 gem 'bootsnap', require: false
 gem 'connection_pool'
 gem 'draper'
@@ -42,7 +42,7 @@ gem 'state_machines-activerecord'
 gem 'string_scrubber'
 gem 'turnout'
 gem 'rack-canonical-host'
-gem 'uglifier'
+gem 'uglifier', '4.1.0'
 gem 'uri_template'
 gem 'zendesk_api'
 gem 'pvb-instrumentation',

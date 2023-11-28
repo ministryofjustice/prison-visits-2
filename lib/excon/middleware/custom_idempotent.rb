@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'set'
-
 # Same as https://github.com/excon/excon/blob/v0.104.0/lib/excon/middlewares/idempotent.rb
 # but without retrying timeouts.
 #
