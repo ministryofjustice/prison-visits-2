@@ -35,7 +35,7 @@ The source of the predecessor can be found at
 
 ### Ruby version
 
-This application uses Ruby v3.0.6. Use [RVM](https://rvm.io/) or similar to manage your ruby environment and sets of dependencies.
+This application uses Ruby v3.2.2. Use [RVM](https://rvm.io/) or similar to manage your ruby environment and sets of dependencies.
 
 ### Running the application
 
