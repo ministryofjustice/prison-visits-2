@@ -28,6 +28,12 @@ AllCops:
     - 'spec/dummy/db/**/*'
     - 'spec/spec_helper.rb'
 
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
+    - local
 
 Style/OptionalBooleanParameter:
   Enabled: false
