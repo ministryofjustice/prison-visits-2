@@ -224,7 +224,7 @@ Rails.application.config.active_job.use_big_decimal_serializer = true
 ###
 # Controls when to generate a value for <tt>has_secure_token</tt> declarations.
 #++
-# Rails.application.config.active_record.generate_secure_token_on = :initialize
+Rails.application.config.active_record.generate_secure_token_on = :initialize
 
 ###
 # ** Please read carefully, this must be configured in config/application.rb **
