@@ -138,7 +138,7 @@ Rails.application.config.active_job.use_big_decimal_serializer = true
 # servers, first deploy without changing the serializer, then set the serializer
 # in a subsequent deploy.
 #++
-# Rails.application.config.active_support.message_serializer = :json_allow_marshal
+Rails.application.config.active_support.message_serializer = :json_allow_marshal
 
 ###
 # Enable a performance optimization that serializes message data and metadata
