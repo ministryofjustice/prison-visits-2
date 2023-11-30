@@ -26,6 +26,10 @@ module PrisonVisits
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     # config.add_autoload_paths_to_load_path = true
+    #
+
+    # Rails 7.1 defaults
+    config.active_record.generate_secure_token_on = :initialize
 
     config.autoload_paths += %w[app/metrics/support]
     config.eager_load_paths += %w[app/metrics/support]
