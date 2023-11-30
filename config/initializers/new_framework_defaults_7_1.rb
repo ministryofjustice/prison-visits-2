@@ -181,7 +181,7 @@ Rails.application.config.active_job.use_big_decimal_serializer = true
 # Enable precompilation of `config.filter_parameters`. Precompilation can
 # improve filtering performance, depending on the quantity and types of filters.
 #++
-# Rails.application.config.precompile_filter_parameters = true
+Rails.application.config.precompile_filter_parameters = true
 
 ###
 # Enable before_committed! callbacks on all enrolled records in a transaction.
