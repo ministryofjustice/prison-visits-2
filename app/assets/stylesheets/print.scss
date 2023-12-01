@@ -3,3 +3,13 @@
     @include visually-hidden;
   }
 }
+
+@media print {
+  .phase-banner {
+    display: none;
+  }
+
+  #global-header {
+    display: none;
+  }
+}
