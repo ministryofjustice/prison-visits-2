@@ -5,10 +5,10 @@ namespace :reporting do
     today = 'november 30 2023'
     pid = Prison.where(enabled: true).pick(:id)
     puts Visit.where(prison_id: pid, processing_state: 'booked').where({ created_at: Date.parse(start)..Date.parse(today) }).count
-    puts Visit.select(:created_at).where(prison_id: pid, processing_state: 'booked').order(created_at: :desc).limit(1)
+    puts Visit.select(:created_at).where(prison_id: pid, processing_state: 'booked').order(created_at: :desc).limit(1).pluck(:created_at)
     puts Visit.where(prison_id: pid, processing_state: 'requested').count
-    puts Visit.select(:created_at).where(prison_id: pid, processing_state: 'requested').order(created_at: :asc).limit(1)
-    puts Visit.select(:created_at).where(prison_id: pid, processing_state: 'requested').order(created_at: :desc).limit(1)
+    puts Visit.select(:created_at).where(prison_id: pid, processing_state: 'requested').order(created_at: :asc).limit(1).pluck(:created_at)
+    puts Visit.select(:created_at).where(prison_id: pid, processing_state: 'requested').order(created_at: :desc).limit(1).pluck(:created_at)
     ids = Visit.where(prison_id: pid).where({ created_at: Date.parse(start)..Date.parse(today) }).where(processing_state: 'rejected').pluck(:id)
     rejections = Rejection.where(visit_id: ids)
     puts rejections.count
