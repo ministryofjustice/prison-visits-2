@@ -10,8 +10,8 @@ namespace :reporting do
       puts prison.visits.where(processing_state: 'requested').count
       puts prison.visits.where(processing_state: 'requested').order(created_at: :asc).limit(1).pluck(:created_at)
       puts prison.visits.where(processing_state: 'requested').order(created_at: :desc).limit(1).pluck(:created_at)
-      ids = prison.visits.where(created_at: start_date..yesterday_date, processing_state: 'rejected').pluck(:id)
-      rejections = Rejection.where(visit_id: ids)
+      visits = prison.visits.where(created_at: start_date..yesterday_date, processing_state: 'rejected')
+      rejections = Rejection.where(visit: visits)
       puts rejections.count
       puts rejections.count{ |s| s.reasons.include?('slot_unavailable') }
       puts rejections.count{ |s| s.reasons.include?('visitor_not_on_list') }
