@@ -5,6 +5,7 @@ namespace :reporting do
     yesterday_date = 1.day.ago.to_date
     prisons = Prison.where(enabled: true)
     prisons.each do |prison|
+      puts prison.id
       puts prison.visits.where(processing_state: 'booked', created_at: start_date..yesterday_date).count
       puts prison.visits.where(processing_state: 'booked').order(created_at: :desc).limit(1).pluck(:created_at)
       puts prison.visits.where(processing_state: 'requested').count
@@ -26,7 +27,6 @@ namespace :reporting do
       puts rejections.count{ |s| s.reasons.include?('prisoner_details_incorrect') }
       puts rejections.count{ |s| s.reasons.include?('no_adult') }
       puts rejections.count{ |s| s.reasons.include?('no_allowance') }
-      puts 'split'
     end
   end
 end
