@@ -3,7 +3,7 @@ namespace :reporting do
   task monthly_reporting: :environment do
     start = 'november 01 2023'
     today = 'november 30 2023'
-    pid = '0e034353-5939-467e-b618-5e5b81a4a2a2'
+    pid = Prison.where(enabled: true).pick(:id)
     puts Visit.where(prison_id: pid, processing_state: 'booked').where({ created_at: Date.parse(start)..Date.parse(today) }).count
     puts Visit.select(:created_at).where(prison_id: pid, processing_state: 'booked').order(created_at: :desc).limit(1)
     puts Visit.where(prison_id: pid, processing_state: 'requested').count
