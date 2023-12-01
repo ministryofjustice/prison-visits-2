@@ -1,4 +1,5 @@
 namespace :reporting do
+  desc 'Print monthly reporting figures'
   task monthly_reporting: :environment do
     start = 'november 01 2023'
     today = 'november 30 2023'
@@ -24,5 +25,6 @@ namespace :reporting do
     puts rejections.count{ |s| s.reasons.include?('prisoner_details_incorrect') }
     puts rejections.count{ |s| s.reasons.include?('no_adult') }
     puts rejections.count{ |s| s.reasons.include?('no_allowance') }
+    puts 'split'
   end
 end
