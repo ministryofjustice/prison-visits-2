@@ -392,8 +392,7 @@ GEM
       ffi (~> 1.0)
     rdoc (6.6.0)
       psych (>= 4.0.0)
-    redis-client (0.18.0)
-      connection_pool
+    redis (4.8.1)
     regexp_parser (2.8.2)
     reline (0.4.1)
       io-console (~> 0.5)
@@ -485,11 +484,10 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
-    sidekiq (7.2.0)
-      concurrent-ruby (< 2)
-      connection_pool (>= 2.3.0)
-      rack (>= 2.2.4)
-      redis-client (>= 0.14.0)
+    sidekiq (6.5.11)
+      connection_pool (>= 2.2.5, < 3)
+      rack (~> 2.0)
+      redis (>= 4.5.0, < 5)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -625,7 +623,7 @@ DEPENDENCIES
   scenic
   sentry-rails
   shoulda-matchers
-  sidekiq (= 7.2.0)
+  sidekiq (= 6.5.11)
   simplecov
   spring-commands-rspec
   sprockets-rails
