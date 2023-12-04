@@ -12,7 +12,11 @@
   <div class="column-one-half">
     <h3 class="heading-large">
       <span class="heading-secondary"><%= t('cell_location', scope: :shared) %></span>
-      -
+      <% if current_page?('/prison/print_visit') %>
+        -
+      <% else %>
+        <%= prisoner_location_presenter.internal_location %>
+      <% end %>
     </h3>
   </div>
 </div>
@@ -31,3 +35,4 @@
   <% end %>
 </h3>
 <p class="push-top">Visit ID: <%= visit.human_id %></p>
+<p class="push-top">Visit Reference: <%= visit.reference_no %></div>
