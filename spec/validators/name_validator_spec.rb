@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'name_validator'
 
 RSpec.describe NameValidator do
   subject do

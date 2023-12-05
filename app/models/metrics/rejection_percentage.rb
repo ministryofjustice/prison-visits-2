@@ -1,5 +1,3 @@
-require 'rejection'
-
 class Metrics::RejectionPercentage
   include ActiveModel::Model
   include ActiveModel::Serializers::JSON

@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'age_validator'
 
 RSpec.describe AgeValidator do
   subject do
