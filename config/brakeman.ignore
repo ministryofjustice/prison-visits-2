@@ -1,45 +1,7 @@
 {
   "ignored_warnings": [
-    {
-      "warning_type": "Cross-Site Request Forgery",
-      "warning_code": 7,
-      "fingerprint": "87074659972ebc5f250131619ac95c44d9b4d73ae2dc8b6930de50633f2898c2",
-      "check_name": "ForgerySetting",
-      "message": "'protect_from_forgery' should be called in Api::ApiController",
-      "file": "app/controllers/api/api_controller.rb",
-      "line": 4,
-      "link": "http://brakemanscanner.org/docs/warning_types/cross-site_request_forgery/",
-      "code": null,
-      "render_path": null,
-      "location": {
-        "type": "controller",
-        "controller": "Api::ApiController"
-      },
-      "user_input": null,
-      "confidence": "High",
-      "note": "Not needed as the API has no concept of a session, is public data, and is IP locked"
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "c87d771314887bf3eed3520cc68295c20852561cefe90dccddb8f07174352b81",
-      "check_name": "Render",
-      "message": "Render path contains request value",
-      "file": "app/controllers/errors_controller.rb",
-      "line": 23,
-      "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => { 404 => :\"404\", 406 => :\"404\", 422 => :\"503\", 500 => :\"500\", 503 => :\"503\" }.fetch(request.env[\"PATH_INFO\"][(1..-1)].to_i), { :status => request.env[\"PATH_INFO\"][(1..-1)], :format => :html })",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "ErrorsController",
-        "method": "show"
-      },
-      "user_input": "request.env[\"PATH_INFO\"][(1..-1)]",
-      "confidence": "Weak",
-      "note": ""
-    }
+
   ],
-  "updated": "2023-10-05 12:37:44 +0100",
-  "brakeman_version": "5.4.1"
+  "updated": "2023-12-05 15:17:40 +0000",
+  "brakeman_version": "6.0.1"
 }
