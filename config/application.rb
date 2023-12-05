@@ -29,7 +29,7 @@ module PrisonVisits
     #
 
     # Rails 7.1 defaults
-    config.active_record.generate_secure_token_on = :initialize
+    config.active_support.cache_format_version = 7.1
 
     config.autoload_paths += %w[app/metrics/support]
     config.eager_load_paths += %w[app/metrics/support]
