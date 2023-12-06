@@ -24,12 +24,7 @@ Bundler.require(*Rails.groups)
 module PrisonVisits
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
-    # config.add_autoload_paths_to_load_path = true
-    #
-
-    # Rails 7.1 defaults
-    config.active_support.cache_format_version = 7.1
+    config.load_defaults 7.1
 
     config.autoload_paths += %w[app/metrics/support]
     config.eager_load_paths += %w[app/metrics/support]
