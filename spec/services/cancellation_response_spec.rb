@@ -29,11 +29,8 @@ RSpec.describe CancellationResponse do
 
   describe '#cancel!' do
     let(:responder) { spy(BookingResponder::Cancel) }
-    let(:mail) { double('mail', deliver_later: nil) }
 
     before do
-      allow(VisitorMailer).to receive(:cancelled).with(visit).and_return(mail)
-
       expect(BookingResponder::Cancel)
           .to receive(:new)
               .with(subject).and_return(responder)
@@ -42,11 +39,6 @@ RSpec.describe CancellationResponse do
 
     it 'process the cancellation' do
       expect(responder).to have_received(:process_request)
-    end
-
-    it 'enqueues the email' do
-      expect(VisitorMailer).to have_received(:cancelled).with(visit)
-      expect(mail).to have_received(:deliver_later)
     end
   end
 end

@@ -37,7 +37,6 @@ Rails.application.routes.draw do
         end
 
         resources :messages, only: :create
-        resource :email_preview, only: :update
       end
     end
   end

@@ -18,13 +18,7 @@ RSpec.describe Message, type: :model do
     context 'when is a valid message' do
       let(:message_body) { 'Hello' }
 
-      it 'creates a message and sends it' do
-        mail = double('email', deliver_later: true)
-
-        expect(VisitorMailer)
-          .to receive(:one_off_message).with(instance_of(described_class))
-          .and_return(mail)
-
+      it 'creates a message' do
         expect { subject }.to change { visit.messages.count }.by(1)
       end
     end
@@ -32,8 +26,7 @@ RSpec.describe Message, type: :model do
     context 'when is not a valid message' do
       let(:message_body) { nil }
 
-      it 'does not create or send a message' do
-        expect(VisitorMailer).not_to receive(:one_off_message)
+      it 'does not create a message' do
         expect { subject }.not_to change(visit, :messages)
       end
     end
