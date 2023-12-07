@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "prison-visits-2.fullname" . }}-shared-environment
+  labels:
+  {{- include "prison-visits-2.labels" . | nindent 4 }}
+data:
+  KUBERNETES_DEPLOYMENT: {{ .Values.sharedEnvironment.kubernetesDeployment | quote
+    }}
+  NOMIS_OAUTH_HOST: {{ .Values.sharedEnvironment.nomisOauthHost | quote }}
+  NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED: {{ .Values.sharedEnvironment.nomisStaffSlotAvailabilityEnabled
+    | quote }}
+  PRISON_API_HOST: {{ .Values.sharedEnvironment.prisonApiHost | quote }}
+  PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY: {{ .Values.sharedEnvironment.publicPrisonsWithSlotAvailability
+    | toYaml | indent 1 }}
+  PUBLIC_SERVICE_URL: {{ .Values.sharedEnvironment.publicServiceUrl | quote }}
+  PVB_TEAM_EMAIL: {{ .Values.sharedEnvironment.pvbTeamEmail | quote }}
+  RACK_ENV: {{ .Values.sharedEnvironment.rackEnv | quote }}
+  RAILS_SERVE_STATIC_FILES: {{ .Values.sharedEnvironment.railsServeStaticFiles |
+    quote }}
+  REMOVE_LOAD_TEST_DATA: {{ .Values.sharedEnvironment.removeLoadTestData | quote
+    }}
+  SENTRY_CURRENT_ENV: {{ .Values.sharedEnvironment.sentryCurrentEnv | quote }}
+  SMTP_DOMAIN: {{ .Values.sharedEnvironment.smtpDomain | quote }}
+  SMTP_HOSTNAME: {{ .Values.sharedEnvironment.smtpHostname | quote }}
+  SMTP_PORT: {{ .Values.sharedEnvironment.smtpPort | quote }}
+  STAFF_PRISONS_WITH_SLOT_AVAILABILITY: {{ .Values.sharedEnvironment.staffPrisonsWithSlotAvailability
+    | toYaml | indent 1 }}
+  STAFF_SERVICE_URL: {{ .Values.sharedEnvironment.staffServiceUrl | quote }}
+  WEB_CONCURRENCY: {{ .Values.sharedEnvironment.webConcurrency | quote }}
+  ZENDESK_URL: {{ .Values.sharedEnvironment.zendeskUrl | quote }}
+  ZENDESK_USERNAME: {{ .Values.sharedEnvironment.zendeskUsername | quote }}
