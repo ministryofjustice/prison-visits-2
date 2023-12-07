@@ -1,7 +1,0 @@
-<p><%= t('.salutation', name: @visit.visitor_first_name) %></p>
-<p><%= t('.regarding', prison: @visit.prison_name, date: format_slot_for_public(@visit.slot_granted)) %></p>
-<p><%= t('.message', message_body: @message.body) %></p>
-<p><%= t('.any_questions_html',
-         url: link_directory.visit_status(@visit, locale: I18n.locale),
-         prison: @visit.prison_name,
-         phone_no: @visit.prison_phone_no) %></p>

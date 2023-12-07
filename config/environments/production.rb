@@ -1,15 +1,5 @@
 Rails.application.configure do
-  config.action_mailer.smtp_settings = {
-    user_name: ENV['SMTP_USERNAME'],
-    password: ENV['SMTP_PASSWORD'],
-    address: ENV['SMTP_HOSTNAME'],
-    port: ENV['SMTP_PORT'],
-    domain: ENV['SMTP_DOMAIN'],
-    authentication: :login,
-    enable_starttls_auto: true
-  }
-
-  config.action_mailer.raise_delivery_errors = false
+  config.email_setttings = { domain: ENV['SMTP_DOMAIN'] }
   config.cache_classes = true
   config.eager_load = true
   config.consider_all_requests_local       = false

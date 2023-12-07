@@ -43,10 +43,6 @@ RSpec.describe BookingRequestCreator do
     double(Mail::Message, deliver_later: nil)
   }
 
-  before do
-    allow(VisitorMailer).to receive(:request_acknowledged).and_return(mailing)
-  end
-
   context 'when creating records' do
     it 'creates a Visit record with the specified locale and a human_id' do
       visit = subject.create!(prisoner_step, visitors_step, slots_step, :cy)

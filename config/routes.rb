@@ -23,7 +23,6 @@ Rails.application.routes.draw do
 
     scope controller: :metrics do
       get 'metrics', action: :index
-      get 'metrics/send_confirmed_bookings', action: :send_confirmed_bookings
       get 'metrics/:prison_id/summary',
           action: :summary,
           as: :prison_metrics_summary
@@ -38,7 +37,6 @@ Rails.application.routes.draw do
         end
 
         resources :messages, only: :create
-        resource :email_preview, only: :update
       end
     end
   end

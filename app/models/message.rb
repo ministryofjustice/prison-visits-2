@@ -18,7 +18,6 @@ class Message < ApplicationRecord
     @gov_notify_email = GovNotifyEmailer.new
     @gov_notify_email.send_email(visit, template_id, nil, message) if message.save
 
-    VisitorMailer.one_off_message(message).deliver_later if message.save
     message
   end
 end

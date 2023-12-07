@@ -19,7 +19,6 @@ class CancellationResponse
   def cancel!
     build_cancellation
     processor.process_request
-    visitor_mailer.deliver_later
   end
 
 private
@@ -34,9 +33,5 @@ private
 
   def processor
     @processor ||= BookingResponder::Cancel.new(self)
-  end
-
-  def visitor_mailer
-    VisitorMailer.cancelled(visit)
   end
 end

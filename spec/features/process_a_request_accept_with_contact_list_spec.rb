@@ -56,15 +56,6 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
       select visitor_details, from: "Match to prisoner's contact list"
     end
 
-    preview_window = window_opened_by {
-      click_link 'Preview email'
-    }
-
-    within_window preview_window do
-      expect(page).to have_css('p', text: /Dear #{vst.visitor_full_name}/)
-      expect(page).to have_css('p', text: 'A staff message')
-    end
-
     click_button 'Process'
 
     expect(page).to have_css('#content .notification', text: 'Thank you for processing the visit')
@@ -74,11 +65,6 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
     expect(vst).to be_booked
     expect(visitor.nomis_id).to eq(4_508_410)
     expect(vst.reference_no).to eq('12345678')
-
-    expect(contact_email_address)
-        .to receive_email
-            .with_subject(/Visit confirmed: your visit for \w+ \d+ \w+ has been confirmed/)
-            .and_body(/Your visit to The Verne is now successfully confirmed/)
   end
 
   context 'when accepting a booking but contact list fails', vcr: { cassette_name: :process_contact_list_fails } do
