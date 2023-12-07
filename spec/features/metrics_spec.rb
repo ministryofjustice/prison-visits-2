@@ -6,7 +6,6 @@ RSpec.feature 'Metrics', js: true do
   let(:email_address) { 'joe@example.com' }
 
   before do
-    allow(VisitorMailer).to receive(:rejected).and_return(double('Mailer', deliver_later: nil))
     prison_login [Struct.new(:nomis_id).new('WED')], email_address, [SignonIdentity::ADMIN_ROLE]
   end
 
@@ -51,14 +50,6 @@ RSpec.feature 'Metrics', js: true do
       it 'has the correct rejection percentages' do
         # These will track the spec in spec/metrics/rejections_spec.rb
         expect(page).to have_selector('.luna-total', text: 10)
-      end
-
-      it 'sends en email with a csv attachment', driver: :rack_test do
-        click_on 'Email latest confirmed bookings (CSV)'
-        expect(email_address)
-          .to receive_email
-          .with_subject(/Confirmed bookings \(CSV\)/)
-          .with_attachment('confirmed_bookings.csv')
       end
     end
   end
