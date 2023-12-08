@@ -1,0 +1,57 @@
+{{- if eq .Values.environment.name "dev" }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: delete-load-test-data
+spec:
+  schedule: "0 1 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: prison-visits-booking-staff-load-test-data-delete
+            image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
+            imagePullPolicy: Always
+            command: ['sh', '-c', "DISABLE_DATABASE_ENVIRONMENT_CHECK=1", "bundle exec rake load_test_data:delete['Load','Test']"]
+            envFrom:
+              - configMapRef:
+                  name: shared-environment
+              - secretRef:
+                  name: secrets
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: anonymise-data
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: prison-visits-booking-staff-anonymise-data
+              image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
+              imagePullPolicy: Always
+              command: ['sh', '-c', "bundle exec rake anonymise:remove_old_personal_information"]
+              envFrom:
+                - configMapRef:
+                    name: shared-environment
+                - secretRef:
+                    name: secrets
+              env:
+                - name: DATABASE_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: prison-visits-rds-instance-output
+                      key: url
+          restartPolicy: OnFailure
+{{ end }}

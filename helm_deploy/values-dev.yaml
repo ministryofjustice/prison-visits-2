@@ -1,3 +1,5 @@
+environment:
+  name: dev
 generic-service:
   replicaCount: 3
   resources:
