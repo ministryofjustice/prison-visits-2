@@ -13,7 +13,7 @@ spec:
         spec:
           containers:
           - name: prison-visits-booking-staff-load-nomis-slots
-            image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
+            image: {{ .Values.generic-service.image.repository }}
             imagePullPolicy: Always
             command: ['sh', '-c', "bundle exec rake pvb:load_nomis_slots"]
             envFrom:
