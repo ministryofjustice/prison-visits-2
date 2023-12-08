@@ -14,7 +14,7 @@ spec:
         spec:
           containers:
           - name: prison-visits-booking-staff-load-test-data-delete
-            image: {{ .Values.generic-service.image.repository }}
+            image: {{ .Values.image.repository }}
             imagePullPolicy: Always
             command: ['sh', '-c', "DISABLE_DATABASE_ENVIRONMENT_CHECK=1", "bundle exec rake load_test_data:delete['Load','Test']"]
             envFrom:
@@ -39,7 +39,7 @@ spec:
         spec:
           containers:
             - name: prison-visits-booking-staff-anonymise-data
-              image: {{ .Values.generic-service.image.repository }}
+              image: {{ .Values.image.repository }}
               imagePullPolicy: Always
               command: ['sh', '-c', "bundle exec rake anonymise:remove_old_personal_information"]
               envFrom:
