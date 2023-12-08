@@ -1,19 +1,6 @@
 environment:
   name: dev
-generic-service:
-  replicaCount: 3
-  resources:
-    limits:
-      memory: "2Gi"
-      cpu: "150m"
-    requests:
-      memory: "1Gi"
-      cpu: "30m"
-
-  ingress:
-    host: prison-visits-booking-staff-dev.apps.live.cloud-platform.service.justice.gov.uk
-
-  env:
+  variables: &variables
     PRISON_API_HOST: "https://prison-api-dev.prison.service.justice.gov.uk"
     NOMIS_OAUTH_HOST: "https://sign-in-dev.hmpps.service.justice.gov.uk"
     KUBERNETES_DEPLOYMENT: "true"
@@ -53,3 +40,17 @@ generic-service:
       Nottingham,
       Swaleside,
       Whitemoor,
+generic-service:
+  replicaCount: 3
+  resources:
+    limits:
+      memory: "2Gi"
+      cpu: "150m"
+    requests:
+      memory: "1Gi"
+      cpu: "30m"
+
+  ingress:
+    host: prison-visits-booking-staff-dev.apps.live.cloud-platform.service.justice.gov.uk
+
+  env: *variables
