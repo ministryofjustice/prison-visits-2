@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pvb-staff-migration-{{ .Values.environment.name }}
+  labels:
+    app: pvb-staff-migration-{{ .Values.environment.name }}
+spec:
+  completions: 1
+  parallelism: 1
+  template:
+    spec:
+      containers:
+        - name: prison-visits-staff-migration
+          image: {{ .Values.generic-service.image.repository }}
+          imagePullPolicy: Always
+          command: ['sh', '-c', 'bundle exec rails db:migrate && bundle exec rails db:seed']
+          env:
+            - name: DISABLE_PROMETHEUS_METRICS
+              value: "true"
+            - name: DATABASE_URL
+              value: {{ .Values.namespace_secrets.prison-visits-rds-instance-output.DATABASE_URL }}
+          resources:
+            limits:
+              memory: "1Gi"
+              cpu: "50m"
+            requests:
+              memory: "1Gi"
+              cpu: "30m"
+      restartPolicy: Never
+  backoffLimit: 4
