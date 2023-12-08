@@ -1,4 +1,16 @@
 generic-service:
+  replicaCount: 3
+  resources:
+    limits:
+      memory: "2Gi"
+      cpu: "150m"
+    requests:
+      memory: "1Gi"
+      cpu: "30m"
+
+  ingress:
+    host: prison-visits-booking-staff-dev.apps.live.cloud-platform.service.justice.gov.uk
+
   env:
     PRISON_API_HOST: "https://prison-api-dev.prison.service.justice.gov.uk"
     NOMIS_OAUTH_HOST: "https://sign-in-dev.hmpps.service.justice.gov.uk"
