@@ -14,11 +14,19 @@ spec:
           image: {{ .Values.generic-service.image.repository }}
           imagePullPolicy: Always
           command: ['sh', '-c', 'bundle exec rails db:migrate && bundle exec rails db:seed']
+          envFrom:
+            - configMapRef:
+                name: shared-environment
+            - secretRef:
+                name: secrets
           env:
-            - name: DISABLE_PROMETHEUS_METRICS
+            - name: "DISABLE_PROMETHEUS_METRICS"
               value: "true"
             - name: DATABASE_URL
-              value: {{ .Values.namespace_secrets.prison-visits-rds-instance-output.DATABASE_URL }}
+              valueFrom:
+                secretKeyRef:
+                  name: prison-visits-rds-instance-output
+                  key: url
           resources:
             limits:
               memory: "1Gi"
