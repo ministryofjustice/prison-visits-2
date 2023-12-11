@@ -212,16 +212,18 @@ workflows:
   build_and_test:
     jobs:
       - test
+      - hmpps/helm_lint:
+          name: helm_lint
       - build_and_push_docker_image:
           requires:
             - test
       - hmpps/deploy_env:
-        context:
-          - hmpps-common-vars
-        env: dev
-        name: deploy_dev
-        requires:
-          - build_and_push_docker_image
+          context:
+            - hmpps-common-vars
+          env: dev
+          name: deploy_dev
+          requires:
+            - build_and_push_docker_image
       - request-staging-approval:
             type: approval
             requires:
