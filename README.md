@@ -1,5 +1,6 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/20ad81e6cb95ffd082d2/maintainability)](https://codeclimate.com/github/ministryofjustice/prison-visits-2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/20ad81e6cb95ffd082d2/test_coverage)](https://codeclimate.com/github/ministryofjustice/prison-visits-2/test_coverage)
+[![prison-visits-2](https://circleci.com/gh/ministryofjustice/prison-visits-2.svg?style=svg)](https://app.circleci.com/pipelines/github/ministryofjustice/prison-visits-2)
 
 # Online visit requests
 
