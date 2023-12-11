@@ -118,10 +118,18 @@ jobs:
       - run: |
           aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
       - run:
+          name: Create app version string
+          command: |
+            DATE=$(date '+%Y-%m-%d')
+            SHORT_SHA1=$(echo $CIRCLE_SHA1 | cut -c1-7)
+            VERSION=${DATE}.${CIRCLE_BUILD_NUM}.${SHORT_SHA1}
+            echo "Created version string: ${VERSION}"
+            echo "export APP_VERSION=$VERSION" >> $BASH_ENV
+      - run:
           name: Setup, tag and push docker image
           command: |
-            echo 'export DOCKER_TAGS=$CIRCLE_SHA1' >> $BASH_ENV
-            docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:${CIRCLE_SHA1}"
+            echo 'export DOCKER_TAGS=$APP_VERSION' >> $BASH_ENV
+            docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:${APP_VERSION}"
             if [ "${CIRCLE_BRANCH}" == "main" ]; then
               echo 'export DOCKER_TAGS=${DOCKER_TAGS},latest' >> $BASH_ENV
               docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:latest"
