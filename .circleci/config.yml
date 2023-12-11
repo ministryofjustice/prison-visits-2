@@ -220,6 +220,7 @@ workflows:
       - hmpps/deploy_env:
           context:
             - hmpps-common-vars
+            - prison-visits-booking-dev
           env: dev
           name: deploy_dev
           requires:
