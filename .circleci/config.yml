@@ -42,6 +42,7 @@ references:
 version: 2.1
 
 orbs:
+  hmpps: ministryofjustice/hmpps@8.0.3
   aws-cli: circleci/aws-cli@4.0.0
   aws-ecr: circleci/aws-ecr@8.2.1 # this orb doesn't support OIDC v2, so we use aws-cli to authenticate
 
@@ -214,9 +215,13 @@ workflows:
       - build_and_push_docker_image:
           requires:
             - test
-      - deploy_development:
-          requires:
-            - build_and_push_docker_image
+      - hmpps/deploy_env:
+        context:
+          - hmpps-common-vars
+        env: dev
+        name: deploy_dev
+        requires:
+          - build_and_push_docker_image
       - request-staging-approval:
             type: approval
             requires:
