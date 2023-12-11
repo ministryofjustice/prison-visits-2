@@ -27,6 +27,7 @@ namespace :reporting do
       puts rejections.count{ |s| s.reasons.include?('no_adult') }
       puts rejections.count{ |s| s.reasons.include?('no_allowance') }
       puts prison.visits.where(processing_state: 'requested').order(created_at: :asc).limit(1).pluck(:created_at) # Oldest request
+      puts 'end'
     end
   end
 end
