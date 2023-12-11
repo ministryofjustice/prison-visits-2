@@ -223,6 +223,7 @@ workflows:
           env: dev
           name: deploy_dev
           requires:
+            - helm_lint
             - build_and_push_docker_image
       - request-staging-approval:
           type: approval
