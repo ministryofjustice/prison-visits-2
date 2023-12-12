@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: '1.0'
 description: A Helm chart for Kubernetes
-name: prison-visits-2
+name: prison-visits-booking-staff
 version: 0.2.0
 dependencies:
   - name: generic-service

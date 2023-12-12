@@ -2,8 +2,6 @@ image:
   repository: &repository 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff:latest
 
 generic-service:
-  nameOverride: prison-visits-booking-staff
-
   image:
     repository: *repository
     pullPolicy: Always
