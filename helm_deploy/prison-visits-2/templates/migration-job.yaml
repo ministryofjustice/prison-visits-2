@@ -1,38 +1,38 @@
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: pvb-staff-migration-{{ .Values.environment.name }}
-  labels:
-    app: pvb-staff-migration-{{ .Values.environment.name }}
-spec:
-  completions: 1
-  parallelism: 1
-  template:
-    spec:
-      containers:
-        - name: prison-visits-staff-migration
-          image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
-          imagePullPolicy: Always
-          command: ['sh', '-c', 'bundle exec rails db:migrate && bundle exec rails db:seed']
-          envFrom:
-            - configMapRef:
-                name: shared-environment
-            - secretRef:
-                name: secrets
-          env:
-            - name: "DISABLE_PROMETHEUS_METRICS"
-              value: "true"
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: prison-visits-rds-instance-output
-                  key: url
-          resources:
-            limits:
-              memory: "1Gi"
-              cpu: "50m"
-            requests:
-              memory: "1Gi"
-              cpu: "30m"
-      restartPolicy: Never
-  backoffLimit: 4
+# apiVersion: batch/v1
+# kind: Job
+# metadata:
+#   name: pvb-staff-migration-{{ .Values.environment.name }}
+#   labels:
+#     app: pvb-staff-migration-{{ .Values.environment.name }}
+# spec:
+#   completions: 1
+#   parallelism: 1
+#   template:
+#     spec:
+#       containers:
+#         - name: prison-visits-staff-migration
+#           image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
+#           imagePullPolicy: Always
+#           command: ['sh', '-c', 'bundle exec rails db:migrate && bundle exec rails db:seed']
+#           envFrom:
+#             - configMapRef:
+#                 name: shared-environment
+#             - secretRef:
+#                 name: secrets
+#           env:
+#             - name: "DISABLE_PROMETHEUS_METRICS"
+#               value: "true"
+#             - name: DATABASE_URL
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: prison-visits-rds-instance-output
+#                   key: url
+#           resources:
+#             limits:
+#               memory: "1Gi"
+#               cpu: "50m"
+#             requests:
+#               memory: "1Gi"
+#               cpu: "30m"
+#       restartPolicy: Never
+#   backoffLimit: 4
