@@ -15,7 +15,7 @@ spec:
           containers:
           - name: prison-visits-booking-staff-load-test-data-delete
             image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
-            imagePullPolicy: Always
+            imagePullPolicy: IfNotPresent
             command: ['sh', '-c', "DISABLE_DATABASE_ENVIRONMENT_CHECK=1", "bundle exec rake load_test_data:delete['Load','Test']"]
             envFrom:
               - configMapRef:

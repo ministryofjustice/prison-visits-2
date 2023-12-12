@@ -12,7 +12,7 @@
 #       containers:
 #         - name: prison-visits-staff-migration
 #           image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
-#           imagePullPolicy: Always
+#           imagePullPolicy: IfNotPresent
 #           command: ['sh', '-c', 'bundle exec rails db:migrate && bundle exec rails db:seed']
 #           envFrom:
 #             - configMapRef:
