@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: prison-visits-staff-migration
-          image: {{ .Values.image.repository }}
+          image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
           imagePullPolicy: Always
           command: ['sh', '-c', 'bundle exec rails db:migrate && bundle exec rails db:seed']
           envFrom:
