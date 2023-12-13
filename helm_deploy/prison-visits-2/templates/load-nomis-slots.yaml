@@ -13,7 +13,7 @@ spec:
         spec:
           containers:
           - name: prison-visits-booking-staff-load-nomis-slots
-            image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
+            image: "{{ index .Values "generic-service" "image" "repository" }}:{{ index .Values "generic-service" "image" "tag" | default .Chart.AppVersion }}"
             imagePullPolicy: IfNotPresent
             command: ['sh', '-c', "bundle exec rake pvb:load_nomis_slots"]
             envFrom:

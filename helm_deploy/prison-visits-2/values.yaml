@@ -1,9 +1,6 @@
-image:
-  repository: &repository 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff
-
 generic-service:
   image:
-    repository: *repository
+    repository: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff
     pullPolicy: IfNotPresent
     port: 3000
 
@@ -53,7 +50,7 @@ generic-service:
 
   extraContainers:
     - name: prison-visits-booking-staff-sidekiq
-      image: *repository
+      image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff
       imagePullPolicy: IfNotPresent
       command: ['sh', '-c', "bundle exec sidekiq -C config/sidekiq.yml"]
       env:
