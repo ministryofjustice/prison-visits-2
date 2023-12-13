@@ -4,7 +4,9 @@ generic-service:
     pullPolicy: IfNotPresent
     port: 3000
 
-  containerCommand: ['sh', '-c', "bundle exec puma -p 3000 -C ./config/puma_prod.rb --pidfile /tmp/server.pid"]
+  containerCommand: ["sh", "-c", "bundle exec puma -p 3000 -C ./config/puma_prod.rb --pidfile /tmp/server.pid"]
+
+  fullnameOverride: "prison-visits-booking-staff"
 
   service:
     enabled: true
