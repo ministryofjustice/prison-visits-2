@@ -218,11 +218,11 @@ workflows:
           requires:
             - helm_lint
       - hmpps/deploy_env:
+          name: deploy_dev
           context:
             - hmpps-common-vars
             - prison-visits-booking-dev
           env: dev
-          name: deploy_dev
           requires:
             - helm_lint
             - build_and_push_docker_image
