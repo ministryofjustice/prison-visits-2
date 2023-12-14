@@ -15,8 +15,6 @@ data:
   SENTRY_CURRENT_ENV: "development"
   STAFF_SERVICE_URL: "https://prison-visits-booking-staff-dev.apps.live.cloud-platform.service.justice.gov.uk"
   SMTP_DOMAIN: "mailtrap.io"
-  SMTP_PORT: "465"
-  SMTP_HOSTNAME: "smtp.mailtrap.io"
   WEB_CONCURRENCY: "5"
   ZENDESK_URL: "https://ministryofjustice.zendesk.com/api/v2"
   ZENDESK_USERNAME: "pvb-technical-support+zendesk@digital.justice.gov.uk"

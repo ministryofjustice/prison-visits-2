@@ -16,8 +16,6 @@ data:
   SENTRY_CURRENT_ENV: "production"
   STAFF_SERVICE_URL: "https://staff.prisonvisits.service.justice.gov.uk"
   SMTP_DOMAIN: "email.prisonvisits.service.gov.uk"
-  SMTP_PORT: "587"
-  SMTP_HOSTNAME: "smtp.sendgrid.net"
   WEB_CONCURRENCY: "5"
   ZENDESK_URL: "https://ministryofjustice.zendesk.com/api/v2"
   ZENDESK_USERNAME: "pvb-technical-support+zendesk@digital.justice.gov.uk"

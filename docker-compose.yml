@@ -15,10 +15,6 @@ services:
       MOJSSO_ID:         $MOJSSO_ID
       SECRET_KEY_BASE:   $SECRET_KEY_BASE
       SMTP_DOMAIN:       $SMTP_DOMAIN
-      SMTP_HOSTNAME:     $SMTP_HOSTNAME
-      SMTP_PASSWORD:     $SMTP_PASSWORD
-      SMTP_PORT:         $SMTP_PORT
-      SMTP_USERNAME:     $SMTP_USERNAME
 
     entrypoint:
       - bundle
