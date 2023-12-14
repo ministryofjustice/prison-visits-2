@@ -123,10 +123,6 @@ jobs:
           command: |
             echo 'export DOCKER_TAGS=$APP_VERSION' >> $BASH_ENV
             docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:${APP_VERSION}"
-            if [ "${CIRCLE_BRANCH}" == "main" ]; then
-              echo 'export DOCKER_TAGS=${DOCKER_TAGS},latest' >> $BASH_ENV
-              docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:latest"
-            fi
             source $BASH_ENV
       - aws-ecr/push-image:
           tag: $DOCKER_TAGS
@@ -230,7 +226,12 @@ workflows:
           type: approval
           requires:
             - deploy_dev
-      - deploy_staging:
+      - hmpps/deploy_env:
+          name: deploy_staging
+          context:
+            - hmpps-common-vars
+            - prison-visits-booking-staging
+          env: staging
           requires:
             - request-staging-approval
       - deploy_production_approval:

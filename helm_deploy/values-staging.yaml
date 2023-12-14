@@ -1,17 +1,17 @@
 environment:
-  name: dev
+  name: staging
   variables: &variables
-    PRISON_API_HOST: "https://prison-api-dev.prison.service.justice.gov.uk"
-    NOMIS_OAUTH_HOST: "https://sign-in-dev.hmpps.service.justice.gov.uk"
-    KUBERNETES_DEPLOYMENT: "true"
+    PRISON_API_HOST: "https://api-preprod.prison.service.justice.gov.uk"
+    NOMIS_OAUTH_HOST: "https://sign-in-preprod.hmpps.service.justice.gov.uk"
+    MOJSSO_URL: "https://signon.service.justice.gov.uk"
     NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED: "true"
-    PUBLIC_SERVICE_URL: "https://prison-visits-public-dev.apps.live.cloud-platform.service.justice.gov.uk"
+    PUBLIC_SERVICE_URL: "https://prison-visits-public-staging.apps.live.cloud-platform.service.justice.gov.uk"
     PVB_TEAM_EMAIL: "pvb-team@digital.justice.gov.uk"
-    RACK_ENV: "development"
+    RACK_ENV: "production"
     RAILS_SERVE_STATIC_FILES: "true"
     REMOVE_LOAD_TEST_DATA: "true"
-    SENTRY_CURRENT_ENV: "development"
-    STAFF_SERVICE_URL: "https://prison-visits-booking-staff-dev.apps.live.cloud-platform.service.justice.gov.uk"
+    SENTRY_CURRENT_ENV: "staging"
+    STAFF_SERVICE_URL: "https://prison-visits-booking-staff-staging.apps.live.cloud-platform.service.justice.gov.uk"
     SMTP_DOMAIN: "mailtrap.io"
     WEB_CONCURRENCY: "5"
     ZENDESK_URL: "https://ministryofjustice.zendesk.com/api/v2"
@@ -23,7 +23,6 @@ environment:
       High Down,
       Hull,
       Medway Secure Training Centre,
-      North Sea Camp,
       Nottingham,
       Swaleside,
       Whitemoor,
@@ -34,10 +33,10 @@ environment:
       High Down,
       Hull,
       Medway Secure Training Centre,
-      North Sea Camp,
       Nottingham,
       Swaleside,
       Whitemoor,
+
 
 generic-service:
   replicaCount: 3
@@ -50,19 +49,16 @@ generic-service:
       cpu: "30m"
 
   ingress:
-    host: prison-visits-booking-staff-dev.apps.live.cloud-platform.service.justice.gov.uk
+    host: prison-visits-booking-staff-staging.apps.live.cloud-platform.service.justice.gov.uk
 
   namespace_secrets:
     prison-visits-rds-instance-output:
       DATABASE_URL: url
-    elasticache-redis:
+    elasticache-prison-visits-booking-token-cache-staging:
       REDIS_URL: url
     hmpps-auth-secrets:
       NOMIS_USER_OAUTH_CLIENT_ID: NOMIS_USER_OAUTH_CLIENT_ID
       NOMIS_USER_OAUTH_CLIENT_SECRET: NOMIS_USER_OAUTH_CLIENT_SECRET
-    secrets:
-      NOMIS_OAUTH_CLIENT_ID: NOMIS_OAUTH_CLIENT_ID
-      NOMIS_OAUTH_CLIENT_SECRET: NOMIS_OAUTH_CLIENT_SECRET
 
   extraContainers:
     - name: prison-visits-booking-staff-sidekiq
@@ -80,13 +76,10 @@ generic-service:
         - name: REDIS_URL
           valueFrom:
             secretKeyRef:
-              name: elasticache-redis
+              name: elasticache-prison-visits-booking-token-cache-staging
               key: url
       envFrom:
         - configMapRef:
             name: shared-environment
         - secretRef:
             name: secrets
-
-
-  env: *variables

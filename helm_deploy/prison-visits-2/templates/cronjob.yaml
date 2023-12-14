@@ -1,4 +1,4 @@
-{{- if eq .Values.environment.name "dev" }}
+{{- if or .Values.environment.name "dev" .Values.environment.name "staging" }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -24,6 +24,45 @@ spec:
                   name: secrets
           restartPolicy: OnFailure
 ---
+{{- end }}
+{{- if eq .Values.environment.name "staging" }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: refresh-views
+spec:
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: prison-visits-booking-staff-pvb-metrics-refresh
+            image: "{{ index .Values "generic-service" "image" "repository" }}:{{ index .Values "generic-service" "image" "tag" | default .Chart.AppVersion }}"
+            imagePullPolicy: IfNotPresent
+            command: ['sh', '-c', "bundle exec rake pvb:metrics:refresh"]
+            envFrom:
+              - configMapRef:
+                  name: shared-environment
+              - secretRef:
+                  name: secrets
+            env:
+              - name: DATABASE_URL
+                valueFrom:
+                  secretKeyRef:
+                    name: prison-visits-rds-instance-output
+                    key: url
+              - name: REDIS_URL
+                valueFrom:
+                  secretKeyRef:
+                    name: elasticache-prison-visits-booking-token-cache-staging
+                    key: url
+          restartPolicy: OnFailure
+---
+{{- end }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -40,7 +79,7 @@ spec:
           containers:
             - name: prison-visits-booking-staff-anonymise-data
               image: "{{ index .Values "generic-service" "image" "repository" }}:{{ index .Values "generic-service" "image" "tag" | default .Chart.AppVersion }}"
-              imagePullPolicy: Always
+              imagePullPolicy: IfNotPresent
               command: ['sh', '-c', "bundle exec rake anonymise:remove_old_personal_information"]
               envFrom:
                 - configMapRef:
@@ -54,4 +93,3 @@ spec:
                       name: prison-visits-rds-instance-output
                       key: url
           restartPolicy: OnFailure
-{{ end }}
