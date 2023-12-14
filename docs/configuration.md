@@ -78,7 +78,7 @@ data.
 This is used to build staff links in emails. It must be set in the production
 environment to `https://staff.prisonvisits.service.gov.uk/`.
 
-### `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_HOSTNAME`, `SMTP_PORT`, `SMTP_DOMAIN`
+### `SMTP_DOMAIN`
 
 These configure email delivery in the production environment. `SMTP_DOMAIN` is
 also used when generating the `no-reply@` address and the `feedback@` stand-in
@@ -87,10 +87,6 @@ address used when submitting feedback without an email address to Zendesk.
 ### `ZENDESK_USERNAME`, `ZENDESK_TOKEN`, `ZENDESK_URL`
 
 These are required in order to submit user feedback to Zendesk.
-
-### `ENABLE_SENDGRID_VALIDATIONS` (optional)
-
-If specified it will enable the email validations that use Sendgrid in the `EmailChecker` class.
 
 ### `ASSET_HOST` (optional)
 

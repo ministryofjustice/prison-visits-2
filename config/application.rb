@@ -59,14 +59,6 @@ module PrisonVisits
     config.middleware.use RobotsTag
     config.middleware.insert_before Rack::Head, HttpMethodNotAllowed
 
-    config.sendgrid_api_user = ENV['SMTP_USERNAME']
-    config.sendgrid_api_key = ENV['SMTP_PASSWORD']
-
-    config.disable_sendgrid_validations =
-      !ENV.key?('ENABLE_SENDGRID_VALIDATIONS') &&
-      !ENV.key?('SMTP_USERNAME') &&
-      !ENV.key?('SMTP_PASSWORD')
-
     config.connection_pool_size =
       config.database_configuration[Rails.env]['pool'] || 5
 

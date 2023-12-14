@@ -68,18 +68,6 @@
     "SMTP_DOMAIN": {
       "required": true
     },
-    "SMTP_HOSTNAME": {
-      "required": true
-    },
-    "SMTP_PASSWORD": {
-      "required": true
-    },
-    "SMTP_PORT": {
-      "required": true
-    },
-    "SMTP_USERNAME": {
-      "required": true
-    },
     "SSO_REVIEW_BASIC_USER": {
       "required": true
     },
