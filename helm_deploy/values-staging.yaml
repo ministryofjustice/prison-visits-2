@@ -37,7 +37,6 @@ environment:
       Swaleside,
       Whitemoor,
 
-
 generic-service:
   replicaCount: 3
   resources:
@@ -83,3 +82,5 @@ generic-service:
             name: shared-environment
         - secretRef:
             name: secrets
+
+  env: *variables
