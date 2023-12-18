@@ -1,9 +1,9 @@
 dependencies:
 - name: generic-service
   repository: https://ministryofjustice.github.io/hmpps-helm-charts
-  version: 2.8.1
+  version: 2.9.0
 - name: generic-prometheus-alerts
   repository: https://ministryofjustice.github.io/hmpps-helm-charts
   version: 1.3.3
-digest: sha256:c50ea5bc192d843d0ba63081d1a19244d295022c3e784adba072b8bc761be091
-generated: "2023-12-08T16:28:40.551096Z"
+digest: sha256:875fb46889679e9d4eac747ae63f2dc4665a3575e7bc725af437785c35d868e4
+generated: "2023-12-18T16:40:35.040945Z"

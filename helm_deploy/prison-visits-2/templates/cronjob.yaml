@@ -1,4 +1,4 @@
-{{- if or .Values.environment.name "dev" .Values.environment.name "staging" }}
+{{- if or (eq .Values.environment.name "dev") (eq .Values.environment.name "staging") }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -25,7 +25,7 @@ spec:
           restartPolicy: OnFailure
 ---
 {{- end }}
-{{- if eq .Values.environment.name "staging" }}
+{{- if or (eq .Values.environment.name "staging") (eq .Values.environment.name "production") }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -58,7 +58,7 @@ spec:
               - name: REDIS_URL
                 valueFrom:
                   secretKeyRef:
-                    name: elasticache-prison-visits-booking-token-cache-staging
+                    name: {{ .Values.cronJobs.refreshViews.redisUrl.secretKeyRef }}
                     key: url
           restartPolicy: OnFailure
 ---

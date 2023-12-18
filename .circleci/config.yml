@@ -241,7 +241,12 @@ workflows:
           filters:
             branches:
               only: main
-      - deploy_production:
+      - hmpps/deploy_env:
+          name: deploy_production
+          context:
+            - hmpps-common-vars
+            - prison-visits-booking-production
+          env: production
           requires:
             - deploy_production_approval
           filters:

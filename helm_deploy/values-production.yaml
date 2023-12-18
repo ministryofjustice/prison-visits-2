@@ -1,18 +1,19 @@
 environment:
-  name: staging
+  name: production
   variables:
-    PRISON_API_HOST: "https://api-preprod.prison.service.justice.gov.uk"
-    NOMIS_OAUTH_HOST: "https://sign-in-preprod.hmpps.service.justice.gov.uk"
+    PRISON_API_HOST: "https://api.prison.service.justice.gov.uk"
+    NOMIS_OAUTH_HOST: "https://sign-in.hmpps.service.justice.gov.uk"
+    KUBERNETES_DEPLOYMENT: "true"
     MOJSSO_URL: "https://signon.service.justice.gov.uk"
     NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED: "true"
-    PUBLIC_SERVICE_URL: "https://prison-visits-public-staging.apps.live.cloud-platform.service.justice.gov.uk"
+    PUBLIC_SERVICE_URL: "https://prisonvisits.service.gov.uk"
     PVB_TEAM_EMAIL: "pvb-team@digital.justice.gov.uk"
     RACK_ENV: "production"
     RAILS_SERVE_STATIC_FILES: "true"
-    REMOVE_LOAD_TEST_DATA: "true"
-    SENTRY_CURRENT_ENV: "staging"
-    STAFF_SERVICE_URL: "https://prison-visits-booking-staff-staging.apps.live.cloud-platform.service.justice.gov.uk"
-    SMTP_DOMAIN: "mailtrap.io"
+    REMOVE_LOAD_TEST_DATA: "false"
+    SENTRY_CURRENT_ENV: "production"
+    STAFF_SERVICE_URL: "https://staff.prisonvisits.service.justice.gov.uk"
+    SMTP_DOMAIN: "email.prisonvisits.service.gov.uk"
     WEB_CONCURRENCY: "5"
     ZENDESK_URL: "https://ministryofjustice.zendesk.com/api/v2"
     ZENDESK_USERNAME: "pvb-technical-support+zendesk@digital.justice.gov.uk"
@@ -40,26 +41,25 @@ environment:
 cronJobs:
   refreshViews:
     redisUrl:
-      secretKeyRef: elasticache-prison-visits-booking-token-cache-staging
+      secretKeyRef: elasticache-prison-visits-booking-token-cache-production
 
 generic-service:
-  replicaCount: 3
+  replicaCount: 5
   resources:
     limits:
       memory: "2Gi"
-      cpu: "150m"
+      cpu: "2000m"
     requests:
       memory: "1Gi"
       cpu: "30m"
 
   ingress:
     hosts:
-      - prison-visits-booking-staff-staging.apps.live.cloud-platform.service.justice.gov.uk
 
   namespace_secrets:
     prison-visits-rds-instance-output:
       DATABASE_URL: url
-    elasticache-prison-visits-booking-token-cache-staging:
+    elasticache-prison-visits-booking-token-cache-production:
       REDIS_URL: url
     hmpps-auth-secrets:
       NOMIS_USER_OAUTH_CLIENT_ID: NOMIS_USER_OAUTH_CLIENT_ID
@@ -81,7 +81,7 @@ generic-service:
         - name: REDIS_URL
           valueFrom:
             secretKeyRef:
-              name: elasticache-prison-visits-booking-token-cache-staging
+              name: elasticache-prison-visits-booking-token-cache-production
               key: url
       envFrom:
         - configMapRef:
