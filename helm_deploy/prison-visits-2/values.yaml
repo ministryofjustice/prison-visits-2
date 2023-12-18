@@ -13,6 +13,12 @@ generic-service:
     type: ClusterIP
     port: 3000
 
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 20%
+
   ingress:
     enabled: true
     tlsSecretName: prison-visits-booking-cert
@@ -36,7 +42,6 @@ generic-service:
         name: shared-environment
     - secretRef:
         name: secrets
-
 
   allowlist:
     groups:
