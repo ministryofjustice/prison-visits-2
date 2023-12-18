@@ -1,6 +1,6 @@
 environment:
   name: staging
-  variables: &variables
+  variables:
     PRISON_API_HOST: "https://api-preprod.prison.service.justice.gov.uk"
     NOMIS_OAUTH_HOST: "https://sign-in-preprod.hmpps.service.justice.gov.uk"
     MOJSSO_URL: "https://signon.service.justice.gov.uk"
@@ -82,5 +82,3 @@ generic-service:
             name: shared-environment
         - secretRef:
             name: secrets
-
-  env: *variables

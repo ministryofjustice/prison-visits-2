@@ -1,6 +1,6 @@
 environment:
   name: dev
-  variables: &variables
+  variables:
     PRISON_API_HOST: "https://prison-api-dev.prison.service.justice.gov.uk"
     NOMIS_OAUTH_HOST: "https://sign-in-dev.hmpps.service.justice.gov.uk"
     KUBERNETES_DEPLOYMENT: "true"
@@ -87,5 +87,3 @@ generic-service:
             name: shared-environment
         - secretRef:
             name: secrets
-
-  env: *variables
