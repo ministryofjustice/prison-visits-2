@@ -5,7 +5,7 @@ name: prison-visits-booking-staff
 version: 0.2.0
 dependencies:
   - name: generic-service
-    version: '2.8'
+    version: '2.9'
     repository: https://ministryofjustice.github.io/hmpps-helm-charts
   - name: generic-prometheus-alerts
     version: '1.3'
