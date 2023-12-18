@@ -48,7 +48,8 @@ generic-service:
       cpu: "30m"
 
   ingress:
-    host: prison-visits-booking-staff-staging.apps.live.cloud-platform.service.justice.gov.uk
+    hosts:
+      - prison-visits-booking-staff-staging.apps.live.cloud-platform.service.justice.gov.uk
 
   namespace_secrets:
     prison-visits-rds-instance-output:
