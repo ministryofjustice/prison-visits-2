@@ -12,8 +12,6 @@ private: false
 closed: false
 adult_age: 10
 recurring:
-  mon:
-  - 1415-1545
   tue:
   - 1415-1545
   wed:
@@ -32,3 +30,4 @@ unbookable:
 - 2023-12-25
 - 2023-12-26
 - 2024-01-01
+- 2024-02-13
