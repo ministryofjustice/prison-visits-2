@@ -12,6 +12,8 @@ enabled: true
 private: false
 closed: false
 recurring:
+  wed:
+  - 1400-1600
   fri:
   - 1400-1600
   sun:
