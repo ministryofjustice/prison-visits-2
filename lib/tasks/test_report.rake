@@ -1,8 +1,8 @@
 namespace :reporting do
   desc 'Print monthly reporting figures'
   task monthly_reporting: :environment do
-    start_date = '2023-12-01'
-    yesterday_date = '2023-12-31'
+    start_date = '2024-01-01'
+    yesterday_date = '2024-01-31'
     # start_date = 1.month.ago.to_date
     # yesterday_date = 1.day.ago.to_date
     prisons = Prison.where(enabled: true)
