@@ -5,6 +5,7 @@ metadata:
 data:
   PRISON_API_HOST: "https://api-preprod.prison.service.justice.gov.uk"
   NOMIS_OAUTH_HOST: "https://sign-in-preprod.hmpps.service.justice.gov.uk"
+  KUBERNETES_DEPLOYMENT: "true"
   MOJSSO_URL: "https://signon.service.justice.gov.uk"
   NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED: "true"
   PUBLIC_SERVICE_URL: "https://prison-visits-public-staging.apps.live.cloud-platform.service.justice.gov.uk"
