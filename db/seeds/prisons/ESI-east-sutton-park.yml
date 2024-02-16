@@ -6,8 +6,8 @@ address: |-
   Maidstone
   Kent
 postcode: ME17 3DF
-email_address: Unavailable
-phone_no: 0300 060 6513
+email_address: hmppsvisitsbooking@justice.gov.uk
+phone_no: 0300 303 0630
 enabled: true
 private: false
 closed: false
@@ -23,6 +23,8 @@ unbookable:
 - 2022-06-03
 - 2022-12-25
 - 2023-01-01
+- 2024-04-06
+- 2024-08-17
 anomalous:
   2022-12-23:
   - 1400-1600
