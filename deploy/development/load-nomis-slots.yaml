@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: load-nomis-slots
 spec:
-  schedule: "0 0 * * *"
+  schedule: "0 7 * * *"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
