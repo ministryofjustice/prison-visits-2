@@ -212,7 +212,6 @@ class GovNotifyEmailer
       self.first_visit = ''
     elsif visit.unlisted_visitors.any? && !rejection.reasons.include?('visitor_not_on_list')
       self.update_list = 'Please contact the prisoner and ask them to update their contact list with correct details, making sure that names appear exactly the same as on ID documents.'
-      self.first_visit = "If this is the prisoner's first visit (reception visit), then you need to contact the prison to book."
       rejection.email_visitor_not_on_list_explanation
     else
       self.update_list = ''
