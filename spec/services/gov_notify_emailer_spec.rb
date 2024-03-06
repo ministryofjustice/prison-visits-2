@@ -86,7 +86,7 @@ RSpec.describe GovNotifyEmailer do
             client_params.deep_merge(
               personalisation: {
                 rejection_reasons: ["the dates and times you chose aren't available - choose new dates on https://www.gov.uk/prison-visits",
-                                    "details for  don't match our records or aren't on the prisoner's contact list - ask the prisoner to update their contact list with correct details, making sure that names appear exactly the same as on ID documents; if this is the prisoner's first visit (reception visit), then you need to contact the prison directly to book"]
+                                    "details for  don't match our records or aren't on the prisoner's contact list - ask the prisoner to update their contact list with correct details, making sure that names appear exactly the same as on ID documents"]
 
               }
             )
