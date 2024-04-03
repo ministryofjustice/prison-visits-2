@@ -588,6 +588,7 @@ WOI:
     - wolds.prisons.noms.moj
 WRI:
   name: Whitemoor
+  finder_slug: whitemoor-prison
   admins:
     - whitemoor.prisons.noms.moj
 WSI:
