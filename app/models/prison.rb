@@ -21,9 +21,9 @@ class Prison < ApplicationRecord
            to: :parsed_slot_details
   delegate :finder_slug, :nomis_id, to: :estate
 
-  scope :enabled, (lambda {
+  scope :enabled, lambda {
     where(enabled: true).order(name: :asc)
-  })
+  }
 
   # This method represents the 'fallback position' i.e. the slots to use if the API is unavailable
   def available_slots(today = Time.zone.today)
