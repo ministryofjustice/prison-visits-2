@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_07_163530) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_08_135051) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
@@ -32,6 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_163530) do
     t.string "finder_slug", null: false
     t.string "sso_organisation_name"
     t.string "admins", default: [], array: true
+    t.boolean "vsip_supported", default: false
     t.index ["name"], name: "index_estates_on_name", unique: true
   end
 
@@ -248,7 +249,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_163530) do
       SELECT count(*) AS count,
       vsc.visit_state
      FROM (visits v
-       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])))))
     WHERE (date_part('epoch'::text, (vsc.created_at - v.created_at)) > (259200)::double precision)
     GROUP BY vsc.visit_state
   UNION
@@ -266,7 +267,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_163530) do
       prisons.name AS prison_name
      FROM ((visits v
        JOIN prisons ON ((prisons.id = v.prison_id)))
-       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])))))
     WHERE (date_part('epoch'::text, (vsc.created_at - v.created_at)) > (259200)::double precision)
     GROUP BY prisons.name, vsc.visit_state
   UNION
@@ -288,7 +289,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_163530) do
       (date_part('isoyear'::text, v.created_at))::integer AS year
      FROM ((visits v
        JOIN prisons ON ((prisons.id = v.prison_id)))
-       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])))))
     WHERE (date_part('epoch'::text, (vsc.created_at - v.created_at)) > (259200)::double precision)
     GROUP BY vsc.visit_state, prisons.name, ((date_part('week'::text, v.created_at))::integer), ((date_part('isoyear'::text, v.created_at))::integer)
   UNION
@@ -313,7 +314,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_163530) do
       (date_part('year'::text, v.created_at))::integer AS year
      FROM ((visits v
        JOIN prisons ON ((prisons.id = v.prison_id)))
-       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])))))
     WHERE (date_part('epoch'::text, (vsc.created_at - v.created_at)) > (259200)::double precision)
     GROUP BY vsc.visit_state, prisons.name, ((date_part('day'::text, v.created_at))::integer), ((date_part('month'::text, v.created_at))::integer), ((date_part('year'::text, v.created_at))::integer)
   UNION
@@ -362,7 +363,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_163530) do
               v_1.processing_state,
               v_1.created_at,
                   CASE
-                      WHEN ((v_1.processing_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])) THEN ((vsc.created_at - v_1.created_at) < 'P3D'::interval)
+                      WHEN ((v_1.processing_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])) THEN ((vsc.created_at - v_1.created_at) < 'P3D'::interval)
                       ELSE NULL::boolean
                   END AS timely
              FROM ((visits v_1
@@ -383,13 +384,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_163530) do
   SQL
   create_view "percentiles_by_calendar_dates", materialized: true, sql_definition: <<-SQL
       SELECT (v.created_at)::date AS date,
-      percentile_disc((ARRAY[0.95, 0.5])::double precision[]) WITHIN GROUP (ORDER BY ((round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer)) AS percentiles
+      percentile_disc(ARRAY[(0.95)::double precision, (0.5)::double precision]) WITHIN GROUP (ORDER BY ((round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer)) AS percentiles
      FROM (visits v
        JOIN ( SELECT max(visit_state_changes.created_at) AS created_at,
               visit_state_changes.visit_id
              FROM visit_state_changes
             GROUP BY visit_state_changes.visit_id) vsc ON ((v.id = vsc.visit_id)))
-    WHERE ((v.processing_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[]))
+    WHERE ((v.processing_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text]))
     GROUP BY ((v.created_at)::date);
   SQL
   create_view "rejection_percentage_by_days", materialized: true, sql_definition: <<-SQL
@@ -456,36 +457,36 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_163530) do
     GROUP BY rejected.prison_name, rejected.prison_id, rejected.reason, (round((((rejected.rejected_count)::numeric / (total.total_count)::numeric) * (100)::numeric), 2)), rejected.date;
   SQL
   create_view "distributions", sql_definition: <<-SQL
-      SELECT percentile_disc((ARRAY[0.95, 0.50])::double precision[]) WITHIN GROUP (ORDER BY (date_part('epoch'::text, (vsc.created_at - v.created_at)))) AS percentiles
+      SELECT percentile_disc(ARRAY[(0.95)::double precision, (0.50)::double precision]) WITHIN GROUP (ORDER BY (date_part('epoch'::text, (vsc.created_at - v.created_at)))) AS percentiles
      FROM (visits v
-       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))));
+       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])))));
   SQL
   create_view "distribution_by_prisons", sql_definition: <<-SQL
       SELECT prisons.name AS prison_name,
-      percentile_disc((ARRAY[0.95, 0.50])::double precision[]) WITHIN GROUP (ORDER BY ((round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer)) AS percentiles
+      percentile_disc(ARRAY[(0.95)::double precision, (0.50)::double precision]) WITHIN GROUP (ORDER BY ((round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer)) AS percentiles
      FROM ((visits v
-       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])))))
        JOIN prisons ON ((prisons.id = v.prison_id)))
     GROUP BY prisons.name;
   SQL
   create_view "distribution_by_prison_and_calendar_weeks", sql_definition: <<-SQL
       SELECT prisons.name AS prison_name,
-      percentile_disc((ARRAY[0.95, 0.50])::double precision[]) WITHIN GROUP (ORDER BY ((round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer)) AS percentiles,
+      percentile_disc(ARRAY[(0.95)::double precision, (0.50)::double precision]) WITHIN GROUP (ORDER BY ((round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer)) AS percentiles,
       (date_part('isoyear'::text, v.created_at))::integer AS year,
       (date_part('week'::text, v.created_at))::integer AS week
      FROM ((visits v
-       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])))))
        JOIN prisons ON ((prisons.id = v.prison_id)))
     GROUP BY prisons.name, ((date_part('week'::text, v.created_at))::integer), ((date_part('isoyear'::text, v.created_at))::integer);
   SQL
   create_view "distribution_by_prison_and_calendar_dates", sql_definition: <<-SQL
       SELECT prisons.name AS prison_name,
-      percentile_disc((ARRAY[0.95, 0.50])::double precision[]) WITHIN GROUP (ORDER BY ((round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer)) AS percentiles,
+      percentile_disc(ARRAY[(0.95)::double precision, (0.50)::double precision]) WITHIN GROUP (ORDER BY ((round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer)) AS percentiles,
       (date_part('year'::text, v.created_at))::integer AS year,
       (date_part('month'::text, v.created_at))::integer AS month,
       (date_part('day'::text, v.created_at))::integer AS day
      FROM ((visits v
-       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[])))))
+       JOIN visit_state_changes vsc ON (((v.id = vsc.visit_id) AND ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text])))))
        JOIN prisons ON ((prisons.id = v.prison_id)))
     GROUP BY prisons.name, ((date_part('day'::text, v.created_at))::integer), ((date_part('month'::text, v.created_at))::integer), ((date_part('year'::text, v.created_at))::integer);
   SQL
@@ -503,7 +504,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_163530) do
       SELECT prisons.name AS prison_name,
       prisons.id AS prison_id,
       (timezone('Europe/London'::text, (v.created_at)::timestamp with time zone))::date AS date,
-      percentile_disc((ARRAY[0.95, 0.5])::double precision[]) WITHIN GROUP (ORDER BY ((round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer)) AS percentiles
+      percentile_disc(ARRAY[(0.95)::double precision, (0.5)::double precision]) WITHIN GROUP (ORDER BY ((round(date_part('epoch'::text, (vsc.created_at - v.created_at))))::integer)) AS percentiles
      FROM ((visits v
        JOIN ( SELECT max(visit_state_changes.created_at) AS created_at,
               visit_state_changes.visit_id,
@@ -511,7 +512,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_163530) do
              FROM visit_state_changes
             GROUP BY visit_state_changes.visit_id, visit_state_changes.visit_state) vsc ON ((v.id = vsc.visit_id)))
        JOIN prisons ON ((prisons.id = v.prison_id)))
-    WHERE ((vsc.visit_state)::text = ANY ((ARRAY['booked'::character varying, 'rejected'::character varying])::text[]))
+    WHERE ((vsc.visit_state)::text = ANY (ARRAY[('booked'::character varying)::text, ('rejected'::character varying)::text]))
     GROUP BY prisons.name, prisons.id, ((timezone('Europe/London'::text, (v.created_at)::timestamp with time zone))::date);
   SQL
 end
