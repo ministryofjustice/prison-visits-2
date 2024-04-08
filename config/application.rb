@@ -112,5 +112,9 @@ module PrisonVisits
 
     # We still use ie stylesheets as well as the govuk_template
     config.action_view.preload_links_header = false
+
+    config.vsip_oauth_client_id = ENV['VSIP_OAUTH_CLIENT_ID']
+    config.vsip_oauth_client_secret = ENV['VSIP_OAUTH_CLIENT_SECRET']
+    config.vsip_host = ENV['VSIP_HOST']
   end
 end
