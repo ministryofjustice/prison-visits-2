@@ -116,5 +116,6 @@ module PrisonVisits
     config.vsip_oauth_client_id = ENV['VSIP_OAUTH_CLIENT_ID']
     config.vsip_oauth_client_secret = ENV['VSIP_OAUTH_CLIENT_SECRET']
     config.vsip_host = ENV['VSIP_HOST']
+    config.vsip_supported_prisons_retrieved = false
   end
 end

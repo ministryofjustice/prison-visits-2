@@ -1,17 +1,10 @@
 class VsipSupportedPrisons
-  def initialize
+  def supported_prisons
     @vsip_enabled_prisons = if Vsip::Api.enabled?
-                  Vsip::Api.instance.supported_prisons
-                else
-                  Vsip::NullPrisoner.new(api_call_successful: false)
-                end
-  end
-
-  def valid?
-    error.nil? || error == PrisonerValidation::UNKNOWN
-  end
-
-  def error
-    prisoner_validation.errors[:base].first
+      Rails.configuration.vsip_supported_prisons_retrieved = true
+      Vsip::Api.instance.supported_prisons
+    else
+      Vsip::NullSupportedPrisons.new(api_call_successful: false)
+    end
   end
 end

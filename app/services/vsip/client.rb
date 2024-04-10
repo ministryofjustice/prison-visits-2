@@ -86,7 +86,6 @@ module Vsip
       raise APIError, "Exception #{e.class} calling #{api_method}: #{e}"
     end
 
-    # Returns excon options which put params in either the query string or body.
     def params_options(_method, params)
       return {} if params.empty?
 

@@ -60,6 +60,8 @@ RSpec.describe Api::SlotsController do
             ] }.to_json)
 
         switch_feature_flag_with(:public_prisons_with_slot_availability, [prison.name])
+
+        allow_any_instance_of(VsipSupportedPrisons).to receive(:initialize)
       end
 
       it 'returns the list of slots with their availabilities' do
@@ -79,6 +81,8 @@ RSpec.describe Api::SlotsController do
             .to_return(body: { found: true, offender: { id: offender_id } }.to_json)
 
         switch_feature_flag_with(:public_prisons_with_slot_availability, [])
+
+        allow_any_instance_of(VsipSupportedPrisons).to receive(:initialize)
       end
 
       it 'returns the list of slots with their availabilities' do

@@ -13,8 +13,7 @@ module Vsip
 
       pool_size = Rails.configuration.connection_pool_size
       @pool = ConnectionPool.new(size: pool_size, timeout: 5) do
-        Vsip::Client.new(
-          Rails.configuration.vsip_host)
+        Vsip::Client.new(Rails.configuration.vsip_host)
       end
     end
 
@@ -25,14 +24,10 @@ module Vsip
 
       mark_vsip_prisons response
     rescue APIError => e
-      PVB::ExceptionHandler.capture_exception(e, fingerprint: %w[nomis api_error])
-      NullPrisoner.new(api_call_successful: false)
+      PVB::ExceptionHandler.capture_exception(e, fingerprint: %w[vsip api_error])
     end
 
   private
-    def api_serialiser
-      @api_serialiser ||= ApiSerialiser.new
-    end
 
     def mark_vsip_prisons prison_list
       mark_all_estates_as_not_vsip

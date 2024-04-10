@@ -1,6 +1,9 @@
 module Api
   class SlotsController < ApiController
     def index
+      # get and set Vsip supported prisons
+      VsipSupportedPrisons.new unless Rails.configuration.vsip_supported_prisons_retrieved
+
       prison = Prison.enabled.find(params.require(:prison_id))
 
       if prison.auto_slots_enabled?

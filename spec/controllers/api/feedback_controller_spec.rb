@@ -4,6 +4,7 @@ RSpec.describe Api::FeedbackController, type: :controller do
   include ActiveJobHelper
 
   before do
+    # allow(Vsip::Client).to receive(:get)
     set_configuration_with(:zendesk_url, 'https://zendesk_api.com')
     allow(ZendeskTicketsJob).to receive(:perform_later)
   end
