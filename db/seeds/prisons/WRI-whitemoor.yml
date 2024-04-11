@@ -11,8 +11,6 @@ phone_no: 01354 602 800
 enabled: true
 private: false
 closed: false
-booking_window: 28
-lead_days: 7
 recurring:
   wed:
   - 1400-1600
