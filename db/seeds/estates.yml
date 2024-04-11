@@ -37,6 +37,7 @@ BFI:
   finder_slug: bedford-prison
   admins:
     - bedford.prisons.noms.moj
+    - apvu.noms.moj
 BHI:
   name: Blantyre House
   admins:
