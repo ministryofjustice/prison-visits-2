@@ -34,6 +34,7 @@ BCI:
     - buckley_hall.prisons.noms.moj
 BFI:
   name: Bedford
+  finder_slug: bedford-prison
   admins:
     - bedford.prisons.noms.moj
 BHI:
