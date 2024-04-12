@@ -80,6 +80,8 @@ RSpec.describe Api::SlotsController do
         stub_request(:get, "#{AuthHelper::API_PREFIX}/lookup/active_offender?date_of_birth=#{prisoner.date_of_birth}&noms_id=#{prisoner.number}")
             .to_return(body: { found: true, offender: { id: offender_id } }.to_json)
 
+        stub_request(:get, "#{ENV.fetch('VSIP_HOST')}/config/prisons/supported").to_return(body: {  }.to_json)
+
         switch_feature_flag_with(:public_prisons_with_slot_availability, [])
 
         allow_any_instance_of(VsipSupportedPrisons).to receive(:initialize)
