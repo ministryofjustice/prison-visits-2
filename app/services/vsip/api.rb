@@ -34,8 +34,8 @@ module Vsip
       slots = {}
       response.each do |session_json|
         session = OpenStruct.new(session_json)
-        slots["#{Time.zone.local(session.startTimestamp)
-          .strftime('%Y-%m-%dT%H:%M')}/#{Time.zone.local(session.endTimestamp).strftime('%H:%M')}"] = []
+        slots["#{Time.zone.parse(session.startTimestamp)
+          .strftime('%Y-%m-%dT%H:%M')}/#{Time.zone.parse(session.endTimestamp).strftime('%H:%M')}"] = []
       end
       slots
     rescue APIError => e
