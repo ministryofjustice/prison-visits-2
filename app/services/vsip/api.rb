@@ -29,23 +29,22 @@ module Vsip
 
     def visit_sessions(nomis_id, prisoner_number)
       response = @pool.with { |client|
-        client.get('visit-sessions', prisonId: nomis_id, prisonerId: prisoner_number )
+        client.get('visit-sessions', prisonId: nomis_id, prisonerId: prisoner_number)
       }
-      slots = Hash.new
+      slots = {}
       response.each do |session_json|
         session = OpenStruct.new(session_json)
-        slots["#{Time.new(session.startTimestamp).
-          strftime("%Y-%m-%dT%H:%M")}/#{Time.new(session.endTimestamp).strftime("%H:%M")}"] = []
+        slots["#{Time.zone.local(session.startTimestamp)
+          .strftime('%Y-%m-%dT%H:%M')}/#{Time.zone.local(session.endTimestamp).strftime('%H:%M')}"] = []
       end
       slots
-
     rescue APIError => e
       PVB::ExceptionHandler.capture_exception(e, fingerprint: %w[vsip api_error])
     end
 
   private
 
-    def mark_vsip_prisons prison_list
+    def mark_vsip_prisons(prison_list)
       mark_all_estates_as_not_vsip
       prison_list.each do |prison_id|
         Estate.where(nomis_id: prison_id).update(vsip_supported: true)

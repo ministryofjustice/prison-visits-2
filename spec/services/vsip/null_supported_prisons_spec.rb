@@ -8,9 +8,9 @@ RSpec.describe Vsip::NullSupportedPrisons do
     Singleton.__init__(described_class)
   end
 
-  context 'valid?' do
+  describe 'valid?' do
     it 'valid?' do
-      expect(described_class.new.valid?).to be_falsey
+      expect(described_class.new).not_to be_valid
     end
   end
 
@@ -20,13 +20,13 @@ RSpec.describe Vsip::NullSupportedPrisons do
   #   end
   # end
 
-  context 'api_call_successful?' do
+  describe 'api_call_successful?' do
     let(:null_supported_prisons) { described_class.new }
 
     it 'returns whether the api was successfully called' do
       null_supported_prisons.api_call_successful = false
 
-      expect(null_supported_prisons.api_call_successful?).to be_falsey
+      expect(null_supported_prisons).not_to be_api_call_successful
     end
   end
 end

@@ -6,7 +6,6 @@ class DummyVSiPReturn
   end
 end
 
-
 RSpec.describe Vsip::Client do
   subject { described_class.new(api_host) }
 
@@ -101,7 +100,7 @@ RSpec.describe Vsip::Client do
 
   describe 'param options' do
     it 'return params if not empty' do
-      expect(Vsip::Client.new(Rails.configuration.vsip_host).send(:params_options, :method, :params)).to eq({:query=>:params})
+      expect(described_class.new(Rails.configuration.vsip_host).send(:params_options, :method, :params)).to eq({ query: :params })
     end
   end
 end

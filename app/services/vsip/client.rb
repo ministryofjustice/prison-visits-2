@@ -46,7 +46,7 @@ module Vsip
   private
 
     def request(method, route, params, idempotent:, options: {})
-      path = "#{route}"
+      path = route.to_s
 
       api_method = "#{method.to_s.upcase} #{path}"
 

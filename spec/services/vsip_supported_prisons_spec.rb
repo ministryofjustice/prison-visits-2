@@ -10,7 +10,7 @@ RSpec.describe VsipSupportedPrisons do
     Singleton.__init__(described_class)
   end
 
-  context 'initialize' do
+  describe 'initialize' do
     context 'when vsip host set' do
       before do
         allow(Vsip::Api).to receive(:enabled?).and_return(true)

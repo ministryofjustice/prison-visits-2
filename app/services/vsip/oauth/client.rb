@@ -32,7 +32,7 @@ module Vsip
         JSON.parse(response.body)
       end
 
-      private
+    private
 
       def authorisation
         "Basic #{credentials}"
