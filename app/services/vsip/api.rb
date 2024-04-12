@@ -27,6 +27,22 @@ module Vsip
       PVB::ExceptionHandler.capture_exception(e, fingerprint: %w[vsip api_error])
     end
 
+    def visit_sessions(nomis_id, prisoner_number)
+      response = @pool.with { |client|
+        client.get('visit-sessions', prisonId: nomis_id, prisonerId: prisoner_number )
+      }
+      slots = Hash.new
+      response.each do |session_json|
+        session = OpenStruct.new(session_json)
+        slots["#{Time.new(session.startTimestamp).
+          strftime("%Y-%m-%dT%H:%M")}/#{Time.new(session.endTimestamp).strftime("%H:%M")}"] = []
+      end
+      slots
+
+    rescue APIError => e
+      PVB::ExceptionHandler.capture_exception(e, fingerprint: %w[vsip api_error])
+    end
+
   private
 
     def mark_vsip_prisons prison_list

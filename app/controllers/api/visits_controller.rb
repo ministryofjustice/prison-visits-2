@@ -12,7 +12,7 @@ module Api
       # validation on this API call properly
       fail_if_invalid('prisoner', prisoner_step)
       fail_if_invalid('visitors', visitors_step)
-      fail_if_invalid('slot_options', slots_step)
+      fail_if_invalid('slot_options', slots_step) unless Prison.find(params[:prison_id]).estate.vsip_supported
 
       @visit = BookingRequestCreator.new.create!(
         prisoner_step, visitors_step, slots_step, I18n.locale
