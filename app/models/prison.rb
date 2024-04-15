@@ -28,7 +28,7 @@ class Prison < ApplicationRecord
   # This method represents the 'fallback position' i.e. the slots to use if the API is unavailable
   def available_slots(today = Time.zone.today, vsip_slots: {})
     # get and set Vsip supported prisons
-    if estate.vsip_supported
+    if !estate.nil? && estate.vsip_supported
       vsip_slots
     elsif auto_slots_enabled?
       nomis_concrete_slots.order(:date)

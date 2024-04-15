@@ -5,7 +5,8 @@ RSpec.describe SlotsStep, type: :model do
     subject(:instance) { described_class.new(prison:) }
 
     let(:slot) { ConcreteSlot.new(2015, 1, 2, 9, 0, 10, 0) }
-    let(:prison) { double(Prison, available_slots: [slot]) }
+    let(:estate) { double(Estate, vsip_supported: false)  }
+    let(:prison) { double(Prison, available_slots: [slot], estate: estate) }
 
     describe 'option_0' do
       it 'is valid if the slot exists' do

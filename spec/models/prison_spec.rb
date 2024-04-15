@@ -48,7 +48,8 @@ RSpec.describe Prison, type: :model do
                  build(:nomis_concrete_slot, date: Date.new(2015, 10, 15), start_hour: 10, start_minute: 3, end_hour: 11, end_minute: 0),
                  build(:nomis_concrete_slot, date: Date.new(2015, 10, 7), start_hour: 10, start_minute: 3, end_hour: 11, end_minute: 0),
                  build(:nomis_concrete_slot, date: Date.new(2015, 10, 1), start_hour: 10, start_minute: 3, end_hour: 11, end_minute: 0)
-               ]).tap do |prison|
+               ],
+               estate: create(:estate, vsip_supported: false)).tap do |prison|
           switch_feature_flag_with(:public_prisons_with_slot_availability, [prison.name])
         end
       }
@@ -82,6 +83,18 @@ RSpec.describe Prison, type: :model do
           }
         }
         subject.booking_window = 10
+        create(:prison,
+               slot_details:
+                 { 'unbookable' => ['2015-10-15'] },
+               nomis_concrete_slots: [
+                 build(:nomis_concrete_slot, date: Date.new(2014, 10, 7), start_hour: 10, start_minute: 3, end_hour: 11, end_minute: 0),
+                 build(:nomis_concrete_slot, date: Date.new(2015, 10, 14), start_hour: 10, start_minute: 3, end_hour: 11, end_minute: 0),
+                 build(:nomis_concrete_slot, date: Date.new(2015, 10, 15), start_hour: 10, start_minute: 3, end_hour: 11, end_minute: 0),
+                 build(:nomis_concrete_slot, date: Date.new(2015, 10, 7), start_hour: 10, start_minute: 3, end_hour: 11, end_minute: 0),
+                 build(:nomis_concrete_slot, date: Date.new(2015, 10, 1), start_hour: 10, start_minute: 3, end_hour: 11, end_minute: 0)
+               ]).tap do |prison|
+          switch_feature_flag_with(:public_prisons_with_slot_availability, [prison.name])
+        end
       end
 
       it 'enumerates available slots within booking window starting after lead time' do
