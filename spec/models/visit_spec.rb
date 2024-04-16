@@ -371,4 +371,16 @@ RSpec.describe Visit, type: :model do
       end
     end
   end
+
+  describe 'date' do
+    let(:visit) { create :visit }
+
+    before do
+      allow_any_instance_of(described_class).to receive(:slot_granted).and_return(OpenStruct.new(begin_at: :begin_at))
+    end
+
+    it 'returns slot_granted.begin_at' do
+      expect(visit.date).to eq(:begin_at)
+    end
+  end
 end

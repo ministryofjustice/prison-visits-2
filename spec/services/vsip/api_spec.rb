@@ -60,4 +60,35 @@ RSpec.describe Vsip::Api do
       expect { described_class.instance.supported_prisons }.to raise_error(Vsip::APIError)
     end
   end
+
+  describe 'visit_sessions' do
+    let(:session_start) { Time.zone.now.to_s }
+    let(:session_end) { (Time.zone.now + 1.hour).to_s }
+    let(:expected) {
+      { "#{Time.zone.parse(session_start)
+              .strftime('%Y-%m-%dT%H:%M')}/#{Time.zone.parse(session_end).strftime('%H:%M')}" => []
+      }
+    }
+
+    context 'when retrieves VSIP sessions' do
+      before do
+        allow_any_instance_of(Vsip::Client).to receive(:get).and_return(
+          [{ startTimestamp: session_start, endTimestamp: session_end }])
+      end
+
+      it 'retrieves VSiP sessions' do
+        expect(subject.visit_sessions(1, 1)).to eq(expected)
+      end
+    end
+
+    context 'when there is an api error' do
+      before do
+        allow_any_instance_of(Vsip::Client).to receive(:get).and_raise(Vsip::APIError)
+      end
+
+      it 'retrieves VSiP sessions' do
+        expect { described_class.instance.visit_sessions(1, 1) }.to raise_error(Vsip::APIError)
+      end
+    end
+  end
 end

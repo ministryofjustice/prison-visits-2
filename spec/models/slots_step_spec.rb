@@ -6,7 +6,7 @@ RSpec.describe SlotsStep, type: :model do
 
     let(:slot) { ConcreteSlot.new(2015, 1, 2, 9, 0, 10, 0) }
     let(:estate) { double(Estate, vsip_supported: false)  }
-    let(:prison) { double(Prison, available_slots: [slot], estate: estate) }
+    let(:prison) { double(Prison, available_slots: [slot], estate:) }
 
     describe 'option_0' do
       it 'is valid if the slot exists' do
@@ -78,6 +78,25 @@ RSpec.describe SlotsStep, type: :model do
       end
 
       it { is_expected.to eq [ConcreteSlot.parse(option)] }
+    end
+  end
+
+  describe 'validation of vsip options' do
+    subject(:instance) { described_class.new(prison:) }
+
+    let(:estate) { double(Estate, vsip_supported: true)  }
+    let(:prison) { double(Prison, available_slots: ['slot1'], estate:) }
+
+    it 'validates gainst vsip slots' do
+      subject.option_0 = 'slot1'
+      subject.validate
+      expect(subject.errors).to be_truthy
+    end
+
+    it 'does not validate gainst vsip slots' do
+      subject.option_0 = 'slot0'
+      subject.validate
+      expect(subject.errors).to have_key(:option_0)
     end
   end
 end

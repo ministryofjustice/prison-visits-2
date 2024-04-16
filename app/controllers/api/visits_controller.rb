@@ -17,7 +17,7 @@ module Api
       # validation on this API call properly
       fail_if_invalid('prisoner', prisoner_step)
       fail_if_invalid('visitors', visitors_step)
-      fail_if_invalid('slot_options', slots_step, vsip_slots: @vsip_slots)
+      fail_if_invalid('slot_options', slots_step)
 
       @visit = BookingRequestCreator.new.create!(
         prisoner_step, visitors_step, slots_step, I18n.locale
@@ -77,7 +77,7 @@ module Api
                  end
     end
 
-    def fail_if_invalid(param, step, _vsip_steps = nil)
+    def fail_if_invalid(param, step)
       unless step.valid?
         fail ParameterError,
              "#{param} (#{step.errors.full_messages.join(', ')})"

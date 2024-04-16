@@ -37,6 +37,14 @@ RSpec.describe Prison, type: :model do
   describe '#available_slots' do
     let(:today) { Date.new(2015, 10, 1) } # Thursday
 
+    context 'with vsip slots' do
+      let(:prison) { create(:prison, estate: create(:estate, vsip_supported: true)) }
+
+      it 'returns slots from vsip' do
+        expect(prison.available_slots(today, vsip_slots: :passed_in_slots)).to eq(:passed_in_slots)
+      end
+    end
+
     context 'with auto_slots_enabled' do
       let(:prison) {
         create(:prison,
