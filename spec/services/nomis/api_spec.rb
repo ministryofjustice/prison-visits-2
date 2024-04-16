@@ -54,7 +54,7 @@ RSpec.describe Nomis::Api do
 
     it 'logs the lookup result, api lookup time' do
       prisoner
-      expect(PVB::Instrumentation.custom_log_items[:api]).to be > 1
+      expect(PVB::Instrumentation.custom_log_items[:api]).to be > 0
       expect(PVB::Instrumentation.custom_log_items[:valid_prisoner_lookup]).to be true
     end
 

@@ -139,6 +139,8 @@ RSpec.describe Nomis::Client do
             iss: 'http://localhost:9090/auth/issuer'
           }.to_json
         )
+
+      allow_any_instance_of(Nomis::Oauth::Token).to receive(:expired?).and_return(true)
     end
 
     after do
