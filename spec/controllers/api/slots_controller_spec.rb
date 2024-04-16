@@ -40,7 +40,8 @@ RSpec.describe Api::SlotsController do
                          build(:nomis_concrete_slot, date: Date.new(2016, 2, 15), start_hour: 13, start_minute: 30, end_hour: 14, end_minute: 30),
                          build(:nomis_concrete_slot, date: Date.new(2016, 3, 2), start_hour: 13, start_minute: 30, end_hour: 14, end_minute: 30),
                          build(:nomis_concrete_slot, date: Date.new(2016, 3, 3), start_hour: 13, start_minute: 30, end_hour: 14, end_minute: 30)
-                       ]).tap { |prison|
+                       ],
+                 estate: create(:estate, vsip_supported: false)).tap { |prison|
             switch_feature_flag_with(:public_prisons_with_slot_availability, [prison.name])
           }
         }
@@ -62,6 +63,7 @@ RSpec.describe Api::SlotsController do
           switch_feature_flag_with(:public_prisons_with_slot_availability, [prison.name])
 
           allow_any_instance_of(VsipSupportedPrisons).to receive(:initialize)
+          allow_any_instance_of(Vsip::Api).to receive(:supported_prisons)
         end
 
         it 'returns the list of slots with their availabilities' do
