@@ -17,3 +17,4 @@ There are 3 environment variables which control the api presented by VSiP, detai
 - `VSIP_OAUTH_CLIENT_ID`
 - `VSIP_OAUTH_CLIENT_SECRET`
 - `VSIP_HOST`
+
