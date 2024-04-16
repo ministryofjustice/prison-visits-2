@@ -100,6 +100,17 @@ If specified, exceptions will be sent to the given Sentry project.
 
 If specified, Javascript exceptions will be sent to the given Sentry project.
 
+### `VSIP_OAUTH_CLIENT_ID`
+
+Client ID to be used for grant_type, client_credentials for oauth2 authorisation against the VSiP orchestration api end points.
+
+### `VSIP_OAUTH_CLIENT_SECRET`
+
+Client Secret to be used for grant_type, client_credentials for oauth2 authorisation against the VSiP orchestration api end points.
+
+### `VSIP_HOST`
+
+Host for the VSiP orchestration endpoint.
 
 ### Files to be created on deployment
 
