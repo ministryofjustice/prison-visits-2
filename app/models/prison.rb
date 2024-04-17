@@ -32,10 +32,10 @@ class Prison < ApplicationRecord
       vsip_slots
     elsif auto_slots_enabled?
       nomis_concrete_slots.order(:date)
-          .where('date >= ?', first_bookable_date(today))
-          .where('date <= ?', last_bookable_date(today))
-          .reject { |cs| unbookable_dates.include?(cs.date) }
-          .map do |ncs|
+        .where('date >= ?', first_bookable_date(today))
+        .where('date <= ?', last_bookable_date(today))
+        .reject { |cs| unbookable_dates.include?(cs.date) }
+        .map do |ncs|
         ConcreteSlot.new(ncs.date.year, ncs.date.month, ncs.date.day, ncs.start_hour, ncs.start_minute, ncs.end_hour, ncs.end_minute)
       end
     else
