@@ -139,14 +139,14 @@ RSpec.describe Api::SlotsController do
 
         it 'returns the list of slots with their availabilities' do
           get(:index, params:)
-          expect(parsed_body).to eq({"slots"=>{}})
+          expect(parsed_body).to eq({ "slots" => {} })
         end
       end
 
       context 'with one sessions' do
         let(:prison) { create(:prison, estate: create(:estate, vsip_supported: true)) }
-        let(:first_session_start) { Time.zone.now + (Random.rand(30)).days }
-        let(:second_session_start) { Time.zone.now + (Random.rand(30)).days }
+        let(:first_session_start) { Time.zone.now + Random.rand(30).days }
+        let(:second_session_start) { Time.zone.now + Random.rand(30).days }
         let(:expected_slots) {
           {
             create_slot(first_session_start) => [],
@@ -166,8 +166,8 @@ RSpec.describe Api::SlotsController do
 
       context 'with multiple sessions' do
         let(:prison) { create(:prison, estate: create(:estate, vsip_supported: true)) }
-        let(:first_session_start) { Time.zone.now + (Random.rand(30)).days }
-        let(:second_session_start) { Time.zone.now + (Random.rand(30)).days }
+        let(:first_session_start) { Time.zone.now + Random.rand(30).days }
+        let(:second_session_start) { Time.zone.now + Random.rand(30).days }
         let(:expected_slots) {
           {
             create_slot(first_session_start) => [],
