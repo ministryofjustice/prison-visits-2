@@ -109,7 +109,7 @@ RSpec.describe Api::SlotsController do
     end
   end
 
-  describe 'with vsip slotsslots' do
+  describe 'with vsip slots' do
     let(:parsed_body) { JSON.parse(response.body) }
     let(:prisoner)    { create(:prisoner) }
 
@@ -129,24 +129,67 @@ RSpec.describe Api::SlotsController do
         stub_auth_token
       end
 
-      context 'with auto slots enabled' do
-        let(:prison) {
-          create(:prison,
-                 estate: create(:estate, vsip_supported: true)).tap { |prison|
-            switch_feature_flag_with(:public_prisons_with_slot_availability, [prison.name])
+      context 'with no sessions' do
+        let(:prison) { create(:prison, estate: create(:estate, vsip_supported: true)) }
+
+        before do
+          allow_any_instance_of(VsipSupportedPrisons).to receive(:supported_prisons)
+          allow(VsipVisitSessions).to receive(:get_sessions).and_return({})
+        end
+
+        it 'returns the list of slots with their availabilities' do
+          get(:index, params:)
+          expect(parsed_body).to eq({"slots"=>{}})
+        end
+      end
+
+      context 'with one sessions' do
+        let(:prison) { create(:prison, estate: create(:estate, vsip_supported: true)) }
+        let(:first_session_start) { Time.zone.now + (Random.rand(30)).days }
+        let(:second_session_start) { Time.zone.now + (Random.rand(30)).days }
+        let(:expected_slots) {
+          {
+            create_slot(first_session_start) => [],
           }
         }
 
         before do
           allow_any_instance_of(VsipSupportedPrisons).to receive(:supported_prisons)
-          allow(VsipVisitSessions).to receive(:get_sessions).and_return({ "slot1" => [] })
+          allow(VsipVisitSessions).to receive(:get_sessions).and_return(expected_slots)
         end
 
         it 'returns the list of slots with their availabilities' do
           get(:index, params:)
-          expect(parsed_body).to eq({ "slots" => { "slot1" => [] } })
+          expect(parsed_body).to eq({ "slots" => expected_slots })
+        end
+      end
+
+      context 'with multiple sessions' do
+        let(:prison) { create(:prison, estate: create(:estate, vsip_supported: true)) }
+        let(:first_session_start) { Time.zone.now + (Random.rand(30)).days }
+        let(:second_session_start) { Time.zone.now + (Random.rand(30)).days }
+        let(:expected_slots) {
+          {
+            create_slot(first_session_start) => [],
+            create_slot(second_session_start) => []
+          }
+        }
+
+        before do
+          allow_any_instance_of(VsipSupportedPrisons).to receive(:supported_prisons)
+          allow(VsipVisitSessions).to receive(:get_sessions).and_return(expected_slots)
+        end
+
+        it 'returns the list of slots with their availabilities' do
+          get(:index, params:)
+          expect(parsed_body).to eq({ "slots" => expected_slots })
         end
       end
     end
   end
+end
+
+def create_slot(start_time)
+  "#{Time.zone.parse(start_time.to_s)
+         .strftime('%Y-%m-%dT%H:%M')}/#{Time.zone.parse((start_time + 1.hour).to_s).strftime('%H:%M')}"
 end
