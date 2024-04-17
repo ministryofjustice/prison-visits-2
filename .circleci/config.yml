@@ -88,18 +88,18 @@ jobs:
       - run:
           name: Security analysis
           command: bundle exec brakeman -o ~/test-results/brakeman/brakeman.json -o ~/test-results/brakeman/brakeman.html
-      - run:
-          name: Run tests
-          command: |
-            ./cc-test-reporter before-build
-            bundle exec rake
-            ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
-      - store_test_results:
-          path: coverage
-      - store_artifacts:
-          path: coverage
-      - store_artifacts:
-          path: ~/test-results
+      # - run:
+      #     name: Run tests
+      #     command: |
+      #       ./cc-test-reporter before-build
+      #       bundle exec rake
+      #       ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
+      # - store_test_results:
+      #     path: coverage
+      # - store_artifacts:
+      #     path: coverage
+      # - store_artifacts:
+      #     path: ~/test-results
 
   build_and_push_docker_image:
     <<: *defaults

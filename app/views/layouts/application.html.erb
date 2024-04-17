@@ -48,31 +48,29 @@
   <![endif]-->
 
   <main id="content">
-    <p class="phase-banner push-top--half push--none font-xsmall">
-      <%= t('.contact_banner_html', url: new_prison_feedback_path) %>
-    </p>
-    <%= yield :banner %>
-    <%= yield :navigation %>
-    <% if content_for?(:header) %>
-      <header>
-        <h1 class="heading-large">
-          <%= yield :header %>
-        </h1>
-      </header>
-    <% end %>
-    <% if notice.present? %>
-      <p class="notification">
-        <%= notice %>
-      </p>
-    <% end %>
-    <% if alert.present? %>
-      <div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
-        <%= alert.html_safe %>
+    <div class="govuk-width-container">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <br><br>
+          <h1 class="govuk-heading-l">Sorry, the service is unavailable</h1>
+          <p class="govuk-body">
+            You will not be able to use the service on Wednesday 17 April 2024.
+          </p>
+          <p class="govuk-body">
+            This is due to scheduled maintenance. 
+          </p>
+          <p class="govuk-body">
+            You may receive more phone calls than usual as visitors will not be able to submit online requests for visits. 
+          </p>
+          <p class="govuk-body">
+            The service will be available again on Thursday 18 April 2024.
+          </p>
+          <p class="govuk-body">
+            You can <a class="govuk-link" href="https://digital.prison.service.justice.gov.uk/">use other services on Digital Prison Services.</a>
+          </p>
+        </div>
       </div>
-    <% end %>
-    <%= yield :prison_switcher %>
-    <%= yield %>
-
+    </div>
   </main>
 <% end %>
 
