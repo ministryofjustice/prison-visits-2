@@ -8,7 +8,7 @@ namespace :reporting do
     visit_ids = Visit.where(prison_id: prison_code, processing_state: 'booked', created_at: start..finish).pluck(:id)
     visit_ids.each do |vid|
       Visit.where(id: vid).pluck(:prisoner_id)
-      puts Visit.select(:prison_id, :id, :contact_email_address, :contact_phone_no, :prisoner_id).where(id: vid)
+      puts Visit.select(:id, :contact_email_address, :contact_phone_no, :prisoner_id).where(id: vid)
       puts Prisoner.select(:id, :nomis_offender_id)
       puts Visitor.select(:visit_id, :first_name, :last_name).where(visit_id: vid)
     end
