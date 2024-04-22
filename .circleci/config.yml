@@ -42,6 +42,7 @@ references:
 version: 2.1
 
 orbs:
+  hmpps: ministryofjustice/hmpps@8
   aws-cli: circleci/aws-cli@4.0.0
   aws-ecr: circleci/aws-ecr@8.2.1 # this orb doesn't support OIDC v2, so we use aws-cli to authenticate
 
@@ -116,112 +117,46 @@ jobs:
           region: $ECR_REGION
       - run: |
           aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
+      - hmpps/create_app_version
       - run:
           name: Setup, tag and push docker image
           command: |
-            echo 'export DOCKER_TAGS=$CIRCLE_SHA1' >> $BASH_ENV
-            docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:${CIRCLE_SHA1}"
-            if [ "${CIRCLE_BRANCH}" == "main" ]; then
-              echo 'export DOCKER_TAGS=${DOCKER_TAGS},latest' >> $BASH_ENV
-              docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:latest"
-            fi
+            echo 'export DOCKER_TAGS=$APP_VERSION' >> $BASH_ENV
+            docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:${APP_VERSION}"
             source $BASH_ENV
       - aws-ecr/push-image:
           tag: $DOCKER_TAGS
           region: $ECR_REGION
           repo: $ECR_REPOSITORY
 
-  deploy_development:
-    <<: *deploy_container_config
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/prison-visits-staff
-      - run:
-          name: Kubectl deployment development setup
-          command: |
-            echo -n $KUBE_ENV_DEVELOPMENT_CACERT | base64 -d > ./ca.crt
-            kubectl config set-cluster $KUBE_ENV_DEVELOPMENT_NAME --certificate-authority=./ca.crt --server=$KUBE_ENV_DEVELOPMENT_NAME
-            kubectl config set-credentials circleci --token=$KUBE_ENV_DEVELOPMENT_TOKEN
-            kubectl config set-context $KUBE_ENV_DEVELOPMENT_NAME --cluster=$KUBE_ENV_DEVELOPMENT_NAME --user=circleci --namespace=$KUBE_ENV_DEVELOPMENT_NAMESPACE
-            kubectl config use-context $KUBE_ENV_DEVELOPMENT_NAME
-      - deploy:
-          name: Deploy to development
-          command: |
-            kubectl delete job pvb-staff-migration-dev --ignore-not-found
-            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/development/deployment.yaml
-            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/development/cronjob.yaml
-            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/development/migration-job.yaml
-            kubectl apply --record=false -f ./deploy/development
-          environment:
-            <<: *github_team_name_slug
-
-  deploy_staging:
-    <<: *deploy_container_config
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/prison-visits-staff
-      - run:
-          name: Kubectl deployment staging setup
-          command: |
-            echo -n ${KUBE_ENV_STAGING_CACERT_LIVE} | base64 -d > ./ca.crt
-            kubectl config set-cluster ${CLUSTER_NAME_LIVE} --certificate-authority=./ca.crt --server=https://${CLUSTER_NAME_LIVE}
-            kubectl config set-credentials circleci --token=${KUBE_ENV_STAGING_TOKEN_LIVE}
-            kubectl config set-context ${CLUSTER_NAME_LIVE} --cluster=${CLUSTER_NAME_LIVE} --user=circleci --namespace=${KUBE_ENV_STAGING_NAMESPACE}
-            kubectl config use-context ${CLUSTER_NAME_LIVE}
-      - deploy:
-          name: Deploy to staging
-          command: |
-            kubectl delete job pvb-staff-migration --ignore-not-found
-            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/deployment.yaml
-            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/cronjob.yaml
-            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/migration-job.yaml
-            kubectl apply --record=false -f ./deploy/staging
-          environment:
-            <<: *github_team_name_slug
-
-  deploy_production:
-    <<: *deploy_container_config
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: Kubectl deployment production setup
-          command: |
-            echo -n ${KUBE_ENV_PRODUCTION_CACERT_LIVE} | base64 -d > ./ca.crt
-            kubectl config set-cluster ${CLUSTER_NAME_LIVE} --certificate-authority=./ca.crt --server=https://${CLUSTER_NAME_LIVE}
-            kubectl config set-credentials circleci --token=${KUBE_ENV_PRODUCTION_TOKEN_LIVE}
-            kubectl config set-context ${CLUSTER_NAME_LIVE} --cluster=${CLUSTER_NAME_LIVE} --user=circleci --namespace=${KUBE_ENV_PRODUCTION_NAMESPACE}
-            kubectl config use-context ${CLUSTER_NAME_LIVE}
-      - deploy:
-          name: Deploy to production
-          command: |
-            kubectl delete job pvb-staff-migration-prod --ignore-not-found
-            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/cronjob.yaml
-            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/deployment.yaml
-            sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/production/migration-job.yaml
-            kubectl apply --record=false -f ./deploy/production
-          environment:
-            <<: *github_team_name_slug
-
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - test
+      - hmpps/helm_lint:
+          name: helm_lint
       - build_and_push_docker_image:
           requires:
-            - test
-      - deploy_development:
+            - helm_lint
+      - hmpps/deploy_env:
+          name: deploy_dev
+          context:
+            - hmpps-common-vars
+            - prison-visits-booking-dev
+          env: dev
           requires:
+            - helm_lint
             - build_and_push_docker_image
       - request-staging-approval:
-            type: approval
-            requires:
-              - deploy_development
-      - deploy_staging:
+          type: approval
+          requires:
+            - deploy_dev
+      - hmpps/deploy_env:
+          name: deploy_staging
+          context:
+            - hmpps-common-vars
+            - prison-visits-booking-staging
+          env: staging
           requires:
             - request-staging-approval
       - deploy_production_approval:
@@ -231,7 +166,12 @@ workflows:
           filters:
             branches:
               only: main
-      - deploy_production:
+      - hmpps/deploy_env:
+          name: deploy_production
+          context:
+            - hmpps-common-vars
+            - prison-visits-booking-production
+          env: production
           requires:
             - deploy_production_approval
           filters:
