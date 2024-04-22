@@ -1,11 +1,10 @@
 namespace :reporting do
   desc 'Visit reporting script'
-  task visit_and_visitors: :environment do
+  task foston_hall: :environment do
     start = '2024-01-01'
     finish = '2024-02-29'
-    prison_code = Prison.select(:id).where(name: 'Drake Hall')
-    # prison_code = Prison.select(:id).where(name: 'Foston Hall')
-    puts 'drake hall'
+    prison_code = Prison.select(:id).where(name: 'Foston Hall')
+    puts 'foston hall'
     visit_ids = Visit.where(prison_id: prison_code, processing_state: 'booked', created_at: start..finish).pluck(:id)
     visit_ids.each do |vid|
       Visit.where(id: vid).pluck(:prisoner_id)
