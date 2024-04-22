@@ -21,3 +21,5 @@
 .idea/
 *.tmproj
 .vscode/
+
+helm_deploy/prison-visits-2/Chart.lock

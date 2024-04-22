@@ -17,6 +17,7 @@
 
 node_modules/
 helm_deploy/prison-visits-2/charts/
+helm_deploy/prison-visits-2/Chart.lock
 
 .transifexrc
 *.DS_Store

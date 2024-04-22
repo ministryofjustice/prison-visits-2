@@ -42,7 +42,7 @@ references:
 version: 2.1
 
 orbs:
-  hmpps: ministryofjustice/hmpps@8.0.3
+  hmpps: ministryofjustice/hmpps@8
   aws-cli: circleci/aws-cli@4.0.0
   aws-ecr: circleci/aws-ecr@8.2.1 # this orb doesn't support OIDC v2, so we use aws-cli to authenticate
 
