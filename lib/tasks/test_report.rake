@@ -1,10 +1,10 @@
 namespace :reporting do
   desc 'Print monthly reporting figures'
   task monthly_reporting: :environment do
-    # start_date = '2023-11-01'
-    # yesterday_date = '2023-11-31'
-    start_date = 1.month.ago.to_date
-    yesterday_date = 1.day.ago.to_date
+    start_date = '2024-03-01'
+    yesterday_date = '2024-03-31'
+    # start_date = 1.month.ago.to_date
+    # yesterday_date = 1.day.ago.to_date
     prisons = Prison.where(enabled: true)
     prisons.each do |prison|
       puts prison.id

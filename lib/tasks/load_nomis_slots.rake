@@ -1,7 +1,7 @@
 namespace :pvb do
   desc 'load the backup nomis slots from NOMIS API'
   task load_nomis_slots: :environment do
-    Prison.where(name: Rails.configuration.public_prisons_with_slot_availability).each do |prison|
+    Prison.where(name: Rails.configuration.public_prisons_with_slot_availability).find_each do |prison|
       prison.nomis_concrete_slots.clear
       ApiSlotAvailability.new(prison:, use_nomis_slots: true).slots.each do |slot|
         prison.nomis_concrete_slots.create!(date: slot.to_date,

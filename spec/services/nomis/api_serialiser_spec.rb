@@ -14,11 +14,11 @@ RSpec.describe Nomis::ApiSerialiser do
 
   subject { model.new(payload) }
 
-  it 'will serialise a payload with unknown attributes', :expect_exception do
+  it 'serialises a payload with unknown attributes', :expect_exception do
     expect(described_class.new.serialise(memory_model_class, payload)).to have_attributes foo: 'bar'
   end
 
-  it 'will raise an error in dev or tests mode' do
+  it 'raises an error in dev or tests mode' do
     expect {
       described_class.new.serialise(memory_model_class, payload)
     }.to raise_error(Nomis::Error::UnhandledApiField)
