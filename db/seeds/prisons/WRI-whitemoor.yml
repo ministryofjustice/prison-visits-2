@@ -6,22 +6,20 @@ address: |-
   March
   Cambridgeshire
 postcode: PE15 0PR
-email_address: socialvisits.whitemoor@hmps.gsi.gov.uk
-phone_no: 01354 602800
+email_address: socialvisits.whitemoor@justice.gov.uk
+phone_no: 01354 602 800
 enabled: false
 private: false
 closed: false
-booking_window: 28
-lead_days: 3
 recurring:
-  thu:
-  - 1345-1605
   wed:
-  - 1345-1605
+  - 1400-1600
+  thu:
+  - 1400-1600
   sat:
-  - 1345-1550
+  - 1400-1600
   sun:
-  - 1345-1550
+  - 1400-1600
 unbookable:
 - 2018-12-20
 - 2022-06-02
