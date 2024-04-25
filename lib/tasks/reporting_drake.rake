@@ -12,7 +12,7 @@ namespace :reporting do
       visitors = Visitor.where(visit_id: vid)
       textLine = "#{selectedVisit[0].contact_email_address}, #{selectedVisit[0].contact_phone_no}, #{prisoner[0].first_name} #{prisoner[0].last_name},"
       visitors.each do |visitor|
-        textLine = textLine + "#{visitor.first_name} #{visitor.last_name},"
+        textLine += "#{visitor.first_name} #{visitor.last_name},"
       end
       puts textLine
     end

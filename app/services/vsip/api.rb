@@ -29,13 +29,16 @@ module Vsip
 
     def visit_sessions(nomis_id, prisoner_number)
       response = @pool.with { |client|
-        client.get('visit-sessions', prisonId: nomis_id, prisonerId: prisoner_number)
+        client.get('visit-sessions/available', prisonId: nomis_id, prisonerId: prisoner_number,
+                                               visitRestriction: 'OPEN')
       }
       slots = {}
       response.each do |session_json|
         session = OpenStruct.new(session_json)
-        slots["#{Time.zone.parse(session.startTimestamp)
-          .strftime('%Y-%m-%dT%H:%M')}/#{Time.zone.parse(session.endTimestamp).strftime('%H:%M')}"] = []
+        slots["#{Date.parse(session.sessionDate).strftime('%Y-%m-%d')}T" +
+                Time.zone.parse(session.sessionTimeSlot['startTime']).strftime('%H:%M').to_s +
+                Time.zone.parse(session.sessionTimeSlot['endTime']).strftime('/%H:%M').to_s
+        ] = []
       end
       slots
     rescue APIError => e

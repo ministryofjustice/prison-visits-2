@@ -62,18 +62,18 @@ RSpec.describe Vsip::Api do
   end
 
   describe 'visit_sessions' do
-    let(:session_start) { Time.zone.now.to_s }
-    let(:session_end) { (Time.zone.now + 1.hour).to_s }
+    let(:session_date) { Date.today.to_s }
+    let(:start_time) { (Time.zone.now + 1.hour).strftime('%H:%M').to_s }
+    let(:end_time) { (Time.zone.now + 1.hour).strftime('%H:%M').to_s }
     let(:expected) {
-      { "#{Time.zone.parse(session_start)
-              .strftime('%Y-%m-%dT%H:%M')}/#{Time.zone.parse(session_end).strftime('%H:%M')}" => []
-      }
+      { "#{Date.parse(session_date).strftime('%Y-%m-%d')}T#{start_time}/#{end_time}" => [] }
     }
 
     context 'when retrieves VSIP sessions' do
       before do
         allow_any_instance_of(Vsip::Client).to receive(:get).and_return(
-          [{ startTimestamp: session_start, endTimestamp: session_end }])
+          [{ sessionDate: session_date,
+             sessionTimeSlot: { 'startTime' => start_time, 'endTime' => end_time }}])
       end
 
       it 'retrieves VSiP sessions' do
