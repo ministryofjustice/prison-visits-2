@@ -133,11 +133,13 @@ workflows:
   version: 2
   build_and_test:
     jobs:
+      - test
       - hmpps/helm_lint:
           name: helm_lint
       - build_and_push_docker_image:
           requires:
             - helm_lint
+            - test
       - hmpps/deploy_env:
           name: deploy_dev
           context:
