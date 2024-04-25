@@ -48,6 +48,7 @@ generic-service:
   allowlist:
     groups:
       - internal
+      - prisons
 
 generic-prometheus-alerts:
   targetApplication: prison-visits-booking-staff
