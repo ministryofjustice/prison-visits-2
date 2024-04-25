@@ -8,7 +8,7 @@ address: |-
 postcode: PE15 0PR
 email_address: socialvisits.whitemoor@justice.gov.uk
 phone_no: 01354 602 800
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:
