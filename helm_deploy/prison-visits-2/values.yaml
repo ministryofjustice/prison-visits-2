@@ -1,0 +1,53 @@
+generic-service:
+  image:
+    repository: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff
+    pullPolicy: IfNotPresent
+    port: 3000
+
+  containerCommand: ["sh", "-c", "bundle exec puma -p 3000 -C ./config/puma_prod.rb --pidfile /tmp/server.pid"]
+
+  fullnameOverride: "prison-visits-booking-staff"
+
+  service:
+    enabled: true
+    type: ClusterIP
+    port: 3000
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 20%
+
+  ingress:
+    enabled: true
+    tlsSecretName: prison-visits-booking-cert
+
+  livenessProbe:
+    httpGet:
+      path: /ping
+      port: 3000
+
+  readinessProbe:
+    httpGet:
+      path: /ping
+      port: 3000
+
+  custommetrics:
+    enabled: true
+    scrapeInterval: 15s
+    metricsPath: /metrics
+    metricsPort: 9394
+
+  envFrom:
+    - configMapRef:
+        name: shared-environment
+    - secretRef:
+        name: secrets
+
+  allowlist:
+    groups:
+      - internal
+
+generic-prometheus-alerts:
+  targetApplication: prison-visits-booking-staff

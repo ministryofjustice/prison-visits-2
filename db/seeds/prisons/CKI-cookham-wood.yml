@@ -14,6 +14,8 @@ recurring:
   - 1430-1600
   thu:
   - 1430-1600
+  sat:
+  - 1430-1600
   sun:
   - 1430-1600
 unbookable:
