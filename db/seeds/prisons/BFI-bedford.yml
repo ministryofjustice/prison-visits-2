@@ -4,29 +4,29 @@ nomis_id: BFI
 address: |-
   St. Loyes Street
 postcode: MK40 1HG
-email_address: socialvisits.bedford@hmps.gsi.gov.uk
-phone_no: 01234 373196
+email_address: socialvisits.bedford@justice.gov.uk
+phone_no: 0345 646 2277
 enabled: false
 private: false
 closed: false
-booking_window: 14
 recurring:
-  mon:
-  - 1345-1515
-  sat:
-  - 1345-1445
-  - 1515-1615
-  sun:
-  - 1345-1445
-  - 1515-1615
-  thu:
-  - 1345-1515
-  tue:
-  - 1345-1515
   wed:
-  - 1345-1515
+  - 1400-1600
+  thu:
+  - 1400-1600
+  sat:
+  - 1400-1600
+  sun:
+  - 1400-1600
 unbookable:
 - 2018-12-25
 - 2018-12-26
 - 2022-06-02
 - 2022-06-03
+- 2024-05-14
+- 2024-07-24
+- 2024-08-21
+- 2024-10-02
+- 2024-10-30
+- 2024-11-13
+- 2024-12-18
