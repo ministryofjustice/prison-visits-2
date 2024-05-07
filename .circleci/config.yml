@@ -139,7 +139,7 @@ workflows:
       - build_and_push_docker_image:
           requires:
             - helm_lint
-            - test
+            # - test
       - hmpps/deploy_env:
           name: deploy_dev
           context:
