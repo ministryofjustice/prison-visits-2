@@ -6,7 +6,7 @@ address: |-
 postcode: MK40 1HG
 email_address: socialvisits.bedford@justice.gov.uk
 phone_no: 0345 646 2277
-enabled: false
+enabled: true
 private: false
 closed: false
 recurring:
@@ -19,10 +19,6 @@ recurring:
   sun:
   - 1400-1600
 unbookable:
-- 2018-12-25
-- 2018-12-26
-- 2022-06-02
-- 2022-06-03
 - 2024-05-14
 - 2024-07-24
 - 2024-08-21
