@@ -12,8 +12,6 @@ enabled: true
 private: false
 closed: false
 recurring:
-  wed:
-  - 1400-1600
   thu:
   - 1400-1600
   sat:
@@ -21,6 +19,11 @@ recurring:
   sun:
   - 1400-1600
 unbookable:
-- 2018-12-20
-- 2022-06-02
 - 2022-06-03
+anomalous:
+  2024-05-15:
+  - 1400-1600
+  2024-05-22:
+  - 1400-1600
+  2024-05-29:
+  - 1400-1600
