@@ -124,7 +124,7 @@ pvb2 $ rails spec
 
 ### Further technical information
 
-Futher information can be found in the [GitHub Wiki.](https://github.com/ministryofjustice/prison-visits-2/wiki)
+More information can be found in the [GitHub Wiki.](https://github.com/ministryofjustice/prison-visits-2/wiki)
 
 ## Licence
 
