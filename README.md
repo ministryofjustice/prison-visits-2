@@ -124,16 +124,7 @@ pvb2 $ rails spec
 
 ### Further technical information
 
-- [Time Slots using NOMIS (Important!)](docs/nomis_time_slots.md)
-- [GovNotify Documentation](docs/gov_notify.md)
-- [Processing a request](docs/processing_a_request.md)
-- [Notes on models](docs/models.md)
-- [Queues](docs/queues.md)
-- [Removing outdated personal information](docs/removing_outdated_personal_info.md)
-- [Prison data](docs/prison_data.md)
-- [Application configuration](docs/configuration.md)
-- [Welsh Translation](docs/welsh_translation.md)
-- [Frontend](docs/frontend.md)
+More information can be found in the [GitHub Wiki.](https://github.com/ministryofjustice/prison-visits-2/wiki)
 
 ## Licence
 
