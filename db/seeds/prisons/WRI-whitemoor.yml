@@ -12,6 +12,8 @@ enabled: true
 private: false
 closed: false
 recurring:
+  wed:
+  - 1400-1600
   thu:
   - 1400-1600
   sat:
