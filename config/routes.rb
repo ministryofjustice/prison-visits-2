@@ -54,14 +54,14 @@ Rails.application.routes.draw do
     resources :feedbacks, only: %i[ new create ]
   end
 
-  namespace :api, format: false do
-    resources :feedback,        only: %i[ create ]
-    resources :prisons,         only: %i[ index show ]
-    resources :slots,           only: %i[ index ]
-    resources :visits,          only: %i[ create show destroy ]
-    post '/validations/prisoner', to: 'validations#prisoner'
-    post '/validations/visitors', to: 'validations#visitors'
-  end
+  # namespace :api, format: false do
+  #   resources :feedback,        only: %i[ create ]
+  #   resources :prisons,         only: %i[ index show ]
+  #   resources :slots,           only: %i[ index ]
+  #   resources :visits,          only: %i[ create show destroy ]
+  #   post '/validations/prisoner', to: 'validations#prisoner'
+  #   post '/validations/visitors', to: 'validations#visitors'
+  # end
 
   resource :staff, only: :show, controller: 'staff_info' do
     resources :downloads, only: :index
