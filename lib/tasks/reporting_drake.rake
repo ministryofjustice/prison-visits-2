@@ -11,7 +11,7 @@ namespace :reporting do
       selected_visit = Visit.where(id: vid)
       prisoner = Prisoner.where(id: prisoner_id)
       visitors = Visitor.where(visit_id: vid)
-      text_line = "#{selected_visit[0].contact_email_address}, #{selected_visit[0].contact_phone_no}, #{prisoner[0].first_name} #{prisoner[0].last_name},"
+      text_line = "#{selected_visit[0].contact_email_address}, #{selected_visit[0].contact_phone_no}, #{prisoner[0].first_name} #{prisoner[0].last_name}, #{prisoner[0].number},"
       visitors.each do |visitor|
         text_line += "#{visitor.first_name} #{visitor.last_name},"
       end
