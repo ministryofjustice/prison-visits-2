@@ -49,6 +49,8 @@ spec:
             - secretRef:
                 name: secrets
           env:
+            - name: PRODUCT_ID
+              value: "DPS031"
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:

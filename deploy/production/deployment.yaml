@@ -71,6 +71,8 @@ spec:
                 secretKeyRef:
                   name: hmpps-auth-secrets
                   key: NOMIS_USER_OAUTH_CLIENT_SECRET
+            - name: PRODUCT_ID
+              value: "DPS031"
           resources:
             limits:
               memory: "2Gi"

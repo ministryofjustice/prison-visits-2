@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   constraints format: 'json' do
     get 'ping', to: 'ping#index'
     get 'healthcheck', to: 'healthcheck#index'
+    get 'info', to: 'info#index'
+    get 'health', to: 'health#index'
   end
 
   get '/auth/:provider/callback', to: 'sessions#create'
