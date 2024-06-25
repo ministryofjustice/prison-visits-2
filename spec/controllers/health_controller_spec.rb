@@ -30,7 +30,7 @@ RSpec.describe HealthController, type: :controller do
     it 'returns the healthcheck data as JSON' do
       index_request
 
-      expect(parsed_body["components"]).to eq({ "nomis" => { "detail" => nil, "status" => "DOWN" }})
+      expect(parsed_body["components"]).to eq({ "nomis" => { "detail" => nil, "status" => "DOWN" } })
     end
   end
 end
