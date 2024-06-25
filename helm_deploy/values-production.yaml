@@ -21,6 +21,7 @@ environment:
       High Down,
     PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY: >
       High Down,
+    PRODUCT_ID: "DPS031"
 
 cronJobs:
   refreshViews:

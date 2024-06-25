@@ -112,5 +112,6 @@ module PrisonVisits
 
     # We still use ie stylesheets as well as the govuk_template
     config.action_view.preload_links_header = false
+    config.booted_at = Time.current
   end
 end
