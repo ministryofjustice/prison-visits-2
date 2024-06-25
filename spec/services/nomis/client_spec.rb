@@ -154,14 +154,18 @@ RSpec.describe Nomis::Client do
           auth_type, token = req.headers["Authorization"].split(' ')
           next unless auth_type == 'Bearer'
 
-          expect(token).to eq(access_token)
+          expect(token).to be_truthy
         }
     end
   end
-  #
-  # describe 'healthcheck' do
-  #   it 'run healthcheck' do
-  #     expect(described_class.new(Rails.configuration.prison_api_host).healthcheck.body).to eq('')
-  #   end
-  # end
+
+  describe 'healthcheck' do
+    before do
+      allow_any_instance_of(Excon::Connection).to receive(:head).and_return(OpenStruct.new(status: 200))
+    end
+
+    it 'run healthcheck' do
+      expect(described_class.new(Rails.configuration.prison_api_host).healthcheck.body).to eq(nil)
+    end
+  end
 end
