@@ -1,8 +1,8 @@
 namespace :reporting do
   desc 'Print monthly reporting figures'
-  task monthly_reporting: :environment do
+  task monthly_reporting_temp_1: :environment do
     start_date = '2024-06-01'
-    end_date = '2024-06-30'
+    end_date = '2024-06-13'
     prisons = Prison.where(enabled: true)
     prisons.each do |prison|
       puts prison.id
