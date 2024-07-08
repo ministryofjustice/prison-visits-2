@@ -7,9 +7,9 @@ class InfoController < ApplicationController
         branch: ENV['GIT_BRANCH']
       },
       build: {
-        artifact: 'prison-visits-public',
+        artifact: 'prison-visits-2',
         version: ENV['BUILD_NUMBER'],
-        name: 'prison-visits-public'
+        name: 'prison-visits-2'
       },
       productId: ENV['PRODUCT_ID']
     }
