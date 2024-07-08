@@ -20,8 +20,8 @@ RSpec.describe InfoController, type: :controller do
       index_request
 
       expect(parsed_body).to eq(
-        'build' => { "artifact" => "prison-visits-public",
-                     "name" => "prison-visits-public",
+        'build' => { "artifact" => "prison-visits-2",
+                     "name" => "prison-visits-2",
                      "version" => "BUILD_NUMBER" }, "git" => { "branch" => "GIT_BRANCH" },
         "productId" => "PRODUCT_ID"
       )
