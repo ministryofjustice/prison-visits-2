@@ -1,9 +1,9 @@
 namespace :reporting do
   desc 'Visit reporting script'
   task foston_hall: :environment do
-    # 28th May until 24th June
+    # 28th May until 11th July
     start = '2024-05-28'
-    finish = '2024-06-24'
+    finish = '2024-07-11'
     prison_code = Prison.select(:id).where(name: 'Foston Hall')
     visit_ids = Visit.where(prison_id: prison_code, processing_state: 'booked', created_at: start..finish).pluck(:id)
     visit_ids.each do |vid|

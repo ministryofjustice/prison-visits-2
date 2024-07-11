@@ -1,9 +1,9 @@
 environment:
   name: production
   variables:
+    KUBERNETES_DEPLOYMENT: "true"
     PRISON_API_HOST: "https://prison-api.prison.service.justice.gov.uk"
     NOMIS_OAUTH_HOST: "https://sign-in.hmpps.service.justice.gov.uk"
-    KUBERNETES_DEPLOYMENT: "true"
     MOJSSO_URL: "https://signon.service.justice.gov.uk"
     NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED: "true"
     PUBLIC_SERVICE_URL: "https://prisonvisits.service.gov.uk"
