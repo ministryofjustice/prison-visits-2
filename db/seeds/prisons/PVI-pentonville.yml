@@ -4,45 +4,32 @@ nomis_id: PVI
 address: |-
   Caledonian Road
 postcode: N7 8TT
-email_address: socialvisits.pentonville@hmps.gsi.gov.uk
-phone_no: 020 70237251
-enabled: false
+email_address: hmppsvisitbooking@justice.gov.uk
+phone_no: 0300 060 6504
+enabled: true
 private: false
 closed: false
-adult age: 11
+adult age: 18
 recurring:
   mon:
-  - 1345-1440
-  - 1520-1615
+  - 1345-1445
+  - 1520-1620
   tue:
-  - 1345-1440
-  - 1520-1615
+  - 1345-1445
+  - 1520-1620
   wed:
-  - 1345-1440
-  - 1520-1615
+  - 1345-1445
+  - 1520-1620
   thu:
-  - 1345-1440
-  - 1520-1615
+  - 1345-1445
+  - 1520-1620
   fri:
-  - 1345-1440
-  - 1520-1615
+  - 1345-1445
+  - 1520-1620
   sat:
+  - 1030-1130
   - 1500-1600
   sun:
-  - 1500-1600
+  - 1400-1600
 unbookable:
-- 2020-01-09
-- 2020-02-04
-- 2020-02-13
-- 2020-02-19
-- 2020-03-03
-- 2020-03-12
-- 2020-03-25
-- 2020-04-09
-- 2020-04-15
-- 2020-05-13
-- 2020-05-14
-- 2020-06-11
-- 2020-06-17
-- 2022-06-02
 - 2022-06-03

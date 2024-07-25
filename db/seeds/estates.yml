@@ -450,6 +450,7 @@ PRI:
     - parc.prisons.noms.moj
 PVI:
   name: Pentonville
+  finder_slug: pentonville-prison
   admins:
     - pentonville.prisons.noms.moj
 RCI:
