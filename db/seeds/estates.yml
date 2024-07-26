@@ -370,7 +370,7 @@ LYI:
   admins:
     - leyhill.prisons.noms.moj
 MDI:
-  name: Moorland Closed
+  name: Moorland
   finder_slug: moorland-prison
   admins:
     - moorland_closed.prisons.noms.moj
