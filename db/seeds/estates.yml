@@ -195,6 +195,7 @@ FSI:
   finder_slug: featherstone-prison
   admins:
     - apvu.noms.moj
+// add Five Wells
 GHI:
   name: Garth
   finder_slug: garth-prison
@@ -525,7 +526,7 @@ UKI:
     - usk.prisons.noms.moj
 UPI:
   name: Prescoed
-  finder_slug: uprescoed-prison
+  finder_slug: prescoed-prison
   admins:
     - prescoed.prisons.noms.moj
 VEI:
