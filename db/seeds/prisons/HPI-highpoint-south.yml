@@ -6,7 +6,7 @@ address: |-
 postcode: CB8 9YG
 email_address: socialvisits.highpoint@justice.gov.uk
 phone_no: 0144 074 3134
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:

@@ -6,7 +6,7 @@ address: |-
 postcode: OX25 1PZ
 email_address: socialvisits.bullingdon@justice.gov.uk
 phone_no: 0186 935 3176
-enabled: true
+enabled: false
 private: false
 closed: false
 recurring:
