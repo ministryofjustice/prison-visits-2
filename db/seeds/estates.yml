@@ -83,6 +83,11 @@ CFI:
   finder_slug: cardiff-prison
   admins:
     - cardiff.prisons.noms.moj
+CKI:
+  name: Cookham Wood
+  finder_slug: cookham-wood-you
+  admins:
+    - cookham_wood.prisons.noms.moj
 CLI:
   name: Coldingley
   finder_slug: coldingley-prison
