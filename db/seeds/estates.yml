@@ -114,6 +114,7 @@ DMI:
     - durham.prisons.noms.moj
 DNI:
   name: Doncaster
+  finder_slug: doncaster-prison
   admins:
     - doncaster.prisons.noms.moj
 DTI:
@@ -169,6 +170,11 @@ FDI:
   finder_slug: ford-prison
   admins:
     - ford.prisons.noms.moj
+FEI:
+  name: Fosse Way
+  finder_slug: fosse-way-prison
+  admins:
+    - fosse_way.prisons.noms.moj    
 FHI:
   name: Foston Hall
   finder_slug: foston-hall-prison
@@ -195,7 +201,11 @@ FSI:
   finder_slug: featherstone-prison
   admins:
     - apvu.noms.moj
-// add Five Wells
+FWI:
+  name: Five Wells
+  finder_slug: five-wells-prison
+  admins:
+    - five_wells.prisons.noms.moj
 GHI:
   name: Garth
   finder_slug: garth-prison
