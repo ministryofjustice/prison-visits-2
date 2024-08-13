@@ -8,11 +8,6 @@ AGI:
   admins:
     - apvu.noms.moj
     - askham_grange.prisons.noms.moj
-AKI:
-  name: Acklington
-  finder_slug: acklington2
-  admins:
-    - acklington.prisons.noms.moj
 ASI:
   name: Ashfield
   admins:
@@ -38,10 +33,6 @@ BFI:
   admins:
     - bedford.prisons.noms.moj
     - apvu.noms.moj
-BHI:
-  name: Blantyre House
-  admins:
-    - blantyre_house.prisons.noms.moj
 BLI:
   name: Bristol
   finder_slug: bristol-prison
@@ -154,10 +145,6 @@ ESI:
   admins:
     - apvu.noms.moj
     - east_sutton_park.prisons.noms.moj
-EVI:
-  name: Everthorpe
-  admins:
-    - everthorpe.prisons.noms.moj
 EWI:
   name: Eastwood Park
   finder_slug: eastwood-park-prison
@@ -183,6 +170,11 @@ FDI:
   finder_slug: ford-prison
   admins:
     - ford.prisons.noms.moj
+FEI:
+  name: Fosse Way
+  finder_slug: fosse-way-prison
+  admins:
+    - fosse-way.prisons.noms.moj
 FHI:
   name: Foston Hall
   finder_slug: foston-hall-prison
@@ -209,6 +201,11 @@ FSI:
   finder_slug: featherstone-prison
   admins:
     - apvu.noms.moj
+FWI:
+  name: Five Wells
+  finder_slug: five-wells-prison
+  admins:
+    - five-wells.noms.moj
 GHI:
   name: Garth
   finder_slug: garth-prison
@@ -224,10 +221,6 @@ GNI:
   finder_slug: grendon-prison
   admins:
     - grendon_and_springhill.noms.moj
-GPI:
-  name: Glen Parva
-  admins:
-    - glen_parva.prisons.noms.moj
 GTI:
   name: Gartree
   finder_slug: gartree-prison
@@ -287,10 +280,6 @@ HVI:
   finder_slug: haverigg-prison
   admins:
     - haverigg.prisons.noms.moj
-HYI:
-  name: Holloway
-  admins:
-    - holloway.prisons.noms.moj
 ISI:
   name: Isis
   admins:
@@ -305,10 +294,6 @@ KMI:
   finder_slug: kirkham-prison
   admins:
     - kirkham.prisons.noms.moj
-KTI:
-  name: Kennet
-  admins:
-    - kennet.prisons.noms.moj
 KVI:
   name: Kirklevington Grange
   admins:
@@ -585,10 +570,6 @@ WNI:
   finder_slug: werrington-yoi
   admins:
     - apvu.noms.moj
-WOI:
-  name: Wolds
-  admins:
-    - wolds.prisons.noms.moj
 WRI:
   name: Whitemoor
   finder_slug: whitemoor-prison
