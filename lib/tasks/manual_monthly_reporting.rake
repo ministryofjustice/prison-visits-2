@@ -41,10 +41,12 @@ namespace :manual_monthly_reporting do
       end
     end
   end
-  desc 'Foston Hall users (monthly)'
+  desc 'Drake Hall users (monthly)'
   # List all users for named prison - onboarding
-  task foston_hall: :environment do
-    prison_code = Prison.select(:id).where(name: 'Foston Hall')
+  task drake_hall: :environment do
+    start = '2024-05-28'
+    finish = '2024-08-15'
+    prison_code = Prison.select(:id).where(name: 'Drake Hall')
     visit_ids = Visit.where(prison_id: prison_code, processing_state: 'booked', created_at: start..finish).pluck(:id)
     visit_ids.each do |vid|
       prisoner_id = Visit.where(id: vid).pluck(:prisoner_id)
