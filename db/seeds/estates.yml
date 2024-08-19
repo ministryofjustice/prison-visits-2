@@ -227,7 +227,7 @@ GTI:
   admins:
     - gartree.prisons.noms.moj
 HBI:
-  name: Hollesley Bay Open
+  name: Hollesley Bay
   finder_slug: hollesley-bay-prison
   admins:
     - hollesley_bay_open.prisons.noms.moj
@@ -237,7 +237,7 @@ HCI:
   admins:
     - huntercombe.prisons.noms.moj
 HDI:
-  name: Hatfield Open
+  name: Hatfield
   finder_slug: hatfield-prison
   admins:
     - hatfield_open.prisons.noms.moj
@@ -355,7 +355,7 @@ LYI:
   admins:
     - leyhill.prisons.noms.moj
 MDI:
-  name: Moorland Closed
+  name: Moorland
   finder_slug: moorland-prison
   admins:
     - moorland_closed.prisons.noms.moj
