@@ -13,7 +13,7 @@ namespace :manual_tasks do
   desc 'visitors_and_dates_for_email'
   # Return last 20 visits requested by XXX email address
   # Requests older than 6 months will already be anonymised
-  # Prints into format: 
+  # Prints into format:
   # state, created at, accepted slot
   # requested slots
   # visitors
@@ -28,7 +28,7 @@ namespace :manual_tasks do
         text_line += "#{visitor.first_name} #{visitor.last_name} - "
       end
       puts text_line
-      puts " "
+      puts ''
     end
   end
 end
