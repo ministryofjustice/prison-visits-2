@@ -20,7 +20,7 @@ namespace :manual_tasks do
   task visitors_and_dates_for_email: :environment do
     visits = Visit.where(contact_email_address: 'XXX').order(created_at: :desc).limit(20)
     visits.each do |visit|
-    text_line = ''
+      text_line = ''
       puts "state: #{visit.processing_state}  /  created at: #{visit.created_at}  /  accepted slot: #{visit.slot_granted}"
       puts "requested slots: #{visit.slot_option_0}  /  #{visit.slot_option_1}  /  #{visit.slot_option_2}"
       visitors = Visitor.where(visit_id: visit.id)
