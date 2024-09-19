@@ -19,7 +19,7 @@ en:
       unsupported_content_html: |
         <div class="unsupported-content">
           <h1 class="heading-xlarge">Use a different browser</h1>
-          <p class="lede">This service no longer supports this version of Internet Explorer. Please use Chrome or Firefox to process bookings.</p>
+          <p class="lede">This service no longer supports this version of Internet Explorer. Please use Edge, Chrome or Firefox to process bookings.</p>
         </div>
   prison:
     flash:
@@ -57,7 +57,7 @@ en:
         year: Year
         visit_date: Visit Date
         show: Show
-        visit_date_hint: For example 01 03 2018.  We can only show visits within the last 6 months. Please contact us if you would like to see older visits.
+        visit_date_hint: For example 01 03 2018. We can only show visits within the last 6 months. Please contact us if you would like to see older visits.
       show:
         no_visits: "No visits on %{date}"
         search_list: Search to generate print lists
@@ -68,7 +68,7 @@ en:
           <span>This is a new service – <a href='%{link}' target='_blank' rel='external'>your feedback<span class='visuallyhidden'> (link opens in a new browser window)</span></a> will help us to improve it.</span>
       cancellations:
         cancellations: Cancellations
-        cancel_text: The visitor has asked to cancel. Please cancel the booking in NOMIS and confirm using the button below
+        cancel_text: The visitor has asked to cancel. Please cancel the booking in NOMIS or DPS and confirm using the button below
         no_cancellations: There are no new cancellations
         table_caption: List of visit cancellations
       navigation:
@@ -158,7 +158,7 @@ en:
         location_invalid: Not verified
         location_unknown: Unknown
         location_invalid_text: The prisoner is not registered at this prison.
-        location_unknown_text: Check NOMIS to verify prisoner location.
+        location_unknown_text: Check NOMIS or DPS to verify prisoner location.
         prisoner_does_not_exist_text: The prisoner date of birth and number do not match.
         invalid: Not verified
         unknown: Unknown
@@ -166,9 +166,9 @@ en:
         verified: NOMIS verified
         verified_html: |
           The prisoner date of birth, prisoner number and prison name have been verified. <br>Please check the prisoner name.
-        internal_location: Internal Location
-        iep_level: Incentive Earned Privilege
-        sentence_status: Sentence Status
+        internal_location: Internal location
+        iep_level: Incentive level
+        sentence_status: Sentence status
       validate_prisoner_details:
         title: Prisoner details
         prisoner_name: Prisoner name
@@ -177,7 +177,7 @@ en:
         invalid: Not verified
         unknown: Unknown
         prisoner_does_not_exist_text: The prisoner date of birth and number do not match.
-        unknown_text: You must check NOMIS to verify prisoner date of birth and number.
+        unknown_text: You must check NOMIS or DPS to verify prisoner date of birth and number.
       shared:
         what_we_will_tell: What we’ll tell the visitor
       processed:
@@ -226,11 +226,11 @@ en:
         choice_html: |
           <span class="date-box__day bold-small">%{day}</span><br>%{date} <br>%{time}
         reference_no: Reference number
-        reference_no_hint: eg Last 8 digits of VO number or "none" for remand
+        reference_no_hint: e.g. DPS booking reference or last 8 digits of VO number or "none" for remand
         closed: This is a closed visit
         none_available: None of the chosen times are available
-        prisoner_availability_unknown: You must check NOMIS to verify prisoner availability
-        slot_availability_unknown: You must check NOMIS to verify slot availability
+        prisoner_availability_unknown: You must check NOMIS or DPS to verify prisoner availability
+        slot_availability_unknown: You must check NOMIS or DPS to verify slot availability
       rejection_nomis:
         nomis_rejection_title: Rejections verified by NOMIS
         nomis_rejection_intro: We have checked these rejection reasons in NOMIS and automatically ticked any that apply.
@@ -254,14 +254,14 @@ en:
         other: Other reason
       rejection_manual:
         other_rejection_title: Other rejection reasons
-        other_rejection_intro: Please check these details in NOMIS and tick any that apply.
+        other_rejection_intro: Please check these details in NOMIS or DPS and tick any that apply.
         no_allowance_tell_more: >-
           You can also tell the visitor more about the VO status:
         allowance_will_renew: >-
           Visiting allowance (weekends and weekday visits) (VO) will
           be renewed:
         allowance_renews_on: Date visiting allowance will be renewed
-        allowance_renews_on_hint: eg 28 04 1996
+        allowance_renews_on_hint: eg 28 04 2024
         rejection_reason_detail: Enter rejection reason
         rejection_reason_detail_hint: This will not be shown to the visitor
       visitor_details:
@@ -287,7 +287,7 @@ en:
         visitor_banned: Banned
         banned_date: Banned until date
         banned_until: Banned until
-        banned_until_hint: eg 28 04 1996
+        banned_until_hint: eg 28 04 2024
         please_select: Please select a contact
         rejections_header: Visitor rejection reasons
       banned:
