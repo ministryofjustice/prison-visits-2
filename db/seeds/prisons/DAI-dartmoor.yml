@@ -8,7 +8,7 @@ email_address: socvis.dartmoor@justice.gov.uk
 phone_no: 0182 232 2022
 enabled: true
 private: false
-closed: false
+closed: true
 lead_days: 4
 recurring:
   fri:
