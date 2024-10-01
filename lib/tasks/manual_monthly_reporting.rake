@@ -1,6 +1,6 @@
 namespace :manual_monthly_reporting do
-  start_date = '2024-08-01'
-  end_date = '2024-08-31'
+  start_date = '2024-09-01'
+  end_date = '2024-09-30'
   desc 'Print monthly reporting figures'
   # List each prisons booked requested rejected and then cancelled reasons
   task prison_stats: :environment do
