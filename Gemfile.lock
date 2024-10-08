@@ -114,7 +114,7 @@ GEM
       debug_inspector (>= 1.2.0)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
-    brakeman (6.1.2)
+    brakeman (6.2.1)
       racc
     builder (3.2.4)
     business (2.3.0)
@@ -347,7 +347,7 @@ GEM
     public_suffix (5.0.5)
     puma (6.4.0)
       nio4r (~> 2.0)
-    racc (1.7.3)
+    racc (1.8.1)
     rack (2.2.9)
     rack-accept (0.4.5)
       rack (>= 0.4)
