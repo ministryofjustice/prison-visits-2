@@ -11,7 +11,7 @@ phone_no: 0300 060 6503
 enabled: true
 private: false
 closed: false
-adult_age: 10
+adult_age: 13
 recurring:
   mon:
   - 1345-1615
