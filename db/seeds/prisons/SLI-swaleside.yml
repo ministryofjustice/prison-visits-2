@@ -3,26 +3,23 @@ name: Swaleside
 nomis_id: SLI
 address: |-
   Brabazon Road
+  Eastchurch
+  Isle of Sheppey
+  Kent
 postcode: ME12 4AX
-email_address: socialvisits.swaleside@hmps.gsi.gov.uk
+email_address: socialvisits.swaleside@justice.gov.uk
 phone_no: 0300 060 6604
-enabled: false
+enabled: true
 private: false
 closed: false
 recurring:
-  mon:
-  - 1345-1545
-  sat:
-  - 1330-1530
-  sun:
-  - 1330-1530
-  thu:
-  - 1345-1545
   tue:
-  - 1345-1545
+  - 1415-1545
   wed:
-  - 1345-1545
+  - 1415-1545
+  thu:
+  - 1415-1545
+  sun:
+  - 1415-1545
 unbookable:
-- 2020-02-18
-- 2022-06-02
 - 2022-06-03
