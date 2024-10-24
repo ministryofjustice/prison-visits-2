@@ -7,10 +7,10 @@ address: |-
   Dorset
 postcode: DT5 1EQ
 email_address: socialvisits.theverne@justice.gov.uk
-phone_no: 0130 582 5000
+phone_no: 01305 825 000
 enabled: true
 private: false
-lead_days: 4
+lead_days: 7
 closed: false
 recurring:
   mon:
