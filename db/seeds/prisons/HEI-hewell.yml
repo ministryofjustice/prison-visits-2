@@ -4,9 +4,8 @@ nomis_id: HEI
 address: |-
   Hewell Lane
   Redditch
-  Worcestershire
 postcode: B97 6QS
-email_address: Unavailable
+email_address: hmppsvisitbooking@justice.gov.uk
 phone_no: 0300 060 6503
 enabled: true
 private: false
@@ -14,15 +13,23 @@ closed: false
 adult_age: 13
 recurring:
   mon:
-  - 1345-1615
-  wed:
-  - 1345-1615
-  fri:
   - 0845-1115
+  - 1400-1615
+  tue:
+  - 0845-1115
+  - 1400-1615
+  wed:
+  - 0845-1115
+  - 1400-1615
+  thu:
+  - 0845-1115
+  - 1400-1615
   sat:
-  - 1345-1615
+  - 0930-1130
+  - 1400-1600
   sun:
-  - 1345-1615
+  - 0930-1130
+  - 1400-1600
 unbookable:
 - 2024-03-29
 anomalous:
