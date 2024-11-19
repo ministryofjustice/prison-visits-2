@@ -39,8 +39,10 @@ generic-service:
       cpu: "30m"
 
   ingress:
-    hosts: 
+    tlsSecretName: prison-visits-staff-cert
+    hosts:
       - staff.prisonvisits.service.justice.gov.uk
+    
 
   namespace_secrets:
     prison-visits-rds-instance-output:
