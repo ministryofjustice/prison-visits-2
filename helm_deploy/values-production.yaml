@@ -39,7 +39,6 @@ generic-service:
       cpu: "30m"
 
   ingress:
-    tlsSecretName: prison-visits-staff-cert
     hosts:
       - staff.prisonvisits.service.justice.gov.uk
     
