@@ -21,7 +21,7 @@ generic-service:
 
   ingress:
     enabled: true
-    tlsSecretName: prison-visits-booking-cert
+    tlsSecretName: prison-visits-booking-staff-cert
 
   livenessProbe:
     httpGet:
