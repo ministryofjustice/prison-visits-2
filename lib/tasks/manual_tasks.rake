@@ -31,4 +31,15 @@ namespace :manual_tasks do
       puts ''
     end
   end
+  desc 'Prisoner name / number, as entered by the visitor'
+    task prisoner_name_and_number: :environment do
+      start_date = '2024-09-01'
+      end_date = '2024-11-01'
+      prisoners = Prisoner.where(created_at: start_date..end_date).order(created_at: :desc)
+      prisoners.each do |prisoner|
+        text_line = "#{prisoner.first_name}, #{prisoner.last_name}, #{prisoner.number}"
+        puts text_line
+      end
+    end
+  end
 end
