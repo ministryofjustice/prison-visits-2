@@ -4,7 +4,7 @@ environment:
     PRISON_API_HOST: "https://prison-api-preprod.prison.service.justice.gov.uk"
     NOMIS_OAUTH_HOST: "https://sign-in-preprod.hmpps.service.justice.gov.uk"
     MOJSSO_URL: "https://signon.service.justice.gov.uk"
-    NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED: "false"
+    NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED: "true"
     PUBLIC_SERVICE_URL: "https://prison-visits-public-staging.apps.live.cloud-platform.service.justice.gov.uk"
     PVB_TEAM_EMAIL: "pvb-team@digital.justice.gov.uk"
     RACK_ENV: "production"
@@ -16,6 +16,10 @@ environment:
     WEB_CONCURRENCY: "5"
     ZENDESK_URL: "https://ministryofjustice.zendesk.com/api/v2"
     ZENDESK_USERNAME: "pvb-technical-support+zendesk@digital.justice.gov.uk"
+    STAFF_PRISONS_WITH_SLOT_AVAILABILITY: >
+      High Down,
+    PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY: >
+      High Down,
     PRODUCT_ID: "DPS031"
 
 cronJobs:
