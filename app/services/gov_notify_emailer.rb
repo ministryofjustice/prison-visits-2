@@ -113,7 +113,7 @@ class GovNotifyEmailer
 
     if visit.visitors_rejected_for_other_reasons.any?
       visit.visitors_rejected_for_other_reasons.each do |v|
-        message = "#{v.anonymized_name} cannot attend Please contact the prison for more information about why they can't attend."
+        message = "#{v.anonymized_name} cannot attend. Please contact the prison for more information about why they can't attend."
       end
     end
 
@@ -126,7 +126,7 @@ class GovNotifyEmailer
 
     if visit.unlisted_visitors.any?
       visit.unlisted_visitors.each do |v|
-        message = "#{v.anonymized_name} cannot attend as they are not on the prisoner's contact list"
+        message = "#{v.anonymized_name} cannot attend as they are not on the prisoner's contact list."
       end
     else
       message = ''
@@ -145,9 +145,9 @@ class GovNotifyEmailer
     if visit.banned_visitors.any?
       visit.banned_visitors.each do |v|
         if v.banned_until?
-          message = "#{v.anonymized_name} cannot attend as they are currently banned until #{v.banned_until.to_fs(:short_nomis)}"
+          message = "#{v.anonymized_name} cannot attend as they are currently banned until #{v.banned_until.to_fs(:short_nomis)}."
         else
-          message = "#{v.anonymized_name} cannot attend as they are currently banned "
+          message = "#{v.anonymized_name} cannot attend as they are currently banned.s"
         end
       end
     else
