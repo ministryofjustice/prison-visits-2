@@ -147,7 +147,7 @@ class GovNotifyEmailer
         if v.banned_until?
           message = "#{v.anonymized_name} cannot attend as they are currently banned until #{v.banned_until.to_fs(:short_nomis)}."
         else
-          message = "#{v.anonymized_name} cannot attend as they are currently banned.s"
+          message = "#{v.anonymized_name} cannot attend as they are currently banned."
         end
       end
     else
