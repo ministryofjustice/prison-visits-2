@@ -1,9 +1,9 @@
 namespace :manual_monthly_reporting do
-  start_date = '2024-09-01'
-  end_date = '2024-09-30'
+  end_date = '2024-12-31'
   desc 'Print monthly reporting figures'
-  # List each prisons booked requested rejected and then cancelled reasons
+  # List each prisons booked, requested, rejected, rejected reasons
   task prison_stats: :environment do
+    start_date = '2024-12-01'
     prisons = Prison.where(enabled: true)
     prisons.each do |prison|
       puts prison.id
@@ -27,6 +27,43 @@ namespace :manual_monthly_reporting do
       puts rejections.count{ |s| s.reasons.include?('no_allowance') }
       puts prison.visits.where(processing_state: 'requested').order(created_at: :asc).limit(1).pluck(:created_at) # Oldest request
       puts 'end'
+    end
+  end
+
+  desc 'Print daily / monthly reporting figures'
+  # List each prisons booked, rejected, rejected reasons
+  task daily_stats: :environment do
+    prisons = Prison.where(enabled: true)
+    prisons.each do |prison|
+      start_date = "2024-12-1"
+      split_date = start_date.split('-')
+      new_date = "#{split_date[0]}-#{split_date[1]}-#{Integer(split_date[2]) + 1}"
+      while start_date != end_date do
+        puts prison.id
+        puts start_date
+        puts prison.visits.where(processing_state: 'booked', updated_at: start_date..new_date).count
+        visits = prison.visits.where(updated_at: start_date..new_date, processing_state: 'rejected')
+        rejections = Rejection.where(visit: visits)
+        puts rejections.count
+        puts rejections.count{ |s| s.reasons.include?('slot_unavailable') }
+        puts rejections.count{ |s| s.reasons.include?('visitor_not_on_list') }
+        puts rejections.count{ |s| s.reasons.include?('visitor_banned') }
+        puts rejections.count{ |s| s.reasons.include?('prisoner_out_of_prison') }
+        puts rejections.count{ |s| s.reasons.include?('prisoner_banned') }
+        puts rejections.count{ |s| s.reasons.include?('duplicate_visit_request') }
+        puts rejections.count{ |s| s.reasons.include?('prisoner_released') }
+        puts rejections.count{ |s| s.reasons.include?('prisoner_moved') }
+        puts rejections.count{ |s| s.reasons.include?('child_protection_issues') }
+        puts rejections.count{ |s| s.reasons.include?('prisoner_non_association') }
+        puts rejections.count{ |s| s.reasons.include?('prisoner_details_incorrect') }
+        puts rejections.count{ |s| s.reasons.include?('no_adult') }
+        puts rejections.count{ |s| s.reasons.include?('no_allowance') }
+        puts 'end'
+
+        start_date = new_date
+        split_date = start_date.split('-')
+        new_date = "#{split_date[0]}-#{split_date[1]}-#{Integer(split_date[2]) + 1}"
+      end
     end
   end
   desc 'Visit processing times (monthly)'
