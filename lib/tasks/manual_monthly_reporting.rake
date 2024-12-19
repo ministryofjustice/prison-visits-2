@@ -35,10 +35,10 @@ namespace :manual_monthly_reporting do
   task daily_stats: :environment do
     prisons = Prison.where(enabled: true)
     prisons.each do |prison|
-      start_date = "2024-12-1"
+      start_date = '2024-12-1'
       split_date = start_date.split('-')
       new_date = "#{split_date[0]}-#{split_date[1]}-#{Integer(split_date[2]) + 1}"
-      while start_date != end_date do
+      while start_date != end_date
         puts prison.id
         puts start_date
         puts prison.visits.where(processing_state: 'booked', updated_at: start_date..new_date).count
