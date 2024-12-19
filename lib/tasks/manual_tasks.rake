@@ -10,6 +10,7 @@ namespace :manual_tasks do
       visit.save
     end
   end
+
   desc 'visitors_and_dates_for_email'
   # Return last 20 visits requested by XXX email address
   # Requests older than 6 months will already be anonymised
@@ -31,6 +32,30 @@ namespace :manual_tasks do
       puts ''
     end
   end
+
+  desc 'staff_messages_to_visitors'
+  # Return all custom messages sent by staff to visitors
+  # Has a minimum character limit as we're looking to remove message that just include reference
+  # Has a specific date range, as the data returned is large for even a 1 month period
+  # Prints into format:
+  # Message, prison name, date of messages
+  task staff_messages: :environment do
+    start_date = '2024-11-01'
+    end_date = '2024-11-05'
+    messages = Message.where(created_at: start_date..end_date)
+    messages.each do |message|
+      next unless message.body.length > 100 # Only print for messages above this length
+
+      prison_id = Visit.where(id: message.visit_id).pluck(:prison_id)
+
+      message_body = message.body.remove("\n", "\r", "\t", ';', '•', ',') # Remove all additional formatting added by staff
+      prison = Prison.where(id: prison_id)
+      message_date = message.created_at
+
+      puts "#{message_body}, #{prison[0].name}, #{message_date}"
+    end
+  end
+
   desc 'Prisoner name / number, as entered by the visitor'
   task prisoner_name_and_number: :environment do
     start_date = '2024-09-01'
