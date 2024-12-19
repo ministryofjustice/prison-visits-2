@@ -40,6 +40,8 @@ generic-service:
 
   ingress:
     hosts:
+      - staff.prisonvisits.service.justice.gov.uk
+    
 
   namespace_secrets:
     prison-visits-rds-instance-output:
