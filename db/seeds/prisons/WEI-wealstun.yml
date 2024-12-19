@@ -4,7 +4,7 @@ nomis_id: WEI
 address: |-
   Church Causeway
 postcode: LS23 7AZ
-email_address: socialvisits.wealstun@justice.gov.uk
+email_address: Unavailable
 phone_no: 0193 744 4599
 enabled: true
 private: false
@@ -27,4 +27,7 @@ recurring:
   - 0930-1130
   - 1345-1545
 unbookable:
-- 2023-01-01
+- 2024-12-23
+- 2024-12-25
+- 2024-12-26
+- 2024-12-30
