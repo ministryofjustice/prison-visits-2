@@ -75,6 +75,3 @@ generic-service:
             name: shared-environment
         - secretRef:
             name: secrets
-
-  generic-prometheus-alerts:
-    targetApplication: prison-visits-booking-staff
