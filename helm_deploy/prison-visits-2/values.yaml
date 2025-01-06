@@ -50,6 +50,3 @@ generic-service:
       - internal
       - prisons
       - global_protect
-
-generic-prometheus-alerts:
-  targetApplication: prison-visits-booking-staff
