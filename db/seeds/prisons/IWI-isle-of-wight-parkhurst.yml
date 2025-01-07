@@ -2,7 +2,8 @@
 name: Isle of Wight
 nomis_id: IWI
 address: |-
-  Clissold Road
+  55 Parkhurst Road
+  Newport
 postcode: PO30 5RS
 email_address: socialvisitsisleofwight@justice.gov.uk
 phone_no: 0198 363 4218
@@ -19,3 +20,4 @@ recurring:
 unbookable:
 - 2023-04-07
 - 2024-03-29
+- 2025-04-18
