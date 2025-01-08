@@ -72,5 +72,5 @@ generic-service:
         - secretRef:
             name: secrets
 
-  generic-prometheus-alerts:
-    alertSeverity: visits-alerts-nonprod
+generic-prometheus-alerts:
+  alertSeverity: visits-alerts-nonprod
