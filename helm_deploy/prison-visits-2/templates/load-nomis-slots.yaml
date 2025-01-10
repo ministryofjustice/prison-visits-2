@@ -3,7 +3,12 @@ kind: CronJob
 metadata:
   name: load-nomis-slots
 spec:
-  schedule: "0 0,12 * * *"
+  {{- if or (eq .Values.environment.name "dev") (eq .Values.environment.name "staging") }}
+  schedule: "0 8 * * *"
+  {{- end }}
+  {{- if (eq .Values.environment.name "production") }}
+  schedule: "0 0 * * *"
+  {{- end }}
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
