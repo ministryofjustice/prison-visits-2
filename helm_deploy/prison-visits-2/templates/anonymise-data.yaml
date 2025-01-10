@@ -1,10 +1,10 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: load-nomis-slots
+  name: anonymise-data
 spec:
   {{- if or (eq .Values.environment.name "dev") (eq .Values.environment.name "staging") }}
-  schedule: "0 8 * * *"
+  schedule: "0 9 * * *"
   {{- end }}
   {{- if (eq .Values.environment.name "production") }}
   schedule: "0 0 * * *"
@@ -17,10 +17,10 @@ spec:
       template:
         spec:
           containers:
-          - name: prison-visits-booking-staff-load-nomis-slots
+          - name: prison-visits-booking-staff-anonymise-data
             image: "{{ index .Values "generic-service" "image" "repository" }}:{{ index .Values "generic-service" "image" "tag" | default .Chart.AppVersion }}"
             imagePullPolicy: IfNotPresent
-            command: ['sh', '-c', "bundle exec rake pvb:load_nomis_slots"]
+            command: ['sh', '-c', "bundle exec rake anonymise:remove_old_personal_information"]
             envFrom:
               - configMapRef:
                   name: shared-environment
