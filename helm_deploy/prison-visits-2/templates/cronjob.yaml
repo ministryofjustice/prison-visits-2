@@ -63,4 +63,3 @@ spec:
           restartPolicy: OnFailure
 ---
 {{- end }}
-
