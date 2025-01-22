@@ -73,3 +73,6 @@ generic-service:
             name: shared-environment
         - secretRef:
             name: secrets
+
+generic-prometheus-alerts:
+  alertSeverity: visits-alerts-nonprod
