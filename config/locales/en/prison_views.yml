@@ -13,9 +13,7 @@ en:
       sign_in: Sign in
       sign_out: Sign out
       staff_guide: Service guide
-      stats: Stats
       telephone: Telephone script
-      digital_takeup: Digital takeup
       unsupported_content_html: |
         <div class="unsupported-content">
           <h1 class="heading-xlarge">Use a different browser</h1>
