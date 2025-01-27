@@ -660,6 +660,7 @@ DEPENDENCIES
   rspec-collection_matchers
   rspec-rails
   rubocop
+  rubocop-capybara
   rubocop-govuk
   rubocop-performance
   rubocop-rails
