@@ -33,12 +33,6 @@ generic-service:
       path: /ping
       port: 3000
 
-  custommetrics:
-    enabled: true
-    scrapeInterval: 15s
-    metricsPath: /metrics
-    metricsPort: 9394
-
   envFrom:
     - configMapRef:
         name: shared-environment

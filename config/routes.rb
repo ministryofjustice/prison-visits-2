@@ -23,14 +23,6 @@ Rails.application.routes.draw do
   scope '/:locale', locale: /en|cy/ do
     get '/', to: redirect('/')
 
-    scope controller: :metrics do
-      get 'metrics', action: :index
-      get 'metrics/:prison_id/summary',
-          action: :summary,
-          as: :prison_metrics_summary
-      get 'metrics/digital_takeup', action: :digital_takeup
-    end
-
     namespace :prison do
       resources :visits, only: %i[show update] do
         resource :cancellations, only: :create
