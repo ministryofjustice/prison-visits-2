@@ -79,12 +79,6 @@
 <% content_for :footer_support_links do %>
   <ul>
     <li>
-      <%= link_to(t('.stats'), metrics_path) %>
-    </li>
-    <li>
-      <%= link_to(t('.digital_takeup'), '/en/metrics/digital_takeup') %>
-    </li>
-    <li>
       <%= link_to(t('.contact_us'), new_prison_feedback_path) %>
     </li>
     <li>
@@ -102,7 +96,6 @@
   <!--<![endif]-->
   <%= content_tag :div, nil, class: "js-Sentry", data: { sentry_js_dsn: config_item(:sentry_js_dsn) } %>
   <%= javascript_include_tag('application') %>
-  <%= yield :metrics %>
 <% end %>
 
 <%= render(template: 'layouts/govuk_template') %>

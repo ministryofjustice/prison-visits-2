@@ -11,4 +11,3 @@
 //= link govuk-template-print.css
 //= link fonts.css
 //= link email.css
-//= link metrics.js
