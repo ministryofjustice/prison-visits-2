@@ -17,7 +17,7 @@ RSpec.describe BookingResponder::Cancel do
     expect(cancellation_response).to be_valid
   end
 
-  it 'cancels the visit and marks it as manually cancelled ' do
+  it 'cancels the visit and marks it as manually cancelled' do
     instance.process_request
 
     visit.reload

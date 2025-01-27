@@ -233,10 +233,7 @@ RSpec.describe Visit, type: :model do
     let(:confirmation_date) { Date.new(2015, 11, 1) }
 
     it 'asks its prison for the confirmation date based on booking creation' do
-      allow(subject).to receive(:created_at)
-        .and_return(Time.zone.local(2015, 10, 7, 14, 49))
-      allow(subject).to receive(:prison)
-        .and_return(prison)
+      allow(subject).to receive_messages(created_at: Time.zone.local(2015, 10, 7, 14, 49), prison: prison)
 
       expect(prison).to receive(:confirm_by)
         .with(Date.new(2015, 10, 7))

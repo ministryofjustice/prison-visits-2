@@ -25,19 +25,19 @@ RSpec.describe VisitStateChange, type: :model do
     }
 
     it 'has a booked scope' do
-      expect(described_class.booked).to match_array([booked])
+      expect(described_class.booked).to contain_exactly(booked)
     end
 
     it 'has a rejected scope' do
-      expect(described_class.rejected).to match_array([rejected])
+      expect(described_class.rejected).to contain_exactly(rejected)
     end
 
     it 'has a cancelled scope' do
-      expect(described_class.cancelled).to match_array([cancelled])
+      expect(described_class.cancelled).to contain_exactly(cancelled)
     end
 
     it 'has a withdrawn scope' do
-      expect(described_class.withdrawn).to match_array([withdrawn])
+      expect(described_class.withdrawn).to contain_exactly(withdrawn)
     end
   end
 end

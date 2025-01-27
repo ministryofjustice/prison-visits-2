@@ -23,7 +23,7 @@ RSpec.describe PrisonerStep do
 
     dob = prisoner_step.date_of_birth
 
-    expect(dob).to be_kind_of(AccessibleDate)
+    expect(dob).to be_a(AccessibleDate)
     expect(dob.month).to be(13)
   end
 

@@ -94,30 +94,6 @@ RSpec.describe GovNotifyEmailer do
         end
       end
 
-      # The second elsif in the GovNotifyEmailer doesn’t seem to be ever true and therefore the included text never gets returned.
-      #
-      xcontext 'with rejection.email_formatted_reasons.first == "duplicate_visit_request"' do
-        let(:visit) { create(:rejected_visit, rejection_attributes: { reasons: ['duplicate_visit_request'] }) }
-
-        it do
-          expect(client).to have_received(:send_email).with(
-            client_params.deep_merge(
-              personalisation: {
-                rejection_reasons: ["We haven't booked your visit to #{visit.prisoner_anonymized_name} at #{visit.prison_name} because
-                you've already requested a visit for the same date and time at this prison.
-                We've sent you a separate email about your other visit request.
-                Please click the link in that email to check the status of your request"],
-                rejection_intro_text: "We haven't booked your visit to #{visit.prisoner_anonymized_name} at #{visit.prison_name} because
-                you've already requested a visit for the same date and time at this prison.
-                We've sent you a separate email about your other visit request.
-                Please click the link in that email to check the status of your request",
-                cant_visit_text: "",
-              }
-            )
-          )
-        end
-      end
-
       context 'with rejection.email_formatted_reasons.empty?' do
         let(:visit) { create(:rejected_visit, rejection_attributes: { reasons: [Rejection::BANNED] }) }
 
