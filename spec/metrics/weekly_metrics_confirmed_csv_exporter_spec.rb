@@ -27,7 +27,7 @@ RSpec.describe WeeklyMetricsConfirmedCsvExporter do
 
     subject { instance.to_csv }
 
-    context 'with data from the 2 different years ' do
+    context 'with data from the 2 different years' do
       around do |ex|
         travel_to(Date.new(2018, 1, 9)) { ex.run }
       end

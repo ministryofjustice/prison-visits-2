@@ -1,7 +1,7 @@
 require 'rails_helper'
 require_relative '../metrics/shared_examples_for_metrics'
 
-RSpec.feature 'Metrics', js: true do
+RSpec.feature 'Metrics', :js do
   include ActiveJobHelper
   let(:email_address) { 'joe@example.com' }
 

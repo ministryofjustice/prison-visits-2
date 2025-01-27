@@ -23,7 +23,7 @@ RSpec.describe Visitor do
       let(:banned) { false }
       let(:other_rejection_reason) { false }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
 
     context 'when banned' do
@@ -31,7 +31,7 @@ RSpec.describe Visitor do
       let(:banned) { true }
       let(:other_rejection_reason) { false }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when not in the contact list' do
@@ -39,7 +39,7 @@ RSpec.describe Visitor do
       let(:banned) { false }
       let(:other_rejection_reason) { false }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when rejected for other reason' do
@@ -47,7 +47,7 @@ RSpec.describe Visitor do
       let(:not_on_list) { false }
       let(:banned) { false }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
   end
 

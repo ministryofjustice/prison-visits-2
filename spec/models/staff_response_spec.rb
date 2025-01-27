@@ -31,7 +31,7 @@ RSpec.describe StaffResponse, type: :model do
 
       it 'clears the allowance field' do
         expect(subject).to be_valid
-        expect(subject.visit.rejection.allowance_renews_on).to eq(nil)
+        expect(subject.visit.rejection.allowance_renews_on).to be_nil
       end
     end
 
@@ -58,7 +58,7 @@ RSpec.describe StaffResponse, type: :model do
 
         it 'clears the date' do
           expect(subject).to be_valid
-          expect(subject.visit.rejection.allowance_renews_on).to eq(nil)
+          expect(subject.visit.rejection.allowance_renews_on).to be_nil
         end
       end
     end

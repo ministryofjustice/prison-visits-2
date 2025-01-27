@@ -39,7 +39,7 @@ RSpec.describe Nomis::Prisoner, type: :model do
           )
         end
 
-        it { expect(subject.iep_level).to be nil }
+        it { expect(subject.iep_level).to be_nil }
       end
     end
 
@@ -48,7 +48,7 @@ RSpec.describe Nomis::Prisoner, type: :model do
         simulate_api_error_for(:lookup_prisoner_details)
       end
 
-      it { expect(subject.iep_level).to be nil }
+      it { expect(subject.iep_level).to be_nil }
     end
   end
 
@@ -71,7 +71,7 @@ RSpec.describe Nomis::Prisoner, type: :model do
         simulate_api_error_for(:lookup_prisoner_details)
       end
 
-      it { expect(subject.imprisonment_status).to be nil }
+      it { expect(subject.imprisonment_status).to be_nil }
     end
   end
 end

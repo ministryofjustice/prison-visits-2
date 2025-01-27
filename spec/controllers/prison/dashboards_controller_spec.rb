@@ -50,7 +50,7 @@ RSpec.describe Prison::DashboardsController, type: :controller do
         it 'sets up the view to render only one visit' do
           subject
           expect(assigns[:processed_visits].size).to eq(1)
-          expect(assigns[:all_visits_shown]).to eq(false)
+          expect(assigns[:all_visits_shown]).to be(false)
         end
       end
     end

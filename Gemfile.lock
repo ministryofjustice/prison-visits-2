@@ -615,7 +615,7 @@ DEPENDENCIES
   byebug
   capybara
   capybara-screenshot
-  connection_pool
+  connection_pool (~> 2.5.0)
   cuprite
   dotenv-rails
   draper
@@ -660,6 +660,7 @@ DEPENDENCIES
   rspec-collection_matchers
   rspec-rails
   rubocop
+  rubocop-capybara
   rubocop-govuk
   rubocop-performance
   rubocop-rails

@@ -49,7 +49,7 @@ RSpec.describe ConcreteSlotDecorator do
         end
 
         context 'when a prisoner is available' do
-          it 'renders the checkbox without errors ' do
+          it 'renders the checkbox without errors' do
             expect(html_fragment).to have_css('label.date-box__label')
             expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
             expect(html_fragment).to have_text("#{slot.to_date.strftime('%d %b %Y')} 14:00–15:30")

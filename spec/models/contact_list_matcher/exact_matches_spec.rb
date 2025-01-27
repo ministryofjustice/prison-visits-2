@@ -16,7 +16,7 @@ RSpec.describe ContactListMatcher::ExactMatches do
 
     context 'with no contacts' do
       it 'returns nil' do
-        expect(subject.contact_id).to be nil
+        expect(subject.contact_id).to be_nil
       end
     end
   end

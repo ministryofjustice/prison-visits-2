@@ -11,7 +11,7 @@ RSpec.describe VisitorCancellationResponse do
     context "when it can't be withdrawn" do
       let(:visit) { create(:withdrawn_visit) }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when the visit is booked' do
@@ -23,7 +23,7 @@ RSpec.describe VisitorCancellationResponse do
                             slot_granted: prison.available_slots.first)
         end
 
-        it { is_expected.to eq(true) }
+        it { is_expected.to be(true) }
       end
 
       context 'when it has already started' do
@@ -33,7 +33,7 @@ RSpec.describe VisitorCancellationResponse do
             slot_granted: ConcreteSlot.new(2015, 11, 6, 16, 0, 17, 0))
         end
 
-        it { is_expected.to eq(false) }
+        it { is_expected.to be(false) }
       end
     end
   end

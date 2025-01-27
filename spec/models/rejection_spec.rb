@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Rejection, model: true do
+RSpec.describe Rejection, :model do
   subject do
     described_class.new(
       reasons:,

@@ -79,19 +79,19 @@ RSpec.describe ConcreteSlot do
     context 'when the start time is before the end time' do
       let(:other_slot) { described_class.new(2015, 10, 23, 15, 15, 16, 15) }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
 
     context 'when the start time is the same as the end time' do
       let(:other_slot) { described_class.new(2015, 10, 23, 15, 30, 16, 30) }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when the start time is after the end time' do
       let(:other_slot) { described_class.new(2015, 10, 23, 15, 45, 16, 45) }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
   end
 end

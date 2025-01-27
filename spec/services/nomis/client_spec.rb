@@ -165,7 +165,7 @@ RSpec.describe Nomis::Client do
     end
 
     it 'run healthcheck' do
-      expect(described_class.new(Rails.configuration.prison_api_host).healthcheck.body).to eq(nil)
+      expect(described_class.new(Rails.configuration.prison_api_host).healthcheck.body).to be_nil
     end
   end
 end

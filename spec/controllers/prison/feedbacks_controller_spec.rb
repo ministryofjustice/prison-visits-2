@@ -33,7 +33,7 @@ RSpec.describe Prison::FeedbacksController, type: :controller do
         expect(ZendeskTicketsJob).to receive(:perform_later).once do |feedback|
           expect(feedback.email_address).to eq('john@example.com')
           expect(feedback.body).to eq(body)
-          expect(feedback.submitted_by_staff).to eq(true)
+          expect(feedback.submitted_by_staff).to be(true)
         end
 
         expect { subject }.to change(FeedbackSubmission, :count).by(1)

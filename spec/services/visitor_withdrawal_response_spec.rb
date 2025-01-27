@@ -11,11 +11,11 @@ RSpec.describe VisitorWithdrawalResponse do
     context "when it can't be withdrawn" do
       let(:visit) { create(:withdrawn_visit) }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when the visit is requested' do
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
   end
 

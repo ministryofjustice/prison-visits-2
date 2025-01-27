@@ -270,7 +270,7 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
     )
     request_block = block_class.new
     connection.request(method: :get, idempotent: true, path: '/some-path', request_block:, retry_limit: 2, retry_interval: 0.1)
-    expect(request_block.rewound).to eq(true)
+    expect(request_block.rewound).to be(true)
   end
 
   it "response_block rewound" do
@@ -287,7 +287,7 @@ RSpec.describe Excon::Middleware::CustomIdempotent do
     )
     response_block = block_class.new
     connection.request(method: :get, idempotent: true, path: '/some-path', response_block:, retry_limit: 2, retry_interval: 0.1)
-    expect(response_block.rewound).to eq(true)
+    expect(response_block.rewound).to be(true)
   end
 end
 # rubocop:enable RSpec/RepeatedDescription

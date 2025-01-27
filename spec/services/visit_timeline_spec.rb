@@ -12,7 +12,7 @@ RSpec.describe VisitTimeline do
         event = events.first
         expect(event.state).to eq('requested')
         expect(event.created_at).to eq(visit.created_at)
-        expect(event.last).to eq(true)
+        expect(event.last).to be(true)
         expect(event.user_name).to eq(visit.principal_visitor.full_name)
       end
     end
@@ -37,14 +37,14 @@ RSpec.describe VisitTimeline do
       it 'has 3 events' do
         requested, booked, cancelled = events
         expect(requested.state).to eq('requested')
-        expect(requested.last).to eq(false)
+        expect(requested.last).to be(false)
 
         expect(booked.state).to eq('booked')
         expect(booked.user_name).to eq(user.email)
-        expect(booked.last).to eq(false)
+        expect(booked.last).to be(false)
 
         expect(cancelled.state).to eq('cancelled')
-        expect(cancelled.last).to eq(true)
+        expect(cancelled.last).to be(true)
         expect(cancelled.user_name).to be_nil
       end
     end

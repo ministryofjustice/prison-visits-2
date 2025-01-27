@@ -21,7 +21,7 @@ RSpec.describe NomisInfoPresenter do
       describe 'when verifying the prisoner number and date of birth' do
         describe 'with a successful API call' do
           describe 'when given the correct prisoner details and location' do
-            it { expect(subject.notice).to be nil }
+            it { expect(subject.notice).to be_nil }
           end
 
           describe 'when given incorrect prisoner details' do

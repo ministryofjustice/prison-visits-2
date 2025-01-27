@@ -15,6 +15,6 @@ RSpec.describe BookingResponder::VisitorCancel do
     visit.reload
     expect(visit).to be_cancelled
     expect(visit.cancellation.reasons).to eq([reason])
-    expect(visit.cancellation.nomis_cancelled).to eq(false)
+    expect(visit.cancellation.nomis_cancelled).to be(false)
   end
 end

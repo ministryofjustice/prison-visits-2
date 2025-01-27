@@ -44,13 +44,11 @@ class StaffResponse
     attrs
   end
 
-  # rubocop:disable Naming/MemoizedInstanceVariableName
   def validate_visitors_nomis_ready=(val)
     @validate_visitors_nomis_ready ||= ActiveRecord::Type::Boolean
       .new
       .cast(val)
   end
-  # rubocop:enable Naming/MemoizedInstanceVariableName
 
   def validate_visitors_nomis_ready?
     @validate_visitors_nomis_ready

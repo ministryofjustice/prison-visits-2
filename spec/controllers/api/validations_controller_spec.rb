@@ -144,7 +144,7 @@ RSpec.describe Api::ValidationsController do
         .and_raise(Nomis::APIError, 'Something broke')
 
       post(:prisoner, params:)
-      expect(parsed_body['validation']['valid']).to eq(true)
+      expect(parsed_body['validation']['valid']).to be(true)
     end
   end
 end

@@ -151,7 +151,7 @@ RSpec.describe Api::VisitsController do
       it 'returns visit status' do
         get(:show, params:)
         expect(response).to have_http_status(:ok)
-        expect(parsed_body['visit']['can_cancel']).to eq(false)
+        expect(parsed_body['visit']['can_cancel']).to be(false)
       end
     end
 
@@ -166,7 +166,7 @@ RSpec.describe Api::VisitsController do
       it 'returns visit status' do
         get(:show, params:)
         expect(response).to have_http_status(:ok)
-        expect(parsed_body['visit']['can_withdraw']).to eq(false)
+        expect(parsed_body['visit']['can_withdraw']).to be(false)
       end
     end
 

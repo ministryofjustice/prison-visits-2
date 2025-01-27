@@ -22,45 +22,45 @@ RSpec.describe Timings do
   describe Timings::TimelyAndOverdue do
     context 'when they are not organized by date' do
       it 'counts all overdue visits and group by prison' do
-        expect(described_class.fetch_and_format).to be ==
-          {
-            'Lunar Penal Colony' => { 'overdue' => 4 },
-            'Martian Penal Colony' => { 'overdue' => 2 }
-          }
+        expect(described_class.fetch_and_format).to eq
+        {
+          'Lunar Penal Colony' => { 'overdue' => 4 },
+          'Martian Penal Colony' => { 'overdue' => 2 }
+        }
       end
     end
 
     context 'when they are organized by date' do
       describe Timings::TimelyAndOverdueByCalendarWeek do
         it 'counts visits and groups by prison, year, calendar week and visit state' do
-          expect(described_class.fetch_and_format).to be ==
-            { 'Lunar Penal Colony' =>
-              { 2016 =>
-                { 5 => {
-                  'overdue' => {
-                    'rejected' => 1,
-                    'booked' => 1,
-                    'cancelled' => 1,
-                    'withdrawn' => 1
-                  },
-                  'timely' => {
-                    'rejected' => 1,
-                    'booked' => 1,
-                    'cancelled' => 1,
-                    'withdrawn' => 1
-                  }
-                }
-                }
-              },
-              'Martian Penal Colony' =>
-              { 2016 =>
-                { 5 => {
-                  'overdue' => { 'booked' => 1, 'rejected' => 1 },
-                  'timely' => { 'booked' => 1, 'rejected' => 1 }
-                }
+          expect(described_class.fetch_and_format).to eq
+          { 'Lunar Penal Colony' =>
+            { 2016 =>
+              { 5 => {
+                'overdue' => {
+                  'rejected' => 1,
+                  'booked' => 1,
+                  'cancelled' => 1,
+                  'withdrawn' => 1
+                },
+                'timely' => {
+                  'rejected' => 1,
+                  'booked' => 1,
+                  'cancelled' => 1,
+                  'withdrawn' => 1
                 }
               }
-          }
+              }
+            },
+            'Martian Penal Colony' =>
+            { 2016 =>
+              { 5 => {
+                'overdue' => { 'booked' => 1, 'rejected' => 1 },
+                'timely' => { 'booked' => 1, 'rejected' => 1 }
+              }
+              }
+            }
+        }
         end
       end
     end

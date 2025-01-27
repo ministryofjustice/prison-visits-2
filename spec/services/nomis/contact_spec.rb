@@ -90,7 +90,7 @@ RSpec.describe Nomis::Contact do
         ]
       end
 
-      it { expect(subject.banned_until).to be nil }
+      it { expect(subject.banned_until).to be_nil }
     end
 
     context 'with no banned restriction' do
@@ -103,7 +103,7 @@ RSpec.describe Nomis::Contact do
         ]
       end
 
-      it { expect(subject.banned_until).to be nil }
+      it { expect(subject.banned_until).to be_nil }
     end
   end
 

@@ -25,7 +25,7 @@ RSpec.describe PrisonerLocationPresenter do
         end
 
         describe 'when the location is valid' do
-          it { expect(subject.status).to be nil }
+          it { expect(subject.status).to be_nil }
         end
 
         describe 'when the location is invalid' do
@@ -67,7 +67,7 @@ RSpec.describe PrisonerLocationPresenter do
       describe 'when the location is invalid' do
         let(:establishment_code) { 'LEI' }
 
-        it { expect(subject.internal_location).to be nil }
+        it { expect(subject.internal_location).to be_nil }
       end
     end
 
@@ -76,7 +76,7 @@ RSpec.describe PrisonerLocationPresenter do
         simulate_api_error_for(:lookup_prisoner_location)
       end
 
-      it { expect(subject.internal_location).to be nil }
+      it { expect(subject.internal_location).to be_nil }
     end
   end
 end

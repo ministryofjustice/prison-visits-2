@@ -10,7 +10,7 @@ RSpec.describe Nomis::Feature do
       switch_off_api
     end
 
-    it { expect(described_class.slot_availability_enabled?(anything)).to eq(false) }
+    it { expect(described_class.slot_availability_enabled?(anything)).to be(false) }
   end
 
   describe '.slot_availability_enabled?' do
@@ -19,7 +19,7 @@ RSpec.describe Nomis::Feature do
         switch_off :nomis_staff_slot_availability_enabled
       end
 
-      it { expect(described_class.slot_availability_enabled?(anything)).to eq(false) }
+      it { expect(described_class.slot_availability_enabled?(anything)).to be(false) }
     end
 
     context 'when the slot availability flag is enabled and the visit prison is not on the list' do
@@ -28,7 +28,7 @@ RSpec.describe Nomis::Feature do
         switch_feature_flag_with(:staff_prisons_with_slot_availability, [])
       end
 
-      it { expect(described_class.slot_availability_enabled?(prison_name)).to eq(false) }
+      it { expect(described_class.slot_availability_enabled?(prison_name)).to be(false) }
     end
 
     context 'when the slot availability flag is enabled and the visit prison is on the list' do
@@ -37,7 +37,7 @@ RSpec.describe Nomis::Feature do
         switch_feature_flag_with(:staff_prisons_with_slot_availability, [prison_name])
       end
 
-      it { expect(described_class.slot_availability_enabled?(prison_name)).to eq(true) }
+      it { expect(described_class.slot_availability_enabled?(prison_name)).to be(true) }
     end
   end
 end

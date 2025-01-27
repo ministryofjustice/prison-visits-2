@@ -20,8 +20,8 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
       expect(object.dates.count).to eq(1)
       date_info = object.dates.first
 
-      expect(date_info.out_of_vo).to eq(true)
-      expect(date_info.external_movement).to eq(false)
+      expect(date_info.out_of_vo).to be(true)
+      expect(date_info.external_movement).to be(false)
       expect(date_info.existing_visits.first.id).to eq('123')
       expect(date_info.existing_visits.first.slot.to_s).to eq(requested_slot.to_s)
     end
@@ -48,7 +48,7 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
       let(:external_movement) { false }
       let(:existing_visits) { [{ 'slot' => api_slot.to_s, 'id' => 123 }] }
 
-      it { is_expected.to eq(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when available' do
@@ -56,7 +56,7 @@ RSpec.describe Nomis::PrisonerDetailedAvailability do
       let(:external_movement) { false }
       let(:existing_visits) { [] }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
   end
 
