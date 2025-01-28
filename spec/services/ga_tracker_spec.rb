@@ -46,7 +46,7 @@ RSpec.describe GATracker do
               ea: 'Manual rejection',
               el: "slot_unavailable"
             ),
-            headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
+            headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'deflate, gzip', 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com', 'User-Agent' => Excon::USER_AGENT }
           )
       end
     end
@@ -76,7 +76,7 @@ RSpec.describe GATracker do
               ea: 'Manual rejection',
               el: "slot_unavailable"
             ),
-            headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
+            headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'deflate, gzip', 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com', 'User-Agent' => Excon::USER_AGENT }
         )
       end
     end
@@ -106,7 +106,7 @@ RSpec.describe GATracker do
               ea: 'Rejection',
               el: "prisoner_details_incorrect"
             ),
-            headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
+            headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'deflate, gzip', 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com', 'User-Agent' => Excon::USER_AGENT }
           )
       end
     end
@@ -136,7 +136,7 @@ RSpec.describe GATracker do
               ea: 'Booked',
               el: 'Manual'
             ),
-            headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
+            headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'deflate, gzip', 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com', 'User-Agent' => Excon::USER_AGENT }
           )
       end
     end
@@ -166,7 +166,7 @@ RSpec.describe GATracker do
               ea: 'Cancelled',
               el: 'booked_in_error'
             ),
-            headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
+            headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'deflate, gzip', 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com', 'User-Agent' => Excon::USER_AGENT }
           )
       end
     end
@@ -196,7 +196,7 @@ RSpec.describe GATracker do
               ea: 'Withdrawn',
               el: nil
             ),
-            headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
+            headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'deflate, gzip', 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com', 'User-Agent' => Excon::USER_AGENT }
           )
       end
     end
@@ -233,7 +233,7 @@ RSpec.describe GATracker do
               utl: user.id,
               cd1: "slot_unavailable"
             ),
-            headers: { 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com:443', 'User-Agent' => Excon::USER_AGENT }
+            headers: { 'Accept' => '*/*', 'Accept-Encoding' => 'deflate, gzip', 'Content-Type' => 'application/x-www-form-urlencoded', 'Host' => 'www.google-analytics.com', 'User-Agent' => Excon::USER_AGENT }
         )
         expect(cookies[processing_time_key]).to be_nil
       end

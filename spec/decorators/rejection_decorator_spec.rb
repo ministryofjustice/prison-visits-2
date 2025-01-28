@@ -263,9 +263,7 @@ RSpec.describe RejectionDecorator do
     end
 
     before do
-      allow(subject).to receive(:nomis_checker).and_return(nomis_checker)
-      allow(subject).to receive(:prisoner_details).and_return(prisoner_details_presenter)
-      allow(subject).to receive(:prisoner_location).and_return(prisoner_location_presenter)
+      allow(subject).to receive_messages(nomis_checker: nomis_checker, prisoner_details: prisoner_details_presenter, prisoner_location: prisoner_location_presenter)
       allow(nomis_checker).to receive(:errors_for)
         .with(anything) do
           if visit_bookable

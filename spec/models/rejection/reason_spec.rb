@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Rejection::Reason, model: true do
+RSpec.describe Rejection::Reason, :model do
   subject { described_class.new(explanation:) }
 
   let(:explanation) { 'prisoner has a restriction' }

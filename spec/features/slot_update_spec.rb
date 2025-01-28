@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature 'Update slots for a prison', js: true do
+RSpec.feature 'Update slots for a prison', :js do
   let(:prisons) { create_list :prison, 2 }
 
   before do

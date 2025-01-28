@@ -7,6 +7,7 @@ require:
   - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
+  - rubocop-capybara
 
 AllCops:
   # Exclude anything that isn't really part of our code.
@@ -184,6 +185,18 @@ RSpec/SubjectStub:
 RSpec/VerifiedDoubles:
   Enabled: false
 
+RSpec/BeEq:
+  Enabled: false
+
+RSpec/IndexedLet:
+  Enabled: false
+
+RSpec/BeNil:
+  Enabled: false
+
+RSpec/NoExpectationExample:
+  Enabled: false
+
 Rails/FilePath:
   Enabled: false
 
@@ -266,9 +279,6 @@ Lint/IneffectiveAccessModifier:
   Enabled: false
 
 Lint/AmbiguousBlockAssociation:
-  Enabled: false
-
-RSpec/Capybara/FeatureMethods:
   Enabled: false
 
 # Below here are failing GovUk styles

@@ -22,7 +22,7 @@ RSpec.describe Nomis::Restriction do
       it { is_expected.to be_banned }
     end
 
-    context 'with not a banned restriction type ' do
+    context 'with not a banned restriction type' do
       let(:type) { { 'code' => "CLOSED", 'desc' => "Closed" } }
 
       it { is_expected.not_to be_banned }
@@ -36,7 +36,7 @@ RSpec.describe Nomis::Restriction do
       it { expect(subject).not_to be_closed }
     end
 
-    context 'with no banned restriction types ' do
+    context 'with no banned restriction types' do
       let(:type) { { 'code' => "CLOSED", 'desc' => "Closed" } }
 
       it { expect(subject).to be_closed }

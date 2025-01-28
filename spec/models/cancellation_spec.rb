@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Cancellation, model: true do
+RSpec.describe Cancellation, :model do
   subject { FactoryBot.build(:cancellation) }
 
   describe 'validation' do
