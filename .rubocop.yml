@@ -196,6 +196,7 @@ RSpec/BeNil:
 
 RSpec/NoExpectationExample:
   Enabled: false
+
 Rails/FilePath:
   Enabled: false
 

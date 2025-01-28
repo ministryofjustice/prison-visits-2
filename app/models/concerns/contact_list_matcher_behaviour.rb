@@ -1,6 +1,8 @@
 module ContactListMatcherBehaviour
   extend ActiveSupport::Concern
 
+  require 'ostruct'
+
   included do |klass|
     klass.extend ActiveModel::Naming
     klass.send(:define_method, :category) do
