@@ -638,7 +638,7 @@ DEPENDENCIES
   net-http
   netaddr (~> 1.5.1)
   notifications-ruby-client (~> 5.3)
-  omniauth (~> 1.9.2)
+  omniauth
   omniauth-oauth2
   parser
   pg
