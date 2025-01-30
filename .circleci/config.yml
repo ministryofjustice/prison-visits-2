@@ -1,3 +1,11 @@
+parameters:
+  alerts-slack-channel:
+    type: string
+    default: visits-alerts
+  releases-slack-channel:
+    type: string
+    default: visits-releases
+
 references:
   defaults: &defaults
     working_directory: ~/prison-visits-staff
@@ -176,6 +184,8 @@ workflows:
           context:
             - hmpps-common-vars
             - prison-visits-booking-production
+          slack_notification: true
+          slack_channel_name: << pipeline.parameters.releases-slack-channel >>
           env: production
           requires:
             - deploy_production_approval
