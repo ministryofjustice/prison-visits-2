@@ -653,7 +653,7 @@ DEPENDENCIES
   pvb-instrumentation!
   rack (>= 2.1.4)
   rack-canonical-host
-  rails (~> 7.1.2)
+  rails (~> 7.1.5.1)
   rails-controller-testing
   rake
   request_store
