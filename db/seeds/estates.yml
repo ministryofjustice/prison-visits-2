@@ -548,6 +548,7 @@ WEI:
     - wealstun.prisons.noms.moj
 WHI:
   name: Woodhill
+  finder_slug: woodhill-prison
   admins:
     - woodhill.prisons.noms.moj
 WII:
