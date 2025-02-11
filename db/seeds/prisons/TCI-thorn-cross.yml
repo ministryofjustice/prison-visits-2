@@ -1,35 +1,6 @@
 ---
 name: Thorn Cross
 nomis_id: TCI
-address: |-
-  Arley Road
-postcode: NWA4 4RL
-email_address: socialvisitsthorncro@justice.gov.uk
-phone_no: 01925805018
 enabled: false
 private: false
 closed: false
-recurring:
-  sat:
-  - 0945-1145
-  - 1345-1545
-  sun:
-  - 1345-1545
-  tue:
-  - 1745-1945
-  wed:
-  - 1745-1945
-  fri:
-  - 1345-1545
-unbookable:
-- 2019-12-25
-- 2020-01-01
-- 2022-06-02
-- 2022-06-03
-anomalous:
-  2019-12-24:
-  - 1345-1545
-  2019-12-31:
-  - 1345-1545
-  2020-01-03:
-  - 1745-1945

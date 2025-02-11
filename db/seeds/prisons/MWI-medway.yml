@@ -9,7 +9,7 @@ email_address: custody.medway@hmps.gsi.gov.uk
 phone_no: 01634 823300
 enabled: false
 private: false
-closed: false
+closed: true
 recurring:
  tue:
  - 1730-1900
