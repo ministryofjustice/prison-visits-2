@@ -163,7 +163,7 @@ en:
         unknown_text: "The check couldn't take place due to a system error, please verify manually"
         verified: NOMIS verified
         verified_html: |
-          The prisoner date of birth, prisoner number and prison name have been verified. <br>Please check the prisoner name.
+          The prisoner date of birth, prison number and prison name have been verified. <br>Please check the prisoner name.
         internal_location: Internal location
         iep_level: Incentive level
         sentence_status: Sentence status
@@ -317,7 +317,7 @@ en:
     closed: Closed
     dob: Date of birth
     email_address: Email address
-    filter_form_hint: By prisoner number eg A1234BC
+    filter_form_hint: By prison number eg A1234BC
     lead_visitor: Lead visitor
     name: Name
     no_visits: There are currently no visits
