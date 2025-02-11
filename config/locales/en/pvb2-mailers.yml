@@ -157,7 +157,7 @@ en:
         any help with the online visits service, please
         <a href="%{url}">contact us</a>.
       prisoner: "Prisoner:"
-      prisoner_number: "Prisoner number:"
+      prisoner_number: "Prison number:"
       request:
         one: You have requested a visit to %{prison} for %{count} person
         other: You have requested a visit to %{prison} for %{count} people

@@ -41,7 +41,7 @@ RSpec.feature 'Processing a request - Acceptance with the contact list enabled',
     all('tr:not(.hidden-row)').last.click_link('View')
 
     expect(page).to have_css('form h1', text: 'Check visit request')
-    expect(page).to have_css('form .bold-small', text: "The prisoner date of birth, prisoner number and prison name have been verified.")
+    expect(page).to have_css('form .bold-small', text: "The prisoner date of birth, prison number and prison name have been verified.")
     expect(page).to have_css('.choose-date .tag--verified', text: 'Prisoner available')
 
     choose_date
