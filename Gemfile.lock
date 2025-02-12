@@ -346,7 +346,7 @@ GEM
       racc
     pg (1.5.9)
     phantomjs (2.1.1.0)
-    phonelib (0.10.3)
+    phonelib (0.10.4)
     pp (0.6.2)
       prettyprint
     premailer (1.27.0)
