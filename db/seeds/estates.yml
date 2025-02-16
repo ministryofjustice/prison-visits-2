@@ -1,5 +1,6 @@
 ACI:
   name: Altcourse
+  finder_slug: altcourse-prison
   admins:
     - altcourse.prisons.noms.moj
 AGI:
@@ -10,6 +11,7 @@ AGI:
     - askham_grange.prisons.noms.moj
 ASI:
   name: Ashfield
+  finder_slug: ashfield-prison
   admins:
     - ashfield.prisons.noms.moj
 AYI:
@@ -40,6 +42,7 @@ BLI:
     - apvu.noms.moj
 BMI:
   name: Birmingham
+  finder_slug: birmingham-prison  
   admins:
     - birmingham.prisons.noms.moj
 BNI:
@@ -59,6 +62,7 @@ BSI:
     - apvu.noms.moj
 BWI:
   name: Berwyn
+  finder_slug: berwyn-prison
   admins:
     - berwyn.prisons.noms.moj
 BXI:
@@ -68,6 +72,7 @@ BXI:
     - brixton.prisons.noms.moj
 BZI:
   name: Bronzefield
+  finder_slug: bronzefield-prison  
   admins:
     - bronzefield.prisons.noms.moj
 CDI:
@@ -82,7 +87,7 @@ CFI:
     - cardiff.prisons.noms.moj
 CKI:
   name: Cookham Wood
-  finder_slug: cookham-wood-you
+  finder_slug: cookham-wood-prison
   admins:
     - cookham_wood.prisons.noms.moj
 CLI:
@@ -102,6 +107,7 @@ DAI:
     - dartmoor.prisons.noms.moj
 DGI:
   name: Dovegate
+  finder_slug: dovegate-prison
   admins:
     - dovegate.prisons.noms.moj
 DHI:
@@ -116,6 +122,7 @@ DMI:
     - durham.prisons.noms.moj
 DNI:
   name: Doncaster
+  finder_slug: doncaster-prison  
   admins:
     - doncaster.prisons.noms.moj
 DTI:
@@ -163,6 +170,7 @@ EYI:
     - elmley.prisons.noms.moj
 FBI:
   name: Forest Bank
+  finder_slug: forest-bank-prison  
   admins:
     - forest_bank.prisons.noms.moj
 FDI:
@@ -188,7 +196,7 @@ FKI:
     - frankland.prisons.noms.moj
 FMI:
   name: Feltham
-  finder_slug: feltham
+  finder_slug: feltham-yoi
   admins:
     - feltham.prisons.noms.moj
 FNI:
@@ -258,6 +266,7 @@ HII:
     - hindley.prisons.noms.moj
 HLI:
   name: Hull
+  finder_slug: hull-prison  
   admins:
     - hull.prisons.noms.moj
 HMI:
@@ -282,11 +291,12 @@ HVI:
     - haverigg.prisons.noms.moj
 ISI:
   name: Isis
+  finder_slug: isis-prison
   admins:
     - isis.prisons.noms.moj
 IWI:
   name: Isle of Wight
-  finder_slug: isle-of-wight
+  finder_slug: isle-of-wight-prison
   admins:
     - isle_of_wight.prisons.noms.moj
 KMI:
@@ -296,6 +306,7 @@ KMI:
     - kirkham.prisons.noms.moj
 KVI:
   name: Kirklevington Grange
+  finder_slug: kirklevington-grange-prison
   admins:
     - kirklevington_grange.prisons.noms.moj
 LCI:
@@ -315,6 +326,7 @@ LFI:
     - lancaster_farms.prisons.noms.moj
 LGI:
   name: Lowdham Grange
+  finder_slug: lowdham-grange-prison
   admins:
     - lowdham_grange.prisons.noms.moj
 LHI:
@@ -329,6 +341,7 @@ LII:
     - lincoln.prisons.noms.moj
 LLI:
   name: Long Lartin
+  finder_slug: long-lartin-prison
   admins:
     - long_lartin.prisons.noms.moj
 LNI:
@@ -343,10 +356,12 @@ LPI:
     - liverpool.prisons.noms.moj
 LTI:
   name: Littlehey
+  finder_slug: littlehey-prison
   admins:
     - littlehey.prisons.noms.moj
 LWI:
   name: Lewes
+  finder_slug: lewes-prison
   admins:
     - lewes.prisons.noms.moj
 LYI:
@@ -366,6 +381,7 @@ MHI:
     - morton_hall.prisons.noms.moj
 MRI:
   name: Manchester
+  finder_slug: manchester-prison
   admins:
     - manchester.prisons.noms.moj
 MSI:
@@ -394,10 +410,12 @@ NLI:
     - northumberland.prisons.noms.moj
 NMI:
   name: Nottingham
+  finder_slug: nottingham-prison
   admins:
     - nottingham.prisons.noms.moj
 NSI:
   name: North Sea Camp
+  finder_slug: north-sea-camp
   admins:
     - north_sea_camp.prisons.noms.moj
 NWI:
@@ -412,11 +430,12 @@ ONI:
     - onley.prisons.noms.moj
 OWI:
   name: Oakwood
-  finder_slug: hmp-oakwood
+  finder_slug: oakwood-prison
   admins:
     - oakwood.prisons.noms.moj
 PBI:
   name: Peterborough
+  finder_slug: peterborough-prison
   admins:
     - peterborough.prisons.noms.moj
 PDI:
@@ -431,6 +450,7 @@ PNI:
     - preston.prisons.noms.moj
 PRI:
   name: Parc
+  finder_slug: parc-prison-and-yoi
   admins:
     - parc.prisons.noms.moj
 PVI:
@@ -445,6 +465,7 @@ RCI:
     - rochester.prisons.noms.moj
 RHI:
   name: Rye Hill
+  finder_slug: rye-hill-prison
   admins:
     - rye_hill.prisons.noms.moj
 RNI:
@@ -480,6 +501,7 @@ SKI:
     - stocken.prisons.noms.moj
 SLI:
   name: Swaleside
+  finder_slug: swaleside-prison
   admins:
     - swaleside.prisons.noms.moj
 SNI:
@@ -510,10 +532,12 @@ SWI:
     - swansea.prisons.noms.moj
 TCI:
   name: Thorn Cross
+  finder_slug: thorn-cross-prison
   admins:
     - thorn_cross.prisons.noms.moj
 TSI:
   name: Thameside
+  finder_slug: thameside-prison
   admins:
     - thameside.prisons.noms.moj
 UKI:
@@ -523,7 +547,7 @@ UKI:
     - usk.prisons.noms.moj
 UPI:
   name: Prescoed
-  finder_slug: usk-prescoed-prescoed
+  finder_slug: prescoed-prison
   admins:
     - prescoed.prisons.noms.moj
 VEI:
@@ -548,6 +572,7 @@ WEI:
     - wealstun.prisons.noms.moj
 WHI:
   name: Woodhill
+  finder_slug: woodhill-prison
   admins:
     - woodhill.prisons.noms.moj
 WII:
@@ -593,5 +618,6 @@ WWI:
     - wandsworth.prisons.noms.moj
 WYI:
   name: Wetherby
+  finder_slug: wetherby-yoi
   admins:
     - wetherby.prisons.noms.moj
