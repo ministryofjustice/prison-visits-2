@@ -2,11 +2,10 @@
 name: Humber
 nomis_id: HMI
 address: |-
-  4 Sands Lane
   Everthorpe
   Brough
 postcode: HU15 2JZ
-email_address: socialvisits.humber@justice.gov.uk
+email_address: Unavailable
 phone_no: 0300 060 6606
 enabled: true
 private: false
@@ -23,11 +22,4 @@ recurring:
   sun:
   - 1415-1600
 unbookable:
-- 2018-12-25
-- 2018-12-26
-- 2019-01-01
-- 2022-06-02
-- 2022-06-03
-- 2022-12-25
-- 2022-12-26
 - 2023-01-01
