@@ -41,6 +41,9 @@ generic-service:
     hosts:
       - staff.preprod.prisonvisits.prison.service.justice.gov.uk
 
+  scheduledDowntime:
+    enabled: true
+
   namespace_secrets:
     prison-visits-rds-instance-output:
       DATABASE_URL: url
