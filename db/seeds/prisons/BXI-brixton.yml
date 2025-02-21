@@ -6,7 +6,7 @@ address: |-
 postcode: SW2 5XF
 email_address: socialvisits.brixton@justice.gov.uk
 phone_no: 0208 678 1433
-enabled: false
+enabled: true
 private: false
 closed: false
 recurring:
