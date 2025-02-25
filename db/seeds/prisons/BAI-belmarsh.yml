@@ -2,11 +2,10 @@
 name: Belmarsh
 nomis_id: BAI
 address: |-
-  Western Way
-  Thamesmead
+  Belmarsh Road
   London
 postcode: SE28 0EB
-email_address: socialvisits.belmarsh@justice.gov.uk
+email_address: belmarsh.visits@justice.gov.uk
 phone_no: 0208 331 4760
 enabled: true
 private: false
@@ -15,28 +14,20 @@ booking_window: 21
 lead_days: 3
 recurring:
   tue:
-  - 0915-1045
-  - 1430-1600
+  - 0915-1115
+  - 1415-1615
   wed:
-  - 0915-1045
-  - 1430-1600
+  - 0915-1115
+  - 1415-1615
   thu:
-  - 0915-1045
-  - 1430-1600
+  - 0915-1115
+  - 1415-1615
   fri:
-  - 0915-1045
+  - 0915-1115
   sat:
-  - 0915-1045
-  - 1430-1600
+  - 0930-1130
+  - 1415-1615
   sun:
-  - 1430-1600
+  - 1415-1615
 unbookable:
-- 2022-06-02
-- 2022-06-03
-- 2018-10-02
-- 2018-10-03
-- 2018-10-04
-- 2018-10-05
-- 2018-10-06
-- 2022-12-25
 - 2023-01-01
