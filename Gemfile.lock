@@ -521,7 +521,7 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (6.4.0)
       activesupport (>= 5.2.0)
-    sidekiq (7.3.8)
+    sidekiq (7.3.9)
       base64
       connection_pool (>= 2.3.0)
       logger
@@ -672,7 +672,7 @@ DEPENDENCIES
   scenic
   sentry-rails
   shoulda-matchers
-  sidekiq (= 7.3.8)
+  sidekiq (= 7.3.9)
   simplecov
   spring-commands-rspec
   sprockets-rails
