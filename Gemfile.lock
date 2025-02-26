@@ -166,7 +166,7 @@ GEM
       ruby2_keywords
     drb (2.2.1)
     erubi (1.13.1)
-    excon (1.2.3)
+    excon (1.2.4)
     execjs (2.10.0)
     factory_bot (6.5.1)
       activesupport (>= 6.1.0)
