@@ -2,14 +2,14 @@
 name: Usk
 nomis_id: UKI
 address: |-
-  47 Maryport Street
+  Maryport Street
+  Usk
 postcode: NP15 1XP
 translations:
   cy:
     address: |-
-      47 Stryd Maryport
+      Stryd Maryport
       Brynbuga
-      Sir Fynwy
 email_address: socialvisits.usk@justice.gov.uk
 phone_no: 0129 167 1730
 enabled: true
@@ -30,12 +30,5 @@ recurring:
   sun:
   - 1400-1600
 unbookable:
-- 2019-12-20
-- 2019-12-25
-- 2019-12-26
-- 2020-01-01
-- 2022-06-02
-- 2022-06-03
-- 2022-12-25
 - 2023-01-01
  
