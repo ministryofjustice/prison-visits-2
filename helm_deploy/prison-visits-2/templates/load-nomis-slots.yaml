@@ -4,7 +4,7 @@ metadata:
   name: load-nomis-slots
 spec:
   {{- if or (eq .Values.environment.name "dev") (eq .Values.environment.name "staging") }}
-  schedule: "0 8 * * *"
+  schedule: "0 8 * * 1-5"
   {{- end }}
   {{- if (eq .Values.environment.name "production") }}
   schedule: "0 0 * * *"
