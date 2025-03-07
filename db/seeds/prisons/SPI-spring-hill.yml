@@ -3,6 +3,7 @@ name: Spring Hill
 nomis_id: SPI
 address: |-
   Grendon Underwood
+  Aylesbury 
 postcode: HP18 0TL
 email_address: socialvisits.springhill@justice.gov.uk
 phone_no: 0129 644 5000
@@ -15,15 +16,7 @@ recurring:
   sun:
   - 1345-1545
 unbookable:
-- 2017-12-25
-- 2017-12-26
-- 2018-01-01
-- 2022-06-02
-- 2022-06-03
-- 2022-12-25
-- 2023-01-01
+- 2025-04-20
 anomalous:
-  2022-12-23:
-  - 1345-1545
   2022-12-30:
   - 1345-1545
