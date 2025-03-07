@@ -3,6 +3,7 @@ name: Grendon
 nomis_id: GNI
 address: |-
   Grendon Underwood
+  Aylesbury
 postcode: HP18 0TL
 email_address: socialvisits.grendon@justice.gov.uk
 phone_no: 0129 644 5000
@@ -17,9 +18,7 @@ recurring:
   sun:
   - 1345-1545
 unbookable:
-- 2023-01-01
-- 2024-12-25
-- 2025-01-01
+- 2025-04-20
 anomalous:
   2022-12-30:
   - 1345-1545
