@@ -46,7 +46,7 @@ gem 'uglifier', '4.1.0'
 gem 'uri_template'
 gem 'zendesk_api'
 gem 'pvb-instrumentation',
-    git: 'https://github.com/ministryofjustice/pvb-instrumentation.git',
+    git: 'https://github.com/ministryofjustice/prison-visit-booking-instrumentation.git',
     tag: 'v1.0.1'
 # gem 'pvb-instrumentation', path: '../pvb-instrumentation'
 gem 'email_address_validation',
