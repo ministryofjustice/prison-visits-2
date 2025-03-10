@@ -379,6 +379,11 @@ MHI:
   finder_slug: morton-hall-prison
   admins:
     - morton_hall.prisons.noms.moj
+MKI:
+  name: Millsike
+  finder_slug: millsike-prison
+  admins:
+    - millsike.prisons.noms.moj    
 MRI:
   name: Manchester
   finder_slug: manchester-prison
