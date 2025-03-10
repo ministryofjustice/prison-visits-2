@@ -6,7 +6,7 @@ environment:
     KUBERNETES_DEPLOYMENT: "true"
     NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED: "true"
     PUBLIC_SERVICE_URL: "https://dev.prisonvisits.prison.service.justice.gov.uk"
-    PVB_TEAM_EMAIL: "pvb-team@digital.justice.gov.uk"
+    PVB_TEAM_EMAIL: "prison-visits@justice.gov.uk"
     RACK_ENV: "development"
     RAILS_SERVE_STATIC_FILES: "true"
     REMOVE_LOAD_TEST_DATA: "true"
