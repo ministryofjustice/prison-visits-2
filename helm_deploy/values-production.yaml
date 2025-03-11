@@ -7,7 +7,7 @@ environment:
     MOJSSO_URL: "https://signon.service.justice.gov.uk"
     NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED: "true"
     PUBLIC_SERVICE_URL: "https://prisonvisits.service.gov.uk"
-    PVB_TEAM_EMAIL: "pvb-team@digital.justice.gov.uk"
+    PVB_TEAM_EMAIL: "prison-visits@justice.gov.uk"
     RACK_ENV: "production"
     RAILS_SERVE_STATIC_FILES: "true"
     REMOVE_LOAD_TEST_DATA: "false"
