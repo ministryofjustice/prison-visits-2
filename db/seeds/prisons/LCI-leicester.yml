@@ -3,6 +3,7 @@ name: Leicester
 nomis_id: LCI
 address: |-
   116 Welford Road
+  Leicester
 postcode: LE2 7AJ
 email_address: Unavailable
 phone_no: Unavailable
@@ -27,12 +28,4 @@ recurring:
   - 0930-1130
   - 1400-1600
 unbookable:
-- 2024-12-25
-- 2024-12-26
 - 2025-01-01
-anomalous:
-  2024-12-24:
-  - 0930-1130
-  2024-12-27:
-  - 0930-1130
-  - 1400-1600
