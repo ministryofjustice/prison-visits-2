@@ -3,10 +3,8 @@ inherit_gem:
     - config/default.yml
     - config/rails.yml
 
-require:
-  - rubocop-capybara
-
 plugins:
+  - rubocop-capybara
   - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
