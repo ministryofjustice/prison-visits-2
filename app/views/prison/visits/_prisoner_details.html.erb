@@ -2,21 +2,21 @@
 <% case nomis_info_presenter.notice %>
 <% when nil %>
   <div class="notice push-top">
-    <i class="icon icon-information">
+    <i class="icon icon-important">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
     <strong class="bold-small"><%= t('.verified_html') %></strong>
   </div>
 <% when PrisonerValidation::PRISONER_NOT_EXIST, PrisonerLocationValidation::INVALID %>
   <div class="notice push-top">
-    <i class="icon icon-information">
+    <i class="icon icon-important">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
     <strong class="bold-small"><%= t(".#{nomis_info_presenter.notice}_text") %></strong>
   </div>
 <% when PrisonerValidation::UNKNOWN, PrisonerLocationValidation::UNKNOWN %>
   <div class="notice push-top">
-    <i class="icon icon-information">
+    <i class="icon icon-important">
       <span class="visuallyhidden"><%= t('warning', scope: :shared) %></span>
     </i>
     <strong class="bold-small"><%= t(".#{nomis_info_presenter.notice}_text") %></strong>
