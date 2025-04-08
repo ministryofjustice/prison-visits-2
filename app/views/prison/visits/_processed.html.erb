@@ -31,7 +31,7 @@
     <% if @visit.rejected? %>
       <div class="column-two-thirds push-top">
         <div class="push-top text-secondary push-bottom--half">
-          <i class="icon icon-information align-vertical--middle"></i> Rejected reason(s)
+          <i class="icon icon-important align-vertical--middle"></i> Rejected reason(s)
         </div>
         <ul class="list list-bullet">
           <% @visit.rejection.staff_formatted_reasons.each do |reason| %>

@@ -6,7 +6,7 @@
 
 <% if @visit.contact_list_unknown? %>
   <div class="notice push-bottom push-top">
-    <i class="icon icon-information">
+    <i class="icon icon-important">
       <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>
     </i>
     <strong class="bold-small"><%= t('.nomis_api_down') %></strong>
@@ -28,7 +28,7 @@
     <% if !@visit.contact_list_unknown? %>
       <div class="js-notAllProcessed">
         <div class="notice">
-          <i class="icon icon-information">
+          <i class="icon icon-important">
             <span class="visuallyhidden"><%= t('warning', scope: 'shared') %></span>
           </i>
           <strong class="bold-small"><%= t('.not_all_processed') %></strong>
