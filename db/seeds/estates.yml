@@ -195,7 +195,7 @@ FKI:
   admins:
     - frankland.prisons.noms.moj
 FMI:
-  name: Feltham
+  name: Feltham B
   finder_slug: feltham-yoi
   admins:
     - feltham.prisons.noms.moj
@@ -214,6 +214,11 @@ FWI:
   finder_slug: five-wells-prison
   admins:
     - five-wells.noms.moj
+FYI:
+  name: Feltham A
+  finder_slug: feltham-yoi
+  admins:
+    - feltham.prisons.noms.moj
 GHI:
   name: Garth
   finder_slug: garth-prison
