@@ -3,9 +3,10 @@ name: Leeds
 nomis_id: LEI
 address: |-
   Gloucester Terrace
+  Leeds
 postcode: LS12 2TJ
 email_address: socialvisits.leeds@justice.gov.uk
-phone_no: 0113 203 2995
+phone_no: 0113 203 2570
 enabled: true
 private: false
 closed: false
@@ -37,11 +38,4 @@ recurring:
   - 1400-1500
   - 1530-1630
 unbookable:
-- 2019-12-25
-- 2019-12-26
-- 2020-01-01
-- 2022-06-02
-- 2022-06-03
-- 2022-12-25
-- 2022-12-26
 - 2023-01-01
