@@ -3,6 +3,7 @@ name: Holme House
 nomis_id: HHI
 address: |-
   Holme House Road
+  Stockton-On-Tees
 postcode: TS18 2QU
 email_address: socialvisits.holmehouse@justice.gov.uk
 phone_no: 0300 060 6602
@@ -27,11 +28,4 @@ recurring:
   - 0900-1100
   - 1345-1545
 unbookable:
-- 2018-12-25
-- 2018-12-26
-- 2019-01-01
-- 2022-06-02
 - 2022-06-03
-anomalous:
-  2018-12-24:
-  - 1345-1530
