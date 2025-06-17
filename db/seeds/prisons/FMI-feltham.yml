@@ -4,7 +4,7 @@ nomis_id: FMI
 address: |-
   Bedfont Road
 postcode: TW13 4ND
-email_address: socialvisits.feltham@hmps.gsi.gov.uk
+email_address: socialvisits.feltham@justice.gov.uk
 phone_no: 020 8844 5400
 enabled: false
 private: false
@@ -12,18 +12,17 @@ closed: false
 adult_age: 10
 recurring:
   mon:
-  - 1330-1430
-  - 1500-1600
+  - 1400-1500
+  - 1530-1630
   wed:
-  - 1330-1430
-  - 1500-1600
+  - 1400-1500
+  - 1530-1630
   sat:
-  - 0900-0955
-  - 1000-1100
-  - 1330-1430
-  - 1500-1600
+  - 0900-1000
+  - 1030-1130
+  - 1400-1500
+  - 1530-1630
+  sun:
+  - 1400-1630
 unbookable:
 - 2022-06-03
-anomalous:
-  2020-03-15:
-  - 1330-1630
