@@ -2,7 +2,6 @@
 name: Gartree
 nomis_id: GTI
 address: |-
-  Gallow Field Rd
   Market Harborough
   Leicestershire
 postcode: LE16 7RP
@@ -21,10 +20,4 @@ recurring:
   sun:
   - 1400-1600
 unbookable:
-- 2019-02-14
-- 2019-02-21
-- 2019-12-26
-- 2022-06-02
-- 2022-06-03
-- 2022-12-25
 - 2023-01-01
