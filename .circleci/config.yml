@@ -38,7 +38,7 @@ references:
     run:
       name: Build docker image
       command: |
-        export BUILD_DATE=$(date -Is) >> $BASH_ENV
+        export BUILD_DATE=$(date -I) >> $BASH_ENV
         source $BASH_ENV
         docker build \
           --build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} \
