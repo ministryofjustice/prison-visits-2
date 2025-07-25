@@ -6,10 +6,10 @@ address: |-
 postcode: NG5 3AG
 email_address: nottingham@prisonadvice.org.uk
 phone_no: 0115 962 8980
-adult_age: 18
 enabled: true
 private: false
 closed: false
+adult_age: 18
 recurring:
   mon:
   - 0900-1030

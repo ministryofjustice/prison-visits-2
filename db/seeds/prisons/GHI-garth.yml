@@ -1,9 +1,6 @@
 ---
 name: Garth
 nomis_id: GHI
-enabled: true
-private: false
-closed: false
 address: |-
   Ulnes Walton
   Leyland
@@ -11,6 +8,10 @@ address: |-
 postcode: PR26 8NE
 email_address: socialvisits.garth@justice.gov.uk
 phone_no: 0177 244 3503
+enabled: true
+private: false
+closed: false
+adult_age: 18
 recurring:
   tue:
   - 1345-1600

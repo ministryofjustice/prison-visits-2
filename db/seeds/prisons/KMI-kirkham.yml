@@ -10,6 +10,7 @@ phone_no: Unavailable
 enabled: true
 private: false
 closed: false
+adult_age: 18
 recurring:
   thu:
   - 1315-1600

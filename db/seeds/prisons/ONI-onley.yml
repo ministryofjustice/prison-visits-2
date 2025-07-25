@@ -9,7 +9,7 @@ phone_no: 0178 852 3402
 enabled: true
 private: false
 closed: false
-adult_age: 10
+adult_age: 18
 recurring:
   tue:
   - 1400-1600

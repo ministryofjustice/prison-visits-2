@@ -9,6 +9,7 @@ phone_no: 01205 769 368
 enabled: true
 private: false
 closed: false
+adult_age: 16
 recurring:
   wed:
   - 1345-1545

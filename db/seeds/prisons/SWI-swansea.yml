@@ -15,6 +15,7 @@ phone_no: 0179 248 5322
 enabled: true
 private: false
 closed: false
+adult_age: 18
 recurring:
   mon:
   - 1400-1500

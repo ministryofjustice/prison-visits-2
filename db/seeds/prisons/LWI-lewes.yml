@@ -9,6 +9,7 @@ phone_no: 01273 785 271
 enabled: true
 private: false
 closed: false
+adult_age: 18
 weekend_processing: true
 recurring:
   mon:

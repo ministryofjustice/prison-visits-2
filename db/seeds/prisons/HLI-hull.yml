@@ -10,6 +10,7 @@ phone_no: 01482 282016
 enabled: enable
 private: false
 closed: false
+adult_age: 18
 recurring:
   mon:
   - 0900-1100

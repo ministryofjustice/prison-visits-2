@@ -10,6 +10,7 @@ phone_no: 0170 651 4350
 enabled: true
 private: false
 closed: false
+adult_age: 18
 recurring:
   mon:
   - 1400-1600

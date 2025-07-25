@@ -9,6 +9,7 @@ phone_no: 0130 252 4980
 enabled: true
 private: false
 closed: false
+adult_age: 18
 recurring:
   mon:
   - 1415-1615

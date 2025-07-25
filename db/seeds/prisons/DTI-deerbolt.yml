@@ -10,6 +10,7 @@ phone_no: 0183 363 3349
 enabled: true
 private: false
 closed: false
+adult_age: 18
 recurring:
   tue:
   - 1345-1545

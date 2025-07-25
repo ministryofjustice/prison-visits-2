@@ -9,6 +9,7 @@ phone_no: 0174 785 6400
 enabled: true
 private: false
 closed: false
+adult_age: 18
 recurring:
   fri:
   - 1400-1545

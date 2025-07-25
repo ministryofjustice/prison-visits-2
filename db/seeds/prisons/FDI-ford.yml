@@ -9,6 +9,7 @@ phone_no: 01903 663120
 enabled: true
 private: false
 closed: false
+adult_age: 18
 recurring:
   wed:
   - 1800-2000

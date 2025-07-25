@@ -11,7 +11,6 @@ phone_no: 01386 295188
 enabled: false
 private: false
 closed: false
-booking_window: 28
 lead_days: 3
 recurring:
   tue:

@@ -9,6 +9,7 @@ phone_no: 0193 744 4599
 enabled: true
 private: false
 closed: false
+adult_age: 18
 recurring:
   mon:
   - 1415-1600

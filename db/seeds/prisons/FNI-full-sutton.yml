@@ -9,7 +9,7 @@ phone_no: 0175 947 5355
 enabled: true
 private: false
 closed: false
-booking_window: 28
+adult_age: 18
 recurring:
   fri:
   - 1400-1615

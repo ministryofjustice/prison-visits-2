@@ -9,7 +9,7 @@ phone_no: 0130 571 5775
 enabled: true
 private: false
 closed: false
-adult_age: 18
+adult_age: 11
 recurring:
   fri:
   - 1400-1600

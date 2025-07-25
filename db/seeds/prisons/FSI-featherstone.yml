@@ -11,6 +11,7 @@ phone_no: 0300 060 6502
 enabled: true
 private: false
 closed: false
+adult_age: 18
 recurring:
   tue:
   - 1400-1600
