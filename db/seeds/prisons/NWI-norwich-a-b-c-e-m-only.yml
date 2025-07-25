@@ -9,6 +9,7 @@ phone_no: 0160 370 8795
 enabled: true
 private: false
 closed: false
+adult_age: 18
 recurring:
   tue:
   - 1000-1130

@@ -9,6 +9,7 @@ phone_no: 0152 456 3636
 enabled: true
 private: false
 closed: false
+adult_age: 10
 recurring:
   tue:
   - 1400-1500

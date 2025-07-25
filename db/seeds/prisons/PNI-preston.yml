@@ -9,6 +9,7 @@ phone_no: 0330 058 8224
 enabled: true
 private: false
 closed: false
+adult_age: 16
 recurring:
   mon:
   - 1400-1500

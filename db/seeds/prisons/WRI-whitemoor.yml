@@ -11,6 +11,7 @@ phone_no: 01354 602 800
 enabled: true
 private: false
 closed: false
+adult_age: 18
 recurring:
   wed:
   - 1400-1600

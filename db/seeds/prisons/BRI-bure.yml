@@ -9,6 +9,7 @@ phone_no: 0160 332 6252
 enabled: true
 private: false
 closed: false
+adult_age: 18
 recurring:
   sat:
   - 0915-1115

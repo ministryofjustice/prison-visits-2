@@ -10,7 +10,7 @@ phone_no: 0300 060 6508
 enabled: true
 private: false
 closed: false
-adult_age: 10
+adult_age: 15
 recurring:
   mon:
   - 1815-1945

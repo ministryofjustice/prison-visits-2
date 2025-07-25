@@ -9,6 +9,7 @@ phone_no: 0208 678 1433
 enabled: true
 private: false
 closed: false
+adult_age: 5
 recurring:
   mon:
   - 1415-1515

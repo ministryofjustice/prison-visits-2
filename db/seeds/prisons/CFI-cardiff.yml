@@ -16,7 +16,7 @@ phone_no: 0300 303 2301
 enabled: true
 private: false
 closed: false
-works_weekends: false
+adult_age: 16
 recurring:
   mon:
   - 1400-1530

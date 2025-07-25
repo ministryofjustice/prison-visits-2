@@ -12,6 +12,7 @@ private: false
 closed: false
 booking_window: 21
 lead_days: 3
+adult_age: 18
 recurring:
   tue:
   - 0915-1115

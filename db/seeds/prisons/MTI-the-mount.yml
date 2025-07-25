@@ -9,6 +9,7 @@ phone_no: 0300 790 0656
 enabled: true
 private: false
 closed: false
+adult_age: 18
 recurring:
   mon:
   - 0900-1045

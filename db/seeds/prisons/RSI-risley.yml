@@ -11,6 +11,7 @@ phone_no: 01925 733 284
 enabled: true
 private: false
 closed: false
+adult_age: 18
 recurring:
   mon:
   - 1400-1600

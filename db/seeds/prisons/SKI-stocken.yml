@@ -9,6 +9,7 @@ phone_no: 0178 079 5156
 enabled: true
 private: false
 closed: false
+adult_age: 16
 recurring:
   mon:
   - 1345-1545  

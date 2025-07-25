@@ -9,6 +9,7 @@ phone_no: 0182 232 2022
 enabled: false
 private: false
 closed: true
+adult_age: 18
 lead_days: 4
 recurring:
   fri:

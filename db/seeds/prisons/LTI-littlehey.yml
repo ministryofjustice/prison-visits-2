@@ -11,7 +11,7 @@ phone_no: 01480 335 136
 enabled: true
 private: false
 closed: false
-lead_days: 2
+adult_age: 18
 recurring:
   tue:
   - 1400-1600
