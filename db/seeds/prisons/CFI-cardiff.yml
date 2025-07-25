@@ -17,7 +17,6 @@ enabled: true
 private: false
 closed: false
 adult_age: 16
-works_weekends: false
 recurring:
   mon:
   - 1400-1530
