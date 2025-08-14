@@ -6,7 +6,7 @@ address: |-
   Aylesbury 
 postcode: HP18 0TL
 email_address: socialvisits.springhill@justice.gov.uk
-phone_no: 0129 644 5000
+phone_no: 01296 445 082
 enabled: true
 private: false
 closed: false
@@ -18,6 +18,3 @@ recurring:
   - 1345-1545
 unbookable:
 - 2025-04-20
-anomalous:
-  2022-12-30:
-  - 1345-1545
