@@ -6,7 +6,7 @@ address: |-
 postcode: SN10 5TU
 email_address: Unavailable
 phone_no: 0300 303 0634
-enabled: true
+enabled: false
 private: false
 closed: false
 adult_age: 18
