@@ -1,6 +1,23 @@
 {
   "ignored_warnings": [
-
+    {
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 122,
+      "fingerprint": "98b26f60d776fd41ee6f088c833725145be9aac2d7c5b33780241c273622db42",
+      "check_name": "EOLRails",
+      "message": "Support for Rails 7.1.5.1 ends on 2025-10-01",
+      "file": "Gemfile.lock",
+      "line": 351,
+      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "Medium",
+      "cwe_id": [
+        1104
+      ]
+    }
   ],
   "updated": "2023-12-05 15:17:40 +0000",
   "brakeman_version": "6.0.1"
