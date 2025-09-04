@@ -88,11 +88,6 @@ jobs:
           key: prison-visits-staff-v3-{{ checksum "package.json" }}
           paths:
             - node_modules
-      - run:
-          name: Setup Code Climate test-reporter
-          command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
       - run: bundle exec rake db:create db:schema:load
       - run:
           name: Rubocop
@@ -102,10 +97,7 @@ jobs:
           command: bundle exec brakeman -o ~/test-results/brakeman/brakeman.json -o ~/test-results/brakeman/brakeman.html
       - run:
           name: Run tests
-          command: |
-            ./cc-test-reporter before-build
-            bundle exec rake
-            ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?
+          command: bundle exec rake
       - store_test_results:
           path: coverage
       - store_artifacts:
