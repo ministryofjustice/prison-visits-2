@@ -29,12 +29,6 @@
     "PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY": {
       "required": true
     },
-    "MOJSSO_SECRET": {
-      "required": true
-    },
-    "MOJSSO_URL": {
-      "required": true
-    },
     "PRISON_API_HOST": {
       "required": true
     },

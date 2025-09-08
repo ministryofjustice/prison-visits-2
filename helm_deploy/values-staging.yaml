@@ -3,7 +3,7 @@ environment:
   variables:
     PRISON_API_HOST: "https://prison-api-preprod.prison.service.justice.gov.uk"
     NOMIS_OAUTH_HOST: "https://sign-in-preprod.hmpps.service.justice.gov.uk"
-    MOJSSO_URL: "https://signon.service.justice.gov.uk"
+    KUBERNETES_DEPLOYMENT: "true"
     NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED: "true"
     PUBLIC_SERVICE_URL: "https://preprod.prisonvisits.prison.service.justice.gov.uk"
     PVB_TEAM_EMAIL: "prison-visits@justice.gov.uk"
@@ -52,6 +52,9 @@ generic-service:
     hmpps-auth-secrets:
       NOMIS_USER_OAUTH_CLIENT_ID: NOMIS_USER_OAUTH_CLIENT_ID
       NOMIS_USER_OAUTH_CLIENT_SECRET: NOMIS_USER_OAUTH_CLIENT_SECRET
+    secrets:
+      NOMIS_OAUTH_CLIENT_ID: NOMIS_OAUTH_CLIENT_ID
+      NOMIS_OAUTH_CLIENT_SECRET: NOMIS_OAUTH_CLIENT_SECRET
 
   extraContainers:
     - name: prison-visits-booking-staff-sidekiq
