@@ -29,7 +29,6 @@ RUN \
     --no-install-recommends \
     apt-transport-https \
     build-essential \
-    libpq-dev \
     netcat \
     nodejs \
   && timedatectl set-timezone Europe/London || true \
@@ -49,14 +48,17 @@ RUN \
     yarn=1.10.1-1 \
   && yarn add govuk-frontend
 
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends gnupg curl; \
+    install -d -m 0755 /etc/apt/keyrings; \
+    curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc \
+      | gpg --dearmor -o /etc/apt/keyrings/postgresql.gpg; \
+    echo "deb [signed-by=/etc/apt/keyrings/postgresql.gpg] http://apt.postgresql.org/pub/repos/apt bullseye-pgdg main" \
+      > /etc/apt/sources.list.d/pgdg.list
 
-RUN echo "deb http://apt-archive.postgresql.org/pub/repos/apt/ stretch-pgdg main" >  /etc/apt/sources.list.d/pgdg.list && \
-    wget --no-check-certificate -qO - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-
-# Update openssl & ca-certificates so that communication with signon can take place
-# (TODO: Remove this when base container has been updated)
 RUN apt-get update && \
-    apt-get install -y ca-certificates openssl postgresql-client-12 && \
+    apt-get install -y ca-certificates openssl postgresql-client-15 libpq-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
