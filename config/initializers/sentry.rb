@@ -3,7 +3,7 @@ sentry_dsn = Rails.configuration.sentry_dsn
 Sentry.init do |config|
   if sentry_dsn
     config.dsn = sentry_dsn
-    config.logger = Rails.logger
+    config.sdk_logger = Rails.logger
 
     # If we're in Heroku, set the environment name to be the current app name
     # This allows us to tell which PR/Review App an error came from
