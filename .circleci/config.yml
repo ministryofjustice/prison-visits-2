@@ -79,7 +79,7 @@ jobs:
             - prison-visits-staff-v3-{{ checksum "Gemfile.lock" }}
             - prison-visits-staff-v3-{{ checksum "package.json" }}
             - prison-visits-staff-v3-
-      - run: bundle check --path vendor/bundle || bundle install --path vendor/bundle
+      - run: bundle config set path 'vendor/bundle' || bundle check || bundle install 
       - save_cache:
           key: prison-visits-staff-v3-{{ checksum "Gemfile.lock" }}
           paths:
