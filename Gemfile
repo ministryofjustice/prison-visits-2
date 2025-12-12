@@ -8,7 +8,7 @@ gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'
 gem 'business'
 gem 'bootsnap', require: false
-gem 'connection_pool', '2.5.4'
+gem 'connection_pool'
 gem 'draper'
 gem 'excon'
 gem 'govuk_elements_rails'

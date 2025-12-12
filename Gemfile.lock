@@ -139,7 +139,7 @@ GEM
       logger (~> 1.5)
     coderay (1.1.3)
     concurrent-ruby (1.3.5)
-    connection_pool (2.5.4)
+    connection_pool (3.0.2)
     crack (1.0.1)
       bigdecimal
       rexml
@@ -652,7 +652,7 @@ DEPENDENCIES
   byebug
   capybara
   capybara-screenshot
-  connection_pool (= 2.5.4)
+  connection_pool
   cuprite
   dotenv-rails
   draper
