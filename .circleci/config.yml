@@ -70,7 +70,7 @@ jobs:
           command: yarn install --prod
       - run:
           name: Install bundler
-          command: gem install bundler
+          command: gem install bundler -v 2.5.16
       - run:
           name: Which bundler?
           command: bundle -v
@@ -79,7 +79,12 @@ jobs:
             - prison-visits-staff-v3-{{ checksum "Gemfile.lock" }}
             - prison-visits-staff-v3-{{ checksum "package.json" }}
             - prison-visits-staff-v3-
-      - run: bundle check --path vendor/bundle || bundle install --path vendor/bundle
+      - run:
+          name: Configure Bundler path
+          command: bundle config set path 'vendor/bundle'
+      - run:
+          name: Install gems
+          command: bundle check || bundle install
       - save_cache:
           key: prison-visits-staff-v3-{{ checksum "Gemfile.lock" }}
           paths:

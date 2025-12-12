@@ -126,7 +126,7 @@ pvb2 $ rails spec
 
 More information can be found in the [GitHub Wiki.](https://github.com/ministryofjustice/prison-visits-2/wiki) 
 
-
+ 
 ## Licence
 
 [MIT Licence (MIT)](LICENCE)
