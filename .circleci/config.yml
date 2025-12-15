@@ -70,7 +70,7 @@ jobs:
           command: yarn install --prod
       - run:
           name: Install bundler
-          command: gem install bundler -v 2.5.16
+          command: gem install bundler -v 4.0.1
       - run:
           name: Which bundler?
           command: bundle -v
