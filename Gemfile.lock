@@ -687,7 +687,7 @@ DEPENDENCIES
   premailer-rails
   pry-byebug
   pry-rails
-  puma (= 7.1.0)
+  puma
   pvb-instrumentation!
   rack (>= 2.1.4)
   rack-canonical-host
