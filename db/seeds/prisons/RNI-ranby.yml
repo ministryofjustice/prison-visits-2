@@ -5,8 +5,8 @@ address: |-
   Retford
 postcode: DN22 8EU
 email_address: socialvisits.ranby@justice.gov.uk
-phone_no: 0177 786 2107
-enabled: true
+phone_no: 0808 168 8282
+enabled: false
 private: false
 closed: false
 adult_age: 18
@@ -22,21 +22,4 @@ recurring:
   - 0900-1100
   - 1400-1600
 unbookable:
-- 2023-01-13
-- 2023-01-16
 - 2024-03-29
-anomalous:
-  2023-01-07:
-  - 0900-1100
-  2023-01-08:
-  - 0900-1100
-  2023-01-14:
-  - 0900-1100
-  2023-01-15:
-  - 0900-1100
-  2023-01-21:
-  - 0900-1100
-  2023-01-22:
-  - 0900-1100
-  2023-01-28:
-  - 0900-1100
