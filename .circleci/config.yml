@@ -2,6 +2,9 @@ parameters:
   alerts-slack-channel:
     type: string
     default: visits-alerts
+  alerts-non-prod-slack-channel:
+    type: string
+    default: visits-alerts-nonprod
   releases-slack-channel:
     type: string
     default: visits-releases
@@ -189,3 +192,36 @@ workflows:
           filters:
             branches:
               only: main
+
+  security:
+    triggers:
+      - schedule:
+          cron: "37 5 * * 1-5"
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - hmpps/trivy_latest_scan:
+          slack_channel: << pipeline.parameters.alerts-non-prod-slack-channel >>
+          context:
+            - hmpps-common-vars
+      - hmpps/veracode_pipeline_scan:
+          slack_channel: << pipeline.parameters.alerts-non-prod-slack-channel >>
+          context:
+            - veracode-credentials
+            - hmpps-common-vars
+  security-weekly:
+    triggers:
+      - schedule:
+          cron: "5 5 * * 1"
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - hmpps/veracode_policy_scan:
+          slack_channel: << pipeline.parameters.alerts-non-prod-slack-channel >>
+          context:
+            - veracode-credentials
+            - hmpps-common-vars
