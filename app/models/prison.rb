@@ -33,7 +33,7 @@ class Prison < ApplicationRecord
         .where('date <= ?', last_bookable_date(today))
         .reject { |cs| unbookable_dates.include?(cs.date) }
         .map do |ncs|
-        ConcreteSlot.new(ncs.date.year, ncs.date.month, ncs.date.day, ncs.start_hour, ncs.start_minute, ncs.end_hour, ncs.end_minute)
+          ConcreteSlot.new(ncs.date.year, ncs.date.month, ncs.date.day, ncs.start_hour, ncs.start_minute, ncs.end_hour, ncs.end_minute)
       end
     else
       AvailableSlotEnumerator.new(
