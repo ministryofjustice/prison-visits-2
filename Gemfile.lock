@@ -242,7 +242,7 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    jaro_winkler (1.6.1)
+    jaro_winkler (1.7.0)
     jasmine (3.99.0)
       jasmine-core (= 3.99.0)
       phantomjs
