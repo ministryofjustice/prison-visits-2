@@ -132,15 +132,12 @@ jobs:
       - run:
           name: Setup, tag and push docker image
           command: |
-            echo 'export DOCKER_TAGS=$APP_VERSION' >> $BASH_ENV
             docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:${APP_VERSION}"
             if [ "${CIRCLE_BRANCH}" == "main" ]; then
-              echo 'export DOCKER_TAGS=$APP_VERSION,latest' >> $BASH_ENV
               docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:latest"
             fi
-            source $BASH_ENV
       - aws-ecr/push-image:
-          tag: $DOCKER_TAGS
+          tag: $APP_VERSION,latest
           region: $ECR_REGION
           repo: $ECR_REPOSITORY
 
