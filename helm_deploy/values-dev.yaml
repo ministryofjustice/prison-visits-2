@@ -51,29 +51,29 @@ generic-service:
       NOMIS_OAUTH_CLIENT_ID: NOMIS_OAUTH_CLIENT_ID
       NOMIS_OAUTH_CLIENT_SECRET: NOMIS_OAUTH_CLIENT_SECRET
 
-  extraContainers:
-    - name: prison-visits-booking-staff-sidekiq
-      image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff
-      imagePullPolicy: IfNotPresent
-      command: ['sh', '-c', "bundle exec sidekiq -C config/sidekiq.yml"]
-      env:
-        - name: "SCRIPT_NAME"
-          value: "/sidekiq-admin"
-        - name: DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: prison-visits-rds-instance-output
-              key: url
-        - name: REDIS_URL
-          valueFrom:
-            secretKeyRef:
-              name: elasticache-redis
-              key: url
-      envFrom:
-        - configMapRef:
-            name: shared-environment
-        - secretRef:
-            name: secrets
+  # extraContainers:
+    # - name: prison-visits-booking-staff-sidekiq
+      # image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff
+      # imagePullPolicy: IfNotPresent
+      # command: ['sh', '-c', "bundle exec sidekiq -C config/sidekiq.yml"]
+      # env:
+      #   - name: "SCRIPT_NAME"
+      #     value: "/sidekiq-admin"
+      #   - name: DATABASE_URL
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: prison-visits-rds-instance-output
+      #         key: url
+      #   - name: REDIS_URL
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: elasticache-redis
+      #         key: url
+      # envFrom:
+      #   - configMapRef:
+      #       name: shared-environment
+      #   - secretRef:
+      #       name: secrets
 
 generic-prometheus-alerts:
   alertSeverity: visits-alerts-nonprod
