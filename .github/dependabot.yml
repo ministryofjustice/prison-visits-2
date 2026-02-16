@@ -27,12 +27,6 @@ updates:
   - dependency-name: rails
     versions:
     - ">= 6.0.a, < 6.1"
-  - dependency-name: sidekiq
-    versions:
-    - 5.2.4
-  - dependency-name: sidekiq
-    versions:
-    - ">= 6.0.a, < 6.1"
   - dependency-name: uglifier
     versions:
     - "< 5, >= 4.a"

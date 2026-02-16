@@ -23,8 +23,6 @@ Rails.application.configure do
   config.assets.digest = true
   config.assets.raise_runtime_errors = true
 
-  config.active_job.queue_adapter = :sidekiq
-
   config.assets.precompile += %w[jasmine-jquery.js]
 
   config.i18n.load_path =
