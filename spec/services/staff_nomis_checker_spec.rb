@@ -73,7 +73,7 @@ RSpec.describe StaffNomisChecker do
       before do
         stub_auth_token
         stub_request(:get, "#{api}/prison/#{prison.nomis_id}/slots?end_date=#{slot_date}&start_date=#{slot_date}")
-          .to_return(body: { slots: ["time": "#{slot_date}T14:00/16:10"] }.to_json)
+          .to_return(body: { slots: [{ "time": "#{slot_date}T14:00/16:10" }] }.to_json)
       end
 
       context 'with a valid prisoner' do
