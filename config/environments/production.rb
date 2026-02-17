@@ -24,8 +24,6 @@ Rails.application.configure do
 
   config.redis_url = ENV['REDIS_URL']
 
-  config.active_job.queue_adapter = :sidekiq
-
   service_url = if ENV['HEROKU_APP_NAME']
                   URI.parse("https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com")
                 else

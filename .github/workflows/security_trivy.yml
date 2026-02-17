@@ -1,0 +1,17 @@
+name: Security trivy dependency check
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "48 6 * * MON-FRI" # Every weekday at 06:48 UTC
+permissions:
+  contents: read
+  actions: read
+  security-events: write
+jobs:
+  security-trivy-check:
+    name: Project security trivy dependency check
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/security_trivy.yml@v2 # WORKFLOW_VERSION
+    with:
+      channel_id: ${{ vars.SECURITY_ALERTS_SLACK_CHANNEL_ID || 'NO_SLACK' }}
+      subproject: prison-visits-staff
+    secrets: inherit

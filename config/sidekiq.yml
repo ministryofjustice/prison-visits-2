@@ -1,8 +1,0 @@
----
-:concurrency: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
-
-:queues:
-  - default
-  - mailers
-  - load_testing
-  - zendesk

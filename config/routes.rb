@@ -61,9 +61,4 @@ Rails.application.routes.draw do
     resources :downloads, only: :index
     resource :telephone_script, only: :show
   end
-
-  constraints ->(req) { PVB::DigitalUserConstraint.new.matches?(req) } do
-    require 'sidekiq/web'
-    mount Sidekiq::Web => '/sidekiq'
-  end
 end
