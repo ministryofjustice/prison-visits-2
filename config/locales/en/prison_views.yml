@@ -156,7 +156,7 @@ en:
         location_invalid: Not verified
         location_unknown: Unknown
         location_invalid_text: The prisoner is not registered at this prison.
-        location_unknown_text: Check DPS or NOMIS to verify prisoner location.
+        location_unknown_text: Check DPS to verify prisoner location.
         prisoner_does_not_exist_text: The prisoner date of birth and number do not match.
         invalid: Not verified
         unknown: Unknown
@@ -175,7 +175,7 @@ en:
         invalid: Not verified
         unknown: Unknown
         prisoner_does_not_exist_text: The prisoner date of birth and number do not match.
-        unknown_text: You must check DPS or NOMIS to verify prisoner date of birth and number.
+        unknown_text: You must check DPS to verify prisoner date of birth and number.
       shared:
         what_we_will_tell: What we’ll tell the visitor
       processed:
@@ -227,14 +227,14 @@ en:
         reference_no_hint: e.g. DPS booking reference or last 8 digits of VO number or "none" for remand
         closed: This is a closed visit
         none_available: None of the chosen times are available
-        prisoner_availability_unknown: You must check DPS or NOMIS to verify prisoner availability
+        prisoner_availability_unknown: You must check DPS to verify prisoner availability
         slot_availability_unknown: You must check DPS or NOMIS to verify slot availability
       rejection_nomis:
         nomis_rejection_title: Rejections verified
         nomis_rejection_intro: We have checked these rejection reasons and automatically ticked any that apply.
         warning: Warning
         overriding_restrictions: You are overriding these rejection reasons
-        update_nomis: Please update any incorrect information in DPS or NOMIS
+        update_nomis: Please update any incorrect information in DPS
         visiting_allowance: Visiting allowance
         allowance_renews_on: Allowance renews on
         prisoner_out_of_prison: Prisoner on external movement
@@ -252,7 +252,7 @@ en:
         other: Other reason
       rejection_manual:
         other_rejection_title: Other rejection reasons
-        other_rejection_intro: Please check these details in DPS or NOMIS and tick any that apply.
+        other_rejection_intro: Please check these details in DPS and tick any that apply.
         no_allowance_tell_more: >-
           You can also tell the visitor more about the VO status:
         allowance_will_renew: >-
@@ -265,7 +265,7 @@ en:
       visitor_details:
         title: Visitor details
         help_text: Match each visitor to a name on the prisoner’s contact list.
-        nomis_api_down: We can’t show the contact list right now. Please check all visitors in DPS or NOMIS.
+        nomis_api_down: We can’t show the contact list right now. Please check all visitors in DPS.
         no_adults: This visit will be rejected as none of the visitors are adults
         not_all_processed: Make sure all visitors have been processed
       visitor_detail:
