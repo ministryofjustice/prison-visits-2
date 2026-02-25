@@ -1,4 +1,4 @@
-{{- if or (eq .Values.environment.name "dev") (eq .Values.environment.name "staging") }}
+{{- if or (eq .Values.environment.name "dev") (eq .Values.environment.name "preprod") }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:

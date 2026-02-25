@@ -3,10 +3,10 @@ kind: CronJob
 metadata:
   name: anonymise-data
 spec:
-  {{- if or (eq .Values.environment.name "dev") (eq .Values.environment.name "staging") }}
+  {{- if or (eq .Values.environment.name "dev") (eq .Values.environment.name "preprod") }}
   schedule: "0 9 * * 1-5"
   {{- end }}
-  {{- if (eq .Values.environment.name "production") }}
+  {{- if (eq .Values.environment.name "prod") }}
   schedule: "0 0 * * *"
   {{- end }}
   concurrencyPolicy: Forbid
