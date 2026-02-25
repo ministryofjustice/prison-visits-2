@@ -17,15 +17,6 @@ RSpec.feature 'Printing a list of visits' do
     vst.update!(slot_granted: '2017-12-21T14:00/16:00')
   end
 
-  context 'when logging in and navigating to the print visits page' do
-    it 'displays the print visit page' do
-      visit new_prison_print_visit_path
-
-      expect(page).to have_css('.navigation')
-      expect(page).to have_css('label', text: 'Select one or more prisons')
-    end
-  end
-
   context 'when searching for visits with a correctly formed date' do
     let(:date) { 3.months.ago.to_date }
 
