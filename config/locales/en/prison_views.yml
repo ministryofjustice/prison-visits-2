@@ -73,7 +73,6 @@ en:
         inbox_html: |
           Visit requests <span class='badge badge--red'>%{inbox_count}</span>
         processed: Processed visits
-        print_visits: Print visits
         staff_guide: Service guide
         visitor_cancellations: Visitor cancellations
         current: "Current prison:"
