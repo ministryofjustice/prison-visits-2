@@ -6,6 +6,16 @@ generic-service:
 
   containerCommand: ["sh", "-c", "bundle exec puma -p 3000 -C ./config/puma_prod.rb --pidfile /tmp/server.pid"]
 
+  replicaCount: 2
+
+  resources:
+    limits:
+      memory: "2Gi"
+      cpu: "150m"
+    requests:
+      memory: "1Gi"
+      cpu: "30m"
+
   fullnameOverride: "prison-visits-booking-staff"
 
   service:

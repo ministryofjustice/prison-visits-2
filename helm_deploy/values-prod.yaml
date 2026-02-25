@@ -1,0 +1,45 @@
+---
+generic-service:
+  resources:
+    limits:
+      memory: "2Gi"
+      cpu: "2000m"
+    requests:
+      memory: "1Gi"
+      cpu: "30m"
+
+  ingress:
+    host: staff.prisonvisits.service.justice.gov.uk
+
+  namespace_secrets:
+    prison-visits-rds-instance-output:
+      DATABASE_URL: url
+    elasticache-prison-visits-booking-token-cache-production:
+      REDIS_URL: url
+    hmpps-auth-secrets:
+      NOMIS_USER_OAUTH_CLIENT_ID: NOMIS_USER_OAUTH_CLIENT_ID
+      NOMIS_USER_OAUTH_CLIENT_SECRET: NOMIS_USER_OAUTH_CLIENT_SECRET
+
+  env:
+    KUBERNETES_DEPLOYMENT: "true"
+    PRISON_API_HOST: "https://prison-api.prison.service.justice.gov.uk"
+    NOMIS_OAUTH_HOST: "https://sign-in.hmpps.service.justice.gov.uk"
+    MOJSSO_URL: "https://signon.service.justice.gov.uk"
+    NOMIS_STAFF_SLOT_AVAILABILITY_ENABLED: "true"
+    PUBLIC_SERVICE_URL: "https://prisonvisits.service.gov.uk"
+    PVB_TEAM_EMAIL: "prison-visits@justice.gov.uk"
+    RACK_ENV: "production"
+    RAILS_SERVE_STATIC_FILES: "true"
+    REMOVE_LOAD_TEST_DATA: "false"
+    SENTRY_CURRENT_ENV: "production"
+    STAFF_SERVICE_URL: "https://staff.prisonvisits.service.justice.gov.uk"
+    SMTP_DOMAIN: "email.prisonvisits.service.gov.uk"
+    WEB_CONCURRENCY: "5"
+    ZENDESK_URL: "https://ministryofjustice.zendesk.com/api/v2"
+    ZENDESK_USERNAME: "pvb-technical-support+zendesk@digital.justice.gov.uk"
+    STAFF_PRISONS_WITH_SLOT_AVAILABILITY: >
+      High Down,
+    PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY: >
+      High Down,
+    PRODUCT_ID: "DPS031"
+    ENVIRONMENT_NAME: prod

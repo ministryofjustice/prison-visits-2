@@ -164,22 +164,22 @@ workflows:
           requires:
             - helm_lint
             - build_and_push_docker_image
-      - request-staging-approval:
+      - request-preprod-approval:
           type: approval
           requires:
             - deploy_dev
       - hmpps/deploy_env:
-          name: deploy_staging
+          name: deploy_preprod
           context:
             - hmpps-common-vars
             - prison-visits-booking-staging
-          env: staging
+          env: preprod
           requires:
-            - request-staging-approval
+            - request-preprod-approval
       - deploy_production_approval:
           type: approval
           requires:
-            - deploy_staging
+            - deploy_preprod
           filters:
             branches:
               only: main
@@ -190,7 +190,7 @@ workflows:
             - prison-visits-booking-production
           slack_notification: true
           slack_channel_name: << pipeline.parameters.releases-slack-channel >>
-          env: production
+          env: prod
           requires:
             - deploy_production_approval
           filters:
