@@ -18,7 +18,7 @@ RSpec.describe VisitorDecorator do
       let(:nomis_contacts) { [] }
 
       it 'returns a message that i do not yet have any' do
-        expect(html).to have_css('p', text: 'No record of this visitor in NOMIS')
+        expect(html).to have_css('p', text: 'No record of this visitor in DPS')
       end
     end
 
