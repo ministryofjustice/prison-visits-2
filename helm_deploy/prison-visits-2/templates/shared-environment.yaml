@@ -2,4 +2,4 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: shared-environment
-data: {{- toYaml .Values.environment.variables | nindent 2 }}
+data: {{- toYaml (index .Values "generic-service" "env") | nindent 2 }}

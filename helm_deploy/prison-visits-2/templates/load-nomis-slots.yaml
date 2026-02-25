@@ -2,11 +2,14 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: load-nomis-slots
+{{- $genericService := (index .Values "generic-service") | default (dict) }}
+{{- $genericServiceEnv := (index $genericService "env") | default (dict) }}
+{{- $environmentName := (index $genericServiceEnv "ENVIRONMENT_NAME") | default "" }}
 spec:
-  {{- if or (eq .Values.environment.name "dev") (eq .Values.environment.name "preprod") }}
+  {{- if or (eq $environmentName "dev") (eq $environmentName "preprod") }}
   schedule: "0 8 * * 1-5"
   {{- end }}
-  {{- if (eq .Values.environment.name "prod") }}
+  {{- if eq $environmentName "prod" }}
   schedule: "0 0 * * *"
   {{- end }}
   concurrencyPolicy: Forbid

@@ -1,4 +1,7 @@
-{{- if or (eq .Values.environment.name "dev") (eq .Values.environment.name "preprod") }}
+{{- $genericService := (index .Values "generic-service") | default (dict) }}
+{{- $genericServiceEnv := (index $genericService "env") | default (dict) }}
+{{- $environmentName := (index $genericServiceEnv "ENVIRONMENT_NAME") | default "" }}
+{{- if or (eq $environmentName "dev") (eq $environmentName "preprod") }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
