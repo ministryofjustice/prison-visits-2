@@ -1,198 +1,198 @@
-parameters:
-  alerts-slack-channel:
-    type: string
-    default: visits-alerts
-  alerts-non-prod-slack-channel:
-    type: string
-    default: visits-alerts-nonprod
-  releases-slack-channel:
-    type: string
-    default: visits-releases
+# parameters:
+#   alerts-slack-channel:
+#     type: string
+#     default: visits-alerts
+#   alerts-non-prod-slack-channel:
+#     type: string
+#     default: visits-alerts-nonprod
+#   releases-slack-channel:
+#     type: string
+#     default: visits-releases
 
-references:
-  defaults: &defaults
-    working_directory: ~/prison-visits-staff
+# references:
+#   defaults: &defaults
+#     working_directory: ~/prison-visits-staff
 
-  github_team_name_slug: &github_team_name_slug
-    GITHUB_TEAM_NAME_SLUG: prison-visits-booking
+#   github_team_name_slug: &github_team_name_slug
+#     GITHUB_TEAM_NAME_SLUG: prison-visits-booking
 
-  deploy_container_config: &deploy_container_config
-    resource_class: small
-    docker:
-      - image: ministryofjustice/cloud-platform-tools
+#   deploy_container_config: &deploy_container_config
+#     resource_class: small
+#     docker:
+#       - image: ministryofjustice/cloud-platform-tools
 
-  docker_container_config: &docker_container_config
-    docker:
-      - image: cimg/ruby:3.3.5-browsers
-        environment:
-          PGHOST: 127.0.0.1
-          PGUSER: ubuntu
-          RACK_ENV: test
-          PRISON_API_HOST: https://prison-api-dev.prison.service.justice.gov.uk
-          NOMIS_OAUTH_HOST: https://sign-in-dev.hmpps.service.justice.gov.uk
-      - image: cimg/postgres:15.12
-        environment:
-          POSTGRES_USER: ubuntu
-          POSTGRES_PASSWORD: ""
-          POSTGRES_DB: pvb2_test
-      - image: redis
+#   docker_container_config: &docker_container_config
+#     docker:
+#       - image: cimg/ruby:3.3.5-browsers
+#         environment:
+#           PGHOST: 127.0.0.1
+#           PGUSER: ubuntu
+#           RACK_ENV: test
+#           PRISON_API_HOST: https://prison-api-dev.prison.service.justice.gov.uk
+#           NOMIS_OAUTH_HOST: https://sign-in-dev.hmpps.service.justice.gov.uk
+#       - image: cimg/postgres:15.12
+#         environment:
+#           POSTGRES_USER: ubuntu
+#           POSTGRES_PASSWORD: ""
+#           POSTGRES_DB: pvb2_test
+#       - image: redis
 
-  build_docker_image: &build_docker_image
-    run:
-      name: Build docker image
-      command: |
-        export BUILD_DATE=$(date -I) >> $BASH_ENV
-        source $BASH_ENV
-        docker build \
-          --build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} \
-          --build-arg COMMIT_ID=${CIRCLE_SHA1} \
-          --build-arg BUILD_DATE=${BUILD_DATE} \
-          --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
-          --build-arg BUILD_NUMBER=${BUILD_DATE}.${CIRCLE_BUILD_NUM}.${CIRCLE_SHA1:0:6} \
-          --build-arg GIT_BRANCH=${CIRCLE_BRANCH} \
-          --build-arg GIT_REF=${CIRCLE_SHA1} \
-          -t app .
+#   build_docker_image: &build_docker_image
+#     run:
+#       name: Build docker image
+#       command: |
+#         export BUILD_DATE=$(date -I) >> $BASH_ENV
+#         source $BASH_ENV
+#         docker build \
+#           --build-arg VERSION_NUMBER=${CIRCLE_BUILD_NUM} \
+#           --build-arg COMMIT_ID=${CIRCLE_SHA1} \
+#           --build-arg BUILD_DATE=${BUILD_DATE} \
+#           --build-arg BUILD_TAG=${CIRCLE_BRANCH} \
+#           --build-arg BUILD_NUMBER=${BUILD_DATE}.${CIRCLE_BUILD_NUM}.${CIRCLE_SHA1:0:6} \
+#           --build-arg GIT_BRANCH=${CIRCLE_BRANCH} \
+#           --build-arg GIT_REF=${CIRCLE_SHA1} \
+#           -t app .
 
-version: 2.1
+# version: 2.1
 
-orbs:
-  hmpps: ministryofjustice/hmpps@11
-  aws-cli: circleci/aws-cli@4.0.0
-  aws-ecr: circleci/aws-ecr@8.2.1 # this orb doesn't support OIDC v2, so we use aws-cli to authenticate
+# orbs:
+#   hmpps: ministryofjustice/hmpps@11
+#   aws-cli: circleci/aws-cli@4.0.0
+#   aws-ecr: circleci/aws-ecr@8.2.1 # this orb doesn't support OIDC v2, so we use aws-cli to authenticate
 
-jobs:
-  test:
-    <<: *defaults
-    <<: *docker_container_config
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/prison-visits-staff
-      - run:
-          name: Install node_modules
-          command: yarn install --prod
-      - run:
-          name: Install bundler
-          command: gem install bundler -v 4.0.1
-      - run:
-          name: Which bundler?
-          command: bundle -v
-      - restore_cache:
-          keys:
-            - prison-visits-staff-v3-{{ checksum "Gemfile.lock" }}
-            - prison-visits-staff-v3-{{ checksum "package.json" }}
-            - prison-visits-staff-v3-
-      - run:
-          name: Configure Bundler path
-          command: bundle config set path 'vendor/bundle'
-      - run:
-          name: Install gems
-          command: bundle check || bundle install
-      - save_cache:
-          key: prison-visits-staff-v3-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-      - save_cache:
-          key: prison-visits-staff-v3-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-      - run: bundle exec rake db:create db:schema:load
-      - run:
-          name: Rubocop
-          command: bundle exec rubocop
-      - run:
-          name: Security analysis
-          command: bundle exec brakeman -o ~/test-results/brakeman/brakeman.json -o ~/test-results/brakeman/brakeman.html
-      - run:
-          name: Run tests
-          command: bundle exec rake
-      - store_test_results:
-          path: coverage
-      - store_artifacts:
-          path: coverage
-      - store_artifacts:
-          path: ~/test-results
+# jobs:
+#   test:
+#     <<: *defaults
+#     <<: *docker_container_config
+#     steps:
+#       - checkout
+#       - attach_workspace:
+#           at: ~/prison-visits-staff
+#       - run:
+#           name: Install node_modules
+#           command: yarn install --prod
+#       - run:
+#           name: Install bundler
+#           command: gem install bundler -v 4.0.1
+#       - run:
+#           name: Which bundler?
+#           command: bundle -v
+#       - restore_cache:
+#           keys:
+#             - prison-visits-staff-v3-{{ checksum "Gemfile.lock" }}
+#             - prison-visits-staff-v3-{{ checksum "package.json" }}
+#             - prison-visits-staff-v3-
+#       - run:
+#           name: Configure Bundler path
+#           command: bundle config set path 'vendor/bundle'
+#       - run:
+#           name: Install gems
+#           command: bundle check || bundle install
+#       - save_cache:
+#           key: prison-visits-staff-v3-{{ checksum "Gemfile.lock" }}
+#           paths:
+#             - vendor/bundle
+#       - save_cache:
+#           key: prison-visits-staff-v3-{{ checksum "package.json" }}
+#           paths:
+#             - node_modules
+#       - run: bundle exec rake db:create db:schema:load
+#       - run:
+#           name: Rubocop
+#           command: bundle exec rubocop
+#       - run:
+#           name: Security analysis
+#           command: bundle exec brakeman -o ~/test-results/brakeman/brakeman.json -o ~/test-results/brakeman/brakeman.html
+#       - run:
+#           name: Run tests
+#           command: bundle exec rake
+#       - store_test_results:
+#           path: coverage
+#       - store_artifacts:
+#           path: coverage
+#       - store_artifacts:
+#           path: ~/test-results
 
-  build_and_push_docker_image:
-    <<: *defaults
-    <<: *docker_container_config
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/prison-visits-staff
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - *build_docker_image
-      - aws-cli/setup:
-          role_arn: $ECR_ROLE_TO_ASSUME
-          region: $ECR_REGION
-      - run: |
-          aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
-      - hmpps/create_app_version
-      - run:
-          name: Setup, tag and push docker image
-          command: |
-            echo 'export DOCKER_TAGS=$APP_VERSION' >> $BASH_ENV
-            docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:${APP_VERSION}"
-            if [ "${CIRCLE_BRANCH}" == "main" ]; then
-              echo 'export DOCKER_TAGS=$APP_VERSION,latest' >> $BASH_ENV
-              docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:latest"
-            fi
-            source $BASH_ENV
-      - aws-ecr/push-image:
-          tag: $DOCKER_TAGS
-          region: $ECR_REGION
-          repo: $ECR_REPOSITORY
+#   build_and_push_docker_image:
+#     <<: *defaults
+#     <<: *docker_container_config
+#     steps:
+#       - checkout
+#       - attach_workspace:
+#           at: ~/prison-visits-staff
+#       - setup_remote_docker:
+#           docker_layer_caching: true
+#       - *build_docker_image
+#       - aws-cli/setup:
+#           role_arn: $ECR_ROLE_TO_ASSUME
+#           region: $ECR_REGION
+#       - run: |
+#           aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
+#       - hmpps/create_app_version
+#       - run:
+#           name: Setup, tag and push docker image
+#           command: |
+#             echo 'export DOCKER_TAGS=$APP_VERSION' >> $BASH_ENV
+#             docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:${APP_VERSION}"
+#             if [ "${CIRCLE_BRANCH}" == "main" ]; then
+#               echo 'export DOCKER_TAGS=$APP_VERSION,latest' >> $BASH_ENV
+#               docker tag app "${ECR_ENDPOINT}/${ECR_REPOSITORY}:latest"
+#             fi
+#             source $BASH_ENV
+#       - aws-ecr/push-image:
+#           tag: $DOCKER_TAGS
+#           region: $ECR_REGION
+#           repo: $ECR_REPOSITORY
 
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - test
-      - hmpps/helm_lint:
-          name: helm_lint
-      - build_and_push_docker_image:
-          requires:
-            - helm_lint
-            # - test
-      - hmpps/deploy_env:
-          name: deploy_dev
-          context:
-            - hmpps-common-vars
-            - prison-visits-booking-dev
-          env: dev
-          requires:
-            - helm_lint
-            - build_and_push_docker_image
-      - request-preprod-approval:
-          type: approval
-          requires:
-            - deploy_dev
-      - hmpps/deploy_env:
-          name: deploy_preprod
-          context:
-            - hmpps-common-vars
-            - prison-visits-booking-staging
-          env: preprod
-          requires:
-            - request-preprod-approval
-      - deploy_production_approval:
-          type: approval
-          requires:
-            - deploy_preprod
-          filters:
-            branches:
-              only: main
-      - hmpps/deploy_env:
-          name: deploy_production
-          context:
-            - hmpps-common-vars
-            - prison-visits-booking-production
-          slack_notification: true
-          slack_channel_name: << pipeline.parameters.releases-slack-channel >>
-          env: prod
-          requires:
-            - deploy_production_approval
-          filters:
-            branches:
-              only: main
+# workflows:
+#   version: 2
+#   build_and_test:
+#     jobs:
+#       - test
+#       - hmpps/helm_lint:
+#           name: helm_lint
+#       - build_and_push_docker_image:
+#           requires:
+#             - helm_lint
+#             # - test
+#       - hmpps/deploy_env:
+#           name: deploy_dev
+#           context:
+#             - hmpps-common-vars
+#             - prison-visits-booking-dev
+#           env: dev
+#           requires:
+#             - helm_lint
+#             - build_and_push_docker_image
+#       - request-preprod-approval:
+#           type: approval
+#           requires:
+#             - deploy_dev
+#       - hmpps/deploy_env:
+#           name: deploy_preprod
+#           context:
+#             - hmpps-common-vars
+#             - prison-visits-booking-staging
+#           env: preprod
+#           requires:
+#             - request-preprod-approval
+#       - deploy_production_approval:
+#           type: approval
+#           requires:
+#             - deploy_preprod
+#           filters:
+#             branches:
+#               only: main
+#       - hmpps/deploy_env:
+#           name: deploy_production
+#           context:
+#             - hmpps-common-vars
+#             - prison-visits-booking-production
+#           slack_notification: true
+#           slack_channel_name: << pipeline.parameters.releases-slack-channel >>
+#           env: prod
+#           requires:
+#             - deploy_production_approval
+#           filters:
+#             branches:
+#               only: main
