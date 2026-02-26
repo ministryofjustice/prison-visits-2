@@ -46,7 +46,7 @@ gem 'uri_template'
 gem 'zendesk_api'
 gem 'pvb-instrumentation',
     git: 'https://github.com/ministryofjustice/prison-visit-booking-instrumentation.git',
-    tag: 'v1.0.1'
+    tag: 'v1.0.2'
 gem 'email_address_validation',
     git: 'https://github.com/ministryofjustice/email_address_validation',
     ref: 'd37caea140a11bbb82f6abfbecef39fef78b97e8'
