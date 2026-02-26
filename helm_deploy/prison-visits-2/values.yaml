@@ -1,7 +1,7 @@
 generic-service:
   image:
-    repository: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/prison-visits-booking/prison-visits-staff
-    pullPolicy: IfNotPresent
+    repository: ghcr.io/ministryofjustice/prison-visits-2
+    tag: app_version # overridden at deployment time
     port: 3000
 
   containerCommand: ["sh", "-c", "bundle exec puma -p 3000 -C ./config/puma_prod.rb --pidfile /tmp/server.pid"]
