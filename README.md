@@ -1,7 +1,6 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/20ad81e6cb95ffd082d2/maintainability)](https://codeclimate.com/github/ministryofjustice/prison-visits-2/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/20ad81e6cb95ffd082d2/test_coverage)](https://codeclimate.com/github/ministryofjustice/prison-visits-2/test_coverage)
-[![prison-visits-2](https://circleci.com/gh/ministryofjustice/prison-visits-2.svg?style=svg)](https://app.circleci.com/pipelines/github/ministryofjustice/prison-visits-2)
-[![repo standards badge](https://img.shields.io/badge/dynamic/json?color=blue&style=flat&logo=github&label=MoJ%20Compliant&query=%24.result&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Fprison-visits-2)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/public-github-repositories.html#prison-visits-2 "Link to report")
+[![Pipeline [test -> build -> deploy]](https://github.com/ministryofjustice/prison-visits-2/actions/workflows/pipeline.yml/badge.svg?branch=main)](https://github.com/ministryofjustice/prison-visits-2/actions/workflows/pipeline.yml)
+
+[![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/prison-visits-2/badge)](https://github-community.service.justice.gov.uk/repository-standards/prison-visits-2)
 
 # Online visit requests
 
