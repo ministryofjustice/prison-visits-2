@@ -1,4 +1,4 @@
-FROM ruby:3.4.5-alpine3.23
+FROM ruby:3.4.8-alpine3.23
 
 ARG BUILD_NUMBER
 ARG GIT_BRANCH
