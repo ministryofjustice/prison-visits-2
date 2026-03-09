@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '7.2.2'
+gem 'rails', '7.1.5.1'
 
 ruby '~> 3.4.8'
 
@@ -30,7 +30,7 @@ gem 'omniauth-oauth2'
 gem 'pg'
 gem 'phonelib'
 gem 'premailer-rails'
-gem 'psych', '5.2.2'
+gem 'psych', '4.0.0'
 gem 'puma'
 gem 'rack', '>= 2.1.4'
 gem 'rake'
