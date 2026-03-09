@@ -2,12 +2,13 @@ source 'https://rubygems.org'
 
 gem 'rails', '7.1.5.1'
 
-ruby '~> 3.3.5'
+ruby '~> 3.4.8'
 
 gem 'activerecord-safer_migrations'
 gem 'base32-crockford', require: 'base32/crockford'
 gem 'business'
 gem 'bootsnap', require: false
+gem 'csv'
 gem 'connection_pool'
 gem 'draper'
 gem 'excon'
@@ -29,6 +30,7 @@ gem 'omniauth-oauth2'
 gem 'pg'
 gem 'phonelib'
 gem 'premailer-rails'
+gem 'psych', '4.0.6'
 gem 'puma'
 gem 'rack', '>= 2.1.4'
 gem 'rake'
