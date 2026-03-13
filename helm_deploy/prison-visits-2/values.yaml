@@ -43,6 +43,10 @@ generic-service:
       path: /ping
       port: 3000
 
+  namespace_secrets:
+    secrets:
+      GOV_NOTIFY_API_KEY: GOV_NOTIFY_API_KEY
+
   envFrom:
     - configMapRef:
         name: shared-environment
