@@ -17,6 +17,7 @@ generic-service:
     secrets:
       NOMIS_OAUTH_CLIENT_ID: NOMIS_OAUTH_CLIENT_ID
       NOMIS_OAUTH_CLIENT_SECRET: NOMIS_OAUTH_CLIENT_SECRET
+      GOV_NOTIFY_API_KEY: GOV_NOTIFY_API_KEY
 
   env:
     PRISON_API_HOST: "https://prison-api-dev.prison.service.justice.gov.uk"
