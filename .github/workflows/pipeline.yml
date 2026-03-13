@@ -40,12 +40,13 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     env:
+      ENVIRONMENT: TEST
       RAILS_ENV: test
       DATABASE_URL: "postgresql://ubuntu:password@127.0.0.1/pvb2_test"
       RACK_ENV: test
       PRISON_API_HOST: https://prison-api-dev.prison.service.justice.gov.uk
       NOMIS_OAUTH_HOST: https://sign-in-dev.hmpps.service.justice.gov.uk
-      GOV_NOTIFY_API_KEY: test
+      GOV_NOTIFY_API_KEY: ${{ env.GOV_NOTIFY_API_KEY }}
     services:
       postgres:
         image: postgres:15.12-alpine
