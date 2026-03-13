@@ -45,6 +45,7 @@ jobs:
       RACK_ENV: test
       PRISON_API_HOST: https://prison-api-dev.prison.service.justice.gov.uk
       NOMIS_OAUTH_HOST: https://sign-in-dev.hmpps.service.justice.gov.uk
+      GOV_NOTIFY_API_KEY: test-key-fa80e418-ff49-445c-a29b-92c04a181207-7aaec57c-2dc9-4d31-8f5c-7225fe79516a
     services:
       postgres:
         image: postgres:15.12-alpine
