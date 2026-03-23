@@ -1,6 +1,6 @@
 ---
 name: Thorn Cross
 nomis_id: TCI
-enabled: false
+enabled: true
 private: false
 closed: false

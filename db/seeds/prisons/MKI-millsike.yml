@@ -8,6 +8,6 @@ address: |-
 postcode: YO41 1FZ
 email_address: Unavailable
 phone_no: Unavailable
-enabled: false
-private: true
+enabled: true
+private: false
 closed: false

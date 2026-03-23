@@ -1,6 +1,6 @@
 ---
 name: Manchester
 nomis_id: MRI
-enabled: false
+enabled: true
 private: false
 closed: false

@@ -1,6 +1,6 @@
 ---
 name: Peterborough
 nomis_id: PBI
-enabled: false
-private: true
+enabled: true
+private: false
 closed: false

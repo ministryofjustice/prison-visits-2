@@ -1,6 +1,6 @@
 ---
 name: Medway Secure Training Centre
 nomis_id: MWI
-enabled: false
+enabled: true
 private: false
-closed: true
+closed: false

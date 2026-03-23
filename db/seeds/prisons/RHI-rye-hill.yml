@@ -1,6 +1,6 @@
 ---
 name: Rye Hill
 nomis_id: RHI
-enabled: false
-private: true
+enabled: true
+private: false
 closed: false

@@ -1,6 +1,6 @@
 ---
 name: Ashfield
 nomis_id: ASI
-enabled: false
-private: true
+enabled: true
+private: false
 closed: false

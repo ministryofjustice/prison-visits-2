@@ -1,6 +1,6 @@
 ---
 name: Forest Bank
 nomis_id: FBI
-enabled: false
-private: true
+enabled: true
+private: false
 closed: false

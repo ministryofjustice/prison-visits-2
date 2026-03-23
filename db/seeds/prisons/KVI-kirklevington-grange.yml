@@ -1,6 +1,6 @@
 ---
 name: Kirklevington Grange
 nomis_id: KVI
-enabled: false
+enabled: true
 private: false
 closed: false

@@ -1,6 +1,6 @@
 ---
 name: Doncaster
 nomis_id: DNI
-enabled: false
-private: true
+enabled: true
+private: false
 closed: false

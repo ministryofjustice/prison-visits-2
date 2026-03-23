@@ -1,6 +1,6 @@
 ---
 name: Parc
 nomis_id: PRI
-enabled: false
-private: true
+enabled: true
+private: false
 closed: false

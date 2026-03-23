@@ -1,6 +1,6 @@
 ---
 name: Liverpool (Closed only)
 nomis_id: LPI
-enabled: false
+enabled: true
 private: false
 closed: false

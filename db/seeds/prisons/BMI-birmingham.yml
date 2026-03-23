@@ -1,6 +1,6 @@
 ---
 name: Birmingham
 nomis_id: BMI
-enabled: false
+enabled: true
 private: false
 closed: false

@@ -1,6 +1,6 @@
 ---
 name: Berwyn
 nomis_id: BWI
-enabled: false
+enabled: true
 private: false
 closed: false

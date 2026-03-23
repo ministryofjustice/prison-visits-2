@@ -6,9 +6,9 @@ address: |-
 postcode: PL20 6RR
 email_address: socvis.dartmoor@justice.gov.uk
 phone_no: 0182 232 2022
-enabled: false
+enabled: true
 private: false
-closed: true
+closed: false
 adult_age: 18
 lead_days: 4
 recurring:

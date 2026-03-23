@@ -1,6 +1,6 @@
 ---
 name: Isis
 nomis_id: ISI
-enabled: false
+enabled: true
 private: false
 closed: false
