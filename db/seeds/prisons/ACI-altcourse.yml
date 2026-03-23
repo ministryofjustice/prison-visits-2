@@ -1,6 +1,11 @@
 ---
 name: Altcourse
 nomis_id: ACI
+address: |-
+  Princetown
+postcode: PL20 6RR
+email_address: socvis.dartmoor@justice.gov.uk
+phone_no: 0182 232 2022
 enabled: true
 private: false
 closed: false
