@@ -5,6 +5,7 @@ gem 'rails', '7.1.5.1'
 ruby '~> 3.3.5'
 
 gem 'activerecord-safer_migrations'
+gem 'activerecord-session_store'
 gem 'base32-crockford', require: 'base32/crockford'
 gem 'business'
 gem 'bootsnap', require: false
