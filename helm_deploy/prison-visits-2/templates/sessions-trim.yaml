@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: sessions-trim
+{{- $genericService := (index .Values "generic-service") | default (dict) }}
+{{- $genericServiceEnv := (index $genericService "env") | default (dict) }}
+{{- $environmentName := (index $genericServiceEnv "ENVIRONMENT_NAME") | default "" }}
+spec:
+  {{- if or (eq $environmentName "dev") (eq $environmentName "preprod") }}
+  schedule: "0 9 * * 1-5"
+  {{- end }}
+  {{- if eq $environmentName "prod" }}
+  schedule: "0 0 * * *"
+  {{- end }}
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: prison-visits-booking-staff-sessions-trim
+            image: "{{ index .Values "generic-service" "image" "repository" }}:{{ index .Values "generic-service" "image" "tag" | default .Chart.AppVersion }}"
+            imagePullPolicy: IfNotPresent
+            command: ['sh', '-c', "bundle exec rake db:sessions:trim"]
+            envFrom:
+              - configMapRef:
+                  name: shared-environment
+              - secretRef:
+                  name: secrets
+            env:
+              - name: DATABASE_URL
+                valueFrom:
+                  secretKeyRef:
+                    name: prison-visits-rds-instance-output
+                    key: url
+          restartPolicy: OnFailure
