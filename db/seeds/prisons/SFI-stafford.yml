@@ -7,18 +7,19 @@ address: |-
 postcode: ST16 3AW
 email_address: Unavailable
 phone_no: 0300 060 6505
-enabled: true
+enabled: false
 private: false
 closed: false
 adult_age: 18
 recurring:
   wed:
-  - 1400-1600
+  - 1345-1545
   thu:
-  - 1400-1600
+  - 1345-1545
   sat:
-  - 1400-1600
+  - 0900-1100
+  - 1345-1545
   sun:
-  - 1400-1600
+  - 1345-1545
 unbookable:
 - 2023-11-23

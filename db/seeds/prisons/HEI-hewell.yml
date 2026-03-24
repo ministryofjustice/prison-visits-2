@@ -7,22 +7,18 @@ address: |-
 postcode: B97 6QS
 email_address: Unavailable
 phone_no: 0300 060 6503
-enabled: true
+enabled: false
 private: false
 closed: false
 adult_age: 13
 recurring:
   mon:
-  - 0845-1115
   - 1400-1615
   tue:
-  - 0845-1115
   - 1400-1615
   wed:
-  - 0845-1115
   - 1400-1615
   thu:
-  - 0845-1115
   - 1400-1615
   sat:
   - 0930-1130
@@ -32,6 +28,3 @@ recurring:
   - 1400-1600
 unbookable:
 - 2024-03-29
-anomalous:
-  2022-12-27:
-  - 1345-1445

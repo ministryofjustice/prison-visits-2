@@ -7,7 +7,7 @@ address: |-
 postcode: WS14 9QS
 email_address: Unavailable
 phone_no: 0300 060 6507
-enabled: true
+enabled: false
 private: false
 closed: false
 adult_age: 5
@@ -23,11 +23,4 @@ recurring:
   sun:
   - 1400-1600
 unbookable:
-- 2018-12-06
-- 2022-06-02
-- 2022-06-03
-- 2022-12-22
-- 2022-12-25
-- 2022-12-29
-- 2023-01-03
 - 2023-12-26
