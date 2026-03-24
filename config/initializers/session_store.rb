@@ -2,6 +2,6 @@
 
 unless Rails.env.test?
   Rails.application.config.session_store :active_record_store,
-                                         key: '_pvb_staff_session',
+                                         key: '_pvb2_session',
                                          expire_after: 1.hour
 end
