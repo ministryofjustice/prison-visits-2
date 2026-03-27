@@ -154,6 +154,7 @@ GEM
     crass (1.0.6)
     css_parser (2.0.0)
       addressable
+    csv (3.3.5)
     cuprite (0.17)
       capybara (~> 3.0)
       ferrum (~> 0.17.0)
@@ -397,8 +398,7 @@ GEM
       pry (>= 0.13, < 0.17)
     pry-rails (0.3.11)
       pry (>= 0.13.0)
-    psych (5.3.1)
-      date
+    psych (4.0.6)
       stringio
     public_suffix (7.0.5)
     puma (7.2.0)
@@ -658,6 +658,7 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   connection_pool
+  csv
   cuprite
   dotenv-rails
   draper
@@ -691,6 +692,7 @@ DEPENDENCIES
   premailer-rails
   pry-byebug
   pry-rails
+  psych (= 4.0.6)
   puma
   pvb-instrumentation!
   rack (>= 2.1.4)
@@ -763,6 +765,7 @@ CHECKSUMS
   crack (1.0.1) sha256=ff4a10390cd31d66440b7524eb1841874db86201d5b70032028553130b6d4c7e
   crass (1.0.6) sha256=dc516022a56e7b3b156099abc81b6d2b08ea1ed12676ac7a5657617f012bd45d
   css_parser (2.0.0) sha256=af5c759a127b125b635006a6c6c2e05b96a1ebdeec21b3c415fd5f09ec714a0a
+  csv (3.3.5) sha256=6e5134ac3383ef728b7f02725d9872934f523cb40b961479f69cf3afa6c8e73f
   cuprite (0.17) sha256=b140d5dc70d08b97ad54bcf45cd95d0bd430e291e9dffe76fff851fddd57c12b
   date (3.5.1) sha256=750d06384d7b9c15d562c76291407d89e368dda4d4fff957eb94962d325a0dc0
   debug_inspector (1.2.0) sha256=9bdfa02eebc3da163833e6a89b154084232f5766087e59573b70521c77ea68a2
@@ -877,7 +880,7 @@ CHECKSUMS
   pry (0.16.0) sha256=d76c69065698ed1f85e717bd33d7942c38a50868f6b0673c636192b3d1b6054e
   pry-byebug (3.12.0) sha256=594e094ae8a8390a7ad4c7b36ae36e13304ed02664c67417d108dc5f7213d1b7
   pry-rails (0.3.11) sha256=a69e28e24a34d75d1f60bcf241192a54253f8f7ef8a62cba1e75750a9653593d
-  psych (5.3.1) sha256=eb7a57cef10c9d70173ff74e739d843ac3b2c019a003de48447b2963d81b1974
+  psych (4.0.6) sha256=f70425c3dca8d8fbe4c1de7270d921e35eb6eb44cf2b2e4f961dc8031330b876
   public_suffix (7.0.5) sha256=1a8bb08f1bbea19228d3bed6e5ed908d1cb4f7c2726d18bd9cadf60bc676f623
   puma (7.2.0) sha256=bf8ef4ab514a4e6d4554cb4326b2004eba5036ae05cf765cfe51aba9706a72a8
   pvb-instrumentation (1.0.1)
@@ -968,7 +971,7 @@ CHECKSUMS
   zendesk_api (3.1.1) sha256=f85b646263729fee8dc3c47f02bb3caaf26f1650a094299dee46c063e26e7216
 
 RUBY VERSION
-  ruby 3.3.5
+  ruby 3.4.8
 
 BUNDLED WITH
-  4.0.1
+  4.0.9
