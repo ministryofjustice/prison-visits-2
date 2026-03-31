@@ -60,13 +60,13 @@ jobs:
         image: redis:7-alpine
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - name: Set Docker Tags
         id: set_tags
         shell: bash
         run: yarn install --prod
       - name: Setup Ruby and install gems
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@3ff19f5e2baf30647122352b96108b1fbe250c64 # v1
         with:
           bundler-cache: true
       - name: Setup test database
