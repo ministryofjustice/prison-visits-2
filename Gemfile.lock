@@ -401,7 +401,7 @@ GEM
     psych (4.0.6)
       stringio
     public_suffix (7.0.5)
-    puma (7.2.0)
+    puma (8.0.0)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (2.2.22)
@@ -882,7 +882,7 @@ CHECKSUMS
   pry-rails (0.3.11) sha256=a69e28e24a34d75d1f60bcf241192a54253f8f7ef8a62cba1e75750a9653593d
   psych (4.0.6) sha256=f70425c3dca8d8fbe4c1de7270d921e35eb6eb44cf2b2e4f961dc8031330b876
   public_suffix (7.0.5) sha256=1a8bb08f1bbea19228d3bed6e5ed908d1cb4f7c2726d18bd9cadf60bc676f623
-  puma (7.2.0) sha256=bf8ef4ab514a4e6d4554cb4326b2004eba5036ae05cf765cfe51aba9706a72a8
+  puma (8.0.0) sha256=1681050b8b60fab1d3033255ab58b6aec64cd063e43fc6f8204bcb8bf9364b88
   pvb-instrumentation (1.0.1)
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
   rack (2.2.22) sha256=c5cf0b7f872559966d974abe3101a57d51caf12504ee76290b98720004f64542
