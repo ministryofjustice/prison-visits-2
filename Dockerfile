@@ -33,7 +33,7 @@ RUN \
   && cp /usr/share/zoneinfo/Europe/London /etc/localtime \
   && echo "Europe/London" > /etc/timezone \
   && gem update bundler --no-document \
-  && npm install -g yarn@1.10.1
+  && npm install -g yarn@1.22.0
 
 RUN \
   set -ex \
