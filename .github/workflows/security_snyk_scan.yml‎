@@ -1,0 +1,25 @@
+name: Security Snyk dependency check
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "48 6 * * MON-FRI" # Every weekday at 06:48 UTC
+
+jobs:
+  security-snyk-check:
+    permissions:
+      contents: read
+      actions: read
+      security-events: write
+    name: Project security Snyk dependency check
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/security_snyk_scan.yml@v2
+    with:
+      channel_id: ${{ vars.SECURITY_ALERTS_SLACK_CHANNEL_ID || 'NO_SLACK' }}
+      subproject: ''
+      severity: 'HIGH,CRITICAL'
+      scan_type: 'image' # or 'fs'
+      location: '.'
+      slack_include_summary: true
+      snyk_policy_path: '' # Optional path to a custom Snyk policy file
+    secrets:
+      HMPPS_SNYK_API_KEY: ${{ secrets.HMPPS_SNYK_API_KEY }}
+      HMPPS_SRE_SLACK_BOT_TOKEN: ${{ secrets.HMPPS_SRE_SLACK_BOT_TOKEN }}
