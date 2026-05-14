@@ -9,11 +9,11 @@ GIT
 
 GIT
   remote: https://github.com/ministryofjustice/prison-visit-booking-instrumentation.git
-  revision: 82c7abd4453dca5513a8954acc509be1518c086b
-  tag: v1.1.0
+  revision: 9d7435f04a0f805b01b54c0938ac9caac754ea3f
+  tag: v1.1.1
   specs:
-    pvb-instrumentation (1.1.0)
-      activesupport (~> 7.1.5)
+    pvb-instrumentation (1.1.1)
+      activesupport (>= 7.1.5)
       request_store (~> 1.6.0)
 
 GEM
@@ -884,7 +884,7 @@ CHECKSUMS
   psych (4.0.6) sha256=f70425c3dca8d8fbe4c1de7270d921e35eb6eb44cf2b2e4f961dc8031330b876
   public_suffix (7.0.5) sha256=1a8bb08f1bbea19228d3bed6e5ed908d1cb4f7c2726d18bd9cadf60bc676f623
   puma (8.0.1) sha256=7b94e50c07655718c1fb8ae41a11fc06c7d61293208b3aa608ff71a46d3ad37c
-  pvb-instrumentation (1.1.0)
+  pvb-instrumentation (1.1.1)
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
   rack (2.2.23) sha256=a8fe9d7e07064770b8ec123663fded8a59ef7e2b6db5cda7173d45a5718ab69c
   rack-accept (0.4.5) sha256=66247b5449db64ebb93ae2ec4af4764b87d1ae8a7463c7c68893ac13fa8d4da2
