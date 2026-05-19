@@ -40,9 +40,16 @@ class VisitorsStep
       params.sort_by { |k, _| k.to_i }.map(&:last)
     )
 
+    trimmed = pruned.map { |visitor|
+      visitor.merge(
+        'first_name' => visitor['first_name']&.strip,
+        'last_name' => visitor['last_name']&.strip
+      )
+    }
+
     # We always want at least one visitor. Leaving the rest blank is fine, but
     # the first one must both exist and be valid.
-    self.visitors = pruned.empty? ? [{}] : pruned.take(Prison::MAX_VISITORS)
+    self.visitors = trimmed.empty? ? [{}] : trimmed.take(Prison::MAX_VISITORS)
   end
 
   def valid?(*)
