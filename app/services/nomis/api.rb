@@ -151,7 +151,12 @@ module Nomis
         client.get("v1/offenders/#{offender_id}/visits/contact_list")
       }
 
-      Nomis::ContactList.new(response)
+      Nomis::ContactList.new(response).tap do |contact_list|
+        contact_list.contacts.each do |contact|
+          contact.given_name = contact.given_name&.strip
+          contact.surname = contact.surname&.strip
+        end
+      end
     end
 
     # :nocov:
