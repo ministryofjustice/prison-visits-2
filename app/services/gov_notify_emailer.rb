@@ -177,8 +177,9 @@ class GovNotifyEmailer
   end
 
   def any_questions(visit)
-    if visit.prison.name == 'Medway Secure Training Centre'
-      "If you have any questions, call the prison on #{visit.prison_phone_no}."
+    if visit.prison.phone_no == 'Unavailable'
+      "If you have any questions, visit the prison website
+      #{link_directory.prison_finder(visit.prison)}"
     else
       "If you have any questions, visit the prison website
       #{link_directory.prison_finder(visit.prison)}
