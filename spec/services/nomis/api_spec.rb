@@ -234,6 +234,8 @@ RSpec.describe Nomis::Api do
   end
 
   describe 'fetch_contact_list', vcr: { cassette_name: :fetch_contact_list } do
+    subject { described_class.instance.fetch_contact_list(**params) }
+
     let(:params) do
       {
         offender_id: 1_502_035
@@ -243,8 +245,8 @@ RSpec.describe Nomis::Api do
     let(:first_contact) do
       Nomis::Contact.new(
         id: 2_996_406,
-        given_name: 'AELAREET',
-        surname: 'ANTOINETTE',
+        given_name: "AELAREET  ",
+        surname: "  ANTOINETTE\t",
         date_of_birth: '1990-09-22',
         gender: { code: "M", desc: "Male" },
         active: true,
@@ -258,14 +260,49 @@ RSpec.describe Nomis::Api do
       )
     end
 
-    subject { super().fetch_contact_list(**params) }
-
-    it 'returns an array of contacts' do
-      expect(subject).to have_exactly(27).items
+    let(:second_contact) do
+      Nomis::Contact.new(
+        id: 4_000_001,
+        given_name: "  JANE",
+        surname: "\tJOHNSON   ",
+        date_of_birth: '2000-01-01',
+        gender: { code: "F", desc: "Female" },
+        active: true,
+        approved_visitor: true,
+        relationship_type: { code: "MOTHER", desc: "Mother" },
+        contact_type: {
+          code: "S",
+          desc: "Social/ Family"
+        },
+        restrictions: []
+      )
     end
 
-    it 'parses the contacts' do
-      expect(subject.map(&:id)).to include(first_contact.id)
+    let(:contact_list) do
+      instance_double(Nomis::ContactList, contacts: [first_contact, second_contact])
+    end
+
+    before do
+      allow(Nomis::ContactList).to receive(:new).and_return(contact_list)
+    end
+
+    it 'returns a list of contacts, and trims the name whitespace' do
+      expect(subject.contacts.first).to have_attributes(
+        id: 2_996_406,
+        given_name: "AELAREET",
+        surname: "ANTOINETTE",
+        active: true,
+        approved_visitor: true,
+        restrictions: []
+      )
+      expect(subject.contacts.second).to have_attributes(
+        id: 4_000_001,
+        given_name: "JANE",
+        surname: "JOHNSON",
+        active: true,
+        approved_visitor: true,
+        restrictions: []
+      )
     end
   end
 end
