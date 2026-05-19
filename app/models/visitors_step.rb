@@ -40,12 +40,12 @@ class VisitorsStep
       params.sort_by { |k, _| k.to_i }.map(&:last)
     )
 
-    trimmed = pruned.map do |visitor|
+    trimmed = pruned.map { |visitor|
       visitor.merge(
         'first_name' => visitor['first_name']&.strip,
-        'last_name'  => visitor['last_name']&.strip
+        'last_name' => visitor['last_name']&.strip
       )
-    end
+    }
 
     # We always want at least one visitor. Leaving the rest blank is fine, but
     # the first one must both exist and be valid.

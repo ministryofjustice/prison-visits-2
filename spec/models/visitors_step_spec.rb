@@ -193,7 +193,6 @@ RSpec.describe VisitorsStep do
     end
   end
 
-
   describe 'valid?' do
     before do
       subject.email_address = 'user@test.example.com'
