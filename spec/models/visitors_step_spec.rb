@@ -146,6 +146,54 @@ RSpec.describe VisitorsStep do
     end
   end
 
+  describe 'visitors_attributes=' do
+    it 'strips leading and trailing whitespace from first_name and last_name' do
+      subject.visitors_attributes = {
+        '0' => {
+          'first_name' => '  Bob  ',
+          'last_name' => '  Roberts  ',
+          'date_of_birth' => { 'day' => '1', 'month' => '2', 'year' => '1980' }
+        }
+      }
+      first_visitor = subject.visitors.first
+      expect(first_visitor.first_name).to eq('Bob')
+      expect(first_visitor.last_name).to eq('Roberts')
+    end
+
+    it 'strips whitespace from all visitors, not just the first' do
+      subject.visitors_attributes = {
+        '0' => {
+          'first_name' => '  Bob  ',
+          'last_name' => '  Roberts  ',
+          'date_of_birth' => { 'day' => '1', 'month' => '2', 'year' => '1980' }
+        },
+        '1' => {
+          'first_name' => '  John  ',
+          'last_name' => '  Johnson  ',
+          'date_of_birth' => { 'day' => '3', 'month' => '4', 'year' => '1990' }
+        }
+      }
+      expect(subject.visitors[0].first_name).to eq('Bob')
+      expect(subject.visitors[0].last_name).to eq('Roberts')
+      expect(subject.visitors[1].first_name).to eq('John')
+      expect(subject.visitors[1].last_name).to eq('Johnson')
+    end
+
+    it 'handles nil first_name and last_name without error' do
+      subject.visitors_attributes = {
+        '0' => {
+          'first_name' => nil,
+          'last_name' => nil,
+          'date_of_birth' => { 'day' => '1', 'month' => '2', 'year' => '1980' }
+        }
+      }
+      first_visitor = subject.visitors.first
+      expect(first_visitor.first_name).to be_nil
+      expect(first_visitor.last_name).to be_nil
+    end
+  end
+
+
   describe 'valid?' do
     before do
       subject.email_address = 'user@test.example.com'
