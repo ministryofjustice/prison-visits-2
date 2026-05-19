@@ -163,13 +163,13 @@ RSpec.describe VisitorsStep do
     it 'strips whitespace from all visitors, not just the first' do
       subject.visitors_attributes = {
         '0' => {
-          'first_name' => '  Bob  ',
+          'first_name' => "\tBob  ",
           'last_name' => '  Roberts  ',
           'date_of_birth' => { 'day' => '1', 'month' => '2', 'year' => '1980' }
         },
         '1' => {
           'first_name' => '  John  ',
-          'last_name' => '  Johnson  ',
+          'last_name' => "  Johnson\t",
           'date_of_birth' => { 'day' => '3', 'month' => '4', 'year' => '1990' }
         }
       }
