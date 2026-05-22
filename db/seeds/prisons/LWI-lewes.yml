@@ -6,7 +6,7 @@ address: |-
 postcode: BN7 1EA
 email_address: socialvisits.lewes@justice.gov.uk
 phone_no: 01273 785 271
-enabled: true
+enabled: false
 private: false
 closed: false
 adult_age: 18
