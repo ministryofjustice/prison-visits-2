@@ -372,7 +372,7 @@ GEM
     pg (1.6.3-x86_64-linux)
     pg (1.6.3-x86_64-linux-musl)
     phantomjs (2.1.1.0)
-    phonelib (0.10.20)
+    phonelib (0.10.21)
     pp (0.6.3)
       prettyprint
     premailer (1.29.0)
@@ -726,7 +726,6 @@ DEPENDENCIES
   webmock
   zendesk_api
 
-CHECKSUMS
   actioncable (7.2.3.1) sha256=d3bf40a3f4fc79a09709878f0e5c43a5e2d8e6607089f6b38f9472b8715eb33c
   actionmailbox (7.2.3.1) sha256=a4e73480c97ab2fff5a416f92c54b065b1a6564ea4a807d42e0b83a94d4ec541
   actionmailer (7.2.3.1) sha256=f578b6d5c5f81a20b6f6a796187698890c8348c041daa5e2e7cf7814ac520467
@@ -871,7 +870,7 @@ CHECKSUMS
   pg (1.6.3-x86_64-linux) sha256=5d9e188c8f7a0295d162b7b88a768d8452a899977d44f3274d1946d67920ae8d
   pg (1.6.3-x86_64-linux-musl) sha256=9c9c90d98c72f78eb04c0f55e9618fe55d1512128e411035fe229ff427864009
   phantomjs (2.1.1.0) sha256=b392cfba33d374285d022c905c714948fc1a69d162cd17cfea39b684fd5a1779
-  phonelib (0.10.20) sha256=15af54cddbec5a73ee2ca466f9ccc2dd849f58d1c434c718df096601f8c6dbfe
+  phonelib (0.10.21) sha256=ff5a2f3899f0f8cf198fc07746adbb1b5b2bb5dd2332bc5aff32c4ccfb471702
   pp (0.6.3) sha256=2951d514450b93ccfeb1df7d021cae0da16e0a7f95ee1e2273719669d0ab9df6
   premailer (1.29.0) sha256=015f30c520701f3d47fd898886a3eaf4e5171efcc5fd239b872efd1ba61d3da0
   premailer-rails (1.12.0) sha256=c13815d161b9bc7f7d3d81396b0bb0a61a90fa9bd89931548bf4e537c7710400
