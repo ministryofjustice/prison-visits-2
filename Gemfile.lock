@@ -551,10 +551,10 @@ GEM
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
     securerandom (0.4.1)
-    sentry-rails (6.6.1)
+    sentry-rails (6.6.2)
       railties (>= 5.2.0)
-      sentry-ruby (~> 6.6.1)
-    sentry-ruby (6.6.1)
+      sentry-ruby (~> 6.6.2)
+    sentry-ruby (6.6.2)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
       logger
@@ -730,7 +730,6 @@ DEPENDENCIES
   webmock
   zendesk_api
 
-CHECKSUMS
   actioncable (7.2.3.1) sha256=d3bf40a3f4fc79a09709878f0e5c43a5e2d8e6607089f6b38f9472b8715eb33c
   actionmailbox (7.2.3.1) sha256=a4e73480c97ab2fff5a416f92c54b065b1a6564ea4a807d42e0b83a94d4ec541
   actionmailer (7.2.3.1) sha256=f578b6d5c5f81a20b6f6a796187698890c8348c041daa5e2e7cf7814ac520467
@@ -934,8 +933,8 @@ CHECKSUMS
   sassc-rails (2.1.2) sha256=5f4fdf3881fc9bdc8e856ffbd9850d70a2878866feae8114aa45996179952db5
   scenic (1.9.0) sha256=6eec3aa049ba2a137e7eb0b4c4f0200b77f7765fc82e08ad44c01da7905563d9
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
-  sentry-rails (6.6.1) sha256=11546059d21efccbd949c8b861757038d807f5042a385d72bb27c9d2565d7d6c
-  sentry-ruby (6.6.1) sha256=e731251ae4bdfd7d1df70ae715c3dda2921ee6e93a83a8b0a69a73c20c274421
+  sentry-rails (6.6.2) sha256=cb49aa43e6eb235d162d365c671b3fd24b7f9037df59b4a49af5af60868ab1ed
+  sentry-ruby (6.6.2) sha256=a64aaf757d10058598fe5871de925b2a5a3d78273feb9bca23fff843accc6cd6
   shellany (0.0.1) sha256=0e127a9132698766d7e752e82cdac8250b6adbd09e6c0a7fbbb6f61964fedee7
   shoulda-matchers (7.0.1) sha256=b4bfd8744c10e0a36c8ac1a687f921ee7e25ed529e50488d61b79a8688749c77
   simplecov (0.22.0) sha256=fe2622c7834ff23b98066bb0a854284b2729a569ac659f82621fc22ef36213a5
