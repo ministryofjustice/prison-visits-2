@@ -32,9 +32,7 @@ generic-service:
     ZENDESK_URL: "https://ministryofjustice.zendesk.com/api/v2"
     ZENDESK_USERNAME: "pvb-technical-support+zendesk@digital.justice.gov.uk"
     STAFF_PRISONS_WITH_SLOT_AVAILABILITY: >
-      High Down,
     PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY: >
-      High Down,
     PRODUCT_ID: "DPS031"
     ENVIRONMENT_NAME: preprod
 

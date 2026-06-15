@@ -33,10 +33,6 @@ The source of the predecessor can be found at
 - [NOMIS API access](http://ministryofjustice.github.io/nomis-api/) - prison and offender data is accessed via the National Offender Management Information System. An [authentication token](https://nomis-api-access.service.justice.gov.uk/) is required to access this.
 - (Optional) Transifex Client - for managing site translation. See [additional documentation](docs/welsh_translation.md) for setup and updating translations.
 
-### Ruby version
-
-This application uses Ruby v3.2.2. Use [RVM](https://rvm.io/) or similar to manage your ruby environment and sets of dependencies.
-
 ### Running the application
 
 *Note* - You will need to spin up both [ministryofjustice/prison-visits-2](https://github.com/ministryofjustice/prison-visits-2) and [ministryofjustice/prison-visits-public](https://github.com/ministryofjustice/prison-visits-public)
