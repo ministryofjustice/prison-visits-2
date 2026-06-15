@@ -21,13 +21,10 @@
       "required": true
     },
     "STAFF_PRISONS_WITH_SLOT_AVAILABILITY": {
-      "required": true
-    },
-    "STAFF_PRISONS_WITH_SLOT_AVAILABILITY": {
-      "required": true
+      "required": false
     },
     "PUBLIC_PRISONS_WITH_SLOT_AVAILABILITY": {
-      "required": true
+      "required": false
     },
     "MOJSSO_SECRET": {
       "required": true
