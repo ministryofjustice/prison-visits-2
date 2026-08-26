@@ -63,7 +63,7 @@ end
 
 group :development, :test do
   gem 'awesome_print'
-  gem 'brakeman', '>= 5.0.4'
+  gem 'brakeman', '8.0.6'
   gem 'byebug'
   gem 'dotenv-rails'
   gem 'jasmine-jquery-rails'
