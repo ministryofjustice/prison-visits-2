@@ -3,7 +3,7 @@
 # Same as https://github.com/excon/excon/blob/v0.104.0/lib/excon/middlewares/instrumentor.rb
 # but with a few changes documented below
 #
-# :nocov:
+# simplecov:disable
 module Excon
   module Middleware
     class CustomInstrumentor < Excon::Middleware::Base

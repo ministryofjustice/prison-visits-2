@@ -2,7 +2,7 @@
 
 require 'base64'
 
-# :nocov:
+# simplecov:disable
 module Nomis
   module Oauth
     module ClientHelper
@@ -20,4 +20,4 @@ module Nomis
     end
   end
 end
-# :nocov:
+# simplecov:disable

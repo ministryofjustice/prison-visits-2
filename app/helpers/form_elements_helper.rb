@@ -1,5 +1,5 @@
 # This class will go away when we start using the form builder gem
-# :nocov:
+# simplecov:disable
 module FormElementsHelper
   def single_field(form, name, field_method, *options)
     case field_method
@@ -114,4 +114,4 @@ private
     strings.inject(ActiveSupport::SafeBuffer.new(''), &:<<)
   end
 end
-# :nocov:
+# simplecov:disable

@@ -1,7 +1,7 @@
-# :nocov:
+# simplecov:disable
 module Nomis
   class Error
     class NotFound < Error; end
   end
 end
-# :nocov:
+# simplecov:disable
