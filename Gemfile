@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '7.2.3.2'
+gem 'rails', '8.0.5.1'
 
 ruby '~> 3.4.8'
 
@@ -63,7 +63,7 @@ end
 
 group :development, :test do
   gem 'awesome_print'
-  gem 'brakeman', '>= 5.0.4'
+  gem 'brakeman', '8.0.6'
   gem 'byebug'
   gem 'dotenv-rails'
   gem 'jasmine-jquery-rails'

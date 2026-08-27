@@ -5,7 +5,7 @@
 #
 # Tests ported over and extended from Excon. Untested parts are 'request_block'
 # and 'pipeline' which we don't use.
-# :nocov:
+# simplecov:disable
 module Excon
   module Middleware
     class CustomIdempotent < Excon::Middleware::Base

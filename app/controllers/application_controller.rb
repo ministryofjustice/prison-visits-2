@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
 
 private
 
-  # :nocov:
+  # simplecov:disable
 
   def authenticate_user
     unless sso_identity

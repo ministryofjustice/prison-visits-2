@@ -11,7 +11,7 @@ module OmniAuth
 
       option :name, 'hmpps_sso'
 
-      # :nocov:
+      # simplecov:disable
       info do
         {
           roles: decode_roles,
@@ -26,7 +26,7 @@ module OmniAuth
         options.token_params[:headers] = { 'Authorization' => authorisation }
         super
       end
-      # :nocov:
+      # simplecov:disable
 
       # Without this login with sso breaks.
       # This issued was first identified in the Prison Visits Booking service. See
@@ -47,7 +47,7 @@ module OmniAuth
 
     private
 
-      # :nocov:
+      # simplecov:disable
       def organisations
         @organisations ||= Nomis::Api.instance.user_caseloads(user_id)
           .select { |c| c.fetch('type') == 'INST' }
@@ -83,7 +83,7 @@ module OmniAuth
       def user_id
         access_token.params.fetch('user_id')
       end
-      # :nocov:
+      # simplecov:disable
     end
   end
 end

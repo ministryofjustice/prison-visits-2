@@ -159,7 +159,7 @@ module Nomis
       end
     end
 
-    # :nocov:
+    # simplecov:disable
     def user_caseloads(staff_id)
       route = "staff/#{staff_id}/caseloads"
       @pool.with { |client|
@@ -175,7 +175,7 @@ module Nomis
 
       Nomis::UserDetails.new(response)
     end
-    # :nocov:
+    # simplecov:disable
 
     def fetch_email_addresses(staff_id)
       route = "staff/#{staff_id}/emails"
