@@ -65,7 +65,7 @@ en:
           <span>This is a new service – <a href='%{link}' target='_blank' rel='external'>your feedback<span class='visuallyhidden'> (link opens in a new browser window)</span></a> will help us to improve it.</span>
       cancellations:
         cancellations: Cancellations
-        cancel_text: The visitor has asked to cancel. Please cancel the booking in DPS or NOMIS and confirm using the button below
+        cancel_text: The visitor has asked to cancel. Please cancel the booking in DPS and confirm using the button below
         no_cancellations: There are no new cancellations
         table_caption: List of visit cancellations
       navigation:
@@ -122,7 +122,7 @@ en:
           <p>Make sure you:</p>
           <ul class="list list-bullet">
             <li>
-              book the visit in DPS or NOMIS first
+              book the visit in DPS first
             </li>
             <li>
               use this form to send a confirm or reject
@@ -223,11 +223,11 @@ en:
         choice_html: |
           <span class="date-box__day bold-small">%{day}</span><br>%{date} <br>%{time}
         reference_no: Reference number
-        reference_no_hint: e.g. DPS booking reference or last 8 digits of VO number or "none" for remand
+        reference_no_hint: e.g. DPS booking reference
         closed: This is a closed visit
         none_available: None of the chosen times are available
         prisoner_availability_unknown: You must check DPS to verify prisoner availability
-        slot_availability_unknown: You must check DPS or NOMIS to verify slot availability
+        slot_availability_unknown: You must check DPS to verify slot availability
       rejection_nomis:
         nomis_rejection_title: Rejections verified
         nomis_rejection_intro: We have checked these rejection reasons and automatically ticked any that apply.
@@ -258,7 +258,7 @@ en:
           Visiting allowance (weekends and weekday visits) (VO) will
           be renewed:
         allowance_renews_on: Date visiting allowance will be renewed
-        allowance_renews_on_hint: eg 28 04 2024
+        allowance_renews_on_hint: eg 28 04 2026
         rejection_reason_detail: Enter rejection reason
         rejection_reason_detail_hint: This will not be shown to the visitor
       visitor_details:
@@ -284,7 +284,7 @@ en:
         visitor_banned: Banned
         banned_date: Banned until date
         banned_until: Banned until
-        banned_until_hint: eg 28 04 2024
+        banned_until_hint: eg 28 04 2026
         please_select: Please select a contact
         rejections_header: Visitor rejection reasons
       banned:
