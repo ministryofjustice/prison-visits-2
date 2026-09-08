@@ -83,8 +83,8 @@ class SignonIdentity
     url = URI.parse(@logout_url)
     if redirect_to
       url.query = {
-        redirect_uri: redirect_to,
-        client_id: Rails.configuration.nomis_user_oauth_client_id
+        client_id: Rails.configuration.nomis_user_oauth_client_id.to_s,
+        redirect_uri: redirect_to
       }.to_query
     end
 
