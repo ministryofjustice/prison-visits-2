@@ -9,7 +9,9 @@ RSpec.describe HealthController, type: :controller do
 
   context 'when everything is OK' do
     before do
-      allow_any_instance_of(Nomis::Client).to receive(:healthcheck).and_return(OpenStruct.new(status: 200))
+      nomis_client = instance_double(Nomis::Client, healthcheck: OpenStruct.new(status: 200))
+
+      allow(Nomis::Client).to receive(:new).and_return(nomis_client)
     end
 
     it { is_expected.to be_successful }
@@ -24,7 +26,9 @@ RSpec.describe HealthController, type: :controller do
 
   context 'when the healthcheck is not OK' do
     before do
-      allow_any_instance_of(Nomis::Client).to receive(:healthcheck).and_return(OpenStruct.new(status: 500))
+      nomis_client = instance_double(Nomis::Client, healthcheck: OpenStruct.new(status: 500))
+
+      allow(Nomis::Client).to receive(:new).and_return(nomis_client)
     end
 
     it 'returns the healthcheck data as JSON' do
