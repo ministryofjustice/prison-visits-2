@@ -121,7 +121,7 @@ RSpec.feature 'Using the dashboard' do
       find('.button.search').click
       click_link 'View'
 
-      find_button('Send email').trigger('click')
+      find('summary', text: 'Send a message').click
 
       fill_in 'Please type your message', with: 'Sandals not allowed', visible:  false
       find_button('Send email').trigger('click')
