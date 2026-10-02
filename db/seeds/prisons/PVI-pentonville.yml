@@ -6,7 +6,7 @@ address: |-
 postcode: N7 8TT
 email_address: socialvisits.pentonville@justice.gov.uk
 phone_no: 0300 060 6504
-enabled: true
+enabled: false
 private: false
 closed: false
 adult age: 18
