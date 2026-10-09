@@ -11,7 +11,7 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
       visit prison_visit_path(vst, locale: 'en')
     end
 
-    scenario 'cancelling a booked visit with more than one reason', vcr: { cassette_name: 'multiple_cancellation_reasons' } do
+    scenario '#flaky a booked visit with more than one reason', vcr: { cassette_name: 'multiple_cancellation_reasons' } do
       check 'Visit slot no longer available', visible: false
       check 'Visitor is banned', visible: false
 
