@@ -38,5 +38,4 @@ generic-service:
     ENVIRONMENT_NAME: dev
 
 generic-prometheus-alerts:
-  alertSeverity: visits-alerts-nonprod
   businessHoursOnly: true

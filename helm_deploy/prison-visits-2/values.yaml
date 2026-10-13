@@ -57,4 +57,3 @@ generic-service:
 
 generic-prometheus-alerts:
   targetApplication: prison-visits-booking-staff
-  alertSeverity: visits-alerts

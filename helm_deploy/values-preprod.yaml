@@ -35,5 +35,4 @@ generic-service:
     ENVIRONMENT_NAME: preprod
 
 generic-prometheus-alerts:
-  alertSeverity: visits-alerts-nonprod
   businessHoursOnly: true
