@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_03_23_143036) do
+ActiveRecord::Schema[7.1].define(version: 2026_10_16_180004) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
@@ -56,6 +56,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_23_143036) do
     t.uuid "visit_state_change_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.index ["visit_id"], name: "index_messages_on_visit_id"
   end
 
   create_table "nomis_concrete_slots", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -78,6 +79,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_23_143036) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "nomis_offender_id"
+    t.index ["number"], name: "index_prisoners_on_number"
   end
 
   create_table "prisons", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -197,7 +199,10 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_23_143036) do
     t.integer "nomis_id"
     t.text "nomis_comments"
     t.index ["human_id"], name: "index_visits_on_human_id", unique: true
+    t.index ["prison_id", "processing_state", "created_at"], name: "index_visits_for_requested_dashboard"
+    t.index ["prison_id", "updated_at"], name: "index_visits_on_prison_id_and_updated_at"
     t.index ["prison_id"], name: "index_visits_on_prison_id"
+    t.index ["prisoner_id"], name: "index_visits_on_prisoner_id"
   end
 
   add_foreign_key "cancellations", "visits"
