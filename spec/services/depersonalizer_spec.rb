@@ -1,7 +1,60 @@
 require 'rails_helper'
 
 RSpec.describe Depersonalizer do
-  let(:cutoff_date) { Time.zone.now - 6.months }
+  let(:cutoff_date) { Time.zone.now.change(usec: 0) - 6.months }
+
+  shared_examples 'indexed anonymisation' do |factory, marker|
+    let(:record) { create(factory, created_at: cutoff_date, updated_at: cutoff_date) }
+
+    it 'does not anonymise records exactly at the cutoff date' do
+      expect { subject.remove_personal_information(cutoff_date) }
+        .not_to change { record.reload.attributes }
+    end
+
+    it 'preserves timestamps when anonymising eligible records' do
+      record.update_columns(created_at: cutoff_date - 1.second)
+
+      expect { subject.remove_personal_information(cutoff_date) }
+        .not_to change { record.reload.updated_at }
+    end
+
+    it 'has a partial creation-date index matching the eligibility predicate' do
+      index = record.class.connection.indexes(record.class.table_name).find { |definition|
+        definition.name == "index_#{record.class.table_name}_pending_anonymisation"
+      }
+
+      expect(index).to have_attributes(
+        columns: ['created_at'],
+        unique: false,
+        where: "((#{marker})::text <> 'REMOVED'::text)"
+      )
+    end
+  end
+
+  context 'with indexed prisoners' do
+    include_examples 'indexed anonymisation', :prisoner, :first_name
+  end
+
+  context 'with indexed visitors' do
+    include_examples 'indexed anonymisation', :visitor, :first_name
+  end
+
+  context 'with indexed visits' do
+    include_examples 'indexed anonymisation', :visit, :contact_email_address
+  end
+
+  it 'does not carry visitor display ordering into the bulk update' do
+    queries = []
+    subscriber = ->(*arguments) { queries << arguments.last[:sql] }
+
+    ActiveSupport::Notifications.subscribed(subscriber, 'sql.active_record') do
+      subject.remove_personal_information(cutoff_date)
+    end
+
+    visitor_update = queries.find { |sql| sql.start_with?('UPDATE "visitors"') }
+    expect(visitor_update).to be_present
+    expect(visitor_update).not_to include('ORDER BY', 'SELECT')
+  end
 
   context 'when processing prisoners' do
     let!(:prisoner) {
