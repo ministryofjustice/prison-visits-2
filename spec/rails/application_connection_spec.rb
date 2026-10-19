@@ -34,6 +34,30 @@ RSpec.describe Rails::Application do
        'DATABASE_URL' => 'postgresql://config_test:config_test@127.0.0.1:1/config_test?pool=9'
      },
      9,
+     5],
+    ['production database URL preserves the configured pool',
+     {
+       'RAILS_ENV' => 'production',
+       'DB_POOL_SIZE' => '1',
+       'DATABASE_URL' => 'postgresql://config_test:config_test@127.0.0.1:1/config_test',
+       'STAFF_SERVICE_URL' => 'https://staff.example.test',
+       'PUBLIC_SERVICE_URL' => 'https://public.example.test',
+       'SMTP_DOMAIN' => 'example.test',
+       'SECRET_KEY_BASE' => 'test-secret-key-base-for-isolated-production-boot'
+     },
+     1,
+     5],
+    ['production database URL pool retains precedence',
+     {
+       'RAILS_ENV' => 'production',
+       'DB_POOL_SIZE' => '1',
+       'DATABASE_URL' => 'postgresql://config_test:config_test@127.0.0.1:1/config_test?pool=9',
+       'STAFF_SERVICE_URL' => 'https://staff.example.test',
+       'PUBLIC_SERVICE_URL' => 'https://public.example.test',
+       'SMTP_DOMAIN' => 'example.test',
+       'SECRET_KEY_BASE' => 'test-secret-key-base-for-isolated-production-boot'
+     },
+     9,
      5]
   ].each do |description, overrides, database_pool, http_pool|
     it "preserves #{description}" do
