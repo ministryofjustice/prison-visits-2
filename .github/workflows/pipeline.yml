@@ -38,7 +38,7 @@ jobs:
 
   test:
     name: Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgresql://ubuntu:password@127.0.0.1/pvb2_test"
