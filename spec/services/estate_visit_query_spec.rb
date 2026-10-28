@@ -203,6 +203,164 @@ RSpec.describe EstateVisitQuery do
     it_behaves_like "doesn't find old records"
   end
 
+  shared_examples 'scoped identifier searches' do |query_method, visit_trait|
+    let!(:matching_visit) {
+      create(:visit, visit_trait, prison:, created_at: 2.days.ago, updated_at: 1.day.ago)
+    }
+    let(:find_matches) {
+      lambda { |query|
+        if query_method == :processed
+          instance.processed(limit: 10, query:)
+        else
+          instance.public_send(query_method, query:)
+        end
+      }
+    }
+
+    it 'normalises case and surrounding whitespace' do
+      expect(find_matches.call("  #{matching_visit.prisoner.number.downcase}  "))
+        .to eq([matching_visit])
+    end
+
+    it 'normalises reference case and surrounding whitespace' do
+      expect(find_matches.call("  #{matching_visit.human_id.downcase}  "))
+        .to eq([matching_visit])
+    end
+
+    it 'returns visits for separate prisoner records sharing a number' do
+      other_prisoner = create(:prisoner, number: matching_visit.prisoner.number)
+      another_visit = create(:visit, visit_trait, prison:, prisoner: other_prisoner)
+
+      expect(find_matches.call(matching_visit.prisoner.number))
+        .to contain_exactly(matching_visit, another_visit)
+    end
+
+    it 'does not duplicate a visit matching both identifiers' do
+      matching_visit.update!(human_id: matching_visit.prisoner.number)
+
+      expect(find_matches.call(matching_visit.human_id)).to eq([matching_visit])
+    end
+
+    it 'returns both visits when different identifiers match the same query' do
+      another_visit = create(:visit, visit_trait, prison:, human_id: matching_visit.prisoner.number)
+
+      expect(find_matches.call(matching_visit.prisoner.number))
+        .to contain_exactly(matching_visit, another_visit)
+    end
+
+    it 'excludes other estates from both identifier branches' do
+      create(:visit, visit_trait, prisoner: matching_visit.prisoner)
+      create(:visit, visit_trait, human_id: matching_visit.prisoner.number)
+
+      expect(find_matches.call(matching_visit.prisoner.number)).to eq([matching_visit])
+    end
+
+    it 'applies the six-month update cutoff to reference matches' do
+      matching_visit.update_columns(updated_at: 7.months.ago)
+
+      expect(find_matches.call(matching_visit.human_id)).to be_empty
+    end
+
+    it 'uses the update date rather than the creation date for search eligibility' do
+      matching_visit.update_columns(created_at: 7.months.ago)
+
+      expect(find_matches.call(matching_visit.human_id)).to eq([matching_visit])
+    end
+
+    it 'keeps the existing result ordering after merging identifier branches' do
+      another_visit = create(:visit, visit_trait, prison:, human_id: matching_visit.prisoner.number)
+      expected = query_method == :processed ? [another_visit, matching_visit] : [matching_visit, another_visit]
+
+      expect(find_matches.call(matching_visit.prisoner.number)).to eq(expected)
+    end
+
+    it 'matches identifiers exactly rather than as patterns or SQL' do
+      expect(find_matches.call('%')).to be_empty
+      expect(find_matches.call("' OR 1=1 --")).to be_empty
+    end
+
+    it 'retains preloaded associations' do
+      found_visit = find_matches.call(matching_visit.human_id).sole
+
+      expect(found_visit.association(:prisoner)).to be_loaded
+      expect(found_visit.association(:visitors)).to be_loaded
+      expect(found_visit.association(:prison)).to be_loaded
+    end
+  end
+
+  context 'when searching requested visits' do
+    include_examples 'scoped identifier searches', :requested, :requested
+
+    it 'keeps the prisoner number visible to generic query plans' do
+      queries = []
+      subscriber = ->(*arguments) { queries << arguments.last[:sql] }
+      number = matching_visit.prisoner.number
+
+      ActiveSupport::Notifications.subscribed(subscriber, 'sql.active_record') do
+        find_matches.call(number)
+      end
+
+      search_sql = queries.find { |sql| sql.include?('UNION') }
+      predicate = "\"prisoners\".\"number\" = #{Prisoner.connection.quote(number)}"
+
+      expect(search_sql).to be_present
+      expect(search_sql).to include(predicate)
+    end
+
+    it 'does not include processed reference matches' do
+      matching_visit.update_columns(processing_state: 'booked')
+
+      expect(find_matches.call(matching_visit.human_id)).to be_empty
+    end
+  end
+
+  context 'when searching processed visits' do
+    include_examples 'scoped identifier searches', :processed, :booked
+
+    it 'applies the limit after merging identifier matches in update order' do
+      another_visit = create(:visit, :booked, prison:, human_id: matching_visit.prisoner.number)
+
+      expect(instance.processed(limit: 1, query: matching_visit.prisoner.number)).to eq([another_visit])
+    end
+
+    it 'does not include requested reference matches' do
+      matching_visit.update_columns(processing_state: 'requested')
+
+      expect(find_matches.call(matching_visit.human_id)).to be_empty
+    end
+
+    it 'excludes reference matches still pending NOMIS cancellation' do
+      create(:cancellation, visit: matching_visit, nomis_cancelled: false)
+
+      expect(find_matches.call(matching_visit.human_id)).to be_empty
+    end
+  end
+
+  context 'when searching cancelled visits' do
+    include_examples 'scoped identifier searches', :cancelled, :pending_nomis_cancellation
+
+    it 'excludes reference matches whose NOMIS cancellation is confirmed' do
+      matching_visit.cancellation.update!(nomis_cancelled: true)
+
+      expect(find_matches.call(matching_visit.human_id)).to be_empty
+    end
+  end
+
+  describe 'supporting indexes' do
+    [
+      [Prisoner, 'index_prisoners_on_number', ['number']],
+      [Visit, 'index_visits_on_prisoner_id', ['prisoner_id']],
+      [Visit, 'index_visits_for_requested_dashboard', %w[prison_id processing_state created_at]],
+      [Visit, 'index_visits_on_prison_id_and_updated_at', %w[prison_id updated_at]]
+    ].each do |model, index_name, columns|
+      it "has the nonunique #{index_name} index" do
+        index = model.connection.indexes(model.table_name).find { |definition| definition.name == index_name }
+
+        expect(index).to have_attributes(columns:, unique: false, where: nil)
+      end
+    end
+  end
+
   describe '#inbox_count' do
     subject(:inbox_count) { instance.inbox_count }
 
