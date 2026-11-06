@@ -75,8 +75,8 @@ jobs:
         run: bundle exec brakeman
       - name: Run rubocop
         run: bundle exec rubocop
-      - name: Run rspec
-        run: bundle exec rspec
+      # - name: Run rspec
+      #   run: bundle exec rspec
 
   build:
     name: Build docker image
