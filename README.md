@@ -104,6 +104,7 @@ The source of the predecessor can be found at
     pvb2 $ rake db:setup
     ```
 
+
 2. Seed database with visits data
 
     ```sh
