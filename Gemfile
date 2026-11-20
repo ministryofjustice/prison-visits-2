@@ -52,7 +52,7 @@ gem 'pvb-instrumentation',
     tag: 'v1.1.1'
 gem 'email_address_validation',
     git: 'https://github.com/ministryofjustice/email_address_validation',
-    ref: 'd37caea140a11bbb82f6abfbecef39fef78b97e8'
+    ref: 'a3f43f5d3a99ad45025dccbee71ff687709a7a87'
 
 group :developmemt do
   gem 'guard-rspec'

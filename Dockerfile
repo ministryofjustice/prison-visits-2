@@ -41,9 +41,10 @@ RUN \
 
 COPY Gemfile Gemfile.lock ./
 
-RUN bundle update --bundler
-RUN bundle config set without 'development test'
-RUN bundle install --jobs 2 --retry 3
+RUN --mount=type=secret,id=github_netrc,target=/root/.netrc,required=true \
+    bundle update --bundler \
+    && bundle config set without 'development test' \
+    && bundle install --jobs 2 --retry 3
 
 COPY package.json yarn.lock ./
 

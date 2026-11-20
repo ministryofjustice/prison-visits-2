@@ -20,6 +20,7 @@ on:
 permissions:
   contents: read
   packages: write
+  id-token: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref == 'refs/heads/main' && github.sha || github.ref }}
@@ -65,8 +66,19 @@ jobs:
         id: set_tags
         shell: bash
         run: yarn install --prod
+      - name: Obtain Octo STS Token
+        uses: octo-sts/action@f603d3be9d8dd9871a265776e625a27b00effe05 # v1.1.1
+        id: octo_sts_email
+        with:
+          scope: ministryofjustice/email_address_validation
+          identity: ministryofjustice-prison-visits-2
       - name: Setup Ruby and install gems
         uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335
+        env:
+          OCTO_TOKEN: ${{ steps.octo_sts_email.outputs.token }}
+          GIT_CONFIG_COUNT: "1"
+          GIT_CONFIG_KEY_0: credential.https://github.com.helper
+          GIT_CONFIG_VALUE_0: '!f() { printf "username=x-access-token\npassword=%s\n" "$OCTO_TOKEN"; }; f'
         with:
           bundler-cache: true
       - name: Setup test database
@@ -80,7 +92,7 @@ jobs:
 
   build:
     name: Build docker image
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/docker_build.yml@v2 # WORKFLOW_VERSION
+    uses: ./.github/workflows/docker_build.yml
     needs:
       - helm_lint
     with:
