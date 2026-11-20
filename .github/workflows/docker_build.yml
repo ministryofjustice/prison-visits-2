@@ -127,7 +127,7 @@ jobs:
         id: octo_sts_email
         with:
           scope: ministryofjustice/email_address_validation
-          identity: ministryofjustice-prison-visits-public
+          identity: ministryofjustice-prison-visits-2
       - name: Checkout ministryofjustice/email_address_validation
         id: checkout_private_repo_email
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
