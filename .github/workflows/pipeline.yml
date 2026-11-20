@@ -72,17 +72,13 @@ jobs:
         with:
           scope: ministryofjustice/email_address_validation
           identity: ministryofjustice-prison-visits-2
-      - name: Checkout ministryofjustice/email_address_validation
-        id: checkout_private_repo_email
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          persist-credentials: false
-          token: ${{ steps.octo_sts_email.outputs.token }}
-          repository: ministryofjustice/email_address_validation
-          path: ministryofjustice/email_address_validation
-
       - name: Setup Ruby and install gems
         uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335
+        env:
+          OCTO_TOKEN: ${{ steps.octo_sts_email.outputs.token }}
+          GIT_CONFIG_COUNT: "1"
+          GIT_CONFIG_KEY_0: credential.https://github.com.helper
+          GIT_CONFIG_VALUE_0: '!f() { printf "username=x-access-token\npassword=%s\n" "$OCTO_TOKEN"; }; f'
         with:
           bundler-cache: true
       - name: Setup test database
