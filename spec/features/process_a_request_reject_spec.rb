@@ -18,7 +18,7 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
   def check_nomis_override_message_does_not_trigger
     expect(page).to have_css('.error-summary', text: 'Please either reject or accept the booking')
     uncheck 'Prisoner details are incorrect', visible: false
-    expect(page).not_to have_css('#js-OverrideMessage')
+    expect(page).to have_no_css('#js-OverrideMessage')
   end
 
   describe 'when the prisoner is not registered at the prison', vcr: { cassette_name: 'prisoner_not_at_given_prison' } do
@@ -29,7 +29,7 @@ RSpec.feature 'Processing a request', :expect_exception, :js do
     end
 
     scenario 'rejecting a booking with incorrect prisoner details' do
-      expect(page.find('input[type="checkbox"][id="prisoner_details_incorrect"]', visible: false)).to be_checked
+      expect(page.find_field(type: 'checkbox', id: 'prisoner_details_incorrect', visible: false)).to be_checked
     end
   end
 

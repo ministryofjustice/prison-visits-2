@@ -49,7 +49,7 @@ RSpec.describe VisitorDecorator do
 
       context 'with no exact match' do
         it 'does not shows the visitor has been successfully matched' do
-          expect(html).not_to have_css('.font-xsmall.tag.tag--booked', text: 'Verified')
+          expect(html).to have_no_css('.font-xsmall.tag.tag--booked', text: 'Verified')
         end
 
         context 'with partially matched contact details' do
