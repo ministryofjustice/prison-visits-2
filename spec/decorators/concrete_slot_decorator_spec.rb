@@ -43,7 +43,7 @@ RSpec.describe ConcreteSlotDecorator do
             expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
             expect(html_fragment).to have_css('span.tag--verified',    text: 'Prisoner available')
             expect(html_fragment).to have_css('span.tag--error',       text: 'Closed visit restriction')
-            expect(html_fragment).to have_css('input[type="radio"].js-closedRestriction') # rubocop:disable Capybara/RSpec/SpecificMatcher
+            expect(html_fragment).to have_field('visit[slot_granted]', type: 'radio', class: 'js-closedRestriction')
             expect(html_fragment).to have_text("#{slot.to_date.strftime('%d %b %Y')} 14:00–15:30")
           end
         end
