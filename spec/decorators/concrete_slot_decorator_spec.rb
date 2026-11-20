@@ -43,7 +43,7 @@ RSpec.describe ConcreteSlotDecorator do
             expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
             expect(html_fragment).to have_css('span.tag--verified',    text: 'Prisoner available')
             expect(html_fragment).to have_css('span.tag--error',       text: 'Closed visit restriction')
-            expect(html_fragment).to have_css('input.js-closedRestriction')
+            expect(html_fragment).to have_field('visit[slot_granted]', type: 'radio', class: 'js-closedRestriction')
             expect(html_fragment).to have_text("#{slot.to_date.strftime('%d %b %Y')} 14:00–15:30")
           end
         end
@@ -53,7 +53,7 @@ RSpec.describe ConcreteSlotDecorator do
             expect(html_fragment).to have_css('label.date-box__label')
             expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
             expect(html_fragment).to have_text("#{slot.to_date.strftime('%d %b %Y')} 14:00–15:30")
-            expect(html_fragment).not_to have_css("input[disabled='disabled']")
+            expect(html_fragment).to have_no_field("input[disabled='disabled']")
           end
         end
 
@@ -76,8 +76,8 @@ RSpec.describe ConcreteSlotDecorator do
               expect(html_fragment).to have_css('label.date-box__label')
               expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
               expect(html_fragment).to have_text("#{slot.to_date.strftime('%d %b %Y')} 14:00–15:30")
-              expect(html_fragment).not_to have_css('span.tag--error')
-              expect(html_fragment).not_to have_css('span.tag--verified')
+              expect(html_fragment).to have_no_css('span.tag--error')
+              expect(html_fragment).to have_no_css('span.tag--verified')
             end
           end
         end
@@ -130,9 +130,9 @@ RSpec.describe ConcreteSlotDecorator do
               expect(html_fragment).to have_css('label.date-box__label.disabled')
               expect(html_fragment).to have_css('span.date-box__day',    text: date.strftime('%A'))
               expect(html_fragment).to have_text("#{slot.to_date.strftime('%d %b %Y')} 14:00–15:30")
-              expect(html_fragment).to have_css("input[disabled='disabled']")
-              expect(html_fragment).not_to have_css('span.tag--error')
-              expect(html_fragment).not_to have_css('span.tag--verified')
+              expect(html_fragment).to have_field('visit[slot_granted]', type: 'radio', disabled: true)
+              expect(html_fragment).to have_no_css('span.tag--error')
+              expect(html_fragment).to have_no_css('span.tag--verified')
             end
           end
         end
@@ -154,8 +154,8 @@ RSpec.describe ConcreteSlotDecorator do
   end
 
   describe '#bookable?' do
-    context 'when the prisoner is avaliable' do
-      context 'when the slot is not avaliable' do
+    context 'when the prisoner is available' do
+      context 'when the slot is not available' do
         before do
           switch_on :nomis_staff_slot_availability_enabled
           switch_feature_flag_with(:staff_prisons_with_slot_availability, [visit.prison_name])
@@ -166,7 +166,7 @@ RSpec.describe ConcreteSlotDecorator do
         it { expect(subject).not_to be_bookable }
       end
 
-      context 'when the slot is avaliable' do
+      context 'when the slot is available' do
         before do
           switch_on :nomis_staff_slot_availability_enabled
           switch_feature_flag_with(:staff_prisons_with_slot_availability, [visit.prison_name])
@@ -176,10 +176,10 @@ RSpec.describe ConcreteSlotDecorator do
       end
     end
 
-    context 'when the prisoner is not avaliable' do
+    context 'when the prisoner is not available' do
       let(:slot_errors) { ['external_movement'] }
 
-      context 'when the slot is avaliable' do
+      context 'when the slot is available' do
         before do
           switch_on :nomis_staff_slot_availability_enabled
           switch_feature_flag_with(:staff_prisons_with_slot_availability, [visit.prison_name])

@@ -36,7 +36,7 @@ RSpec.describe Rejection::ReasonDecorator do
         let(:visit_has_error) { true }
 
         it 'does not have instruct the JS to show any rejection messages upon selection' do
-          expect(checkbox).not_to have_css(".js-restrictionOverride")
+          expect(checkbox).to have_no_css(".js-restrictionOverride")
         end
       end
     end
@@ -45,11 +45,11 @@ RSpec.describe Rejection::ReasonDecorator do
       let(:reason) { 'reason_not_included' }
 
       it "does not have instruct the JS to show any rejection messages upon selection" do
-        expect(checkbox).not_to have_css('.js-restrictionOverride')
+        expect(checkbox).to have_no_css('.js-restrictionOverride')
       end
 
       it "does not not have a data attribute" do
-        expect(checkbox).not_to have_css(".js-restrictionOverride[data-override='#{reason.dasherize}']")
+        expect(checkbox).to have_no_css(".js-restrictionOverride[data-override='#{reason.dasherize}']")
       end
     end
   end

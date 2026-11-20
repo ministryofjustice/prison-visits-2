@@ -30,7 +30,6 @@ class BookingResponder
     delegate :visit, to: :staff_response
     delegate :rejection, to: :visit
 
-      # Remove following ignored rubocop once fix released for conflicting cops
     private :visit
     def record_creator
       visit.last_visit_state.update!(creator: staff_response.creator)
