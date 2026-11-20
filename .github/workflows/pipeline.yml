@@ -20,6 +20,7 @@ on:
 permissions:
   contents: read
   packages: write
+  id-token: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref == 'refs/heads/main' && github.sha || github.ref }}
@@ -61,6 +62,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - name: Set Docker Tags
+        id: set_tags
+        shell: bash
+        run: yarn install --prod
       - name: Obtain Octo STS Token
         uses: octo-sts/action@f603d3be9d8dd9871a265776e625a27b00effe05 # v1.1.1
         id: octo_sts_email
@@ -75,10 +80,7 @@ jobs:
           token: ${{ steps.octo_sts_email.outputs.token }}
           repository: ministryofjustice/email_address_validation
           path: ministryofjustice/email_address_validation
-      - name: Set Docker Tags
-        id: set_tags
-        shell: bash
-        run: yarn install --prod
+
       - name: Setup Ruby and install gems
         uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335
         with:
@@ -94,7 +96,7 @@ jobs:
 
   build:
     name: Build docker image
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/docker_build.yml@v2 # WORKFLOW_VERSION
+    uses: ./.github/workflows/docker_build.yml
     needs:
       - helm_lint
     with:
