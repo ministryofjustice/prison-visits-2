@@ -34,10 +34,6 @@ RUN \
   && echo "Europe/London" > /etc/timezone \
   && gem update bundler --no-document
 
-RUN \
-  set -ex \
-  && yarn add govuk-frontend
-
 COPY Gemfile Gemfile.lock ./
 
 RUN --mount=type=secret,id=github_netrc,target=/root/.netrc,required=true \
