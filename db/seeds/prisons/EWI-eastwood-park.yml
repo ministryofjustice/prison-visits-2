@@ -6,7 +6,7 @@ address: |-
 postcode: GL12 8DB
 email_address: Unavailable
 phone_no: 0300 303 0631
-enabled: true
+enabled: false
 private: false
 closed: false
 adult_age: 18
