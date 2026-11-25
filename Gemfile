@@ -33,7 +33,7 @@ gem 'phonelib'
 gem 'premailer-rails'
 gem 'psych', '4.0.6'
 gem 'puma'
-gem "rack", ">= 2.2.26" #dependency or turnout, force upgrade
+gem "rack", ">= 2.2.26" # dependency of turnout, force upgrade
 gem 'rake'
 gem 'request_store'
 gem 'sassc-rails'
