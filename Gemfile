@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '~> 3.4.13'
 
-gem 'rails', '8.1.3.1'
+gem 'rails', '8.1.4.1'
 
 gem 'activerecord-safer_migrations'
 gem 'activerecord-session_store'
@@ -33,7 +33,7 @@ gem 'phonelib'
 gem 'premailer-rails'
 gem 'psych', '4.0.6'
 gem 'puma'
-gem 'rack', '>= 2.1.4'
+gem 'rack', '>= 2.2.26' # dependency of turnout, force upgrade
 gem 'rake'
 gem 'request_store'
 gem 'sassc-rails'
