@@ -25,19 +25,14 @@ RUN \
     musl-locales-lang \
     netcat-openbsd \
     nodejs \
-    npm \
     openssl \
     postgresql-client \
     postgresql-dev \
     tzdata \
+    yarn \
   && cp /usr/share/zoneinfo/Europe/London /etc/localtime \
   && echo "Europe/London" > /etc/timezone \
-  && gem update bundler --no-document \
-  && npm install -g yarn@1.22.22
-
-RUN \
-  set -ex \
-  && yarn add govuk-frontend
+  && gem update bundler --no-document
 
 COPY Gemfile Gemfile.lock ./
 
