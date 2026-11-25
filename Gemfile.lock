@@ -408,7 +408,7 @@ GEM
     puma (8.0.2)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (2.2.24)
+    rack (2.2.26)
     rack-accept (0.4.5)
       rack (>= 0.4)
     rack-canonical-host (1.3.0)
@@ -706,7 +706,7 @@ DEPENDENCIES
   psych (= 4.0.6)
   puma
   pvb-instrumentation!
-  rack (>= 2.1.4)
+  rack (>= 2.2.26)
   rack-canonical-host
   rails (= 8.1.4.1)
   rails-controller-testing
@@ -896,7 +896,7 @@ CHECKSUMS
   puma (8.0.2) sha256=c8ed871dfbbe66448ea9ffd46692342d9804d4071522b52b5331b7b6e7b686fb
   pvb-instrumentation (1.1.1)
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
-  rack (2.2.24) sha256=ef16526a0d871c43753452338c754040a664c8b41bf0dd7450b85f7772adca5f
+  rack (2.2.26) sha256=a0106d3ffa60a7c260ab5c6877d2c07f735c6d281a310335f027dc454c2fc2db
   rack-accept (0.4.5) sha256=66247b5449db64ebb93ae2ec4af4764b87d1ae8a7463c7c68893ac13fa8d4da2
   rack-canonical-host (1.3.0) sha256=496a470cfce8a49e617fea98a53f34fe01a4461083ecef92b727599c1825c590
   rack-protection (3.2.0) sha256=3c74ba7fc59066453d61af9bcba5b6fe7a9b3dab6f445418d3b391d5ea8efbff
