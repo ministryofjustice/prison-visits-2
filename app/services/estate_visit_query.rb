@@ -79,10 +79,14 @@ private
 
   def search(visits, query)
     normalised = query.upcase.strip
-    # TODO: Can be rewritten when we are on Rails 5
-    # Not yet, there is an open Rails issue that prevents this: #24055
+    matching_prisoners = Prisoner.where(Prisoner.arel_table[:number].eq(normalised)).select(:id)
+    search_scope = visits.except(:order, :limit, :preload).select(:id)
+    by_prisoner = search_scope.where(prisoner_id: matching_prisoners)
+    by_reference = search_scope.where(human_id: normalised)
+    matching_ids = Arel::Nodes::Union.new(by_prisoner.arel.ast, by_reference.arel.ast)
+
     visits
       .joins(:prisoner)
-      .where('prisoners.number = :value OR visits.human_id = :value', value: normalised)
+      .where(Visit.arel_table[:id].in(matching_ids))
   end
 end
