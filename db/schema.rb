@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_03_23_143036) do
+ActiveRecord::Schema[7.1].define(version: 2026_10_16_170002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
@@ -78,6 +78,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_23_143036) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "nomis_offender_id"
+    t.index ["created_at"], name: "index_prisoners_pending_anonymisation", where: "((first_name)::text <> 'REMOVED'::text)"
   end
 
   create_table "prisons", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -174,6 +175,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_23_143036) do
     t.date "banned_until"
     t.integer "nomis_id"
     t.boolean "other_rejection_reason"
+    t.index ["created_at"], name: "index_visitors_pending_anonymisation", where: "((first_name)::text <> 'REMOVED'::text)"
     t.index ["visit_id", "sort_index"], name: "index_visitors_on_visit_id_and_sort_index", unique: true
     t.index ["visit_id"], name: "index_visitors_on_visit_id"
   end
@@ -196,6 +198,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_23_143036) do
     t.string "human_id"
     t.integer "nomis_id"
     t.text "nomis_comments"
+    t.index ["created_at"], name: "index_visits_pending_anonymisation", where: "((contact_email_address)::text <> 'REMOVED'::text)"
     t.index ["human_id"], name: "index_visits_on_human_id", unique: true
     t.index ["prison_id"], name: "index_visits_on_prison_id"
   end
