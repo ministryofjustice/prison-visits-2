@@ -7,7 +7,7 @@ module JwtHelper
       'scope': %w[read write],
       'exp': 4.hours.from_now.to_i,
       'client_id': 'pvb'
-    }.merge(options)
+    }.merge(options.symbolize_keys)
 
     rsa_private = OpenSSL::PKey::RSA.generate 2048
 
