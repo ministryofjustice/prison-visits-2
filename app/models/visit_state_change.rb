@@ -11,4 +11,10 @@ class VisitStateChange < ApplicationRecord
   scope :rejected,  -> { where(visit_state: 'rejected') }
   scope :withdrawn, -> { where(visit_state: 'withdrawn') }
   scope :cancelled, -> { where(visit_state: 'cancelled') }
+
+  def self.polymorphic_class_for(name)
+  # The public app shares this table but namespaces its visitor model.
+  return Visitor if name == 'Staff::Visitor'
+
+  super
 end
