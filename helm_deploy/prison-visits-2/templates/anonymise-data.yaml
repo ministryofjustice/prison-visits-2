@@ -30,6 +30,8 @@ spec:
               - secretRef:
                   name: secrets
             env:
+              - name: DB_POOL_SIZE
+                value: "1"
               - name: DATABASE_URL
                 valueFrom:
                   secretKeyRef:

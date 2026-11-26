@@ -58,7 +58,7 @@ module PrisonVisits
     config.middleware.insert_before Rack::Head, HttpMethodNotAllowed
 
     config.connection_pool_size =
-      config.database_configuration[Rails.env]['pool'] || 5
+      Integer(ENV['HTTP_POOL_SIZE'] || ENV['RAILS_MAX_THREADS'] || 5)
 
     config.pvb_team_email = ENV['PVB_TEAM_EMAIL']
 
